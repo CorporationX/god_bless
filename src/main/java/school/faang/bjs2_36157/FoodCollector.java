@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @Slf4j
@@ -16,7 +17,11 @@ public class FoodCollector {
     private final static int THREAD_QUANTITY = 5;
     private final List<Food> collectedFood = new ArrayList<>();
     private final House house;
+    private final ReentrantLock roomLock = new ReentrantLock();
+
+
     private ScheduledExecutorService scheduler;
+
 
     public FoodCollector(House house) {
         if (house == null) {
@@ -33,30 +38,46 @@ public class FoodCollector {
         }
     }
 
-    private synchronized void collectFood() {
-        Collections.shuffle(house.getRooms());
-        log.info("Get two random rooms...");
+    private void collectFood() {
+        Random random = new Random();
 
-        house.getRooms().stream()
-                .filter(room -> !room.getFoodList().isEmpty())
-                .toList()
-                .subList(0, 2)
-                .forEach(room -> {
-                    log.info("Select room with foods: " + room);
+        List<Room> rooms = house.getRooms();
+        if (rooms.size() < 2) {
+            log.warn("Not enough processing rooms");
+            return;
+        }
 
-                    synchronized (collectedFood) {
-                        collectedFood.addAll(room.getFoodList());
-                        log.info("Add foods in collection: " + room.getFoodList());
-                    }
+        Room room1 = rooms.get(random.nextInt(rooms.size()));
+        Room room2;
+
+        do {
+            room2 = rooms.get(random.nextInt(rooms.size()));
+        } while (room1.equals(room2));
+
+        cleaningRoom(room1);
+        cleaningRoom(room2);
+    }
+
+    private void cleaningRoom(Room room) {
+        if (!room.getFoodList().isEmpty()) {
+            if (roomLock.tryLock()) {
+                try {
+                    collectedFood.addAll(room.getFoodList());
+                    log.info("Add foods in collection: " + room.getFoodList());
                     room.getFoodList().clear();
-                    log.info("Clear food in room: " + room);
-                });
+                    log.info("Clear food in room: " + room.hashCode());
+                    log.info("Collected foods: " + collectedFood);
 
-        log.info("Collected foods: " + collectedFood);
-
-        if (isAllRoomsEmpty()) {
-            log.info("All the food has been collected!");
-            scheduler.shutdown();
+                    if (isAllRoomsEmpty()) {
+                        log.info("All the food has been collected!");
+                        scheduler.shutdown();
+                    }
+                } finally {
+                    roomLock.unlock();
+                }
+            } else {
+                log.info("Room " + room.hashCode() + " already being processed, skipping");
+            }
         }
     }
 
