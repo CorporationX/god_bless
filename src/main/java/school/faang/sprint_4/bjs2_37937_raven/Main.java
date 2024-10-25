@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
-        RavenService ravenService = new RavenService();
+        RavenService ravenService = new RavenService(executor);
         Set<Kingdom> kingdoms = Set.of(
                 new Kingdom("Avalonia"),
                 new Kingdom("Eldorado"),
@@ -33,7 +33,7 @@ public class Main {
                         .map(receiver -> ravenService.sendRaven(sender, receiver)
                                 .handle((result, e) -> {
                                             if (e != null) {
-                                                log.error("An error occurred while handling sendRaven()", e);
+                                                log.error(e.getMessage(), e);
                                             } else {
                                                 log.info(result);
                                             }
