@@ -1,12 +1,14 @@
 package school.faangSprint4.t06;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
-        Tournament tournament = new Tournament();
+
+      Tournament tournament = new Tournament();
         List<Student> hogwartsTeam = Arrays.asList(
                 new Student("Harry", 5, 0),
                 new Student("Hermione", 5, 0),
