@@ -18,7 +18,7 @@ public class PiCalculations {
     private static final int MAX_POINTS = 10000000;
     private static final double MIN_COORDINATE = -1.0;
     private static final double MAX_COORDINATE = 1.0;
-    private static final ExecutorService pool = Executors.newCachedThreadPool();
+    private static final ExecutorService pool = Executors.newFixedThreadPool(8);
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = MIN_POINTS; i <= MAX_POINTS; i *= 10) {
