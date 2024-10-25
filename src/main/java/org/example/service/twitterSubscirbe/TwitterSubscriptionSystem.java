@@ -11,22 +11,24 @@ import java.util.concurrent.Executors;
 @Slf4j
 @AllArgsConstructor
 public class TwitterSubscriptionSystem {
+    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
+
     public synchronized void addFollower(TwitterAccount account) {
         account.getFollowers().incrementAndGet();
     }
 
     public CompletableFuture<Void> followAccount(TwitterAccount account) {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                log.warn(e.getMessage());
-                return null;
+                log.error(e.getMessage(), e);
             }
             addFollower(account);
-            executorService.shutdown();
-            return null;
         }, executorService);
+    }
+
+    public void shutdownPoolThreads() {
+        executorService.shutdown();
     }
 }

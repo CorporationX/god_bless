@@ -8,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
-    private static final int THREAD_NUM = 5;
     private static final int FOLLOWERS_NUM = 1000;
 
     public static void main(String[] args) {
@@ -19,6 +18,7 @@ public class Main {
         for (int i = 0; i < FOLLOWERS_NUM; i++) {
             subscribingFuture.add(subscriptionSystem.followAccount(account));
         }
+        subscriptionSystem.shutdownPoolThreads();
 
         CompletableFuture<Void> subscribedFutures = CompletableFuture.allOf(subscribingFuture.toArray(new CompletableFuture[0]));
         subscribedFutures.join();
