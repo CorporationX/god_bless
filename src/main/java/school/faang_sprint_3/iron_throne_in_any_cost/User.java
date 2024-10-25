@@ -30,6 +30,7 @@ public class User {
             this.house = house;
             house.addRole().ifPresentOrElse(role -> this.userRole = role,
                     () -> log.error("{}, No available role found", userRole));
+            house.notifyAll();
             userRole.setAvailable(false);
             log.info("User:{}, Role:{} joined", name, userRole);
         }
@@ -39,6 +40,7 @@ public class User {
         synchronized (house) {
             userRole.setAvailable(true);
             house.removeRole(userRole);
+            house.notifyAll();
             log.info("User:{}, leaving house:{}", name, house);
         }
     }

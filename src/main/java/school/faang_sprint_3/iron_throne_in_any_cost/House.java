@@ -21,7 +21,6 @@ public class House {
         for (var role : roles) {
             if (role.isAvailable()) {
                 currentAvailableRoles--;
-                notifyAll();
                 return Optional.of(role);
             }
         }
@@ -31,7 +30,6 @@ public class House {
     public void removeRole(Role role) {
         roles.get(roles.indexOf(role)).setAvailable(true);
         currentAvailableRoles++;
-        notifyAll();
     }
 
     @Override
