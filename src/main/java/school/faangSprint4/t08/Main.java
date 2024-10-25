@@ -16,7 +16,7 @@ public class Main {
         ravenService.sendRaven(winterfell, kingsLanding)
                 .handle((result, exception) -> {
                     if (exception != null) {
-                        log.error(exception.getMessage());
+                        log.warn(exception.getMessage());
                     } else {
                         log.info(result);
                     }
@@ -26,7 +26,7 @@ public class Main {
         ravenService.sendRaven(kingsLanding, highgarden)
                 .handle((result, exception) -> {
                     if (exception != null) {
-                        log.error(exception.getMessage());
+                        log.warn(exception.getMessage());
                     } else {
                         log.info(result);
                     }
