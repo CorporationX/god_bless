@@ -16,7 +16,7 @@ public class QuestSystem {
             try {
                 Thread.sleep(quest.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
-                log.info(e.getMessage());
+                log.error(e.getMessage(), e);
                 return player;
             }
 
