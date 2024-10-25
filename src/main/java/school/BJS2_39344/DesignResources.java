@@ -11,7 +11,12 @@ public class DesignResources {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public List<String> getList() {
-        return new ArrayList<>(namesOfFiles);
+        lock.readLock().lock();
+        try {
+            return namesOfFiles;
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     public void addNameOfFile(String name) {
