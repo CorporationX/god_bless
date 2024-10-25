@@ -17,6 +17,8 @@ public class FacebookNotificationSystem {
         allFutures.join();
 
         manager.printNotifications();
+
+        manager.shutdown();
     }
 }
 
