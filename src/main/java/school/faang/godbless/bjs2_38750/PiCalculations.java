@@ -16,6 +16,8 @@ public class PiCalculations {
     private static final int WAIT_TIME = 20000;
     private static final int MIN_POINTS = 100;
     private static final int MAX_POINTS = 10000000;
+    private static final double MIN_COORDINATE = -1.0;
+    private static final double MAX_COORDINATE = 1.0;
     private static final ExecutorService pool = Executors.newCachedThreadPool();
 
     public static void main(String[] args) throws InterruptedException {
@@ -32,8 +34,8 @@ public class PiCalculations {
         IntStream.range(0, n).forEach(i ->
                 CompletableFuture.runAsync(() -> {
                             Random random = ThreadLocalRandom.current();
-                            double x = random.nextDouble(-1.0, 1.0);
-                            double y = random.nextDouble(-1.0, 1.0);
+                    double x = random.nextDouble(MIN_COORDINATE, MAX_COORDINATE);
+                    double y = random.nextDouble(MIN_COORDINATE, MAX_COORDINATE);
                             Point randomPoint = new Point(x, y);
                             pointsCounter.addPoint(randomPoint.isInsideCircle());
                         }, pool
