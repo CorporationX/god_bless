@@ -30,8 +30,8 @@ public class User {
             this.house = house;
             house.addRole().ifPresentOrElse(role -> this.userRole = role,
                     () -> log.error("{}, No available role found", userRole));
-            house.notifyAll();
             userRole.setAvailable(false);
+            house.notifyAll();
             log.info("User:{}, Role:{} joined", name, userRole);
         }
     }
