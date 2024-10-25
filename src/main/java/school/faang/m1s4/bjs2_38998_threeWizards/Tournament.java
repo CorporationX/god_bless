@@ -1,5 +1,6 @@
 package school.faang.m1s4.bjs2_38998_threeWizards;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -8,50 +9,35 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Tournament {
-    private static final int SECONDS_TO_TERMINATION = 30;
-    private static final int N_POOLS = 2;
-    private final ExecutorService tournamentService = Executors.newFixedThreadPool(N_POOLS);
+    private static final int SECONDS_TO_TERMINATION = 300;
+    private final List<School> schools;
+    private final int n_pools;
+    private final ExecutorService tournamentService;
+
+    public Tournament(List<School> schools) {
+        this.schools = schools;
+        n_pools = schools.stream()
+                .map(School::getTeam)
+                .mapToInt(List::size)
+                .sum();
+        tournamentService = Executors.newFixedThreadPool(n_pools);
+    }
 
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture
                 .supplyAsync(() -> {
                     List<Student> students = school.getTeam();
-                    ExecutorService taskService = Executors.newFixedThreadPool(students.size());
-
                     List<CompletableFuture<Student>> futureTasks = new ArrayList<>();
-                    students.forEach(student -> {
-                        CompletableFuture<Student> studentTask = CompletableFuture
-                                .supplyAsync(() -> {
-                                    System.out.printf("Student %s from %s starts %s task%n",
-                                            student.getName(), school.getName(), task.getName());
-                                    try {
-                                        Thread.sleep(task.getDifficulty() * 1000L);
-                                    } catch (InterruptedException e) {
-                                        log.error("Thread has been interrupted", e);
-                                    }
-                                    System.out.printf("Student %s from %s earned %d points%n",
-                                            student.getName(), school.getName(), task.getReward());
 
-                                    student.setPoints(student.getPoints() + task.getReward());
-                                    return student;
-                                }, taskService);
+                    students.forEach(student -> {
+                        CompletableFuture<Student> studentTask = doIndividualTask(school, student, task);
                         futureTasks.add(studentTask);
                     });
                     CompletableFuture.allOf(futureTasks.toArray(new CompletableFuture[0])).join();
-
-                    taskService.shutdown();
-
-                    try {
-                        if (!taskService.awaitTermination(SECONDS_TO_TERMINATION, TimeUnit.SECONDS)) {
-                            taskService.shutdown();
-                        }
-                    } catch (InterruptedException e) {
-                        log.error("Thread has been terminated", e);
-                    }
-
                     return school;
                 }, tournamentService);
     }
@@ -78,6 +64,24 @@ public class Tournament {
         }
         System.out.printf("The winner is: %n");
         return school1.getTotalPoints() > school2.getTotalPoints() ? school1.getName() : school2.getName();
+    }
+
+    private CompletableFuture<Student> doIndividualTask(School school, Student student, Task task) {
+        return CompletableFuture
+                .supplyAsync(() -> {
+                    System.out.printf("Student %s from %s starts %s task%n",
+                            student.getName(), school.getName(), task.getName());
+                    try {
+                        Thread.sleep(task.getDifficulty() * 1000L);
+                    } catch (InterruptedException e) {
+                        log.error("Thread has been interrupted", e);
+                    }
+                    System.out.printf("Student %s from %s earned %d points%n",
+                            student.getName(), school.getName(), task.getReward());
+
+                    student.setPoints(student.getPoints() + task.getReward());
+                    return student;
+                }, tournamentService);
     }
 }
 
