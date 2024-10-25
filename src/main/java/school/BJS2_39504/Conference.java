@@ -1,29 +1,30 @@
 package school.BJS2_39504;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Conference {
 
-    public int requiredParticipants;
-    private CountDownLatch latch;
+    private int requiredParticipants;
+    private AtomicInteger countOfWaitingParticipants = new AtomicInteger(0);
 
     public Conference(int requiredParticipants) {
         this.requiredParticipants = requiredParticipants;
-        latch = new CountDownLatch(requiredParticipants);
     }
 
     public void startStreaming() {
-        System.out.println("Ожидаем подключения слушателей");
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+        System.out.println("Ожидания начала трансляции");
+        while(true) {
+            if(countOfWaitingParticipants.get() == requiredParticipants) {
+                System.out.println("Трансляция началась");
+                break;
+            }
         }
-        System.out.println("Трансляция началась");
     }
 
-    public synchronized void countDawn() {
-        latch.countDown();
+    public void addCountOfParticipants() {
+        countOfWaitingParticipants.incrementAndGet();
     }
-
+    public void decrementCountOfParticipants() {
+        countOfWaitingParticipants.decrementAndGet();
+    }
 }

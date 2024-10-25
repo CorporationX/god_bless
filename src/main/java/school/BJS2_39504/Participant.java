@@ -13,14 +13,19 @@ public class Participant {
     }
 
     public void joinConference() {
-        int timeToJoin = random.nextInt(10000);
+        int timeToJoin = random.nextInt(7000);
         try {
             Thread.sleep(timeToJoin);
             System.out.println("Подключился участник с айди " + id);
-            conference.countDawn();
+            conference.addCountOfParticipants();
+            if (random.nextBoolean()) {
+                System.out.println("Случайное отключение участника с айди " + id);
+                conference.decrementCountOfParticipants();
+                System.out.println("Участник c id " + id + " пробует перезайти ");
+                joinConference();
+            }
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }
