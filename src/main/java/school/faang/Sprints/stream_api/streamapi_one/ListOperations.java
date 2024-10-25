@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.Sprints.stream_api.streamapi_one;
 
 import java.util.Comparator;
 import java.util.List;
