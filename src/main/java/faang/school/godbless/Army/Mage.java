@@ -3,8 +3,8 @@ package faang.school.godbless.Army;
 import lombok.Getter;
 
 @Getter
-public class Mage extends er{
-    public Mage(int t) {
-        super(t);
+public class Mage extends Unit{
+    public Mage(int power) {
+        super(power);
     }
 }

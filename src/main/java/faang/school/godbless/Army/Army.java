@@ -4,51 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<er> d  = new ArrayList<>();
+    List<Unit> units = new ArrayList<>();
 
-    int calculateTotalPower(){
-        for (Thread i : d) {
-            i.start();
+    public int calculateTotalPower() throws InterruptedException {
+        List<PowerCalculator> powerCalculators = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
+        int totalPower = 0;
+        int index = 0;
+        for (Unit unit : units) {
+            powerCalculators.add(new PowerCalculator(unit));
+            Thread thread = new Thread(powerCalculators.get(index++));
+            threads.add(thread);
+            thread.start();
         }
-        try {
-            for (Thread thread : d) {
-                thread.join();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (Thread thread : threads) {
+            thread.join();
         }
-        return 1;
+        for (PowerCalculator calculator : powerCalculators) {
+            totalPower += calculator.getPower();
+        }
+        return totalPower;
     }
 
-    public void addUnit(er t) {
-       d.add(t);
-    }
-}
- class PowerCalculator implements Runnable {
-    private final er unit;
-    private int power;
-
-    public PowerCalculator(er unit) {
-        this.unit = unit;
-    }
-
-    @Override
-    public void run() {
-        this.power = unit.getPower();
-    }
-
-    public int getPower() {
-        return power;
-    }
-}
-class er  {
-    private int power;
-
-    public er(int t) {
-        System.out.println("поток " );
-    }
-
-    public int getPower() {
-        return power;
+    public void addUnit(Unit unit) {
+        units.add(unit);
     }
 }
