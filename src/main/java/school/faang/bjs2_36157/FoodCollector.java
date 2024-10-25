@@ -17,15 +17,13 @@ public class FoodCollector {
     private final static int THREAD_QUANTITY = 5;
     private final List<Food> collectedFood = new ArrayList<>();
     private final House house;
-    private final ReentrantLock roomLock = new ReentrantLock();
-
 
     private ScheduledExecutorService scheduler;
 
 
     public FoodCollector(House house) {
         if (house == null) {
-            throw new IllegalStateException("Дом пуст!");
+            throw new IllegalStateException("House is empty!");
         }
         this.house = house;
     }
@@ -60,6 +58,7 @@ public class FoodCollector {
 
     private void cleaningRoom(Room room) {
         if (!room.getFoodList().isEmpty()) {
+            ReentrantLock roomLock = room.getLock();
             if (roomLock.tryLock()) {
                 try {
                     collectedFood.addAll(room.getFoodList());
@@ -75,9 +74,9 @@ public class FoodCollector {
                 } finally {
                     roomLock.unlock();
                 }
-            } else {
-                log.info("Room " + room.hashCode() + " already being processed, skipping");
             }
+        } else {
+            log.info("Room " + room.hashCode() + " already being processed, skipping");
         }
     }
 
