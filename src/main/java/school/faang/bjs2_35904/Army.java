@@ -22,9 +22,10 @@ public class Army {
             Thread thread = new Thread(powerCalculator);
             threads.add(thread);
             thread.start();
+        }
 
+        for (Thread thread : threads) {
             thread.join();
-
         }
 
         for (PowerCalculator task : tasks) {
