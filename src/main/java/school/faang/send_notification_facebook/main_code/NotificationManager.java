@@ -39,7 +39,7 @@ public class NotificationManager {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new IllegalArgumentException("Ошибка при попытке добавить уведомление" + e);
+                throw new IllegalStateException("Ошибка при попытке добавить уведомление" + e);
             }
 
             Notification notification = new Notification(id, message);
