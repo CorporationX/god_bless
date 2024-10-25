@@ -13,7 +13,7 @@ public class Location {
         this.x = x;
         this.y = y;
     }
-    public void Location() {
+    public void printLocation() {
         System.out.println("Location: " + x + ", " + y);
     }
 }
