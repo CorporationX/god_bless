@@ -22,7 +22,7 @@ public class Main {
 
         for (Substation substation : substations) {
             for (int i = 0; i < 10; i++) {
-                Sensor sensor = new Sensor(i, substation);
+                Sensor sensor = new Sensor(i , substation);
                 sensor.startGeneratingData();
             }
             substation.startCalculatingAverages();

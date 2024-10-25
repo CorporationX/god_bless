@@ -11,7 +11,7 @@ public class Substation {
     private int id;
     private MonitoringSystem monitoringSystem;
     private ConcurrentHashMap<Integer, SensorData> sensorDataMap = new ConcurrentHashMap<>();
-    ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
+    private ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
 
     public Substation(int id, MonitoringSystem monitoringSystem) {
         this.id = id;
@@ -27,8 +27,10 @@ public class Substation {
 
     public void startCalculatingAverages() {
         service.scheduleAtFixedRate(() -> {
-            OptionalDouble sum = sensorDataMap.values().stream().mapToDouble(x -> x.getAverage()).average();
-            monitoringSystem.updateData(id, sum.getAsDouble());
+            OptionalDouble sum = sensorDataMap.values().stream().mapToDouble(SensorData::getAverage).average();
+            if(sum.isPresent()) {
+                monitoringSystem.updateData(id, sum.getAsDouble());
+            }
         }, 0, 10, TimeUnit.SECONDS);
     }
 }

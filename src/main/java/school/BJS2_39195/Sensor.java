@@ -10,7 +10,7 @@ public class Sensor {
     private final int id;
     private final Substation substation;
     private final Random rand = new Random();
-    ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+    private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
 
     public Sensor(int id, Substation substation) {
@@ -21,8 +21,8 @@ public class Sensor {
 
     public void startGeneratingData() {
         service.scheduleAtFixedRate(() -> {
-            double data = rand.nextDouble() * 100;
+            double data = rand.nextInt(400);
             substation.receiveData(id, data);
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0 , 1, TimeUnit.SECONDS);
     }
 }
