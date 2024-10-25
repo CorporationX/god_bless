@@ -12,11 +12,12 @@ public class Main {
         }
         VladController vladController = new VladController(vlads);
 
-        List<Thread> threads = new ArrayList<>();
-        threads.add(new Thread(vladController::feedAll));
-        threads.add(new Thread(vladController::playAll));
-        threads.add(new Thread(vladController::cleanAll));
-        threads.add(new Thread(vladController::sleepAll));
+        List<Thread> threads = new ArrayList<>(List.of(
+                new Thread(vladController::feedAll),
+                new Thread(vladController::playAll),
+                new Thread(vladController::cleanAll),
+                new Thread(vladController::sleepAll)
+        ));
 
         for (Thread thread : threads) {
             thread.start();
