@@ -6,7 +6,8 @@ import java.util.List;
 public class MailSender {
     public static void main(String[] args) {
         List<Thread> listThread = new ArrayList<>();
-        for (int i = 1, indexTwo = 1; i <= 5; i++) {
+        int indexTwo = 1;
+        for (int i = 1; i <= 5; i++) {
             listThread.add(new Thread(new SenderRunnable(indexTwo, 200 * i)));
             indexTwo = 200 * i;
         }
