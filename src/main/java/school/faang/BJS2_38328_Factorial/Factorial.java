@@ -52,19 +52,19 @@ public class Factorial {
     }
 
     private static CompletableFuture<BigInteger> updateFactorial(BigInteger initial, int floor, int ceiling) {
-        int length = ceiling - floor + 1;
-        if (length < 3) {
+        int rangeLength = ceiling - floor + 1;
+        if (rangeLength < 3) {
             return CompletableFuture.supplyAsync(() -> initial.multiply(rangeProduct(floor, ceiling)), executor);
         } else {
-            int mid1 = floor + length / 3;
-            int mid2 = floor + 2 * length / 3;
+            int rangeMid1 = floor + rangeLength / 3;
+            int rangeMid2 = floor + 2 * rangeLength / 3;
 
-            CompletableFuture<BigInteger> part1 = CompletableFuture.supplyAsync(() -> rangeProduct(floor, mid1 - 1), executor);
-            CompletableFuture<BigInteger> part2 = CompletableFuture.supplyAsync(() -> rangeProduct(mid1, mid2 - 1), executor);
-            CompletableFuture<BigInteger> part3 = CompletableFuture.supplyAsync(() -> rangeProduct(mid2, ceiling), executor);
+            CompletableFuture<BigInteger> rangePart1 = CompletableFuture.supplyAsync(() -> rangeProduct(floor, rangeMid1 - 1), executor);
+            CompletableFuture<BigInteger> rangePart2 = CompletableFuture.supplyAsync(() -> rangeProduct(rangeMid1, rangeMid2 - 1), executor);
+            CompletableFuture<BigInteger> rangePart3 = CompletableFuture.supplyAsync(() -> rangeProduct(rangeMid2, ceiling), executor);
 
-            return part1.thenCombine(part2, BigInteger::multiply)
-                    .thenCombine(part3, BigInteger::multiply)
+            return rangePart1.thenCombine(rangePart2, BigInteger::multiply)
+                    .thenCombine(rangePart3, BigInteger::multiply)
                     .thenApply(initial::multiply);
         }
     }
