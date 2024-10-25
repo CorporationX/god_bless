@@ -1,5 +1,8 @@
 package school.faang.AsyncFuture;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     public static void main(String[] args) throws InterruptedException {
@@ -26,9 +29,21 @@ public class MasterCardService {
     }
 
     public void doAll(){
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
+        ExecutorService service = Executors.newFixedThreadPool(2);
+
+        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, service)
                 .thenAccept(e -> System.out.println("Analytics sent: " + e));
-        CompletableFuture.supplyAsync(MasterCardService::collectPayment)
-                .thenAccept(e -> System.out.println("Payment collected: " + e)).join();
+        CompletableFuture.supplyAsync(MasterCardService::collectPayment, service)
+                .thenAccept(e -> System.out.println("Payment collected: " + e));
+
+        service.shutdown();
+
+        try {
+            if (!service.awaitTermination(15, TimeUnit.SECONDS)) {
+                service.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Something went wrong while awaiting termination", e);
+        }
     }
 }
