@@ -1,52 +1,53 @@
 package school.faang.sprint3.homes;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
+@Slf4j
 public class House {
     private List<Room> rooms;
-    private List<Food> collectedFood;
+    private List<Thread> collectedFood;
+    private CountDownLatch cdl;
 
     public House() {
-        this.collectedFood = new ArrayList<>();
+        this.collectedFood = new ArrayList<Thread>();
         this.rooms = new ArrayList<>();
+        addRoom();
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public void addRoom() {
+        for (int i = 1; i < 9; i++) {
+            rooms.add(new Room(200 + i));
+
+        }
+
     }
 
     public void collectFood() {
-        if (rooms.size() < 2) {
-            System.out.println("Недостаточно комнат для сбор еды.");
-        }
+        for (int i = 0; i < 2; i++) {
+            for (Room room : rooms) {
+                if (room.tryLock()) {
+                    if (!room.isClear()) {
+                        getFoodFromRoom(room);
+                        break;
+                    }
+                    room.unLock();
+                }
+            }
 
-        Random random = new Random();
-        Room room1 = rooms.get(random.nextInt(rooms.size()));
-        Room room2 = rooms.get(random.nextInt(rooms.size()));
-
-        while (room1 == room2) {
-            room2 = rooms.get(random.nextInt(rooms.size()));
-        }
-        if (room1.hasFood() && room2.hasFood()) {
-            Food foodFromRoom1 = room1.getFoods().get(0);
-            Food foodFromRoom2 = room2.getFoods().get(0);
-
-            collectedFood.add(foodFromRoom1);
-            collectedFood.add(foodFromRoom2);
-            room1.removeFood(foodFromRoom1);
-            room2.removeFood(foodFromRoom2);
-
-            System.out.println("Собрана еда: "+ foodFromRoom1.getName()+" и " +foodFromRoom2.getName());
-        }else {
-            System.out.println("Один из выбраных комната пуста.");
         }
     }
-    public void showCollectedFood(){
-        System.out.println("Собранная еда: ");
-        for (Food food : collectedFood){
-            System.out.println(food.getName());
-        }
+
+    private void getFoodFromRoom(Room room) {
+        collectedFood.add(Thread.currentThread());
+        log.info(Thread.currentThread().getName() + " собрал еду из " + room.getNumber() + " комнаты");
+        cdl.countDown();
+    }
+
+    public int sizeRoom() {
+        return rooms.size();
     }
 }
