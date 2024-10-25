@@ -1,10 +1,13 @@
 package school.faangSprint4.t04;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        QuestSystem questSystem = new QuestSystem();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        QuestSystem questSystem = new QuestSystem(executor);
 
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
