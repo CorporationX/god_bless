@@ -6,8 +6,4 @@ public class Archer extends Unit {
         super(power);
     }
 
-    @Override
-    public boolean isArcher() {
-        return true;
-    }
 }

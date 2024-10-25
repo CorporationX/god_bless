@@ -7,8 +7,4 @@ public class Swordsman extends Unit
         super(power);
     }
 
-    @Override
-    public boolean isSwordsman() {
-        return true;
-    }
 }

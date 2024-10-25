@@ -12,16 +12,5 @@ public abstract class Unit {
         return power;
     }
 
-    public boolean isMage() {
-        return false;
-    }
-
-    public boolean isSwordsman() {
-        return false;
-    }
-
-    public boolean isArcher() {
-        return false;
-    }
 
 }

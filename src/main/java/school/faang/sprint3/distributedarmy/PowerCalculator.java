@@ -1,10 +1,14 @@
 package school.faang.sprint3.distributedarmy;
 
-public class UnitThread extends Thread {
+import lombok.Getter;
+
+
+public class PowerCalculator extends Thread {
     private final Unit unit;
+    @Getter
     private int power;
 
-    public UnitThread(Unit unit) {
+    public PowerCalculator(Unit unit) {
         this.unit = unit;
     }
 
@@ -13,7 +17,4 @@ public class UnitThread extends Thread {
         power = unit.getPower();
     }
 
-    public int getPower() {
-        return power;
-    }
 }

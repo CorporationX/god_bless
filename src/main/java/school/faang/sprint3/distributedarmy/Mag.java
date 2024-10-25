@@ -5,8 +5,5 @@ public class Mag extends Unit {
         super(power);
     }
 
-    @Override
-    public boolean isMage() {
-        return true;
-    }
+
 }
