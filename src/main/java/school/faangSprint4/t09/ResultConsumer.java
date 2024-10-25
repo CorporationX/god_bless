@@ -2,7 +2,7 @@ package school.faangSprint4.t09;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-class ResultConsumer {
+public class ResultConsumer {
     private final AtomicLong sumOfSquaredNumbers;
 
     ResultConsumer(Long init) {
