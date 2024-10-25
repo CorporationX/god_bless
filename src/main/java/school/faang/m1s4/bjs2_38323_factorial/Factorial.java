@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 public class Factorial {
     private static final int MAX_INT_FACTORIAL = 12;
     private static final int MAX_LONG_FACTORIAL = 19;
-    private static final Map<Integer, BigInteger> computedFactorials = new ConcurrentHashMap<>();
+    private static final Map<Integer, BigInteger> COMPUTED_FACTORIALS = new ConcurrentHashMap<>();
 
     public BigInteger factorial(int n) {
         if (n < 0) {
@@ -41,8 +41,8 @@ public class Factorial {
     }
 
     private BigInteger factorialOptimized(int n) {
-        if (computedFactorials.containsKey(n)) {
-            return computedFactorials.get(n);
+        if (COMPUTED_FACTORIALS.containsKey(n)) {
+            return COMPUTED_FACTORIALS.get(n);
         }
 
         BigInteger result;
@@ -55,7 +55,7 @@ public class Factorial {
         } else {
             result = factorialBig(n);
         }
-        computedFactorials.put(n, result);
+        COMPUTED_FACTORIALS.put(n, result);
         return result;
     }
 
