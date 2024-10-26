@@ -22,7 +22,7 @@ public class NotificationManager {
                     try {
                         Thread.sleep(TIME_TO_SLEEP);
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        throw new IllegalStateException(e);
                     }
                     addNotification(new Notification(id, message));
                 }, executor);
