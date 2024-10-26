@@ -15,13 +15,15 @@ public class MasterCardService {
     private static final int THREAD_AMOUNT = 4;
     private static final int PAYMENT_TIMEOUT = 10_000;
     private static final int ANALYSIS_TIMEOUT = 1_000;
+    private static final int PAYMENT_VALUE = 10_000;
+    private static final int ANALYSIS_VALUE = 1_000;
 
     public static int collectPayment() {
         try {
             Thread.sleep(PAYMENT_TIMEOUT);
-            return 10_000;
+            return PAYMENT_VALUE;
         } catch (InterruptedException e) {
-            log.error("An error occurred while thread sleep", e);
+            log.error("An error occurred while thread sleeping in payment: {}", e.getMessage());
             throw new IllegalStateException(e);
         }
     }
@@ -29,9 +31,9 @@ public class MasterCardService {
     public static int sendAnalytics() {
         try {
             Thread.sleep(ANALYSIS_TIMEOUT);
-            return 1_000;
+            return ANALYSIS_VALUE;
         } catch (InterruptedException e) {
-            log.error("An error occurred while thread sleep", e);
+            log.error("An error occurred while thread sleep in analysis: {}", e.getMessage());
             throw new IllegalStateException(e);
         }
     }
@@ -39,11 +41,11 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);
         Future<Integer> collectPaymentResult = executorService.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsResult = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analyticsResult = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executorService);
         try {
             System.out.println("Analytics result: " + analyticsResult.get());
         } catch (InterruptedException | ExecutionException e) {
-            log.error("An error was occurred while waiting analytics result");
+            log.error("An error was occurred while waiting analytics result: {}", e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -61,7 +63,7 @@ public class MasterCardService {
             }
         } catch (InterruptedException e) {
             log.error("An error was occurred while shutting down threads");
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 }
