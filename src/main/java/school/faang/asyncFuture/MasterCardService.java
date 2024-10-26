@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    final int THREAD_AMOUNT = 2;
+    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
     static int collectPayment(){
         try {
