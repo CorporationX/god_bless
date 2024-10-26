@@ -1,10 +1,10 @@
 package youtube.counter;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
-    private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
+    private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
         viewsMap.merge(videoId, 1, Integer::sum);
