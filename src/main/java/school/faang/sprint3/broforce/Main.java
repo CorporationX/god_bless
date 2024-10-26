@@ -1,21 +1,25 @@
 package school.faang.sprint3.broforce;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
+        Bro bro1 = new Bro("Terminator ", 5, 0, true);
+        Bro bro2 = new Bro("Sare ", 9, 0, true);
+        game.addBro(bro1);
+        game.addBro(bro2);
 
-        // Имитируем игровой цикл
-        for (int i = 0; i < 100; i++) {
-            boolean earnedPoints = Math.random() > 0.5; // 50% шанс заработать очки
-            boolean lostLife = Math.random() > 0.7;     // 30% шанс потерять жизнь
-
-            game.update(earnedPoints, lostLife);
-
-            try {
-                Thread.sleep(100); // Задержка для симуляции шага игры
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < game.getBros().size(); i++) {
+            executorService.submit(() -> {
+                while (bro1.getLives() > 0 && bro2.getLives() > 0) {
+                    boolean gameIsRunning = game.update();
+                    System.out.println("Умер ? " + gameIsRunning);
+                }
+            });
         }
+        executorService.shutdown();
     }
 }
