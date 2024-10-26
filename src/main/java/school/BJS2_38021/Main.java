@@ -18,9 +18,8 @@ public class Main {
         ExecutorService service = Executors.newFixedThreadPool(requests.size());
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         for (SquareRequest request : requests) {
-            futures.add(CompletableFuture.supplyAsync(() -> {
+            futures.add(CompletableFuture.runAsync(() -> {
                 request.longTimeSquare(resultConsumer);
-                return null;
             }, service));
         }
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
