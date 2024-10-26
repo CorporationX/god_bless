@@ -18,7 +18,7 @@ public class Superhero {
     private int hp;
     private Random random = new Random();
 
-    boolean evadeAttack() {
+    private boolean evadeAttack() {
         int evadeChance = agility * 5;
         return random.nextInt(100) <= evadeChance;
     }
