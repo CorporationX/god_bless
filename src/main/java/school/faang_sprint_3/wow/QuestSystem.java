@@ -20,17 +20,15 @@ public class QuestSystem {
 
     private void timeForQuest(Player player, Quest quest, Difficulty difficulty) {
         try {
+            log.info("{} {} {} started", player.getName(), quest.name(), difficulty);
             switch (difficulty) {
                 case EASY:
-                    log.info("{} {} {} started", player.getName(), quest.name(), Difficulty.EASY);
                     Thread.sleep(5000);
                     break;
                 case MEDIUM:
-                    log.info("{} {} {} started", player.getName(), quest.name(), Difficulty.MEDIUM);
                     Thread.sleep(10000);
                     break;
                 case HARD:
-                    log.info("{} {} {} started", player.getName(), quest.name(), Difficulty.HARD);
                     Thread.sleep(15000);
                     break;
                 default:
