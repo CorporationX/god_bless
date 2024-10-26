@@ -8,10 +8,10 @@ import java.util.concurrent.Future;
 public class Battle {
     public static final int NUM_THREADS = 5;
     public static final int TIME_OF_BATTLE = 1000;
-    public static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+    public static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
 
     public Future<Robot> fight(Robot firstRobot, Robot secondRobot) {
-        return executor.submit(() -> {
+        return EXECUTOR.submit(() -> {
             Thread.sleep(TIME_OF_BATTLE);
             int power1 = firstRobot.getAttackPower() + firstRobot.getDefensePower();
             int power2 = secondRobot.getAttackPower() + secondRobot.getDefensePower();
@@ -29,6 +29,6 @@ public class Battle {
     }
 
     public void shutdown() {
-        executor.shutdown();
+        EXECUTOR.shutdown();
     }
 }
