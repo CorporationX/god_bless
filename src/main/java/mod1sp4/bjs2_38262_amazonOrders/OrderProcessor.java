@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
@@ -13,14 +16,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
-    private final static long PROCESS_TIMEOUT = 7000L;
+    private static final long PROCESS_TIMEOUT = 7000L;
+    private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             simulationOfExecutionThreadSleep();
             order.setStatus(Status.PROCESSED);
             totalProcessedOrders.incrementAndGet();
-        });
+        }, executor);
     }
 
     public void simulationOfExecutionThreadSleep() {
@@ -39,5 +43,17 @@ public class OrderProcessor {
 
         CompletableFuture.allOf(completableFutureList.toArray(new CompletableFuture[0])).join();
         System.out.printf("\nCompleted orders %d", totalProcessedOrders.get());
+    }
+
+    public static void shuttingDownExecutor() {
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("Error shutting down executor: {}", e.getMessage());
+            throw new IllegalStateException(e);
+        }
     }
 }
