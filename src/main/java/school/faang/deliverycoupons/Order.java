@@ -18,7 +18,7 @@ public class Order {
     public double getTotalPrice() {
         return products.stream().mapToDouble(Product::getPrice).sum();
     }
-    
+
     public double getPriceAfterDiscount() {
         double totalPrice = getTotalPrice();
         return totalPrice - (totalPrice * totalDiscount / 100);
