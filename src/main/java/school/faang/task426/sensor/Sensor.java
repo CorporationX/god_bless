@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 @AllArgsConstructor
 public class Sensor {
     @Getter
@@ -23,6 +24,7 @@ public class Sensor {
             substation.receiveData(id, new Random().nextDouble(99));
         }, 0, 1, TimeUnit.SECONDS);
     }
+
     public void stopGeneratingData() {
         service.shutdown();
     }

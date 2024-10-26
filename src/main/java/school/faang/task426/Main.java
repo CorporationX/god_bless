@@ -17,7 +17,7 @@ public class Main {
             Substation substation = new Substation(i, monitoringSystem);
             substations.add(substation);
             for (int j = 0; j < 10; j++) {
-                Sensor sensor = new Sensor(j,substation);
+                Sensor sensor = new Sensor(j, substation);
                 sensor.startGeneratingData();
                 sensors.add(sensor);
             }
