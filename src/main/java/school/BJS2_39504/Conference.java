@@ -25,14 +25,13 @@ public class Conference {
     }
 
     public void addCountOfParticipants() {
-        countOfWaitingParticipants.incrementAndGet();
+        synchronized (this) {
+            countOfWaitingParticipants.incrementAndGet();
+            notify();
+        }
     }
 
     public void decrementCountOfParticipants() {
         countOfWaitingParticipants.decrementAndGet();
-    }
-
-    public synchronized int getRequiredParticipants() {
-        return requiredParticipants;
     }
 }

@@ -17,10 +17,7 @@ public class Participant {
         try {
             Thread.sleep(timeToJoin);
             System.out.println("Подключился участник с айди " + id);
-            synchronized (conference) {
-                conference.addCountOfParticipants();
-                conference.notify();
-            }
+            conference.addCountOfParticipants();
             if (random.nextBoolean()) {
                 System.out.println("Случайное отключение участника с айди " + id);
                 conference.decrementCountOfParticipants();
