@@ -14,7 +14,7 @@ public class User {
         synchronized(house) {
             while (!house.getAvailableRoles().contains(role)) {
                 System.out.println(this.name + " Пожалуйста ожидайте своей очереди место " + role + " занято");
-                this.wait();
+                house.wait();
             }
             house.removeRole(role);
             this.house = house;
@@ -30,7 +30,7 @@ public class User {
                 house.addRole(role);
                 this.house = null;
                 this.role = null;
-
+                house.notifyAll();
             }
         }
     }
