@@ -14,7 +14,7 @@ public class Main {
         tracker.startTracking();
 
         try {
-            Thread.sleep(20000); // Simulate some time for tracking
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
