@@ -14,7 +14,11 @@ public class Main {
             int id = i;
             service.execute(() -> new Participant(id, conference).joinConference());
         }
-        conference.startStreaming();
+        try {
+            conference.startStreaming();
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
         service.shutdown();
     }
 

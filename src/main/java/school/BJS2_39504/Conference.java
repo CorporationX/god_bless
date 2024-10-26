@@ -1,7 +1,10 @@
 package school.BJS2_39504;
 
+import lombok.Getter;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Getter
 public class Conference {
 
     private int requiredParticipants;
@@ -11,20 +14,25 @@ public class Conference {
         this.requiredParticipants = requiredParticipants;
     }
 
-    public void startStreaming() {
+    public void startStreaming() throws InterruptedException {
         System.out.println("Ожидания начала трансляции");
-        while(true) {
-            if(countOfWaitingParticipants.get() == requiredParticipants) {
-                System.out.println("Трансляция началась");
-                break;
+        synchronized (this) {
+            while (countOfWaitingParticipants.get() < getRequiredParticipants()) {
+                wait();
             }
         }
+        System.out.println("Трансляция началась");
     }
 
     public void addCountOfParticipants() {
         countOfWaitingParticipants.incrementAndGet();
     }
+
     public void decrementCountOfParticipants() {
         countOfWaitingParticipants.decrementAndGet();
+    }
+
+    public synchronized int getRequiredParticipants() {
+        return requiredParticipants;
     }
 }
