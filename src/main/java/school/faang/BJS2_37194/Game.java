@@ -12,12 +12,10 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean scored, boolean lostLife) {
-        if (isGameOver) {
-            return;
-        }
 
         if (scored) {
             synchronized (scoreLock) {
+                if (isGameOver) return;
                 score++;
                 System.out.println("Очки увеличены. Текущий счёт: " + score);
             }
@@ -25,6 +23,7 @@ public class Game {
 
         if (lostLife) {
             synchronized (livesLock) {
+                if (isGameOver) return;
                 lives--;
                 System.out.println("Жизнь потеряна. Осталось жизней: " + lives);
                 if (lives <= 0) {
@@ -34,9 +33,11 @@ public class Game {
         }
     }
 
-    private void gameOver() {
-        isGameOver = true;
-        System.out.println("Game Over. Score: " + score);
+    private synchronized void gameOver() {
+        if (!isGameOver) {
+            isGameOver = true;
+            System.out.println("Game Over. Score: " + score);
+        }
     }
 
     public boolean isGameOver() {
