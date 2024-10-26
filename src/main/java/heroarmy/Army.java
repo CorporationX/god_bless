@@ -17,25 +17,27 @@ public class Army {
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
         int totalPower = 0;
+        PowerCalculator task;
+        Thread thread;
 
         for (Unit unit : units) {
-            PowerCalculator task = new PowerCalculator(unit);
-            Thread thread = new Thread(task);
+            task = new PowerCalculator(unit);
+            thread = new Thread(task);
             tasks.add(task);
             threads.add(thread);
             thread.start();
         }
 
-        for (Thread thread : threads) {
+        for (Thread currentThread : threads) {
             try {
-                thread.join();
+                currentThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException("Что-то пошло не так при вызове метода join().");
             }
         }
 
-        for (PowerCalculator task : tasks) {
-            totalPower += task.getPower();
+        for (PowerCalculator currentTask : tasks) {
+            totalPower += currentTask.getPower();
         }
 
         return totalPower;
