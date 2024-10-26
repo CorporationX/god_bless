@@ -9,21 +9,18 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
-    private static final int THREAD_AMOUNT = 5;
-    private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_AMOUNT);
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             log.info("Starting quest {}", quest);
             long levelTimeoutByDifficulty = quest.getDifficulty() * 1000L;
-
             try {
                 Thread.sleep(levelTimeoutByDifficulty);
             } catch (InterruptedException e) {
                 log.error("Quest interrupted", e);
                 throw new IllegalStateException(e);
             }
-
             player.addExperience(player.getExperience() + quest.getReward());
             return player;
         }, executor);
@@ -37,6 +34,7 @@ public class QuestSystem {
             }
         } catch (InterruptedException e) {
             log.error("Executor shutdown interrupted", e);
+            throw new IllegalStateException(e);
         }
     }
 }
