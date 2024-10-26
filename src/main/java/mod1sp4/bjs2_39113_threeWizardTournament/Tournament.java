@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class Tournament {
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(5);
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
@@ -28,7 +28,7 @@ public class Tournament {
             school.getTeam().forEach(student -> student.setPoints(student.getPoints() + task.getReward()));
             System.out.println(school.getName() + " заработала очков: " + school.getTotalPoints());
             return school;
-        });
+        }, executor);
     }
 
     public void shutdownExecutor() {
