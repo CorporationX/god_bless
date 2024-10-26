@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class DonationSystem {
+    private static final int AWAIT_TIMEOUT = 10;
     public static void main(String[] args) {
         Organization organization = new Organization();
         int numberOfThreads = 5;
@@ -29,7 +30,7 @@ public class DonationSystem {
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.awaitTermination(AWAIT_TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.err.println("Thread execution was interrupted");
         }
