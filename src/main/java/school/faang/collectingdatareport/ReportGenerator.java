@@ -12,7 +12,8 @@ public class ReportGenerator {
         for (SalesData salesData : salesDataList) {
             System.out.println("Store ID: " + salesData.getStoreId());
             for (Sales sale : salesData.getSales()) {
-                System.out.println("Product ID: " + sale.getProductId() + ", Quantity: " + sale.getQuantity() + ", Timestamp: " + sale.getTimestamp());
+                System.out.println("Product ID: " + sale.getProductId() + ", Quantity: " + sale.getQuantity() +
+                        ", Timestamp: " + sale.getTimestamp());
             }
             System.out.println("------------");
         }
