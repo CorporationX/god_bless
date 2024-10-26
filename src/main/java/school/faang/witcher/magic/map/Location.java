@@ -13,8 +13,10 @@ public class Location {
 
     public static Location set() {
         Random random = new Random();
-        int x = random.nextInt(-1000, 1000);
-        int y = random.nextInt(-1000, 1000);
+        final int MAP_BOUND = 1000;
+
+        int x = random.nextInt(-MAP_BOUND, MAP_BOUND);
+        int y = random.nextInt(-MAP_BOUND, MAP_BOUND);
 
         return new Location(x, y);
     }
