@@ -1,5 +1,7 @@
 package facebook;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,6 +15,17 @@ public class Main {
         Post post1 = new Post(1, "Java Multithreading", "This is a post about multithreading in Java.", "Alice");
         Post post2 = new Post(2, "Introduction to Spring", "This post covers the basics of Spring framework.", "Bob");
         Post post3 = new Post(3, "Java", "This is a post", "Olya");
+//        String[] titles = {"Java Multithreading", "Introduction to Spring", "Java"};
+//        String[] contents = {
+//                "This is a post about multithreading in Java.",
+//                "This post covers the basics of Spring framework.",
+//                "This is a post"
+//        };
+//        String[] authors = {"Alice", "Bob", "Olya"};
+//        for (int i = 0; i < titles.length; i++) {
+//            Post post = new Post (i + 1, titles[i], contents[i], authors[i]);
+//            CompletableFuture<Void> futurePost = CompletableFuture.runAsync(() -> postServis.addPost(post), executorService);
+//        }
 
         CompletableFuture<Void> futurePost1 = CompletableFuture.runAsync(() -> postServis.addPost(post1), executorService);
         CompletableFuture<Void> futurePost2 = CompletableFuture.runAsync(() -> postServis.addPost(post2), executorService);
