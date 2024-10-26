@@ -6,47 +6,41 @@ public class Main {
     public static void main(String[] args) {
         PostService postService = new PostService();
 
-        Thread user1 = new Thread(() -> {
-            Post post1 = new Post(1, "First Post", "Content 1", "User1");
-            postService.addPost(post1);
+        UserAction[] actions = {
+                new UserAction.Builder()
+                        .setPost(new Post(1, "First Post", "Content 1", "User1"))
+                        .setCommentToPostId(1)
+                        .setComment(new Comment("Great post!", "User2"))
+                        .setDelay(100)
+                        .build(),
+
+                new UserAction.Builder()
+                        .setPost(new Post(2, "Second Post", "Content 2", "User2"))
+                        .setCommentToPostId(1)
+                        .setComment(new Comment("Nice content!", "User1"))
+                        .setDelay(50)
+                        .build(),
+
+                new UserAction.Builder()
+                        .setCommentToPostId(2)
+                        .setComment(new Comment("Interesting!", "User3"))
+                        .setDelay(150)
+                        .build()
+        };
+
+        Thread[] threads = new Thread[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            UserAction action = actions[i];
+            threads[i] = new Thread(() -> executeUserAction(postService, action));
+            threads[i].start();
+        }
+
+        for (Thread thread : threads) {
             try {
-                Thread.sleep(100);
+                thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            postService.addComment(1, new Comment("Great post!", "User2"));
-        });
-
-        Thread user2 = new Thread(() -> {
-            Post post2 = new Post(2, "Second Post", "Content 2", "User2");
-            postService.addPost(post2);
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            postService.addComment(1, new Comment("Nice content!", "User1"));
-        });
-
-        Thread user3 = new Thread(() -> {
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            postService.addComment(2, new Comment("Interesting!", "User3"));
-        });
-
-        user1.start();
-        user2.start();
-        user3.start();
-
-        try {
-            user1.join();
-            user2.join();
-            user3.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         System.out.println("\nAll Posts and Comments:");
@@ -63,6 +57,24 @@ public class Main {
             System.out.println("Post 1 deleted successfully by User1");
         } else {
             System.out.println("Failed to delete Post 1 (wrong author or post not found)");
+        }
+    }
+
+    private static void executeUserAction(PostService postService, UserAction action) {
+        try {
+            if (action.getPost() != null) {
+                postService.addPost(action.getPost());
+            }
+
+            if (action.getDelay() > 0) {
+                Thread.sleep(action.getDelay());
+            }
+
+            if (action.getComment() != null && action.getCommentToPostId() > 0) {
+                postService.addComment(action.getCommentToPostId(), action.getComment());
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
