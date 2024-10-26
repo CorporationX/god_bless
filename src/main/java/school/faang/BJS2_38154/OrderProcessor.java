@@ -23,7 +23,7 @@ public class OrderProcessor {
     public CompletableFuture<Order> processOrder(Order order) {
         CompletableFuture<Order> futureOrder = CompletableFuture.supplyAsync(() -> {
             try {
-                logger.info("Обработка заказа");
+                logger.info("Обработка заказа {}", order.getId());
                 Thread.sleep(10_000);
                 order.setStatus(OrderStatus.PROCESSED);
             } catch (Exception e) {
@@ -35,24 +35,30 @@ public class OrderProcessor {
         return futureOrder;
     }
 
-    public void processAllOrders(List<Order> orders){
+    public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Order>> futureOrders = orders.stream()
-                .map(order -> processOrder(order))
+                .map(this::processOrder)
                 .toList();
-        futureOrders.forEach(futureOrder -> totalProcessedOrders.incrementAndGet());
 
-        System.out.println("Общее количество заказов: " + totalProcessedOrders.get());
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(
+                futureOrders.toArray(new CompletableFuture[0])
+        );
+
+        allTasks.thenRun(() -> {
+            futureOrders.forEach(futureOrder -> totalProcessedOrders.incrementAndGet());
+            System.out.println("Общее количество заказов: " + totalProcessedOrders.get());
+        }).join();
     }
 
-    public void shutdown(){
+    public void shutdown() {
         executor.shutdown();
-        try{
-            if(!executor.isShutdown()){
+        try {
+            if (!executor.isShutdown()) {
                 logger.info("Потоки не завершились самостоятельно");
                 executor.awaitTermination(40, TimeUnit.SECONDS);
                 executor.shutdownNow();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("Ошибка при завершении пула потоков", e);
         }
     }

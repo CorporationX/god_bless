@@ -9,7 +9,8 @@ public class Main {
         List<Order> orders = List.of(
                 new Order(1, OrderStatus.NEW),
                 new Order(2, OrderStatus.NEW),
-                new Order(3, OrderStatus.NEW)
+                new Order(3, OrderStatus.NEW),
+                new Order(4, OrderStatus.NEW)
         );
 
         processor.processAllOrders(orders);
