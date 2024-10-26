@@ -25,6 +25,10 @@ public class Main {
         });
 
         executorService.submit(() -> {
+            knight.leaveHouse();
+        });
+
+        executorService.submit(() -> {
             try {
                 knight2.joinHouse(stark, "warrior");
                 Thread.sleep(1000);
@@ -33,9 +37,7 @@ public class Main {
             }
         });
 
-        executorService.submit(() -> {
-                knight.leaveHouse();
-        });
+
 
         executorService.shutdown();
         executorService.awaitTermination(2000, TimeUnit.SECONDS);
