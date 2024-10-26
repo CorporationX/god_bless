@@ -17,6 +17,7 @@ public class DocumentSectionProcessor implements Runnable {
         process(data);
 
         String content = section.read();
-        System.out.println("Processed data in section '" + section.getId() + "': " + content);
+        System.out.println(String.format("Processed data in section '%s': %s", section.getId(), content));
     }
 }
+
