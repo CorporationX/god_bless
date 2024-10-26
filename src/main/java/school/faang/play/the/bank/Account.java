@@ -22,16 +22,16 @@ public class Account {
 
     public void deposit(double amount) {
         rwLock.writeLock().lock();
-        try{
+        try {
             balance += amount;
         } finally {
             rwLock.writeLock().unlock();
         }
     }
 
-    public synchronized void withdraw(double amount) {
+    public void withdraw(double amount) {
         rwLock.writeLock().lock();
-        try{
+        try {
             balance -= amount;
         } finally {
             rwLock.writeLock().unlock();
@@ -40,7 +40,7 @@ public class Account {
 
     public double getBalance() {
         rwLock.readLock().lock();
-        try{
+        try {
             return balance;
         } finally {
             rwLock.readLock().unlock();
