@@ -14,12 +14,11 @@ public class User {
 
     public void joinHouse(House house) throws InterruptedException {
         if (house != null) {
+            System.out.println("Выходим из прошлого дома...");
             leaveHouse();
         }
         house.addRole(role);
         this.house = house;
-        String threadName = Thread.currentThread().getName();
-        if (threadName != null) System.out.print(threadName + " ");
         System.out.println("Пользователь вошел в дом");
     }
 
@@ -27,11 +26,7 @@ public class User {
         if (house != null) {
             house.removeRole(role);
             this.house = null;
-            String threadName = Thread.currentThread().getName();
-            if (threadName != null) System.out.print(threadName + " ");
             System.out.println("Пользователь вышел из дома");
-        } else {
-            System.out.println("Больше неоткуда бежать");
         }
     }
 }
