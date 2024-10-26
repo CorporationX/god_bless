@@ -2,7 +2,6 @@ package school.faang.irontron;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -18,28 +17,31 @@ public class Main {
         executorService.submit(() -> {
             try {
                 knight.joinHouse(stark, "warrior");
-                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
 
         executorService.submit(() -> {
-            knight.leaveHouse();
+            try {
+                Thread.sleep(500);
+                knight.leaveHouse();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         executorService.submit(() -> {
             try {
                 knight2.joinHouse(stark, "warrior");
-                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
 
-
-
         executorService.shutdown();
-        executorService.awaitTermination(2000, TimeUnit.SECONDS);
+        if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+            executorService.shutdownNow();
+        }
     }
 }
