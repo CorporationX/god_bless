@@ -28,7 +28,6 @@ public class Main {
                 service.execute(() -> {
                     boolean result = bank.transfer(fromAccount, toAccount, amount);
                     if (result) {
-
                         System.out.printf("Перевод %.0f c аккаунта %s на аккаунт %s прошел успешно \n", amount, fromAccount, toAccount);
                     } else System.out.printf("Перевод %.0f c аккаунта %s на аккаунт %s отменен \n", amount, fromAccount, toAccount);
                 });
@@ -39,7 +38,7 @@ public class Main {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
 

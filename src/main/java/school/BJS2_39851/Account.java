@@ -17,22 +17,20 @@ public class Account {
     }
 
     public void deposit(double amount) {
-        if (lock.tryLock()) {
-            try {
-                balance += amount;
-            } finally {
-                lock.unlock();
-            }
+        lock.lock();
+        try {
+            balance += amount;
+        } finally {
+            lock.unlock();
         }
     }
 
     public void withdraw(double amount) {
-        if (lock.tryLock()) {
-            try {
-                balance -= amount;
-            } finally {
-                lock.unlock();
-            }
+        lock.lock();
+        try {
+            balance -= amount;
+        } finally {
+            lock.unlock();
         }
     }
 

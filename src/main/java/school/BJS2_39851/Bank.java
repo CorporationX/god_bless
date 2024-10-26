@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Bank {
 
-    private ConcurrentHashMap<Integer, Account> accounts = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Account> accounts = new ConcurrentHashMap<>();
 
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         if (checkConditions(fromAccountId, toAccountId)) {
@@ -15,17 +15,20 @@ public class Bank {
             ReentrantLock lock2 = fromAccountId > toAccountId ? lockToAccount : lockFromAccount;
             Account fromAccount = accounts.get(fromAccountId);
             Account toAccount = accounts.get(toAccountId);
-            synchronized (lock1) {
-                synchronized (lock2) {
-                    double sumFromAccount = accounts.get(fromAccountId).getBalance();
-                    if (sumFromAccount < amount) {
-                        System.out.println("Недостаточно средств для перевода");
-                        return false;
-                    }
-                    fromAccount.withdraw(amount);
-                    toAccount.deposit(amount);
-                    return true;
+            try {
+                lock1.lock();
+                lock2.lock();
+                double sumFromAccount = accounts.get(fromAccountId).getBalance();
+                if (sumFromAccount < amount) {
+                    System.out.println("Недостаточно средств для перевода");
+                    return false;
                 }
+                fromAccount.withdraw(amount);
+                toAccount.deposit(amount);
+                return true;
+            } finally {
+                lock1.unlock();
+                lock2.unlock();
             }
         }
         return false;
@@ -33,10 +36,10 @@ public class Bank {
 
     private boolean checkConditions(int fromAccountId, int toAccountId) {
         if (!accounts.containsKey(fromAccountId)) {
-            System.out.println("Отсутствует аккаунт для исходящего перевода");
+            System.out.println("Отсутствует аккаунт для исходящего перевода " + fromAccountId);
             return false;
         } else if (!accounts.containsKey(toAccountId)) {
-            System.out.println("Отсутствует аккаунт принимающий перевод");
+            System.out.println("Отсутствует аккаунт принимающий перевод " + toAccountId);
             return false;
         }
         return true;
