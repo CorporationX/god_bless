@@ -12,17 +12,17 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class FanOutFanInSystem {
     private static final int NUM_THREADS = 10;
-    private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         List<CompletableFuture<Void>> results = requests.stream()
                 .map(request -> CompletableFuture.runAsync(() -> {
                     request.longTimeSquare(resultConsumer);
-                }, executor))
+                }, EXECUTOR))
                 .toList();
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(results.toArray(CompletableFuture[]::new));
         allTasks.join();
-        executor.shutdown();
+        EXECUTOR.shutdown();
         return resultConsumer.getSum();
     }
 
