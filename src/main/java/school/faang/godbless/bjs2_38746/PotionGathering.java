@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class PotionGathering {
@@ -23,14 +22,10 @@ public class PotionGathering {
         List<CompletableFuture<Integer>> futures = potions.stream()
                 .map(potion -> CompletableFuture.supplyAsync(() -> gatheringService.gatherIngredients(potion), pool))
                 .toList();
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         futures.forEach(future -> future.thenAccept(PotionGathering::addToTotalIngredients));
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         pool.shutdown();
-        if (pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS)) {
-            log.info("Total collected ingredients: {}", totalIngredients);
-        } else {
-            log.error("Failed to terminate the pool");
-        }
+        log.info("Total collected ingredients: {}", totalIngredients);
     }
 
     private static synchronized void addToTotalIngredients(int ingredients) {
