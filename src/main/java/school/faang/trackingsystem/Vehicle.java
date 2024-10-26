@@ -1,10 +1,12 @@
 package school.faang.trackingsystem;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@AllArgsConstructor
 public class Vehicle {
     private final String id;
     private volatile String status;
@@ -18,4 +20,5 @@ public class Vehicle {
         this.location = newLocation;
     }
 }
+
 
