@@ -7,15 +7,15 @@ import java.util.List;
 @Getter
 public class School {
     private final String name;
-    private final List<Student> students;
+    private final List<Student> team;
 
     public School(String name, List<Student> students) {
         this.name = name;
-        this.students = students;
+        this.team = students;
     }
 
     public int getTotalPoints() {
-        return students.stream()
+        return team.stream()
                 .map(Student::getPoints)
                 .reduce(0, Integer::sum);
     }
