@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private static final int NUM_THREADS = 5;
     private static final int ORDER_PROCESSING_TIME = 1000;
-    private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
     private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public CompletableFuture<Order> processOrder(Order order) {
@@ -25,7 +25,7 @@ public class OrderProcessor {
             order.setStatus(OrderStatus.PROCESSED);
             totalProcessedOrders.getAndIncrement();
             return order;
-        }, executor);
+        }, EXECUTOR);
     }
 
     public void processAllOrders(List<Order> orders) {
@@ -34,7 +34,7 @@ public class OrderProcessor {
                 .toList();
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(allOrders.toArray(CompletableFuture[]::new));
         allTasks.join();
-        executor.shutdown();
+        EXECUTOR.shutdown();
         log.info("Total number of orders processed: {}", totalProcessedOrders.get());
         log.info("Orders with the status \"Processed\": {}", orders);
     }
