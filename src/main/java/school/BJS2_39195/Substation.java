@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Substation {
 
-    private int id;
-    private MonitoringSystem monitoringSystem;
-    private ConcurrentHashMap<Integer, SensorData> sensorDataMap = new ConcurrentHashMap<>();
-    private ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
+    private final int id;
+    private final MonitoringSystem monitoringSystem;
+    private final ConcurrentHashMap<Integer, SensorData> sensorDataMap = new ConcurrentHashMap<>();
+    private final ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
 
     public Substation(int id, MonitoringSystem monitoringSystem) {
         this.id = id;
@@ -19,10 +19,7 @@ public class Substation {
     }
 
     public void receiveData(int sensorId, double data) {
-        SensorData sensorData = new SensorData();
-        sensorData.addData(data);
-        sensorDataMap.put(sensorId, sensorData);
-
+        sensorDataMap.computeIfAbsent(sensorId, k -> new SensorData()).addData(data);
     }
 
     public void startCalculatingAverages() {

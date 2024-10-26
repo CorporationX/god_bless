@@ -6,11 +6,11 @@ public class SensorData {
     private int count;
 
     public synchronized void addData(double data) {
-        sum +=data;
+        sum += data;
         count++;
     }
 
-    public double getAverage() {
+    public synchronized double getAverage() {
         return count > 0 ? sum / count : 0;
     }
 }
