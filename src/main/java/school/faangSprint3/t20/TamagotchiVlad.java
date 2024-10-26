@@ -1,8 +1,11 @@
 package school.faangSprint3.t20;
 
+
 public class TamagotchiVlad {
+    private static final int SLEEEP_TIME = 1000;
     private final String name;
     private String state = "нейтральное";
+
 
     public TamagotchiVlad(String name) {
         this.name = name;
@@ -12,7 +15,7 @@ public class TamagotchiVlad {
         state = "сыт";
         System.out.println(name + " ест. Его состояние: " + state);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEEP_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -22,7 +25,7 @@ public class TamagotchiVlad {
         state = "весел";
         System.out.println(name + " играет. Его состояние: " + state);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEEP_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -32,7 +35,7 @@ public class TamagotchiVlad {
         state = "чист";
         System.out.println(name + " чистится. Его состояние: " + state);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEEP_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -42,7 +45,7 @@ public class TamagotchiVlad {
         state = "спит";
         System.out.println(name + " спит. Его состояние: " + state);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEEP_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
