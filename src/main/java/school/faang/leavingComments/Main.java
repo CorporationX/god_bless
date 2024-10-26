@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private static final int MAX_HOURS = 24;
     private static final int NUM_THREADS = 10;
 
@@ -19,7 +19,7 @@ public class Main {
                         10, "Title 10", "Content 10", "Author 10", Comment.generateComments())
                 );
                 postService.addComment(10, new Comment(
-                        "Comment 10", "Author 10", LocalDateTime.now().minusHours(random.nextInt(MAX_HOURS)))
+                        "Comment 10", "Author 10", LocalDateTime.now().minusHours(RANDOM.nextInt(MAX_HOURS)))
                 );
                 postService.viewPost(10);
                 postService.deletePost(10, "Author 10");
