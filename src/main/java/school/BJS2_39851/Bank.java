@@ -10,25 +10,28 @@ public class Bank {
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         if (checkConditions(fromAccountId, toAccountId)) {
             ReentrantLock lockFromAccount = accounts.get(fromAccountId).getLock();
-            ReentrantLock lockToAccount = accounts.get(fromAccountId).getLock();
+            ReentrantLock lockToAccount = accounts.get(toAccountId).getLock();
             ReentrantLock lock1 = fromAccountId > toAccountId ? lockFromAccount : lockToAccount;
             ReentrantLock lock2 = fromAccountId > toAccountId ? lockToAccount : lockFromAccount;
             Account fromAccount = accounts.get(fromAccountId);
             Account toAccount = accounts.get(toAccountId);
+            lock1.lock();
             try {
-                lock1.lock();
                 lock2.lock();
-                double sumFromAccount = accounts.get(fromAccountId).getBalance();
-                if (sumFromAccount < amount) {
-                    System.out.println("Недостаточно средств для перевода");
-                    return false;
+                try {
+                    double sumFromAccount = accounts.get(fromAccountId).getBalance();
+                    if (sumFromAccount < amount) {
+                        System.out.println("Недостаточно средств для перевода");
+                        return false;
+                    }
+                    fromAccount.withdraw(amount);
+                    toAccount.deposit(amount);
+                    return true;
+                } finally {
+                    lock2.unlock();
                 }
-                fromAccount.withdraw(amount);
-                toAccount.deposit(amount);
-                return true;
             } finally {
                 lock1.unlock();
-                lock2.unlock();
             }
         }
         return false;
