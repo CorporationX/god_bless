@@ -13,7 +13,7 @@ public class MarketingResources {
     public List<String> getList() {
         lock.readLock().lock();
         try {
-            return namesOfFiles;
+            return new ArrayList<>(namesOfFiles);
         } finally {
             lock.readLock().unlock();
         }
