@@ -17,6 +17,11 @@ public class OrderProcessor {
 
     public CompletableFuture<Order> processOrder(Order order) {
         return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(ORDER_PROCESSING_TIME);
+            } catch (InterruptedException e) {
+                log.error("The current thread was interrupted during sleep: {}", e);
+            }
             order.setStatus(OrderStatus.PROCESSED);
             totalProcessedOrders.getAndIncrement();
             return order;
@@ -24,15 +29,11 @@ public class OrderProcessor {
     }
 
     public void processAllOrders(List<Order> orders) {
-        try {
-            Thread.sleep(ORDER_PROCESSING_TIME);
-        } catch (InterruptedException e) {
-            log.error("The current thread was interrupted during sleep: {}", e);
-        }
         List<CompletableFuture<Order>> allOrders = orders.stream()
-                .map(order -> processOrder(order))
+                .map(this::processOrder)
                 .toList();
-        CompletableFuture.allOf(allOrders.toArray(CompletableFuture[]::new));
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(allOrders.toArray(CompletableFuture[]::new));
+        allTasks.join();
         executor.shutdown();
         log.info("Total number of orders processed: {}", totalProcessedOrders.get());
         log.info("Orders with the status \"Processed\": {}", orders);
