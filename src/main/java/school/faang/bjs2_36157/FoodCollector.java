@@ -57,23 +57,26 @@ public class FoodCollector {
     }
 
     private void cleaningRoom(Room room) {
-        if (!room.getFoodList().isEmpty()) {
-            ReentrantLock roomLock = room.getLock();
-            if (roomLock.tryLock()) {
-                try {
+        ReentrantLock roomLock = room.getLock();
+        if (roomLock.tryLock()) {
+            try {
+                if (!room.getFoodList().isEmpty()) {
+
                     collectedFood.addAll(room.getFoodList());
                     log.info("Add foods in collection: " + room.getFoodList());
+
                     room.getFoodList().clear();
                     log.info("Clear food in room: " + room.hashCode());
+
                     log.info("Collected foods: " + collectedFood);
 
                     if (isAllRoomsEmpty()) {
                         log.info("All the food has been collected!");
                         scheduler.shutdown();
                     }
-                } finally {
-                    roomLock.unlock();
                 }
+            } finally {
+                roomLock.unlock();
             }
         } else {
             log.info("Room " + room.hashCode() + " already being processed, skipping");
