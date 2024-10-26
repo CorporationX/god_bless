@@ -26,7 +26,7 @@ public class Inventory {
                     addItem(item);
                     log.info("You combined {} and {} successfully", shopItem.getName(), chestItem.getName());
                     log.info("You've got {} {} ({} power)", shopItem.getName(), chestItem.getName(), (shopItem.getPower() + chestItem.getPower()));
-                    return null;
+                    return item;
                 }));
 
         combinedItem.join();
@@ -39,11 +39,7 @@ public class Inventory {
 
     private CompletableFuture<Item> getItemFromShop(Item shopItem) {
         return CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(1000, 4000));
-            } catch (InterruptedException e) {
-                log.error("Thread has been interrupted", e);
-            }
+            sleep();
             log.info("You bought {} ({} power)", shopItem.getName(), shopItem.getPower());
             return shopItem;
         });
@@ -51,13 +47,17 @@ public class Inventory {
 
     private CompletableFuture<Item> getItemFromChest(Item chestItem) {
         return CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(ThreadLocalRandom.current().nextLong(1000, 4000));
-            } catch (InterruptedException e) {
-                log.error("Thread has been interrupted", e);
-            }
+            sleep();
             log.info("You found {} ({} power)", chestItem.getName(), chestItem.getPower());
             return chestItem;
         });
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(ThreadLocalRandom.current().nextLong(1000, 4000));
+        } catch (InterruptedException e) {
+            log.error("Thread has been interrupted", e);
+        }
     }
 }
