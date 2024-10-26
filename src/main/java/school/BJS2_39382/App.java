@@ -13,7 +13,7 @@ public class App {
 
         DocumentSection[] documentSections = new DocumentSection[SIZE_OF_THREADS];
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < SIZE_OF_THREADS; i++) {
             DocumentSection documentSection = new DocumentSection(i + "", document);
             documentSection.write("Данные для раздела номер " + i);
             documentSections[i] = documentSection;
