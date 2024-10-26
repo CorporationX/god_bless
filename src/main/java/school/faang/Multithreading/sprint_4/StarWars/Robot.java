@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Robot {
-    String name;
+    private String name;
     int attackPower;
     int defensePower;
 }
