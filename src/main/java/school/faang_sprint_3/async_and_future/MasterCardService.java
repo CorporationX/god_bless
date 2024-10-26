@@ -13,7 +13,8 @@ public class MasterCardService {
                 .thenAccept(analytics -> log.info("Analytics send: {} ", analytics))
                 .join();
         CompletableFuture.supplyAsync(this::collectPayment, threadPool)
-                .thenAccept(payments -> log.info("Payment send: ${} ", payments));
+                .thenAccept(payments -> log.info("Payment send: ${} ", payments))
+                .join();
         threadPool.shutdown();
     }
 
