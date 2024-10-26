@@ -10,20 +10,20 @@ import java.util.stream.Collectors;
 @Data
 public class OrderProcessor {
     private AtomicInteger totalProcessedOrders = new AtomicInteger();
-    private long processTime = 5000;
+    private static final long PROCESS_TIME = 5000;
 
     public void processAllOrders(List<Order> orders) {
-        List<CompletableFuture<Void>> futures = orders.stream()
+        orders.stream()
                 .map(order -> processOrder(order))
-                .collect(Collectors.toList());
-        futures.forEach(future -> future.join());
+                .collect(Collectors.toList())
+                .forEach(future -> future.join());
         System.out.println("Обработано заказов: " + totalProcessedOrders.get());
     }
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(processTime);
+                Thread.sleep(PROCESS_TIME);
                 order.setStatus(OrderStatus.PROCESSED);
                 totalProcessedOrders.addAndGet(1);
             } catch (InterruptedException e) {
