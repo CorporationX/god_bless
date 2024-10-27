@@ -1,17 +1,29 @@
 package school.faang.comments;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class PostService {
-    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final Map<Integer, Post> posts = new HashMap<>();
+    private final Lock lock = new ReentrantLock();
 
     public void addPost(Post post) {
-        posts.put(post.getId(), post);
+        lock.lock();
+        try {
+            posts.put(post.getId(), post);
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void addComment(int postId, Comment comment) {
-        posts.get(postId).getComments().add(comment);
+        lock.lock();
+        try {
+            posts.get(postId).getComments().add(comment);
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void showPost(int postId) {
@@ -23,17 +35,31 @@ public class PostService {
     }
 
     public Optional<Post> removePost(int postId, int authorId) {
-        return authorId == posts.get(postId).getAuthorId() ? Optional.of(posts.remove(postId)) : Optional.empty();
+        lock.lock();
+        try {
+            if (authorId == posts.get(postId).getAuthorId()) {
+                return Optional.of(posts.remove(postId));
+            } else {
+                return Optional.empty();
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 
     public Optional<Comment> removeCommentByAuthorId(int postId, int authorId, String commentText) {
-        for (Comment comment : posts.get(postId).getComments()) {
-            if (comment.getAuthor().getId() == authorId && comment.getText().equals(commentText)) {
-                posts.get(postId).getComments().remove(comment);
-                return Optional.of(comment);
+        lock.lock();
+        try {
+            for (Comment comment : posts.get(postId).getComments()) {
+                if (comment.getAuthor().getId() == authorId && comment.getText().equals(commentText)) {
+                    posts.get(postId).getComments().remove(comment);
+                    return Optional.of(comment);
+                }
             }
-        }
 
-        return Optional.empty();
+            return Optional.empty();
+        } finally {
+            lock.unlock();
+        }
     }
 }
