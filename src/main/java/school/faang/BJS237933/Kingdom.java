@@ -17,8 +17,8 @@ public class Kingdom {
     private String name;
     private final double chance = 0.50;
 
-    public String sendMessage(Kingdom receiver) throws Exception {
-         throwException();
+    public String sendMessage(Kingdom receiver) throws IllegalStateException {
+         throwExceptionWithChance();
          return "Королевство отправило сообщение " + receiver.getName();
     }
 
@@ -27,7 +27,7 @@ public class Kingdom {
             try {
                 return sender.sendMessage(receiver);
             } catch (Exception e) {
-                log.error("Письмо не доставлено: {} ", e.getMessage());
+                log.error("Письмо не доставлено: ", e);
                 throw new IllegalStateException(e);
             }
         }, executorService);
@@ -37,9 +37,9 @@ public class Kingdom {
         executorService.shutdown();
     }
 
-    private void throwException() throws Exception {
+    private void throwExceptionWithChance() {
         if (Math.random() > chance) {
-            throw new Exception("Ворон сожрал письмо...");
+            throw new IllegalStateException("Ворон сожрал письмо...");
         }
     }
 }
