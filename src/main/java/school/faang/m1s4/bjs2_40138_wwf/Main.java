@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final long SLEEP_TIME = 5000;
     private static final int N_DONATIONS = 50;
     private static final Random RANDOM = new Random();
 
@@ -19,7 +20,7 @@ public class Main {
         }
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             log.error("Thread has been interrupted", e);
         }
