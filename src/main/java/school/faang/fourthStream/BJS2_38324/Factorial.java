@@ -48,7 +48,7 @@ public class Factorial {
         for (int i = 2; i <= n; i++) {
             if (!cash.containsKey(i)) {
                 result = result.multiply(BigInteger.valueOf(i));
-                cash.putIfAbsent(i, result);
+                cash.put(i, result);
             } else {
                 result = cash.get(i);
             }
