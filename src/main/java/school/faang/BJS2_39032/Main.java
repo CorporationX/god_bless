@@ -67,8 +67,7 @@ public class Main {
                 topSchools.forEach(school -> System.out.print(school.getName() + " "));
                 System.out.println();
             }
-
-            tournament.shutdown();
         }).join();
+        tournament.shutdown();
     }
 }
