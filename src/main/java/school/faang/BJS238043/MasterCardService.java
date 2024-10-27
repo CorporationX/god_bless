@@ -4,13 +4,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
+    private static final int PAYMENT_TIME = 10_000;
+    private static final int ANALYTIC_TIME = 1_000;
+
+    private static final int WAITING_TIME_IN_MINUTE = 1;
 
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(PAYMENT_TIME);
+            return PAYMENT_TIME;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -19,8 +24,8 @@ public class MasterCardService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(ANALYTIC_TIME);
+            return ANALYTIC_TIME;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -34,12 +39,16 @@ public class MasterCardService {
 
         Integer analyticsResult = analyticFuture.join();
         System.out.println("Аналитика отправлена: " + analyticsResult);
-        Integer paymentResult = null;
         try {
-            paymentResult = paymentFuture.get();
+            System.out.println("Платеж выполнен: " + paymentFuture.get());
+            service.shutdown();
+            if (!service.awaitTermination(WAITING_TIME_IN_MINUTE, TimeUnit.MINUTES)) {
+                System.out.println("Повторите платеж еще раз!");
+                service.shutdownNow();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Платеж выполнен: " + paymentResult);
+
     }
 }
