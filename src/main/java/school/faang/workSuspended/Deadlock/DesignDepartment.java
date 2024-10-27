@@ -14,6 +14,11 @@ public class DesignDepartment implements Runnable {
         synchronized (marketingResources) {
             System.out.println("Design Department is reading marketing files...");
             List<String> marketingFiles = marketingResources.getMarketingFiles();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException("Task interrupted", e);
+            }
             synchronized (designResources) {
                 System.out.println("Design Department is adding marketing files to design files...");
                 for (String file : marketingFiles) {
