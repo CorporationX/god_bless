@@ -8,12 +8,13 @@ import java.util.concurrent.Future;
 public class Battle {
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final int SLEEP_TIME = 1000;
 
     public Future<Robot> fight(Robot first, Robot second) {
         return executor.submit(() -> {
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
