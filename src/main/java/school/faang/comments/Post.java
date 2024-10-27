@@ -7,16 +7,18 @@ import java.util.List;
 
 @Data
 public class Post {
+    private static int currentId = 0;
+
     private int id;
     private String title;
     private String content;
-    private String author;
+    private int authorId;
     private List<Comment> comments = new ArrayList<>();
 
-    public Post(int id, String title, String content, String author) {
-        this.id = id;
+    public Post(String title, String content, int authorId) {
+        this.id = ++currentId;
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.authorId = authorId;
     }
 }

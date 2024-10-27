@@ -1,12 +1,10 @@
 package school.faang.comments;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PostService {
-    private final Map<Integer, Post> posts = new HashMap<>();
+    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     public void addPost(Post post) {
         posts.put(post.getId(), post);
@@ -24,14 +22,18 @@ public class PostService {
         System.out.println(posts.get(postId).getComments());
     }
 
-    public Post removePost(int postId) {
-        return posts.remove(postId);
+    public Optional<Post> removePost(int postId, int authorId) {
+        return authorId == posts.get(postId).getAuthorId() ? Optional.of(posts.remove(postId)) : Optional.empty();
     }
 
-    public void removeCommentByText(String commentText) {
-        posts.entrySet().stream()
-                .flatMap(entry -> entry.getValue().getComments().stream())
-                .filter(comment -> comment.getText().equals(commentText))
-                .findFirst();
+    public Optional<Comment> removeCommentByAuthorId(int postId, int authorId, String commentText) {
+        for (Comment comment : posts.get(postId).getComments()) {
+            if (comment.getAuthor().getId() == authorId && comment.getText().equals(commentText)) {
+                posts.get(postId).getComments().remove(comment);
+                return Optional.of(comment);
+            }
+        }
+
+        return Optional.empty();
     }
 }
