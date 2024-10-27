@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         House stark = new House(new ArrayList<>(Arrays.asList("lord", "warrior", "mage")));
-        User knight = new User("Den", null, null);
-        User knight2 = new User("Jack", null, null);
+        User knight = new User("Den");
+        User knight2 = new User("Jack");
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
