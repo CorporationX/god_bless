@@ -11,5 +11,3 @@ public class QuestSystem {
         return CompletableFuture.completedFuture(updatePlayer);
     }
 }
-
-
