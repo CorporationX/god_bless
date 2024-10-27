@@ -7,8 +7,10 @@ import java.util.concurrent.Future;
 
 public class MasterCardService {
     static int collectPayment() {
+        final int TIMEOUT_PAYMENT = 1_000;
+
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(TIMEOUT_PAYMENT);
             return 10_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -17,8 +19,10 @@ public class MasterCardService {
     }
 
     static int sendAnalytics() {
+        final int TIMEOUT_ANALYTICS = 10_000;
+
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(TIMEOUT_ANALYTICS);
             return 1_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -34,7 +38,9 @@ public class MasterCardService {
 
         try {
             System.out.println("Analytics sent: " + analytics.get());
-            System.out.println("Payment completed: " + payment.get());
+            if (analytics.isDone()) {
+                System.out.println("Payment completed: " + payment.get());
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
