@@ -8,13 +8,21 @@ public class Main {
         Unit player2 = new Unit("Том", 5, game);
 
         for (int i = 0; i < 10; i++) {
-            boolean earnedPoint = Math.random() < 0.5;
-            boolean lostLife = Math.random() < 0.7;
-            if (earnedPoint) {
+            boolean earnedPoint1 = Math.random() < 0.5;
+            boolean earnedPoint2 = Math.random() < 0.5;
+            boolean lostLife1 = Math.random() < 0.7;
+            boolean lostLife2 = Math.random() < 0.7;
+
+            if (earnedPoint1) {
                 player1.earnPoint();
             }
-
-            if (lostLife) {
+            if (earnedPoint2) {
+                player2.earnPoint();
+            }
+            if (lostLife1) {
+                player1.loseLife();
+            }
+            if (lostLife2) {
                 player2.loseLife();
             }
 
@@ -22,6 +30,10 @@ public class Main {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            if (game.isGameOver()) {
+                break;
             }
         }
     }

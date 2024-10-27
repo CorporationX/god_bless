@@ -1,32 +1,38 @@
 package school.faang.BJS2_37202;
 
 public class Game {
-    private int score = 0;
-    private int lives = 9;
+    private int totalScore = 0;
+    private int totalLives = 0;
+    private boolean gameOver = false;
 
-    private final Object lockScore= new Object();
-    private final Object lockLives= new Object();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
 
-    public void update(boolean earnedPoint, boolean loseLife) {
-        synchronized (lockScore) {
+    public void update(boolean earnedPoint, boolean lostLife) {
+        synchronized (scoreLock) {
             if (earnedPoint) {
-                score++;
-                System.out.println("Очки увеличены, текущий счет: " + score);
+                totalScore++;
+                System.out.println("Очки увеличены, текущий счёт: " + totalScore);
             }
         }
-        synchronized (lockLives) {
-            if (loseLife) {
-                lives--;
-                System.out.println("Жизни уменьшены, текущее количество жизней: " + lives);
-                if (lives <= 0) {
+
+        synchronized (livesLock) {
+            if (lostLife) {
+                totalLives++;
+                System.out.println("Жизни уменьшены, текущее количество жизней: " + totalLives);
+                if (totalLives >= 9) {
                     gameOver();
                 }
             }
         }
     }
 
-    public void gameOver() {
-        System.out.println("Game Over!. Вы проиграли!");
-        System.out.println("Финальный счет: " + score);
+    private void gameOver() {
+        gameOver = true;
+        System.out.println("Game over!");
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 }
