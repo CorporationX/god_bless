@@ -80,7 +80,7 @@ public class House {
         house.printRoomsAndFood();
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
         Runnable collectFoodFromTwoRooms = () -> house.collectFoodFromTwoRandomRooms();
-        scheduledThreadPool.scheduleAtFixedRate(collectFoodFromTwoRooms,5, 2, TimeUnit.SECONDS);
+        scheduledThreadPool.scheduleAtFixedRate(collectFoodFromTwoRooms,1, 2, TimeUnit.SECONDS);
 
         while(!house.allFoodIsCollected){
             try {
