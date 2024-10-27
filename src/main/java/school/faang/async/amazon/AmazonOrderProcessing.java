@@ -39,6 +39,7 @@ public class AmazonOrderProcessing {
           orders.forEach(System.out::println);
         });
 
+    ordersCollector.shutdown();
     if (!ordersCollector.awaitTermination(MAX_WAITING_TIME, TimeUnit.SECONDS)) {
       ordersCollector.shutdownNow();
       if (!ordersCollector.awaitTermination(MAX_WAITING_TIME, TimeUnit.SECONDS)) {
