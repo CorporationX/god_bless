@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Battle {
-    private static final Random RANDOM = new Random();
     private static final int THREADS_COUNT = 5;
+    private final Random random = new Random();
     private final ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
 
     public List<CompletableFuture<Void>> fightEveryone(List<Robot> robots) {
@@ -43,7 +43,7 @@ public class Battle {
     }
 
     private Robot randomWinner(Robot firstRobot, Robot secondRobot) {
-        Robot winner = RANDOM.nextBoolean() ? firstRobot : secondRobot;
+        Robot winner = random.nextBoolean() ? firstRobot : secondRobot;
         logWinner(winner, winner == firstRobot ? secondRobot : firstRobot);
         return winner;
     }
