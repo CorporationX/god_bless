@@ -21,7 +21,6 @@ public class MasterCardService {
             return 10_000;
         } catch (InterruptedException e) {
             log.error("Ошибка при сборе платежа", e);
-            Thread.currentThread().interrupt();
             throw new RuntimeException("Сбор платежа был прерван", e);
         }
     }
@@ -34,7 +33,6 @@ public class MasterCardService {
             return 1_000;
         } catch (InterruptedException e) {
             log.error("Ошибка при отправке аналитики", e);
-            Thread.currentThread().interrupt();
             throw new RuntimeException("Отправка аналитики была прервана", e);
         }
     }
@@ -44,7 +42,7 @@ public class MasterCardService {
 
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
 
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
 
         analyticsFuture.thenAccept(result -> {
             log.info("Аналитика отправлена, результат: {}", result);
