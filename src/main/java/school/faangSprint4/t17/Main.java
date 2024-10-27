@@ -24,12 +24,13 @@ public class Main {
         System.out.printf(DIFFERENCE_FORMAT, Math.abs(Math.PI - pi));
     }
 
+    @SuppressWarnings("unchecked")
     static double calculatePi(int n) {
         ExecutorService service = Executors.newFixedThreadPool(Math.min(n, MAX_THREAD_POOL_SIZE));
         AtomicInteger pointsInsideCircle = new AtomicInteger(0);
 
         try {
-            CompletableFuture<?>[] futures = IntStream.range(0, n)
+            CompletableFuture<Void>[] futures = IntStream.range(0, n)
                     .mapToObj(i -> CompletableFuture.supplyAsync(() -> {
                                 double x = ThreadLocalRandom.current().nextDouble(RANDOM_RANGE_MIN, RANDOM_RANGE_MAX);
                                 double y = ThreadLocalRandom.current().nextDouble(RANDOM_RANGE_MIN, RANDOM_RANGE_MAX);
