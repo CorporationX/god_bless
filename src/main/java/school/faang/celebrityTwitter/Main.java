@@ -10,12 +10,11 @@ public class Main {
                 new TwitterAccount("Дмитрий", 100),
                 new TwitterAccount("Артём", 5),
                 new TwitterAccount("Денис", 20));
-        TwitterAccount userToFollow = users.get(0);
         TwitterSubscriptionSystem twitterSubscriptionSystem = new TwitterSubscriptionSystem();
-        users.stream().filter(n -> !n.equals(userToFollow))
-                .forEach((n) -> twitterSubscriptionSystem.followAccount(userToFollow).join());
+        users.stream().filter(n -> !n.equals(users.get(0)))
+                .forEach((n) -> twitterSubscriptionSystem.followAccount(users.get(0)).join());
         twitterSubscriptionSystem.getExecutor().shutdown();
         twitterSubscriptionSystem.getExecutor().awaitTermination(30, TimeUnit.SECONDS);
-        System.out.println(userToFollow.getFollowers());
+        System.out.println(users.get(0).getFollowers());
     }
 }
