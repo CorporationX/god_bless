@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class NotificationManager {
+    private static final int SLEEP_TIME = 1000;
     private final List<Notification> notifications = new ArrayList<>();
 
     public synchronized void addNotification(Notification notification) {
@@ -14,7 +15,7 @@ public class NotificationManager {
     public CompletableFuture<Void> fetchNotification(int id, String message) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(SLEEP_TIME);
                 Notification notification = new Notification(id, message);
                 addNotification(notification);
                 System.out.println("Added notification: " + notification.message());
