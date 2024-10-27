@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
-        QuestSystem questSystem = new QuestSystem();
+        QuestSystem questSystem = new QuestSystem(4);
 
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
@@ -25,5 +25,6 @@ public class Main {
             " experience points."));
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
+        questSystem.shutdown();
     }
 }
