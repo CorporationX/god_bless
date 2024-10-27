@@ -82,7 +82,7 @@ public class House {
         Runnable collectFoodFromTwoRooms = () -> house.collectFoodFromTwoRandomRooms();
         scheduledThreadPool.scheduleAtFixedRate(collectFoodFromTwoRooms,1, 2, TimeUnit.SECONDS);
 
-        while(!house.allFoodIsCollected){
+        while (!house.allFoodIsCollected){
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
