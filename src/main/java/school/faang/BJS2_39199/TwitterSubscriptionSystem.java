@@ -14,6 +14,8 @@ public class TwitterSubscriptionSystem {
         }
 
         CompletableFuture.allOf(tasks).join();
-        System.out.printf(" тоговое количество подписчиков у %s: %d \n", account.getUsername(), account.getFollowers());
+        System.out.printf(" тоговое количество подписчиков у %s: %d \n",
+            account.getUsername(),
+            account.getFollowers());
     }
 }
