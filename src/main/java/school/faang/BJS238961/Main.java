@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
-        // Создание школ
         List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
         List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
         School hogwarts = new School("Hogwarts", hogwartsTeam);
@@ -21,11 +20,8 @@ public class Main {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
-            if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
-                System.out.println(hogwarts.getName() + " wins the tournament!");
-            } else {
-                System.out.println(beauxbatons.getName() + " wins the tournament!");
-            }
+            String winner = hogwarts.getTotalPoints() > beauxbatons.getTotalPoints() ? hogwarts.getName() : beauxbatons.getName();
+            System.out.println(winner + " wins the tournament!");
         });
         allTasks.join();
     }
