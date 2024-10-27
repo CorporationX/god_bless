@@ -21,7 +21,7 @@ public class NotificationManager {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e.getStackTrace().toString());
             }
             addNotification(notification);
         }, service);
@@ -35,7 +35,7 @@ public class NotificationManager {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new IllegalStateException(e.getMessage());
+            throw new IllegalStateException(e.getStackTrace().toString());
         }
     }
 
