@@ -8,22 +8,11 @@ import java.util.concurrent.TimeUnit;
 public class BankDemo {
     public static void main(String[] args) {
         Bank bank = new Bank();
-//          Как лучше создавать объекты?
+
         double[] initialBalances = {1000.0, 1500.0, 2000.0};
         for (int i = 0; i < initialBalances.length; i++) {
             bank.addAccount(new Account(i + 1, initialBalances[i]));
         }
-
-//        bank.addAccount(new Account(1, 1000.0));
-//        bank.addAccount(new Account(2, 1500.0));
-//        bank.addAccount(new Account(3, 2000.0));
-
-//        Account account1 = new Account(1, 1000);
-//        Account account2 = new Account(2, 2000);
-//        Account account3 = new Account(3, 3000);
-//        bank.addAccount(account1);
-//        bank.addAccount(account2);
-//        bank.addAccount(account3);
 
         ExecutorService executor = Executors.newFixedThreadPool(3);
         Random random = new Random();
