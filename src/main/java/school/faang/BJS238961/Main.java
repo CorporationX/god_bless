@@ -1,10 +1,15 @@
 package school.faang.BJS238961;
 
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
+
         Tournament tournament = new Tournament();
 
         List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
@@ -21,8 +26,7 @@ public class Main {
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
             String winner = hogwarts.getTotalPoints() > beauxbatons.getTotalPoints() ? hogwarts.getName() : beauxbatons.getName();
-            System.out.println(winner + " wins the tournament!");
-        });
-        allTasks.join();
+            log.info(winner + " wins the tournament!");
+        }).join();
     }
 }
