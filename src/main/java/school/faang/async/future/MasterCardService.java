@@ -1,5 +1,6 @@
 package school.faang.async.future;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,13 +32,13 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
         Future<Integer> payment = executor.submit(MasterCardService::collectPayment);
-        Future<Integer> analytics = executor.submit(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
+        System.out.println("Analytics sent: " + analytics.join());
         try {
-            System.out.println("Analytics sent: " + analytics.get());
             if (analytics.isDone()) {
                 System.out.println("Payment completed: " + payment.get());
             }
