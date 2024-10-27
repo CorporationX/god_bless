@@ -14,7 +14,7 @@ public class Main {
 
         for (int i = 0; i < 3; i++) {
             Order order = new Order(i, "Не обработанно");
-            future.add(CompletableFuture.supplyAsync(() -> processor.processOrder(order)));
+            future.add(CompletableFuture.runAsync(() -> processor.processOrder(order)));
         }
 
         CompletableFuture<Void> completableFuture = CompletableFuture.allOf(future.toArray(new CompletableFuture[0]));

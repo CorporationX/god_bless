@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public Void processOrder(Order order) {
+    public void processOrder(Order order) {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -20,6 +20,5 @@ public class OrderProcessor {
         }
         order.setStatus("Обработано");
         totalProcessedOrders.incrementAndGet();
-        return null;
     }
 }
