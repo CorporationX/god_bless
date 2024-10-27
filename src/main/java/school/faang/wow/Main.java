@@ -18,11 +18,14 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(player -> System.out.println(player.getName() +
-                " выполнил квест и теперь имеет " + player.getExperience() + " очки опыта."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() +
-                " выполнил квест и теперь имеет " + player.getExperience() + " очки опыта."));
+        player1Quest.thenAccept(Main::printQuestCompletedMessage);
+        player2Quest.thenAccept(Main::printQuestCompletedMessage);
         player1Quest.join();
         player2Quest.join();
+    }
+
+    private static void printQuestCompletedMessage(Player player) {
+        System.out.println(player.getName() +
+                " выполнил квест и теперь имеет " + player.getExperience() + " очки опыта.");
     }
 }
