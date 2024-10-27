@@ -21,13 +21,11 @@ public class Bank {
             return;
         }
 
-        if (fromAccount.getId() < toAccount.getId()) {
-            fromAccount.getLock().lock();
-            toAccount.getLock().lock();
-        } else {
-            toAccount.getLock().lock();
-            fromAccount.getLock().lock();
-        }
+        Account firstLock = fromAccount.getId() < toAccount.getId() ? fromAccount : toAccount;
+        Account secondLock = fromAccount.getId() < toAccount.getId() ? toAccount : fromAccount;
+
+        firstLock.getLock().lock();
+        secondLock.getLock().lock();
 
         try {
             if (fromAccount.withdraw(amount)) {
