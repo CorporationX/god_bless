@@ -12,4 +12,8 @@ public class TwitterAccount {
   private String username;
   private int followers;
 
+  @Override
+  public String toString() {
+    return "User name: " + username + ", followers: " + followers;
+  }
 }

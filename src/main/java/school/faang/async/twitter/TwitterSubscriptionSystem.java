@@ -1,21 +1,15 @@
 package school.faang.async.twitter;
 
+import java.util.concurrent.CompletableFuture;
+
 public class TwitterSubscriptionSystem {
 
-  private final Object lock = new Object();
-
-  public void addFollower(TwitterAccount account) {
-
-    synchronized (lock) {
-
-    }
-
+  public synchronized void addFollower(TwitterAccount account) {
+    account.setFollowers(account.getFollowers() + 1);
   }
 
-  public void followAccount(TwitterAccount account) {
-    synchronized (lock) {
-
-    }
+  public CompletableFuture<Void> followAccount(TwitterAccount account) {
+    return CompletableFuture.runAsync(() -> addFollower(account));
   }
 
 }
