@@ -14,6 +14,7 @@ import java.util.function.Function;
 public class DocumentSection {
     private static final String DOC_IS_NOT_AVAILABLE_FOR_UPD = "Документ ожидает завершение обновления данных. " +
             "Попробуйте повторить операцию позже";
+    public static final int UPDATE_TIMEOUT = 5;
 
     @Getter
     private String id;
@@ -41,7 +42,7 @@ public class DocumentSection {
 
     public void update(Function<String, String> process) {
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(UPDATE_TIMEOUT);
             boolean isLocked = rwLock.writeLock().tryLock(10, TimeUnit.SECONDS);
             if (isLocked) {
                 try {
