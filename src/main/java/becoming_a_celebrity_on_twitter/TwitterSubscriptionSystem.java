@@ -21,13 +21,13 @@ public class TwitterSubscriptionSystem {
     /**
      * Adds a follower to a Twitter account in a thread-safe manner.
      *
-     * @param account The account to add the follower to.
+     * @param account         The account to add the follower to.
      * @param executorService The executor service used to execute the task.
      */
-    public void followAccount(TwitterAccount account, ExecutorService executorService) {
-        CompletableFuture.supplyAsync(() -> {
+    public CompletableFuture<TwitterAccount> followAccount(TwitterAccount account, ExecutorService executorService) {
+        return CompletableFuture.supplyAsync(() -> {
             addFollower(account);
             return account;
-        }, executorService).join();
+        }, executorService);
     }
 }

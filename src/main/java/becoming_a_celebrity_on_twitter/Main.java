@@ -1,6 +1,8 @@
 package becoming_a_celebrity_on_twitter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -24,9 +26,13 @@ public class Main {
                 new TwitterAccount("john", 30)
         );
 
+        ArrayList<CompletableFuture<TwitterAccount>> allTasks = new ArrayList<>();
+
         twitterAccounts.forEach((twitterAccount) -> {
-            twitterSubscriptionSystem.followAccount(twitterAccount, service);
+            allTasks.add(twitterSubscriptionSystem.followAccount(twitterAccount, service));
         });
+
+        allTasks.forEach(CompletableFuture::join);
 
         twitterAccounts.forEach(twitterAccount -> System.out.println(twitterAccount.getUsername() + " has " + twitterAccount.getFollowers() + " followers"));
 
