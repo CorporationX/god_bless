@@ -1,27 +1,31 @@
 package school.faang_sprint_3.wow;
 
+import java.util.concurrent.CompletableFuture;
+
 public class Main {
+    private final QuestSystem questSystem = new QuestSystem();
+
     public static void main(String[] args) {
-        var questSystem = new QuestSystem();
+        Main main = new Main();
 
-        var player1 = new Player("Thrall", 10, 250);
-        var player2 = new Player("Sylvana", 12, 450);
+        Player player1 = new Player("Thrall", 10, 250);
+        Player player2 = new Player("Sylvana", 12, 450);
 
-        var quest1 = new Quest("Defeat the Lich King", Difficulty.HARD, 150);
-        var quest2 = new Quest("Retrieve the sword of Azeroth", Difficulty.MEDIUM, 100);
+        Quest quest1 = new Quest("Defeat the Lich King", Difficulty.HARD, 150);
+        Quest quest2 = new Quest("Retrieve the sword of Azeroth", Difficulty.MEDIUM, 100);
 
-        var player1Quest1 = questSystem.startQuest(player1, quest1);
-        var player2Quest1 = questSystem.startQuest(player2, quest1);
-        var player1Quest2 = questSystem.startQuest(player1, quest2);
-        var player2Quest2 = questSystem.startQuest(player2, quest2);
+        main.startAndPrint(player1, quest1);
+        main.startAndPrint(player2, quest1);
+        main.startAndPrint(player1, quest2);
+        main.startAndPrint(player2, quest2);
 
-        player1Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "
-                + player.getExperience() + " experience points."));
-        player2Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "
-                + player.getExperience() + " experience points."));
-        player1Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "
-                + player.getExperience() + " experience points."));
-        player2Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "
-                + player.getExperience() + " experience points."));
     }
+
+    private void startAndPrint(Player player, Quest quest) {
+        CompletableFuture<Player> futurePlayer = questSystem.startQuest(player, quest);
+        futurePlayer.thenAccept(p -> System.out.println(p.getName() + " has completed the quest and now has "
+                + p.getExperience() + " experience points."));
+    }
+
 }
+

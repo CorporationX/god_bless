@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class QuestSystem {
-    ExecutorService threadPool = Executors.newFixedThreadPool(5);
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(5);
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
