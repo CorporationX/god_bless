@@ -13,5 +13,4 @@ public class Comment {
     private String text;
     private String author;
     private LocalDateTime timestamp;
-
 }

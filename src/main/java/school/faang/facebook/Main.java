@@ -9,9 +9,9 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        final int postCount = 3;
+        final int POST_COUNT = 3;
         List<Post> posts = new ArrayList<>();
-        for (int i = 1; i <= postCount; i++) {
+        for (int i = 1; i <= POST_COUNT; i++) {
             posts.add(new Post(i, "Title" + i, "Content" + i, "Author" + i));
         }
 
