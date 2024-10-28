@@ -22,6 +22,7 @@ public class Main {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
+
                     if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
                         System.out.println(hogwarts.name() + " wins the tournament!");
                     }

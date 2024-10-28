@@ -5,14 +5,11 @@ import java.util.concurrent.CompletableFuture;
 public class Tournament {
 
     public CompletableFuture<School> startTask(School school, Task task) {
-        CompletableFuture<School> future =
-                CompletableFuture.supplyAsync(task::runTask)
-                        .thenApply(result -> {
-                            school.updateStudentsScores(result);
-                            school.team().forEach(System.out::println);
-                            return school;
-                        });
-        School updatedSchool = future.join();
-        return CompletableFuture.completedFuture(updatedSchool);
+        return CompletableFuture.supplyAsync(task::runTask)
+                .thenApply(result -> {
+                    school.updateStudentsScores(result);
+                    school.team().forEach(System.out::println);
+                    return school;
+                });
     }
 }
