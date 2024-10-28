@@ -12,6 +12,7 @@ public class QuestSystem {
     private static final long TIME_FOR_DIFFICULT = 10000;
 
     private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
+
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
