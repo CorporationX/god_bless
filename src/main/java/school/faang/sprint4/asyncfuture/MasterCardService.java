@@ -5,8 +5,8 @@ import java.util.concurrent.*;
 public class MasterCardService {
 
     public void doAll() {
-        CompletableFuture<Integer> analyticsResult = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        CompletableFuture<Integer> analyticsResult = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics,executor);
         try {
             if (analyticsResult.get() != 0) {
                 System.out.println("Аналитика отправлена: 1000");
