@@ -1,24 +1,24 @@
 package MultithreadingWow;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
+    private static final int NUM_OF_OBJECTS = 3;
+
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
-        Player player1 = new Player("Thrall", 10, 250);
-        Player player2 = new Player("Sylvanas", 12, 450);
+        List<Player> players = new ArrayList<>();
+        List<Quest> quests = new ArrayList<>();
 
-        Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
-        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
-
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
-
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-
-        player1Quest.join();
-        player2Quest.join();
+        for (int i = 0; i < NUM_OF_OBJECTS - 1; i++) {
+            players.add(new Player("Player" + i, i * 10, i * 9 + 1));
+            quests.add(new Quest("Quest" + i, i * 8, i * 12));
+            CompletableFuture<Player> futurePlayerQuest = questSystem.startQuest(players.get(i), quests.get(i));
+            futurePlayerQuest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+            futurePlayerQuest.join();
+        }
     }
 }
