@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class MagicalTournament {
     public static void main(String[] args) {
-        var tournament = new Tournament();
+        Tournament tournament = new Tournament();
 
         var hogwartsTeam = List.of(
                 new Student("Harry", 5, 0),
@@ -17,16 +17,16 @@ public class MagicalTournament {
                 new Student("Fleur", 6, 0),
                 new Student("Gabrielle", 6, 0));
 
-        var hogwarts = new School("Hogwarts", hogwartsTeam);
-        var beauxBatons = new School("BeauxBatons", beauxBatonsTeam);
+        School hogwarts = new School("Hogwarts", hogwartsTeam);
+        School beauxBatons = new School("BeauxBatons", beauxBatonsTeam);
 
-        var task1 = new Task("Triwizard Tournament", 10, 100);
-        var task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task task1 = new Task("Triwizard Tournament", 10, 100);
+        Task task2 = new Task("Yule Ball Preparations", 5, 50);
 
-        var hogwartsTask = tournament.startTask(hogwarts, task1);
-        var beauxBatonsTask = tournament.startTask(beauxBatons, task2);
+        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
+        CompletableFuture<School> beauxBatonsTask = tournament.startTask(beauxBatons, task2);
 
-        var allTasks = CompletableFuture.allOf(hogwartsTask, beauxBatonsTask);
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxBatonsTask);
         allTasks.thenAccept(aVoid -> {
             var winner = hogwarts.getTotalPoints() > beauxBatons.getTotalPoints() ? hogwarts : beauxBatons;
             log.info("Winner: {}", winner.name());

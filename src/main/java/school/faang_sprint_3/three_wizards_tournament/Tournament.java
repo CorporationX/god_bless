@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class Tournament {
-    ExecutorService threadPool = Executors.newFixedThreadPool(5);
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(5);
 
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
