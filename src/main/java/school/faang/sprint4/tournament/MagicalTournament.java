@@ -18,16 +18,20 @@ public class MagicalTournament {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+        CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
                 .thenRun(() -> {
                     System.out.println(winnerDefine(hogwartsTask.join(), beauxbatonsTask.join()) + " is the winner");
                 });
+
+        System.out.println("Main thread is not blocked while async work!");
 
         try {
             Thread.sleep(15000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("Main thread is finished.");
     }
     public static String winnerDefine(School one, School two) {
         if (one.getTeam().stream().map(Student::getPoints).reduce(Integer::sum).orElse(0)

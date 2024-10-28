@@ -1,6 +1,5 @@
 package school.faang.sprint4.tournament;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Tournament {
@@ -8,7 +7,7 @@ public class Tournament {
         return CompletableFuture.supplyAsync(() -> {
 
             try {
-                Thread.sleep(task.getDifficulty()*1000L);
+                Thread.sleep(task.difficulty()*1000L);
             } catch (InterruptedException e) {
                 System.out.println("Invalid async");;
             }
@@ -16,7 +15,7 @@ public class Tournament {
             School updateSchool = new School(school.getName(),school.getTeam());
             updateSchool.getTeam()
                     .stream()
-                    .peek(student -> student.setPoints(task.getReward()))
+                    .peek(student -> student.setPoints(task.reward()))
                     .toList();
             return updateSchool;
         });
