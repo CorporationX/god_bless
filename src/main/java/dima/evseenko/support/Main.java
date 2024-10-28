@@ -1,6 +1,8 @@
 package dima.evseenko.support;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,11 +23,12 @@ public class Main {
     }
 
     private static List<Donation> getDonations() {
-        return List.of(
-                new Donation(1, 100),
-                new Donation(2, 50),
-                new Donation(3, 30),
-                new Donation(4, 70)
-        );
+        List<Donation> donations = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            donations.add(new Donation(i, i * 50));
+        }
+
+        return donations;
     }
 }
