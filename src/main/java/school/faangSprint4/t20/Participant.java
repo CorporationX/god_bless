@@ -1,13 +1,11 @@
 package school.faangSprint4.t20;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Participant implements Runnable {
     private final String name;
     private final Conference conference;
-
-    public Participant(String name, Conference conference) {
-        this.name = name;
-        this.conference = conference;
-    }
 
     public void joinConference() {
         try {
