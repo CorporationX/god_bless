@@ -1,5 +1,6 @@
 package dima.evseenko.comment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,13 +32,12 @@ public class Main {
     }
 
     private static List<Comment> getComments() {
-        return List.of(
-                new Comment(1, "Dima", "Text1..."),
-                new Comment(2, "Vasya", "Text2..."),
-                new Comment(3, "Petya", "Text3..."),
-                new Comment(4, "Kolya", "Text4..."),
-                new Comment(5, "Sasha", "Text5..."),
-                new Comment(6, "Masha", "Text6...")
-        );
+        List<Comment> comments = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            comments.add(new Comment(i, "Author " + i, "Text " + i));
+        }
+
+        return comments;
     }
 }
