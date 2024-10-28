@@ -17,10 +17,12 @@ public class Main {
     }
 
     private static List<Order> getOrders() {
-        return List.of(
-                new Order(1, Status.NEW),
-                new Order(2, Status.NEW),
-                new Order(3, Status.NEW)
-        );
+        List<Order> orders = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            orders.add(new Order(i, Status.NEW));
+        }
+
+        return orders;
     }
 }
