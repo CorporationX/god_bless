@@ -1,17 +1,26 @@
 package blockingspotify;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(player::play);
-        Thread pauseThread = new Thread(player::pause);
-        Thread skipThread = new Thread(player::skip);
-        Thread previousThread = new Thread(player::previous);
+        List<Thread> musicThreads = new ArrayList<>();
+        musicThreads.addAll(getListOfThreads(player::play, 2));
+        musicThreads.addAll(getListOfThreads(player::pause, 3));
+        musicThreads.addAll(getListOfThreads(player::skip, 1));
+        musicThreads.addAll(getListOfThreads(player::previous, 4));
 
-        playThread.start();
-        pauseThread.start();
-        skipThread.start();
-        previousThread.start();
+        musicThreads.forEach(Thread::start);
+    }
+
+    public static List<Thread> getListOfThreads(Runnable task, int threadCount) {
+        List<Thread> musicThreads = new ArrayList<>();
+        for (int i = 0; i < threadCount; i++) {
+            musicThreads.add(new Thread(task));
+        }
+        return musicThreads;
     }
 }
