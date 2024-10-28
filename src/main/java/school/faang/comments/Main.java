@@ -49,7 +49,7 @@ public class Main {
         postService.deleteComment(1, "author1");
         System.out.println("Show comments for post id 1 after deleted comment:" + postService.readComments(1));
         postService.deletePost(1);
-        System.out.println("Show comments for post id 1: " + postService.readComments(1));
+        System.out.println("After delete post with id 1: " + postService.readComments(1));
         postService.addComment(999, new Comment("test", "test1", LocalDate.now()));
     }
 }

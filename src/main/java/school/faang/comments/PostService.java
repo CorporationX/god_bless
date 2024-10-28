@@ -34,7 +34,10 @@ public class PostService {
     }
 
     public Post readPost(int idPost) {
-        return posts.get(idPost);
+        if (posts.containsKey(idPost)) {
+            return posts.get(idPost);
+        }
+        return null;
     }
 
     public List<Comment> readComments(int idPost) {
