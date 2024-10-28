@@ -23,5 +23,6 @@ public class Main {
         CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
         log.info("Bob followers count = {}", account1.getFollowers());
         log.info("Carl followers count = {}", account2.getFollowers());
+        subscriptionSystem.shutdown();
     }
 }
