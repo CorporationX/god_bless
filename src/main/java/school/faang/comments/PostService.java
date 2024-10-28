@@ -20,24 +20,36 @@ public class PostService {
     public void addComment(int postId, Comment comment) {
         lock.lock();
         try {
-            posts.get(postId).getComments().add(comment);
+            if (posts.containsKey(postId)) {
+                posts.get(postId).getComments().add(comment);
+            } else {
+                System.out.printf("Not found post with id %s \n", postId);
+            }
         } finally {
             lock.unlock();
         }
     }
 
     public void showPost(int postId) {
-        System.out.println(posts.get(postId));
+        if (posts.containsKey(postId)) {
+            System.out.println(posts.get(postId));
+        } else {
+            System.out.printf("Not found post with id %s \n", postId);
+        }
     }
 
     public void showCommentsByPost(int postId) {
-        System.out.println(posts.get(postId).getComments());
+        if (posts.containsKey(postId)) {
+            System.out.println(posts.get(postId).getComments());
+        } else {
+            System.out.printf("Not found post with id %s \n", postId);
+        }
     }
 
     public Optional<Post> removePost(int postId, int authorId) {
         lock.lock();
         try {
-            if (authorId == posts.get(postId).getAuthorId()) {
+            if (posts.containsKey(postId) && authorId == posts.get(postId).getAuthorId()) {
                 return Optional.of(posts.remove(postId));
             } else {
                 return Optional.empty();
@@ -50,10 +62,12 @@ public class PostService {
     public Optional<Comment> removeCommentByAuthorId(int postId, int authorId, String commentText) {
         lock.lock();
         try {
-            for (Comment comment : posts.get(postId).getComments()) {
-                if (comment.getAuthor().getId() == authorId && comment.getText().equals(commentText)) {
-                    posts.get(postId).getComments().remove(comment);
-                    return Optional.of(comment);
+            if (posts.containsKey(postId)) {
+                for (Comment comment : posts.get(postId).getComments()) {
+                    if (comment.getAuthor().getId() == authorId && comment.getText().equals(commentText)) {
+                        posts.get(postId).getComments().remove(comment);
+                        return Optional.of(comment);
+                    }
                 }
             }
 
