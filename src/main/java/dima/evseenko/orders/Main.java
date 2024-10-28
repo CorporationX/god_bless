@@ -1,0 +1,28 @@
+package dima.evseenko.orders;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        OrderProcessor processor = new OrderProcessor();
+
+        List<Order> orders = new ArrayList<>(getOrders());
+
+        processor.processAllOrders(orders);
+
+        System.out.println(orders);
+        Thread.sleep(5000);
+        System.out.println(orders);
+    }
+
+    private static List<Order> getOrders() {
+        List<Order> orders = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            orders.add(new Order(i, Status.NEW));
+        }
+
+        return orders;
+    }
+}
