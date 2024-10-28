@@ -23,7 +23,11 @@ public class PostService {
     public void addComment(int postId, Comment comment) {
         lock.lock();
         try {
-            posts.put(postId, posts.get(postId).updateComment(comment));
+            if (posts.containsKey(postId)) {
+                posts.put(postId, posts.get(postId).updateComment(comment));
+            } else {
+                System.out.println("Post with Id " + postId + " was not found");
+            }
         } finally {
             lock.unlock();
         }
