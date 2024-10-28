@@ -12,12 +12,15 @@ public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     private void processOrder(Order order) {
+        order.setStatus(OrderStatus.PENDING);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("Something went wrong", e);
+            order.setStatus(OrderStatus.FAILED);
+            return;
         }
-        order.setStatus("Done");
+        order.setStatus(OrderStatus.DONE);
         totalProcessedOrders.getAndIncrement();
         log.info("Order processed: {}", order.getId());
     }
