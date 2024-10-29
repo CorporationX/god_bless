@@ -1,26 +1,47 @@
 package wow;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
+    private static final int COUNT_OF_PLAYERS_AND_QUESTS = 5;
+    private static final int DEFAULT_LEVEL = 10;
+    private static final int DEFAULT_EXPERIENCE = 25;
+    private static final int DEFAULT_DIFFICULTY = 5;
+    private static final int DEFAULT_REWARD = 30;
+
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
-        Player player1 = new Player("Thrall", 10, 250);
-        Player player2 = new Player("Sylvanas", 12, 450);
+        List<Player> players = getPlayers(COUNT_OF_PLAYERS_AND_QUESTS);
+        List<Quest> quests = getQuests(COUNT_OF_PLAYERS_AND_QUESTS);
 
-        Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
-        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+        List<CompletableFuture<Player>> playersAndQuests = new ArrayList<>();
+        for (int i = 0; i < COUNT_OF_PLAYERS_AND_QUESTS; i++) {
+            playersAndQuests.add(questSystem.startQuest(players.get(i), quests.get(i)));
+        }
 
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+        playersAndQuests.stream()
+                .peek(completableFuture -> completableFuture.thenAccept(player -> System.out.printf(
+                        "%s закончил квест, общее кол-во опыта: %d. \n",
+                        player.getName(), player.getExperience())))
+                .forEach(CompletableFuture::join);
+    }
 
-        player1Quest.thenAccept(player -> System.out.printf("%s закончил квест, общее кол-во опыта: %d. \n",
-                player.getName(), player.getExperience()));
-        player2Quest.thenAccept(player -> System.out.printf("%s закончил квест, общее кол-во опыта: %d. \n",
-                player.getName(), player.getExperience()));
+    public static List<Player> getPlayers(int count) {
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            players.add(new Player(String.format("player %d", i), DEFAULT_LEVEL, DEFAULT_EXPERIENCE));
+        }
+        return players;
+    }
 
-        player1Quest.join();
-        player2Quest.join();
+    public static List<Quest> getQuests(int count) {
+        List<Quest> quests = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            quests.add(new Quest(String.format("quest %d", i), DEFAULT_DIFFICULTY, DEFAULT_REWARD));
+        }
+        return quests;
     }
 }
