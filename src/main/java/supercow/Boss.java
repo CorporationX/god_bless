@@ -2,32 +2,30 @@ package supercow;
 
 import lombok.Data;
 
+import java.util.concurrent.Semaphore;
+
 @Data
 public class Boss {
     private int maxPlayers;
-    private int currentPlayers;
+    private Semaphore semaphore;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
-        this.currentPlayers = 0;
+        this.semaphore = new Semaphore(maxPlayers);
     }
 
-    public synchronized void joinBattle(Player player) {
-        if (currentPlayers >= maxPlayers) {
-            System.out.println(player.getName() + " ожидает свободного слота для сражения с боссом.");
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new IllegalArgumentException("Что-то пошло не так при вызове метода wait().");
-            }
+    public void joinBattle(Player player) {
+        try {
+            System.out.printf("%s ожидает свободного слота для сражения с боссом.\n", player.getName());
+            semaphore.acquire();
+            System.out.printf("%s присоединился к сражению с боссом.\n", player.getName());
+        } catch (InterruptedException e) {
+            throw new IllegalArgumentException("Ошибка при вызове метода acquire().");
         }
-        currentPlayers++;
-        System.out.println(player.getName() + " присоединился к сражению с боссом.");
     }
 
-    public synchronized void leaveBattle(Player player) {
-        currentPlayers--;
-        System.out.println(player.getName() + " завершает сражение с боссом.");
-        notify();
+    public void leaveBattle(Player player) {
+        System.out.printf("%s завершает сражение с боссом.\n", player.getName());
+        semaphore.release();
     }
 }

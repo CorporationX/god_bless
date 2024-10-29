@@ -1,18 +1,23 @@
 package supercow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Boss boss = new Boss(2);
-        Player player1 = new Player("player1");
-        Player player2 = new Player("player2");
-        Player player3 = new Player("player3");
+        List<Player> players = getPlayers(5);
 
-        Thread firstPlayerThread = new Thread(() -> player1.startBattle(boss));
-        Thread secondPlayerThread = new Thread(() -> player2.startBattle(boss));
-        Thread thirdPlayerThread = new Thread(() -> player3.startBattle(boss));
+        players.stream()
+                .map(player -> new Thread(() -> player.startBattle(boss)))
+                .forEach(Thread::start);
+    }
 
-        firstPlayerThread.start();
-        secondPlayerThread.start();
-        thirdPlayerThread.start();
+    public static List<Player> getPlayers(int count) {
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            players.add(new Player(String.format("player %d", i)));
+        }
+        return players;
     }
 }
