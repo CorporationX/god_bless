@@ -7,9 +7,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MasterCardService {
+    private static final int PROCESSING_TIME_MS = 10_000;
+
     public int collectPayment() {
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(PROCESSING_TIME_MS);
             return 10_000;
         } catch (InterruptedException e) {
             throw new IllegalArgumentException("Ошибка при вызове метода sleep().");
@@ -18,7 +20,7 @@ public class MasterCardService {
 
     public int sendAnalytics() {
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(PROCESSING_TIME_MS);
             return 1_000;
         } catch (InterruptedException e) {
             throw new IllegalArgumentException("Ошибка при вызове метода sleep().");
