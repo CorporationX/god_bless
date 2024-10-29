@@ -14,6 +14,7 @@ public class OrderProcessor {
             try {
                 Thread.sleep(ORDER_PROCESSING_TIME_MS);
             } catch (InterruptedException e) {
+                order.setStatus(OrderStatus.CANCELED);
                 throw new IllegalArgumentException("Ошибка при вызове метода sleep().");
             }
             order.setStatus(OrderStatus.PROCESSED);
