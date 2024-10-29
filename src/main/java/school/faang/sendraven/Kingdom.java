@@ -16,7 +16,7 @@ public class Kingdom {
         if (isMessageDelivered) {
             return "Message from the " + name + " to the " + receiver.getName() + " has been sent.";
         } else {
-            throw new RuntimeException();
+            return "The raven did not reach the " + receiver.getName();
         }
     }
 }

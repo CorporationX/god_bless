@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class MessagingSystem {
     private static final int NUM_THREADS = 5;
     private static final int RAVEN_FLIGHT_TIME = 1000;
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
+    private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
     public void sendRaven(Kingdom sender, Kingdom receiver) {
         CompletableFuture<String> sendingMessage = CompletableFuture.supplyAsync(() -> {
@@ -20,19 +20,18 @@ public class MessagingSystem {
                         log.error("Caught exception: {}", e);
                     }
                     return sender.sendMessage(receiver);
-                }, EXECUTOR)
+                }, executor)
                 .handle((result, ex) -> {
                     if (ex != null) {
-                        return "The raven did not reach the " + receiver.getName();
-                    } else {
-                        return result;
+                        log.error("Caught exception: {}", ex);
                     }
+                    return result;
                 });
         String result = sendingMessage.join();
         log.info(result);
     }
 
     public void shutdown() {
-        EXECUTOR.shutdown();
+        executor.shutdown();
     }
 }
