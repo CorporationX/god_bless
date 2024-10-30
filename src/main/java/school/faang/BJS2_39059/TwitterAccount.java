@@ -12,6 +12,5 @@ public class TwitterAccount {
     public TwitterAccount(String username) {
         this.username = username;
         this.followers = new AtomicInteger(0);
-        //this.followers = 0;
     }
 }
