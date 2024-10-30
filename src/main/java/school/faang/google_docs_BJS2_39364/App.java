@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+    private static final int SECTIONS_COUNT = 5;
+
     public static void main(String[] args) {
         CollaborativeDocument collaborativeDoc = new CollaborativeDocument();
+        List<DocumentSection> sections = new ArrayList<>();
 
-        List<DocumentSection> sections = new ArrayList<>(List.of(
-                new DocumentSection("section-001", collaborativeDoc),
-                new DocumentSection("section-002", collaborativeDoc),
-                new DocumentSection("section-003", collaborativeDoc),
-                new DocumentSection("section-004", collaborativeDoc)));
-
-        collaborativeDoc.addData("section-001",
-                "Introduction: This section provides an overview of the document's purpose and structure.");
-        collaborativeDoc.addData("section-002",
-                "Getting Started: Instructions on how to set up the necessary environment and initial configurations.");
-        collaborativeDoc.addData("section-003",
-                "Features: Detailed explanation of each feature, with examples and use cases.");
-        collaborativeDoc.addData("section-004",
-                "Troubleshooting: Common issues and solutions, including FAQs and contact information.");
+        for (int i = 0; i < SECTIONS_COUNT; i++) {
+            String title = "Section " + i;
+            collaborativeDoc.addData(title, "Text " + i);
+            sections.add(new DocumentSection(title, collaborativeDoc));
+        }
 
         ArrayList<Thread> threads = new ArrayList<>();
         sections.forEach(documentSection ->
