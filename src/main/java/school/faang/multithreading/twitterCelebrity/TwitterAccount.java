@@ -11,4 +11,7 @@ public class TwitterAccount {
     public String username;
     public int followers;
 
+    public void incrementFollowersBy(int num) {
+        followers += num;
+    }
 }

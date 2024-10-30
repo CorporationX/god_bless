@@ -5,13 +5,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TwitterSubscriptionSystem {
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     private synchronized void addFollower(TwitterAccount account) {
-        account.setFollowers(account.getFollowers() + 1);
+        account.incrementFollowersBy(1);
     }
 
     public void followAccount(TwitterAccount account) {
-        ExecutorService executor = Executors.newCachedThreadPool();
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> addFollower(account), executor);
         future.join();
         executor.shutdown();
