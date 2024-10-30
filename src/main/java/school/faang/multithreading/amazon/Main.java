@@ -7,12 +7,12 @@ public class Main {
         OrderProcessor processor = new OrderProcessor();
 
         List<Order> orders = List.of(
-                new Order(1, "Новый"),
-                new Order(2, "Новый"),
-                new Order(3, "Новый"),
-                new Order(4, "Новый"),
-                new Order(5, "Новый"),
-                new Order(6, "Новый")
+                new Order(1, OrderStatus.NEW),
+                new Order(2, OrderStatus.NEW),
+                new Order(3, OrderStatus.NEW),
+                new Order(4, OrderStatus.NEW),
+                new Order(5, OrderStatus.NEW),
+                new Order(6, OrderStatus.NEW)
         );
 
         processor.processAllOrders(orders);

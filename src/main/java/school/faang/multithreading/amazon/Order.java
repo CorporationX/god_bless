@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Order {
     private int id;
-    private String status;
+    private OrderStatus status;
 }

@@ -14,7 +14,7 @@ public class OrderProcessor {
             try {
                 System.out.println("Заказ: " + order.getId() + " принят в обработку");
                 Thread.sleep(3000);
-                order.setStatus("Обработано");
+                order.setStatus(OrderStatus.COMPLETED);
                 totalProcessedOrders.incrementAndGet();
                 System.out.println("Заказ: " + order.getId() + " обработан");
             } catch (InterruptedException e) {
