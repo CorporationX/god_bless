@@ -13,13 +13,5 @@ public class Main {
         }
 
         subscriber.getTotalSubscribers(account);
-
-        System.out.println("Main thread is not blocked");
-
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            System.out.println("Went wrong");
-        }
     }
 }
