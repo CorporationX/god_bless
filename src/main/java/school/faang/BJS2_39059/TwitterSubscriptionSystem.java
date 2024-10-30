@@ -7,8 +7,8 @@ public class TwitterSubscriptionSystem {
     public TwitterSubscriptionSystem() {
     }
 
-    public synchronized void addFollower(TwitterAccount account) {
-            account.getFollowers().incrementAndGet();
+    public void addFollower(TwitterAccount account) {
+        account.getFollowers().incrementAndGet();
     }
 
     public void followAccount(TwitterAccount account) {

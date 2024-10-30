@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final int THREAD_NUMBER = 5;
-    private static int followersNumber = 200;
+    private static int followersNumber = 10200;
 
     public static void main(String[] args) {
         TwitterAccount account = new TwitterAccount("Mr.Beast");
