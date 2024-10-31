@@ -8,25 +8,30 @@ import java.util.concurrent.Future;
 
 public class MasterCardService {
 
+    public static final int COLLECT_PAYMENT_TIME_MILLIS = 10_000;
+    public static final int SEND_ANALYTICS_MILLIS = 1_000;
+    public static final int DEFAULT_PAYMENT = 10_000;
+    public static final int DEFAULT_ANALYTICS = 1_000;
+
     ExecutorService executor = Executors.newFixedThreadPool(2);
 
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(COLLECT_PAYMENT_TIME_MILLIS);
+            return DEFAULT_PAYMENT;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException("Thread was interrupted while collect payment");
         }
     }
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SEND_ANALYTICS_MILLIS);
+            return DEFAULT_ANALYTICS;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException("Thread was interrupted while send analytics");
         }
     }
 
@@ -41,7 +46,7 @@ public class MasterCardService {
             System.out.println(collectPaymentFuture.get());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Thread was interrupted or exception occurred during collect payment");
         }
     }
 }
