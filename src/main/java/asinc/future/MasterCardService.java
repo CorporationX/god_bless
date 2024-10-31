@@ -16,8 +16,8 @@ public class MasterCardService {
             Thread.sleep(PAYMENT_TIME);
             return 10000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Платеж был прерван", e);
         }
     }
 
@@ -26,8 +26,8 @@ public class MasterCardService {
             Thread.sleep(ANALYTICS_TIME);
             return 1000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Отправка аналитики была прервана", e);
         }
     }
 
@@ -45,12 +45,12 @@ public class MasterCardService {
             Integer resultPayment = payments.get();
             System.out.println("Платеж выполнен: " + resultPayment);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
+            Thread.currentThread().interrupt();
             System.err.println("Поток был прерван: " + e.getMessage());
         } catch (ExecutionException e) {
             System.err.println("Ошибка при выполнении платежа: " + e.getCause());
         } finally {
-            executorService.shutdown(); // Завершаем работу пула потоков
+            executorService.shutdown();
         }
     }
 }
