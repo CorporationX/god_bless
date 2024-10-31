@@ -32,7 +32,7 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         Future<Integer> payments = executorService.submit(this::collectPayment);
         CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(this::sendAnalytics);
         try {
