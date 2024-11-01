@@ -13,18 +13,15 @@ public class Main {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<CompletableFuture<Integer>> completableFutures = new ArrayList<>();
-        CompletableFuture[] array = new CompletableFuture[N_S];
 
         for (int i = 0; i < N_S; i++) {
-            CompletableFuture<Integer> newItem = new Tournament()
-                    .startTask(getNewSchool(), getNewTask())
-                    .thenApply(School::getTotalPoints);
-
-            completableFutures.add(newItem);
-            array[i] = newItem;
+            completableFutures.add(new Tournament()
+                                        .startTask(getNewSchool(), getNewTask())
+                                        .thenApply(School::getTotalPoints)
+            );
         }
 
-        CompletableFuture.allOf(array).get();
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).get();
 
         System.out.printf("\nMax score : %d",
                 completableFutures.stream()
