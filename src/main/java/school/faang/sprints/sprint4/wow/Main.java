@@ -1,43 +1,80 @@
 package school.faang.sprints.sprint4.wow;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
-
         QuestSystem questSystem = new QuestSystem(executorService);
 
-        // Создание игроков
-        Player player1 = new Player("Thrall", 10, 250);
-        Player player2 = new Player("Sylvanas", 12, 450);
+        int n = 100;
+        List<Player> players = generatePlayers(n);
+        List<Quest> quests = generateQuests(n);
 
-        // Создание заданий
-        Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
-        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+        Map<Player, Quest> questsForPlayers = randomizeQuestsForPlayers(players, quests);
 
-        // Запуск заданий
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
-
-        // Обработка результатов заданий
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        List<CompletableFuture<Void>> startedQuests = questsForPlayers.entrySet()
+                .stream()
+                .map((entry) -> questSystem.startQuest(entry.getKey(), entry.getValue())
+                        .thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."))
+                )
+                .toList();
 
         try {
-            CompletableFuture.allOf(player1Quest, player2Quest).get();
+            CompletableFuture.allOf(startedQuests.toArray(new CompletableFuture[0])).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException("Quest was interrupted");
+            throw new QuestCompleteException("Quest was interrupted");
         } catch (ExecutionException e) {
             e.printStackTrace();
-            throw new RuntimeException("ExecutionException while trying to complete quest");
+            throw new QuestCompleteException("ExecutionException while trying to complete quest");
         } finally {
             executorService.shutdown();
+        }
+    }
+
+    private static List<Player> generatePlayers(int n) {
+        AtomicInteger i = new AtomicInteger();
+        Random random = new Random();
+
+        return Stream.generate(() -> new Player("player_" + i.getAndIncrement(), random.nextInt(100), random.nextInt(1000)))
+                .limit(n)
+                .toList();
+    }
+
+    private static List<Quest> generateQuests(int n) {
+        AtomicInteger i = new AtomicInteger();
+        Random random = new Random();
+
+        return Stream.generate(() -> new Quest("quest_" + i.getAndIncrement(), random.nextInt(51), random.nextInt(1000)))
+                .limit(n)
+                .toList();
+    }
+
+    private static Map<Player, Quest> randomizeQuestsForPlayers(List<Player> players, List<Quest> quests) {
+        Map<Player, Quest> result = new HashMap<>();
+        Random random = new Random();
+        for (Player player : players) {
+            Quest quest = quests.get(random.nextInt(quests.size()));
+            result.put(player, quest);
+        }
+        return result;
+    }
+
+    static class QuestCompleteException extends RuntimeException {
+
+        public QuestCompleteException(String message) {
+            super(message);
         }
     }
 }
