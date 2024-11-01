@@ -15,7 +15,8 @@ public class Kingdom {
 
     public String sendMessage(Kingdom receiver) throws Exception {
         if (Math.random() < 0.3) {
-            throw new Exception("Raven was unable to deliver a message from " + name + " to " + receiver.getName());
+            throw new RavenDeliveryException("Raven was unable to deliver a message from "
+                    + name + " to " + receiver.getName());
         }
         return "Send letter from " + name + " to " + receiver.getName();
     }
