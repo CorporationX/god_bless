@@ -13,7 +13,7 @@ public class TwitterSubscriptionSystem {
     private synchronized static void addFollower(@NonNull TwitterAccount account) {
         try {
             Thread.sleep(2_000);
-            account.addFollower();
+            account.getFollowers().incrementAndGet();
             System.out.println(Thread.currentThread().getName() + " add follower");
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
@@ -31,7 +31,7 @@ public class TwitterSubscriptionSystem {
                 completableFutures.toArray(new CompletableFuture[0]));
 
         allFutures.thenRun(() -> {
-            System.out.println(String.format("Followers of %s = %d", account.getUsername(), account.getFollowers()));
+            System.out.println(String.format("Followers of %s = %d", account.getUsername(), account.getFollowers().get()));
         }).join();
         executor.shutdown();
     }

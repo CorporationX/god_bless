@@ -4,7 +4,7 @@ import static school.faang.Sprints.Multithreading_Async.twitter_celebrity.Twitte
 
 public class Main {
     public static void main(String[] args) {
-        TwitterAccount twitterAccount = new TwitterAccount("Smurno", 0);
+        TwitterAccount twitterAccount = new TwitterAccount("Smurno");
         followAccount(twitterAccount);
     }
 
