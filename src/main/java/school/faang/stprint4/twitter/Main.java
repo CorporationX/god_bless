@@ -13,5 +13,14 @@ public class Main {
         }
 
         subscriber.getTotalSubscribers(account);
+
+        System.out.println("Main thread in not blocked and continue...");
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            System.out.println("Interruption");;
+        }
+        System.out.println("Main thread is finished what ever work imitated by sleep");
     }
 }
