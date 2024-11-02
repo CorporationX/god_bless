@@ -1,6 +1,7 @@
 package school.faang.task4207;
 
 import java.util.concurrent.*;
+import java.util.Random;
 
 class Conference {
     private final int requiredParticipants;
