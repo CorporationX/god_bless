@@ -165,25 +165,25 @@ public class Main {
     public static void main(String[] args) {
         PostService postService = new PostService();
 
-        // Симуляция добавления постов и комментариев разными пользователями
+        Post[] posts = {
+                new Post(1, "Заголовок поста 1", "Содержание поста 1", "Автор 1")
+        };
+
+        Comment[] comments = {
+                new Comment("Отличный пост!", "Пользователь 1"),
+                new Comment("Спасибо за информацию!", "Пользователь 2")
+        };
+
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        executor.submit(() -> {
-            Post post = new Post(1, "Заголовок поста 1", "Содержание поста 1", "Автор 1");
-            postService.addPost(post);
-        });
+        for (Post post : posts) {
+            executor.submit(() -> postService.addPost(post));
+        }
 
-        executor.submit(() -> {
-            Comment comment = new Comment("Отличный пост!", "Пользователь 1");
-            postService.addComment(1, comment);
-        });
+        for (Comment comment : comments) {
+            executor.submit(() -> postService.addComment(1, comment));
+        }
 
-        executor.submit(() -> {
-            Comment comment = new Comment("Спасибо за информацию!", "Пользователь 2");
-            postService.addComment(1, comment);
-        });
-
-        // Симуляция добавления пожертвований
         Organization organization = new Organization();
 
         IntStream.range(0, 10).forEach(i -> {
@@ -200,14 +200,12 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Вывод всех постов и комментариев
         postService.getPosts().forEach(post -> {
             System.out.println("Пост: " + post.getTitle() + " от " + post.getAuthor());
             post.getComments().forEach(comment ->
                     System.out.println("  Комментарий: " + comment.getText() + " от " + comment.getAuthor()));
         });
 
-        // Вывод итогового баланса организации
         System.out.println("Итоговый баланс организации: " + organization.getBalance());
     }
 }
