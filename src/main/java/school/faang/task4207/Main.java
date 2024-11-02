@@ -1,29 +1,27 @@
 package school.faang.task4207;
 
 import java.util.concurrent.*;
-import java.util.Random;
 
 class Conference {
     private final int requiredParticipants;
-    private final CountDownLatch latch;
+    private final CyclicBarrier barrier;
 
     public Conference(int requiredParticipants) {
         this.requiredParticipants = requiredParticipants;
-        this.latch = new CountDownLatch(requiredParticipants);
+        this.barrier = new CyclicBarrier(requiredParticipants, this::startStreaming);
     }
 
     public void participantJoined() {
-        latch.countDown();
-        System.out.println("Участник присоединился. Осталось ждать: " + latch.getCount() + " участников.");
+        try {
+            System.out.println("Участник присоединился. Осталось ждать: " + (barrier.getNumberWaiting() + 1) + " участников.");
+            barrier.await();
+        } catch (InterruptedException | BrokenBarrierException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public void startStreaming() {
-        try {
-            latch.await();
-            System.out.println("Все участники присоединились. Начинается трансляция!");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        System.out.println("Все участники присоединились. Начинается трансляция!");
     }
 }
 
@@ -57,8 +55,6 @@ public class Main {
         }
 
         executor.shutdown();
-        new Thread(conference::startStreaming).start();
-
         try {
             executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
