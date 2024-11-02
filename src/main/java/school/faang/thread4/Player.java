@@ -10,31 +10,35 @@ public class Player {
     private final Lock lock = new ReentrantLock();
     private String isPlaying;
 
-    public void play() {
+    public String play() {
         synchronized (lock) {
             isPlaying = "Music is playing";
             System.out.println(isPlaying);
+            return isPlaying;
         }
     }
 
-    public void pause() {
+    public String pause() {
         synchronized (lock) {
             isPlaying = "Music paused";
             System.out.println(isPlaying);
+            return isPlaying;
         }
     }
 
-    public void skip() {
+    public String skip() {
         synchronized (lock) {
             isPlaying = "Music skipped";
             System.out.println(isPlaying);
+            return isPlaying;
         }
     }
 
-    public void previous() {
+    public String previous() {
         synchronized (lock) {
             isPlaying = "Music turned to previous";
             System.out.println(isPlaying);
+            return isPlaying;
         }
     }
 }
