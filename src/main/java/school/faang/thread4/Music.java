@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Music {
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args)  {
 
         Player spotifyMusic = new Player();
         ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -19,10 +19,21 @@ public class Music {
         actions.add(() -> spotifyMusic.skip());
         actions.add(() -> spotifyMusic.previous());
 
-        List<Future<String>> results = executor.invokeAll(actions);
+        List<Future<String>> results = null;
+        try {
+            results = executor.invokeAll(actions);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         for (Future<String> result : results) {
-            System.out.println("Thread result: " + result.get());
+            try {
+                System.out.println("Thread result: " + result.get());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
         executor.shutdown();
 
