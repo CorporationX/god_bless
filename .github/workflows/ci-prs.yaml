@@ -53,6 +53,20 @@ jobs:
           name: checkstyle_report
           path: build/reports/checkstyle
 
+      - name: Notify User
+        if: always()
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue_number = context.issue.number;
+            const message = "⚠️ **ОШЫБКА**: Ты создал PR в master ветку. PR-ы можно создавать только в СВОЮ ветку вида {имя_пользователя_discord}. Пожалуйста, нажми кнопку Edit вверху и измени ветку, в которую направляешь PR. После этого красная ошибка ниже должна пропасть, но этот комментарий останется - так и должно быть.";
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: message
+            });
 #      - name: Comment on Pull Request if build failed
 #        if: failure()
 #        uses: actions/github-script@v5
