@@ -53,17 +53,17 @@ jobs:
           name: checkstyle_report
           path: build/reports/checkstyle
 
-      - name: Comment on Pull Request if build failed
-        if: failure()
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const issue_number = context.issue.number;
-            const message = "⚠️ **ОШЫБКА**: Сборка завалилась: либо не прошли тесты, либо возникли ошибки в стиле кода. Пожалуйста, проверь логи и внеси соответствующие изменения в ПР. После этого красная ошибка ниже должна пропасть, но этот комментарий останется - так и должно быть.";
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue_number,
-              body: message
-            });
+#      - name: Comment on Pull Request if build failed
+#        if: failure()
+#        uses: actions/github-script@v5
+#        with:
+#          github-token: ${{secrets.GITHUB_TOKEN}}
+#          script: |
+#            const issue_number = context.issue.number;
+#            const message = "⚠️ **ОШЫБКА**: Сборка завалилась: либо не прошли тесты, либо возникли ошибки в стиле кода. Пожалуйста, проверь логи и внеси соответствующие изменения в ПР. После этого красная ошибка ниже должна пропасть, но этот комментарий останется - так и должно быть.";
+#            github.rest.issues.createComment({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              issue_number: issue_number,
+#              body: message
+#            });
