@@ -3,6 +3,7 @@ package ru.kraiush.spring.BJS2_27254.repository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import ru.kraiush.spring.BJS2_27254.domain.model.Phone;
 import ru.kraiush.spring.BJS2_27254.domain.model.Role;
@@ -28,38 +29,56 @@ public class TeamMemberRepositoryTest {
     @Autowired
     private TeamMemberRepository repository;
 
+    @Autowired
+    TestEntityManager em;
+
+    private TeamMember member1;
+    private TeamMember member2;
+    private TeamMember member3;
+    private TeamMember member4;
+
+    @BeforeEach
+    public void setup() {
+        member1 = createTeamMemberOne();
+        member2 = createTeamMemberTwo();
+        member3 = createTeamMemberThree();
+        member4 = createTeamMemberFourth();
+    }
+
+    @Test
+    public void contextLoads() {
+        Assertions.assertNotNull(em);
+    }
+
     @Test
     @DisplayName("JUnit test for save member operation")
     @Order(1)
     void givenNewMember_whenSave_thenSuccess() {
-        var member = createTeamMemberFourth();
         List<Phone> listPhones = new ArrayList<>();
         listPhones.add(new Phone(new Random().nextLong(1, 100), new Random().nextInt(11)));
         listPhones.add(new Phone(new Random().nextLong(101, 200), new Random().nextInt(11)));
-        member.setPhones(listPhones);
-        var savedMember = repository.save(member);
+        member4.setPhones(listPhones);
+        var savedMember = repository.save(member4);
 
         assertThat(savedMember).isNotNull();
         assertThat(savedMember.getId()).isGreaterThan(0);
         Optional<TeamMember> optionalMember = repository.findById(savedMember.getId());
         assertThat(optionalMember.get()).isNotNull();
-        assertThat(optionalMember.get().getName().equals("Athena"));
-        assertThat(member).hasFieldOrPropertyWithValue("gender", false);
-        assertThat(member).hasFieldOrPropertyWithValue("email", "athena@greece.com");
-        assertThat(member).hasFieldOrPropertyWithValue("location", "Athens");
-        assertThat(member).hasFieldOrPropertyWithValue("role", Role.ROLE_FAKE);
+        assertEquals(optionalMember.get().getName(), "Athena");
+        assertThat(member4).hasFieldOrPropertyWithValue("gender", false);
+        assertThat(member4).hasFieldOrPropertyWithValue("email", "athena@greece.com");
+        assertThat(member4).hasFieldOrPropertyWithValue("location", "Athens");
+        assertThat(member4).hasFieldOrPropertyWithValue("role", Role.ROLE_FAKE);
     }
 
     @Test
     @DisplayName("JUnit test for get all members operation")
     @Order(2)
     public void givenTeamMembersList_whenFindAll_thenTeamMembersList() {
-        var member1 = createTeamMemberOne();
         List<Phone> listPhones = new ArrayList<>();
         listPhones.add(new Phone(new Random().nextLong(1, 100), new Random().nextInt(11)));
         listPhones.add(new Phone(new Random().nextLong(100, 200), new Random().nextInt(11)));
         member1.setPhones(listPhones);
-        var member2 = createTeamMemberTwo();
         repository.save(member1);
         repository.save(member2);
 
@@ -74,8 +93,7 @@ public class TeamMemberRepositoryTest {
     @DisplayName("JUnit test for get member by id operation")
     @Order(3)
     public void givenTeamMemberObject_whenFindById_thenReturnTeamMemberObject() {
-        var member = createTeamMemberOne();
-        repository.save(member);
+        repository.save(member1);
         var memberOptional = repository.findById(987777l);
         assertThat(memberOptional.isPresent());
     }
@@ -84,18 +102,16 @@ public class TeamMemberRepositoryTest {
     @DisplayName("JUnit test for get member by name operation")
     @Order(4)
     public void givenTeamMemberObject_whenFindByName_thenReturnTeamMemberObject() {
-        var member = createTeamMemberTwo();
-        repository.save(member);
+        repository.save(member2);
         var memberOptional = repository.findByName("Dayana");
-        assertThat(memberOptional.get().getName().equals("Dayana"));
+        assertEquals(memberOptional.get().getName(), "Dayana");
     }
 
     @Test
     @DisplayName("JUnit test for get role by id operation")
-    @Order(6)
+    @Order(5)
     public void givenTeamMemberRole_whenFindById_thenReturnTeamMemberRole() {
-        var member = createTeamMemberThree();
-        var savedMember = repository.save(member);
+        var savedMember = repository.save(member3);
         String role = repository.findRoleById(savedMember.getId());
         assertThat(role.equals("ROLE_OWNER"));
         assertThat(savedMember).hasFieldOrPropertyWithValue("role", Role.ROLE_OWNER);
@@ -103,31 +119,28 @@ public class TeamMemberRepositoryTest {
 
     @Test
     @DisplayName("JUnit test should increment the size of list after save")
-    @Order(7)
+    @Order(6)
     void shouldIncrementSizeList_afterSaveNewTeamMember() {
         var initialSize = repository.findAll().size();
-        var member = createTeamMemberFourth();
-        repository.save(member);
+        repository.save(member4);
         assertEquals(initialSize + 1, repository.findAll().size());
         assertNotEquals(repository.findAll().size(), 0);
     }
 
     @Test
     @DisplayName("JUnit test should delete by id")
-    @Order(8)
+    @Order(7)
     void shouldDeleteTeamMember_ById() {
-        var member = createTeamMemberThree();
-        repository.deleteById(member.getId());
-        Optional<TeamMember> test = repository.findById(member.getId());
+        repository.deleteById(member3.getId());
+        Optional<TeamMember> test = repository.findById(member3.getId());
         assertTrue(test.isEmpty());
     }
 
     @Test
     @DisplayName("JUnit test for update member operation")
-    @Order(9)
+    @Order(8)
     public void givenTeamMemberObject_whenUpdateTeamMember_thenReturnUpdatedTeamMember() {
-        var member = createTeamMemberOne();
-        repository.save(member);
+        repository.save(member1);
         var memberOptional = repository.findById(987777L);
         if (memberOptional.isPresent()) {
             memberOptional.get().setName("Aphrodite");
@@ -136,7 +149,7 @@ public class TeamMemberRepositoryTest {
             repository.save(memberOptional.get());
             assertEquals(memberOptional.get().getName(), "Aphrodite");
             assertEquals(memberOptional.get().getEmail(), "aphrodite@olymp.gc");
-            assertEquals(memberOptional.get().isGender(), false);
+            assertFalse(memberOptional.get().isGender());
         }
     }
 

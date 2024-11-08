@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamMember {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_id_seq")
@@ -43,7 +44,8 @@ public class TeamMember {
     private Role role;
 
     @OneToMany(
-            cascade = CascadeType.MERGE
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     @JoinColumn(name = "member_id")
     private List<Phone> phones;
