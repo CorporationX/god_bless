@@ -1,19 +1,18 @@
 package school.faang.witcher;
-
 public class City {
-    private String name;
-    private Location location;
+    private String cityName;
+    private location loc;
 
-    public City(String name, Location location) {
-        this.name = name;
-        this.location = location;
+    public City(String name, location l) {
+        cityName = name;
+        loc = l;
     }
 
-    public String getName() {
-        return name;
+    public String Name() {
+        return cityName;
     }
 
-    public Location getLocation() {
-        return location;
+    public location getLocation() {
+        return loc;
     }
 }

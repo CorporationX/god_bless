@@ -1,42 +1,54 @@
 package school.faang.witcher;
-
 import java.util.List;
 
 public class CityWorker implements Runnable {
-    private City city;
-    private List<Monster> monsters;
+    private City cityLocation;
+    private List<monster> monsterList;
 
-    public CityWorker(City city, List<Monster> monsters) {
-        this.city = city;
-        this.monsters = monsters;
+    public CityWorker(City city, List<monster> monsters) {
+        cityLocation = city;
+        monsterList = monsters;
     }
 
-    private double calculateDistance(Location loc1, Location loc2) {
-        int deltaX = loc1.getX() - loc2.getX();
-        int deltaY = loc1.getY() - loc2.getY();
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    private double calcDistance(location loc1, location loc2) {
+        int dx = loc1.X() - loc2.Y();
+        int dy = loc1.X() - loc2.Y();
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     @Override
     public void run() {
-        double distanceToCity = calculateDistance(new Location(0, 0), city.getLocation());
+        double distanceToCity = calcDistance(new location(0, 0), cityLocation.getLocation());
+        monster closestMonster = null;
+        double minDist = 0;
 
-        Monster nearestMonster = null;
-        double minDistanceToMonster = Double.MAX_VALUE;
-
-        for (Monster monster : monsters) {
-            double distanceToMonster = calculateDistance(city.getLocation(), monster.getLocation());
-            if (distanceToMonster < minDistanceToMonster) {
-                minDistanceToMonster = distanceToMonster;
-                nearestMonster = monster;
+        for (monster m : monsterList) {
+            double dist = calcDistance(cityLocation.getLocation(), m.getlocation());
+            if (dist < minDist) {
+                minDist = dist;
+                closestMonster = m;
             }
         }
 
-        if (nearestMonster != null) {
-            double totalDistance = distanceToCity + minDistanceToMonster;
-            System.out.println("Город: " + city.getName() + " | Монстр: " + nearestMonster.getName() +
+        if (closestMonster != null) {
+            double totalDistance = distanceToCity + minDist;
+            System.out.println("Город: " + cityLocation.Name() + " | Монстр: " + closestMonster.getname() +
                     " | Общая дистанция: " + totalDistance);
-        }
+        } else {
+            System.out.println("Для города " + cityLocation.Name() + " не найдено монстров поблизости."); }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
