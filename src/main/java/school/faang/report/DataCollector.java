@@ -5,34 +5,29 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class DataCollector implements Runnable {
-    private final String storeId;
-    private final CountDownLatch latch;
-    private final List<SalesData> salesDataList;
+    public String storeID;
+    public CountDownLatch latch;
+    public List<salesdata> salesDataList;
 
-    public DataCollector(String storeId, CountDownLatch latch, List<SalesData> salesDataList) {
-        this.storeId = storeId;
+    public DataCollector(String id, CountDownLatch latch, List<salesdata> list) {
+        this.storeID = id;
         this.latch = latch;
-        this.salesDataList = salesDataList;
+        this.salesDataList = list;
     }
 
-    private List<Sales> fetchSalesFromStore() {
-        List<Sales> salesList = new ArrayList<>();
-        salesList.add(new Sales("ProductA", System.currentTimeMillis(), 10));
-        salesList.add(new Sales("ProductB", System.currentTimeMillis(), 5));
+    public List<sales> fetchSales() {
+        List<sales> salesList = new ArrayList<>();
+        salesList.add(new sales("ProductX", System.currentTimeMillis(), 12));
         return salesList;
     }
 
     @Override
     public void run() {
-        try {
-            List<Sales> sales = fetchSalesFromStore();
-            SalesData salesData = new SalesData(storeId, sales);
-            synchronized (salesDataList) {
-                salesDataList.add(salesData);
-            }
-        } finally {
-            latch.countDown();
+        List<sales> sales = fetchSales();
+        salesdata data = new salesdata(storeID, sales);
+        synchronized (salesDataList) {
+            salesDataList.add(data);
         }
+        latch.countDown();
     }
 }
-

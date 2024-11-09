@@ -8,22 +8,23 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        int numberOfStores = 3;
-        CountDownLatch latch = new CountDownLatch(numberOfStores);
-        List<SalesData> salesDataList = new ArrayList<>();
+        int storeCount = 3;
+        CountDownLatch latch = new CountDownLatch(storeCount);
+        List<salesdata> dataList = new ArrayList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(numberOfStores);
+        ExecutorService executor = Executors.newFixedThreadPool(storeCount);
 
-        for (int i = 1; i <= numberOfStores; i++) {
-            executor.submit(new DataCollector("Store " + i, latch, salesDataList));
+        for (int i = 0; i < storeCount; i++) {
+            executor.submit(new DataCollector("Store " + (i+1), latch, dataList));
         }
+
+        System.out.println("Collecting data...");
 
         latch.await();
 
-        ReportGenerator reportGenerator = new ReportGenerator(salesDataList);
-        reportGenerator.generateReport();
-
-        executor.shutdown();
-    }
+        reportgenerator reportGen = new reportgenerator(dataList);
+        reportGen.GenerateReport();
 }
+}
+
 
