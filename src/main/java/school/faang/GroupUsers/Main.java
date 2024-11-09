@@ -10,7 +10,7 @@ public class Main {
         List<user> users = new ArrayList<>();
         users.add(new user("Alice", 25, "Google", "California"));
         users.add(new user("Bob", 30, "Amazon", "Washington"));
-        users.add(new user("Rob", 25, "Netflix", "California")); // добавлена дважды
+        users.add(new user("Rob", 25, "Netflix", "California"));
         users.add(new user("Charlie", 25, "Facebook", "New York"));
         users.add(new user("Daisy", 35, "Apple", "California"));
 
