@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="loggingDir" value="./logs"/>
+    <property name="loggingFile" value="application.log"/>
+    <property name="defaultPattern" value="%d\{ISO8601\} [%t] [%level] \(%c\) [%C::%M:%L] - %m | mdc: \(%mdc\)%n"/>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${loggingDir}/${loggingFile}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{ISO8601} [%t] [%level] \(%c\) [%C::%M:%L] - %m | mdc: \(%mdc\)%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${loggingDir}/${loggingFile}_%d{yyyy-MM-dd}_%i.zip</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>5</maxHistory>
+            <totalSizeCap>300MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <encoder>
+            <pattern>%d{ISO8601} [%t] [%level] \(%c\) [%C::%M:%L] - %m | mdc: \(%mdc\)%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

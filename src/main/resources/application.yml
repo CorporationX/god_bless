@@ -11,18 +11,17 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-        ddl-auto: create-drop
-#      // update  // create-drop // none
+        ddl-auto: update
     properties:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQLDialect
             format_sql: true
             default_schema: public
-#  profiles:
-#    active: dev
+
+BASE_PACKAGE: ru.kraiush.*
 
 logging:
   level:
     root: ERROR
     org.springframework.web: DEBUG
-    org.hibernate: DEBUG
+    org.hibernate: ERROR
