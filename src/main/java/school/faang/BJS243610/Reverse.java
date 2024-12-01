@@ -1,4 +1,4 @@
-package school.faang.salikhedv.BJS2_43610;
+package school.faang.BJS243610;
 
 public class Reverse {
     public int[] reverse(int[] nums) {
