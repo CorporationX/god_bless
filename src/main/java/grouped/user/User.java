@@ -1,4 +1,4 @@
-package BJS2_43847;
+package grouped.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +24,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workPlace='" + workPlace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", workPlace='" + workPlace + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
