@@ -1,8 +1,6 @@
-package school.faang.artemon.programm;
+package school.faang.BJS2_43850.programm;
 
-
-
-import school.faang.artemon.model.User;
+import school.faang.BJS2_43850.model.User;
 
 import java.util.List;
 
