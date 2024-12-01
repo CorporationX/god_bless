@@ -6,9 +6,11 @@ public class Example {
             return;
         }
 
-        int[] copy = nums.clone();
-        for (int i = 0; i < nums.length; i++) {
-            nums[i] = copy[nums.length - 1 - i];
+        for (int i = 0; i < nums.length / 2; i++) {
+            int tmp = nums[i];
+            int last = nums.length - 1 - i;
+            nums[i] = nums[last];
+            nums[last] = tmp;
         }
     }
 }
