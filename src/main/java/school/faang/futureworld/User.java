@@ -1,27 +1,16 @@
 package school.faang.futureworld;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class User {
+    private static final int ADULT = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
     private String name;
     private int age;
     private String job;
     private String address;
-
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
-    @Override
-    public String toString() {
-        return "User{"
-                + "name='" + name + '\''
-                + ", age=" + age
-                + ", job='" + job + '\''
-                + ", address='" + address + '\''
-                + '}';
-    }
 
     public User(String name, int age, String job, String address) {
         nameNotEmpty(name);
@@ -35,6 +24,16 @@ public class User {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", job='" + job + '\''
+                + ", address='" + address + '\''
+                + '}';
+    }
+
     private void nameNotEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
@@ -42,7 +41,7 @@ public class User {
     }
 
     private void checkAge(int age) {
-        if (age < 18) {
+        if (age < ADULT) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18.");
         }
     }
