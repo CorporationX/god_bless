@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Example {
     public static void main(String[] args) {
 
-        int[] nums = {1, 2, 3, 4, 5};
+        int[] nums = {};
 
         System.out.println("Old nums is: " + Arrays.toString(nums));
         reverse(nums);
@@ -16,12 +16,17 @@ public class Example {
 
 
     public static void reverse(int[] nums) {
+
+        if (nums.length == 0) {
+            System.out.println("Empty array");
+            return;
+        }
+
         int left = 0;
         int right = nums.length - 1;
         int temp;
 
         while (left < right) {
-
             temp = nums[left];
             nums[left] = nums[right];
             nums[right] = temp;
@@ -29,9 +34,7 @@ public class Example {
             left++;
             right--;
         }
-
     }
-
 }
 
 
