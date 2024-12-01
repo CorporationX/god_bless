@@ -1,9 +1,7 @@
 package school.faang.salikhedv.BJS2_43610;
 
 public class Reverse {
-
     public int[] reverse(int[] nums) {
-
         int indexFirst = 0;
         int indexLast = nums.length - 1;
 
@@ -17,5 +15,4 @@ public class Reverse {
 
         return nums;
     }
-
 }
