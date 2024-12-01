@@ -3,7 +3,7 @@ package school.faang;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Example example = new Example();
 
         int[] nums = {1, 2, 3, 4, 5};
