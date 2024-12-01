@@ -8,10 +8,10 @@ public class Main {
 
         int[] nums = {1, 2, 3, 4, 5};
 
-        System.out.println("The array before the coup: " + Arrays.toString(nums));
+        System.out.println("The array before the reverse: " + Arrays.toString(nums));
 
         example.reverse(nums);
 
-        System.out.println("The array after the coup: " + Arrays.toString(nums));
+        System.out.println("The array after the reverse: " + Arrays.toString(nums));
     }
 }
