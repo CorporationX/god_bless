@@ -1,18 +1,6 @@
 package school.faang;
 
-import java.util.Arrays;
-
-
 public class Example {
-    public static void main(String[] args) {
-
-        int[] nums = {};
-
-        System.out.println("Old nums is: " + Arrays.toString(nums));
-        reverse(nums);
-        System.out.println("Reverse nums is: " + Arrays.toString(nums));
-
-    }
 
 
     public static void reverse(int[] nums) {
