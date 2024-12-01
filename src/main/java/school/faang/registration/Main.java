@@ -1,11 +1,11 @@
-package school.faang;
+package school.faang.registration;
 
 public class Main {
     public static void main(String[] args) {
         createUser();
-//        createUserWithWrongAge();
-//        createUserInvalidJob();
-//        createUserInvalidAddress();
+        createUserWithWrongAge();
+        createUserInvalidAddress();
+        createUserInvalidJob();
     }
 
     private static void createUser() {
