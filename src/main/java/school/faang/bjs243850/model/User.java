@@ -1,4 +1,4 @@
-package school.faang.bjs2_43850.model;
+package school.faang.bjs243850.model;
 
 import java.util.List;
 import java.util.Map;

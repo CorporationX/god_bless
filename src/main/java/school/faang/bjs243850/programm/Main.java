@@ -1,6 +1,6 @@
-package school.faang.bjs2_43850.programm;
+package school.faang.bjs243850.programm;
 
-import school.faang.bjs2_43850.model.User;
+import school.faang.bjs243850.model.User;
 
 import java.util.List;
 
