@@ -28,7 +28,7 @@ public class LibrarySystem {
         return location;
     }
 
-    public void printAllBooks(){
+    public void printAllBooks() {
         System.out.println(this);
     }
 }
