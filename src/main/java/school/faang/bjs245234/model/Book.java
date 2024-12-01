@@ -1,7 +1,10 @@
 package school.faang.bjs245234.model;
 
+import lombok.ToString;
+
 import java.util.Objects;
 
+@ToString
 public class Book {
     /**
      * Создайте класс Book с полями:
