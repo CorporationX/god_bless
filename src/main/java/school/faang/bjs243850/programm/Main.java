@@ -6,11 +6,9 @@ import java.util.List;
 
 class Main {
     public static void main(String[] args) {
-        System.out.println("test");
-
-        List<User> list = List.of(new User("test1", 10),
-                new User("test2", 11),
-                new User("test3", 10));
+        List<User> list = List.of(new User("test1", "home", "london", 10),
+                new User("test2", "office", "moskow", 11),
+                new User("test3", "home", "moldova", 10));
 
         System.out.println(User.groupUsers(list).entrySet());
     }
