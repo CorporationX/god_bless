@@ -1,4 +1,4 @@
-package school.faang.bjs2_43610;
+package school.faang.bjs243610;
 
 public class Main {
 
