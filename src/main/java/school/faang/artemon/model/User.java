@@ -7,13 +7,9 @@ import java.util.stream.Collectors;
 
 /**
  * \Создать класс User с полями:
- *
  *     name — имя пользователя;
- *
  *     age — возраст пользователя;
- *
  *     workplace — место работы пользователя;
- *
  *     address — адрес пользователя.
  */
 public class User {
@@ -33,10 +29,9 @@ public class User {
 
     /**
      * Добавить в класс User статический метод groupUsers(List‹User›), который:
-     *
      *     Принимает список объектов класса User.
-     *
-     *     Возвращает Map‹Integer, List‹User››, где: ключ — возраст пользователя; значение — список всех пользователей из исходного списка с этим возрастом.
+     *     Возвращает Map‹Integer, List‹User››, где: ключ — возраст пользователя; значение — список всех пользователей
+     *     из исходного списка с этим возрастом.
      */
     public static Map<Integer, List<User>> groupUsers(List<User> users){
         Map<Integer, List<User>> result;
@@ -46,20 +41,25 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", workplace='" + workplace + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(workplace, user.workplace) && Objects.equals(address, user.address);
+        return age == user.age && Objects.equals(name, user.name) && Objects.equals(workplace, user.workplace)
+                && Objects.equals(address, user.address);
     }
 
     @Override
