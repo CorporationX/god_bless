@@ -1,16 +1,8 @@
-package school.faang;
-
-import java.util.Arrays;
+package school.faang.task_43607;
 
 public class Example {
-    public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 4, 5};
-        reverse(nums);
-        System.out.println(Arrays.toString(nums));
 
-    }
-
-    private static void reverse(int[] nums) {
+    static void reverse(int[] nums) {
         if (nums.length == 0) {
             return;
         }
@@ -21,4 +13,3 @@ public class Example {
         }
     }
 }
-
