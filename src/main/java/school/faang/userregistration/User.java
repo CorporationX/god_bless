@@ -68,10 +68,17 @@ public class User {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         User user = (User) object;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(job, user.job) && Objects.equals(address, user.address);
+        return age == user.age
+                && Objects.equals(name, user.name)
+                && Objects.equals(job, user.job)
+                && Objects.equals(address, user.address);
     }
 
     @Override
