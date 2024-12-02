@@ -17,16 +17,10 @@ public class Exemple {
         printArray(nums, "reversed");
     }
 
-    public static void printArray (int[] nums, String name) {
+    public static void printArray(int[] nums, String name) {
         for (int num : nums) {
             System.out.print(num + " ");
         }
         System.out.println(name);
-    }
-
-    public static void main(String[] args) {
-        printArray(nums, "original");
-
-        reverse(nums);
     }
 }
