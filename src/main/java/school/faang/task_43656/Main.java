@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.task_43656.User;
+package school.faang.task_43656;
 
 public class Main {
     public static void main(String[] args) {
