@@ -1,15 +1,16 @@
-package school.faang.userRegistration;
+package school.faang.userregistration;
 
 import java.util.*;
 
 public class User {
+    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final int MIN_AGE = 18;
+
     private String name;
     private int age;
     private String job;
     private String address;
-
-    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
 
     public User(String name, int age, String job, String address) {
         this.name = name;
