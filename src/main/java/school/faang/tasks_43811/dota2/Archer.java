@@ -9,6 +9,9 @@ public class Archer extends Character {
     public void attack(Character target) {
         int damage = target.getHeatPoint() - this.getAgility();
         target.setHeatPoint(damage);
-        System.out.println(getName() + " стреляет в " + target.getName() + " и наносит " + this.getAgility() + " урона. И оставляет " + damage + " здоровья");
+        System.out.println(
+                getName() + " стреляет в " + target.getName() + " и наносит " +
+                        this.getAgility() + " урона. И оставляет " + damage + " здоровья"
+        );
     }
 }

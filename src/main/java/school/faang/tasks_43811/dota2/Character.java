@@ -62,6 +62,12 @@ public abstract class Character {
 
     @Override
     public String toString() {
-        return "Character{" + "name='" + name + '\'' + ", heatPoint=" + heatPoint + ", strength=" + strength + ", agility=" + agility + ", intelligence=" + intelligence + '}';
+        return "Character{" +
+                "name='" + name + '\'' +
+                ", heatPoint=" + heatPoint +
+                ", strength=" + strength +
+                ", agility=" + agility +
+                ", intelligence=" + intelligence +
+                '}';
     }
-}
+    }
