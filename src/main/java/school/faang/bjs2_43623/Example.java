@@ -6,15 +6,17 @@ public class Example {
             return input;
         }
 
-        int[] result = new int[input.length];
         int i = 0;
         int j = input.length - 1;
-        while (i < input.length) {
-            result[i] = input[j];
+        int tmp;
+        while (j - i >= 1) {
+            tmp = input[i];
+            input[i] = input[j];
+            input[j] = tmp;
             i++;
             j--;
         }
 
-        return result;
+        return input;
     }
 }
