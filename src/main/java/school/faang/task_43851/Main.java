@@ -1,4 +1,4 @@
-package school.faang.BJS2_43851;
+package school.faang.task_43851;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +15,9 @@ public class Main {
 
         List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
-        HashMap<Integer,List<User>> hashMapUser = User.groupUsers(users);
+        HashMap<Integer, List<User>> hashMapUser = User.groupUsers(users);
 
-        for(Map.Entry<Integer,List<User>> entry : hashMapUser.entrySet()){
+        for (Map.Entry<Integer, List<User>> entry : hashMapUser.entrySet()) {
             System.out.println(entry.getKey());
             System.out.println(entry.getValue());
         }
