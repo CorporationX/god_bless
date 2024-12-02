@@ -17,13 +17,13 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> userGroups = new HashMap<>();
+        Map<Integer, List<User>> usersGroup = new HashMap<>();
         for (User user : users) {
-            if (!userGroups.containsKey(user.age)) {
-                userGroups.put(user.age, new ArrayList<>());
+            if (!usersGroup.containsKey(user.age)) {
+                usersGroup.put(user.age, new ArrayList<>());
             }
-            userGroups.get(user.age).add(user);
+            usersGroup.get(user.age).add(user);
         }
-        return userGroups;
+        return usersGroup;
     }
 }
