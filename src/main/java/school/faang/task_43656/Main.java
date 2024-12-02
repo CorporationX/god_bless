@@ -2,21 +2,15 @@ package school.faang.task_43656;
 
 public class Main {
     public static void main(String[] args) {
-        User goodUser;
-        User emptyNameUser;
-        User invalidAgeUser;
-        User invalidJobUser;
-        User invalideAddrUser;
-
-        goodUser = createUser("Maxim", 20, "Google", "New York");
+        User goodUser = createUser("Maxim", 20, "Google", "New York");
         printUser(goodUser);
-        emptyNameUser = createUser("", 20, "Google", "New York");
+        User emptyNameUser = createUser("", 20, "Google", "New York");
         printUser(emptyNameUser);
-        invalidAgeUser = createUser("Nikolay", 17, "Google", "New York");
+        User invalidAgeUser = createUser("Nikolay", 17, "Google", "New York");
         printUser(invalidAgeUser);
-        invalidJobUser = createUser("Nina", 27, "Taxi", "New York");
+        User invalidJobUser = createUser("Nina", 27, "Taxi", "New York");
         printUser(invalidJobUser);
-        invalideAddrUser = createUser("Misha", 37, "Amazon", "Riga");
+        User invalideAddrUser = createUser("Misha", 37, "Amazon", "Riga");
         printUser(invalideAddrUser);
     }
 
