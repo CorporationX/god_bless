@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 import school.faang.bjs245234.model.Book;
 
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -18,13 +17,11 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        this.library.entrySet().removeIf(entry -> entry.getKey().equals(new Book(title, author, year)));
+        this.library.remove(new Book(title, author, year));
     }
 
     public String findLocationBook(String title, String author, int year) {
-        String location = this.library.entrySet().parallelStream().filter(entry ->
-                        entry.getKey().equals(new Book(title, author, year)))
-                .findFirst().orElse(new AbstractMap.SimpleEntry<>(null, null)).getValue();
+        String location = this.library.get(new Book(title, author, year));
         if (location == null) {
             System.out.println("Book don't found");
         }
