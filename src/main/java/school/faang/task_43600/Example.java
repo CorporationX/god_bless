@@ -14,7 +14,7 @@ public class Example {
 
     public void printArray(Integer[] array) {
         System.out.println("Array size = " + array.length);
-        for (Integer num: array) {
+        for (Integer num : array) {
             System.out.println(String.format("%d", num));
         }
     }
