@@ -23,5 +23,21 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
+    public void setHealth(int health) {
+        this.health = Math.max(health, 0);
+    }
+
+    public boolean checkIsAlive(Character character) {
+        boolean isAlive = true;
+        if (this.health == 0) {
+            System.out.println(getName() + " мертв и не может биться");
+            isAlive= false;
+        } else if (character.health == 0) {
+            System.out.println(character.getName() + " уже убит");
+            isAlive= false;
+        }
+        return isAlive;
+    }
+
     public abstract void attack(Character character);
 }
