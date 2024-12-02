@@ -10,20 +10,22 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<User> users = getUsers();
 
-        HashSet<String> hobbiesToFind_1 = new HashSet<>();
-        hobbiesToFind_1.add("Football");
-        hobbiesToFind_1.add("Programming");
+        HashSet<String> hobbiesToFind1 = new HashSet<>();
+        hobbiesToFind1.add("Football");
+        hobbiesToFind1.add("Programming");
 
-        HashSet<String> hobbiesToFind_2 = new HashSet<>();
-        hobbiesToFind_2.add("Tennis");
-        hobbiesToFind_2.add("Diving");
+        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind1));
 
-        HashSet<String> hobbiesToFind_3 = new HashSet<>();
-        hobbiesToFind_3.add("Games");
+        HashSet<String> hobbiesToFind2 = new HashSet<>();
+        hobbiesToFind2.add("Tennis");
+        hobbiesToFind2.add("Diving");
 
-        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind_1));
-        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind_2));
-        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind_3));
+        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind2));
+
+        HashSet<String> hobbiesToFind3 = new HashSet<>();
+        hobbiesToFind3.add("Games");
+
+        printHobbyLovers(User.findHobbyLovers(users, hobbiesToFind3));
     }
 
     private static void printHobbyLovers(Map<User, String> hobbyLovers) {
