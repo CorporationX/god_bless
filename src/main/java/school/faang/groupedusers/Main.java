@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         List<User> users = new ArrayList<>();
 
         users.add(new User("Ilya", 25, "T Bank", "Msk"));
@@ -18,11 +18,12 @@ public class Main {
         List<Integer> sortedAges = new ArrayList<>(groupedUsers.keySet());
         Collections.sort(sortedAges);
 
-        for (Integer age : sortedAges){
+        for (Integer age : sortedAges) {
             List<User> userList = groupedUsers.get(age);
-            for (User user : userList){
+            for (User user : userList) {
                 System.out.println("Age: " + age + ", " + user.getName() +
-                        ", " + user.getWorkplace() + ", " + user.getAddress());
+                        ", " + user.getWorkplace() +
+                        ", " + user.getAddress());
             }
         }
 

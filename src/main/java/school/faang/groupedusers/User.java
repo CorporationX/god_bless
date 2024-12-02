@@ -34,12 +34,12 @@ public class User {
         return address;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
-        for (User user : users){
+        for (User user : users) {
             List<User> userList = groupedUsers.get(user.getAge());
-            if (userList == null){
+            if (userList == null) {
                 userList = new ArrayList<>();
                 groupedUsers.put(user.getAge(), userList);
             }
