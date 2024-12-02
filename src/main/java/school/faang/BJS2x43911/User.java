@@ -15,7 +15,7 @@ import java.util.Map;
 public class User {
     private final String name;
     private final int age;
-    private final String job;
+    private final String workplace;
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
