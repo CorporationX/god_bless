@@ -7,6 +7,7 @@ public abstract class Character {
     private int intelligence;
     private int heatPoint = 100;
     private boolean alive = true;
+
     public Character(String name) {
         this.name = name;
     }
