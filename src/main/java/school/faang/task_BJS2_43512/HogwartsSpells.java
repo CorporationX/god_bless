@@ -1,4 +1,4 @@
-package school.faang.catch_event;
+package school.faang.task_BJS2_43512;
 
 import java.util.*;
 

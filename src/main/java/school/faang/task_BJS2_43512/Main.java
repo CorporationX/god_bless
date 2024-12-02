@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.catch_event.HogwartsSpells;
+package school.faang.task_BJS2_43512;
 
 public class Main {
     public static void main(String[] args) {
