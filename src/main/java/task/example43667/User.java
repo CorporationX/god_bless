@@ -1,4 +1,4 @@
-package task43667;
+package task.example43667;
 
 import java.util.List;
 
