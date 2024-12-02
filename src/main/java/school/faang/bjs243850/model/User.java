@@ -22,10 +22,6 @@ public class User {
     private String address;
     private int age;
 
-    /**
-     * Возвращает Map‹Integer, List‹User››,
-     * где: ключ — возраст пользователя; значение — список всех пользователей из исходного списка с этим возрастом.
-     */
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
