@@ -21,31 +21,31 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
+        validateInputFields(name, age, job, address);
         this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
-        validateInputFields(this);
     }
 
-    private void validateInputFields(User user) {
+    private void validateInputFields(String name, int age, String job, String address) {
         List<String> errorMessages = new ArrayList<>();
-        boolean isInvalid = Boolean.FALSE;
-        if (user.getName() == null || user.getName().isEmpty() || user.getName().isBlank()) {
+        boolean isInvalid = false;
+        if (name == null || name.isEmpty() || name.isBlank()) {
             errorMessages.add("name is empty");
-            isInvalid = Boolean.TRUE;
+            isInvalid = true;
         }
-        if (user.getAge() < MINIMUM_AGE) {
-            errorMessages.add("age cannot be less than 18");
-            isInvalid = Boolean.TRUE;
+        if (age < MINIMUM_AGE) {
+            errorMessages.add("age cannot be less than " + MINIMUM_AGE);
+            isInvalid = true;
         }
-        if (!VALID_JOBS.contains(user.getJob())) {
+        if (!VALID_JOBS.contains(job)) {
             errorMessages.add("invalid job");
-            isInvalid = Boolean.TRUE;
+            isInvalid = true;
         }
-        if (!VALID_ADDRESSES.contains(user.getAddress())) {
+        if (!VALID_ADDRESSES.contains(address)) {
             errorMessages.add("invalid address");
-            isInvalid = Boolean.TRUE;
+            isInvalid = true;
         }
         if (isInvalid) {
             String messages = errorMessages.stream().collect(Collectors.joining(", ", "errors: ", "."));
