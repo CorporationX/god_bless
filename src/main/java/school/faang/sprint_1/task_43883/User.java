@@ -18,14 +18,13 @@ public class User {
         for (User user : users) {
             var ageKey = user.getAge();
 
-            if (groups.containsKey(ageKey)) {
-                var list = groups.get(ageKey);
-                list.add(user);
-            } else {
-                var newList = new ArrayList<User>();
-                newList.add(user);
-                groups.put(ageKey, newList);
+            if (!groups.containsKey(ageKey)) {
+                var newGroup = new ArrayList<User>();
+                groups.put(ageKey, newGroup);
             }
+
+            var group = groups.get(ageKey);
+            group.add(user);
         }
 
         return groups;
