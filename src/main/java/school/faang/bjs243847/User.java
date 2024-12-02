@@ -67,7 +67,7 @@ public class User {
 
         Map<Integer, List<User>> usersGroupedAge = groupUsers(userList);
 
-        System.out.println("After grouped users age: ");
+        System.out.println("After grouped users age:");
         printUsers(usersGroupedAge);
     }
 }
