@@ -1,4 +1,4 @@
-package school.faang.dec_01;
+package school.faang.task_43597;
 
 public class Example {
 
