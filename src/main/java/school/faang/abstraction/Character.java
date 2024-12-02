@@ -1,4 +1,4 @@
-package school.faang.bjs2_43821;
+package school.faang.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;

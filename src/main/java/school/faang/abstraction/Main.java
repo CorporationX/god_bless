@@ -1,4 +1,4 @@
-package school.faang.bjs2_43821;
+package school.faang.abstraction;
 
 public class Main {
 
