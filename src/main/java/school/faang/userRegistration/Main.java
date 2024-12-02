@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Misstake: " + e.getMessage());
         }
 
-        try{
+        try {
             user.setAddress("Msk");
         } catch (IllegalArgumentException e) {
             System.out.println("Miss: " + e.getMessage());
@@ -23,7 +23,7 @@ public class Main {
 
         try {
             user.setName("");
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Miss: " + e.getMessage());
         }
 

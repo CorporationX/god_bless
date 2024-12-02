@@ -19,14 +19,14 @@ public class User {
     }
 
     public void setName(String name) {
-        if (name == null || name.isEmpty()){
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty");
         }
         this.name = name;
     }
 
     public void setAge(int age) {
-        if (age >= 18){
+        if (age >= 18) {
             this.age = age;
         } else {
             throw new IllegalArgumentException("The age cannot be less than 18");
@@ -34,15 +34,15 @@ public class User {
     }
 
     public void setJob(String job) {
-        if (VALID_JOBS.contains(job)){
+        if (VALID_JOBS.contains(job)) {
             this.job = job;
-        } else{
+        } else {
             throw new IllegalArgumentException("The place of work must be contained in the VALID_JOBS");
         }
     }
 
     public void setAddress(String address) {
-        if (VALID_ADDRESSES.contains(address)){
+        if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         } else {
             throw new IllegalArgumentException("The address must be contained in the set VALID_ADDRESSES");
