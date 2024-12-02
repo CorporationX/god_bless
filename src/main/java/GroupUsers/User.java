@@ -28,18 +28,6 @@ public class User {
         this.age = age;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getWorkplace() {
-        return workplace;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
     public int getAge() {
         return age;
     }
