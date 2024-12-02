@@ -3,7 +3,7 @@ package school.faang;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         List<User> listOfUsers = new ArrayList<>(
                 List.of(
                         new User("Norair", 23, "T1", "Moscow"),
