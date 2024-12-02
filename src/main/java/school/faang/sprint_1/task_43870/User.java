@@ -1,4 +1,4 @@
-package school.faang.sprint_1.task_43870_groupingusersage;
+package school.faang.sprint_1.task_43870;
 
 import lombok.Getter;
 
