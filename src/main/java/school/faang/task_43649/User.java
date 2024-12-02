@@ -1,8 +1,9 @@
-package school.faang;
+package school.faang.task_43649;
 
 public class User {
     private static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
     private static final String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
+    private static final int MIN_AGE = 18;
     private String name;
     private int age;
     private String job;
@@ -23,7 +24,7 @@ public class User {
     }
 
     public void setAge(int age) {
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
         this.age = age;
