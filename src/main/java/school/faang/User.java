@@ -1,7 +1,7 @@
 package school.faang;
 
 public class User {
-    private int MIN_AGE = 18;
+    private int MINIMUM_AGE = 18;
     private String name;
     private int age;
     private Job job;
@@ -14,7 +14,7 @@ public class User {
         this.address = address;
 
         if (name.isEmpty() || name == null) throw new IllegalArgumentException("Имя должно быть заполнено");
-        if (age < MIN_AGE) throw new IllegalArgumentException("Минимальный возраст 18 лет");
+        if (age < MINIMUM_AGE) throw new IllegalArgumentException("Минимальный возраст 18 лет");
         if (job == null || address == null)
             throw new IllegalArgumentException("Поля address и job должно быть заполнено");
 
