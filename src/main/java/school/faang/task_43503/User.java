@@ -17,7 +17,7 @@ public class User {
     private String workplace;
     private String address;
 
-    public static Map<Integer, List<User>> GroupUsers(List<User> userList) {
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : userList) {
             if (!groupUsers.containsKey(user.getAge())) {

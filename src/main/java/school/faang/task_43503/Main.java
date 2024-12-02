@@ -13,7 +13,7 @@ public class Main {
         users.add(new User("Max", 24, "School", "Rorsi"));
         users.add(new User("Misha", 18, "Google", "RinderStrasse"));
 
-        User.GroupUsers(users).forEach((key, entity) -> System.out.println(key + ":" + entity));
+        User.groupUsers(users).forEach((key, entity) -> System.out.println(key + ":" + entity));
     }
 
 
