@@ -3,7 +3,7 @@ package school.module1.task43832;
 import lombok.Data;
 
 @Data
-abstract public class Character {
+abstract class Character {
     private String name;
     private int strength;
     private int dexterity;
