@@ -1,0 +1,33 @@
+package school.faang.task43801;
+
+public class Warrior extends Character {
+    private static final int STRENGTH = 10;
+    private static final int DEXTERITY = 5;
+    private static final int INTELLIGENCE = 3;
+
+
+    public Warrior(String name) {
+        super(name);
+        this.strength = STRENGTH;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
+    }
+
+    public Warrior(int intelligence, int dexterity, int strength, String name) {
+        super(INTELLIGENCE, DEXTERITY, STRENGTH, name);
+    }
+
+    @Override
+    protected void attack(Character otherCharacter) {
+        int currentHp = otherCharacter.getHealthPoints();
+        if (isAlive()) {
+            otherCharacter.setHealthPoints(currentHp);
+            if (isAlive(otherCharacter)) {
+                otherCharacter.setHealthPoints(currentHp - getStrength());
+                if (otherCharacter.getHealthPoints() == LOW_HP) {
+                    System.out.println(otherCharacter.getName() + " убит");
+                }
+            }
+        }
+    }
+}
