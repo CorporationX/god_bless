@@ -1,4 +1,4 @@
-package task_43503;
+package task43503;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +16,8 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-
-
-        return users.stream()
-                .collect(Collectors.groupingBy(User::getAge));
+        return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
-
 
     public static void main(String[] args) {
         List<User> users = List.of(
@@ -31,12 +27,8 @@ public class User {
                 new User("Jerry", 52, "Corp 4", "Adress D")
         );
 
-        for (Map.Entry<Integer,List<User>> usersEntry : User.groupUsers(users).entrySet()){
+        for (Map.Entry<Integer, List<User>> usersEntry : User.groupUsers(users).entrySet()) {
             System.out.println(usersEntry);
         }
-
     }
-
-
-
 }
