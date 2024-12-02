@@ -13,22 +13,22 @@ import java.util.Map;
 @EqualsAndHashCode
 public class HogwartsSpells {
 
-    private final Map<Integer, SpellEvent> spellByID = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-        if (this.spellByID.containsKey(id)) {
+        if (this.spellById.containsKey(id)) {
             throw new IllegalArgumentException("This id is used");
         }
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        this.spellByID.put(id, spellEvent);
+        this.spellById.put(id, spellEvent);
 
         List<SpellEvent> spellEventList = this.spellsByType.computeIfAbsent(eventType, list -> new ArrayList<>());
         spellEventList.add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return this.spellByID.get(id);
+        return this.spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
@@ -36,13 +36,13 @@ public class HogwartsSpells {
     }
 
     public SpellEvent deleteSpellEvent(int id) {
-        SpellEvent spellEvent = this.spellByID.get(id);
-        this.spellByID.remove(id);
+        SpellEvent spellEvent = this.spellById.get(id);
+        this.spellById.remove(id);
         this.spellsByType.get(spellEvent.getEventType()).removeIf(spell -> spell.getId() == id);
         return spellEvent;
     }
 
     public void printAllSpellEvents() {
-        System.out.println(this.spellByID.entrySet());
+        System.out.println(this.spellById.entrySet());
     }
 }
