@@ -7,12 +7,20 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character target) {
+        if (!this.isAlive()) {
+            System.out.println(getName() + " мёртв и не может атаковать.");
+            return;
+        }
+        if (!target.isAlive()) {
+            System.out.println(target.getName() + " уже мёртв.");
+            return;
+        }
         int damage = target.getHeatPoint() - this.getStrength();
         target.setHeatPoint(damage);
         System.out.println(
                 getName() + " ударяет " + target.getName()
                         + " и наносит " + this.getStrength()
-                        + " урона. И оставляет " + damage + " здоровья"
+                        + " урона. Осталось " + damage + " здоровья."
         );
     }
 

@@ -6,7 +6,7 @@ public abstract class Character {
     private int agility;
     private int intelligence;
     private int heatPoint = 100;
-
+    private boolean alive = true;
     public Character(String name) {
         this.name = name;
     }
@@ -54,8 +54,17 @@ public abstract class Character {
         return heatPoint;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
     public void setHeatPoint(int heatPoint) {
         this.heatPoint = heatPoint;
+        if (this.heatPoint <= 0) {
+            this.heatPoint = 0;
+            alive = false;
+            System.out.println(name + " мертвый");
+        }
     }
 
     public abstract void attack(Character target);
@@ -68,6 +77,7 @@ public abstract class Character {
                 + ", strength=" + strength
                 + ", agility=" + agility
                 + ", intelligence=" + intelligence
+                + ", alive=" + alive
                 + '}';
     }
 }
