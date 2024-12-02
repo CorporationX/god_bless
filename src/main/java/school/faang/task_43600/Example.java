@@ -1,20 +1,19 @@
 package school.faang.task_43600;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Example {
-    public Integer[] reverse(Integer[] array) {
-        List<Integer> reversedArr = new ArrayList<>();
-        for (int count = array.length - 1; count >= 0; count--) {
-            reversedArr.add(array[count]);
+    public void reverse(int[] array) {
+        if (array.length > 2) {
+            for (int count = 0, reverseCount = array.length - 1; count < reverseCount; count++, reverseCount--) {
+                int buffer = array[count];
+                array[count] = array[reverseCount];
+                array[reverseCount] = buffer;
+            }
         }
-        return reversedArr.toArray(new Integer[0]);
     }
 
-    public void printArray(Integer[] array) {
+    public void printArray(int[] array) {
         System.out.println("Array size = " + array.length);
-        for (Integer num : array) {
+        for (int num : array) {
             System.out.println(String.format("%d", num));
         }
     }
