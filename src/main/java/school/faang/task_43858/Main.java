@@ -11,6 +11,7 @@ public class Main {
         users.add(new User("C", 30, "C", "C"));
         users.add(new User("D", 30, "D", "D"));
         users.add(new User("E", 25, "E", "E"));
+        users.add(new User("F", 45, "F", "F"));
 
         User.groupUsers(users).forEach((age, userList) -> {
             System.out.println("Age: " + age);
