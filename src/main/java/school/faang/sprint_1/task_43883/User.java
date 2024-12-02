@@ -12,7 +12,7 @@ public class User {
     private String workplace;
     private String address;
 
-    static public Map<Integer, List<User>> groupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groups = new HashMap<>();
 
         for (User user : users) {
@@ -21,8 +21,7 @@ public class User {
             if (groups.containsKey(ageKey)) {
                 var list = groups.get(ageKey);
                 list.add(user);
-            }
-            else {
+            } else {
                 var newList = new ArrayList<User>();
                 newList.add(user);
                 groups.put(ageKey, newList);
