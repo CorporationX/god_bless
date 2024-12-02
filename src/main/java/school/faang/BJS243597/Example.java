@@ -10,9 +10,5 @@ public class Example {
             arrayWithReversedNumber[counter] = inputArray[i];
             counter++;
         }
-
-        for (int i = 0; i < arrayWithReversedNumber.length; i++) {
-            System.out.print(arrayWithReversedNumber[i] + " ");
-        }
     }
 }
