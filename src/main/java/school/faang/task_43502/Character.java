@@ -31,10 +31,10 @@ public abstract class Character {
         boolean isAlive = true;
         if (this.health == 0) {
             System.out.println(getName() + " мертв и не может биться");
-            isAlive= false;
+            isAlive = false;
         } else if (character.health == 0) {
             System.out.println(character.getName() + " уже убит");
-            isAlive= false;
+            isAlive = false;
         }
         return isAlive;
     }
