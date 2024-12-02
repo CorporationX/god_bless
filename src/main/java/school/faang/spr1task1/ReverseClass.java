@@ -1,6 +1,5 @@
-package school.faang.spr1_task1;
+package school.faang.spr1task1;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class ReverseClass {
