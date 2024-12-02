@@ -16,6 +16,7 @@ public class SpellEvent {
                 + "id=" + id
                 + ", eventType='"
                 + eventType + '\''
-                + ", action='" + action + '\'';
+                + ", action='" + action
+                + '\'';
     }
 }
