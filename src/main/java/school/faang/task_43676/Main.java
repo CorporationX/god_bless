@@ -1,7 +1,7 @@
 package school.faang.task_43676;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             User user = new User("NoName", 12, "Google", "London");
         } catch (IllegalArgumentException e) {
