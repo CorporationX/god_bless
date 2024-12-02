@@ -6,12 +6,6 @@ import java.util.Objects;
 
 @ToString
 public class Book {
-    /**
-     * Создайте класс Book с полями:
-     * title;
-     * author;
-     * year.
-     */
     private String title;
     private String author;
     private int year;
@@ -22,10 +16,6 @@ public class Book {
         this.year = year;
     }
 
-    /**
-     * Переопределите методы equals и hashCode в классе Book,
-     * чтобы учитывать название книги, автора и год издания при сравнении книг и расчёте их хэш-кода.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
