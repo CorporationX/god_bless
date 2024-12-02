@@ -1,4 +1,4 @@
-package GroupUsers;
+package school.faang.GroupUsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class User {
-    private String name,
+    private final String name,
                    workplace,
                    address;
-    private int age;
+    private final int age;
 
     @Override
     public String toString() {
@@ -39,6 +39,7 @@ public class User {
                 usersMap.get(user.getAge()).add(user);
             } else {
                 usersMap.put(user.getAge(), new ArrayList<>());
+                usersMap.get(user.getAge()).add(user);
             }
         }
         return usersMap;

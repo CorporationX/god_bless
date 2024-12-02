@@ -1,4 +1,4 @@
-package GroupUsers;
+package school.faang.GroupUsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>(10);
+
         users.add(new User("Алексей Смирнов", "IT-компания", "Москва, ул. Ленина, 10", 30));
         users.add(new User("Мария Иванова", "Магазин одежды", "Санкт-Петербург, пр. Невский, 25", 32));
         users.add(new User("Дмитрий Кузнецов", "Строительная компания", "Екатеринбург, ул. Мира, 15", 45));
@@ -17,7 +18,10 @@ public class Main {
         users.add(new User("Анна Николаева", "Кинотеатр", "Калуга, ул. Ленина, 20", 25));
         users.add(new User("Артем Григорьев", "Фрилансер", "Уфа, ул. Карла Маркса, 3", 29));
         users.add(new User("Наталья Борисова", "Маркетинговое агентство", "Краснодар, ул. Красная, 14", 30));
-        for (User user: users)
-            System.out.println(user);
+
+        Map<Integer, List<User>> usersMap = User.groupUsers(users);
+        for (Map.Entry<Integer, List<User>> entry : usersMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 }
