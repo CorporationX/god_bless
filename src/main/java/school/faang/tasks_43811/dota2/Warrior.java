@@ -10,8 +10,10 @@ public class Warrior extends Character {
         int damage = target.getHeatPoint() - this.getStrength();
         target.setHeatPoint(damage);
         System.out.println(
-                getName() + " ударяет " + target.getName() + " и наносит " +
-                        this.getStrength() + " урона. И оставляет " + damage + " здоровья"
+                getName() + " ударяет " + target.getName()
+                        + " и наносит " + this.getStrength()
+                        + " урона. И оставляет " + damage + " здоровья"
         );
     }
+
 }
