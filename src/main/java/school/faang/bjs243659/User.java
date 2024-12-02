@@ -3,8 +3,8 @@ package school.faang.bjs243659;
 import java.util.List;
 
 public class User {
-    private final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    private final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private Integer age;
