@@ -22,7 +22,7 @@ public class User {
             throw new IllegalArgumentException("name is empty");
         }
         if (age < ADULTHOOD) {
-            throw new IllegalArgumentException("Must be over"+ ADULTHOOD +"years of age");
+            throw new IllegalArgumentException("Must be over" + ADULTHOOD + "years of age");
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("The place of work is indicated incorrectly");
