@@ -21,9 +21,10 @@ public class Main {
         for (Integer age : sortedAges) {
             List<User> userList = groupedUsers.get(age);
             for (User user : userList) {
-                System.out.println("Age: " + age + ", " + user.getName() +
-                        ", " + user.getWorkplace() +
-                        ", " + user.getAddress());
+                System.out.println("Age: " + age
+                        + ", " + user.getName()
+                        + ", " + user.getWorkplace()
+                        + ", " + user.getAddress());
             }
         }
 
