@@ -1,6 +1,8 @@
-package school.faang;
+package school.faang.BJS2_43874_Az3l1t;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class User {
     private final String name;
@@ -20,25 +22,18 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        for (User u : users) {
-            groupedUsers.computeIfAbsent(u.getAge(), (p) -> new ArrayList<>()).add(u);
-        }
-        return groupedUsers;
+        return users
+                .stream()
+                .collect(Collectors.groupingBy(User::getAge));
     }
 
     @Override
     public String toString() {
         return "User{"
-                +
-                "name='" + name + '\''
-                +
-                ", age=" + age
-                +
-                ", workplace='" + workplace + '\''
-                +
-                ", address='" + address + '\''
-                +
-                '}';
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", workplace='" + workplace + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 }

@@ -1,6 +1,8 @@
-package school.faang;
+package school.faang.BJS2_43874_Az3l1t;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,9 +18,7 @@ public class Main {
                 )
         );
 
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        groupedUsers = User.groupUsers(listOfUsers);
-
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(listOfUsers);
         System.out.println(groupedUsers);
     }
 }
