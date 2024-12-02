@@ -2,7 +2,6 @@ package school.faang.bjs244404.repository;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import school.faang.bjs244404.model.SpellEvent;
 
 import java.util.ArrayList;
