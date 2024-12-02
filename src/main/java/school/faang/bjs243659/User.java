@@ -1,10 +1,11 @@
 package school.faang.bjs243659;
 
-import java.util.List;
+import java.util.Set;
 
 public class User {
-    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Integer MIN_AGE = 18;
 
     private String name;
     private Integer age;
@@ -27,7 +28,7 @@ public class User {
     }
 
     public void setAge(Integer age) {
-        if (age >= 18) {
+        if (age >= MIN_AGE) {
             this.age = age;
             return;
         }
@@ -35,21 +36,17 @@ public class User {
     }
 
     public void setJob(String job) {
-        for (String validJob : VALID_JOBS) {
-            if (job.equals(validJob)) {
-                this.job = job;
-                return;
-            }
+        if (VALID_JOBS.contains(job)) {
+            this.job = job;
+            return;
         }
         throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
     }
 
     public void setAddress(String address) {
-        for (String validAddress : VALID_ADDRESSES) {
-            if (address.equals(validAddress)) {
-                this.address = address;
-                return;
-            }
+        if (VALID_ADDRESSES.contains(address)) {
+            this.address = address;
+            return;
         }
         throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
     }
