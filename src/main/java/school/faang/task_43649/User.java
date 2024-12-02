@@ -1,8 +1,11 @@
 package school.faang.task_43649;
 
+import java.util.Set;
+
 public class User {
-    private static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
-    private static final String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
     private static final int MIN_AGE = 18;
     private String name;
     private int age;
@@ -31,22 +34,18 @@ public class User {
     }
 
     public void setJob(String job) {
-        for (String currentJob : VALID_JOBS) {
-            if (currentJob.equals(job)) {
-                this.job = job;
-                return;
-            }
+        if (VALID_JOBS.contains(job)) {
+            this.job = job;
+            return;
         }
-        throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
+        throw new IllegalArgumentException("Место работы должно быть в наборе VALID_JOBS");
     }
 
     public void setAddress(String address) {
-        for (String currentAddress : VALID_ADDRESSES) {
-            if (currentAddress.equals(address)) {
-                this.address = address;
-                return;
-            }
+        if (VALID_ADDRESSES.contains(address)) {
+            this.address = address;
+            return;
         }
-        throw new IllegalArgumentException("Адрес должен быть содержится в наборе VALID_ADDRESSES");
+        throw new IllegalArgumentException("Адрес должен содержаться в наборе VALID_ADDRESSES");
     }
 }
