@@ -1,8 +1,8 @@
-package school.faang.task_1;
+package school.faang.sprint_1.bjs2_43623;
 
 public class Example {
     public static int[] reverse(int[] input) {
-        if (input == null || input.length == 1) {
+        if (input == null || input.length < 2) {
             return input;
         }
 
