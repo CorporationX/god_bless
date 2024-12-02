@@ -1,10 +1,10 @@
-package school.faang.sprint_1.task_43870_groupingUsersAge;
+package school.faang.sprint_1.task_43870_groupingusersage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.sprint_1.task_43870_groupingUsersAge.User.*;
+import static school.faang.sprint_1.task_43870_groupingusersage.User.*;
 
 public class Main {
     public static void main(String[] args) {

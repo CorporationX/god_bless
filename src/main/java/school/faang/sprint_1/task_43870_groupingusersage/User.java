@@ -1,4 +1,4 @@
-package school.faang.sprint_1.task_43870_groupingUsersAge;
+package school.faang.sprint_1.task_43870_groupingusersage;
 
 import lombok.Getter;
 
@@ -38,9 +38,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "name: " + name +
-                ", age: " + age +
-                ", workplace: " + workplace +
-                ", address: " + address;
+        return "name: " + name
+                + ", age: " + age
+                + ", workplace: "
+                + workplace
+                + ", address: " + address;
     }
 }
