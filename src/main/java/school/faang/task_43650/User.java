@@ -1,4 +1,4 @@
-package school.faang.registration;
+package school.faang.task_43650;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +10,7 @@ import java.util.List;
 public class User {
     private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final int MINIMUM_AGE = 18;
 
     private final String name;
     private final int age;
@@ -17,10 +18,18 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
+        validateParams(name, age, job, address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+
+    private static void validateParams(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name is empty");
         }
-        if (age < 18) {
+        if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Age fewer 18");
         }
         if (!VALID_JOBS.contains(job)) {
@@ -29,9 +38,5 @@ public class User {
         if (VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address isn't valid");
         }
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
     }
 }

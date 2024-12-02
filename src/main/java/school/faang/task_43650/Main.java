@@ -1,4 +1,4 @@
-package school.faang.registration;
+package school.faang.task_43650;
 
 public class Main {
     public static void main(String[] args) {
