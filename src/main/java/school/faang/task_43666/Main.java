@@ -1,4 +1,4 @@
-package school.faang.task_BJS2_43666_user_registration;
+package school.faang.task_43666;
 
 public class Main {
 
