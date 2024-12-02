@@ -1,4 +1,4 @@
-package task_43619;
+package task43619;
 
 public class Example {
     public static void reverse(int[] nums) {
