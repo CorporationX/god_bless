@@ -28,7 +28,7 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     public boolean isAlive() {
-        if(hp > 0) {
+        if (hp > 0) {
             return true;
         }
         return false;
