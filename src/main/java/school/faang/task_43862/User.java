@@ -1,12 +1,13 @@
-package school.faang;
+package school.faang.task_43862;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@ToString
 public class User {
     private String name;
     @Getter
@@ -19,16 +20,6 @@ public class User {
         this.age = age;
         this.workplace = workplace;
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
