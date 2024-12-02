@@ -13,10 +13,15 @@ public class User {
         this.job = job;
         this.address = address;
 
-        if (name.isEmpty() || name == null) throw new IllegalArgumentException("Имя должно быть заполнено");
-        if (age < MINIMUM_AGE) throw new IllegalArgumentException("Минимальный возраст 18 лет");
-        if (job == null || address == null)
+        if (name.isEmpty() || name == null) {
+            throw new IllegalArgumentException("Имя должно быть заполнено");
+        }
+        if (age < MINIMUM_AGE) {
+            throw new IllegalArgumentException("Минимальный возраст 18 лет");
+        }
+        if (job == null || address == null) {
             throw new IllegalArgumentException("Поля address и job должно быть заполнено");
+        }
 
     }
 }
