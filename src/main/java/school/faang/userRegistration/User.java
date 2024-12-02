@@ -20,7 +20,7 @@ public class User {
 
     public void setName(String name) {
         if (name == null || name.isEmpty()){
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("The name cannot be empty");
         }
         this.name = name;
     }
@@ -29,7 +29,7 @@ public class User {
         if (age >= 18){
             this.age = age;
         } else {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+            throw new IllegalArgumentException("The age cannot be less than 18");
         }
     }
 
@@ -37,7 +37,7 @@ public class User {
         if (VALID_JOBS.contains(job)){
             this.job = job;
         } else{
-            throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
+            throw new IllegalArgumentException("The place of work must be contained in the VALID_JOBS");
         }
     }
 
@@ -45,7 +45,7 @@ public class User {
         if (VALID_ADDRESSES.contains(address)){
             this.address = address;
         } else {
-            throw new IllegalArgumentException("Адрес должен содержaться в наборе VALID_ADDRESSES");
+            throw new IllegalArgumentException("The address must be contained in the set VALID_ADDRESSES");
         }
     }
 
