@@ -15,6 +15,7 @@ public class Exemple {
         }
 
         printArray(nums, "reversed");
+
     }
 
     public static void printArray (int[] nums, String name) {
