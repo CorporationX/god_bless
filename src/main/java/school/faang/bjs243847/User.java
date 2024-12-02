@@ -1,4 +1,4 @@
-package grouped.user;
+package school.faang.bjs243847;
 
 import java.util.ArrayList;
 import java.util.HashMap;
