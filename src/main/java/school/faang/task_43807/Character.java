@@ -1,11 +1,18 @@
 package school.faang.task_43807;
 
-public class Character {
-    protected String name;
-    protected int power;
-    protected int dexterity;
-    protected int intellect;
-    protected int health;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public abstract class Character {
+    private String name;
+    private int power;
+    private int dexterity;
+    private int intellect;
+    private int health;
 
     public Character(String name) {
         this.name = name;
@@ -20,13 +27,5 @@ public class Character {
         this.health = 100;
     }
 
-    public void attack(Character other) {
-        System.out.println("Performing attack " + other);
-    }
-
-    @Override
-    public String toString() {
-        return "Character{" + "name='" + name + '\'' + ", power=" + power + ", dexterity=" + dexterity
-                + ", intellect=" + intellect + ", health=" + health + '}';
-    }
+    public abstract void attack(Character other);
 }
