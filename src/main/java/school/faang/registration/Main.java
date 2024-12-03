@@ -1,0 +1,16 @@
+package school.faang.registration;
+
+public class Main {
+    public static void main(String[] args) {
+
+        try {
+            User pasha = new User("Pasha", 32, "Amazon", "Amsterdam");
+            User masha = new User("Masha", 5, "Google", "London");
+            User dasha = new User("Dasha", 22, "Uber", "Minsk");
+            User noName = new User("", 33, "Google", "New York");
+            User sasha = new User("Sasha", 22, "Sber", "New York");
+        } catch (Exception e) {
+            System.out.println("Ошибка при создании пользователя: " + e.getMessage());
+        }
+    }
+}
