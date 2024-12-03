@@ -13,7 +13,6 @@ public class User {
     private String job;
     private String address;
 
-
     public User(String name, int age, String job, String address) {
         checkName(name);
         checkAge(age);
@@ -24,20 +23,17 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-
-
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", job='" + job + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
-
 
     private void checkName(String name) {
         if (name.isEmpty()) {
@@ -47,21 +43,21 @@ public class User {
 
     private void checkAge(int age) {
         if (age < LIMIT) {
-            throw new IllegalArgumentException(String.format("Возраст должен быть больше %d", LIMIT));
+            throw new IllegalArgumentException(
+                    String.format("Возраст должен быть больше %d", LIMIT)
+            );
         }
     }
 
     private void checkJob(String job) {
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Работа должна находиться в заданном множестве");
+            throw new IllegalArgumentException("Работа должна находиться в заданном множестве.");
         }
     }
 
     private void checkAddress(String address) {
         if (!VALID_ADDRESS.contains(address)) {
-            throw new IllegalArgumentException("Адрес должен находиться в заданном множестве");
+            throw new IllegalArgumentException("Адрес должен находиться в заданном множестве.");
         }
     }
-
-
 }
