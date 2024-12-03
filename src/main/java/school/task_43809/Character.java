@@ -4,7 +4,8 @@ import lombok.ToString;
 
 @ToString
 public abstract class Character {
-    private final static int DEFAULT_HEALTH = 100;
+    private static final int DEFAULT_HEALTH = 100;
+
     private final String name;
     private final int strength;
     private final int agility;
