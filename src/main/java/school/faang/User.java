@@ -12,7 +12,7 @@ public class User {
     private final String job;
     private final String address;
 
-    public User (String name, int age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         validateName(name);
         this.name = name;
         validateAge(age);
