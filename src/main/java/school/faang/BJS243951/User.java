@@ -1,17 +1,13 @@
 package school.faang.BJS243951;
 
-
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import javax.swing.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 @Data
@@ -29,24 +25,24 @@ public class User {
 
         String grpBy = groupeBy;
 
-        if (grpBy == "name") {
+        if (Objects.equals(grpBy, "name")) {
             grpBy = "name";
-        } else if (grpBy == "age") {
+        } else if (Objects.equals(grpBy, "age")) {
             grpBy = "age";
-        } else if (grpBy == "workplace") {
+        } else if (Objects.equals(grpBy, "workplace")) {
             grpBy = "workplace";
-        } else if (grpBy == "address") {
+        } else if (Objects.equals(grpBy, "address")) {
             grpBy = "address";
-        } else new RuntimeException("ds");
+        } else new HashMap<>();
 
-        if (grpBy == "age") {
+        if (Objects.equals(grpBy, "age")) {
 
             for (User user : users) {
 
                 if (!grUser.containsKey(user.age)) {
                     grUser.put(user.age, new ArrayList<>());
                     grUser.get(user.age).add(user);
-                }else grUser.get(user.age).add(user);
+                } else grUser.get(user.age).add(user);
             }
         }
 
