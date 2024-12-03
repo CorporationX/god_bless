@@ -2,29 +2,20 @@ package school.faang.task_43513;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Data
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = Collections.emptyMap();
+    private final Map<EventType, List<SpellEvent>> spellByType = Collections.emptyMap();
 
     public void addSpellEvent(int id, EventType eventType, String actionDescription) {
-        SpellEvent spellEvent = SpellEvent.builder()
-                .id(id)
-                .eventType(eventType)
-                .action(actionDescription)
-                .build();
+        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, spellEvent);
-
-        if (!spellByType.containsKey(eventType)) {
-            spellByType.put(eventType, new ArrayList<>());
-        }
-
+        spellByType.putIfAbsent(eventType, Collections.emptyList());
         spellByType.get(eventType).add(spellEvent);
     }
 
@@ -33,12 +24,14 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellByType(EventType eventType) {
-        return spellByType.get(eventType);
+        return spellByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        spellByType.get(spellEvent.getEventType()).remove(spellEvent);
+        if (spellEvent != null) {
+            spellByType.get(spellEvent.getEventType()).remove(spellEvent);
+        }
     }
 
     public void printAllSpellEvents() {
