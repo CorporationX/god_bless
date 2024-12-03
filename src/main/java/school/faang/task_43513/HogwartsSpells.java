@@ -19,13 +19,13 @@ public class HogwartsSpells {
                 .action(actionDescription)
                 .build();
 
-         spellById.put(id, spellEvent);
+        spellById.put(id, spellEvent);
 
-         if (!spellByType.containsKey(eventType)) {
-             spellByType.put(eventType, new ArrayList<>());
-         }
+        if (!spellByType.containsKey(eventType)) {
+            spellByType.put(eventType, new ArrayList<>());
+        }
 
-         spellByType.get(eventType).add(spellEvent);
+        spellByType.get(eventType).add(spellEvent);
     }
 
     public SpellEvent getSpellById(int id) {
