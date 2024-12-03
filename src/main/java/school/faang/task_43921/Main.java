@@ -11,8 +11,8 @@ public class Main {
         users.add(new User("Kolya", 9, "T-Bank", "Moscow"));
         users.add(new User("Igor", 9, "Alexander and Сo", "St Petersburg"));
 
-        var groupedUSers = User.groupUsers(users);
-        groupedUSers.forEach((age, list) -> {
+        var groupedUsers = User.groupUsers(users);
+        groupedUsers.forEach((age, list) -> {
             System.out.println("Age: " + age);
             list.forEach(user -> System.out.println(" " + user.toString()));
         });
