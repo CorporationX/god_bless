@@ -11,15 +11,12 @@ public class Warrior extends Character {
 
     @Override
     protected void attack(Character otherCharacter) {
-        int currentHp = otherCharacter.getHealthPoints();
-        if (isAlive()) {
-            otherCharacter.setHealthPoints(currentHp);
-            if (isAlive(otherCharacter)) {
-                otherCharacter.setHealthPoints(currentHp - getStrength());
-                if (otherCharacter.getHealthPoints() == LOW_HP) {
-                    System.out.println(otherCharacter.getName() + " убит");
-                }
-            }
+        if (!isAlive() || !isAlive(otherCharacter)) {
+            return;
+        }
+        otherCharacter.setHealthPoints(otherCharacter.getHealthPoints() - getStrength());
+        if (otherCharacter.getHealthPoints() == LOW_HP) {
+            System.out.println(otherCharacter.getName() + " убит");
         }
     }
 }

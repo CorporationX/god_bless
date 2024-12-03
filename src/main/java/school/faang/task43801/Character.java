@@ -6,12 +6,12 @@ import lombok.Getter;
 public abstract class Character {
     protected static final int LOW_HP = 0;
 
-    protected boolean alive = true;
-    protected String name;
-    protected int strength;
-    protected int dexterity;
-    protected int intelligence;
-    protected int healthPoints = 100;
+    private boolean alive = true;
+    private String name;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
+    private int healthPoints = 100;
 
     public Character(String name) {
         checkName(name);
@@ -20,24 +20,23 @@ public abstract class Character {
     }
 
     public Character(int intelligence, int dexterity, int strength, String name) {
-        checkName(name);
+        this(name);
 
         this.intelligence = intelligence;
         this.dexterity = dexterity;
         this.strength = strength;
-        this.name = name;
     }
 
     protected void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+        this.healthPoints = Math.max(healthPoints, 0);
     }
 
     protected abstract void attack(Character otherCharacter);
 
     protected boolean isAlive() {
-        if (getHealthPoints() == 0) {
+        if (healthPoints == 0) {
             alive = false;
-            System.out.println("Персонаж " + getName() + " не может атаковать, он мёртв!\n");
+            System.out.println("Персонаж " + name + " не может атаковать, он мёртв!\n");
         }
         return alive;
     }
