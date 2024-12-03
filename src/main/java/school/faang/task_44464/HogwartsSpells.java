@@ -6,13 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById;
-    private Map<EventType, List<SpellEvent>> spellByType;
-
-    public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellByType = new HashMap<>();
-    }
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         EventType eventTypeEnum = EventType.valueOf(eventType);
