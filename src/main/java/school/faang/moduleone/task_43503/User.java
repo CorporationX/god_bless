@@ -25,14 +25,14 @@ public class User {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
             Optional.ofNullable(result.get(user.getAge()))
-                    .ifPresentOrElse(
-                            it -> it.add(user),
-                            () -> {
-                                List<User> userList = new ArrayList<>();
-                                userList.add(user);
-                                result.put(user.getAge(), userList);
-                            }
-                    );
+                .ifPresentOrElse(
+                    it -> it.add(user),
+                    () -> {
+                        List<User> userList = new ArrayList<>();
+                        userList.add(user);
+                        result.put(user.getAge(), userList);
+                    }
+                );
         }
         return result;
     }
