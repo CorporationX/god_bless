@@ -31,7 +31,7 @@ public class HogwartsSpells {
             List<SpellEvent> spellEvents = getSpellEventsByType(event.getEventType());
             spellEvents.remove(event);
         } else {
-            throw new NoSuchElementException("Такого события не существует");
+            throw new NoSuchElementException("There is no event under: " + id);
         }
     }
 
