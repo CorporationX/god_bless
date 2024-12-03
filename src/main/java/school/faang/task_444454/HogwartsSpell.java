@@ -17,7 +17,6 @@ public class HogwartsSpell {
         List<SpellEvent> spellEvents = spellsByType.get(eventType);
         spellEvents.add(newSpellEvent);
         spellById.putIfAbsent(id, newSpellEvent);
-        spellsByType.putIfAbsent(eventType, spellEvents);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -33,11 +32,7 @@ public class HogwartsSpell {
         spellById.remove(id);
 
         List<SpellEvent> spellEvents = spellsByType.get(eventType);
-        spellEvents.stream()
-                .filter(s -> s.getId() == id)
-                .findFirst()
-                .ifPresent(spellEvents::remove);
-        spellsByType.putIfAbsent(eventType, spellEvents);
+        spellEvents.removeIf(e -> e.getId() == id);
     }
 
     public void printAllSpellEvents() {
