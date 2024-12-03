@@ -22,7 +22,6 @@ public class User {
     public User(String name, int age, String job, String address) {
         if (VALID_JOBS.contains(job)) {
             this.job = job;
-
         } else {
             throw new IllegalArgumentException("Invalid job.");
         }
