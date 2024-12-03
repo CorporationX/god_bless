@@ -21,7 +21,7 @@ public class Main {
                 new User("Bagyshan", 23, "GL - backend", "Kalyk-Akieva"),
                 new User("Erik", 23, "GL - backend", "Dordoi-Plaza"),
                 new User("Atai", 22, "GL - frontend", "Kant"),
-                new User("Meerim", 18, "GL - frontend", "Kok-Jar")
+                new User("Meerim", 19, "GL - frontend", "Kok-Jar")
         );
     }
 }
