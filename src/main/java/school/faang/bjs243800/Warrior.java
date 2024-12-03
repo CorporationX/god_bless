@@ -11,9 +11,21 @@ public class Warrior extends Character {
 
     @Override
     protected void attack(Character character) {
-        System.out.println("Персонаж " + character.getName() + " наносит урон персонажу "
-                + this.getName() + " в размере " + character.getStrange());
-        setHealth(this.getHealth() - character.getStrange());
-        System.out.println("Уровень здоровья персонажа " + this.getName() + " = " + this.getHealth());
+        if (this.getHealth() > 0) {
+            if (this.getStrange() > character.getHealth()) {
+                System.out.println("Наносимый урон персонажа " + this.getName() + " больше уровня жизней персонажа "
+                        + character.getName() + ". Атакуемый персонаж убит.");
+                character.setHealth(0);
+                System.out.println("Уровень жизни персонажа " + character.getName()
+                        + " = " + character.getHealth());
+            } else {
+                System.out.println("Персонаж " + this.getName() + " наносит урон персонажу "
+                        + character.getName() + " в размере " + this.getStrange());
+                dealingDamadge(character, this.getStrange());
+                System.out.println("Уровень здоровья персонажа " + character.getName() + " = " + character.getHealth());
+            }
+        } else {
+            System.out.println("Персонаж " + this.getName() + " мертв и не может наносить атак.");
+        }
     }
 }

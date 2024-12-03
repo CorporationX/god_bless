@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 public abstract class Character {
     private String name;
     private int health = 100;
@@ -27,6 +26,10 @@ public abstract class Character {
     @Override
     public String toString() {
         return String.format("Hero{name='%s', strange='%d', agility='%d', mind='%d'}", name, strange, agility, mind);
+    }
+
+    protected void dealingDamadge(Character character, int damadge) {
+        character.health -= damadge;
     }
 
     protected abstract void attack(Character character);
