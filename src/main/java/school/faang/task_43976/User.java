@@ -1,6 +1,7 @@
 package school.faang.task_43976;
 
 import lombok.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,10 @@ public class User {
     private final String workplace;
     private final String address;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> listOfUsers){
+    public static Map<Integer, List<User>> groupUsers(List<User> listOfUsers) {
         Map<Integer, List<User>> groupingUsers = new HashMap<>();
 
-        for(User user : listOfUsers){
+        for (User user : listOfUsers) {
             int ageUser = user.getAge();
             if (!groupingUsers.containsKey(ageUser)) {
                 groupingUsers.put(ageUser, new ArrayList<>());

@@ -14,7 +14,7 @@ public class Main {
         listOfUsers.add(new User("Alex", 25, "Uber", "22 Komsomolskaya Street, Kazan, 420012, Russia"));
         listOfUsers.add(new User("Nick", 33, "VTB", "78 Tverskaya Street, Moscow, 125009, Russia"));
         listOfUsers.add(new User("Jon", 19, "Creative Call Project", "101 Pushkin Street, Nizhny Novgorod, 603000, Russia"));
-        listOfUsers.add(new User("Sergey", 38, "Amazon","56 Sovetskaya Street, Novosibirsk, 630000, Russia"));
+        listOfUsers.add(new User("Sergey", 38, "Amazon", "56 Sovetskaya Street, Novosibirsk, 630000, Russia"));
 
         Map<Integer, List<User>> gropedUsers = User.groupUsers(listOfUsers);
 
