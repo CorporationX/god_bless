@@ -10,7 +10,7 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private final String name;
-    private  final int age;
+    private final int age;
     private final String job;
     private final String address;
 
@@ -30,13 +30,15 @@ public class User {
         if (!job.isBlank() && VALID_JOBS.contains(job.trim())) {
             this.job = job;
         } else {
-            throw new IllegalArgumentException("Job cannot be blank and must be one of: " + String.join(", ", VALID_JOBS));
+            throw new IllegalArgumentException("Job cannot be blank and must be one of: "
+                    + String.join(", ", VALID_JOBS));
         }
 
         if (!address.isBlank() && VALID_ADDRESSES.contains(address.trim())) {
             this.address = address;
         } else {
-            throw new IllegalArgumentException("Address cannot be blank and must be one of: " + String.join(", ", VALID_ADDRESSES));
+            throw new IllegalArgumentException("Address cannot be blank and must be one of: "
+                    + String.join(", ", VALID_ADDRESSES));
         }
     }
 
