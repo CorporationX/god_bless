@@ -11,7 +11,6 @@ public class HogwartsSpells {
     public void addSpellEvent(int id, String eventType, String actionDescription){
         SpellEvent spellEvent = new SpellEvent(id,eventType, actionDescription );
         spellById.put(id, spellEvent);
-
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(spellEvent);
     }

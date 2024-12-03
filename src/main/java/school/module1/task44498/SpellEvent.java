@@ -1,7 +1,9 @@
 package school.module1.task44498;
 
-import java.util.Objects;
+import lombok.Getter;
 
+import java.util.Objects;
+@Getter
 public class SpellEvent {
     private int id;
     private String eventType;
