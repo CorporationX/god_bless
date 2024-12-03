@@ -37,7 +37,7 @@ public class User {
     }
 
     public static void printUserObject(User user) {
-        System.out.print("{" + user.name + ", " + user.age +
-                            ", " + user.workplace + ", " + user.address + "}, ");
+        System.out.print("{" + user.name + ", " + user.age
+                + ", " + user.workplace + ", " + user.address + "}, ");
     }
 }
