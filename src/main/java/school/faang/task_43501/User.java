@@ -1,19 +1,22 @@
 package school.faang.task_43501;
 
-
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 public class User {
-    private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         if (VALID_JOBS.contains(job)) {
