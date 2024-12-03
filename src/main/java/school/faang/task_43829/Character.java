@@ -19,6 +19,10 @@ public abstract class Character {
         this.health = health;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public abstract void attack(Character character);
 }
 
