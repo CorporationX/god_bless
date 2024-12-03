@@ -11,8 +11,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        if (character.isAlive()) {
-            character.setHp(character.getHp() - POWER);
+        if (character.isAlive() && (character.getHp() - POWER) >= 0 && isAlive()) {
+            character.reduceHp(POWER);
             System.out.println(character.getName() + " hp is " + character.getHp());
         } else {
             System.out.println(character.getName() + " is not alive ");
