@@ -27,7 +27,7 @@ public class User {
         return "{name='" + name + '\''
                 + ", age=" + age
                 + ", workplace='" + workplace + '\''
-                +'}';
+                + '}';
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
