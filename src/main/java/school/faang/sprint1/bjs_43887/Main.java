@@ -15,10 +15,10 @@ public class Main {
 
         Map<Integer, List<User>> groupByAge = User.groupUsers(users);
 
-        for(var pair : groupByAge.entrySet()) {
+        for (var pair : groupByAge.entrySet()) {
             System.out.print(pair.getKey() + " : ");
-            for (User user : pair.getValue()){
-                 User.printUserObject(user);
+            for (User user : pair.getValue()) {
+                User.printUserObject(user);
             }
             System.out.println();
         }
