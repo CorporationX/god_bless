@@ -1,13 +1,8 @@
 package school.faang.abstraction;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public abstract class Character {
     protected String name;
-    protected int force;
+    protected int power;
     protected int agility;
     protected int intellect;
     protected int health = 100;
@@ -16,9 +11,9 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(String name, int force, int agility, int intellect) {
+    public Character(String name, int power, int agility, int intellect) {
         this.name = name;
-        this.force = force;
+        this.power = power;
         this.agility = agility;
         this.intellect = intellect;
     }
