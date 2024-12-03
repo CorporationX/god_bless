@@ -1,14 +1,16 @@
 package school.faang.sprint_1.task_43702;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.List;
 
 @EqualsAndHashCode
+@Getter
 public class User {
-    public static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    public static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private Integer age;
