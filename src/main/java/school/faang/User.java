@@ -1,7 +1,7 @@
 package school.faang;
 
 public class User {
-    private int MINIMUM_AGE = 18;
+    private static final int minimumAge = 18;
 
     private String name;
     private int age;
@@ -17,7 +17,7 @@ public class User {
         if (name.isEmpty() || name == null) {
             throw new IllegalArgumentException("Имя должно быть заполнено");
         }
-        if (age < MINIMUM_AGE) {
+        if (age < minimumAge) {
             throw new IllegalArgumentException("Минимальный возраст 18 лет");
         }
         if (job == null || address == null) {
