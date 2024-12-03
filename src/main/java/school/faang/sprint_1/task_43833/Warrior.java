@@ -1,16 +1,16 @@
 package school.faang.sprint_1.task_43833;
 
 public class Warrior extends Character {
-    public Warrior(String name) {
-        super(name);
-    }
+    public static final int FORCE = 10;
+    public static final int AGILITY = 5;
+    public static final int INTELLIGENCE = 3;
 
-    public Warrior(int force, int agility, int intelligence) {
-        super(10, 5, 3);
+    public Warrior(String name) {
+        super(name, FORCE, AGILITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
-        int damage = health - character.getForce();
+        health -= character.getForce();
     }
 }
