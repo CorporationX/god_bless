@@ -2,8 +2,8 @@ package school.faang;
 
 public class User {
 
-    final static String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
-    final static String[] ADDRESS = {"London", "New York", "Amsterdam"};
+    static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
+    static final String[] ADDRESS = {"London", "New York", "Amsterdam"};
 
     private final String name;
     private final int age;
@@ -53,12 +53,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", job='" + job + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 }
-
