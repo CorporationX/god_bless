@@ -9,7 +9,7 @@ import static school.faang.task_43890.User.groupUsers;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        users.add(new User("Misha",28, "Google","New York"));
+        users.add(new User("Misha", 28, "Google", "New York"));
         users.add(new User("Denis", 28, "Yandex", "Moskow"));
         users.add(new User("Oleg", 23, "Uber", "London"));
         users.add(new User("Stas", 23, "Amazon", "Amsterdam"));
