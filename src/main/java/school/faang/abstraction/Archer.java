@@ -10,6 +10,7 @@ public class Archer extends Character {
     public void attack(Character character) {
         character.health -= this.agility;
     }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Archer{");
