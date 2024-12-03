@@ -12,13 +12,15 @@ public class Main {
         System.out.println("Health :: " + myWarrior.getHealth());
         myArcher.attack(myWarrior);
         System.out.println("Health :: " + myWarrior.getHealth());
+
         System.out.println(" ----------------- ");
+
         System.out.println("Health :: " + myArcher.getHealth());
         myWarrior.attack(myArcher);
         System.out.println("Health :: " + myArcher.getHealth());
-        myArcher.attack(myArcher);
+        myWarrior.attack(myArcher);
         System.out.println("Health :: " + myArcher.getHealth());
-        myArcher.attack(myArcher);
+        myWarrior.attack(myArcher);
         System.out.println("Health :: " + myArcher.getHealth());
     }
 }
