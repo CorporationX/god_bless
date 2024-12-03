@@ -33,7 +33,7 @@ public class User {
             grpBy = "workplace";
         } else if (Objects.equals(grpBy, "address")) {
             grpBy = "address";
-        } else new HashMap<>();
+        }
 
         if (Objects.equals(grpBy, "age")) {
 

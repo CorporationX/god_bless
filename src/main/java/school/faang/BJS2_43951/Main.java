@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Main {
 
-    final static int COUNT_RANDOM_COUNT_FROM = 300;
+    public final static int COUNT_RANDOM_COUNT_FROM = 300;
 
     public static void main(String[] args) {
 
