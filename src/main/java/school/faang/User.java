@@ -2,62 +2,59 @@ package school.faang;
 
 public class User {
 
-    static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
-    static final String[] ADDRESS = {"London", "New York", "Amsterdam"};
+    private static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
+    private static final String[] ADDRESS = {"London", "New York", "Amsterdam"};
+    private static final int MIN_AGE = 18;
+    private static final int MAX_AGE = 99;
 
     private final String name;
     private final int age;
     private final String job;
     private final String address;
 
-    public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Invalid name");
-        }
+    public User (String name, int age, String job, String address) {
+        validateName(name);
         this.name = name;
-        if (!isValidAge(age)) {
-            throw new IllegalArgumentException("Invalid age");
-        }
+        validateAge(age);
         this.age = age;
-        if (!isValidJob(job)) {
-            throw new IllegalArgumentException("Invalid job");
-        }
+        validateJob(job);
         this.job = job;
-        if (!isValidAddress(address)) {
-            throw new IllegalArgumentException("Invalid address");
-        }
+        validateAddress(address);
         this.address = address;
     }
 
-    public static boolean isValidJob(String job) {
+    private void validateName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Invalid name");
+        }
+    }
+
+    private void validateAge(int age) {
+        if (age < MIN_AGE || age > MAX_AGE) {
+            throw new IllegalArgumentException("Invalid age");
+        }
+    }
+
+    private void validateJob(String job) {
         for (String validJob : VALID_JOBS) {
             if (validJob.equals(job)) {
-                return true;
+                return;
             }
         }
-        return false;
+        throw new IllegalArgumentException("Invalid job");
     }
 
-    public static boolean isValidAddress(String address) {
+    private void validateAddress(String address) {
         for (String validAddress : ADDRESS) {
             if (validAddress.equals(address)) {
-                return true;
+                return;
             }
         }
-        return false;
-    }
-
-    public static boolean isValidAge(int age) {
-        return age >= 18 && age <= 99;
+        throw new IllegalArgumentException("Invalid address");
     }
 
     @Override
     public String toString() {
-        return "User{"
-                + "name='" + name + '\''
-                + ", age=" + age
-                + ", job='" + job + '\''
-                + ", address='" + address + '\''
-                + '}';
+        return String.format("User{name='%s', age=%d, job='%s', address='%s'}", name, age, job, address);
     }
 }
