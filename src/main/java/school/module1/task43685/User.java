@@ -16,7 +16,7 @@ public class User {
     private int age;
     private String job;
     private String address;
-    private static final int DEFAULT_AGE=18;
+    private static final int DEFAULT_AGE = 18;
 
     public User(String name, int age, String job, String address) {
 
