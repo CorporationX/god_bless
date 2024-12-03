@@ -6,6 +6,6 @@ public class Main {
         Character archer = new Archer("Legolas");
 
         warrior.attack(archer);
-        warrior.attack(warrior);
+        archer.attack(warrior);
     }
 }
