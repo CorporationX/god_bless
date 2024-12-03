@@ -15,4 +15,5 @@ public class Main {
         for (Map.Entry<Integer, List<User>> usersEntry : User.groupUsers(users).entrySet()) {
             System.out.println(usersEntry);
         }
-    }}
+    }
+}
