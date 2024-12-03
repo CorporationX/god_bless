@@ -1,4 +1,4 @@
-package school.faang.sprint1.bjs2_43500;
+package school.faang.sprint1.bjs_43500;
 
 import java.util.Arrays;
 
