@@ -1,16 +1,14 @@
 package school.faang.sprint_1.task_bjs243837;
 
 public class Archer extends Character {
-    private static final int STRENGTH = 3;
-    private static final int AGILITY = 10;
-    private static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name, STRENGTH, AGILITY, INTELLIGENCE);
+        super(name, 3, 10, 5);
     }
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - this.getAgility());
+        int healthAfterAttack = opponent.getHealth() - this.getAgility();
+        opponent.setHealth(healthAfterAttack);
     }
 }

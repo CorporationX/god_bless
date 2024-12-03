@@ -19,6 +19,7 @@ public class Main {
         archer.attack(warrior);
         archer.attack(warrior);
         archer.attack(warrior);
+        archer.attack(warrior);
 
         System.out.println("---after fight---");
         System.out.println(warrior);
