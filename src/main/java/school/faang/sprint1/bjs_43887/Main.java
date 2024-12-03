@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String args[]) {
-        List<User> users = new ArrayList<User>();
+    public static void main(String[] args) {
+        List<User> users = new ArrayList<>();
         users.add(new User("John", 29, "Company A", "123 Main st."));
         users.add(new User("Mike", 31, "Company B", "Mike address"));
         users.add(new User("Diana", 29, "Company Z", "address of Diana"));
