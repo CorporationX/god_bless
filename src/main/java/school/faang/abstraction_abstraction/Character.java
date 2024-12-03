@@ -28,7 +28,7 @@ public abstract class Character {
         return name;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         health -= damage;
     }
 }
