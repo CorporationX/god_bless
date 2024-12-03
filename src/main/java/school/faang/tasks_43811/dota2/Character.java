@@ -38,9 +38,10 @@ public abstract class Character {
         return heatPoint;
     }
 
-
     public void takeDamage(int damage) {
-        if (damage < 0) return;
+        if (damage < 0) {
+            return;
+        }
         this.heatPoint -= damage;
         if (this.heatPoint <= 0) {
             this.heatPoint = 0;

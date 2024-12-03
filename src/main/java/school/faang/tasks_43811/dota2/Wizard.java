@@ -6,7 +6,7 @@ public class Wizard extends Character {
     }
 
     @Override
-    protected void attacksHero (Character target){
+    protected void attacksHero(Character target) {
         useDamage(target, this.getIntelligence());
     }
 }
