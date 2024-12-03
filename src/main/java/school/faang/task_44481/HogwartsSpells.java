@@ -26,6 +26,9 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEventToDelete = getSpellEventById(id);
+        if (spellEventToDelete == null) {
+            throw new IllegalArgumentException("No spell event with id " + id + " found");
+        }
         spellById.remove(id);
 
         String spellEventToDeleteEventType = spellEventToDelete.getEventType();
@@ -34,6 +37,9 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         System.out.println("Printing all spell events...");
+        if (spellById.isEmpty()) {
+            System.out.println("There are no spell events in Hogwarts");
+        }
         for (SpellEvent spellEvent : spellById.values()) {
             System.out.println(spellEvent);
         }
