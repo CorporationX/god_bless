@@ -18,7 +18,7 @@ public class Main {
         );
 
         booksPlace.forEach(
-                (k,v) -> librarySystem.addBook(k.getTitle(), k.getAuthor(), k.getYear(), v)
+                (k, v) -> librarySystem.addBook(k.getTitle(), k.getAuthor(), k.getYear(), v)
         );
 
         System.out.println("Before deleting 1984\n");
