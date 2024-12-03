@@ -1,8 +1,5 @@
 package school.faang.registration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         User pasha = new User("Pasha", 32, "Amazon", "Amsterdam");
