@@ -1,20 +1,25 @@
 package school.faang.task_43804;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int power;
-    protected int dexterity;
-    protected int intelligence;
-    protected int health = 100;
+    private String name;
+    private int power;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
     }
 
-    public Character(String name, int power, int dexterity, int intelligence) {
+    public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
         this.power = power;
-        this.dexterity = dexterity;
+        this.agility = agility;
         this.intelligence = intelligence;
     }
 
