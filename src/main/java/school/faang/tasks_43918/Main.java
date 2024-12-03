@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         List<User> users = createSampleUsers();
 
-        Map<Integer, List<User>> groupedUsers = User.groupByAge(users);
+        Map<Integer, List<User>> groupedUsers = User.groupAge(users);
 
         groupedUsers.forEach((age, userList) -> {
             System.out.println("Возраст: " + age);

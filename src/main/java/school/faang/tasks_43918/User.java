@@ -33,7 +33,7 @@ public class User {
         return address;
     }
 
-    public static Map<Integer, List<User>> groupByAge(List<User> userList) {
+    public static Map<Integer, List<User>> groupAge(List<User> userList) {
         return userList.stream()
                 .collect(Collectors.groupingBy(User::getAge));
     }
