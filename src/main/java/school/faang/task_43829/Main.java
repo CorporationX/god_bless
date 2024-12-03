@@ -8,7 +8,8 @@ public class Main {
         while (warrior.health > 0 || archer.health > 0) {
             archer.attack(warrior);
             warrior.attack(archer);
-            System.out.println("Heath after attacks: "+ archer.getName()+ " - " + warrior.health + "; "+ warrior.getName()+ " - "  + archer.health);
+            System.out.println("Heath after attacks: " + archer.getName() + " - " + warrior.health);
+            System.out.println("Heath after attacks: " + warrior.getName() + " - "  + archer.health);
         }
 
     }
