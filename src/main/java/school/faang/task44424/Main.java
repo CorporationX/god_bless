@@ -14,6 +14,7 @@ public class Main {
         hogwartsSpells.addSpellEvent(2, "Чар", "Защищает от атак");
         hogwartsSpells.addSpellEvent(6, "Защита", "Защищает от атак");
         hogwartsSpells.addSpellEvent(5, "Защита", "Защищает от атак");
+        hogwartsSpells.addSpellEvent(13, null, "Защищает от атак");
         hogwartsSpells.addSpellEvent(12, "Защита", null);
 
         System.out.println();
@@ -34,5 +35,6 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
 
         hogwartsSpells.deleteSpellEvent(5);
+        hogwartsSpells.deleteSpellEvent(13);
     }
 }
