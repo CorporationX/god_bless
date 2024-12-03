@@ -1,12 +1,14 @@
 package school.faang.task_45086;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @AllArgsConstructor
 public class Product {
-    private int id;
-    private String name;
-    private String category;
+    private final int id;
+    private final String name;
+    private final String category;
 }
