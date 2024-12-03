@@ -36,13 +36,13 @@ public class Main {
     }
 
     public static void removeItem(String category, String name) {
-        try{
+         try {
             Category categoryTest = Category.valueOf(category);
             Product request = null;
 
-            for (Product product : products){
+            for (Product product : products) {
                 String checkingCategory = product.getCategory().toString();
-                if (checkingCategory.equals(category)){
+                if (checkingCategory.equals(category)) {
                     request = product;
                     break;
                 }
@@ -51,7 +51,7 @@ public class Main {
             if (!products.contains(request)) {
                 throw new IllegalArgumentException("The product was not found!");
             }
-            if (request != null){
+            if (request != null) {
                 products.remove(request);
             }
         } catch (IllegalArgumentException e){
@@ -64,14 +64,14 @@ public class Main {
 
         try {
             Category categoryTest = Category.valueOf(category);
-            for (Product product : products){
+            for (Product product : products) {
                 String checkingCategory = product.getCategory().toString();
-                if (checkingCategory.equals(category)){
+                if (checkingCategory.equals(category)) {
                     productsByCategory.add(product);
                 }
             }
 
-            if (productsByCategory.isEmpty()){
+            if (productsByCategory.isEmpty()) {
                 System.out.println("There is no products of that category!");
                 return new ArrayList<>();
             }
@@ -82,7 +82,7 @@ public class Main {
         return productsByCategory;
     }
 
-    private static List<Product> printAllItems(){
+    private static List<Product> printAllItems() {
         return new ArrayList<>(products);
     }
 
@@ -92,7 +92,7 @@ public class Main {
         }
 
         Map<String, List<Product>> groupedMap = new HashMap<>();
-        for (Product product : products){
+        for (Product product : products) {
             groupedMap.computeIfAbsent(product.getCategory().toString(), (k) -> new ArrayList<>()).add(product);
         }
         return groupedMap;
