@@ -18,7 +18,7 @@ public class Main {
 
         Set<String> hobbyMax = new HashSet<>();
         hobbyMax.add("Dance");
-        hobbyMax.add("Cooking");
+        hobbyMax.add("Golf");
         hobbyMax.add("Fishing");
         hobbyMax.add("Bowling");
 

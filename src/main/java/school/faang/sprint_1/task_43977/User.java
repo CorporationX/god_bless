@@ -27,6 +27,7 @@ public class User {
             for (String hobby : hobbies) {
                 if (user.getHobby().contains(hobby)) {
                     hobbyLovers.put(user, hobby);
+                    break;
                 }
             }
         }
