@@ -1,6 +1,13 @@
 package school.faang.abstraction;
 
 public abstract class Character {
+    protected static final int WARRIOR_POWER = 10;
+    protected static final int ARCHER_POWER = 3;
+    protected static final int WARRIOR_AGILITY = 5;
+    protected static final int ARCHER_AGILITY = 10;
+    protected static final int WARRIOR_INTELLECT = 3;
+    protected static final int ARCHER_INTELLECT = 5;
+
     protected String name;
     protected int power;
     protected int agility;

@@ -2,11 +2,8 @@ package school.faang.abstraction;
 
 public class Archer extends Character {
 
-    public Archer(String name, int power, int agility, int intellect) {
-        super(name);
-        power = 3;
-        agility = 10;
-        intellect = 5;
+    public Archer(String name) {
+        super(name, ARCHER_POWER, ARCHER_AGILITY, ARCHER_INTELLECT);
     }
 
     @Override
