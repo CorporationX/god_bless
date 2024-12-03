@@ -10,12 +10,23 @@ public class Archer extends Character {
         super(name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
-    private Archer(String name, int strength, int dexterity, int intelligence) {
+    Archer(String name, int strength, int dexterity, int intelligence) {
         super(name, strength, dexterity, intelligence);
+    }
+    public boolean isAlive() {
+        return health > 0;
     }
 
     @Override
     void attack(Character character) {
-        health -= character.getDexterity();
+        if (!isAlive()) {
+            System.out.println("Мертв");
+            return;
+        }
+        if (character.getHealth() < 10) {
+            character.setHealth(0);
+        } else {
+            character.setHealth(character.getHealth() - character.getDexterity());
+        }
     }
 }

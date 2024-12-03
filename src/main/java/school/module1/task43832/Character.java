@@ -1,14 +1,14 @@
 package school.module1.task43832;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 abstract class Character {
     private String name;
     private int strength;
     private int dexterity;
     private int intelligence;
-    protected static int health = 100;
+    protected int health = 100;
 
     protected Character(String name) {
         this.name = name;
@@ -23,15 +23,7 @@ abstract class Character {
 
     abstract void attack(Character character);
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public int getHealth() {
-        return health;
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
