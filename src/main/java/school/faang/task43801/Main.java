@@ -3,8 +3,8 @@ package school.faang.task43801;
 public class Main {
     public static void main(String[] args) {
         try {
-            Archer archer = new Archer(10, 15, 2, "Леголас");
-            Warrior warrior = new Warrior(10, 8, 10, "Арагорн");
+            Character archer = new Archer("Леголас");
+            Character warrior = new Warrior("Арагорн");
 
             for (int i = 0; i < 12; i++) {
                 System.out.println(archer);

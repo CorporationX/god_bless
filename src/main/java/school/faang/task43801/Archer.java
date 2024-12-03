@@ -5,15 +5,7 @@ public class Archer extends Character {
     private static final int DEXTERITY = 10;
     private static final int INTELLIGENCE = 5;
 
-
     public Archer(String name) {
-        super(name);
-        this.strength = STRENGTH;
-        this.dexterity = DEXTERITY;
-        this.intelligence = INTELLIGENCE;
-    }
-
-    public Archer(int intelligence, int dexterity, int strength, String name) {
         super(INTELLIGENCE, DEXTERITY, STRENGTH, name);
     }
 

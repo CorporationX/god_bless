@@ -1,13 +1,11 @@
 package school.faang.task43801;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter
 public abstract class Character {
     protected static final int LOW_HP = 0;
 
-    @Getter(AccessLevel.NONE)
     protected boolean alive = true;
     protected String name;
     protected int strength;
