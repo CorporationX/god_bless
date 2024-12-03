@@ -13,6 +13,7 @@ public class Archer extends Character {
     Archer(String name, int strength, int dexterity, int intelligence) {
         super(name, strength, dexterity, intelligence);
     }
+
     public boolean isAlive() {
         return health > 0;
     }
