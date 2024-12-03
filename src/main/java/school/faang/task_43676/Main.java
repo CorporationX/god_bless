@@ -10,7 +10,7 @@ public class Main {
     }
 
     public static void tryToCreateUser(String name, Integer age, String job, String address) {
-        try{
+        try {
             User user = new User(name, age, job, address);
             System.out.printf("User was created, his name is: %s", name);
         } catch (IllegalArgumentException e) {
