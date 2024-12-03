@@ -1,5 +1,3 @@
-package test_task_45206;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,7 +45,10 @@ public class StudentDatabaseTest {
 
     @ParameterizedTest
     @MethodSource("studentWithGradesProviderPositive")
-    void testStudentDatabase_addStudentWithGradesPositive(Student student, Map<Subject, Integer> grades, HashMap<Student, Map<Subject, Integer>> expected) {
+    void testStudentDatabase_addStudentWithGradesPositive(
+            Student student, Map<Subject, Integer> grades,
+            HashMap<Student, Map<Subject, Integer>> expected
+    ) {
         studentDatabase.addStudentWithGrades(student, grades);
         assertEquals(expected, studentDatabase.studentGrades);
     }
@@ -75,7 +76,10 @@ public class StudentDatabaseTest {
 
     @ParameterizedTest
     @MethodSource("subjectForStudentProviderPositive")
-    void testStudentDatabase_addSubjectForStudentPositive(Student student, Subject subject, Integer grade, HashMap<Student, Map<Subject, Integer>> expected) {
+    void testStudentDatabase_addSubjectForStudentPositive(
+            Student student, Subject subject,
+            Integer grade, HashMap<Student, Map<Subject, Integer>> expected
+    ) {
         studentDatabase.studentGrades.put(new Student(5, "Student5"), new HashMap<>());
         studentDatabase.addSubjectForStudent(student, subject, grade);
         assertEquals(expected, studentDatabase.studentGrades);
@@ -84,7 +88,10 @@ public class StudentDatabaseTest {
     @Test
     void testStudentDatabase_addSubjectForStudentNegative() {
         Student student = new Student(1, "Student1");
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> studentDatabase.addSubjectForStudent(student, new Subject(1, ""), 5));
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> studentDatabase.addSubjectForStudent(student, new Subject(1, ""), 5)
+        );
         assertEquals("Такого студента не существует", ex.getMessage());
     }
 
@@ -99,7 +106,10 @@ public class StudentDatabaseTest {
     @Test
     void testStudentDatabase_deleteStudentNegative() {
         Student student = new Student(1, "Student1");
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> studentDatabase.addSubjectForStudent(student, new Subject(1, ""), 5));
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> studentDatabase.addSubjectForStudent(student, new Subject(1, ""), 5)
+        );
         assertEquals("Такого студента не существует", ex.getMessage());
     }
 }
