@@ -1,4 +1,4 @@
-package taskBJS2_43948;
+package task_43948;
 
 import java.util.ArrayList;
 import java.util.List;
