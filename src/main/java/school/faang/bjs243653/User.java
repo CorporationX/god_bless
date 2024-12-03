@@ -7,14 +7,14 @@ import java.util.Set;
 @Getter
 
 public class User {
+    private static final int MIN_AGE = 18;
+    private static final Set VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+
     private String name;
     private int age;
     private String job;
     private String address;
-
-    private final static int MIN_AGE = 18;
-    private final static Set VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private final static Set VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         setName(name);
@@ -40,13 +40,13 @@ public class User {
     }
 
     public void setJob(String job) {
-        if(VALID_JOBS.contains(job) == false) {
+        if (VALID_JOBS.contains(job) == false) {
             throw new IllegalArgumentException("Place work must be Google or Uber or Amazon");
         }
     }
 
     public void setAddress(String address) {
-        if(VALID_ADDRESS.contains(address) == false) {
+        if (VALID_ADDRESS.contains(address) == false) {
             throw new IllegalArgumentException("Address must be London or New York or Amsterdam");
         }
     }
