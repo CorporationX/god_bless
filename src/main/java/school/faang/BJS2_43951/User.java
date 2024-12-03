@@ -1,4 +1,4 @@
-package school.faang.BJS243951;
+package school.faang.BJS2_43951;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,11 @@ public class User {
     private final String address;
 
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users, String groupeBy) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users, String groupBy) {
         Map<Integer, List<User>> grUser = new HashMap<>();
 
 
-        String grpBy = groupeBy;
+        String grpBy = groupBy;
 
         if (Objects.equals(grpBy, "name")) {
             grpBy = "name";
@@ -50,10 +50,9 @@ public class User {
         return grUser;
     }
 
-    public static String createRandomNameWorkplaceAdress(int length) {
+    public static String createRandomNameWorkplaceAddress(int length) {
         byte[] array = new byte[length]; // length is bounded by 7
         new Random().nextBytes(array);
-        String generatedString = new String(array, StandardCharsets.UTF_8);
-        return generatedString;
+        return new String(array, StandardCharsets.UTF_8);
     }
 }
