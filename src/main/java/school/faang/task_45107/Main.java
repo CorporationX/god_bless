@@ -35,27 +35,23 @@ public class Main {
         }
     }
 
-    public static void removeItem(String category, String name) {
-         try {
-            Category categoryTest = Category.valueOf(category);
-            Product request = null;
+    public static void removeItem(String category, String name) throws IllegalArgumentException {
+        Category categoryTest = Category.valueOf(category);
+        Product request = null;
 
-            for (Product product : products) {
-                String checkingCategory = product.getCategory().toString();
-                if (checkingCategory.equals(category)) {
-                    request = product;
-                    break;
-                }
+        for (Product product : products) {
+            String checkingCategory = product.getCategory().toString();
+            if (checkingCategory.equals(category)) {
+                request = product;
+                break;
             }
-            
-            if (!products.contains(request)) {
-                throw new IllegalArgumentException("The product was not found!");
-            }
-            if (request != null) {
-                products.remove(request);
-            }
-        } catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
+        }
+
+        if (!products.contains(request)) {
+            throw new IllegalArgumentException("The product was not found!");
+        }
+        if (request != null) {
+            products.remove(request);
         }
     }
 
