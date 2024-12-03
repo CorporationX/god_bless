@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class User {
-    String name;
-    int age;
-    String workplace;
-    String address;
+    private String name;
+    private int age;
+    private String workplace;
+    private String address;
 
     public User(String name, int age, String workplace, String address) {
         this.name = name;
@@ -22,14 +22,13 @@ public class User {
         HashMap<Integer, List<User>> hashUsers = new HashMap<>();
 
         for (User u : userList) {
-
             if (!hashUsers.containsKey(u.age)) {
-                hashUsers.put(u.age, new ArrayList<>(List.of(u)));
-            } else {
-                List<User> listValueHashUsers = hashUsers.get(u.age);
-                listValueHashUsers.add(u);
-                hashUsers.put(u.age, listValueHashUsers);
+                hashUsers.put(u.age, new ArrayList<>());
             }
+            List<User> listValueHashUsers = hashUsers.get(u.age);
+            listValueHashUsers.add(u);
+            hashUsers.put(u.age, listValueHashUsers);
+
         }
         return hashUsers;
     }
@@ -37,16 +36,9 @@ public class User {
     @Override
     public String toString() {
         return "User{"
-                + "name='"
-                + name
-                + '\''
-                + ", age="
-                + age
-                + ", workplace='" + workplace
-                + '\''
-                + ", address='"
-                + address
-                + '\''
-                + '}';
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", workplace='" + workplace + '\''
+                + ", address='" + address + '\'' + '}';
     }
 }
