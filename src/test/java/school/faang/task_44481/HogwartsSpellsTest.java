@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HogwartsSpellsTest {
     private HogwartsSpells hogwartsSpells;
@@ -62,7 +66,8 @@ class HogwartsSpellsTest {
 
         assertNull(hogwartsSpells.getSpellEventById(5), "Spell event should be null after deletion");
         List<SpellEvent> healingSpells = hogwartsSpells.getSpellsByType("Лечение");
-        assertTrue(healingSpells == null || healingSpells.isEmpty(), "Healing spells list should be empty after deletion");
+        assertTrue(healingSpells == null || healingSpells.isEmpty(),
+                "Healing spells list should be empty after deletion");
     }
 
     @Test
