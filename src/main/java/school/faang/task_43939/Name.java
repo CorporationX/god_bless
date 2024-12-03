@@ -6,7 +6,8 @@ import java.util.Random;
 
 public class Name {
 
-    public static final List<String> AVAILABLE_NAME = Arrays.asList("Sofia", "Victoria", "Ksenia", "Arina", "Yelizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana");
+    public static final List<String> AVAILABLE_NAME = Arrays.asList("Sofia", "Victoria", "Ksenia", "Arina",
+            "Yelizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana");
 
     static Random random = new Random();
 

@@ -8,7 +8,8 @@ import java.util.random.RandomGenerator;
 
 public class Job {
 
-    public static final List<String> AVAILABLE_JOB = Arrays.asList("UBS", "Google", "Bank of America", "Amazon", "Uber", "Yandex", "Sber", "VK", "SwissCom", "Tele 2", "MTS", "Beeline", "LMT", "Swedbank", "SEB");
+    public static final List<String> AVAILABLE_JOB = Arrays.asList("UBS", "Google", "Bank of America", "Amazon",
+            "Uber", "Yandex", "Sber", "VK", "SwissCom", "Tele 2", "MTS", "Beeline", "LMT", "Swedbank", "SEB");
 
     static Random random = new Random();
 

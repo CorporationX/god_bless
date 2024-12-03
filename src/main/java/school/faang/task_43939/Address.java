@@ -6,7 +6,8 @@ import java.util.Random;
 
 public class Address {
 
-    public static final List<String> AVAILABLE_ADDRESS = Arrays.asList("London", "New York", "Amsterdam", "Minsk", "Riga", "Sofia", "Kiev", "Kirov", "Perm", "Tallin", "Berlin", "Paris");
+    public static final List<String> AVAILABLE_ADDRESS = Arrays.asList("London", "New York", "Amsterdam", "Minsk",
+            "Riga", "Sofia", "Kiev", "Kirov", "Perm", "Tallin", "Berlin", "Paris");
 
     static Random random = new Random();
 
