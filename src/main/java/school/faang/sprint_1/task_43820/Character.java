@@ -1,8 +1,10 @@
 package school.faang.sprint_1.task_43820;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class Character {
     protected String name;
     protected Integer power;

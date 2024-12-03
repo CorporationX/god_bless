@@ -8,10 +8,6 @@ public class Warrior extends Character {
         intelligence = 3;
     }
 
-    public Warrior(String name, Integer power, Integer dexterity, Integer intelligence) {
-        super(name, power, dexterity, intelligence);
-    }
-
     @Override
     public void attack(Character character) {
         character.setHealth(character.getHealth() - power);
