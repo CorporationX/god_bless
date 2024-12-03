@@ -1,4 +1,4 @@
-package school.faang.task_43959_ageGrouping;
+package school.faang.task_43959;
 
 import java.util.ArrayList;
 import java.util.List;

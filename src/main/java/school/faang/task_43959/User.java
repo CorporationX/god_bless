@@ -1,4 +1,4 @@
-package school.faang.task_43959_ageGrouping;
+package school.faang.task_43959;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,30 +29,12 @@ public class User {
         return grouped;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(workplace, user.workplace) && Objects.equals(address, user.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, workplace, address);
-    }
-
     public int getAge() {
         return age;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{name = " + name + "}";
     }
 }
