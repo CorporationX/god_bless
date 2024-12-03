@@ -30,20 +30,4 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 }
