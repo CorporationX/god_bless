@@ -1,4 +1,4 @@
-package task_BJS2_43948;
+package taskBJS2_43948;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
