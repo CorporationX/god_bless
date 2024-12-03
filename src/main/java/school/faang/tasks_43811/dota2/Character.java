@@ -7,10 +7,6 @@ public abstract class Character {
     private int intelligence;
     private int heatPoint = 100;
 
-    public Character(String name) {
-        this.name = name;
-    }
-
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
@@ -38,39 +34,38 @@ public abstract class Character {
         return heatPoint;
     }
 
+    public boolean isAlive() {
+        return heatPoint > 0;
+    }
+
     public void takeDamage(int damage) {
         if (damage < 0) {
             return;
         }
-        this.heatPoint -= damage;
-        if (this.heatPoint <= 0) {
-            this.heatPoint = 0;
-            System.out.println(name + " убит");
+        this.heatPoint = Math.max(this.heatPoint - damage, 0);
+        if (!isAlive()) {
+            System.out.println(name + " только что убит.");
         }
     }
 
     public void useDamage(Character target, int damage) {
-        if (this.heatPoint <= 0) {
-            System.out.println(getName() + " мёртв");
+        if (!isAlive()) {
+            System.out.println(getName() + " мёртв и не может атаковать!");
             return;
         }
-        if (target.getHeatPoint() <= 0) {
-            System.out.println(target.getName() + " не может атаковать");
+        if (!target.isAlive()) {
+            System.out.println(target.getName() + " нельзя атаковать поскольку он убит!");
             return;
         }
 
         target.takeDamage(damage);
-
         System.out.println(
                 getName() + " атакует " + target.getName()
                         + " и наносит " + damage
-                        + " урона. Осталось " + target.getHeatPoint()
+                        + " урона. У " + target.getName()
+                        + " осталось " + target.getHeatPoint()
                         + " здоровья."
         );
-    }
-
-    public void attack(Character target) {
-        attacksHero(target);
     }
 
     protected abstract void attacksHero(Character target);

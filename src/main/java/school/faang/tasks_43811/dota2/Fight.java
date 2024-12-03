@@ -11,23 +11,23 @@ public class Fight {
         System.out.println(archer.getName() + ": " + archer.getHeatPoint());
         System.out.println(wizard.getName() + ": " + wizard.getHeatPoint());
 
-        archer.attack(warrior);
-        warrior.attack(archer);
-        wizard.attack(archer);
-
-        System.out.println("Здоровье после атак:");
-        System.out.println(warrior.getName() + ": " + warrior.getHeatPoint());
-        System.out.println(archer.getName() + ": " + archer.getHeatPoint());;
-
-        archer.attack(warrior);
-        warrior.attack(archer);
+        archer.attacksHero(warrior);
+        warrior.attacksHero(archer);
+        wizard.attacksHero(archer);
 
         System.out.println("Здоровье после атак:");
         System.out.println(warrior.getName() + ": " + warrior.getHeatPoint());
         System.out.println(archer.getName() + ": " + archer.getHeatPoint());
 
-        archer.attack(warrior);
-        warrior.attack(archer);
+        archer.attacksHero(warrior);
+        warrior.attacksHero(archer);
+
+        System.out.println("Здоровье после атак:");
+        System.out.println(warrior.getName() + ": " + warrior.getHeatPoint());
+        System.out.println(archer.getName() + ": " + archer.getHeatPoint());
+
+        archer.attacksHero(warrior);
+        warrior.attacksHero(archer);
 
         System.out.println("Здоровье после атак:");
         System.out.println(warrior.getName() + ": " + warrior.getHeatPoint());
