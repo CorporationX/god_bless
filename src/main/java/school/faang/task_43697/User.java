@@ -14,7 +14,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Имя не должно быть пустым.");
         }
 
@@ -38,16 +38,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", job='" + job + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 
     public static void main(String[] args) {
-        System.out.println(new User("Oleg", 19,"Uber","London").toString());
+        System.out.println(new User("Oleg", 19, "Uber", "London").toString());
     }
 }
 
