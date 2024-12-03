@@ -1,4 +1,5 @@
 package school.module1.task45273;
+
 import java.util.Map;
 
 import static school.module1.task45273.Main.bookLocation;
