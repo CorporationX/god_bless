@@ -57,7 +57,9 @@ public abstract class Character {
             System.out.println(target.getName() + " не может атаковать");
             return;
         }
+
         target.takeDamage(damage);
+
         System.out.println(
                 getName() + " атакует " + target.getName()
                         + " и наносит " + damage
