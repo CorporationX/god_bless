@@ -23,7 +23,7 @@ public class LibrarySystem {
     public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         if (!library.containsKey(book)) {
-            System.out.println("123");
+            throw new IllegalArgumentException("book not found");
         }
         return library.get(book);
     }
