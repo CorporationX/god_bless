@@ -3,12 +3,8 @@ package school.faang.task_43619;
 public class Example {
 
     public static void reverse(int[] nums) {
-        if (nums == null) {
-            System.out.println("Массив равен null");
-            return;
-        }
-        if (nums.length == 0) {
-            System.out.println("Массив пустой");
+        if (nums == null || nums.length == 0) {
+            System.out.println("Массив не инициализирован или пуст");
             return;
         }
 
