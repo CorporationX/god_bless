@@ -2,12 +2,12 @@ package school.faang.sprint_1.task_43699;
 
 public class Main {
     public static void main(String[] args) {
-         try {
-             var user = new User("", 23, "Google", "London");
-             System.out.println(user);
-         } catch (IllegalArgumentException e) {
-             System.out.println(e.getMessage());
-         }
+        try {
+            var user = new User("", 23, "Google", "London");
+            System.out.println(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
         try {
             var user = new User("Vanya", 17, "Google", "London");
