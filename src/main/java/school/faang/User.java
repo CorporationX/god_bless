@@ -11,11 +11,11 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-       if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Invalid name");
         }
         this.name = name;
-       if (!isValidAge(age)) {
+        if (!isValidAge(age)) {
             throw new IllegalArgumentException("Invalid age");
         }
         this.age = age;
