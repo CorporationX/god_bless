@@ -1,15 +1,15 @@
-package school.faang.bjs2_43711;
+package school.faang.task_43711;
 
-import lombok.Getter;
+
 import lombok.ToString;
-
 import java.util.Set;
 
-@Getter
+
 @ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE = 18;
 
     private String name;
     private int age;
@@ -32,7 +32,6 @@ public class User {
     }
 
     public void setAge(int age) {
-        final int AGE = 18;
         if (age > AGE) {
             this.age = age;
         } else {
