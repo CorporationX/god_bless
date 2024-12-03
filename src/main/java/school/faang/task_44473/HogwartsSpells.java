@@ -11,7 +11,7 @@ public class HogwartsSpells {
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent request = new SpellEvent(id, EventType.valueOf(eventType), actionDescription);
-        if(spellById.containsKey(id)){
+        if(spellById.containsKey(id)) {
             return;
         }
         spellById.put(id, request);
@@ -24,14 +24,14 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (id < 0 || !spellById.containsKey(id)){
+        if (id < 0 || !spellById.containsKey(id)) {
             throw new IllegalArgumentException("The id is incorrect!");
         }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if(eventType.isBlank()){
+        if(eventType.isBlank()) {
             throw new IllegalArgumentException("Event type is incorrect!");
         } else if (!spellsByType.containsKey(eventType)) {
             throw new IllegalArgumentException("Event was not founded!");
@@ -47,7 +47,7 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         spellById.forEach(
-                (k,v) -> System.out.println(k + " -> " + v)
+                (k, v) -> System.out.println(k + " -> " + v)
         );
     }
 }
