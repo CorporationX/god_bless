@@ -11,6 +11,11 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character target) {
-        target.takingDamage(WARRIOR_POWER);
+        if (target.isAlive()) {
+            target.takingDamage(WARRIOR_POWER);
+        } else {
+            System.out.println("Нельзя ударить мертвого пресонажа");
+        }
     }
 }
+

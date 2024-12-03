@@ -10,16 +10,15 @@ public abstract class Character {
     private int power;
     private int dexterity;
     private int intellect;
-    private boolean isAlive = true;
+
+    public boolean isAlive() {
+        return health > 0;
+    }
 
     public abstract void attack(Character character);
 
     public void takingDamage(int damage) {
-        health -= damage;
-        if (health > 0) {
-            return;
-        }
-        isAlive = false;
+        health = Math.max(health - damage, 0);
     }
 
     public Character(String name, int power, int dexterity, int intellect) {

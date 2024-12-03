@@ -7,9 +7,15 @@ public class Main {
 
         archer.attack(warrior);
         warrior.attack(archer);
-        warrior.attack(archer);
 
         System.out.println(archer.getHealth());
         System.out.println(warrior.getHealth());
+
+        for (int i = 0; i < 10; i++) {
+            warrior.attack(archer);
+        }
+
+        System.out.println(archer.getHealth());
+
     }
 }
