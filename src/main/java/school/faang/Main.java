@@ -5,6 +5,6 @@ public class Main {
         User user = new User("John", 25, "Google", "London");
         System.out.println(user);
 
-     //   User user2 = new User("Jane", 17, "Facebook", "Paris"); // Invalid job and address
+        // User user2 = new User("Jane", 17, "Facebook", "Paris"); // Invalid job and address
     }
 }
