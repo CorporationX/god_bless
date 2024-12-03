@@ -1,8 +1,8 @@
-package school.faang;
+package school.faang.task_43935;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class User {
     private String name;
@@ -16,12 +16,9 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
-        Map<Integer, List<User>> listMap = new HashMap<>();
-        for (User user1 : userList) {
-            List<User> newUserList = userList.stream().filter(p -> user1.age == p.age).toList();
-            listMap.put(user1.age, newUserList);
-        }
-        return listMap;
+        return userList.stream()
+                .collect(Collectors.groupingBy(user -> user.age));
+
     }
 
 }
