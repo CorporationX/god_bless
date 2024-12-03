@@ -7,12 +7,11 @@ public class ArrayRevertor {
 
         while (i < j) {
             j = nums.length - i - 1;
-            while (j > i) {
+            if (j > i) {
                 int num = nums[i];
                 nums[i] = nums[j];
                 nums[j] = num;
                 j--;
-                break;
             }
             i++;
         }

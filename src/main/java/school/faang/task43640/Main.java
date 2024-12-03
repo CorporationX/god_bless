@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] nums = new int[]{100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111};
+        int[] nums = new int[]{100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112};
         System.out.println("Nums before: " + Arrays.toString(nums));
 
         int[] resultNums = ArrayRevertor.reverse(nums);
