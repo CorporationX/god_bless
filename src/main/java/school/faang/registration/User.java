@@ -13,7 +13,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
+        if (name.isBlank() || age < 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Wrong parameters!");
         }
         this.name = name;
