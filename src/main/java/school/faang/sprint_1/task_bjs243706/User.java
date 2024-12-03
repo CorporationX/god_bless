@@ -3,6 +3,7 @@ package school.faang.sprint_1.task_bjs243706;
 import lombok.ToString;
 
 import java.util.Set;
+
 @ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
