@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
-    private final String NAME;
+    private final String name;
 
     private int health = 100;
     private int power;
@@ -23,13 +23,13 @@ public abstract class Character {
     }
 
     public Character(String name, int power, int dexterity, int intellect) {
-        this.NAME = name;
+        this.name = name;
         this.power = power;
         this.dexterity = dexterity;
         this.intellect = intellect;
     }
 
     public Character(String name) {
-        this.NAME = name;
+        this.name = name;
     }
 }
