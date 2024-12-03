@@ -2,12 +2,16 @@ package school.faang.task43920.model;
 
 public class Archer extends Character {
 
+    private final static int STRENGTH = 3;
+    private final static int AGILITY = 10;
+    private final static int INTELLIGENCE = 5;
+
     public Archer(String name) {
-        super(name, 3, 10, 5);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
-        this.health -= character.agility;
+        character.health -= this.agility;
     }
 }

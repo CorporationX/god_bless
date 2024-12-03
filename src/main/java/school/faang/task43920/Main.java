@@ -14,13 +14,12 @@ public class Main {
         System.out.println(warrior);
 
         warrior.attack(archer);
-        System.out.println("After attack archer to warrior: ");
-        System.out.println(warrior);
-
-        archer.attack(warrior);
         System.out.println("After attack warrior to archer: ");
         System.out.println(archer);
 
+        archer.attack(warrior);
+        System.out.println("After attack archer to warrior: ");
+        System.out.println(warrior);
 
     }
 }
