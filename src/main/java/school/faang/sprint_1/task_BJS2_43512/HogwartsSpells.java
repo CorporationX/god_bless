@@ -1,28 +1,21 @@
-package school.faang.task_BJS2_43512;
+package school.faang.sprint_1.task_BJS2_43512;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private List<SpellEvent> spellEventList = new ArrayList<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-        if (id < 0 && eventType == null && eventType.isBlank() && actionDescription == null
-                && actionDescription.isBlank()) {
-            throw new IllegalArgumentException();
-        }
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        spellEventList.add(spellEvent);
-
-        spellsByType.put(eventType, spellEventList);
+        spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException();
-        }
         return spellById.get(id);
     }
 
@@ -37,14 +30,13 @@ public class HogwartsSpells {
         if (id < 0) {
             throw new IllegalArgumentException();
         }
-        spellById.remove(id);
+        SpellEvent deletedEvent = spellById.remove(id);
+        spellsByType.get(deletedEvent.getEventType()).remove(deletedEvent);
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("Spell Event: id " + entry.getValue().getId() + " type "
-                    + entry.getValue().getEventType()
-                    + " action " + entry.getValue().getAction());
+            System.out.println(entry);
         }
     }
 }
