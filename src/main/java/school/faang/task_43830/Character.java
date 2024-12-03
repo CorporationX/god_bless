@@ -15,11 +15,11 @@ public abstract class Character {
     private int health;
     private static final int HEALTH = 100;
 
-    public Character(String name){
+    public Character(String name) {
         this.name = name;
     }
 
-    public Character(String name, int power, int agility, int intelligence){
+    public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
         this.power = power;
         this.agility = agility;

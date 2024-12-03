@@ -2,7 +2,7 @@ package school.faang.task_43830;
 
 public class Main {
 
-    public static void main(String [] args){
+    public static void main(String[] args) {
 
         Archer myArcher = new Archer("Anatolijs");
         Warrior myWarrior = new Warrior("Dmitrijs");

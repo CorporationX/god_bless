@@ -1,8 +1,8 @@
 package school.faang.task_43830;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
-    public Warrior(String name){
+    public Warrior(String name) {
         super(name, 10, 5, 3);
     }
 
