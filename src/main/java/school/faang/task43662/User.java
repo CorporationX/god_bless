@@ -14,8 +14,6 @@ public class User {
     private static final int AGE_LIMIT = 18;
 
     public User(String name, int age, String job, String address) {
-
-
         if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
