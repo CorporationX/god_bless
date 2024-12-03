@@ -1,8 +1,12 @@
 package school.faang.abstraction_abstraction;
 
 public class Warrior extends Character {
+    private static final int POWER = 10;
+    private static final int DEXTERITY = 5;
+    private static final int INTELLIGENCE = 3;
+
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, POWER, DEXTERITY, INTELLIGENCE);
     }
 
     @Override
