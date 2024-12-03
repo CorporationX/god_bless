@@ -10,7 +10,7 @@ public class Main {
 
         System.out.println("The warrior is really mad and motivated! He is trying to attack her!");
         int random = new Random().nextInt() % 2;
-        if(random == 1){
+        if (random == 1) {
             w.attack(a);
             System.out.println("The archer was attacked. His HP was decreased : " + a);
         } else {
@@ -18,7 +18,8 @@ public class Main {
             a.attack(w);
         }
 
-        System.out.println("They understood that it is the game. They are in the code of regular student. \nThe don`t know what to do and decide to stop fighting and try to escape the world!");
+        System.out.println("They understood that it is the game. They are in the code of regular student. "
+                + "\nThe don`t know what to do and decide to stop fighting and try to escape the world!");
         System.out.println("The game is over : Stats : \nWarrior : " + w + "\nArcher : " + a);
     }
 }

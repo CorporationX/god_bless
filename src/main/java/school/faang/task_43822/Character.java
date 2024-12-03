@@ -7,12 +7,12 @@ public abstract class Character {
     private Integer iq;
     private Integer health;
 
-    public Character(String name){
+    public Character(String name) {
         this.name = name;
         this.health = 100;
     }
 
-    public Character(String name, Integer power, Integer stamina, Integer iq){
+    public Character(String name, Integer power, Integer stamina, Integer iq) {
         this.name = name;
         this.power = power;
         this.stamina = stamina;
@@ -52,12 +52,12 @@ public abstract class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", power=" + power +
-                ", stamina=" + stamina +
-                ", iq=" + iq +
-                ", health=" + health +
-                '}';
+        return "Character{"
+                + "name='" + name + '\''
+                + ", power=" + power
+                + ", stamina=" + stamina
+                + ", iq=" + iq
+                + ", health=" + health
+                + '}';
     }
 }
