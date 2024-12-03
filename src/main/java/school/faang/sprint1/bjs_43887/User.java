@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class User {
-    private String name;
+    private final String name;
     @Getter
-    private int age;
-    private String workplace;
-    private String address;
+    private final int age;
+    private final String workplace;
+    private final String address;
 
     public User(String name, int age, String workplace, String address) {
         this.name = name;
