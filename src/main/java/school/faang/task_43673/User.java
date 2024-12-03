@@ -46,12 +46,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{"
-                + "name='" + name + '\''
-                + ", age=" + age
-                + ", job='" + job + '\''
-                + ", address='" + address + '\''
-                + '}';
+        return String.format("User{name='%s', age=%d, job='%s', address='%s'}", name, age, job, address);
     }
 
     public User(String name, int age, String job, String address) {
