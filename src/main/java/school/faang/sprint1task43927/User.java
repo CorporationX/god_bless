@@ -42,11 +42,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
+        return "User{"
+                +
+                "name='" + name + '\''
+                +
+                ", age=" + age
+                +
+                ", workplace='" + workplace + '\''
+                +
+                ", address='" + address + '\''
+                +
                 '}';
     }
 }
