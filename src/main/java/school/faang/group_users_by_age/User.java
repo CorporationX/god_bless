@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.group_users_by_age;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,15 +22,12 @@ public class User {
         Map<Integer, List<User>> resultList = new HashMap<>();
 
         for (User user : usersList) {
-            if (resultList.containsKey(user.getAge())) {
-                List<User> peers = resultList.get(user.getAge());
-                peers.add(user);
-                resultList.put(user.getAge(), peers);
-            } else {
-                List<User> peers = new ArrayList<>();
-                peers.add(user);
-                resultList.put(user.getAge(), peers);
+            if (!resultList.containsKey(user.getAge())) {
+                resultList.put(user.getAge(), new ArrayList<>());
             }
+            List<User> peers = resultList.get(user.getAge());
+            peers.add(user);
+            resultList.put(user.getAge(), peers);
         }
         return resultList;
     }
