@@ -8,7 +8,7 @@ public abstract class Character {
     protected int force;
     protected int agility;
     protected int intelligence;
-    protected final int HEALTH = 100;
+    protected final int health = 100;
 
     public Character(String name) {
         this.name = name;
