@@ -8,6 +8,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MINIMUM_AGE = 18;
 
     private String name;
     private int age;
@@ -23,21 +24,12 @@ public class User {
         this.address = address;
     }
 
-    public static User createIncorrectUser(String name, int age, String job, String address) {
-        try {
-            return new User(name, age, job, address);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return null;
-    }
-
     private void validateCredentials(String name, int age, String job, String address) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("name must be not blank");
         }
 
-        if (age < 18) {
+        if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("age must be 18 and over");
         }
 
