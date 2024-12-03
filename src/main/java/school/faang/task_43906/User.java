@@ -23,7 +23,7 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
-        for (User user: users) {
+        for (User user : users) {
             if (usersMap.containsKey(user.getAge())) {
                 usersMap.get(user.getAge()).add(user);
             } else {
@@ -36,8 +36,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\''
+        return "User{"
+                + "name='" + name + '\''
                 + ", age=" + age
                 + ", workplace='" + workplace + '\''
                 + ", address='" + address + '\''
