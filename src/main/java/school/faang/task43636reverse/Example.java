@@ -1,4 +1,4 @@
-package school.faang.task_43636_reverse;
+package school.faang.task43636reverse;
 
 public class Example {
 
