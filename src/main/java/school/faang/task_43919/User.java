@@ -24,10 +24,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "{name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                '}';
+        return "{name='" + name + '\''
+                + ", age=" + age
+                + ", workplace='" + workplace + '\''
+                +'}';
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
