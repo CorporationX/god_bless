@@ -37,13 +37,11 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         System.out.println("SPELLS BY ID:");
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry);
-        }
+        spellById.forEach((id, spellEvent) -> System.out.println(id + " : " + spellEvent));
+
         System.out.println("SPELLS BY TYPE:");
-        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
-            System.out.println(entry);
-        }
+        spellsByType.forEach((id, spells) -> System.out.println(id + " : " + spells));
+
         System.out.println("===============================");
     }
 }
