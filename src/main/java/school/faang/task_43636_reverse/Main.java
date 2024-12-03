@@ -8,6 +8,7 @@ public class Main {
         System.out.println("Начальный массив   " + Arrays.toString(nums));
         Example.reverse(nums);
         System.out.println("Развернутый массив " + Arrays.toString(nums));
+
     }
 
 }
