@@ -1,29 +1,35 @@
 package school.faang.sprint1.task_43819;
 
 import lombok.Getter;
-import lombok.Setter;
 
+@Getter
 public abstract class Character {
-    @Setter
-    @Getter
+    private final String NAME;
+
     private int health = 100;
-    protected String name;
-    protected int power;
-    protected int dexterity;
-    protected int intellect;
+    private int power;
+    private int dexterity;
+    private int intellect;
+    private boolean isAlive = true;
+
+    public abstract void attack(Character character);
+
+    public void takingDamage(int damage) {
+        health -= damage;
+        if (health > 0) {
+            return;
+        }
+        isAlive = false;
+    }
 
     public Character(String name, int power, int dexterity, int intellect) {
-        this.name = name;
+        this.NAME = name;
         this.power = power;
         this.dexterity = dexterity;
         this.intellect = intellect;
     }
 
     public Character(String name) {
-        this.name = name;
+        this.NAME = name;
     }
-
-    public void attack(Character character) {
-    }
-
 }

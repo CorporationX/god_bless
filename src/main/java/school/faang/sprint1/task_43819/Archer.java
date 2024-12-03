@@ -1,20 +1,20 @@
 package school.faang.sprint1.task_43819;
 
 public class Archer extends Character {
+    private static final int ARCHER_POWER = 3;
+    private static final int ARCHER_DEXTERITY = 10;
+    private static final int ARCHER_INTELLECT = 5;
 
     public Archer(String name, int power, int dexterity, int intellect) {
         super(name, power, dexterity, intellect);
     }
 
     public Archer(String name) {
-        super(name);
-        power = 3;
-        dexterity = 10;
-        intellect = 5;
+        super(name, ARCHER_POWER, ARCHER_DEXTERITY, ARCHER_INTELLECT);
     }
 
     @Override
-    public void attack(Character character) {
-        character.setHealth(character.getHealth() - this.dexterity);
+    public void attack(Character target) {
+        target.takingDamage(ARCHER_DEXTERITY);
     }
 }
