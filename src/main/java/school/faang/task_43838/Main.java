@@ -1,8 +1,8 @@
 package school.faang.task_43838;
 
-import school.faang.task_43838.Entity.Archer;
-import school.faang.task_43838.Entity.Character;
-import school.faang.task_43838.Entity.Warrior;
+import school.faang.task_43838.entity.Archer;
+import school.faang.task_43838.entity.Character;
+import school.faang.task_43838.entity.Warrior;
 
 public class Main {
     public static void main(String[] args) {

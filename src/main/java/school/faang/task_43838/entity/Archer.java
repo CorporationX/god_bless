@@ -1,4 +1,4 @@
-package school.faang.task_43838.Entity;
+package school.faang.task_43838.entity;
 
 public class Archer extends Character {
     private static final Integer DEFAULT_STRENGTH = 3;

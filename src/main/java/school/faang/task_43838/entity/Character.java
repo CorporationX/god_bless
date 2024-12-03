@@ -1,4 +1,4 @@
-package school.faang.task_43838.Entity;
+package school.faang.task_43838.entity;
 
 import lombok.Data;
 
