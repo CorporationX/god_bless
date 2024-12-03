@@ -12,6 +12,7 @@ public class User {
     private String job;
     private String address;
 
+    private final static int MIN_AGE = 18;
     private final static Set VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final static Set VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
@@ -33,7 +34,7 @@ public class User {
     }
 
     public void setAge(int age) {
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age can not 18 less");
         }
     }
