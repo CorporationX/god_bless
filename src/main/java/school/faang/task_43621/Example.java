@@ -1,12 +1,7 @@
 package school.faang.task_43621;
 
 public class Example {
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5};
-        reverse(nums);
-    }
-
-    public static void reverse(int[] nums) {
+    public void reverse(int[] nums) {
         if (nums != null && nums.length > 0) {
             int left = 0;
             int right = nums.length - 1;
