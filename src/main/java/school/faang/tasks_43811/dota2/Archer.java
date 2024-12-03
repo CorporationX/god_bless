@@ -6,21 +6,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public void attack(Character target) {
-        if (!this.isAlive()) {
-            System.out.println(getName() + " мёртв и не может атаковать.");
-            return;
-        }
-        if (!target.isAlive()) {
-            System.out.println(target.getName() + " уже мёртв.");
-            return;
-        }
-        int damage = target.getHeatPoint() - this.getAgility();
-        target.setHeatPoint(damage);
-        System.out.println(
-                getName() + " стреляет в " + target.getName()
-                        + " и наносит " + this.getAgility()
-                        + " урона. Осталось " + damage + " здоровья."
-        );
+    protected void attacksHero(Character target) {
+        useDamage(target, this.getAgility());
     }
 }

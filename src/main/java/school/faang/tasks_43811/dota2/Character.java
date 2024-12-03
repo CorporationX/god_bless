@@ -6,7 +6,6 @@ public abstract class Character {
     private int agility;
     private int intelligence;
     private int heatPoint = 100;
-    private boolean alive = true;
 
     public Character(String name) {
         this.name = name;
@@ -23,52 +22,55 @@ public abstract class Character {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getStrength() {
         return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
     }
 
     public int getAgility() {
         return agility;
     }
 
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
     public int getIntelligence() {
         return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
     }
 
     public int getHeatPoint() {
         return heatPoint;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
 
-    public void setHeatPoint(int heatPoint) {
-        this.heatPoint = heatPoint;
+    public void takeDamage(int damage) {
+        if (damage < 0) return;
+        this.heatPoint -= damage;
         if (this.heatPoint <= 0) {
             this.heatPoint = 0;
-            alive = false;
-            System.out.println(name + " мертвый");
+            System.out.println(name + " убит");
         }
     }
 
-    public abstract void attack(Character target);
+    public void useDamage(Character target, int damage) {
+        if (this.heatPoint <= 0) {
+            System.out.println(getName() + " мёртв");
+            return;
+        }
+        if (target.getHeatPoint() <= 0) {
+            System.out.println(target.getName() + " не может атаковать");
+            return;
+        }
+        target.takeDamage(damage);
+        System.out.println(
+                getName() + " атакует " + target.getName()
+                        + " и наносит " + damage
+                        + " урона. Осталось " + target.getHeatPoint()
+                        + " здоровья."
+        );
+    }
+
+    public void attack(Character target) {
+        attacksHero(target);
+    }
+
+    protected abstract void attacksHero(Character target);
 
     @Override
     public String toString() {
@@ -78,7 +80,6 @@ public abstract class Character {
                 + ", strength=" + strength
                 + ", agility=" + agility
                 + ", intelligence=" + intelligence
-                + ", alive=" + alive
                 + '}';
     }
 }
