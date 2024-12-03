@@ -1,5 +1,8 @@
 package school.faang.task_45086;
 
+import java.util.Map;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
@@ -10,12 +13,12 @@ public class Main {
         productManager.addItem("Category2", "Product2");
         productManager.addItem("Category5", "Product5");
 
-//        productManager.removeItem("Category1", "Product1");
-//        productManager.printAllItems();
+        productManager.removeItem("Category1", "Product1");
+        productManager.printAllItems();
 
-//        productManager.findItemsByCategory("Category2");
+        productManager.findItemsByCategory("Category2");
 
-//        Map<String, Set<Product>> groupedProducts = productManager.groupProductsByCategory();
-//        productManager.printProductsByCategory(groupedProducts);
+        Map<String, Set<Product>> groupedProducts = productManager.groupProductsByCategory();
+        productManager.printProductsByCategory(groupedProducts);
     }
 }
