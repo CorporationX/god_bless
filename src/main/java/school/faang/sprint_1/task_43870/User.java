@@ -24,14 +24,8 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> ageGrouping = new HashMap<>();
-        for (User userKey : users) {
-            List<User> userSameAge = new ArrayList<>();
-            for (User user : users) {
-                if (user.getAge() == userKey.getAge()) {
-                    userSameAge.add(user);
-                }
-            }
-            ageGrouping.put(userKey.getAge(), userSameAge);
+        for (User user : users) {
+            ageGrouping.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return ageGrouping;
     }
