@@ -10,10 +10,10 @@ public class Archer extends Character {
     }
 
     @Override
-    public void attack(Character character) {
-        if (checkIsAlive(character)) {
-            character.setHealth(character.getHealth() - getAgility());
-            System.out.println(getName() + " атакует " + character.getName());
+    public void attack(Character enemy) {
+        if (checkIsAlive(enemy)) {
+            enemy.setHealth(enemy.getHealth() - ARCHER_AGILITY);
+            System.out.println(getName() + " атакует " + enemy.getName());
         }
     }
 }

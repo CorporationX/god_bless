@@ -10,10 +10,10 @@ public class Warrior extends Character {
     }
 
     @Override
-    public void attack(Character character) {
-        if (checkIsAlive(character)) {
-            character.setHealth(character.getHealth() - getStrength());
-            System.out.println(getName() + " атакует " + character.getName());
+    public void attack(Character enemy) {
+        if (checkIsAlive(enemy)) {
+            enemy.setHealth(enemy.getHealth() - WARRIOR_STRENGTH);
+            System.out.println(getName() + " атакует " + enemy.getName());
         }
     }
 }
