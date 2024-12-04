@@ -17,20 +17,25 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) throws IllegalAccessException {
-        if ((!name.trim().isEmpty()) && (age >= AGE_BORDER)
-                && (VALID_JOBS.contains(job) && (VALID_ADDRESSES.contains(address)))) {
-            this.name = name;
-            this.age = age;
-            this.address = address;
-            this.job = job;
-        } else {
-            throw new IllegalAccessException("Data validation error, check that:\n"
-                    + "1) the name is filled in;\n"
-                    + "2) age at least 18;\n"
-                    + "3) Place of work from the list: \"Google\", \"Uber\", \"Amazon\";\n"
-                    + "4) Address from the list: \"London\", \"New York\", \"Amsterdam\".");
+
+        if (name.trim().isEmpty()) {
+            throw new IllegalAccessException("Data validation error, check that the name is filled in");
         }
+        if (age < AGE_BORDER) {
+            throw new IllegalAccessException("Data validation error, check that age at least 18;");
+        }
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalAccessException("Data validation error, check "
+                    + "that the place of work from the list: \"Google\", \"Uber\", \"Amazon\";");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalAccessException("Data validation error, check "
+                    + "that the address from the list: \"London\", \"New York\", \"Amsterdam\".");
+        }
+
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
-
-
 }
