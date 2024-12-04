@@ -23,11 +23,11 @@ public class User {
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> searchedActivities) {
-        var hobbyLovers = new HashMap<User, String>();
+        Map<User, String> hobbyLovers = new HashMap<>();
 
         for (var user : users) {
-            var activities = user.getActivities();
-            var match = findFirstMatch(activities, searchedActivities);
+            Set<String> activities = user.getActivities();
+            String match = findFirstMatch(activities, searchedActivities);
 
             if (match != null) {
                 hobbyLovers.put(user, match);
@@ -37,10 +37,10 @@ public class User {
         return hobbyLovers;
     }
 
-    private static String findFirstMatch(Set<String> set1, Set<String> set2) {
-        for (var value : set1) {
-            if (set2.contains(value)) {
-                return value;
+    private static String findFirstMatch(Set<String> activities, Set<String> searchedActivities) {
+        for (var activity : activities) {
+            if (searchedActivities.contains(activity)) {
+                return activity;
             }
         }
         return null;
