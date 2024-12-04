@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    private Map<Book, String> library;
+    private final Map<Book, String> library;
 
     public LibrarySystem() {
-        library = new HashMap();
+        library = new HashMap<>();
     }
 
     public void addBook(String title, String author, int year, String location) {
@@ -17,20 +17,27 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        library.remove(book);
+        String shelf = library.remove(book);
+        if (shelf != null) {
+            System.out.println("Книга удалена: " + book.getTitle());
+        } else {
+            System.out.println("Книга не найдена: " + book.getTitle());
+        }
     }
 
-    public String findBook(String title, String author, int year) {
+    public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (!library.containsKey(book)) {
-            throw new IllegalArgumentException("book not found");
+        String shelf = library.get(book);
+        if (shelf == null) {
+            System.out.println("Книга не найдена: " + book.getTitle());
+        } else {
+            System.out.println("Книга найдена на полке: " + shelf);
         }
-        return library.get(book);
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : library.entrySet()) {
-            System.out.println("Книга: " + entry.getKey() + ", местонахождение: " + entry.getValue());
+            System.out.println("Книга: " + entry.getKey().getTitle() + ", местонахождение: " + entry.getValue());
         }
     }
 }

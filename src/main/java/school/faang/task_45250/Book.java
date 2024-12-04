@@ -1,10 +1,12 @@
 package school.faang.task_45250;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@Getter
 public class Book {
     private String title;
     private String author;
