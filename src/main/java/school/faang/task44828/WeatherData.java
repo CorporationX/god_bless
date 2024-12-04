@@ -41,8 +41,8 @@ public class WeatherData {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
         String formattedDateTime = dateTime.format(formatter);
         return "WeatherData:"
-                + "city=" + city
-                + ", temperature=" + String.format("%.1f", temperature)
+                + "city="
+                + city + ", temperature=" + String.format("%.1f", temperature)
                 + ", humidity=" + String.format("%.1f", humidity)
                 + ", time=" + formattedDateTime;
     }
