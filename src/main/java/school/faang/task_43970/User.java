@@ -28,7 +28,10 @@ public class User {
         for (User user : userList) {
             for (String hobbyUser : user.getHobby()) {
                 if (!userStringMap.containsKey(user)) {
-                    hobbyList.stream().filter(hobbyUser::equals).findFirst().map(hobby -> userStringMap.put(user, hobby));
+                    hobbyList.stream()
+                            .filter(hobbyUser::equals)
+                            .findFirst()
+                            .map(hobby -> userStringMap.put(user, hobby));
                 }
             }
         }
