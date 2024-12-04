@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public abstract class Character {
 
+    private static final int DEFAULT_HEALTH = 100;
     @Getter
     protected String name;
     protected int power;
@@ -14,7 +15,7 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.health = 100;
+        this.health = DEFAULT_HEALTH;
     }
 
     public Character(String name, int power, int dexterity, int intelligence) {
@@ -22,7 +23,7 @@ public abstract class Character {
         this.power = power;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
-        this.health = 100;
+        this.health = DEFAULT_HEALTH;
     }
 
     public abstract void attack(Character character);
