@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Builder
 @ToString
 public abstract class Character {
     private String name;
