@@ -40,7 +40,8 @@ public class HogwartsSpells {
 
         List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
         if (events == null) {
-            throw new IllegalArgumentException("События по типу заклинания: " + spellEvent.getEventType() + " не найдены");
+            throw new IllegalArgumentException("События по типу заклинания: "
+                    + spellEvent.getEventType() + " не найдены");
         }
         events.remove(spellEvent);
         if (events.isEmpty()) {
@@ -50,7 +51,9 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("ID: " + entry.getKey() + ", Тип заклинания: " + entry.getValue().getEventType() + ", Описание: " + entry.getValue().getAction());
+            System.out.println("ID: " + entry.getKey()
+                    + ", Тип заклинания: " + entry.getValue().getEventType()
+                    + ", Описание: " + entry.getValue().getAction());
         }
     }
 }
