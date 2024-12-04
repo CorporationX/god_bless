@@ -2,15 +2,14 @@ package school.faang.task_43813;
 
 public class Warrior extends Character {
     public Warrior(String name) {
-        super(name);
-        this.power = 10;
-        this.dexterity = 5;
-        this.intelligence = 3;
+        super(name, 10, 5, 3);
     }
 
     @Override
     public void attack(Character opponent) {
         health -= opponent.power;
         opponent.health -= power;
+        System.out.println("Атака! Урон герою: " + power + ". Урон врагу: " + opponent.power);
+        System.out.println("Здороье героя: " + health + ". Здоровье врага: " + opponent.health);
     }
 }
