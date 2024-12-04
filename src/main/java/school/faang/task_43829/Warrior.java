@@ -6,14 +6,14 @@ public class Warrior extends Character {
     private static final int INTELLIGENCE = 10;
 
     public Warrior(String name) {
-        super(name);
-        this.strength = STRENGTH;
-        this.dexterity = DEXTERITY;
-        this.intelligence = INTELLIGENCE;
+        super(name, STRENGTH, DEXTERITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
+        if (character.isDead()) {
+            return;
+        }
         character.health -= this.strength;
     }
 

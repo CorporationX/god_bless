@@ -6,19 +6,14 @@ public class Archer extends Character {
     private static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
-        this.strength = STRENGTH;
-        this.dexterity = DEXTERITY;
-        this.intelligence = INTELLIGENCE;
+        super(name, STRENGTH, DEXTERITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
+        if (character.isDead()) {
+            return;
+        }
         character.health -= this.dexterity;
-    }
-
-    public static void main(String[] args) {
-        Archer archer = new Archer("Oleg");
-        System.out.println(archer);
     }
 }
