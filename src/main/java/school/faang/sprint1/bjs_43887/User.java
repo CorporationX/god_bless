@@ -25,14 +25,10 @@ public class User {
         Map<Integer, List<User>> group = new HashMap<>();
         for (User user : users) {
             if (!group.containsKey(user.getAge())) {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                group.put(user.getAge(), userList);
-            } else {
-                group.get(user.getAge()).add(user);
+                group.put(user.getAge(), new ArrayList<>());
             }
+            group.get(user.getAge()).add(user);
         }
-
         return group;
     }
 
