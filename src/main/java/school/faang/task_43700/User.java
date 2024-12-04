@@ -16,15 +16,12 @@ public class User {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name can't be empty");
         }
-
         if (age < 18) {
             throw new IllegalArgumentException("Age must be 18 or older");
         }
-
         if (!VALID_JOB.contains(job)) {
             throw new IllegalArgumentException("Invalid job='" + job + "'. Must be one of: " + VALID_JOB);
         }
-
         if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Invalid address='" + address + "'. Must be one of: " + VALID_ADDRESS);
         }
