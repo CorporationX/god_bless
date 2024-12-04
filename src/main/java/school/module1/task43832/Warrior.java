@@ -23,7 +23,7 @@ public class Warrior extends Character {
             System.out.println("Мертв");
             return;
         }
-        if (character.getHealth() < 10) {
+        if (character.getHealth() < DEFAULT_STRENGTH) {
             character.setHealth(0);
         } else {
             character.setHealth(character.getHealth() - character.getDexterity());

@@ -24,7 +24,7 @@ public class Archer extends Character {
             System.out.println("Мертв");
             return;
         }
-        if (character.getHealth() < 10) {
+        if (character.getHealth() < DEFAULT_DEXTERITY) {
             character.setHealth(0);
         } else {
             character.setHealth(character.getHealth() - character.getDexterity());
