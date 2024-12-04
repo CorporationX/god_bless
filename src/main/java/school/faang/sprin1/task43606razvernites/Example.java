@@ -1,18 +1,18 @@
-package school.faang.sprin1.task_43606_razvernites;
+package school.faang.sprin1.task43606razvernites;
 
 import java.lang.reflect.Array;
 
 public class Example {
 
-    public static <T> void reverseArray(T[] array) {
-        int left = 0;
-        int right = array.length - 1;
-        while (left < right) {
-            T temp = array[left];
-            array[left] = array[right];
-            array[right] = temp;
-            left++;
-            right--;
+    public static <T> void reverseArray(T[] inputArray) {
+        int leftIndex = 0;
+        int rightIndex = inputArray.length - 1;
+        while (leftIndex < rightIndex) {
+            T temp = inputArray[leftIndex];
+            inputArray[leftIndex] = inputArray[rightIndex];
+            inputArray[rightIndex] = temp;
+            leftIndex++;
+            rightIndex--;
         }
     }
 
@@ -23,8 +23,8 @@ public class Example {
             System.out.println("Пустая ссылка");
         } else {
             System.out.print(array.getClass() + " ");
-            int lenght = Array.getLength(array);
-            for (int i = 0; i < lenght; i++) {
+            int length = Array.getLength(array);
+            for (int i = 0; i < length; i++) {
                 Object element = Array.get(array, i);
                 System.out.print(element + ", ");
             }
@@ -32,4 +32,3 @@ public class Example {
         }
     }
 }
-

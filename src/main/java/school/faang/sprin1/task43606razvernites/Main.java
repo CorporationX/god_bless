@@ -1,4 +1,4 @@
-package school.faang.sprin1.task_43606_razvernites;
+package school.faang.sprin1.task43606razvernites;
 
 public class Main {
     public static void main(String[] args) {
