@@ -6,14 +6,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    private String name;
-    private int power;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
+    private static final int DEFAULT_POWER = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+    private static final int DEFAULT_HEALTH = 100;
+
+    private final String name;
+    private final int power;
+    private final int agility;
+    private final int intelligence;
+    private int health;
 
     public Character(String name) {
         this.name = name;
+        this.power = DEFAULT_POWER;
+        this.agility = DEFAULT_AGILITY;
+        this.intelligence = DEFAULT_INTELLIGENCE;
+        this.health = DEFAULT_HEALTH;
     }
 
     public Character(String name, int power, int agility, int intelligence) {
@@ -21,6 +30,7 @@ public abstract class Character {
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
+        this.health = DEFAULT_HEALTH;
     }
 
     abstract void attack(Character character);
