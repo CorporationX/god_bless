@@ -54,7 +54,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User{name='%s', age=%s, job='%s', address='%s'}", name, age, job, address);
+        return String.format("User{name='%s', age=%d, job='%s', address='%s'}", name, age, job, address);
     }
 
     public static void main(String[] args) {
