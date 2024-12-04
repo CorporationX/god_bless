@@ -24,7 +24,7 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     public void reduceHp(int damage) {
-        hp = hp - damage;
+        hp = Math.max(hp - damage, 0);
     }
 
     public boolean isAlive() {
