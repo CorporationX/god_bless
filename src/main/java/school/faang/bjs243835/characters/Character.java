@@ -1,14 +1,16 @@
 package school.faang.bjs243835.characters;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public abstract class Character {
     protected String name;
     protected int strength;
     protected int dexterity;
     protected int intelligence;
-    protected int health = 100;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -22,4 +24,8 @@ public abstract class Character {
     }
 
     public abstract void attack(Character target);
+
+    protected int calculateDamage(int health, int damage) throws NullPointerException {
+        return Math.max(health - damage, 0);
+    }
 }

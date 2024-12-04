@@ -11,6 +11,9 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character target) {
-        target.health = Math.max(target.health - this.strength, 0);
+        if (target == null) {
+            return;
+        }
+        target.setHealth(calculateDamage(target.getHealth(), this.strength));
     }
 }
