@@ -31,7 +31,10 @@ public class LibrarySystem {
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : library.entrySet()) {
-            System.out.println(entry.getKey().getTitle() + " | " + entry.getKey().getAuthor() + " | " + entry.getKey().getYear() + " | " + entry.getValue());
+            System.out.println(entry.getKey().getTitle() + " | "
+                    + entry.getKey().getAuthor() + " | "
+                    + entry.getKey().getYear() + " | "
+                    + entry.getValue());
         }
     }
 }
