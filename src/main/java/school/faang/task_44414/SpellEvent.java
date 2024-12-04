@@ -6,9 +6,8 @@ import lombok.ToString;
 
 @ToString
 @AllArgsConstructor
+@Getter
 public class SpellEvent {
     private final int id;
-    @Getter
-    private final String eventType;
-    private final String description;
+    private final SpellType spellType;
 }
