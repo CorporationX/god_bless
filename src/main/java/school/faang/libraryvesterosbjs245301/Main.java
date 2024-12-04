@@ -1,4 +1,4 @@
-package school.faang.library_vesteros_bjs2_45301;
+package school.faang.libraryvesterosbjs245301;
 
 import java.util.HashMap;
 import java.util.Map;

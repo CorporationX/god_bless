@@ -1,4 +1,4 @@
-package school.faang.library_vesteros_bjs2_45301;
+package school.faang.libraryvesterosbjs245301;
 
 import java.util.Objects;
 
@@ -15,8 +15,12 @@ public class Book {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         Book book = (Book) object;
         return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
@@ -28,8 +32,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\''
+        return "Book{"
+                + "title='" + title + '\''
                 + ", author='" + author + '\''
                 + ", year=" + year
                 + '}';
