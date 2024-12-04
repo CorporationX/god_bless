@@ -1,4 +1,4 @@
-package school.faang.task_43982_groupUser;
+package school.faang.task43982groupuser;
 
 import java.util.List;
 import java.util.Map;
