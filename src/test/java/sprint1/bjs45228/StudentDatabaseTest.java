@@ -1,4 +1,4 @@
-package task45228;
+package sprint1.bjs45228;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
