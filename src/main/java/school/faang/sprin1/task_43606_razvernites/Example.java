@@ -17,11 +17,11 @@ public class Example {
     }
 
     public static void printArray(Object array) {
-        if (Array.getLength(array) == 0){
+        if (Array.getLength(array) == 0) {
             System.out.println("Массив не может быть пустым");
-        }else if(array == null){
+        } else if (array == null) {
             System.out.println("Пустая ссылка");
-        }else {
+        } else {
             System.out.print(array.getClass() + " ");
             int lenght = Array.getLength(array);
             for (int i = 0; i < lenght; i++) {
