@@ -1,7 +1,9 @@
 package task_45256;
 
 import java.util.Objects;
+import lombok.Getter;
 
+@Getter
 public class Book {
     private String title;
     private String author;
