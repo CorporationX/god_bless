@@ -1,4 +1,4 @@
-package sprint1.bjs45228;
+package school.faang.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
