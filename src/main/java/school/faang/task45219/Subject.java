@@ -13,7 +13,7 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Предмет: "
+        return "Subject: "
                 + "id=" + id
                 + ", name='" + name + '\'';
     }
