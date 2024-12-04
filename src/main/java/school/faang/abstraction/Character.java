@@ -1,11 +1,14 @@
 package school.faang.abstraction;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
     protected String name;
     protected int strength;
-
     protected int dexterity;
-
     protected int intelligence;
     protected int health = 100;
 
