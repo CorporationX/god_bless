@@ -21,11 +21,11 @@ public class User {
             throw new IllegalArgumentException("Age must be 18 or older");
         }
 
-        if(!VALID_JOB.contains(job)) {
+        if (!VALID_JOB.contains(job)) {
             throw new IllegalArgumentException("Invalid job='" + job + "'. Must be one of: " + VALID_JOB);
         }
 
-        if(!VALID_ADDRESS.contains(address)) {
+        if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Invalid address='" + address + "'. Must be one of: " + VALID_ADDRESS);
         }
 
