@@ -1,6 +1,7 @@
 package school.faang.task_45283;
 
 import lombok.Getter;
+
 import java.util.Objects;
 
 @Getter
@@ -17,8 +18,12 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Book book = (Book) o;
         return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
