@@ -9,7 +9,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Product {
-    private final int id;
+    private final String id;
     @Getter
     private final String name;
     @Getter

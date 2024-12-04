@@ -7,15 +7,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
         Set<Product> products = new HashSet<>(
                 Arrays.asList(
-                        new Product(1, "Milk", "Food"),
-                        new Product(2, "Jacket", "Cloth"),
-                        new Product(3, "Cheese", "Food"),
-                        new Product(4, "iPhone", "Electronic")
+                        new Product(UUID.randomUUID().toString(), "Milk", "Food"),
+                        new Product(UUID.randomUUID().toString(), "Jacket", "Cloth"),
+                        new Product(UUID.randomUUID().toString(), "Cheese", "Food"),
+                        new Product(UUID.randomUUID().toString(), "iPhone", "Electronic")
                 )
         );
         Warehouse warehouse = new Warehouse(groupProductsByCategory(products));

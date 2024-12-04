@@ -2,11 +2,12 @@ package school.faang.task_45098;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -22,22 +23,16 @@ public class Warehouse {
     }
 
     public void addItem(String category, String name) {
-        checkCategory(category);
-        int id = generateId();
-        Product newProduct = new Product(id, name, category);
-        List<Product> currentProducts = productsByCategory.get(category);
-        if (currentProducts == null) {
-            productsByCategory.put(category, List.of(newProduct));
-            products.add(newProduct);
-        } else {
-            currentProducts.add(newProduct);
-            productsByCategory.put(category, currentProducts);
-            products.add(newProduct);
+        if (!productsByCategory.containsKey(category)) {
+            productsByCategory.put(category, List.of(new Product(generateId(), name, category)));
         }
+        Product newProduct = new Product(generateId(), name, category);
+        productsByCategory.computeIfAbsent(category, (s) -> new ArrayList<>()).add(newProduct);
+        products.add(newProduct);
     }
 
-    private int generateId() {
-        return new Random().nextInt(10000);
+    private String generateId() {
+        return UUID.randomUUID().toString();
     }
 
     public void removeItem(String category, String name) {
@@ -54,7 +49,7 @@ public class Warehouse {
     }
 
     private void checkCategory(String category) {
-        if (category == null || category.isEmpty()) {
+        if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Current category doesn't exist");
         }
     }
@@ -66,6 +61,13 @@ public class Warehouse {
     }
 
     public List<Product> findItemsByCategory(String category) {
+        if (category == null || category.isBlank()) {
+            throw new IllegalArgumentException("Category doesn't exist");
+        }
+        List<Product> itemsByCategory = productsByCategory.get(category);
+        if (itemsByCategory == null || itemsByCategory.isEmpty()) {
+            throw new IllegalArgumentException("Not found items");
+        }
         return productsByCategory.get(category);
     }
 
