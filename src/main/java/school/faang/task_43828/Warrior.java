@@ -2,7 +2,7 @@ package school.faang.task_43828;
 
 public class Warrior extends Character {
     public Warrior(String name) {
-        super(name, 100, 5, 3);
+        super(name, 10, 5, 3);
     }
 
     @Override
