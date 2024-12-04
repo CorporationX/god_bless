@@ -29,13 +29,7 @@ public class User {
         Map<Integer, List<User>> usersByAge = new HashMap<>();
 
         for (User user : users) {
-            if (usersByAge.containsKey(user.getAge())) {
-                usersByAge.get(user.getAge()).add(user);
-            } else {
-                List<User> newUserList = new ArrayList<>();
-                newUserList.add(user);
-                usersByAge.put(user.getAge(), newUserList);
-            }
+            usersByAge.computeIfAbsent(user.getAge(), key -> new ArrayList<>()).add(user);
         }
         return usersByAge;
 
