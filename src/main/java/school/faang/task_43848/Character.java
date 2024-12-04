@@ -1,8 +1,8 @@
 package school.faang.task_43848;
 
 public abstract class Character {
-    private final int DEFAULT_HEALTH = 100;
-    private final int MIN_HEALTH = 0;
+    private static final int DEFAULT_HEALTH = 100;
+    private static final int MIN_HEALTH = 0;
 
     private String name;
     protected int strength;
