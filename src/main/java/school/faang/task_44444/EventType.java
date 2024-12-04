@@ -1,4 +1,4 @@
-package school.faang.task_43513;
+package school.faang.task_44444;
 
 public enum EventType {
     CHAR,
