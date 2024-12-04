@@ -8,16 +8,14 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        if (this.unacceptableDamage(character)){
+        if (this.unacceptableDamage(character)) {
             return;
         }
-        int damadge = this.strength;
-        character.health = character.health - damadge;
-        if (character.health < 0) {
+        int damage = this.strength;
+        character.health = character.health - damage;
+        if (character.health <= 0) {
             System.out.println(character.name + ": убит");
 
         }
     }
-
-
 }
