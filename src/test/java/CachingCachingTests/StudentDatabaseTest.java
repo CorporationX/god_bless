@@ -1,4 +1,4 @@
-package task45228;
+package CachingCachingTests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -73,16 +73,16 @@ public class StudentDatabaseTest {
                 new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria"))));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "PE",
-                new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
+                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "PE", new ArrayList<>(
+                        List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(5, "PE",
-                new ArrayList<>(List.of())));
+                () -> StudentsDatabase.addSubjectWithListOfStudent(5, "PE", new
+                        ArrayList<>(List.of())));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "",
-                new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
+                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "", new ArrayList<>(
+                        List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
     }
 
     @Test
