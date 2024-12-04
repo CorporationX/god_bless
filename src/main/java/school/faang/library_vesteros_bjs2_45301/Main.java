@@ -13,11 +13,8 @@ public class Main {
         LibrarySystem.addBook("Flora of the Valyrian Freehold", "Mikellion", 36, "Shelf A3");
 
         LibrarySystem.printAllBooks();
-
         LibrarySystem.findBook("The Red Book", "Elkin", 79);
-
         LibrarySystem.removeBook("The Red Book", "Elkin", 79);
-
         LibrarySystem.printAllBooks();
 
     }
