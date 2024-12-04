@@ -8,7 +8,6 @@ public class Main {
         System.out.println("Warrior's hp = " + warrior.getHp());
         System.out.println("Archer's hp = " + archer.getHp());
 
-
         warrior.attack(archer);
         archer.attack(warrior);
 
