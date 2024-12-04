@@ -1,17 +1,12 @@
 package school.faang.task_43939;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import com.github.javafaker.Faker;
 
 public class Name {
 
-    public static final List<String> AVAILABLE_NAME = Arrays.asList("Sofia", "Victoria", "Ksenia", "Arina",
-            "Yelizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana");
-
-    static Random random = new Random();
+    private static Faker faker = new Faker();
 
     public static String getRandomName() {
-        return AVAILABLE_NAME.get(random.nextInt(AVAILABLE_NAME.size()));
+        return faker.name().firstName();
     }
 }

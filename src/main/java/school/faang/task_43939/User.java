@@ -30,19 +30,15 @@ public class User {
         Map<Integer, List<User>> sortedByAgeMap = new HashMap<>();
 
         for (User user : users) {
-
             List<User> tempListWithSameAgeUsers = new ArrayList<>();
-
             int age = user.getAge();
 
             if (isAgeAlreadyInMapAsKey(age, sortedByAgeMap)) {
                 tempListWithSameAgeUsers = sortedByAgeMap.get(age);
-                tempListWithSameAgeUsers.add(user);
-                sortedByAgeMap.put(age, tempListWithSameAgeUsers);
-            } else {
-                tempListWithSameAgeUsers.add(user);
-                sortedByAgeMap.put(age, tempListWithSameAgeUsers);
             }
+
+            tempListWithSameAgeUsers.add(user);
+            sortedByAgeMap.put(age, tempListWithSameAgeUsers);
         }
         return sortedByAgeMap;
     }
