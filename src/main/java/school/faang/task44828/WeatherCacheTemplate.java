@@ -17,7 +17,6 @@ public abstract class WeatherCacheTemplate {
     protected WeatherData updateData(WeatherData weatherData, long maxCacheAgeMillis) {
 
         WeatherData newWeatherData = WEATHER_SERVICE.fetchWeatherData(weatherData.getCity());
-
         cache.computeIfPresent(weatherData.getCity(), (key, weather) -> weather = newWeatherData);
 
         return newWeatherData;
