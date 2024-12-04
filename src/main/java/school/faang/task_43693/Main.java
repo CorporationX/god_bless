@@ -5,7 +5,7 @@ public class Main {
         try {
             User validUser = new User("Jeff Bezos", 60, "Amazon", "New York");
             User invalidUser = new User("Sergey Brin", 51, "Google", "California");
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
