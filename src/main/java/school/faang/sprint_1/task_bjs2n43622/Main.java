@@ -17,7 +17,6 @@ public class Main {
         example.reverse(arrayLengthTwo);
         example.reverse(arrayLengthThree);
 
-
         System.out.print("\narrayEven reversed:\t");
         printOutArray(arrayEven);
 
