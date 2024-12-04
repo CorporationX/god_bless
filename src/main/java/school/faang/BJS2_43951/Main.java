@@ -26,7 +26,7 @@ public class Main {
         }
 
 
-        Map<Integer, List<User>> groupedUser = User.groupUsers(users, "age");
+        Map<Integer, List<User>> groupedUser = User.groupUsers(users);
 
 
         for (Map.Entry<Integer, List<User>> entry : groupedUser.entrySet()) {
