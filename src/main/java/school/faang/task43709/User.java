@@ -6,47 +6,39 @@ import java.util.Set;
 
 @Getter
 public class User {
+    static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final static int MIN_AGE = 18;
     private String name;
     private int age;
     private String job;
     private String address;
-    static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
-
         try {
-            if (name.isEmpty() || name == null) {
-                throw new IllegalArgumentException("Имя должно содержать строчное значение!");
-            } else {
-                this.name = name;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            if (age < 18) {
-                throw new IllegalArgumentException("Возраст не может быть меньше 18 лет!");
-            }
+            validationUsers(name, age, job, address);
+            this.name = name;
             this.age = age;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            if (!VALID_JOBS.contains(job)) {
-                throw new IllegalArgumentException("Не верное место работы!");
-            }
             this.job = job;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            if (!VALID_ADDRESSES.contains(address)) {
-                throw new IllegalArgumentException("Не верный адрес!");
-            }
             this.address = address;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void validationUsers(String userName, int userAge, String userJob, String userAddress)
+            throws IllegalArgumentException {
+        if (userName.isEmpty() || userName == null) {
+            throw new IllegalArgumentException("Имя должно содержать строчное значение");
+        }
+        if (userAge < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18 лет!");
+        }
+        if (!VALID_JOBS.contains(userJob)) {
+            throw new IllegalArgumentException("Не верное место работы!");
+        }
+        if (!VALID_ADDRESSES.contains(userAddress)) {
+            throw new IllegalArgumentException("Не верный адрес!");
         }
     }
 }
