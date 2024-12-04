@@ -1,4 +1,4 @@
-package school.faang.task45283;
+package school.faang.task_45283;
 
 import lombok.Getter;
 import java.util.HashMap;
