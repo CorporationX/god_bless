@@ -16,7 +16,6 @@ public class Main {
             if (isDead(archer)) {
                 break;
             }
-
         }
     }
 
