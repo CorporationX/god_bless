@@ -10,12 +10,12 @@ public class LibrarySystem {
         library = new HashMap<>();
     }
 
-    public void addBook(String title, String author, int year, String location) {
+    public void addBook(String title, String author, Integer year, String location) {
         Book book = new Book(title, author, year);
         library.put(book, location);
     }
 
-    public void removeBook(String title, String author, int year) {
+    public void removeBook(String title, String author, Integer year) {
         Book book = new Book(title, author, year);
         String shelf = library.remove(book);
         if (shelf != null) {
@@ -25,7 +25,7 @@ public class LibrarySystem {
         }
     }
 
-    public void findBook(String title, String author, int year) {
+    public void findBook(String title, String author, Integer year) {
         Book book = new Book(title, author, year);
         String shelf = library.get(book);
         if (shelf == null) {

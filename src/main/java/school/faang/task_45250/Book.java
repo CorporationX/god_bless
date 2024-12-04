@@ -1,16 +1,30 @@
 package school.faang.task_45250;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
 
-@AllArgsConstructor
 @Getter
 public class Book {
-    private String title;
-    private String author;
-    private Integer year;
+    private final String title;
+    private final String author;
+    private final Integer year;
+
+    public Book(String title, String author, Integer year) {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("title не может быть пустым");
+        }
+        if (author == null || author.isEmpty()) {
+            throw new IllegalArgumentException("author не может быть пустым");
+        }
+        if (year == null) {
+            throw new IllegalArgumentException("year не может быть пустым");
+        }
+
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
 
     @Override
     public boolean equals(Object o) {
