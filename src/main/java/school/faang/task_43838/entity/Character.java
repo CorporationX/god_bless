@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
-    private static final int DEFAULT_STATS =10;
+    private static final int DEFAULT_STATS = 10;
 
     private final String name;
     private final int strength;
