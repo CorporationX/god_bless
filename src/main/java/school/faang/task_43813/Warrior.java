@@ -9,7 +9,7 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         health -= opponent.power;
         opponent.health -= power;
-        System.out.println("Атака! Урон герою: " + power + ". Урон врагу: " + opponent.power);
+        System.out.println("Атака! Урон героя: " + power + ". Урон врага: " + opponent.power);
         System.out.println("Здороье героя: " + health + ". Здоровье врага: " + opponent.health);
     }
 }
