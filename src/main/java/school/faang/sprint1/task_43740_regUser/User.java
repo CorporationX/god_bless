@@ -9,11 +9,10 @@ public class User {
     private String job;
     private String address;
 
-
     public final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
     public final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
 
-    public static void main(String[] args) throws IllegalArgumentException{
+    public static void main(String[] args) throws IllegalArgumentException {
         User user = new User("Maxim", 19, "Google", "London");
     }
 
