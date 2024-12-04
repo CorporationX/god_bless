@@ -20,7 +20,7 @@ public class User {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Поле имя не может быть пустым");
         }
-        if (age > VALID_AGE) {
+        if (age < VALID_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше" + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
@@ -29,12 +29,11 @@ public class User {
         if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Адрес указан неверно");
 
-        } else {
+        }
             this.name = name;
             this.age = age;
             this.job = job;
             this.address = address;
-        }
     }
 
 }
