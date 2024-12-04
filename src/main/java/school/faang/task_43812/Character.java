@@ -1,16 +1,23 @@
-package school.faang;
+package school.faang.task_43812;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
 
-    int health;
-    String name;
-    int power;
-    int skill;
-    int intellect;
+    private static final int MAX_HEALTH = 100;
+
+    private String name;
+    private int health;
+    private int power;
+    private int skill;
+    private int intellect;
 
     public Character(String name) {
         this.name = name;
-        this.health = 100;
+        this.health = MAX_HEALTH;
     }
 
     public Character(String name, int power, int skill, int intellect) {
@@ -18,7 +25,7 @@ public abstract class Character {
         this.power = power;
         this.skill = skill;
         this.intellect = intellect;
-        this.health = 100;
+        this.health = MAX_HEALTH;
     }
 
     abstract void attack(Character character);
