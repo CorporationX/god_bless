@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 @ToString
 public class User {
+    private static final int MAX_AGE = 100;
     private String name;
     @Getter
     private int age;
@@ -27,7 +28,7 @@ public class User {
 
         for (User user : users) {
             int age = user.getAge();
-            if (age > 100) {
+            if (age > MAX_AGE) {
                 System.out.println("Incorrect age: " + user);
             }
 
