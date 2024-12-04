@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
     static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private final static int MIN_AGE = 18;
+    private final static int MIN_AGE_USER = 18;
     private String name;
     private int age;
     private String job;
@@ -31,7 +31,7 @@ public class User {
         if (userName.isEmpty() || userName == null) {
             throw new IllegalArgumentException("Имя должно содержать строчное значение");
         }
-        if (userAge < MIN_AGE) {
+        if (userAge < MIN_AGE_USER) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18 лет!");
         }
         if (!VALID_JOBS.contains(userJob)) {

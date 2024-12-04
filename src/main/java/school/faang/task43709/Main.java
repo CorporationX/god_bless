@@ -2,7 +2,7 @@ package school.faang.task43709;
 
 public class Main {
     public static void main(String[] args) {
-        User user = new User("Павел", 18, "Google", "London");
+        User user = new User("Владимир", 18, "Google", "London");
         printUsers(user);
     }
 
