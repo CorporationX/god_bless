@@ -12,6 +12,10 @@ public class User {
     public final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
     public final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
 
+    public static void main(String[] args) throws IllegalArgumentException{
+        User user = new User("Maxim", 19, "Google", "London");
+    }
+
     public User(String name, Integer age, String job, String address) {
         if (name != null && age >= 18 && VALID_JOBS.contains(job) && VALID_ADDRESSES.contains(address)) {
             this.name = name;
