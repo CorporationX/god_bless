@@ -6,7 +6,7 @@ public class Main {
         printUsers(user);
     }
 
-    public static void printUsers(User users){
+    public static void printUsers(User users) {
         System.out.println("Имя пользователя: " + users.getName());
         System.out.println("Возраст пользователя: " + users.getAge());
         System.out.println("Место работы пользователя: " + users.getJob());

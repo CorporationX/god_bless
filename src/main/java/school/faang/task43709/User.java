@@ -6,9 +6,10 @@ import java.util.Set;
 
 @Getter
 public class User {
-    static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private final static int MIN_AGE_USER = 18;
+    @Getter
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE_USER = 18;
     private String name;
     private int age;
     private String job;
