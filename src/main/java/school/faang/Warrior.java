@@ -13,6 +13,6 @@ public class Warrior extends Character {
         System.out.printf("%s (Warrior) attacks %s with %s damage (based on strength)%n",
                 this.getName(), target.getName(), damageToTarget);
         target.takeDamage(damageToTarget);
-        System.out.printf("%s's health after attack: %s%n", target.getName(), target.getHealth());
+        System.out.printf("%s's health after attack: %s %n", target.getName(), target.getHealth());
     }
 }
