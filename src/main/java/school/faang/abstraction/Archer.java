@@ -8,8 +8,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        int healthBeforeAttack = character.getHealth();
-        character.setHealth(healthBeforeAttack - this.getAgility());
+        int healthAfterAttack = character.getHealth() - this.getAgility();
+        character.setHealth(healthAfterAttack);
     }
-
 }

@@ -16,10 +16,14 @@ public abstract class Character {
     protected static final int ARCHER_INTELLIGENCE = 5;
 
     private final String name;
-    private final int power;
-    private final int agility;
-    private final int intelligence;
+    private int power;
+    private int agility;
+    private int intelligence;
     private int health = 100;
+
+    public Character(String name) {
+        this.name = name;
+    }
 
     public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
