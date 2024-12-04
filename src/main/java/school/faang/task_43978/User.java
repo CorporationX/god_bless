@@ -1,4 +1,4 @@
-package school.faang.groupingUsers;
+package school.faang.task_43978;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

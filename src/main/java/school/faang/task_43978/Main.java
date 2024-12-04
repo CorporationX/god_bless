@@ -1,4 +1,4 @@
-package school.faang.groupingUsers;
+package school.faang.task_43978;
 
 import java.util.ArrayList;
 import java.util.List;
