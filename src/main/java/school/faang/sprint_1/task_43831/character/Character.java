@@ -1,5 +1,8 @@
 package school.faang.sprint_1.task_43831.character;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Character {
     protected String name;
     protected Integer strength;
