@@ -1,11 +1,13 @@
 package school.faang.task_45206;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Data
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Student {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 }

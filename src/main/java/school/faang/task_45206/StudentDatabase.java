@@ -1,68 +1,63 @@
 package school.faang.task_45206;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class StudentDatabase {
+    public final Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
+    public final Map<Subject, Set<Student>> subjectStudents = new HashMap<>();
 
-    public HashMap<Student, Map<Subject, Integer>> studentGrades;
-    public HashMap<Subject, List<Student>> subjectStudents;
-
-    public StudentDatabase() {
-        studentGrades = new HashMap<>();
-        subjectStudents = new HashMap<>();
-    }
-
-    public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        studentGrades.put(student, grades);
+    public void addStudentWithGrades(Student student, Map<Subject, Integer> subjectsGrades) {
+        studentGrades.put(student, subjectsGrades);
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        Map<Subject, Integer> subjectGrades = studentGrades.get(student);
-        if (subjectGrades != null) {
-            subjectGrades.put(subject, grade);
-            return;
-        }
-        throw new IllegalArgumentException("Такого студента не существует");
+        studentGrades.forEach((currentStudent, subjectsGrades) -> {
+            if (Objects.equals(student, currentStudent)) {
+                subjectsGrades.put(subject, grade);
+            }
+        });
     }
 
     public void deleteStudent(Student student) {
-        if (studentGrades.remove(student) == null) {
-            throw new IllegalArgumentException("Такого студента не существует");
-        }
+        studentGrades.remove(student);
     }
 
-    public void printStudentsWithSubjects() {
-        for (Map.Entry entry : studentGrades.entrySet()) {
-            System.out.println(entry);
-        }
+    public void printAllStudentsWithSubjects() {
+        studentGrades.forEach((student, subjectsGrades) -> {
+            System.out.println(student);
+            subjectsGrades.forEach((subject, grade) -> {
+                System.out.println(subject + ": " + grade);
+            });
+        });
     }
 
-    public void addSubjectWithStudents(Subject subject, List<Student> students) {
+    public void addSubjectWithStudents(Subject subject, Set<Student> students) {
         subjectStudents.put(subject, students);
     }
 
-    public void addStudentForSubject(Student student, Subject subject) {
-        List<Student> currentStudents = subjectStudents.get(subject);
-        if (currentStudents != null) {
-            currentStudents.add(student);
-            return;
-        }
-        throw new IllegalArgumentException("Такого предмета не существует");
+    public void addStudentForSubject(Subject subject, Student student) {
+        subjectStudents.forEach((currentSubject, students) -> {
+            if (Objects.equals(subject, currentSubject)) {
+                students.add(student);
+            }
+        });
     }
 
     public void deleteStudentFromSubject(Subject subject, Student student) {
-        List<Student> currentStudents = subjectStudents.get(subject);
-        if (currentStudents != null) {
-            currentStudents.remove(student);
-        }
-        throw new IllegalArgumentException("Такого предмета не существует");
+        subjectStudents.forEach((currentSubject, students) -> {
+            if (Objects.equals(subject, currentSubject)) {
+                students.remove(student);
+            }
+        });
     }
 
-    public void printSubjectsWithStudents() {
-        for (Map.Entry entry : subjectStudents.entrySet()) {
-            System.out.println(entry);
-        }
+    public void printAllSubjectsWithStudents() {
+        subjectStudents.forEach((subject, students) -> {
+            System.out.println(subject + ":");
+            students.forEach(System.out::println);
+        });
     }
 }
