@@ -1,4 +1,4 @@
-package school.module1.task43685;
+package school.faang.module1.task43685;
 
 import lombok.Getter;
 import lombok.ToString;

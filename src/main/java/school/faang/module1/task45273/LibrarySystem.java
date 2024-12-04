@@ -1,8 +1,8 @@
-package school.module1.task45273;
+package school.faang.module1.task45273;
 
 import java.util.Map;
 
-import static school.module1.task45273.Main.bookLocation;
+import static school.faang.module1.task45273.Main.bookLocation;
 
 public class LibrarySystem {
 
