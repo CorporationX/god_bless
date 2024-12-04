@@ -75,7 +75,11 @@ public class StudentDatabase {
     public void printAllStudentsWithSubjectsAndScores() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : students.entrySet()) {
             for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                System.out.println("student: %s, subject: %s, score: %d".formatted(entry.getKey(), subjectEntry.getKey(), subjectEntry.getValue()));
+                System.out.println("student: %s, subject: %s, score: %d".formatted(
+                        entry.getKey(),
+                        subjectEntry.getKey(),
+                        subjectEntry.getValue())
+                );
             }
         }
     }
@@ -83,7 +87,10 @@ public class StudentDatabase {
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjects.entrySet()) {
             for (Student student : entry.getValue()) {
-                System.out.println("Subject: %s, student: %s".formatted(entry.getKey(), student));
+                System.out.println("Subject: %s, student: %s".formatted(
+                        entry.getKey(),
+                        student)
+                );
             }
         }
     }
