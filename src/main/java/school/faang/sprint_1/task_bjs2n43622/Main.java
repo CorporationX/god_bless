@@ -8,8 +8,8 @@ public class Main {
         int[] arrayOdd = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] arrayZero = new int[]{};
         int[] arrayLengthOne = new int[]{1};
-        int[] arrayLengthTwo = new int[]{1,2};
-        int[] arrayLengthThree = new int[]{1,2,3};
+        int[] arrayLengthTwo = new int[]{1, 2};
+        int[] arrayLengthThree = new int[]{1, 2, 3};
         example.reverse(arrayEven);
         example.reverse(arrayOdd);
         example.reverse(arrayZero);
@@ -38,7 +38,8 @@ public class Main {
 
 
     }
-    public static void printOutArray(int[] array){
+
+    public static void printOutArray(int[] array) {
         for (int num : array) {
             System.out.print(num + " ");
         }
