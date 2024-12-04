@@ -4,15 +4,13 @@ import java.lang.reflect.Array;
 
 public class Example {
 
-
-
-    public static <T> void reverse(T[] dataArray) {
+    public static <T> void reverseArray(T[] array) {
         int left = 0;
-        int right = dataArray.length - 1;
+        int right = array.length - 1;
         while (left < right) {
-            T temp = dataArray[left];
-            dataArray[left] = dataArray[right];
-            dataArray[right] = temp;
+            T temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
             left++;
             right--;
         }
