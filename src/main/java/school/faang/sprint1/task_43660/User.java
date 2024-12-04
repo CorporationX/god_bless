@@ -1,9 +1,7 @@
-package school.faang.task_43660;
+package school.faang.sprint1.task_43660;
 
 import lombok.ToString;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 @ToString
