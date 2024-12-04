@@ -17,7 +17,8 @@ public class SpellEventRepository {
 
     public void add(SpellEvent spellEvent) {
         spellToId.put(spellEvent.id(), spellEvent);
-        List<SpellEvent> spellEventList = spellsToType.computeIfAbsent(spellEvent.eventType(), list -> new ArrayList<>());
+        List<SpellEvent> spellEventList = spellsToType.computeIfAbsent(spellEvent.eventType(),
+                list -> new ArrayList<>());
         spellEventList.add(spellEvent);
     }
 
