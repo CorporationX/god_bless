@@ -24,17 +24,18 @@ public class User {
         this.address = address;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = users.stream()
-        .collect(Collectors.toMap(
-            user -> user.getAge(), 
-            user -> new ArrayList<>(List.of(user)), 
-            (oldList, newList) -> {
-                oldList.addAll(newList);
-                return oldList;
-            }
-        ));    
-        
-        return groupedUsers; 
+                .collect(Collectors.toMap(
+                        user -> user.getAge(),
+                        user -> new ArrayList<>(List.of(user)),
+                        (oldList, newList) -> {
+                            oldList.addAll(newList);
+                            return oldList;
+                        }
+                ));
+    
+        return groupedUsers;
     }
+    
 }
