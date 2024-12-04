@@ -1,4 +1,4 @@
-package Task_43715;
+package task_43715;
 
 import java.util.Set;
 
