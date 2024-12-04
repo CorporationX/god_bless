@@ -1,4 +1,4 @@
-package school.faang.task_45283;
+package school.faang.task45283;
 
 import java.util.Map;
 
