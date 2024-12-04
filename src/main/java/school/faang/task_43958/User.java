@@ -4,17 +4,11 @@ import lombok.*;
 
 import java.util.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
-    @EqualsAndHashCode.Include
     private Long id;
-    @EqualsAndHashCode.Include
     private String name;
-    @EqualsAndHashCode.Include
     private int age;
     private Set<String> hobbies;
 
@@ -31,26 +25,16 @@ public class User {
         return map;
     }
 
-    // к сожалению мне лень создавать много данных
-    // (если какой-то способ как это проверить не создавая ручками куча юзеров, скажите плз)
-    // в целом думаю будет работать быстрее когда много данных так как я завязался на ключи,
-    // ведь мапа быстро находит по ключам.
-    public static Map<User, String> findHobbyLoversWhenLargeData(List<User> users, Set<String> activities) {
-        Map<String, List<User>> hobbyToUsers = new HashMap<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return age == user.age && Objects.equals(id, user.id) && Objects.equals(name, user.name);
+    }
 
-        for (User user : users) {
-            for (String hobby : user.getHobbies()) {
-                hobbyToUsers.computeIfAbsent(hobby, k -> new ArrayList<>()).add(user);
-            }
-        }
-        Map<User, String> map = new HashMap<>();
-        for (String activity : activities) {
-            if (hobbyToUsers.containsKey(activity)) {
-                for (User user : hobbyToUsers.get(activity)) {
-                    map.putIfAbsent(user, activity);
-                }
-            }
-        }
-        return map;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
     }
 }

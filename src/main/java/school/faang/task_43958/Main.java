@@ -11,9 +11,6 @@ public class Main {
         long l = System.currentTimeMillis();
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, Set.of("chess", "football"));
         System.out.println(System.currentTimeMillis() - l);
-        long l1 = System.currentTimeMillis();
-        Map<User, String> hobbyLovers1 = User.findHobbyLoversWhenLargeData(users, Set.of("chess", "football"));
-        System.out.println(System.currentTimeMillis() - l1);
     }
 
     private static List<User> prepareData() {
