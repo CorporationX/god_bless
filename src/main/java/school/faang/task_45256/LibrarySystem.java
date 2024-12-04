@@ -1,6 +1,7 @@
-package task_45256;
+package school.faang.task_45256;
 
 import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,15 +20,15 @@ public class LibrarySystem {
     public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         if (booksLocation.containsKey(book)) {
-            System.out.println(String.format("Книга %s найдена на полке %s.", book.getTitle(), booksLocation.get(book)));
+            System.out.println(String.format("Книга %s на полке %s.", book.getTitle(), booksLocation.get(book)));
         } else {
-            System.out.println(String.format("Книга '%s' не найдена в библиотеке.", book.getTitle()));
+            System.out.println(String.format("Книга '%s' не найдена.", book.getTitle()));
         }
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : booksLocation.entrySet()) {
-            System.out.println(String.format("Книга '%s' находится на полке %s.", entry.getKey().getTitle(), entry.getValue()));
+            System.out.println(String.format("Книга '%s' на полке %s.", entry.getKey().getTitle(), entry.getValue()));
         }
     }
 }

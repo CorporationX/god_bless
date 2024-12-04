@@ -1,6 +1,4 @@
-package task_45256;
-
-import java.util.HashMap;
+package school.faang.task_45256;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +11,7 @@ public class Main {
         librarySystem.printAllBooks();
     }
 
-    private static void addBooksInformation(LibrarySystem librarySystem ) {
+    private static void addBooksInformation(LibrarySystem librarySystem) {
         librarySystem.addBook("Властелин колец", "Джон Р. Р. Толкин", 1954, "1");
         librarySystem.addBook("Гордость и предубеждение", "Джейн Остин", 1813, "1");
         librarySystem.addBook("Тёмные начала", "Филип Пулман", 1995, "2");
