@@ -24,21 +24,19 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("{name='%s', age=%d, workplace='%s'}",name,age,workplace);
+        return String.format("{name='%s', age=%d, workplace='%s'}", name, age, workplace);
     }
 
-    public Map<Integer, List<User>> groupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
 
         for (User user : users) {
             List<User> usersList = new ArrayList<>();
-            if (groupUsers.containsKey(user.getAge())) {
-                usersList = groupUsers.get(user.getAge());
-                usersList.add(user);
-            } else {
-                usersList.add(user);
+            if (!(groupUsers.containsKey(user.getAge()))) {
                 groupUsers.put(user.getAge(), usersList);
             }
+            List<User> usersListKey = groupUsers.get(user.getAge());
+            usersListKey.add(user);
         }
         return groupUsers;
     }

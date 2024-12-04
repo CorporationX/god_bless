@@ -8,11 +8,12 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
+        Map<Integer, List<User>> groupOfUsers = new HashMap<>();
         addUsersToList(users);
-        //groupUsers = groupUsers(users);
-        System.out.println(groupUsers);
+        groupOfUsers = User.groupUsers(users);
+        System.out.println(groupOfUsers);
     }
+
     private static void addUsersToList(List<User> users) {
         users.add(new User("Oleg", 19, "Gas station", "Surgut, Lenin street"));
         users.add(new User("Aleksandr", 19, "Gas station", "Surgut, Lenin street"));
