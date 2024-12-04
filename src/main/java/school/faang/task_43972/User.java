@@ -17,10 +17,14 @@ public class User {
     private int age;
     private Set<String> activity;
 
+    private static final int MINIMAL_AGE = 20;
+    private static final int MAXIMAL_AGE = 23;
+
+
     public User(int id) {
         this.id = id;
         this.name = Utility.getRandomName();
-        this.age = Utility.getRandomIntegerWithinRange(20, 23);
+        this.age = Utility.getRandomIntegerWithinRange(MINIMAL_AGE, MAXIMAL_AGE);
         this.activity = Utility.getListWithActivities();
     }
 
