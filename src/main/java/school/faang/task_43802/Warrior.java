@@ -1,21 +1,17 @@
 package school.faang.task_43802;
 
 public class Warrior extends Character {
-
+    private static final int DEFAULT_STRENGTH = 10;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 3;
     public Warrior(String name) {
-        super(name);
-        this.setStrength(10);
-        this.setAgility(5);
-        this.setIntelligence(3);
+        super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
-    protected void attack(Character character) {
-
-        System.out.println("Воин атакует");
-        character.setHealthPoints(character.getHealthPoints() - this.getStrength());
-        System.out.println(character.getName() + " Поймал маслину, у него осталось "
-                + character.getHealthPoints() + " HP");
+    public void attack(Character target) {
+        System.out.println("\nВоин атакует");
+        super.attack(target);
     }
 
 }

@@ -4,11 +4,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Warrior bob = new Warrior("bob");
-        Archer alice = new Archer("Alice");
+        Warrior thrall = new Warrior("Thrall");
+        Archer alice = new Archer("Sylvanas");
 
-        bob.attack(alice);
-        alice.attack(bob);
-        alice.attack(bob);
+        thrall.attack(alice);
+        while (thrall.isAlive()) {
+            alice.attack(thrall);
+        }
+        alice.attack(thrall);
+        thrall.attack(alice);
     }
 }

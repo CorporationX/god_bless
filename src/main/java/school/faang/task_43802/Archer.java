@@ -1,20 +1,17 @@
 package school.faang.task_43802;
 
 public class Archer extends Character {
+    private static final int DEFAULT_STRENGTH = 10;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 3;
 
     public Archer(String name) {
-        super(name);
-        this.setStrength(3);
-        this.setAgility(10);
-        this.setIntelligence(5);
+        super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
-    protected void attack(Character character) {
-
-        System.out.println("Робиндуй атакует");
-        character.setHealthPoints(character.getHealthPoints() - this.getAgility());
-        System.out.println(character.getName() + " Поймал маслину, у него осталось "
-                + character.getHealthPoints() + " HP");
+    public void attack(Character target) {
+        System.out.println("\nРобиндуй атакует");
+        super.attack(target);
     }
 }
