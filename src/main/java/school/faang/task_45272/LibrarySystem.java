@@ -11,29 +11,32 @@ public class LibrarySystem {
     }
 
     public void addBook(String title, String author, int year, String location) {
-        Book book = createBook(title, author, year);
-        if (hashMapBook.containsValue(location)) {
-            // Вызываем ошибку
-        }
-        hashMapBook.put(book, location);
-
+        hashMapBook.put(createBook(title, author, year), location);
     }
 
     public void removeBook(String title, String author, int year) {
         Book book = createBook(title, author, year);
-        hashMapBook.remove(book);
+        if (hashMapBook.containsKey(book)) {
+            hashMapBook.remove(book);
+        } else {
+            System.out.println("Книги " + book.getTitle() + " нет в библиотеки");
+        }
     }
 
     public void findBook(String title, String author, int year) {
         Book book = createBook(title, author, year);
         if (!hashMapBook.containsKey(book)) {
             System.out.println("Данной книги нет в бибилотеке");
+        } else {
+            System.out.println("Запрашиваеммая книга в разделе: " + hashMapBook.get(book));
         }
-        System.out.println(hashMapBook.get(book));
     }
 
     public void printAllBooks() {
-
+        for (Map.Entry<Book, String> entry : hashMapBook.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println("Раздел: " + entry.getValue());
+        }
     }
 
     private Book createBook(String title, String author, int year) {
