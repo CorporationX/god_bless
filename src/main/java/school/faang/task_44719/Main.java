@@ -26,7 +26,7 @@ public class Main {
                 System.out.println("Бронирование не найдено");
             }
         }
-        for(int count = 0; count < nextRoomId; count++) {
+        for (int count = 0; count < nextRoomId; count++) {
             if (system.removeRoom(count)) {
                 System.out.println("Комната с ID " + count + " успешно удалена.");
             } else {
@@ -53,9 +53,9 @@ public class Main {
 
     private static void createAndAddRoom(BookingSystem system, String type, Set<String> amenities) {
         if (system.addRoom(new Room(nextRoomId, type, amenities))) {
-            System.out.println("Комната с ID " + nextRoomId +" добавлена.");
+            System.out.println("Комната с ID " + nextRoomId + " добавлена.");
         } else {
-            System.out.println("Комната с ID " + nextRoomId +" не добавлена.");
+            System.out.println("Комната с ID " + nextRoomId + " не добавлена.");
         }
         nextRoomId++;
     }

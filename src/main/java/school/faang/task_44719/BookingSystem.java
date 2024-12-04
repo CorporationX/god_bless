@@ -77,7 +77,8 @@ public class BookingSystem {
 
     private boolean isRoomAvailable(Room room, String date, String timeSlot) {
         for (Booking booking : bookings.values()) {
-            if (booking.getRoom().equals(room) && booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)) {
+            if (booking.getRoom().equals(room) && booking.getDate().equals(date)
+                    && booking.getTimeSlot().equals(timeSlot)) {
                 return false;
             }
         }
