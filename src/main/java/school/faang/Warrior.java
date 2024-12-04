@@ -1,14 +1,17 @@
 package school.faang;
 
-public class Warrior extends Character{
+import lombok.NonNull;
+
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         this.setPower(10);
         this.setDexterity(5);
         this.setIntelligence(3);
     }
+
     @Override
-    public void attack(Character character) {
-        this.setHealth(this.getHealth()-character.getPower());
+    public void attack(@NonNull Character character) {
+        this.setHealth(this.getHealth() - character.getPower());
     }
 }
