@@ -41,9 +41,8 @@ public class User {
         for (var value : set1) {
             if (set2.contains(value)) {
                 return value;
-            };
+            }
         }
         return null;
-    };
-
+    }
 }
