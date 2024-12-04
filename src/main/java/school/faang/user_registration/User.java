@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
+    private final int MIN_AGE = 18;
     private String name;
     private int age;
     private String job;
@@ -18,25 +19,25 @@ public class User {
     User(String name, int age, String job, String address) {
         try {
             validateUser(name, age, job, address);
-
-            this.name = name;
-            this.age = age;
-            this.job = job;
-            this.address = address;
-
-            System.out.println("User has been created");
-
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            return;
         }
+
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+
+        System.out.println("User has been created");
     }
 
     private void validateUser(String name, int age, String job, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("User has not been created. Name should not be empty");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("User has not been created. Age must not be less than 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("User has not been created. Age must not be less than " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("User has not been created. Job must be from the list");
