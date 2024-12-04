@@ -19,7 +19,8 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : resault.entrySet()) {
             System.out.println("Возраст:" + entry.getKey());
             for (User user : entry.getValue()) {
-                System.out.printf("Имя: %s, Адрес: %s, Место работы: %s%n", user.getName(), user.getAddress(), user.getWorkplace());
+                System.out.printf("Имя: %s, Адрес: %s, Место работы: %s%n",
+                        user.getName(), user.getAddress(), user.getWorkplace());
             }
             System.out.println();
         }
