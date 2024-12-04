@@ -4,33 +4,34 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new TreeMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
-    private void addSpellEvent(int id, String eventType, String actionDescription) {
+    public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
         spellByType.computeIfAbsent(eventType, key -> new LinkedList<>()).add(spellEvent);
     }
 
-    private SpellEvent getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(int id) {
         return spellById.get(id);
     }
 
-    private List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
         return spellByType.getOrDefault(eventType, new LinkedList<>());
     }
 
-    private void deleteSpellEvent(int id) {
+    public void deleteSpellEvent(int id) {
         SpellEvent removedSpellEvent = spellById.remove(id);
         spellByType.get(removedSpellEvent.getEventType()).remove(removedSpellEvent);
     }
 
-    private void printAllSpellEvents() {
+    public void printAllSpellEvents() {
         for (var spellEvent : spellById.entrySet()) {
-
+            System.out.println(spellEvent.getKey() + " : " + spellEvent.getValue());
         }
     }
 }
