@@ -18,7 +18,7 @@ public class Main {
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         
         groupedUsers.forEach((age, userList) -> {
-            System.out.println(("\n-------------------------\n")+"Age - "+ age+ "\n\n");
+            System.out.println(("\n-------------------------\n") + "Age - " + age + "\n\n");
             userList.forEach((user) -> 
             System.out.println("Address: "+ user.getAddress() +
                             "\n Age: " + user.getAge() + 
