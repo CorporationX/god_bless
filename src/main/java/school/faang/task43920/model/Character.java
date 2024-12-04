@@ -5,11 +5,13 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
+    private final static int INITIAL_HEALTH = 100;
+
     protected final String name;
     protected final int strength;
     protected final int agility;
     protected final int intelligence;
-    protected int health = 100;
+    protected int health = INITIAL_HEALTH;
 
     protected Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
