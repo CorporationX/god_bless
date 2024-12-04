@@ -18,9 +18,9 @@ public class Example {
 
     public static void printArray(Object array) {
         if (Array.getLength(array) == 0) {
-            System.out.println("Массив не может быть пустым");
+            System.out.println("Массив не может быть пустым!");
         } else if (array == null) {
-            System.out.println("Пустая ссылка");
+            System.out.println("Пустая ссылка!");
         } else {
             System.out.print(array.getClass() + " ");
             int length = Array.getLength(array);
