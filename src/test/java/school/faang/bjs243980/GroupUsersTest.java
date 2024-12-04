@@ -1,4 +1,4 @@
-package bjs243980;
+package school.faang.bjs243980;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

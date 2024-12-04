@@ -31,11 +31,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "address='" + address + '\'' +
-                ", job='" + job + '\'' +
-                ", age=" + age +
-                ", name='" + name + '\'' +
-                '}';
+        return "User{"
+                + "address='" + address + '\''
+                + ", job='" + job + '\''
+                + ", age=" + age
+                + ", name='" + name + '\''
+                + '}';
     }
 }
