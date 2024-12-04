@@ -1,6 +1,6 @@
 package school.faang.task_43853;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name);
@@ -10,8 +10,9 @@ public class Warrior extends Character{
     }
 
     @Override
-    public double attack(Character character) {
+    public void attack(Character character) {
+        System.out.printf("%s атакует %s и наносит %s урона%n", this.name, character.getName(), this.power);
         character.setHealth(character.getHealth() - power);
-        return power;
     }
+
 }

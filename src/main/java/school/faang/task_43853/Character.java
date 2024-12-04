@@ -23,5 +23,9 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    public abstract double attack(Character character);
+    public abstract void attack(Character character);
+
+    public boolean isAlive() {
+        return health > 0;
+    }
 }
