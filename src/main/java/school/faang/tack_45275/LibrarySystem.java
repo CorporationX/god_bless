@@ -37,7 +37,9 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
         if (locationByBooks.containsKey(book)) {
             return locationByBooks.get(book);
-        } else throw new BookNotFoundException("Книга не найдена");
+        } else {
+            throw new BookNotFoundException("Книга не найдена");
+        }
     }
 
     public static void printAllBooks() {
