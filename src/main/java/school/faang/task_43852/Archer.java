@@ -1,6 +1,7 @@
 package school.faang.task_43852;
 
 public class Archer extends Character {
+
     public static final int ARCHER_POWER = 3;
     public static final int ARCHER_DEXTERITY = 10;
     public static final int ARCHER_INTELLECT = 5;

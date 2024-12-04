@@ -1,6 +1,7 @@
 package school.faang.task_43852;
 
 public class Warrior extends Character {
+
     private static final int WARRIOR_POWER = 10;
     private static final int WARRIOR_DEXTERITY = 5;
     private static final int WARRIOR_INTELLECT = 5;
