@@ -10,9 +10,9 @@ public class Warrior extends Character {
     @Override
     protected void attack(Character target) {
         int damageToTarget = this.getStrength();
-        System.out.printf("%s (Warrior) attacks %s with %s damage (based on strength) ",
+        System.out.printf("%s (Warrior) attacks %s with %s damage (based on strength)%n",
                 this.getName(), target.getName(), damageToTarget);
         target.takeDamage(damageToTarget);
-        System.out.printf("%s's health after attack: %s", target.getName(), target.getHealth());
+        System.out.printf("%s's health after attack: %s%n", target.getName(), target.getHealth());
     }
 }

@@ -10,7 +10,7 @@ public class Archer extends Character {
     @Override
     protected void attack(Character target) {
         int damageToTarget = this.getAgility();
-        System.out.printf("%s (Archer) attacks %s with %s damage (based on agility) ",
+        System.out.printf("%s (Archer) attacks %s with %s damage (based on agility)%n",
                 this.getName(), target.getName(), damageToTarget);
         target.takeDamage(damageToTarget);
         System.out.printf("%s's health after attack: %s", target.getName(), target.getHealth());
