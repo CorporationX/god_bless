@@ -9,6 +9,7 @@ class Archer extends Character {
     public void attack(Character target) {
         int damage = getAgility();
         target.setHealth(target.getHealth() - damage);
-        System.out.println(getName() + " (Archer) attacked " + target.getName() + " and inflicts " + damage + " damage");
+        System.out.println(getName() + " (Archer) attacked "
+                + target.getName() + " and inflicts " + damage + " damage");
     }
 }

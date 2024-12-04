@@ -9,6 +9,7 @@ public class Warrior extends Character {
     public void attack(Character target) {
         int damage = getStrength();
         target.setHealth(target.getHealth() - damage);
-        System.out.println(getName() + " (Warrior) attacked " + target.getName() + " and inflicts " + damage + " damage");
+        System.out.println(getName() + " (Warrior) attacked "
+                + target.getName() + " and inflicts " + damage + " damage");
     }
 }
