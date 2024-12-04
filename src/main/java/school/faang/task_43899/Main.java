@@ -14,7 +14,6 @@ public class Main {
         listUsers.add(new User("Вика", 20, "Косметолог", "Калуга"));
         listUsers.add(new User("Юля", 21, "Кондитер", "Томбов"));
 
-        User.groupUsers(listUsers);
-        User.printUsers(User.enterAge());
+        User.printUsers(User.enterAge(), User.groupUsers(listUsers));
     }
 }
