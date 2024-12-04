@@ -24,13 +24,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "{name='" + name + '\''
-                + ", age=" + age
-                + ", workplace='" + workplace + '\''
-                + '}';
+        return String.format("{name='%s', age=%d, workplace='%s'}",name,age,workplace);
     }
 
-    private static Map<Integer, List<User>> groupUsers(List<User> users) {
+    public Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
 
         for (User user : users) {
@@ -45,21 +42,4 @@ public class User {
         }
         return groupUsers;
     }
-
-    public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
-        addUsersToList(users);
-        groupUsers = groupUsers(users);
-        System.out.println(groupUsers);
-    }
-
-    private static void addUsersToList(List<User> users) {
-        users.add(new User("Oleg", 19, "Gas station", "Surgut, Lenin street"));
-        users.add(new User("Aleksandr", 19, "Gas station", "Surgut, Lenin street"));
-        users.add(new User("Andrew", 19, "Mvideo", "Surgut, Pushkin street"));
-        users.add(new User("Svetlana", 23, "Theatre", "Surgut, Pushkin street"));
-        users.add(new User("Mila", 18, "Theatre", "Surgut, Pushkin street"));
-    }
-
 }
