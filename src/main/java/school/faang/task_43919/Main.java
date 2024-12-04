@@ -8,9 +8,8 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        Map<Integer, List<User>> groupOfUsers = new HashMap<>();
         addUsersToList(users);
-        groupOfUsers = User.groupUsers(users);
+        Map<Integer, List<User>> groupOfUsers = User.groupUsers(users);
         System.out.println(groupOfUsers);
     }
 
