@@ -1,7 +1,6 @@
 package task_45256;
 
 import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
 
