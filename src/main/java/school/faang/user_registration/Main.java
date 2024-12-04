@@ -2,8 +2,8 @@ package school.faang.user_registration;
 
 public class Main {
     public static void main(String[] args) {
-        for (int i = 1; i <= 5; i++) {
 
+        for (int i = 1; i <= 5; i++) {
             String name = "Jack";
             int age = 18;
             String job = "Google";
@@ -21,6 +21,9 @@ public class Main {
                     break;
                 case 4:
                     address = "other street";
+                    break;
+
+                default:
                     break;
             }
             User user = new User(name, age, job, address);
