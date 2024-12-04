@@ -1,9 +1,7 @@
 package school.faang.task_43828;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public abstract class Character {
     protected String name;
@@ -21,6 +19,16 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+    }
+
+    public void takeDamage(int damage) {
+        if (health > 0) {
+            health = health - damage;
+            if (health <= 0) {
+                health = 0;
+                System.out.println(name + " убит!");
+            }
+        }
     }
 
     public abstract void attack(Character character);
