@@ -11,11 +11,11 @@ public class Main {
         List<String> kattyHobby = List.of("Football", "Hockey");
         List<String> jackHobby = List.of("Curling", "Football");
 
-        User Tom = new User(1, "Tom", 14, tomHobby);
-        User Katty = new User(2, "Katty", 17, kattyHobby);
-        User Jack = new User(3, "Jack", 23, jackHobby);
+        User tom = new User(1, "Tom", 14, tomHobby);
+        User katty = new User(2, "Katty", 17, kattyHobby);
+        User jack = new User(3, "Jack", 23, jackHobby);
 
-        List<User> userList = List.of(Tom, Katty, Jack);
+        List<User> userList = List.of(tom, katty, jack);
 
         Map<User, String> map = User.findHobbyLovers(userList, hobbyList);
 
