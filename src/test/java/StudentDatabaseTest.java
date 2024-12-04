@@ -1,48 +1,99 @@
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 import school.faang.task_45206.Student;
 import school.faang.task_45206.StudentDatabase;
 import school.faang.task_45206.Subject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StudentDatabaseTest {
-    private StudentDatabase studentDatabase;
+
+    private final StudentDatabase studentDatabase = new StudentDatabase();
+    private Student student1;
+    private Student student2;
+    private Subject subject1;
+    private Subject subject2;
 
     @BeforeEach
-    void setUp() {
-        studentDatabase = new StudentDatabase();
+    public void setUp() {
+        student1 = new Student(1, "John Doe");
+        student2 = new Student(2, "Jane Smith");
+        subject1 = new Subject(3, "Math");
+        subject2 = new Subject(4, "Science");
     }
 
-    static Stream<Arguments> studentWithGradesProviderPositive() {
-        Student student = new Student(1, "Student1");
-        Map<Subject, Integer> subjectsGrades = new HashMap<>();
-        Map<Student, Map<Subject, Integer>> expected = new HashMap<>();
+    @Test
+    public void testStudentDatabase_addStudentWithGrades() {
+        Map<Subject, Integer> grades = new HashMap<>();
+        grades.put(subject1, 90);
+        grades.put(subject2, 85);
 
-        subjectsGrades.put(new Subject(1, "Subject1"), 5);
-        subjectsGrades.put(new Subject(2, "Subject2"), 5);
+        studentDatabase.addStudentWithGrades(student1, grades);
 
-        expected.put(student, subjectsGrades);
-
-        return Stream.of(
-                Arguments.of(student, subjectsGrades, expected)
-        );
+        assertEquals(grades, studentDatabase.studentGrades.get(student1));
     }
 
-    @ParameterizedTest
-    @MethodSource("studentWithGradesProviderPositive")
-    void testStudentDatabase_addStudentWithGradesPositive(
-            Student student,
-            Map<Subject, Integer> subjectsGrades,
-            Map<Student, Map<Subject, Integer>> expected
-    ) {
-        studentDatabase.addStudentWithGrades(student, subjectsGrades);
-        assertEquals(expected, studentDatabase.studentGrades);
+    @Test
+    public void testStudentDatabase_addSubjectForStudent() {
+        studentDatabase.addStudentWithGrades(student1, new HashMap<>());
+        studentDatabase.addSubjectForStudent(student1, subject1, 90);
+
+        assertEquals(90, studentDatabase.studentGrades.get(student1).get(subject1));
+    }
+
+    @Test
+    public void testStudentDatabase_deleteStudent() {
+        studentDatabase.addStudentWithGrades(student1, new HashMap<>());
+        studentDatabase.deleteStudent(student1);
+
+        assertFalse(studentDatabase.studentGrades.containsKey(student1));
+    }
+
+    @Test
+    public void testStudentDatabase_printAllStudentsWithSubjects() {
+        studentDatabase.addStudentWithGrades(student1, new HashMap<>());
+        studentDatabase.printAllStudentsWithSubjects();
+    }
+
+    @Test
+    public void testStudentDatabase_addSubjectWithStudents() {
+        Set<Student> students = new HashSet<>();
+        students.add(student1);
+        students.add(student2);
+
+        studentDatabase.addSubjectWithStudents(subject1, students);
+
+        assertEquals(students, studentDatabase.subjectStudents.get(subject1));
+    }
+
+    @Test
+    public void testStudentDatabase_addStudentForSubject() {
+        studentDatabase.addSubjectWithStudents(subject1, new HashSet<>());
+        studentDatabase.addStudentForSubject(subject1, student1);
+
+        assertTrue(studentDatabase.subjectStudents.get(subject1).contains(student1));
+    }
+
+    @Test
+    public void testStudentDatabase_deleteStudentFromSubject() {
+        Set<Student> students = new HashSet<>();
+        students.add(student1);
+        studentDatabase.addSubjectWithStudents(subject1, students);
+        studentDatabase.deleteStudentFromSubject(subject1, student1);
+
+        assertFalse(studentDatabase.subjectStudents.get(subject1).contains(student1));
+    }
+
+    @Test
+    public void testStudentDatabase_printAllSubjectsWithStudents() {
+        studentDatabase.addSubjectWithStudents(subject1, new HashSet<>());
+        studentDatabase.printAllSubjectsWithStudents();
     }
 }
