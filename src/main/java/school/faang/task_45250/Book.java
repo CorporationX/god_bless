@@ -21,8 +21,9 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        var equals = Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(year, book.year);
-        return equals;
+        return Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(year, book.year);
     }
 
     @Override
