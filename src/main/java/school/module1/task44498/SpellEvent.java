@@ -1,8 +1,11 @@
 package school.module1.task44498;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Objects;
+
+@ToString
 @Getter
 public class SpellEvent {
     private int id;
