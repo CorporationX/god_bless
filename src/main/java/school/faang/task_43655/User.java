@@ -1,6 +1,7 @@
 package school.faang.task_43655;
 
 import lombok.ToString;
+
 import java.util.Set;
 
 @ToString
@@ -28,12 +29,11 @@ public class User {
         }
         if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Адрес указан неверно");
-
         }
-            this.name = name;
-            this.age = age;
-            this.job = job;
-            this.address = address;
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
 
 }
