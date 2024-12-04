@@ -41,10 +41,10 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(age, user.age) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(workplace, user.workplace) &&
-                Objects.equals(address, user.address);
+        return Objects.equals(age, user.age)
+                && Objects.equals(name, user.name)
+                && Objects.equals(workplace, user.workplace)
+                && Objects.equals(address, user.address);
     }
 
     @Override
