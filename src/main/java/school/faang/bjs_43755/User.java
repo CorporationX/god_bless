@@ -1,9 +1,9 @@
 package school.faang.bjs_43755;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private static final int VALID_AGE = 18;
     private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
@@ -13,25 +13,38 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым.");
-        }
-
-        if (age <= 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
-        }
-
-        if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS.");
-        }
-
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Адрес должен быть содержится в наборе VALID_ADDRESSES.");
-        }
+        checkName(name);
+        checkAge(age);
+        checkJob(job);
+        checkAddress(address);
 
         this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
+    }
+
+    private void checkName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым.");
+        }
+    }
+
+    private void checkAge(int age) {
+        if (age <= VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+        }
+    }
+
+    private void checkJob(String job) {
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS.");
+        }
+    }
+
+    private void checkAddress(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес должен быть содержится в наборе VALID_ADDRESSES.");
+        }
     }
 }
