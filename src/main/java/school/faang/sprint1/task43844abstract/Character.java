@@ -22,7 +22,7 @@ public abstract class Character {
 
     protected boolean unacceptableDamage(Character character) {
         if (this == character) {
-            System.out.println("Мы не мазохисты)");
+            System.out.println("Мы не мазохисты!)");
             return true;
         } else if (character.health == 0) {
             System.out.println("Не надо бить труп");
