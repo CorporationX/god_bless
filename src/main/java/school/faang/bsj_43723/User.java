@@ -27,9 +27,10 @@ public class User {
             this.age = age;
             this.job = job;
             this.address = address;
+        } else {
+            throw new IllegalArgumentException("Не корректные параметры пользователя");
         }
 
-        throw new IllegalArgumentException("Не корректные параметры пользователя");
     }
 
     private boolean validateAllFields(String name, int age, String job, String address) {
