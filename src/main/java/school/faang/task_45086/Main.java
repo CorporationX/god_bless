@@ -7,18 +7,18 @@ public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
 
-        productManager.addItem("Category1", "Product1");
-        productManager.addItem("Category2", "Product2");
-        productManager.addItem("Category3", "Product3");
-        productManager.addItem("Category2", "Product2");
-        productManager.addItem("Category5", "Product5");
+        productManager.addItem(Category.CLOTHING, "Product1");
+        productManager.addItem(Category.CLOTHING, "Product2");
+        productManager.addItem(Category.CLOTHING, "Product6");
+        productManager.addItem(Category.FOOD, "Product3");
+        productManager.addItem(Category.ELECTRONICS, "Product2");
 
-        productManager.removeItem("Category1", "Product1");
+        productManager.removeItem(Category.CLOTHING, "Product1");
         productManager.printAllItems();
 
-        productManager.findItemsByCategory("Category2");
+        productManager.findItemsByCategory(Category.CLOTHING);
 
-        Map<String, Set<Product>> groupedProducts = productManager.groupProductsByCategory();
+        Map<Category, Set<Product>> groupedProducts = productManager.groupProductsByCategory();
         productManager.printProductsByCategory(groupedProducts);
     }
 }

@@ -1,14 +1,15 @@
 package school.faang.task_45086;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.ToString;
 
-@Getter
 @ToString
 @AllArgsConstructor
-public class Product {
-    private final int id;
+public enum Category {
+    ELECTRONICS("Electronics"),
+    CLOTHING("Clothing"),
+    FOOD("Food"),
+    BOOKS("Books");
+
     private final String name;
-    private final Category category;
 }
