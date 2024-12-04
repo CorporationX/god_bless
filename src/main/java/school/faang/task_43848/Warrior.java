@@ -1,15 +1,12 @@
 package school.faang.task_43848;
 
 public class Warrior extends Character {
-    protected static final int STRENGTH = 10;
-    protected static final int AGILITY = 5;
-    protected static final int INTELLIGENCE = 3;
 
     public Warrior(String name) {
         super(name);
-        this.strength = STRENGTH;
-        this.agility = AGILITY;
-        this.intelligence = INTELLIGENCE;
+        this.strength = CharactersStats.WARRIOR_STRENGTH;
+        this.agility = CharactersStats.WARRIOR_AGILITY;
+        this.intelligence = CharactersStats.WARRIOR_INTELLIGENCE;
     }
 
     @Override
