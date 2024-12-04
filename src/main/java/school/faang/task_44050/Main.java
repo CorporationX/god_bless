@@ -21,7 +21,6 @@ public class Main {
     Map<Integer, List<User>> groupedUsers = User.groupUsers(usersList);
     String formattedOutput = User.formatGroupedUsersToPrettyView(groupedUsers);
     System.out.println(formattedOutput);
-    System.out.println(groupedUsers);
   }
 }
 
