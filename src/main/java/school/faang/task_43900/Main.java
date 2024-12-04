@@ -14,7 +14,7 @@ public class Main {
             String name = testNames[rand.nextInt(testNames.length)];
             String job = testJobs[rand.nextInt(testJobs.length)];
             String address = testAddress[rand.nextInt(testAddress.length)];
-            int age = rand.nextInt(18,100);
+            int age = rand.nextInt(18, 100);
             users.add(new User(name, age, job, address));
         }
 
