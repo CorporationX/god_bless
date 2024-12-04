@@ -2,7 +2,7 @@ package school.faang.user_registration;
 
 public class Main {
     public static void main(String[] args) {
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
 
             String name = "Jack";
             int age = 18;
