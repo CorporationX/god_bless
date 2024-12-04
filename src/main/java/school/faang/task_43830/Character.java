@@ -1,11 +1,12 @@
 package school.faang.task_43830;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Builder
 @ToString
 public abstract class Character {
     private String name;
@@ -25,6 +26,10 @@ public abstract class Character {
         this.agility = agility;
         this.intelligence = intelligence;
         this.health = HEALTH;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
     }
 
     public abstract void attack(Character player);
