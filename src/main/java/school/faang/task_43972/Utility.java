@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Utility {
-    static Calendar cal = Calendar.getInstance();
     static Faker faker = new Faker();
 
     public static String getRandomName() {
