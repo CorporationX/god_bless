@@ -14,13 +14,13 @@ public class GroupUsersTest {
     @Test
     public void success() {
         List<User> users = new ArrayList<>();
-        users.addAll(Main.createUsers(3, 30));
-        users.addAll(Main.createUsers(4, 20));
-        users.addAll(Main.createUsers(2, 30));
-        users.addAll(Main.createUsers(3, 31));
+
+        for (int i = 20; i < 23; i++) {
+            users.addAll(Main.createUsers(3, i));
+        }
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         Assertions.assertEquals(3, groupedUsers.size());
-        Assertions.assertEquals(5, groupedUsers.get(30).size());
+        Assertions.assertEquals(3, groupedUsers.get(20).size());
     }
 }

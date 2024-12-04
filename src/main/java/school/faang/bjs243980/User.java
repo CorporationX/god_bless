@@ -31,11 +31,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{"
-                + "address='" + address + '\''
-                + ", job='" + job + '\''
-                + ", age=" + age
-                + ", name='" + name + '\''
-                + '}';
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", job='").append(job).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

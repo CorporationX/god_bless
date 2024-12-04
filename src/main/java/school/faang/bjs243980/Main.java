@@ -7,11 +7,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-
-        users.addAll(createUsers(3, 30));
-        users.addAll(createUsers(2, 27));
-        users.addAll(createUsers(5, 25));
-        users.addAll(createUsers(3, 30));
+        for (int i = 20; i < 23; i++) {
+            users.addAll(createUsers(3, i));
+        }
 
         System.out.println(User.groupUsers(users));
     }
