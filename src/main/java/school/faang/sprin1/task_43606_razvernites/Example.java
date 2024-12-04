@@ -4,14 +4,7 @@ import java.lang.reflect.Array;
 
 public class Example {
 
-    public static void main(String[] args) {
-        Integer[] nums = {1, 2, 3, 4, 5};
-        String[] strings = {"a", "b", "c", "d"};
-        reverse(nums);
-        reverse(strings);
-        printArray(nums);
-        printArray(strings);
-    }
+
 
     public static <T> void reverse(T[] dataArray) {
         int left = 0;
@@ -26,8 +19,11 @@ public class Example {
     }
 
     public static void printArray(Object array) {
-
-        try {
+        if (Array.getLength(array) == 0){
+            System.out.println("Массив не может быть пустым");
+        }else if(array == null){
+            System.out.println("Пустая ссылка");
+        }else {
             System.out.print(array.getClass() + " ");
             int lenght = Array.getLength(array);
             for (int i = 0; i < lenght; i++) {
@@ -35,8 +31,6 @@ public class Example {
                 System.out.print(element + ", ");
             }
             System.out.println();
-        } catch (Exception e) {
-            System.out.println("Ошибка " + e);
         }
     }
 }
