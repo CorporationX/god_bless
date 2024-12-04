@@ -1,22 +1,27 @@
 package school.faang.task_43838.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public abstract class Character {
+
+    private static final int DEFAULT_STATS =10;
 
     private final String name;
     private final int strength;
     private final int agility;
     private final int intelligence;
-    private final int health = 100;
-    private int healthAfterDamageTaken;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
-        this.strength = 10;
-        this.agility = 10;
-        this.intelligence = 10;
+        this.strength = DEFAULT_STATS;
+        this.agility = DEFAULT_STATS;
+        this.intelligence = DEFAULT_STATS;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
