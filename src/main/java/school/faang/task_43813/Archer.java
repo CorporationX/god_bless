@@ -9,7 +9,7 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         health -= opponent.dexterity;
         opponent.health -= dexterity;
-        System.out.println("Атака! Урон героя: " + dexterity + ". Урон врага: " + opponent.dexterity);
+        System.out.println("Атака! Урон герою: " + dexterity + ". Урон врагу: " + opponent.dexterity);
         System.out.println("Здороье героя: " + health + ". Здоровье врага: " + opponent.health);
     }
 }
