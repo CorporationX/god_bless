@@ -5,11 +5,10 @@ import java.util.*;
 public class Main {
     private static Map<Student, Map<Subject, Integer>> everyStudentScore;
     private static Map<Subject, List<Student>> studentLearnAll;
-    private static List<Subject> allSubjects;
     private static List<Student> allStudents;
 
     private static void generateData() {
-        allSubjects = List.of(
+        List<Subject> allSubjects = List.of(
                 new Subject(1, "Физика"),
                 new Subject(2, "Математика"),
                 new Subject(3, "Астрономия")

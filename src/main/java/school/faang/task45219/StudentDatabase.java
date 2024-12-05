@@ -79,10 +79,6 @@ public class StudentDatabase {
         System.out.println("Deleted student: " + student);
     }
 
-    public void deleteStudentAndSubjects(Student student) {
-        delete(student);
-    }
-
     public void deleteStudentFromSubject(Student student) {
         delete(student);
     }
