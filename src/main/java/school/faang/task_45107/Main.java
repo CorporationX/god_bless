@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static Set<Product> products = new HashSet<>();
+    private static AtomicInteger productCounter = new AtomicInteger(1);
 
     public static void main(String[] args) {
         addItem(Category.Food.toString(), "Apple");
@@ -25,27 +27,23 @@ public class Main {
     }
 
     public static void addItem(String category, String name) {
-        try {
-            Category categoryTest = Category.valueOf(category);
-            Product request = new Product(products.size() + 1, name, Category.valueOf(category));
-            products.add(request);
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        Category categoryTest = Category.compareStrings(category);
+        Product request = new Product(productCounter.getAndIncrement(), name, categoryTest);
+        products.add(request);
     }
 
     public static void removeItem(String category, String name) throws IllegalArgumentException {
-        Category categoryTest = Category.valueOf(category);
-        Product request = null;
-
-        for (Product product : products) {
-            String checkingCategory = product.getCategory().toString();
-            if (checkingCategory.equals(category)) {
-                request = product;
-                break;
-            }
+        Category categoryTest = Category.compareStrings(category);
+        if (categoryTest == null) {
+            throw new IllegalArgumentException("Category is null!");
         }
+
+        Product request = products.stream()
+                .filter(s -> s.category().equals(categoryTest))
+                .findFirst()
+                .orElseThrow(
+                        () -> new IllegalArgumentException("No product founded!")
+                );
 
         if (!products.contains(request)) {
             throw new IllegalArgumentException("The product was not found!");
@@ -58,21 +56,18 @@ public class Main {
     public static List<Product> findItemsByCategory(String category) {
         List<Product> productsByCategory = new ArrayList<>();
 
-        try {
-            Category categoryTest = Category.valueOf(category);
-            for (Product product : products) {
-                String checkingCategory = product.getCategory().toString();
-                if (checkingCategory.equals(category)) {
-                    productsByCategory.add(product);
-                }
-            }
+        Category categoryTest = Category.compareStrings(category);
+        if (categoryTest == null) {
+            throw new IllegalArgumentException("Category is null!");
+        }
 
-            if (productsByCategory.isEmpty()) {
-                System.out.println("There is no products of that category!");
-                return new ArrayList<>();
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        products.stream()
+                .filter(s -> s.category().equals(categoryTest))
+                .forEach(productsByCategory::add);
+
+        if (productsByCategory.isEmpty()) {
+            System.out.println("There is no products of that category!");
+            return new ArrayList<>();
         }
 
         return productsByCategory;
@@ -89,7 +84,7 @@ public class Main {
 
         Map<String, List<Product>> groupedMap = new HashMap<>();
         for (Product product : products) {
-            groupedMap.computeIfAbsent(product.getCategory().toString(), (k) -> new ArrayList<>()).add(product);
+            groupedMap.computeIfAbsent(product.category().toString(), (k) -> new ArrayList<>()).add(product);
         }
         return groupedMap;
     }
