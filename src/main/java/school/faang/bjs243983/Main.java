@@ -1,24 +1,33 @@
 package school.faang.bjs243983;
 
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        User user = new User(1L, "Solih", 20, Set.of("IT", "CS2", "Book"));
-        User user1 = new User(2L, "John", 34, Set.of("Football", "Dota", "Book"));
-        User user2 = new User(3L, "Steve", 23, Set.of("Music", "Chef", "Play"));
-        User user3 = new User(4L, "Artom", 65, Set.of("IT", "CS2", "Movie"));
+        Set<User> users = new HashSet<>();
+        Random random = new Random();
+        String[] names = {"Solih", "John", "Steve", "Artom"};
+        List<Set<String>> availableActivities = List.of(
+                Set.of("IT", "CS2", "Book"),
+                Set.of("Football", "Dota", "Book"),
+                Set.of("Music", "Chef", "Play"),
+                Set.of("IT", "CS2", "Movie")
+        );
 
-        Set<User> users = Set.of(user, user1, user2, user3);
+        for (long i = 1; i < 10; i++) {
+            int age = random.nextInt(10, 100);
+            int index = random.nextInt(0, 4);
+            User user = new User(i, names[index], age, availableActivities.get(index));
+            users.add(user);
+        }
+
         Set<String> activities = Set.of("IT", "CS2", "Book");
-
+        User user = new User();
         Map<User, String> result = user.findHobbyLovers(users, activities);
 
         result.forEach((myUser, myActivity) -> {
             System.out.println(myUser.getName() + " : " + myActivity);
         });
-
     }
 }
