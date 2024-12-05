@@ -1,5 +1,4 @@
 package school.faang.sprint1taks45324;
-
 import java.util.HashMap;
 
 public class Main {
@@ -10,10 +9,10 @@ public class Main {
         Book book4 = new Book("Mercedec", "Mata", 2003);
 
         HashMap<Book, String> book = new HashMap<>() {{
-            put(book1, "22");
-            put(book2, "33");
-            put(book3, "44");
-            put(book4, "55");
+                put(book1, "22");
+                put(book2, "33");
+                put(book3, "44");
+                put(book4, "55");
         }};
 
         LibrarySystem libSys = new LibrarySystem(book);
