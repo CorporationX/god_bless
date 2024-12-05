@@ -1,15 +1,33 @@
 package school.faang.task45099;
 
-import lombok.AllArgsConstructor;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-@AllArgsConstructor
 public class ProductManagement {
 
-    private Map<String, List<Product>> productsByCategory;
+    private static final Map<String, List<Product>> PRODUCTS_BY_CATEGORY = new HashMap<>();
+
+    public ProductManagement() {
+        generateData();
+    }
+
+    private static void generateData() {
+        Set<String> categoryKeys = Set.of("Meat products", "Milk products", "Vegetables");
+        Set<Product> products = Set.of(
+                new Product(1, "Meat", "Meat products"),
+                new Product(2, "Milk", "Milk products"),
+                new Product(3, "Milk", "Milk products"),
+                new Product(4, "Salad", "Vegetables")
+        );
+
+        for (var category : categoryKeys) {
+            PRODUCTS_BY_CATEGORY.putIfAbsent(category, new ArrayList<>());
+            for (var product : products) {
+                if (category.equals(product.getCategory())) {
+                    PRODUCTS_BY_CATEGORY.get(category).add(product);
+                }
+            }
+        }
+    }
 
     private void validation(String category, String nameProduct) {
         if (category == null || nameProduct == null) {
@@ -18,7 +36,7 @@ public class ProductManagement {
     }
 
     private void findCategory(String category) {
-        if (!productsByCategory.containsKey(category)) {
+        if (!PRODUCTS_BY_CATEGORY.containsKey(category)) {
             throw new IllegalArgumentException("There is no such category.");
         }
     }
@@ -26,9 +44,9 @@ public class ProductManagement {
     public void addItem(int id, String nameProduct, String category) {
         validation(category, nameProduct);
 
-        productsByCategory.putIfAbsent(category, new ArrayList<>());
+        PRODUCTS_BY_CATEGORY.putIfAbsent(category, new ArrayList<>());
 
-        List<Product> productCategory = productsByCategory.get(category);
+        List<Product> productCategory = PRODUCTS_BY_CATEGORY.get(category);
         Product product = new Product(id, nameProduct, category);
 
         if (productCategory.contains(product)) {
@@ -42,7 +60,7 @@ public class ProductManagement {
     public void removeItem(int id, String nameProduct, String category) {
         validation(category, nameProduct);
 
-        List<Product> products = productsByCategory.get(category);
+        List<Product> products = PRODUCTS_BY_CATEGORY.get(category);
         Product product = new Product(id, nameProduct, category);
 
         findCategory(category);
@@ -57,14 +75,14 @@ public class ProductManagement {
 
     public void findItemsByCategory(String category) {
         findCategory(category);
-        productsByCategory.get(category).forEach(System.out::println);
+        PRODUCTS_BY_CATEGORY.get(category).forEach(System.out::println);
     }
 
     public void printAllItems() {
-        if (productsByCategory.isEmpty()) {
+        if (PRODUCTS_BY_CATEGORY.isEmpty()) {
             throw new IllegalArgumentException("There is no such category.");
         }
-        productsByCategory.forEach((key, value) -> System.out.println(key + ": " + value));
+        PRODUCTS_BY_CATEGORY.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
 }

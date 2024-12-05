@@ -12,9 +12,8 @@ public class Main {
                 new Product(4, "Salad", "Vegetables")
         ));
 
-
         try {
-            ProductManagement pm = new ProductManagement(groupProductsByCategory(products));
+            ProductManagement pm = new ProductManagement();
             pm.printAllItems();
             pm.findItemsByCategory("Milk products");
             pm.removeItem(3, "Milk", "Milk products");
