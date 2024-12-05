@@ -19,27 +19,27 @@ public class StudentDatabase {
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
         students.put(student, subjects);
+
         for (Subject subject : subjects.keySet()) {
-            this.subjects.putIfAbsent(subject, new ArrayList<>());
-            this.subjects.get(subject).add(student);
+            this.subjects.computeIfAbsent(subject, s -> new ArrayList<>())
+                    .add(student);
         }
     }
 
     public void addSubjectWithStudent(Student student, Subject subjectNew, Integer score) {
-        Map<Subject, Integer> grades = students.computeIfAbsent(student, s -> new HashMap<>());
-
-        grades.put(subjectNew, score);
-        subjects.putIfAbsent(subjectNew, new ArrayList<>());
-        subjects.get(subjectNew).add(student);
+        students.computeIfAbsent(student, p -> new HashMap<>())
+                .put(subjectNew, score);
+        subjects.computeIfAbsent(subjectNew, s -> new ArrayList<>())
+                .add(student);
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        subjects.putIfAbsent(subject, new ArrayList<>());
-        subjects.get(subject).addAll(students);
+        subjects.computeIfAbsent(subject, s -> new ArrayList<>())
+                .addAll(students);
 
         for (Student student : students) {
-            this.students.putIfAbsent(student, new HashMap<>());
-            this.students.get(student).put(subject, 0);
+            this.students.computeIfAbsent(student, s -> new HashMap<>())
+                    .put(subject, 0);
         }
     }
 
@@ -69,23 +69,18 @@ public class StudentDatabase {
     }
 
     public void printAllStudentsWithSubjectsAndScores() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : students.entrySet()) {
-            for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                System.out.printf(
-                        "student: %s, subject: %s, score: %d%n", entry.getKey(),
-                        subjectEntry.getKey(),
-                        subjectEntry.getValue());
-            }
-        }
+        students.forEach((student, subjectsWithGrades) ->
+                subjectsWithGrades.forEach((subject, grade) ->
+                        System.out.printf("student: %s, subject: %s, score: %d%n", student, subject, grade)
+                )
+        );
     }
 
     public void printAllSubjectsWithStudents() {
-        for (Map.Entry<Subject, List<Student>> entry : subjects.entrySet()) {
-            for (Student student : entry.getValue()) {
-                System.out.printf(
-                        "Subject: %s, student: %s%n", entry.getKey(),
-                        student);
-            }
-        }
+        subjects.forEach((subject, grades) ->
+                grades.forEach(student ->
+                        System.out.printf("Subject: %s, student: %s%n", subject, student)
+                )
+        );
     }
 }
