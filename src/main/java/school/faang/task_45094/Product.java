@@ -1,8 +1,11 @@
 package school.faang.task_45094;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 
+@Getter
 public class Product {
     private final Integer id;
     private final String name;
