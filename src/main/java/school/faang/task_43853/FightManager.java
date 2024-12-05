@@ -8,11 +8,9 @@ import java.util.InputMismatchException;
 @Slf4j
 @NoArgsConstructor
 public class FightManager {
-    private static FightManager INSTANCE;
 
     public void fight(Character character1, Character character2) {
         do {
-            try {
                 character1.attack(character2);
                 if (!character2.isAlive()) {
                     break;
@@ -21,19 +19,8 @@ public class FightManager {
                 if (!character1.isAlive()) {
                     break;
                 }
-            } catch (InputMismatchException ex) {
-                log.error("Mistake: The fight lasts too long");
-                break;
-            }
         } while (true);
 
         log.info("The winner is {}", character1.isAlive() ? character1.getName() : character2.getName());
-    }
-
-    public static FightManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new FightManager();
-        }
-        return INSTANCE;
     }
 }

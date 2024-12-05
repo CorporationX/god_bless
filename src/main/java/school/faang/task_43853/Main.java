@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Warrior warrior = new Warrior("Ivan Zolo");
         Archer archer = new Archer("Fimozz");
-        FightManager fightManager = FightManager.getInstance();
+        FightManager fightManager = new FightManager();
 
         fightManager.fight(warrior, archer);
     }

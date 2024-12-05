@@ -8,15 +8,11 @@ import static school.faang.task_43853.CharacterProperties.CHARACTER_HEALTH;
 @Getter
 @Setter
 public abstract class Character {
-    protected final String name;
-    protected int power;
-    protected int agility;
-    protected int intellect;
+    private final String name;
+    private final int power;
+    private final int agility;
+    private final int intellect;
     protected double health = CHARACTER_HEALTH;
-
-    public Character(String name) {
-        this.name = name;
-    }
 
     public Character(String name, int power, int agility, int intellect) {
         this.name = name;
