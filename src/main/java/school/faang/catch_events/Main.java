@@ -9,7 +9,7 @@ public class Main {
         hogwartsSpells.addSpellEvent(4, "Safe", "make a fire wall");
         hogwartsSpells.addSpellEvent(5, "Safe", "become invisible");
         hogwartsSpells.addSpellEvent(6, "Bewitch", "make fall asleep");
-        hogwartsSpells.addSpellEvent(7, "Bewitch", "make blind ");
+        hogwartsSpells.addSpellEvent(7, "Bewitch", "make blind");
 
         System.out.println(hogwartsSpells.getSpellEventById(4));
         System.out.println(hogwartsSpells.getSpellEventById(40));
