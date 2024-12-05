@@ -14,11 +14,10 @@ public class User implements BookingObserver {
     @Override
     public void update(Booking booking, BookingStatus status) {
         if (status == BookingStatus.BOOKED) {
-            log.info(
-                    "Hi {}, this is the booking notifier again, " +
-                            "I hasten to inform you that {} " +
-                            "WAS BOOKED on the date {}, " +
-                            "at the time from {} to {} !!!",
+            log.info("Hi {}, this is the booking notifier again, "
+                            + "I hasten to inform you that {} "
+                            + "WAS BOOKED on the date {}, "
+                            + "at the time from {} to {} !!!",
                     name,
                     booking.getRoom(),
                     booking.getDate(),
@@ -26,11 +25,10 @@ public class User implements BookingObserver {
                     booking.getEndTime()
             );
         } else if (status == BookingStatus.CANCELLED) {
-            log.info(
-                    "Hi {}, this is the booking notifier again, " +
-                            "I hasten to inform you that " +
-                            "the reservation for {} WAS CANCELLED " +
-                            "on the date {}, at the time from {} to {} !!!",
+            log.info("Hi {}, this is the booking notifier again, "
+                            + "I hasten to inform you that "
+                            + "the reservation for {} WAS CANCELLED "
+                            + "on the date {}, at the time from {} to {} !!!",
                     name,
                     booking.getRoom(),
                     booking.getDate(),

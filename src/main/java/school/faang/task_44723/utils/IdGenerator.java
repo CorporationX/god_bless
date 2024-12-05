@@ -2,7 +2,7 @@ package school.faang.task_44723.utils;
 
 import java.util.Random;
 
-public class IDGenerator {
+public class IdGenerator {
     private static final Random random = new Random();
 
     public static int generateId() {

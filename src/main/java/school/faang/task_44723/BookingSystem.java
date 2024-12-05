@@ -7,7 +7,7 @@ import school.faang.task_44723.model.Amenity;
 import school.faang.task_44723.model.Booking;
 import school.faang.task_44723.model.BookingStatus;
 import school.faang.task_44723.model.Room;
-import school.faang.task_44723.utils.IDGenerator;
+import school.faang.task_44723.utils.IdGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -50,7 +50,7 @@ public class BookingSystem {
 
         Room bookingRoom = rooms.get(roomId);
         Booking booking = new Booking(
-                IDGenerator.generateId(),
+                IdGenerator.generateId(),
                 bookingRoom,
                 date,
                 startTime,
