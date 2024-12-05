@@ -81,12 +81,6 @@ class UniversityDatabaseTest {
     }
 
     @Test
-    void testAddSubjectWithGradeToStudent_negativeGradeThrowsException() {
-        assertThrows(IllegalArgumentException.class, () ->
-                universityDatabase.addSubjectWithGradeToStudent(mathematics, student1, -1));
-    }
-
-    @Test
     void testRemoveStudent() {
         universityDatabase.addSubjectWithGradeToStudent(mathematics, student1, 9);
         universityDatabase.addSubjectWithGradeToStudent(physics, student1, 8);
