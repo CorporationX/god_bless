@@ -9,9 +9,15 @@ public class Main {
         System.out.println(archer);
 
         warrior.attack(archer);
+        warrior.attack(null);
         archer.attack(warrior);
 
         System.out.println(warrior);
         System.out.println(archer);
+
+        for (var i = 0; i < 100; i++) {
+            archer.attack(warrior);
+        }
+        System.out.println(warrior);
     }
 }

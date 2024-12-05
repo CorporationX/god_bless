@@ -1,10 +1,5 @@
 package school.faang.task_43840;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Archer extends Character {
 
     public Archer(String name) {
@@ -16,6 +11,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        health -= character.agility;
+        if (character != null) {
+            int updatedHealth = Math.max(character.getHealth() - agility, 0);
+            character.setHealth(updatedHealth);
+        }
     }
 }

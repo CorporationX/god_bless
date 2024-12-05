@@ -1,7 +1,11 @@
 package school.faang.task_43840;
 
 import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @ToString
 public abstract class Character {
     protected String name;
