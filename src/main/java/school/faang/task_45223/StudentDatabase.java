@@ -34,26 +34,14 @@ public class StudentDatabase {
             System.out.println("Subject not found");
             return;
         }
-        if (studentsGrade.containsKey(student)) {
-            studentsGrade.get(student).put(subject, null);
-        } else {
-            Map<Subject, Integer> map = new HashMap<>();
-            map.put(subject, null);
-            studentsGrade.put(student, map);
-        }
+        studentsGrade.computeIfAbsent(student, e -> new HashMap<>()).put(subject, null);
     }
 
     public void addNewSubjectAndListStudents(Subject subject, List<Student> students) {
         List<Student> copyStudents = new ArrayList<>(students);
         studentsBySubject.put(subject, copyStudents);
         for (Student student : students) {
-            if (studentsGrade.containsKey(student)) {
-                studentsGrade.get(student).put(subject, null);
-            } else {
-                Map<Subject, Integer> map = new HashMap<>();
-                map.put(subject, null);
-                studentsGrade.put(student, map);
-            }
+            studentsGrade.computeIfAbsent(student, e -> new HashMap<>()).put(subject, null);
         }
     }
 
@@ -97,13 +85,7 @@ public class StudentDatabase {
         Map<Subject, Integer> gradesCopy = new HashMap<>(grades);
         studentsGrade.put(student, gradesCopy);
         for (Subject subject : grades.keySet()) {
-            if (studentsBySubject.containsKey(subject)) {
-                studentsBySubject.get(subject).add(student);
-            } else {
-                List<Student> students = new ArrayList<>();
-                students.add(student);
-                studentsBySubject.put(subject, students);
-            }
+            studentsBySubject.computeIfAbsent(subject, e -> new ArrayList<>()).add(student);
         }
     }
 
@@ -114,12 +96,6 @@ public class StudentDatabase {
             System.out.println("Student not found");
             return;
         }
-        if (studentsBySubject.containsKey(subject)) {
-            studentsBySubject.get(subject).add(student);
-        } else {
-            List<Student> students = new ArrayList<>();
-            students.add(student);
-            studentsBySubject.put(subject, students);
-        }
+        studentsBySubject.computeIfAbsent(subject, e -> new ArrayList<>()).add(student);
     }
 }
