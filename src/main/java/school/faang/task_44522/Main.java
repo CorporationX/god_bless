@@ -6,6 +6,7 @@ public class Main {
         HogwartsSpells.addSpellEvent(2, "Атака", "Атакует");
         HogwartsSpells.addSpellEvent(3, "Превратить", "Превращает");
         HogwartsSpells.addSpellEvent(4, "Открыть", "Открывает двери");
+        HogwartsSpells.addSpellEvent(5, "Открыть", "Открывает портал");
 
         HogwartsSpells.printAllSpellEvents();
         HogwartsSpells.getSpellEventById(3);

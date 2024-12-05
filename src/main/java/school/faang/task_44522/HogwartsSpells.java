@@ -12,8 +12,12 @@ public class HogwartsSpells {
     public static void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        spellsByType.put(spellEvent.getEventType(), new ArrayList<>());
-        spellsByType.get(spellEvent.getEventType()).add(spellEvent);
+        if (spellsByType.containsKey(spellEvent.getEventType())) {
+            spellsByType.get(spellEvent.getEventType()).add(spellEvent);
+        } else {
+            spellsByType.put(spellEvent.getEventType(), new ArrayList<>());
+            spellsByType.get(spellEvent.getEventType()).add(spellEvent);
+        }
     }
 
     public static SpellEvent getSpellEventById(int id) {
@@ -39,8 +43,9 @@ public class HogwartsSpells {
 
     public static void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue().getId() + " " + entry.getValue().getEventType() + " "
-                    + entry.getValue().getAction());
+            SpellEvent spellEvent = entry.getValue();
+            System.out.println(spellEvent.getId() + " " + spellEvent.getEventType() + " "
+                    + spellEvent.getAction());
         }
     }
 }
