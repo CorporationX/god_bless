@@ -14,20 +14,20 @@ public class User {
     private String job;  
     private String address;
 
-    public User(String name, int age, String job, String address){
-        if(name == null || name.isBlank()){
+    public User(String name, int age, String job, String address) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cant be empty");
         }
 
-        if(age < 18){
+        if (age < 18) {
             throw new IllegalArgumentException("Age must be over 18"); 
         }
 
-        if(!VALID_JOBS.contains(job)){
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("The job location must be contained in the VALID_JOBS set");
         }
 
-        if(!VALID_ADDRESSES.contains(address)){
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("The address must be contained in the VALID_ADDRESSES set");
         }
 
