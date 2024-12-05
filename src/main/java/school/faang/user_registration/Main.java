@@ -10,21 +10,21 @@ public class Main {
             String address = "Big street";
 
             switch (i) {
-                case 1:
-                    name = "";
-                    break;
-                case 2:
-                    age = 17;
-                    break;
-                case 3:
-                    job = "other job";
-                    break;
-                case 4:
-                    address = "other street";
-                    break;
+              case 1:
+                  name = "";
+                  break;
+              case 2:
+                  age = 17;
+                  break;
+              case 3:
+                  job = "other job";
+                  break;
+              case 4:
+                  address = "other street";
+                  break;
 
-                default:
-                    break;
+              default:
+                  break;
             }
             User user = new User(name, age, job, address);
         }

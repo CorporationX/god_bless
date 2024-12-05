@@ -32,13 +32,13 @@ public class User {
     }
 
     private void validateUser(String name, int age, String job, String address) {
-        final int MINIMUM_AGE = 18;
+        final int MIN_AGE = 18;
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("User has not been created. Name should not be empty");
         }
-        if (age < MINIMUM_AGE) {
-            throw new IllegalArgumentException("User has not been created. Age must not be less than " + MINIMUM_AGE);
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("User has not been created. Age must not be less than " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("User has not been created. Job must be from the list");
