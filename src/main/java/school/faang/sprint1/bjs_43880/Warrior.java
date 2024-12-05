@@ -6,16 +6,11 @@ public class Warrior extends Character {
         defaultSettings();
     }
 
-    Warrior(int force, int dexterity, int intelligence) {
-        super(force, dexterity, intelligence);
-        setName();
-    }
-
     @Override
     public void attack(Character character) {
         String phrase = "%s наносит удар, %s теряет %s здоровья\n";
-        System.out.println(String.format(phrase, this.name, character.name, this.force));
-        character.health -= force;
+        System.out.println(String.format(phrase, this.name, character.getName(), this.force));
+        character.setHealth(health - force);
     }
 
     private void defaultSettings() {

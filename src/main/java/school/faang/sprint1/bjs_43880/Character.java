@@ -1,10 +1,11 @@
 package school.faang.sprint1.bjs_43880;
 
-import java.util.Scanner;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public abstract class Character {
-    protected static final Scanner SCANNER = new Scanner(System.in);
-
     protected String name;
     protected int force;
     protected int dexterity;
@@ -15,15 +16,11 @@ public abstract class Character {
         this.name = name;
     }
 
-    Character(int force, int dexterity, int intelligence) {
-        this.force = force;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-    }
-
-    public void setName() {
-        System.out.println("Введите имя персонажа: ");
-        this.name = SCANNER.nextLine();
+    @Override
+    public String toString() {
+        return "Имя: " + name + "\nЗдоровье: " + health +
+                "\nСила: " + force + "\nЛовкость: " + dexterity +
+                "\nИнтеллект: " + intelligence + "\n";
     }
 
     public abstract void attack(Character character);
