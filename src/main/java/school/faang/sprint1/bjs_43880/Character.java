@@ -18,9 +18,9 @@ public abstract class Character {
 
     @Override
     public String toString() {
-        return "Имя: " + name + "\nЗдоровье: " + health +
-                "\nСила: " + force + "\nЛовкость: " + dexterity +
-                "\nИнтеллект: " + intelligence + "\n";
+        return "Имя: " + name + "\nЗдоровье: " + health
+                + "\nСила: " + force + "\nЛовкость: " + dexterity
+                + "\nИнтеллект: " + intelligence + "\n";
     }
 
     public abstract void attack(Character character);
