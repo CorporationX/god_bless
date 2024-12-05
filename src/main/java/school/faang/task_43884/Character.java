@@ -1,5 +1,10 @@
 package school.faang.task_43884;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 abstract class Character {
     protected String name;
     protected int strength;
@@ -18,5 +23,5 @@ abstract class Character {
         this.intelligence = intelligence;
     }
 
-    protected abstract void attack(Character character);
+    public abstract void attack(Character character);
 }

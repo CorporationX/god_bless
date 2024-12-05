@@ -7,9 +7,9 @@ public class Warrior extends Character {
     }
 
     @Override
-    protected void attack(Character character) {
-        if (character.health > 0) {
-            character.health -= this.strength;
+    public void attack(Character character) {
+        if (character.getHealth() > 0) {
+            character.setHealth(character.getHealth() - strength);
         } else {
             System.out.println("Противник убит!");
         }

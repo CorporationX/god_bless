@@ -9,7 +9,7 @@ public class Main {
         archer.attack(warrior);
         warrior.attack(archer);
 
-        System.out.println("Warrior health is " + warrior.health);
-        System.out.println("Archer health is " + archer.health);
+        System.out.println("Warrior health is " + warrior.getHealth());
+        System.out.println("Archer health is " + archer.getHealth());
     }
 }

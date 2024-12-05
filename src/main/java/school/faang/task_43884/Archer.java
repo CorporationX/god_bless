@@ -7,9 +7,9 @@ public class Archer extends Character {
     }
 
     @Override
-    protected void attack(Character character) {
-        if (character.health > 0) {
-            character.health -= this.agility;
+    public void attack(Character character) {
+        if (character.getHealth() > 0) {
+            character.setHealth(character.getHealth() - agility);
         } else {
             System.out.println("Противник убит!");
         }
