@@ -13,7 +13,7 @@ public class HogwartsSpells {
     public int addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(nextId, eventType, actionDescription);
         spellById.put(nextId, spellEvent);
-        spellsByType.computeIfAbsent(eventType, key->new ArrayList<>()).add(spellEvent);
+        spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvent);
         return nextId++;
     }
 

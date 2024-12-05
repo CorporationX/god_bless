@@ -12,11 +12,11 @@ public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         Map<String, Integer> eventIds = new HashMap<>();
-        addEvent(hogwartsSpells, eventIds,"Чар", "Защищает от атак");
-        addEvent(hogwartsSpells, eventIds,"Трансфигурация", "Преобразует предмет");
-        addEvent(hogwartsSpells, eventIds,"Заклинание", "Наводит порчу");
-        addEvent(hogwartsSpells, eventIds,"Заклинание", "Защищает от порчи");
-        addEvent(hogwartsSpells, eventIds,"Заклинание", "Прибавляет сил");
+        addEvent(hogwartsSpells, eventIds, "Чар", "Защищает от атак");
+        addEvent(hogwartsSpells, eventIds, "Трансфигурация", "Преобразует предмет");
+        addEvent(hogwartsSpells, eventIds, "Заклинание", "Наводит порчу");
+        addEvent(hogwartsSpells, eventIds, "Заклинание", "Защищает от порчи");
+        addEvent(hogwartsSpells, eventIds, "Заклинание", "Прибавляет сил");
         hogwartsSpells.printAllSpellEvents();
         checkGetByEventTypeFunction(hogwartsSpells, WORK_STRING);
         checkGetByEventTypeFunction(hogwartsSpells, NOT_WORK_STRING);
