@@ -26,7 +26,7 @@ public class Main {
         bookingSystem.addRoom(room3);
 
         // Поиск свободных комнат
-        var availableRooms = bookingSystem.findAvailableRooms(LocalDateTime.now(), Set.of(Amenities.WIFI));
+        var availableRooms = bookingSystem.findAvailableRooms(Set.of(Amenities.WIFI));
         System.out.println("Свободные комнаты до бронирования:");
         for (Room room : availableRooms) {
             System.out.println(room);
@@ -44,7 +44,7 @@ public class Main {
         }
 
         // Проверка доступности после бронирования
-        availableRooms = bookingSystem.findAvailableRooms(LocalDateTime.now(), Set.of(Amenities.WIFI));
+        availableRooms = bookingSystem.findAvailableRooms(Set.of(Amenities.WIFI));
         System.out.println("\nСвободные комнаты после бронирования:");
         for (Room room : availableRooms) {
             System.out.println(room);
@@ -55,12 +55,10 @@ public class Main {
         bookingSystem.cancelBooking(0);
 
         // Проверка доступности после отмены бронирования
-        availableRooms = bookingSystem.findAvailableRooms(LocalDateTime.now(), Set.of(Amenities.WIFI));
+        availableRooms = bookingSystem.findAvailableRooms(Set.of(Amenities.WIFI));
         System.out.println("\nСвободные комнаты после отмены бронирования:");
         for (Room room : availableRooms) {
             System.out.println(room);
         }
-
-
     }
 }

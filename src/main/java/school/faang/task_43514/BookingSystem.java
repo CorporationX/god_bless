@@ -28,16 +28,12 @@ public class BookingSystem {
     }
 
     public void removeRoom(int roomId) {
-        Room room = findRoom(roomId);
+        rooms.removeIf(room -> room.getId() == roomId);
 
-        if (room != null) {
-            rooms.remove(room);
-
-            bookings.values().stream()
-                    .filter(b -> b.getRoom().getId() == roomId)
-                    .findFirst()
-                    .ifPresent(booking -> cancelBooking(booking.getId()));
-        }
+        bookings.values().stream()
+                .filter(b -> b.room().getId() == roomId)
+                .findFirst()
+                .ifPresent(booking -> cancelBooking(booking.id()));
     }
 
     public void bookRoom(int roomId, LocalDateTime dateTime) {
@@ -45,7 +41,7 @@ public class BookingSystem {
 
         if (room != null && room.isAvailable()) {
             Booking booking = new Booking(bookingIndex++, room, dateTime);
-            bookings.put(booking.getId(), booking);
+            bookings.put(booking.id(), booking);
             room.setAvailable(false);
             bookingNotifier.notifyObservers(booking, BookingStatus.CREATED);
         }
@@ -54,16 +50,14 @@ public class BookingSystem {
     public void cancelBooking(int bookingId) {
         if (bookings.containsKey(bookingId)) {
             Booking book = bookings.remove(bookingId);
-            book.getRoom().setAvailable(true);
+            book.room().setAvailable(true);
             bookingNotifier.notifyObservers(book, BookingStatus.CANCELLED);
         }
     }
 
-    public Set<Room> findAvailableRooms(LocalDateTime dateTime, Set<Amenities> requiredAmenities) {
+    public Set<Room> findAvailableRooms(Set<Amenities> requiredAmenities) {
         return rooms.stream()
-                .filter(Room::isAvailable)
-                .filter(room -> room.getAmenities().containsAll(requiredAmenities))
-                .filter(room -> bookings.values().stream().noneMatch(b -> b.getRoom().equals(room)))
+                .filter(room -> room.isAvailable() && room.getAmenities().containsAll(requiredAmenities) && bookings.values().stream().noneMatch(b -> b.room().equals(room)))
                 .collect(Collectors.toSet());
     }
 

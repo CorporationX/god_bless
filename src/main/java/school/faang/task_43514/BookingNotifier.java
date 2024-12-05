@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BookingNotifier {
-    Set<BookingObserver> observers = new HashSet<>();
+    private final Set<BookingObserver> observers = new HashSet<>();
 
     public void addObserver(BookingObserver observer) {
         observers.add(observer);
