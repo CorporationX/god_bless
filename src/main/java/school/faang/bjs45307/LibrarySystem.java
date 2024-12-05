@@ -1,4 +1,4 @@
-package school.faang.bjs2_45307;
+package school.faang.bjs45307;
 
 import java.util.Map;
 
