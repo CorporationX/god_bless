@@ -2,11 +2,12 @@ package school.faang.sprint1.bjs_44580;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
-        HashMap<String, List<SpellEvent>> result = hogwartsSpells.getSpellByType();
+        Map<String, List<SpellEvent>> result = hogwartsSpells.getSpellByType();
 
         // тестирование методов addSpellEvent, printAllSpellEvents
         hogwartsSpells.addSpellEvent(0, "Чар", "Защищает от атак");

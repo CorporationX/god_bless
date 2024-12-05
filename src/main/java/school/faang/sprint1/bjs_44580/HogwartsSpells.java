@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Getter
 public class HogwartsSpells {
-    private HashMap<Integer, SpellEvent> spellById = new HashMap<>();
-    private HashMap<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
-    public HogwartsSpells(HashMap<Integer, SpellEvent> spellById, HashMap<String, List<SpellEvent>> spellByType) {
+    public HogwartsSpells(Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellByType) {
         this.spellById = spellById;
         this.spellByType = spellByType;
     }
@@ -22,7 +22,7 @@ public class HogwartsSpells {
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        List<SpellEvent> spellEventList = getSpellEventByType(eventType);
+        List<SpellEvent> spellEventList = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
         spellEventList.add(spellEvent);
         spellByType.put(eventType, spellEventList);
     }
@@ -32,20 +32,20 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventByType(String eventType) {
-        if (!spellByType.containsKey(eventType)) {
-            List<SpellEvent> result = new ArrayList<>();
-            return result;
-        }
-
-        return spellByType.get(eventType);
+        return spellByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent1 = spellById.remove(id);
-        String spellEventType = spellEvent1.getEventType();
-        List<SpellEvent> spellEventList = getSpellEventByType(spellEventType);
-        spellEventList.remove(getSpellEventById(id));
-        spellByType.put(spellEventType, spellEventList);
+        SpellEvent removedSpellEvent = spellById.remove(id);
+
+        if (removedSpellEvent == null) {
+            System.out.println("Такого события не существует!");
+        } else {
+            String spellEventType = removedSpellEvent.getEventType();
+            List<SpellEvent> spellEventList = getSpellEventByType(spellEventType);
+            spellEventList.remove(getSpellEventById(id));
+            spellByType.put(spellEventType, spellEventList);
+        }
     }
 
     public void printAllSpellEvents() {
