@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs243602;
 
 public class Exemple {
     public static int[] nums = {1, 2, 3, 4, 5};
