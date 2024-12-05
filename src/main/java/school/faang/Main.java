@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<User> users = new ArrayList<>(){{
+        List<User> users = new ArrayList<>() { {
                 add(new User("Name1", 19, "Workplace1", "Address1"));
                 add(new User("Name2", 18, "Workplace2", "Address2"));
                 add(new User("Name3", 19, "Workplace3", "Address3"));

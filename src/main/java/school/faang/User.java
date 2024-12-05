@@ -16,7 +16,7 @@ public class User {
     private final String workplace;
     private final String address;
 
-    public User(String name, int age, String workplace, String address){
+    public User(String name, int age, String workplace, String address) {
 
         this.name = name;
         this.age = age;
@@ -28,13 +28,14 @@ public class User {
 
         Map<Integer, List<User>> result = users.stream().collect(Collectors.groupingBy(User::getAge));
 
-//        Map<Integer, List<User>> result =new HashMap<>();
-//        for (User user : users){
-//            if (!result.containsKey(user.age)){
-//                result.put(user.age, new ArrayList<>());
-//            }
-//            result.get(user.age).add(user);
-//        }
+        // Commented out the logic for grouping users by age for testing purposes.
+        //  Map<Integer, List<User>> result = new HashMap<>();
+        // for (User user : users) {
+        //     if (!result.containsKey(user.age)) {
+        //         result.put(user.age, new ArrayList<>());
+        //     }
+        //     result.get(user.age).add(user);
+        // }
 
         return result;
     }
