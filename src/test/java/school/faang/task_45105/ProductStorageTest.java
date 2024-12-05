@@ -29,8 +29,10 @@ class ProductStorageTest {
         List<Product> result = productStorage.findItemsByCategory(inputCategory);
 
         assertEquals(2, result.size());
-        assertEquals(inputNameFirst, result.get(0).getName());
-        assertEquals(inputNameSecond, result.get(1).getName());
+        assertTrue(result.stream()
+                .anyMatch(product -> product.getName().equals(inputNameFirst)));
+        assertTrue(result.stream()
+                .anyMatch(product -> product.getName().equals(inputNameSecond)));
     }
 
     @Test

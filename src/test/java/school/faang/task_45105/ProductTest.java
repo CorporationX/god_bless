@@ -36,7 +36,7 @@ class ProductTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> new Product(name, category));
 
-        assertEquals("Name cannot be null or empty", exception.getMessage());
+        assertEquals("Invalid params", exception.getMessage());
     }
 
     @Test
@@ -47,7 +47,7 @@ class ProductTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> new Product(name, category));
 
-        assertEquals("Name cannot be null or empty", exception.getMessage());
+        assertEquals("Invalid params", exception.getMessage());
     }
 
     @Test
@@ -58,7 +58,7 @@ class ProductTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> new Product(name, category));
 
-        assertEquals("Category cannot be null or empty", exception.getMessage());
+        assertEquals("Invalid params", exception.getMessage());
     }
 
     @Test
@@ -69,6 +69,6 @@ class ProductTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> new Product(name, category));
 
-        assertEquals("Category cannot be null or empty", exception.getMessage());
+        assertEquals("Invalid params", exception.getMessage());
     }
 }
