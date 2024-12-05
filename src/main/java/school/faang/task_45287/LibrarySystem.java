@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class LibrarySystem {
     public static void addBook(String title, String author, int year, String location, HashMap<Book, String> lib) {
-        Book NewBook = new Book(title, author, year);
-        lib.put(NewBook, location);
+        Book newBook = new Book(title, author, year);
+        lib.put(newBook, location);
         System.out.println("Your book successful added on " + location);
     }
 
