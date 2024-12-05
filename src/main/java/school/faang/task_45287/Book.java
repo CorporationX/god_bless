@@ -27,9 +27,11 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        Book CurBook = (Book) obj;
-        return title == CurBook.title && author == CurBook.author && year == CurBook.year;
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Book curBook = (Book) obj;
+        return title == curBook.title && author == curBook.author && year == curBook.year;
     }
 
     @Override

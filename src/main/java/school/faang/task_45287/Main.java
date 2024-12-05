@@ -22,10 +22,10 @@ public class Main {
         lib.put(book6, "Polka15");
         lib.put(book7, "Polka28");
 
-        LibrarySystem.FindPolka("title2", "author2", 1995, (HashMap<Book, String>) lib);
-        LibrarySystem.BooksList((HashMap<Book, String>) lib);
+        LibrarySystem.findPolka("title2", "author2", 1995, (HashMap<Book, String>) lib);
+        LibrarySystem.booksList((HashMap<Book, String>) lib);
         LibrarySystem.addBook("title15", "author16", 2024, "polka15", (HashMap<Book, String>) lib);
         LibrarySystem.removeBook("title2", "author2", 1995, (HashMap<Book, String>) lib);
-        LibrarySystem.BooksList((HashMap<Book, String>) lib);
+        LibrarySystem.booksList((HashMap<Book, String>) lib);
     }
 }

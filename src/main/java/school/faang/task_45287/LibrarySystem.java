@@ -4,25 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    public static void addBook(String title, String author, int year, String location, HashMap<Book, String> Lib) {
+    public static void addBook(String title, String author, int year, String location, HashMap<Book, String> lib) {
         Book NewBook = new Book(title, author, year);
-        Lib.put(NewBook, location);
+        lib.put(NewBook, location);
         System.out.println("Your book successful added on " + location);
     }
 
-    public static void removeBook(String title, String author, int year, HashMap<Book, String> Lib) {
+    public static void removeBook(String title, String author, int year, HashMap<Book, String> lib) {
         Book findBook = new Book(title, author, year);
-        Lib.remove(findBook);
+        lib.remove(findBook);
         System.out.println("Book " + title + " " + author + " " + year + " if successful removed");
     }
 
-    public static void FindPolka(String title, String author, int year, HashMap<Book, String> Lib) {
+    public static void findPolka(String title, String author, int year, HashMap<Book, String> lib) {
         Book findBook = new Book(title, author, year);
-        System.out.println("This book is on " + Lib.get(findBook));
+        System.out.println("This book is on " + lib.get(findBook));
     }
 
-    public static void BooksList(HashMap<Book, String> Lib) {
-        for (Map.Entry<Book, String> el : Lib.entrySet()) {
+    public static void booksList(HashMap<Book, String> lib) {
+        for (Map.Entry<Book, String> el : lib.entrySet()) {
             System.out.println("Book " + el.getKey() + " " + " is on " + el.getValue());
         }
     }
