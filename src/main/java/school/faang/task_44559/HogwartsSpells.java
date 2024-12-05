@@ -1,76 +1,65 @@
 package school.faang.task_44559;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import school.faang.task_44559.entity.SpellEvent;
+import school.faang.task_44559.entity.SpellType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class HogwartsSpells {
+    private static final Logger log = LoggerFactory.getLogger(HogwartsSpells.class);
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<SpellType, List<SpellEvent>> spellByType = new HashMap<>();
 
 
-    public Boolean addSpellEvent(int id, String eventType, String actionDescription) {
+    public Boolean addSpellEvent(int id, SpellType eventType, String actionDescription) {
         if (eventType == null && actionDescription == null) {
-            System.out.println("Event type and action description is null");
-            return false;
+            throw new IllegalArgumentException("Event type and action description cannot be null");
         }
+        //не перезаписываем во избежания ошибки случайного ввода
         if (spellById.containsKey(id)) {
-            return false;
+            throw new IllegalArgumentException("Event id " + id + " already exists");
         }
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
 
-        List<SpellEvent> spells = spellByType.get(eventType);
-        if (spells == null) {
-            spells = new ArrayList<>();
-            spellByType.put(eventType, spells);
-        }
+        List<SpellEvent> spells = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
         spells.add(spellEvent);
         return true;
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (spellById.containsKey(id)) {
-            return spellById.get(id);
-        }
-        System.out.println("No such spell event");
-        return null;
+            return Optional.of(spellById.get(id))
+                    .orElseThrow(() -> new IllegalArgumentException("No such spell event"));
     }
 
-    public List<SpellEvent> getSpellsByType(String eventType) {
+    public List<SpellEvent> getSpellsByType(SpellType eventType) {
         if (spellByType.containsKey(eventType)) {
             return spellByType.get(eventType);
         }
-        System.out.println("No such spell event");
-        return null;
+      throw new IllegalArgumentException("No such spell event");
     }
 
     public Boolean deleteSpellEvent(int id) {
         SpellEvent spellEventToDelete = spellById.get(id);
         if (spellEventToDelete == null) {
-            System.out.println("No such spell event");
+            log.info("No such spell event");
             return false;
         }
-        for (Map.Entry<String, List<SpellEvent>> entry : spellByType.entrySet()) {
-            entry.getValue().remove(spellEventToDelete);
-        }
+        spellByType.get(spellEventToDelete.getType()).remove(spellEventToDelete);
         spellById.remove(id);
         return true;
     }
 
     public void printAllSpellEvents() {
         System.out.println("=== All Spell Events by ID ===");
-        if (spellById.isEmpty()) {
-            System.out.println("No spell events found.");
-        } else {
-            for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-                int id = entry.getKey();
-                SpellEvent event = entry.getValue();
-                System.out.printf("ID: %d | Type: %s | Data: %s%n", id, event.getType(), event.getAction());
-            }
-        }
+            spellById.forEach((id, event) ->
+                    System.out.printf("ID: %d | Type: %s | Data: %s%n", id, event.getType(), event.getDescription())
+            );
     }
 }

@@ -13,6 +13,6 @@ import lombok.ToString;
 @ToString
 public class SpellEvent {
     private int id;
-    private String type;
-    private String action;
+    private SpellType type;
+    private String description;
 }
