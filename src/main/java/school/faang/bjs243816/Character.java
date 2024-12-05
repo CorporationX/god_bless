@@ -16,5 +16,4 @@ public abstract class Character {
     public String toString() {
         return String.format("%s Health: %d", name, health);
     }
-
 }

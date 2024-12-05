@@ -14,7 +14,6 @@ public class Main {
         warrior.attack(archer);
         warrior.attack(archer);
 
-
         System.out.println(warrior);
         System.out.println(archer);
     }
