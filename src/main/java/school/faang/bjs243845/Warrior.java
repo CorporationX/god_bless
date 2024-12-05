@@ -15,5 +15,4 @@ public class Warrior extends Character {
         Integer remainingHealth = character.getHealth() - getStrength();
         character.setHealth(remainingHealth);
     }
-
 }

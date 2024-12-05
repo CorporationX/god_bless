@@ -11,15 +11,14 @@ public abstract class Character {
     private static final Integer MIN_INTELLIGENCE = 1;
     private static final Integer MIN_HEALTH = 1;
 
-    private String name;
-    private Integer strength;
-    private Integer agility;
-    private Integer intelligence;
-    private Integer health;
+    protected String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    protected int health = DEFAULT_HEALTH;
 
     public Character(String name) {
         setName(name);
-        setHealth(DEFAULT_HEALTH);
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intelligence) {
@@ -27,11 +26,9 @@ public abstract class Character {
         setStrength(strength);
         setAgility(agility);
         setIntelligence(intelligence);
-        setHealth(DEFAULT_HEALTH);
     }
 
     public abstract void attack(Character character);
-
 
     public void setName(String name) {
         if (name.isEmpty()) {
@@ -67,6 +64,4 @@ public abstract class Character {
         }
         this.intelligence = intelligence;
     }
-
-
 }

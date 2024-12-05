@@ -15,5 +15,4 @@ public class Archer extends Character {
         Integer remainingHealth = character.getHealth() - getStrength();
         character.setHealth(remainingHealth);
     }
-
 }
