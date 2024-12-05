@@ -15,10 +15,9 @@ import java.util.stream.Collectors;
 public class BookingSystem {
     private final Set<Room> rooms = new HashSet<>();
     private final Map<Integer, Booking> bookings = new HashMap<>();
+    private final BookingNotifier bookingNotifier;
 
     private int bookingIndex = 0;
-
-    private final BookingNotifier bookingNotifier;
 
     public BookingSystem(BookingNotifier bookingNotifier) {
         this.bookingNotifier = bookingNotifier;
@@ -38,7 +37,6 @@ public class BookingSystem {
                     .filter(b -> b.getRoom().getId() == roomId)
                     .findFirst()
                     .ifPresent(booking -> cancelBooking(booking.getId()));
-
         }
     }
 
@@ -61,10 +59,10 @@ public class BookingSystem {
     }
 
     public Set<Room> findAvailableRooms(LocalDateTime dateTime, Set<Amenities> requiredAmenities) {
-        return bookings.values().stream()
-                .filter(b -> b.getDateTimeSlot().isEqual(dateTime) == false)
-                .map(Booking::getRoom)
-                .filter(room -> room.getAmenities().containsAll(requiredAmenities) && room.isAvailable())
+        return rooms.stream()
+                .filter(Room::isAvailable)
+                .filter(room -> room.getAmenities().containsAll(requiredAmenities))
+                .filter(room -> bookings.values().stream().noneMatch(b -> b.getRoom().equals(room)))
                 .collect(Collectors.toSet());
     }
 
