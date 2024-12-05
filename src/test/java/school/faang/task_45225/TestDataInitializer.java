@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Utils {
+public class TestDataInitializer {
     public static Map<Student, Map<Subject, Integer>> initSubjectsByStudent() {
         return new HashMap<>() {{
                 put(new Student(1, "Vasya"), new HashMap<>() {{

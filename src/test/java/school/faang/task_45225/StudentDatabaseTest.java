@@ -16,8 +16,8 @@ class StudentDatabaseTest {
 
     @BeforeEach
     void init() {
-        Map<Student, Map<Subject, Integer>> subjectsByStudent = Utils.initSubjectsByStudent();
-        Map<Subject, List<Student>> studentsBySubject = Utils.initStudentsBySubject();
+        Map<Student, Map<Subject, Integer>> subjectsByStudent = TestDataInitializer.initSubjectsByStudent();
+        Map<Subject, List<Student>> studentsBySubject = TestDataInitializer.initStudentsBySubject();
         studentDatabase = new StudentDatabase(subjectsByStudent, studentsBySubject);
     }
 
