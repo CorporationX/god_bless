@@ -1,4 +1,4 @@
-package task43872;
+package character;
 
 public abstract class Character {
     protected String name;

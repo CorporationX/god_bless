@@ -1,4 +1,4 @@
-package task43872;
+package character;
 
 public class Main {
     public static void main(String[] args) {
