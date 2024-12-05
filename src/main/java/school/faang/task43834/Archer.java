@@ -10,6 +10,6 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health = character.health - strength;
+        character.setHealth(character.getHealth() - this.strength);
     }
 }
