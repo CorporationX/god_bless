@@ -11,13 +11,13 @@ public class HogwartsSpells {
 
 
     void addSpellEvent(int id, String eventType, String actionDescription) {
-        if (spellById != null && spellById.containsKey(id)) {
+        if (spellById.containsKey(id)) {
             System.out.printf("Spell %s with ID: %d is already exist. Choose another one", eventType, id);
             return;
         }
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        spellsByType.put(eventType, new ArrayList<>());
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>());
         spellsByType.get(eventType).add(spellEvent);
     }
 
