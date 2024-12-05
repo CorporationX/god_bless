@@ -5,12 +5,6 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Set<Product> products = new HashSet<>(Set.of(
-                new Product(1, "Meat", "Meat products"),
-                new Product(2, "Milk", "Milk products"),
-                new Product(3, "Milk", "Milk products"),
-                new Product(4, "Salad", "Vegetables")
-        ));
 
         try {
             ProductManagement pm = new ProductManagement();
@@ -19,11 +13,13 @@ public class Main {
             pm.removeItem(3, "Milk", "Milk products");
             pm.addItem(6, "Toy", "Toys");
             pm.printAllItems();
+            List<Product> productsList = pm.getProductsByCategory().get("Milk products");
+            Set<Product> products = new HashSet<>(productsList);
+            printProductsByCategory(groupProductsByCategory(products));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
-        printProductsByCategory(groupProductsByCategory(products));
 
     }
 
