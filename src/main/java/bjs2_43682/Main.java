@@ -1,4 +1,4 @@
-package school.faang;
+package bjs2_43682;
 
 import java.util.ArrayList;
 import java.util.HashSet;
