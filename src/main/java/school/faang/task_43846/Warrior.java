@@ -12,9 +12,9 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health -= power;
+        character.setHealth(character.getHealth() - power);
 
         System.out.println();
-        System.out.println(name + " сaused damage " + character.name + " on " + power);
+        System.out.println(name + " сaused damage " + character.getName() + " on " + power);
     }
 }

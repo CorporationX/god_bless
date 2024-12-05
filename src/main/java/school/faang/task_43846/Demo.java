@@ -6,13 +6,13 @@ public class Demo {
         Character warrior = new Warrior("John");
         Character archer = new Archer("Arton");
 
-        archer.displayInfo();
-        warrior.displayInfo();
+        System.out.println(archer);
+        System.out.println(warrior);
 
         warrior.attack(archer);
         archer.attack(warrior);
 
-        warrior.displayInfo();
-        archer.displayInfo();
+        System.out.println(warrior);
+        System.out.println(archer);
     }
 }

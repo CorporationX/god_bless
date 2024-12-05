@@ -1,6 +1,10 @@
 package school.faang.task_43846;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public abstract class Character {
     protected String name;
     protected int power;
@@ -21,8 +25,9 @@ public abstract class Character {
         this.health = 100;
     }
 
-    public void displayInfo() {
-        System.out.println("\nName: " + name + ", Health: " + health);
+    @Override
+    public String toString() {
+        return "\nName: " + name + ", Health: " + health;
     }
 
     public abstract void attack(Character character);

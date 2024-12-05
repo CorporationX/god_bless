@@ -11,9 +11,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health -= dexterity;
+        character.setHealth(character.getHealth() - dexterity);
 
         System.out.println();
-        System.out.println(name + " сaused damage " + character.name + " on " + dexterity);
+        System.out.println(name + " сaused damage " + character.getName() + " on " + dexterity);
     }
 }
