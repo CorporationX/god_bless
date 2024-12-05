@@ -18,8 +18,10 @@ public class User {
             String match = hobbies.stream()
                     .filter(user.hobbies::contains)
                     .findFirst()
-                    .orElse("no matches");
-            hobbyLovers.put(user, match);
+                    .orElse(null);
+            if (match != null) {
+                hobbyLovers.put(user, match);
+            }
         }
 
         return hobbyLovers;
