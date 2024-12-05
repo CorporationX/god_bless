@@ -55,11 +55,11 @@ public class StudentDatabaseTest {
         studentsDatabase.addNewSubjectToStudent("Russian",4, "Egor");
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> studentsDatabase.addNewSubjectToStudent("Russian",4, ""));
+                () -> studentsDatabase.addNewSubjectToStudent("Russian", 4, ""));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () ->studentsDatabase.addNewSubjectToStudent("Russian",-1000, "Egor"));
+                () ->studentsDatabase.addNewSubjectToStudent("Russian", -1000, "Egor"));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> studentsDatabase.addNewSubjectToStudent("",4, "Egor"));
+                () -> studentsDatabase.addNewSubjectToStudent("", 4, "Egor"));
     }
 
 
@@ -83,7 +83,8 @@ public class StudentDatabaseTest {
                 () -> studentsDatabase.addSubjectWithListOfStudent("PE", new ArrayList<>(List.of())));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> studentsDatabase.addSubjectWithListOfStudent("", new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
+                () -> studentsDatabase.addSubjectWithListOfStudent("", new ArrayList<>(
+                        List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
     }
 
     @Test
