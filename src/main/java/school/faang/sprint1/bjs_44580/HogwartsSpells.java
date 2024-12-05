@@ -10,14 +10,14 @@ import java.util.Map;
 @Getter
 public class HogwartsSpells {
     private HashMap<Integer, SpellEvent> spellById = new HashMap<>();
-    private HashMap<String , List<SpellEvent>> spellByType = new HashMap<>();
+    private HashMap<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     public HogwartsSpells(HashMap<Integer, SpellEvent> spellById, HashMap<String, List<SpellEvent>> spellByType) {
         this.spellById = spellById;
         this.spellByType = spellByType;
     }
 
-    HogwartsSpells() { }
+    HogwartsSpells() {}
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
