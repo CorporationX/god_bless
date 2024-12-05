@@ -1,20 +1,22 @@
 package school.faang.task_44821;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class StandardWeatherCache extends WeatherCacheTemplate {
     private final WeatherProvider weatherProvider;
     private final long maxCacheAgeMillis;
-
-    public StandardWeatherCache(WeatherProvider weatherProvider, long maxCacheAgeMillis) {
-        this.weatherProvider = weatherProvider;
-        this.maxCacheAgeMillis = maxCacheAgeMillis;
-    }
 
     @Override
     protected boolean isCacheValid(City city) {
         if (!weatherCache.containsKey(city)) {
             return false;
         }
-        return System.currentTimeMillis() - weatherCache.get(city).getTimestamp() < maxCacheAgeMillis;
+
+        long currentTime = System.currentTimeMillis();
+        long weatherDataTime = weatherCache.get(city).getTimestamp();
+
+        return currentTime - weatherDataTime < maxCacheAgeMillis;
     }
 
     @Override

@@ -1,9 +1,10 @@
 package school.faang.task_44821;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
-    protected final HashMap<City, WeatherData> weatherCache = new HashMap<>();
+    public final Map<City, WeatherData> weatherCache = new HashMap<>();
 
     public WeatherData getWeatherData(City city) {
         if (!isCacheValid(city)) {

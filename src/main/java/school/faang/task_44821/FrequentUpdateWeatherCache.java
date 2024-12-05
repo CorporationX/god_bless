@@ -1,15 +1,14 @@
 package school.faang.task_44821;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     private final WeatherProvider weatherProvider;
 
-    public FrequentUpdateWeatherCache(WeatherProvider weatherProvider) {
-        this.weatherProvider = weatherProvider;
-    }
-
     @Override
     protected boolean isCacheValid(City city) {
-        return true;
+        return false;
     }
 
     @Override
