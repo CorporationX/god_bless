@@ -1,12 +1,11 @@
 package derschrank.task03.bjstwo_43815;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
 public abstract class Character {
 
-    private String name;
+    private final String name;
     private int strength;
     private int dexterity;
     private int intelligence;
