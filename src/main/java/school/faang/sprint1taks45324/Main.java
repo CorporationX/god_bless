@@ -1,4 +1,5 @@
 package school.faang.sprint1taks45324;
+
 import java.util.HashMap;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
                 put(book2, "33");
                 put(book3, "44");
                 put(book4, "55");
-        }};
+            }};
 
         LibrarySystem libSys = new LibrarySystem(book);
         libSys.addBook("hoohoho", "Santa", 2025, "77");
