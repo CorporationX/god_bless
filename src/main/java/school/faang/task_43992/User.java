@@ -3,6 +3,7 @@ package school.faang.task_43992;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +22,10 @@ public class User {
         Map<Integer, List<User>> groupByAge = new HashMap<>();
         for (User user : users) {
             int key = user.getAge();
-            if (groupByAge.containsKey(key)) {
-                groupByAge.get(key).add(user);
-            } else {
+            if (!groupByAge.containsKey(key)) {
                 groupByAge.put(key, new ArrayList<>());
-                groupByAge.get(key).add(user);
             }
+            groupByAge.get(key).add(user);
         }
         return groupByAge;
     }
