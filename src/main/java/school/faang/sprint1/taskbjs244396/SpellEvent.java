@@ -23,10 +23,10 @@ public class SpellEvent {
         if (id < 1) {
             throw new IllegalArgumentException("id must be more than 0");
         }
-        if (eventType == null && eventType.isBlank()) {
+        if (eventType == null || eventType.isBlank()) {
             throw new IllegalArgumentException("eventType mustn't be empty");
         }
-        if (action == null && action.isBlank()) {
+        if (action == null || action.isBlank()) {
             throw new IllegalArgumentException("action mustn't be empty");
         }
     }
