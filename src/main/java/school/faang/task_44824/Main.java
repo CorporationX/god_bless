@@ -20,7 +20,7 @@ public class Main {
 
         // Тестируем StandartWeatherCache
         System.out.println("\n=== StandartWeatherCache Tests ===");
-        StandartWeatherCache standartCache = new StandartWeatherCache(weatherService);
+        StandardWeatherCache standartCache = new StandardWeatherCache(weatherService);
 
         WeatherData ufaWeather1 = standartCache.getWeatherData(City.UFA);
         System.out.println("Initial Ufa weather: " + ufaWeather1);

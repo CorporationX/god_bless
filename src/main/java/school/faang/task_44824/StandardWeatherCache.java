@@ -1,9 +1,9 @@
 package school.faang.task_44824;
 
-public class StandartWeatherCache extends WeatherCacheTemplate {
+public class StandardWeatherCache extends WeatherCacheTemplate {
     private static final long MAX_CACHE_AGE_MILLIS = 60000;
 
-    public StandartWeatherCache(WeatherService weatherService) {
+    public StandardWeatherCache(WeatherService weatherService) {
         super(weatherService);
     }
 

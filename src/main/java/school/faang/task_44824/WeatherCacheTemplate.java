@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
-    protected final Map<City, WeatherData> weatherCache = new HashMap<>();
-    private final WeatherService weatherService;
+    private final Map<City, WeatherData> weatherCache = new HashMap<>();
+    private final WeatherProvider weatherService;
 
     public WeatherCacheTemplate(WeatherService weatherService) {
         this.weatherService = weatherService;
@@ -16,16 +16,16 @@ public abstract class WeatherCacheTemplate {
         WeatherData weatherData = weatherCache.get(city);
 
         if (isActualData(weatherData) == false) {
-            updateWeatherCache(city);
+            weatherData = updateWeatherCache(city);
         }
 
-        return weatherCache.get(city);
+        return weatherData;
     }
 
     protected abstract boolean isActualData(WeatherData weatherData);
 
-    private void updateWeatherCache(City city) {
+    private WeatherData updateWeatherCache(City city) {
         weatherCache.remove(city);
-        weatherCache.put(city, weatherService.fetchWeatherData(city));
+        return weatherCache.put(city, weatherService.fetchWeatherData(city));
     }
 }
