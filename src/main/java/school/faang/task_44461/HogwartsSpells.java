@@ -1,4 +1,4 @@
-package task_44461;
+package school.faang.task_44461;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,8 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(String.format("ID: %s, eventType: %s, actionDescription: %s", entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction()));
+            System.out.print(String.format("ID: %s, eventType: %s, actionDescription: %s",
+                    entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction()));
         }
     }
 

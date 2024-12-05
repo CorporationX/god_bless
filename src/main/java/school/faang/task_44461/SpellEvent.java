@@ -1,4 +1,4 @@
-package task_44461;
+package school.faang.task_44461;
 
 import lombok.Getter;
 
@@ -23,8 +23,12 @@ public class SpellEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
         return id == that.id && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
     }
