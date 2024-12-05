@@ -1,5 +1,10 @@
 package character;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public abstract class Character {
     protected String name;
     protected int strength;
@@ -19,10 +24,6 @@ public abstract class Character {
     }
 
     public abstract void attack(Character target);
-
-    public int getHealth() {
-        return health;
-    }
 
     public void reduceHealth(int damage) {
         this.health -= damage;

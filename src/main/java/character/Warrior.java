@@ -1,7 +1,11 @@
 package character;
 
-public class Warrior extends Character {
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         this.strength = 10;
@@ -12,6 +16,7 @@ public class Warrior extends Character {
     @Override
     public void attack(Character target) {
         target.reduceHealth(this.strength);
-        System.out.println(this.name + " attack " + target.name + " and applies " + this.strength + " damage.");
+        System.out.println(target.getName() + " attack " + target.getName() + " and applies "
+                + this.strength + " damage.");
     }
 }

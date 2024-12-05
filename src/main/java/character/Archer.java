@@ -1,7 +1,11 @@
 package character;
 
-public class Archer extends Character {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class Archer extends Character {
     public Archer(String name) {
         super(name);
         this.strength = 3;
@@ -12,7 +16,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character target) {
         target.reduceHealth(this.agility);
-        System.out.println(this.name + " attack " + target.name + " and applies " + this.agility + " damage. ");
+        System.out.println(target.getName() + " attack " + target.getName() + " and applies "
+                + this.agility + " damage. ");
     }
-
 }
