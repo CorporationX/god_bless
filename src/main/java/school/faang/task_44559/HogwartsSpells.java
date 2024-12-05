@@ -34,15 +34,15 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-            return Optional.of(spellById.get(id))
-                    .orElseThrow(() -> new IllegalArgumentException("No such spell event"));
+        return Optional.of(spellById.get(id))
+                .orElseThrow(() -> new IllegalArgumentException("No such spell event"));
     }
 
     public List<SpellEvent> getSpellsByType(SpellType eventType) {
         if (spellByType.containsKey(eventType)) {
             return spellByType.get(eventType);
         }
-      throw new IllegalArgumentException("No such spell event");
+        throw new IllegalArgumentException("No such spell event");
     }
 
     public Boolean deleteSpellEvent(int id) {
@@ -58,8 +58,8 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         System.out.println("=== All Spell Events by ID ===");
-            spellById.forEach((id, event) ->
-                    System.out.printf("ID: %d | Type: %s | Data: %s%n", id, event.getType(), event.getDescription())
-            );
+        spellById.forEach((id, event) ->
+                System.out.printf("ID: %d | Type: %s | Data: %s%n", id, event.getType(), event.getDescription())
+        );
     }
 }
