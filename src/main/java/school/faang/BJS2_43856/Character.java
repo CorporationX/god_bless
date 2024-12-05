@@ -1,8 +1,10 @@
-package school.faang;
+package school.faang.BJS2_43856;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public abstract class Character {
     private String name;
     private int power;
@@ -14,7 +16,8 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(int power, int dexterity, int intelligence) {
+    public Character(String name, int power, int dexterity, int intelligence) {
+        this.name = name;
         this.power = power;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
