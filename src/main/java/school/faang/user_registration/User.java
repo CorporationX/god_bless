@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
+    private static final int MIN_AGE = 18;
     private String name;
     private int age;
     private String job;
@@ -32,7 +33,6 @@ public class User {
     }
 
     private void validateUser(String name, int age, String job, String address) {
-        final int MIN_AGE = 18;
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("User has not been created. Name should not be empty");
