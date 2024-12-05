@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public abstract class Character {
-    String name;
-    int power;
-    int agility;
-    int intellect;
-    int health = 100;
+    private String name;
+    private int power;
+    private int agility;
+    private int intellect;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -17,7 +17,7 @@ public abstract class Character {
     public Character(String name, int power, int agility, int intellect) {
         this.name = name;
         this.power = power;
-        this.agility = power;
+        this.agility = agility;
         this.intellect = intellect;
     }
 

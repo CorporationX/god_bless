@@ -1,16 +1,20 @@
 package school.faang.task_43876;
 
 public class Archer extends Character {
+    private static final int POWER = 3;
+    private static final int AQILITY = 10;
+    private static final int INTELECT = 5;
+
+    public Archer(String name) {
+        super(name, POWER, AQILITY, INTELECT);
+    }
+
     public Archer(String name, int power, int agility, int intellect) {
-        super(name);
-        power = 3;
-        agility = 10;
-        intellect = 5;
+        super(name, power, agility, intellect);
     }
 
     @Override
     public void attack(Character character) {
-        Archer archer = new Archer(name, power, agility, intellect);
-        character.setHealth(character.getHealth() - archer.getPower());
+        character.setHealth(character.getHealth() - getPower());
     }
 }
