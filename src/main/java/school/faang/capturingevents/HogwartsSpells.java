@@ -1,9 +1,12 @@
 package school.faang.capturingevents;
 
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@ToString
 public class HogwartsSpells {
 
     private Map<Integer, SpellEvent> spellById;
@@ -41,11 +44,6 @@ public class HogwartsSpells {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getValue());
         }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("HogwartsSpells{spellById=%s, spellsByType=%s}", spellById, spellsByType);
     }
 
 }
