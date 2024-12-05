@@ -6,15 +6,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-
-        users.add(new User("Tom", 25, "Google", "London"));
-        users.add(new User("Mark", 26, "Google", "London"));
-        users.add(new User("Sam", 27, "Google", "London"));
-        users.add(new User("Oliver", 25, "Google", "London"));
-        users.add(new User("Jack", 26, "Google", "London"));
-        users.add(new User("Peter", 27, "Google", "London"));
-
+        List<User> users = addUsersInList();
         Map<Integer, List<User>> result = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             System.out.println("Возраст: " + entry.getKey());
@@ -22,5 +14,27 @@ public class Main {
                 System.out.println(user.getName());
             }
         }
+    }
+
+    public static List<User> addUsersInList() {
+        List<User> users = new ArrayList<>();
+        String[][] userData = {
+                {"Tom", "25", "Google", "London"},
+                {"Mark", "26", "Yandex", "Paris"},
+                {"Sam", "27", "Amazon", "New York"},
+                {"Oliver", "25", "Google", "London"},
+                {"Jack", "26", "Amazon", "New York"},
+                {"Peter", "27", "Yandex", "Paris"}
+        };
+
+        for (String[] user : userData) {
+            String name = user[0];
+            int age = Integer.parseInt(user[1]);
+            String job = user[2];
+            String address = user[3];
+            users.add(new User(name, age, job, address));
+        }
+
+        return users;
     }
 }
