@@ -3,6 +3,7 @@ package school.faang.sprint_1.task_45109;
 import java.util.*;
 
 public class Main {
+    static Map<String, List<Product>> productCategories = new HashMap<>();
     static Set<Product> productsSet = new HashSet<>();
 
     public static void main(String[] args) {
@@ -15,13 +16,13 @@ public class Main {
         product.addItem("Fruits", "Banana");
         product.addItem("Drinks", "Water");
         System.out.println("Printing all products...");
-        product.printAllItems();
+        printAllItems();
 
         System.out.println("Removing products from data...");
         product.removeItem("Drinks", "Water");
         product.removeItem("Fruits", "Apple");
         System.out.println("Printing all products...");
-        product.printAllItems();
+        printAllItems();
 
         System.out.println("Show products by non-existent category Dairy");
         product.findItemsByCategory("Dairy");
@@ -29,11 +30,11 @@ public class Main {
         product.findItemsByCategory("Vegetables");
 
 
-        productsSet.add(new Product(1, "Apple", "Fruits"));
-        productsSet.add(new Product(2, "Carrot", "Vegetables"));
-        productsSet.add(new Product(3, "Banana", "Fruits"));
-        productsSet.add(new Product(4, "Broccoli", "Vegetables"));
-        productsSet.add(new Product(5, "Milk", "Dairy"));
+        productsSet.add(new Product("Apple", "Fruits"));
+        productsSet.add(new Product("Carrot", "Vegetables"));
+        productsSet.add(new Product("Banana", "Fruits"));
+        productsSet.add(new Product("Broccoli", "Vegetables"));
+        productsSet.add(new Product("Milk", "Dairy"));
 
         printProductsByCategory(groupProductsByCategory(productsSet));
 
@@ -54,6 +55,10 @@ public class Main {
                 System.out.println("  - " + product);
             }
         }
+    }
+
+    static void printAllItems() {
+        System.out.println(productCategories);
     }
 
 }

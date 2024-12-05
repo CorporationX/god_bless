@@ -1,10 +1,11 @@
 package school.faang.sprint_1.task_45109;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
+
+import static school.faang.sprint_1.task_45109.Main.productCategories;
 
 @Getter
 @NoArgsConstructor
@@ -13,13 +14,6 @@ public class Product {
     int id;
     String name;
     String category;
-    Map<String, List<Product>> productCategories = new HashMap<>();
-
-    public Product(int id, String name, String category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
 
     public Product(String name, String category) {
         this.id = generateId();
@@ -33,10 +27,9 @@ public class Product {
     }
 
     void removeItem(String category, String name) {
-        Product product = new Product(name, category);
         List<Product> products = productCategories.get(category);
         if (products != null) {
-            products.remove(product);
+            products.removeIf(product -> product.getName().contains(name));
             if (products.isEmpty()) {
                 productCategories.remove(category);
             }
@@ -50,10 +43,6 @@ public class Product {
             System.out.println(productCategories.get(category));
 
         }
-    }
-
-    void printAllItems() {
-        System.out.println(productCategories);
     }
 
     private static int generateId() {
