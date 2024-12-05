@@ -17,7 +17,6 @@ public class StudentsDatabase {
     private final AtomicInteger studentsIdMaker = new AtomicInteger(1);
     private final AtomicInteger subjectIdMaker = new AtomicInteger(1);
 
-
     public void addStudentsWithGrades(String nameOfStudent, Map<Subject, Integer> gradesPerSubjects) {
         if (StringUtils.isBlank(nameOfStudent)) {
             throw new IllegalArgumentException("Name is blank!");
