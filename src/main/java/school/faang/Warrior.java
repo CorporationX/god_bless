@@ -1,18 +1,14 @@
 package school.faang;
 
 public class Warrior extends Character {
-    private static final CharacterConfig CONFIG = new CharacterConfig(10, 5, 3);
 
     public Warrior(String name) {
-        super(name, 100, CONFIG.strength(), CONFIG.agility(), CONFIG.mind());
+        super(name, GameProperties.WARRIOR_STRENGTH, GameProperties.WARRIOR_AGILITY, GameProperties.WARRIOR_INTELLIGENCE);
     }
 
     @Override
-    protected void attack(Character target) {
-        int damageToTarget = this.getStrength();
-        System.out.printf("%s (Warrior) attacks %s with %s damage (based on strength)%n",
-                this.getName(), target.getName(), damageToTarget);
-        target.takeDamage(damageToTarget);
-        System.out.printf("%s's health after attack: %s %n", target.getName(), target.getHealth());
+    public void attack(Character character) {
+        character.setHealth(character.getHealth() - this.getStrength());
     }
+
 }

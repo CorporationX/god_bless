@@ -1,18 +1,14 @@
 package school.faang;
 
 public class Archer extends Character {
-    private static final CharacterConfig CONFIG = new CharacterConfig(3, 10, 5);
 
     public Archer(String name) {
-        super(name, 100, CONFIG.strength(), CONFIG.agility(), CONFIG.mind());
+        super(name, GameProperties.ARCHER_STRENGTH, GameProperties.ARCHER_AGILITY, GameProperties.ARCHER_INTELLIGENCE);
     }
 
     @Override
-    protected void attack(Character target) {
-        int damageToTarget = this.getAgility();
-        System.out.printf("%s (Archer) attacks %s with %s damage (based on agility)%n",
-                this.getName(), target.getName(), damageToTarget);
-        target.takeDamage(damageToTarget);
-        System.out.printf("%s's health after attack: %s", target.getName(), target.getHealth());
+    public void attack(Character character) {
+        character.setHealth(character.getHealth() - this.getAgility());
     }
+
 }
