@@ -17,7 +17,7 @@ public class User {
 
 
     public User(String name, Integer age, String job, String address) {
-        if (name == null && age < 18 && !validJobs.contains(job) && !validAddresses.contains(address)) {
+        if (name == null || age < 18 || !validJobs.contains(job) || !validAddresses.contains(address)) {
             throw new IllegalArgumentException();
         }
         this.name = name;
