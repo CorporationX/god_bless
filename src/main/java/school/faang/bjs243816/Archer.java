@@ -1,13 +1,13 @@
-package school.faang;
+package school.faang.bjs243816;
 
-public class Warrior extends Character {
-    public Warrior(String name) {
-        super(name, 10, 5, 3);
+public class Archer extends Character {
+    public Archer(String name) {
+        super(name, 3, 10, 5);
     }
 
     @Override
     public void attack(Character character) {
-        int damage = getStrength();
+        int damage = getAgility();
         character.setHealth(character.getHealth() - damage);
         System.out.println(getName() + " attacks " + character.getName() + " for " + damage + " damage.");
 
