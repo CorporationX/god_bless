@@ -1,15 +1,16 @@
 package school.faang.catch_events;
 
 import java.util.Objects;
+
 import lombok.ToString;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @ToString
-@Getter
 @RequiredArgsConstructor
 public class SpellEvent {
     private final int id;
+    @Getter
     private final String eventType;
     private final String action;
 

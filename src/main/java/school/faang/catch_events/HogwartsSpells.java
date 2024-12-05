@@ -1,13 +1,9 @@
 package school.faang.catch_events;
 
-import lombok.Setter;
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class HogwartsSpells {
     private static final String INCORRECT_ID = "There isn't any spells with such ID";
@@ -34,8 +30,9 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = getSpellEventById(id);
+        SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
+            System.out.println("Spell with id " + id + " was deleted");
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             if (events != null) {
                 events.remove(spellEvent);
@@ -43,7 +40,12 @@ public class HogwartsSpells {
                     spellsByType.remove(spellEvent.getEventType());
                 }
             }
+        } else {
+            System.out.println(INCORRECT_ID);
         }
     }
 
+    public void printAllSpellEvents() {
+        spellById.forEach((id, spellEvent) -> System.out.println(id + " " + spellEvent));
+    }
 }
