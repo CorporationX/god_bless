@@ -25,9 +25,9 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new TreeMap<>();
+        List<User> userList = new ArrayList<>();
         for (User user : users) {
             if (map.get(user.age) == null) {
-                List<User> userList = new ArrayList<>();
                 userList.add(user);
                 map.put(user.age, userList);
             } else {
