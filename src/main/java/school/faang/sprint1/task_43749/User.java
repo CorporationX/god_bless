@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.util.Set;
+
 @AllArgsConstructor
 
 public class User {
@@ -18,7 +19,7 @@ public class User {
 
 
     public void setName(String name) {
-        if (name == null || name.isBlank()){
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         this.name = name;
@@ -32,14 +33,14 @@ public class User {
     }
 
     public void setJob(String job) {
-        if (job == null || !VALID_JOBS.contains(job)){
+        if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Ты тут не работаешь");
         }
         this.job = job;
     }
 
     public void setAddress(String address) {
-        if (address == null || !VALID_ADDRESSES.contains(address)){
+        if (address == null || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Ты тут не живёшь");
         }
         this.address = address;
