@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class User{
 
-    public static final Set<String> VALID_JOBS = new HashSet<String>();
+    public static final Set<String> VALID_JOBS = new HashSet<>();
     public static final Set<String> VALID_ADDRESSES = new HashSet<>();
 
     private void initDefaultJobAndAddresses() {

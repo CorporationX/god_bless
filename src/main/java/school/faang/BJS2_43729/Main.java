@@ -1,6 +1,6 @@
 package school.faang.BJS2_43729;
 
-import java.io.IOException;
+
 
 public class Main {
 
