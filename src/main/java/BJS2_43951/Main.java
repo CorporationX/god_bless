@@ -1,4 +1,4 @@
-package school.faang.BJS2_43951;
+package BJS2_43951;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Main {
         }
 
 
-        Map<Integer, List<User>> groupedUser = User.groupUsers(users, "age");
+        Map<Integer, List<User>> groupedUser = User.groupUsers(users);
 
 
         for (Map.Entry<Integer, List<User>> entry : groupedUser.entrySet()) {

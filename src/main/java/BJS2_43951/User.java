@@ -1,4 +1,4 @@
-package school.faang.BJS2_43951;
+package BJS2_43951;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,23 +19,12 @@ public class User {
     private final String address;
 
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users, String groupBy) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> grUser = new HashMap<>();
 
 
-        String grpBy = groupBy;
 
-        if (Objects.equals(grpBy, "name")) {
-            grpBy = "name";
-        } else if (Objects.equals(grpBy, "age")) {
-            grpBy = "age";
-        } else if (Objects.equals(grpBy, "workplace")) {
-            grpBy = "workplace";
-        } else if (Objects.equals(grpBy, "address")) {
-            grpBy = "address";
-        }
-
-        if (Objects.equals(grpBy, "age")) {
+        if (users != null) {
 
             for (User user : users) {
 
