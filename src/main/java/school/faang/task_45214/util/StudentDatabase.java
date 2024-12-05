@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    Map<Student, Map<Subject, Integer>> students;
+    private final Map<Student, Map<Subject, Integer>> students;
     Map<Subject, List<Student>> subjects;
 
     public StudentDatabase(Map<Student, Map<Subject, Integer>> students, Map<Subject, List<Student>> subjects) {
@@ -26,11 +26,7 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudent(Student student, Subject subjectNew, Integer score) {
-        Map<Subject, Integer> grades = students.get(student);
-
-        if (grades == null) {
-            grades = new HashMap<>();
-        }
+        Map<Subject, Integer> grades = students.computeIfAbsent(student, s -> new HashMap<>());
 
         grades.put(subjectNew, score);
         subjects.putIfAbsent(subjectNew, new ArrayList<>());
@@ -75,11 +71,10 @@ public class StudentDatabase {
     public void printAllStudentsWithSubjectsAndScores() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : students.entrySet()) {
             for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                System.out.println("student: %s, subject: %s, score: %d".formatted(
-                        entry.getKey(),
+                System.out.printf(
+                        "student: %s, subject: %s, score: %d%n", entry.getKey(),
                         subjectEntry.getKey(),
-                        subjectEntry.getValue())
-                );
+                        subjectEntry.getValue());
             }
         }
     }
@@ -87,10 +82,9 @@ public class StudentDatabase {
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjects.entrySet()) {
             for (Student student : entry.getValue()) {
-                System.out.println("Subject: %s, student: %s".formatted(
-                        entry.getKey(),
-                        student)
-                );
+                System.out.printf(
+                        "Subject: %s, student: %s%n", entry.getKey(),
+                        student);
             }
         }
     }

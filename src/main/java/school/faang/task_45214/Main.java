@@ -12,30 +12,14 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         // Создаем студентов
-        Student student1 = new Student();
-        student1.setId(1);
-        student1.setName("Harry Potter");
-
-        Student student2 = new Student();
-        student2.setId(2);
-        student2.setName("Hermione Granger");
-
-        Student student3 = new Student();
-        student3.setId(3);
-        student3.setName("Ron Weasley");
+        Student student1 = new Student(1, "Harry Potter");
+        Student student2 = new Student(2, "Hermione Granger");
+        Student student3 = new Student(3, "Ron Weasley");
 
         // Создаем предметы
-        Subject subject1 = new Subject();
-        subject1.setId(1);
-        subject1.setName("Potions");
-
-        Subject subject2 = new Subject();
-        subject2.setId(2);
-        subject2.setName("Defense Against the Dark Arts");
-
-        Subject subject3 = new Subject();
-        subject3.setId(3);
-        subject3.setName("Herbology");
+        Subject subject1 = new Subject(1, "Potions");
+        Subject subject2 = new Subject(2, "Defense Against the Dark Arts");
+        Subject subject3 = new Subject(3, "Herbology");
 
         // Создаем базу данных студентов
         Map<Student, Map<Subject, Integer>> studentMap = new HashMap<>();
