@@ -15,7 +15,8 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        System.out.println(String.format("%s наносит удар, %s теряет %s здоровья\n", this.name, character.name, this.dexterity));
+        String phrase = "%s наносит удар, %s теряет %s здоровья\n";
+        System.out.println(String.format(phrase, this.name, character.name, this.dexterity));
         character.health -= dexterity;
     }
 

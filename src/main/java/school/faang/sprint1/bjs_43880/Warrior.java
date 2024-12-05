@@ -13,7 +13,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        System.out.println(String.format("%s наносит удар, %s теряет %s здоровья\n", this.name, character.name, this.force));
+        String phrase = "%s наносит удар, %s теряет %s здоровья\n";
+        System.out.println(String.format(phrase, this.name, character.name, this.force));
         character.health -= force;
     }
 
