@@ -7,7 +7,7 @@ public class Main {
         Integer[] numbers = new Integer[]{
                 1, 2, 3, 4
         };
-        Example.reverse(numbers);
+        Example.reverse(null);
         System.out.println(Arrays.toString(numbers));
     }
 }
