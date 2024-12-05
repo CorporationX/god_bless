@@ -1,4 +1,4 @@
-package school.faang.BJS2_43987;
+package school.faang.bjs2_43987;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,13 +15,13 @@ public class Main {
         users.add(new User("Alan", 22, 3, Set.of("Sleeping", "Fighting")));
         users.add(new User("Liuda", 30, 4, Set.of("Cooking", "Reading", "Traveling")));
 
-        Set<String> hobbies = new HashSet<>(Set.of("Running", "Programming", "Walking", "Travelling","Swimming",
-                "Gaming", "Party","Cycling", "Cooking","Reading"));
+        Set<String> hobbies = new HashSet<>(Set.of("Running", "Programming", "Walking", "Travelling", "Swimming",
+                "Gaming", "Party", "Cycling", "Cooking", "Reading"));
 
-        Map<User, String>  findHobby = User.findHobbyLovers(users, hobbies);
+        Map<User, String> findHobby = User.findHobbyLovers(users, hobbies);
 
-        findHobby.forEach((user,hobby)-> {
-                System.out.println(user.getName() + " " + hobby);
+        findHobby.forEach((user, hobby) -> {
+            System.out.println(user.getName() + " " + hobby);
         });
     }
 }
