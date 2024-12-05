@@ -19,10 +19,15 @@ public class SpellEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SpellEvent)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SpellEvent)) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
-        return Objects.equals(id, that.id) && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
+        return Objects.equals(id, that.id) && Objects.equals(eventType, that.eventType)
+                && Objects.equals(action, that.action);
     }
 
     @Override
