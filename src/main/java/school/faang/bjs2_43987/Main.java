@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         users.add(new User("Artur", 37, 1, Set.of("Running", "Programming", "Walking", "Travelling")));

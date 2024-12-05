@@ -22,7 +22,6 @@ public class User {
                     .findFirst()
                     .ifPresent(hobby -> result.put(user, hobby));
         }
-
         return result;
     }
 }
