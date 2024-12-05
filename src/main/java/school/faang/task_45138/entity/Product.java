@@ -17,13 +17,13 @@ public class Product {
     private String name;
     private String category;
 
-    public Product( String name, String category) {
+    public Product(String name, String category) {
         this.id = idCounter.getAndIncrement();
-        if(name.isBlank()){
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
-        if(category.isBlank()){
+        if (category.isBlank()) {
             throw new IllegalArgumentException("Category cannot be null or empty");
         }
         this.category = category;

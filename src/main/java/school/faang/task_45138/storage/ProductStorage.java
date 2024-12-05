@@ -10,7 +10,7 @@ import school.faang.task_45138.entity.Product;
 public class ProductStorage {
     public final HashSet<Product> products = new HashSet<>();
 
-    public Boolean addItem(String category,String name ) {
+    public Boolean addItem(String category, String name) {
         Product productToAdd = new Product(name, category);
         if (products.add(productToAdd)) {
             System.out.println("Product successfully added");
@@ -59,7 +59,7 @@ public class ProductStorage {
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.toList()));
     }
 
-    public void printProductsByCategory(Map<String, List<Product>> groupedProducts){
+    public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             System.out.println(entry.getKey() + ":" + entry.getValue());
         }
