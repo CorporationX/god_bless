@@ -27,7 +27,6 @@ public class LibrarySystem {
         if (!books.containsKey(newBook)) {
             throw new IllegalArgumentException("книга не найдена");
         }
-
         String location = books.get(newBook);
         System.out.println(location);
     }

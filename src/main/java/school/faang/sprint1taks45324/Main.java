@@ -8,7 +8,6 @@ public class Main {
         Book book2 = new Book("Apple", "Misa", 2001);
         Book book3 = new Book("X", "Musa", 2002);
         Book book4 = new Book("Mercedec", "Mata", 2003);
-
         HashMap<Book, String> book = new HashMap<>() {{
             put(book1, "22");
             put(book2, "33");
@@ -19,6 +18,5 @@ public class Main {
         LibrarySystem libSys = new LibrarySystem(book);
         libSys.addBook("hoohoho", "Santa", 2025, "77");
         libSys.findBook("1231323321", "Santa", 2025);
-
     }
 }

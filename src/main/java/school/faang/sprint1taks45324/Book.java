@@ -1,7 +1,10 @@
 package school.faang.sprint1taks45324;
 
+import lombok.ToString;
+
 import java.util.Objects;
 
+@ToString
 public class Book {
     private final String title;
     private final String author;
@@ -23,14 +26,5 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(title, author, year);
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                '}';
     }
 }
