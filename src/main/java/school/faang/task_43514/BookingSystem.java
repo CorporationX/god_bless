@@ -57,7 +57,10 @@ public class BookingSystem {
 
     public Set<Room> findAvailableRooms(Set<Amenities> requiredAmenities) {
         return rooms.stream()
-                .filter(room -> room.isAvailable() && room.getAmenities().containsAll(requiredAmenities) && bookings.values().stream().noneMatch(b -> b.room().equals(room)))
+                .filter(room ->
+                        room.isAvailable()
+                                && room.getAmenities().containsAll(requiredAmenities)
+                                && bookings.values().stream().noneMatch(b -> b.room().equals(room)))
                 .collect(Collectors.toSet());
     }
 
