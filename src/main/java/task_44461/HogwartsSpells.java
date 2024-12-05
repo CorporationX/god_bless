@@ -1,0 +1,49 @@
+package task_44461;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class HogwartsSpells {
+    private HashMap<Integer, SpellEvent> spellById = new HashMap<>();
+    private HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
+
+    public void printAllSpellEvents() {
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            System.out.println(String.format("ID: %s, eventType: %s, actionDescription: %s", entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction()));
+        }
+    }
+
+    public void addSpellEvent(int id, String eventType, String actionDescription) {
+        List<SpellEvent> spellEvents = new ArrayList<>();
+        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        spellById.put(id, new SpellEvent(id, eventType, actionDescription));
+
+        if (!(spellsByType.containsKey(eventType))) {
+            spellsByType.put(eventType, spellEvents);
+        }
+        List<SpellEvent> spellEventKey = spellsByType.get(eventType);
+        spellEventKey.add(spellEvent);
+    }
+
+    public String getSpellEventById(int id) {
+        return spellById.get(id).toString();
+    }
+
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.get(eventType);
+    }
+
+    public void deleteSpellEvent(int id) {
+        SpellEvent spellEvent = spellById.get(id);
+        if (spellEvent == null) {
+            System.out.println(String.format("Элемент с id=%d не найден в заклинаниях.", id));
+            return;
+        }
+        spellById.remove(id);
+        spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
+    }
+}
+
+
