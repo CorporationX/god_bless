@@ -33,8 +33,15 @@ public class Main {
         }
 
         // Бронирование комнаты
-        System.out.println("\nБронирование комнаты 1...");
-        bookingSystem.bookRoom(1, LocalDateTime.now());
+        System.out.println("\nБронирование комнаты 3...");
+        bookingSystem.bookRoom(3, LocalDateTime.now());
+
+        //удаление комнаты 3
+        System.out.println("\nУдаление комнаты 3...");
+        bookingSystem.removeRoom(3);
+        for (Room room : availableRooms) {
+            System.out.println(room);
+        }
 
         // Проверка доступности после бронирования
         availableRooms = bookingSystem.findAvailableRooms(LocalDateTime.now(), Set.of(Amenities.WIFI));
@@ -53,5 +60,7 @@ public class Main {
         for (Room room : availableRooms) {
             System.out.println(room);
         }
+
+
     }
 }
