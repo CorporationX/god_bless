@@ -1,4 +1,4 @@
-package BJS2_43951;
+package school.faang.BJS2_43951;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Main {
 
-    public final static int COUNT_RANDOM_COUNT_FROM = 300;
+    public static final int COUNT_RANDOM_COUNT_FROM = 300;
 
     public static void main(String[] args) {
 

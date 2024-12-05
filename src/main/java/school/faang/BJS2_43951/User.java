@@ -1,13 +1,13 @@
-package BJS2_43951;
+package school.faang.BJS2_43951;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 @Data
@@ -23,15 +23,14 @@ public class User {
         Map<Integer, List<User>> grUser = new HashMap<>();
 
 
-
         if (users != null) {
 
             for (User user : users) {
 
                 if (!grUser.containsKey(user.age)) {
                     grUser.put(user.age, new ArrayList<>());
-                    grUser.get(user.age).add(user);
-                } else grUser.get(user.age).add(user);
+                }
+                grUser.get(user.age).add(user);
             }
         }
 
