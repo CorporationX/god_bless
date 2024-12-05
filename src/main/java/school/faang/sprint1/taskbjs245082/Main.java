@@ -4,13 +4,15 @@ import java.util.*;
 
 public class Main {
     private static int productId = 1;
-    private static Set<Product> products = new HashSet<>();
+    private static final Set<Product> products = new HashSet<>();
 
     public static void main(String[] args) {
         addItem("phone", "electronics");
         addItem("TV", "electronics");
         addItem("bread", "grossery");
         addItem("PC", "electronics");
+
+        removeItem("electronics", "TV");
 
         findItemsByCategory("grossery");
         System.out.println("*****");
@@ -79,7 +81,7 @@ public class Main {
         return groupedProductsByCategory;
     }
 
-    private static void printProductsByCategory(Map<String, List<Product>> groupedProducts){
+    private static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             System.out.println(entry.getKey());
             for (Product product : entry.getValue()) {
