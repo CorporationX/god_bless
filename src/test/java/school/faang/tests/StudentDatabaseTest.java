@@ -52,12 +52,12 @@ public class StudentDatabaseTest {
     @Test
     void addNewSubjectToStudent() {
         studentsDatabase.addStudentsWithGrades("Egor", gradesPerSubjects);
-        studentsDatabase.addNewSubjectToStudent("Russian",4, "Egor");
+        studentsDatabase.addNewSubjectToStudent("Russian", 4, "Egor");
 
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> studentsDatabase.addNewSubjectToStudent("Russian", 4, ""));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () ->studentsDatabase.addNewSubjectToStudent("Russian", -1000, "Egor"));
+                () -> studentsDatabase.addNewSubjectToStudent("Russian", -1000, "Egor"));
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> studentsDatabase.addNewSubjectToStudent("", 4, "Egor"));
     }
