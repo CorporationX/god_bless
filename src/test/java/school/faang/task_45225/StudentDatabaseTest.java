@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StudentDatabaseTest {
@@ -35,6 +36,13 @@ class StudentDatabaseTest {
         int expectedGrade = 5;
         int actualGrade = studentDatabase.getSubjectsAndGradesByStudents().get(newStudent).get(newSubject);
         assertEquals(expectedGrade, actualGrade);
+    }
+
+    @Test
+    void shouldBeThrowsWhenAddExistStudent() {
+        Student student = new Student(1, "Vasya");
+        assertThrows(IllegalArgumentException.class,
+                () -> studentDatabase.addStudentWithSubjectsAndGrades(student, Map.of()));
     }
 
     @Test
@@ -70,6 +78,13 @@ class StudentDatabaseTest {
     }
 
     @Test
+    void shouldBeThrowWhenAddExistSubjectWithStudents() {
+        Subject subject = new Subject(1, "Math");
+
+        assertThrows(IllegalArgumentException.class, () -> studentDatabase.addSubjectWithStudents(subject, List.of()));
+    }
+
+    @Test
     void shouldAddStudentAtExistingSubject() {
         Student newStudent = new Student(9, "Alena");
         Subject subject = new Subject(1, "Math");
@@ -79,6 +94,13 @@ class StudentDatabaseTest {
         int expectedCountStudents = 4;
         int actualCountStudents = studentDatabase.getStudentsBySubject().get(subject).size();
         assertEquals(expectedCountStudents, actualCountStudents);
+    }
+
+    @Test
+    void shouldBeThrowWhenAddExistSubject() {
+        Subject subject = new Subject(1, "Math");
+
+        assertThrows(IllegalArgumentException.class, () -> studentDatabase.addSubjectWithStudents(subject, List.of()));
     }
 
     @Test
