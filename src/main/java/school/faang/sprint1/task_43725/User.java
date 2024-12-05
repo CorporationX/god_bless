@@ -1,6 +1,5 @@
-package school.faang.sprint2.task_43725;
+package school.faang.sprint1.task_43725;
 
-import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -12,7 +11,7 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    private User(int age, String name, String address, String job) {
+    User(int age, String name, String address, String job) {
         if (age < 18) {
             throw new IllegalArgumentException("Age must be at least 18");
         }
@@ -31,19 +30,4 @@ public class User {
         this.job = job;
     }
 
-    public static void main(String[] args) {
-        new User(
-                18,
-                "rauan",
-                "London",
-                "Google"
-        );
-        new User(
-                18,
-                "John",
-                "us",
-                "office"
-        );
-
-    }
 }
