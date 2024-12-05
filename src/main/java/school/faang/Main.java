@@ -19,4 +19,4 @@ public class Main {
 
         Map<Integer, List<User>> groupedMap = User.groupUsers(users);
     }
- }
+}
