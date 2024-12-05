@@ -1,4 +1,4 @@
-package school.faang.tack_45275;
+package school.faang.sprint1.tack_45275;
 
 public class Main {
     public static void main(String[] args) {
