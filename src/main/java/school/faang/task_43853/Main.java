@@ -2,21 +2,10 @@ package school.faang.task_43853;
 
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Иван Золо");
-        Archer archer = new Archer("Фимоз");
+        Warrior warrior = new Warrior("Ivan Zolo");
+        Archer archer = new Archer("Fimozz");
+        FightManager fightManager = FightManager.getInstance();
 
-        fight(warrior, archer);
-    }
-
-    public static void fight(Character character1, Character character2) {
-        do {
-            character1.attack(character2);
-            if (!character2.isAlive()) {
-                break;
-            }
-            character2.attack(character1);
-        } while (character1.isAlive());
-
-        System.out.println("Победил " + (character1.isAlive() ? character1.getName() : character2.getName()));
+        fightManager.fight(warrior, archer);
     }
 }
