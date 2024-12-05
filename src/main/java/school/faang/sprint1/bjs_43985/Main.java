@@ -9,7 +9,7 @@ public class Main {
         List<User> users = List.of(
                 new User(20, "Mike", 24, Set.of("sky", "read")),
                 new User(43, "Nike", 19, Set.of("swim", "read")),
-                new User (21, "Nino", 22, Set.of("dance", "sing"))
+                new User(21, "Nino", 22, Set.of("dance", "sing"))
         );
         Set<String> hobbies = Set.of("read", "dance", "sing", "swim");
 
