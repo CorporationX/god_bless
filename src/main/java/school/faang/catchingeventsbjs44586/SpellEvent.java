@@ -1,4 +1,4 @@
-package school.faang.catching_events_bjs44586;
+package school.faang.catchingeventsbjs44586;
 
 import java.util.Objects;
 
