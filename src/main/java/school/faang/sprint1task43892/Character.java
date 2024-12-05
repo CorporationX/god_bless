@@ -1,8 +1,10 @@
 package school.faang.sprint1task43892;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public abstract class Character {
     private static final int MAX_HEALTH = 100;
 
@@ -14,13 +16,6 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-    }
-
-    public Character(String name, int strength, int agility, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
     }
 
     public abstract void attack(Character character);
