@@ -30,7 +30,7 @@ public class HogwartsSpells {
                 .filter(key -> key.getKey() == id)
                 .map(Map.Entry::getValue)
                 .findFirst()
-                .orElseThrow(() -> new NullPointerException("По данному id: " + id + " ничего не найдено"));
+                .orElseThrow(() -> new NoSuchElementException("По данному id: " + id + " ничего не найдено"));
     }
 
     public static List<SpellEvent> getSpellEventsByType(String eventType) {
@@ -40,7 +40,7 @@ public class HogwartsSpells {
                 .filter(key -> key.getKey().equals(eventType))
                 .map(Map.Entry::getValue)
                 .findFirst()
-                .orElseThrow(() -> new NullPointerException("По данному типу: " + eventType + " ничего не найдено"));
+                .orElseThrow(() -> new NoSuchElementException("По данному типу: " + eventType + " ничего не найдено"));
 
     }
 
@@ -49,7 +49,7 @@ public class HogwartsSpells {
                 .filter(key -> key.getKey() == id)
                 .map(Map.Entry::getValue)
                 .findFirst()
-                .orElseThrow(() -> new NullPointerException("По данному id: " + id + " ничего не найдено"));
+                .orElseThrow(() -> new NoSuchElementException("По данному id: " + id + " ничего не найдено"));
 
         spellById.remove(id);
 
