@@ -15,9 +15,7 @@ public class Main {
         User user1 = new User(1, "Maxim", 22, activ1);
         User user2 = new User(2, "Ivan", 23, activ2);
         User user3 = new User(2, "Ivan", 23, activ3);
-
-        User.users.add(user1);
-        User.users.add(user2);
+        User.users.addAll(Set.of(user1, user2, user3));
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(User.users, setActivity);
         System.out.println(hobbyLovers.get(user1));
