@@ -12,7 +12,8 @@ public class Warrior extends Character {
     public void attack(Character character) {
         int newHeroHealthValue = character.getHealth() - this.getPower();
         character.setHealth(newHeroHealthValue);
-        System.out.printf("%s атакует %s : здоровье %s = %d %n", this.getName(), character.getName(), character.getName(), character.getHealth());
+        System.out.printf("%s атакует %s : здоровье %s = %d %n",
+                this.getName(), character.getName(), character.getName(), character.getHealth());
 
     }
 }
