@@ -10,7 +10,7 @@ public class HogwartsSpells {
     private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
     private static final Map<String, List<SpellEvent>> SPELLS_BY_TYPE = new HashMap<>();
 
-    static public boolean addSpellEvent(int id, String eventType, String actionDescription) {
+    public static boolean addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         SPELL_BY_ID.put(id, spellEvent);
