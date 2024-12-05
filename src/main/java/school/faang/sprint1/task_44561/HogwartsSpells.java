@@ -7,27 +7,26 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class HogwartsSpells {
-    private static Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private static Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-
+    private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
+    private static final Map<String, List<SpellEvent>> SPELLS_BY_TYPE = new HashMap<>();
 
     static public boolean addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
-        spellById.put(id, spellEvent);
+        SPELL_BY_ID.put(id, spellEvent);
 
-        if (!spellsByType.containsKey(spellEvent.getEventType())) {
-            spellsByType.put(spellEvent.getEventType(), new LinkedList<>());
-        } else if (spellsByType.get(spellEvent.getEventType()).contains(spellEvent)) {
+        if (!SPELLS_BY_TYPE.containsKey(spellEvent.getEventType())) {
+            SPELLS_BY_TYPE.put(spellEvent.getEventType(), new LinkedList<>());
+        } else if (SPELLS_BY_TYPE.get(spellEvent.getEventType()).contains(spellEvent)) {
             System.out.println("Такое заклинание уже существует");
             return false;
         }
-        spellsByType.get(spellEvent.getEventType()).add(spellEvent);
+        SPELLS_BY_TYPE.get(spellEvent.getEventType()).add(spellEvent);
         return true;
     }
 
     public static SpellEvent getSpellEventById(int id) {
-        SpellEvent responseEvent = spellById.get(id);
+        SpellEvent responseEvent = SPELL_BY_ID.get(id);
 
         if (responseEvent == null) {
             throw new NoSuchElementException("Такого заклинания не существует");
@@ -36,7 +35,7 @@ public class HogwartsSpells {
     }
 
     public static List<SpellEvent> getSpellEventsByType(String eventType) {
-        List<SpellEvent> responseEvents = spellsByType.get(eventType);
+        List<SpellEvent> responseEvents = SPELLS_BY_TYPE.get(eventType);
 
         if (responseEvents == null) {
             throw new NoSuchElementException("Заклинаний этого типа не существует");
@@ -46,8 +45,8 @@ public class HogwartsSpells {
 
     public static boolean deleteSpellEvent(int id) {
         try {
-            spellsByType.get(getSpellEventById(id).getEventType()).remove(getSpellEventById(id));
-            spellById.remove(id, getSpellEventById(id));
+            SPELLS_BY_TYPE.get(getSpellEventById(id).getEventType()).remove(getSpellEventById(id));
+            SPELL_BY_ID.remove(id, getSpellEventById(id));
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
             return false;
@@ -56,7 +55,7 @@ public class HogwartsSpells {
     }
 
     public static void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> spellEvent : spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> spellEvent : SPELL_BY_ID.entrySet()) {
             System.out.println(spellEvent);
         }
     }
