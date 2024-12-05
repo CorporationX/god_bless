@@ -10,6 +10,7 @@ public class Main {
         User userTwo = new User("Sarah", 29, "London", "2street");
         User userThree = new User("Willow", 30, "Moscow", "3street");
         User userFour = new User("Karmen", 30, "Tokyo", "4street");
+
         List<User> users = new ArrayList<>();
         users.add(userOne);
         users.add(userTwo);
