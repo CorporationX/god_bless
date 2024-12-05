@@ -1,16 +1,20 @@
 package school.faang;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class User {
 
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
+    private final String name;
+    @Getter
+    private final int age;
+    private final String workplace;
+    private final String address;
 
     public User(String name, int age, String workplace, String address){
 
@@ -20,25 +24,17 @@ public class User {
         this.address = address;
     }
 
-    public int getAge(){
-        return this.age;
-    }
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-        Map<Integer, List<User>> result =new HashMap<>();
-        for (User user : users){
-            if (result.containsKey(user.age)) continue;
+        Map<Integer, List<User>> result = users.stream().collect(Collectors.groupingBy(User::getAge));
 
-            List<User> tmpUsers = new ArrayList<>();
-            for (User user1 : users){
-                if (user.age == user1.age){
-                    tmpUsers.add(user1);
-                }
-            }
-            result.put(user.age, tmpUsers);
-        }
-//        result = users.stream().collect(Collectors.groupingBy(User::getAge));
+//        Map<Integer, List<User>> result =new HashMap<>();
+//        for (User user : users){
+//            if (!result.containsKey(user.age)){
+//                result.put(user.age, new ArrayList<>());
+//            }
+//            result.get(user.age).add(user);
+//        }
 
         return result;
     }
