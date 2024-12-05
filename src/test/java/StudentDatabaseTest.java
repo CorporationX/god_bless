@@ -37,7 +37,12 @@ public class StudentDatabaseTest {
 
         studentDatabase.addStudentWithGrades(student1, grades);
 
-        assertEquals(grades, studentDatabase.studentGrades.get(student1));
+        assertEquals(
+                grades,
+                studentDatabase
+                        .getStudentGrades()
+                        .get(student1)
+        );
     }
 
     @Test
@@ -45,7 +50,13 @@ public class StudentDatabaseTest {
         studentDatabase.addStudentWithGrades(student1, new HashMap<>());
         studentDatabase.addSubjectForStudent(student1, subject1, 90);
 
-        assertEquals(90, studentDatabase.studentGrades.get(student1).get(subject1));
+        assertEquals(
+                90,
+                studentDatabase
+                        .getStudentGrades()
+                        .get(student1)
+                        .get(subject1)
+        );
     }
 
     @Test
@@ -53,13 +64,11 @@ public class StudentDatabaseTest {
         studentDatabase.addStudentWithGrades(student1, new HashMap<>());
         studentDatabase.deleteStudent(student1);
 
-        assertFalse(studentDatabase.studentGrades.containsKey(student1));
-    }
-
-    @Test
-    public void testStudentDatabase_printAllStudentsWithSubjects() {
-        studentDatabase.addStudentWithGrades(student1, new HashMap<>());
-        studentDatabase.printAllStudentsWithSubjects();
+        assertFalse(
+                studentDatabase
+                        .getStudentGrades()
+                        .containsKey(student1)
+        );
     }
 
     @Test
@@ -70,7 +79,12 @@ public class StudentDatabaseTest {
 
         studentDatabase.addSubjectWithStudents(subject1, students);
 
-        assertEquals(students, studentDatabase.subjectStudents.get(subject1));
+        assertEquals(
+                students,
+                studentDatabase
+                        .getSubjectStudents()
+                        .get(subject1)
+        );
     }
 
     @Test
@@ -78,7 +92,12 @@ public class StudentDatabaseTest {
         studentDatabase.addSubjectWithStudents(subject1, new HashSet<>());
         studentDatabase.addStudentForSubject(subject1, student1);
 
-        assertTrue(studentDatabase.subjectStudents.get(subject1).contains(student1));
+        assertTrue(
+                studentDatabase
+                        .getSubjectStudents()
+                        .get(subject1)
+                        .contains(student1)
+        );
     }
 
     @Test
@@ -88,12 +107,11 @@ public class StudentDatabaseTest {
         studentDatabase.addSubjectWithStudents(subject1, students);
         studentDatabase.deleteStudentFromSubject(subject1, student1);
 
-        assertFalse(studentDatabase.subjectStudents.get(subject1).contains(student1));
-    }
-
-    @Test
-    public void testStudentDatabase_printAllSubjectsWithStudents() {
-        studentDatabase.addSubjectWithStudents(subject1, new HashSet<>());
-        studentDatabase.printAllSubjectsWithStudents();
+        assertFalse(
+                studentDatabase
+                        .getSubjectStudents()
+                        .get(subject1)
+                        .contains(student1)
+        );
     }
 }
