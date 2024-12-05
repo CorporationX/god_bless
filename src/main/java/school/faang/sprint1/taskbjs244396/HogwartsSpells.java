@@ -1,4 +1,4 @@
-package school.faang.sprint1.taskbjs243512;
+package school.faang.sprint1.taskbjs244396;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (eventType.isBlank() && eventType == null) {
+        if (eventType.isBlank() || eventType == null) {
             throw new IllegalArgumentException();
         }
         return spellsByType.get(eventType);
