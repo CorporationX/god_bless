@@ -6,12 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @RequiredArgsConstructor
+@Getter
 @EqualsAndHashCode
 @ToString
 public class Product {
     private final String id;
-    @Getter
     private final String name;
-    @Getter
     private final String category;
 }
