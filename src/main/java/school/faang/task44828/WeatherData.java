@@ -1,6 +1,5 @@
 package school.faang.task44828;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.Instant;
@@ -9,13 +8,42 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-@AllArgsConstructor
+import static school.faang.task44828.Weather.*;
+
 @Getter
 public class WeatherData {
-    private String city;
-    private double temperature;
-    private double humidity;
-    private long timestamp;
+    private final String city;
+    private final double temperature;
+    private final double humidity;
+    private final long timestamp;
+
+    public WeatherData(String city, double temperature, double humidity, long timestamp) {
+        validation(city, temperature, humidity, timestamp);
+
+        this.city = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.timestamp = timestamp;
+    }
+
+    public void validation(String city, double temperature, double humidity, long timestamp) {
+        if (city == null || city.isBlank()) {
+            throw new IllegalArgumentException("City cannot be null or blank");
+        }
+        if (temperature >= MAX_TEMP.getValue() || temperature <= MIN_TEMP.getValue()) {
+            throw new IllegalArgumentException("Temperature must be between "
+                    + MIN_TEMP.getValue()
+                    + " and " + MAX_TEMP.getValue());
+        }
+        if (humidity >= MAX_HUMIDITY.getValue() || humidity <= MIN_HUMIDITY.getValue()) {
+            throw new IllegalArgumentException("Humidity must be between "
+                    + MIN_HUMIDITY.getValue()
+                    + " and " + MAX_HUMIDITY.getValue());
+        }
+        if (timestamp < MIN_TIMESTAMP.getValue()) {
+            throw new IllegalArgumentException("Timestamp must be more than " + MIN_TIMESTAMP.getValue());
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
