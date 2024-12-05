@@ -1,6 +1,7 @@
 package school.faang.task_45105;
 
 import lombok.Getter;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,10 +27,9 @@ public class ProductStorage {
         }
     }
 
-    // В данном случае метод будет возвращать пустой массив если категория null или ее нет ни у одного продукта,
-    // так ли это на самом деле? и хорошая ли это реализация?
     public List<Product> findItemsByCategory(String category) {
-        return products.stream().filter(product -> product.getCategory().equals(category))
+        return products.stream()
+                .filter(product -> product.getCategory().equals(category))
                 .toList();
     }
 
@@ -44,7 +44,6 @@ public class ProductStorage {
         System.out.println("End of printing products");
     }
 
-    //В задании указана реализация в main, но вроде логичнее вынести данную реализацию в этот класс
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         HashMap<String, List<Product>> groupedProducts = new HashMap<>();
 
@@ -55,9 +54,9 @@ public class ProductStorage {
         return groupedProducts;
     }
 
-    //В задании указана реализация в main, но вроде логичнее вынести данную реализацию в этот класс
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        if (groupedProducts.isEmpty()) {
+
+        if (MapUtils.isEmpty(groupedProducts)) {
             System.out.println("There are no products in this storage");
         }
 
