@@ -3,7 +3,10 @@ package school.faang;
 public class Warrior extends Character {
 
     public Warrior(String name) {
-        super(name, GameProperties.WARRIOR_STRENGTH, GameProperties.WARRIOR_AGILITY, GameProperties.WARRIOR_INTELLIGENCE);
+        super(name,
+                GameProperties.Warrior_Strength,
+                GameProperties.Warrior_Agility,
+                GameProperties.Warrior_Intelligence);
     }
 
     @Override

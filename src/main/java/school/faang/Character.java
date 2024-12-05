@@ -10,7 +10,7 @@ public abstract class Character {
     private int strength;
     private int agility;
     private int intelligence;
-    private int health = GameProperties.DEFAULT_HEALTH;
+    private int health = GameProperties.Default_Health;
 
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
