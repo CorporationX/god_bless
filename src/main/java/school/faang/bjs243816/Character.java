@@ -10,19 +10,11 @@ public abstract class Character {
     private final int intelligence;
     private int health = 100;
 
-    public Character(String name) {
-        this.name = name;
-        this.strength = 0;
-        this.agility = 0;
-        this.intelligence = 0;
-    }
-
-    public Character(String name, int strength, int agility, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
-    }
-
     public abstract void attack(Character character);
+
+    @Override
+    public String toString() {
+        return String.format("%s Health: %d", name, health);
+    }
+
 }
