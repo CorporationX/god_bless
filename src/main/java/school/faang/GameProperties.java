@@ -4,13 +4,13 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class GameProperties {
-    public final int Archer_Strength = 3;
-    public final int Archer_Agility = 10;
-    public final int Archer_Intelligence = 5;
+    public final int ArcherStrength = 3;
+    public final int ArcherAgility = 10;
+    public final int ArcherIntelligence = 5;
 
-    public final int Warrior_Strength = 10;
-    public final int Warrior_Agility = 5;
-    public final int Warrior_Intelligence = 3;
+    public final int WarriorStrength = 10;
+    public final int WarriorAgility = 5;
+    public final int WarriorIntelligence = 3;
 
-    public int Default_Health = 100;
+    public int DefaultHealth = 100;
 }
