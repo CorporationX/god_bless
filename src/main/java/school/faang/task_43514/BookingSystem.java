@@ -54,6 +54,7 @@ public class BookingSystem {
     public void cancelBooking(int bookingId) {
         if (bookings.containsKey(bookingId)) {
             Booking book = bookings.remove(bookingId);
+            book.getRoom().setAvailable(true);
             bookingNotifier.notifyObservers(book, BookingStatus.CANCELLED);
         }
     }
