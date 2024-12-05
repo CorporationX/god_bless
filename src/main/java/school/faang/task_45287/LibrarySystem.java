@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    public static void addBook(String __title, String __author, int __year, String location, HashMap<Book, String> Lib) {
-        Book NewBook = new Book(__title, __author, __year);
+    public static void addBook(String title, String author, int year, String location, HashMap<Book, String> Lib) {
+        Book NewBook = new Book(title, author, year);
         Lib.put(NewBook, location);
         System.out.println("Your book successful added on " + location);
     }
