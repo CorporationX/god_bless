@@ -9,10 +9,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(@NonNull Character character) {
-        if(character.getHealth() - this.getDexterity() > 0){
+        if(character.getHealth() - this.getDexterity() > 0) {
             character.setHealth(character.getHealth() - this.getDexterity());
-        }
-        else{
+        }else {
             character.setHealth(0);
         }
     }

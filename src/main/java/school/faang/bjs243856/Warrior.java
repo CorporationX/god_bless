@@ -9,10 +9,9 @@ public class Warrior extends Character {
 
     @Override
     public void attack(@NonNull Character character) {
-        if(character.getHealth() - this.getPower() > 0){
+        if (character.getHealth() - this.getPower() > 0) {
             character.setHealth(character.getHealth() - this.getPower());
-        }
-        else{
+        } else {
             character.setHealth(0);
         }
     }
