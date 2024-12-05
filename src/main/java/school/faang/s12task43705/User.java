@@ -32,20 +32,20 @@ public class User {
 
     public void setAge(int age) {
         if (age < MIN_AGE) {
-            throw  new IllegalArgumentException("The age cannot be less then " + MIN_AGE);
+            throw new IllegalArgumentException("The age cannot be less then " + MIN_AGE);
         }
         this.age = age;
     }
 
     public void setJob(String job) {
-        if(!VALID_JOBS.contains(job)) {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("The job should be valid");
         }
         this.job = job;
     }
 
     public void setAddress(String address) {
-        if(!VALID_ADDRESSES.contains(address)) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("The address should be valid");
         }
         this.address = address;
