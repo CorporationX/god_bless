@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 public class HogwartsSpells {
@@ -26,6 +27,9 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent removedSpellEvent = spellById.remove(id);
+        if (removedSpellEvent == null) {
+            throw new NoSuchElementException("Spell with input id not exist");
+        }
         spellByType.get(removedSpellEvent.getEventType()).remove(removedSpellEvent);
     }
 
