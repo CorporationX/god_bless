@@ -8,12 +8,13 @@ import java.util.Map;
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private int nextId = 0;
 
-    public void addSpellEvent(int id, String eventType, String actionDescription) {
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, spellEvent);
-        spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        spellsByType.get(eventType).add(spellEvent);
+    public int addSpellEvent(String eventType, String actionDescription) {
+        SpellEvent spellEvent = new SpellEvent(nextId, eventType, actionDescription);
+        spellById.put(nextId, spellEvent);
+        spellsByType.computeIfAbsent(eventType, key->new ArrayList<>()).add(spellEvent);
+        return nextId++;
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -24,7 +25,7 @@ public class HogwartsSpells {
         return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
-    public void deleteSpellEvent(int id) {
+    public boolean deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             List<SpellEvent> spellEvents = spellsByType.get(spellEvent.getEventType());
@@ -34,6 +35,9 @@ public class HogwartsSpells {
                     spellsByType.remove(spellEvent.getEventType());
                 }
             }
+            return true;
+        } else {
+            return false;
         }
     }
 

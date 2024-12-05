@@ -8,9 +8,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Getter
 public class SpellEvent {
     private final Integer id;
-    @Getter
     private final String eventType;
     private final String action;
 }
