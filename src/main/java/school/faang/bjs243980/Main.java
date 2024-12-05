@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    public static final int AGE_27 = 27;
+    public static final int AGE_25 = 25;
+
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        for (int i = 20; i < 23; i++) {
-            users.addAll(createUsers(3, i));
-        }
+        users.addAll(createUsers(3, AGE_27));
+        users.addAll(createUsers(3, AGE_25));
 
         System.out.println(User.groupUsers(users));
     }
