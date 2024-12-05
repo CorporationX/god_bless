@@ -1,4 +1,4 @@
-package school.faang.capturingEvents;
+package school.faang.capturingevents;
 
 import java.util.Objects;
 
@@ -20,8 +20,12 @@ public class SpellEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
         return Objects.equals(id, that.id)
                 && Objects.equals(eventType, that.eventType)
