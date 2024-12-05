@@ -17,7 +17,7 @@ public class Main {
         System.out.println("getting the spell event by id - " + 3);
         System.out.println(hogwartsSpells.getSpellEventById(3));
 
-        System.out.println("getting the spell events by type - " + "snowball");
+        System.out.println("getting the spell events by type snowball");
         List<SpellEvent> snowballEvents = hogwartsSpells.getSpellEventsByType("snowball");
         for (SpellEvent spellEvent : snowballEvents) {
             System.out.println(spellEvent);
