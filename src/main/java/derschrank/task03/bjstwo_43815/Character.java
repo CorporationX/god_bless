@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 
 @Getter
-abstract public class Character {
+public abstract class Character {
 
     private String name;
     private int strength;
@@ -24,7 +24,7 @@ abstract public class Character {
         this.intelligence = intelligence;
     }
 
-    abstract public void attack(Character character);
+    public abstract void attack(Character character);
 
     protected void getDamage(int damage) {
         health -= damage;
