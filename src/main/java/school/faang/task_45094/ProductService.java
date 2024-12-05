@@ -37,7 +37,8 @@ public class ProductService {
             if (products.isEmpty()) {
                 System.out.println("Нет товаров в категории " + category);
             } else {
-                System.out.println("Товары в категории " + category + ": " + products.stream().map(Product::getName).collect(Collectors.joining(", ")));
+                System.out.println("Товары в категории " + category +
+                        ": " + products.stream().map(Product::getName).collect(Collectors.joining(", ")));
             }
         } else {
             System.out.println("Категория " + category + " не найдена.");
@@ -46,7 +47,8 @@ public class ProductService {
 
     public static void printAllItems(Map<String, List<Product>> productMap) {
         for (Map.Entry<String, List<Product>> entry : productMap.entrySet()) {
-            System.out.println("Категория: " + entry.getKey() + ", Товары: " + entry.getValue().stream().map(Product::getName).collect(Collectors.joining(", ")));
+            System.out.println("Категория: " + entry.getKey() +
+                    ", Товары: " + entry.getValue().stream().map(Product::getName).collect(Collectors.joining(", ")));
         }
     }
 }

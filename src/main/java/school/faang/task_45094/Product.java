@@ -12,13 +12,13 @@ public class Product {
     private final String category;
 
     public Product(Integer id, String name, String category) {
-        if (id == null){
+        if (id == null) {
             throw new IllegalArgumentException("id не может быть пустым");
         }
-        if (name == null || name.isEmpty()){
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("name не может быть пустым");
         }
-        if (category == null || category.isEmpty()){
+        if (category == null || category.isEmpty()) {
             throw new IllegalArgumentException("category не может быть пустым");
         }
 
