@@ -39,76 +39,81 @@ public class StudentDatabaseTest {
 
     @Test
     void addStudentsWithGrades() {
-        StudentsDatabase.addStudentsWithGrades("Egor", gradesPerSubjects);
-        StudentsDatabase.addStudentsWithGrades("Maria", gradesPerSubjects);
+        studentsDatabase.addStudentsWithGrades("Egor", gradesPerSubjects);
+        studentsDatabase.addStudentsWithGrades("Maria", gradesPerSubjects);
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentsWithGrades("", gradesPerSubjects));
+                () -> studentsDatabase.addStudentsWithGrades("", gradesPerSubjects));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentsWithGrades("Norik", new HashMap<>(Map.of())));
+                () -> studentsDatabase.addStudentsWithGrades("Norik", new HashMap<>(Map.of())));
+
+        studentsDatabase.addStudentsWithGrades("Gosha", gradesPerSubjects);
     }
 
     @Test
     void addNewSubjectToStudent() {
-        StudentsDatabase.addNewSubjectToStudent(4, "Russian", 3, "Egor");
+        studentsDatabase.addStudentsWithGrades("Egor", gradesPerSubjects);
+        studentsDatabase.addNewSubjectToStudent("Russian",4, "Egor");
+
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addNewSubjectToStudent(4, "Russian", 3, ""));
+                () -> studentsDatabase.addNewSubjectToStudent("Russian",4, ""));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addNewSubjectToStudent(4, "", 3, "Egor"));
+                () ->studentsDatabase.addNewSubjectToStudent("Russian",-1000, "Egor"));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addNewSubjectToStudent(4, "Russian", -100, "Egor"));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addNewSubjectToStudent(-100, "Russian", -100, "Egor"));
+                () -> studentsDatabase.addNewSubjectToStudent("",4, "Egor"));
     }
+
 
     @Test
     void deleteStudentsWithSubjects() {
-        StudentsDatabase.deleteStudentsWithSubjects("Love");
+        studentsDatabase.addStudentsWithGrades("Love", gradesPerSubjects);
+        studentsDatabase.deleteStudentsWithSubjects("Love");
+
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.deleteStudentsWithSubjects(""));
+                () -> studentsDatabase.deleteStudentsWithSubjects("Unknown"));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> studentsDatabase.deleteStudentsWithSubjects(""));
     }
 
     @Test
     void addSubjectWithListOfStudent() {
-        StudentsDatabase.addSubjectWithListOfStudent(5, "PE",
+        studentsDatabase.addSubjectWithListOfStudent("PE",
                 new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria"))));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "PE", new ArrayList<>(
-                        List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
+                () -> studentsDatabase.addSubjectWithListOfStudent("PE", new ArrayList<>(List.of())));
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(5, "PE", new
-                        ArrayList<>(List.of())));
-
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addSubjectWithListOfStudent(-1000, "", new ArrayList<>(
-                        List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
+                () -> studentsDatabase.addSubjectWithListOfStudent("", new ArrayList<>(List.of(new Student(5, "Gosha"), new Student(6, "Maria")))));
     }
 
     @Test
     void addStudentToExistingSubject() {
-        StudentsDatabase.addStudentToExistingSubject("Egor", "Math", 5);
+        studentsDatabase.addStudentsWithGrades("Egor", gradesPerSubjects);
+        studentsDatabase.addStudentToExistingSubject("Egor", "English", 4);
+
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentToExistingSubject("EgorWho?", "Math", 5));
+                () -> studentsDatabase.addStudentToExistingSubject("EgorWho?", "Math", 5));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentToExistingSubject("Egor", "", 5));
+                () -> studentsDatabase.addStudentToExistingSubject("Egor", "", 5));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentToExistingSubject("", "Math", 5));
+                () -> studentsDatabase.addStudentToExistingSubject("", "Math", 5));
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.addStudentToExistingSubject("EgorWho?", "Math", -100));
+                () -> studentsDatabase.addStudentToExistingSubject("EgorWho?", "Math", -100));
     }
 
     @Test
     void deleteStudentFromSubject() {
-        StudentsDatabase.deleteStudentFromSubject("Maria", "Math");
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.deleteStudentFromSubject("", "Math"));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.deleteStudentFromSubject("Maria", ""));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.deleteStudentFromSubject("MariaWho?", "Math"));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> StudentsDatabase.deleteStudentFromSubject("Maria", "MathWhat?"));
+        studentsDatabase.addStudentsWithGrades("Maria", gradesPerSubjects);
+        studentsDatabase.addStudentToExistingSubject("Maria", "Math", 5);
+        studentsDatabase.deleteStudentFromSubject("Maria", "Math");
 
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> studentsDatabase.deleteStudentFromSubject("", "Math"));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> studentsDatabase.deleteStudentFromSubject("Maria", ""));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> studentsDatabase.deleteStudentFromSubject("MariaWho?", "Math"));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> studentsDatabase.deleteStudentFromSubject("Maria", "MathWhat?"));
     }
 }

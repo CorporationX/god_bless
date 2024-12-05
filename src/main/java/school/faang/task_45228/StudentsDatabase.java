@@ -1,75 +1,82 @@
 package school.faang.task_45228;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StudentsDatabase {
-    private static final Map<Student, Map<Subject, Integer>> studentsSubjectsPerGrade = new HashMap<>();
-    private static final Map<Subject, List<Student>> studentsPerSubjects = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentsSubjectsPerGrade = new HashMap<>();
+    private final Map<Subject, List<Student>> studentsPerSubjects = new HashMap<>();
 
-    public static void addStudentsWithGrades(String nameOfStudent, Map<Subject, Integer> gradesPerSubjects) {
-        if (nameOfStudent.isBlank()) {
+    private final AtomicInteger studentsIdMaker = new AtomicInteger(1);
+    private final AtomicInteger subjectIdMaker = new AtomicInteger(1);
+
+
+    public void addStudentsWithGrades(String nameOfStudent, Map<Subject, Integer> gradesPerSubjects) {
+        if (StringUtils.isBlank(nameOfStudent)) {
             throw new IllegalArgumentException("Name is blank!");
         }
-        if (gradesPerSubjects.isEmpty()) {
+        if (MapUtils.isEmpty(gradesPerSubjects)) {
             throw new IllegalArgumentException("There are no grades!");
         }
 
-        Student student = new Student(studentsSubjectsPerGrade.size() + 1, nameOfStudent);
+        int studentId = studentsIdMaker.getAndIncrement();
+        Student student = new Student(studentId, nameOfStudent);
         studentsSubjectsPerGrade.put(student, gradesPerSubjects);
 
-        for (Map.Entry<Subject, Integer> entry : gradesPerSubjects.entrySet()) {
-            studentsPerSubjects.computeIfAbsent(entry.getKey(), (p) -> new ArrayList<>()).add(student);
-        }
+        gradesPerSubjects.forEach((k, v) -> studentsPerSubjects
+                .computeIfAbsent(k, (p) -> new ArrayList<>())
+                .add(student));
     }
 
-    public static void addNewSubjectToStudent(int id, String nameOfSubject, int grade, String nameOfStudent) {
+    public void addNewSubjectToStudent(String nameOfSubject, int grade, String nameOfStudent) {
         if (grade < 0) {
             throw new IllegalArgumentException("Grade is under 0!");
         }
-        if (nameOfStudent.isBlank()) {
+        if (StringUtils.isBlank(nameOfStudent)) {
             throw new IllegalArgumentException("Name is blank!");
         }
-        if (nameOfSubject.isBlank()) {
-            throw new IllegalArgumentException("Name is blank!");
+        if (StringUtils.isBlank(nameOfSubject)) {
+            throw new IllegalArgumentException("Subject is blank!");
         }
 
+        int id = subjectIdMaker.getAndIncrement();
         Subject request = new Subject(id, nameOfSubject);
-        Student student = null;
+        Student student = studentsSubjectsPerGrade.keySet().stream()
+                .filter(s -> s.name().equals(nameOfStudent))
+                .findFirst()
+                .orElse(null);
 
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentsSubjectsPerGrade.entrySet()) {
-            String nameOfFindingStudent = entry.getKey().getName();
-            if (nameOfFindingStudent.equals(nameOfStudent)) {
-                student = entry.getKey();
-                break;
-            }
+        if (student == null) {
+            throw new IllegalArgumentException("Student was not found!");
         }
 
-        studentsSubjectsPerGrade.get(student).put(request, grade);
+        studentsSubjectsPerGrade
+                .computeIfAbsent(student, s -> new HashMap<>())
+                .put(request, grade);
 
-        if (studentsPerSubjects.containsKey(request)) {
-            studentsPerSubjects.get(request).add(student);
-        } else {
-            studentsPerSubjects.computeIfAbsent(request, (k) -> new ArrayList<>()).add(student);
-        }
+        studentsPerSubjects.computeIfAbsent(request, k -> new ArrayList<>()).add(student);
     }
 
-    public static void deleteStudentsWithSubjects(String nameOfStudent) {
-        if (nameOfStudent.isBlank()) {
+    public void deleteStudentsWithSubjects(String nameOfStudent) {
+        if (StringUtils.isBlank(nameOfStudent)) {
             throw new IllegalArgumentException("Name is blank!");
         }
 
-        Student student = null;
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentsSubjectsPerGrade.entrySet()) {
-            String nameOfFindingStudent = entry.getKey().getName();
-            if (nameOfFindingStudent.equals(nameOfStudent)) {
-                student = entry.getKey();
-                break;
-            }
-        }
+        Student student = studentsSubjectsPerGrade.keySet().stream()
+                .filter(s -> s.name().equals(nameOfStudent))
+                .findFirst()
+                .orElse(null);
 
+        if (student == null) {
+            throw new IllegalArgumentException("No student found!");
+        }
         studentsSubjectsPerGrade.remove(student);
 
         for (Map.Entry<Subject, List<Student>> entry : studentsPerSubjects.entrySet()) {
@@ -85,23 +92,21 @@ public class StudentsDatabase {
         }
     }
 
-    public static void printStudentsAndSubjects() {
+    public void printStudentsAndSubjects() {
         studentsSubjectsPerGrade.forEach(
                 (k, v) -> System.out.println(k + " -> " + v)
         );
     }
 
-    public static void addSubjectWithListOfStudent(int id, String nameOfSubject, List<Student> students) {
-        if (id < 0) {
-            throw new IllegalArgumentException("Id is under 0!");
-        }
-        if (students.isEmpty()) {
+    public void addSubjectWithListOfStudent(String nameOfSubject, List<Student> students) {
+        if (CollectionUtils.isEmpty(students)) {
             throw new IllegalArgumentException("List is empty!");
         }
-        if (nameOfSubject.isBlank()) {
+        if (StringUtils.isBlank(nameOfSubject)) {
             throw new IllegalArgumentException("Name is blank!");
         }
 
+        int id = subjectIdMaker.getAndIncrement();
         Subject request = new Subject(id, nameOfSubject);
         studentsPerSubjects.put(request, students);
 
@@ -110,75 +115,63 @@ public class StudentsDatabase {
         }
     }
 
-    public static void addStudentToExistingSubject(String nameOfStudent, String existingSubject, int gradeOfSubject) {
+    public void addStudentToExistingSubject(String nameOfStudent, String existingSubject, int gradeOfSubject) {
         if (gradeOfSubject < 0) {
             throw new IllegalArgumentException("Grade is under 0!");
         }
-        if (nameOfStudent.isBlank()) {
+        if (StringUtils.isBlank(nameOfStudent)) {
             throw new IllegalArgumentException("Name is blank!");
         }
-        if (existingSubject.isBlank()) {
-            throw new IllegalArgumentException("Name is blank!");
+        if (StringUtils.isBlank(existingSubject)) {
+            throw new IllegalArgumentException("Subject is blank!");
         }
 
-        Student student = null;
-        for (Student s : studentsSubjectsPerGrade.keySet()) {
-            if (s.getName().equals(nameOfStudent)) {
-                student = s;
-                break;
-            }
-        }
+        Student student = studentsSubjectsPerGrade.keySet().stream()
+                .filter(s -> s.name().equals(nameOfStudent))
+                .findFirst()
+                .orElse(null);
 
         if (student == null) {
             throw new IllegalArgumentException("Student was not found!");
         }
 
-        Subject subject = null;
-        for (Map.Entry<Subject, List<Student>> entry : studentsPerSubjects.entrySet()) {
-            String findingSubject = entry.getKey().getName();
-            if (findingSubject.equals(existingSubject)) {
-                subject = entry.getKey();
-                studentsPerSubjects.get(entry.getKey()).add(student);
-                break;
-            }
-        }
+        Subject subject = studentsPerSubjects.entrySet().stream()
+                .filter(s -> s.getKey().name().equals(existingSubject))
+                .findFirst()
+                .map(Map.Entry::getKey)
+                .orElse(null);
 
         if (subject == null) {
             throw new IllegalArgumentException("Subject was not found!");
         }
 
+        studentsPerSubjects.get(subject).add(student);
+
         studentsSubjectsPerGrade.get(student).put(subject, gradeOfSubject);
     }
 
-    public static void deleteStudentFromSubject(String studentName, String subjectName) {
-        if (studentName.isBlank()) {
+    public void deleteStudentFromSubject(String studentName, String subjectName) {
+        if (StringUtils.isBlank(studentName)) {
             throw new IllegalArgumentException("Name is blank!");
         }
-        if (subjectName.isBlank()) {
+        if (StringUtils.isBlank(subjectName)) {
             throw new IllegalArgumentException("Name is blank!");
         }
 
-        Subject requestedSubject = null;
-        for (Map.Entry<Subject, List<Student>> entry : studentsPerSubjects.entrySet()) {
-            String findingSubject = entry.getKey().getName();
-            if (findingSubject.equals(subjectName)) {
-                requestedSubject = entry.getKey();
-                break;
-            }
-        }
+        Subject requestedSubject = studentsPerSubjects.keySet().stream()
+                .filter(students -> students.name().equals(subjectName))
+                .findFirst()
+                .orElse(null);
 
         if (requestedSubject == null) {
             throw new IllegalArgumentException("Subject was not found!");
         }
 
         List<Student> students = studentsPerSubjects.get(requestedSubject);
-        Student requestedStudent = null;
-        for (Student student : students) {
-            if (student.getName().equals(studentName)) {
-                requestedStudent = student;
-                break;
-            }
-        }
+        Student requestedStudent = students.stream()
+                .filter(s -> s.name().equals(studentName))
+                .findFirst()
+                .orElse(null);
 
         if (requestedStudent == null) {
             throw new IllegalArgumentException("Student was not found!");
@@ -188,7 +181,7 @@ public class StudentsDatabase {
         studentsSubjectsPerGrade.get(requestedStudent).remove(requestedSubject);
     }
 
-    public static void printAllSubjectsWithinStudents() {
+    public void printAllSubjectsWithinStudents() {
         studentsPerSubjects.forEach(
                 (k, v) -> System.out.println(k + " -> " + v)
         );
