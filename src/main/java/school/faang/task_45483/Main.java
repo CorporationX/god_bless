@@ -1,7 +1,7 @@
-package school.faang.task_43524;
+package school.faang.task_45483;
 
-import school.faang.task_43524.model.Character;
-import school.faang.task_43524.model.Item;
+import school.faang.task_45483.model.Character;
+import school.faang.task_45483.model.Item;
 
 public class Main {
     public static void main(String[] args) {

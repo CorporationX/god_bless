@@ -1,4 +1,4 @@
-package school.faang.task_43524.model;
+package school.faang.task_45483.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
