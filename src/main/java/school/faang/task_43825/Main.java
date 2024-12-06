@@ -3,27 +3,25 @@ package school.faang.task_43825;
 public class Main {
 
     public static void main(String[] args) {
-        Archer archer = new Archer("Archer1");
-        Warrior warrior = new Warrior("Warrior1");
+        Archer archer = new Archer("Robin");
+        Warrior warrior = new Warrior("Artur");
 
-        printCharacter(archer);
-        printCharacter(warrior);
+        archer.setName("Robin Hood");
+
+        System.out.println(archer);
+        System.out.println(warrior);
 
         System.out.println();
 
         archer.attack(warrior);
-        printCharacter(archer);
-        printCharacter(warrior);
+        System.out.println(archer);
+        System.out.println(warrior);
 
         System.out.println();
 
         warrior.attack(archer);
-        printCharacter(archer);
-        printCharacter(warrior);
-    }
-
-    private static void printCharacter(Character character) {
-        System.out.println(character);
+        System.out.println(archer);
+        System.out.println(warrior);
     }
 
 }

@@ -4,28 +4,40 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Getter
+@Setter
 @ToString
 public abstract class Character {
-    @Setter
+    private static final int DEFAULT_HEALTH = 100;
+
     private String name;
-    private int strength;
-    private int dexterity;
+    private int power;
+    private int agility;
     private int intelligence;
-    @Getter
-    @Setter
-    private int health = 100;
+    private int health;
 
     public Character(String name) {
         this.name = name;
     }
 
-    public Character(String name, int strength, int dexterity, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.dexterity = dexterity;
+    public Character(String name, int power, int agility, int intelligence) {
+        this(name);
+        this.power = power;
+        this.agility = agility;
         this.intelligence = intelligence;
+        this.health = DEFAULT_HEALTH;
     }
 
-    protected abstract void attack(Character target);
+    public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(String.format("Invalid name: %s", name));
+        }
+        this.name = name;
+    }
 
+    public abstract void attack(Character target);
+
+    public void takeDamage(int damage) {
+        this.health -= damage;
+    }
 }
