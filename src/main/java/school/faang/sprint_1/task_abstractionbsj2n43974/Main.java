@@ -16,7 +16,14 @@ public class Main {
             }
         }
 
-
+        for (int i = 0; i < 15; i++) {
+            warrior2.attack(archer);
+            System.out.printf("%s attacks %s: remained health %d \n", warrior2.getName(), archer.getName(), archer.getHealth());
+            if (archer.getHealth() <= 0) {
+                System.out.printf("%s is killed %n \n", archer.name);
+                break;
+            }
+        }
     }
 
 }
