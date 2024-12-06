@@ -12,7 +12,7 @@ public class Main {
         hogwartsSpells.getSpellEventById(1);
         hogwartsSpells.getSpellEventsByType("Protection");
 
-        hogwartsSpells.deleteSpellEvent(3);
+        hogwartsSpells.deleteSpellEvent(2);
         hogwartsSpells.printAllSpellEvents();
     }
 }

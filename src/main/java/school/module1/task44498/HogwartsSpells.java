@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @ToString
 public class HogwartsSpells {
@@ -35,7 +36,11 @@ public class HogwartsSpells {
     public void deleteSpellEvent(int id) {
         System.out.println("Удален спелл " + spellById.get(id) + " из spellById");
         spellById.remove(id);
-        spellsByType.remove(id);
+
+        SpellEvent spell = spellById.remove(id);
+        if (Objects.nonNull(spell)) {
+            spellsByType.get(spell.getEventType()).remove(spell);
+        }
     }
 
     public void printAllSpellEvents() {
