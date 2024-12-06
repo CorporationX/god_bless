@@ -17,24 +17,21 @@ public class HogwartsSpells {
     private final Map<SpellType, List<SpellEvent>> spellByType = new HashMap<>();
 
 
-    public Boolean addSpellEvent(int id, SpellType eventType, String actionDescription) {
-        if (eventType == null && actionDescription == null) {
-            throw new IllegalArgumentException("Event type and action description cannot be null");
+    public Boolean addSpellEvent(SpellEvent spellEvent) {
+        if (spellById.containsKey(spellEvent.getId())) {
+            throw new IllegalArgumentException("Event id " + spellEvent.getId() + " already exists");
         }
-        //не перезаписываем во избежания ошибки случайного ввода
-        if (spellById.containsKey(id)) {
-            throw new IllegalArgumentException("Event id " + id + " already exists");
-        }
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, spellEvent);
 
-        List<SpellEvent> spells = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
+        spellById.put(spellEvent.getId(), spellEvent);
+
+        List<SpellEvent> spells = spellByType.computeIfAbsent(spellEvent.getType(), k -> new ArrayList<>());
         spells.add(spellEvent);
         return true;
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return Optional.of(spellById.get(id))
+        SpellEvent spellEvent = spellById.get(id);
+        return Optional.ofNullable(spellEvent)
                 .orElseThrow(() -> new IllegalArgumentException("No such spell event"));
     }
 
@@ -45,15 +42,12 @@ public class HogwartsSpells {
         throw new IllegalArgumentException("No such spell event");
     }
 
-    public Boolean deleteSpellEvent(int id) {
-        SpellEvent spellEventToDelete = spellById.get(id);
-        if (spellEventToDelete == null) {
-            log.info("No such spell event");
-            return false;
+    public void deleteSpellEvent(int id) {
+        if (spellById.get(id) == null) {
+            throw new IllegalArgumentException("No such spell event");
         }
-        spellByType.get(spellEventToDelete.getType()).remove(spellEventToDelete);
+        spellByType.get(spellById.get(id).getType()).remove(spellById.get(id));
         spellById.remove(id);
-        return true;
     }
 
     public void printAllSpellEvents() {
