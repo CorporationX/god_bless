@@ -20,6 +20,7 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : groupOfUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey());
 
+            //print the users names by age
             for (User user : entry.getValue()) {
                 System.out.println("Name: " + user.getName());
             }
