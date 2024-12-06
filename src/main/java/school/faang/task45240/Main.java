@@ -34,23 +34,17 @@ public class Main {
         subjects2.put(Subject.HISTORY, 1);
         subjects2.put(Subject.PHILOSOPHY, 2);
 
-
         StudentDatabase university = new StudentDatabase();
 
-        university.newStudent(student1, subjects1);
+        university.addStudentWithGrades(student1, subjects1);
         university.printGradedStudents();
 
+        university.addSubjectForStudent(student1, subjects2);
 
-
-        university.addSubjectToStudent(student1, subjects2);
-
-
-        university.deleteStudent(student1);
+        university.removeStudent(student1);
         university.printGradedStudents();
 
-
-
-        university.addNewSubject(Subject.MATH, students);
+        university.addSubjectWithStudents(Subject.MATH, students);
         university.printStudentSubjects();
 
         university.addStudentToSubject(student4, Subject.HISTORY);

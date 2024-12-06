@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Subject {
+
     private static int counter = 1;
     private final int id;
     private final String name;
