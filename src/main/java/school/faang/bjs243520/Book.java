@@ -11,7 +11,7 @@ public class Book {
 
     private String title;
     private String author;
-    private int Year;
+    private int year;
 
     @Override
     public boolean equals(Object o) {
