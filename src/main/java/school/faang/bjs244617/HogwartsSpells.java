@@ -33,7 +33,8 @@ public class HogwartsSpells {
             return;
         }
         spellById.remove(id);
-        Optional.ofNullable(spellsByType.get(event.getEventType())).ifPresent(listOfEvents -> listOfEvents.remove(event));
+        Optional.ofNullable(spellsByType.get(event.getEventType()))
+                .ifPresent(listOfEvents -> listOfEvents.remove(event));
     }
 
     public void printAllSpellEvents() {
