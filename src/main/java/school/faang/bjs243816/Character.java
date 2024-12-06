@@ -12,6 +12,13 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
+    public void takeDamage(int damage) {
+        this.health -= damage;
+        if (this.health < 0) {
+            this.health = 0;
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("%s Health: %d", name, health);

@@ -8,8 +8,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character character) {
         int damage = getAgility();
-        character.setHealth(character.getHealth() - damage);
+        character.takeDamage(damage);
         System.out.println(getName() + " attacks " + character.getName() + " for " + damage + " damage.");
-
     }
 }
