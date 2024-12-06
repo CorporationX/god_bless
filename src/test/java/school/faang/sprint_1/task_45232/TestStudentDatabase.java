@@ -13,6 +13,8 @@ import static school.faang.sprint_1.task_45232.Main.studentGrades;
 import static school.faang.sprint_1.task_45232.Main.subjectStudents;
 
 public class TestStudentDatabase {
+    public static final int FIVE_GRADE = 5;
+    public static final int FOUR_GRADE = 4;
     StudentDatabase studentDatabase = new StudentDatabase();
 
     Student alex = new Student(1, "Alex");
@@ -34,8 +36,8 @@ public class TestStudentDatabase {
 
     @Test
     public void addStudentWithGradesTest() {
-        grades.put(math, 5);
-        grades.put(history, 4);
+        grades.put(math, FIVE_GRADE);
+        grades.put(history, FOUR_GRADE);
 
         studentDatabase.addStudentWithGrades(alex, grades);
 
@@ -52,16 +54,16 @@ public class TestStudentDatabase {
     public void addSubjectForStudentTest() {
         studentGrades.put(bob, grades);
 
-        studentDatabase.addSubjectForStudent(bob, art, 5);
+        studentDatabase.addSubjectForStudent(bob, art, FIVE_GRADE);
 
-        assertEquals(new HashMap<>(Map.of(art, 5)), studentGrades.get(bob));
+        assertEquals(new HashMap<>(Map.of(art, FIVE_GRADE)), studentGrades.get(bob));
         assertTrue(subjectStudents.containsKey(art));
         assertTrue(subjectStudents.get(art).contains(bob));
     }
 
     @Test
     public void removeStudentTest() {
-        grades.put(math, 5);
+        grades.put(math, FIVE_GRADE);
         studentGrades.put(sam, grades);
 
         List<Student> students = new ArrayList<>();
@@ -114,7 +116,7 @@ public class TestStudentDatabase {
         students.add(alex);
         subjectStudents.put(history, students);
 
-        grades.put(history, 5);
+        grades.put(history, FIVE_GRADE);
         studentGrades.put(alex, grades);
 
         studentDatabase.removeStudentFromSubject(alex, history);
@@ -122,6 +124,4 @@ public class TestStudentDatabase {
         assertTrue(subjectStudents.get(history).isEmpty());
         assertTrue(studentGrades.get(alex).isEmpty());
     }
-
-
 }
