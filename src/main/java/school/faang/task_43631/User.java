@@ -20,11 +20,11 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> result = new HashMap<>();
-            for (User user : userList){
-                if (!result.containsKey(user.getAge())) {
-                    result.put(user.getAge(), new ArrayList<>());
+            for (User us : userList){
+                if (!result.containsKey(us.getAge())) {
+                    result.put(us.getAge(), new ArrayList<>());
                 }
-                result.get(user.getAge()).add(user);
+                result.get(us.getAge()).add(us);
             }
         return result;
     }
