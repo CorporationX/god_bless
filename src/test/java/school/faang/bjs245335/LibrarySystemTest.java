@@ -23,47 +23,51 @@ public class LibrarySystemTest {
 
     @Test
     public void testAddBook() {
-        LIBRARY_SYSTEM.addBook(BooksData.BOOK4.getTitle(),
-                BooksData.BOOK4.getAuthor(),
-                BooksData.BOOK4.getYear(),
+        BooksData book = BooksData.BOOK4;
+        LIBRARY_SYSTEM.addBook(book.getTitle(),
+                book.getAuthor(),
+                book.getYear(),
                 Locations.LOCATION1.name());
         Assertions.assertTrue(BOOKS.containsKey(BooksData.BOOK4.createBook()));
     }
 
     @Test
     public void testAddBookWithNullLocation() {
-        LIBRARY_SYSTEM.addBook(BooksData.BOOK4.getTitle(),
-                BooksData.BOOK4.getAuthor(),
-                BooksData.BOOK4.getYear(),
+        BooksData book = BooksData.BOOK4;
+        LIBRARY_SYSTEM.addBook(book.getTitle(),
+                book.getAuthor(),
+                book.getYear(),
                 null);
         Assertions.assertTrue(BOOKS.containsKey(BooksData.BOOK4.createBook()));
     }
 
     @Test
     public void testRemoveBook() {
-        LIBRARY_SYSTEM.removeBook(BooksData.BOOK3.getTitle(),
-                BooksData.BOOK3.getAuthor(),
-                BooksData.BOOK3.getYear());
+        BooksData book = BooksData.BOOK3;
+        LIBRARY_SYSTEM.removeBook(book.getTitle(),
+                book.getAuthor(),
+                book.getYear());
         Assertions.assertFalse(BOOKS.containsKey(BooksData.BOOK3.createBook()));
     }
 
     @Test
     public void testFindBook() {
-        String location = LIBRARY_SYSTEM.findBook(BooksData.BOOK2.getTitle(),
-                BooksData.BOOK2.getAuthor(),
-                BooksData.BOOK2.getYear());
+        BooksData book = BooksData.BOOK2;
+        String location = LIBRARY_SYSTEM.findBook(book.getTitle(),
+                book.getAuthor(),
+                book.getYear());
         Assertions.assertEquals(Locations.LOCATION2.name(), location);
     }
 
     @Test
     public void testFindBookWithNullLocation() {
-        addBookToMap(BooksData.BOOK4, null);
-        String location = LIBRARY_SYSTEM.findBook(BooksData.BOOK4.getTitle(),
-                BooksData.BOOK4.getAuthor(),
-                BooksData.BOOK4.getYear());
+        BooksData book = BooksData.BOOK4;
+        addBookToMap(book, null);
+        String location = LIBRARY_SYSTEM.findBook(book.getTitle(),
+                book.getAuthor(),
+                book.getYear());
         Assertions.assertNull(location);
     }
-
 
     private void addBookToMap(BooksData booksData, String location) {
         BOOKS.put(booksData.createBook(), location);
