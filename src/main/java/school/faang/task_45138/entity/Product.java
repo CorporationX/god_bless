@@ -12,18 +12,21 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 public class Product {
-    private final UUID id = UUID.randomUUID();
+    @ToString.Exclude
+    private final UUID id;
     private final String name;
-    private final String category;
+    private final CategoryType category;
 
-    public Product(String name, String category) {
-        if (name == null || name.isBlank()) {
+    public Product(String name, CategoryType category) {
+        this.id = UUID.randomUUID();
+        if (validation(name)) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
-        if (category == null || category.isBlank()) {
-            throw new IllegalArgumentException("Category cannot be null or empty");
-        }
         this.category = category;
+    }
+
+    private boolean validation(String argument) {
+        return argument != null && !argument.isBlank();
     }
 }
