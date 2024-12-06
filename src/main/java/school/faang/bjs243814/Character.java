@@ -1,15 +1,15 @@
-package school.faang.bjs243903;
+package school.faang.bjs243814;
 
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Random;
 
-import static school.faang.bjs243903.Constants.ARCHER_POWER;
-import static school.faang.bjs243903.Constants.ARCHER_AGILITY;
-import static school.faang.bjs243903.Constants.ARCHER_INTELLECT;
-import static school.faang.bjs243903.Constants.WARRIOR_POWER;
-import static school.faang.bjs243903.Constants.WARRIOR_AGILITY;
-import static school.faang.bjs243903.Constants.WARRIOR_INTELLECT;
+import static school.faang.bjs243814.Constants.ARCHER_POWER;
+import static school.faang.bjs243814.Constants.ARCHER_AGILITY;
+import static school.faang.bjs243814.Constants.ARCHER_INTELLECT;
+import static school.faang.bjs243814.Constants.WARRIOR_POWER;
+import static school.faang.bjs243814.Constants.WARRIOR_AGILITY;
+import static school.faang.bjs243814.Constants.WARRIOR_INTELLECT;
 
 @Getter
 @Setter

@@ -1,8 +1,8 @@
-package school.faang.bjs243903;
+package school.faang.bjs243814;
 
-import static school.faang.bjs243903.Constants.ARCHER_POWER;
-import static school.faang.bjs243903.Constants.ARCHER_AGILITY;
-import static school.faang.bjs243903.Constants.ARCHER_INTELLECT;
+import static school.faang.bjs243814.Constants.ARCHER_POWER;
+import static school.faang.bjs243814.Constants.ARCHER_AGILITY;
+import static school.faang.bjs243814.Constants.ARCHER_INTELLECT;
 
 public class Archer extends Character {
 

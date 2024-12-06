@@ -1,8 +1,8 @@
-package school.faang.bjs243903;
+package school.faang.bjs243814;
 
-import static school.faang.bjs243903.Constants.WARRIOR_POWER;
-import static school.faang.bjs243903.Constants.WARRIOR_AGILITY;
-import static school.faang.bjs243903.Constants.WARRIOR_INTELLECT;
+import static school.faang.bjs243814.Constants.WARRIOR_POWER;
+import static school.faang.bjs243814.Constants.WARRIOR_AGILITY;
+import static school.faang.bjs243814.Constants.WARRIOR_INTELLECT;
 
 public class Warrior extends Character {
 
