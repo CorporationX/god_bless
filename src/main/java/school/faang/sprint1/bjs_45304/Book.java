@@ -7,7 +7,7 @@ public class Book {
     private final String author;
     private final int year;
 
-    public Book (String title, String author, int year){
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -15,8 +15,8 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book book)) return false;
+        if (this == o) { return true; }
+        if (!(o instanceof Book book)) { return false; }
         return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 
@@ -27,10 +27,10 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                '}';
+        return "Book{"
+                + "title='" + title + '\''
+                + ", author='" + author + '\''
+                + ", year=" + year
+                + '}';
     }
 }
