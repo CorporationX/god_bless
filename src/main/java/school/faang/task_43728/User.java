@@ -12,8 +12,8 @@ public class User {
     private String job;
     private String address;
 
-    public User(String name, int age, String job, String address) throws Exception {
-        if (name.isEmpty()) {
+    public User(String name, int age, String job, String address) throws IllegalArgumentException {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя пользователя не может быть пустым!");
         }
         if (age < VALID_AGE) {
