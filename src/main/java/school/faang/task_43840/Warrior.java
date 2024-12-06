@@ -16,9 +16,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        if (character != null) {
-            int updatedHealth = Math.max(character.getHealth() - strength, 0);
-            character.setHealth(updatedHealth);
-        }
+        damageHealth(character, strength);
     }
 }
