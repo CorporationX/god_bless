@@ -56,3 +56,23 @@ out/
 .vscode/
 README
 README.md
+
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Иконки
+Icon?
+
+# Файлы Thumbs
+._*
+
+# Временные файлы macOS
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.fseventsd
+
+# macOS настройка папок
+*.localized
