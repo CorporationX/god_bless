@@ -5,5 +5,6 @@ public class Main {
         App app = new App();
         app.printMessage("Открытие магазина ожидается через 2 месяца");
         app.printMessage("Открытие магазина ожидается через 4 дня");
+        app.printMessage("BJS2-44263");
     }
 }
