@@ -1,4 +1,4 @@
-package test.school.faang.sprint_1.task_45264;
+package school.faang.sprint_1.task_45264;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
