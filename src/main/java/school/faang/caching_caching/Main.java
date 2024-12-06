@@ -2,15 +2,15 @@ package school.faang.caching_caching;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        WeatherService service = new WeatherService();
-        StandardWeatherCache standardWeatherCache = new StandardWeatherCache(service);
-        FrequentUpdateWeatherCache frequentUpdateWeatherCache = new FrequentUpdateWeatherCache(service);
-
-        WeatherData oldCache;
+        final WeatherService service = new WeatherService();
+        final StandardWeatherCache standardWeatherCache = new StandardWeatherCache(service);
+        final FrequentUpdateWeatherCache frequentUpdateWeatherCache = new FrequentUpdateWeatherCache(service);
 
         WeatherData moscowWeather = standardWeatherCache.getWeatherData("Moscow", 0);
         System.out.println(moscowWeather);
         System.out.println(" ");
+
+        WeatherData oldCache;
 
         System.out.println("Test: update cache by expiration");
         oldCache = moscowWeather;
@@ -65,8 +65,6 @@ public class Main {
         standardWeatherCache.clearExpiredCache(0);
         moscowWeather = standardWeatherCache.getWeatherData("Moscow", 0);
         yekaterinburgWeather = standardWeatherCache.getWeatherData("Yekaterinburg", 0);
-        System.out.println(moscowWeather);
-        System.out.println(yekaterinburgWeather);
         if (oldCache != moscowWeather && oldCache2 != yekaterinburgWeather) {
             System.out.println("Test result: GOOD");
         } else {

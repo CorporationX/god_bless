@@ -6,6 +6,8 @@ public abstract class WeatherCacheTemplate {
     static HashMap<String, WeatherData> weatherCache = new HashMap<>();
     WeatherProvider provider;
 
+    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+
     public WeatherCacheTemplate(WeatherProvider provider) {
         this.provider = provider;
     }
@@ -19,17 +21,16 @@ public abstract class WeatherCacheTemplate {
             forceCacheUpdate(city);
         }
         return weatherCache.get(city);
-    };
+    }
 
     protected void forceCacheUpdate(String city) {
         weatherCache.put(city, provider.fetchWeatherData(city));
         System.out.println("Cache updated: " + city);
-    };
+    }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         weatherCache.entrySet().removeIf(entry ->
                 entry.getValue().getTimestamp() + maxCacheAgeMillis < System.currentTimeMillis());
         System.out.println("all expired cache was removed");
     }
-    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 }
