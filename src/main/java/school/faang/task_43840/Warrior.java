@@ -1,10 +1,5 @@
 package school.faang.task_43840;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Warrior extends Character {
 
     public Warrior(String name) {
@@ -16,6 +11,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        damageHealth(character, strength);
+        if (character != null) {
+            character.reduceHealth(strength);
+        }
     }
 }

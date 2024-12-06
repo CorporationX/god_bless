@@ -25,11 +25,8 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    protected void damageHealth(Character character, int ability) {
-        if (character != null) {
-            int updatedHealth = Math.max(character.getHealth() - ability, 0);
-            character.setHealth(updatedHealth);
-        }
+    protected void reduceHealth(int value) {
+        health = Math.max(health - value, 0);
     }
 
     public abstract void attack(Character character);
