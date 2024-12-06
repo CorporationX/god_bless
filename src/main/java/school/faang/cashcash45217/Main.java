@@ -1,7 +1,6 @@
-package school.faang.cash_cash_45217;
+package school.faang.cashcash45217;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -10,7 +9,6 @@ public class Main {
 
         Student alice = new Student(1, "Alice");
         Student ilya = new Student(2, "Ilya");
-
         Subject math = new Subject(1, "Mathematic");
         Subject fis = new Subject(2, "Physics");
 

@@ -1,4 +1,4 @@
-package school.faang.cash_cash_45217;
+package school.faang.cashcash45217;
 
 import java.util.ArrayList;
 import java.util.HashMap;

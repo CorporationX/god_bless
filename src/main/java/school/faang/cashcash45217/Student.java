@@ -1,4 +1,4 @@
-package school.faang.cash_cash_45217;
+package school.faang.cashcash45217;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 
-public class Subject {
+public class Student {
     private int id;
     private String name;
 }
