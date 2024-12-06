@@ -5,14 +5,9 @@ import java.util.*;
 public class ProductRepository {
     private Map<String, Set<Product>> productsByCategory = new HashMap<>();
 
-    public void addItem(String category, String name, int quantity) {
-        Product product = new Product(name, category, quantity);
-        Set<Product> products = productsByCategory.putIfAbsent(category, new HashSet<>());
-        if (products != null) {
-            products.add(product);
-        } else {
-            productsByCategory.get(category).add(product);
-        }
+    public void addItem(String category, String name) {
+        Product product = new Product(name, category);
+        productsByCategory.computeIfAbsent(category, k -> new HashSet<>()).add(product);
     }
 
     public void removeItem(String category, String name) {
@@ -22,7 +17,7 @@ public class ProductRepository {
             boolean success = false;
             while (iterator.hasNext()) {
                 Product product = iterator.next();
-                if (product.getName().equals(name)) {
+                if (Objects.equals(product.getName(), name)) {
                     iterator.remove();
                     success = true;
                 }
@@ -36,10 +31,8 @@ public class ProductRepository {
     }
 
     public Set<Product> findItemsByCategory(String category) {
-        if (!productsByCategory.containsKey(category)) {
-            throw new IllegalArgumentException("category not found");
-        }
-        return productsByCategory.get(category);
+        return Optional.ofNullable(productsByCategory.get(category)).orElseThrow(
+                () -> new IllegalArgumentException("category not found"));
     }
 
     public void printAllItems() {
