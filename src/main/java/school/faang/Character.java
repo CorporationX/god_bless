@@ -14,9 +14,9 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = GameProperties.STRENGTH_DEFAULT;
-        this.agility = GameProperties.AGILLITY_DEFAULT;
-        this.intelligence = GameProperties.INTELLIGENCE_DEFAULT;
+        this.strength = GameProperties.Strength_Default;
+        this.agility = GameProperties.Agility_Default;
+        this.intelligence = GameProperties.Intelligence_Default;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -24,7 +24,7 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health = GameProperties.DEFAULT_HEALTH;
+        this.health = GameProperties.Default_Health;
     }
 
     public abstract void attack(Character character);
