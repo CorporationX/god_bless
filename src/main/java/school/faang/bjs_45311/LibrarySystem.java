@@ -42,8 +42,8 @@ public class LibrarySystem {
     }
 
     public void printAllBooks() {
-        booksWithLocation.forEach((key, value) -> log.info(key.toString() + ":" +
-                value));
+        booksWithLocation.forEach((key, value) -> log.info(key.toString() + ":"
+                + value));
     }
 
     private boolean checkBooksParameters(String title, String author) {
