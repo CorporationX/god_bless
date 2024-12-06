@@ -11,8 +11,7 @@ public class Student {
     private final int id;
     private final String name;
 
-    public Student(String name)
-    {
+    public Student(String name) {
         this.id = counter++;
         this.name = name;
     }
