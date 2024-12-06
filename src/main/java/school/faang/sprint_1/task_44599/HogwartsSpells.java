@@ -38,7 +38,9 @@ public class HogwartsSpells {
                     spellsByType.remove(spellEvent.getEventType());
                 }
             }
-        } else System.out.println("SpellEvent with id: " + id + ", not exist");
+        } else {
+            System.out.println("SpellEvent with id: " + id + ", not exist");
+        }
     }
 
     public void printAllSpellEvents() {
