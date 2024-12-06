@@ -19,14 +19,14 @@ public class Product {
 
     public Product(String name, CategoryType category) {
         this.id = UUID.randomUUID();
-        if (validation(name)) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
-        }
+        validateName(name);
         this.name = name;
         this.category = category;
     }
 
-    private boolean validation(String argument) {
-        return argument != null && !argument.isBlank();
+    private void validateName(String argument) {
+        if (argument == null || argument.isBlank()) {
+            throw new IllegalArgumentException("Argument cannot be null or empty");
+        }
     }
 }

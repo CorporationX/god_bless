@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,8 +14,7 @@ import school.faang.task_45138.entity.Product;
 
 public class ProductStorage {
     private static final Logger log = LoggerFactory.getLogger(ProductStorage.class);
-    private final HashSet<Product> products = new HashSet<>();
-
+    private final Set<Product> products = new HashSet<>();
 
     public void addItem(Product product) throws IllegalArgumentException {
         boolean isAdded = products.add(product);
@@ -24,7 +24,6 @@ public class ProductStorage {
         log.info("Product {} successfully added", product.getName());
     }
 
-
     public void removeItem(Product productToRemove) throws IllegalArgumentException {
         boolean isRemoved = products.remove(productToRemove);
         if (!isRemoved) {
@@ -33,7 +32,6 @@ public class ProductStorage {
         log.info("Removed product from category: {} and product name: {}",
                 productToRemove.getCategory(), productToRemove.getName());
     }
-
 
     public List<Product> findItemsByCategory(CategoryType category) {
         List<Product> productsFound = products.stream()
@@ -45,7 +43,6 @@ public class ProductStorage {
         }
         return productsFound;
     }
-
 
     public void printAllItems() {
         System.out.println("=== All Products ===");
@@ -63,7 +60,7 @@ public class ProductStorage {
      * @param products the set of products to group.
      * @return a map where the key is the product category and the value is a list of products in that category.
      */
-    public static Map<CategoryType, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+    public Map<CategoryType, List<Product>> groupProductsByCategory(HashSet<Product> products) {
         return products.stream()
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.toList()));
     }
