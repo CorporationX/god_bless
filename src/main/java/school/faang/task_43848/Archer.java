@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Archer extends Character {
 
     public Archer(String name) {
-        super(name, CharactersStats.ARCHER_STRENGTH, CharactersStats.ARCHER_AGILITY, CharactersStats.ARCHER_INTELLIGENCE);
+        super(name, GameConfig.ARCHER_STRENGTH, GameConfig.ARCHER_AGILITY, GameConfig.ARCHER_INTELLIGENCE);
     }
 
     @Override

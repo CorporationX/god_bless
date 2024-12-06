@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Warrior extends Character {
 
     public Warrior(String name) {
-        super(name, CharactersStats.WARRIOR_STRENGTH, CharactersStats.WARRIOR_AGILITY, CharactersStats.WARRIOR_INTELLIGENCE);
+        super(name, GameConfig.WARRIOR_STRENGTH, GameConfig.WARRIOR_AGILITY, GameConfig.WARRIOR_INTELLIGENCE);
     }
 
     @Override

@@ -3,7 +3,7 @@ package school.faang.task_43848;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class CharactersStats {
+public class GameConfig {
     public static final int DEFAULT_STRENGTH = 5;
     public static final int DEFAULT_AGILITY = 5;
     public static final int DEFAULT_INTELLIGENCE = 5;

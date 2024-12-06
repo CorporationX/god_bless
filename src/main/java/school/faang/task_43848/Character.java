@@ -15,7 +15,7 @@ public abstract class Character {
     private boolean alive = true;
 
     public Character(String name) {
-        this(name, CharactersStats.DEFAULT_STRENGTH, CharactersStats.DEFAULT_AGILITY, CharactersStats.DEFAULT_INTELLIGENCE);
+        this(name, GameConfig.DEFAULT_STRENGTH, GameConfig.DEFAULT_AGILITY, GameConfig.DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
