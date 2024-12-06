@@ -28,7 +28,7 @@ public class User {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%s (%d), works at %s, lives at %s", name, age, work, address);
     }
 }
