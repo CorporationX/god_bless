@@ -2,7 +2,6 @@ package school.faang.bjs243903;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Random;
 
 @Getter
@@ -24,7 +23,6 @@ public abstract class Character {
         this.agility = (int) (agility * characterLuck);
         this.intellect = (int) (intellect * characterLuck);
         this.health = Constants.MAX_HEALTH;
-
     }
 
     public abstract void attack(Character character);
