@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,25 +20,17 @@ public class User {
     private int age;
     private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        if (!validInputParameters(users, activities)) {
-            return Collections.emptyMap();
-        }
-
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
             boolean found = false;
             for (String activity : user.activities) {
-                if (activities.contains(activity) && !found) {
+                if (hobbies.contains(activity) && !found) {
                     hobbyLovers.put(user, activity);
                     found = true;
                 }
             }
         }
         return hobbyLovers;
-    }
-
-    private static boolean validInputParameters(List<User> users, Set<String> activities) {
-        return users != null && activities != null && !users.isEmpty() && !activities.isEmpty();
     }
 }
