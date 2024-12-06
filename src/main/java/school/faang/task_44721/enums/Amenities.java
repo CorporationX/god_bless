@@ -1,4 +1,4 @@
-package school.faang.task_43514.enums;
+package school.faang.task_44721.enums;
 
 public enum Amenities {
     WIFI,

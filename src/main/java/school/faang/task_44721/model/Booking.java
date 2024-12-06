@@ -1,4 +1,4 @@
-package school.faang.task_43514.model;
+package school.faang.task_44721.model;
 
 import java.time.LocalDateTime;
 

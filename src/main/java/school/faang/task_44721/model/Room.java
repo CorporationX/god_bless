@@ -1,9 +1,9 @@
-package school.faang.task_43514.model;
+package school.faang.task_44721.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import school.faang.task_43514.enums.Amenities;
-import school.faang.task_43514.enums.RoomType;
+import school.faang.task_44721.enums.Amenities;
+import school.faang.task_44721.enums.RoomType;
 
 import java.util.Set;
 

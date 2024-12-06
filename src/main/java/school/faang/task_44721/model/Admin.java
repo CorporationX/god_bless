@@ -1,7 +1,7 @@
-package school.faang.task_43514.model;
+package school.faang.task_44721.model;
 
-import school.faang.task_43514.BookingObserver;
-import school.faang.task_43514.enums.BookingStatus;
+import school.faang.task_44721.BookingObserver;
+import school.faang.task_44721.enums.BookingStatus;
 
 public class Admin implements BookingObserver {
     @Override

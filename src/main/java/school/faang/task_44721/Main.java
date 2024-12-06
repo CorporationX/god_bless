@@ -1,9 +1,9 @@
-package school.faang.task_43514;
+package school.faang.task_44721;
 
-import school.faang.task_43514.enums.Amenities;
-import school.faang.task_43514.enums.RoomType;
-import school.faang.task_43514.model.Admin;
-import school.faang.task_43514.model.Room;
+import school.faang.task_44721.enums.Amenities;
+import school.faang.task_44721.enums.RoomType;
+import school.faang.task_44721.model.Admin;
+import school.faang.task_44721.model.Room;
 
 import java.time.LocalDateTime;
 import java.util.Set;

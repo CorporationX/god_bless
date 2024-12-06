@@ -1,7 +1,7 @@
-package school.faang.task_43514;
+package school.faang.task_44721;
 
-import school.faang.task_43514.enums.BookingStatus;
-import school.faang.task_43514.model.Booking;
+import school.faang.task_44721.enums.BookingStatus;
+import school.faang.task_44721.model.Booking;
 
 import java.util.HashSet;
 import java.util.Set;
