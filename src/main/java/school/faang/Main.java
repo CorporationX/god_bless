@@ -21,7 +21,7 @@ public class Main {
             System.out.println("Age: " + entry.getKey());
 
             for (User user : entry.getValue()) {
-                System.out.println("Name" + user.getName());
+                System.out.println("Name: " + user.getName());
             }
         }
     }
