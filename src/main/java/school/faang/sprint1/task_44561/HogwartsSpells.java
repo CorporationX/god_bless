@@ -44,8 +44,9 @@ public class HogwartsSpells {
 
     public static boolean deleteSpellEvent(Integer id) {
         try {
-            SPELLS_BY_TYPE.get(getSpellEventById(id).getEventType()).remove(getSpellEventById(id));
-            SPELL_BY_ID.remove(id, getSpellEventById(id));
+            SpellEvent spellEvent = getSpellEventById(id);
+            SPELLS_BY_TYPE.get(spellEvent.getEventType()).remove(spellEvent);
+            SPELL_BY_ID.remove(id, spellEvent);
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
             return false;
