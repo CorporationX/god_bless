@@ -2,7 +2,7 @@ package school.faang.task_43729;
 
 import java.util.Set;
 
-public class User{
+public class User {
 
     private String name;
     private int age;
@@ -62,7 +62,7 @@ public class User{
         this.address = address;
     }
 
-    public User(String name, int age, String job, String address){
+    public User(String name, int age, String job, String address) {
 
         checkValidity(name, age, job, address);
         this.name = name;
