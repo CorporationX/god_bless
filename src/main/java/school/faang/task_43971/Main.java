@@ -1,6 +1,7 @@
 package school.faang.task_43971;
 
 import java.util.List;
+import java.util.Map;
 
 import static school.faang.task_43971.User.groupUsers;
 
@@ -12,7 +13,11 @@ public class Main {
                 new User("Arnold", 44, "Tik-Tok", "Home"),
                 new User("Laqvanda", 44, "Yandex", "Zelepupinsk"));
 
-        System.out.println(groupUsers(userList));//NOSONAR norm
+        Map<Integer, List<User>> returnedGroupedUsers = User.groupUsers(userList);
 
+        for (Map.Entry<Integer, List<User>> element : returnedGroupedUsers.entrySet()) {
+            System.out.println(element);
+
+        }
     }
 }
