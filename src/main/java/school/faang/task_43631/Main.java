@@ -9,7 +9,7 @@ public class Main {
 
         List<User> userList = List.of(new User("John", 30, "Amazon", "Canada"),
                 new User("Samanta", 15, "Google", "Florida"),
-                new User("Silvester", 56, "VK", "Derevnya"),
+                new User("Silvester", 56, "VK", "Direvnya"),
                 new User("Arnold", 44, "Tik-Tok", "Home"),
                 new User("Laqvanda", 44, "Yandex", "Zelepupinsk"));
 
