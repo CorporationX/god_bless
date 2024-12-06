@@ -69,7 +69,12 @@ public class HogwartsSpells {
         if (spellById.get(id) == null) {
             throw new IllegalArgumentException(id + " does not exist");
         }
-        spellByType.remove(spellById.get(id).getType());
+        SpellEvent deletedSpell = spellById.remove(id);
+        if (deletedSpell == null) {
+            throw new IllegalArgumentException("Can't remove " + id + " spell event");
+        }
+        List<SpellEvent> spellsByDeletedSpellType = spellByType.get(deletedSpell.getType());
+        spellsByDeletedSpellType.remove(deletedSpell);
         spellById.remove(id);
         log.info("Event {} has been deleted", id);
     }
