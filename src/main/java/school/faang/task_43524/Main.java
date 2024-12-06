@@ -20,7 +20,6 @@ public class Main {
                 (item) -> new Item(item.getName(), item.getValue() * 2)
         );
 
-// Проверяем результат
-        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+        frodo.getItems().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
     }
 }

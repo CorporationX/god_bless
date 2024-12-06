@@ -3,6 +3,7 @@ package school.faang.task_43524;
 import school.faang.task_43524.model.Character;
 import school.faang.task_43524.model.Item;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -18,11 +19,16 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> action) {
-        Item item = character.getItems().stream()
+        List<Item> items = character.getItems();
+
+        Item item = items.stream()
                 .filter(predicate)
                 .findFirst()
                 .orElseThrow();
 
-        item = action.apply(item);
+        Item newItem = action.apply(item);
+
+        items.remove(item);
+        items.add(newItem);
     }
 }
