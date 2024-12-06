@@ -10,22 +10,21 @@ public class HogwartsSpells {
     private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
     private static final Map<String, List<SpellEvent>> SPELLS_BY_TYPE = new HashMap<>();
 
-    public static boolean addSpellEvent(int id, String eventType, String actionDescription) {
+    public static boolean addSpellEvent(Integer id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         SPELL_BY_ID.put(id, spellEvent);
 
-        if (!SPELLS_BY_TYPE.containsKey(spellEvent.getEventType())) {
-            SPELLS_BY_TYPE.put(spellEvent.getEventType(), new LinkedList<>());
-        } else if (SPELLS_BY_TYPE.get(spellEvent.getEventType()).contains(spellEvent)) {
+        SPELLS_BY_TYPE.putIfAbsent(eventType, new LinkedList<>());
+        if (SPELLS_BY_TYPE.get(eventType).contains(spellEvent)) {
             System.out.println("Такое заклинание уже существует");
             return false;
         }
-        SPELLS_BY_TYPE.get(spellEvent.getEventType()).add(spellEvent);
+        SPELLS_BY_TYPE.get(eventType).add(spellEvent);
         return true;
     }
 
-    public static SpellEvent getSpellEventById(int id) {
+    public static SpellEvent getSpellEventById(Integer id) {
         SpellEvent responseEvent = SPELL_BY_ID.get(id);
 
         if (responseEvent == null) {
@@ -43,7 +42,7 @@ public class HogwartsSpells {
         return responseEvents;
     }
 
-    public static boolean deleteSpellEvent(int id) {
+    public static boolean deleteSpellEvent(Integer id) {
         try {
             SPELLS_BY_TYPE.get(getSpellEventById(id).getEventType()).remove(getSpellEventById(id));
             SPELL_BY_ID.remove(id, getSpellEventById(id));
