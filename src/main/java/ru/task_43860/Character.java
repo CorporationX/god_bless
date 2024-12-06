@@ -1,14 +1,27 @@
 package ru.task_43860;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
-    private int strong;
+    private int strength;
     private int dexterity;
     private int intelligence;
+    private String name;
     private int health = 100;
-    private static String name;
 
-    public Character(int strong, int dexterity, int intelligence) {
-        this.strong = strong;
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public Character(int strength, int dexterity, int intelligence) {
+        this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
     }
@@ -20,46 +33,6 @@ public abstract class Character {
     public Character() {
     }
 
-    public int getStrong() {
-        return strong;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setStrong(int strong) {
-        this.strong = strong;
-    }
-
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public abstract int attack (Character character);
+    public abstract void attack(Character character);
 
 }

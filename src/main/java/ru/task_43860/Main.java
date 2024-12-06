@@ -5,8 +5,11 @@ public class Main {
         Warrior knight = new Warrior();
         Archer samurai = new Archer();
 
-        int result = knight.attack(samurai);
-        System.out.println("Результат атаки " + result);
+        knight.attack(samurai);
+        System.out.println(samurai.getStrength());
+        System.out.println(samurai.getHealth());
+        System.out.println(knight.getStrength());
+        System.out.println(knight.getHealth());
     }
 
 }
