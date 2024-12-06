@@ -1,12 +1,8 @@
 package ru.task_43860;
 
 public class Archer extends Character {
-    public Archer() {
-        super(3, 10, 5);
-    }
-
     public Archer(String name) {
-        super(name);
+        super(name, 3, 10, 5);
     }
 
     @Override
