@@ -9,7 +9,10 @@ public class Main {
 
         for (int i = 0; i < 15; i++) {
             archer.attack(warrior);
-            System.out.printf("%s attacks %s: remained health %d \n", archer.getName(), warrior.getName(), warrior.getHealth());
+            System.out.printf("%s attacks %s: remained health %d \n",
+                    archer.getName(),
+                    warrior.getName(),
+                    warrior.getHealth());
             if (warrior.getHealth() <= 0) {
                 System.out.printf("%s is killed %n \n", warrior.name);
                 break;
@@ -18,7 +21,10 @@ public class Main {
 
         for (int i = 0; i < 15; i++) {
             warrior2.attack(archer);
-            System.out.printf("%s attacks %s: remained health %d \n", warrior2.getName(), archer.getName(), archer.getHealth());
+            System.out.printf("%s attacks %s: remained health %d \n",
+                    warrior2.getName(),
+                    archer.getName(),
+                    archer.getHealth());
             if (archer.getHealth() <= 0) {
                 System.out.printf("%s is killed %n \n", archer.name);
                 break;

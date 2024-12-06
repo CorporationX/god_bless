@@ -1,6 +1,6 @@
 package school.faang.sprint_1.task_abstractionbsj2n43974;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     private final static int WARRIOR_STRENGTH = 10;
     private final static int WARRIOR_AGILITY = 5;
     private final static int WARRIOR_INTELLECT = 3;

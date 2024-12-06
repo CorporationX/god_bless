@@ -1,15 +1,12 @@
 package school.faang.sprint_1.task_abstractionbsj2n43974;
 
 public class Archer extends Character {
-    private final static int WARRIOR_STRENGTH = 3;
-    private final static int WARRIOR_AGILITY = 10;
-    private final static int WARRIOR_INTELLECT = 5;
 
     public Archer(String name) {
         super(name);
-        this.strength = WARRIOR_STRENGTH;
-        this.agility = WARRIOR_AGILITY;
-        this.intellect = WARRIOR_INTELLECT;
+        this.strength = 3;
+        this.agility = 10;
+        this.intellect = 5;
     }
 
     public Archer(String name, int strength, int agility, int intellect) {
