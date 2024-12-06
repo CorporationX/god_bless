@@ -33,10 +33,7 @@ public abstract class Character {
         if (damage < 0) {
             throw new RuntimeException("Damage can not be negative");
         }
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0D;
-        }
+        this.health = Math.max(this.health - damage, 0D);
     }
 
     public boolean isAlive() {
