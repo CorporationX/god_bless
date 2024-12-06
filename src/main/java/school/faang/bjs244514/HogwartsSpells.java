@@ -10,9 +10,10 @@ public class HogwartsSpells {
     private static Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public static void addSpellEvent(int id, String eventType, String actionDescription) {
-        spellById.put(id, new SpellEvent(id, eventType, actionDescription));
+        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        spellById.put(id, spellEvent);
         spellsByType.computeIfAbsent(eventType, (type) -> new ArrayList<>())
-                .add(new SpellEvent(id, eventType, actionDescription));
+                .add(spellEvent);
     }
 
     public static SpellEvent getSpellEventById(int id) {
@@ -24,9 +25,8 @@ public class HogwartsSpells {
     }
 
     public static void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = spellById.get(id);
+        SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
-            spellById.remove(id);
             spellsByType.remove(spellEvent.getName());
         } else {
             System.out.println("Объект с номером " + id + " не найден в наших картах");
