@@ -21,30 +21,6 @@ public class Product {
         this.category = category;
     }
 
-    void addItem(String category, String name) {
-        Product product = new Product(name, category);
-        productCategories.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
-    }
-
-    void removeItem(String category, String name) {
-        List<Product> products = productCategories.get(category);
-        if (products != null) {
-            products.removeIf(product -> product.getName().contains(name));
-            if (products.isEmpty()) {
-                productCategories.remove(category);
-            }
-        }
-    }
-
-    void findItemsByCategory(String category) {
-        if (!productCategories.containsKey(category)) {
-            System.out.printf("List of products by category %s not founded\n", category);
-        } else {
-            System.out.println(productCategories.get(category));
-
-        }
-    }
-
     private static int generateId() {
         return ++counterId;
     }
