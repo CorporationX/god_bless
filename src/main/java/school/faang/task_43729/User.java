@@ -1,25 +1,16 @@
 package school.faang.task_43729;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public class User{
 
-    public static final Set<String> VALID_JOBS = new HashSet<>();
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>();
+    private String name;
+    private int age;
+    private String job;
+    private String address;
 
-    private void initDefaultJobAndAddresses() {
-        String[] listDefaultJob = new String[]{"Google", "Uber", "Amazon"};
-        String[] listDefaultAddresses = new String[]{"London", "New York", "Amsterdam"};
-
-        if (VALID_JOBS.isEmpty()) {
-            Collections.addAll(VALID_JOBS, listDefaultJob);
-        }
-        if (VALID_ADDRESSES.isEmpty()) {
-            Collections.addAll(VALID_ADDRESSES, listDefaultAddresses);
-        }
-    }
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     @Override
     public String toString() {
@@ -38,12 +29,6 @@ public class User{
     public static void addValidAddress(String address) {
         VALID_ADDRESSES.add(address);
     }
-
-    private String name;
-    private int age;
-    private String job;
-    private String address;
-
 
     public String getName() {
         return name;
@@ -88,11 +73,7 @@ public class User{
 
     private void checkValidity(String name, int age, String job, String address) throws IllegalArgumentException {
 
-        initDefaultJobAndAddresses();
-        if (name.isEmpty()
-                | age < 18
-                | !VALID_ADDRESSES.contains(address)
-                | !VALID_JOBS.contains(job)
+        if (name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(job)
 
         ) {
             throw new IllegalArgumentException("Arguments failed validation when created");
