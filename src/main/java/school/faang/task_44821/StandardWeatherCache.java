@@ -9,12 +9,12 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
 
     @Override
     protected boolean isCacheValid(City city) {
-        if (!weatherCache.containsKey(city)) {
+        if (!getWeatherCache().containsKey(city)) {
             return false;
         }
 
         long currentTime = System.currentTimeMillis();
-        long weatherDataTime = weatherCache.get(city).getTimestamp();
+        long weatherDataTime = getWeatherCache().get(city).getTimestamp();
 
         return currentTime - weatherDataTime < maxCacheAgeMillis;
     }
@@ -22,6 +22,6 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
     @Override
     protected void updateWeatherData(City city) {
         WeatherData updatedWeatherData = weatherProvider.fetchWeatherData(city);
-        weatherCache.put(city, updatedWeatherData);
+        getWeatherCache().put(city, updatedWeatherData);
     }
 }

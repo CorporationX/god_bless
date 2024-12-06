@@ -1,10 +1,13 @@
 package school.faang.task_44821;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public abstract class WeatherCacheTemplate {
-    public final Map<City, WeatherData> weatherCache = new HashMap<>();
+    private final Map<City, WeatherData> weatherCache = new HashMap<>();
 
     public WeatherData getWeatherData(City city) {
         if (!isCacheValid(city)) {
