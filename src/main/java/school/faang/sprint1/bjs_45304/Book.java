@@ -15,8 +15,12 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (!(o instanceof Book book)) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Book book)) {
+            return false;
+        }
         return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 
