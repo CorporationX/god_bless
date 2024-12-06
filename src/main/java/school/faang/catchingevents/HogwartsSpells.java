@@ -24,12 +24,18 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        spellById.remove(id);
+        SpellEvent spellEvent = spellById.remove(id);
+        ;
+        if (spellEvent != null) {
+            spellsByType.remove(spellEvent.getEventType());
+        }
     }
 
     public void printAllSpellEvents() {
-        for (SpellEvent spellEvent : spellById.values()) {
-            System.out.println(spellEvent.getId() + ", " + spellEvent.getEventType() + ", " + spellEvent.getAction());
+        for (Map.Entry<Integer, SpellEvent> spellEvent : spellById.entrySet()) {
+            System.out.println(spellEvent.getKey() + ", " + spellEvent.getValue().getEventType()
+                    + ", " + spellEvent.getValue().getAction());
+
         }
     }
 }
