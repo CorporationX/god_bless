@@ -1,11 +1,11 @@
-package school.faang;
+package school.faang.bjs243678;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    List<User> users = new ArrayList<>(){
+    List<User> users = new ArrayList<>() {
         {
             add(new User("", 19, "Workplace0", "Address0"));
             add(new User("Name1", 19, "Workplace1", "Address1"));
