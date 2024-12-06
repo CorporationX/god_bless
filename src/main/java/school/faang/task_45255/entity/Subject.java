@@ -13,10 +13,11 @@ import java.util.UUID;
 @ToString
 public class Subject {
     @ToString.Exclude
-    private final UUID id = UUID.randomUUID();
+    private final UUID id;
     private String title;
 
     public Subject(String title) throws IllegalArgumentException {
+        this.id = UUID.randomUUID();
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
         }

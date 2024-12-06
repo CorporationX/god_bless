@@ -28,7 +28,7 @@ public class Main {
         studentDatabase.printStudents();
 
         try {
-            studentDatabase.addSubjects(math,student1);
+            studentDatabase.addSubjects(math, student1);
             studentDatabase.addSubjects(science, student2);
             studentDatabase.addSubjects(history, student3);
         } catch (IllegalArgumentException e) {

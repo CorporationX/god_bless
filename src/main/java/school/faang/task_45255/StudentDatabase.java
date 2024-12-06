@@ -21,7 +21,7 @@ public class StudentDatabase {
             throw new IllegalArgumentException("note should be less then 5 or greater than 0");
         }
         subjects.put(subject, note);
-        log.info("To student {} added {} with note {}", student.getName(), subject.getTitle(),note);
+        log.info("To student {} added {} with note {}", student.getName(), subject.getTitle(), note);
     }
 
     public void removeStudents(Student student) throws IllegalArgumentException {
@@ -36,7 +36,7 @@ public class StudentDatabase {
         students.forEach((key, value) -> System.out.println("Student " + key.getName() + " " + value));
     }
 
-    public void addSubjects(Subject subject, Student student) throws IllegalArgumentException {
+    public void addSubjects(Subject subject, Student student) {
         List<Student> studentsInSubjects = subjects.computeIfAbsent(subject, k -> new ArrayList<>());
         studentsInSubjects.add(student);
         log.info("To subjects {} added {}", subject.getTitle(), student.getName());
