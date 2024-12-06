@@ -19,12 +19,12 @@ public class HogwartsSpells {
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        spellsByType.computeIfAbsent(spellEvent.getEventType(),k -> new ArrayList<>()).add(spellEvent);
+        spellsByType.computeIfAbsent(spellEvent.getEventType(), k -> new ArrayList<>()).add(spellEvent);
     }
 
     public String getSpellEventById(int id) {
         if (!spellById.containsKey(id)) {
-            return  null;
+            return null;
         }
         return spellById.get(id).toString();
     }
