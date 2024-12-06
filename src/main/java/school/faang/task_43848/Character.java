@@ -2,20 +2,23 @@ package school.faang.task_43848;
 
 import lombok.Getter;
 
+import static school.faang.task_43848.GameConfig.DEFAULT_STRENGTH;
+import static school.faang.task_43848.GameConfig.DEFAULT_AGILITY;
+import static school.faang.task_43848.GameConfig.DEFAULT_INTELLIGENCE;
+
 @Getter
 public abstract class Character {
     private static final int DEFAULT_HEALTH = 100;
     private static final int MIN_HEALTH = 0;
 
-    protected final String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
     private int health = DEFAULT_HEALTH;
-    private boolean alive = true;
 
     public Character(String name) {
-        this(name, GameConfig.DEFAULT_STRENGTH, GameConfig.DEFAULT_AGILITY, GameConfig.DEFAULT_INTELLIGENCE);
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -27,10 +30,13 @@ public abstract class Character {
 
     public abstract void attack(Character defender);
 
-    public void setHealth(int newHealth) {
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    protected void setHealth(int newHealth) {
         if (newHealth < MIN_HEALTH) {
             health = MIN_HEALTH;
-            alive = false;
         } else {
             health = newHealth;
         }

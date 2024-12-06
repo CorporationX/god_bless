@@ -17,10 +17,17 @@ public class Main {
         System.out.println("Battle is starting");
         while (attacker.isAlive() && defender.isAlive()) {
             attacker.attack(defender);
+            if (!defender.isAlive()) {
+                System.out.println("Battle is ended. Winner: " + attacker.getName());
+                break;
+            }
+
             defender.attack(attacker);
+            if (!attacker.isAlive()) {
+                System.out.println("Battle is ended. Winner: " + defender.getName());
+                break;
+            }
         }
-        String winner = attacker.isAlive() ? attacker.getName() : defender.getName();
-        System.out.print("Battle is ended. The winner is: " + winner);
     }
 }
 
