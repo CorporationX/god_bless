@@ -16,8 +16,6 @@ public class Main {
         Student student1 = new Student("Vasya");
         Student student2 = new Student("Petya");
         Student student3 = new Student("Masha");
-        Student student4 = new Student("Sveta");
-        Student student5 = new Student("Vova");
 
         List<Student> students = new ArrayList<>();
         students.add(student1);
@@ -33,6 +31,9 @@ public class Main {
 
         university.addStudentWithGrades(student1, subjects1);
         university.printGradedStudents();
+
+        Student student4 = new Student("Sveta");
+        Student student5 = new Student("Vova");
 
         university.addSubjectForStudent(student4, Subject.HISTORY, 5);
         university.addSubjectForStudent(student4, Subject.MATH, 4);

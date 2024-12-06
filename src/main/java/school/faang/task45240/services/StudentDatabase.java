@@ -32,8 +32,6 @@ public class StudentDatabase {
                 subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
             }
         }
-
-
     }
 
     public void removeStudent(Student student) {
