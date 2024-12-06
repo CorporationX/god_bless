@@ -20,16 +20,20 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        if (studentGrades.containsKey(student)) {
-            studentGrades.get(student).putIfAbsent(subject, grade);
-            subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
-        }
-    }
 
-    public void addSubjectForStudent(Student student, Map<Subject, Integer> gradedSubjects) {
-        for (Map.Entry<Subject, Integer> entry : gradedSubjects.entrySet()) {
-            studentGrades.get(student).putIfAbsent(entry.getKey(), entry.getValue());
+        Map<Subject, Integer> grades = studentGrades.get(student);
+
+        if (grades != null) {
+            grades.put(subject, grade);
+            subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+
+            if (studentGrades.containsKey(student)) {
+                studentGrades.get(student).putIfAbsent(subject, grade);
+                subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+            }
         }
+
+
     }
 
     public void removeStudent(Student student) {

@@ -29,17 +29,17 @@ public class Main {
         subjects1.put(Subject.HISTORY, 4);
         subjects1.put(Subject.SOCIOLOGY, 3);
 
-        Map<Subject, Integer> subjects2 = new HashMap<>();
-        subjects2.put(Subject.PHYSICS, 1);
-        subjects2.put(Subject.HISTORY, 1);
-        subjects2.put(Subject.PHILOSOPHY, 2);
-
         StudentDatabase university = new StudentDatabase();
 
         university.addStudentWithGrades(student1, subjects1);
         university.printGradedStudents();
 
-        university.addSubjectForStudent(student1, subjects2);
+        university.addSubjectForStudent(student4, Subject.HISTORY, 5);
+        university.addSubjectForStudent(student4, Subject.MATH, 4);
+        university.addSubjectForStudent(student1, Subject.HISTORY, 5);
+        university.addSubjectForStudent(student1, Subject.MATH, 4);
+
+        university.printGradedStudents();
 
         university.removeStudent(student1);
         university.printGradedStudents();
@@ -57,8 +57,6 @@ public class Main {
         university.removeStudentFromSubject(student1, Subject.MATH);
         university.removeStudentFromSubject(student5, Subject.MATH);
         university.printStudentSubjects();
-
-
 
 
     }
