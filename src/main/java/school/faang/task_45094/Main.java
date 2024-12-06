@@ -31,14 +31,16 @@ public class Main {
 
         printProductsByCategory(groupedProducts);
 
-        ProductService.addItem(groupedProducts, "Мебель", 5, "Диван");
+        var productService = new ProductService(groupedProducts);
 
-        ProductService.printAllItems(groupedProducts);
+        productService.addItem("Мебель", 5, "Диван");
 
-        ProductService.removeItem(groupedProducts, "Продукты", "Хлеб");
+        productService.printAllItems();
 
-        ProductService.printAllItems(groupedProducts);
+        productService.removeItem("Продукты", "Хлеб");
 
-        ProductService.findItemsByCategory(groupedProducts, "Бытовая химия");
+        productService.printAllItems();
+
+        productService.findItemsByCategory("Бытовая химия");
     }
 }

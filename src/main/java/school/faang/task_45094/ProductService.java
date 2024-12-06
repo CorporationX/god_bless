@@ -6,7 +6,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductService {
-    public static void addItem(Map<String, List<Product>> productMap, String category, Integer id, String name) {
+    private final Map<String, List<Product>> productMap;
+
+    public ProductService(Map<String, List<Product>> productMap) {
+        this.productMap = productMap;
+    }
+
+    public void addItem(String category, Integer id, String name) {
         try {
             var newProduct = new Product(id, name, category);
             if (productMap != null) {
@@ -17,7 +23,7 @@ public class ProductService {
         }
     }
 
-    public static void removeItem(Map<String, List<Product>> productMap, String category, String name) {
+    public void removeItem(String category, String name) {
         List<Product> products = productMap.get(category);
         if (products != null) {
             boolean removed = products.removeIf(product -> product.getName().equals(name));
@@ -31,7 +37,7 @@ public class ProductService {
         }
     }
 
-    public static void findItemsByCategory(Map<String, List<Product>> productMap, String category) {
+    public void findItemsByCategory(String category) {
         List<Product> products = productMap.get(category);
         if (products != null) {
             if (products.isEmpty()) {
@@ -45,7 +51,7 @@ public class ProductService {
         }
     }
 
-    public static void printAllItems(Map<String, List<Product>> productMap) {
+    public void printAllItems() {
         for (Map.Entry<String, List<Product>> entry : productMap.entrySet()) {
             System.out.println("Категория: " + entry.getKey()
                     + ", Товары: " + entry.getValue().stream().map(Product::getName).collect(Collectors.joining(", ")));

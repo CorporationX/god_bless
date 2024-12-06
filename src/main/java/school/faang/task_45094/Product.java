@@ -1,11 +1,11 @@
 package school.faang.task_45094;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-
-import java.util.Objects;
 
 
 @Getter
+@EqualsAndHashCode
 public class Product {
     private final Integer id;
     private final String name;
@@ -25,28 +25,5 @@ public class Product {
         this.id = id;
         this.name = name;
         this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Product product = (Product) o;
-        return Objects.equals(id, product.id)
-                && Objects.equals(name, product.name)
-                && Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 41 * result + (id != null ? id.hashCode() : 0);
-        result = 43 * result + (name != null ? name.hashCode() : 0);
-        result = 47 * result + (category != null ? category.hashCode() : 0);
-        return result;
     }
 }
