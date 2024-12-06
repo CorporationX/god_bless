@@ -1,6 +1,6 @@
 package school.faang.bjs245148;
 
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,5 +23,19 @@ public class Main {
         }
 
         manager.printAllItems();
+    }
+
+    private Map<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+        Map<String, List<Product>> groupProductsByCategory = new HashMap<>();
+        products.forEach(product -> {
+            groupProductsByCategory.computeIfAbsent(product.getCategory(), key -> new ArrayList<>()).add(product);
+        });
+        return groupProductsByCategory;
+    }
+
+    private void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
+        groupedProducts.forEach((category, products) -> {
+            System.out.println("Category :" + category + " - Products :" + products);
+        });
     }
 }
