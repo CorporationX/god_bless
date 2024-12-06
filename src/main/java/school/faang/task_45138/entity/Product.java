@@ -5,25 +5,23 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
 public class Product {
-    private static AtomicInteger idCounter = new AtomicInteger(1);
-    private int id;
-    private String name;
-    private String category;
+    private final UUID id = UUID.randomUUID();
+    private final String name;
+    private final String category;
 
     public Product(String name, String category) {
-        this.id = idCounter.getAndIncrement();
-        if (name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
-        if (category.isBlank()) {
+        if (category == null || category.isBlank()) {
             throw new IllegalArgumentException("Category cannot be null or empty");
         }
         this.category = category;
