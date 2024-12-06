@@ -12,5 +12,4 @@ public class Constants {
     public static final int ARCHER_INTELLECT = 5;
 
     public static final double MIN_LUCK = 0.5;
-    public static final double MAX_LUCK = 1.5;
 }
