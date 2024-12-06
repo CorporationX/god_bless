@@ -4,12 +4,12 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
-    protected final int MAX_HEALTH = 100;
+    protected final int max_health = 100;
     protected String name;
     protected int strength;
     protected int agility;
     protected int intellect;
-    protected int health = MAX_HEALTH;
+    protected int health = max_health;
 
     public Character(String name) {
         this.name = name;
