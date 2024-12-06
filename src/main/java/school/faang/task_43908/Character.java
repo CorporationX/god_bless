@@ -1,7 +1,10 @@
 package school.faang.task_43908;
 
+import lombok.Getter;
+
 public abstract class Character {
 
+    @Getter
     protected String name;
     protected int strength;
     protected int dexterity;
@@ -20,5 +23,9 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void takeDamage(int damage) {
+        this.health -= damage;
+    }
 
 }
