@@ -25,7 +25,6 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        ;
         if (spellEvent != null) {
             spellsByType.remove(spellEvent.getEventType());
         }
