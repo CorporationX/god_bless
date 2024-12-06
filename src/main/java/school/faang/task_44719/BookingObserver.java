@@ -2,5 +2,5 @@ package school.faang.task_44719;
 
 interface BookingObserver {
 
-    void update(Booking booking, BOOKING_STATUS status);
+    void update(Booking booking, BookingStatus status);
 }

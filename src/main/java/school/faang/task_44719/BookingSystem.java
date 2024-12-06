@@ -42,14 +42,14 @@ public class BookingSystem {
         }
         Booking booking = new Booking(nextBookingId++, room, date, timeSlot);
         bookings.put(booking.getBookingId(), booking);
-        notifier.notifyObservers(booking, BOOKING_STATUS.CREATED);
+        notifier.notifyObservers(booking, BookingStatus.CREATED);
         return booking;
     }
 
     public boolean cancelBooking(int bookingId) {
         Booking booking = bookings.remove(bookingId);
         if (booking != null) {
-            notifier.notifyObservers(booking, BOOKING_STATUS.CANCELLED);
+            notifier.notifyObservers(booking, BookingStatus.CANCELLED);
             return true;
         }
         return false;

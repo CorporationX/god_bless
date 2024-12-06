@@ -14,7 +14,7 @@ public class BookingNotifier {
         observers.remove(observer);
     }
 
-    public void notifyObservers(Booking booking, BOOKING_STATUS status) {
+    public void notifyObservers(Booking booking, BookingStatus status) {
         for (BookingObserver observer : observers) {
             observer.update(booking, status);
         }
