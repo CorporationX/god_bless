@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class StudentDatabase {
 
-    private Map<Student, Map<Subject, Integer>> gradedStudents;
-    private Map<Subject, List<Student>> studentSubjects;
+    private final Map<Student, Map<Subject, Integer>> gradedStudents;
+    private final Map<Subject, List<Student>> studentSubjects;
 
     public StudentDatabase() {
         gradedStudents = new HashMap<>();
