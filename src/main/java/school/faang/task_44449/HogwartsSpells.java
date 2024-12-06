@@ -1,18 +1,10 @@
 package school.faang.task_44449;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById;
-    private final Map<String, List<SpellEvent>> spellsByType;
-
-    public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellsByType = new HashMap<>();
-    }
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(Integer id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
@@ -21,11 +13,8 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(Integer id) {
-        var spellEvent = spellById.get(id);
-        if (spellEvent == null) {
-            throw new IllegalArgumentException("Событие по id: " + id + " не найдено");
-        }
-        return spellEvent;
+        return Optional.ofNullable(spellById.get(id))
+                .orElseThrow(() -> new IllegalArgumentException("Событие по id: " + id + " не найдено"));
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
