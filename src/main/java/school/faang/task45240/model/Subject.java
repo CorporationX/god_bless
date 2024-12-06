@@ -1,8 +1,10 @@
 package school.faang.task45240.model;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@EqualsAndHashCode
+@Getter
 public class Subject {
 
     private static int counter = 1;

@@ -1,8 +1,11 @@
 package school.faang.task45240.model;
 
-import lombok.Data;
 
-@Data
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@EqualsAndHashCode
+@Getter
 public class Student {
     private static int counter = 1;
     private final int id;
