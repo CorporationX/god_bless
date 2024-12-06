@@ -5,7 +5,7 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
-    private final static int INITIAL_HEALTH = 100;
+    private static final int INITIAL_HEALTH = 100;
 
     protected final String name;
     protected final int strength;
