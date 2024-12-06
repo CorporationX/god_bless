@@ -9,14 +9,16 @@ import lombok.ToString;
 @ToString
 @Getter
 public class Product {
-    private static int idCounter = 0;
+    private static final IdGenerator idGenerator = new IdGenerator();
+
     private final int id;
     private final String name;
     private final Category category;
 
     public Product(@NonNull Category category, @NonNull String name) {
-        this.id = idCounter++;
+        this.id = idGenerator.nextId();
         this.category = category;
         this.name = name;
     }
 }
+

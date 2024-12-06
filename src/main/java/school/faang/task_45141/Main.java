@@ -7,17 +7,17 @@ public class Main {
     public static void main(String[] args) {
         Warehouse products = new Warehouse();
 
-        products.addItem(Category.BOOKS, "Kingdom rise");
-        products.addItem(Category.CLOTHES, "Boots");
-        products.addItem(Category.ELECTRONICS, "Iphone");
-        products.addItem(Category.BOOKS, "Math");
-        products.addItem(Category.CLOTHES, "Shirt");
-        products.addItem(Category.CLOTHES, "Pants");
+        products.addItem(new Product(Category.BOOKS, "Kingdom rise"));
+        products.addItem(new Product(Category.CLOTHES, "Boots"));
+        products.addItem(new Product(Category.ELECTRONICS, "Iphone"));
+        products.addItem(new Product(Category.BOOKS, "Math"));
+        products.addItem(new Product(Category.CLOTHES, "Shirt"));
+        products.addItem(new Product(Category.CLOTHES, "Pants"));
 
         products.printAllItems();
 
-        products.removeItem(Category.BOOKS, "Lamp");
-        products.removeItem(Category.CLOTHES, "Boots");
+        products.removeItem(new Product(Category.BOOKS, "Lamp"));
+        products.removeItem(new Product(Category.CLOTHES, "Boots"));
 
         products.findItemsByCategory("Clothes");
 
