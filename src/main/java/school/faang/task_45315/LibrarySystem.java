@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    private static HashMap<Book,String> booksLocation = new HashMap<>();
+    private static HashMap<Book, String> booksLocation = new HashMap<>();
 
     public static void addBook(String title, String author, int year, String location) {
         booksLocation.put(new Book(title, author, year), location);
