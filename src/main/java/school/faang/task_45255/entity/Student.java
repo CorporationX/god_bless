@@ -1,4 +1,4 @@
-package school.faang.entity;
+package school.faang.task_45255.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

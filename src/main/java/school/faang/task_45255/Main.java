@@ -1,7 +1,7 @@
-package school.faang;
+package school.faang.task_45255;
 
-import school.faang.entity.Student;
-import school.faang.entity.Subject;
+import school.faang.task_45255.entity.Student;
+import school.faang.task_45255.entity.Subject;
 
 public class Main {
     public static void main(String[] args) {

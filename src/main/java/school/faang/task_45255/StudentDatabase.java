@@ -1,9 +1,9 @@
-package school.faang;
+package school.faang.task_45255;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import school.faang.entity.Student;
-import school.faang.entity.Subject;
+import school.faang.task_45255.entity.Student;
+import school.faang.task_45255.entity.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
