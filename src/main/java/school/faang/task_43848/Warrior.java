@@ -1,17 +1,18 @@
 package school.faang.task_43848;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Warrior extends Character {
 
     public Warrior(String name) {
-        super(name);
-        this.strength = CharactersStats.WARRIOR_STRENGTH;
-        this.agility = CharactersStats.WARRIOR_AGILITY;
-        this.intelligence = CharactersStats.WARRIOR_INTELLIGENCE;
+        super(name, CharactersStats.WARRIOR_STRENGTH, CharactersStats.WARRIOR_AGILITY, CharactersStats.WARRIOR_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character defender) {
-        System.out.println(this.getClass().getSimpleName() + " attacks " + defender.getClass().getSimpleName());
-        defender.setHealth(defender.getHealth() - this.strength);
+        log.info(name + " attacks " + defender.name);
+        int healthAfterAttack = defender.getHealth() - strength;
+        defender.setHealth(healthAfterAttack);
     }
 }

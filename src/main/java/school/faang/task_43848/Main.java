@@ -19,13 +19,8 @@ public class Main {
             attacker.attack(defender);
             defender.attack(attacker);
         }
-        System.out.print("Battle is ended. The winner is: ");
-        if (attacker.isAlive()) {
-            System.out.println(attacker.getClass().getSimpleName());
-        } else {
-            System.out.println(defender.getClass().getSimpleName());
-        }
-
+        String winner = attacker.isAlive() ? attacker.getName() : defender.getName();
+        System.out.print("Battle is ended. The winner is: " + winner);
     }
 }
 
