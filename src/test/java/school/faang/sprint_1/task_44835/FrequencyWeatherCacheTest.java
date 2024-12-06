@@ -3,10 +3,8 @@ package school.faang.sprint_1.task_44835;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import school.faang.sprint_1.task_44835.cache.impl.FrequentUpdateWeatherCache;
-import school.faang.sprint_1.task_44835.cache.impl.StandardWeatherCache;
 import school.faang.sprint_1.task_44835.dto.WeatherData;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

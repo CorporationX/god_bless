@@ -5,7 +5,7 @@ import school.faang.sprint_1.task_44835.dto.WeatherData;
 import java.time.Instant;
 import java.util.Random;
 
-public class WeatherService implements WeatherProvider{
+public class WeatherService implements WeatherProvider {
     @Override
     public WeatherData fetchWeatherData(String city) {
         var random = new Random();

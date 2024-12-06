@@ -1,8 +1,8 @@
 package school.faang.sprint_1.task_44835.cache.impl;
 
+import school.faang.sprint_1.task_44835.cache.WeatherCacheTemplate;
 import school.faang.sprint_1.task_44835.dto.WeatherData;
 import school.faang.sprint_1.task_44835.service.WeatherService;
-import school.faang.sprint_1.task_44835.cache.WeatherCacheTemplate;
 
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     private WeatherService weatherService = new WeatherService();
