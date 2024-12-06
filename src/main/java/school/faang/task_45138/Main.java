@@ -4,7 +4,6 @@ import school.faang.task_45138.entity.CategoryType;
 import school.faang.task_45138.entity.Product;
 import school.faang.task_45138.storage.ProductStorage;
 
-
 public class Main {
     public static void main(String[] args) {
         ProductStorage productStorage = new ProductStorage();
