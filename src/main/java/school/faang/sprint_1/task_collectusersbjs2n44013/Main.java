@@ -1,6 +1,5 @@
 package school.faang.sprint_1.task_collectusersbjs2n44013;
 
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
