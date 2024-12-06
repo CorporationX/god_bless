@@ -1,4 +1,4 @@
-package school.faang.bjs2_44585;
+package school.faang.task_44585;
 
 import lombok.ToString;
 
