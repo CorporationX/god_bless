@@ -14,10 +14,7 @@ public class HogwartsSpells {
 
         spellById.put(id, newSpellEvent);
 
-        if (!spellsByType.containsKey(eventType)) {
-            spellsByType.put(eventType, new ArrayList<>());
-        }
-        spellsByType.get(eventType).add(newSpellEvent);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(newSpellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -31,6 +28,18 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         spellById.remove(id);
+        SpellEvent spellEvent = spellById.get(id);
+
+        if (spellEvent != null) {
+            String eventType = spellEvent.getEventType();
+            List<SpellEvent> eventList = spellsByType.get(eventType);
+            if (eventList != null) {
+                eventList.remove(spellEvent);
+                if (eventList.isEmpty()) {  //если список пуст
+                    spellsByType.remove(eventType);
+                }
+            }
+        }
     }
 
     public void printAllSpellEvents() {
