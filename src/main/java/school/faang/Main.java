@@ -1,6 +1,6 @@
 package school.faang;
 
-import school.faang.task_43503.User;
+import school.faang.task_44003.User;
 
 
 import java.util.Arrays;
