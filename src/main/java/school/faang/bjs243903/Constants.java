@@ -1,4 +1,4 @@
-package school.faang.BJS2_43903;
+package school.faang.bjs243903;
 
 public class Constants {
     public static final int MAX_HEALTH = 100;
