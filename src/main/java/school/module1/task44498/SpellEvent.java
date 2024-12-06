@@ -1,12 +1,12 @@
 package school.module1.task44498;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @ToString
 @Getter
+@EqualsAndHashCode
 public class SpellEvent {
     private int id;
     private String eventType;
@@ -16,22 +16,5 @@ public class SpellEvent {
         this.id = id;
         this.eventType = eventType;
         this.action = action;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SpellEvent that = (SpellEvent) o;
-        return id == that.id && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, eventType, action);
     }
 }
