@@ -26,7 +26,8 @@ public class Main {
 
         System.out.println(" ");
 
-        System.out.println("list of spells by type 'Dispel Magic' :: " + hogwartsSpells.getSpellEventsByType("Dispel Magic"));
+        System.out.println("list of spells by type 'Dispel Magic' :: "
+                + hogwartsSpells.getSpellEventsByType("Dispel Magic"));
 
         System.out.println(" ");
 
