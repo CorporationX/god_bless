@@ -1,5 +1,8 @@
 package school.faang.task_45206;
 
+import school.faang.task_45206.model.Student;
+import school.faang.task_45206.model.Subject;
+
 import java.util.Map;
 import java.util.Set;
 

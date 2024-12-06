@@ -2,10 +2,12 @@ package school.faang.task_45206;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import school.faang.task_45206.model.EducationalEntity;
+import school.faang.task_45206.model.Student;
+import school.faang.task_45206.model.Subject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
@@ -21,20 +23,16 @@ public class StudentDatabase implements StudentProvider {
 
     @Override
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        validateStudent(student);
-        studentGrades.forEach((currentStudent, subjectsGrades) -> {
-            if (Objects.equals(student, currentStudent)) {
-                subjectsGrades.put(subject, grade);
-            }
-        });
+        validate(student);
+        studentGrades.get(student).put(subject, grade);
     }
 
     @Override
     public void deleteStudent(Student student) {
-        validateStudent(student);
-        studentGrades.remove(student);
-        subjectStudents.forEach((currentSubject, students) -> {
-            students.remove(student);
+        validate(student);
+        Map<Subject, Integer> subjectGrade = studentGrades.remove(student);
+        subjectGrade.forEach((subject, grade) -> {
+            subjectStudents.get(subject).remove(student);
         });
     }
 
@@ -50,28 +48,20 @@ public class StudentDatabase implements StudentProvider {
 
     @Override
     public void addSubjectWithStudents(Subject subject, Set<Student> students) {
-        validateSubject(subject);
+        validate(subject);
         subjectStudents.put(subject, students);
     }
 
     @Override
     public void addStudentForSubject(Subject subject, Student student) {
-        validateSubject(subject);
-        subjectStudents.forEach((currentSubject, students) -> {
-            if (Objects.equals(subject, currentSubject)) {
-                students.add(student);
-            }
-        });
+        validate(subject);
+        subjectStudents.get(subject).add(student);
     }
 
     @Override
     public void deleteStudentFromSubject(Subject subject, Student student) {
-        validateStudent(student);
-        subjectStudents.forEach((currentSubject, students) -> {
-            if (Objects.equals(subject, currentSubject)) {
-                students.remove(student);
-            }
-        });
+        validate(student);
+        subjectStudents.get(subject).remove(student);
     }
 
     @Override
@@ -82,15 +72,9 @@ public class StudentDatabase implements StudentProvider {
         });
     }
 
-    private void validateSubject(Subject subject) {
-        if (subject == null) {
-            throw new IllegalArgumentException("Subject cannot be null");
-        }
-    }
-
-    private void validateStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null");
+    private void validate(EducationalEntity obj) {
+        if (obj == null) {
+            throw new IllegalArgumentException("Educational entity cannot be null");
         }
     }
 }

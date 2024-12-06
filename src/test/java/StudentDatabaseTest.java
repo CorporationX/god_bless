@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.task_45206.Student;
 import school.faang.task_45206.StudentDatabase;
-import school.faang.task_45206.Subject;
+import school.faang.task_45206.model.Student;
+import school.faang.task_45206.model.Subject;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,9 +39,7 @@ public class StudentDatabaseTest {
 
         assertEquals(
                 grades,
-                studentDatabase
-                        .getStudentGrades()
-                        .get(student1)
+                studentDatabase.getStudentGrades().get(student1)
         );
     }
 
@@ -65,9 +63,7 @@ public class StudentDatabaseTest {
         studentDatabase.deleteStudent(student1);
 
         assertFalse(
-                studentDatabase
-                        .getStudentGrades()
-                        .containsKey(student1)
+                studentDatabase.getStudentGrades().containsKey(student1)
         );
     }
 
@@ -81,9 +77,7 @@ public class StudentDatabaseTest {
 
         assertEquals(
                 students,
-                studentDatabase
-                        .getSubjectStudents()
-                        .get(subject1)
+                studentDatabase.getSubjectStudents().get(subject1)
         );
     }
 
