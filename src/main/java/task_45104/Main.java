@@ -49,7 +49,6 @@ public class Main {
     }
 
     private static void removeItem(String category, String name) {
-        System.out.println(String.format("Удаление продукта '%s' категории '%s'", name, category));
         boolean isExist = false;
         Iterator<Product> iterator = PRODUCTS.iterator();
         while (iterator.hasNext()) {
@@ -88,11 +87,4 @@ public class Main {
         addItem("Фрукты", "Банан");
         addItem("Овощи", "Баклажан");
     }
-
-
 }
-//4️⃣ Реализуйте методы для выполнения следующих действий:
-//
-//addItem(String category, String name) — добавляет новый товар в указанную категорию. Если категории нет, создайте её. ????
-//
-//removeItem(String category, String name) — удаляет товар из указанной категории. Если категории или товара нет, метод должен сообщить об этом.

@@ -1,5 +1,6 @@
 package task_45104;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.Objects;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class Product {
     private int id;
     private String name;
@@ -18,18 +20,5 @@ public class Product {
         this.category = category;
         indx ++;
         this.id = indx;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(name, product.name) && Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, category);
     }
 }
