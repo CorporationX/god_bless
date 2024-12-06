@@ -8,8 +8,8 @@ public class Main {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         addHogwartsSpells(hogwartsSpells);
         hogwartsSpells.printAllSpellEvents();
-        System.out.println(hogwartsSpells.getSpellEventById(1));
-        System.out.println(hogwartsSpells.getSpellEventsByType("Защита").toString());
+        System.out.println(hogwartsSpells.getSpellEventById(7));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Защита"));
         hogwartsSpells.deleteSpellEvent(6);
     }
 

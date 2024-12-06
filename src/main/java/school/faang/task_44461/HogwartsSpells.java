@@ -17,22 +17,31 @@ public class HogwartsSpells {
     }
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-        List<SpellEvent> spellEvents = new ArrayList<>();
+//        List<SpellEvent> spellEvents = new ArrayList<>();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, new SpellEvent(id, eventType, actionDescription));
+        spellById.put(id, spellEvent);
+//
+//        if (!(spellsByType.containsKey(eventType))) {
+//            spellsByType.put(eventType, spellEvents);
+//        }
+//        List<SpellEvent> spellEventKey = spellsByType.get(eventType);
+//        spellEventKey.add(spellEvent);
 
-        if (!(spellsByType.containsKey(eventType))) {
-            spellsByType.put(eventType, spellEvents);
-        }
-        List<SpellEvent> spellEventKey = spellsByType.get(eventType);
-        spellEventKey.add(spellEvent);
+        spellsByType.computeIfAbsent(spellEvent.getEventType(),k -> new ArrayList<>()).add(spellEvent);
+//        spellsByType.computeIfAbsent(spellEvent.getEventType(), k -> new ArrayList<>()).add(spellEvent);
     }
 
     public String getSpellEventById(int id) {
+        if (!spellById.containsKey(id)) {
+            return  null;
+        }
         return spellById.get(id).toString();
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (!spellsByType.containsKey(eventType)) {
+            return null;
+        }
         return spellsByType.get(eventType);
     }
 
