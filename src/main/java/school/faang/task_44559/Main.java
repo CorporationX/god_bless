@@ -16,15 +16,14 @@ public class Main {
         hogwartsSpells.addSpellEvent(new SpellEvent(6, SpellType.PROTECTION, "Neutralizes an opponent's spells"));
         hogwartsSpells.addSpellEvent(new SpellEvent(7, SpellType.CHARM, "Increases the volume of the voice"));
         hogwartsSpells.addSpellEvent(new SpellEvent(8, SpellType.TRANSFIGURATION, "Creates a duplicate of an object"));
-        hogwartsSpells.addSpellEvent(new SpellEvent(8, SpellType.CHARM, "Creates an animal"));
 
         hogwartsSpells.printAllSpellEvents();
         System.out.println(hogwartsSpells.getSpellEventById(4));
         System.out.println(hogwartsSpells.getSpellsByType(SpellType.PROTECTION));
         hogwartsSpells.deleteSpellEvent(8);
-        System.out.println(hogwartsSpells.getSpellsByType(SpellType.TRANSFIGURATION));
+        //System.out.println(hogwartsSpells.getSpellsByType(SpellType.TRANSFIGURATION));
         hogwartsSpells.printAllSpellEvents();
-        hogwartsSpells.deleteSpellEvent(8);
+        //hogwartsSpells.deleteSpellEvent(8);
     }
 
 }

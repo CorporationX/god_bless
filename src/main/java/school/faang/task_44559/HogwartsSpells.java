@@ -16,40 +16,68 @@ public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<SpellType, List<SpellEvent>> spellByType = new HashMap<>();
 
-
-    public Boolean addSpellEvent(SpellEvent spellEvent) {
+    /**
+     * Adds a new spell event.
+     *
+     * @param spellEvent the SpellEvent object to be added.
+     * @throws IllegalArgumentException if an event with the same ID already exists.
+     */
+    public void addSpellEvent(SpellEvent spellEvent) {
         if (spellById.containsKey(spellEvent.getId())) {
-            throw new IllegalArgumentException("Event id " + spellEvent.getId() + " already exists");
+            throw new IllegalArgumentException("Event " + spellEvent.getId() + " already exists");
         }
-
         spellById.put(spellEvent.getId(), spellEvent);
-
         List<SpellEvent> spells = spellByType.computeIfAbsent(spellEvent.getType(), k -> new ArrayList<>());
         spells.add(spellEvent);
-        return true;
     }
 
-    public SpellEvent getSpellEventById(int id) {
+    /**
+     * Retrieves a spell event by its ID.
+     *
+     * @param id the ID of the spell event to retrieve.
+     * @return the SpellEvent object associated with the given ID.
+     * @throws IllegalArgumentException if no spell event with the specified ID exists.
+     */
+    public SpellEvent getSpellEventById(int id) throws IllegalArgumentException {
         SpellEvent spellEvent = spellById.get(id);
         return Optional.ofNullable(spellEvent)
-                .orElseThrow(() -> new IllegalArgumentException("No such spell event"));
+                .orElseThrow(() -> new IllegalArgumentException("No such " + id + " spell event"));
     }
 
-    public List<SpellEvent> getSpellsByType(SpellType eventType) {
-        if (spellByType.containsKey(eventType)) {
-            return spellByType.get(eventType);
+    /**
+     * Retrieves all spell events of a specific type.
+     *
+     * @param eventType the type of spell events to retrieve.
+     * @return a list of SpellEvent objects associated with the given type.
+     * @throws IllegalArgumentException if no spell events of the specified type exist.
+     */
+    public List<SpellEvent> getSpellsByType(SpellType eventType) throws IllegalArgumentException {
+        List<SpellEvent> spells = spellByType.get(eventType);
+        if (spells == null) {
+            throw new IllegalArgumentException("Can't get spells by type " + eventType);
         }
-        throw new IllegalArgumentException("No such spell event");
+        return spells;
     }
 
-    public void deleteSpellEvent(int id) {
+    /**
+     * Deletes a spell event by its ID.
+     *
+     * @param id the ID of the spell event to delete.
+     * @throws IllegalArgumentException if no spell event with the specified ID exists.
+     */
+    public void deleteSpellEvent(int id) throws IllegalArgumentException {
         if (spellById.get(id) == null) {
-            throw new IllegalArgumentException("No such spell event");
+            throw new IllegalArgumentException(id + " does not exist");
         }
-        spellByType.get(spellById.get(id).getType()).remove(spellById.get(id));
+        spellByType.remove(spellById.get(id).getType());
         spellById.remove(id);
+        log.info("Event {} has been deleted", id);
     }
 
+    /**
+     * Prints all stored spell events to the console.
+     * Displays the ID, type, and description of each event.
+     */
     public void printAllSpellEvents() {
         System.out.println("=== All Spell Events by ID ===");
         spellById.forEach((id, event) ->
