@@ -1,5 +1,6 @@
 package school.faang.task44690;
 
+import school.faang.task44690.model.EventType;
 import school.faang.task44690.service.HogwartsSpells;
 
 public class Main {
@@ -23,19 +24,18 @@ public class Main {
         spells.deleteSpellEvent(5);
 
         spells.printAllSpellEvents();
-
     }
 
     private static HogwartsSpells getHogwartsSpells() {
         HogwartsSpells spells = new HogwartsSpells();
 
-        spells.addSpellEvent(1, "Charms", "Очаровывает противника");
-        spells.addSpellEvent(2, "Defence", "Защищает носителя");
-        spells.addSpellEvent(3, "Damage", "Наносит урон");
-        spells.addSpellEvent(4, "Transformation", "Превращает в мышь");
-        spells.addSpellEvent(5, "Invisible", "Делает невидимым");
-        spells.addSpellEvent(6, "Charms", "Усыпляет противника");
-        spells.addSpellEvent(7, "Charms", "Ослепляет противника");
+        spells.addSpellEvent(1, EventType.CHARMS.toString(), "Очаровывает противника");
+        spells.addSpellEvent(2, EventType.DEFENCE.toString(), "Защищает носителя");
+        spells.addSpellEvent(3, EventType.DAMAGE.toString(), "Наносит урон");
+        spells.addSpellEvent(4, EventType.TRANSFORMATION.toString(), "Превращает в мышь");
+        spells.addSpellEvent(5, EventType.INVISIBLE.toString(), "Делает невидимым");
+        spells.addSpellEvent(6, EventType.CHARMS.toString(), "Усыпляет противника");
+        spells.addSpellEvent(7, EventType.CHARMS.toString(), "Ослепляет противника");
         return spells;
     }
 }

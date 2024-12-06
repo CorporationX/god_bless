@@ -2,26 +2,16 @@ package school.faang.task44690.service;
 
 import school.faang.task44690.model.SpellEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById;
-    private final Map<String, List<SpellEvent>> spellByType;
-
-    public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellByType = new HashMap<>();
-    }
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent event = new SpellEvent(id, eventType, actionDescription);
-
         spellById.put(id, event);
-        spellByType.putIfAbsent(eventType, new ArrayList<>());
-        spellByType.get(eventType).add(event);
+        spellByType.computeIfAbsent(eventType, init -> new ArrayList<>()).add(event);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -33,8 +23,9 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent event = spellById.get(id);
-        spellByType.remove(event.getEventType());
+        SpellEvent eventToDelete = spellById.get(id);
+        List<SpellEvent> events = spellByType.get(eventToDelete.getEventType());
+        events.removeIf(event -> event.getId().equals(id));
         spellById.remove(id);
     }
 
