@@ -10,8 +10,8 @@ import lombok.ToString;
 @ToString
 @Getter
 public class Booking {
-    private int bookingId;
-    private Room room;
-    private String date;
-    private String timeSlot;
+    private final int bookingId;
+    private final Room room;
+    private final String date;
+    private final String timeSlot;
 }

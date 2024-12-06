@@ -42,14 +42,14 @@ public class BookingSystem {
         }
         Booking booking = new Booking(nextBookingId++, room, date, timeSlot);
         bookings.put(booking.getBookingId(), booking);
-        notifier.notifyObservers(booking, "created");
+        notifier.notifyObservers(booking, BOOKING_STATUS.CREATED);
         return booking;
     }
 
     public boolean cancelBooking(int bookingId) {
         Booking booking = bookings.remove(bookingId);
         if (booking != null) {
-            notifier.notifyObservers(booking, "cancelled");
+            notifier.notifyObservers(booking, BOOKING_STATUS.CANCELLED);
             return true;
         }
         return false;
@@ -57,9 +57,11 @@ public class BookingSystem {
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
         List<Room> availableRooms = new ArrayList<>();
-        for (Room room : rooms.values()) {
-            if (isRoomAvailable(room, date, timeSlot) && room.getAmenities().containsAll(requiredAmenities)) {
-                availableRooms.add(room);
+        if (requiredAmenities != null) {
+            for (Room room : rooms.values()) {
+                if (isRoomAvailable(room, date, timeSlot) && room.getAmenities().containsAll(requiredAmenities)) {
+                    availableRooms.add(room);
+                }
             }
         }
         return availableRooms;
