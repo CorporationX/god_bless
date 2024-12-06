@@ -17,18 +17,9 @@ public class HogwartsSpells {
     }
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-//        List<SpellEvent> spellEvents = new ArrayList<>();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-//
-//        if (!(spellsByType.containsKey(eventType))) {
-//            spellsByType.put(eventType, spellEvents);
-//        }
-//        List<SpellEvent> spellEventKey = spellsByType.get(eventType);
-//        spellEventKey.add(spellEvent);
-
         spellsByType.computeIfAbsent(spellEvent.getEventType(),k -> new ArrayList<>()).add(spellEvent);
-//        spellsByType.computeIfAbsent(spellEvent.getEventType(), k -> new ArrayList<>()).add(spellEvent);
     }
 
     public String getSpellEventById(int id) {
