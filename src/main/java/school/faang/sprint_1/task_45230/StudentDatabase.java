@@ -34,6 +34,9 @@ public class StudentDatabase {
             studentsGrades.remove(student);
             for (var subject : studentSubjects.keySet()) {
                 var subjectStudents = studentsLearningSubjects.get(subject);
+                if (subjectStudents == null) {
+                    continue;
+                }
                 subjectStudents.remove(student);
                 if (subjectStudents.isEmpty()) {
                     studentsLearningSubjects.remove(subject);
