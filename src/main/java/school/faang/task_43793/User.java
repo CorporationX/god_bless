@@ -23,7 +23,7 @@ public class User {
         return "User{Name = " + name + ", Age = " + age + ", Job = " + job + ", Address = " + address + "}";
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name can't be empty!");
         }
