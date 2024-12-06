@@ -14,7 +14,7 @@ public class ProjectManager {
         generateData();
     }
 
-    private void generateData(){
+    private void generateData() {
 
         employees = new ArrayList<>(List.of(
                 new Employee(1, "Alexey",
@@ -70,7 +70,7 @@ public class ProjectManager {
     public void assignTeamToProject(int projectId) {
         validationProjectId(projectId);
 
-        if (strategy == null){
+        if (strategy == null) {
             throw new IllegalArgumentException("Choose strategy");
         }
 
@@ -80,7 +80,7 @@ public class ProjectManager {
 
     public Project getTeamForProject(int projectId) {
         validationProjectId(projectId);
-        if (projects.isEmpty()){
+        if (projects.isEmpty()) {
             throw new IllegalArgumentException("No projects found");
         }
 
@@ -93,7 +93,7 @@ public class ProjectManager {
         if (!employees.contains(employee)) {
             employees.add(employee);
             System.out.println("Employee added");
-        }else{
+        } else {
             throw new IllegalArgumentException("Employee not added");
         }
     }
@@ -131,7 +131,7 @@ public class ProjectManager {
     }
 
     public void removeIneligibleEmployees(Project project) {
-        if (project == null){
+        if (project == null) {
             throw new IllegalArgumentException("Project cannot be null");
         }
 
