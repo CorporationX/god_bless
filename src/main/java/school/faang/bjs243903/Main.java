@@ -5,6 +5,6 @@ public class Main {
         Character archer = new Archer("Archer1");
         Character warrior = new Warrior("Warrior1");
 
-        FightManager.fight(archer, warrior);
+        FightManager.fight(archer, warrior, true);
     }
 }
