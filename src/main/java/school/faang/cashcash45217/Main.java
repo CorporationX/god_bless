@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) {
         StudentDatabase database = new StudentDatabase();
 
-        Student alice = new Student(1, "Alice");
-        Student ilya = new Student(2, "Ilya");
-        Subject math = new Subject(1, "Mathematic");
-        Subject fis = new Subject(2, "Physics");
+        final Student alice = new Student(1, "Alice");
+        final Student ilya = new Student(2, "Ilya");
+        final Subject math = new Subject(1, "Mathematic");
+        final Subject fis = new Subject(2, "Physics");
 
         Map<Subject, Integer> aliceGrades = new HashMap<>();
         aliceGrades.put(math, 5);
