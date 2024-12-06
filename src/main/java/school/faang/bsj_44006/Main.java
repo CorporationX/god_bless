@@ -12,17 +12,13 @@ public class Main {
         users.add(new User(2, "Ольга", 24, Set.of("путешествия", "танцы", "книги")));
         users.add(new User(3, "Екатерина", 35, Set.of("футбол", "танцы", "книги")));
 
-        Map<User, String> hobbyLovers = User.findHobbyLovers(users, Set.of("путешествия", "сноуборд", "горные лыжи"));
-        System.out.println(hobbyLovers);
-        System.out.println();
+        printHobbyLovers(users, Set.of("путешествия", "сноуборд", "горные лыжи"));
+        printHobbyLovers(users, Set.of("музыка", "сноуборд", "горные лыжи"));
+        printHobbyLovers(users, Set.of("музыка", "хоккей", "горные лыжи"));
+    }
 
-        hobbyLovers = User.findHobbyLovers(users, Set.of("музыка", "сноуборд", "горные лыжи"));
-        System.out.println(hobbyLovers);
-        System.out.println();
-
-        hobbyLovers = User.findHobbyLovers(users, Set.of("музыка", "хоккей", "горные лыжи"));
-        System.out.println(hobbyLovers);
-        System.out.println();
-
+    private static void printHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
+        System.out.println(hobbyLovers + "\n");
     }
 }
