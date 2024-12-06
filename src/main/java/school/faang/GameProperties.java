@@ -9,5 +9,5 @@ public class GameProperties {
     public static final int Intelligence_Default = 5;
 
 
-    public int Default_Health = 100;
+    public int DefaultHealth = 100;
 }
