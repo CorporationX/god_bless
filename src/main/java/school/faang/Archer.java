@@ -3,7 +3,7 @@ package school.faang;
 public class Archer extends Character {
 
     public Archer(String name) {
-        super(name, GameProperties.ArcherStrength, GameProperties.ArcherAgility, GameProperties.ArcherIntelligence);
+        super(name, GameProperties.STRENGTH_DEFAULT, GameProperties.AGILLITY_DEFAULT, GameProperties.INTELLIGENCE_DEFAULT);
     }
 
     @Override

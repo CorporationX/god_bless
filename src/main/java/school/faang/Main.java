@@ -9,6 +9,8 @@ public class Main {
         warrior.attack(archer);
         archer.attack(warrior);
 
+        System.out.println(archer.getHealth());
+        System.out.println(warrior.getHealth());
     }
 }
 

@@ -4,9 +4,9 @@ public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name,
-                GameProperties.WarriorStrength,
-                GameProperties.WarriorAgility,
-                GameProperties.WarriorIntelligence);
+                GameProperties.STRENGTH_DEFAULT,
+                GameProperties.AGILLITY_DEFAULT,
+                GameProperties.INTELLIGENCE_DEFAULT);
     }
 
     @Override
