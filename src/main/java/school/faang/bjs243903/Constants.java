@@ -1,5 +1,8 @@
 package school.faang.bjs243903;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class Constants {
     public static final int MAX_HEALTH = 100;
 
