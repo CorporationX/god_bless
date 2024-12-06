@@ -1,13 +1,10 @@
 package school.faang.sprint_1.task_collectusersbjs2n44013;
 
 import lombok.Getter;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 @Getter
 public class User {
