@@ -11,6 +11,7 @@ public class User {
 
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final int MINIMAL_AGE = 18;
 
     private String name;
     private int age;
@@ -20,13 +21,22 @@ public class User {
     public User(String name, int age, String job, String address) {
         StringBuilder errorText = new StringBuilder();
 
+        checkUserData(name, age, job, address, errorText);
+
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+
+    private static void checkUserData(String name, int age, String job, String address, StringBuilder errorText) {
         if (name == null || name.isEmpty()) {
             errorText.append("User's name can't be empty! Current value :")
                     .append(name)
                     .append("\n");
         }
 
-        if (age < 18) {
+        if (age < MINIMAL_AGE) {
             errorText.append("User's Age can't be < 18! Current value: ")
                     .append(age)
                     .append("\n");
@@ -51,10 +61,5 @@ public class User {
         if (!errorText.isEmpty()) {
             throw new IllegalArgumentException(String.valueOf(errorText));
         }
-
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
     }
 }
