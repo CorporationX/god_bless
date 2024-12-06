@@ -1,6 +1,6 @@
 package school.faang.task_43972;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 
 import java.util.Calendar;
 import java.util.HashSet;
