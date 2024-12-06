@@ -4,8 +4,8 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class GameProperties {
-    public static final int Strength_Default = 3;
-    public static final int Agility_Default = 10;
-    public static final int Intelligence_Default = 5;
-    public static final int Default_Health = 100;
+    public static final int STRENGTH_DEFAULT = 3;
+    public static final int AGILLITY_DEFAULT = 10;
+    public static final int INTELLIGENCE_DEFAULT = 5;
+    public static final int HEALTH_DEFAULT = 100;
 }

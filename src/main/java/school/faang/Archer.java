@@ -4,9 +4,9 @@ public class Archer extends Character {
 
     public Archer(String name) {
         super(name,
-                GameProperties.Strength_Default,
-                GameProperties.Agility_Default,
-                GameProperties.Intelligence_Default);
+                GameProperties.STRENGTH_DEFAULT,
+                GameProperties.AGILLITY_DEFAULT,
+                GameProperties.INTELLIGENCE_DEFAULT);
     }
 
     @Override
