@@ -64,8 +64,8 @@ public class Main {
     }
 
     private static void findItemsByCategory(String category) {
-        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category)).
-                collect(Collectors.toList());
+        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category))
+                .collect(Collectors.toList());
         if (products.isEmpty()) {
             System.out.println(String.format("По категории '%s' продуктов не найдено", category));
             return;
