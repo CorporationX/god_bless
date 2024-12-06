@@ -1,14 +1,11 @@
 package school.faang.task_43631;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static school.faang.task_43631.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
-
 
         List<User> userList = List.of(new User("John", 30, "Amazon", "Canada"),
                 new User("Samanta", 15, "Google", "Florida"),
