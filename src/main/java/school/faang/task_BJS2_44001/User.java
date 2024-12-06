@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.task_BJS2_44001;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,3 +24,5 @@ public class User {
         return groupedUsersByAge;
     }
 }
+
+
