@@ -52,7 +52,7 @@ public class ProductStorage {
                 .toList();
 
         if (productsFound.isEmpty()) {
-           log.info("No products found in category: {}", category);
+            log.info("No products found in category: {}", category);
         }
         return productsFound;
     }
@@ -89,6 +89,6 @@ public class ProductStorage {
      * @param groupedProducts a map where the key is the product category and the value is a list of products in that category.
      */
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.forEach((key,value) -> System.out.println(key + ":" + value));
+        groupedProducts.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 }

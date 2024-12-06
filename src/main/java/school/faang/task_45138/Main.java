@@ -6,10 +6,10 @@ import school.faang.task_45138.storage.ProductStorage;
 public class Main {
     public static void main(String[] args) {
         ProductStorage productStorage = new ProductStorage();
-        Product meatPork = new Product("Pork","Meat" );
-        Product meatChicken = new Product("Chicken","Meat" );
-        Product dairyMilk = new Product("Milk","Dairy" );
-        Product dairyCheese = new Product("Cheese","Dairy" );
+        Product meatPork = new Product("Pork", "Meat");
+        Product meatChicken = new Product("Chicken", "Meat");
+        Product dairyMilk = new Product("Milk", "Dairy");
+        Product dairyCheese = new Product("Cheese", "Dairy");
 
         productStorage.addItem(meatPork);
         productStorage.addItem(meatChicken);
