@@ -34,7 +34,7 @@ public class User {
             return;
         }
 
-        if (!VALID_ADDRESSES.contains(address.toLowerCase())){
+        if (!VALID_ADDRESSES.contains(address.toLowerCase())) {
             System.out.printf("Address entered: %s, but should be one of the following values: %s%n",
                     address, String.join(" ,", VALID_JOBS));
             return;
