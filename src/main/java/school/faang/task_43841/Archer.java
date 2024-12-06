@@ -7,12 +7,11 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character target) {
-        if (target.getHealth() > 0) {
-            System.out.println(this.name + " shoots at " + target.getName() + " with dexterity " + this.agility);
-            target.health -= this.agility;
-            target.checkHealth();
-        } else {
+        if (!target.canBeAttacked()) {
             System.out.println(this.name + " cannot attack " + target.getName() + " because he is already defeated.");
+            return;
         }
+        System.out.println(this.name + " shoots at " + target.getName() + " with dexterity " + this.agility);
+        target.applyDamage(this.agility);
     }
 }

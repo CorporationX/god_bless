@@ -7,12 +7,11 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character target) {
-        if (target.getHealth() > 0) {
-            System.out.println(this.name + " attacks " + target.getName() + " by force " + this.strength);
-            target.health -= this.strength;
-            target.checkHealth();
-        } else {
+        if (!target.canBeAttacked()) {
             System.out.println(this.name + " cannot attack " + target.getName() + " because he is already defeated.");
+            return;
         }
+        System.out.println(this.name + " attacks " + target.getName() + " with strength " + this.strength);
+        target.applyDamage(this.strength);
     }
 }

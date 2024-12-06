@@ -23,7 +23,12 @@ public abstract class Character {
 
     public abstract void attack(Character target);
 
-    protected void checkHealth() {
+    public boolean canBeAttacked() {
+        return this.health > 0;
+    }
+
+    public void applyDamage(int damage) {
+        this.health -= damage;
         if (this.health < 0) {
             this.health = 0;
         }
