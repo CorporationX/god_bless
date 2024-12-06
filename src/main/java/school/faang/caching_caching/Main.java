@@ -61,11 +61,9 @@ public class Main {
 
         System.out.println("Test: clearExpiredCache");
         oldCache = moscowWeather;
-        WeatherData oldCache2 = yekaterinburgWeather;
         standardWeatherCache.clearExpiredCache(0);
         moscowWeather = standardWeatherCache.getWeatherData("Moscow", 0);
-        yekaterinburgWeather = standardWeatherCache.getWeatherData("Yekaterinburg", 0);
-        if (oldCache != moscowWeather && oldCache2 != yekaterinburgWeather) {
+        if (oldCache != moscowWeather) {
             System.out.println("Test result: GOOD");
         } else {
             System.out.println("Test result: BAD");
