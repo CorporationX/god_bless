@@ -2,11 +2,16 @@ package school.faang.bsj_43843;
 
 public class Warrior extends Character {
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, DefaultsParameters.WARRIOR_STRENGTH, DefaultsParameters.WARRIOR_AGILITY,
+                DefaultsParameters.WARRIOR_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
-        character.setHealth(character.getHealth() - strength);
+        if (character != null) {
+            character.setHealth(character.getHealth() - strength);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }

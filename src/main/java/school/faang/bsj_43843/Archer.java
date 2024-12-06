@@ -2,12 +2,17 @@ package school.faang.bsj_43843;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name, 3, 10, 5);
+        super(name, DefaultsParameters.ARCHER_STRENGTH, DefaultsParameters.ARCHER_AGILITY,
+                DefaultsParameters.ARCHER_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character character) {
-        character.setHealth(character.getHealth() - strength);
+        if (character != null) {
+            character.setHealth(character.getHealth() - strength);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

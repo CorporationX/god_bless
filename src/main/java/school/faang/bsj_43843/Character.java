@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public abstract class Character {
-    protected String name;
+    protected final String name;
     protected int strength;
     protected int agility;
     protected int intelligence;
@@ -25,7 +25,7 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health = 100;
+        this.health = DefaultsParameters.HEALTH;
     }
 
     public abstract void attack(Character character);
