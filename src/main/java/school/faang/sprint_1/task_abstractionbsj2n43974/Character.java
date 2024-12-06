@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
-    protected final static int MAX_HEALTH = 100;
+    protected final int MAX_HEALTH = 100;
     protected String name;
     protected int strength;
     protected int agility;
