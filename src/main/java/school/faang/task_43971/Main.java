@@ -12,7 +12,7 @@ public class Main {
                 new User("Arnold", 44, "Tik-Tok", "Home"),
                 new User("Laqvanda", 44, "Yandex", "Zelepupinsk"));
 
-        System.out.println(groupUsers(userList));//NOSONAR
+        System.out.println(groupUsers(userList));//NOSONAR norm
 
     }
 }
