@@ -4,20 +4,22 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
+    private static final int DEFAULT_HEALTH = 100;
 
     private final String name;
     private int strength;
     private int dexterity;
     private int intelligence;
-    private int health = 100;
+    private int health;
     protected String type = "Ghost";
 
     public Character(String name) {
+        health = DEFAULT_HEALTH;
         this.name = name;
     }
 
     public Character(String name, int strength, int dexterity, int intelligence) {
-        this.name = name;
+        this(name);
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
@@ -26,6 +28,9 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     protected void getDamage(int damage) {
+        if (damage < 0) {
+            return;
+        }
         health -= damage;
     }
 
