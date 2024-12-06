@@ -35,7 +35,8 @@ public class ProductStorage {
     public void removeItem(Product productToRemove) {
         boolean isRemoved = products.remove(productToRemove);
         if (isRemoved) {
-            log.info("Removed product from category: {} and product name: {}", productToRemove.getCategory(), productToRemove.getName());
+            log.info("Removed product from category: {} and product name: {}",
+                    productToRemove.getCategory(), productToRemove.getName());
         }
         log.info("Failed to remove product: {}", productToRemove);
     }
@@ -86,7 +87,8 @@ public class ProductStorage {
     /**
      * Prints the grouped products by category.
      *
-     * @param groupedProducts a map where the key is the product category and the value is a list of products in that category.
+     * @param groupedProducts a map where the key is the product category
+     *                       and the value is a list of products in that category.
      */
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         groupedProducts.forEach((key, value) -> System.out.println(key + ":" + value));
