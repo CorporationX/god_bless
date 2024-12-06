@@ -1,8 +1,14 @@
 package school.faang.task45150.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@EqualsAndHashCode
+@ToString
+
 public class Product {
     private final Integer id;
     private final String name;

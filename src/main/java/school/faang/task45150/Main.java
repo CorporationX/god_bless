@@ -12,7 +12,7 @@ public class Main {
 
         productSet.add(new Product(1, "Dairy", "Milk"));
         productSet.add(new Product(2, "Dairy", "Icecream"));
-        productSet.add(new Product(3, "Dairy", "Yogurht"));
+        productSet.add(new Product(3, "Dairy", "Yogurt"));
         productSet.add(new Product(4, "Deserts", "Chocolate"));
         productSet.add(new Product(5, "Deserts", "Cracker"));
         productSet.add(new Product(6, "Alcohol", "Wine"));
