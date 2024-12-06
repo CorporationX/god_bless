@@ -1,8 +1,8 @@
-package school.faang.task_43631;
+package school.faang.task_43971;
 
 import java.util.List;
 
-import static school.faang.task_43631.User.groupUsers;
+import static school.faang.task_43971.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
