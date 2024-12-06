@@ -1,4 +1,4 @@
-package task_45104;
+package school.faang.task_45104;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,13 +12,12 @@ public class Main {
     private static final HashSet<Product> PRODUCTS = new HashSet<>();
 
     public static void main(String[] args) {
-        HashMap<String, List<Product>> productsByCategory = new HashMap<>();
-
         addProducts();
         findItemsByCategory("Молочные продукты");
         removeItem("Овощи", "Баклажан");
         printAllItems();
 
+        HashMap<String, List<Product>> productsByCategory = new HashMap<>();
         productsByCategory = groupProductsByCategory(PRODUCTS);
         printProductsByCategory(productsByCategory);
 
@@ -65,7 +64,8 @@ public class Main {
     }
 
     private static void findItemsByCategory(String category) {
-        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category)).collect(Collectors.toList());
+        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category)).
+                collect(Collectors.toList());
         if (products.isEmpty()) {
             System.out.println(String.format("По категории '%s' продуктов не найдено", category));
             return;

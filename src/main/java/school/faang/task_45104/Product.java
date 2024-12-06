@@ -1,10 +1,8 @@
-package task_45104;
+package school.faang.task_45104;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Objects;
 
 @ToString
 @Getter
@@ -18,7 +16,7 @@ public class Product {
     public Product(String name, String category) {
         this.name = name;
         this.category = category;
-        indx ++;
+        indx++;
         this.id = indx;
     }
 }
