@@ -16,7 +16,7 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
 
         int halfOfSizeOfSpellsLog = hogwartsSpells.getSize() / 2;
-        for (int i = 0; i < halfOfSizeOfSpellsLog; i++ ) {
+        for (int i = 0; i < halfOfSizeOfSpellsLog; i++) {
             hogwartsSpells.deleteSpellEvent(halfOfSizeOfSpellsLog / 2 + i);
         }
 
