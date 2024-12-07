@@ -1,5 +1,6 @@
 package school.faang.task_45228;
 
+import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +12,9 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class StudentsDatabase {
+    @Getter
     private final Map<Student, Map<Subject, Integer>> studentsSubjectsPerGrade = new HashMap<>();
+    @Getter
     private final Map<Subject, List<Student>> studentsPerSubjects = new HashMap<>();
 
     private final AtomicInteger studentsIdMaker = new AtomicInteger(1);
@@ -50,11 +53,7 @@ public class StudentsDatabase {
         Student student = studentsSubjectsPerGrade.keySet().stream()
                 .filter(s -> s.name().equals(nameOfStudent))
                 .findFirst()
-                .orElse(null);
-
-        if (student == null) {
-            throw new IllegalArgumentException("Student was not found!");
-        }
+                .orElseThrow(() -> new IllegalArgumentException("Student was not found!"));
 
         studentsSubjectsPerGrade
                 .computeIfAbsent(student, s -> new HashMap<>())
@@ -71,11 +70,8 @@ public class StudentsDatabase {
         Student student = studentsSubjectsPerGrade.keySet().stream()
                 .filter(s -> s.name().equals(nameOfStudent))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("Student was not found!"));
 
-        if (student == null) {
-            throw new IllegalArgumentException("No student found!");
-        }
         studentsSubjectsPerGrade.remove(student);
 
         for (Map.Entry<Subject, List<Student>> entry : studentsPerSubjects.entrySet()) {
@@ -160,11 +156,7 @@ public class StudentsDatabase {
         Subject requestedSubject = studentsPerSubjects.keySet().stream()
                 .filter(students -> students.name().equals(subjectName))
                 .findFirst()
-                .orElse(null);
-
-        if (requestedSubject == null) {
-            throw new IllegalArgumentException("Subject was not found!");
-        }
+                .orElseThrow(() -> new IllegalArgumentException("Subject was not found!"));
 
         List<Student> students = studentsPerSubjects.get(requestedSubject);
         Student requestedStudent = students.stream()
