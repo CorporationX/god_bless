@@ -2,7 +2,6 @@ package school.faang.bsj245398;
 
 
 public class LibrarySystem {
-    public static final String TEMPLATE_BOOK_INFORMATION = "%s, location: %s";
 
     public void addBook(String title, String author, int year, String location) {
         Main.placeByBook.put(new Book(title, author, year), location);
@@ -10,6 +9,7 @@ public class LibrarySystem {
 
     public String removeBook(String title, String author, int year) {
         Book book = getBookByInfomation(title, author, year);
+
         if (book != null) {
             Main.placeByBook.remove(new Book(title, author, year));
             return "The book was deleted";
@@ -18,7 +18,6 @@ public class LibrarySystem {
     }
 
     public void findBook(String title, String author, int year) {
-
         Book book = getBookByInfomation(title, author, year);
 
         if (book != null) {
@@ -30,14 +29,11 @@ public class LibrarySystem {
 
     private Book getBookByInfomation(String title, String author, int year) {
 
-        return Main.placeByBook.keySet().stream().filter(b -> {
-            if (b.getTitle().equals(title)
-                    && b.getAuthor().equals(author)
-                    && b.getYear() == year) {
-                return true;
-            }
-            return false;
-        }).findFirst().orElse(null);
+        Book book = new Book(title, author, year);
+        if (Main.placeByBook.containsKey(book)) {
+            return book;
+        }
+        return null;
     }
 
     public void printAllBooks() {
