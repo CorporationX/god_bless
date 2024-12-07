@@ -13,13 +13,12 @@ import java.util.concurrent.TimeUnit;
 import static org.awaitility.Awaitility.await;
 
 public class WeatherCacheTests {
-    private static WeatherProvider weatherProvider = new WeatherService();
+    private static final WeatherProvider weatherProvider = new WeatherService();
     private static final long MAXAGE = 5000;
 
     @Test
     void standartCachingTest() {
         String city = "Moscow";
-
         WeatherCacheTemplate cache = new StandartWeatherCache(weatherProvider);
 
         WeatherData data1 = cache.getWeatherData(city, MAXAGE);
