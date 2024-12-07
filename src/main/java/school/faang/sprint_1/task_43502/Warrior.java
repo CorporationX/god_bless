@@ -1,4 +1,4 @@
-package school.faang.task_43502;
+package school.faang.sprint_1.task_43502;
 
 public class Warrior extends Character {
     private static final int WARRIOR_STRENGTH = 10;

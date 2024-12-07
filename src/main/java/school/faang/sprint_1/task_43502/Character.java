@@ -1,4 +1,4 @@
-package school.faang.task_43502;
+package school.faang.sprint_1.task_43502;
 
 import lombok.Getter;
 import lombok.Setter;

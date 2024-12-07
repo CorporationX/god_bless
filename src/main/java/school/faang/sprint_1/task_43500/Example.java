@@ -1,4 +1,4 @@
-package school.faang.task_43500;
+package school.faang.sprint_1.task_43500;
 
 public class Example {
     public static void reverse(int[] nums) {
