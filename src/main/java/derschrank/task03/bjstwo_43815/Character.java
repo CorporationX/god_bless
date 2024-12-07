@@ -11,15 +11,16 @@ public abstract class Character {
     private int dexterity;
     private int intelligence;
     private int health;
-    protected String type = "Ghost";
+    protected String type;
 
     public Character(String name) {
-        health = DEFAULT_HEALTH;
-        this.name = name;
+        this("Ghost", name, 0, 0, 0);
     }
 
-    public Character(String name, int strength, int dexterity, int intelligence) {
-        this(name);
+    public Character(String type, String name, int strength, int dexterity, int intelligence) {
+        this.name = name;
+        this.type = type;
+        health = DEFAULT_HEALTH;
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;

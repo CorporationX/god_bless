@@ -6,8 +6,7 @@ public class Archer extends Character {
     private static final int DEFAULT_INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
-        type = "Archer";
+        super("Archer", name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override

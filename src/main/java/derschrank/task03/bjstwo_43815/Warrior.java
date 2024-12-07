@@ -7,8 +7,7 @@ public class Warrior extends Character {
 
 
     public Warrior(String name) {
-        super(name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
-        type = "Warrior";
+        super("Warrior", name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
