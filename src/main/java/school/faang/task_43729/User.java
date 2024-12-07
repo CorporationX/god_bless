@@ -14,12 +14,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User {" + "name='" + name + '\''
+                + ", age=" + age
+                + ", job='" + job + '\''
+                + ", address='" + address + '\'' + '}';
     }
 
     public static void addValidJob(String job) {
