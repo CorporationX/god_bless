@@ -34,13 +34,12 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        System.out.println("Удален спелл " + spellById.get(id) + " из spellById");
-        spellById.remove(id);
 
         SpellEvent spell = spellById.remove(id);
         if (Objects.nonNull(spell)) {
             spellsByType.get(spell.getEventType()).remove(spell);
         }
+        System.out.println("Удален спелл " + spellById.get(id) + " из spellById");
     }
 
     public void printAllSpellEvents() {
