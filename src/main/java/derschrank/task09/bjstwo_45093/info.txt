@@ -1,0 +1,74 @@
+Условие задачи:
+
+Вы — разработчик, работающий над системой управления товарами для магазина. Ваша задача — создать приложение для хранения и группировки товаров по категориям с использованием Java. Программа должна обеспечить эффективное распределение товаров на основе категорий и вывод их списка.
+
+Цель:
+
+Научиться использовать Java для хранения и группировки объектов с помощью коллекций HashSet и HashMap.
+
+Требования:
+
+Создайте класс Product с полями:
+
+id;
+
+name;
+
+category .
+
+В классе Main, создайте HashSet с объектами класса Product.
+
+Реализуйте методы для выполнения следующих действий:
+
+addItem(String category, String name) — добавляет новый товар в указанную категорию. Если категории нет, создайте её.
+
+removeItem(String category, String name) — удаляет товар из указанной категории. Если категории или товара нет, метод должен сообщить об этом.
+
+findItemsByCategory(String category) — выводит список всех товаров в указанной категории. Если категория не найдена, метод сообщает об этом.
+
+printAllItems() — выводит список всех товаров в каждой категории.
+
+Реализуйте следующие методы в классе Main:
+
+groupProductsByCategory(HashSet<Product> products) — группирует товары по категориям, принимая HashSet с объектами Product и возвращая HashMap, где ключом выступает String (категория товара), а значением — List<Product> (список товаров в данной категории). Метод проходит по HashSet с товарами и добавляет каждый товар в соответствующий список в HashMap по его категории.
+
+printProductsByCategory(Map<String, List<Product>> groupedProducts) — выводит информацию о товарах в каждой категории, используя обход массива Entry внутри HashMap. Метод последовательно выводит каждую категорию товаров, а также товары, которые к ней относятся.
+
+Тестируйте вашу программу, добавляя товары в HashSet и выполняя группировку по категориям с помощью HashMap. Убедитесь, что ваша программа корректно группирует товары по категориям и выводит результаты на экран.
+
+-----------------------------------
+6:29:06: Executing ':derschrank.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.task09.bjstwo_45093.Main.main()
+1) printItemsByCategory
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 4: product4
+
+All products in category: Category2
+[Category2] Art. 5: product5
+
+2) removeItem from Category1
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 2: Product2
+
+3) printAllItems
+All products in all categories.
+All products in category: Category2
+[Category2] Art. 5: product5
+
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 2: Product2
+
+
+BUILD SUCCESSFUL in 15s
+2 actionable tasks: 2 executed
+6:29:23: Execution finished ':derschrank.task09.bjstwo_45093.Main.main()'.
