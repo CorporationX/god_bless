@@ -1,14 +1,14 @@
 package school.faang.sprint1.bjs_43839;
 
 public abstract class Character {
-    public String name;
+    private final String name;
     public int strength;
     public int agility;
     public int intelligence;
     public int health = 100;
 
     public Character(String name) {
-        this.name = name;
+        this(name, 0, 0, 0);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
