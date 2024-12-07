@@ -13,10 +13,10 @@ public class LibrarySystem {
     public void addBook(String title, String author, int year, String location) {
         Book bookToAdd = new Book(title, author, year);
 
-        if(!theLocationOfTheBook.containsKey(bookToAdd)){
+        if (!theLocationOfTheBook.containsKey(bookToAdd)) {
             theLocationOfTheBook.put(bookToAdd, location);
             System.out.println(bookToAdd + " add !!!\n");
-        }else {
+        } else {
             System.out.println("This book already exists!!!\n");
         }
 
@@ -35,7 +35,7 @@ public class LibrarySystem {
     public void findBook(String title, String author, int year) {
         Book bookToFind = new Book(title, author, year);
 
-        if(theLocationOfTheBook.get(bookToFind) != null){
+        if (theLocationOfTheBook.get(bookToFind) != null) {
             System.out.println(bookToFind + " is located: " + theLocationOfTheBook.get(bookToFind) + "!!!\n");
             return;
         }
