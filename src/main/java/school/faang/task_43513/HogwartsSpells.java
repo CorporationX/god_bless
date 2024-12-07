@@ -32,8 +32,8 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> spellEvent : spellById.entrySet()) {
-            System.out.println(spellEvent.getKey() + " - " + spellEvent.getValue());
-        }
+        spellById.forEach((id, spellEvent) ->
+                System.out.println(id + " - " + spellEvent)
+        );
     }
 }
