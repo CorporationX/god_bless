@@ -8,6 +8,8 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int LEGAL_AGE = 18;
+
     private final String name;
     private final int age;
     private final String job;
@@ -27,7 +29,7 @@ public class User {
             throw new IllegalArgumentException("Name of the user can't be empty!");
         }
 
-        if (age < 18) {
+        if (age < LEGAL_AGE) {
             throw new IllegalArgumentException("User must be of legal age");
         }
 
