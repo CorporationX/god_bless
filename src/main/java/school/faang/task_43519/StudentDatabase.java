@@ -5,13 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class StudentDatabase {
-    private Map<Student, Map<Subject, Integer>> gradeBooks;
-    private Map<Subject, Set<Student>> subjectParticipants;
-
-    public StudentDatabase() {
-        gradeBooks = new HashMap<>();
-        subjectParticipants = new HashMap<>();
-    }
+    private final Map<Student, Map<Subject, Integer>> gradeBooks = new HashMap<>();
+    private final Map<Subject, Set<Student>> subjectParticipants = new HashMap<>();
 
     public void addNewStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         gradeBooks.put(student, grades);
