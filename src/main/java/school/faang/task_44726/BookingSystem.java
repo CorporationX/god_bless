@@ -1,13 +1,11 @@
 package school.faang.task_44726;
 
-import school.faang.task_44726.observer.BookingNotifier;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static school.faang.task_44726.Main.bookingNotifier;
+import static school.faang.task_44726.ConsoleInteraction.bookingNotifier;
 
 
 public class BookingSystem {
