@@ -9,7 +9,7 @@ public abstract class WeatherCacheTemplate {
     public WeatherData getWeatherData(String city, long maxCacheAge) {
         WeatherData cacheRequest = cache.get(city);
 
-        if (isCacheValid(cacheRequest, maxCacheAge) && cacheRequest != null) {
+        if (cacheRequest != null && isCacheValid(cacheRequest, maxCacheAge)) {
             return cacheRequest;
         }
 

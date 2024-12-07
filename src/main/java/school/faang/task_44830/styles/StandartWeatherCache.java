@@ -18,9 +18,6 @@ public class StandartWeatherCache extends WeatherCacheTemplate {
 
     @Override
     protected boolean isCacheValid(WeatherData data, long maxCacheAge) {
-        if (data == null) {
-            return false;
-        }
         long age = System.currentTimeMillis() - data.getTimestamp();
         return age <= maxCacheAge;
     }
