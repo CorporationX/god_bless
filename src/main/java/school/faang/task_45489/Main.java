@@ -8,29 +8,36 @@ import school.faang.task_45489.model.Item;
 public class Main {
     public static void main(String[] args) {
         Character frodo = new Character("Frodo");
-
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(Item.RING, frodo, (item) -> {
-            log.info("A {} item has been added to {} inventory", item.name(), frodo.getName());
+        addItemsAndPrint(frodo, manager);
+        removeItemAndPrint(frodo, manager);
+        updateItemAndPrint(frodo, manager);
+    }
+
+    private static void addItemsAndPrint(Character character, InventoryManager manager) {
+        manager.addItem(Item.RING, character, (item) -> {
+            log.info("A {} item has been added to {} inventory", item.name(), character.getName());
         });
 
-        manager.addItem(Item.SWORD, frodo, (item) -> {
-            log.info("A {} item has been added to {} inventory", item.name(), frodo.getName());
+        manager.addItem(Item.SWORD, character, (item) -> {
+            log.info("A {} item has been added to {} inventory", item.name(), character.getName());
         });
 
-        log.info(frodo.getInventory().toString());
+        log.info("Frodo inventory: {}", character.getInventory());
+    }
 
-        manager.removeItem(frodo, (item) -> item.getValue() > 1300);
+    private static void removeItemAndPrint(Character character, InventoryManager manager) {
+        manager.removeItem(character, (item) -> item.getValue() > 1300);
+        log.info(character.getInventory().toString());
+    }
 
-        log.info(frodo.getInventory().toString());
-
+    private static void updateItemAndPrint(Character character, InventoryManager manager) {
         manager.updateItem(
-                frodo,
+                character,
                 (item) -> item.getValue() > 100,
                 (item) -> Item.SWORD
         );
-
-        log.info(frodo.getInventory().toString());
+        log.info(character.getInventory().toString());
     }
 }
