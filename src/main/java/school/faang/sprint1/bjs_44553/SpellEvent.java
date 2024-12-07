@@ -17,7 +17,6 @@ public class SpellEvent {
 
     @Override
     public String toString() {
-        return "Events{" +
-                "Id=" + id + ", eventType=" + eventType + ", action=" + action + " }";
+        return "Events{" + "Id=" + id + ", eventType=" + eventType + ", action=" + action + " }";
     }
 }
