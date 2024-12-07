@@ -14,15 +14,15 @@ public class Main {
 
         messageProcessor.processMessage("Как твои дела", filters);
 
-        try{
+        try {
             messageProcessor.processMessage("Хахаха =)", filters);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         try {
             messageProcessor.processMessage("Это не спам", filters);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
