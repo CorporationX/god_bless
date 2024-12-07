@@ -6,7 +6,7 @@ public class Warrior extends Character {
     public static final int INTELLIGENCE = 3;
 
     public Warrior(String name) {
-        super(name);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE, 100);
 
         this.strength = STRENGTH;
         this.agility = AGILITY;
@@ -15,6 +15,10 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health -= this.strength;
+        if (isAlive()) {
+            character.receiveDamage(strength);
+        } else {
+            System.out.println(this.name + " не может атаковать, так как уже мёртв.");
+        }
     }
 }

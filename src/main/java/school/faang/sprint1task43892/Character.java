@@ -12,11 +12,23 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
-    protected int health = MAX_HEALTH;
+    private int health = MAX_HEALTH;
 
     public Character(String name) {
         this.name = name;
     }
 
     public abstract void attack(Character character);
+
+    public void receiveDamage(int damage) {
+        if (damage < 0) {
+            throw new IllegalArgumentException("Урон не может быть отрицательным");
+        }
+
+        health -= damage;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
 }

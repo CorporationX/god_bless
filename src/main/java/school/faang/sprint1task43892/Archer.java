@@ -6,11 +6,15 @@ public class Archer extends Character {
     public static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE, 100);
     }
 
     @Override
     public void attack(Character character) {
-        character.health -= this.agility;
+        if (isAlive()) {
+            character.receiveDamage(agility);
+        } else {
+            System.out.println(this.name + " не может атаковать, так как уже мёртв.");
+        }
     }
 }
