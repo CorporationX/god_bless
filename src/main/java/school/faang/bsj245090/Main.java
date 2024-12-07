@@ -20,8 +20,6 @@ public class Main {
 
         removeItem("Category1", "Product4");
 
-        //printAllItems();
-
         printProductsByCategory();
     }
 }

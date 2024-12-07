@@ -1,14 +1,12 @@
 package school.faang.bsj245090;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@UtilityClass
 public class ProductsListUtils {
     public static Set<Product> products = new HashSet<>();
 
@@ -19,14 +17,21 @@ public class ProductsListUtils {
     }
 
     public static void removeItem(String category, String name) {
-        Product product = new Product(category, name);
-        products.add(product);
-        System.out.println(product + " removed from system");
+        Set<Product> result = products.stream()
+                .filter(product -> Objects.equals(product.getCategory(), category) && Objects.equals(product.getName(), name))
+                .collect(Collectors.toSet());
+
+        if (result.isEmpty()) {
+            System.out.print("Book: %s could not be removed from category: %s as it is not found in system\r\n");
+        } else {
+            products.removeAll(result);
+            products.forEach(product -> System.out.println(product + " removed from system"));
+        }
     }
 
     public static Set<Product> findItemsByCategory(String category) {
         Set<Product> result = products.stream()
-                .filter(product -> product.getCategory().equals(category))
+                .filter(product -> Objects.equals(product.getCategory(), category))
                 .collect(Collectors.toSet());
 
         return result;
@@ -46,7 +51,9 @@ public class ProductsListUtils {
 
     public static void printProductsByCategory() {
         System.out.println("Output of goods sorted by category:");
-        groupProductsByCategory().forEach((category, products) -> {
+        Map<String, List<Product>> groupedProducts = groupProductsByCategory();
+
+        groupedProducts.forEach((category, products) -> {
             System.out.println("Category: " + category);
             products.forEach(System.out::println);
         });
