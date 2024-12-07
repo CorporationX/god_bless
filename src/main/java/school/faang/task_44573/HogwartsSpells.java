@@ -3,11 +3,12 @@ package school.faang.task_44573;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HogwartsSpells {
-    public HashMap<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
 
-    public HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    public Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(SpellEvent spellEvent) {
         addSpellInSpellById(spellEvent);
