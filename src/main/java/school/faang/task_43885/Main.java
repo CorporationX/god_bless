@@ -9,7 +9,7 @@ public class Main {
         archer.attack(warrior);
         archer.getLevelAlive();
 
-        warrior.chekHealth();
+        warrior.checkHealth();
         warrior.attack(archer);
         warrior.getLevelAlive();
     }

@@ -15,7 +15,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public void chekHealth() {
+    public void checkHealth() {
         if (this.health <= 0) {
             throw new RuntimeException();
         }

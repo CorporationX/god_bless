@@ -49,7 +49,6 @@ public abstract class Character implements CharacterActions {
         }
     }
 
-    public abstract void chekHealth();
-
+    public abstract void checkHealth();
 }
 
