@@ -20,13 +20,16 @@ public class Main {
     }
 
     private static void removeStudentFromSubject(StudentDatabase studentDatabase) {
-        Subject subject = studentDatabase.getSubjects().stream().filter(subj -> "English".equals(subj.getName())).findAny().orElse(null);
-        Student student = studentDatabase.getStudents().stream().filter(stud -> "Ivanov Artem".equals(stud.getName())).findAny().orElse(null);
+        Subject subject = studentDatabase.getSubjects().stream().filter(subj -> "English".equals(subj.getName()))
+                .findAny().orElse(null);
+        Student student = studentDatabase.getStudents().stream().filter(stud -> "Ivanov Artem".equals(stud.getName()))
+                .findAny().orElse(null);
         studentDatabase.removeStudentFromSubject(student, subject);
     }
 
     private static void addStudentToSubject(StudentDatabase studentDatabase) {
-        Subject subject = studentDatabase.getSubjects().stream().filter(subj -> "Chemistry".equals(subj.getName())).findAny().orElse(null);
+        Subject subject = studentDatabase.getSubjects().stream().filter(subj -> "Chemistry".equals(subj.getName()))
+                .findAny().orElse(null);
         studentDatabase.addStudentToSubject(studentDatabase.getStudents().get(0), subject);
     }
 
