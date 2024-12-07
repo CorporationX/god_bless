@@ -23,9 +23,6 @@ public class StudentDatabase {
     // Добавление нового студента и его предметов с оценками
     public void addStudent(Student student, Map<Subject, Integer> grades) {
         studentCheck(student);
-        if (grades == null || grades.isEmpty()) {
-            throw new IllegalArgumentException("Список предметов с оценками не может быть пустым");
-        }
 
         studentGrades.put(student, grades);
         grades.keySet().forEach(key -> subjectStudents.computeIfAbsent(key, k -> new ArrayList<>()).add(student));
@@ -73,9 +70,6 @@ public class StudentDatabase {
     // Добавление нового предмета и списка студентов, изучающих его
     public void addSubject(Subject subject, List<Student> students) {
         subjectCheck(subject);
-        if (students == null || students.isEmpty()) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
-        }
 
         subjectStudents.put(subject, students);
         students.forEach(student -> studentGrades.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null));

@@ -1,12 +1,10 @@
-package school.faang.task_45212.test;
+package school.faang.task_45212;
 
-
-import school.faang.task_45212.Student;
-import school.faang.task_45212.StudentDatabase;
-import school.faang.task_45212.Subject;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentDatabaseTest {
     private final StudentDatabase studentDatabase = new StudentDatabase();
