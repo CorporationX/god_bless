@@ -4,52 +4,43 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Example {
-    public static int[] reverseArray(int[] inputArray) {
+
+    public static int[] reverseArray(int[] inputArray, int algoType) {
         validateEmptyArray(inputArray);
 
-        Collections.reverse(Arrays.asList(inputArray));
-        return inputArray;
-    }
+        switch (algoType) {
+          case 1:
+              int first = 0;
+              int last = inputArray.length - 1;
 
-    public static int[] reverseArray(int[] inputArray, String isMostEfficient) {
-        validateEmptyArray(inputArray);
+              while (first < last) {
+                  int oldRightValue = inputArray[first];
+                  inputArray[first] = inputArray[last];
+                  inputArray[last] = oldRightValue;
+                  first++;
+                  last--;
+              }
+              break;
+          case 2:
+              int arrayLength = inputArray.length;
 
-        int first = 0;
-        int last = inputArray.length - 1;
-
-        while (first < last) {
-            int oldRightValue = inputArray[first];
-            inputArray[first] = inputArray[last];
-            inputArray[last] = oldRightValue;
-            first++;
-            last--;
+              for (int i = 0; i < arrayLength / 2; i++) {
+                  int oldValue = inputArray[i];
+                  inputArray[i] = inputArray[arrayLength - i - 1];
+                  inputArray[arrayLength - i - 1] = oldValue;
+              }
+              break;
+          case 3:
+              inputArray = Arrays.stream(inputArray)
+                      .boxed().sorted(Collections.reverseOrder())
+                      .mapToInt(Integer::intValue).toArray();
+              break;
+          default:
+              Collections.reverse(Arrays.asList(inputArray));
+              break;
         }
 
         return inputArray;
-    }
-
-    public static int[] reverseArray(int[] inputArray, boolean useIteration) {
-        validateEmptyArray(inputArray);
-
-        int arrayLength = inputArray.length;
-
-        for (int i = 0; i < arrayLength / 2; i++) {
-            int oldValue = inputArray[i];
-            inputArray[i] = inputArray[arrayLength - i - 1];
-            inputArray[arrayLength - i - 1] = oldValue;
-        }
-
-        return inputArray;
-    }
-
-    public static int[] reverseArray(int[] inputArray, int useStream) {
-        validateEmptyArray(inputArray);
-
-        //Collections.reverse(Arrays.asList(inputArray));
-        //return Arrays.stream(inputArray).mapToInt(Integer::intValue).toArray();
-        return Arrays.stream(inputArray)
-                .boxed().sorted(Collections.reverseOrder())
-                .mapToInt(Integer::intValue).toArray();
     }
 
     private static void validateEmptyArray(int[] inputArray) {
