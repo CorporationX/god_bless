@@ -15,9 +15,9 @@ public class Main {
         System.out.println("Заклинание 5:" + spells.getSpellEventById(5));
 
         System.out.println("Все заклинания с типом Defence:");
-        System.out.println(spells.getSpellEventsByType("Defence"));
+        System.out.println(spells.getSpellEventsByType(EventType.DEFENCE));
         System.out.println("Все заклинания с типом Charms:");
-        System.out.println(spells.getSpellEventsByType("Charms"));
+        System.out.println(spells.getSpellEventsByType(EventType.CHARMS));
 
         spells.deleteSpellEvent(1);
         spells.deleteSpellEvent(2);
@@ -29,13 +29,13 @@ public class Main {
     private static HogwartsSpells getHogwartsSpells() {
         HogwartsSpells spells = new HogwartsSpells();
 
-        spells.addSpellEvent(1, EventType.CHARMS.toString(), "Очаровывает противника");
-        spells.addSpellEvent(2, EventType.DEFENCE.toString(), "Защищает носителя");
-        spells.addSpellEvent(3, EventType.DAMAGE.toString(), "Наносит урон");
-        spells.addSpellEvent(4, EventType.TRANSFORMATION.toString(), "Превращает в мышь");
-        spells.addSpellEvent(5, EventType.INVISIBLE.toString(), "Делает невидимым");
-        spells.addSpellEvent(6, EventType.CHARMS.toString(), "Усыпляет противника");
-        spells.addSpellEvent(7, EventType.CHARMS.toString(), "Ослепляет противника");
+        spells.addSpellEvent(1, EventType.CHARMS, "Очаровывает противника");
+        spells.addSpellEvent(2, EventType.DEFENCE, "Защищает носителя");
+        spells.addSpellEvent(3, EventType.DAMAGE, "Наносит урон");
+        spells.addSpellEvent(4, EventType.TRANSFORMATION, "Превращает в мышь");
+        spells.addSpellEvent(5, EventType.INVISIBLE, "Делает невидимым");
+        spells.addSpellEvent(6, EventType.CHARMS, "Усыпляет противника");
+        spells.addSpellEvent(7, EventType.CHARMS, "Ослепляет противника");
         return spells;
     }
 }

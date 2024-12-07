@@ -1,14 +1,15 @@
 package school.faang.task44690.service;
 
+import school.faang.task44690.model.EventType;
 import school.faang.task44690.model.SpellEvent;
 
 import java.util.*;
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
 
-    public void addSpellEvent(int id, String eventType, String actionDescription) {
+    public void addSpellEvent(int id, EventType eventType, String actionDescription) {
         SpellEvent event = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, event);
         spellByType.computeIfAbsent(eventType, init -> new ArrayList<>()).add(event);
@@ -18,7 +19,7 @@ public class HogwartsSpells {
         return spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(EventType eventType) {
         return spellByType.get(eventType);
     }
 
