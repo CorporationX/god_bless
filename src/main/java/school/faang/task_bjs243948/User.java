@@ -18,10 +18,8 @@ public class User {
         for (User user : users) {
             if (!groupUsersResult.containsKey(user.age)) {
                 groupUsersResult.put(user.age, new ArrayList<>());
-                groupUsersResult.get(user.age).add(user);
-            } else {
-                groupUsersResult.get(user.age).add(user);
             }
+            groupUsersResult.get(user.age).add(user);
         }
         return groupUsersResult;
     }
