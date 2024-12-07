@@ -1,5 +1,7 @@
 package school.faang.bjs244733;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +10,13 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Room {
-
-    private int roomId;// — уникальный идентификатор комнаты;
-
-    private String type;// — тип комнаты (например, "конференц-зал", "переговорная");
-
-    private Set<String> amenities;// — набор удобств, доступных в комнате (например, "проектор", "видеоконференция").
+    // — уникальный идентификатор комнаты;
+    private int roomId;
+    // — тип комнаты (например, "конференц-зал", "переговорная");
+    private String type;
+    // — набор удобств, доступных в комнате (например, "проектор", "видеоконференция").
+    private Set<String> amenities;
 }
