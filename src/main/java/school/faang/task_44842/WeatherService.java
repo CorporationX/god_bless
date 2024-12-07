@@ -18,6 +18,13 @@ public class WeatherService implements WeatherProvider {
         fetchWeatherData(cityName);
     }
 
+
+    public WeatherService(WeatherData weatherData) {
+        this.cityName = weatherData.getCity();
+        fetchWeatherData(weatherData.getCity());
+    }
+
+
     @Override
     public WeatherData fetchWeatherData(String city) {
 

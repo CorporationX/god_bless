@@ -18,6 +18,10 @@ public class WeatherData {
         this.timestamp = timestamp;
     }
 
+    public WeatherData(String name) {
+    this.city = name;
+    }
+
     @Override
     public String toString() {
         return "WeatherData{"
