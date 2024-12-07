@@ -104,7 +104,7 @@ public class BookingSystem {
 
     public void findAvailableRooms(String dayOfTheWeek, String timeSlot, Set<String> requiredAmenities) {
         List<Room> availableRoomForBooking = new ArrayList<>();
-        for(Room room : roomList){
+        for (Room room : roomList) {
             availableRoomForBooking.add(room);
         }
         for (Room room : roomList) {
