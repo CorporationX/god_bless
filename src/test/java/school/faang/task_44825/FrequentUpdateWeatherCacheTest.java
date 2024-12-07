@@ -7,7 +7,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FrequentUpdateWeatherCacheTest {
-    Map<String, WeatherData> data = DataInitializerUtils.initData();
+    private final Map<String, WeatherData> data = DataInitializerUtils.initData();
     private final WeatherCacheTemplate frequentUpdateWeatherCache = new FrequentUpdateWeatherCache(
             data, new WeatherService()
     );

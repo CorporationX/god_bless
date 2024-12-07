@@ -7,7 +7,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StandardWeatherCacheTest {
-    Map<String, WeatherData> data = DataInitializerUtils.initData();
+    private final Map<String, WeatherData> data = DataInitializerUtils.initData();
     private final WeatherCacheTemplate standardWeatherCache = new StandardWeatherCache(
             data, new WeatherService()
     );
