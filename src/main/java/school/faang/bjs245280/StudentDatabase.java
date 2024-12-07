@@ -1,13 +1,12 @@
 package school.faang.bjs245280;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class StudentDatabase {
@@ -20,81 +19,92 @@ public class StudentDatabase {
     @NonNull
     private final Map<Subject, List<Student>> studentBySubject;
 
+    // Добавление нового студента и его предметов с оценками.
     public void addStudentSubjectGrades(Student student, Map<Subject, Integer> grades) {
-        this.subjectGradleByStudent.put(student, grades);
-        Iterator var3 = grades.keySet().iterator();
+        subjectGradleByStudent.put(student, grades);
 
-        while (var3.hasNext()) {
-            Subject subject = (Subject) var3.next();
-            this.studentBySubject.putIfAbsent(subject, new ArrayList());
-            ((List) this.studentBySubject.get(subject)).add(student);
+        for (Subject subject : grades.keySet()) {
+            studentBySubject.putIfAbsent(subject, new ArrayList<>());
+            studentBySubject.get(subject).add(student);
         }
-
     }
 
+    // Добавление нового предмета для существующего студента с оценкой.
     public void addSubjectForStudent(String nameSubject, Student student, int grade) {
         if (this.subjectGradleByStudent.containsKey(student)) {
             Subject subject = this.addSubject(nameSubject);
-            Map<Subject, Integer> gradeBySubject = (Map) this.subjectGradleByStudent.get(student);
+            Map<Subject, Integer> gradeBySubject = subjectGradleByStudent.get(student);
             gradeBySubject.put(subject, grade);
         }
 
     }
 
+    // Удаление студента и его предметов.
     public void deleteStudentSubject(Student student) {
-        Map<Subject, Integer> grades = (Map) this.subjectGradleByStudent.remove(student);
-        if (grades != null) {
-            Iterator var3 = grades.keySet().iterator();
+        Map<Subject, Integer> grades = subjectGradleByStudent.remove(student);
 
-            while (var3.hasNext()) {
-                Subject subject = (Subject) var3.next();
-                List<Student> students = (List) this.studentBySubject.get(subject);
-                if (students != null) {
-                    students.remove(student);
-                }
+        for (Subject subject : grades.keySet()) {
+            List<Student> students = studentBySubject.get(subject);
+            if (students != null) {
+                students.remove(student);
             }
         }
-
     }
 
+    // Вывод списка всех студентов и их оценок по предметам.
     public void printStudentSubjectGrade() {
-        this.subjectGradleByStudent.forEach((student, gradeBySubject) -> {
+        subjectGradleByStudent.forEach((student, gradeBySubject) -> {
             gradeBySubject.forEach((subject, grade) -> {
                 System.out.println(String.format(TEMPLATE_PRINT_INFO_ALL, student, subject, grade));
             });
         });
     }
 
-    public void addSubjectStudents(Subject subject, List<Student> students) {
-        this.studentBySubject.put(subject, students);
+    // Добавление нового предмета и списка студентов, изучающих его.
+    public void addSubjectsWithStudents(Subject subject, List<Student> students) {
+        studentBySubject.put(subject, new ArrayList<>(students));
+        for (Student student : students) {
+            addSubjectGradle(subject, student);
+        }
     }
 
+
+    // Добавление студента к существующему предмету.
     public void addStudentsForSubject(Subject subject, Student student) {
-        if (this.studentBySubject.containsKey(subject)) {
+        if (studentBySubject.containsKey(subject)) {
             List<Student> students = studentBySubject.get(subject);
             students.add(student);
+            addSubjectGradle(subject, student);
         } else {
-            System.out.println("Error! The subject was not found!" + subject);
+            System.out.println("Error! The subject " + subject + ", was not found!");
         }
 
     }
 
+    // Удаление студента из предмета.
     public void deleteStudentsFromSubject(Subject subject, Student student) {
-        if (this.studentBySubject.containsKey(subject)) {
+        if (studentBySubject.containsKey(subject)) {
             List<Student> students = studentBySubject.get(subject);
             students.remove(student);
         } else {
-            System.out.println("Error! The subject was not found!" + subject);
+            System.out.println("Error! The subject " + subject + ", was not found!");
         }
 
     }
 
+
+    // Вывод списка всех предметов и студентов, изучающих их.
     public void printStudentSubject() {
         this.studentBySubject.forEach((subject, students) -> {
             students.forEach((student) -> {
                 System.out.println(String.format(TEMPLATE_PRINT_SUBJECTS, subject, student));
             });
         });
+    }
+
+    private void addSubjectGradle(Subject subject, Student student) {
+        subjectGradleByStudent.putIfAbsent(student, new HashMap<>());
+        subjectGradleByStudent.get(student).put(subject, null);
     }
 
     public Student addStudent(String name) {
@@ -105,10 +115,10 @@ public class StudentDatabase {
     }
 
     public Subject addSubject(String name) {
-        ++this.countIdSubject;
-        Subject subject = new Subject(this.countIdSubject, name);
+        ++countIdSubject;
+        Subject subject = new Subject(countIdSubject, name);
         this.studentBySubject.put(subject, new ArrayList<>());
-        return new Subject(this.countIdSubject, name);
+        return new Subject(countIdSubject, name);
     }
 
 }

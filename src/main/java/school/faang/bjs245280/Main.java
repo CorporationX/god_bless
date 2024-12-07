@@ -1,5 +1,8 @@
 package school.faang.bjs245280;
 
+import lombok.val;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +32,21 @@ public class Main {
         studentDatabase.addSubjectForStudent("psychology", tom, 4);
         studentDatabase.printStudentSubjectGrade();
 
+        val newSubject = studentDatabase.addSubject("philosophy");
+
+        studentDatabase.addSubjectsWithStudents(newSubject, Arrays.asList(tom));
+        studentDatabase.addStudentsForSubject(newSubject, bob);
+
         System.out.println("----------------------------");
 
-        studentDatabase.deleteStudentSubject(getStudentByName("Bob"));
+
         studentDatabase.printStudentSubject();
+        studentDatabase.deleteStudentSubject(getStudentByName("Bob"));
     }
 
     private static Student getStudentByName(String nameStudent) {
         return subjectGradleByStudent.keySet().stream()
-                .filter(v-> v.getName().equals(nameStudent))
+                .filter(v -> v.getName().equals(nameStudent))
                 .findFirst().orElse(null);
     }
-
 }
