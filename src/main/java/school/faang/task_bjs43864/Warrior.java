@@ -1,15 +1,14 @@
 package school.faang.task_bjs43864;
 
-import lombok.Getter;
-import lombok.Setter;
+import static school.faang.task_bjs43864.BattleConfig.WARRIOR_AGILITY;
+import static school.faang.task_bjs43864.BattleConfig.WARRIOR_INTELLIGENCE;
+import static school.faang.task_bjs43864.BattleConfig.WARRIOR_POWER;
 
-@Getter
-@Setter
+
 public class Warrior extends Character {
-    private String name;
 
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, WARRIOR_POWER, WARRIOR_AGILITY, WARRIOR_INTELLIGENCE);
     }
 
     @Override

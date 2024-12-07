@@ -1,19 +1,17 @@
 package school.faang.task_bjs43864;
 
-import lombok.Getter;
-import lombok.Setter;
+import static school.faang.task_bjs43864.BattleConfig.ARCHER_AGILITY;
+import static school.faang.task_bjs43864.BattleConfig.ARCHER_INTELLIGENCE;
+import static school.faang.task_bjs43864.BattleConfig.ARCHER_POWER;
 
-@Setter
-@Getter
 public class Archer extends Character {
-    private String name;
 
     public Archer(String name) {
-        super(name, 3, 10, 5);
+        super(name, ARCHER_POWER, ARCHER_AGILITY, ARCHER_INTELLIGENCE);
     }
 
     @Override
     void attack(Character character) {
-        character.setHealth(character.getHealth() - getDexterity());
+        character.setHealth(character.getHealth() - getAgility());
     }
 }
