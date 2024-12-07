@@ -23,8 +23,12 @@ public abstract class Character implements CharacterActions {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Character character = (Character) o;
         return Objects.equals(name, character.name);
     }
@@ -36,9 +40,7 @@ public abstract class Character implements CharacterActions {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Character{" + "name='" + name + '\'' + '}';
     }
 
     public void getLevelAlive() {
