@@ -10,16 +10,16 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Item item, Character character, Consumer<Item> action) {
-        character.getItems().add(item);
+        character.items().add(item);
         action.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        character.getItems().removeIf(predicate);
+        character.items().removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> action) {
-        List<Item> items = character.getItems();
+        List<Item> items = character.items();
 
         Item item = items.stream()
                 .filter(predicate)
