@@ -1,72 +1,68 @@
 package school.faang.task_45116;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
+import lombok.Data;
 
+import java.util.*;
+
+@Data
 public class ProductManager {
-    private final Set<Product> products = new HashSet<>();
+    private final Map<Category, Set<Product>> groupedProducts = new HashMap<>();
 
     public void addItem(Category category, String name) {
-        int id = new Random().nextInt(0, 100);
+        String id = UUID.randomUUID().toString();
         Product product = new Product(id, name, category);
-        products.add(product);
+        groupedProducts.computeIfAbsent(category, k -> new HashSet<>()).add(product);
     }
 
     public void removeItem(Category category, String name) {
-        Iterator<Product> productsIterator = products.iterator();
-        while (productsIterator.hasNext()) {
-            Product product = productsIterator.next();
-            if (Objects.equals(product.getName(), name) && Objects.equals(product.getCategory(), category)) {
-                productsIterator.remove();
+        Set<Product> products = groupedProducts.get(category);
+
+        if (products == null || products.isEmpty()) {
+            throw new NoSuchElementException("There is no product with the category " + category + " and the name " + name);
+        }
+
+
+        Iterator<Product> iterator = products.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (Objects.equals(product.getName(), name)) {
+                iterator.remove();
+
+                if (products.isEmpty()) {
+                    groupedProducts.remove(category);
+                }
                 return;
             }
         }
-        throw new NoSuchElementException("There is no product with the category " + category + " and the name" + name);
+
+        throw new NoSuchElementException("There is no product with the category " + category + " and the name " + name);
     }
 
     public void findItemsByCategory(Category category) {
-        Map<Category, Set<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product -> {
-            if (Objects.equals(product.getCategory(), category)) {
-                groupedProducts.computeIfAbsent(product.getCategory(), k -> new HashSet<>()).add(product);
-            }
-        });
-        groupedProducts.forEach((currentCategory, products) -> {
-            System.out.println(currentCategory + ":");
-            products.forEach(System.out::println);
-        });
+        Set<Product> products = groupedProducts.get(category);
+        if (products == null || products.isEmpty()) {
+            System.out.println("No products found for category: " + category);
+            return;
+        }
+
+        printProductsByCategory(category, products);
     }
 
     public void printAllItems() {
-        Map<Category, Set<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product ->
-                groupedProducts.computeIfAbsent(product.getCategory(), k ->
-                        new HashSet<>()).add(product));
+        if (groupedProducts.isEmpty()) {
+            System.out.println("No products available.");
+            return;
+        }
 
-        groupedProducts.forEach((category, products) -> {
-            System.out.println(category + ":");
-            products.forEach(System.out::println);
-        });
+        groupedProducts.forEach(this::printProductsByCategory);
     }
 
     public Map<Category, Set<Product>> groupProductsByCategory() {
-        Map<Category, Set<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product ->
-                groupedProducts.computeIfAbsent(product.getCategory(), k ->
-                        new HashSet<>()).add(product));
-        return groupedProducts;
+        return Collections.unmodifiableMap(groupedProducts);
     }
 
-    public void printProductsByCategory(Map<Category, Set<Product>> groupedProducts) {
-        groupedProducts.forEach((category, products) -> {
-            System.out.println(category + ":");
-            products.forEach(System.out::println);
-        });
+    private void printProductsByCategory(Category category, Set<Product> products) {
+        System.out.println(category + ":");
+        products.forEach(System.out::println);
     }
 }

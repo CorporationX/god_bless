@@ -1,15 +1,10 @@
 package school.faang.task_45116;
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
-
-@ToString
-@AllArgsConstructor
 public enum Category {
-    ELECTRONICS("Electronics"),
-    CLOTHING("Clothing"),
-    FOOD("Food"),
-    BOOKS("Books");
+    ELECTRONICS, CLOTHING, FOOD, BOOKS;
 
-    private final String name;
+    @Override
+    public String toString() {
+        return name().charAt(0) + name().substring(1).toLowerCase();
+    }
 }
