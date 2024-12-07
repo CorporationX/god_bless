@@ -7,7 +7,7 @@ public class FareCalculator {
         if (distance <= 0 || time <= 0) {
             throw new IllegalArgumentException("Invalid distance or time");
         }
-        if (biFunction == null){
+        if (biFunction == null) {
             throw new IllegalArgumentException("Invalid biFunction");
         }
         return biFunction.apply(distance, time);
