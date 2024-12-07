@@ -10,7 +10,7 @@ public class Main {
         try {
             StudentDatabase studentDatabase = new StudentDatabase();
             Student alexey = new Student(1, "Алексей");
-            Student sergey = new Student(2, "Мария");
+            Student sergey = new Student(2, "Сергей");
             Subject math = new Subject(1, "Математика");
             Subject physics = new Subject(2, "Физика");
 

@@ -1,21 +1,20 @@
 package school.faang.task_45212.test;
 
+import org.junit.jupiter.api.BeforeEach;
+import school.faang.task_45212.Student;
+import school.faang.task_45212.StudentDatabase;
+import school.faang.task_45212.Subject;
+
 public class StudentDatabaseTest {
-    private StudentDatabase studentDatabase;
-    private Student student1;
-    private Student student2;
-    private Subject subject1;
-    private Subject subject2;
-    private Subject subject3;
+    private final StudentDatabase studentDatabase = new StudentDatabase();
 
     @BeforeEach
     public void setUp() {
-        studentDatabase = new StudentDatabase();
-        student1 = new Student(1, "Алексей");
-        student2 = new Student(2, "Мария");
-        subject1 = new Subject(1, "Математика");
-        subject2 = new Subject(2, "Физика");
-        subject3 = new Subject(3, "Информатика");
+        var alexey = new Student(1, "Алексей");
+        var sergey = new Student(2, "Сергей");
+        var math = new Subject(1, "Математика");
+        var physics = new Subject(2, "Физика");
+        var chemistry = new Subject(3, "Химия");
     }
 
     @Test
