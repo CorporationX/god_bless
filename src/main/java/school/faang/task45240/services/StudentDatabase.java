@@ -20,18 +20,12 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-
-        Map<Subject, Integer> grades = studentGrades.get(student);
-
+/*        Map<Subject, Integer> grades = studentGrades.get(student);
         if (grades != null) {
             grades.put(subject, grade);
-            subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
-
-            if (studentGrades.containsKey(student)) {
-                studentGrades.get(student).putIfAbsent(subject, grade);
-                subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
-            }
-        }
+        }*/
+        studentGrades.computeIfAbsent(student, init -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
@@ -45,7 +39,6 @@ public class StudentDatabase {
     }
 
     public void printGradedStudents() {
-        System.out.println("=======");
         System.out.println("printGradedStudents: ");
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentGrades.entrySet()) {
             System.out.println(entry.getKey() + " has grades:");
@@ -78,7 +71,6 @@ public class StudentDatabase {
     }
 
     public void printStudentSubjects() {
-        System.out.println("=======");
         System.out.println("printStudentSubjects: ");
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             System.out.println("Subject: " + entry.getKey());

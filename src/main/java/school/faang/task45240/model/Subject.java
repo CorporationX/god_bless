@@ -1,24 +1,31 @@
 package school.faang.task45240.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
+import java.util.Objects;
 
-@EqualsAndHashCode
 @Getter
+@ToString
 public class Subject {
 
     private static int counter = 1;
     private final int id;
-    private final String name;
+    private final SubjectName name;
 
-    public static final Subject PHYSICS = new Subject("Physics");
-    public static final Subject HISTORY = new Subject("History");
-    public static final Subject SOCIOLOGY = new Subject("Sociology");
-    public static final Subject PHILOSOPHY = new Subject("Philosophy");
-    public static final Subject MATH = new Subject("Math");
-
-    public Subject(String name) {
+    public Subject(SubjectName name) {
         this.id = counter++;
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return name == subject.name;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
