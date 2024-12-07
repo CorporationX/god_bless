@@ -5,14 +5,14 @@ import school.faang.sprint2.task47010.model.MessageType;
 import school.faang.sprint2.task47010.model.Notification;
 import school.faang.sprint2.task47010.service.EmailService;
 import school.faang.sprint2.task47010.service.PushService;
-import school.faang.sprint2.task47010.service.SMSService;
+import school.faang.sprint2.task47010.service.SmsService;
 
 public class Main {
     public static void main(String[] args) {
 
         NotificationManager notificationManager = new NotificationManager();
         EmailService emailService = new EmailService();
-        SMSService smsService = new SMSService();
+        SmsService smsService = new SmsService();
         PushService pushService = new PushService();
 
         notificationManager.registerHandler(MessageType.EMAIL,

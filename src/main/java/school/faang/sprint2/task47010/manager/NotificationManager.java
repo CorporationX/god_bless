@@ -10,19 +10,15 @@ import java.util.function.Consumer;
 public class NotificationManager {
     Map<MessageType, Consumer<Notification>> messageHandlers = new HashMap<>();
 
-    public void registerHandler(MessageType messageType, Consumer<Notification> handler)
-    {
+    public void registerHandler(MessageType messageType, Consumer<Notification> handler) {
         messageHandlers.put(messageType, handler);
     }
 
-    public void sendNotification(Notification notification)
-    {
+    public void sendNotification(Notification notification) {
         Consumer<Notification> handler = messageHandlers.get(notification.getType());
-        if (handler != null)
-        {
+        if (handler != null) {
             handler.accept(notification);
-        }else
-        {
+        } else {
             System.out.println("System error: unknown message type " + notification.getType());
         }
     }
