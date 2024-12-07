@@ -1,6 +1,5 @@
 package school.faang.taskdismantlinganamazonwarehouse;
 
-
 import lombok.Data;
 import lombok.ToString;
 
@@ -24,11 +23,8 @@ public class Main {
         addItem("Бытовая техника", "Холодильник");
         addItem("Электроника", "Компьютер");
         addItem("Бытовая техника", "Стиральная машина");
-
-
         findItemsByCategory("Бытовая техника");
     }
-
 
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
@@ -44,7 +40,6 @@ public class Main {
         for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             System.out.println("Categiry" + entry.getKey() + " - " + "product" + entry.getValue());
         }
-
     }
 
     public static void addItem(String category, String name) {
@@ -85,19 +80,6 @@ public class Main {
         for (Map.Entry<String, List<Product>> entry : productCategories.entrySet()) {
             System.out.println("Категория " + entry.getKey() + " Товары " + entry.getValue());
         }
-
     }
 }
 
-
-/**
- * **
- * groupProductsByCategory(HashSet<Product> products) — группирует товары по категориям,
- * принимая HashSet с объектами Product и возвращая HashMap, где ключом выступает String (категория товара),
- * а значением — List<Product> (список товаров в данной категории). Метод проходит по HashSet с товарами и добавляет
- * каждый товар в соответствующий список в HashMap по его категории.
- * <p>
- * printProductsByCategory(Map<String, List<Product>> groupedProducts) — выводит информацию о товарах в каждой
- * категории, используя обход массива Entry внутри HashMap. Метод последовательно выводит каждую категорию товаров,
- * а также товары, которые к ней относятся.
- */
