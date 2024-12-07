@@ -1,4 +1,4 @@
-package school.faang.task_bjs43178;
+package school.faang.sprint_1.task_bjs43178;
 
 import java.util.Set;
 import lombok.Data;
