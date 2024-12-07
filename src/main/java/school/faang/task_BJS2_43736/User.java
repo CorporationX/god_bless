@@ -43,6 +43,5 @@ public class User {
         }else{
             this.address = address;
         }
-
     }
 }
