@@ -22,10 +22,14 @@ public class Main {
         notificationManager.registerHandler(MessageType.PUSH,
                 (notification) -> pushService.sendMessage(notification.getMessage()));
 
-        Notification emailNotification = new Notification(MessageType.EMAIL, "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification(MessageType.SMS, "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification(MessageType.PUSH, "Новый пост от пользователя: JohnDoe");
-        Notification pagerNotification = new Notification(MessageType.PAGER, "Затерявшееся сообщение из 90х");
+        Notification emailNotification = new Notification(MessageType.EMAIL,
+                "Ваша учетная запись успешно активирована");
+        Notification smsNotification = new Notification(MessageType.SMS,
+                "Вы успешно изменили свой пароль");
+        Notification pushNotification = new Notification(MessageType.PUSH,
+                "Новый пост от пользователя: JohnDoe");
+        Notification pagerNotification = new Notification(MessageType.PAGER,
+                "Затерявшееся сообщение из 90х");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
