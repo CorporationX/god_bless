@@ -14,5 +14,3 @@ public enum Category {
                 .orElse(null);
     }
 }
-
-
