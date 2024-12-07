@@ -1,4 +1,4 @@
-package school.faang.task_44830.stylesCache;
+package school.faang.task_44830.styles;
 
 import school.faang.task_44830.WeatherCacheTemplate;
 import school.faang.task_44830.WeatherData;

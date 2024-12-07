@@ -5,8 +5,8 @@ import school.faang.task_44830.WeatherCacheTemplate;
 import school.faang.task_44830.WeatherData;
 import school.faang.task_44830.WeatherProvider;
 import school.faang.task_44830.WeatherService;
-import school.faang.task_44830.stylesCache.FrequentWeatherCache;
-import school.faang.task_44830.stylesCache.StandartWeatherCache;
+import school.faang.task_44830.styles.FrequentWeatherCache;
+import school.faang.task_44830.styles.StandartWeatherCache;
 
 public class WeatherCacheTests {
     private static WeatherProvider weatherProvider;
