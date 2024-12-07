@@ -14,6 +14,7 @@ public class StudentDatabase {
             throw new IllegalArgumentException("Студент не может быть пустым");
         }
     }
+
     private void subjectCheck(Subject subject) {
         if (subject == null) {
             throw new IllegalArgumentException("Предмет не может быть пустым");
@@ -54,7 +55,8 @@ public class StudentDatabase {
         Optional.ofNullable(studentGrades.remove(student))
                 .orElseThrow(() -> new IllegalArgumentException("Студент " + student.getName() + " не найден"))
                 .forEach((subject, grade) -> Optional.ofNullable(subjectStudents.get(subject))
-                        .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета " + subject.getName() + " не найден"))
+                        .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета "
+                                + subject.getName() + " не найден"))
                         .remove(student));
     }
 
@@ -99,11 +101,13 @@ public class StudentDatabase {
         subjectCheck(subject);
 
         Optional.ofNullable(subjectStudents.get(subject))
-                .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета " + subject.getName() + " не найден"))
+                .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета "
+                        + subject.getName() + " не найден"))
                 .remove(student);
 
         Optional.ofNullable(studentGrades.get(student))
-                .orElseThrow(() -> new IllegalArgumentException("Список предметов с оценками для " + student.getName() + " не найден"))
+                .orElseThrow(() -> new IllegalArgumentException("Список предметов с оценками для "
+                        + student.getName() + " не найден"))
                 .remove(subject);
     }
 

@@ -10,8 +10,9 @@ public class Student {
     private final String name;
 
     public Student(int id, String name) {
-        if (name == null || name.isEmpty())
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name не может быть пустым");
+        }
 
         this.id = id;
         this.name = name;
