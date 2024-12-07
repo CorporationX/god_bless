@@ -18,7 +18,9 @@ public class ProductsListUtils {
 
     public static void removeItem(String category, String name) {
         Set<Product> result = products.stream()
-                .filter(product -> Objects.equals(product.getCategory(), category) && Objects.equals(product.getName(), name))
+                .filter(product ->
+                        Objects.equals(product.getCategory(), category)
+                        && Objects.equals(product.getName(), name))
                 .collect(Collectors.toSet());
 
         if (result.isEmpty()) {
