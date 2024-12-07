@@ -15,7 +15,7 @@ public class HogwartsSpells {
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        addSpellEventByType(spellEvent, eventType);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -27,42 +27,15 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent deletedSpellEvent = spellById.get(id);
+        SpellEvent deletedSpellEvent = spellById.remove(id);
         if (deletedSpellEvent != null) {
-            deleteSpellEventByType(deletedSpellEvent);
-            spellById.remove(id);
+            spellsByType.get(deletedSpellEvent.getEventType()).remove(deletedSpellEvent);
         }
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> spellEvent : spellById.entrySet()) {
             System.out.println(spellEvent.getKey() + " — " + spellEvent.getValue());
-        }
-    }
-
-    private void addSpellEventByType(SpellEvent spellEvent, String eventType) {
-        List<SpellEvent> spellEvents;
-        if (spellsByType.containsKey(eventType)) {
-            spellEvents = spellsByType.get(eventType);
-            spellEvents.add(spellEvent);
-        } else {
-            spellEvents = new ArrayList<>();
-            spellEvents.add(spellEvent);
-            spellsByType.put(eventType, spellEvents);
-        }
-    }
-
-    private void deleteSpellEventByType(SpellEvent deletedSpellEvent) {
-        List<SpellEvent> spellEventsWithSpecificType = spellsByType.get(deletedSpellEvent.getEventType());
-        if (spellEventsWithSpecificType != null) {
-            int spellEventIndex = 0;
-            for (SpellEvent spellEvent : spellEventsWithSpecificType) {
-                if (spellEvent.equals(deletedSpellEvent)) {
-                    break;
-                }
-                spellEventIndex++;
-            }
-            spellEventsWithSpecificType.remove(spellEventIndex);
         }
     }
 }
