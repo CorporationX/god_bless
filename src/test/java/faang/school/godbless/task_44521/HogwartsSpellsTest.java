@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_44521;
+package faang.school.godbless.task_44521;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
