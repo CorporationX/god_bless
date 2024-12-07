@@ -10,9 +10,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StudentDatabase studentDatabase = new StudentDatabase();
-        Map<Subject, Integer> subjectMap = new HashMap<>();
-        List<Student> studentList = new ArrayList<>();
 
         Subject math = new Subject("Math");
         Subject science = new Subject("Science");
@@ -21,6 +18,8 @@ public class Main {
         Student student1 = new Student("John Doe");
         Student student2 = new Student("Jane Smith");
         Student student3 = new Student("Alice Brown");
+        StudentDatabase studentDatabase = new StudentDatabase();
+        Map<Subject, Integer> subjectMap = new HashMap<>();
 
         subjectMap.put(math, 5);
         subjectMap.put(science, 4);
@@ -43,6 +42,7 @@ public class Main {
         System.out.println("\n=== All Students ===");
         studentDatabase.printStudents();
         System.out.println("\n==================    ");
+        List<Student> studentList = new ArrayList<>();
 
         studentList.add(student1);
         studentList.add(student2);
