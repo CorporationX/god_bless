@@ -11,13 +11,13 @@ public class User {
     private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        if (name ==  null || name.isEmpty()){
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name can't be empty");
         }
-        if (age < 18){
+        if (age < 18) {
             throw new IllegalArgumentException("Your age must be over 18");
         }
-        if (!VALID_JOBS.contains(job)){
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Not a valid job");
         }
         if (!VALID_ADDRESSES.contains(address)) {
