@@ -15,39 +15,91 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> students = new HashMap<>();
     private final Map<Subject, List<Student>> subjects = new HashMap<>();
 
-    public void addStudents(Student student, Subject subject, Integer note) throws IllegalArgumentException {
-        Map<Subject, Integer> subjects = students.computeIfAbsent(student, k -> new HashMap<>());
-        if (note > 5 | note < 0) {
-            throw new IllegalArgumentException("note should be less then 5 or greater than 0");
+    public void addStudent(Student student, Map<Subject, Integer> subjectMarks) throws IllegalArgumentException {
+        if (students.containsKey(student)) {
+            throw new IllegalArgumentException("student already exists");
         }
-        subjects.put(subject, note);
-        log.info("To student {} added {} with note {}", student.getName(), subject.getTitle(), note);
+        if (subjectMarks.isEmpty()) {
+            throw new IllegalArgumentException("subject marks cannot be empty");
+        }
+        subjectMarks.forEach((subject, mark) -> {
+            if (mark > 5 || mark < 0) {
+                throw new IllegalArgumentException("Note should be less than 5 or greater than 0");
+            }
+        });
+        Map<Subject, Integer> copyOfSubjectMarks = new HashMap<>(subjectMarks);
+        students.put(student, copyOfSubjectMarks);
+        log.info("Added student {} with subject marks {}", student, subjectMarks);
     }
 
-    public void removeStudents(Student student) throws IllegalArgumentException {
-        if (!(students.containsKey(student))) {
-            throw new IllegalArgumentException("Student does not exist");
+    /**
+     * Adds a subject for a specific student along with an associated mark.
+     */
+    public void addSubjectForStudent(Student student, Subject subject, Integer mark) throws IllegalArgumentException {
+        Map<Subject, Integer> subjectsInStudents = students.get(student);
+        if (subjectsInStudents == null) {
+            throw new IllegalArgumentException("No subjects in this student");
         }
-        students.remove(student);
+        if (mark > 5 | mark < 0) {
+            throw new IllegalArgumentException("note should be less then 5 or greater than 0");
+        }
+        subjectsInStudents.put(subject, mark);
+        log.info("To student {} added {} with note {}", student.getName(), subject.getTitle(), mark);
+    }
+
+    public void removeStudent(Student student) throws IllegalArgumentException {
+        Map<Subject, Integer> removedStudent = students.remove(student);
+        if (removedStudent == null) {
+            throw new IllegalArgumentException("Student" + student.getName() + " does not exist");
+        }
         log.info("Student {} removed", student.getName());
     }
 
     public void printStudents() {
-        students.forEach((key, value) -> System.out.println("Student " + key.getName() + " " + value));
+        students.forEach((student, subjectsAndMarks) -> {
+            System.out.println("Student: " + student.getName());
+            if (subjectsAndMarks.isEmpty()) {
+                System.out.println("  No subjects or marks assigned.");
+            } else {
+                System.out.println("  Subjects and marks:");
+                subjectsAndMarks.forEach((subject, mark) ->
+                        System.out.println("    " + subject.getTitle() + ": " + mark));
+            }
+        });
     }
 
-    public void addSubjects(Subject subject, Student student) {
-        List<Student> studentsInSubjects = subjects.computeIfAbsent(subject, k -> new ArrayList<>());
-        studentsInSubjects.add(student);
-        log.info("To subjects {} added {}", subject.getTitle(), student.getName());
-    }
-
-    public void removeSubjects(Subject subject) throws IllegalArgumentException {
-        if (!(subjects.containsKey(subject))) {
-            throw new IllegalArgumentException("Subject does not exist");
+    public void addSubject(Subject subject, List<Student> student) {
+        if (subjects.containsKey(subject)) {
+            throw new IllegalArgumentException("Subject already exists");
         }
-        subjects.remove(subject);
-        log.info("Subject {} removed", subject.getTitle());
+        if (student == null) {
+            throw new IllegalArgumentException("student cannot be null");
+        }
+        List<Student> copyStudent = new ArrayList<>(student);
+        subjects.put(subject, copyStudent);
+    }
+
+    /**
+     * Adds a student to the list of students associated with a specific subject.
+     */
+    public void addStudentInSubject(Subject subject, Student student) {
+        List<Student> studentsInSubjects = subjects.get(subject);
+        if (studentsInSubjects == null) {
+            throw new IllegalArgumentException("No students in this subject");
+        }
+        studentsInSubjects.add(student);
+    }
+
+    public void removeStudentFromSubject(Subject subject, Student student) throws IllegalArgumentException {
+        List<Student> studentsInSubjects = subjects.get(subject);
+        if (studentsInSubjects == null) {
+            throw new IllegalArgumentException("No students in this subject");
+        }
+        if (!(studentsInSubjects.contains(student))) {
+            throw new IllegalArgumentException("Student " + student.getName() + " does not exist");
+        }
+        studentsInSubjects.remove(student);
+        log.info("From subjects {} removed {}", subject.getTitle(), student.getName());
     }
 
     public void printSubjects() {
