@@ -33,6 +33,7 @@ public class Shop {
     public void removeItem(String productName) {
         removeItem(findProductItemInCategoryMapByNameOfProduct(productName));
     }
+
     public void removeItem(Product product) {
         Set<Product> productsInOneCategorySet = productsByCategoryMap.get(product.getCategory());
         if (productsInOneCategorySet == null) {
