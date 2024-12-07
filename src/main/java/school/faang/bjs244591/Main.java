@@ -18,7 +18,7 @@ public class Main {
 
         List<SpellEvent> spellEventsByType = hogwartsSpells.getSpellEventsByType(SpellType.LUMOS);
         for (SpellEvent event : spellEventsByType) {
-            System.out.println(event.getId() + " - " + event.getEventType() + " : " + event.getAction());
+            System.out.println(event.id() + " - " + event.eventType() + " : " + event.action());
         }
         hogwartsSpells.printAllSpellEvents();
     }
