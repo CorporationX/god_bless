@@ -13,6 +13,6 @@ public class WeatherService implements WeatherProvider {
         double maxHumidity = 100;
         double temperature = random.nextDouble(maxTemperature - minTemperature) + minTemperature;
         double humidity = random.nextDouble(maxHumidity - minHumidity) + minHumidity;
-        return new WeatherData(city,temperature,humidity,new Timestamp(System.currentTimeMillis()).getTime());
+        return new WeatherData(city, temperature, humidity, new Timestamp(System.currentTimeMillis()).getTime());
     }
 }
