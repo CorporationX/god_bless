@@ -7,9 +7,9 @@ public class Main {
 
         gamerW.attack(gamerA);
         gamerA.attack(gamerW);
-        System.out.println(gamerA.name + " -> " + gamerA.health);
-        System.out.println(gamerW.name + " -> " + gamerW.health);
+        System.out.println("gamerA -> " + gamerA.health);
+        System.out.println("gamerW -> " + gamerW.health);
         gamerW.attack(gamerW);
-        System.out.println(gamerW.name + " -> " + gamerW.health);
+        System.out.println("gamerW -> " + gamerW.health);
     }
 }
