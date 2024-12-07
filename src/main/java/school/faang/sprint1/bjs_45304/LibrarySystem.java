@@ -1,14 +1,15 @@
 package school.faang.sprint1.bjs_45304;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class LibrarySystem {
     private final HashMap<Book, String> books = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        books.put(new Book(title, author, year), location);
+        Book newBook = new Book(title, author, year);
+        if (!books.containsKey(newBook)) {
+            books.put(newBook, location);
+        }
     }
 
     public void removeBook(String title, String author, int year) {
@@ -26,14 +27,7 @@ public class LibrarySystem {
         if (!books.containsKey(searchBook)) {
             System.out.println("Book not found");
         } else {
-            Iterator<Map.Entry<Book, String>> iterator = books.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Book, String> pair = iterator.next();
-                if (searchBook.equals(pair.getKey())) {
-                    System.out.println("Book is located on " + pair.getValue());
-                    break;
-                }
-            }
+            System.out.println("Book is located on " + books.get(searchBook));
         }
     }
 
