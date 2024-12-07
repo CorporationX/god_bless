@@ -1,4 +1,4 @@
-package school.faang.TaskGroupingUsersByAge;
+package school.faang.taskgroupingusersbyage;
 
 import java.util.ArrayList;
 import java.util.List;

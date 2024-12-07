@@ -1,4 +1,4 @@
-package school.faang.TaskGroupingUsersByAge;
+package school.faang.taskgroupingusersbyage;
 
 import lombok.Data;
 import lombok.ToString;
