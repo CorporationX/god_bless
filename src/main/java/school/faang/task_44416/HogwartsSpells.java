@@ -3,8 +3,8 @@ package school.faang.task_44416;
 import java.util.*;
 
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellsById = new HashMap<Integer, SpellEvent>();
-    Map<String, List<SpellEvent>> spellsByType = new HashMap<String, List<SpellEvent>>();
+    private final Map<Integer, SpellEvent> spellsById = new HashMap<Integer, SpellEvent>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<String, List<SpellEvent>>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
@@ -13,27 +13,36 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (!spellsById.containsKey(id)) {
+            throw new NoSuchElementException("SpellEvent с Id: " + id + " не был найден!");
+        }
         return spellsById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (!spellsByType.containsKey(eventType)) {
+            throw new NoSuchElementException("List<SpellEvent> с eventType: " + eventType + " не был найден!");
+        }
         return spellsByType.get(eventType);
     }
 
     public void deleteSpellEvent(int id) {
         spellsById.remove(id);
         spellsByType.values().forEach(spellEvents -> {
-            spellEvents.removeIf(spellEvent -> spellEvent.getId() == id);
+            spellEvents.removeIf(spellEvent -> spellEvent.id() == id);
         });
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> spellEvent : spellsById.entrySet()) {
-            System.out.println(
-                    "Id: " + spellEvent.getKey()
-                    + " Type: " + spellEvent.getValue().getEventType()
-                    + " Action: " + spellEvent.getValue().getAction()
-            );
-        }
+
+        spellsById.forEach((id, spellEvent) ->
+                System.out.println(
+                        "Id: " + spellEvent.id()
+                                + " Type: " + spellEvent.eventType()
+                                + " Action: " + spellEvent.action()
+                )
+        );
+
+
     }
 }
