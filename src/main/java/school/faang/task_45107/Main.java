@@ -44,10 +44,6 @@ public class Main {
                 .orElseThrow(
                         () -> new IllegalArgumentException("No product founded!")
                 );
-
-        if (!PRODUCTS.contains(request)) {
-            throw new IllegalArgumentException("The product was not found!");
-        }
         PRODUCTS.remove(request);
     }
 
