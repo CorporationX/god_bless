@@ -1,6 +1,9 @@
 package school.faang.sprint_1.task_44053;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Main {
     public static List<User> users = new ArrayList<>();
@@ -13,20 +16,6 @@ public class Main {
         users.add(bob);
         users.add(tom);
 
-        System.out.println(findHobbyLovers(users, new HashSet<>(Set.of("Tennis", "Gaming"))));
-
-    }
-
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        Map<User, String> userHobby = new HashMap<>();
-
-        for (User user : users) {
-            for (String hobby : hobbies) {
-                if (user.getHobbies().contains(hobby)) {
-                    userHobby.put(user, hobby);
-                }
-            }
-        }
-        return userHobby;
+        System.out.println(User.findHobbyLovers(users, new HashSet<>(Set.of("Tennis", "Gaming"))));
     }
 }
