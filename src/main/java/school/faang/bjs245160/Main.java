@@ -16,11 +16,15 @@ public class Main {
             return productsByCategory;
         }
 
-        products.forEach(product -> productsByCategory.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product));
+        products.forEach(product -> productsByCategory.computeIfAbsent(product.getCategory(),
+                k -> new ArrayList<>()).add(product)
+        );
         return productsByCategory;
     }
 
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.entrySet().forEach(entry -> System.out.println("Category: " + entry.getKey() + "Products: " + entry.getValue()));
+        groupedProducts.entrySet().forEach(
+                entry -> System.out.println("Category: " + entry.getKey() + "Products: " + entry.getValue())
+        );
     }
 }
