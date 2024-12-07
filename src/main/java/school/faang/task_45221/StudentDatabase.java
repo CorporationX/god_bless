@@ -58,8 +58,8 @@ public class StudentDatabase {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentsGrades.entrySet()) {
             System.out.println(String.format("Grades of student: %s", entry.getKey().getName()));
             for (Map.Entry<Subject, Integer> entrySub : entry.getValue().entrySet()) {
-                System.out.println(String.format("Subject: %s, grade: %d", entrySub.getKey().getName()
-                        , entrySub.getValue()));
+                System.out.println(String.format("Subject: %s, grade: %d", entrySub.getKey().getName(),
+                        entrySub.getValue()));
             }
         }
         System.out.println("<----------------------------------------------->");
