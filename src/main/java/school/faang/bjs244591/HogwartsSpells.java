@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<SpellType, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<SpellType, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, SpellType eventType, String actionDescription) {
         if (eventType.toString().isEmpty() || actionDescription.isEmpty()) {
@@ -15,10 +15,7 @@ public class HogwartsSpells {
         }
         SpellEvent spellEvents = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvents);
-        if (!spellsByType.containsKey(eventType)) {
-            spellsByType.put(eventType, new ArrayList<>());
-        }
-        spellsByType.get(eventType).add(spellEvents);
+        spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvents);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -40,13 +37,13 @@ public class HogwartsSpells {
         if (event == null) {
             throw new RuntimeException("There is no event under: " + id);
         }
-        List<SpellEvent> spellEvents = getSpellEventsByType(event.getEventType());
+        List<SpellEvent> spellEvents = getSpellEventsByType(event.eventType());
         spellEvents.remove(event);
     }
 
     public void printAllSpellEvents() {
         spellById.forEach((id, spellEvent) -> {
-            System.out.println(id + " - " + spellEvent.getEventType() + " : " + spellEvent.getAction());
+            System.out.println(id + " - " + spellEvent.eventType() + " : " + spellEvent.action());
         });
     }
 }
