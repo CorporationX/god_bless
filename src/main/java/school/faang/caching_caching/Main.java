@@ -50,7 +50,7 @@ public class Main {
         System.out.println(yekaterinburgWeather);
         System.out.println("Test: force the cache to be updated despite expiration");
         oldCache = yekaterinburgWeather;
-        yekaterinburgWeather = frequentUpdateWeatherCache.getWeatherData(yekaterinburgWeather.getCity(), 1000);
+        yekaterinburgWeather = frequentUpdateWeatherCache.getWeatherData("Yekaterinburg", 1000);
         System.out.println(yekaterinburgWeather);
         if (oldCache != yekaterinburgWeather) {
             System.out.println("Test result: GOOD");
