@@ -14,10 +14,7 @@ public class Main {
         Subject math = new Subject("Math");
         Subject science = new Subject("Science");
         Subject history = new Subject("History");
-
-
         Map<Subject, Integer> subjectMap = new HashMap<>();
-
 
         subjectMap.put(math, 5);
         subjectMap.put(science, 4);
