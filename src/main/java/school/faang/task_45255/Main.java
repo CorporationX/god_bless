@@ -15,22 +15,24 @@ public class Main {
         Subject science = new Subject("Science");
         Subject history = new Subject("History");
 
-        Student student1 = new Student("John Doe");
-        Student student2 = new Student("Jane Smith");
-        Student student3 = new Student("Alice Brown");
-        StudentDatabase studentDatabase = new StudentDatabase();
+
         Map<Subject, Integer> subjectMap = new HashMap<>();
+
 
         subjectMap.put(math, 5);
         subjectMap.put(science, 4);
         subjectMap.put(history, 4);
+        StudentDatabase studentDatabase = new StudentDatabase();
+        Student student1 = new Student("John Doe");
         studentDatabase.addStudent(student1, subjectMap);
         subjectMap.clear();
         subjectMap.put(science, 5);
         subjectMap.put(history, 5);
+        Student student2 = new Student("Jane Smith");
         studentDatabase.addStudent(student2, subjectMap);
         subjectMap.clear();
         subjectMap.put(science, 5);
+        Student student3 = new Student("Alice Brown");
         studentDatabase.addStudent(student3, subjectMap);
         System.out.println("\n=== All Students ===");
         studentDatabase.printStudents();
