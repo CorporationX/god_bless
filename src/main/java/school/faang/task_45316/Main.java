@@ -13,12 +13,14 @@ public class Main {
         theLocationOfTheBook.put(book1, "The seventh regiment");
         theLocationOfTheBook.put(book2, "The tenth regiment");
 
+
         LibrarySystem librarySystem = new LibrarySystem(theLocationOfTheBook);
 
         librarySystem.printAllBooks();
 
         librarySystem.addBook("Nine Seven", "George Orwell", 1949, "Third regiment");
         librarySystem.addBook("To Kill a Mockingbird", "Harper Lee", 1960, "The fifth regiment");
+        librarySystem.addBook("Nine Seven", "George Orwell", 1949, "Third regiment");
 
         librarySystem.printAllBooks();
 
