@@ -20,10 +20,14 @@ public class Main {
 
         Predicate<Email> importantFilter = email -> email.isImportant();
         Consumer<Email> printEmail = email -> System.out.println("Processed email: " + email.getSubject());
-        Function<Email, Email> toUpperCase = email -> new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant());
+        Function<Email, Email> toUpperCase = email -> {
+            return new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant());
+        };
 
         List<Email> newEmails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        newEmails.forEach(email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody()));
+        newEmails.forEach(email -> {
+            System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody());
+        });
     }
 }
