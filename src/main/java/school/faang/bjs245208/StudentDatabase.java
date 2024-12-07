@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static school.faang.bjs245208.Helpers.*;
+
 public class StudentDatabase {
     public Map<Student, Map<Subject, Integer>> studentsScores = new HashMap<>();
     public Map<Subject, List<Student>> subjectsStudents = new HashMap<>();
@@ -73,40 +75,5 @@ public class StudentDatabase {
                 students.forEach(student -> System.out.println("Student: " + student));
             } );
         }
-    }
-
-    private boolean notEmptyParamsCheck(Object... toCheck) {
-
-        boolean allAreEmpty = true;
-
-        for (Object obj : toCheck) {
-            if (obj != null) {
-                if (!(obj instanceof String) || !((String) obj).isEmpty()) {
-                    allAreEmpty = false;
-                    break;
-                }
-            }
-        }
-
-        if (allAreEmpty) {
-            System.out.println("Cannot operate request as all required fields are not set!");
-            return false;
-        }
-
-        return true;
-    }
-
-    private <T> boolean notEmptyParamCheck(T toCheck, String name) {
-        if (toCheck == null) {
-            System.out.printf("Cannot operate request as %s is not set!\n", name);
-            return false;
-        }
-
-        if (toCheck instanceof String && ((String) toCheck).isEmpty()) {
-            System.out.printf("Cannot operate request as %s is not set!\n", name);
-            return false;
-        }
-
-        return true;
     }
 }
