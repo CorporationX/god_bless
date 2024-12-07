@@ -31,13 +31,12 @@ class WeatherCacheTemplateTest {
         WeatherData weatherData = weatherCacheTemplate.generateAndSaveWeatherData(city);
 
         assertNotNull(weatherData);
-        assertEquals(city, weatherData.getCity());
+        assertEquals(city, weatherData.city());
     }
 
     @Test
     void testIsCacheExpired_cacheNotExpired() {
-        WeatherData weatherData = new WeatherData("Sunny");
-        weatherData.setTimestamp(System.currentTimeMillis());
+        WeatherData weatherData = new WeatherData("Moscow", 0, 0, System.currentTimeMillis());
 
         boolean expired = weatherCacheTemplate.isCacheExpired(weatherData, TimeUnit.MINUTES.toMillis(5));
 
@@ -46,8 +45,8 @@ class WeatherCacheTemplateTest {
 
     @Test
     void testIsCacheExpired_cacheExpired() {
-        WeatherData weatherData = new WeatherData("Rainy");
-        weatherData.setTimestamp(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
+        WeatherData weatherData = new WeatherData("Moscow", 0, 0,
+                System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
 
         boolean expired = weatherCacheTemplate.isCacheExpired(weatherData, TimeUnit.MINUTES.toMillis(5));
 
@@ -57,10 +56,10 @@ class WeatherCacheTemplateTest {
     @Test
     void testClearExpiredCache() {
         //Не уверен на сколько хорошо пользоваться protected полем, но в данном случае это самый простой вариант
-        WeatherData weatherData1 = new WeatherData("City1");
-        weatherData1.setTimestamp(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
-        WeatherData weatherData2 = new WeatherData("City2");
-        weatherData2.setTimestamp(System.currentTimeMillis());
+        WeatherData weatherData1 = new WeatherData("City1", 0, 0,
+                System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
+        WeatherData weatherData2 = new WeatherData("City2", 0, 0,
+                System.currentTimeMillis());
 
         weatherCacheTemplate.weatherDataCache.put("City1", weatherData1);
         weatherCacheTemplate.weatherDataCache.put("City2", weatherData2);

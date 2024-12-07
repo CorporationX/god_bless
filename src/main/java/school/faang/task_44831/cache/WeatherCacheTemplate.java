@@ -16,7 +16,7 @@ public abstract class WeatherCacheTemplate {
     public abstract WeatherData getWeatherData(String city, long maxCacheAgeMillis);
 
     protected boolean isCacheExpired(WeatherData weatherData, long maxCacheAgeMillis) {
-        long weatherDataAge = System.currentTimeMillis() - weatherData.getTimestamp();
+        long weatherDataAge = System.currentTimeMillis() - weatherData.timestamp();
         return weatherDataAge > maxCacheAgeMillis;
     }
 
@@ -29,6 +29,6 @@ public abstract class WeatherCacheTemplate {
     protected void clearExpiredCache(long maxCacheAgeMillis) {
         weatherDataCache.entrySet()
                 .removeIf(entry -> (System.currentTimeMillis() - entry
-                        .getValue().getTimestamp()) > maxCacheAgeMillis);
+                        .getValue().timestamp()) > maxCacheAgeMillis);
     }
 }

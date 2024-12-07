@@ -8,17 +8,13 @@ public class WeatherService implements WeatherProvider {
 
     @Override
     public WeatherData fetchWeatherData(String city) {
-
-        WeatherData weatherData = new WeatherData(city);
-
         int maxTemperature = 45;
         int minTemperature = -45;
-        weatherData.setTemperature(new Random().nextDouble() * (maxTemperature - minTemperature) + minTemperature);
+        double temperature = new Random().nextDouble() * (maxTemperature - minTemperature) + minTemperature;
 
         int maxHumidity = 100;
-        weatherData.setHumidity(new Random().nextDouble(maxHumidity));
-        weatherData.setTimestamp(System.currentTimeMillis());
+        double humidity = new Random().nextDouble(maxHumidity);
 
-        return weatherData;
+        return new WeatherData(city, temperature, humidity, System.currentTimeMillis());
     }
 }

@@ -34,14 +34,14 @@ class StandardWeatherCacheTest {
         assertNotNull(weatherData, "Weather data should be generated for a new city.");
         assertTrue(weatherCache.weatherDataCache.containsKey(city),
                 "Generated data should be saved to the cache.");
-        assertEquals(city, weatherData.getCity(), "Generated weather data should correspond to the city.");
+        assertEquals(city, weatherData.city(), "Generated weather data should correspond to the city.");
     }
 
     @Test
     void testGetWeatherData_cacheExpired_generatesNewWeatherData() {
         String city = "Paris";
-        WeatherData expiredData = new WeatherData(city);
-        expiredData.setTimestamp(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
+        WeatherData expiredData = new WeatherData(city, 0, 0,
+                System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(10));
         weatherCache.weatherDataCache.put(city, expiredData);
 
         WeatherData newData = weatherCache.getWeatherData(city, TimeUnit.MINUTES.toMillis(5));
@@ -53,8 +53,7 @@ class StandardWeatherCacheTest {
     @Test
     void testGetWeatherData_cacheValid_returnsCachedWeatherData() {
         String city = "Paris";
-        WeatherData validData = new WeatherData(city);
-        validData.setTimestamp(System.currentTimeMillis());
+        WeatherData validData = new WeatherData(city, 0, 0, System.currentTimeMillis());
         weatherCache.weatherDataCache.put(city, validData);
 
         WeatherData result = weatherCache.getWeatherData(city, TimeUnit.MINUTES.toMillis(5));

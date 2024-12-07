@@ -31,7 +31,7 @@ class FrequentUpdateWeatherCacheTest {
         Thread.sleep(10);
         WeatherData data2 = weatherCache.getWeatherData(city, 10000);
 
-        assertNotEquals(data1.getTimestamp(), data2.getTimestamp(),
+        assertNotEquals(data1.timestamp(), data2.timestamp(),
                 "Each call should generate new weather data with a different timestamp.");
     }
 }
