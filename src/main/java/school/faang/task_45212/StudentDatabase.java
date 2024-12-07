@@ -9,18 +9,6 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    private void studentCheck(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Студент не может быть пустым");
-        }
-    }
-
-    private void subjectCheck(Subject subject) {
-        if (subject == null) {
-            throw new IllegalArgumentException("Предмет не может быть пустым");
-        }
-    }
-
     // Добавление нового студента и его предметов с оценками
     public void addStudent(Student student, Map<Subject, Integer> grades) {
         studentCheck(student);
@@ -43,7 +31,7 @@ public class StudentDatabase {
         });
 
         if (existMap == null) {
-            throw new IllegalArgumentException("Такого студента: " + student.getName() + " не существует");
+            throw new IllegalArgumentException(String.format("Такого студента: %s не существует", student.getName()));
         } else {
             subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
@@ -53,10 +41,11 @@ public class StudentDatabase {
     public void removeStudent(Student student) {
         studentCheck(student);
         Optional.ofNullable(studentGrades.remove(student))
-                .orElseThrow(() -> new IllegalArgumentException("Студент " + student.getName() + " не найден"))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Студент %s не найден", student.getName())))
                 .forEach((subject, grade) -> Optional.ofNullable(subjectStudents.get(subject))
-                        .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета "
-                                + subject.getName() + " не найден"))
+                        .orElseThrow(() -> new IllegalArgumentException(
+                                String.format("Список студентов для предмета %s не найден", subject.getName())))
                         .remove(student));
     }
 
@@ -88,7 +77,7 @@ public class StudentDatabase {
         });
 
         if (studentList == null) {
-            throw new IllegalArgumentException("Такого предмета: " + subject.getName() + " не существует");
+            throw new IllegalArgumentException(String.format("Такого предмета: %s не существует", subject.getName()));
         } else {
             studentGrades.computeIfAbsent(student, k -> new HashMap<>())
                     .computeIfAbsent(subject, k -> null);
@@ -101,13 +90,13 @@ public class StudentDatabase {
         subjectCheck(subject);
 
         Optional.ofNullable(subjectStudents.get(subject))
-                .orElseThrow(() -> new IllegalArgumentException("Список студентов для предмета "
-                        + subject.getName() + " не найден"))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Список студентов для предмета %s не найден", subject.getName())))
                 .remove(student);
 
         Optional.ofNullable(studentGrades.get(student))
-                .orElseThrow(() -> new IllegalArgumentException("Список предметов с оценками для "
-                        + student.getName() + " не найден"))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Список предметов с оценками для %s не найден", student.getName())))
                 .remove(subject);
     }
 
@@ -118,6 +107,18 @@ public class StudentDatabase {
             for (Student student : entry.getValue()) {
                 System.out.println(" Студент: " + student.getName());
             }
+        }
+    }
+
+    private void studentCheck(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Студент не может быть пустым");
+        }
+    }
+
+    private void subjectCheck(Subject subject) {
+        if (subject == null) {
+            throw new IllegalArgumentException("Предмет не может быть пустым");
         }
     }
 }
