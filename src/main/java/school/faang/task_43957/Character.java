@@ -39,8 +39,8 @@ public abstract class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\''
+        return "Character{"
+                + "name='" + name + '\''
                 + ", strength=" + strength
                 + ", agility=" + agility
                 + ", intelligence=" + intelligence
