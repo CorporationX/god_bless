@@ -3,8 +3,8 @@ package school.faang.warehouse_amazon;
 import java.util.*;
 
 public class Main {
-    static HashSet<Product> allProducts = new HashSet<>();
-    static Map<String, List<Product>> groupedByCategoryProducts = new HashMap<>();
+    private static HashSet<Product> allProducts = new HashSet<>();
+    private static Map<String, List<Product>> groupedByCategoryProducts = new HashMap<>();
 
     public static void main(String[] args) {
         printAllItems();
@@ -32,7 +32,7 @@ public class Main {
 
     private static int lastProductId = 0;
 
-    public static void addItem(String category, String name) {
+    private static void addItem(String category, String name) {
         int id = ++lastProductId;
         Product newProduct = new Product(id, name, category);
         allProducts.add(newProduct);
@@ -41,7 +41,7 @@ public class Main {
         System.out.println("Added new product " + name);
     }
 
-    public static void removeItem(String category, String name) {
+    private static void removeItem(String category, String name) {
         if (!allProducts.removeIf(product -> product.getName().equals(name))) {
             System.out.println("Failed attempt to delete the product: product not found");
         }
@@ -50,12 +50,12 @@ public class Main {
         System.out.println("removed new product " + name);
     }
 
-    public static List<Product> findItemsByCategory(String category) {
+    private static List<Product> findItemsByCategory(String category) {
         System.out.println("find items by category " + category);
         return groupedByCategoryProducts.get(category);
     }
 
-    public static void printAllItems() {
+    private static void printAllItems() {
         if (allProducts.size() == 0) {
             System.out.println("products not found");
             return;
