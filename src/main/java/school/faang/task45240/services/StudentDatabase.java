@@ -20,10 +20,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-/*        Map<Subject, Integer> grades = studentGrades.get(student);
-        if (grades != null) {
-            grades.put(subject, grade);
-        }*/
         studentGrades.computeIfAbsent(student, init -> new HashMap<>()).put(subject, grade);
         subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
     }
