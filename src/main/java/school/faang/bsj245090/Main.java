@@ -4,7 +4,6 @@ import static school.faang.bsj245090.ProductsListUtils.addItem;
 import static school.faang.bsj245090.ProductsListUtils.removeItem;
 import static school.faang.bsj245090.ProductsListUtils.printAllItems;
 import static school.faang.bsj245090.ProductsListUtils.printProductsByCategory;
-import static school.faang.bsj245090.ProductsListUtils.groupProductsByCategory;
 
 public class Main {
 
@@ -21,7 +20,7 @@ public class Main {
 
         removeItem("Category1", "Product4");
 
-        printAllItems();
+        //printAllItems();
 
         printProductsByCategory();
     }

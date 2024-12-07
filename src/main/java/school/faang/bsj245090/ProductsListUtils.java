@@ -2,11 +2,11 @@ package school.faang.bsj245090;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class ProductsListUtils {
@@ -24,20 +24,31 @@ public class ProductsListUtils {
         System.out.println(product + " removed from system");
     }
 
-    public static void findItemsByCategory(String category) {
+    public static Set<Product> findItemsByCategory(String category) {
+        Set<Product> result = products.stream()
+                .filter(product -> product.getCategory().equals(category))
+                .collect(Collectors.toSet());
 
+        return result;
     }
 
     public static void printAllItems() {
+        System.out.println("Output of goods all goods:");
         products.forEach(System.out::println);
     }
 
     public static Map<String, List<Product>> groupProductsByCategory() {
+        Map<String, List<Product>> result = products.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
 
-        return new HashMap<>();
+        return result;
     }
 
     public static void printProductsByCategory() {
-        products.forEach(System.out::println);
+        System.out.println("Output of goods sorted by category:");
+        groupProductsByCategory().forEach((category, products) -> {
+            System.out.println("Category: " + category);
+            products.forEach(System.out::println);
+        });
     }
 }
