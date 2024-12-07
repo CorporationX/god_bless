@@ -2,9 +2,7 @@ package school.faang;
 
 import school.faang.usergroup.User;
 import java.util.List;
-
 import static school.faang.usergroup.User.groupUsers;
-import static school.faang.usergroup.User.groupUsers2;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,8 +17,8 @@ public class Main {
         User user9 = new User("Ninth", 15);
         User user10 = new User("Tenth", 25);
 
-        List<User> userList = List.of(user1,user2,user3,user4,user5,user6,user7,user8,user9,user10);
-        System.out.println(groupUsers2(userList));
+        List<User> userList = List.of(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10);
+        System.out.println(groupUsers(userList));
     }
 
 

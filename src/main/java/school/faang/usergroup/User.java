@@ -61,27 +61,10 @@ public class User {
         return this.getName() + " - " + this.getAge();
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> allUsers) {
-        Map<Integer, List<User>> userMap = new TreeMap<>();
-        List<User> listByAge = new ArrayList<>();
-        int key;
-        for (User user : allUsers) {
-            key = user.getAge();
-            listByAge = new ArrayList<>();
-            if (userMap.containsKey(key)) {
-                listByAge = userMap.get(key);
-                System.out.println(listByAge);
-            }
-            System.out.println(key + " " + user);
-            listByAge.add(user);
-            userMap.put(key, listByAge);
-        }
-        return userMap;
-     }
 
-    public static Map<Integer, List<User>> groupUsers2(List<User> usersList) {
+    public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
-        List<User> listByAge = new ArrayList<>();
+        List<User> listByAge;
         int key;
         for (User user : usersList) {
             key = user.getAge();
@@ -90,7 +73,6 @@ public class User {
                 listByAge = usersMap.get(key);
             }
             listByAge.add(user);
-            System.out.println(usersMap);
             usersMap.put(key, listByAge);
 
         }
