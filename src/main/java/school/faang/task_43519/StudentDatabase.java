@@ -21,12 +21,11 @@ public class StudentDatabase {
     }
 
     public void printStudentsGrades() {
-        for (Map.Entry<Student, Map<Subject, Integer>> gradeBook : gradeBooks.entrySet()) {
-            System.out.println(gradeBook.getKey().getName() + ":");
-            for (Map.Entry<Subject, Integer> subjectGrade : gradeBook.getValue().entrySet()) {
-                System.out.println("\t" + subjectGrade.getKey().getName() + ": " + subjectGrade.getValue());
-            }
-        }
+        gradeBooks.forEach((student, subjectGrade) -> {
+            System.out.println(student.name() + ":");
+            subjectGrade.forEach((subject, grade) ->
+                    System.out.println("\t" + subject.name() + ": " + grade));
+        });
         System.out.println();
     }
 
@@ -43,12 +42,10 @@ public class StudentDatabase {
     }
 
     public void printAllSubjects() {
-        for (Map.Entry<Subject, Set<Student>> subject : subjectParticipants.entrySet()) {
-            System.out.println(subject.getKey().getName() + ":");
-            for (Student student : subject.getValue()) {
-                System.out.println("\t" + student.getName());
-            }
-        }
+        subjectParticipants.forEach((subject, students) -> {
+            System.out.println(subject.name() + ":");
+            students.forEach(student -> System.out.println("\t" + student.name()));
+        });
         System.out.println();
     }
 }
