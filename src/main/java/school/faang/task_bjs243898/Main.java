@@ -7,7 +7,7 @@ public class Main {
         System.out.println("здоровье ивана: " + ivan.health);
         System.out.println("петр атаковал ивана");
         petr.attack(ivan);
-        System.out.println("здоровье ивана: " + ivan.health);
+        System.out.println("здоровье ивана после атаки: " + ivan.health);
 
     }
 
