@@ -14,7 +14,11 @@ public class WeatherService implements WeatherProvider {
         int randIntTemp = rand.nextInt(10);
         int randIntHumidity = rand.nextInt(20);
 
-        return new WeatherData(city, minTemperature + randIntTemp, minHumidity + randIntHumidity, System.currentTimeMillis());
+        return new WeatherData(
+                city,
+                minTemperature + randIntTemp,
+                minHumidity + randIntHumidity,
+                System.currentTimeMillis());
     }
 
 
