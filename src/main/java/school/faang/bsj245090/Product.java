@@ -14,9 +14,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Product {
 
-    private UUID id;
-    private String name;
-    private String category;
+    private final UUID id;
+    private final String name;
+    private final String category;
 
     public Product(String category, String name) {
         this.id = UUID.randomUUID();

@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ProductsListUtils {
+public class ProductsList {
     public static Set<Product> products = new HashSet<>();
 
     public static void addItem(String category, String name) {
@@ -17,21 +17,21 @@ public class ProductsListUtils {
     }
 
     public static void removeItem(String category, String name) {
-        Set<Product> result = products.stream()
+        Set<Product> toRemove = products.stream()
                 .filter(product ->
                         Objects.equals(product.getCategory(), category)
                         && Objects.equals(product.getName(), name))
                 .collect(Collectors.toSet());
 
-        if (result.isEmpty()) {
+        if (toRemove.isEmpty()) {
             System.out.print("Book: %s could not be removed from category: %s as it is not found in system\r\n");
         } else {
-            products.removeAll(result);
-            products.forEach(product -> System.out.println(product + " removed from system"));
+            products.removeAll(toRemove);
+            toRemove.forEach(product -> System.out.println(product + " removed from system"));
         }
     }
 
-    public static Set<Product> findItemsByCategory(String category) {
+    public static Set<Product> indItemsByCategory(String category) {
         Set<Product> result = products.stream()
                 .filter(product -> Objects.equals(product.getCategory(), category))
                 .collect(Collectors.toSet());
