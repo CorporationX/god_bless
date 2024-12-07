@@ -41,8 +41,7 @@ public class Main {
         var spellEvent = hogwartsSpells.getSpellEventById(id);
         if (spellEvent == null) {
             System.out.println("Заклинание по id=" + id + " не найдено\n");
-        }
-        else {
+        } else {
             System.out.println("Залклинание по id=" + id + ": " + spellEvent + "\n");
         }
     }
