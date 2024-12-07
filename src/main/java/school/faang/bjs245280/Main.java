@@ -17,8 +17,8 @@ public class Main {
 
         StudentDatabase studentDatabase;
         studentDatabase = new StudentDatabase(subjectGradleByStudent, studentBySubject);
-        val tom = studentDatabase.addStudent("Tom");
-        val bob = studentDatabase.addStudent("Bob");
+        final Student tom = studentDatabase.addStudent("Tom");
+        final Student bob = studentDatabase.addStudent("Bob");
 
         Subject mathematics = studentDatabase.addSubject("mathematics");
         Subject informatics = studentDatabase.addSubject("informatics");
