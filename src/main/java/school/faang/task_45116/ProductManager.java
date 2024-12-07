@@ -45,7 +45,9 @@ public class ProductManager {
 
     public void printAllItems() {
         Map<Category, Set<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product -> groupedProducts.computeIfAbsent(product.getCategory(), k -> new HashSet<>()).add(product));
+        products.forEach(product ->
+                groupedProducts.computeIfAbsent(product.getCategory(), k ->
+                        new HashSet<>()).add(product));
 
         groupedProducts.forEach((category, products) -> {
             System.out.println(category + ":");
@@ -55,7 +57,9 @@ public class ProductManager {
 
     public Map<Category, Set<Product>> groupProductsByCategory() {
         Map<Category, Set<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product -> groupedProducts.computeIfAbsent(product.getCategory(), k -> new HashSet<>()).add(product));
+        products.forEach(product ->
+                groupedProducts.computeIfAbsent(product.getCategory(), k ->
+                        new HashSet<>()).add(product));
         return groupedProducts;
     }
 
