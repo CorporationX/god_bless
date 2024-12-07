@@ -6,13 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById;
-    private Map<String, List<SpellEvent>> spellsByType;
-
-    public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellsByType = new HashMap<>();
-    }
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
