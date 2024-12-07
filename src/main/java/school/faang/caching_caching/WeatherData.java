@@ -1,4 +1,11 @@
 package school.faang.caching_caching;
 
-public record WeatherData(String city, double temperature, double humidity, long timestamp) {
+import lombok.Data;
+
+@Data
+public class WeatherData {
+    private final String city;
+    private final double temperature;
+    private final double humidity;
+    private final long timestamp;
 }
