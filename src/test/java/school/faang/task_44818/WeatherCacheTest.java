@@ -1,8 +1,7 @@
-package school.faang.task_44818.test;
+package school.faang.task_44818;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.task_44818.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
