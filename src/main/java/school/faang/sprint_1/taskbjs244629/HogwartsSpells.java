@@ -16,30 +16,25 @@ public class HogwartsSpells {
         SpellEvent spellEvent = new SpellEvent(id, eventType);
         SpellEvent addedEvent = spellById.computeIfAbsent(id, key -> spellEvent);
         List<SpellEvent> eventsByType = spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>());
-        if (!eventsByType.contains(addedEvent)) {
-            eventsByType.add(addedEvent);
-        }
-        requireNonNullOrThrow(addedEvent, "spell " + addedEvent.eventType().name() + " was added");
+        eventsByType.add(addedEvent);
+        System.out.println("spell " + addedEvent.eventType().name() + " was added");
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return requireNonNullOrThrow(spellById.get(id), "spell doesn't exists");
+        SpellEvent spellEvent = spellById.get(id);
+        return requireNonNullOrThrow(spellEvent, "spell doesn't exists");
     }
 
     public List<SpellEvent> getSpellEventsByType(SpellEventType eventType) {
-        return requireNonNullOrThrow(spellsByType.get(eventType), "spell doesn't exists");
+        List<SpellEvent> events = spellsByType.get(eventType);
+        return requireNonNullOrThrow(events, "spell type doesn't exists");
     }
 
     public SpellEvent deleteSpellEvent(int id) {
         SpellEvent event = spellById.remove(id);
         requireNonNullOrThrow(event, "SpellEvent doesn't exist");
         List<SpellEvent> events = spellsByType.get(event.eventType());
-        if (events != null) {
-            events.remove(event);
-            if (events.isEmpty()) {
-                spellsByType.remove(event.eventType());
-            }
-        }
+        events.remove(event);
         return event;
     }
 
