@@ -13,7 +13,7 @@ public class Subject {
     private final UUID id;
     private final String name;
 
-    public Subject(String name){
+    public Subject(String name) {
         this.id = UUID.randomUUID();
         this.name = name;
     }

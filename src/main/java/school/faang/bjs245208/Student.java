@@ -14,7 +14,7 @@ public class Student {
     private final UUID id;
     private final String name;
 
-    public Student(String name){
+    public Student(String name) {
         this.id = UUID.randomUUID();
         this.name = name;
     }
