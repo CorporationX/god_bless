@@ -1,7 +1,6 @@
 package school.faang.task_43518;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     private static final String FOOD = "Еда";
@@ -75,26 +74,21 @@ public class Main {
         if (products.isEmpty()) {
             System.out.println("Продуктов нет!");
         }
-        for (Product product : products) {
-            System.out.println(product);
-        }
+        products.forEach(System.out::println);
     }
 
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
-        for (Product product : products) {
-            groupedProducts.computeIfAbsent(product.getCategory(), key -> new ArrayList<>()).add(product);
-        }
+        products.forEach(product ->
+                groupedProducts.computeIfAbsent(product.getCategory(), key -> new ArrayList<>()).add(product)
+        );
         return groupedProducts;
     }
 
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        for (Map.Entry<String, List<Product>> productsByCategory : groupedProducts.entrySet()) {
-            System.out.println(productsByCategory.getKey());
-            for (Product product : productsByCategory.getValue()) {
-                System.out.println(product);
-            }
-            System.out.println();
-        }
+        groupedProducts.forEach((category, products) -> {
+            System.out.println(category);
+            products.forEach(System.out::println);
+        });
     }
 }
