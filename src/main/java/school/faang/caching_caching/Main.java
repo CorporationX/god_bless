@@ -8,7 +8,7 @@ public class Main {
 
         WeatherData moscowWeather = standardWeatherCache.getWeatherData("Moscow", 0);
         System.out.println(moscowWeather);
-        System.out.println(" ");
+        System.out.println();
 
         WeatherData oldCache;
 
@@ -21,7 +21,7 @@ public class Main {
         } else {
             System.out.println("Test result: BAD");
         }
-        System.out.println(" ");
+        System.out.println();
 
         System.out.println("Test: try to update cache before expiration");
         oldCache = moscowWeather;
@@ -32,7 +32,7 @@ public class Main {
         } else {
             System.out.println("Test result: BAD");
         }
-        System.out.println(" ");
+        System.out.println();
 
         Thread.sleep(300);
         System.out.println("Test: try to update cache after expiration");
@@ -44,7 +44,7 @@ public class Main {
         } else {
             System.out.println("Test result: BAD");
         }
-        System.out.println(" ");
+        System.out.println();
 
         WeatherData yekaterinburgWeather = standardWeatherCache.getWeatherData("Yekaterinburg", 0);
         System.out.println(yekaterinburgWeather);
@@ -57,7 +57,7 @@ public class Main {
         } else {
             System.out.println("Test result: BAD");
         }
-        System.out.println(" ");
+        System.out.println();
 
         System.out.println("Test: clearExpiredCache");
         oldCache = moscowWeather;

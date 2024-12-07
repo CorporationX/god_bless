@@ -1,12 +1,9 @@
 package school.faang.caching_caching;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
-public class WeatherData {
-    private final String city;
-    private final double temperature;
-    private final double humidity;
-    private final long timestamp;
-
+@EqualsAndHashCode(callSuper = true)
+@Getter
+public record WeatherData(String city, double temperature, double humidity, long timestamp) {
 }

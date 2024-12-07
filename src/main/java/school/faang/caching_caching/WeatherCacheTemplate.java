@@ -3,7 +3,7 @@ package school.faang.caching_caching;
 import java.util.HashMap;
 
 public abstract class WeatherCacheTemplate {
-    static HashMap<String, WeatherData> weatherCache = new HashMap<>();
+    private static final HashMap<String, WeatherData> weatherCache = new HashMap<>();
     WeatherProvider provider;
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
@@ -13,11 +13,8 @@ public abstract class WeatherCacheTemplate {
     }
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if (!weatherCache.containsKey(city)) {
-            System.out.println(city + " cache not found");
-            forceCacheUpdate(city);
-        }
-        if (isCacheExpired(weatherCache.get(city), maxCacheAgeMillis)) {
+        if (!weatherCache.containsKey(city) || isCacheExpired(weatherCache.get(city), maxCacheAgeMillis)) {
+            System.out.println(city + " cache not found or expired");
             forceCacheUpdate(city);
         }
         return weatherCache.get(city);
