@@ -14,10 +14,10 @@ public class Main {
 
 
         Book bookX2 = new Book("BookX2", "AuthorX2", 2024);
-        System.out.println("Looking for " + bookX1 + ", it is located at: " +
-                librarySystem.findBook(bookX1));
-        System.out.println("Looking for " + bookX2 + ", it is located at: " +
-                librarySystem.findBook(bookX2));
+        System.out.println("Looking for " + bookX1 + ", it is located at: "
+                + librarySystem.findBook(bookX1));
+        System.out.println("Looking for " + bookX2 + ", it is located at: "
+                + librarySystem.findBook(bookX2));
 
         System.out.println("Deleting " + bookX1 + " and " + bookX2 + " ...\n");
         librarySystem.removeBook(bookX1);
