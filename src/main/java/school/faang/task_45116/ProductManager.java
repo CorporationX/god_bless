@@ -18,7 +18,10 @@ public class ProductManager {
         Set<Product> products = groupedProducts.get(category);
 
         if (products == null || products.isEmpty()) {
-            throw new NoSuchElementException("There is no product with the category " + category + " and the name " + name);
+            throw new NoSuchElementException("There is no product with the category "
+                    + category
+                    + " and the name "
+                    + name);
         }
 
 
