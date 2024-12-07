@@ -14,8 +14,12 @@ public class ProductCatalogue {
     }
 
     public void removeItem(String category, String name) {
-        if (category.isEmpty()) throw new IllegalArgumentException("Category is empty");
-        if (name.isEmpty()) throw new IllegalArgumentException("Name is empty");
+        if (category.isEmpty()) {
+            throw new IllegalArgumentException("Category is empty");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name is empty");
+        }
 
         List<Product> productList = groupedByCategoryProducts.get(category);
         if (productList != null) {
@@ -29,7 +33,6 @@ public class ProductCatalogue {
 
     public void printAllItems() {
         System.out.println("ALL PRODUCT LIST: ");
-
         for (Map.Entry<String, List<Product>> entry : groupedByCategoryProducts.entrySet()) {
             System.out.println(">>> " + entry.getKey());
             for (Product product : entry.getValue()) {
