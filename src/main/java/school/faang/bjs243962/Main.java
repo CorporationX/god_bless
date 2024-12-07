@@ -1,26 +1,26 @@
 package school.faang.bjs243962;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
 
-        List<User> users = new ArrayList<>() {
-            {
-                add(new User(1, "User1", 19,
-                        Stream.of("Sports", "Music", "Reading").toList()));
-                add(new User(2, "User2", 21,
-                        Stream.of("Gaming", "Gambling").toList()));
-                add(new User(3, "User3", 23,
-                        Stream.of("Gaming", "Music").toList()));
-                add(new User(4, "User4", 31,
-                        Stream.of("Hiking", "Gambling").toList()));
-            }
-        };
+        Set<User> users = new HashSet<>();
+        users.add(new User(1, "User1", 19,
+                Stream.of("Sports", "Music", "Reading").collect(Collectors.toSet())));
+        users.add(new User(2, "User2", 21,
+                Stream.of("Gaming", "Gambling").collect(Collectors.toSet())));
+        users.add(new User(3, "User3", 23,
+                Stream.of("Gaming", "Music").collect(Collectors.toSet())));
+        users.add(new User(4, "User4", 31,
+                Stream.of("Hiking", "Gambling").collect(Collectors.toSet())));
 
-        List<String> activities = List.of("Gaming", "Music");
+        Set<String> activities = new HashSet<>();
+        activities.add("Gaming");
+        activities.add("Music");
 
         User.findHobbyLovers(users, activities);
     }

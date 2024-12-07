@@ -3,8 +3,8 @@ package school.faang.bjs243962;
 import lombok.AllArgsConstructor;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -12,9 +12,9 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private List<String> activities;
+    private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, List<String> activitiesToCheck) {
+    public static Map<User, String> findHobbyLovers(Set<User> users, Set<String> activitiesToCheck) {
 
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
@@ -23,6 +23,7 @@ public class User {
                     System.out.printf("For user: %s, the following activity match found: %s \r\n",
                             user.name, activity);
                     result.put(user, activity);
+                    break;
                 }
             }
         }
@@ -30,9 +31,8 @@ public class User {
         return result;
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, List<String> activitiesToCheck,
+    public static Map<User, String> findHobbyLovers(Set<User> users, Set<String> activitiesToCheck,
                                                     boolean useCollections) {
-
         return users.stream()
                 .flatMap(user -> user.activities.stream()
                         .filter(activitiesToCheck::contains)
