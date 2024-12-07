@@ -3,6 +3,7 @@ package school.faang.bjs245280;
 import lombok.val;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,8 @@ public class Main {
 
         StudentDatabase studentDatabase;
         studentDatabase = new StudentDatabase(subjectGradleByStudent, studentBySubject);
-        Student tom = studentDatabase.addStudent("Tom");
-        Student bob = studentDatabase.addStudent("Bob");
+        val tom = studentDatabase.addStudent("Tom");
+        val bob = studentDatabase.addStudent("Bob");
 
         Subject mathematics = studentDatabase.addSubject("mathematics");
         Subject informatics = studentDatabase.addSubject("informatics");
@@ -34,7 +35,7 @@ public class Main {
 
         val newSubject = studentDatabase.addSubject("philosophy");
 
-        studentDatabase.addSubjectsWithStudents(newSubject, Arrays.asList(tom));
+        studentDatabase.addSubjectsWithStudents(newSubject, Collections.singletonList(tom));
         studentDatabase.addStudentsForSubject(newSubject, bob);
 
         System.out.println("----------------------------");
