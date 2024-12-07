@@ -26,8 +26,8 @@ public class Spells {
         SPELLS = Collections.unmodifiableMap(spells);
     }
 
-    public static HashMap<String, String> getRandomSpell() {
-        HashMap<String, String> randomSpell = new HashMap<>();
+    public static Map<String, String> getRandomSpell() {
+        Map<String, String> randomSpell = new HashMap<>();
         Object[] keys = SPELLS.keySet().toArray();
         String randomKey = String.valueOf(keys[random.nextInt(keys.length)]);
         randomSpell.put("eventType", randomKey);
