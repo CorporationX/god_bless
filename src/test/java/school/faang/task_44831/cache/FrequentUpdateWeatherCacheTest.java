@@ -25,11 +25,22 @@ class FrequentUpdateWeatherCacheTest {
     }
 
     @Test
-    void testGetWeatherData_generatesNewDataEveryTime() throws InterruptedException {
+    void testGetWeatherData_cacheIsNotExpired() throws InterruptedException {
         String city = "New York";
         WeatherData data1 = weatherCache.getWeatherData(city, 10000);
         Thread.sleep(10);
         WeatherData data2 = weatherCache.getWeatherData(city, 10000);
+
+        assertNotEquals(data1.timestamp(), data2.timestamp(),
+                "Each call should generate new weather data with a different timestamp.");
+    }
+
+    @Test
+    void testGetWeatherData_cacheIsExpired() throws InterruptedException {
+        String city = "New York";
+        WeatherData data1 = weatherCache.getWeatherData(city, 10);
+        Thread.sleep(100);
+        WeatherData data2 = weatherCache.getWeatherData(city, 10);
 
         assertNotEquals(data1.timestamp(), data2.timestamp(),
                 "Each call should generate new weather data with a different timestamp.");
