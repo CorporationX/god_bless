@@ -23,7 +23,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{id=%d, name='%s', age=%d}".formatted(id, name, age);
+        return "User{" + "id=" + id + ", name='" + name + '\'' + ", age=" + age
+                + ", activities=" + activities + '}';
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
