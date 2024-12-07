@@ -13,9 +13,8 @@ public class HogwartsSpells {
         SpellEvent spellEvent = new SpellEvent(spell);
         spellById.put(spellEvent.getId(), spellEvent);
 
-        if (!spellByType.containsKey(spell)) {
-            spellByType.put(spell, new ArrayList<>());
-        }
+        spellByType.computeIfAbsent(spell, k -> new ArrayList<>());
+
         spellByType.get(spell).add(spellEvent);
 
         return spellEvent.getId();
@@ -29,9 +28,8 @@ public class HogwartsSpells {
         return spellByType.get(spell);
     }
 
-    public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = getSpellEventById(id);
-        spellById.remove(id);
+    public void deleteSpellEvent(Integer id) {
+        SpellEvent spellEvent = spellById.remove(id);
 
         if (spellEvent == null) {
             return;
