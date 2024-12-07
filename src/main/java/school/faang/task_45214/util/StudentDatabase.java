@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> students;
-    Map<Subject, List<Student>> subjects;
+    private final Map<Subject, List<Student>> subjects;
 
     public StudentDatabase(Map<Student, Map<Subject, Integer>> students, Map<Subject, List<Student>> subjects) {
         this.students = students;
