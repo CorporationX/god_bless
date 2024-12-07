@@ -30,17 +30,15 @@ public class User {
             this.age = age;
         }
 
-        if(!VALID_JOBS.contains(job))
-        {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Некорректная работа");
-        }else{
+        } else {
             this.job = job;
         }
 
-        if(!VALID_ADDRESSES.contains(address))
-        {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Некорректный адрес");
-        }else{
+        } else {
             this.address = address;
         }
     }
