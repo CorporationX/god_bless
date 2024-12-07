@@ -2,33 +2,19 @@ package school.faang.catch_events;
 
 import java.util.Objects;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @ToString
 @RequiredArgsConstructor
+@Getter
+@EqualsAndHashCode
 public class SpellEvent {
     private final int id;
-    @Getter
     private final String eventType;
-    private final String action;
+    private final String description;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SpellEvent that = (SpellEvent) o;
-        return id == that.id && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
-    }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, eventType, action);
-        return 31 * result + Objects.hash(id, eventType, action);
-    }
 }

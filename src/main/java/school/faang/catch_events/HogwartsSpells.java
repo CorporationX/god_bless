@@ -1,12 +1,15 @@
 package school.faang.catch_events;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
-    private static final String INCORRECT_ID = "There isn't any spells with such ID";
+
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -19,10 +22,13 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (spellById.get(id) == null) {
-            System.out.println(INCORRECT_ID);
-        }
-        return spellById.get(id);
+        SpellEvent spellEvent = spellById.get(id);
+            if (spellEvent == null) {
+                log.error("Warning ");
+                throw new SpellNotFoundException(id);
+            } else {
+                return spellEvent;
+            }
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
@@ -41,7 +47,7 @@ public class HogwartsSpells {
                 }
             }
         } else {
-            System.out.println(INCORRECT_ID);
+            System.out.println("INCORRECT_ID");
         }
     }
 
