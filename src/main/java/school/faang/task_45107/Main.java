@@ -3,7 +3,6 @@ package school.faang.task_45107;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +22,7 @@ public class Main {
         removeItem("Food", "Apple");
         System.out.println(printAllProducts());
 
-        Map<String, List<Product>> groupedMap = groupProductsByCategory(PRODUCTS);
+        Map<String, List<Product>> groupedMap = groupProductsByCategoryName(PRODUCTS);
         printProductsByCategory(groupedMap);
     }
 
@@ -71,7 +70,7 @@ public class Main {
         return new ArrayList<>(PRODUCTS);
     }
 
-    public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+    public static Map<String, List<Product>> groupProductsByCategoryName(Set<Product> products) {
         if (products.isEmpty()) {
             throw new IllegalArgumentException("Set is empty!");
         }
