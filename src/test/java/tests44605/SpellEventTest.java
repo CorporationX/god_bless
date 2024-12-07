@@ -1,4 +1,4 @@
-package tests_44605;
+package tests44605;
 
 import org.junit.jupiter.api.Test;
 import school.faang.task_44605.SpellEvent;
