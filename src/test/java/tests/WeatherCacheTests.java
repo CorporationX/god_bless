@@ -13,13 +13,13 @@ import java.util.concurrent.TimeUnit;
 import static org.awaitility.Awaitility.await;
 
 public class WeatherCacheTests {
-    private static final WeatherProvider weatherProvider = new WeatherService();
+    private static final WeatherProvider WEATHER_PROVIDER = new WeatherService();
     private static final long MAXAGE = 5000;
 
     @Test
     void standartCachingTest() {
         String city = "Moscow";
-        WeatherCacheTemplate cache = new StandartWeatherCache(weatherProvider);
+        WeatherCacheTemplate cache = new StandartWeatherCache(WEATHER_PROVIDER);
 
         WeatherData data1 = cache.getWeatherData(city, MAXAGE);
         WeatherData data2 = cache.getWeatherData(city, MAXAGE);
@@ -31,7 +31,7 @@ public class WeatherCacheTests {
     void frequentCachingTest() {
         String city = "Moscow";
 
-        WeatherCacheTemplate cache = new FrequentWeatherCache(weatherProvider);
+        WeatherCacheTemplate cache = new FrequentWeatherCache(WEATHER_PROVIDER);
 
         WeatherData data1 = cache.getWeatherData(city, MAXAGE);
         WeatherData data2 = cache.getWeatherData(city, MAXAGE);
@@ -43,7 +43,7 @@ public class WeatherCacheTests {
     void clearCacheTest() throws InterruptedException {
         String city = "Moscow";
 
-        WeatherCacheTemplate cache = new StandartWeatherCache(weatherProvider);
+        WeatherCacheTemplate cache = new StandartWeatherCache(WEATHER_PROVIDER);
 
         WeatherData cachedData = cache.getWeatherData(city, MAXAGE);
 
