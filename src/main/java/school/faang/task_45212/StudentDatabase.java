@@ -1,7 +1,10 @@
 package school.faang.task_45212;
 
+import lombok.Getter;
+
 import java.util.*;
 
+@Getter
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();

@@ -11,7 +11,7 @@ public class Student {
 
     public Student(int id, String name) {
         if (name == null || name.isEmpty())
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("Name не может быть пустым");
 
         this.id = id;
         this.name = name;
