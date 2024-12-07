@@ -11,6 +11,7 @@ public class Main {
                 new User("Ivan", 20, "economist", "Minsk"),
                 new User("Kirill", 21, "fullstack developer", "StPetersburg")
         );
+
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> group : groupedUsers.entrySet()) {
             System.out.println(group.getKey());
