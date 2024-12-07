@@ -37,7 +37,7 @@ public class ListOperations {
         return numbers.stream().filter(num -> num > lowerLimit).min(Integer::compareTo).orElse(0);
     }
 
-    public static List<Integer> convertToLengths(List<String> strings){
+    public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream().map(String::length).toList();
     }
 }
