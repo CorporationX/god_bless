@@ -1,7 +1,6 @@
 package school.faang.task_45689;
 
 public class Main {
-
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 

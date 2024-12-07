@@ -16,9 +16,9 @@ public class NotificationManager {
             throw new IllegalArgumentException("notification can not be null");
         }
 
-        tasks.computeIfPresent(notification.type(), (k, v) -> {
-            v.accept(notification);
-            return v;
+        tasks.computeIfPresent(notification.type(), (key, value) -> {
+            value.accept(notification);
+            return value;
         });
     }
 }
