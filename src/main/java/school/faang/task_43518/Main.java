@@ -9,7 +9,7 @@ public class Main {
     private static final String BEAUTY = "Красота";
 
     private static int id = 1;
-    private static Set<Product> products = new HashSet<>();
+    private static final Set<Product> products = new HashSet<>();
 
     public static void main(String[] args) {
         addItem(FOOD, "Тортик");
