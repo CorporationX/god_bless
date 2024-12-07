@@ -23,7 +23,7 @@ public class Main {
         );
 
         System.out.println("Email list before:");
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody()));
 
         Predicate<Email> importantFilter = Email::isImportant;
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
@@ -33,6 +33,6 @@ public class Main {
         System.out.println(">>>All emails was filtered, transformed and processed");
 
         System.out.println("Email list after:");
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody()));
     }
 }
