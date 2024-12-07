@@ -52,9 +52,11 @@ public class Main {
     public static void removeItem(String category, String name) {
         if (productCategories.containsKey(category)) {
             List<Product> item = productCategories.get(category);
-            boolean removed = item.removeIf(product -> product.getName().equals(name) && product.getCategory().equals(category));
+            boolean removed = item.removeIf(product -> product.getName().equals(name)
+                    && product.getCategory().equals(category));
             if (removed) {
-                products.removeIf(product -> product.getName().equals(name) && product.getCategory().equals(category));
+                products.removeIf(product -> product.getName().equals(name)
+                        && product.getCategory().equals(category));
                 System.out.println("Товар '" + name + "' был удален из категории '" + category + "'.");
             } else {
                 System.out.println("Товар '" + name + "' не найден в категории '" + category + "'.");
