@@ -8,7 +8,7 @@ import school.faang.sprint_1.task_44835.dto.WeatherData;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FrequencyWeatherCacheTest {
+public class FrequentUpdateWeatherTest {
     private FrequentUpdateWeatherCache frequentUpdateWeatherCache;
 
     @BeforeEach
@@ -44,6 +44,16 @@ public class FrequencyWeatherCacheTest {
     void testGetWeatherDataMaxCacheAgeMilliLess0() {
         var city = "Moscow";
         long maxCacheAgeMilli = -1;
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> frequentUpdateWeatherCache.getWeatherData(city, maxCacheAgeMilli)
+        );
+    }
+
+    @Test
+    void testGetWeatherDataMaxCacheAgeEquals0() {
+        var city = "Moscow";
+        long maxCacheAgeMilli = 0;
         assertThrows(
                 IllegalArgumentException.class,
                 () -> frequentUpdateWeatherCache.getWeatherData(city, maxCacheAgeMilli)

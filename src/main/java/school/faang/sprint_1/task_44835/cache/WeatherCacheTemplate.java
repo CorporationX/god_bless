@@ -15,7 +15,7 @@ public abstract class WeatherCacheTemplate {
             throw new IllegalArgumentException("Max cache age must be greater then 0");
         }
         var weatherData = weatherDataCache.get(city);
-        if (weatherData != null && checkRelevanceCache(weatherData.getTimestamp(), maxCacheAgeMillis)) {
+        if (weatherData != null && isCacheRelevant(weatherData.getTimestamp(), maxCacheAgeMillis)) {
             return weatherData;
         }
         return forceUpdateWeatherData(city);
@@ -29,7 +29,7 @@ public abstract class WeatherCacheTemplate {
 
     protected abstract WeatherData fetchWeatherData(String city);
 
-    protected abstract boolean checkRelevanceCache(long cacheCreationTime, long maxCacheAgeMillis);
+    protected abstract boolean isCacheRelevant(long cacheCreationTime, long maxCacheAgeMillis);
 
     protected long getCurrentTime() {
         return Instant.now().toEpochMilli();

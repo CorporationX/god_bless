@@ -50,4 +50,14 @@ public class StandardWeatherCacheTest {
                 () -> standardWeatherCache.getWeatherData(city, maxCacheAgeMilli)
         );
     }
+
+    @Test
+    void testGetWeatherDataMaxCacheAgeEquals0() {
+        var city = "Moscow";
+        long maxCacheAgeMilli = 0;
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> standardWeatherCache.getWeatherData(city, maxCacheAgeMilli)
+        );
+    }
 }
