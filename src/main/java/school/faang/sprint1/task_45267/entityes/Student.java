@@ -1,25 +1,27 @@
-package school.faang.sprint1.task_45267.Entityes;
+package school.faang.sprint1.task_45267.entityes;
 
 import lombok.ToString;
 
 import java.util.Objects;
 
 @ToString
-public class Subject {
+public class Student {
     private static int idCounter = 1;
     private final int id;
     private final String name;
 
-    public Subject(String name) {
+    public Student(String name) {
         this.id = idCounter++;
         this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Subject subject = (Subject) o;
-        return Objects.equals(name, subject.name);
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Student student = (Student) o;
+        return Objects.equals(name, student.name);
     }
 
     @Override

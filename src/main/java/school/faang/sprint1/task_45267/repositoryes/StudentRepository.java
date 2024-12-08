@@ -1,7 +1,7 @@
 package school.faang.sprint1.task_45267.repositoryes;
 
-import school.faang.sprint1.task_45267.Entityes.Student;
-import school.faang.sprint1.task_45267.Entityes.Subject;
+import school.faang.sprint1.task_45267.entityes.Student;
+import school.faang.sprint1.task_45267.entityes.Subject;
 
 import java.util.HashMap;
 import java.util.Map;

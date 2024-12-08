@@ -1,7 +1,7 @@
 package school.faang.sprint1.task_45267.services;
 
-import school.faang.sprint1.task_45267.Entityes.Student;
-import school.faang.sprint1.task_45267.Entityes.Subject;
+import school.faang.sprint1.task_45267.entityes.Student;
+import school.faang.sprint1.task_45267.entityes.Subject;
 import school.faang.sprint1.task_45267.repositoryes.StudentRepository;
 import school.faang.sprint1.task_45267.repositoryes.SubjectRepository;
 
@@ -16,8 +16,9 @@ public class MainService {
         subjectRepository.addSubject(student, subjects);
     }
 
-    public boolean JoinStudentAndSubject(Student student, Subject subject, Integer grade) {
-        return studentRepository.addSubjectToStudent(student, subject, grade) && subjectRepository.addStudentToSubject(student, subject);
+    public boolean joinStudentAndSubject(Student student, Subject subject, Integer grade) {
+        return studentRepository.addSubjectToStudent(student, subject, grade) &&
+                subjectRepository.addStudentToSubject(student, subject);
     }
 
     public boolean removeStudent(Student student, Subject subject) {
