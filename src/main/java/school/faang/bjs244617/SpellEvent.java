@@ -12,7 +12,7 @@ public class SpellEvent {
     private int id;
 
     @NonNull
-    private SpellType eventType;
+    private final SpellType eventType;
 
     @Override
     public String toString() {
