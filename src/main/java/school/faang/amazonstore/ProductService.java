@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductActions {
-    Map<String, List<String>> products = new HashMap<>();
+public class ProductService {
+    private Map<String, List<String>> products = new HashMap<>();
 
     public void addItem(String category, String name) {
         products.computeIfAbsent(category, k -> new ArrayList<>()).add(name);
@@ -37,23 +37,5 @@ public class ProductActions {
         for (Map.Entry<String, List<String>> entry : products.entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
-    }
-
-    //    Проверка методов
-    public static void main(String[] args) {
-        ProductActions productActions = new ProductActions();
-        productActions.addItem("Fruits", "Apple");
-        productActions.addItem("Fruits", "Banana");
-        productActions.addItem("Berry", "Watermelon");
-        productActions.printAllItems();
-        System.out.println("-------------------------------------");
-        productActions.findItemsByCategory("Fruits");
-        productActions.findItemsByCategory("Fruuts");
-        System.out.println("-------------------------------------");
-        productActions.removeItem("Fruits", "Apple");
-        productActions.removeItem("Fruits", "Grape");
-        productActions.removeItem("Fruit", "Grape");
-        System.out.println("-------------------------------------");
-        productActions.printAllItems();
     }
 }

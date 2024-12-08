@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        HashSet<Product> products = new HashSet<>();
+        Set<Product> products = new HashSet<>();
         products.add(new Product(1, "Apple", "Fruits"));
         products.add(new Product(2, "Carrot", "Vegetables"));
         products.add(new Product(3, "Banana", "Fruits"));
@@ -20,7 +21,7 @@ public class Main {
 
     }
 
-    public static Map<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+    public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
         for (Product product : products) {
             groupedProducts.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
