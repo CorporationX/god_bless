@@ -8,7 +8,7 @@ import java.util.Map;
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
 
-    public Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(SpellEvent spellEvent) {
         addSpellInSpellById(spellEvent);
@@ -16,15 +16,8 @@ public class HogwartsSpells {
     }
 
     private void addSpellInSpellsByType(SpellEvent spellEvent) {
-        String event = spellEvent.getEventType();
-        List<SpellEvent> tempListWithSpellByType = spellsByType.get(event);
-
-        if (tempListWithSpellByType == null) {
-            tempListWithSpellByType = new ArrayList<>();
-        }
-
-        tempListWithSpellByType.add(spellEvent);
-        spellsByType.put(event, tempListWithSpellByType);
+        spellsByType.computeIfAbsent(spellEvent.getEventType(), key -> new ArrayList<>())
+                .add(spellEvent);
     }
 
     private void addSpellInSpellById(SpellEvent spellEvent) {
@@ -46,15 +39,12 @@ public class HogwartsSpells {
     }
 
     private void deleteFromSpellsByType(int id) {
-        spellsByType.forEach((key, value) -> {
-            List<SpellEvent> spellEvent = value;
-            for (SpellEvent item : spellEvent) {
-                if (item.getId() == id) {
-                    spellEvent.remove(item);
-                    break;
-                }
-            }
-        });
+        spellsByType.forEach((key, value) ->
+                spellsByType.computeIfPresent(key, (k, spellList) -> {
+                    spellList.removeIf(spell -> spell.getId() == id);
+                    return spellList.isEmpty() ? null : spellList;
+                })
+        );
     }
 
     private void deleteFromSpellById(int id) {
@@ -68,4 +58,12 @@ public class HogwartsSpells {
                     + " | Description :: " + value.getEventDescription());
         });
     }
+
+    public void printingOutTheSpellsByTypeMap() {
+        System.out.println(" ");
+        spellsByType.forEach((key, value) -> {
+            System.out.println(key + " :: " + value);
+        });
+    }
+
 }

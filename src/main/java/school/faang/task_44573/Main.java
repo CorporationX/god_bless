@@ -19,11 +19,7 @@ public class Main {
 
         hogwartsSpells.printAllSpellEvents();
 
-        System.out.println(" ");
-
-        hogwartsSpells.spellsByType.forEach((key, value) -> {
-            System.out.println(key + " :: " + value);
-        });
+        hogwartsSpells.printingOutTheSpellsByTypeMap();
 
         System.out.println(" ");
 
@@ -42,11 +38,6 @@ public class Main {
 
         hogwartsSpells.printAllSpellEvents();
 
-        System.out.println(" ");
-
-        hogwartsSpells.spellsByType.forEach((key, value) -> {
-            System.out.println(key + " :: " + value);
-        });
-
+        hogwartsSpells.printingOutTheSpellsByTypeMap();
     }
 }
