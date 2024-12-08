@@ -1,6 +1,7 @@
 package school.faang.sprint_1.task_collectusersbjs2n44013;
 
 import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public class User {
             for (String act : user.activities) {
                 if (activitiesSet.contains(act)) {
                     map.put(user, act);
+                    break;
                 }
             }
         }
