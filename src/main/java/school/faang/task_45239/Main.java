@@ -22,12 +22,12 @@ public class Main {
 
         Subject informatics = new Subject(3, "Informatics");
         database.addSubjectForStudent(s1, informatics, 100);
+        database.addStudentToSubject(s2, informatics);
 
         Subject chemistry = new Subject(4, "Chemistry");
         database.addSubjectWithStudents(chemistry, new ArrayList<>(List.of(s1, s2, s3)));
 
         database.removeStudentFromSubject(s1, physics);
-
         database.removeStudent(s3);
 
         System.out.println("List of students and their grades:");

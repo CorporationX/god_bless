@@ -1,11 +1,3 @@
 package school.faang.task_45239;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@AllArgsConstructor
-@Data
-public class Subject {
-    private int id;
-    private String name;
-}
+public record Subject(int id, String name) {}
