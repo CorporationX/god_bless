@@ -8,7 +8,8 @@ public class DroidMessageEncryptor {
             char cr = message.charAt(i);
 
             // If the symbol is one of the letters of the Latin alphabet, then the letter is encrypted
-            if (cr >= 65 && cr <= 90 || cr >= 97 && cr <= 122) {
+            if (cr >= 65 && cr <= 90
+                    || cr >= 97 && cr <= 122) {
                 cr = (char) (cr + key);
             }
 
@@ -26,7 +27,8 @@ public class DroidMessageEncryptor {
 
             // If the symbol is one of the letters of the Latin alphabet + the encryption key,
             // then the letter is decrypted
-            if ((cr >= 65 + key && cr <= 90 + key) || (cr >= 97 + key && cr <= 122 + key)) {
+            if (cr >= 65 + key && cr <= 90 + key
+                    || cr >= 97 + key && cr <= 122 + key) {
                 cr = (char) (cr - key);
             }
 
