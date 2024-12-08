@@ -8,6 +8,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int PERMITTED_AGE = 18;
 
     private String name;
     private int age;
@@ -15,10 +16,17 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        this.name = name;
+        validateAndSetName(name);
         validateAndSetAge(age);
         validateAndSetJob(job);
         validateAndSetAddress(address);
+    }
+
+    private void validateAndSetName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(("Name is null or blank, " + name));
+        }
+        this.name = name;
     }
 
     private void validateAndSetJob(String job) {
@@ -36,7 +44,7 @@ public class User {
     }
 
     private void validateAndSetAge(int age) {
-        if (age < 18) {
+        if (age < PERMITTED_AGE) {
             throw new IllegalArgumentException("Age must be over 18, but is " + age);
         }
         this.age = age;
