@@ -2,7 +2,7 @@ package derschrank.task11.bjstwo_44817;
 
 import java.util.Random;
 
-public class WeatherService implements WeatherProvider{
+public class WeatherService implements WeatherProvider {
     @Override
     public WeatherData fetchWeatherData(String city) {
         Random rnd = new Random();

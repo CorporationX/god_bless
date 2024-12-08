@@ -12,7 +12,7 @@ public class Main {
     }
 
     public static void printWeather(WeatherCache weatherCache) throws InterruptedException {
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             System.out.format("%s | %s | %s%n",
                     weatherCache.getWeatherData("Moscow"),
                     weatherCache.getWeatherData("London"),
