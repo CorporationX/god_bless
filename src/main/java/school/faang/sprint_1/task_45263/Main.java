@@ -13,10 +13,6 @@ public class Main {
         Subject chemistry = new Subject(105, "Chemistry");
 
         Student tanya = new Student(201, "Tatiana Gritsenko");
-        Student vanya = new Student(202, "Ivan Ivanov");
-        Student vika = new Student(203, "Viktoriya Lebedeva");
-        Student sasha = new Student(204, "Aleksandr Timofeev");
-        Student vlad = new Student(205, "Vladislav Antonov");
 
         var db = new StudentDatabase();
 
@@ -30,6 +26,8 @@ public class Main {
 
         db.printAllStudentWithGrades();
 
+        Student sasha = new Student(204, "Aleksandr Timofeev");
+
         Map<Subject, Integer> sashaGrades = new HashMap<>();
         sashaGrades.put(math, 5);
         sashaGrades.put(history, 5);
@@ -41,11 +39,15 @@ public class Main {
 
         db.printAllClasses();
 
+        Student vika = new Student(203, "Viktoriya Lebedeva");
+
         db.addStudentToClass(math, vika);
 
         db.printAllStudentWithGrades();
 
         db.removeStudentWithGrades(vika);
+
+        Student vlad = new Student(205, "Vladislav Antonov");
 
         db.addStudentWithGrades(vlad, new HashMap<>());
         db.addGradeToStudent(vlad, history, 5);
@@ -54,6 +56,8 @@ public class Main {
 
         Subject physics = new Subject(106, "Physics");
         db.addClass(physics, new ArrayList<>());
+
+        Student vanya = new Student(202, "Ivan Ivanov");
 
         db.addStudentToClass(physics, vanya);
         db.addStudentToClass(physics, vika);
