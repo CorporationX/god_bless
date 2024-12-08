@@ -9,5 +9,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Item {
     private final String name;
-    private int value;
+    private final int value;
 }

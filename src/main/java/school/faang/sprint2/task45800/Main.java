@@ -23,14 +23,14 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(gendalf, ring1, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(gendalf, ring2, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(gendalf, ring3, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(frodo, ring4, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(frodo, ring5, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(frodo, ring6, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(aragorn, sword, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(legolas, bow, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        addItem(manager, gendalf, ring1);
+        addItem(manager, gendalf, ring2);
+        addItem(manager, gendalf, ring3);
+        addItem(manager, frodo, ring4);
+        addItem(manager, frodo, ring5);
+        addItem(manager, frodo, ring6);
+        addItem(manager, aragorn, sword);
+        addItem(manager, legolas, bow);
 
         manager.removeItem(frodo,
                 (item) -> item.getName().equals("The Fourth Ring"));
@@ -58,5 +58,9 @@ public class Main {
         aragorn.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
         System.out.println("Legolas inventory:");
         legolas.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+    }
+
+    private static void addItem(InventoryManager manager, Character character, Item itemIn) {
+        manager.addItem(character, itemIn, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
     }
 }
