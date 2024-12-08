@@ -23,8 +23,12 @@ public class Subject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Subject)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Subject)){
+            return false;
+        }
         Subject subject = (Subject) o;
         return id.equals(subject.id) && name.equals(subject.name);
     }

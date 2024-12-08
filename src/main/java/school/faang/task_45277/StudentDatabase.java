@@ -70,7 +70,8 @@ public class StudentDatabase {
         studentGrades.forEach((student, grades) -> {
             System.out.println("Студент: " + student.getName() + " (ID: " + student.getId() + ")");
             grades.forEach((subject, grade) ->
-                    System.out.println("   Предмет: " + subject.getName() + " (ID: " + subject.getId() + "), Оценка: " + grade)
+                    System.out.println("   Предмет: " + subject.getName()
+                            + " (ID: " + subject.getId() + "), Оценка: " + grade)
             );
         });
     }
