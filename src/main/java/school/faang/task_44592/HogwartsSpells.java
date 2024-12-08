@@ -10,17 +10,18 @@ public class HogwartsSpells {
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
+        SpellEvent spellEvent;
         try {
-            var spellEvent = new SpellEvent(id, eventType, actionDescription);
-
-            spellById.put(id, spellEvent);
-
-            spellsByType.putIfAbsent(eventType, new ArrayList<>());
-            spellsByType.get(eventType).add(spellEvent);
+            spellEvent = new SpellEvent(id, eventType, actionDescription);
         } catch (IllegalArgumentException ex) {
             System.out.println("Заклинание не может быть добавлено: " + ex.getMessage());
             throw ex;
         }
+
+        spellById.put(id, spellEvent);
+
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
+        spellsByType.get(eventType).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -35,8 +36,9 @@ public class HogwartsSpells {
         var spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             spellsByType.entrySet().removeIf(entry -> {
-                    entry.getValue().remove(spellEvent);
-                    return entry.getValue().isEmpty();
+                    var spellEvents = entry.getValue();
+                    spellEvents.remove(spellEvent);
+                    return spellEvents.isEmpty();
                 }
             );
         }
