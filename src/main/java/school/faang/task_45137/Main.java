@@ -10,28 +10,24 @@ public class Main {
     public static void main(String[] args) {
         HashSet<Product> products = new HashSet<>();
 
-        products.add(new Product(1, "Apple", "Fruits"));
-        products.add(new Product(2, "Carrot", "Vegetables"));
-        products.add(new Product(3, "Banana", "Fruits"));
-        products.add(new Product(4, "Broccoli", "Vegetables"));
-        products.add(new Product(5, "Milk", "Dairy"));
+        products.add(new Product("Apple", "Fruits"));
+        products.add(new Product("Carrot", "Vegetables"));
+        products.add(new Product("Banana", "Fruits"));
+        products.add(new Product("Broccoli", "Vegetables"));
+        products.add(new Product("Milk", "Dairy"));
 
         printAllItems(products);
 
         addItem(products, "Beverages", "Orange Juice");
-
         removeItem(products, "Fruits", "Banana");
-
         findItemsByCategory(products, "Fruits");
 
         Map<String, List<Product>> groupedProducts = groupProductsByCategory(products);
-
         printProductsByCategory(groupedProducts);
     }
 
     public static void addItem(HashSet<Product> products, String category, String name) {
-        int newId = products.size() + 1;
-        Product newProduct = new Product(newId, name, category);
+        Product newProduct = new Product(name, category);
         if (products.add(newProduct)) {
             System.out.println("Product added: " + newProduct);
         } else {
@@ -40,16 +36,12 @@ public class Main {
     }
 
     public static void removeItem(HashSet<Product> products, String category, String name) {
-        Product toRemove = products.stream()
-                .filter(p -> p.getCategory().equals(category) && p.getName().equals(name))
-                .findFirst()
-                .orElse(null);
-
-        if (toRemove != null) {
-            products.remove(toRemove);
-            System.out.println("Product removed: " + toRemove);
+        boolean removed = products.removeIf(product ->
+                product.getCategory().equals(category) && product.getName().equals(name));
+        if (removed) {
+            System.out.println("Product removed: " + name + " from " + category);
         } else {
-            System.out.println("Product not found in category: " + category);
+            System.out.println("Product not found: " + name + " in " + category);
         }
     }
 
@@ -73,20 +65,15 @@ public class Main {
 
     public static Map<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
         Map<String, List<Product>> productMap = new HashMap<>();
-
-        for (Product product : products) {
-            productMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
-        }
-
+        products.forEach(product ->
+                productMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product));
         return productMap;
     }
 
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
-            System.out.println("Category: " + entry.getKey());
-            for (Product product : entry.getValue()) {
-                System.out.println(" - " + product);
-            }
-        }
+        groupedProducts.forEach((category, productList) -> {
+            System.out.println("Category: " + category);
+            productList.forEach(product -> System.out.println(" - " + product));
+        });
     }
 }
