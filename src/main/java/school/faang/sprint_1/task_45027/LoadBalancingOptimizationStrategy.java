@@ -9,7 +9,7 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
         double allocateLoad = availableLoad / totalServers;
 
         for (Server server : dataCenter.servers) {
-            if (availableLoad > allocateLoad) {
+            if (availableLoad > 0 && availableLoad > allocateLoad) {
                 if ((server.getLoad() + allocateLoad) > server.getMaxLoad()) {
                     double requiredLoad = server.getMaxLoad() - server.getLoad();
                     availableLoad -= requiredLoad;

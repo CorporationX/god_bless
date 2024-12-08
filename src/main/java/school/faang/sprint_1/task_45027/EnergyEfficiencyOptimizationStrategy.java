@@ -15,7 +15,7 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
             double serverEnergyEfficiency = server.getEnergyConsumption();
             double allocateLoad = (serverEnergyEfficiency / totalEnergyEfficiency) * availableLoad;
 
-            if (availableLoad > allocateLoad) {
+            if (availableLoad > 0 && availableLoad > allocateLoad) {
                 if ((server.getLoad() + allocateLoad) > server.getMaxLoad()) {
                     double requiredLoad = server.getMaxLoad() - server.getLoad();
                     availableLoad -= requiredLoad;

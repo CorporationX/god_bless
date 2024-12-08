@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestDataCenterService {
+public class DataCenterServiceTest {
     List<Server> servers;
     DataCenter dataCenter;
     ResourceRequest request;

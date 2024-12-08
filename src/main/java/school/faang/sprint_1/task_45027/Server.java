@@ -1,6 +1,7 @@
 package school.faang.sprint_1.task_45027;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @AllArgsConstructor
 @Data

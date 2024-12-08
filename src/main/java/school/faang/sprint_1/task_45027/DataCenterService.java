@@ -38,11 +38,12 @@ public class DataCenterService {
         double totalReleaseLoad = 0;
 
         for (Server server : dataCenter.servers) {
-            double serverReleaseLoad = allocatedLoads.get(server);
-            server.setLoad(server.getLoad() - serverReleaseLoad);
-            totalReleaseLoad += serverReleaseLoad;
+            if (allocatedLoads.get(server) != null) {
+                double serverReleaseLoad = allocatedLoads.get(server);
+                server.setLoad(server.getLoad() - serverReleaseLoad);
+                totalReleaseLoad += serverReleaseLoad;
+            }
         }
-
         request.setLoad(request.getLoad() + totalReleaseLoad);
     }
 }
