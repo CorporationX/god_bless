@@ -9,12 +9,12 @@ public class DataCenter {
     private final List<Server> servers;
 
     public DataCenter(List<Server> servers) {
-        validation(servers);
+        validate(servers);
 
         this.servers = servers;
     }
 
-    public void validation(List<Server> servers) {
+    private void validate(List<Server> servers) {
         if (servers == null) {
             throw new IllegalArgumentException("servers is null");
         }

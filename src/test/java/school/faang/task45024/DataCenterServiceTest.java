@@ -24,12 +24,12 @@ class DataCenterServiceTest {
     }
 
     @Test
-    void getTotalEnergyConsumption() {
+    void shouldReturnTotalEnergyConsumption() {
         assertEquals(750, dataCenterService.getTotalEnergyConsumption());
     }
 
     @Test
-    void addServer() {
+    void shouldAddServer() {
         Server server = new Server(200, 300, 500);
         dataCenterService.addServer(server);
         assertTrue(dataCenterService
@@ -39,7 +39,7 @@ class DataCenterServiceTest {
     }
 
     @Test
-    void allocateResources() {
+    void shouldAllocateResources() {
         ResourceRequest request = new ResourceRequest(70);
         dataCenterService.allocateResources(request);
         assertEquals(100, dataCenterService.getDataCenter().getServers().get(0).getLoad());
@@ -47,21 +47,21 @@ class DataCenterServiceTest {
     }
 
     @Test
-    void removeServer() {
+    void shouldRemoveServer() {
         Server server = new Server(50, 100, 200);
         dataCenterService.remove(server);
         assertFalse(dataCenterService.getDataCenter().getServers().contains(server));
     }
 
     @Test
-    void releaseResources() {
+    void shouldReleaseResources() {
         ResourceRequest request = new ResourceRequest(70);
         dataCenterService.releaseResources(request);
         assertEquals(0, dataCenterService.getDataCenter().getServers().get(0).getLoad());
     }
 
     @Test
-    void optimize() {
+    void shouldOptimizeDataCenter() {
         dataCenterService.optimize(dataCenterService.getDataCenter());
         assertEquals(60, dataCenterService.getDataCenter().getServers().get(0).getLoad());
         assertEquals(60, dataCenterService.getDataCenter().getServers().get(1).getLoad());
