@@ -8,8 +8,11 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
     private static final int MIN_AGE = 18;
+    private final String VALID_NAME_MESSAGE = "Name can not be empty.";
+    private final String VALID_AGE_MESSAGE = "Age can not be less than 18.";
+
+
 
     private String name;
     private int age;
@@ -25,28 +28,28 @@ public class User {
 
     public void setName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name can't be empty.");
+            throw new IllegalArgumentException(VALID_NAME_MESSAGE);
         }
         this.name = name;
     }
 
     public void setAge(int age) {
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Age can't be less than 18.");
+            throw new IllegalArgumentException(VALID_AGE_MESSAGE);
         }
         this.age = age;
     }
 
     public void setJob(String job) {
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Job can be only \"Google\", \"Uber\", \"Amazon\"");
+            throw new IllegalArgumentException("Invalid job: " + job + ". Please provide a valid job.");
         }
         this.job = job;
     }
 
     public void setAddress(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Address can be only \"London\", \"New York\", \"Amsterdam\"");
+            throw new IllegalArgumentException("Invalid address: " + address + ". Please provide a valid address.");
         }
         this.address = address;
     }
