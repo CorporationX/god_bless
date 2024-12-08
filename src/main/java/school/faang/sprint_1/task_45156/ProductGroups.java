@@ -11,6 +11,7 @@ public class ProductGroups {
     public ProductGroups(Map<String, List<Product>> groupedProducts) {
         this.groupedProducts = groupedProducts;
     }
+
     public void addItem(String category, String name) {
         Product product = new Product(name, category);
         groupedProducts.computeIfAbsent(category, k ->  new ArrayList<>()).add(product);
@@ -28,8 +29,7 @@ public class ProductGroups {
                 if (listProducts.isEmpty()) {
                     groupedProducts.remove(category);
                 }
-            }
-            else {
+            } else {
                 System.out.println("Товара " + name + " не существует\n");
             }
         }
@@ -50,7 +50,7 @@ public class ProductGroups {
     }
 
     public void printAllItems() {
-        groupedProducts.forEach((category, listProducts)->{
+        groupedProducts.forEach((category, listProducts) -> {
             System.out.println("Категория: " + category);
             for (Product product : listProducts) {
                 System.out.println("\t" + product);

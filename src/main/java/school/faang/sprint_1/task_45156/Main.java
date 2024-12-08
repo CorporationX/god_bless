@@ -42,7 +42,7 @@ public class Main {
     }
 
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.forEach((category, listProducts)->{
+        groupedProducts.forEach((category, listProducts) -> {
             System.out.println("Категория: " + category);
             for (Product product : listProducts) {
                 System.out.println("\t" + product);
