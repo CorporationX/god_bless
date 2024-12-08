@@ -1,13 +1,13 @@
 package school.faang;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import school.faang.bsj_43843.Archer;
 import school.faang.bsj_43843.Character;
 import school.faang.bsj_43843.Warrior;
 
 import java.util.List;
 
-@Log
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
