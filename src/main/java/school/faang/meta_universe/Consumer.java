@@ -4,4 +4,3 @@ package school.faang.meta_universe;
 public interface Consumer<T> {
     void accept(T param);
 }
-
