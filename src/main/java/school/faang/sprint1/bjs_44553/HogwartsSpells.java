@@ -9,8 +9,8 @@ public class HogwartsSpells {
     private final HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-        SpellEvent newEvent = new SpellEvent(id, eventType, actionDescription);
         if (!spellById.containsKey(id)) {
+            SpellEvent newEvent = new SpellEvent(id, eventType, actionDescription);
             spellById.put(id, newEvent);
             spellsByType.computeIfAbsent(eventType, event -> new ArrayList<>()).add(newEvent);
         } else {
