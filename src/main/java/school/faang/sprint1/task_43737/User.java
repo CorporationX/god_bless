@@ -9,8 +9,8 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int MIN_AGE = 18;
-    private final String NAME_MESSAGE = "Name can not be empty.";
-    private final String AGE_MESSAGE = "Age can not be less than 18.";
+    private static final String NAME_MESSAGE = "Name can not be empty.";
+    private static final String AGE_MESSAGE = "Age can not be less than 18.";
 
 
 
