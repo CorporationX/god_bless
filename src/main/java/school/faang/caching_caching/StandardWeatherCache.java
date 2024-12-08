@@ -6,10 +6,6 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
     }
 
     protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
-        if (data.getTimestamp() + maxCacheAgeMillis < System.currentTimeMillis()) {
-            return true;
-        } else {
-            return false;
-        }
+        return data.getTimestamp() + maxCacheAgeMillis < System.currentTimeMillis();
     }
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public abstract class WeatherCacheTemplate {
     private static final HashMap<String, WeatherData> weatherCache = new HashMap<>();
-    WeatherProvider provider;
+    private final WeatherProvider provider;
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
