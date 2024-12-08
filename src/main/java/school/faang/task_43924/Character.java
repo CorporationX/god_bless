@@ -1,8 +1,6 @@
 package school.faang.task_43924;
 
-import lombok.Data;
 
-@Data
 public abstract class Character {
 
     protected String name;
@@ -15,7 +13,8 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(int power, int agility, int intelligence) {
+    public Character(String name, int power, int agility, int intelligence) {
+        this.name = name;
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
