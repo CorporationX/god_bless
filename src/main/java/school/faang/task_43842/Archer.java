@@ -12,7 +12,7 @@ class Archer extends Character {
     @Override
     public void attack(Character target) {
         int damage = getAgility();
-        target.setHealth(target.getHealth() - damage);
+        target.decreaseHealth(damage);
         System.out.println(getName() + " (Archer) attacked "
                 + target.getName() + " and inflicts " + damage + " damage");
     }

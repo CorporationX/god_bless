@@ -12,7 +12,7 @@ public class Warrior extends Character {
     @Override
     public void attack(Character target) {
         int damage = getStrength();
-        target.setHealth(target.getHealth() - damage);
+        target.decreaseHealth(damage);
         System.out.println(getName() + " (Warrior) attacked "
                 + target.getName() + " and inflicts " + damage + " damage");
     }
