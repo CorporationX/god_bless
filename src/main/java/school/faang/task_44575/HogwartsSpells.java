@@ -19,7 +19,7 @@ public class HogwartsSpells {
             spellEventList.add(spellEvent);
         } else {
             List<SpellEvent> spellEventList =  new ArrayList<>();
-            spellEventList.add(0,new SpellEvent(id, eventType, actionDescription));
+            spellEventList.add(0, new SpellEvent(id, eventType, actionDescription));
             spellsByType.put(eventType, spellEventList);
         }
     }
