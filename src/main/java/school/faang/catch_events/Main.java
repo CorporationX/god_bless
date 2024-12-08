@@ -18,8 +18,13 @@ public class Main {
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
         }
+        System.out.println(hogwartsSpells.getSpellEventsByType("SAFE"));
         try {
-            System.out.println(hogwartsSpells.getSpellEventsByType("SAFE"));
+            System.out.println(hogwartsSpells.getSpellEventsByType("ATTACK"));
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
             System.out.println(hogwartsSpells.getSpellEventsByType("Something else"));
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
@@ -30,7 +35,7 @@ public class Main {
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
         }
-            hogwartsSpells.printAllSpellEvents();
+        hogwartsSpells.printAllSpellEvents();
 
     }
 }

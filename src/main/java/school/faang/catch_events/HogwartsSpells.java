@@ -30,19 +30,23 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        List<SpellEvent> spellEvents = spellsByType.get(Enum.valueOf(EventType.class, eventType));
-        if (spellEvents == null) {
-            log.error("WARNING EVENT NOT FOUND");
-            throw new EventNotFoundException(eventType);
-        } else {
+        try {
+            List<SpellEvent> spellEvents = spellsByType.get(Enum.valueOf(EventType.class, eventType));
+            if (spellEvents == null) {
+                log.error("WARNING EVENT NOT FOUND");
+                throw new EventNotFoundException(eventType);
+            }
             return spellEvents;
+        } catch (RuntimeException e) { //ловим исключение от метода Enum.valueOf()
+            log.error("WARNING EVENT ID NOT FOUND");
+            throw new EventNotFoundException(eventType);
         }
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent == null) {
-            log.error("WARNING");
+            log.error("WARNING SPEll NOT FOUND");
             throw new SpellNotFoundException(id);
         } else {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
