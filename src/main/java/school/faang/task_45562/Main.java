@@ -40,8 +40,4 @@ public class Main {
 
         return transformMatrix(matrix, matrixTransformer);
     }
-
-    public static void printMatrix(int[][] matrix) {
-
-    }
 }
