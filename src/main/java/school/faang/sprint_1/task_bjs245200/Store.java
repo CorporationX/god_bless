@@ -29,8 +29,8 @@ public class Store {
         NameValidator.validateCategoryAndName(category, name);
 
         Product productForDelete = warehouse.stream()
-                .filter(product -> product.getName().equals(name) &&
-                        product.getCategory().equals(category))
+                .filter(product -> product.getName().equals(name)
+                        && product.getCategory().equals(category))
                 .findFirst()
                 .orElseThrow(() -> {
                     log.warn("attempted find to delete a non-existent product {} in category {}", name, category);
