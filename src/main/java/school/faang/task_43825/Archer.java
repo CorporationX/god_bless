@@ -18,7 +18,7 @@ public class Archer extends Character {
 
         String targetClassName = target.getClass().getSimpleName();
         System.out.printf(
-                "Archer %s deals %d damage to %s %s\n",
+                "Archer %s deals %d damage to %s %s%n",
                 this.getAgility(), damage, targetClassName.toLowerCase(), target.getName()
         );
     }
