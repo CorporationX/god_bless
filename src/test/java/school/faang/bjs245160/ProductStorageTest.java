@@ -15,7 +15,7 @@ public class ProductStorageTest {
 
     @BeforeEach
     public void setUp() {
-        productStorage.getProducts().clear();
+        productStorage.getProductsByCategory().clear();
     }
 
     @Test
@@ -30,7 +30,7 @@ public class ProductStorageTest {
         addAndCheckProduct(productData.getName(), productData.getCategory());
 
         productStorage.removeItem(productData.getCategory(), productData.getName());
-        Assertions.assertEquals(List.of(), productStorage.getProducts().get(productData.getCategory()));
+        Assertions.assertEquals(List.of(), productStorage.getProductsByCategory().get(productData.getCategory()));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class ProductStorageTest {
     private void addAndCheckProduct(String name, String category) {
         productStorage.addItem(category, name);
 
-        Map<String, List<Product>> products = productStorage.getProducts();
+        Map<String, List<Product>> products = productStorage.getProductsByCategory();
         Assertions.assertEquals(List.of(new Product(name, category)), products.get(category));
     }
 }

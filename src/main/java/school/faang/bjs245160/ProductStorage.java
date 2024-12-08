@@ -9,36 +9,45 @@ import java.util.Map;
 
 @Getter
 public class ProductStorage {
-    private final Map<String, List<Product>> products = new HashMap<>();
+    private final Map<String, List<Product>> productsByCategory = new HashMap<>();
 
     public void addItem(String category, String name) {
-        products.computeIfAbsent(category, k -> new ArrayList<>()).add(new Product(name, category));
+        productsByCategory.computeIfAbsent(category, k -> new ArrayList<>()).add(new Product(name, category));
     }
 
     public void removeItem(String category, String name) throws IllegalArgumentException {
-        checkCategoryAndProduct(category, name);
-        products.get(category).remove(new Product(name, category));
+        checkCategory(category);
+
+        List<Product> products = productsByCategory.get(category);
+        List<Product> productsToRemove = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                productsToRemove.add(product);
+            }
+        }
+
+        if (productsToRemove.isEmpty()) {
+            throw new IllegalArgumentException("Product: \"" + name + "\" does not exist");
+        }
+
+        products.removeAll(productsToRemove);
     }
 
     public List<Product> findItemsByCategory(String category) {
-        checkCategory(category);
-        return products.get(category);
+        List<Product> products = productsByCategory.get(category);
+        if (products == null) {
+            throw new IllegalArgumentException("Category: \"" + category + "\" does not exist");
+        }
+        return products;
     }
 
     public void printAllItems() {
-        System.out.println(products);
+        System.out.println(productsByCategory);
     }
 
     private void checkCategory(String category) {
-        if (!products.containsKey(category)) {
+        if (!productsByCategory.containsKey(category)) {
             throw new IllegalArgumentException("Category: \"" + category + "\" does not exist");
-        }
-    }
-
-    private void checkCategoryAndProduct(String category, String name) {
-        checkCategory(category);
-        if (!products.get(category).contains(new Product(name, category))) {
-            throw new IllegalArgumentException("Product: \"" + name + "\" does not exist");
         }
     }
 }

@@ -10,8 +10,8 @@ import java.util.Set;
 
 @UtilityClass
 public class Main {
-    public HashMap<String, List<Product>> groupProductsByCategory(Set<Product> products) {
-        HashMap<String, List<Product>> productsByCategory = new HashMap<>();
+    public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+        Map<String, List<Product>> productsByCategory = new HashMap<>();
         if (products == null || products.isEmpty()) {
             return productsByCategory;
         }
