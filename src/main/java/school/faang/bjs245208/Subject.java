@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
 @ToString
 public class Subject {
+    @NotEmpty(message = "Subject id cannot be empty or null")
     private final UUID id;
+    @NotEmpty(message = "Subject name cannot be empty or null")
     private final String name;
 
     public Subject(String name) {

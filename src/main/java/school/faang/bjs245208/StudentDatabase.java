@@ -3,21 +3,18 @@ package school.faang.bjs245208;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import static school.faang.bjs245208.Helpers.notEmptyParamCheck;
-import static school.faang.bjs245208.Helpers.notEmptyParamsCheck;
-import static school.faang.bjs245208.Helpers.objectEqualsUuidOrString;
+import static school.faang.bjs245208.ValidatorUtil.validate;
 
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentsScores = new HashMap<>();
     private final Map<Subject, List<Student>> subjectsStudents = new HashMap<>();
 
     public void addStudent(String studentName, Map<Subject, Integer> studentSubjectsAndMarks) {
-        notEmptyParamCheck(studentName, "Student name");
-        notEmptyParamCheck(studentSubjectsAndMarks, "Subjects and marks");
+        validate(studentName);
+        validate(studentSubjectsAndMarks);
 
         Student student = new Student(studentName);
         studentsScores.put(student, studentSubjectsAndMarks);
@@ -25,15 +22,29 @@ public class StudentDatabase {
         //Optional can bind with addSubject if needed
     }
 
-    public void addStudentSubject(String studentName, UUID studentId, Map.Entry<Subject, Integer> subjectAndMark) {
-        notEmptyParamsCheck(studentName, studentId);
-        notEmptyParamCheck(subjectAndMark, "Subject and marks");
+    public Student findStudent(UUID studentid) {
+        validate(studentid);
 
-        Student student = studentsScores.keySet().stream()
-                .filter(existingStudent -> objectEqualsUuidOrString(existingStudent.getId(),
-                        existingStudent.getName(), studentId, studentName))
+        return studentsScores.keySet().stream()
+                .filter(existingStudent -> Objects.equals(existingStudent.getId(), studentid))
                 .findFirst()
-                .orElse(new Student(studentName));
+                .orElseThrow(() -> new IllegalArgumentException("Student not found by Id"));
+    }
+
+    public Student findStudentByName(String name) {
+        validate(name);
+
+        return studentsScores.keySet().stream()
+                .filter(existingStudent -> Objects.equals(existingStudent.getName(), name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Student not found by name"));
+    }
+
+    public void addStudentSubject(UUID studentId, Map.Entry<Subject, Integer> subjectAndMark) {
+        validate(studentId);
+        validate(subjectAndMark);
+
+        Student student = findStudent(studentId);
         Map<Subject, Integer> subjectsAndMarks = studentsScores.get(student);
         subjectsAndMarks.put(subjectAndMark.getKey(), subjectAndMark.getValue());
         studentsScores.put(student, subjectsAndMarks);
@@ -42,18 +53,15 @@ public class StudentDatabase {
         //Optional can bind with addSubject if needed
     }
 
-    public void removeStudent(String studentName, UUID studentId) {
-        notEmptyParamsCheck(studentName, studentId);
+    public void removeStudent(UUID studentId) {
+        validate(studentId);
 
-        Set<Student> studentsToRemove = studentsScores.keySet().stream()
-                .filter(student -> objectEqualsUuidOrString(student.getId(),
-                        student.getName(), studentId, studentName))
-                .collect(Collectors.toSet());
-        studentsToRemove.forEach(studentsScores::remove);
+        Student student = findStudent(studentId);
+        studentsScores.remove(student);
     }
 
     public void printAllStudentsWithScores() {
-        notEmptyParamCheck(studentsScores, "Students data");
+        validate(studentsScores);
 
         studentsScores.forEach((student, scores) -> {
             System.out.println(student);
@@ -63,8 +71,8 @@ public class StudentDatabase {
     }
 
     public void addSubject(String subjectName, List<Student> studentsOnCourse) {
-        notEmptyParamCheck(subjectName, "SubjectName name");
-        notEmptyParamCheck(studentsOnCourse, "Students registered on course");
+        validate(subjectName);
+        validate(studentsOnCourse);
 
         Subject subject = new Subject(subjectName);
         subjectsStudents.put(subject, studentsOnCourse);
@@ -72,16 +80,29 @@ public class StudentDatabase {
         //Optional can bind with addStudent if needed
     }
 
-    public void addSubjectStudent(String subjectName, UUID subjectId, Student studentOnCourse) {
-        notEmptyParamsCheck(subjectName, subjectId);
-        notEmptyParamCheck(studentOnCourse, "Student registered on course");
+    public Subject findSubject(UUID subjectId) {
+        validate(subjectId);
 
-        Subject subject = subjectsStudents.keySet().stream()
-                .filter(existingSubject -> objectEqualsUuidOrString(existingSubject.getId(),
-                        existingSubject.getName(), subjectId, subjectName))
+        return subjectsStudents.keySet().stream()
+                .filter(existingStudent -> Objects.equals(existingStudent.getId(), subjectId))
                 .findFirst()
-                .orElse(new Subject(subjectName));
+                .orElseThrow(() -> new IllegalArgumentException("Subject not found by Id"));
+    }
 
+    public Subject findSubjectByName(String name) {
+        validate(name);
+
+        return subjectsStudents.keySet().stream()
+                .filter(existingStudent -> Objects.equals(existingStudent.getName(), name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
+    }
+
+    public void addSubjectStudent(UUID subjectId, Student studentOnCourse) {
+        validate(subjectId);
+        validate(studentOnCourse);
+
+        Subject subject = findSubject(subjectId);
         List<Student> students = subjectsStudents.get(subject);
         students.add(studentOnCourse);
         subjectsStudents.put(subject, students);
@@ -90,28 +111,16 @@ public class StudentDatabase {
         //Optional can bind with addStudent if needed
     }
 
-    public void removeStudentFromSubject(String subjectName, UUID subjectId, Student studentOnCourse) {
-        notEmptyParamsCheck(subjectName, subjectId, studentOnCourse);
+    public void removeStudentFromSubject(UUID subjectId, Student studentOnCourse) {
+        validate(subjectId);
+        validate(studentOnCourse);
 
-        Set<Subject> correspondingSubjects = subjectsStudents.keySet().stream()
-                .filter(subject -> objectEqualsUuidOrString(subject.getId(),
-                        subject.getName(), subjectId, subjectName))
-                .collect(Collectors.toSet());
-
-        correspondingSubjects.forEach(subject -> {
-            List<Student> students = subjectsStudents.get(subject);
-            if (students.remove(studentOnCourse)) {
-                System.out.printf("Student: %s is not registered to course: %s",
-                        studentOnCourse, subject.getName());
-            } else {
-                System.out.printf("Student: %s unregistered from course: %s",
-                        studentOnCourse, subject.getName());
-            }
-        });
+        Subject subject = findSubject(subjectId);
+        subjectsStudents.remove(subject);
     }
 
     public void printAllSubjectsWithStudents() {
-        notEmptyParamCheck(subjectsStudents, "Subjects data");
+        validate(subjectsStudents);
 
         subjectsStudents.forEach((subject, students) -> {
             System.out.println(subject);
