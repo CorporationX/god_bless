@@ -1,6 +1,8 @@
 package school.faang.sprint1.task_43502;
 
-import static school.faang.sprint1.task_43502.CharacterConfigurations.*;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_WARRIOR_AGILITY;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_WARRIOR_INTELLIGENCE;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_WARRIOR_STRENGTH;
 
 public class Warrior extends Character {
 

@@ -1,6 +1,8 @@
 package school.faang.sprint1.task_43502;
 
-import static school.faang.sprint1.task_43502.CharacterConfigurations.*;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_ARCHER_AGILITY;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_ARCHER_INTELLIGENCE;
+import static school.faang.sprint1.task_43502.CharacterConfigurations.DEFAULT_ARCHER_STRENGTH;
 
 public class Archer extends Character {
 

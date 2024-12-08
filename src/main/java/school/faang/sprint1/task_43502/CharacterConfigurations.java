@@ -1,5 +1,8 @@
 package school.faang.sprint1.task_43502;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class CharacterConfigurations {
 
     public static final int DEFAULT_STRENGTH = 10;
