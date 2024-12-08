@@ -10,13 +10,14 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 public class Product {
-    @EqualsAndHashCode.Exclude
     private final UUID id;
+    @EqualsAndHashCode.Exclude
     private final String name;
-    private final String category;
+    @EqualsAndHashCode.Exclude
+    private final ProductCategory category;
 
-    public Product(String name, String category) {
-        NameValidator.validateName(name, category);
+    public Product(String name, ProductCategory category) {
+        NameValidator.validateCategoryAndName(category, name);
         this.id = UUID.randomUUID();
         this.name = name;
         this.category = category;
