@@ -1,11 +1,14 @@
 package school.faang.task_45149;
 
+import lombok.Getter;
+
 import java.util.*;
 
 public class WarehouseSystem {
 
     private final Map<String, List<Product>> productCategories = new HashMap<>();
-    public HashSet<Product> products = new HashSet<>();
+    @Getter
+    private HashSet<Product> products = new HashSet<>();
 
     public void addItem(String category, String name) {
         Product addToProduct = new Product(name, category);
@@ -50,7 +53,7 @@ public class WarehouseSystem {
         }
     }
 
-    public void printAllItems() { //выводит список всех товаров в каждой категории.
+    public void printAllItems() {
         System.out.println("\nВсе товары:\n" + productCategories.values() + "\n");
     }
 

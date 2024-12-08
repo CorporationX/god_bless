@@ -25,12 +25,12 @@ public class Main {
         warehouseSystem.findItemsByCategory("mobile");
         warehouseSystem.findItemsByCategory("notebook");
 
-        Map<String, List<Product>> groupedProducts = groupProductsByCategory(warehouseSystem.products);
+        Map<String, List<Product>> groupedProducts = groupProductsByCategory(warehouseSystem.getProducts());
         printProductsByCategory(groupedProducts);
     }
 
-    public static HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
-        HashMap<String, List<Product>> groupedProducts = new HashMap<>();
+    public static Map<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+        Map<String, List<Product>> groupedProducts = new HashMap<>();
 
         for (Product product : products) {
             groupedProducts.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
