@@ -27,15 +27,16 @@ public class HogwartsSpells {
         return spellByType.get(spell);
     }
 
-    public void deleteSpellEvent(Integer id) {
+    public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
 
-        if (spellEvent == null) {
-            return;
+        if (spellEvent != null) {
+            List<SpellEvent> list = spellByType.get(spellEvent.getEventType());
+            list.remove(spellEvent);
+            if (list.isEmpty()) {
+                spellByType.remove(spellEvent.getEventType());
+            }
         }
-
-        spellByType.get(spellEvent.getEventType())
-                .remove(spellEvent);
     }
 
     public void printAllSpellEvents() {
