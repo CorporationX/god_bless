@@ -6,42 +6,34 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Droid {
+    private static final int ALPHABET_SIZE = 26;
+
     private final String name;
 
-    public String encryptMessage(String originalMessage, int encryptionKey) {
+
+    public String encryptMessage(String originalMessage, int encryptionKey, EncryptType encryptType) {
         DroidMessageEncryptor encryptor = (message, key) -> {
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + key) % 26 + base));
+                    if (encryptType == EncryptType.ENCRYPT) {
+                        encryptedMessage.append((char) ((ch - base + key) % ALPHABET_SIZE + base));
+                    }else
+                    {
+                        encryptedMessage.append((char) ((ch - base - key + ALPHABET_SIZE) % ALPHABET_SIZE + base));
+                    }
                 } else {
                     encryptedMessage.append(ch);
                 }
             }
             return encryptedMessage.toString();
         };
-        return encryptor.encryptDecrypt(originalMessage, encryptionKey);
-    }
-
-    public String decryptMessage(String encriptedMessage, int decryptionKey) {
-        DroidMessageEncryptor decryptor = (message, key) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : message.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - key) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encryptDecrypt(encriptedMessage, decryptionKey);
+        return encryptor.encrypt(originalMessage, encryptionKey);
     }
 
     public void sendMessage(Droid droid, String message, int key) {
-        String encryptedMessage = this.encryptMessage(message, key);
+        String encryptedMessage = this.encryptMessage(message, key, EncryptType.ENCRYPT);
         System.out.println("Droid " + this.name
                 + " send encrypted message to droid " + droid.getName()
                 + ": " + encryptedMessage);
@@ -49,7 +41,7 @@ public class Droid {
     }
 
     public void receiveMessage(String message, int key) {
-        String decryptedMessage = this.decryptMessage(message, key);
-        System.out.println("Droid " + this.name + " recieve message and decrypt it: " + decryptedMessage);
+        String decryptedMessage = this.encryptMessage(message, key, EncryptType.DECRYPT);
+        System.out.println("Droid " + this.name + " got a message and decrypt it: " + decryptedMessage);
     }
 }

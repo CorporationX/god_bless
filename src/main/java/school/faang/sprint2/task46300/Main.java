@@ -19,7 +19,7 @@ public class Main {
         System.out.println("------");
 
         Droid bb8 = new Droid("BB-8");
-        int encryptionKey3 = 1;
+        int encryptionKey3 = 23;
         bb8.sendMessage(c3po, "The mission is complete.", encryptionKey3);
         System.out.println("------");
 
