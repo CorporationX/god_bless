@@ -19,8 +19,7 @@ public class Droid {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
                     if (encryptType == EncryptType.ENCRYPT) {
                         encryptedMessage.append((char) ((ch - base + key) % ALPHABET_SIZE + base));
-                    }else
-                    {
+                    } else {
                         encryptedMessage.append((char) ((ch - base - key + ALPHABET_SIZE) % ALPHABET_SIZE + base));
                     }
                 } else {
