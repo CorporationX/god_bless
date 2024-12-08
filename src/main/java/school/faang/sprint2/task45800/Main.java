@@ -7,29 +7,30 @@ import school.faang.sprint2.task45800.model.Item;
 public class Main {
     public static void main(String[] args) {
 
-        Character frodo = new Character("Frodo");
-        Character gendalf = new Character("Gendalf");
-        Character aragorn = new Character("Aragorn");
-        Character legolas = new Character("Legolas");
+        InventoryManager manager = new InventoryManager();
 
         Item ring1 = new Item("The First Ring", 1000);
         Item ring2 = new Item("The Second Ring", 1000);
         Item ring3 = new Item("The Third Ring", 1000);
-        Item ring4 = new Item("The Fourth Ring", 1000);
-        Item ring5 = new Item("The Fifth Ring", 1000);
-        Item ring6 = new Item("The Sixth Ring", 1000);
-        Item sword = new Item("The Sword", 500);
-        Item bow = new Item("The Bow", 400);
-
-        InventoryManager manager = new InventoryManager();
-
+        Character gendalf = new Character("Gendalf");
         addItem(manager, gendalf, ring1);
         addItem(manager, gendalf, ring2);
         addItem(manager, gendalf, ring3);
+
+        Item ring4 = new Item("The Fourth Ring", 1000);
+        Item ring5 = new Item("The Fifth Ring", 1000);
+        Item ring6 = new Item("The Sixth Ring", 1000);
+        Character frodo = new Character("Frodo");
         addItem(manager, frodo, ring4);
         addItem(manager, frodo, ring5);
         addItem(manager, frodo, ring6);
+
+        Item sword = new Item("The Sword", 500);
+        Character aragorn = new Character("Aragorn");
         addItem(manager, aragorn, sword);
+
+        Item bow = new Item("The Bow", 400);
+        Character legolas = new Character("Legolas");
         addItem(manager, legolas, bow);
 
         manager.removeItem(frodo,
