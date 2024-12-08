@@ -13,7 +13,8 @@ public class FilterProcessor {
         return image;
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> filterFirst, Function<Image, Image> filterSecond) {
+    public Function<Image, Image> combineFilters(Function<Image, Image> filterFirst,
+                                                 Function<Image, Image> filterSecond) {
         return image -> filterSecond.apply(filterFirst.apply(image));
     }
 }
