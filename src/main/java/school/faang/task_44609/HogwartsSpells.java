@@ -13,6 +13,12 @@ public class HogwartsSpells {
 
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
+        if (eventType == null || eventType.isEmpty()) {
+            throw new IllegalArgumentException("Event type cannot be null or empty");
+        }
+        if (actionDescription == null || actionDescription.isEmpty()) {
+            throw new IllegalArgumentException("Action description cannot be null or empty");
+        }
         SpellEvent newSpellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, newSpellEvent);

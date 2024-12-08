@@ -5,11 +5,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class SpellEvent {
 
-    private int id;
+    private final int id;
 
-    private String eventType;
+    private final String eventType;
 
-    private String action;
+    private final String action;
 
     public SpellEvent(int id, String eventType, String action) {
         this.id = id;
@@ -17,12 +17,18 @@ public class SpellEvent {
         this.action = action;
     }
 
-    public String getEventType() {
-        return eventType;
-    }
+   public String getEventType() {
+       return eventType;
+   }
 
     @Override
     public String toString() {
-        return String.format("SpellEvent{id=%d, eventType='%s', action='%s'}", id, eventType, action);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SpellEvent{")
+          .append("id=").append(id)
+          .append(", eventType='").append(eventType).append('\'')
+          .append(", action='").append(action).append('\'')
+          .append('}');
+        return stringBuilder.toString();
     }
 }

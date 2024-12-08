@@ -26,6 +26,5 @@ public class Main {
 
         spellsSystem.deleteSpellEvent(1);
         spellsSystem.printAllSpellEvents();
-
     }
 }
