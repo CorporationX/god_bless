@@ -16,10 +16,11 @@ public class HogwartsSpells {
 
     public void addSpellEvent(int id, String eventType, String actionDescription) throws IllegalArgumentException {
         validateEventParameters(eventType, actionDescription);
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(id, EventType.valueOfName(eventType), actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
 
-        List<SpellEvent> spellEvents = spellsByType.computeIfAbsent(spellEvent.getEventType(), k -> new ArrayList<>());
+        List<SpellEvent> spellEvents = spellsByType.computeIfAbsent(spellEvent.getEventType().getName(),
+                k -> new ArrayList<>());
         spellEvents.add(spellEvent);
     }
 
