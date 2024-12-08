@@ -9,7 +9,7 @@ import lombok.NonNull;
 @Getter
 @EqualsAndHashCode
 public class SpellEvent {
-    private int id;
+    private final int id;
 
     @NonNull
     private final SpellType eventType;
