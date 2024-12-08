@@ -31,7 +31,7 @@ public class ProductService {
     }
 
     /**
-     * Adds an instance of the Product class to the HashMap<String, List<Product>>.
+     * Adds an instance of the Product class to the HashMap.
      * If such an element already exists on the Map in the specified category,
      * it returns false, and if the element was successfully added - true
      */
@@ -40,13 +40,14 @@ public class ProductService {
         Product product = new Product(name, category);
         return PRODUCT_BY_CATEGORY.containsKey(category) && PRODUCT_BY_CATEGORY.get(category).remove(product);
     }
+
     /**
-     * Removes an instance of the Product class from a HashMap<String, List<Product>>.
+     * Removes an instance of the Product class from a HashMap.
      * If such an element is not in the Map in the specified category,
      * returns false, and if the element was successfully removed - true
      */
 
-    public static List<Product> findItemsByCategory(String category){
+    public static List<Product> findItemsByCategory(String category) {
         return PRODUCT_BY_CATEGORY.getOrDefault(category, new LinkedList<>());
     }
 
