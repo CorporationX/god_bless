@@ -28,7 +28,7 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
-    protected void getDamage(int damage) {
+    protected void receiveDamage(int damage) {
         if (damage < 0) {
             return;
         }
