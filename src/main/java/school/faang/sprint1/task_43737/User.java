@@ -9,8 +9,8 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int MIN_AGE = 18;
-    private final String VALID_NAME_MESSAGE = "Name can not be empty.";
-    private final String VALID_AGE_MESSAGE = "Age can not be less than 18.";
+    private final String NAME_MESSAGE = "Name can not be empty.";
+    private final String AGE_MESSAGE = "Age can not be less than 18.";
 
 
 
@@ -28,14 +28,14 @@ public class User {
 
     public void setName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException(VALID_NAME_MESSAGE);
+            throw new IllegalArgumentException(NAME_MESSAGE);
         }
         this.name = name;
     }
 
     public void setAge(int age) {
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException(VALID_AGE_MESSAGE);
+            throw new IllegalArgumentException(AGE_MESSAGE);
         }
         this.age = age;
     }
