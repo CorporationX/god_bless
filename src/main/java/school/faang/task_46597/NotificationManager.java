@@ -10,14 +10,14 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> notificationPerID = new HashMap<>();
+    private final Map<String, Consumer<Notification>> notificationPerId = new HashMap<>();
     private final List<Function<Notification, Notification>> filters = new ArrayList<>();
 
     public void registerHandler(String type, Consumer<Notification> consumer) {
         if (StringUtils.isBlank(type)) {
             throw new IllegalArgumentException("Type is incorrect!");
         }
-        notificationPerID.put(type, consumer);
+        notificationPerId.put(type, consumer);
     }
 
     public void addFilter(Function<Notification, Notification> filter) {
@@ -29,7 +29,7 @@ public class NotificationManager {
             notification = filter.apply(notification);
         }
 
-        Consumer<Notification> handler = notificationPerID.get(notification.type());
+        Consumer<Notification> handler = notificationPerId.get(notification.type());
         if (handler != null) {
             handler.accept(notification);
         }
