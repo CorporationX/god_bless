@@ -11,7 +11,10 @@ public class LibrarySystem {
         if (title.isEmpty() || author.isEmpty() || year < 0 || location.isEmpty()) {
             throw new IllegalArgumentException("Enter truly information");
         }
-        shelfs.put(new Book(title, author, year), location);
+        Book book = new Book(title, author, year);
+        if (!shelfs.containsKey(book)) {
+            shelfs.put(book, location);
+        }
     }
 
     public void removeBook(String title, String author, int year) {
@@ -23,11 +26,8 @@ public class LibrarySystem {
     }
 
     public void findBook(String title, String author, int year) {
-        shelfs.forEach((book, shelf) -> {
-            if (book.getAuthor().equals(author) && book.getTitle().equals(title) && book.getYear() == year) {
-                System.out.println(shelf);
-            }
-        });
+        Book book = new Book(title, author, year);
+        System.out.println(shelfs.get(book));
     }
 
     public void printAllBook() {
