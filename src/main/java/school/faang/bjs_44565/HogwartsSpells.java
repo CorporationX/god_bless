@@ -8,16 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Log
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Slf4j
 public class HogwartsSpells {
-    final Map<Integer, SpellEvent> spellById;
-    final Map<String, List<SpellEvent>> spellsByType;
+    private final Map<Integer, SpellEvent> spellById  = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType  = new HashMap<>();
 
-    public HogwartsSpells() {
-        spellsByType = new HashMap<>();
-        spellById = new HashMap<>();
-    }
 
     public void addSpellEvent(int id, String eventType, String actionDescription) throws IllegalArgumentException {
         validateEventParameters(eventType, actionDescription);
