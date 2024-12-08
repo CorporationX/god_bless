@@ -19,11 +19,7 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption() {
-        double totalEnergyConsumption = 0;
-        for (var server : getServers()) {
-            totalEnergyConsumption += server.getEnergyConsumption();
-        }
-        return totalEnergyConsumption;
+        return getServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
     }
 
     public void allocateResources(ResourceRequest request) throws LoadNotEnoughException {

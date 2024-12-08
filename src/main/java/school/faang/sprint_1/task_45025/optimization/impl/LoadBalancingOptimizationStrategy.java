@@ -14,15 +14,15 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
         List<Server> servers = dataCenter.getServers();
         double totalMaxLoad = servers.stream().mapToDouble(Server::getMaxLoad).sum();
         double totalLoad = servers.stream().mapToDouble(Server::getLoad).sum();
-        double loadRation = totalLoad / totalMaxLoad;
-        if (loadRation >= 1) {
+        double loadRatio = totalLoad / totalMaxLoad;
+        if (loadRatio >= 1) {
             throw new LoadOverflowException(totalLoad - totalMaxLoad);
         }
 
         double remainLoad = totalLoad;
 
         for (var server : servers) {
-            int balanceLoad = (int) (server.getMaxLoad() * loadRation);
+            int balanceLoad = (int) (server.getMaxLoad() * loadRatio);
             server.setLoad(balanceLoad);
             remainLoad -= balanceLoad;
         }

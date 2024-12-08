@@ -6,10 +6,9 @@ import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
+@Setter
 public class Server {
-    @Setter
     private double load;
-    private double maxLoad;
-    @Setter
+    private final double maxLoad;
     private double energyConsumption;
 }
