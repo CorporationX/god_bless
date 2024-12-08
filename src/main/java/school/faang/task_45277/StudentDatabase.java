@@ -33,8 +33,7 @@ public class StudentDatabase {
                                     students.remove(student);
                                     return students;
                                 })
-                        )
-                );
+                        ));
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
