@@ -17,18 +17,18 @@ public class SpellEvent {
         this.action = action;
     }
 
-   public String getEventType() {
-       return eventType;
-   }
+    public String getEventType() {
+        return eventType;
+    }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("SpellEvent{")
-          .append("id=").append(id)
-          .append(", eventType='").append(eventType).append('\'')
-          .append(", action='").append(action).append('\'')
-          .append('}');
+                .append("id=").append(id)
+                .append(", eventType='").append(eventType).append('\'')
+                .append(", action='").append(action).append('\'')
+                .append('}');
         return stringBuilder.toString();
     }
 }
