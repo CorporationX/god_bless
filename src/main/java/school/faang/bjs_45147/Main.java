@@ -1,8 +1,8 @@
 package school.faang.bjs_45147;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
-@Log
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Store store = new Store();
@@ -22,7 +22,7 @@ public class Main {
         store.printAllItems();
 
         store.removeItem("Бытовая химия", "Средство для мытья посуды");
-        log.info("\nСписок продуктов после добавления:");
+        log.info("\nСписок продуктов после удаления:");
         store.printAllItems();
 
         log.info("\nНайдены продукты:");
