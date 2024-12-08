@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    private final int INIT_HEALTH = 100;
+    private static final int INIT_HEALTH = 100;
 
     private String name;
     private int strength;
