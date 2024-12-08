@@ -9,7 +9,6 @@ public class Main {
 
         studentDatabase.printAllStudentsWithGrades();
 
-        Student egor = new Student(1, "Egor");
         Subject math = new Subject(1, "Math");
         Subject geography = new Subject(2, "Geography");
         Subject russian = new Subject(3, "Russian Language");
@@ -18,17 +17,17 @@ public class Main {
         egorSubjectsAndGrades.put(math, 5);
         egorSubjectsAndGrades.put(geography, 4);
         egorSubjectsAndGrades.put(russian, 3);
+        Student egor = new Student(1, "Egor");
         studentDatabase.addStudent(egor, egorSubjectsAndGrades);
 
-        Student ruslan = new Student(2, "Ruslan");
         HashMap<Subject, Integer> ruslanSubjectsAndGrades = new HashMap<>();
         ruslanSubjectsAndGrades.put(math, 3);
         ruslanSubjectsAndGrades.put(russian, 4);
         Subject sport = new Subject(5, "Sport");
         ruslanSubjectsAndGrades.put(sport, 5);
+        Student ruslan = new Student(2, "Ruslan");
         studentDatabase.addStudent(ruslan, ruslanSubjectsAndGrades);
 
-        Student ilya = new Student(3, "Ilya");
         HashMap<Subject, Integer> ilyaSubjectsAndGrades = new HashMap<>();
         ilyaSubjectsAndGrades.put(math, 4);
         ilyaSubjectsAndGrades.put(russian, 5);
@@ -36,6 +35,7 @@ public class Main {
         ilyaSubjectsAndGrades.put(sport, 5);
         Subject physic = new Subject(6, "Physic");
         ilyaSubjectsAndGrades.put(physic, 3);
+        Student ilya = new Student(3, "Ilya");
         studentDatabase.addStudent(ilya, ilyaSubjectsAndGrades);
 
         studentDatabase.printAllStudentsWithGrades();
