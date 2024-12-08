@@ -1,14 +1,10 @@
 package school.faang.task_45026.repository;
 
-import lombok.Getter;
 import school.faang.task_45026.entity.Server;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//не уверен, что это хорошая практика делать такой геттер,
-//может лучше сделать возврат копии/неизменяемого списка для геттера
-@Getter
 public class DataCenter {
     private final List<Server> servers = new ArrayList<>();
 
@@ -18,5 +14,9 @@ public class DataCenter {
 
     public void removeServer(Server server) {
         servers.remove(server);
+    }
+
+    public List<Server> getServers() {
+        return List.copyOf(servers);
     }
 }

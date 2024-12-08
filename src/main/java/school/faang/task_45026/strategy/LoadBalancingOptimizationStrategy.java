@@ -3,6 +3,8 @@ package school.faang.task_45026.strategy;
 import school.faang.task_45026.entity.Server;
 import school.faang.task_45026.repository.DataCenter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
@@ -15,20 +17,20 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
 
         List<Server> servers = dataCenter.getServers();
 
-        double currentLoad = servers.stream()
+
+        BigDecimal currentLoad = BigDecimal.valueOf(servers.stream()
                 .mapToDouble(Server::getLoad)
-                .sum();
-        double currentMaxLoad = servers.stream()
+                .sum());
+        BigDecimal currentMaxLoad = BigDecimal.valueOf(servers.stream()
                 .mapToDouble(Server::getMaxLoad)
-                .sum();
+                .sum());
 
-        double loadRate = currentLoad / currentMaxLoad;
+        BigDecimal loadRate = currentLoad.divide(currentMaxLoad, 15, RoundingMode.HALF_UP);
 
-        //Мне кажется будет погрешность при расчетах, но не уверен на сколько это критично
         for (Server server : servers) {
-            double loadToRate = server.getMaxLoad() * loadRate;
-            server.setLoad(loadToRate);
-            currentLoad -= loadToRate;
+            BigDecimal loadToRate = loadRate.multiply(BigDecimal.valueOf(server.getMaxLoad()));
+            server.setLoad(loadToRate.doubleValue());
+            currentLoad = currentLoad.subtract(loadToRate);
         }
     }
 }

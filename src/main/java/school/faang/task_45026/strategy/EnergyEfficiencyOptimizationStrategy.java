@@ -1,6 +1,5 @@
 package school.faang.task_45026.strategy;
 
-import school.faang.task_45026.entity.Server;
 import school.faang.task_45026.repository.DataCenter;
 
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
@@ -11,10 +10,9 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
             throw new IllegalArgumentException("Data center is null");
         }
 
-        for (Server server : dataCenter.getServers()) {
-            if (server.getLoad() == 0) {
-                server.setEnergyConsumption(0);
-            }
-        }
+        dataCenter.getServers()
+                .stream()
+                .filter(server -> server.getLoad() == 0)
+                .forEach(server -> server.setEnergyConsumption(0));
     }
 }

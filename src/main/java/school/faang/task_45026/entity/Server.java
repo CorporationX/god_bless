@@ -26,8 +26,6 @@ public class Server {
         this.energyConsumption = energyConsumption;
     }
 
-    //  Решил перенести логику добавления и освобождения данных в сервер,
-    //  не уверен на сколько это правильно с точки зрения архитектуры
     public double addLoad(double inputLoad) {
         validateLoad(inputLoad);
         double availableLoad = maxLoad - load;

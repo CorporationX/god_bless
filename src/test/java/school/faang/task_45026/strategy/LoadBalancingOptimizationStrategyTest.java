@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import school.faang.task_45026.entity.Server;
 import school.faang.task_45026.repository.DataCenter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoadBalancingOptimizationStrategyTest {
@@ -50,11 +53,12 @@ class LoadBalancingOptimizationStrategyTest {
         Server server3 = new Server(3000);
         server3.setLoad(3000);
         dataCenter.addServer(server3);
-        double expectedLoadOnFirstServer = 1000.0 * 5000 / 6000;
+        BigDecimal loadRate = BigDecimal.valueOf(5000).divide(BigDecimal.valueOf(6000), 15, RoundingMode.HALF_UP);
+        BigDecimal expectedLoadOnFirstServer = BigDecimal.valueOf(1000).multiply(loadRate);
 
         optimizationStrategy.optimize(dataCenter);
 
-        assertEquals(expectedLoadOnFirstServer, dataCenter.getServers().get(0).getLoad());
+        assertEquals(expectedLoadOnFirstServer.doubleValue(), dataCenter.getServers().get(0).getLoad());
     }
 
     @Test
