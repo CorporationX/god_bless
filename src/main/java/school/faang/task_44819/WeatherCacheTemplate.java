@@ -7,6 +7,11 @@ import java.util.HashMap;
 @Getter
 public abstract class WeatherCacheTemplate {
     private HashMap<String, WeatherData> weatherCache = new HashMap<>();
+    private WeatherProvider weatherService = new WeatherService();
+
+    public WeatherCacheTemplate(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         boolean isContains = weatherCache.containsKey(city);
@@ -18,7 +23,6 @@ public abstract class WeatherCacheTemplate {
                 return weatherCache.get(city);
             }
         } else {
-            WeatherService weatherService = new WeatherService();
             weatherCache.put(city, weatherService.fetchWeatherData(city));
             return weatherCache.get(city);
         }
@@ -32,7 +36,6 @@ public abstract class WeatherCacheTemplate {
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public void updateWeatherData(String city) {
-        WeatherService weatherService = new WeatherService();
         WeatherData weatherData = weatherService.fetchWeatherData(city);
         weatherCache.put(city, weatherData);
     }
