@@ -1,6 +1,6 @@
-package school.faang.sprint2.task46400;
+package school.faang.sprint2.task46300;
 
-import school.faang.sprint2.task46400.model.Droid;
+import school.faang.sprint2.task46300.model.Droid;
 
 public class Main {
 
