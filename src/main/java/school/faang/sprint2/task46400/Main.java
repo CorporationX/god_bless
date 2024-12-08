@@ -7,18 +7,18 @@ public class Main {
 
         // Пример с вызовом удалённого сервиса
         String network_result = ExceptionHandler.withErrorHandling(
-                () -> RemoteService.network_call("HandShake"),
+                () -> RemoteService.networkCall("HandShake"),
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса network_call");
+                    System.out.println("Ошибка при вызове сервиса networkCall");
                     return e.toString();
                 }
         );
         System.out.println(network_result);  // Выведет результат: "DEFAULT" при ошибке
 
         String wifi_result = ExceptionHandler.withErrorHandling(
-                () -> RemoteService.wifi_call("HandShake"),
+                () -> RemoteService.wifiCall("HandShake"),
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса wifi_call");
+                    System.out.println("Ошибка при вызове сервиса wifiCall");
                     return e.toString();
                 }
         );
