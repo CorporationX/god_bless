@@ -12,7 +12,7 @@ public class StudentDatabase {
     private final HashMap<Student, Map<Subject, Integer>> studentsGrades = new HashMap<>();
     private final HashMap<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjectsByGrade) {
+    public void addNewStudentAndGrades(Student student, Map<Subject, Integer> subjectsByGrade) {
         studentsGrades.put(student, subjectsByGrade);
 
         subjectsByGrade.forEach((subject, grade) ->
@@ -20,7 +20,7 @@ public class StudentDatabase {
         );
     }
 
-    public void addNewSubjectAndGrade(Subject subject, Integer grade, Student student) throws IllegalArgumentException {
+    public void addNewSubjectAndGradeToExistStudent(Subject subject, Integer grade, Student student) throws IllegalArgumentException {
         checkStudentExist(student);
 
         addToStudentsBySubjects(student, subject, grade);
