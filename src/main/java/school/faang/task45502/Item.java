@@ -19,7 +19,7 @@ public class Item {
     }
 
     private void validate(String name) {
-        if (name == null || name.isBlank()){
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
     }

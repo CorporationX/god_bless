@@ -55,7 +55,7 @@ public class InventoryManager {
 
         List<Item> inventory = character.getInventory();
 
-        for (var item: inventory) {
+        for (var item : inventory) {
             if (findCondition.test(item)) {
                 updateCondition.accept(item);
             }
