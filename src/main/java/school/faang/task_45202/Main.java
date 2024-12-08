@@ -5,23 +5,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+
     public static void main(String[] args) {
         Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
         Map<Subject, List<Student>> studentBySubject = new HashMap<>();
 
         StudentDatabase studentDatabase = new StudentDatabase();
 
-        Student vasya = new Student("Vasya");
-        Student petya = new Student("Petya");
-        Student alina = new Student("Alina");
-
-        Subject math = new Subject("Math");
-        Subject physics = new Subject("Physics");
-        Subject russian = new Subject("Russian");
+        final Subject math = new Subject("Math");
+        final Subject physics = new Subject("Physics");
+        final Subject russian = new Subject("Russian");
+        final Student vasya = new Student("Vasya");
+        final Student petya = new Student("Petya");
+        final Student alina = new Student("Alina");
 
         Map<Subject, Integer> vasyaSubjects = new HashMap<>();
         vasyaSubjects.put(math, 5);
         vasyaSubjects.put(physics, 4);
+
         studentDatabase.addNewStudentWithGrades(vasya, vasyaSubjects);
 
         Map<Subject, Integer> petyaSubjects = new HashMap<>();
