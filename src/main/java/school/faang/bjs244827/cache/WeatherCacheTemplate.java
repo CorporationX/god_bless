@@ -10,6 +10,10 @@ public abstract class WeatherCacheTemplate {
 
     private final HashMap<String, WeatherData> cache = new HashMap<>();
 
+    protected abstract boolean isCacheValid(WeatherData data, long maxCacheAgeMillis);
+
+    protected abstract WeatherData refreshWeatherData(String city);
+
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData data = cache.get(city);
 
@@ -22,13 +26,8 @@ public abstract class WeatherCacheTemplate {
         return refreshData;
     }
 
-    protected abstract boolean isCacheValid(WeatherData data, long maxCacheAgeMillis);
-
-    protected abstract WeatherData refreshWeatherData(String city);
-
     public void clearExpiredCache(long maxCacheAgeMillis) {
         cache.entrySet().removeIf(entry -> !isCacheValid(entry.getValue(), maxCacheAgeMillis));
     }
-
 }
 

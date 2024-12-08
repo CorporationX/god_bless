@@ -10,7 +10,6 @@ import school.faang.bjs244827.service.WeatherService;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherCacheTest {
-
     private WeatherProvider weatherService;
 
     @BeforeEach
@@ -68,6 +67,4 @@ public class WeatherCacheTest {
         WeatherData data2 = cache.getWeatherData("Tashkent", 1000);
         assertNotEquals(data1.temp(), data2.temp());
     }
-
-
 }
