@@ -9,14 +9,14 @@ public class Main {
     public static HashMap<Subject, List<Student>> subjects = new HashMap<>();
 
     public static void main(String[] args) {
-        StudentDatabase studentDatabase = new StudentDatabase();
+        StudentDatabase studentDatabase = new StudentDatabase(studentsGrade, subjects);
 
-        Student ivan = new Student("Иван");
-        Student lyosha = new Student("Алексей");
-        Student masha = new Student("Мария");
-        Subject physics = new Subject("Физика");
-        Subject math = new Subject("Математика");
-        Subject chemistry = new Subject("Химия");
+        Student ivan = new Student(1, "Иван");
+        Student lyosha = new Student(2, "Алексей");
+        Student masha = new Student(3, "Мария");
+        Subject physics = new Subject(1, "Физика");
+        Subject math = new Subject(3, "Математика");
+        Subject chemistry = new Subject(2, "Химия");
 
         studentDatabase.addStudentAndSubjects(ivan, math, 7);
         studentDatabase.addStudentAndSubjects(masha, physics, 4);

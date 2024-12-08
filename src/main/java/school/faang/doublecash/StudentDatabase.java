@@ -6,16 +6,27 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    HashMap<Student, Map<Subject, Integer>> studentsGrade = Main.studentsGrade;
-    public static HashMap<Subject, List<Student>> subjects = Main.subjects;
+    private HashMap<Student, Map<Subject, Integer>> studentsGrade;
+    private HashMap<Subject, List<Student>> subjects;
+
+    public StudentDatabase(HashMap<Student, Map<Subject, Integer>> studentsGrade,
+                           HashMap<Subject, List<Student>> subjects) {
+        this.studentsGrade = studentsGrade;
+        this.subjects = subjects;
+    }
 
     public void addStudentAndSubjects(Student student, Subject subject, int grade) {
         studentsGrade.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
     }
 
     public void addSubjectForExistingStudent(Student student, Subject subject, int grade) {
+        if (student == null || subject == null) {
+            throw new IllegalArgumentException("Студент и/или предмет не могут быть null");
+        }
         if (studentsGrade.containsKey(student)) {
             studentsGrade.get(student).put(subject, grade);
+        } else {
+            System.out.println("Студент не найден: " + student);
         }
     }
 
@@ -38,6 +49,9 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Subject subject, Student student) {
+        if (student == null || subject == null) {
+            throw new IllegalArgumentException("Студент и/или предмет не могут быть null");
+        }
         if (subjects.containsKey(subject)) {
             subjects.get(subject).add(student);
         } else {
