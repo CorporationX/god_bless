@@ -5,15 +5,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    private static final Subject math = new Subject(101, "Math");
+    private static final Subject english = new Subject(102, "English");
+    private static final Subject history = new Subject(103, "History");
+    private static final Subject literature = new Subject(104, "Literature");
+    private static final Subject chemistry = new Subject(105, "Chemistry");
+    private static final Subject physics = new Subject(106, "Physics");
+
+    private static final Student tanya = new Student(201, "Tatiana Gritsenko");
+    private static final Student vanya = new Student(202, "Ivan Ivanov");
+    private static final Student vika = new Student(203, "Viktoriya Lebedeva");
+    private static final Student sasha = new Student(204, "Aleksandr Timofeev");
+    private static final Student vlad = new Student(205, "Vladislav Antonov");
+
     public static void main(String[] args) {
-        Subject math = new Subject(101, "Math");
-        Subject english = new Subject(102, "English");
-        Subject history = new Subject(103, "History");
-        Subject literature = new Subject(104, "Literature");
-        Subject chemistry = new Subject(105, "Chemistry");
-
-        Student tanya = new Student(201, "Tatiana Gritsenko");
-
         var db = new StudentDatabase();
 
         db.addStudentWithGrades(tanya, new HashMap<>());
@@ -26,8 +31,6 @@ public class Main {
 
         db.printAllStudentWithGrades();
 
-        Student sasha = new Student(204, "Aleksandr Timofeev");
-
         Map<Subject, Integer> sashaGrades = new HashMap<>();
         sashaGrades.put(math, 5);
         sashaGrades.put(history, 5);
@@ -36,10 +39,7 @@ public class Main {
         db.addStudentWithGrades(sasha, sashaGrades);
 
         db.printAllStudentWithGrades();
-
         db.printAllClasses();
-
-        Student vika = new Student(203, "Viktoriya Lebedeva");
 
         db.addStudentToClass(math, vika);
 
@@ -47,17 +47,13 @@ public class Main {
 
         db.removeStudentWithGrades(vika);
 
-        Student vlad = new Student(205, "Vladislav Antonov");
-
         db.addStudentWithGrades(vlad, new HashMap<>());
+
         db.addGradeToStudent(vlad, history, 5);
 
         db.printAllStudentWithGrades();
 
-        Subject physics = new Subject(106, "Physics");
         db.addClass(physics, new ArrayList<>());
-
-        Student vanya = new Student(202, "Ivan Ivanov");
 
         db.addStudentToClass(physics, vanya);
         db.addStudentToClass(physics, vika);
