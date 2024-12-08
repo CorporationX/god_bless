@@ -1,17 +1,17 @@
 package school.faang.bjs_44565;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @ToString
-@EqualsAndHashCode
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SpellEvent {
-    final int id;
-    final String eventType;
-    final String actionDescription;
+    private final int id;
+    private final EventType eventType;
+    private final String actionDescription;
 
 }
