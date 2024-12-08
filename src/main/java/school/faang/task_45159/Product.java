@@ -1,7 +1,6 @@
 package school.faang.task_45159;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @EqualsAndHashCode
 public class Product {

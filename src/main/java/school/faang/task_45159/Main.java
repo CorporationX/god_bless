@@ -34,6 +34,18 @@ public class Main {
     }
 
     public static void removeItem(int id, String category, String name) {
+
+        if (id == 0) {
+            throw new NullPointerException("ID cannot be 0");
+        }
+
+        if (isNullOrEmptyData(category)) {
+            throw new NullPointerException("Category cannot be null or empty");
+        }
+        if (isNullOrEmptyData(name)) {
+            throw new NullPointerException("Name cannot be null or empty");
+        }
+
         Product removeProduct = new Product(id, name, category);
 
         if (products.contains(removeProduct)) {
@@ -42,6 +54,10 @@ public class Main {
         } else {
             System.out.println("Products with id: " + id + " not found");
         }
+    }
+
+    private static boolean isNullOrEmptyData(String str) {
+        return str == null || str.isEmpty();
     }
 
     public static void findItemsByCategory(String category) {
@@ -58,14 +74,15 @@ public class Main {
     }
 
     public static void printAllItems() {
+        System.out.println("All items: ");
         for (Product product : products) {
-            System.out.println("All items: " + product.getName());
+            System.out.println(product.getName());
         }
     }
 
-    public static void groupedProducts(Map<String, List<Product>> groupedProducts) {
+    public static void groupedProducts(Map<String, List<Product>> printGroupedProducts) {
 
-        for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
+        for (Map.Entry<String, List<Product>> entry : printGroupedProducts.entrySet()) {
             System.out.println(entry.getKey() + " Categories: ");
             for (Product product : entry.getValue()) {
                 System.out.println("id: " + product.getId() + " name: " + product.getName());
@@ -77,12 +94,10 @@ public class Main {
         Map<String, List<Product>> mapProduct = new HashMap<>();
 
         for (Product product : products) {
-            if (mapProduct.containsKey(product.getCategory())) {
-                mapProduct.get(product.getCategory()).add(product);
-            } else {
-                mapProduct.put(product.getCategory(), new ArrayList<>());
-                mapProduct.get(product.getCategory()).add(product);
-            }
+
+            mapProduct.computeIfAbsent(product.getCategory(), categories -> new ArrayList<>()).add(product);
+
+
         }
         return mapProduct;
     }
