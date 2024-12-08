@@ -41,13 +41,13 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) throws IllegalArgumentException {
-        SpellEvent spellEvent = spellById.get(id);
+        SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent == null) {
             throw new IllegalArgumentException();
         }
-        List<SpellEvent> spellEvents = spellsByType.get(spellEvent.getEventType());
+        List<SpellEvent> spellEvents = spellsByType.get(spellEvent.getEventType().getName());
         spellEvents.remove(spellEvent);
-        spellById.remove(id);
+
     }
 
     public void printAllSpellEvents() {
