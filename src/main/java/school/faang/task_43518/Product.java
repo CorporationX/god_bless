@@ -1,18 +1,26 @@
 package school.faang.task_43518;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
-@AllArgsConstructor
+
 @EqualsAndHashCode
-@ToString
 @Getter
 public class Product {
-    @EqualsAndHashCode.Exclude
+    private static final IdGenerator ID_GENERATOR = new IdGenerator();
+    @EqualsAndHashCode.Include
     private final long id;
     private final String name;
-    @ToString.Exclude
     private final String category;
+
+    public Product(String name, String category) {
+        this.id = ID_GENERATOR.getId();
+        this.name = name;
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -1,76 +1,94 @@
 package school.faang.task_43518;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 
+@Getter
 @Slf4j
-public class ProductManager implements ProductManagement {
-    private static final HashMap<String, List<Product>> PRODUCTS_MAP = new HashMap<>();
-    private long id = 0;
+public class ProductManager implements ProductManageable {
+    private final Map<String, List<Product>> productsMap = new HashMap<>();
 
-    public ProductManager(HashSet<Product> products) {
+    public ProductManager(Set<Product> products) {
         for (Product product : products) {
-            if (id < product.getId()) {
-                id = product.getId();
-            }
-            PRODUCTS_MAP.computeIfAbsent(product.getCategory(),
-                    k -> new ArrayList<>()).add(product);
+            productsMap.computeIfAbsent(product.getCategory(),
+                            k -> new ArrayList<>())
+                    .add(product);
         }
-    }
-
-    public static HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
-        HashMap<String, List<Product>> groupedProducts = new HashMap<>();
-        for (Product product : products) {
-            groupedProducts.computeIfAbsent(product.getCategory(),
-                    k -> new ArrayList<>()).add(product);
-        }
-        return groupedProducts;
-    }
-
-    public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.forEach((category, products) -> {
-            System.out.println(category + ": ");
-            products.forEach(product -> System.out.println("   " + product));
-        });
     }
 
     @Override
     public void addItem(String category, String name) {
-        Product product = new Product(++id, name, category);
-        PRODUCTS_MAP.computeIfAbsent(product.getCategory(),
-                k -> new ArrayList<>()).add(product);
+        Product product = new Product(name, category);
+        productsMap.computeIfAbsent(product.getCategory(),
+                        k -> new ArrayList<>())
+                .add(product);
     }
 
     @Override
     public void removeItem(String category, String name) {
-        Product product = new Product(id, name, category);
-        if (PRODUCTS_MAP.containsKey(category)) {
-            PRODUCTS_MAP.get(category).remove(product);
-        } else {
-            log.info("The category {} does not exist", category);
+        // Product product = new Product(id, name, category);
+        try {
+            List<Product> products = Optional
+                    .ofNullable(productsMap.get(category))
+                    .orElseThrow(() ->
+                            new NoSuchElementException("Category not found: " + category)
+                    );
+            if (!products.removeIf(product -> product.getName()
+                    .equals(name))) {
+                throw new NoSuchElementException("Product not found: " + name);
+            }
+        } catch (NoSuchElementException ex) {
+            log.error(ex.getMessage());
         }
     }
 
     @Override
     public void findItemsByCategory(String category) {
-        if (PRODUCTS_MAP.containsKey(category)) {
-            System.out.println(category + ": ");
-            PRODUCTS_MAP.get(category)
-                    .forEach(product -> System.out.println("   " + product));
-        } else {
-            log.info("The category {} does not exist", category);
+        try {
+            Optional.ofNullable(productsMap.get(category))
+                    .ifPresentOrElse(products -> {
+                        System.out.println(category + ": ");
+                        productsMap.get(category)
+                                .forEach(product ->
+                                        System.out.println("   " + product));
+                    }, () -> {
+                        throw new NoSuchElementException("Category not found: "
+                                + category);
+                    });
+        } catch (NoSuchElementException ex) {
+            log.error(ex.getMessage());
         }
     }
 
     @Override
     public void printAllItems() {
-        PRODUCTS_MAP.values().forEach(products -> products.forEach(System.out::println));
+        productsMap.values().forEach(products ->
+                products.forEach(System.out::println));
     }
 
+    public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+        Map<String, List<Product>> groupedProducts = new HashMap<>();
+        for (Product product : products) {
+            groupedProducts.computeIfAbsent(product.getCategory(),
+                            k -> new ArrayList<>())
+                    .add(product);
+        }
+        return groupedProducts;
+    }
 
+    public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
+        groupedProducts.forEach((category, products) -> {
+            System.out.println(category + ": ");
+            products.forEach(product -> System.out.println("   " + product));
+        });
+    }
 }
+
