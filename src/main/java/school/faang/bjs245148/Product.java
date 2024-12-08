@@ -1,18 +1,17 @@
 package school.faang.bjs245148;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Product {
-    private int id;
-    private String name;
-    private String category;
+    private static final AtomicInteger incrementId = new AtomicInteger(1);
+    private final int id = incrementId.getAndIncrement();
+    private final String name;
+    private final String category;
 }

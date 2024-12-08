@@ -5,14 +5,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProductManager {
 
-    private Map<String, List<Product>> categories = new HashMap<>();
-    private AtomicInteger incrementId = new AtomicInteger(1);
+    private final Map<String, List<Product>> categories = new HashMap<>();
 
     public void addItem(String category, String name) {
         if (category.isEmpty() || name.isEmpty()) {
             throw new IllegalArgumentException("Enter truly information");
         }
-        Product product = new Product(incrementId.getAndIncrement(), name, category);
+        Product product = new Product(name, category);
         categories.computeIfAbsent(category, key -> new ArrayList<>()).add(product);
     }
 
