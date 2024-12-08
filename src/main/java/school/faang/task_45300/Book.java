@@ -3,7 +3,6 @@ package school.faang.task_45300;
 import lombok.Data;
 
 @Data
-//@EqualsAndHashCode(callSuper=false)
 public class Book extends LibrarySystem {
     private String title;
     private String author;
