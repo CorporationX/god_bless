@@ -17,8 +17,8 @@ public class MainService {
     }
 
     public boolean joinStudentAndSubject(Student student, Subject subject, Integer grade) {
-        return studentRepository.addSubjectToStudent(student, subject, grade) &&
-                subjectRepository.addStudentToSubject(student, subject);
+        return studentRepository.addSubjectToStudent(student, subject, grade)
+                && subjectRepository.addStudentToSubject(student, subject);
     }
 
     public boolean removeStudent(Student student, Subject subject) {
