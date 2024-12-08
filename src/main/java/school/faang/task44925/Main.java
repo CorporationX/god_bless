@@ -7,8 +7,6 @@ public class Main {
     public static void main(String[] args) {
         ProjectManager pm = new ProjectManager();
 
-
-
         Employee employeeSergey = new Employee(5, "Sergey", new HashSet<>(Set.of("SQL", "C++", "C#")));
         pm.addEmployee(employeeSergey);
         pm.getProjects().forEach(System.out::println);
@@ -33,7 +31,5 @@ public class Main {
         pm.setAssignmentStrategy(new BalancedTeamAssignmentStrategy());
         pm.assignTeamToProject(2);
         pm.getProjects().forEach(System.out::println);
-
-
     }
 }

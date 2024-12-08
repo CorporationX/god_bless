@@ -44,13 +44,13 @@ public class ProjectManager {
         ));
     }
 
-    private void validationEmployee(Employee employee) {
+    private void validateEmployee(Employee employee) {
         if (employee == null) {
             throw new IllegalArgumentException("Employee cannot be null");
         }
     }
 
-    private void validationProjectId(int projectId) {
+    private void validateProjectId(int projectId) {
         boolean isProjectContains = projects.stream().anyMatch(p -> p.getId() == projectId);
 
         if (!isProjectContains) {
@@ -68,7 +68,7 @@ public class ProjectManager {
     }
 
     public void assignTeamToProject(int projectId) {
-        validationProjectId(projectId);
+        validateProjectId(projectId);
 
         if (strategy == null) {
             throw new IllegalArgumentException("Choose strategy");
@@ -79,7 +79,7 @@ public class ProjectManager {
     }
 
     public Project getTeamForProject(int projectId) {
-        validationProjectId(projectId);
+        validateProjectId(projectId);
         if (projects.isEmpty()) {
             throw new IllegalArgumentException("No projects found");
         }
@@ -88,7 +88,7 @@ public class ProjectManager {
     }
 
     public void addEmployee(Employee employee) {
-        validationEmployee(employee);
+        validateEmployee(employee);
 
         if (!employees.contains(employee)) {
             employees.add(employee);
@@ -99,7 +99,7 @@ public class ProjectManager {
     }
 
     public void removeEmployeeFromProject(int projectId, int employeeId) {
-        validationProjectId(projectId);
+        validateProjectId(projectId);
 
         for (Project project : projects) {
             for (Employee employee : project.getTeamMembers()) {
@@ -115,8 +115,8 @@ public class ProjectManager {
     }
 
     public void assignEmployeeToProject(int projectId, Employee employee) {
-        validationProjectId(projectId);
-        validationEmployee(employee);
+        validateProjectId(projectId);
+        validateEmployee(employee);
 
         Project project = projects.stream().filter(p -> p.getId() == projectId).findFirst().get();
         List<Employee> employees = project.getTeamMembers();

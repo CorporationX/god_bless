@@ -7,18 +7,18 @@ import java.util.Map;
 
 public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
-    private static final int MAX_PROJECT = 2;
+    private static final int MAX_PROJECTS_PER_EMPLOYEE = 2;
 
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
-        validation(project, employees);
+        validate(project, employees);
         List<Employee> team = new ArrayList<>();
         Map<Employee, Integer> countProject = new HashMap<>();
 
         for (Employee employee : employees) {
             int count = countProject.getOrDefault(employee, 0);
 
-            if (count < MAX_PROJECT) {
+            if (count < MAX_PROJECTS_PER_EMPLOYEE) {
                 countProject.put(employee, count + 1);
                 team.add(employee);
             }

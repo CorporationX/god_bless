@@ -16,5 +16,4 @@ public class Employee {
     private final int id;
     private final String name;
     private final Set<String> skills;
-
 }

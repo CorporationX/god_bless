@@ -6,7 +6,7 @@ import java.util.List;
 public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
-        validation(project, employees);
+        validate(project, employees);
         List<Employee> assignedEmployees = new ArrayList<>();
 
         for (var employee : employees) {
