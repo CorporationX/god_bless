@@ -26,7 +26,8 @@ public class Main {
     private static void removeStudentFromSubject(StudentDatabase studentDatabase) {
         Subject subject = studentDatabase.getStudentSubjects().keySet().stream().filter(subj -> "English"
                 .equals(subj.getName())).findAny().orElse(null);
-        Student student = studentDatabase.getStudentsGrades().keySet().stream().filter(stud -> "Ivanov Artem".equals(stud.getName()))
+        Student student = studentDatabase.getStudentsGrades().keySet().stream().filter(stud -> "Ivanov Artem"
+                        .equals(stud.getName()))
                 .findAny().orElse(null);
         studentDatabase.removeStudentFromSubject(student, subject);
     }
@@ -40,7 +41,8 @@ public class Main {
     }
 
     private static void addNewSubjects(StudentDatabase studentDatabase) {
-        studentDatabase.addSubjectWithStudents(new Subject("Logic"), studentDatabase.getStudentsGrades().keySet().stream().toList());
+        studentDatabase.addSubjectWithStudents(new Subject("Logic"), studentDatabase.getStudentsGrades()
+                .keySet().stream().toList());
     }
 
     private static void removeStudent(StudentDatabase studentDatabase) {
