@@ -17,7 +17,7 @@ public class Warrior extends Character {
 
         String targetClassName = target.getClass().getSimpleName();
         System.out.printf(
-                "Warrior %s deals %d damage to %s %s\n",
+                "Warrior %s deals %d damage to %s %s%n",
                 this.getName(), damage, targetClassName.toLowerCase(), target.getName()
         );
     }

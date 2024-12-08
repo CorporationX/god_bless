@@ -16,12 +16,8 @@ public abstract class Character {
     private int intelligence;
     private int health;
 
-    public Character(String name) {
-        this.name = name;
-    }
-
     public Character(String name, int power, int agility, int intelligence) {
-        this(name);
+        this.name = name;
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
@@ -38,6 +34,9 @@ public abstract class Character {
     public abstract void attack(Character target);
 
     public void takeDamage(int damage) {
+        if (damage <= 0) {
+            return;
+        }
         this.health -= damage;
     }
 }
