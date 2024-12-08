@@ -13,9 +13,8 @@ public class HogwartsSpells {
         SpellEvent spellEvent = new SpellEvent(spell);
         spellById.put(spellEvent.getId(), spellEvent);
 
-        spellByType.computeIfAbsent(spell, k -> new ArrayList<>());
-
-        spellByType.get(spell).add(spellEvent);
+        spellByType.computeIfAbsent(spell, k -> new ArrayList<>())
+                .add(spellEvent);
 
         return spellEvent.getId();
     }

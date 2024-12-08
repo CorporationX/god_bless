@@ -23,12 +23,15 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
         System.out.println();
 
+        hogwartsSpells.addSpellEvent(Spell.ALOHOMORA);
         hogwartsSpells.printAllSpellEventsByType(Spell.ALOHOMORA);
         System.out.println();
 
+        hogwartsSpells.addSpellEvent(Spell.ACCIO);
         hogwartsSpells.printAllSpellEventsByType(Spell.ACCIO);
         System.out.println();
 
+        hogwartsSpells.addSpellEvent(Spell.TARANTALLEGRA);
         hogwartsSpells.printAllSpellEventsByType(Spell.TARANTALLEGRA);
         System.out.println();
 
