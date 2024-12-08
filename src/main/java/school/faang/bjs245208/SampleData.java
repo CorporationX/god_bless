@@ -3,7 +3,6 @@ package school.faang.bjs245208;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class SampleData {
 
@@ -60,12 +59,19 @@ public class SampleData {
 
     public static void addSubjectToStudent(StudentDatabase db) {
         Student student = db.findStudentByName("Student1");
-        Map.Entry<Subject, Integer> subjectAndMark = Map.entry(new Subject("Physics"), 95);
+        Map.Entry<Subject, Integer> subjectAndMark = java.util.Map.entry(new Subject("Physics"), 95);
         db.addStudentSubject(student.getId(), subjectAndMark);
     }
 
     public static void removeStudent(StudentDatabase db) {
         Student student = db.findStudentByName("Student3");
         db.removeStudent(student.getId());
+    }
+
+    public static void addStudent(StudentDatabase db) {
+        Map<Subject, Integer> subjectsAndMarks15 = new HashMap<>();
+        subjectsAndMarks15.put(new Subject("Programming"), 75);
+        subjectsAndMarks15.put(new Subject("Theology"), 95);
+        db.addStudent("Student15", subjectsAndMarks15);
     }
 }

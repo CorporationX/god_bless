@@ -1,5 +1,6 @@
 package school.faang.bjs245208;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,21 @@ public class StudentDatabase {
         studentsScores.put(student, studentSubjectsAndMarks);
 
         //Optional can bind with addSubject if needed
+        studentSubjectsAndMarks.forEach((subject, mark) -> {
+            var studentsForSubject = subjectsStudents.get(subject);
+            if (studentsForSubject != null) {
+                boolean studentExists = studentsForSubject.stream().anyMatch(studentRegistered -> Objects.equals(
+                        studentRegistered.getId(), student.getId()));
+
+                if (!studentExists) {
+                    studentsForSubject.add(student);
+                } else {
+                    studentsForSubject = new ArrayList<>();
+                    studentsForSubject.add(student);
+                    subjectsStudents.put(subject, studentsForSubject);
+                }
+            }
+        });
     }
 
     public Student findStudent(UUID studentid) {
