@@ -8,7 +8,7 @@ public class Matrix {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 Coordinates coordinates = transformer.transform(i, j);
-                transformedMatrix[coordinates.getX()][coordinates.getY()] = matrix[i][j];
+                transformedMatrix[coordinates.x()][coordinates.y()] = matrix[i][j];
             }
         }
 
