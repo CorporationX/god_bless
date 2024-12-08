@@ -11,36 +11,17 @@ import java.util.Map;
 public class StudentDatabase {
     private HashMap<Student, Map<Subject, Integer>> studentsGrades = new HashMap<Student, Map<Subject, Integer>>();
     private HashMap<Subject, List<Student>> studentSubjects = new HashMap<Subject, List<Student>>();
-    private List<Subject> subjects = new ArrayList<>();
-    private List<Student> students = new ArrayList<>();
-
-    public StudentDatabase() {
-        subjects.add(new Subject("Math"));
-        subjects.add(new Subject("English"));
-        subjects.add(new Subject("Russian Language"));
-    }
 
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        students.add(student);
         studentsGrades.put(student, grades);
         for (Subject subject : grades.keySet()) {
-            studentSubjects.putIfAbsent(subject, new ArrayList<>());
-            studentSubjects.get(subject).add(student);
-            if (!subjects.contains(subject)) {
-                subjects.add(subject);
-            }
+            studentSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
         studentsGrades.get(student).putIfAbsent(subject, grade);
-        if (!studentSubjects.containsKey(subject)) {
-            studentSubjects.putIfAbsent(subject, new ArrayList<>());
-        }
-        studentSubjects.get(subject).add(student);
-        if (!subjects.contains(subject)) {
-            subjects.add(subject);
-        }
+        studentSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
@@ -50,7 +31,6 @@ public class StudentDatabase {
                 studentSubjects.get(subject).remove(student);
             }
         }
-        students.remove(student);
     }
 
     public void printAllSubjectsWithStudents() {
@@ -66,9 +46,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        if (!subjects.contains(subject)) {
-            subjects.add(subject);
-        }
         studentSubjects.putIfAbsent(subject, students);
     }
 

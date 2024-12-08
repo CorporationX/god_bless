@@ -18,9 +18,6 @@ public class Student {
 
     public Student(String name) {
         this.name = name;
-        indx++;
-        this.id = indx;
+        this.id = ++indx;
     }
-
-
 }

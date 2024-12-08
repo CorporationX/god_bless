@@ -20,8 +20,6 @@ public class Subject {
 
     public Subject(String name) {
         this.name = name;
-        indx++;
-        this.id = indx;
+        this.id = ++indx;
     }
-
 }
