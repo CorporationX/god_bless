@@ -26,7 +26,7 @@ public class Subject {
         if (this == o){
             return true;
         }
-        if (!(o instanceof Subject)){
+        if (!(o instanceof Subject)) {
             return false;
         }
         Subject subject = (Subject) o;
