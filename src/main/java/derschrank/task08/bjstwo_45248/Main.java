@@ -18,10 +18,14 @@ public class Main {
                 + librarySystem.findBook(bookX1));
         System.out.println("Looking for " + bookX2 + ", it is located at: "
                 + librarySystem.findBook(bookX2));
+        Book bookUnknow = new Book("Unknown", "-", 2000);
+        System.out.println("Looking for " + bookUnknow + ", it is located at: "
+                + librarySystem.findBook(bookUnknow));
 
         System.out.println("Deleting " + bookX1 + " and " + bookX2 + " ...\n");
         librarySystem.removeBook(bookX1);
         librarySystem.removeBook(bookX2);
+        librarySystem.removeBook(bookUnknow);
 
         librarySystem.printAllBooks();
 

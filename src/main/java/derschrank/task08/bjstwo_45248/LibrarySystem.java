@@ -28,7 +28,9 @@ public class LibrarySystem {
     }
 
     public void removeBook(Book book) {
-        booksByLocationMap.remove(book);
+        if (booksByLocationMap.remove(book) == null) {
+            System.out.println("There wasn't book: " + book);
+        }
     }
 
     public String findBook(String title, String author, int year) {
@@ -36,7 +38,11 @@ public class LibrarySystem {
     }
 
     public String findBook(Book book) {
-        return booksByLocationMap.get(book);
+        String location = booksByLocationMap.get(book);
+        if (location == null) {
+            System.out.println("There isn't book: " + book);
+        }
+        return location;
     }
 
     @Override
