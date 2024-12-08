@@ -1,11 +1,18 @@
 package school.faang.task_43842;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
+    private final int INIT_HEALTH = 100;
+
     private String name;
     private int strength;
     private int agility;
     private int intelligence;
-    private int health = 100;
+    private int health = INIT_HEALTH;
 
     public Character(String name) {
         this.name = name;
@@ -18,41 +25,10 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public abstract void attack(Character target);
+
+    @Override
+    public String toString() {
+        return getName() + " has health: " + getHealth();
+    }
 }

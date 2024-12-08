@@ -6,8 +6,8 @@ public class Main {
         Warrior warrior = new Warrior("Thor");
         Archer archer = new Archer("Legolas");
 
-        System.out.println(warrior.getName() + " has health: " + warrior.getHealth());
-        System.out.println(archer.getName() + " has health: " + archer.getHealth());
+        System.out.println(warrior);
+        System.out.println(archer);
 
         archer.attack(warrior);
         System.out.println(warrior.getName() + " attacked by "
