@@ -4,15 +4,15 @@ import java.util.function.Function;
 
 public class FilterProcessor {
 
-    public Image applyFilter(Image image, Function<Image, Image> filter) {
+    public Image applyFilter(Image image, Function<Image, Image> imageFilter) {
         if (image == null) {
             throw new IllegalArgumentException("image is null");
         }
-        if (filter == null) {
-            throw new IllegalArgumentException("filterConsumer is null");
+        if (imageFilter == null) {
+            throw new IllegalArgumentException("Filter is null");
         }
 
-        return filter.apply(image);
+        return imageFilter.apply(image);
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {

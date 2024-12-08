@@ -10,13 +10,13 @@ public class Image {
     private final String description;
 
     public Image(String name, String description) {
-        validation(name, description);
+        validate(name, description);
 
         this.name = name;
         this.description = description;
     }
 
-    public void validation(String name, String description) {
+    private void validate(String name, String description) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
