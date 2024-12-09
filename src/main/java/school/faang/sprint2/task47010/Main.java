@@ -14,7 +14,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        NotificationManager notificationManager = new NotificationManager();
         EmailService emailService = new EmailService();
         SmsService smsService = new SmsService();
         PushService pushService = new PushService();
@@ -24,8 +23,9 @@ public class Main {
         services.put(MessageType.SMS, smsService);
         services.put(MessageType.PUSH, pushService);
 
-        for(Map.Entry <MessageType, Sender> entry : services.entrySet())
-        {
+        NotificationManager notificationManager = new NotificationManager();
+
+        for (Map.Entry<MessageType, Sender> entry : services.entrySet()) {
             notificationManager.registerHandler(entry.getKey(),
                     (notification) -> entry.getValue().sendMessage(notification.getMessage()));
         }
