@@ -11,9 +11,8 @@ import java.util.Map;
 @Slf4j
 @Getter
 public class HogwartsSpells {
-
-   private final Map<Integer, SpellEvent> spellById;
-   private final Map<String, List<SpellEvent>> spellsByType;
+    private final Map<Integer, SpellEvent> spellById;
+    private final Map<String, List<SpellEvent>> spellsByType;
 
     public HogwartsSpells() {
         this.spellById = new HashMap<>();
