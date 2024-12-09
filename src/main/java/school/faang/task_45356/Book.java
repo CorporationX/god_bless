@@ -1,13 +1,16 @@
 package school.faang.task_45356;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
 public class Book {
-    private String author;
     private String title;
+    private String author;
     private int year;
 
-    public Book (String author, String title, int year){
-        this.title = title;
-        this.author = author;
-        this.year = year;
-    }
+
 }
