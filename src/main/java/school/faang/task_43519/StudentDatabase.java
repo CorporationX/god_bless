@@ -7,16 +7,22 @@ public class StudentDatabase {
     private final Map<Subject, Set<Student>> subjectParticipants = new HashMap<>();
 
     public void addNewStudentWithGrades(Student student, Map<Subject, Integer> grades) {
+        if (grades.entrySet().stream().anyMatch(grade -> grade.getValue() < 1)) {
+            throw new IllegalArgumentException("Все оценки должны быть больше 0");
+        }
         gradeBooks.put(student, grades);
     }
 
     public void addGradeForExistStudent(Student student, Subject subject, int grade) {
+        if (grade < 1) {
+            throw new IllegalArgumentException("Оценка должна быть больше 0");
+        }
         gradeBooks.computeIfAbsent(student, key -> new HashMap<>()).put(subject, grade);
     }
 
     public void removeStudent(Student student) {
-        Optional.ofNullable(gradeBooks.remove(student)).
-                orElseThrow(() -> new NoSuchElementException("Такого студента нет"));
+        Optional.ofNullable(gradeBooks.remove(student))
+                .orElseThrow(() -> new NoSuchElementException("Такого студента нет"));
     }
 
     public void printStudentsGrades() {
