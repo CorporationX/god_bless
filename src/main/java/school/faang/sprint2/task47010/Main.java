@@ -5,7 +5,11 @@ import school.faang.sprint2.task47010.model.MessageType;
 import school.faang.sprint2.task47010.model.Notification;
 import school.faang.sprint2.task47010.service.EmailService;
 import school.faang.sprint2.task47010.service.PushService;
+import school.faang.sprint2.task47010.service.Sender;
 import school.faang.sprint2.task47010.service.SmsService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,12 +19,16 @@ public class Main {
         SmsService smsService = new SmsService();
         PushService pushService = new PushService();
 
-        notificationManager.registerHandler(MessageType.EMAIL,
-                (notification) -> emailService.sendMessage(notification.getMessage()));
-        notificationManager.registerHandler(MessageType.SMS,
-                (notification) -> smsService.sendMessage(notification.getMessage()));
-        notificationManager.registerHandler(MessageType.PUSH,
-                (notification) -> pushService.sendMessage(notification.getMessage()));
+        Map<MessageType, Sender> services = new HashMap<>();
+        services.put(MessageType.EMAIL, emailService);
+        services.put(MessageType.SMS, smsService);
+        services.put(MessageType.PUSH, pushService);
+
+        for(Map.Entry <MessageType, Sender> entry : services.entrySet())
+        {
+            notificationManager.registerHandler(entry.getKey(),
+                    (notification) -> entry.getValue().sendMessage(notification.getMessage()));
+        }
 
         Notification emailNotification = new Notification(MessageType.EMAIL,
                 "Ваша учетная запись успешно активирована");

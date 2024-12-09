@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<MessageType, Consumer<Notification>> messageHandlers = new HashMap<>();
+    private final Map<MessageType, Consumer<Notification>> messageHandlers = new HashMap<>();
 
     public void registerHandler(MessageType messageType, Consumer<Notification> handler) {
         messageHandlers.put(messageType, handler);
