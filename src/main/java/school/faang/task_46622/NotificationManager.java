@@ -28,8 +28,8 @@ public class NotificationManager {
     private boolean isValid(Notification notification) {
         Consumer<Notification> handler = listener.get(notification.getType());
         if (handler == null) {
-            throw new IllegalArgumentException("Handler not registered " +
-                    " or no data available for the notification type: \"" + notification.getType());
+            throw new IllegalArgumentException("Handler not registered "
+                    + " or no data available for the notification type: \"" + notification.getType());
         }
         return true;
     }
