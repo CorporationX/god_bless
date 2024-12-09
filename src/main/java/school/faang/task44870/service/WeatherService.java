@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class WeatherService implements WeatherProvider {
 
-    private final Random rand = new Random();
     private final static int MIN_TEMPERATURE = 20;
     private final static int MIN_HUMIDITY = 80;
+    private final Random rand = new Random();
 
     public WeatherData fetchWeatherData(String city) {
 
