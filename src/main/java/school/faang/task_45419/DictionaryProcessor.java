@@ -7,7 +7,7 @@ import java.util.function.BiConsumer;
 public class DictionaryProcessor {
     private Map<String, String> dictionary = new HashMap<>();
 
-    public void processWord(String word, String translation, BiConsumer<String, String> biConsumer) {
+    private void processWord(String word, String translation, BiConsumer<String, String> biConsumer) {
         biConsumer.accept(word, translation);
     }
 
