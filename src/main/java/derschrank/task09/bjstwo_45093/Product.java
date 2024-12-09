@@ -7,10 +7,13 @@ import java.util.Objects;
 
 @Getter
 public class Product {
+    private final static Category DEFAULT_CATEGORY = new Category("with out group");
+
     private static int maxIdOfProducts = 0;
 
     private final int id;
     private final String name;
+
     @Setter
     private Category category;
 
@@ -19,7 +22,7 @@ public class Product {
     }
 
     public Product(int id, String name) {
-        this(id, name, null);
+        this(id, name, DEFAULT_CATEGORY);
     }
 
     public Product(int id, String name, Category category) {
@@ -39,15 +42,13 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(name, product.name);
+        return id == product.id && Objects.equals(name, product.name) && Objects.equals(category, product.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hash(id, name, category);
     }
 }
