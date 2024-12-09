@@ -7,8 +7,10 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> nums = Arrays.asList(5, 3);
         nums.set(0, null);
+
         int sum = calculate(nums, (a, b) -> a + b);
         System.out.println(sum);
+
         int product = calculate(nums, (a, b) -> a * b);
         System.out.println(product);
     }
