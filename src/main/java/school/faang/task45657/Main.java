@@ -8,7 +8,7 @@ public class Main {
         int sum = Main.sum(list);
         int multiply = Main.product(list);
 
-        System.out.println("Sum: " + sum + " Multiply: " + multiply);
+        System.out.printf("Sum: %d Multiply: %d", sum, multiply);
     }
 
     public static int sum(List<Integer> nums) {
