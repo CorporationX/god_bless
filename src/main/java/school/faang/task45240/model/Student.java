@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 public class Student {
     private static int counter = 1;
+
     private final int id;
     private final String name;
 

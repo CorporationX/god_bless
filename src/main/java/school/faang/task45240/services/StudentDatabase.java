@@ -3,35 +3,34 @@ package school.faang.task45240.services;
 import school.faang.task45240.model.Student;
 import school.faang.task45240.model.Subject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        studentGrades.putIfAbsent(student, grades);
-        for (Subject subject : grades.keySet()) {
-            subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+        if (studentGrades.putIfAbsent(student, grades) == null) {
+            for (Subject subject : grades.keySet()) {
+                subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+            }
         }
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        studentGrades.computeIfAbsent(student, init -> new HashMap<>()).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+        if (studentGrades.computeIfAbsent(student, init -> new HashMap<>()).put(subject, grade) == null) {
+            subjectStudents.computeIfAbsent(subject, init -> new ArrayList<>()).add(student);
+        }
     }
 
     public void removeStudent(Student student) {
-        studentGrades.remove(student);
-        for (Subject subject : subjectStudents.keySet()) {
+        for (Subject subject : studentGrades.get(student).keySet()) {
             List<Student> students = subjectStudents.get(subject);
             if (students != null) {
                 students.remove(student);
             }
         }
+        studentGrades.remove(student);
     }
 
     public void printGradedStudents() {
