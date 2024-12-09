@@ -8,6 +8,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 public class Product {
+    @EqualsAndHashCode.Exclude
     private int id;
     private String name;
     private String category;
@@ -16,7 +17,6 @@ public class Product {
     public Product(String name, String category) {
         this.name = name;
         this.category = category;
-        indx++;
-        this.id = indx;
+        this.id = ++indx;
     }
 }

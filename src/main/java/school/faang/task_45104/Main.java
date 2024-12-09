@@ -3,17 +3,15 @@ package school.faang.task_45104;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Main {
     private static final HashSet<Product> PRODUCTS = new HashSet<>();
 
     public static void main(String[] args) {
         addProducts();
-        findItemsByCategory("Молочные продукты");
+        findItemsByCategory("Овощи");
         removeItem("Овощи", "Баклажан");
         printAllItems();
 
@@ -48,24 +46,15 @@ public class Main {
     }
 
     private static void removeItem(String category, String name) {
-        boolean isExist = false;
-        Iterator<Product> iterator = PRODUCTS.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getCategory().equals(category) && product.getName().equals(name)) {
-                iterator.remove();
-                System.out.println(String.format("Продукт '%s' из категории %s найден и удален", name, category));
-                isExist = true;
-            }
-        }
-        if (!isExist) {
+        if (PRODUCTS.remove(new Product(name, category))) {
+            System.out.println(String.format("Продукт '%s' из категории %s найден и удален", name, category));
+        } else {
             System.out.println(String.format("Продукт %s с категорией %s не найден", name, category));
         }
     }
 
     private static void findItemsByCategory(String category) {
-        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category))
-                .collect(Collectors.toList());
+        List<Product> products = PRODUCTS.stream().filter(cat -> cat.getCategory().equals(category)).toList();
         if (products.isEmpty()) {
             System.out.println(String.format("По категории '%s' продуктов не найдено", category));
             return;
