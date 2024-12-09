@@ -45,9 +45,9 @@ public class DataCenterService {
                 break;
             }
             double resourcesFromThisServer = Math.min(server.getAvailableLoad(), moreNeedResource);
-            if(server.allocateLoad(resourcesFromThisServer)) {
+            if (server.allocateLoad(resourcesFromThisServer)) {
                 moreNeedResource -= resourcesFromThisServer;
-            };
+            }
         }
         if (moreNeedResource > 0) {
             System.out.println("We don't have resources for this Request");
@@ -62,9 +62,9 @@ public class DataCenterService {
                 break;
             }
             double resourcesFromThisServer = Math.min(server.getLoad(), moreNeedResourceToRelease);
-            if(server.releaseLoad(resourcesFromThisServer)) {
+            if (server.releaseLoad(resourcesFromThisServer)) {
                 moreNeedResourceToRelease -= resourcesFromThisServer;
-            };
+            }
         }
 
     }

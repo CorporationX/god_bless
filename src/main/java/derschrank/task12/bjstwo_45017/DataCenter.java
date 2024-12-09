@@ -21,7 +21,7 @@ public class DataCenter {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder result = new StringBuilder();
         for (Server server : servers) {
             result.append(server);

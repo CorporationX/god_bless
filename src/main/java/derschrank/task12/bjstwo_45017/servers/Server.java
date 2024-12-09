@@ -45,7 +45,7 @@ public class Server {
         on = false;
     }
 
-    public double getAvailableLoad(){
+    public double getAvailableLoad() {
         return maxLoad - load;
     }
 
