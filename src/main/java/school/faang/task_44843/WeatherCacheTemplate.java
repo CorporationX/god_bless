@@ -17,6 +17,10 @@ public abstract class WeatherCacheTemplate {
     protected abstract Boolean isExpired(WeatherData weatherData);
 
     protected WeatherData getWeatherData(String city) {
+        if (city == null || city.isBlank()) {
+            throw new IllegalArgumentException("City don't be null!");
+        }
+
         var weatherFromCache = getFromCache(city);
 
         if (weatherFromCache != null && !isExpired(weatherFromCache)) {

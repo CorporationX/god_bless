@@ -14,11 +14,12 @@ public class WeatherData {
     private static final double MIN_TEMPERATURE = -60;
     private static final double MAX_HUMIDITY = 100;
     private static final double MIN_HUMIDITY = 0;
+    private static final Random rn = new Random();
 
-    private String city;
-    private double temperature;
-    private double humidity;
-    private long timestamp;
+    private final String city;
+    private final double temperature;
+    private final double humidity;
+    private final long timestamp;
 
     public WeatherData(String city) {
         this.city = city;
@@ -28,7 +29,6 @@ public class WeatherData {
     }
 
     private static double generateValue(double minimum, double maximum) {
-        Random rn = new Random();
         return rn.nextDouble(maximum - minimum + 1.0) + minimum;
     }
 }
