@@ -54,8 +54,8 @@ public class User {
     public static Map<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
         Map<Integer, ArrayList<User>> userMap = new HashMap<Integer, ArrayList<User>>();
         Set<Integer> userAgeSet = new HashSet<Integer>();
-        for (User user : users){
-            if (!(userAgeSet.contains(user.age))){
+        for (User user : users) {
+            if (!(userAgeSet.contains(user.age))) {
                 ArrayList<User> usersAgeGroup = new ArrayList<User>();
                 usersAgeGroup.add(user);
                 userAgeSet.add(user.age);

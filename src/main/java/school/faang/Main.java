@@ -10,8 +10,8 @@ public class Main {
         ArrayList<User> users = new ArrayList<User>();
         int j = 0;
         for (int i = 0; i < 10; i++) {
-            User temp_user = new User("Sergey_" + i, j, "FAANG_" + i, "_" + i);
-            users.add(temp_user);
+            User tempUser = new User("Sergey_" + i, j, "FAANG_" + i, "_" + i);
+            users.add(tempUser);
             if (i % 2 == 0) {
                 j += 1;
             }
