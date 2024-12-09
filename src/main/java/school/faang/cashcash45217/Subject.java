@@ -9,7 +9,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-
 public class Subject {
     private int id;
     private String name;

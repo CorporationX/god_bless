@@ -6,15 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    HashMap<Student, Map<Subject, Integer>> studentGrades;
-    HashMap<Subject, List<Student>> subjectStudents;
+    private static final int MIN_GRADE = 1;
+    private static final int MAX_GRADE = 5;
 
-    public StudentDatabase() {
-        this.subjectStudents = new HashMap<>();
-        this.studentGrades = new HashMap<>();
-    }
+    private HashMap<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
+    private HashMap<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudent(Student student, Map<Subject, Integer> grades) {
+        if (student == null || grades == null) {
+            throw new IllegalArgumentException("Student and grades cannot be null");
+        }
+        validateGrades(grades);
         studentGrades.put(student, grades);
         for (Map.Entry<Subject, Integer> entry : grades.entrySet()) {
             addStudentToSubject(entry.getKey(), student);
@@ -22,6 +24,10 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
+        if (student == null || subject == null) {
+            throw new IllegalArgumentException("Student and subject cannot be null");
+        }
+        validateGrade(grade);
         studentGrades.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
         addStudentToSubject(subject, student);
     }
@@ -59,6 +65,18 @@ public class StudentDatabase {
     public void printAllSubjects() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             System.out.println(entry.getKey() + " students: " + entry.getValue());
+        }
+    }
+
+    public void validateGrades(Map<Subject, Integer> grades) {
+        for (Integer grade : grades.values()) {
+            validateGrade(grade);
+        }
+    }
+
+    public void validateGrade(int grade) {
+        if (grade < MIN_GRADE || grade > MAX_GRADE) {
+            throw new IllegalArgumentException("Grade must be between " + MIN_GRADE + " and " + MAX_GRADE);
         }
     }
 }
