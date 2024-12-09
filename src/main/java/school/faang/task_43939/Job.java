@@ -1,6 +1,6 @@
 package school.faang.task_43939;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 
 public class Job {
 
