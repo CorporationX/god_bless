@@ -19,14 +19,8 @@ public class Main {
         );
 
         notificationManager.registerFilter("push",
-            (notification) -> {
-                for (String word : bannerWords) {
-                    if (notification.getMessage().contains(word)) {
-                        return true;
-                    }
-                }
-                return false;
-            });
+            notification -> bannerWords.stream().anyMatch(notification.getMessage()::contains)
+        );
 
         Notification emailRegisterNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsPassNotification = new Notification("sms", "Вы успешно изменили свой пароль");
