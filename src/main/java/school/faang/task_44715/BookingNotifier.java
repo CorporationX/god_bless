@@ -15,8 +15,6 @@ public class BookingNotifier {
     }
 
     public void notifyObservers(Booking booking, String status) {
-        for (BookingObserver observer : bookingObserverList) {
-            observer.update(booking, status);
-        }
+        bookingObserverList.forEach(observer -> observer.update(booking, status));
     }
 }
