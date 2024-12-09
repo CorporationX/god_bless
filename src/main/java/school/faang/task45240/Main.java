@@ -14,10 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Student student1 = new Student("Vasya");
-        Student student2 = new Student("Petya");
-        Student student3 = new Student("Masha");
-
         Map<Subject, Integer> gradedSubjects = new HashMap<>();
         gradedSubjects.put(new Subject(SubjectName.PHYSICS), 5);
         gradedSubjects.put(new Subject(SubjectName.HISTORY), 4);
@@ -25,11 +21,13 @@ public class Main {
 
         StudentDatabase university = new StudentDatabase();
 
+        Student student1 = new Student("Vasya");
+
         university.addStudentWithGrades(student1, gradedSubjects);
         university.printGradedStudents();
 
         Student student4 = new Student("Sveta");
-        Student student5 = new Student("Vova");
+
 
         university.addSubjectForStudent(student4, new Subject(SubjectName.HISTORY), 5);
         university.addSubjectForStudent(student4, new Subject(SubjectName.MATH), 4);
@@ -41,13 +39,18 @@ public class Main {
         university.removeStudent(student1);
         university.printGradedStudents();
 
+        Student student2 = new Student("Petya");
+        Student student3 = new Student("Masha");
         List<Student> students = new ArrayList<>();
+
         students.add(student1);
         students.add(student2);
         students.add(student3);
 
         university.addSubjectWithStudents(new Subject(SubjectName.MATH), students);
         university.printStudentSubjects();
+
+        Student student5 = new Student("Vova");
 
         university.addStudentToSubject(student4, new Subject(SubjectName.HISTORY));
         university.addStudentToSubject(student5, new Subject(SubjectName.PHYSICS));
