@@ -15,14 +15,14 @@ public class Main {
                 new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый
+        System.out.println(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(sepiaImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(combinedImage.getDescription());
     }
 
 }
