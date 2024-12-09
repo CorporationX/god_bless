@@ -1,7 +1,7 @@
 package school.faang.sprint_2.task_46215;
 
 public class DroidMessageManager {
-    private static final int RU_ALPHABET_LETTERS = 33;
+    private static final int RU_ALPHABET_LETTERS_COUNT = 33;
 
     public String encryptMessage(String message, int encryptionKey) {
         DroidMessageEncryptor encryptor = ((msg, key) -> {
@@ -10,7 +10,7 @@ public class DroidMessageManager {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'а' : 'А';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % RU_ALPHABET_LETTERS + base));
+                    encryptedMessage.append((char) ((ch - base + encryptionKey) % RU_ALPHABET_LETTERS_COUNT + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -27,8 +27,8 @@ public class DroidMessageManager {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'а' : 'А';
-                    decryptedMessage.append((char) ((ch - base - encryptionKey + RU_ALPHABET_LETTERS)
-                            % RU_ALPHABET_LETTERS + base));
+                    decryptedMessage.append((char) ((ch - base - encryptionKey + RU_ALPHABET_LETTERS_COUNT)
+                            % RU_ALPHABET_LETTERS_COUNT + base));
                 } else {
                     decryptedMessage.append(ch);
                 }

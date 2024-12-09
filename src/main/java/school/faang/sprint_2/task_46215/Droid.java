@@ -1,15 +1,16 @@
 package school.faang.sprint_2.task_46215;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Droid {
-    String name;
-    String message;
-    int encryptionKey;
-    DroidMessageManager messageManager = new DroidMessageManager();
+    private String name;
+    private String message;
+    private int encryptionKey;
+    private final DroidMessageManager messageManager = new DroidMessageManager();
 
     public Droid(String name, int encryptionKey) {
         this.name = name;
@@ -17,13 +18,13 @@ public class Droid {
         this.encryptionKey = encryptionKey;
     }
 
-    public void sendMessage(Droid droid, String message) {
+    public void sendMessage(@NonNull Droid droid, @NonNull String message) {
         this.message = messageManager.encryptMessage(message, this.encryptionKey);
         System.out.printf("%s направил зашифрованное сообщение для %s: %s\n",
                 this.name, droid.getName(), this.message);
     }
 
-    public void receiveMessage(Droid droid) {
+    public void receiveMessage(@NonNull Droid droid) {
         if (droid.getMessage().isEmpty()) {
             System.out.printf("%s пытается получить сообщение от %s, но %s не передавал сообщение\n",
                     this.name, droid.getName(), droid.getName());
