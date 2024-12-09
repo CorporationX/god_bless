@@ -40,7 +40,9 @@ public class BookingSystem {
 
     public void cancelBooking(UUID bookingId) {
         Booking booking = bookings.remove(bookingId);
-        bookingNotifier.notifyObservers(booking, "Canceled");
+        if (booking != null) {
+            bookingNotifier.notifyObservers(booking, "Canceled");
+        }
     }
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {

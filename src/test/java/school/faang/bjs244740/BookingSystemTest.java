@@ -23,13 +23,25 @@ public class BookingSystemTest {
     }
 
     @Test
-    void addRoom() {
+    void addRoomTest() {
         RoomData data = RoomData.ROOM1;
         createRoom(data);
     }
 
     @Test
-    void removeRoom() {
+    void addRoomAlreadyExistsTest() {
+        RoomData data = RoomData.ROOM1;
+        createRoom(data);
+
+        try {
+            createRoom(data);
+        } catch (IllegalArgumentException e) {
+            Assertions.assertEquals(e.getMessage(), "Room with id " + data.getRoomId() + " already exists");
+        }
+    }
+
+    @Test
+    void removeRoomTest() {
         RoomData data = RoomData.ROOM1;
         createRoom(data);
 
@@ -38,16 +50,28 @@ public class BookingSystemTest {
     }
 
     @Test
-    void bookRoom() {
+    void bookRoomTest() {
         RoomData data = RoomData.ROOM1;
         createRoom(data);
 
         checkAndBookRoom(data);
     }
 
+    @Test
+    void bookRoomAlreadyBookedTest() {
+        RoomData data = RoomData.ROOM1;
+        createRoom(data);
+
+        checkAndBookRoom(data);
+        try {
+            checkAndBookRoom(data);
+        } catch (IllegalArgumentException e) {
+            Assertions.assertEquals(e.getMessage(), "Room already booked");
+        }
+    }
 
     @Test
-    void cancelBooking() {
+    void cancelBookingTest() {
         RoomData data = RoomData.ROOM1;
 
         createRoom(data);
@@ -59,7 +83,7 @@ public class BookingSystemTest {
     }
 
     @Test
-    void findAvailableRooms() {
+    void findAvailableRoomsTest() {
         RoomData room1 = RoomData.ROOM1;
         RoomData room2 = RoomData.ROOM2;
 
@@ -71,15 +95,42 @@ public class BookingSystemTest {
         Assertions.assertEquals(1, availableRooms.size());
     }
 
+    @Test
+    void findAvailableRoomsNotAvailableTest() {
+        RoomData room1 = RoomData.ROOM1;
+        RoomData room2 = RoomData.ROOM2;
+
+        createRoom(room1);
+        createRoom(room2);
+        checkAndBookRoom(room1);
+        checkAndBookRoom(room2);
+
+        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025", "20:00", room2.getAmenities());
+        Assertions.assertEquals(0, availableRooms.size());
+    }
+
+    @Test
+    void findAvailableRoomsNotFoundForAmenitiesTest() {
+        RoomData room1 = RoomData.ROOM1;
+        RoomData room2 = RoomData.ROOM2;
+
+        createRoom(room1);
+        createRoom(room2);
+        checkAndBookRoom(room1);
+
+        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025", "20:00", RoomData.ROOM3.getAmenities());
+        Assertions.assertEquals(0, availableRooms.size());
+    }
+
     private void createRoom(RoomData data) {
         bookingSystem.addRoom(data.createRoom());
         Assertions.assertEquals(data.createRoom(), bookingSystem.getRooms().get(data.getRoomId()));
     }
 
-    private Booking checkAndBookRoom(RoomData data) {
-        Assertions.assertEquals(0, bookingSystem.getBookings().size());
+    private Booking checkAndBookRoom(RoomData data) throws IllegalArgumentException {
+        int size = bookingSystem.getBookings().size();
         Booking booking = bookingSystem.bookRoom(data.getRoomId(), "2025", "20:00");
-        Assertions.assertEquals(1, bookingSystem.getBookings().size());
+        Assertions.assertEquals(size + 1, bookingSystem.getBookings().size());
         return booking;
     }
 }

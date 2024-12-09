@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,8 @@ public class Booking {
     }
 
     public boolean isLocked(int roomId, String date, String timeSlot) {
-        return this.getDate().equals(date) && this.getTimeSlot().equals(timeSlot) && this.getRoom().getRoomId() == roomId;
+        return Objects.equals(this.getDate(), date)
+                && Objects.equals(this.getTimeSlot(), timeSlot)
+                && Objects.equals(this.getRoom().getRoomId(), roomId);
     }
 }
