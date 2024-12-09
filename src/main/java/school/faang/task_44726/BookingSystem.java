@@ -33,7 +33,7 @@ public class BookingSystem {
     }
 
     public void bookRoom(int roomId, String bookingDay) {
-        Room roomToBook = findRoomBId(roomId);
+        Room roomToBook = findRoomById(roomId);
 
         if (!isRoomAlreadyBooked(roomId)) {
             Booking booking = Booking.builder()
@@ -114,10 +114,10 @@ public class BookingSystem {
         return !booking.getDate().equals(dayOfTheWeekBookingStarts);
     }
 
-    private Room findRoomBId(int roomId) {
+    private Room findRoomById(int roomId) {
         return roomList.stream()
                 .filter(item -> item.getRoomId() == roomId)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Room with id --> " + roomId + " <-- is not in the system"));
+                .orElseThrow(() -> new IllegalArgumentException("Room with id " + roomId + " is not in the system"));
     }
 }

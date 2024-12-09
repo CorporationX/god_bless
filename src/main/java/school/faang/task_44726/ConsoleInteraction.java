@@ -55,7 +55,7 @@ public class ConsoleInteraction {
                     break;
                 case 3:
                     int newRoomId = bookingSystem.addNewSingleRoom();
-                    System.out.print("\nA new room with id --> " + newRoomId + " <-- has been added into the booking system\n");
+                    System.out.print("\nA new room with id " + newRoomId + " added into the booking system\n");
                     break;
                 case 4:
                     System.out.print("Book a room. Type roomId which you would like to book:");

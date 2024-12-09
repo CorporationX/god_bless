@@ -12,7 +12,7 @@ public class Subscriber implements BookingObserver {
 
     @Override
     public void update(Booking booking, String status) {
-        System.out.println("\n"+ name + " received new message.");
+        System.out.println("\n" + name + " received new message.");
         System.out.println("The booking: " + booking + " changed status to: " + status);
     }
 }
