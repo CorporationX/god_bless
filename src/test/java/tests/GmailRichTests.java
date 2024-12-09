@@ -22,7 +22,10 @@ public class GmailRichTests {
     void testPositiveOfFilters() {
         Predicate<Email> importantFilter = Email::isImportant;
 
-        Consumer<Email> printEmail = email -> System.out.println("Print email: " + email.getSubject());
+        Consumer<Email> printEmail = email -> {
+            String message = "Print email: " + email.getSubject();
+            System.out.println(message);
+        };
 
         Function<Email, String> toUpperCase = email -> {
             email.setBody(email.getBody().toUpperCase());
@@ -52,7 +55,10 @@ public class GmailRichTests {
 
         Predicate<Email> importantFilter = Email::isImportant;
 
-        Consumer<Email> printEmail = email -> System.out.println("Print email: " + email.getSubject());
+        Consumer<Email> printEmail = email -> {
+            String message = "Print email: " + email.getSubject();
+            System.out.println(message);
+        };
 
         Function<Email, String> toUpperCase = email -> {
             email.setBody(email.getBody().toUpperCase());
