@@ -6,21 +6,21 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
 
-    private void validateCharacter(Character character, Item item) {
+    private void validateCharacterAndItem(Character character, Item item) {
         if (item == null) {
             throw new IllegalArgumentException("item is null");
         }
-        validateItem(character);
+        validateCharacter(character);
     }
 
-    private void validateItem(Character character) {
+    private void validateCharacter(Character character) {
         if (character == null) {
             throw new IllegalArgumentException("character is null");
         }
     }
 
     public void addItem(Character character, Item item, Consumer<Item> additionalAction) {
-        validateCharacter(character, item);
+        validateCharacterAndItem(character, item);
         if (additionalAction == null) {
             throw new IllegalArgumentException("additionalAction is null");
         }
@@ -30,34 +30,31 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> deletionCondition) {
-        validateItem(character);
+        validateCharacter(character);
         if (deletionCondition == null) {
             throw new IllegalArgumentException("deletionCondition is null");
         }
         List<Item> inventory = character.getInventory();
 
-        for (int i = 0; i < inventory.size(); i++) {
-            if (deletionCondition.test(inventory.get(i))) {
-                character.getInventory().remove(i);
-                i--;
-                System.out.println("Removed " + inventory.get(i + 1));
-            }
-        }
+        inventory.removeIf(deletionCondition);
     }
 
     public void updateItem(Character character,
-                           Predicate<Item> findCondition,
-                           Consumer<Item> updateCondition) {
-        validateItem(character);
-        if (updateCondition == null) {
-            throw new IllegalArgumentException("updateCondition is null");
+                           Predicate<Item> itemPredicate,
+                           Consumer<Item> itemUpdater) {
+        validateCharacter(character);
+        if (itemUpdater == null) {
+            throw new IllegalArgumentException("itemUpdater is null");
+        }
+        if (itemPredicate == null) {
+            throw new IllegalArgumentException("itemPredicate is null");
         }
 
         List<Item> inventory = character.getInventory();
 
         for (var item : inventory) {
-            if (findCondition.test(item)) {
-                updateCondition.accept(item);
+            if (itemPredicate.test(item)) {
+                itemUpdater.accept(item);
             }
         }
     }
