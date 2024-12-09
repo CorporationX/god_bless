@@ -23,14 +23,7 @@ public abstract class WeatherCacheTemplate {
         } else {
             forceUpdateWeather(city);
         }
-
         return cache.get(city);
-    }
-
-    private void forceUpdateWeather(String city) {
-        WeatherData weatherData = weatherProvider.fetchWeatherData(city);
-        cache.put(city, weatherData);
-        System.out.println("Weather data was refreshed!");
     }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
@@ -38,5 +31,10 @@ public abstract class WeatherCacheTemplate {
         cache.entrySet().removeIf(entry -> (currentTime - entry.getValue().getTimestamp() > maxCacheAgeMillis));
     }
 
+    private void forceUpdateWeather(String city) {
+        WeatherData weatherData = weatherProvider.fetchWeatherData(city);
+        cache.put(city, weatherData);
+        System.out.println("Weather data was refreshed!");
+    }
 
 }

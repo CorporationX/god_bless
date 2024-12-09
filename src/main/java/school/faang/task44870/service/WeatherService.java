@@ -6,18 +6,19 @@ import java.util.Random;
 
 public class WeatherService implements WeatherProvider {
 
+    private final Random rand = new Random();
+    private final int MIN_TEMPERATURE = 20;
+    private final int MIN_HUMIDITY = 80;
+
     public WeatherData fetchWeatherData(String city) {
 
-        Random rand = new Random();
-        int minTemperature = 20;
-        int minHumidity = 80;
         int randIntTemp = rand.nextInt(10);
         int randIntHumidity = rand.nextInt(20);
 
         return new WeatherData(
                 city,
-                minTemperature + randIntTemp,
-                minHumidity + randIntHumidity,
+                MIN_TEMPERATURE + randIntTemp,
+                MIN_HUMIDITY + randIntHumidity,
                 System.currentTimeMillis());
     }
 
