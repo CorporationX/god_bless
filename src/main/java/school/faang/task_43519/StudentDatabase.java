@@ -1,8 +1,6 @@
 package school.faang.task_43519;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> gradeBooks = new HashMap<>();
@@ -13,11 +11,12 @@ public class StudentDatabase {
     }
 
     public void addGradeForExistStudent(Student student, Subject subject, int grade) {
-        gradeBooks.get(student).put(subject, grade);
+        gradeBooks.computeIfAbsent(student, key -> new HashMap<>()).put(subject, grade);
     }
 
     public void removeStudent(Student student) {
-        gradeBooks.remove(student);
+        Optional.ofNullable(gradeBooks.remove(student)).
+                orElseThrow(() -> new NoSuchElementException("Такого студента нет"));
     }
 
     public void printStudentsGrades() {
@@ -34,11 +33,13 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Subject subject, Student student) {
-        subjectParticipants.get(subject).add(student);
+        subjectParticipants.computeIfAbsent(subject, key -> new HashSet<>()).add(student);
     }
 
     public void removeStudentFromSubject(Subject subject, Student student) {
-        subjectParticipants.get(subject).remove(student);
+        Optional.ofNullable(subjectParticipants.get(subject))
+                .ifPresentOrElse(students -> students.remove(student),
+                        () -> System.out.println("Такого предмета нет"));
     }
 
     public void printAllSubjects() {
