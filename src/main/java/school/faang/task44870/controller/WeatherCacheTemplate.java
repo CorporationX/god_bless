@@ -5,11 +5,12 @@ import school.faang.task44870.service.WeatherProvider;
 import school.faang.task44870.service.WeatherService;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
 
-    HashMap<String, WeatherData> cache = new HashMap<>();
-    WeatherProvider weatherProvider = new WeatherService();
+    private final Map<String, WeatherData> cache = new HashMap<>();
+    private final WeatherProvider weatherProvider = new WeatherService();
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 

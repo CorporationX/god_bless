@@ -10,6 +10,8 @@ public class Main {
 
         System.out.println(weatherNoCache.getWeatherData("Moscow", 1000));
         System.out.println(weatherNoCache.getWeatherData("Moscow", 1000));
+        System.out.println(weatherNoCache.getWeatherData("St.-Petersburg", 1000));
+        System.out.println(weatherNoCache.getWeatherData("St.-Petersburg", 1000));
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -17,11 +19,15 @@ public class Main {
         }
         System.out.println(weatherNoCache.getWeatherData("Moscow", 1000));
         System.out.println(weatherNoCache.getWeatherData("Moscow", 1000));
+        System.out.println(weatherNoCache.getWeatherData("St.-Petersburg", 1000));
+        System.out.println(weatherNoCache.getWeatherData("St.-Petersburg", 1000));
 
         StandardWeatherCache weatherCache = new StandardWeatherCache();
 
         System.out.println(weatherCache.getWeatherData("Moscow", 1000));
         System.out.println(weatherCache.getWeatherData("Moscow", 1000));
+        System.out.println(weatherCache.getWeatherData("St.-Petersburg", 1000));
+        System.out.println(weatherCache.getWeatherData("St.-Petersburg", 1000));
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -29,6 +35,8 @@ public class Main {
         }
         System.out.println(weatherCache.getWeatherData("Moscow", 1000));
         System.out.println(weatherCache.getWeatherData("Moscow", 1000));
+        System.out.println(weatherCache.getWeatherData("St.-Petersburg", 1000));
+        System.out.println(weatherCache.getWeatherData("St.-Petersburg", 1000));
 
         try {
             Thread.sleep(3000);
@@ -38,6 +46,7 @@ public class Main {
         weatherCache.clearExpiredCache(1000);
 
         System.out.println(weatherCache.getWeatherData("Moscow", 1000));
+        System.out.println(weatherCache.getWeatherData("St.-Petersburg", 1000));
 
 
 
