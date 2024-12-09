@@ -32,9 +32,9 @@ public class LocationSearchEngine {
     }
 
     public List<Double> calculateDistances(List<Location> locations,
-                                           Function<Location, Double> distanceFunction){
+                                           Function<Location, Double> distanceFunction) {
         validateLocations(locations);
-        if(distanceFunction == null) {
+        if (distanceFunction == null) {
             throw new IllegalArgumentException("distanceFunction cannot be null");
         }
 

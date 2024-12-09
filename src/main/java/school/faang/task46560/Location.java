@@ -23,14 +23,14 @@ public class Location {
         this.longitude = longitude;
     }
 
-    private void validate(String name, double latitude, double longitude){
-        if (name == null || name.isBlank()){
+    private void validate(String name, double latitude, double longitude) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
-        if (latitude < MIN_LATITUDE || latitude > MAX_LATITUDE){
+        if (latitude < MIN_LATITUDE || latitude > MAX_LATITUDE) {
             throw new IllegalArgumentException("Invalid latitude");
         }
-        if (longitude < MIN_LONGITUDE || longitude > MAX_LONGITUDE){
+        if (longitude < MIN_LONGITUDE || longitude > MAX_LONGITUDE) {
             throw new IllegalArgumentException("Invalid longitude");
         }
     }
