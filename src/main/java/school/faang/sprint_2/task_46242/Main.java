@@ -4,24 +4,27 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Image originalImage = new Image("image", "original image");
+        Image originalImage = new Image("image", "Original image");
 
-        FilterProcessor filterProcessor  = new FilterProcessor();
+        FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> bwFilter = (image) -> new Image(image.getName(), image.getDescription()
-                + " Filter: BW");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription()
-                + " Filter: Sepia");
+        Function<Image, Image> bwFilter = image -> {
+            return new Image(image.name(), image.description() + " Filter: BW");
+        };
+
+        Function<Image, Image> sepiaFilter = image -> {
+            return new Image(image.name(), image.description() + " Filter: Sepia");
+        };
 
 
         Image bwImage = filterProcessor.applyFilter(originalImage, bwFilter);
-        System.out.println(bwImage.getDescription());
+        System.out.println(bwImage.description());
 
         Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription());
+        System.out.println(sepiaImage.description());
 
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilter(bwFilter, sepiaFilter);
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(bwFilter, sepiaFilter);
         Image combineImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combineImage.getDescription());
+        System.out.println(combineImage.description());
     }
 }
