@@ -33,7 +33,7 @@ public class Main {
                 processing);
 
         // Проверяю изменился ли list
-        System.out.println("------------------------------------------------");
+        System.out.println("-----------------------------------------------");
         emailList.forEach(System.out::println);
     }
 
