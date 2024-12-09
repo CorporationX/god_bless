@@ -9,7 +9,7 @@ public class Main {
         );
 
         notificationManager.registerHandler("sms",
-                (notification) -> System.out.println("Отправка SMS: "+notification.message())
+                (notification) -> System.out.println("Отправка SMS: " + notification.message())
         );
 
         notificationManager.registerHandler("push",
