@@ -1,6 +1,6 @@
 package school.faang;
 
-import school.faang.BJS2_44022.User;
+import school.faang.bjs2_44022.User;
 
 import java.util.ArrayList;
 import java.util.Map;
