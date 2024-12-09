@@ -54,6 +54,7 @@ public class ProductService {
             System.out.println(product);
         }
     }
+
     public static void printAllItems(Map<String, List<Product>> products) {
         for (Map.Entry<String, List<Product>> product : products.entrySet()) {
             System.out.println(product);
