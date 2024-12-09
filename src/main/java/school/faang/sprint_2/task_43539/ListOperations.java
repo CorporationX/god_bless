@@ -10,11 +10,13 @@ public class ListOperations {
     }
 
     public static int max(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).max().orElse(0);
+        return numbers.stream().mapToInt(Integer::intValue).max()
+                .orElseThrow(() -> new IllegalArgumentException("Переданы некорректные данные"));
     }
 
     public static double average(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).average().orElse(0);
+        return numbers.stream().mapToInt(Integer::intValue).average()
+                .orElseThrow(() -> new IllegalArgumentException("Переданы некорректные данные"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char ch) {
@@ -34,7 +36,8 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int lowerLimit) {
-        return numbers.stream().filter(num -> num > lowerLimit).min(Integer::compareTo).orElse(0);
+        return numbers.stream().filter(num -> num > lowerLimit).min(Integer::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("Переданы некорректные данные"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
