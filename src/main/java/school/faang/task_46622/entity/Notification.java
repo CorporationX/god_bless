@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Notification {
-    TypeNotification type;
-    String message;
+    private TypeNotification type;
+    private String message;
 }
