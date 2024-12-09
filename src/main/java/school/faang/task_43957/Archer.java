@@ -20,10 +20,14 @@ public class Archer extends Character {
     public void attack(Character character) {
         int damage = this.strength;
         try {
-            character.setHealth(character.getHealth() - damage);
-            System.out.println(this.getName() + " was struck by an arrow, losing " + damage + " health damage");
-        } catch (IllegalArgumentException e) {
-            System.err.println("Person " + this.getName() + e.getMessage());
+            if (this.health <= 0) {
+                throw new IllegalAccessException(super.getName() + " is already dead!");
+            } else {
+                character.setHealth(character.getHealth() - damage);
+                System.out.println(character.getName() + " was struck by an arrow, losing " + damage + " health damage");
+            }
+        } catch (IllegalAccessException e) {
+            System.out.println("Attack failed: " + e.getMessage());
         }
     }
 }

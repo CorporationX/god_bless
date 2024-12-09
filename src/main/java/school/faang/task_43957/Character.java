@@ -1,13 +1,11 @@
 package school.faang.task_43957;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public abstract class Character {
     private static final int MAX_HEALTH = 100;
-    private String name;
+    private final String name;
     protected int strength;
     protected int agility;
     protected int intelligence;
@@ -27,13 +25,17 @@ public abstract class Character {
     protected abstract void attack(Character character);
 
     protected void setHealth(int health) {
-        if (health >= 1 && health <= MAX_HEALTH) {
-            this.health = health;
-        } else if (health < 1) {
-            this.health = health;
-            throw new IllegalArgumentException(" is dead");
-        } else {
-            throw new IllegalArgumentException("Health cannot exceed " + MAX_HEALTH);
+        try {
+            if (health >= 1 && health <= MAX_HEALTH) {
+                this.health = health;
+            } else if (health < 1) {
+                this.health = 0;
+                throw new IllegalArgumentException(this.name + " is dead");
+            } else {
+                throw new IllegalArgumentException("Health cannot exceed " + MAX_HEALTH);
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
         }
     }
 
