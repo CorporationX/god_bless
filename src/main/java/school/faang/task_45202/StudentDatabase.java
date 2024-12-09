@@ -19,28 +19,15 @@ public class StudentDatabase {
             System.out.println("Студент" + student.getName() + "уже есть в списке");
             return;
         }
-        studentGrades.computeIfAbsent(student, key -> subjects);
+        studentGrades.putIfAbsent(student, subjects);
         for (Subject subject : subjects.keySet()) {
             studentBySubject.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
         }
     }
 
     public void addNewSubjectForStudent(Student student, Subject subject, int grade) {
-        if (!studentGrades.containsKey(student)) {
-            System.out.println(student.getName() + " отсутствует в списке");
-            return;
-        }
-        Map<Subject, Integer> subjectMap = studentGrades.get(student);
-        subjectMap.put(subject, grade);
-        studentGrades.put(student, subjectMap);
-
-        studentBySubject.putIfAbsent(subject, new ArrayList<>());
-        List<Student> students = studentBySubject.get(subject);
-
-        if (!students.contains(student)) {
-            students.add(student);
-        }
-        System.out.println("Добавлен предмет " + subject + " с оценкой " + grade + " для " + student.getName());
+        studentGrades.computeIfAbsent(student, key -> new HashMap<>()).put(subject, grade);
+        studentBySubject.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
@@ -49,10 +36,7 @@ public class StudentDatabase {
             return;
         }
         studentGrades.remove(student);
-        for (Map.Entry<Subject, List<Student>> entry : studentBySubject.entrySet()) {
-            List<Student> students = entry.getValue();
-            students.remove(student);
-        }
+        studentBySubject.forEach(((subject, students) -> students.remove(student)));
         System.out.println("Студент " + student.getName() + " удален");
     }
 
@@ -73,14 +57,7 @@ public class StudentDatabase {
         studentBySubject.put(subject, students);
 
         for (Student student : students) {
-            if (studentGrades.containsKey(student)) {
-                Map<Subject, Integer> subjectMap = studentGrades.get(student);
-                subjectMap.put(subject, 0);
-            } else {
-                Map<Subject, Integer> newsubjectMap = new HashMap<>();
-                newsubjectMap.put(subject, 0);
-                studentGrades.put(student, newsubjectMap);
-            }
+            studentGrades.computeIfAbsent(student, key -> new HashMap<>()).put(subject, 0);
         }
         System.out.println("Предмет " + subject.getName() + " добавлен");
     }
@@ -97,37 +74,29 @@ public class StudentDatabase {
         }
         students.add(student);
 
-        if (!studentGrades.containsKey(student)) {
-            studentGrades.put(student, new HashMap<>());
-        }
-        Map<Subject, Integer> subjectIntegerMap = studentGrades.get(student);
+        Map<Subject, Integer> subjectIntegerMap = studentGrades.computeIfAbsent(student, k -> new HashMap<>());
+        subjectIntegerMap.put(subject, 0);
 
-        if (!subjectIntegerMap.containsKey(subject)) {
-            subjectIntegerMap.put(subject, 0);
-        }
         System.out.println("Студент " + student.getName() + " добавлен к предмету " + subject.getName());
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        if (!studentBySubject.containsKey(subject)) {
-            System.out.println("Данный предмет отсутствует в списке");
-            return;
-        }
-        List<Student> currentStudents = studentBySubject.get(subject);
-        if (!currentStudents.contains(student)) {
+        List<Student> currentStudent = studentBySubject.get(subject);
+
+        if (currentStudent == null || !currentStudent.contains(student)) {
             System.out.println("Студент отсутствует в данном предмете");
             return;
         }
-        currentStudents.remove(student);
-        if (currentStudents.isEmpty()) {
+        currentStudent.remove(student);
+        if (currentStudent.isEmpty()) {
             studentBySubject.remove(subject);
         }
         Map<Subject, Integer> grades = studentGrades.get(student);
         if (grades != null) {
             grades.remove(subject);
-            if (grades.isEmpty()) {
-                studentGrades.remove(student);
-            }
+        }
+        if (grades.isEmpty()) {
+            studentGrades.remove(student);
         }
         System.out.println("Студент " + student.getName() + " удален из предмета " + subject.getName());
     }
