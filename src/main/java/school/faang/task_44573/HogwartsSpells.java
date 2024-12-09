@@ -42,7 +42,7 @@ public class HogwartsSpells {
         spellsByType.forEach((key, value) ->
                 spellsByType.computeIfPresent(key, (k, spellList) -> {
                     spellList.removeIf(spell -> spell.getId() == id);
-                    return spellList.isEmpty() ? null : spellList;
+                    return spellList.isEmpty() ? new ArrayList<>() : spellList;
                 })
         );
     }
