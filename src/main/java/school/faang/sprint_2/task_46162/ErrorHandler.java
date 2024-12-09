@@ -5,6 +5,8 @@ public class ErrorHandler {
         try {
             return action.get();
         } catch (Exception e) {
+            System.out.println("Exception in ErrorHandling: ");
+            e.printStackTrace();
             return handler.handle(e);
         }
     }
