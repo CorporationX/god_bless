@@ -30,7 +30,7 @@ public class Shop {
         product.setCategory(category);
     }
 
-    public void removeItem(String categoryName, String productName){
+    public void removeItem(String categoryName, String productName) {
         Set<Product> productSet = getSetOfProductsByName(productName);
         if (productSet.isEmpty()) {
             System.out.printf("Product/s with name %s not found%n", productName);
@@ -43,7 +43,7 @@ public class Shop {
     }
 
     public void removeItem(Category category, Product product) {
-        if (product.getCategory().equals(category)){
+        if (product.getCategory().equals(category)) {
             product.setDefaultCategory();
         } else {
             System.out.printf("Category %s isn't found in Product %s%n", category, product);

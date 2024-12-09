@@ -5,19 +5,20 @@ public class Main {
         Shop shop = new Shop();
 
         System.out.println("1) Make Products and Category #1");
-        Category category1 = new Category("Category1");
-
-        Product product1 = new Product(1, "Product1");
-        Product product2 = new Product(2, "Product2");
-        Product product3 = new Product(3, "Product3", category1);
-        Product product4 = new Product(4, "Product4");
-        Product product5 = new Product("Product5");
 
         System.out.println("2) Add Products to Shop");
+        Product product1 = new Product(1, "Product1");
+        Product product2 = new Product(2, "Product2");
         shop.addItem("Category1", product1);
         shop.addItem("Category1", product2);
+
+        Category category1 = new Category("Category1");
+        Product product3 = new Product(3, "Product3", category1);
+        Product product4 = new Product(4, "Product4");
         shop.addItem(product3);
         shop.addItem(product4);
+
+        Product product5 = new Product("Product5");
         shop.addItem(product5);
 
         System.out.println("3) Print Products in Category #1");

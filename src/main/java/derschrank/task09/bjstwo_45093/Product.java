@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 public class Product {
-    private final static Category DEFAULT_CATEGORY = new Category("with out group");
+    private static final Category DEFAULT_CATEGORY = new Category("with out group");
 
     private static int maxIdOfProducts = 0;
 
@@ -53,7 +53,9 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Product product = (Product) o;
         return id == product.id && Objects.equals(name, product.name) && Objects.equals(category, product.category);
     }

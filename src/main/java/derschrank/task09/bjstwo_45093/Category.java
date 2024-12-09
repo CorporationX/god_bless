@@ -20,7 +20,9 @@ public class Category {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Category category = (Category) o;
         return Objects.equals(name, category.name);
     }
