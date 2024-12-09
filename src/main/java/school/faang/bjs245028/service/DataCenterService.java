@@ -68,7 +68,6 @@ public class DataCenterService implements DataCenterProvider, OptimizationStrate
                     break;
                 }
             }
-
         }
 
         if (remainingLoad > 0) {
