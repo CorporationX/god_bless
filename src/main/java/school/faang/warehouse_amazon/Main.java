@@ -22,8 +22,8 @@ public class Main {
         printAllItems();
         printProductsByCategory(groupedByCategoryProducts);
 
-        removeItem("Furniture", "Chair");
-        removeItem("PC", "Keyboard");
+        removeItem("Chair");
+        removeItem("Keyboard");
 
         printProductsByCategory(groupedByCategoryProducts);
 
@@ -32,23 +32,20 @@ public class Main {
         findItemsByCategory("000").forEach(System.out::println);
     }
 
-    private static int lastProductId = 0;
-
     private static void addItem(String category, String name) {
-        int id = ++lastProductId;
         Product newProduct = new Product(name, category);
         allProducts.add(newProduct);
 
-        groupedByCategoryProducts = groupProductsByCategory(allProducts);
+        groupedByCategoryProducts = groupProductsByCategory();
         System.out.println("Added new product " + name);
     }
 
-    private static void removeItem(String category, String name) {
+    private static void removeItem(String name) {
         if (!allProducts.removeIf(product -> product.getName().equals(name))) {
             System.out.println("Failed attempt to delete the product: product not found");
         }
 
-        groupedByCategoryProducts = groupProductsByCategory(allProducts);
+        groupedByCategoryProducts = groupProductsByCategory();
         System.out.println("removed new product " + name);
     }
 
@@ -62,7 +59,7 @@ public class Main {
     }
 
     private static void printAllItems() {
-        if (allProducts.size() == 0) {
+        if (allProducts.isEmpty()) {
             System.out.println("products not found");
             return;
         }
@@ -70,10 +67,10 @@ public class Main {
         System.out.println();
     }
 
-    private static HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+    private static HashMap<String, List<Product>> groupProductsByCategory() {
         HashMap<String, List<Product>> groupedProducts = new HashMap<>();
 
-        products.forEach(product -> {
+        allProducts.forEach(product -> {
             groupedProducts.computeIfAbsent(product.getCategory(), p -> new ArrayList<>());
             List<Product> categoryProducts = groupedProducts.get(product.getCategory());
             categoryProducts.add(product);
@@ -85,7 +82,7 @@ public class Main {
 
     private static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         System.out.println("print products by category");
-        if (groupedProducts.size() == 0) {
+        if (groupedProducts.isEmpty()) {
             System.out.println("products not found");
             return;
         }
