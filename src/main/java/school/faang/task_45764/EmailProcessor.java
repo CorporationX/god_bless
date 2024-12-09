@@ -1,5 +1,6 @@
 package school.faang.task_45764;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -10,7 +11,7 @@ public class EmailProcessor {
                               Function<Email, String> transformation, Consumer<Email> processing) {
         for (Email email : emails) {
             if (filter.test(email)) {
-                transformation.apply(email);
+                email.setSubject(transformation.apply(email));
                 processing.accept(email);
             }
         }

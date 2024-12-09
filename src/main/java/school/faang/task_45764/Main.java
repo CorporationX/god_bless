@@ -19,17 +19,23 @@ public class Main {
         );
 
         Function<Email, String> transformation = t -> {
-            t.setSubject(t.getSubject() + " ");
+            t.setSubject(t.getSubject() + " (ПРОЧ)");
             return t.getSubject();
         };
 
         Consumer<Email> processing = process -> {
-            System.out.println("Документ обработан: " + process.getSubject() + ".\n Тело письма: " + process.getBody());
+            System.out.println("Документ обработан: " + process.getSubject() + "\n. Тело письма: " + process.getBody());
         };
 
         emailProcessor.processEmails(emailList,
                 new FilterEmail().filter(false),
                 transformation,
                 processing);
+
+        // Проверяю изменился ли list
+        System.out.println("------------------------------------------------");
+        emailList.forEach(System.out::println);
     }
+
+
 }
