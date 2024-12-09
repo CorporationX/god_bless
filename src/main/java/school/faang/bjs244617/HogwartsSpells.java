@@ -1,6 +1,5 @@
 package school.faang.bjs244617;
 
-import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-@Getter
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<SpellEvent.SpellType, List<SpellEvent>> spellsByType = new HashMap<>();

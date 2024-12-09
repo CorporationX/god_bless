@@ -22,4 +22,8 @@ public enum SpellsData {
     public SpellEvent.SpellType getEventType() {
         return eventType;
     }
+
+    public SpellEvent createSpellEvent() {
+        return new SpellEvent(id, eventType);
+    }
 }

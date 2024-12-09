@@ -19,10 +19,10 @@ public class HogwartsSpellsTest {
     public void testAddExistSpellEvent() {
         SpellsData data = SpellsData.CHARMS;
         hogwartsSpells.addSpellEvent(data.getId(), data.getEventType());
-        checkMapsSize();
+        checkGetSpellEventById(data);
 
         hogwartsSpells.addSpellEvent(data.getId(), data.getEventType());
-        checkMapsSize();
+        checkGetSpellEventById(data);
     }
 
     @Test
@@ -68,8 +68,7 @@ public class HogwartsSpellsTest {
         hogwartsSpells.printAllSpellEvents();
     }
 
-    private void checkMapsSize() {
-        Assertions.assertEquals(1, hogwartsSpells.getSpellById().size());
-        Assertions.assertEquals(1, hogwartsSpells.getSpellsByType().size());
+    private void checkGetSpellEventById(SpellsData data) {
+        Assertions.assertEquals(data.createSpellEvent(), hogwartsSpells.getSpellEventById(data.getId()));
     }
 }
