@@ -14,14 +14,17 @@ public class EmailProcessor {
 
         validate(emails, filter, transformBody, processEmail);
 
+        Email email;
+        String body;
+
         for (int i = 0; i < emails.size(); i++) {
-            Email email = emails.get(i);
+            email = emails.get(i);
 
             if (email == null || !filter.test(email)) {
                 emails.remove(i);
                 i--;
             } else {
-                String body = transformBody.apply(email);
+                body = transformBody.apply(email);
                 email.setBody(body);
                 transformBody.apply(email);
                 processEmail.accept(email);
