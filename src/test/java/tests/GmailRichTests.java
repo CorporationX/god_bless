@@ -61,7 +61,8 @@ public class GmailRichTests {
         };
 
         Function<Email, String> toUpperCase = email -> {
-            email.setBody(email.getBody().toUpperCase());
+            String uppercasedBody = email.getBody().toUpperCase();
+            email.setBody(uppercasedBody);
             return email.getBody();
         };
 
