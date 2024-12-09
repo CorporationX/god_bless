@@ -1,5 +1,8 @@
 package school.faang.sprint_1.task_45263;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +41,9 @@ public class StudentDatabase {
 
     public void printAllStudentWithGrades() {
         grades.forEach((k, v) -> {
-            System.out.println(k);
+            System.out.println(k.name());
             v.forEach((k1, v1) -> {
-                System.out.println("\t" + k1 + " " + v1);
+                System.out.println("\t" + k1.name() + " " + v1);
             });
         });
         System.out.println("\n");
@@ -60,23 +63,23 @@ public class StudentDatabase {
 
     public void removeStudentFromClass(Subject subject, Student student) {
         List<Student> students = classes.get(subject);
-        if (students != null) {
+        if (CollectionUtils.isNotEmpty(students)) {
             students.remove(student);
-            if (students.isEmpty()) {
+            if (CollectionUtils.isEmpty(students)) {
                 classes.remove(subject);
             }
         }
         Map<Subject, Integer> studentGrades = grades.get(student);
-        if (studentGrades != null) {
+        if (MapUtils.isNotEmpty(studentGrades)) {
             studentGrades.remove(subject);
         }
     }
 
     public void printAllClasses() {
         classes.forEach((k, v) -> {
-            System.out.println(k);
+            System.out.println(k.name());
             for (Student student : v) {
-                System.out.println("\t" + student);
+                System.out.println("\t" + student.name());
             }
         });
         System.out.println("\n");
