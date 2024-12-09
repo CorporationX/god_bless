@@ -8,9 +8,13 @@ public class FilterProcessor {
         return function.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> functionOne,
-                                                 Function<Image, Image> functionTwo) {
-        return functionTwo.compose(functionOne);
+    @SafeVarargs
+    public final Function<Image, Image> combineFilters(Function<Image, Image>... functions) {
+        Function<Image, Image> result = Function.identity();
+        for (Function<Image, Image> function : functions) {
+            result = result.compose(function);
+        }
+        return result;
     }
 
 }
