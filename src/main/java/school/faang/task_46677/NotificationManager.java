@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> notifications = new HashMap<>();
+    private final Map<String, Consumer<Notification>> notifications = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> handler) {
         if (type == null) {
