@@ -30,7 +30,6 @@ public class Main {
         System.out.println(ProductService.removeItem("Category 1", "Product 1")); // true
 
 
-
         System.out.println(ProductService.findItemsByCategory("non exist category"));
         System.out.println(ProductService.findItemsByCategory("Category 1"));
 
