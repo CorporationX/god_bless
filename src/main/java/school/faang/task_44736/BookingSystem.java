@@ -56,11 +56,13 @@ public class BookingSystem {
 
     private boolean checkAvailability(Room room, String date, String timeSlot) {
         for (Booking booking : bookings.values()) {
-            if (booking.getRoom().getRoomId() == room.getRoomId()
-                    && booking.getDate().equals(date)
-                    && booking.getTimeSlot().equals(timeSlot)) {
+            if (Objects.equals(booking.getDate(), date)
+                    && Objects.equals(booking.getRoom().getRoomId(), room.getRoomId())
+                    && Objects.equals(booking.getTimeSlot(), timeSlot)
+            ) {
                 return false;
             }
+
         }
         return true;
     }
@@ -70,10 +72,7 @@ public class BookingSystem {
     }
 
     public void removeRoom(int roomId) {
-        Room room = rooms.get(roomId);
-        if (room != null) {
-            rooms.remove(roomId);
-        }
+        rooms.remove(roomId);
     }
 
 
