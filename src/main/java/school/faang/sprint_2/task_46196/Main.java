@@ -16,5 +16,17 @@ public class Main {
         c3po.sendMessage(message2, encryptionKey2, r2d2);
 
         bb8.sendMessage("The mission is complete.", encryptionKey1, c3po);
+
+        try {
+            r2d2.sendMessage(message1, encryptionKey1, null);
+        } catch (NullPointerException e) {
+            System.out.println("Catch NullPointer");
+        }
+
+        try {
+            r2d2.sendMessage(message1, -1, c3po);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Catch IllegalArgument");
+        }
     }
 }
