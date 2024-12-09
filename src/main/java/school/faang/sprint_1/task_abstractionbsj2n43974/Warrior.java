@@ -6,10 +6,7 @@ public class Warrior extends Character {
     private static final int WARRIOR_INTELLECT = 5;
 
     public Warrior(String name) {
-        this.name = name;
-        this.strength = WARRIOR_STRENGTH;
-        this.agility = WARRIOR_AGILITY;
-        this.intellect = WARRIOR_INTELLECT;
+        this(name, WARRIOR_STRENGTH, WARRIOR_AGILITY, WARRIOR_INTELLECT);
     }
 
     public Warrior(String name, int strength, int agility, int intellect) {
