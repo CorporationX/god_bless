@@ -8,7 +8,13 @@ public class LibrarySystem {
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
-        library.put(book, location);
+        if (library.containsKey(book)) {
+            System.out.println("The book is already in the library");
+        } else {
+            library.put(book, location);
+            System.out.println("The book added to the library");
+        }
+
     }
 
     public void removeBook(String title, String author, int year) {
