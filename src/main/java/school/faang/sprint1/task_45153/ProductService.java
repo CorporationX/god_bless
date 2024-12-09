@@ -9,13 +9,11 @@ import java.util.Set;
 public class ProductService {
     private static final Map<String, List<Product>> PRODUCT_BY_CATEGORY = new HashMap<>();
 
-
-    public static HashMap<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+    public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         products.forEach((product -> {
-            String productCategory;
-            productCategory = product.getCategory();
-            PRODUCT_BY_CATEGORY.putIfAbsent(productCategory, new LinkedList<Product>());
-            PRODUCT_BY_CATEGORY.get(productCategory).add(product);
+            String productCategory = product.getCategory();
+
+            PRODUCT_BY_CATEGORY.computeIfAbsent(productCategory, (value) -> new LinkedList<Product>()).add(product);
         }));
         return (HashMap<String, List<Product>>) PRODUCT_BY_CATEGORY;
     }
