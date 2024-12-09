@@ -25,8 +25,8 @@ public class Main {
         }
     }
 
-    private static void printHealth(Character warrior, String healthMessage) {
-        System.out.println(healthMessage + warrior.getHealth());
+    private static void printHealth(Character character, String healthMessage) {
+        System.out.println(healthMessage + character.getHealth());
     }
 
 }

@@ -18,6 +18,13 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
+    public void receiveDamage(Integer damage) {
+        if (damage < 0) {
+            throw new IllegalArgumentException("Урон не может быть отрицательным.");
+        }
+        this.health = Math.max(this.health - damage, 0);
+    }
+
     public Character(String name) {
         this.name = name;
     }
