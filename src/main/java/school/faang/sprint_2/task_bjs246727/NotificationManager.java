@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
-    Logger log = LoggerFactory.getLogger(NotificationManager.class);
+    private final Logger log = LoggerFactory.getLogger(NotificationManager.class);
 
     public void registerHandler(NotificationType notificationType, Consumer<Notification> handler) {
         inputValidation("registerHandler", notificationType, handler);
