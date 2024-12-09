@@ -1,5 +1,7 @@
 package school.faang.sprint1.task_45153;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -15,15 +17,19 @@ public class Main {
 
 
     public static void main(String[] args) {
-        ProductService.groupProductsByCategory(products);
+        Map<String, List<Product>> testMap = ProductService.groupProductsByCategory(products);
 
+        ProductService.printAllItems(testMap);
 
-        System.out.println(ProductService.addItem("Category 1", "Product 8")); // true
-        System.out.println(ProductService.addItem("Category 4", "Product 9")); // true
-        System.out.println(ProductService.addItem("Category 1", "Product 1")); // false
+        System.out.println(ProductService.addItem("Category 1", "Product 1")); // true
+        System.out.println(ProductService.addItem("Category 2", "Product 2")); // true
+        System.out.println(ProductService.addItem("Category 1", "Product 3")); // true
 
         System.out.println(ProductService.removeItem("non exist category", "Product 3")); // false
         System.out.println(ProductService.removeItem("Category 4", "non exist product")); // false
+        System.out.println(ProductService.removeItem("Category 1", "Product 1")); // true
+
+
 
         System.out.println(ProductService.findItemsByCategory("non exist category"));
         System.out.println(ProductService.findItemsByCategory("Category 1"));

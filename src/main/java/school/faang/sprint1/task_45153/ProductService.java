@@ -10,12 +10,12 @@ public class ProductService {
     private static final Map<String, List<Product>> PRODUCT_BY_CATEGORY = new HashMap<>();
 
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+        Map<String, List<Product>> productsByCategory = new HashMap<>();
         products.forEach((product -> {
             String productCategory = product.getCategory();
-
-            PRODUCT_BY_CATEGORY.computeIfAbsent(productCategory, (value) -> new LinkedList<Product>()).add(product);
+            productsByCategory.computeIfAbsent(productCategory, (value) -> new LinkedList<Product>()).add(product);
         }));
-        return (HashMap<String, List<Product>>) PRODUCT_BY_CATEGORY;
+        return productsByCategory;
     }
 
     public static boolean addItem(String category, String name) {
@@ -51,6 +51,11 @@ public class ProductService {
 
     public static void printAllItems() {
         for (Map.Entry<String, List<Product>> product : PRODUCT_BY_CATEGORY.entrySet()) {
+            System.out.println(product);
+        }
+    }
+    public static void printAllItems(Map<String, List<Product>> products) {
+        for (Map.Entry<String, List<Product>> product : products.entrySet()) {
             System.out.println(product);
         }
     }
