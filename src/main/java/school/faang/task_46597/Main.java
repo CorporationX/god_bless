@@ -1,5 +1,7 @@
 package school.faang.task_46597;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -9,9 +11,12 @@ public class Main {
         notificationManager.registerHandler("ApplicationMessage", (t) -> System.out.println(t));
         notificationManager.registerHandler("EmailMessage", (t) -> System.out.println(t));
 
-        notificationManager.sendNotification(new Notification("ApplicationMessage", "info1"));
-        notificationManager.sendNotification(new Notification("ApplicationMessage", "info2"));
+        List<Notification> notifications = List.of(
+                new Notification("ApplicationMessage", "info1"),
+                new Notification("ApplicationMessage", "info2"),
+                new Notification("EmailMessage", "error1")
+        );
 
-        notificationManager.sendNotification(new Notification("EmailMessage", "error1"));
+        notifications.forEach(notificationManager::sendNotification);
     }
 }
