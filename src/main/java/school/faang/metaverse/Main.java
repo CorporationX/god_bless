@@ -5,15 +5,15 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler("email",
-                (notification)->System.out.println("Отправка по электронной почте: "+notification.message())
+                (notification) -> System.out.println("Отправка по электронной почте: " + notification.message())
         );
 
         notificationManager.registerHandler("sms",
-                (notification)->System.out.println("Отправка SMS: "+notification.message())
+                (notification) -> System.out.println("Отправка SMS: "+notification.message())
         );
 
         notificationManager.registerHandler("push",
-                (notification)->System.out.println("Отправка push-уведомления: "+notification.message())
+                (notification) -> System.out.println("Отправка push-уведомления: " + notification.message())
         );
 
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
