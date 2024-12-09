@@ -1,4 +1,4 @@
-package school.faang.Sprint2.hogwarts.hogwarts.our.beloved.hogwarts;
+package school.faang.hogwarts.hogwarts.our.beloved.hogwarts;
 
 public class SpellCaster {
     void cast(String spellName, SpellAction spellAction) {
