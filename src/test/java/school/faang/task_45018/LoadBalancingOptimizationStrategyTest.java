@@ -7,15 +7,15 @@ import static school.faang.task_45018.DataInitializerUtils.initDataCenter;
 
 class LoadBalancingOptimizationStrategyTest {
     private final DataCenter dataCenter = new DataCenter(initDataCenter());
-    private final DataCenterService dataCenterService = new DataCenterService(dataCenter,
+    private final DataCenterService dataCenterService = new DataCenterService(
             new LoadBalancingOptimizationStrategy());
 
     @Test
     void shouldOptimize() {
-        dataCenterService.optimize();
+        dataCenterService.optimize(dataCenter);
 
         double expectedLoad = 2.5;
-        double actualLoad = dataCenter.getDataCenters().get(0).getLoad();
+        double actualLoad = dataCenter.getServers().get(0).getLoad();
         assertEquals(expectedLoad, actualLoad);
     }
 }

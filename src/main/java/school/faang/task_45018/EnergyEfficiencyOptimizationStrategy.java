@@ -6,7 +6,7 @@ import java.util.OptionalDouble;
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getDataCenters();
+        List<Server> servers = dataCenter.getServers();
         OptionalDouble averageEnergyConsumption = servers.stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .average();

@@ -6,32 +6,31 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class DataCenterService {
-    private final DataCenter dataCenter;
     private final OptimizationStrategy optimizationStrategy;
 
-    public void addServer(Server server) {
+    public void addServer(Server server, DataCenter dataCenter) {
         if (server == null) {
             throw new IllegalArgumentException("Server doesn't exist");
         }
-        dataCenter.getDataCenters().add(server);
+        dataCenter.getServers().add(server);
     }
 
-    public void removeServer(Server server) {
+    public void removeServer(Server server, DataCenter dataCenter) {
         if (server == null) {
             throw new IllegalArgumentException("Server doesn't exist");
         }
-        dataCenter.getDataCenters().remove(server);
+        dataCenter.getServers().remove(server);
     }
 
-    public double getTotalEnergyConsumption() {
-        return dataCenter.getDataCenters().stream()
+    public double getTotalEnergyConsumption(DataCenter dataCenter) {
+        return dataCenter.getServers().stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .sum();
     }
 
-    public void allocateResources(ResourceRequest resourceRequest) {
+    public boolean allocateResources(ResourceRequest resourceRequest, DataCenter dataCenter) {
         double remainingLoad = resourceRequest.getLoad();
-        List<Server> servers = dataCenter.getDataCenters();
+        List<Server> servers = dataCenter.getServers();
         for (Server server : servers) {
             double availableLoad = server.getMaxLoad() - server.getLoad();
             if (availableLoad > 0) {
@@ -41,27 +40,30 @@ public class DataCenterService {
             }
             if (remainingLoad <= 0) {
                 System.out.println("OK");
-                return;
+                return true;
             }
         }
         System.out.println("Resource requested is too large");
+        return false;
     }
 
-    public void releaseResources(ResourceRequest request) {
+    public boolean releaseResources(ResourceRequest request, DataCenter dataCenter) {
         double remainingLoad = request.getLoad();
-        List<Server> servers = dataCenter.getDataCenters();
+        List<Server> servers = dataCenter.getServers();
         for (Server server : servers) {
-            double release = Math.min(request.getLoad(), remainingLoad);
+            double release = Math.min(server.getLoad(), remainingLoad);
             server.setLoad(server.getLoad() - release);
             remainingLoad -= release;
             if (remainingLoad <= 0) {
-                System.out.println("OK");
+                System.out.println("All resources are released");
+                return true;
             }
         }
-        System.out.println("Resource requested is too large");
+        System.out.println("Resources remain");
+        return false;
     }
 
-    public void optimize() {
+    public void optimize(DataCenter dataCenter) {
         if (optimizationStrategy != null) {
             optimizationStrategy.optimize(dataCenter);
         }

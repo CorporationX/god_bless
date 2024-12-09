@@ -2,21 +2,19 @@ package school.faang.task_45018;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static school.faang.task_45018.DataInitializerUtils.initDataCenter;
 
 class DataCenterServiceTest {
     private final DataCenter dataCenter = new DataCenter(initDataCenter());
-    private final DataCenterService dataCenterService = new DataCenterService(dataCenter,
+    private final DataCenterService dataCenterService = new DataCenterService(
             new LoadBalancingOptimizationStrategy());
 
     @Test
     void shouldAddServer() {
-        dataCenterService.addServer(new Server(1, 1, 1));
+        dataCenterService.addServer(new Server(1, 1, 1), dataCenter);
 
-        double actualTotalEnergyConsumption = dataCenterService.getTotalEnergyConsumption();
+        double actualTotalEnergyConsumption = dataCenterService.getTotalEnergyConsumption(dataCenter);
 
         assertEquals(17, actualTotalEnergyConsumption);
     }
@@ -24,26 +22,36 @@ class DataCenterServiceTest {
     @Test
     void shouldRemoveServer() {
         Server server = new Server(1, 5, 10);
-        dataCenterService.removeServer(server);
+        dataCenterService.removeServer(server, dataCenter);
 
-        assertEquals(6, dataCenterService.getTotalEnergyConsumption());
+        assertEquals(6, dataCenterService.getTotalEnergyConsumption(dataCenter));
     }
 
     @Test
     void shouldAllocateResources() {
-        List<Server> servers = dataCenter.getDataCenters();
+        boolean allocatedResources = dataCenterService.allocateResources(new ResourceRequest(7), dataCenter);
 
-        dataCenterService.allocateResources(new ResourceRequest(7));
+        assertTrue(allocatedResources);
+    }
 
-        assertEquals(5, servers.get(0).getLoad());
+    @Test
+    void shouldNotAllocate() {
+        boolean allocatedResources = dataCenterService.allocateResources(new ResourceRequest(20), dataCenter);
+
+        assertFalse(allocatedResources);
     }
 
     @Test
     void shouldRelease() {
-        List<Server> servers = dataCenter.getDataCenters();
+        boolean releasedResources = dataCenterService.releaseResources(new ResourceRequest(1), dataCenter);
 
-        dataCenterService.releaseResources(new ResourceRequest(1));
+        assertTrue(releasedResources);
+    }
 
-        assertEquals(0, servers.get(0).getLoad());
+    @Test
+    void shouldNotRelease() {
+        boolean releasedResources = dataCenterService.releaseResources(new ResourceRequest(20), dataCenter);
+
+        assertFalse(releasedResources);
     }
 }
