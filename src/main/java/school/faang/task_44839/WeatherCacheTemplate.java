@@ -1,8 +1,6 @@
 package school.faang.task_44839;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
@@ -14,32 +12,29 @@ public abstract class WeatherCacheTemplate {
     }
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
+        WeatherData result;
+
         WeatherData weatherData = cache.get(city);
         if (weatherData != null && !isCacheExpired(weatherData, maxCacheAgeMillis)) {
-            return weatherData;
+            result = weatherData;
+        } else {
+            result = forceUpdateWeather(city);
         }
 
-        forceUpdateWeather(city);
-        return cache.get(city);
+        return result;
     }
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
-    public void forceUpdateWeather(String city) {
+    public WeatherData forceUpdateWeather(String city) {
         WeatherData newData = weatherProvider.fetchWeatherData(city);
         cache.put(city, newData);
         System.out.printf("Weather data for %s updated manually.%n", city);
+        return newData;
     }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
-        List<String> keysToRemove = new ArrayList<>();
-        cache.forEach((city, weatherData) -> {
-            if (isCacheExpired(weatherData, maxCacheAgeMillis)) {
-                keysToRemove.add(city);
-            }
-        });
-
-        keysToRemove.forEach(cache::remove);
+        cache.entrySet().removeIf(entry -> isCacheExpired(entry.getValue(), maxCacheAgeMillis));
     }
 
     public void printAllCacheData() {
