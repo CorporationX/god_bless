@@ -1,21 +1,38 @@
 package school.faang.task_44726;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class Amenities {
-    private static final List<String> AMENITIES =
-            Arrays.asList("TV", "Shower", "Kettle", "Towels",
-                    "Double bad", "Kitchen", "Toilet", "Ironing", "Heating", "Oven");
+public enum Amenities {
+    TV("TV"),
+    SHOWER("Shower"),
+    KETTLE("Kettle"),
+    TOWELS("Towels"),
+    DOUBLEBAD("Double bad"),
+    KITCHEN("Kitchen"),
+    TOILET("Toilet"),
+    IRONING("Ironing"),
+    HEATING("Heating"),
+    OVEN("Oven");
 
     private static final int NUMBER_OF_AMENITIES = 6;
-    static Random random = new Random();
+
+    private static final Random RANDOM = new Random();
+
+    private String amenity;
+
+    Amenities(String amenity) {
+        this.amenity = amenity;
+    }
+
+    private String getAmenity() {
+        return amenity;
+    }
 
     private static String getRandomAmenity() {
-        return AMENITIES.get(random.nextInt(AMENITIES.size()));
+        Amenities[] amenity = Amenities.values();
+        return amenity[RANDOM.nextInt(amenity.length)].getAmenity();
     }
 
     public static Set<String> getSetOfAmenities() {
@@ -26,5 +43,3 @@ public class Amenities {
         return amenities;
     }
 }
-
-

@@ -4,6 +4,7 @@ import school.faang.task_44726.observer.BookingNotifier;
 import school.faang.task_44726.observer.BookingObserver;
 import school.faang.task_44726.observer.Subscriber;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -14,7 +15,6 @@ public class ConsoleInteraction {
     static BookingNotifier bookingNotifier = new BookingNotifier();
 
     public static void consoleInteraction() {
-        bookingSystem.addMultipleRoomsForMyTask();
 
         BookingObserver subscriberA = Subscriber.builder()
                 .name("Anatolijs")
@@ -29,7 +29,7 @@ public class ConsoleInteraction {
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("------------------------------");
+            System.out.println("\n------------------------------");
             System.out.println("Welcome to the Booking System!");
             System.out.println("1. Show all rooms");
             System.out.println("2. Delete room from booking system");
@@ -54,9 +54,8 @@ public class ConsoleInteraction {
                     bookingSystem.removeRoom(roomId);
                     break;
                 case 3:
-                    System.out.print("Add room. Type roomId for new room:");
-                    int newRoomId = scanner.nextInt();
-                    bookingSystem.addNewSingleRoom(newRoomId);
+                    int newRoomId = bookingSystem.addNewSingleRoom();
+                    System.out.print("\nA new room with id --> " + newRoomId + " <-- has been added into the booking system\n");
                     break;
                 case 4:
                     System.out.print("Book a room. Type roomId which you would like to book:");
@@ -81,9 +80,7 @@ public class ConsoleInteraction {
                     String stringWithAmenities = scanner.next();
                     String[] words = stringWithAmenities.split(",\\s*");
                     Set<String> amenities = new HashSet<>();
-                    for (String word : words) {
-                        amenities.add(word);
-                    }
+                    Collections.addAll(amenities, words);
                     bookingSystem.findAvailableRooms(dayOfTheWeek, "2d", amenities);
                     break;
                 case 8:

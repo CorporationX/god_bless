@@ -3,40 +3,24 @@ package school.faang.task_44726;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import static school.faang.task_44726.ConsoleInteraction.bookingNotifier;
 
-
 public class BookingSystem {
-
-    private static final int NUMBER_OF_ROOM = 10;
-
     private List<Room> roomList = new ArrayList<>();
     private List<Booking> bookingList = new ArrayList<>();
 
-    private void addRoom(Room room) {
+    public void addRoom(Room room) {
         roomList.add(room);
     }
 
-    public void addMultipleRoomsForMyTask() {
-        for (int i = 0; i < NUMBER_OF_ROOM; i++) {
-            addRoom(Room.builder()
-                    .roomId(i)
-                    .type(RoomType.getRandomRoomType())
-                    .amenities(Amenities.getSetOfAmenities())
-                    .build()
-            );
-        }
-    }
-
-    public void addNewSingleRoom(int roomId) {
-        roomList.add(Room.builder()
-                .roomId(roomId)
+    public int addNewSingleRoom() {
+        Room room = Room.builder()
                 .type(RoomType.getRandomRoomType())
                 .amenities(Amenities.getSetOfAmenities())
-                .build()
-        );
+                .build();
+        roomList.add(room);
+        return room.getRoomId();
     }
 
     public void removeRoom(int roomId) {
@@ -49,11 +33,11 @@ public class BookingSystem {
     }
 
     public void bookRoom(int roomId, String bookingDay) {
-        UUID uuid = UUID.randomUUID();
+        Room roomToBook = findRoomBId(roomId);
+
         if (!isRoomAlreadyBooked(roomId)) {
             Booking booking = Booking.builder()
-                    .bookingId(uuid)
-                    .roomId(roomId)
+                    .room(roomToBook)
                     .date(bookingDay)
                     .timeSlot("2d")
                     .build();
@@ -78,7 +62,7 @@ public class BookingSystem {
 
     private boolean isRoomAlreadyBooked(int roomId) {
         for (Booking booking : bookingList) {
-            if (booking.getRoomId() == roomId) {
+            if (booking.getRoom().getRoomId() == roomId) {
                 return true;
             }
         }
@@ -97,20 +81,17 @@ public class BookingSystem {
                 System.out.println(booking.toString());
             }
         } else {
-            System.out.println("");
-            System.out.println("Booking list is empty");
+            System.out.println("\nBooking list is empty");
         }
     }
 
     public void findAvailableRooms(String dayOfTheWeek, String timeSlot, Set<String> requiredAmenities) {
         List<Room> availableRoomForBooking = new ArrayList<>();
-        for (Room room : roomList) {
-            availableRoomForBooking.add(room);
-        }
+        availableRoomForBooking.addAll(roomList);
         for (Room room : roomList) {
             int roomId = room.getRoomId();
             for (Booking booking : bookingList) {
-                if (booking.getRoomId() == roomId) {
+                if (booking.getRoom().getRoomId() == roomId) {
                     boolean isAvailableOnDates = isDateAvailable(booking, dayOfTheWeek, timeSlot);
                     if (!isAvailableOnDates) {
                         availableRoomForBooking.remove(room);
@@ -122,22 +103,21 @@ public class BookingSystem {
             }
         }
         System.out.println("Available room for booking: \n");
-        for (Room room : availableRoomForBooking) {
-            System.out.println(room);
-        }
+        availableRoomForBooking.forEach(System.out::println);
     }
 
     private boolean isAmenitiesAvailable(Room room, Set<String> requiredAmenities) {
-        if (room.getAmenities().containsAll(requiredAmenities)) {
-            return true;
-        }
-        return false;
+        return room.getAmenities().containsAll(requiredAmenities);
     }
 
     private boolean isDateAvailable(Booking booking, String dayOfTheWeekBookingStarts, String timeSlot) {
-        if (booking.getDate().equals(dayOfTheWeekBookingStarts)) {
-            return false;
-        }
-        return true;
+        return !booking.getDate().equals(dayOfTheWeekBookingStarts);
+    }
+
+    private Room findRoomBId(int roomId) {
+        return roomList.stream()
+                .filter(item -> item.getRoomId() == roomId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room with id --> " + roomId + " <-- is not in the system"));
     }
 }

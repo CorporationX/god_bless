@@ -1,15 +1,26 @@
 package school.faang.task_44726;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-public class RoomType {
-    private static final List<String> ROOM_TYPE = Arrays.asList("single", "double", "suite");
+public enum RoomType {
+    SINGLE("Single"),
+    DOUBLE("Double"),
+    SUITE("Suite");
 
-    static Random random = new Random();
+    private static final Random RANDOM = new Random();
+
+    private String roomTypeName;
+
+    RoomType(String roomTypeName) {
+        this.roomTypeName = roomTypeName;
+    }
+
+    private String getTypeName() {
+        return roomTypeName;
+    }
 
     public static String getRandomRoomType() {
-        return ROOM_TYPE.get(random.nextInt(ROOM_TYPE.size()));
+        RoomType[] roomTypes = RoomType.values();
+        return roomTypes[RANDOM.nextInt(roomTypes.length)].getTypeName();
     }
 }
