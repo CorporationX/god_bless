@@ -24,7 +24,8 @@ public class Archer extends Character {
                 throw new IllegalAccessException(super.getName() + " is already dead!");
             } else {
                 character.setHealth(character.getHealth() - damage);
-                System.out.println(character.getName() + " was struck by an arrow, losing " + damage + " health damage");
+                System.out.println(character
+                        .getName() + " was struck by an arrow, losing " + damage + " health damage");
             }
         } catch (IllegalAccessException e) {
             System.out.println("Attack failed: " + e.getMessage());
