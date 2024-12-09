@@ -1,5 +1,6 @@
 package derschrank.task12.bjstwo_45017;
 
+import derschrank.task12.bjstwo_45017.optimization.EnergyEfficiencyOptimizationStrategy;
 import derschrank.task12.bjstwo_45017.servers.Server;
 import derschrank.task12.bjstwo_45017.servers.ServersPattern;
 
@@ -34,10 +35,45 @@ public class Main {
         System.out.println(dataCenterService);
 
 
+
         System.out.println("3) Stopping new App1., need: " + request1);
         dataCenterService.releaseResources(request1);
 
         System.out.println(dataCenterService);
+
+
+        System.out.println("4) Optimize 'LoadBalancingOptimizationStrategy' ");
+        System.out.println("4.1) Starting new App1 and optimize: " + request1);
+        dataCenterService.allocateResources(request1);
+        dataCenterService.optimize();
+
+        System.out.println(dataCenterService);
+
+        ResourceRequest request3 = new ResourceRequest(250);
+        System.out.println("4.2) Starting new App3 and optimize: " + request3);
+        dataCenterService.allocateResources(request3);
+        dataCenterService.optimize();
+
+        System.out.println(dataCenterService);
+
+
+
+        System.out.println("5) Optimize 'EnergyEfficiencyOptimizationStrategy' ");
+        dataCenterService.resetAllServers();
+        dataCenterService.setOptimizationStrategy(new EnergyEfficiencyOptimizationStrategy());
+
+        System.out.println("5.1) Starting new App1 and optimize: " + request1);
+        dataCenterService.allocateResources(request1);
+        dataCenterService.optimize();
+
+        System.out.println(dataCenterService);
+
+        System.out.println("5.2) Starting new App3 and optimize: " + request3);
+        dataCenterService.allocateResources(request3);
+        dataCenterService.optimize();
+
+        System.out.println(dataCenterService);
+
 
 
     }

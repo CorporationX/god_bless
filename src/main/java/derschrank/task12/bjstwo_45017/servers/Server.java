@@ -1,10 +1,12 @@
 package derschrank.task12.bjstwo_45017.servers;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Server {
     private static final ServersPattern DEFAULT_SERVER_PATTERN = ServersPattern.DEFAULT;
+    private static final boolean DEFAULT_ON_STATUS = false;
 
     private boolean on;
 
@@ -12,6 +14,7 @@ public class Server {
     private final String description;
     private final String name;
 
+    @Setter
     private double load;
     private final double maxLoad;
     private double energyConsumption;
@@ -28,7 +31,10 @@ public class Server {
         this.name = name;
         this.maxLoad = pattern.getMaxLoad();
         this.maxEnergyConsumption = pattern.getMaxEnergyConsumption();
-        switchOn();
+
+        if (DEFAULT_ON_STATUS) {
+            switchOn();
+        }
     }
 
     public void switchOn() {
@@ -50,7 +56,7 @@ public class Server {
     }
 
     public boolean allocateLoad(double receive) {
-        if (receive < 0 || receive > getAvailableLoad()) {
+        if (!isOn() || receive < 0 || receive > getAvailableLoad()) {
             return false;
         }
         this.load += receive;
@@ -58,7 +64,7 @@ public class Server {
     }
 
     public boolean releaseLoad(double realise) {
-        if (realise < 0 || realise > load) {
+        if (!isOn() || realise < 0 || realise > load) {
             return false;
         }
         load -= realise;
@@ -67,10 +73,10 @@ public class Server {
 
     @Override
     public String toString() {
-        return String.format("Server [%s-%s] %s is: %s. Load %.2f / %.2f. Power %.2f / %.2f",
-                type, name, description,
+        return String.format("Server [%7s-%s] is: %s. Load %6.2f / %.2f. Power %7.2f / %.2f |  %s",
+                type, name,
                 isOn() ? "ON" : "OFF",
                 load, maxLoad,
-                energyConsumption, maxEnergyConsumption);
+                energyConsumption, maxEnergyConsumption, description);
     }
 }

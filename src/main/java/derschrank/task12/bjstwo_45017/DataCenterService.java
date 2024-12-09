@@ -1,18 +1,30 @@
 package derschrank.task12.bjstwo_45017;
 
+import derschrank.task12.bjstwo_45017.optimization.LoadBalancingOptimizationStrategy;
+import derschrank.task12.bjstwo_45017.optimization.OptimizationStrategy;
 import derschrank.task12.bjstwo_45017.servers.Server;
 
 public class DataCenterService {
-    DataCenter dataCenter;
+    private static final OptimizationStrategy DEFAULT_STRATEGY = new LoadBalancingOptimizationStrategy();
+    private OptimizationStrategy optimizationStrategy;
+    private DataCenter dataCenter;
 
     public DataCenterService() {
-        this.dataCenter = new DataCenter();
+        this(DEFAULT_STRATEGY);
     }
 
-    public DataCenterService(DataCenter dataCenter) {
+    public DataCenterService(OptimizationStrategy strategy) {
+        this(new DataCenter(), strategy);
+    }
+
+    public DataCenterService(DataCenter dataCenter, OptimizationStrategy strategy) {
+        this.optimizationStrategy = strategy;
         this.dataCenter = dataCenter;
     }
 
+    public void setOptimizationStrategy(OptimizationStrategy strategy) {
+        this.optimizationStrategy = strategy;
+    }
 
     public void addServer(Server server) {
         dataCenter.getServers().add(server);
@@ -22,20 +34,13 @@ public class DataCenterService {
         dataCenter.getServers().remove(server);
     }
 
+
     public double getTotalEnergyConsumption() {
-        double totalEnergyConsumption = 0;
-        for (Server server : dataCenter.getServers()) {
-            totalEnergyConsumption += server.getEnergyConsumption();
-        }
-        return totalEnergyConsumption;
+        return dataCenter.getTotalEnergyConsumption();
     }
 
     public double getTotalAvailableLoad() {
-        double totalAvailableLoad = 0;
-        for (Server server : dataCenter.getServers()) {
-            totalAvailableLoad += server.getAvailableLoad();
-        }
-        return totalAvailableLoad;
+        return dataCenter.getTotalAvailableLoad();
     }
 
     public void allocateResources(ResourceRequest request) {
@@ -44,6 +49,11 @@ public class DataCenterService {
             if (moreNeedResource == 0) {
                 break;
             }
+
+            if (!server.isOn()) {
+                server.switchOn();
+            }
+
             double resourcesFromThisServer = Math.min(server.getAvailableLoad(), moreNeedResource);
             if (server.allocateLoad(resourcesFromThisServer)) {
                 moreNeedResource -= resourcesFromThisServer;
@@ -61,23 +71,35 @@ public class DataCenterService {
             if (moreNeedResourceToRelease == 0) {
                 break;
             }
+
+            if (!server.isOn()) {
+                continue;
+            }
+
             double resourcesFromThisServer = Math.min(server.getLoad(), moreNeedResourceToRelease);
             if (server.releaseLoad(resourcesFromThisServer)) {
                 moreNeedResourceToRelease -= resourcesFromThisServer;
             }
         }
+    }
 
+    public void optimize() {
+        optimizationStrategy.optimize(dataCenter);
+    }
+
+    public void resetAllServers() {
+        dataCenter.resetAllServers();
     }
 
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(dataCenter.toString());
-        result.append("\nTotalAvailableLoad: ");
-        result.append(getTotalAvailableLoad());
-        result.append("\nTotalEnergyConsumption: ");
-        result.append(getTotalEnergyConsumption());
+
+        result.append("\nOptimizationStrategy: ");
+        result.append(optimizationStrategy);
         result.append("\n");
+
         return result.toString();
     }
 }
