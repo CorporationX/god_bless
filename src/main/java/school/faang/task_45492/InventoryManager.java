@@ -2,6 +2,7 @@ package school.faang.task_45492;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
@@ -16,7 +17,10 @@ public class InventoryManager {
         inventory.removeIf(itemPredicate);
     }
 
-    public void updateItem(Character character, Predicate<Item> condition, java.util.function.Function<Item, Item> updater) {
+    public void updateItem(Character character,
+                           Predicate<Item> condition,
+                           Function<Item, Item> updater) {
+
         List<Item> inventory = character.getItemList();
         for (int i = 0; i < inventory.size(); i++) {
             Item item = inventory.get(i);
