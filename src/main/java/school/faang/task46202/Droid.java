@@ -54,8 +54,8 @@ public class Droid {
             for (char c : newMessage.toCharArray()) {
                 if (Character.isLetter(c)) {
                     char base = Character.isLowerCase(c) ? 'a' : 'A';
-                    result.append((char) ((c - base -
-                            keyDecrypt + MAX_LETTER_IN_ENGLISH) % MAX_LETTER_IN_ENGLISH + base));
+                    result.append((char) ((c - base
+                            - keyDecrypt + MAX_LETTER_IN_ENGLISH) % MAX_LETTER_IN_ENGLISH + base));
                 } else {
                     result.append(c);
                 }
