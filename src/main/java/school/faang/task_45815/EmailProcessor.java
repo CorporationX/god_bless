@@ -21,7 +21,7 @@ public class EmailProcessor {
             throw new IllegalArgumentException("Function<Email, String> transformBody cannot be null");
         }
         emails.forEach(email -> {
-            if(filter.test(email)) {
+            if (filter.test(email)) {
                 String body = transformBody.apply(email);
                 email.setBody(body);
                 processEmail.accept(email);
