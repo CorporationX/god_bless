@@ -7,7 +7,6 @@ public class Main {
     private static final String CHEMICALS = "Бытовая химия";
     private static final String BEAUTY = "Красота";
 
-    private static int id = 1;
     private static final Set<Product> products = new HashSet<>();
 
     public static void main(String[] args) {
@@ -34,40 +33,27 @@ public class Main {
         if (category.isBlank() || name.isBlank()) {
             throw new IllegalArgumentException("Категория и название не должны быть пустыми!");
         }
-        products.add(new Product(id++, category, name));
+        products.add(new Product(category, name));
     }
 
     public static void removeItem(String category, String name) {
-        boolean isFounded = false;
         if (category.isBlank() || name.isBlank()) {
             throw new IllegalArgumentException("Категория и название не должны быть пустыми!");
         }
-        for (Product product : products) {
-            if (product.getCategory().equals(category) && product.getName().equals(name)) {
-                products.remove(product);
-                isFounded = true;
-                break;
-            }
-        }
-        if (!isFounded) {
-            System.out.println("Продукт не найден");
-        }
+        products.stream()
+                .filter(product -> product.getCategory().equals(category) && product.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Товаров с такой категорией нет!"));
     }
 
     public static void findItemsByCategory(String category) {
-        boolean isFounded = false;
         if (category.isBlank()) {
             throw new IllegalArgumentException("Категория не может быть пустой!");
         }
-        for (Product product : products) {
-            if (product.getCategory().equals(category)) {
-                System.out.println(product);
-                isFounded = true;
-            }
-        }
-        if (!isFounded) {
-            System.out.println("Товаров с такой категорией нет!");
-        }
+        products.stream()
+                .filter(product -> product.getCategory().equals(category))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Товаров с такой категорией нет!"));
     }
 
     public static void printAllItems() {
