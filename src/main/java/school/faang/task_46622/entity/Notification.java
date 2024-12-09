@@ -10,6 +10,4 @@ import lombok.Setter;
 public class Notification {
     TypeNotification type;
     String message;
-
-
 }
