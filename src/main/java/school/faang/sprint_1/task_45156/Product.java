@@ -1,11 +1,15 @@
 package school.faang.sprint_1.task_45156;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@ToString
 public class Product {
-    private static int count = 0;
+    //private static int count = 0;
+    private static AtomicInteger count = new AtomicInteger(1);
 
     private final int id;
     private final String name;
@@ -13,8 +17,8 @@ public class Product {
     private final String category;
 
     public Product(String name, String category) {
-        count++;
-        id = count;
+        //id = ++count;
+        id = count.getAndIncrement();
         this.name = name;
         this.category = category;
     }
@@ -34,14 +38,5 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(name, category);
-    }
-
-    @Override
-    public String toString() {
-        return "Product{"
-                + "id=" + id
-                + ", name='" + name
-                + '\'' + ", category='" + category + '\''
-                + '}';
     }
 }
