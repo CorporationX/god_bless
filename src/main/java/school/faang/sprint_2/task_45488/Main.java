@@ -7,8 +7,9 @@ public class Main {
         String ascendio = "Ascendio";
         String bombarda = "Bombarda";
 
-        spellCaster.cast(lumos, (spellName -> "A beam of light is created by " + spellName));
-        spellCaster.cast(ascendio, (spellName -> "Lifts the caster high into the air by " + spellName));
-        spellCaster.cast(bombarda, (spellName -> "Creates a large explosion capable of removing entire walls by " + spellName));
+        spellCaster.cast(lumos, spellName -> "A beam of light is created by " + spellName);
+        spellCaster.cast(ascendio, spellName -> "Lifts the caster high into the air by " + spellName);
+        spellCaster.cast(bombarda, spellName -> "Creates a large explosion capable of removing entire walls by "
+                + spellName);
     }
 }
