@@ -11,9 +11,5 @@ public class Main {
         warrior.attac(archer);
         warrior.attac(archer);
         System.out.println("Health after attac = " + archer.health);
-
-
     }
-
-
 }
