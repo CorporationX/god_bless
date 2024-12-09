@@ -1,4 +1,4 @@
-package ru.task_43860;
+package ru.maks1979.task_43860;
 
 public class Archer extends Character {
     public Archer(String name) {

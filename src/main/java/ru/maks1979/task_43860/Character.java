@@ -1,4 +1,4 @@
-package ru.task_43860;
+package ru.maks1979.task_43860;
 
 import lombok.Getter;
 import lombok.Setter;
