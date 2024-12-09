@@ -1,14 +1,11 @@
 package school.faang.task_45243;
 
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.NonNull;
 
-@RequiredArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class Student {
-    private final int id;
-    private final String name;
-
+public record Student(int id, @NonNull String name) {
+    public Student {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be blank");
+        }
+    }
 }

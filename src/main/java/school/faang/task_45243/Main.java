@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Subject[] SUBJECTS = new Subject[]{
+    private static final Subject[] SUBJECTS = {
             new Subject(1, "Mathematics"),
             new Subject(2, "Physics"),
             new Subject(3, "Chemistry"),
@@ -32,7 +32,10 @@ public class Main {
         studentDb.printAllSubjectsWithStudents();
         System.out.println();
 
-        studentDb.removeStudent(user);
+        studentDb.removeStudent(new Student(1, "Alice Johnson"));
+        System.out.println("--------------------");
+
+        studentDb.printAllStudentsWithGrades();
         System.out.println("--------------------");
 
         studentDb.printAllSubjectsWithStudents();
@@ -64,7 +67,7 @@ public class Main {
         for (int i = 0; i < SUBJECTS.length; i++) {
             map.put(getRandomSubject(), getRandomGrade());
         }
-
         return map;
     }
+
 }
