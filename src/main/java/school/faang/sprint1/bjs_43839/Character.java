@@ -1,11 +1,12 @@
 package school.faang.sprint1.bjs_43839;
 
 public abstract class Character {
+    private static final int HEALTH_BY_DEFAULT = 100;
     private final String name;
-    public int strength;
-    public int agility;
-    public int intelligence;
-    public int health = 100;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    public int health = HEALTH_BY_DEFAULT;
 
     public Character(String name) {
         this(name, 0, 0, 0);
@@ -19,4 +20,9 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void receiveDamage(int damage) {
+        health -= damage;
+        if (health < 0) { health = 0; }
+    }
 }
