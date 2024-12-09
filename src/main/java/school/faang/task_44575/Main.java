@@ -9,10 +9,11 @@ public class Main {
         hogwartsSpells.addSpellEvent(4, "Защита", "Защищает от атак от всего");
 
         hogwartsSpells.printAllSpellEvents();
-        hogwartsSpells.deleteSpellEvent(5);
+        hogwartsSpells.deleteSpellEvent(2);
         hogwartsSpells.printAllSpellEvents();
 
-        System.out.println(hogwartsSpells.getSpellEventById(2));
+        System.out.println(hogwartsSpells.getSpellEventById(4));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Трансфигурация"));
         System.out.println(hogwartsSpells.getSpellEventsByType("Защита"));
     }
 }
