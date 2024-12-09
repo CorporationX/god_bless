@@ -1,7 +1,6 @@
 package school.faang.bjs245254.repository;
 
 import lombok.Getter;
-import school.faang.bjs245254.model.BaseEntity;
 import school.faang.bjs245254.model.Student;
 import school.faang.bjs245254.model.Subject;
 
@@ -34,6 +33,9 @@ public class StudentDatabase implements StudentProvider {
         haveStudent(student);
         Map<Subject, Integer> subjectGrades = studentsGrades.remove(student);
         subjectGrades.forEach((subject, grades) -> {
+            if (!subjectsStudent.containsKey(subject)) {
+                throw new IllegalArgumentException("Subject is not found");
+            }
             subjectsStudent.get(subject).remove(student);
         });
     }
@@ -79,7 +81,7 @@ public class StudentDatabase implements StudentProvider {
         });
     }
 
-    private void validate(BaseEntity obj) {
+    private void validate(Object obj) {
         if (obj == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }

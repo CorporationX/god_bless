@@ -14,18 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StudentDataBaseTest {
 
     private final StudentDatabase studentDatabase = new StudentDatabase();
-    private Student student1;
-    private Student student2;
-    private Subject subject1;
-    private Subject subject2;
+    private final Student student1 = new Student(1, "John Doe");
+    private final Student student2 = new Student(2, "Jane Smith");
+    private final Subject subject1 = new Subject(3, "Math");
+    private final Subject subject2 = new Subject(4, "Science");
 
     @BeforeEach
     public void setUp() {
         studentDatabase.clearAll();
-        student1 = new Student(1, "John Doe");
-        student2 = new Student(2, "Jane Smith");
-        subject1 = new Subject(3, "Math");
-        subject2 = new Subject(4, "Science");
     }
 
     @Test
@@ -91,5 +87,4 @@ public class StudentDataBaseTest {
         studentDatabase.deleteStudentFromSubject(subject1, student2);
         assertFalse(studentDatabase.getSubjectsStudent().get(subject1).contains(student2));
     }
-
 }
