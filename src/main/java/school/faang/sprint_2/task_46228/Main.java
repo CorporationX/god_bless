@@ -14,8 +14,6 @@ public class Main {
                 -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
         Function<Image, Image> redFilter = (image)
                 -> new Image(image.getName(), image.getDescription() + " | Фильтр: красный");
-        Function<Image, Image> blueFilter = (image)
-                -> new Image(image.getName(), image.getDescription() + " | Фильтр: синий");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
