@@ -11,12 +11,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentDatabaseTest {
+    private static final int MATH_GRADE = 4;
+    private static final int BIOLOGY_GRADE = 5;
 
-    StudentDatabase studentDatabase;
-    Student femaleStudent;
-    Student maleStudent;
-    Subject biology;
-    Subject math;
+    private StudentDatabase studentDatabase;
+    private Student femaleStudent;
+    private Student maleStudent;
+    private Subject biology;
+    private Subject math;
 
     @BeforeEach
     void setUp() {
@@ -29,7 +31,7 @@ class StudentDatabaseTest {
 
     @Test
     void testSuccessAddStudentWithGrades() {
-        var grades = Map.of(biology, 4, math, 5);
+        var grades = Map.of(biology, BIOLOGY_GRADE, math, MATH_GRADE);
 
         studentDatabase.addStudentWithGrades(femaleStudent, grades);
 
@@ -42,7 +44,7 @@ class StudentDatabaseTest {
 
     @Test
     void testFailAddStudentWithGrades() {
-        var grades = Map.of(biology, 4, math, 5);
+        var grades = Map.of(biology, BIOLOGY_GRADE, math, MATH_GRADE);
 
         assertThrows(
             IllegalArgumentException.class,
@@ -93,10 +95,10 @@ class StudentDatabaseTest {
 
     @Test
     void testSuccessAddSubjectForStudent() {
-        var grades = Map.of(biology, 4);
+        var grades = Map.of(biology, BIOLOGY_GRADE);
         studentDatabase.addStudentWithGrades(femaleStudent, new HashMap<>(grades));
 
-        studentDatabase.addSubjectForStudent(math, femaleStudent, 4);
+        studentDatabase.addSubjectForStudent(math, femaleStudent, MATH_GRADE);
 
         assertTrue(studentDatabase.getStudentWithGrades().containsKey(femaleStudent));
         assertTrue(studentDatabase.getSubjectWithStudents().containsKey(biology));
@@ -156,7 +158,7 @@ class StudentDatabaseTest {
 
     @Test
     void testSuccessDeleteStudentWithSubjects() {
-        var grades = Map.of(biology, 4, math, 5);
+        var grades = Map.of(biology, BIOLOGY_GRADE, math, MATH_GRADE);
         studentDatabase.addStudentWithGrades(femaleStudent, grades);
 
         studentDatabase.deleteStudentWithSubjects(femaleStudent);
