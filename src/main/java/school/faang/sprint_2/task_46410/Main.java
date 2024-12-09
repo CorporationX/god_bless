@@ -20,7 +20,7 @@ public class Main {
     }
 
     public static String call(String param) throws Exception {
-        if (param.equals("exception")) {
+        if ("exception".equals(param)) {
             throw new Exception("Service unavailable");
         } else {
             return param;
