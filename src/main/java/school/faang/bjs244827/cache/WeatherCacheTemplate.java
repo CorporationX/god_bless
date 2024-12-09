@@ -30,4 +30,3 @@ public abstract class WeatherCacheTemplate {
         cache.entrySet().removeIf(entry -> !isCacheValid(entry.getValue(), maxCacheAgeMillis));
     }
 }
-

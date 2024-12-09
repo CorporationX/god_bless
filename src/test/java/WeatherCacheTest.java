@@ -7,6 +7,9 @@ import school.faang.bjs244827.model.WeatherData;
 import school.faang.bjs244827.service.WeatherProvider;
 import school.faang.bjs244827.service.WeatherService;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherCacheTest {
@@ -30,15 +33,10 @@ public class WeatherCacheTest {
         assertEquals(data1.temp(), data2.temp());
 
         // Ждем больше 1 секунды, чтобы данные устарели
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            //
-        }
-
-        // Теперь данные должны обновиться
-        WeatherData data3 = cache.getWeatherData("Tashkent", 1000);
-        assertNotEquals(data1.temp(), data3.temp());
+        await().atMost(2, SECONDS).untilAsserted(() ->
+                assertEquals(
+                        cache.getWeatherData("Tashkent", 1000).temp(),
+                        data1.temp()));
 
     }
 
