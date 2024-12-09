@@ -50,7 +50,8 @@ public class DataCenterService implements DataCenterProvider, OptimizationStrate
         }
 
         if (remainingLoad > 0) {
-            throw new IllegalArgumentException("Недостаточно доступных ресурсов. Остаточная нагрузка: " + remainingLoad);
+            throw new IllegalArgumentException("Недостаточно доступных ресурсов. Нагрузка: " + remainingLoad
+            );
         }
     }
 
@@ -71,7 +72,7 @@ public class DataCenterService implements DataCenterProvider, OptimizationStrate
         }
 
         if (remainingLoad > 0) {
-            throw new IllegalArgumentException("Недостаточно полезной нагрузки для выпуска. Остаточная нагрузка:" + remainingLoad);
+            throw new IllegalArgumentException("Недостаточно полезной нагрузки для выпуска. Нагрузка:" + remainingLoad);
         }
     }
 
