@@ -17,6 +17,7 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
+
         Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
 
         for (User user : users) {
