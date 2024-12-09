@@ -17,20 +17,12 @@ public class ProductStorage {
 
     public void removeItem(String category, String name) throws IllegalArgumentException {
         checkCategory(category);
-
         List<Product> products = productsByCategory.get(category);
-        List<Product> productsToRemove = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                productsToRemove.add(product);
-            }
-        }
 
-        if (productsToRemove.isEmpty()) {
-            throw new IllegalArgumentException("Product: \"" + name + "\" does not exist");
-        }
-
-        products.removeAll(productsToRemove);
+        products.stream().filter(product -> name.equals(product.getName()))
+                .findFirst().ifPresentOrElse(products::remove, () -> {
+                    throw new IllegalArgumentException(String.format("Product: \"%s\" does not exist", name));
+                });
     }
 
     public List<Product> findItemsByCategory(String category) {
