@@ -2,6 +2,7 @@ package ru.maks1979.task_44628;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 public class SpellEvent {
@@ -14,6 +15,7 @@ public class SpellEvent {
         this.eventType = eventType;
         this.action = action;
     }
+
     public String toString() {
         return "SpellEvent{id=" + id + ", eventType='" + eventType + "', actionDescription='" + action + "'}";
     }

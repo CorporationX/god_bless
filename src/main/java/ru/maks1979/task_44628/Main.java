@@ -8,8 +8,8 @@ public class Main {
 
         HogwartsSpells spells = new HogwartsSpells();
 
-    spells.spellById = new HashMap<>();
-    spells.spellByType = new HashMap<>();
+        spells.spellById = new HashMap<>();
+        spells.spellByType = new HashMap<>();
 
 
         spells.addSpellEvent(1, "Protection", "Shield creating");
@@ -19,11 +19,11 @@ public class Main {
 
         System.out.println(spells.getSpellEventById(2));
 
-    List<SpellEvent> offensiveSpells = spells.getSpellEventsByType("Offensive");
+        List<SpellEvent> offensiveSpells = spells.getSpellEventsByType("Offensive");
         System.out.println(offensiveSpells);
 
         spells.deleteSpellEvent(3);
-    List<SpellEvent> healingSpells = spells.getSpellEventsByType("Healing");
+        List<SpellEvent> healingSpells = spells.getSpellEventsByType("Healing");
         System.out.println(healingSpells);
 
 
@@ -31,5 +31,6 @@ public class Main {
         System.out.println(offensiveSpells);
 
 
-}}
+    }
+}
 
