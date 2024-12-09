@@ -49,7 +49,7 @@ public class StudentDatabase {
                     System.err.println("Student not found by Id");
                     return null;
                 });
-                //.orElseThrow(() -> new IllegalArgumentException("Student not found by Id"));
+        //.orElseThrow(() -> new IllegalArgumentException("Student not found by Id"));
     }
 
     public Student findStudentByName(String name) {
@@ -62,7 +62,7 @@ public class StudentDatabase {
                     System.err.println("Student not found by name");
                     return null;
                 });
-                //.orElseThrow(() -> new IllegalArgumentException("Student not found by name"));
+        //.orElseThrow(() -> new IllegalArgumentException("Student not found by name"));
     }
 
     public void addStudentSubject(UUID studentId, Map.Entry<Subject, Integer> subjectAndMark) {
@@ -121,7 +121,7 @@ public class StudentDatabase {
                     System.err.println("Subject not found by Id");
                     return null;
                 });
-                //.orElseThrow(() -> new IllegalArgumentException("Subject not found by Id"));
+        //.orElseThrow(() -> new IllegalArgumentException("Subject not found by Id"));
     }
 
     public Subject findSubjectByName(String name) {
@@ -134,7 +134,7 @@ public class StudentDatabase {
                     System.err.println("Subject not found by name");
                     return null;
                 });
-                //.orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
+        //.orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
     }
 
     public void addSubjectStudent(UUID subjectId, Student studentOnCourse) {
