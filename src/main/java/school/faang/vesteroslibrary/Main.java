@@ -12,9 +12,10 @@ public class Main {
         librarySystem.addBook("Подсознание может всё!", "Джон Кехо", 1997, "3 полка, 2 ряд");
         librarySystem.addBook("Квантовый воин: сознание будущего", "Джон Кехо", 2011, "1 полка, 2 ряд");
         librarySystem.printAllBooks();
-        System.out.println(librarySystem.findBook("Квантовый воин: сознание будущего", "Джон Кехо", 2011));
+        librarySystem.findBook("Квантовый воин: сознание будущего", "Джон Кехо", 2011);
 
         librarySystem.removeBook("Подсознание может всё!", "Джон Кехо", 1997);
+        librarySystem.findBook("Подсознание может всё!", "Джон Кехо", 1997);
         librarySystem.printAllBooks();
 
     }
