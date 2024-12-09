@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
@@ -26,10 +26,8 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = spellById.get(id);
-
-        if (spellById.containsKey(id)) {
-            spellById.remove(id);
+        SpellEvent spellEvent = spellById.remove(id);
+        if (spellEvent != null) {
             spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
         } else {
             System.out.println("SpellEvent with id = " + id + " not found");
