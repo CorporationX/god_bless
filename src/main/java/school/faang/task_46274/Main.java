@@ -10,7 +10,7 @@ public class Main {
         Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription()
                 + " | Фильтр: черно-белый");
         Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription()
-                + " | Фильтр: сепеия");
+                + " | Фильтр: сепия");
         Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName(), image.getDescription()
                 + " | Фильтр: виньетка");
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
@@ -21,7 +21,5 @@ public class Main {
         Function<Image, Image> combineFilter = filterProcessor.combineFilters(sepiaFilter, vignetteFilter);
         Image combineImage = filterProcessor.applyFilter(originalImage, combineFilter);
         System.out.println(combineImage.getName() + ": " + combineImage.getDescription());
-
-
     }
 }
