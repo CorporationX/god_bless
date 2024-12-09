@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public class Store {
     public void addItem(String category, String name) {
         validateProductParameters(category, name);
 
-        if (!isProductByNameAndCategory(name, category)) {
+        if (!containsProduct(name, category)) {
             Product product = new Product(name, category);
             products.add(product);
             categories.add(category);
@@ -39,17 +38,11 @@ public class Store {
     }
 
     public Set<Product> findItemsByCategory(String category) throws CategoryNotFoundException {
-        if (!categories.contains(category)) {
+        List<Product> productsByCategory = groupedProducts.get(category);
+        if (productsByCategory == null) {
             throw new CategoryNotFoundException();
         }
-
-        return products.stream().filter(product -> {
-            if (product.getCategory() != null) {
-                return product.getCategory().equals(category);
-            }
-
-            return false;
-        }).collect(Collectors.toUnmodifiableSet());
+        return Set.copyOf(productsByCategory);
     }
 
     public void printAllItems() {
@@ -73,7 +66,8 @@ public class Store {
     }
 
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.entrySet().forEach(entry -> log.info(entry.toString()));
+        groupedProducts.entrySet()
+                .forEach(entry -> log.info(entry.toString()));
     }
 
     private void validateProductParameters(String category, String name) {
@@ -82,28 +76,23 @@ public class Store {
         }
     }
 
-    private boolean isProductByNameAndCategory(String name, String category) {
-        return products.stream().anyMatch(product -> checkProductName(product, name)
-                && checkProductCategory(product, category));
+    private boolean containsProduct(String name, String category) {
+        return products.stream()
+                .anyMatch(product -> product.getName().equalsIgnoreCase(name)
+                && product.getCategory().equalsIgnoreCase(category));
     }
 
     private Product findProduct(String name, String category) {
-        return products.stream().filter(product -> checkProductName(product, name)
-                && checkProductCategory(product, category)).findFirst().orElseThrow(ProductNotFoundException::new);
+        return products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name)
+                && product.getCategory().equalsIgnoreCase(category))
+                .findFirst()
+                .orElseThrow(ProductNotFoundException::new);
     }
 
-    private boolean checkProductName(Product product, String name) {
-        return product.getName().equalsIgnoreCase(name);
-    }
-
-    private boolean checkProductCategory(Product product, String category) {
-        return product.getCategory().equalsIgnoreCase(category);
-    }
 
     private void addInGroupedProducts(Product product) {
-        if (!groupedProducts.containsKey(product.getCategory())) {
-            groupedProducts.put(product.getCategory(), new ArrayList<>());
-        }
+        groupedProducts.putIfAbsent(product.getCategory(), new ArrayList<>());
 
         List<Product> productByCategory = groupedProducts.get(product.getCategory());
         if (!isProductIdInList(product.getId(), productByCategory)) {
@@ -117,6 +106,7 @@ public class Store {
     }
 
     private boolean isProductIdInList(int id, List<Product> products) {
-        return products.stream().anyMatch(product -> product.getId() == id);
+        return products.stream()
+                .anyMatch(product -> Integer.valueOf(product.getId()).equals(id));
     }
 }
