@@ -67,6 +67,4 @@ public class Main {
             System.out.println("Удалено заклинание " + deletedSpellEvent + "\n");
         }
     }
-
-
 }
