@@ -1,6 +1,10 @@
 plugins {
     id 'checkstyle'
     id 'java'
+    id 'application'
+}
+application {
+    mainClass = 'school.faang.bjs244699.Main'
 }
 
 group = "faang.school"
@@ -23,6 +27,9 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+
+   /* compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'*/
 }
 
 test {
