@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 public class Character {
-    String name;
-    List<Item> inventory;
+    private String name;
+    private List<Item> inventory;
 
     public Character(String name) {
         this.inventory = new ArrayList<>();

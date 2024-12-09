@@ -8,15 +8,29 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(alex, ring, item -> System.out.println(item.getName() + " was add to inventory"));
-        manager.addItem(alex, sword, item -> System.out.println(item.getName() + " was add to inventory"));
+        manager.addItem(
+                alex,
+                ring,
+                item -> System.out.println(item.getName() + " was added to inventory")
+        );
+        manager.addItem(
+                alex,
+                sword,
+                item -> System.out.println(item.getName() + " was added to inventory")
+        );
         System.out.println(alex);
 
-        manager.removeItem(alex, item -> item.getName().equals("Sword"));
+        manager.removeItem(
+                alex,
+                item -> item.getName().equals("Sword")
+        );
         System.out.println(alex);
 
-        manager.updateItem(alex, item -> item.getName().equals("Ring"),
-                item -> new Item(item.getName(), (item.getValue() * 5)));
+        manager.updateItem(
+                alex,
+                item -> item.getName().equals("Ring"),
+                item -> new Item(item.getName(), (item.getValue() * 5))
+        );
         System.out.println(alex);
     }
 }
