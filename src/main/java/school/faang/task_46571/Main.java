@@ -14,7 +14,8 @@ public class Main {
 
         LocationSearchEngine searchEngine = new LocationSearchEngine();
 
-        List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.longitude() > 0);
+        List<Location> filteredLocations =
+                searchEngine.filterLocations(locations, (location) -> location.longitude() > 0);
 
         searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.name()));
 
