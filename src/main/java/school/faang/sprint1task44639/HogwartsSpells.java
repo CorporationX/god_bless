@@ -40,9 +40,7 @@ public class HogwartsSpells {
             return;
         }
 
-        SpellEvent event = spellById.get(id);
-
-        spellById.remove(id);
+        SpellEvent event = spellById.remove(id);
 
         List<SpellEvent> events = spellsByType.get(event.eventType);
 
