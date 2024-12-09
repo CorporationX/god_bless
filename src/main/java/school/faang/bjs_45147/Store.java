@@ -2,6 +2,7 @@ package school.faang.bjs_45147;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import school.faang.bjs_45147.enums.Category;
 import school.faang.bjs_45147.exception.CategoryNotFoundException;
 import school.faang.bjs_45147.exception.ProductNotFoundException;
 
@@ -17,15 +18,16 @@ import java.util.Set;
 public class Store {
     private final Set<Product> products = new HashSet<>();
     private final Map<String, List<Product>> groupedProducts = new HashMap<>();
-    private final Set<String> categories = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     public void addItem(String category, String name) {
         validateProductParameters(category, name);
 
         if (!containsProduct(name, category)) {
-            Product product = new Product(name, category);
+            Category productsCategory = Category.valueOfName(category);
+            Product product = new Product(name, productsCategory);
             products.add(product);
-            categories.add(category);
+            categories.add(productsCategory);
             addInGroupedProducts(product);
         }
     }
@@ -39,9 +41,7 @@ public class Store {
 
     public Set<Product> findItemsByCategory(String category) throws CategoryNotFoundException {
         List<Product> productsByCategory = groupedProducts.get(category);
-        if (productsByCategory == null) {
-            throw new CategoryNotFoundException();
-        }
+
         return Set.copyOf(productsByCategory);
     }
 
@@ -56,7 +56,7 @@ public class Store {
     public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
         products.forEach(product -> {
-            String category = product.getCategory();
+            String category = product.getCategory().getName();
             List<Product> productsByCategory = groupedProducts.computeIfAbsent(category, k -> new ArrayList<>());
 
             productsByCategory.add(product);
@@ -79,29 +79,29 @@ public class Store {
     private boolean containsProduct(String name, String category) {
         return products.stream()
                 .anyMatch(product -> product.getName().equalsIgnoreCase(name)
-                && product.getCategory().equalsIgnoreCase(category));
+                && product.getCategory().getName().equalsIgnoreCase(category));
     }
 
     private Product findProduct(String name, String category) {
         return products.stream()
                 .filter(product -> product.getName().equalsIgnoreCase(name)
-                && product.getCategory().equalsIgnoreCase(category))
+                && product.getCategory().getName().equalsIgnoreCase(category))
                 .findFirst()
                 .orElseThrow(ProductNotFoundException::new);
     }
 
 
     private void addInGroupedProducts(Product product) {
-        groupedProducts.putIfAbsent(product.getCategory(), new ArrayList<>());
+        groupedProducts.putIfAbsent(product.getCategory().getName(), new ArrayList<>());
 
-        List<Product> productByCategory = groupedProducts.get(product.getCategory());
+        List<Product> productByCategory = groupedProducts.get(product.getCategory().getName());
         if (!isProductIdInList(product.getId(), productByCategory)) {
             productByCategory.add(product);
         }
     }
 
     private void removeFromGroupedProducts(Product product) {
-        List<Product> productByCategory = groupedProducts.get(product.getCategory());
+        List<Product> productByCategory = groupedProducts.get(product.getCategory().getName());
         productByCategory.remove(product);
     }
 
