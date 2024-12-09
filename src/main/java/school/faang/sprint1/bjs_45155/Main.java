@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class Main {
@@ -18,6 +19,7 @@ public class Main {
         findItemsByCategory("Автомобильные товары");
         // не совсем понял, в чем должно быть отличие между методами printAllItems и этим
         printProductsByCategory(groupedProducts);
+        System.out.println("fdfsdfsdfsdfsf");
 
         // тестирование метода removeItem
         removeItem("Автомобильные товары", "Зеркало заднего вида");
@@ -26,48 +28,46 @@ public class Main {
     }
 
     private static void addItem(String category, String name) {
-        products.add(new Product(products.size() - 1, name, category));
+        if (category.isEmpty() || category == null || name.isEmpty() || name == null) {
+            throw new NoSuchElementException("Введенные данные некорректные");
+        }
+
+        products.add(new Product(products.size() + 1, name, category));
         groupedProducts = groupProductsByCategory(products);
     }
 
-    /** вот это наговнокодил так наговнокодил, каждую строчку расписал, чтобы
-     * спустя время зайти и понять, что я тут наворотил вообще, желательно без
-     * серьезных последствий для мозга)
-     * P.S. Ревьюеру здоровья, хотя я думаю он и не такое видел)
-     **/
     private static void removeItem(String category, String name) {
-        boolean flag = false; // добавил флаг для проверки наличия товара
-        int id = 0; // добавил поле id для вытянутого товара
-        // если категории не существует - выводим ошибку
-        if (!groupedProducts.containsKey(category)) {
-            System.out.println("Такая категория не добавлена!");
-        } else { // если существует, вытягиваем из мапы по ключу список с товарами и ищем товар в нем
+        Product removedProduct = null;
+
+        if (groupedProducts.containsKey(category)) {
             List<Product> categoryProducts = groupedProducts.get(category);
-            // если товар найден - меняем флаг на true и сохраняем id товара
             for (Product product : categoryProducts) {
                 if (product.getName().equals(name)) {
-                    flag = true;
-                    id = product.getId();
+                    removedProduct = product;
                 }
             }
-            // если true - удаляем, если нет - выводим сообщение об ошибке
-            if (flag) {
-                products.remove(new Product(id, name, category));
-                groupedProducts = groupProductsByCategory(products);
-                System.out.println("Товар удален\n");
-            } else {
-                System.out.println("Такого товара нет\n");
+
+            if (removedProduct == null) {
+                throw new NoSuchElementException("Такого товара нет в данной категории!");
             }
+
+            categoryProducts.remove(removedProduct);
+
+            if (groupedProducts.get(category).size() == 0) {
+                groupedProducts.remove(category);
+            }
+        } else {
+            throw new NoSuchElementException("Такая категория не была добавлена");
         }
     }
 
     private static void findItemsByCategory(String category) {
         if (!groupedProducts.containsKey(category)) {
-            System.out.println("Такая категория не была добавлена");
+            throw new NoSuchElementException("Такая категория не была добавлена");
         } else {
             List<Product> categoryProducts = groupedProducts.get(category);
+            System.out.println("\nТовары в категории " + category + ": ");
             for (Product product : categoryProducts) {
-                System.out.println("\nТовары в категории " + category + ": ");
                 System.out.println(product.getName() + "\n");
             }
         }
@@ -107,11 +107,11 @@ public class Main {
         Set<Product> products = new HashSet<>();
 
         String[][] productData = {
-                {"0", "Губка для тела", "Гигиена"},
-                {"1", "Компьютерная мышь", "Электроника"},
-                {"2", "Телефон", "Электроника"},
-                {"3", "Кухонный нож", "Бытовые товары"},
-                {"4", "Чипсы", "Снэки"}
+                {"1", "Губка для тела", "Гигиена"},
+                {"2", "Компьютерная мышь", "Электроника"},
+                {"3", "Телефон", "Электроника"},
+                {"4", "Кухонный нож", "Бытовые товары"},
+                {"5", "Чипсы", "Снэки"}
         };
 
         for (String[] product : productData) {

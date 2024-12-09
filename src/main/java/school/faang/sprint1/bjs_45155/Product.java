@@ -1,20 +1,16 @@
 package school.faang.sprint1.bjs_45155;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
 
 @Getter
+@AllArgsConstructor
 public class Product {
     private int id;
     private String name;
     private String category;
-
-    public Product(int id, String name, String category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
 
     @Override
     public boolean equals(Object o) {
