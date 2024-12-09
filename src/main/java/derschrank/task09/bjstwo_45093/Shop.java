@@ -6,43 +6,73 @@ import java.util.Map;
 import java.util.Set;
 
 public class Shop {
-    private Map<Category, Set<Product>> productsByCategoryMap;
+    private Set<Product> products;
 
-    public Shop(Map<Category, Set<Product>> map) {
-        productsByCategoryMap = map;
+    public Shop(Set<Product> p) {
+        products = p;
     }
 
     public Shop() {
-        this(new HashMap<>());
+        this(new HashSet<>());
     }
 
-    public void addItem(String category, String productName) {
-        addItem(new Category(category), new Product(productName));
+
+    public void addItem(Product product) {
+        products.add(product);
     }
 
-    public void addItem(String category, Product product) {
-        addItem(new Category(category), product);
+    public void addItem(String categoryName, Product product) {
+        addItem(new Category(categoryName), product);
     }
 
     public void addItem(Category category, Product product) {
-        productsByCategoryMap.computeIfAbsent(category, k -> new HashSet<>());
-        productsByCategoryMap.get(category).add(product);
+        addItem(product);
         product.setCategory(category);
     }
 
-    public void removeItem(String productName) {
-        removeItem(findProductItemInCategoryMapByNameOfProduct(productName));
+    public void removeItem(String categoryName, String productName){
+        Set<Product> productSet = getSetOfProductsByName(productName);
+        if (productSet.isEmpty()) {
+            System.out.printf("Product/s with name %s not found%n", productName);
+        } else {
+            Category category = new Category(categoryName);
+            for (Product product : productSet) {
+                removeItem(category, product);
+            }
+        }
     }
 
-    public void removeItem(Product product) {
-        Set<Product> productsInOneCategorySet = productsByCategoryMap.get(product.getCategory());
-        if (productsInOneCategorySet == null) {
-            System.out.println("Category or Product is not found");
-            return;
+    public void removeItem(Category category, Product product) {
+        if (product.getCategory().equals(category)){
+            product.setDefaultCategory();
+        } else {
+            System.out.printf("Category %s isn't found in Product %s%n", category, product);
+        }
+    }
+
+    public Set<Product> getSetOfProductsByName(String name) {
+        Set<Product> productSet = new HashSet<>();
+        products.stream()
+                .filter(x -> x.getName().equals(name))
+                .forEach(productSet::add);
+
+        return productSet;
+    }
+
+
+    public Map<Category, Set<Product>> groupProductsByCategory() {
+        return groupProductsByCategory(products);
+    }
+
+    public Map<Category, Set<Product>> groupProductsByCategory(Set<Product> products) {
+        Map<Category, Set<Product>> categoryProductMap = new HashMap<>();
+        for (Product product : products) {
+            categoryProductMap
+                    .computeIfAbsent(product.getCategory(), k -> new HashSet<>())
+                    .add(product);
         }
 
-        productsInOneCategorySet.remove(product);
-        product.setCategory(null);
+        return categoryProductMap;
     }
 
     public Set<Product> findItemsByCategory(String categoryName) {
@@ -50,18 +80,7 @@ public class Shop {
     }
 
     public Set<Product> findItemsByCategory(Category category) {
-        return productsByCategoryMap.get(category);
-    }
-
-    public Product findProductItemInCategoryMapByNameOfProduct(String productName) {
-        for (Set<Product> productsInOneCategorySet : productsByCategoryMap.values()) {
-            for (Product product : productsInOneCategorySet) {
-                if (product.getName().equals(productName)) {
-                    return product;
-                }
-            }
-        }
-        return null;
+        return groupProductsByCategory().get(category);
     }
 
     public void printItemsByCategory(String categoryName) {
@@ -83,7 +102,7 @@ public class Shop {
 
     public void printAllItems() {
         System.out.println("All products in all categories.");
-        for (Category category : productsByCategoryMap.keySet()) {
+        for (Category category : groupProductsByCategory().keySet()) {
             printItemsByCategory(category);
         }
     }

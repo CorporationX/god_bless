@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@EqualsAndHashCode
 @AllArgsConstructor
 public class Category {
 
@@ -19,4 +18,15 @@ public class Category {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(name, category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }

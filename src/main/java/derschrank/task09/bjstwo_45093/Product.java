@@ -14,7 +14,6 @@ public class Product {
     private final int id;
     private final String name;
 
-    @Setter
     private Category category;
 
     public Product(String name) {
@@ -33,6 +32,18 @@ public class Product {
         if (id > maxIdOfProducts) {
             maxIdOfProducts = id;
         }
+    }
+
+    public void setCategory(Category category) {
+        if (category == null) {
+            setDefaultCategory();
+        } else {
+            this.category = category;
+        }
+    }
+
+    public void setDefaultCategory() {
+        category = DEFAULT_CATEGORY;
     }
 
     @Override

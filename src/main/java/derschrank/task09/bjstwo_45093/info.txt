@@ -72,3 +72,56 @@ All products in category: Category1
 BUILD SUCCESSFUL in 15s
 2 actionable tasks: 2 executed
 6:29:23: Execution finished ':derschrank.task09.bjstwo_45093.Main.main()'.
+
+--------------------------------------
+2024/12/09
+
+23:25:43: Executing ':derschrank.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.task09.bjstwo_45093.Main.main()
+1) Make Products and Category #1
+2) Add Products to Shop
+3) Print Products in Category #1
+All products in category: Category1
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 3: Product3
+
+4) Print All Products
+All products in all categories.
+All products in category: with out group
+[with out group] Art. 4: Product4
+[with out group] Art. 5: Product5
+
+All products in category: Category1
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 3: Product3
+
+
+5) removeItem Product1 from Category3
+Category Category3 isn't found in Product [Category1] Art. 1: Product1
+
+6) removeItem Product111 from Category1
+Product/s with name Product111 not found
+
+7) removeItem Product1, Product2 from Category1
+8) Print All Products
+All products in all categories.
+All products in category: with out group
+[with out group] Art. 1: Product1
+[with out group] Art. 2: Product2
+[with out group] Art. 4: Product4
+[with out group] Art. 5: Product5
+
+All products in category: Category1
+[Category1] Art. 3: Product3
+
+
+BUILD SUCCESSFUL in 4s
+2 actionable tasks: 2 executed
+23:25:48: Execution finished ':derschrank.task09.bjstwo_45093.Main.main()'.
