@@ -18,77 +18,75 @@ public class ProductManager implements ProductManageable {
 
     public ProductManager(Set<Product> products) {
         for (Product product : products) {
-            productsMap.computeIfAbsent(product.getCategory(),
-                            k -> new ArrayList<>())
-                    .add(product);
+            List<Product> productList = getOrCreateProductsByCategory(
+                    productsMap, product.getCategory());
+            productList.add(product);
         }
     }
 
     @Override
     public void addItem(String category, String name) {
         Product product = new Product(name, category);
-        productsMap.computeIfAbsent(product.getCategory(),
-                        k -> new ArrayList<>())
-                .add(product);
+        List<Product> productsList = getOrCreateProductsByCategory(
+                productsMap, category);
+        productsList.add(product);
     }
 
     @Override
-    public void removeItem(String category, String name) {
-        // Product product = new Product(id, name, category);
-        try {
-            List<Product> products = Optional
-                    .ofNullable(productsMap.get(category))
-                    .orElseThrow(() ->
-                            new NoSuchElementException("Category not found: " + category)
-                    );
-            if (!products.removeIf(product -> product.getName()
-                    .equals(name))) {
-                throw new NoSuchElementException("Product not found: " + name);
-            }
-        } catch (NoSuchElementException ex) {
-            log.error(ex.getMessage());
-        }
+    public void removeItem(String category, String name) throws NoSuchElementException {
+        List<Product> products = getProductsByCategory(category);
+        Product product = products.stream()
+                .filter((p -> p.getName().equals(name)))
+                .findFirst()
+                .orElseThrow(() -> {
+                    String message = "Product not found: " + name;
+                    log.error(message);
+                    return new NoSuchElementException(message);
+                });
+        products.remove(product);
     }
 
     @Override
-    public void findItemsByCategory(String category) {
-        try {
-            Optional.ofNullable(productsMap.get(category))
-                    .ifPresentOrElse(products -> {
-                        System.out.println(category + ": ");
-                        productsMap.get(category)
-                                .forEach(product ->
-                                        System.out.println("   " + product));
-                    }, () -> {
-                        throw new NoSuchElementException("Category not found: "
-                                + category);
-                    });
-        } catch (NoSuchElementException ex) {
-            log.error(ex.getMessage());
-        }
+    public void findItemsByCategory(String category) throws NoSuchElementException {
+        List<Product> products = getProductsByCategory(category);
+        printAllItemsByCategory(category, products);
     }
 
     @Override
     public void printAllItems() {
-        productsMap.values().forEach(products ->
-                products.forEach(System.out::println));
+        productsMap.forEach(this::printAllItemsByCategory);
     }
 
     public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
         for (Product product : products) {
-            groupedProducts.computeIfAbsent(product.getCategory(),
-                            k -> new ArrayList<>())
-                    .add(product);
+            List<Product> productList = getOrCreateProductsByCategory(
+                    groupedProducts, product.getCategory());
+            productList.add(product);
         }
         return groupedProducts;
     }
 
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        groupedProducts.forEach((category, products) -> {
-            System.out.println(category + ": ");
-            products.forEach(product -> System.out.println("   " + product));
-        });
+        groupedProducts.forEach(this::printAllItemsByCategory);
+    }
+
+    private void printAllItemsByCategory(String category, List<Product> products) {
+        System.out.println(category + ": ");
+        products.forEach(product -> System.out.println("\t" + product));
+    }
+
+    private List<Product> getProductsByCategory(String category) throws NoSuchElementException {
+        return Optional.ofNullable(productsMap.get(category))
+                .orElseThrow(() -> {
+                    String message = "Category not found: " + category;
+                    log.error(message);
+                    return new NoSuchElementException(message);
+                });
+    }
+
+    private List<Product> getOrCreateProductsByCategory(Map<String, List<Product>> productsMap, String category) {
+        return productsMap.computeIfAbsent(category, k -> new ArrayList<>());
     }
 }
 

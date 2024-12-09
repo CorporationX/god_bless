@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductManagerTest {
     private ProductManager productManager;
@@ -65,9 +67,9 @@ class ProductManagerTest {
         productManager.addItem(productCategory, productName);
         productManager.findItemsByCategory(productCategory);
 
-        String output = outputStream.toString().trim();
-        assertTrue(output.contains(productCategory + ": "));
-        assertTrue(output.contains("   " + productName));
+        String actualOutput = outputStream.toString().trim();
+        String expectedOutput = String.format("%s: \n\t%s", productCategory, productName);
+        assertEquals(expectedOutput, actualOutput);
 
         System.setOut(originalOut);
     }
@@ -82,8 +84,9 @@ class ProductManagerTest {
         productManager.addItem(productCategory, productName);
         productManager.printAllItems();
 
-        String output = outputStream.toString().trim();
-        assertTrue(output.contains(productName));
+        String actualOutput = outputStream.toString().trim();
+        String expectedOutput = String.format("%s: \n\t%s", productCategory, productName);
+        assertEquals(expectedOutput, actualOutput);
 
         System.setOut(originalOut);
     }
@@ -92,10 +95,10 @@ class ProductManagerTest {
     void testGroupProductsByCategory() {
         String category1 = "Electronics";
         String category2 = "Furniture";
-        Set<Product> products = new HashSet<>();
-        products.add(new Product("Apple iPhone 14", category1));
-        products.add(new Product("Samsung Galaxy S23", category1));
-        products.add(new Product("Herman Miller Aeron Chair", category2));
+        Product product1 = new Product("Apple iPhone 14", category1);
+        Product product2 = new Product("Samsung Galaxy S23", category1);
+        Product product3 = new Product("Herman Miller Aeron Chair", category2);
+        Set<Product> products = Set.of(product1, product2, product3);
 
         Map<String, List<Product>> gropedProducts = productManager
                 .groupProductsByCategory(products);
@@ -103,8 +106,9 @@ class ProductManagerTest {
         assertEquals(2, gropedProducts.size());
         assertTrue(gropedProducts.containsKey(category1));
         assertTrue(gropedProducts.containsKey(category2));
-        assertEquals(2, gropedProducts.get(category1).size());
-        assertEquals(1, gropedProducts.get(category2).size());
+        assertTrue(gropedProducts.get(category1).get(0).equals(product1)
+                || gropedProducts.get(category1).get(1).equals(product1));
+        assertEquals(product3, gropedProducts.get(category2).get(0));
     }
 
     @Test
@@ -122,12 +126,11 @@ class ProductManagerTest {
 
         productManager.printProductsByCategory(productsMap);
 
-        String output = outputStream.toString().trim();
-        assertTrue(output.contains(category1 + ": "));
-        assertTrue(output.contains("   " + product1));
-        assertTrue(output.contains("   " + product2));
-        assertTrue(output.contains(category2 + ": "));
-        assertTrue(output.contains("   " + product3));
+        String actualOutput = outputStream.toString().trim();
+        String expectedOutput = String.format("%s: %n\t%s%n\t%s%n%s: %n\t%s",
+                category1, product1, product2, category2, product3).trim();
+
+        assertEquals(actualOutput, expectedOutput);
 
         System.setOut(originalOut);
     }

@@ -3,9 +3,9 @@ package school.faang.task_43518;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class IdGenerator {
-    private final AtomicLong counter = new AtomicLong(0);
+    private static final AtomicLong COUNTER = new AtomicLong(0);
 
-    public long getId() {
-        return counter.getAndIncrement();
+    public static long getNextId() {
+        return COUNTER.getAndIncrement();
     }
 }
