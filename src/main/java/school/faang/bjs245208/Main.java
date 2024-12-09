@@ -13,8 +13,8 @@ public class Main {
         try {
             StudentDatabase db = new StudentDatabase();
 
-            //db.printAllStudentsWithScores();
-            //removeStudent(db);
+            db.printAllStudentsWithScores();
+            removeStudent(db);
 
             addStudents(db);
             db.printAllStudentsWithScores();

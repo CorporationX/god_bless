@@ -65,6 +65,10 @@ public class SampleData {
 
     public static void removeStudent(StudentDatabase db) {
         Student student = db.findStudentByName("Student3");
+        if (student == null) {
+            System.err.println("Student does not exist!");
+            return;
+        }
         db.removeStudent(student.getId());
     }
 

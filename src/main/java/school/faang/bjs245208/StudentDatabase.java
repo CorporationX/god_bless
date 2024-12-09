@@ -14,8 +14,9 @@ public class StudentDatabase {
     private final Map<Subject, List<Student>> subjectsStudents = new HashMap<>();
 
     public void addStudent(String studentName, Map<Subject, Integer> studentSubjectsAndMarks) {
-        validate(studentName);
-        validate(studentSubjectsAndMarks);
+        if (!validate(studentName) || !validate(studentSubjectsAndMarks)) {
+            return;
+        }
 
         Student student = new Student(studentName);
         studentsScores.put(student, studentSubjectsAndMarks);
@@ -39,26 +40,35 @@ public class StudentDatabase {
     }
 
     public Student findStudent(UUID studentid) {
-        validate(studentid);
+        //  if (!validate(studentid)) { return null; }
 
         return studentsScores.keySet().stream()
                 .filter(existingStudent -> Objects.equals(existingStudent.getId(), studentid))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Student not found by Id"));
+                .orElseGet(() -> {
+                    System.err.println("Student not found by Id");
+                    return null;
+                });
+                //.orElseThrow(() -> new IllegalArgumentException("Student not found by Id"));
     }
 
     public Student findStudentByName(String name) {
-        validate(name);
+        //  if (!validate(name)) { return null; }
 
         return studentsScores.keySet().stream()
                 .filter(existingStudent -> Objects.equals(existingStudent.getName(), name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Student not found by name"));
+                .orElseGet(() -> {
+                    System.err.println("Student not found by name");
+                    return null;
+                });
+                //.orElseThrow(() -> new IllegalArgumentException("Student not found by name"));
     }
 
     public void addStudentSubject(UUID studentId, Map.Entry<Subject, Integer> subjectAndMark) {
-        validate(studentId);
-        validate(subjectAndMark);
+        if (!validate(studentId) || !validate(subjectAndMark)) {
+            return;
+        }
 
         Student student = findStudent(studentId);
         Map<Subject, Integer> subjectsAndMarks = studentsScores.get(student);
@@ -70,14 +80,18 @@ public class StudentDatabase {
     }
 
     public void removeStudent(UUID studentId) {
-        validate(studentId);
+        if (!validate(studentId)) {
+            return;
+        }
 
         Student student = findStudent(studentId);
         studentsScores.remove(student);
     }
 
     public void printAllStudentsWithScores() {
-        validate(studentsScores);
+        if (!validate(studentsScores)) {
+            System.out.println("Students list is empty!");
+        }
 
         studentsScores.forEach((student, scores) -> {
             System.out.println(student);
@@ -87,8 +101,9 @@ public class StudentDatabase {
     }
 
     public void addSubject(String subjectName, List<Student> studentsOnCourse) {
-        validate(subjectName);
-        validate(studentsOnCourse);
+        if (!validate(subjectName) || !validate(studentsOnCourse)) {
+            return;
+        }
 
         Subject subject = new Subject(subjectName);
         subjectsStudents.put(subject, studentsOnCourse);
@@ -97,26 +112,35 @@ public class StudentDatabase {
     }
 
     public Subject findSubject(UUID subjectId) {
-        validate(subjectId);
+        //  if (!validate(subjectId)) { return null; }
 
         return subjectsStudents.keySet().stream()
                 .filter(existingStudent -> Objects.equals(existingStudent.getId(), subjectId))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Subject not found by Id"));
+                .orElseGet(() -> {
+                    System.err.println("Subject not found by Id");
+                    return null;
+                });
+                //.orElseThrow(() -> new IllegalArgumentException("Subject not found by Id"));
     }
 
     public Subject findSubjectByName(String name) {
-        validate(name);
+        //  if (!validate(name)) { return null; }
 
         return subjectsStudents.keySet().stream()
                 .filter(existingStudent -> Objects.equals(existingStudent.getName(), name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
+                .orElseGet(() -> {
+                    System.err.println("Subject not found by name");
+                    return null;
+                });
+                //.orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
     }
 
     public void addSubjectStudent(UUID subjectId, Student studentOnCourse) {
-        validate(subjectId);
-        validate(studentOnCourse);
+        if (!validate(subjectId) || !validate(studentOnCourse)) {
+            return;
+        }
 
         Subject subject = findSubject(subjectId);
         List<Student> students = subjectsStudents.get(subject);
@@ -128,15 +152,18 @@ public class StudentDatabase {
     }
 
     public void removeStudentFromSubject(UUID subjectId, Student studentOnCourse) {
-        validate(subjectId);
-        validate(studentOnCourse);
+        if (!validate(subjectId) || !validate(studentOnCourse)) {
+            return;
+        }
 
         Subject subject = findSubject(subjectId);
         subjectsStudents.remove(subject);
     }
 
     public void printAllSubjectsWithStudents() {
-        validate(subjectsStudents);
+        if (!validate(subjectsStudents)) {
+            System.out.println("Subjects list is empty!");
+        }
 
         subjectsStudents.forEach((subject, students) -> {
             System.out.println(subject);
