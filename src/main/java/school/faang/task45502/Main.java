@@ -22,12 +22,12 @@ public class Main {
 
         inventory.forEach(System.out::println);
 
-        Predicate<Item> deleteCondition = item -> item.getName().equals("Ring");
-        Predicate<Item> findCondition = item -> item.getValue() == 500;
-        Consumer<Item> updateCondition = item -> item.setValue(item.getValue() * 20);
+        Predicate<Item> itemPredicateDelete = item -> item.getName().equals("Ring");
+        Predicate<Item> itemPredicateFind = item -> item.getValue() == 500;
+        Consumer<Item> itemUpdater = item -> item.setValue(item.getValue() * 20);
 
-        inventoryManager.removeItem(frodo, deleteCondition);
-        inventoryManager.updateItem(frodo, findCondition, updateCondition);
+        inventoryManager.removeItem(frodo, itemPredicateDelete);
+        inventoryManager.updateItem(frodo, itemPredicateFind, itemUpdater);
         inventory.forEach(System.out::println);
     }
 }

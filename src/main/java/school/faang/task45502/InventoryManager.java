@@ -19,24 +19,24 @@ public class InventoryManager {
         }
     }
 
-    public void addItem(Character character, Item item, Consumer<Item> additionalAction) {
+    public void addItem(Character character, Item item, Consumer<Item> itemAdd) {
         validateCharacterAndItem(character, item);
-        if (additionalAction == null) {
+        if (itemAdd == null) {
             throw new IllegalArgumentException("additionalAction is null");
         }
 
         character.getInventory().add(item);
-        additionalAction.accept(item);
+        itemAdd.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> deletionCondition) {
+    public void removeItem(Character character, Predicate<Item> itemPredicate) {
         validateCharacter(character);
-        if (deletionCondition == null) {
+        if (itemPredicate == null) {
             throw new IllegalArgumentException("deletionCondition is null");
         }
         List<Item> inventory = character.getInventory();
 
-        inventory.removeIf(deletionCondition);
+        inventory.removeIf(itemPredicate);
     }
 
     public void updateItem(Character character,
