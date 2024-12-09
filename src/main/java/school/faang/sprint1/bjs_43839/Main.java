@@ -5,11 +5,13 @@ public class Main {
         Character gamerW = new Warrior("Warrior gamer");
         Character gamerA = new Archer("Archer gamer");
 
-        gamerW.attack(gamerA);
-        gamerA.attack(gamerW);
-        System.out.println("gamerA -> " + gamerA.health);
-        System.out.println("gamerW -> " + gamerW.health);
-        gamerW.attack(gamerW);
-        System.out.println("gamerW -> " + gamerW.health);
+        for (int i = 0; i < 4; i++) {
+            gamerW.attack(gamerA);
+            System.out.println(gamerA);
+            gamerA.attack(gamerW);
+            System.out.println(gamerW);
+            gamerW.attack(gamerW);
+            System.out.println(gamerW);
+        }
     }
 }

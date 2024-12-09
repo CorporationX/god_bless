@@ -6,7 +6,7 @@ public abstract class Character {
     private final int strength;
     private final int agility;
     private final int intelligence;
-    public int health = HEALTH_BY_DEFAULT;
+    private int health = HEALTH_BY_DEFAULT;
 
     public Character(String name) {
         this(name, 0, 0, 0);
@@ -22,9 +22,16 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     public void receiveDamage(int damage) {
-        health -= damage;
-        if (health < 0) {
-            health = 0;
+        if (damage >= 0) {
+            health -= damage;
+            if (health < 0) {
+                health = 0;
+            }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Character{ " + name + ", health=" + health + " }";
     }
 }

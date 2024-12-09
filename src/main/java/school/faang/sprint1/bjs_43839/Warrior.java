@@ -1,7 +1,7 @@
 package school.faang.sprint1.bjs_43839;
 
 public class Warrior extends Character {
-    private static final int STRENGTH = 8;
+    private static final int STRENGTH = 18;
     private static final int AGILITY = 5;
     private static final int INTELLIGENCE = 3;
 
