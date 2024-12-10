@@ -17,6 +17,4 @@ public class EmailProcessor {
                     handler.accept(email);
                 });
     }
-
-
 }
