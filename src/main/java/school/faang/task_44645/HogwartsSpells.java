@@ -7,20 +7,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent event = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, event);
 
-        List<SpellEvent> events = spellsByType.getOrDefault(eventType, new ArrayList<>());
-        events.add(event);
-
-        spellsByType.put(eventType, events);
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
+        spellsByType.get(eventType).add(event);
     }
 
     public SpellEvent getSpellEventById(int id) {

@@ -7,8 +7,7 @@ public class Main {
         spells.addSpellEvent(1, "Charm", "Used to open doors");
         spells.addSpellEvent(2, "Curse", "Causes uncontrollable babbling");
         spells.addSpellEvent(3, "Curse", "Removes the victim's hair");
-        System.out.println(spells.getSpellById());
-        System.out.println(spells.getSpellsByType());
+        spells.printAllSpellEvents();
 
         System.out.println();
         System.out.println(spells.getSpellEventById(1));
@@ -18,10 +17,6 @@ public class Main {
 
         System.out.println();
         spells.deleteSpellEvent(2);
-        System.out.println(spells.getSpellById());
-        System.out.println(spells.getSpellsByType());
-
-        System.out.println();
         spells.printAllSpellEvents();
     }
 }
