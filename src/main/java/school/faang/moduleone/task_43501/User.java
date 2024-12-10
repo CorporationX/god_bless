@@ -45,7 +45,7 @@ public class User {
 
     private String validateName(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("Name can not be empty");
         }
         return name;
     }
