@@ -1,4 +1,4 @@
-package school.faang.task_45411;
+package school.faang.sprint_1.task_45411.task_45411;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,18 +9,20 @@ public class LibrarySystem {
     private final Map<Book, List<String>> bookshelfPlace = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
+        Book book = new Book(title, author, year);
         try {
-            Book book = new Book(title, author, year);
-            List<String> locations = bookshelfPlace.get(book);
-            if (locations == null) {
-                locations = new ArrayList<>();
-                bookshelfPlace.put(book, locations);
-            } else if (!locations.isEmpty()) {
-                throw new IllegalArgumentException(location + " is already taken!");
+            // Check for location conflict across all books
+            for (List<String> locations : bookshelfPlace.values()) {
+                if (locations.contains(location)) {
+                    throw new IllegalArgumentException("Location \"" + location
+                            + "\" is already occupied by another book.");
+                }
             }
+            // Add the book and shelf location
+            List<String> locations = bookshelfPlace.computeIfAbsent(book, k -> new ArrayList<>());
             locations.add(location);
         } catch (IllegalArgumentException e) {
-            System.err.println("Error adding \"" + title + "\" book: " + e.getMessage());
+            System.out.println("Error adding book \"" + title + "\" by " + author + ": " + e.getMessage());
         }
     }
 
