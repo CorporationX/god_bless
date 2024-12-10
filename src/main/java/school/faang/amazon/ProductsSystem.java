@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class ProductsSystem {
     HashSet<Product> products = new HashSet<>();
-    HashMap<String, List<Product>> categories= new HashMap<>();
+    HashMap<String, List<Product>> categories = new HashMap<>();
 
     public void addItem(String name, String category) {
         String id = UUID.randomUUID().toString();
