@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SubjectRepository {
     private static final HashMap<Subject, List<Student>> STUDENTS_BY_SUBJECT = new HashMap<>();
 
     public void addSubject(Student student, Map<Subject, Integer> subjects) {
         for (Map.Entry<Subject, Integer> subject : subjects.entrySet()) {
-            STUDENTS_BY_SUBJECT.putIfAbsent(subject.getKey(), new LinkedList<>());
-            STUDENTS_BY_SUBJECT.get(subject.getKey()).add(student);
+            STUDENTS_BY_SUBJECT.computeIfAbsent(subject.getKey(), key -> new LinkedList<>()).add(student);
         }
 
     }
@@ -34,6 +34,16 @@ public class SubjectRepository {
             return STUDENTS_BY_SUBJECT.get(subject).remove(student);
         }
         return false;
+    }
+
+    public boolean removeAllSubjectsByStudent(Student student, Set<Subject> subjects) {
+        if (subjects.isEmpty()) {
+            return false;
+        }
+        for (Subject subject : subjects) {
+            STUDENTS_BY_SUBJECT.get(subject).remove(student);
+        }
+        return true;
     }
 
     public void printAllSubjects() {

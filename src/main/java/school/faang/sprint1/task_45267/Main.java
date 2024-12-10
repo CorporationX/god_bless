@@ -21,6 +21,7 @@ public class Main {
         final Student student3 = new Student("student3");
 
         oneSubjectMap.put(subject1, new Random().nextInt(1, 100));
+
         mainService.addStudentWithSubject(student1, randomSubjectGradesFactory(subject1, subject2, subject3));
         mainService.addStudentWithSubject(student2, randomSubjectGradesFactory(subject1, subject2, subject3));
         mainService.addStudentWithSubject(student3, oneSubjectMap);
@@ -28,8 +29,8 @@ public class Main {
 
         System.out.println(mainService.joinStudentAndSubject(student3, subject2, 34));
 
-        System.out.println(mainService.removeStudent(student2, subject1));
-        System.out.println(mainService.removeStudentFromSubject(student2, subject1));
+        System.out.println(mainService.removeStudent(student2));
+        System.out.println(mainService.removeStudentFromSubject(student1, subject1));
 
         mainService.printAllStudentsAndSubjects();
 

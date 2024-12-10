@@ -6,6 +6,7 @@ import school.faang.sprint1.task_45267.repositoryes.StudentRepository;
 import school.faang.sprint1.task_45267.repositoryes.SubjectRepository;
 
 import java.util.Map;
+import java.util.Set;
 
 public class MainService {
     StudentRepository studentRepository = new StudentRepository();
@@ -21,12 +22,15 @@ public class MainService {
                 && subjectRepository.addStudentToSubject(student, subject);
     }
 
-    public boolean removeStudent(Student student, Subject subject) {
-        return studentRepository.removeStudent(student);
+    public boolean removeStudent(Student student) {
+        Set<Subject> subjects = studentRepository.removeStudent(student);
+        return subjectRepository.removeAllSubjectsByStudent(student, subjects);
     }
 
     public boolean removeStudentFromSubject(Student student, Subject subject) {
-        return subjectRepository.removeStudentFromSubject(student, subject);
+        return subjectRepository.removeStudentFromSubject(student, subject)
+                && studentRepository.removeSubjectFromStudent(student, subject);
+
     }
 
     public void printAllStudentsAndSubjects() {
