@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-
     public <R> List<R> processEmails(List<Email> emails,
                                      Predicate<Email> predicate,
                                      Consumer<Email> consumer,
