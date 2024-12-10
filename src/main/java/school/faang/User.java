@@ -1,9 +1,13 @@
 package school.faang;
 
+import lombok.ToString;
+
 import java.util.Arrays;
 import java.util.List;
 
+@ToString
 public class User {
+    private static final int MINIMUM_AGE = 18;
     private String name;
     private Integer age;
     private String job;
@@ -30,7 +34,7 @@ public class User {
 
 
     private void validateAge(Integer age) {
-        if (age < 18) {
+        if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Age cannot be less than 18!");
         }
     }
@@ -54,11 +58,5 @@ public class User {
         validateJob(job);
         validateAddress(address);
 
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "name='" + name + '\'' + ", age=" + age + ", job='"
-                + job + '\'' + ", address='" + address + '\'' + '}';
     }
 }
