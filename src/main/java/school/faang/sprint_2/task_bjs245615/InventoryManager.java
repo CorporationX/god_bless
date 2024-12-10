@@ -23,11 +23,11 @@ public class InventoryManager {
                            @NonNull Predicate<Item> filter,
                            @NonNull UnaryOperator<Item> function) {
         List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            Item item = inventory.get(i);
-            if (filter.test(item)) {
-                inventory.set(i, function.apply(item));
-            }
-        }
+        List<Item> updatedInventory = inventory.stream()
+                .map(item -> filter.test(item) ? function.apply(item) : item)
+                .toList();
+
+        inventory.clear();
+        inventory.addAll(updatedInventory);
     }
 }
