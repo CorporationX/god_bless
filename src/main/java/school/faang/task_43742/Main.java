@@ -6,7 +6,7 @@ public class Main {
             User user = new User("Alice", 25, "Google", "London");
             System.out.println("User successfully created!");
             User unvalidUser = new User("Bob", 16, "Teacher", "Paris");
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Validation failed: " + e.getMessage());
         }
     }

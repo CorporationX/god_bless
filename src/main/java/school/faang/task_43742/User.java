@@ -19,7 +19,8 @@ public class User {
         this.job = job;
         this.address = address;
     }
-    private void userValidation(String name, int age, String job, String address){
+
+    private void userValidation(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name can't be empty");
         }
