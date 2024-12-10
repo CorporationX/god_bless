@@ -3,8 +3,8 @@ package derschrank.task10.bjstwo_45209;
 import java.util.*;
 
 public class StudentDatabase {
-    Map<Student, Map<Subject, Integer>> studentsNotesMap;
-    Map<Subject, Set<Student>> subjectStudentsMap;
+    private final Map<Student, Map<Subject, Integer>> studentsNotesMap;
+    private final Map<Subject, Set<Student>> subjectStudentsMap;
 
     public StudentDatabase() {
         this(new HashMap<>(), new HashMap<>());
@@ -17,12 +17,11 @@ public class StudentDatabase {
     }
 
 
-
-    public void addStudent(Student student) {
+    private void addStudent(Student student) {
         studentsNotesMap.computeIfAbsent(student, k -> new HashMap<>());
     }
 
-    public void addNotesToStudent(Student student, Map<Subject, Integer> newNotes) {
+    private void addNotesToStudent(Student student, Map<Subject, Integer> newNotes) {
         Map<Subject, Integer> oldNotes = studentsNotesMap.get(student);
         oldNotes.putAll(newNotes);
     }

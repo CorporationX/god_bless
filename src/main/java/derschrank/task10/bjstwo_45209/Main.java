@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        final Subject subject1 = new Subject(1,"Math");
-        final Subject subject2 = new Subject(2,"English");
+        final Subject subject1 = new Subject(1, "Math");
+        final Subject subject2 = new Subject(2, "English");
         final Subject subject3 = new Subject(3, "Russian");
         final Subject subject4 = new Subject(4, "Biology");
 
-        final Student student1 = new Student(1,"Ivan");
+        final Student student1 = new Student(1, "Ivan");
         Map<Subject, Integer> student1Notes = new HashMap<>();
         student1Notes.put(subject1, 5);
         student1Notes.put(subject2, 5);
