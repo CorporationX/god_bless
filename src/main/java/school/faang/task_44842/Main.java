@@ -4,6 +4,9 @@ public class Main {
     public static void main(String[] args){
         WeatherService weatherService = new WeatherService("Amsterdam");
 
+        StandardWeatherCache weatherCache = new StandardWeatherCache();
+        
+
         System.out.println();
     }
 }

@@ -1,6 +1,16 @@
 package school.faang.task_44842;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
+
+
+    @Override
+    void getlistCityWeather() {
+
+    }
+
     @Override
     void actualityDataInCache() {
 

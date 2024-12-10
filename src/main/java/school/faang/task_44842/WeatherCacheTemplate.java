@@ -1,12 +1,12 @@
 package school.faang.task_44842;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
 
-  public static final Map<String, WeatherData> cache = new HashMap<>();
+  protected HashMap<String, String> listCityWeather;
+
+  abstract void getlistCityWeather();
 
   abstract void actualityDataInCache();
 
