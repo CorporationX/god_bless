@@ -63,10 +63,10 @@ public class WarehouseManager {
         boolean productsRemoved = products.removeIf(product ->
                 product.category().equals(category) && product.name().equals(name));
 
-        System.out.printf("All products named %s in %s category have been successfully removed.%n",
-                name, category);
-
-        if (!productsRemoved) {
+        if (productsRemoved) {
+            System.out.printf("All products named %s in %s category have been successfully removed.%n",
+                    name, category);
+        } else {
             System.out.printf("No product found with name %s in category %s.%n", name, category);
         }
     }
@@ -108,5 +108,4 @@ public class WarehouseManager {
     public void printAllItems() {
         products.forEach(System.out::println);
     }
-
 }

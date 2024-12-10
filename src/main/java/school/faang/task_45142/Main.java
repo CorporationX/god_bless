@@ -30,5 +30,4 @@ public class Main {
         warehouseManager.addItem("Vegetable", "Potato");
         warehouseManager.addItem("Vegetable", "Tomato");
     }
-
 }
