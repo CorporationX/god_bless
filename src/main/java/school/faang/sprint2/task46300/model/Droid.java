@@ -10,18 +10,19 @@ public class Droid {
 
     private final String name;
 
-
-    public String encryptMessage(String originalMessage, int encryptionKey, EncryptType encryptType) {
+    private String encryptMessage(String originalMessage, int encryptionKey, EncryptType encryptType) {
         DroidMessageEncryptor encryptor = (message, key) -> {
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
+                    int chr;
                     if (encryptType == EncryptType.ENCRYPT) {
-                        encryptedMessage.append((char) ((ch - base + key) % ALPHABET_SIZE + base));
+                        chr =  (ch - base + key) % ALPHABET_SIZE + base;
                     } else {
-                        encryptedMessage.append((char) ((ch - base - key + ALPHABET_SIZE) % ALPHABET_SIZE + base));
+                        chr =  (ch - base - key + ALPHABET_SIZE) % ALPHABET_SIZE + base;
                     }
+                    encryptedMessage.append((char)chr);
                 } else {
                     encryptedMessage.append(ch);
                 }
