@@ -33,7 +33,7 @@ public class InventoryManager {
 
         while (iterator.hasNext()) {
             Item item = iterator.next();
-            if(itemCondition.test(item)) {
+            if (itemCondition.test(item)) {
                 updateAction.apply(item);
             }
         }
