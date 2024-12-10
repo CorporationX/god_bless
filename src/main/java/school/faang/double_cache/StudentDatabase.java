@@ -15,7 +15,7 @@ public class StudentDatabase {
                 return newStudentList;
             });
         });
-        System.out.println("New student " + student.getName() + " was added");
+        System.out.println("New student " + student.name() + " was added");
     }
 
     public void addSubject(Subject subject, List<Student> students) {
@@ -30,7 +30,7 @@ public class StudentDatabase {
             studentSubjects.put(subject, null);
             studentsSubjectsAndGrades.put(student, studentSubjects);
         }
-        System.out.println("New subject " + subject.getName() + " was added");
+        System.out.println("New subject " + subject.name() + " was added");
     }
 
     public void addSubjectToStudent(Student student, Subject subject, int grade) {
@@ -48,7 +48,7 @@ public class StudentDatabase {
         studentSubjects.put(subject, grade);
         studentsSubjectsAndGrades.put(student, studentSubjects);
 
-        System.out.println("New subject " + subject.getName() + " was added to " + student.getName());
+        System.out.println("New subject " + subject.name() + " was added to " + student.name());
     }
 
     public void addStudentToSubject(Student student, Subject subject, int grade) {
@@ -64,7 +64,7 @@ public class StudentDatabase {
         List<Student> subjectStudents = subjects.get(subject);
         subjectStudents.add(student);
         subjects.put(subject, subjectStudents);
-        System.out.println("Student " + student.getName() + " was added to " + subject.getName());
+        System.out.println("Student " + student.name() + " was added to " + subject.name());
     }
 
     public void removeStudent(Student student) {
@@ -76,7 +76,7 @@ public class StudentDatabase {
             subjectStudents.remove(student);
             subjects.put(subject, subjectStudents);
         }
-        System.out.println("Student " + student.getName() + " was removed");
+        System.out.println("Student " + student.name() + " was removed");
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
@@ -93,7 +93,7 @@ public class StudentDatabase {
         subjects.put(subject, subjectStudents);
 
         studentsSubjectsAndGrades.get(student).remove(subject);
-        System.out.println("Student " + student.getName() + " was removed from " + subject.getName());
+        System.out.println("Student " + student.name() + " was removed from " + subject.name());
     }
 
     public void printAllStudentsWithGrades() {
@@ -104,21 +104,20 @@ public class StudentDatabase {
         }
         studentsSubjectsAndGrades.forEach((student, subjectsAndGrades) -> {
             System.out.println();
-            System.out.println("Student (" + student.getId() + ") " + student.getName());
+            System.out.println("Student (" + student.id() + ") " + student.name());
             subjectsAndGrades.forEach((subject, grade) -> {
-                System.out.println(subject.getName() + " " + grade);
+                System.out.println(subject.name() + " " + grade);
             });
         });
     }
 
     public void printAllSubjectsWithStudents() {
         subjects.forEach((subject, students) -> {
-            System.out.println("Subject " + subject.getId() + " " + subject.getName());
+            System.out.println("Subject " + subject.id() + " " + subject.name());
             students.forEach(student -> {
-                System.out.println(student.getName());
+                System.out.println(student.name());
             });
             System.out.println();
         });
     }
-
 }

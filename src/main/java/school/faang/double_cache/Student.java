@@ -1,11 +1,4 @@
 package school.faang.double_cache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class Student {
-    private int id;
-    private String name;
+public record Student(int id, String name) {
 }
