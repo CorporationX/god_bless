@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LibrarySystem librarySystem = new LibrarySystem();
+        final LibrarySystem librarySystem = new LibrarySystem();
 
         BOOK_COLLECTION.put(new Book("Сто лет одиночества", "Гариса Маркес", 1967), "Номер полки 24");
         BOOK_COLLECTION.put(new Book("Осень патриарха", "Габриэль Гарсиа", 1975), "Номер полки 3");
