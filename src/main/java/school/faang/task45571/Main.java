@@ -29,7 +29,7 @@ public class Main {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 Coordinates coordinates = matrixTransformer.transform(i, j);
-                flippedMatrix[coordinates.getX()][coordinates.getY()] = matrix[i][j];
+                flippedMatrix[coordinates.getFirstCoordinate()][coordinates.getSecondCoordinate()] = matrix[i][j];
             }
         }
         return flippedMatrix;
