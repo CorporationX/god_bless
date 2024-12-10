@@ -13,57 +13,60 @@ public class StudentDatabase {
         if (student != null) {
             studentReport.put(student, record);
             for (Subject subject : record.keySet()) {
-                subjectEnrollment.computeIfAbsent(subject, key -> new ArrayList<>())
-                        .add(student);
+                addStudentToSubjectList(subject, student);
             }
         }
     }
 
     public void addNewSubjectForStudent(Student student, Subject subject, Integer grade) {
         if (student != null && subject != null) {
-            studentReport.computeIfAbsent(student, key -> new HashMap<>())
-                    .put(subject, grade);
-            subjectEnrollment.computeIfAbsent(subject, key -> new ArrayList<>())
-                    .add(student);
+            addSubjectForStudent(student, subject, grade);
+            addStudentToSubjectList(subject, student);
         }
     }
 
     public void deleteStudentRecords(Student student) {
-        if (studentReport.containsKey(student)) {
-            Map<Subject, Integer> recordForRemove = studentReport.remove(student);
-            if (recordForRemove != null) {
-                for (Subject subj : recordForRemove.keySet()) {
-                    List<Student> studentsList = subjectEnrollment.get(subj);
-                    studentsList.remove(student);
-                }
+        Map<Subject, Integer> recordForRemove = studentReport.remove(student);
+        if (recordForRemove != null) {
+            for (Subject subj : recordForRemove.keySet()) {
+                List<Student> studentsList = subjectEnrollment.get(subj);
+                studentsList.remove(student);
             }
         }
     }
 
     public void deleteStudentFromSubjectList(Student student, Subject subject) {
         if (student != null && subject != null) {
+            studentReport.remove(student);
             if (subjectEnrollment.containsKey(subject)) {
                 subjectEnrollment.get(subject).remove(student);
             }
         }
     }
 
-
     public void addNewSubjectRecord(Subject subject, List<Student> studentsList) {
         if (subject != null) {
             subjectEnrollment.put(subject, studentsList);
             for (Student student : studentsList) {
-                studentReport.computeIfAbsent(student, key -> new HashMap<>()).put(subject, 0);
+                addSubjectForStudent(student, subject,0);
             }
         }
     }
 
     public void addStudentEnrollment(Student student, Subject subject) {
         if (subject != null) {
-            subjectEnrollment.get(subject).add(student);
-            studentReport.putIfAbsent(student, new HashMap<>());
-            studentReport.get(student).put(subject, 0);
+            addStudentToSubjectList(subject, student);
+            addSubjectForStudent(student, subject, 0);
         }
+    }
+
+    public void addStudentToSubjectList(Subject subject, Student student) {
+        subjectEnrollment.computeIfAbsent(subject, key -> new ArrayList<>())
+                .add(student);
+    }
+
+    public void addSubjectForStudent(Student student, Subject subject, int grade) {
+        studentReport.computeIfAbsent(student, key -> new HashMap<>()).put(subject, grade);
     }
 
     public void printAllStudents() {
