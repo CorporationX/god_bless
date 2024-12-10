@@ -9,7 +9,6 @@ import static school.faang.bjs245208.SampleData.removeStudent;
 public class Main {
     public static void main(String[] args) {
 
-        Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         try {
             StudentDatabase db = new StudentDatabase();
 

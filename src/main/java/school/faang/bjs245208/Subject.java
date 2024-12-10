@@ -11,7 +11,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 public class Subject {
-    @NotEmpty(message = "Subject id cannot be empty or null")
     private final UUID id;
     @NotEmpty(message = "Subject name cannot be empty or null")
     private final String name;

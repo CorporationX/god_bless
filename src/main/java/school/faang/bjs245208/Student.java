@@ -12,7 +12,6 @@ import java.util.UUID;
 @ToString
 public class Student {
 
-    @NotEmpty(message = "Student id cannot be empty or null")
     private final UUID id;
     @NotEmpty(message = "Student name cannot be empty or null")
     private final String name;

@@ -7,6 +7,8 @@ import java.util.Map;
 public class SampleData {
 
     public static void addStudents(StudentDatabase db) {
+        new Subject("");
+
         Map<Subject, Integer> subjectsAndMarks1 = new HashMap<>();
         subjectsAndMarks1.put(new Subject("Math"), 85);
         subjectsAndMarks1.put(new Subject("Science"), 90);
@@ -24,6 +26,8 @@ public class SampleData {
     }
 
     public static void addSubjects(StudentDatabase db) {
+        new Student("");
+
         List<Student> studentsOnMath = List.of(
                 new Student("Student1"),
                 new Student("Student2")
