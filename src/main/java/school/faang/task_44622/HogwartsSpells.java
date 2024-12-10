@@ -16,12 +16,12 @@ public class HogwartsSpells {
         spells.add(spellEvent);
     }
 
-    public static SpellEvent getSpellEventById(int id){
+    public static SpellEvent getSpellEventById(int id) {
         return Optional.ofNullable(spellById.get(id))
                 .orElseThrow(() -> new IllegalArgumentException("Заклинание с ID " + id + " не существует"));
     }
 
-    public static List<SpellEvent> getSpellEventsByType(String eventType){
+    public static List<SpellEvent> getSpellEventsByType(String eventType) {
         List<SpellEvent> spells = spellsByType.get(eventType);
         if (spells == null) {
             throw new IllegalArgumentException("События с типом " + eventType + " не существуют");
@@ -29,7 +29,7 @@ public class HogwartsSpells {
         return spells;
     }
 
-    public static void deleteSpellEvent(int id){
+    public static void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent == null) {
             throw new IllegalArgumentException("Заклинание с ID " + id + " не существует");
@@ -38,7 +38,7 @@ public class HogwartsSpells {
         spells.remove(spellEvent);
     }
 
-    public static void printAllSpellEvents(){
+    public static void printAllSpellEvents() {
         spellById.forEach((id, event) ->
                 System.out.printf("ID: %d | Тип: %s | Действие: %s%n", id, event.getEventType(), event.getAction()));
     }
