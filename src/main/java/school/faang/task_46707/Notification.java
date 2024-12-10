@@ -8,20 +8,20 @@ public class Notification {
     private final String message;
 
     public Notification(String type, String message) {
-        validType(type);
-        validMessage(message);
+        validateType(type);
+        validateMessage(message);
 
         this.type = type;
         this.message = message;
     }
 
-    private static void validMessage(String message) {
+    private static void validateMessage(String message) {
         if (message == null || message.isBlank()) {
             throw new IllegalArgumentException("Message don't be null or empty!");
         }
     }
 
-    private static void validType(String type) {
+    private static void validateType(String type) {
         if (type == null || type.isBlank()) {
             throw new IllegalArgumentException("Type don't be null or empty!");
         }
