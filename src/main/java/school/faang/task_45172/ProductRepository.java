@@ -1,4 +1,4 @@
-package school.faang.bjs2_45172;
+package school.faang.task_45172;
 
 import java.util.Collection;
 import java.util.HashMap;

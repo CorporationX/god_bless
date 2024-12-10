@@ -1,4 +1,4 @@
-package school.faang.bjs2_43893;
+package school.faang.task_43893;
 
 public class Main {
     public static void main(String[] args) {
