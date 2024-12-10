@@ -11,7 +11,6 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
         this.books.put(book, location);
         System.out.println("Книга убрана на " + location);
-
     }
 
     void removeBook(String title, String author, int year) {
