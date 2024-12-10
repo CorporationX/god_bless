@@ -39,7 +39,8 @@ public class Main {
             System.out.println(e);
         }
 
-        System.out.println("\nAdding two more spell events of type " + TRANSFIGURATION_TYPE + " and  " + PROTECTION_TYPE);
+        System.out.println("\nAdding two more spell events of type "
+                + TRANSFIGURATION_TYPE + " and  " + PROTECTION_TYPE);
         hogwartsSpells.addSpellEvent(3, TRANSFIGURATION_TYPE, "This transfiguration is good!");
         hogwartsSpells.addSpellEvent(4, PROTECTION_TYPE, "This protection is good!");
         System.out.println("\nPrinting all spell events ");
