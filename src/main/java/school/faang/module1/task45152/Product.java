@@ -11,6 +11,7 @@ import java.util.Random;
 @Getter
 public class Product {
 
+    @EqualsAndHashCode.Exclude
     private int id;
     private String name;
     private String category;

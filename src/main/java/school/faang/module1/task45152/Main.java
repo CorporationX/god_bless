@@ -24,21 +24,18 @@ public class Main {
 
     public static void addItem(String name, String category) {
         Product product = new Product(name, category);
-        //Скопипастил кусочек кода, можно подсказку как работает?
-        //Ищет нужную категорию, если ее нет, то то создает ее(ключом), а в значение создает List и добавляет product
-        //Если ключ есть, то просто add(product) в существующий List?
         productCategory.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
     }
 
     public void removeItem(String category, String name) {
-        if (category == null) {
-            System.out.println("Такой категории нет");
-            return;
+        if (!productCategory.containsKey(category)) {
+            throw new IllegalArgumentException("Такой категории нет");
         }
-        //Не понятно как удалять, если просто передать name и category, то с рандомным id не удалится объект
-        //Просьба подсказать
-        Product product = new Product(name, category);
-        productCategory.get(category).remove(product);
+        if (!productCategory.get(category).contains(new Product(name, category))) {
+            throw new IllegalArgumentException("Такого товара в категории нет");
+        }
+        productCategory.get(category).remove(new Product(name, category));
+
     }
 
     public static void findItemsByCategory(String category) {
