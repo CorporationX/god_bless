@@ -4,17 +4,17 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        final Subject subject1 = new Subject("Math");
-        final Subject subject2 = new Subject("English");
-        final Subject subject3 = new Subject("Russian");
-        final Subject subject4 = new Subject("Biology");
+        final Subject subject1 = new Subject(1,"Math");
+        final Subject subject2 = new Subject(2,"English");
+        final Subject subject3 = new Subject(3, "Russian");
+        final Subject subject4 = new Subject(4, "Biology");
 
-        final Student student1 = new Student("Ivan");
+        final Student student1 = new Student(1,"Ivan");
         Map<Subject, Integer> student1Notes = new HashMap<>();
         student1Notes.put(subject1, 5);
         student1Notes.put(subject2, 5);
 
-        final Student student2 = new Student("Petr");
+        final Student student2 = new Student(2, "Petr");
         Map<Subject, Integer> student2Notes = new HashMap<>();
         student2Notes.put(subject1, 4);
         student2Notes.put(subject2, 4);
@@ -32,7 +32,7 @@ public class Main {
         studentDatabase.printAllSubjectsWithStudents();
 
         System.out.println("Add new student and his notes");
-        studentDatabase.addStudentAndHisNotes(new Student("Sidr"), Map.of(subject1, 5, subject2, 5));
+        studentDatabase.addStudentAndHisNotes(new Student(3, "Sidr"), Map.of(subject1, 5, subject2, 5));
         studentDatabase.printAllStudentsWithNotes();
 
         System.out.println("Add new subject-note to the student");
