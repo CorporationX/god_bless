@@ -3,13 +3,7 @@ package school.faang.task_46464;
 public class Main {
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
-                () -> {
-                    try {
-                        return RemoteService.call("someParam");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                },
+                () ->  RemoteService.call("someParam"),
                 e -> {
                     System.out.println("The error occurred while calling the service, returning the default value.");
                     return "DEFAULT";
