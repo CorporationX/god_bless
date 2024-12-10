@@ -3,19 +3,21 @@ package school.faang.bjs244816;
 import java.util.HashMap;
 
 public abstract class WeatherCacheTemplate {
-    public HashMap<String, WeatherData> weatherDataLog;
+    protected HashMap<String, WeatherData> weatherDataLog = new HashMap<>();
+    private final WeatherService weatherService = new WeatherService();
 
-    public void getWeatherData(String city, long maxCacheAgeMillis) {
-        if (weatherDataLog == null || weatherDataLog.get(city) == null) {
-            WeatherProvider.fetchWeatherData(city);
+    public WeatherData getWeatherData(String city) {
+        WeatherData cachedData = weatherDataLog.get(city);
+
+        if (cachedData == null || !checkTtl(cachedData.getTimestamp())) {
+            WeatherData newData = weatherService.fetchWeatherData(city);
+            weatherDataLog.put(city, newData);
+            return newData;
         }
+        return cachedData;
     }
 
-    private boolean checkTtl(long lastCallTime) {
-        return true;
-    }
+    abstract boolean checkTtl(long lastCallTime);
 
-    private void clearExpiredCache(long maxCacheAgeMillis){
-
-    }
+    abstract void clearExpiredCache();
 }
