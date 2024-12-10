@@ -41,15 +41,12 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         filterNotifications(notification);
+        Notification modifiedNotification = correctNotifications(notification);
 
-        Function<Notification, Notification> corrector = correctors.get(notification.getType());
-        if (corrector != null) {
-            notification = corrector.apply(notification);
-        }
-
-        Optional.ofNullable(handlers.get(notification.getType()))
-                .orElseThrow(() -> new IllegalArgumentException("No handler found for notification type: " + notification.getType()))
-                .accept(notification);
+        Optional.ofNullable(handlers.get(modifiedNotification.getType()))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Не найден обработчик по типу %s", modifiedNotification.getType())))
+                .accept(modifiedNotification);
     }
 
     private void notificationTypeCheck(String notificationType) {
@@ -59,8 +56,17 @@ public class NotificationManager {
     }
 
     private void filterNotifications(Notification notification) {
-        Optional.ofNullable(filters.get(notification.getType())).filter(filter -> filter.test(notification)).ifPresent(filter -> {
-            throw new IllegalArgumentException("Notification filtered out: " + notification.getType());
-        });
+        Optional.ofNullable(filters.get(notification.getType()))
+                .filter(filter -> !filter.test(notification)).ifPresent(filter -> {
+                    throw new IllegalArgumentException(
+                            String.format("Уведоления отфильтрованы %s", notification.getType()));
+                });
+    }
+
+    private Notification correctNotifications(Notification notification) {
+        return Optional.ofNullable(correctors.get(notification.getType()))
+                .map(corrector -> corrector.apply(notification))
+                .orElse(notification);
+
     }
 }
