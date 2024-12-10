@@ -1,23 +1,25 @@
 package school.faang.task46139;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ConverterCsv {
+    private static final String SWITCHING_TO_NEW_LINE = "\n";
+    private static final String COMMA_SEPARATOR_WITH_SPACE = ", ";
+
     public static String toCsv(List<List<String>> table) {
         if (table == null) {
             throw new IllegalArgumentException("table can`t be null");
         }
-        List<List<String>> newTable = table.stream().filter(Objects::nonNull).toList();
         StringBuilder result = new StringBuilder();
 
         VectorJoiner<String> vectorJoiner = list -> {
 
-            list.forEach(string -> result.append(string).append(", "));
+            result.append(list.stream().collect(Collectors.joining(COMMA_SEPARATOR_WITH_SPACE)));
 
             return result
-                    .delete(result.length() - 2, result.length() - 1)
-                    .append("\n").toString();
+                    .append(SWITCHING_TO_NEW_LINE)
+                    .toString();
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
@@ -25,14 +27,12 @@ public class ConverterCsv {
                 if (list.isEmpty()) {
                     throw new IllegalArgumentException("List can`t be null");
                 }
-                vectorJoiner.join(list.stream()
-                        .filter(Objects::nonNull)
-                        .toList());
+                vectorJoiner.join(list);
             });
             return result.toString();
         };
 
-        return matrixJoiner.join(newTable);
+        return matrixJoiner.join(table);
 
     }
 }
