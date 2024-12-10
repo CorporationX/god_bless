@@ -1,7 +1,6 @@
 package school.faang;
 
 import lombok.ToString;
-
 import java.util.Arrays;
 import java.util.List;
 
