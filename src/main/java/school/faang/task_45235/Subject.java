@@ -6,8 +6,8 @@ import java.util.Objects;
 
 @Getter
 public class Subject {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public Subject(int id, String name) {
         this.id = id;
