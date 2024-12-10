@@ -9,10 +9,11 @@ public class EmailProcessor {
     public void processEmails(List<Email> emailList, Predicate<Email> checker,
                               Function<Email, String> converter, Consumer<Email> printer) {
         for (Email email : emailList) {
-            if (checker.test(email.isImportant())) {
-
+            if (checker.test(email)) {
+                String convertedEmailBody = converter.apply(email);
+                email.setBody(convertedEmailBody);
+                printer.accept(email);
             }
         }
-
     }
 }

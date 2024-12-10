@@ -1,12 +1,14 @@
 package school.faang.gmail_filters;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Email {
     private final String subject;
-    private final String body;
+    @Setter
+    private String body;
     private final boolean isImportant;
 }
