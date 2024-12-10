@@ -7,7 +7,11 @@ public class LibrarySystem {
     private static HashMap<Book, String> booksLocation = new HashMap<>();
 
     public static void addBook(String title, String author, int year, String location) {
-        booksLocation.put(new Book(title, author, year), location);
+        var book = new Book(title, author, year);
+        if (booksLocation.containsKey(book)) {
+            throw new IllegalArgumentException("Книга " + book.getTitle() + " уже существует");
+        }
+        booksLocation.put(book, location);
     }
 
     public static void removeBook(String title, String author, int year) {
@@ -15,8 +19,9 @@ public class LibrarySystem {
     }
 
     public static void findBook(String title, String author, int year) {
-        if (booksLocation.containsKey(new Book(title, author, year))) {
-            System.out.println(booksLocation.get(new Book(title, author, year)));
+        var book = new Book(title, author, year);
+        if (booksLocation.containsKey(book)) {
+            System.out.println(booksLocation.get(book));
         } else {
             System.out.println("Book not found");
         }
