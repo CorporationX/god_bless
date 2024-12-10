@@ -7,7 +7,7 @@ import static school.faang.task_45018.DataInitializerUtils.initDataCenter;
 
 class LoadBalancingOptimizationStrategyTest {
     private final DataCenter dataCenter = new DataCenter(initDataCenter());
-    private final DataCenterService dataCenterService = new DataCenterService(
+    private final DataCenterService dataCenterService = new DataCenterService(dataCenter,
             new LoadBalancingOptimizationStrategy());
 
     @Test

@@ -1,28 +1,31 @@
 package school.faang.task_45018;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 public class DataCenterService {
+    @NonNull
+    private final DataCenter dataCenter;
     private final OptimizationStrategy optimizationStrategy;
 
-    public void addServer(Server server, DataCenter dataCenter) {
+    public void addServer(Server server) {
         if (server == null) {
             throw new IllegalArgumentException("Server doesn't exist");
         }
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void removeServer(Server server, DataCenter dataCenter) {
         if (server == null) {
             throw new IllegalArgumentException("Server doesn't exist");
         }
-        dataCenter.getServers().remove(server);
+        dataCenter.removeServer(server);
     }
 
-    public double getTotalEnergyConsumption(DataCenter dataCenter) {
+    public double getTotalEnergyConsumption() {
         return dataCenter.getServers().stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .sum();

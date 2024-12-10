@@ -7,14 +7,14 @@ import static school.faang.task_45018.DataInitializerUtils.initDataCenter;
 
 class DataCenterServiceTest {
     private final DataCenter dataCenter = new DataCenter(initDataCenter());
-    private final DataCenterService dataCenterService = new DataCenterService(
+    private final DataCenterService dataCenterService = new DataCenterService(dataCenter,
             new LoadBalancingOptimizationStrategy());
 
     @Test
     void shouldAddServer() {
-        dataCenterService.addServer(new Server(1, 1, 1), dataCenter);
+        dataCenterService.addServer(new Server(1, 1, 1));
 
-        double actualTotalEnergyConsumption = dataCenterService.getTotalEnergyConsumption(dataCenter);
+        double actualTotalEnergyConsumption = dataCenterService.getTotalEnergyConsumption();
 
         assertEquals(17, actualTotalEnergyConsumption);
     }
@@ -24,7 +24,7 @@ class DataCenterServiceTest {
         Server server = new Server(1, 5, 10);
         dataCenterService.removeServer(server, dataCenter);
 
-        assertEquals(6, dataCenterService.getTotalEnergyConsumption(dataCenter));
+        assertEquals(6, dataCenterService.getTotalEnergyConsumption());
     }
 
     @Test
