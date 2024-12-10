@@ -40,11 +40,8 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Predicate<Notification> filter = filters.get(notification.getType());
-        if (filter != null && !filter.test(notification)) {
-            System.out.println("Notification filtered out: " + notification);
-            return;
-        }
+        filterNotifications(notification);
+
         Function<Notification, Notification> corrector = correctors.get(notification.getType());
         if (corrector != null) {
             notification = corrector.apply(notification);
@@ -59,5 +56,11 @@ public class NotificationManager {
         if (notificationType == null || notificationType.isEmpty()) {
             throw new IllegalArgumentException("notificationType не может быть пустым");
         }
+    }
+
+    private void filterNotifications(Notification notification) {
+        Optional.ofNullable(filters.get(notification.getType())).filter(filter -> filter.test(notification)).ifPresent(filter -> {
+            throw new IllegalArgumentException("Notification filtered out: " + notification.getType());
+        });
     }
 }
