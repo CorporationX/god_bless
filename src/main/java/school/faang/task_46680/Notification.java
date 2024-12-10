@@ -8,5 +8,4 @@ import lombok.Getter;
 public class Notification {
     private String type;
     private String message;
-
 }
