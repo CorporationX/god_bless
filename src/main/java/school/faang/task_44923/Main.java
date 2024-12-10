@@ -32,25 +32,25 @@ public class Main {
         System.out.println();
 
         System.out.println("Before removeEmployeeFromProject:");
-        projectManager.getProjectTeam(1).forEach(System.out::println);
+        projectManager.getTeamForProject(1).forEach(System.out::println);
         System.out.println();
 
         projectManager.removeEmployeeFromProject(1, user.id());
         System.out.println("After removeEmployeeFromProject:");
-        projectManager.getProjectTeam(1).forEach(System.out::println);
+        projectManager.getTeamForProject(1).forEach(System.out::println);
         System.out.println();
 
         projectManager.addEmployee(user);
 
         System.out.println("Before removeIneligibleEmployees:");
-        projectManager.getProjectTeam(1).forEach(System.out::println);
+        projectManager.getTeamForProject(1).forEach(System.out::println);
 
         user.skills().clear();
         user.skills().add("Java");
         Project project1 = projectManager.getProjectById(1);
         projectManager.removeIneligibleEmployees(project1);
         System.out.println("After removeIneligibleEmployees:");
-        projectManager.getProjectTeam(1).forEach(System.out::println);
+        projectManager.getTeamForProject(1).forEach(System.out::println);
     }
 
     private static void initData() {

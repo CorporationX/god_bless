@@ -43,7 +43,7 @@ public class ProjectManager {
         return projectMap.get(projectId);
     }
 
-    public List<Employee> getProjectTeam(int projectId) {
+    public List<Employee> getTeamForProject(int projectId) {
         Project project = projectMap.get(projectId);
         return project != null ? project.teamMembers() : List.of();
     }
@@ -90,14 +90,8 @@ public class ProjectManager {
     }
 
     public void removeIneligibleEmployees(Project project) {
-        List<Employee> teamMembers = project.teamMembers();
-        for (int i = 0; i < teamMembers.size(); i++) {
-            Employee employee = teamMembers.get(i);
-            if (!employee.skills().containsAll(project.requiredSkills())) {
-                teamMembers.remove(i);
-                i--;
-            }
-        }
+        project.teamMembers().removeIf(employee ->
+                !employee.skills().containsAll(project.requiredSkills()));
     }
 
 }
