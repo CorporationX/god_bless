@@ -6,13 +6,19 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    private final Map<String, Consumer<Notification>> notifications = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> fun) {
-        notifications.put(type, fun);
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+        if (type == null || handler == null) {
+            throw new IllegalArgumentException("Arguments must be not null !!!");
+        }
+        notifications.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            throw new IllegalArgumentException("Argument bust be not null !!!");
+        }
         if (!notifications.containsKey(notification.getType())) {
             throw new IllegalArgumentException("This type is not found !!!");
         }

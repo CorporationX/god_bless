@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Notification {
-    private String type;
+    private NotificationType type;
     private String message;
 }
