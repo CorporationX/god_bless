@@ -15,7 +15,7 @@ public class Main {
         spellCaster.cast(alohomora, new SpellAction() {
             @Override
             public String castSpell(String spellName) {
-                return "Main villian died by 'Avada Kedavra'";
+                return "Main villain died by 'Avada Kedavra'";
             }
         });
     }
