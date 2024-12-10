@@ -13,12 +13,16 @@ public class SpellEvent {
         this.action = action;
     }
 
-    public SpellEvent(){}
+    public SpellEvent() {}
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
         return id == that.id;
     }
