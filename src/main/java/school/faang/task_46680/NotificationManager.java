@@ -28,7 +28,7 @@ public class NotificationManager {
         notification.accept(object);
     }
 
-    public boolean IsDelete(Notification notification) {
+    public boolean isDeleteNotification(Notification notification) {
         for (Map.Entry<String, List<String>> entry : FILTER_TEMPLATES.entrySet()) {
             for (String value : entry.getValue()) {
                 if (notification.getMessage().toLowerCase().indexOf(value.toLowerCase()) != -1) {

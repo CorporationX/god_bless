@@ -28,7 +28,7 @@ public class Main {
         List<Notification> toDelete = new ArrayList<>();
         notifications.forEach(notification -> {
             boolean isDeleteNotification = notificationManager
-                    .IsDelete(notification);
+                    .isDeleteNotification(notification);
             if (isDeleteNotification) {
                 toDelete.add(notification);
             }
