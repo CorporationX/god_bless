@@ -2,6 +2,7 @@ package school.faang.tasks_45668;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
@@ -9,7 +10,7 @@ public class Main {
         List<Integer> nums = Arrays.asList(5, 3);
         nums.set(0, null);
 
-        int sum = calculate(nums, (a, b) -> a + b);
+        int sum = calculate(nums, Integer::sum);
         System.out.println(sum);
 
         int product = calculate(nums, (a, b) -> a * b);
@@ -18,8 +19,8 @@ public class Main {
 
     public static int calculate(List<Integer> nums, Calculator calculator) {
         return nums.stream()
-                .filter(num -> num != null)
-                .reduce((a, b) -> calculator.calc(a, b))
+                .filter(Objects::nonNull)
+                .reduce(calculator::calc)
                 .orElseThrow(() -> new IllegalArgumentException("список пуст"));
     }
 }
