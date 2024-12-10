@@ -1,10 +1,7 @@
 package school.faang.task_46184secretsdroid;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
-public class CaesarCipherEncryptor {
-    public DroidMessageEncryptor encrypt = (message, key) -> {
+public final class CaesarCipherEncryptor {
+    public static final DroidMessageEncryptor ENCRYPT = (message, key) -> {
         StringBuilder result = new StringBuilder();
 
         for (char character : message.toCharArray()) {
@@ -16,10 +13,11 @@ public class CaesarCipherEncryptor {
                 result.append(character);
             }
         }
+
         return result.toString();
     };
 
-    public DroidMessageEncryptor decrypt = (message, key) -> {
+    public static final DroidMessageEncryptor DECRYPT = (message, key) -> {
         StringBuilder result = new StringBuilder();
         key = key % 26;
 
@@ -32,6 +30,7 @@ public class CaesarCipherEncryptor {
                 result.append(character);
             }
         }
+
         return result.toString();
     };
 }

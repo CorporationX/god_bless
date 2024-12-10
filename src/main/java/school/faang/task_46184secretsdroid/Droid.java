@@ -17,13 +17,13 @@ public class Droid {
     }
 
     public void sendMessage(Droid sendDroid, String inputMessage, int encryptionKey) {
-        String encryptedMessage = encryptMessage(inputMessage, encryptionKey, CaesarCipherEncryptor.encrypt);
-        System.out.println("Sending " + encryptedMessage + " to " + sendDroid.name);
+        String encryptedMessage = encryptMessage(inputMessage, encryptionKey, CaesarCipherEncryptor.ENCRYPT);
+        System.out.println("Sending " + encryptedMessage + " from " + this.name + " to " + sendDroid.name);
         sendDroid.receiveMessage(encryptedMessage, encryptionKey);
     }
 
-    public void receiveMessage(String encryptedMessage, int encryptionKey) {
-        String decryptedMessage = decryptMessage(encryptedMessage, encryptionKey, CaesarCipherEncryptor.decrypt);
-        System.out.println("Received and decrypted message: " + decryptedMessage);
+    private void receiveMessage(String encryptedMessage, int encryptionKey) {
+        String decryptedMessage = decryptMessage(encryptedMessage, encryptionKey, CaesarCipherEncryptor.DECRYPT);
+        System.out.println(this.name + " received and decrypted message: " + decryptedMessage);
     }
 }
