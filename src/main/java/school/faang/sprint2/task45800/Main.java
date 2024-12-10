@@ -4,6 +4,8 @@ import school.faang.sprint2.task45800.manager.InventoryManager;
 import school.faang.sprint2.task45800.model.Character;
 import school.faang.sprint2.task45800.model.Item;
 
+import java.util.function.Consumer;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -62,6 +64,7 @@ public class Main {
     }
 
     private static void addItem(InventoryManager manager, Character character, Item itemIn) {
-        manager.addItem(character, itemIn, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        Consumer<Item> itemAdded = (item) -> System.out.println(item.getName() + " был добавлен в инвентарь.");
+        manager.addItem(character, itemIn, itemAdded);
     }
 }
