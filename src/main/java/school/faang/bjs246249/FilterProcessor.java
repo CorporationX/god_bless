@@ -1,5 +1,6 @@
 package school.faang.bjs246249;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -10,11 +11,8 @@ public class FilterProcessor {
 
     @SafeVarargs
     public final Function<Image, Image> combineFilters(Function<Image, Image>... functions) {
-        Function<Image, Image> result = Function.identity();
-        for (Function<Image, Image> function : functions) {
-            result = result.compose(function);
-        }
-        return result;
+        return Arrays.stream(functions)
+                .reduce(Function.identity(), Function::compose);
     }
 
 }
