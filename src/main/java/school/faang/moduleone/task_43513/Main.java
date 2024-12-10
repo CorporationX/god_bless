@@ -23,8 +23,6 @@ public class Main {
         showCondition(hogwartsSpells);
         System.out.println("Deleted spell with id = 3 is: " + hogwartsSpells.deleteSpellEvent(3));
         showCondition(hogwartsSpells);
-
-
     }
 
     private static void showCondition(HogwartsSpells hogwartsSpells) {
@@ -32,6 +30,4 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
         System.out.println("*".repeat(50));
     }
-
-
 }

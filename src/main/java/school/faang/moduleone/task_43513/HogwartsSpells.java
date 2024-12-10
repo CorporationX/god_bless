@@ -1,20 +1,17 @@
 package school.faang.moduleone.task_43513;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Getter
 public class HogwartsSpells {
     private static HogwartsSpells hogwartsSpells;
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public HogwartsSpells() {
+    private HogwartsSpells() {
     }
 
     public static HogwartsSpells getHogwartsSpells() {
