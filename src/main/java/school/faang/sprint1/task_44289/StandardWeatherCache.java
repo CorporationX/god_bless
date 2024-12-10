@@ -1,6 +1,6 @@
 package school.faang.sprint1.task_44289;
 
-public class StandardWeatherCache extends WeatherCacheTemplate{
+public class StandardWeatherCache extends WeatherCacheTemplate {
 
 
     @Override

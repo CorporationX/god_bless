@@ -1,6 +1,6 @@
 package school.faang.sprint1.task_44289;
 
-public class FrequentUpdateWeatherCache extends WeatherCacheTemplate{
+public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
 
     @Override
     public WeatherData fetchWeatherData(String city) {
