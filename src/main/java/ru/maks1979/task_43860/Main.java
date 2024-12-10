@@ -1,4 +1,4 @@
-package ru.task_43860;
+package ru.maks1979.task_43860;
 
 public class Main {
     public static void main(String[] args) {
