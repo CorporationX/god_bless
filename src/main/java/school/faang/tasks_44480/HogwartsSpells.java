@@ -1,7 +1,6 @@
 package school.faang.tasks_44480;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellId = new HashMap<>();
@@ -19,8 +18,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsType(String eventType) {
-        return spellType.getOrDefault(eventType, Collections.emptyList()).stream()
-                .collect(Collectors.toList());
+        return spellType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
