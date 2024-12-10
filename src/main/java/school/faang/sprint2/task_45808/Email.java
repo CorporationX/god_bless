@@ -15,6 +15,5 @@ public class Email {
     private final String subject;
     @NonNull
     private String body;
-    @NonNull
     private final boolean isImportant;
 }
