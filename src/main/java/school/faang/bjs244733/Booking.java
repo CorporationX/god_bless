@@ -1,18 +1,21 @@
 package school.faang.bjs244733;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
-
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Booking {
 
-    private int bookingId;// — уникальный идентификатор бронирования;
-    private Room room;// — забронированная комната;
-    private String date;// — дата бронирования;
-    private String timeSlot;// — временной интервал бронирования.
+    private int bookingId;
+    private Room room;
+    private String date;
+    private String timeSlot;
 
 }

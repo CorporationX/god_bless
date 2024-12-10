@@ -3,100 +3,99 @@ package school.faang.bjs244733;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class BookingSystem {
 
-    // Хранит список комнат и бронирований
-    private List<Room> rooms;
-    private List<Booking> listBooking;
+    private final Map<Integer, Room> rooms = new HashMap<>();
+    private final Map<Integer, Booking> poolBooking = new HashMap<>();
+
+    private int countBookingId;
+
+    private int countRoomId;
 
     @NonNull
-    private BookingNotifier bookingNotifier;
+    private final BookingNotifier bookingNotifier;
 
 
     // — добавляет комнату в систему.
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public void addRoom(@NonNull Room room) {
+        if (!rooms.containsKey(room.getRoomId())) {
+            rooms.put(room.getRoomId(), room);
+        } else {
+            System.out.println("Комната с ID " + room.getRoomId() + " уже добавлена.");
+        }
     }
-
 
     //— удаляет комнату из системы.
     public void removeRoom(int roomId) {
-        Room room = getRoomById(roomId);
-        rooms.remove(room);
-    }
-
-    private Room getRoomById(int roomId) {
-        return null;
+        if (rooms.containsKey(roomId)) {
+            rooms.remove(roomId); // Удаляем комнату, если она существует
+            System.out.println("Комната с ID " + roomId + " успешно удалена.");
+        } else {
+            System.out.println("Комната с ID " + roomId + " не найдена.");
+        }
     }
 
     //— бронирует комнату на указанную дату и временной интервал, если она доступна.
-    public void bookRoom(int roomId, String date, String timeSlot) {
+    public Booking bookRoom(int roomId, String date, String timeSlot) {
 
-        // уведомление При успешном бронировании уведомляет всех наблюдателей
-        Booking booking = createBooking(roomId, date, timeSlot);
-        listBooking.add(booking);
-        bookingNotifier.notifyObservers(booking, Status.RESERVED);
-    }
+        Room room = rooms.get(roomId);
 
-    private Booking createBooking(int roomId, String date, String timeSlot) {
-
-        Map<Integer, Booking> result = listBooking
-                .stream()
-                .collect(Collectors.toMap(v -> v.getRoom().getRoomId(), Function.identity()));
-
-        if (result.containsKey(roomId)) {
-            Booking booking = result.get(roomId);
-            String dateRest = getDateRest(booking);
-            if (isDatelonger(dateRest, date)) {
-
-            }
-
-
+        if (room == null || !isRoomAvailable(room, date, timeSlot)) {
+            return null;
         }
 
-        return null;
+        Booking booking = new Booking(countBookingId++, room, date, timeSlot);
+        poolBooking.put(booking.getBookingId(), booking);
+        bookingNotifier.notifyObservers(booking, Status.RESERVED);
+        return booking;
     }
 
-    private boolean isDatelonger (String dateRest, String date){
-        if (dateRest.equals("gfddggffg")) {
-            return true;
+    private boolean isRoomAvailable(Room room, String date, String timeSlot) {
+        for (Booking booking : poolBooking.values()) {
+            if (booking.getRoom().equals(room) && booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)) {
+                System.out.println("It is not possible to book!!!");
+                return false;
+            }
         }
         return true;
     }
 
-
-
-
-    private String getDateRest(Booking booking) {
-        return "";
-    }
-
     // отменяет бронирование и уведомляет всех наблюдателей.
-    public void cancelBooking(int bookingId) {
-        Booking booking = getBookingById(bookingId);
+    public boolean cancelBooking(int bookingId) {
+        Booking booking = poolBooking.remove(bookingId);
         if (booking != null) {
-            listBooking.remove(booking);
             bookingNotifier.notifyObservers(booking, Status.AVAILABLE);
+            return true;
         }
+        return false;
     }
-
-    private Booking getBookingById(int bookingId) {
-        return listBooking.stream()
-                .filter(v -> v.getBookingId() == bookingId)
-                .findFirst().orElse(null);
-    }
-
 
     // — возвращает список доступных комнат, которые подходят по дате, времени и набору удобств.
-    public void findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
+    public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
+        List<Room> availableRooms = new ArrayList<>();
 
+        rooms.values().forEach(room -> {
+            if (isRoomAvailable(room, date, timeSlot) && room.getAmenities().containsAll(requiredAmenities)) {
+                availableRooms.add(room);
+            }
+        });
+        return availableRooms;
+    }
+
+    //список всех бронирований на указанную дату.
+    public List<Booking> findBookingsForDate(String date) {
+        return poolBooking.values()
+                .stream()
+                .filter(b -> b.getDate().equals(date))
+                .collect(Collectors.toList());
     }
 
 }
