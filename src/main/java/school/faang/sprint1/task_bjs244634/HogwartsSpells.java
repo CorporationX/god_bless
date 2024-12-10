@@ -1,38 +1,46 @@
 package school.faang.sprint1.task_bjs244634;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellsById;
-    // Карта для хранения списка событий заклинаний по их типу.
-    // Ключ - String (тип события), значение - List<SpellEvent>
-    private Map<String, List<SpellEvent>> spellsByType;
+    private final Map<Integer, SpellEvent> spellsById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
-        // добавляет новое событие заклинания в обе карты;
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellsById.put(id, spellEvent);
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(spellEvent);
     }
 
-    public void getSpellEventById(int id) {
-        // возвращает событие заклинания по его ID;
+    public SpellEvent getSpellEventById(int id) {
+        return spellsById.get(id);
     }
 
-    public void getSpellEventsByType(String eventType) {
-        // возвращает список событий заклинаний по типу;
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
-        // удаляет событие заклинания по его ID из обеих карт;
+        SpellEvent spellEvent = spellsById.remove(id);
+        if (spellEvent != null) {
+            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+            if (events != null) {
+                events.remove(spellEvent);
+                if (events.isEmpty()) {
+                    spellsByType.remove(spellEvent.getEventType());
+                }
+            }
+        }
     }
 
     public void printAllSpellEvents() {
-        // Выводит информацию о всех событиях заклинаний в консоль,
-        // используя обход массива Entry в карте spellById. Выведите ID, тип и данные каждого события.
+        for (Map.Entry<Integer, SpellEvent> entry : spellsById.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
 
 }
