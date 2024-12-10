@@ -26,6 +26,7 @@ public class InventoryManager {
         }
         character.setInventory(resultInventory);
     }
+
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         List<Item> inventory = character.getInventory();
         List<Item> resultInventory = new ArrayList<>();
