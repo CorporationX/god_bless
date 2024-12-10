@@ -4,5 +4,5 @@ public enum NotificationType {
     SMS,
     EMAIL,
     PUSH,
-    CALL;
+    CALL
 }
