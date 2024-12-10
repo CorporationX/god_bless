@@ -14,18 +14,26 @@ public class StudentDatabase {
     private Map<Subject, List<Student>> studentsStudyingSubjects = new HashMap<>();
 
     public void addStudentAndSubject(Student student, Subject subject, Integer grade) {
-        if (!gradesInSubjects.containsKey(student)) {
-            gradesInSubjects.put(student, new HashMap<Subject, Integer>());
+        if (student == null && student == null && grade == 0) {
+            System.out.println("Введено неверное значение!");
+        } else {
+            if (!gradesInSubjects.containsKey(student)) {
+                gradesInSubjects.put(student, new HashMap<Subject, Integer>());
+            }
+            gradesInSubjects.get(student).put(subject, grade);
         }
-        gradesInSubjects.get(student).put(subject, grade);
     }
 
     public void addSubject(Student student, Subject subject, Integer grade) {
-        if (gradesInSubjects.containsKey(student)) {
-            gradesInSubjects.get(student).put(subject, grade);
-            System.out.println("Предмет " + subject.getName() + " успешно добавлен студенту: " + student.getName());
+        if (student == null && student == null && grade == 0) {
+            System.out.println("Введено неверное значение!");
         } else {
-            System.out.println("Студент с именем " + student.getName() + " не найден в списке!");
+            if (gradesInSubjects.containsKey(student)) {
+                gradesInSubjects.get(student).put(subject, grade);
+                System.out.println("Предмет " + subject.getName() + " успешно добавлен студенту: " + student.getName());
+            } else {
+                System.out.println("Студент с именем " + student.getName() + " не найден в списке!");
+            }
         }
     }
 
@@ -46,22 +54,31 @@ public class StudentDatabase {
                 System.out.println("Предмет ID: " + entry1.getKey().getId() + " "
                         + entry1.getKey().getName() + " оценка - " + entry1.getValue());
             }
+            System.out.println("");
         }
     }
 
     public void addSubjectStudent(Subject subject, Student student) {
-        if (!studentsStudyingSubjects.containsKey(subject)) {
-            studentsStudyingSubjects.put(subject, new ArrayList<>());
+        if (student == null && student == null) {
+            System.out.println("Введено неверное значение!");
+        } else {
+            if (!studentsStudyingSubjects.containsKey(subject)) {
+                studentsStudyingSubjects.put(subject, new ArrayList<>());
+            }
+            studentsStudyingSubjects.get(subject).add(student);
         }
-        studentsStudyingSubjects.get(subject).add(student);
     }
 
     public void addStudent(Subject subject, Student student) {
-        if (studentsStudyingSubjects.containsKey(subject)) {
-            studentsStudyingSubjects.get(subject).add(student);
-            System.out.println("Студент с именем " + student.getName() + " успешно добавлен!");
+        if (student == null && student == null) {
+            System.out.println("Введено неверное значение!");
         } else {
-            System.out.println("Предмет " + student.getName() + " В списке не найден!");
+            if (studentsStudyingSubjects.containsKey(subject)) {
+                studentsStudyingSubjects.get(subject).add(student);
+                System.out.println("Студент с именем " + student.getName() + " успешно добавлен!");
+            } else {
+                System.out.println("Предмет " + subject.getName() + " В списке не найден!");
+            }
         }
     }
 
@@ -87,6 +104,7 @@ public class StudentDatabase {
             for (Student students : entry.getValue()) {
                 System.out.println("ID: " + students.getId() + " Имя:" + students.getName());
             }
+            System.out.println("");
         }
     }
 }

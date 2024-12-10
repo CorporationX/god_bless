@@ -9,9 +9,9 @@ public class Main {
         studentDatabase.addStudentAndSubject(new Student(1, "Кирилл"), new Subject(4, "Алгебра"), 5);
         studentDatabase.addStudentAndSubject(new Student(1, "Кирилл"), new Subject(5, "Физика"), 3);
         studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(1, "История"), 5);
-        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(1, "литература"), 5);
-        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(1, "Геометрия"), 3);
-        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(1, "Алгебра"), 3);
+        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(2, "Литература"), 5);
+        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(3, "Геометрия"), 3);
+        studentDatabase.addStudentAndSubject(new Student(2, "Дмитрий"), new Subject(4, "Алгебра"), 3);
 
         studentDatabase.addSubject(new Student(2, "Дмитрий"), new Subject(5, "Физика"), 3);
 
