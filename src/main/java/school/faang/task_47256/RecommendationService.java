@@ -28,22 +28,25 @@ public class RecommendationService {
 
     public List<Product> findPopularProductsOtherUsers(int userId) {
         UserProfile user = getUserById(userId);
-
-        Set<Integer> usersOther = userProfiles.stream()
-                .filter(u -> u.age() == user.age()
-                        && u.gender() == user.gender()
-                        && u.location().equals(user.location()))
-                .map(UserProfile::userId)
-                .collect(Collectors.toSet());
+        Set<Integer> usersOtherIds = getUsersOtherIds(user);
 
         return productOrders.stream()
-                .filter(order -> usersOther.contains(order.productId()))
+                .filter(order -> usersOtherIds.contains(order.productId()))
                 .collect(Collectors.groupingBy(ProductOrder::productId, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(5)
                 .map(entry -> findProductById(entry.getKey()))
                 .toList();
+    }
+
+    private Set<Integer> getUsersOtherIds(UserProfile user) {
+        return userProfiles.stream()
+                .filter(u -> u.age() == user.age()
+                        && u.gender() == user.gender()
+                        && u.location().equals(user.location()))
+                .map(UserProfile::userId)
+                .collect(Collectors.toSet());
     }
 
     public String getCategoryForDiscount(int userId) {
