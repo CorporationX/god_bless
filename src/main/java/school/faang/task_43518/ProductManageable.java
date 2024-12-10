@@ -6,15 +6,15 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 public interface ProductManageable {
-    void addItem(String category, String name);
+    void addItem(Category category, String name);
 
-    void removeItem(String category, String name) throws NoSuchElementException;
+    void removeItem(Category category, String name) throws NoSuchElementException;
 
-    void findItemsByCategory(String category) throws NoSuchElementException;
+    void findItemsByCategory(Category category) throws NoSuchElementException;
 
     void printAllItems();
 
-    Map<String, List<Product>> groupProductsByCategory(Set<Product> products);
+    Map<Category, List<Product>> groupProductsByCategory(Set<Product> products);
 
-    void printProductsByCategory(Map<String, List<Product>> groupedProducts);
+    void printProductsByCategory(Map<Category, List<Product>> groupedProducts);
 }
