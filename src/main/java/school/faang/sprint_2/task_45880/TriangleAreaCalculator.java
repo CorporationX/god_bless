@@ -9,31 +9,6 @@ public class TriangleAreaCalculator {
     Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
     Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
 
-    // Метод для вычисления площади треугольника
-    public Double calculateTriangleArea(double sideA, double sideB, double sideC) throws IllegalArgumentException {
-        if (add.apply(sideA).apply(sideB) <= sideC
-                || add.apply(sideA).apply(sideC) <= sideB
-                || add.apply(sideB).apply(sideC) <= sideA) {
-            throw new IllegalArgumentException("Неправильные стороны треугольника");
-        }
-        Double sumAbc = add.apply(
-                add.apply(sideA).apply(sideB)
-        ).apply(sideC);
-        Double semiPerimeter = divide.apply(sumAbc).apply(2.0);
-
-        Double subtractPandA = subtract.apply(semiPerimeter).apply(sideA);
-        Double subtractPandB = subtract.apply(semiPerimeter).apply(sideB);
-        Double subtractPandC = subtract.apply(semiPerimeter).apply(sideC);
-
-        Double multiplyOfSubtractPandAbc = multiply.apply(
-                multiply.apply(subtractPandA).apply(subtractPandB)
-        ).apply(subtractPandC);
-
-        Double square = squareRoot.apply(multiply.apply(semiPerimeter).apply(multiplyOfSubtractPandAbc));
-
-        return square;
-    }
-
     public static void main(String[] args) {
         TriangleAreaCalculator calculator = new TriangleAreaCalculator();
 
@@ -44,4 +19,44 @@ public class TriangleAreaCalculator {
             System.out.println(e.getMessage());
         }
     }
+
+    public double calculateTriangleArea(double sideA, double sideB, double sideC) throws IllegalArgumentException {
+        if (!isValidTriangleSides(sideA, sideB, sideC)) {
+            throw new IllegalArgumentException("Неверные стороны треугольника");
+        }
+
+        double semiPerimeter = calculateSemiPerimeter(sideA, sideB, sideC);
+        double productOfDeltaValues = calculateDeltaValuesProduct(semiPerimeter, sideA, sideB, sideC);
+        double triangleArea = squareRoot.apply(multiply.apply(semiPerimeter).apply(productOfDeltaValues));
+
+        return triangleArea;
+    }
+
+    private boolean isValidTriangleSides(double sideA, double sideB, double sideC) {
+        return sideA >= 0 && sideB >= 0 && sideC >= 0
+                && add.apply(sideA).apply(sideB) <= sideC
+                && add.apply(sideA).apply(sideC) <= sideB
+                && add.apply(sideB).apply(sideC) <= sideA;
+    }
+
+    private double calculateSemiPerimeter(double sideA, double sideB, double sideC) {
+        Double perimeter = add.apply(
+                add.apply(sideA).apply(sideB)
+        ).apply(sideC);
+
+        return divide.apply(perimeter).apply(2.0);
+    }
+
+    private double calculateDeltaValuesProduct(double semiPerimeter, double sideA, double sideB, double sideC) {
+        Double deltaA = subtract.apply(semiPerimeter).apply(sideA);
+        Double deltaB = subtract.apply(semiPerimeter).apply(sideB);
+        Double deltaC = subtract.apply(semiPerimeter).apply(sideC);
+
+        return multiply.apply(
+                multiply.apply(deltaA).apply(deltaB)
+        ).apply(deltaC);
+
+    }
+
 }
+
