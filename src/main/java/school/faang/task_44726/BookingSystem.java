@@ -10,17 +10,14 @@ public class BookingSystem {
     private List<Room> roomList = new ArrayList<>();
     private List<Booking> bookingList = new ArrayList<>();
 
-    public void addRoom(Room room) {
-        roomList.add(room);
-    }
-
-    public int addNewSingleRoom() {
-        Room room = Room.builder()
-                .type(RoomType.getRandomRoomType())
-                .amenities(Amenities.getSetOfAmenities())
-                .build();
-        roomList.add(room);
-        return room.getRoomId();
+    public void addRoom(int numberOfRoomToAdd) {
+        for (int i = 0; i < numberOfRoomToAdd; i++) {
+            Room room = Room.builder()
+                    .type(RoomType.getRandomRoomType())
+                    .amenities(Amenities.getSetOfAmenities())
+                    .build();
+            roomList.add(room);
+        }
     }
 
     public void removeRoom(int roomId) {
@@ -60,31 +57,6 @@ public class BookingSystem {
         }
     }
 
-    private boolean isRoomAlreadyBooked(int roomId) {
-        for (Booking booking : bookingList) {
-            if (booking.getRoom().getRoomId() == roomId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void listAllAvailableRoom() {
-        for (Room room : roomList) {
-            System.out.println(room.toString());
-        }
-    }
-
-    public void listAllCurrentBooking() {
-        if (bookingList.size() > 0) {
-            for (Booking booking : bookingList) {
-                System.out.println(booking.toString());
-            }
-        } else {
-            System.out.println("\nBooking list is empty");
-        }
-    }
-
     public void findAvailableRooms(String dayOfTheWeek, String timeSlot, Set<String> requiredAmenities) {
         List<Room> availableRoomForBooking = new ArrayList<>();
         availableRoomForBooking.addAll(roomList);
@@ -104,6 +76,31 @@ public class BookingSystem {
         }
         System.out.println("Available room for booking: \n");
         availableRoomForBooking.forEach(System.out::println);
+    }
+
+    private boolean isRoomAlreadyBooked(int roomId) {
+        for (Booking booking : bookingList) {
+            if (booking.getRoom().getRoomId() == roomId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void listAllRoomExistedInTheSystem() {
+        for (Room room : roomList) {
+            System.out.println(room.toString());
+        }
+    }
+
+    public void listAllCurrentBooking() {
+        if (bookingList.size() > 0) {
+            for (Booking booking : bookingList) {
+                System.out.println(booking.toString());
+            }
+        } else {
+            System.out.println("\nBooking list is empty");
+        }
     }
 
     private boolean isAmenitiesAvailable(Room room, Set<String> requiredAmenities) {

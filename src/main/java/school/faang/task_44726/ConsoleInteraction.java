@@ -33,7 +33,7 @@ public class ConsoleInteraction {
             System.out.println("Welcome to the Booking System!");
             System.out.println("1. Show all rooms");
             System.out.println("2. Delete room from booking system");
-            System.out.println("3. Add room into the booking system");
+            System.out.println("3. Add room(s) into the booking system");
             System.out.println("4. Book a room");
             System.out.println("5. Cancel booking");
             System.out.println("6. Show all current booking");
@@ -46,7 +46,7 @@ public class ConsoleInteraction {
             switch (choice) {
                 case 1:
                     System.out.println("List of Rooms:");
-                    bookingSystem.listAllAvailableRoom();
+                    bookingSystem.listAllRoomExistedInTheSystem();
                     break;
                 case 2:
                     System.out.print("Delete room. Type roomId which you would like to delete:");
@@ -54,8 +54,9 @@ public class ConsoleInteraction {
                     bookingSystem.removeRoom(roomId);
                     break;
                 case 3:
-                    int newRoomId = bookingSystem.addNewSingleRoom();
-                    System.out.print("\nA new room with id " + newRoomId + " added into the booking system\n");
+                    System.out.print("Room adding... Type how many rooms you would like to add?");
+                    int numberOfRoomToAdd = scanner.nextInt();
+                    bookingSystem.addRoom(numberOfRoomToAdd);
                     break;
                 case 4:
                     System.out.print("Book a room. Type roomId which you would like to book:");
