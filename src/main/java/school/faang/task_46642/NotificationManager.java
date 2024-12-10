@@ -5,30 +5,47 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> handlers = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
-    public void registerHandler(String notificationType, Consumer<Notification> handler) {
+    public void registerHandler(NotificationType notificationType, Consumer<Notification> handler) {
+        if (notificationType == null || handler == null) {
+            throw new IllegalArgumentException("Notification type and handler must not be null");
+        }
         handlers.put(notificationType, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> handler = handlers.get(notification.type());
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification must not be null");
+        }
+
+        NotificationType type;
+        try {
+            type = NotificationType.fromString(notification.type());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid notification type: " + notification.type());
+            return;
+        }
+
+        Consumer<Notification> handler = handlers.get(type);
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.println("Handler for type \"" + notification.type() + "\" not found.");
+            System.out.println("Handler for type '" + type.getType() + "' not found.");
         }
     }
 
     public void addFilter(String keyword, Consumer<Notification> handler) {
-        registerHandler("filter_" + keyword, handler);
+        if (keyword == null || handler == null) {
+            throw new IllegalArgumentException("Keyword and handler must not be null");
+        }
+        handlers.put(NotificationType.EMAIL, handler);
     }
 
     public void processFilters(Notification notification) {
-        for (Map.Entry<String, Consumer<Notification>> entry : handlers.entrySet()) {
-            if (entry.getKey().startsWith("filter_")) {
-                entry.getValue().accept(notification);
-            }
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification must not be null");
         }
+        handlers.forEach((key, value) -> value.accept(notification));
     }
 }
