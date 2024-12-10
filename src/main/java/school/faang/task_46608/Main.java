@@ -1,8 +1,12 @@
 package school.faang.task_46608;
 
+import java.util.List;
+
 public class Main {
+    private static NotificationManager notificationManager;
+
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
+        notificationManager = new NotificationManager();
 
         // Регистрация обработчиков оповещений
         notificationManager.registerHandler("email",
@@ -22,9 +26,9 @@ public class Main {
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        sendNotification(emailNotification);
+        sendNotification(smsNotification);
+        sendNotification(pushNotification);
 
 
         notificationManager.addFilter("bad_words",
@@ -43,14 +47,25 @@ public class Main {
                     return notification;
                 }));
 
-        Notification notificationWithBadWord = new Notification("email", "Здесь будет bad_word");
-        Notification filteredNotification =
-                notificationManager.filterNotification("bad_words", notificationWithBadWord);
-        notificationManager.sendNotification(filteredNotification);
+        List<Notification> notifications = createNotifications();
+        for (Notification notification : notifications) {
+            filterAndSendNotification("bad_words", notification);
+            filterAndSendNotification("special_characters", notification);
+        }
+    }
 
-        Notification notificationWithSpecialCharacters = new Notification("sms", "Слишком много !!!!!");
-        Notification filteredNotificationSecond =
-                notificationManager.filterNotification("special_characters", notificationWithSpecialCharacters);
-        notificationManager.sendNotification(filteredNotificationSecond);
+    private static void sendNotification(Notification notification) {
+        notificationManager.sendNotification(notification);
+    }
+
+    private static void filterAndSendNotification(String filter, Notification notification) {
+        notificationManager.filterNotification(filter, notification);
+    }
+
+    private static List<Notification> createNotifications() {
+        return List.of(
+                new Notification("email", "Здесь будет bad_word"),
+                new Notification("sms", "Слишком много !!!!!")
+        );
     }
 }
