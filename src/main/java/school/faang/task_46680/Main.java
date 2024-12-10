@@ -19,7 +19,8 @@ public class Main {
         sendNotificationUsers(notifications, notificationManager);
     }
 
-    private static void sendNotificationUsers(List<Notification> notifications, NotificationManager notificationManager) {
+    private static void sendNotificationUsers(List<Notification> notifications, NotificationManager
+            notificationManager) {
         notifications.forEach(notification -> notificationManager.sendNotification(notification));
     }
 
@@ -27,7 +28,7 @@ public class Main {
         List<Notification> toDelete = new ArrayList<>();
         notifications.forEach(notification -> {
             boolean isDeleteNotification = notificationManager
-                    .IsDeleteNotification(notification);
+                    .IsDelete(notification);
             if (isDeleteNotification) {
                 toDelete.add(notification);
             }
