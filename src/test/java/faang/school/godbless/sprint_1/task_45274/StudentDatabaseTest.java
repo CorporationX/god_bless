@@ -1,6 +1,6 @@
 package faang.school.godbless.sprint_1.task_45274;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,12 +13,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StudentDatabaseTest {
 
-    private static final StudentDatabase STUDENT_DATABASE = new StudentDatabase();
+    private final StudentDatabase studentDatabase = new StudentDatabase();
 
-    @BeforeAll
-    static void init() {
-        STUDENT_DATABASE.addingNewStudentAndHisSubjectsWithGrades(STUDENT_1, SUBJECT_1, 3);
-        STUDENT_DATABASE.addingNewStudentAndHisSubjectsWithGrades(STUDENT_2, SUBJECT_3, 5);
+    private final Map<Student, Map<Subject, Integer>> studentsMap = new HashMap<>();
+
+    private final Map<Subject, List<Student>> subjectsMap = new HashMap<>();
+
+    @BeforeEach
+    void init() {
+        studentDatabase.addingNewStudentAndHisSubjectsWithGrades(STUDENT_1, SUBJECT_1, 3);
+        studentDatabase.addingNewStudentAndHisSubjectsWithGrades(STUDENT_2, SUBJECT_3, 5);
+
+        studentsMap.put(STUDENT_1, new HashMap<>() {{
+                put(SUBJECT_1, 3);
+            }
+        });
+        studentsMap.put(STUDENT_2, new HashMap<>() {{
+                put(SUBJECT_3, 5);
+            }
+        });
+
+        subjectsMap.put(SUBJECT_1, new ArrayList<>() {{
+                add(STUDENT_1);
+            }
+        });
+        subjectsMap.put(SUBJECT_3, new ArrayList<>() {{
+                add(STUDENT_2);
+            }
+        });
     }
 
     /**
@@ -27,10 +49,10 @@ class StudentDatabaseTest {
     @Test
     void testAddingNewStudentAndHisSubjectsWithGrades() {
         //Этот студент добавиться не должен, так как он уже существует
-        STUDENT_DATABASE.addingNewStudentAndHisSubjectsWithGrades(STUDENT_2, SUBJECT_4, 5);
+        studentDatabase.addingNewStudentAndHisSubjectsWithGrades(STUDENT_2, SUBJECT_4, 5);
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 
     /**
@@ -38,23 +60,23 @@ class StudentDatabaseTest {
      */
     @Test
     void testAddingNewSubjectForAnExistingStudentWithGrade() {
-        STUDENTS_MAP.get(STUDENT_1).put(SUBJECT_2, 4);
-        STUDENTS_MAP.get(STUDENT_2).put(SUBJECT_5, 3);
-        SUBJECTS_MAP.put(SUBJECT_2, new ArrayList<>() {{
+        studentsMap.get(STUDENT_1).put(SUBJECT_2, 4);
+        studentsMap.get(STUDENT_2).put(SUBJECT_5, 3);
+        subjectsMap.put(SUBJECT_2, new ArrayList<>() {{
                 add(STUDENT_1);
                 }
         });
-        SUBJECTS_MAP.put(SUBJECT_5, new ArrayList<>() {{
+        subjectsMap.put(SUBJECT_5, new ArrayList<>() {{
                 add(STUDENT_2);
                 }
         });
 
-        STUDENT_DATABASE.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_1, SUBJECT_2, 4);
-        STUDENT_DATABASE.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_2, SUBJECT_5, 3);
-        STUDENT_DATABASE.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_3, SUBJECT_4, 5);
+        studentDatabase.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_1, SUBJECT_2, 4);
+        studentDatabase.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_2, SUBJECT_5, 3);
+        studentDatabase.addingNewSubjectForAnExistingStudentWithGrade(STUDENT_3, SUBJECT_4, 5);
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 
     /**
@@ -63,16 +85,16 @@ class StudentDatabaseTest {
     @Test
     void testAddingStudentToAnExistingSubject() {
         //Этот студент добавиться не должен, так как он уже существует
-        STUDENT_DATABASE.addingStudentToAnExistingSubject(STUDENT_1, SUBJECT_1);
-        STUDENT_DATABASE.addingStudentToAnExistingSubject(STUDENT_4, SUBJECT_1);
+        studentDatabase.addingStudentToAnExistingSubject(STUDENT_1, SUBJECT_1);
+        studentDatabase.addingStudentToAnExistingSubject(STUDENT_4, SUBJECT_1);
 
         Map<Subject, Integer> studentSubjectsAndGrades = new HashMap<>();
         studentSubjectsAndGrades.put(SUBJECT_1, null);
-        STUDENTS_MAP.put(STUDENT_4, studentSubjectsAndGrades);
-        SUBJECTS_MAP.get(SUBJECT_1).add(STUDENT_4);
+        studentsMap.put(STUDENT_4, studentSubjectsAndGrades);
+        subjectsMap.get(SUBJECT_1).add(STUDENT_4);
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 
     /**
@@ -80,15 +102,15 @@ class StudentDatabaseTest {
      */
     @Test
     void deletingStudentAndHisSubjects() {
-        STUDENT_DATABASE.deletingStudentAndHisSubjects(STUDENT_2);
+        studentDatabase.deletingStudentAndHisSubjects(STUDENT_2);
 
-        Map<Subject, Integer> studentSubjectsAndGrades = STUDENTS_MAP.remove(STUDENT_2);
+        Map<Subject, Integer> studentSubjectsAndGrades = studentsMap.remove(STUDENT_2);
         for (Subject subject : studentSubjectsAndGrades.keySet()) {
-            SUBJECTS_MAP.get(subject).remove(STUDENT_2);
+            subjectsMap.get(subject).remove(STUDENT_2);
         }
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 
     /**
@@ -99,17 +121,17 @@ class StudentDatabaseTest {
         List<Student> students = new ArrayList<>();
         students.add(STUDENT_4);
         students.add(STUDENT_5);
-        STUDENT_DATABASE.addingNewSubjectAndListOfStudentsStudyingIt(SUBJECT_6, students);
+        studentDatabase.addingNewSubjectAndListOfStudentsStudyingIt(SUBJECT_6, students);
 
         Map<Subject, Integer> studentsNewSubjectAndGrade = new HashMap<>();
         studentsNewSubjectAndGrade.put(SUBJECT_6, null);
-        STUDENTS_MAP.put(STUDENT_4, studentsNewSubjectAndGrade);
-        STUDENTS_MAP.put(STUDENT_5, studentsNewSubjectAndGrade);
+        studentsMap.put(STUDENT_4, studentsNewSubjectAndGrade);
+        studentsMap.put(STUDENT_5, studentsNewSubjectAndGrade);
 
-        SUBJECTS_MAP.put(SUBJECT_6, students);
+        subjectsMap.put(SUBJECT_6, students);
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 
     /**
@@ -117,12 +139,12 @@ class StudentDatabaseTest {
      */
     @Test
     void testDeletingStudentFromSubject() {
-        STUDENT_DATABASE.deletingStudentFromSubject(STUDENT_1, SUBJECT_1);
+        studentDatabase.deletingStudentFromSubject(STUDENT_1, SUBJECT_1);
 
-        STUDENTS_MAP.get(STUDENT_1).remove(SUBJECT_1);
-        SUBJECTS_MAP.get(SUBJECT_1).remove(STUDENT_1);
+        studentsMap.get(STUDENT_1).remove(SUBJECT_1);
+        subjectsMap.get(SUBJECT_1).remove(STUDENT_1);
 
-        assertEquals(STUDENTS_MAP, STUDENT_DATABASE.getListOfSubjectsAndGradesForEachStudent());
-        assertEquals(SUBJECTS_MAP, STUDENT_DATABASE.getListOfStudentsStudyingEachSubject());
+        assertEquals(studentsMap, studentDatabase.getListOfSubjectsAndGradesForEachStudent());
+        assertEquals(subjectsMap, studentDatabase.getListOfStudentsStudyingEachSubject());
     }
 }
