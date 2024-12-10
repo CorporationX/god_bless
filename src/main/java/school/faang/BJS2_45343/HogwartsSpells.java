@@ -1,19 +1,15 @@
-package school.faang;
+package school.faang.BJS2_45343;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.collections4.CollectionUtils;
 
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById;
-    private final Map<String, List<SpellEvent>> spellsByType;
-
-    public HogwartsSpells() {
-        this.spellById = new HashMap<>();
-        this.spellsByType = new HashMap<>();
-    }
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent newSpell = new SpellEvent(id, eventType, actionDescription);
@@ -37,11 +33,12 @@ public class HogwartsSpells {
         SpellEvent spellToRemove = spellById.remove(id);
 
         if (spellToRemove != null) {
-            List<SpellEvent> eventsByType = spellsByType.get(spellToRemove.getEventType());
-            if (eventsByType != null) {
+            List<SpellEvent> eventsByType = spellsByType.get(spellToRemove.eventType());
+
+            if (CollectionUtils.isNotEmpty(eventsByType)) {
                 eventsByType.remove(spellToRemove);
                 if (eventsByType.isEmpty()) {
-                    spellsByType.remove(spellToRemove.getEventType());
+                    spellsByType.remove(spellToRemove.eventType());
                 }
             }
             System.out.println("Заклинание удалено: " + spellToRemove);
