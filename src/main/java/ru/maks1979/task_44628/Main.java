@@ -30,7 +30,6 @@ public class Main {
         spells.addSpellEvent(5, "Offensive", "Lightning bolt attack");
         System.out.println(offensiveSpells);
 
-// bla-bla
     }
 }
 
