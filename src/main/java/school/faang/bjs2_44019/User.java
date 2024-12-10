@@ -1,4 +1,4 @@
-package school.faang.BJS2_44019;
+package school.faang.bjs2_44019;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +26,7 @@ public class User {
             int age = user.age;
             if (ageGroups.containsKey(age)) {
                 ageGroups.get(age).add(user);
-            }
-            else {
+            } else {
                 var initAge = new ArrayList<User>();
                 initAge.add(user);
                 ageGroups.put(age, initAge);
