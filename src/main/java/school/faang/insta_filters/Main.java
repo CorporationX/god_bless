@@ -9,8 +9,12 @@ public class Main {
         FilterProcessor filterProcessor = new FilterProcessor();
 
 // Фильтры
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый"
+                );
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Фильтр: сепия"
+                );
 
 // Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
