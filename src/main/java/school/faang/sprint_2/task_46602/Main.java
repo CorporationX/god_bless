@@ -1,7 +1,27 @@
 package school.faang.sprint_2.task_46602;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        NotificationManager notificationManager = getNotificationManager();
+        List<Notification> listNotification = new ArrayList<>(
+                Arrays.asList(
+                        new Notification("email", "Ваша учетная запись успешно активирована"),
+                        new Notification("sms", "Вы успешно изменили свой пароль"),
+                        new Notification("push", "Новый пост от пользователя: JohnDoe"),
+                        new Notification("Scam", "Алло это служба безопасности сбербанка")
+                        )
+        );
+
+        for (Notification notification : listNotification) {
+            notificationManager.sendNotification(notification);
+        }
+    }
+
+    private static NotificationManager getNotificationManager() {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler("email",
@@ -15,15 +35,6 @@ public class Main {
         notificationManager.registerHandler("push",
                 (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
         );
-
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
-        Notification nonNotification = new Notification("Scam", "Алло это служба безопасности сбербанка");
-
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
-        notificationManager.sendNotification(nonNotification);
+        return notificationManager;
     }
 }
