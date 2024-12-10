@@ -4,9 +4,37 @@ import lombok.Getter;
 
 @Getter
 public class Droid {
-    private static final int MAX_LETTER_IN_ENGLISH = 26;
+    private static final int ALPHABET_SIZE = 26;
 
     private final String name;
+    private static DroidMessageEncryptor decryptor = (newMessage, keyDecrypt) -> {
+        StringBuilder result = new StringBuilder();
+
+        for (char c : newMessage.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                result.append((char) ((c - base - keyDecrypt + ALPHABET_SIZE) % ALPHABET_SIZE + base));
+            } else {
+                result.append(c);
+            }
+        }
+
+        return result.toString();
+    };
+    private static DroidMessageEncryptor encryptor = (newMessage, keyEncrypt) -> {
+
+        StringBuilder result = new StringBuilder();
+
+        for (char c : newMessage.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                result.append((char) ((c - base + keyEncrypt) % ALPHABET_SIZE + base));
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    };
 
     public Droid(String name) {
         if (name == null) {
@@ -20,49 +48,18 @@ public class Droid {
             throw new IllegalArgumentException("String can`t be null");
         }
         if (key < 0 || key > 26) {
-            throw new IllegalArgumentException("the key must be greater than zero");
+            throw new IllegalArgumentException("the key must be in the range from 0 to 26");
         }
     }
 
     private String encryptMessage(String string, int key) {
         validateMessageKey(string, key);
 
-        DroidMessageEncryptor encryptor = (newMessage, keyEncrypt) -> {
-
-            StringBuilder result = new StringBuilder();
-
-            for (char c : newMessage.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isLowerCase(c) ? 'a' : 'A';
-                    result.append((char) ((c - base + keyEncrypt) % MAX_LETTER_IN_ENGLISH + base));
-                } else {
-                    result.append(c);
-                }
-            }
-            return result.toString();
-        };
-
         return encryptor.encrypt(string, key);
     }
 
     private String decryptMessage(String string, int key) {
         validateMessageKey(string, key);
-
-        DroidMessageEncryptor decryptor = (newMessage, keyDecrypt) -> {
-            StringBuilder result = new StringBuilder();
-
-            for (char c : newMessage.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isLowerCase(c) ? 'a' : 'A';
-                    result.append((char) ((c - base
-                            - keyDecrypt + MAX_LETTER_IN_ENGLISH) % MAX_LETTER_IN_ENGLISH + base));
-                } else {
-                    result.append(c);
-                }
-            }
-
-            return result.toString();
-        };
 
         return decryptor.encrypt(string, key);
     }
@@ -74,18 +71,15 @@ public class Droid {
         }
 
         String encryptMessage = encryptMessage(message, key);
-
-        System.out.println(this.getName() + " отправил зашифрованное сообщение: " + encryptMessage);
-        System.out.print(droid.getName());
-        receiveMessage(encryptMessage, key);
+        System.out.printf("%s отправил зашифрованное сообщение: %s%n", this.getName(), encryptMessage);
+        System.out.printf("%s %s%n", droid.getName(), receiveMessage(encryptMessage, key));
     }
 
-    private void receiveMessage(String message, int key) {
+    private String receiveMessage(String message, int key) {
         validateMessageKey(message, key);
 
         String decryptMessage = decryptMessage(message, key);
 
-        System.out.println(" получил расшифрованное сообщение: " + decryptMessage);
-
+        return String.format("получил расшифрованное сообщение: %s", decryptMessage);
     }
 }
