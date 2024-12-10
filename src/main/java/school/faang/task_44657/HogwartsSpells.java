@@ -12,7 +12,6 @@ import java.util.Map;
 @Slf4j
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    ;
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
