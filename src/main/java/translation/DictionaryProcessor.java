@@ -1,8 +1,5 @@
-package translate_word;
+package translation;
 
-import java.nio.file.Watchable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {
