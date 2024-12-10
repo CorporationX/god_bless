@@ -29,12 +29,8 @@ public class Main {
 
         testAddStudentWithSubjectsAndGrades(student1, grades1);
         testAddStudentWithSubjectsAndGrades(student2, grades2);
-        // testAddStudentWithSubjectsAndGrades(null, grades1); // some tests for null
-        // testAddStudentWithSubjectsAndGrades(student1, null);
         testAddSubjectForStudent(student1, subject1, 3);
         testAddSubjectForStudent(student1, subject2, 3);
-        // testAddSubjectForStudent(null, subject2, 3);
-        // testAddSubjectForStudent(student2, null, 4);
         testRemoveStudentWithSubjects(student1);
         testPrintAllStudentsWithSubjectsAndGrades();
 
