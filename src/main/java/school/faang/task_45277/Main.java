@@ -1,5 +1,6 @@
 package school.faang.task_45277;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
@@ -14,8 +15,8 @@ public class Main {
         Subject physics = new Subject("Physics");
         Subject chemistry = new Subject("Chemistry");
 
-        database.addStudentWithGrades(student1, Map.of(math, 90, physics, 85));
-        database.addStudentWithGrades(student2, Map.of(math, 78, chemistry, 88));
+        database.addStudentWithGrades(student1, new HashMap<>(Map.of(math, 90, physics, 85)));
+        database.addStudentWithGrades(student2, new HashMap<>(Map.of(math, 78, chemistry, 88)));
         database.printAllStudentsWithGrades();
         database.addStudentToSubject(student3, chemistry);
         database.removeStudentFromSubject(student1, math);
