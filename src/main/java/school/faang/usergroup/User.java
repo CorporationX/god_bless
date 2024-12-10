@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class User {
-    String name;
-    int age;
-    String address;
-    String workplace;
+    private String name;
+    private int age;
+    private String address;
+    private String workplace;
 
     public User(String name, int age, String address, String workplace) {
         this.name = name;
