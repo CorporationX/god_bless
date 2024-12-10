@@ -22,7 +22,18 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    protected abstract void attack(Character character);
+    public void attack(Character character, String attackMessage, int damage) {
+        try {
+            if (this.health <= 0) {
+                throw new IllegalAccessException(this.getName() + " is already dead!");
+            } else {
+                character.setHealth(character.getHealth() - damage);
+                System.out.println(attackMessage);
+            }
+        } catch (IllegalAccessException e) {
+            System.out.println("Attack failed: " + e.getMessage());
+        }
+    }
 
     protected void setHealth(int health) {
         try {
