@@ -1,18 +1,22 @@
 package school.faang.task_44644;
 
+import static school.faang.task_44644.EventType.EXPECTO_PATRONUM;
+import static school.faang.task_44644.EventType.LUMOS;
+import static school.faang.task_44644.EventType.PROTECTION;
+import static school.faang.task_44644.EventType.TRANSFIGURATION;
+
 public class Main {
 
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        hogwartsSpells.addSpellEvent(4, "lumos", "gives the light");
-        hogwartsSpells.addSpellEvent(6, "transfiguration", "transforms an item");
-        hogwartsSpells.addSpellEvent(8, "protection", "protects from attacks");
-        hogwartsSpells.addSpellEvent(9, "expecto patronum", "repels Dementors");
+        hogwartsSpells.addSpellEvent(new SpellEvent(4, LUMOS));
+        hogwartsSpells.addSpellEvent(new SpellEvent(6, TRANSFIGURATION));
+        hogwartsSpells.addSpellEvent(new SpellEvent(8, PROTECTION));
+        hogwartsSpells.addSpellEvent(new SpellEvent(9, EXPECTO_PATRONUM));
         hogwartsSpells.printAllSpellEvents();
         hogwartsSpells.getSpellEventById(9);
-        hogwartsSpells.getSpellEventsByType("lumos");
+        hogwartsSpells.getSpellEventsByType(LUMOS);
         hogwartsSpells.deleteSpellEvent(6);
-        hogwartsSpells.printAllSpellEvents();
     }
 }
