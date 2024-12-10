@@ -22,7 +22,8 @@ public class Main {
         Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email ->
+                System.out.println("Обработано письмо: " + email.getSubject());
 
         // Преобразователь, который переводит текст письма в верхний регистр
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
@@ -31,6 +32,7 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email ->
+                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 }
