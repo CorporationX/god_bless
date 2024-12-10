@@ -4,27 +4,24 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        Image originalImage = new Image("NewImage.jpg", "Original image");
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-// Фильтры
         Function<Image, Image> grayscaleFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый"
+                new Image(image.getName(), image.getDescription() + " >> Filter: Grayscale"
                 );
-        Function<Image, Image> sepiaFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " | Фильтр: сепия"
+        Function<Image, Image> toneCorrectionFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " >> Filter: Correction"
                 );
 
-// Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый
+        System.out.println(grayscaleImage.getDescription());
 
-        Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, toneCorrectionFilter);
+        System.out.println(sepiaImage.getDescription());
 
-// Комбинирование фильтров
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, toneCorrectionFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
     }
