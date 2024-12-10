@@ -13,4 +13,9 @@ public class Product {
     private int id;
     private String name;
     private String category;
+    private static int counter = 0;
+
+    public static int getCounter() {
+        return counter++;
+    }
 }

@@ -1,7 +1,5 @@
 package school.faang.task_45161;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,12 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
 public class Main {
-    private Set<Product> products = new HashSet<>();
+    private final Set<Product> products = new HashSet<>();
 
     public void addItem(String category, String name) {
-        int id = products.size();
+        int id = Product.getCounter();
         Product product = new Product(id, name, category);
         products.add(product);
     }
@@ -29,9 +26,7 @@ public class Main {
         }
 
         if (!productsToRemove.isEmpty()) {
-            for (var product : productsToRemove) {
-                products.remove(product);
-            }
+            products.removeAll(productsToRemove);
         } else {
             System.out.println("Product with '" + category + "' and name '" + name + "' is not found");
         }
@@ -61,9 +56,8 @@ public class Main {
 
         for (var product : products) {
             String category = product.getCategory();
-            List<Product> productsSameCategory = productsByCategory.getOrDefault(category, new ArrayList<>());
-            productsSameCategory.add(product);
-            productsByCategory.put(category, productsSameCategory);
+            productsByCategory.putIfAbsent(category, new ArrayList<>());
+            productsByCategory.get(category).add(product);
         }
 
         return productsByCategory;
@@ -73,6 +67,10 @@ public class Main {
         for (var entry : groupedProducts.entrySet()) {
             System.out.println("Category: " + entry.getKey() + ", products: " + entry.getValue());
         }
+    }
+
+    public Set<Product> getProducts() {
+        return new HashSet<>(products);
     }
 
     public static void main(String[] args) {
@@ -87,6 +85,7 @@ public class Main {
         System.out.println();
         warehouse.removeItem("Healthcare", "Shampoo");
         warehouse.removeItem("Food", "Tea");
+        warehouse.addItem("Food", "Cake");
         warehouse.printAllItems();
 
         System.out.println();
