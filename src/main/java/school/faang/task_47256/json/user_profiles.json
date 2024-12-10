@@ -1,0 +1,167 @@
+[
+  {
+    "userId": 1,
+    "gender": "MALE",
+    "age": 23,
+    "location": "Казань",
+    "interests": [
+      "Видеоигры",
+      "Мода",
+      "Фантастика"
+    ]
+  },
+  {
+    "userId": 2,
+    "gender": "FEMALE",
+    "age": 25,
+    "location": "Москва",
+    "interests": [
+      "Видеоигры",
+      "Мода",
+      "Йога"
+    ]
+  },
+  {
+    "userId": 3,
+    "gender": "MALE",
+    "age": 30,
+    "location": "Москва",
+    "interests": [
+      "Видеоигры",
+      "Йога",
+      "Сноубординг"
+    ]
+  },
+  {
+    "userId": 4,
+    "gender": "FEMALE",
+    "age": 39,
+    "location": "Новосибирск",
+    "interests": [
+      "Программирование",
+      "Фантастика",
+      "Технологии"
+    ]
+  },
+  {
+    "userId": 5,
+    "gender": "MALE",
+    "age": 39,
+    "location": "Санкт-Петербург",
+    "interests": [
+      "Сноубординг",
+      "Программирование",
+      "Йога"
+    ]
+  },
+  {
+    "userId": 6,
+    "gender": "FEMALE",
+    "age": 20,
+    "location": "Казань",
+    "interests": [
+      "Чтение",
+      "Йога",
+      "Программирование"
+    ]
+  },
+  {
+    "userId": 7,
+    "gender": "MALE",
+    "age": 48,
+    "location": "Москва",
+    "interests": [
+      "Фитнес",
+      "Технологии",
+      "Видеоигры"
+    ]
+  },
+  {
+    "userId": 8,
+    "gender": "FEMALE",
+    "age": 32,
+    "location": "Краснодар",
+    "interests": [
+      "Йога",
+      "Чтение",
+      "Технологии"
+    ]
+  },
+  {
+    "userId": 9,
+    "gender": "FEMALE",
+    "age": 35,
+    "location": "Казань",
+    "interests": [
+      "Фитнес",
+      "Технологии",
+      "Мода"
+    ]
+  },
+  {
+    "userId": 10,
+    "gender": "FEMALE",
+    "age": 20,
+    "location": "Краснодар",
+    "interests": [
+      "Мода",
+      "Программирование",
+      "Фантастика"
+    ]
+  },
+  {
+    "userId": 11,
+    "gender": "FEMALE",
+    "age": 38,
+    "location": "Москва",
+    "interests": [
+      "Фитнес",
+      "Музыка",
+      "Мода"
+    ]
+  },
+  {
+    "userId": 12,
+    "gender": "FEMALE",
+    "age": 26,
+    "location": "Казань",
+    "interests": [
+      "Технологии",
+      "Фантастика",
+      "Чтение"
+    ]
+  },
+  {
+    "userId": 13,
+    "gender": "MALE",
+    "age": 40,
+    "location": "Казань",
+    "interests": [
+      "Мода",
+      "Видеоигры",
+      "Программирование"
+    ]
+  },
+  {
+    "userId": 14,
+    "gender": "FEMALE",
+    "age": 19,
+    "location": "Казань",
+    "interests": [
+      "Программирование",
+      "Фитнес",
+      "Музыка"
+    ]
+  },
+  {
+    "userId": 15,
+    "gender": "MALE",
+    "age": 26,
+    "location": "Краснодар",
+    "interests": [
+      "Мода",
+      "Музыка",
+      "Технологии"
+    ]
+  }
+]
