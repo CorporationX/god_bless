@@ -30,7 +30,7 @@ public class ProductManager {
 
             while (iteratorProductCategory.hasNext()) {
                 Product product = iteratorProductCategory.next();
-                if (product.getName().equals(name)) {
+                if (Objects.equals(product.getName(), name)) {
                     iteratorProductCategory.remove();
                     productSet.remove(product);
                     productFound = true;
@@ -74,7 +74,7 @@ public class ProductManager {
         }
     }
 
-    public Map<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+    public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> productMap = new HashMap<>();
         for (Product product : products) {
             if (!productMap.containsKey(product.getCategory())) {
