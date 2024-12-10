@@ -4,18 +4,18 @@ import lombok.Getter;
 
 @Getter
 public class Coordinates {
-    public int x;
-    public int y;
+    public int firstCoordinate;
+    public int secondCoordinate;
 
-    public Coordinates(int x, int y) {
-        validate(x, y);
+    public Coordinates(int firstCoordinate, int secondCoordinate) {
+        validate(firstCoordinate, secondCoordinate);
 
-        this.x = x;
-        this.y = y;
+        this.firstCoordinate = firstCoordinate;
+        this.secondCoordinate = secondCoordinate;
     }
 
-    private void validate(int x, int y) {
-        if (x < 0 || y < 0) {
+    private void validate(int firstCoordinate, int secondCoordinate) {
+        if (firstCoordinate < 0 || secondCoordinate < 0) {
             throw new IllegalArgumentException("Coordinates can`t be less than 0");
         }
     }
