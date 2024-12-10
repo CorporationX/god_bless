@@ -14,6 +14,8 @@ public class Main {
                 -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
         Function<Image, Image> redFilter = (image)
                 -> new Image(image.getName(), image.getDescription() + " | Фильтр: красный");
+        Function<Image, Image> blueFilter = (image)
+                -> new Image(image.getName(), image.getDescription() + " | Фильтр: синий");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
@@ -25,8 +27,9 @@ public class Main {
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
 
-        Function<Image, Image> redFilterCombined = combinedFilter.andThen(redFilter);
-        Image redImage = filterProcessor.applyFilter(originalImage, redFilterCombined);
-        System.out.println(redImage.getDescription());
+        Function<Image, Image> mixFilter = filterProcessor
+                .combineFilters(grayscaleFilter, sepiaFilter, redFilter, blueFilter);
+        Image mixImage = filterProcessor.applyFilter(originalImage, mixFilter);
+        System.out.println(mixImage.getDescription());
     }
 }
