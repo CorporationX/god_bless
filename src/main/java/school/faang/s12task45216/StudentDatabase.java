@@ -23,10 +23,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-    /* Optional.ofNullable(subjectsWithGrades.get(student))
-                .ifPresent(subjects -> subjects.putIfAbsent(subject, grade));*/
-
-        // думаю, что по логике задачи решение с computeIfAbsent лучше, чем с Optional.ofNullable
         subjectsWithGrades.computeIfAbsent(student, s -> new HashMap<>()).put(subject, grade);
         log.info("The Subject for Student have added");
     }
@@ -55,10 +51,10 @@ public class StudentDatabase {
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         Optional.ofNullable(subject)
-                .ifPresent(s -> subjectWithStudents.
-                        computeIfPresent(s, (k, v) -> { v
-                                    .removeIf(st -> st
-                                            .equals(student));
+                .ifPresent(s -> subjectWithStudents
+                        .computeIfPresent(s, (k, v) -> {
+                            v.removeIf(st -> st
+                                    .equals(student));
                             return v;
                         }));
         log.info("The Student from Subject have removed");
