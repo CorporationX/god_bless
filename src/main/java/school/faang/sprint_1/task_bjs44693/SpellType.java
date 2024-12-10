@@ -11,5 +11,5 @@ public enum SpellType {
     ATTACK("Применение колдовских чар"),
     DEFENCE("Защита от чужих чар");
 
-    private final String action;
+    private final String description;
 }

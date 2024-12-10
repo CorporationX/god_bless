@@ -14,7 +14,8 @@ public class HogwartsSpells {
     public void addSpellEvent(SpellEvent spellEvent) {
         spellById.put(spellEvent.getId(), spellEvent);
         spellsByType.putIfAbsent(spellEvent.getSpellType(), new ArrayList<>());
-        spellsByType.get(spellEvent.getSpellType()).add(spellEvent);
+        spellsByType.get(spellEvent.getSpellType())
+            .add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -26,13 +27,12 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
+        spellsByType.remove(getSpellEventById(id).getSpellType());
         spellById.remove(id);
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("Id: " + entry.getKey() + ", Тип: " + entry.getValue());
-        }
+        spellById.forEach((k, v) -> System.out.println("Id: " + k + ", Тип: " + v));
     }
 }
 
