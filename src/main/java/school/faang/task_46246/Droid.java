@@ -42,8 +42,8 @@ public class Droid {
         System.out.println("The droid " + recipient.getName() + " received a decrypted message: " + decryptedMessage);
     }
 
-    public void isValid( String message, int key) {
-        if( message == null || message.isEmpty() || key < 1 ) {
+    public void isValid(String message, int key) {
+        if (message == null || message.isEmpty() || key < 1) {
             throw new IllegalArgumentException("Invalid message or key should not be grater than 0");
         }
     }
