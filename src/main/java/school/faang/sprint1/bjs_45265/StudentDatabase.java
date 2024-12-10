@@ -48,7 +48,7 @@ public class StudentDatabase {
         if (subject != null) {
             subjectEnrollment.put(subject, studentsList);
             for (Student student : studentsList) {
-                addSubjectForStudent(student, subject,0);
+                addSubjectForStudent(student, subject, 0);
             }
         }
     }
