@@ -3,31 +3,41 @@ package school.faang.task45870;
 import java.util.function.Function;
 
 public class TriangleAreaCalculator {
-    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
+    private final static double CONST_FOR_SEMI_PERIMETER = 2;
+
+    private final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    private final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    private final Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    private final Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    private final Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
 
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("A triangle cannot have negative sides");
         }
-        if (add.apply(a).apply(b) <= c && add.apply(a).apply(c) <= b && add.apply(b).apply(c) <= a) {
-            throw new IllegalArgumentException("The sum of the two sides cannot be less than the third");
+        if (add.apply(a).apply(b) <= c) {
+            throw new IllegalArgumentException("The sum of sides a and b cannot be less than or equal to side c");
         }
 
-        double halfMeter = halfMeter(a, b, c);
+        if (add.apply(a).apply(c) <= b) {
+            throw new IllegalArgumentException("The sum of sides a and c cannot be less than or equal to side b");
+        }
 
-        double first = subtractHalfMeterAndSide(halfMeter, a);
-        double second = subtractHalfMeterAndSide(halfMeter, b);
-        double third = subtractHalfMeterAndSide(halfMeter, c);
+        if (add.apply(b).apply(c) <= a) {
+            throw new IllegalArgumentException("The sum of sides b and c cannot be less than or equal to side a");
+        }
 
-        return triangleArea(multiplySides(halfMeter, first, second, third));
+        double semiPerimeter = semiPerimeter(a, b, c);
+
+        double first = subtractHalfMeterAndSide(semiPerimeter, a);
+        double second = subtractHalfMeterAndSide(semiPerimeter, b);
+        double third = subtractHalfMeterAndSide(semiPerimeter, c);
+
+        return triangleArea(multiplySides(semiPerimeter, first, second, third));
     }
 
-    private double halfMeter(double a, double b, double c) {
-        return divide.apply(add.apply(add.apply(a).apply(b)).apply(c)).apply(2.0);
+    private double semiPerimeter(double a, double b, double c) {
+        return divide.apply(add.apply(add.apply(a).apply(b)).apply(c)).apply(CONST_FOR_SEMI_PERIMETER);
     }
 
     private double subtractHalfMeterAndSide(double halfMeter, double side) {
