@@ -1,15 +1,6 @@
 package derschrank.task11.bjstwo_44817;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class WeatherData {
-    String city;
-    double temperature;
-    double humidity;
-    long timestamp;
+public record WeatherData(String city, double temperature, double humidity, long timestamp) {
 
     @Override
     public String toString() {
