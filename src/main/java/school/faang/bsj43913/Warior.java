@@ -2,7 +2,7 @@ package school.faang.bsj43913;
 
 public class Warior extends Character {
     public Warior(String name) {
-        super(name, 10, 5,3);
+        super(name, 10, 5, 3);
     }
 
     @Override
