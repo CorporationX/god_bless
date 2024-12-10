@@ -40,20 +40,23 @@ public class Main {
         if (category.isBlank() || name.isBlank()) {
             throw new IllegalArgumentException("Категория и название не должны быть пустыми!");
         }
-        products.stream()
-                .filter(product -> product.getCategory().equals(category) && product.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Товаров с такой категорией нет!"));
+        products.remove(
+                products.stream()
+                        .filter(product -> product.getCategory().equals(category) && product.getName().equals(name))
+                        .findFirst()
+                        .orElseThrow(() -> new NoSuchElementException("Товаров с такой категорией нет!"))
+        );
     }
 
     public static void findItemsByCategory(String category) {
         if (category.isBlank()) {
             throw new IllegalArgumentException("Категория не может быть пустой!");
         }
-        products.stream()
-                .filter(product -> product.getCategory().equals(category))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Товаров с такой категорией нет!"));
+        Optional.ofNullable(products.stream()
+                        .filter(product -> product.getCategory().equals(category)))
+                .ifPresentOrElse(
+                        products -> products.forEach(System.out::println),
+                        () -> System.out.println("Товаров с такой категорией нет!"));
     }
 
     public static void printAllItems() {
