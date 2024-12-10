@@ -22,7 +22,7 @@ public class Droid {
                     } else {
                         chr =  (ch - base - key + ALPHABET_SIZE) % ALPHABET_SIZE + base;
                     }
-                    encryptedMessage.append((char)chr);
+                    encryptedMessage.append((char) chr);
                 } else {
                     encryptedMessage.append(ch);
                 }
