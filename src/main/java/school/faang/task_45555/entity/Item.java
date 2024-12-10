@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Item {
-    private String name;
-    private int value;
+    private final String name;
+    private final int value;
 
     public Item(String name, int value) {
         if (name == null || name.isEmpty()) {
