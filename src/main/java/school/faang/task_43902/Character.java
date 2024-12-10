@@ -5,7 +5,7 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
-    int health = 100;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -19,4 +19,17 @@ public abstract class Character {
     }
 
     public abstract void attack(Character damage);
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        if(health < 0){
+            this.health = 0;
+        } else {
+            this.health = health;
+        }
+
+    }
 }
