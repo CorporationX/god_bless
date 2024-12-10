@@ -12,15 +12,15 @@ public class Image {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Image{");
-        builder.append("name='");
-        builder.append(name);
-        builder.append('\'');
-        builder.append(", description='");
-        builder.append(description);
-        builder.append('\'');
-        builder.append('}');
-        return builder.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Image{");
+        stringBuilder.append("name='");
+        stringBuilder.append(name);
+        stringBuilder.append('\'');
+        stringBuilder.append(", description='");
+        stringBuilder.append(description);
+        stringBuilder.append('\'');
+        stringBuilder.append('}');
+        return stringBuilder.toString();
     }
 }
