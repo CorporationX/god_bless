@@ -30,12 +30,7 @@ public class Main {
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<String, List<Product>> map = new HashMap<>();
         for (Product product : products) {
-            List<Product> list = map.putIfAbsent(product.getCategory(), new ArrayList<>());
-            if (list != null) {
-                list.add(product);
-            } else {
-                map.get(product.getCategory()).add(product);
-            }
+            map.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
         return map;
     }
