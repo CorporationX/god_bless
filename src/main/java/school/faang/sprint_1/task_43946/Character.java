@@ -29,4 +29,12 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void receiveDamage(int damage) {
+        health = health - damage;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
 }

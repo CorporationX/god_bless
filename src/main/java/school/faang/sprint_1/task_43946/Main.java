@@ -7,8 +7,5 @@ public class Main {
 
         ork.attack(elf);
         elf.attack(ork);
-
-        System.out.println(ork.getHealth());
-        System.out.println(elf.getHealth());
     }
 }

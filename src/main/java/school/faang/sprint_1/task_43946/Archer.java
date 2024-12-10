@@ -11,6 +11,14 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.setHealth(character.getHealth() - AGILITY);
+        if (!isAlive()) {
+            return;
+        }
+        character.receiveDamage(AGILITY);
+        if (character.isAlive()) {
+            System.out.println("У воина " + character.getName() + " жизни осталось " + character.getHealth());
+        } else {
+            System.out.println("Воин " + character.getName() + " мертв");
+        }
     }
 }

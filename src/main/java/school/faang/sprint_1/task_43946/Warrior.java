@@ -11,6 +11,14 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        character.setHealth(character.getHealth() - STRENGTH);
+        if (!isAlive()) {
+            return;
+        }
+        character.receiveDamage(STRENGTH);
+        if (character.isAlive()) {
+            System.out.println("У лучника " + character.getName() + " жизни осталось " + character.getHealth());
+        } else {
+            System.out.println("Лучник " + character.getName() + " мертв");
+        }
     }
 }
