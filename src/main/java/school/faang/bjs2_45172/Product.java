@@ -1,6 +1,5 @@
-package school.faang.BJS2_45172;
+package school.faang.bjs2_45172;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
