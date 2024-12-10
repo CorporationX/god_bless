@@ -9,10 +9,10 @@ public class DroidMessageSystem {
     public void sendMessage(
             int key,
             String message,
-            Droid sender, Droid recipient
-    ) {
+            Droid sender, Droid recipient) {
         String encryptedMessage = messageEncryptor.encrypt(key, message);
 
+        // Droid1 sent an encrypted message: Rovvy N|ysn2!
         log.info(
                 "{} sent an encrypted message: {}",
                 sender.getName(),
@@ -20,6 +20,8 @@ public class DroidMessageSystem {
         );
 
         String decryptedMessage = receiveMessage(key, encryptedMessage);
+
+        // Droid2 received an encrypted message: Hello Droid2!
         log.info(
                 "{} received an encrypted message: {}",
                 recipient.getName(),
