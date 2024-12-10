@@ -3,7 +3,7 @@ package school.faang.task45870;
 import java.util.function.Function;
 
 public class TriangleAreaCalculator {
-    private final static double CONST_FOR_SEMI_PERIMETER = 2;
+    private static final double CONST_FOR_SEMI_PERIMETER = 2;
 
     private final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
     private final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
