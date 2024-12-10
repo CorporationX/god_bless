@@ -30,13 +30,20 @@ public class Main {
     private static HogwartsSpells getHogwartsSpells() {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        hogwartsSpells.addSpellEvent(1, "Проклинать", "Avada Kedavra (Проклятие убийства)");
-        hogwartsSpells.addSpellEvent(2, "Проклинать", "Imperio (Проклятие Империус, которое позволяет заклинателю получить полный контроль над жертвой)");
-        hogwartsSpells.addSpellEvent(3, "Исцеления", "заклинания исцеления обладают силой исцелять аспекты организмов");
-        hogwartsSpells.addSpellEvent(4, "Очарование", "Вингардиум Левиоса — это заклинание, которое заставляет предметы левитировать ");
-        hogwartsSpells.addSpellEvent(5, "Проклинать", "Crucio (Проклятие пытки)");
-        hogwartsSpells.addSpellEvent(6, "Преображение", "анимагом — или иметь возможность менять свою человеческую форму на животную по желанию");
-        hogwartsSpells.addSpellEvent(7, "Преображение", "Нетрансфигурация — это просто акт возвращения субъекта в его изначальную форму");
+        hogwartsSpells.addSpellEvent(1, "Проклинать",
+                "Avada Kedavra (Проклятие убийства)");
+        hogwartsSpells.addSpellEvent(2, "Проклинать",
+                "Imperio позволяет заклинателю получить полный контроль над жертвой)");
+        hogwartsSpells.addSpellEvent(3, "Исцеления",
+                "заклинания исцеления обладают силой исцелять аспекты организмов");
+        hogwartsSpells.addSpellEvent(4, "Очарование",
+                "Вингардиум Левиоса — это заклинание, которое заставляет предметы левитировать");
+        hogwartsSpells.addSpellEvent(5, "Проклинать",
+                "Crucio (Проклятие пытки)");
+        hogwartsSpells.addSpellEvent(6, "Преображение",
+                "анимагом — или иметь возможность менять свою человеческую форму на животную");
+        hogwartsSpells.addSpellEvent(7, "Преображение",
+                "Нетрансфигурация — это просто акт возвращения субъекта в его изначальную форму");
         return hogwartsSpells;
     }
 }
