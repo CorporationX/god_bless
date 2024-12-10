@@ -21,11 +21,11 @@ public class Main {
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
-        Notification NanNotification = new Notification("NaN", "NaN");
+        Notification nanNotification = new Notification("NaN", "NaN");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
-        notificationManager.sendNotification(NanNotification);
+        notificationManager.sendNotification(nanNotification);
     }
 }
