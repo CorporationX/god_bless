@@ -11,7 +11,7 @@ public class Main {
         List<Subject> subjects = DataGenerationForTest.generateSubjectsData(4);
         Map<Subject, Integer> subjectMap = DataGenerationForTest.generateSubjectMap(subjects);
 
-        studDataBase.addStudentRecords(students.get(1), subjectMap);
+        studDataBase.addStudentWithSubjectsAndGrades(students.get(1), subjectMap);
         studDataBase.printAllStudents();
         System.out.println("--------------------------");
         studDataBase.addNewSubjectForStudent(students.get(2), subjects.get(3), 5);
@@ -23,6 +23,10 @@ public class Main {
         studDataBase.addStudentEnrollment(students.get(5), subjects.get(1));
         studDataBase.printAllStudents();
         System.out.println("--------------------------");
+        studDataBase.deleteStudentFromSubjectList(students.get(2), subjects.get(3));
+        System.out.println("#######");
+        studDataBase.printAllSubjects();
+        System.out.println("#######");
         studDataBase.deleteStudentRecords(students.get(1));
         studDataBase.printAllStudents();
     }
