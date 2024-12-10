@@ -1,6 +1,6 @@
 package school.faang.task_45509;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,34 +10,32 @@ public class InventoryManager {
         if (character == null) {
             throw new IllegalArgumentException("Character s absent");
         }
-        if (character.getInventory() == null) {
-            character.setInventory(new ArrayList<>());
-        }
         character.getInventory().add(item);
         action.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> condition) {
         if (character == null) {
-            throw new IllegalArgumentException("Character s absent");
-        }
-        if (character.getInventory() == null) {
-            throw new IllegalArgumentException("Inventory for " + character.getName() + " is absent");
+            throw new IllegalArgumentException("Character is absent");
         }
         character.getInventory().removeIf(condition);
     }
 
-    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> map) {
+    public void updateItem(Character character, Predicate<Item> itemFilter, Function<Item, Item> itemTransformer) {
         if (character == null) {
             throw new IllegalArgumentException("Character s absent");
         }
-        if (character.getInventory() == null) {
-            throw new IllegalArgumentException("Inventory for " + character.getName() + " is absent");
-        }
-        for (Item item : character.getInventory()) {
-            if (filter.test(item)) {
-                item.setValue(map.apply(item).getValue());
+        List<Item> inventory = character.getInventory();
+        for (Item currentItem : inventory) {
+            if (itemFilter.test(currentItem)) {
+                Item newItem = itemTransformer.apply(currentItem);
+                updateItem(currentItem, inventory, newItem);
             }
         }
+    }
+
+    private void updateItem(Item currentItem, List<Item> inventory, Item newItem) {
+        inventory.remove(currentItem);
+        inventory.add(newItem);
     }
 }
