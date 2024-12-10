@@ -16,8 +16,12 @@ public class Subject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Subject subject)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Subject subject)) {
+            return false;
+        }
         return subjectId == subject.subjectId && Objects.equals(subjectName, subject.subjectName);
     }
 
