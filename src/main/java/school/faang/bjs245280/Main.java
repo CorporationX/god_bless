@@ -40,7 +40,6 @@ public class Main {
 
         System.out.println("----------------------------");
 
-
         studentDatabase.printStudentSubject();
         studentDatabase.deleteStudentSubject(getStudentByName("Bob"));
     }
