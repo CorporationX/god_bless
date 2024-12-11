@@ -19,11 +19,13 @@ public class Main {
         System.out.println(grayscaleImage.description()); // Вывод: Оригинальное изображение | Фильтр: черно-белый
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.description()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(sepiaImage.description());
+        // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
 
         // Комбинирование фильтров
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.description()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(combinedImage.description());
+        // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
     }
 }
