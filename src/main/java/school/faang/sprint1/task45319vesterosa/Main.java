@@ -18,6 +18,7 @@ public class Main {
         addBook("Book1", "Author1", 2002, "Вторая полка");
         findBook(harryPotter);
         removeBook("Book1", "Author1", 2002);
+        removeBook("Book1", "Author2", 2002);
         addBook(harryPotter, "Вторая полка");
         printAllBooks();
 

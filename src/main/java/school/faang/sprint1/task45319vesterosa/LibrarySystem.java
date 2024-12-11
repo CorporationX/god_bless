@@ -61,13 +61,13 @@ public class LibrarySystem {
     }
 
     public static void printAllBooks() {
-        int bookNumber  = 1;
+        int bookNumber = 1;
         for (Map.Entry<Book, String> entry : library.entrySet()) {
             Book book = entry.getKey();
             System.out.printf("%d. %s - %s - %d. Location %s%n",
-                    bookNumber , book.getTitle(), book.getAuthor(), book.getYear(), entry.getValue());
+                    bookNumber, book.getTitle(), book.getAuthor(), book.getYear(), entry.getValue());
             System.out.println();
-            bookNumber ++;
+            bookNumber++;
         }
     }
 }
