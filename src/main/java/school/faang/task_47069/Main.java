@@ -7,7 +7,7 @@ public class Main {
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
     public static void main(String[] args) {
-        List<Integer> numbers = new ArrayList<>(List.of(1,5,7,2,3,4,6,1,4,2));
+        List<Integer> numbers = new ArrayList<>(List.of(1, 5, 7, 2, 3, 4, 6, 1, 4, 2));
         Map<String, String> countries = new HashMap<>(Map.of(
                 "Russia", "Moscow",
                 "USA", "Washington",
