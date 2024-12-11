@@ -26,8 +26,9 @@ public class TriangleAreaCalculator {
         }
 
         double semiPerimeter = calculateSemiPerimeter(sideA, sideB, sideC);
-        double productOfDeltaValues = calculateDeltaValuesProduct(semiPerimeter, sideA, sideB, sideC);
-        double triangleArea = squareRoot.apply(multiply.apply(semiPerimeter).apply(productOfDeltaValues));
+        double deltaValuesProduct = calculateDeltaValuesProduct(semiPerimeter, sideA, sideB, sideC);
+        double triangleAreaProduct = multiply.apply(semiPerimeter).apply(deltaValuesProduct);
+        double triangleArea = squareRoot.apply(triangleAreaProduct);
 
         return triangleArea;
     }
@@ -40,23 +41,19 @@ public class TriangleAreaCalculator {
     }
 
     private double calculateSemiPerimeter(double sideA, double sideB, double sideC) {
-        Double perimeter = add.apply(
-                add.apply(sideA).apply(sideB)
-        ).apply(sideC);
+        double intermediatePerimeterResult = add.apply(sideA).apply(sideB);
+        double perimeter = add.apply(intermediatePerimeterResult).apply(sideC);
 
         return divide.apply(perimeter).apply(2.0);
     }
 
     private double calculateDeltaValuesProduct(double semiPerimeter, double sideA, double sideB, double sideC) {
-        Double deltaA = subtract.apply(semiPerimeter).apply(sideA);
-        Double deltaB = subtract.apply(semiPerimeter).apply(sideB);
-        Double deltaC = subtract.apply(semiPerimeter).apply(sideC);
+        double deltaA = subtract.apply(semiPerimeter).apply(sideA);
+        double deltaB = subtract.apply(semiPerimeter).apply(sideB);
+        double deltaC = subtract.apply(semiPerimeter).apply(sideC);
+        double intermediateResult = multiply.apply(deltaA).apply(deltaB);
 
-        return multiply.apply(
-                multiply.apply(deltaA).apply(deltaB)
-        ).apply(deltaC);
-
+        return multiply.apply(intermediateResult).apply(deltaC);
     }
 
 }
-
