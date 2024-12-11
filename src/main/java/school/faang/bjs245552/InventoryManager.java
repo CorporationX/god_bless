@@ -31,12 +31,16 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
         validate(character, "character", predicate, "predicate");
 
-        List<String> charactersToRemove = character.getInventory().stream().filter(predicate).map(Item::getName).toList();
+        List<String> charactersToRemove = character.getInventory().stream()
+                .filter(predicate)
+                .map(Item::getName)
+                .toList();
         if (charactersToRemove.isEmpty()) {
             throw new IllegalArgumentException("Item was not found in character's inventory");
         } else {
             character.getInventory().removeIf(predicate);
-            System.out.printf("Item(s): %s was/were removed from character's inventory", String.join( ", ", charactersToRemove));
+            System.out.printf("Item(s): %s was/were removed from character's inventory", String.join(", ",
+                    charactersToRemove));
         }
     }
 
