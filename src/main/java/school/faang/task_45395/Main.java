@@ -9,11 +9,12 @@ public class Main {
     public static void main(String[] args) {
         Subject math = new Subject(101, "Математика");
         Subject physics = new Subject(102, "Физика");
-        Subject chemistry = new Subject(103, "Химия");
 
         Map<Subject, Integer> grades1 = new HashMap<>();
         grades1.put(math, 85);
         grades1.put(physics, 90);
+
+        Subject chemistry = new Subject(103, "Химия");
 
         Map<Subject, Integer> grades2 = new HashMap<>();
         grades2.put(math, 78);
@@ -21,7 +22,6 @@ public class Main {
 
         Student student1 = new Student(1, "Аня");
         Student student2 = new Student(2, "Миша");
-        Student student3 = new Student(3, "Яна");
 
         StudentDatabase database = new StudentDatabase();
 
@@ -32,6 +32,8 @@ public class Main {
 
         System.out.println("printAllStudentsWithGrades()");
         database.printAllStudentsWithGrades();
+
+        Student student3 = new Student(3, "Яна");
 
         List<Student> studentsForPhysics = new ArrayList<>(List.of(student1, student3));
         database.addSubjectWithStudents(physics, studentsForPhysics);
