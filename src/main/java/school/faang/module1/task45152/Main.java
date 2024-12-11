@@ -17,7 +17,9 @@ public class Main {
         addItem("name3", "category2");
         addItem("name4", "category3");
         System.out.println(productCategory);
-        findItemsByCategory("category5");
+        System.out.println();
+        System.out.println(findItemsByCategory("category3"));
+
         printAllItems();
         groupProductsByCategory(products);
     }
@@ -38,23 +40,25 @@ public class Main {
 
     }
 
-    public static void findItemsByCategory(String category) {
+    public static List<Product> findItemsByCategory(String category) {
         if (productCategory.get(category) == null) {
             System.out.println("Такой категории нет");
         } else {
             System.out.println(productCategory.get(category));
         }
+        return productCategory.get(category);
     }
 
     public static void printAllItems() {
         products.forEach(System.out::println);
     }
 
-    public static HashMap<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+    public static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
+        HashMap<String, List<Product>> result = new HashMap<>();
         for (Product product : products) {
-            productCategory.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
+            result.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
-        return (HashMap<String, List<Product>>) productCategory;
+        return result;
     }
 
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
