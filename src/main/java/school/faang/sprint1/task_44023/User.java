@@ -49,7 +49,6 @@ public class User {
                     result.put(user, hobbys);
                     break;
                 }
-
             }
         }
         return result;
