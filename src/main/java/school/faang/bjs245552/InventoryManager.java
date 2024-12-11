@@ -64,8 +64,5 @@ public class InventoryManager {
                 character.getInventory().set(i, function.apply(item));
             }
         }
-
-        //not as effective as updates whole the list
-        //character.getInventory().replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
     }
 }
