@@ -17,7 +17,8 @@ public class Main {
         double result3 = StreamFunc.averageOfNumbers(numbers1);
         System.out.println("Average of numbers: " + result3);
 
-        List<String> strings = Arrays.asList("Strong", "String", "Struggle", "Stout", "Survivor", "Apple", "Book", "Tree", "Bed", "Sun", "Pig");
+        List<String> strings = Arrays.asList("Strong", "String", "Struggle", "Stout",
+                "Survivor", "Apple", "Book", "Tree", "Bed", "Sun", "Pig");
 
         char prefixChar = 'S';
         long result4 = StreamFunc.numOfStringsByMask(strings, prefixChar);
@@ -40,7 +41,7 @@ public class Main {
 
         int minNumber = 2;
         int result9 = StreamFunc.getMinNumber(numbers1, minNumber);
-        System.out.println("Min number greater than " + minNumber +":" + result9);
+        System.out.println("Min number greater than " + minNumber + ":" + result9);
 
         List<Integer> result10 = StreamFunc.getStringListLengths(strings);
         System.out.println("Length of strings:" + result10);
