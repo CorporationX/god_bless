@@ -6,15 +6,15 @@ public class Main {
 
 // Регистрация обработчиков оповещений
         notificationManager.registerHandler("e-mail",
-                notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
+        notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
         );
 
         notificationManager.registerHandler("sms",
-                notification -> System.out.println("Отправка SMS: " + notification.getMessage())
+        notification -> System.out.println("Отправка SMS: " + notification.getMessage())
         );
 
         notificationManager.registerHandler("push",
-                notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
+        notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
         );
 
 // Отправка оповещений
