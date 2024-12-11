@@ -3,8 +3,8 @@ package school.faang.doublecache;
 
 public class Subject {
     private static int ID_COUNTER = 0;
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public Subject(String name) {
         ID_COUNTER++;

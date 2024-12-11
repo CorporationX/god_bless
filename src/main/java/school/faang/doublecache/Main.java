@@ -7,15 +7,15 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Student student1 = new Student("Max");
-        Student student2 = new Student("Misha");
-        Student student3 = new Student("Tima");
-        Student student4 = new Student("Aibo");
-        Student student5 = new Student("Dima");
+        final Student student1 = new Student("Max");
+        final Student student2 = new Student("Misha");
+        final Student student3 = new Student("Tima");
+        final Student student4 = new Student("Aibo");
+        final Student student5 = new Student("Dima");
 
-        Subject subject1 = new Subject("math");
-        Subject subject2 = new Subject("history");
-        Subject subject3 = new Subject("english");
+        final Subject subject1 = new Subject("math");
+        final Subject subject2 = new Subject("history");
+        final Subject subject3 = new Subject("english");
 
         Map<Subject, Integer> a1Grades = new HashMap<>();
         a1Grades.put(subject1, 5);

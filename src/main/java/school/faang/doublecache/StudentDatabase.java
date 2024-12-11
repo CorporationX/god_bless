@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    Map<Student, Map<Subject, Integer>> students;
-    Map<Subject, List<Student>> subjects;
+    final Map<Student, Map<Subject, Integer>> students;
+    final Map<Subject, List<Student>> subjects;
 
     public StudentDatabase(Map<Student, Map<Subject, Integer>> studentsGradesMap,
                            Map<Subject, List<Student>> subjectStudentsMap) {

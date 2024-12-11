@@ -2,8 +2,8 @@ package school.faang.doublecache;
 
 public class Student {
     private static int ID_COUNTER = 0;
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public Student(String name) {
         ID_COUNTER++;
