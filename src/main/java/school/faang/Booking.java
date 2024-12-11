@@ -23,6 +23,9 @@ public class Booking {
 
     @Override
     public String toString() {
-        return String.format("Booking{bookingId=%d, room=%s, date='%s', timeSlot='%s'}", bookingId, room, date, timeSlot);
+        return String.format(
+                "Booking{bookingId=%d, room=%s, date='%s', timeSlot='%s'}",
+                bookingId, room, date, timeSlot
+        );
     }
 }
