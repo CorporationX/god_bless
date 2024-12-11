@@ -35,7 +35,10 @@ public class WeatherData {
             return false;
         }
         WeatherData that = (WeatherData) o;
-        return Double.compare(temperature, that.temperature) == 0 && Double.compare(humidity, that.humidity) == 0 && timestamp == that.timestamp && Objects.equals(city, that.city);
+        return Double.compare(temperature, that.temperature) == 0
+                && Double.compare(humidity, that.humidity) == 0
+                && timestamp == that.timestamp
+                && Objects.equals(city, that.city);
     }
 
     @Override

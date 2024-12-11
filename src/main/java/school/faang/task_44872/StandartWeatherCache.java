@@ -14,6 +14,7 @@ public class StandartWeatherCache extends WeatherCacheTemplate {
     protected WeatherData getWeatherDataFromProvider(String city) {
         return provider.fetchWeatherData(city);
     }
+
     @Override
     protected long getMaxCacheAgeMillis() {
         return maxCacheAgeMillis;

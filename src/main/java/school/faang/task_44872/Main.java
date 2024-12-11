@@ -6,10 +6,7 @@ public class Main {
 
         WeatherCacheTemplate standardCache = new StandartWeatherCache(service, 5000);
 
-        FrequentUpdateWeatherCache frequentUpdateCache = new FrequentUpdateWeatherCache(service, 2000);
-
         String city1 = "Simferopol";
-        String city2 = "Moscow";
 
         System.out.println("Standard Cache:");
         System.out.println(standardCache.fetchWeatherData(city1));
@@ -17,6 +14,10 @@ public class Main {
         System.out.println(standardCache.fetchWeatherData(city1));
         Thread.sleep(3000);
         System.out.println(standardCache.fetchWeatherData(city1));
+
+        FrequentUpdateWeatherCache frequentUpdateCache = new FrequentUpdateWeatherCache(service, 2000);
+
+        String city2 = "Moscow";
 
         System.out.println("\nFrequent Update Cache:");
         System.out.println(frequentUpdateCache.fetchWeatherData(city2));
