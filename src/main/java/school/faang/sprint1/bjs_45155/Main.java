@@ -17,9 +17,7 @@ public class Main {
         addItem("Автомобильные товары", "Зеркало заднего вида");
         printAllItems();
         findItemsByCategory("Автомобильные товары");
-        // не совсем понял, в чем должно быть отличие между методами printAllItems и этим
         printProductsByCategory(groupedProducts);
-        System.out.println("fdfsdfsdfsdfsf");
 
         // тестирование метода removeItem
         removeItem("Автомобильные товары", "Зеркало заднего вида");
