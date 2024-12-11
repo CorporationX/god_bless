@@ -10,8 +10,11 @@ public class ListOperations {
 
         return numbers.stream()
                 .filter(num -> set.contains(sumTarget - num))
-                .map(num -> Arrays.asList(num, sumTarget - num))
-                .peek(Collections::sort)
+                .map(num -> {
+                    List<Integer> pair = Arrays.asList(num, sumTarget - num);
+                    Collections.sort(pair);
+                    return pair;
+                })
                 .collect(Collectors.toSet());
     }
 
