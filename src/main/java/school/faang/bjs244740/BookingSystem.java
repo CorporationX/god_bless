@@ -1,20 +1,20 @@
 package school.faang.bjs244740;
 
-import lombok.Getter;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
 public class BookingSystem {
-    private final Map<UUID, Booking> bookings = new HashMap<>();
-    private final Map<Integer, Room> rooms = new HashMap<>();
+    private final Map<UUID, Booking> bookings;
+    private final Map<Integer, Room> rooms;
+    private final BookingNotifier bookingNotifier;
 
-    @Getter
-    private final BookingNotifier bookingNotifier = new BookingNotifier();
+    public BookingSystem(Map<UUID, Booking> bookings, Map<Integer, Room> rooms, BookingNotifier bookingNotifier) {
+        this.bookings = bookings;
+        this.rooms = rooms;
+        this.bookingNotifier = bookingNotifier;
+    }
 
     public void addRoom(Room room) throws IllegalArgumentException {
         if (rooms.containsKey(room.getRoomId())) {
@@ -28,7 +28,7 @@ public class BookingSystem {
     }
 
     public Booking bookRoom(int roomId, String date, String timeSlot) throws IllegalArgumentException {
-        if (bookings.values().stream().anyMatch(b -> b.isLocked(roomId, date, timeSlot))) {
+        if (bookings.values().stream().anyMatch(b -> b.isBooked(roomId, date, timeSlot))) {
             throw new IllegalArgumentException("Room already booked");
         }
 
@@ -49,6 +49,6 @@ public class BookingSystem {
         return rooms.values().stream()
                 .filter(room -> room.getAmenities().equals(requiredAmenities))
                 .filter(room -> bookings.values().stream()
-                        .noneMatch(booking -> booking.isLocked(room.getRoomId(), date, timeSlot))).toList();
+                        .noneMatch(booking -> booking.isBooked(room.getRoomId(), date, timeSlot))).toList();
     }
 }

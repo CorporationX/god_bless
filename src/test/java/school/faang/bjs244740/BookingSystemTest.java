@@ -7,19 +7,25 @@ import school.faang.bjs244740.observers.BookingObserver;
 import school.faang.bjs244740.observers.HotelObserver;
 import school.faang.bjs244740.observers.UserObserver;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class BookingSystemTest {
     private BookingSystem bookingSystem;
 
     private final List<BookingObserver> bookingObservers = new ArrayList<>();
+    private final Map<UUID, Booking> bookings = new HashMap<>();
+    private final Map<Integer, Room> rooms = new HashMap<>();
+    private final BookingNotifier bookingNotifier = new BookingNotifier();
 
     @BeforeEach
     void setUp() {
-        bookingSystem = new BookingSystem();
+        bookingSystem = new BookingSystem(bookings, rooms, bookingNotifier);
         bookingObservers.addAll(List.of(new HotelObserver(), new UserObserver()));
-        bookingSystem.getBookingNotifier().addObserver(bookingObservers.get(0));
-        bookingSystem.getBookingNotifier().addObserver(bookingObservers.get(1));
+        bookingNotifier.addObserver(bookingObservers.get(0));
+        bookingNotifier.addObserver(bookingObservers.get(1));
     }
 
     @Test
@@ -46,7 +52,7 @@ public class BookingSystemTest {
         createRoom(data);
 
         bookingSystem.removeRoom(data.getRoomId());
-        Assertions.assertEquals(0, bookingSystem.getRooms().size());
+        Assertions.assertEquals(0, rooms.size());
     }
 
     @Test
@@ -77,7 +83,7 @@ public class BookingSystemTest {
         createRoom(data);
         Booking booking = checkAndBookRoom(data);
         bookingSystem.cancelBooking(booking.getBookingId());
-        Assertions.assertEquals(0, bookingSystem.getBookings().size());
+        Assertions.assertEquals(0, bookings.size());
         Assertions.assertEquals("Canceled", bookingObservers.get(0).getStatus());
         Assertions.assertEquals("Canceled", bookingObservers.get(1).getStatus());
     }
@@ -124,13 +130,13 @@ public class BookingSystemTest {
 
     private void createRoom(RoomData data) {
         bookingSystem.addRoom(data.createRoom());
-        Assertions.assertEquals(data.createRoom(), bookingSystem.getRooms().get(data.getRoomId()));
+        Assertions.assertEquals(data.createRoom(), rooms.get(data.getRoomId()));
     }
 
     private Booking checkAndBookRoom(RoomData data) throws IllegalArgumentException {
-        int size = bookingSystem.getBookings().size();
+        int size = bookings.size();
         Booking booking = bookingSystem.bookRoom(data.getRoomId(), "2025", "20:00");
-        Assertions.assertEquals(size + 1, bookingSystem.getBookings().size());
+        Assertions.assertEquals(size + 1, bookings.size());
         return booking;
     }
 }

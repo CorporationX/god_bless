@@ -23,7 +23,7 @@ public class Booking {
         this.timeSlot = timeSlot;
     }
 
-    public boolean isLocked(int roomId, String date, String timeSlot) {
+    public boolean isBooked(int roomId, String date, String timeSlot) {
         return Objects.equals(this.getDate(), date)
                 && Objects.equals(this.getTimeSlot(), timeSlot)
                 && Objects.equals(this.getRoom().getRoomId(), roomId);
