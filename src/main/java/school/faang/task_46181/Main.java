@@ -14,6 +14,6 @@ public class Main {
             }
         );
 
-       log.info(result);
+        log.info(result);
     }
 }
