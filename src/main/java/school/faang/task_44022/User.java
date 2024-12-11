@@ -52,20 +52,13 @@ public class User {
     }
 
     public static Map<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
-        Map<Integer, ArrayList<User>> userMap = new HashMap<Integer, ArrayList<User>>();
-        Set<Integer> userAgeSet = new HashSet<Integer>();
+        Map<Integer, ArrayList<User>> userMap = new HashMap<>();
         for (User user : users) {
-            if (!(userAgeSet.contains(user.age))) {
-                ArrayList<User> usersAgeGroup = new ArrayList<User>();
-                usersAgeGroup.add(user);
-                userAgeSet.add(user.age);
-                userMap.put(user.age, usersAgeGroup);
-            } else {
-                ArrayList<User> usersAgeGroup = userMap.get(user.age);
-                usersAgeGroup.add(user);
+            if (!(userMap.containsKey(user.age))) {
+                userMap.put(user.age, new ArrayList<>());
             }
+            userMap.get(user.age).add(user);
         }
         return userMap;
     }
-
 }
