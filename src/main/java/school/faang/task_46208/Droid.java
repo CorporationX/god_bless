@@ -1,53 +1,61 @@
 package school.faang.task_46208;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 
-@AllArgsConstructor
 public class Droid {
+    private static final int MIN_UPPER_KEY = 65;
+    private static final int MAX_UPPER_KEY = 90;
+    private static final int MIN_LOWER_KEY = 97;
+    private static final int MAX_LOWER_KEY = 122;
+    private static final int ALPHABET_SIZE = 26;
 
-    private final String droid;
-
-    public void sendMessage(String message, int key, Droid droid) {
-        String encripted = encryptMessage(message, key);
-        System.out.println("Sending encripted message: " + encripted);
-        droid.receiveMessage(encripted, key);
-
-    }
-
-    public void receiveMessage(String message, int key) {
-        String dencripted = decryptMessage(message, key);
-        System.out.println("Droid: " + dencripted);
-    }
-
-    private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
+    private static final DroidEncryptor DEFAULT_ENCRYPTOR = (msg, key) -> {
+        StringBuilder result = new StringBuilder();
+        for (char c : msg.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                int code = encrypt(c, key, MIN_UPPER_KEY, MAX_UPPER_KEY);
+                result.append((char) code);
+            } else {
+                int code = encrypt(c, key, MIN_LOWER_KEY, MAX_LOWER_KEY);
+                result.append((char) code);
             }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(message, key);
+        }
+        return result.toString();
+    };
+
+    public String sendMessage(String msg, int key, DroidEncryptor encryptor) {
+        return Optional.ofNullable(encryptor)
+                .orElse(DEFAULT_ENCRYPTOR)
+                .encrypt(msg, validateKey(key));
     }
 
-    private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encrypt(message, key);
+    public String receiveMessage(String decryptedMsg, int key, DroidEncryptor decryptor) {
+        return Optional.ofNullable(decryptor)
+                .orElse(DEFAULT_ENCRYPTOR)
+                .encrypt(decryptedMsg, validateKey(key));
+    }
+
+    private int validateKey(int key) {
+        return Optional.of(key)
+                .filter(k -> k >= 0)
+                .orElseThrow(() -> new IllegalArgumentException("Only positive keys allowed"));
+    }
+
+    public static int encrypt(char c, int key, int minBorder, int maxBorder) {
+        int code = c;
+        code += key;
+        if (code > maxBorder) {
+            code = code % maxBorder + minBorder - 1;
+        }
+        return code;
+    }
+
+    public static int decrypt(char c, int key, int minBorder, int maxBorder) {
+        int code = c;
+        code -= key % ALPHABET_SIZE;
+        if (code < maxBorder) {
+            code = maxBorder - (minBorder - code) + 1;
+        }
+        return code;
     }
 }

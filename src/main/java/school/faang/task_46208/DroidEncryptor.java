@@ -1,6 +1,6 @@
 package school.faang.task_46208;
 
 @FunctionalInterface
-public interface DroidMessageEncryptor {
+public interface DroidEncryptor {
     String encrypt(String massage, int key);
 }
