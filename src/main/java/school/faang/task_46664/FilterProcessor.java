@@ -11,6 +11,4 @@ public class FilterProcessor {
     public Function<Image, Image> combineFilters(Function<Image, Image> f1, Function<Image, Image> f2) {
         return f1.andThen(f2);
     }
-
-
 }
