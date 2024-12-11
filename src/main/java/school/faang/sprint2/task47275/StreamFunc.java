@@ -2,7 +2,6 @@ package school.faang.sprint2.task47275;
 
 import java.util.*;
 import java.util.function.IntPredicate;
-import java.util.function.Predicate;
 
 public class StreamFunc {
 
@@ -36,7 +35,6 @@ public class StreamFunc {
         return strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(prefix)))
                 .count();
-
     }
 
     public static List<String> numOfStringsByMask(List<String> strings, String subString) {
@@ -62,7 +60,7 @@ public class StreamFunc {
 
 
     public static int getMinNumber(List<Integer> numbers, int minNumber) {
-        int result = 0;
+        int result;
         OptionalInt minNum = numbers.stream()
                 .mapToInt(i -> i)
                 .filter((i) -> i > minNumber)
@@ -70,16 +68,14 @@ public class StreamFunc {
         if (minNum.isPresent()) {
             result = minNum.getAsInt();
         } else {
-            new NoSuchElementException("Нет элементов больше " + minNumber);
+            throw new NoSuchElementException("Нет элементов больше " + minNumber);
         }
         return result;
     }
 
-    public static List<Integer> getStringListLengths(List<String> strings)
-    {
+    public static List<Integer> getStringListLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();
     }
-
 }
