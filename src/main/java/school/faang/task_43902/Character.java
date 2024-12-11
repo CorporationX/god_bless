@@ -1,7 +1,7 @@
 package school.faang.task_43902;
 
 public abstract class Character {
-    String name;
+    protected String name;
     protected int strength;
     protected int agility;
     protected int intelligence;
@@ -25,11 +25,7 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
-        if (health < 0) {
-            this.health = 0;
-        } else {
-            this.health = health;
-        }
+        this.health = Math.max(health, 0);
 
     }
 }
