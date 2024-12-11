@@ -1,14 +1,16 @@
 package school.faang.task_43905;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int dexterity;
-    protected int intelligence;
-    protected int health = 100;
+    private String name;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name, int strength, int dexterity, int intelligence) {
         this.name = name;
@@ -18,4 +20,17 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void applyDamage(Character target, int damage) {
+        int targetHealth = target.getHealth();
+        target.setHealth(targetHealth - damage);
+
+        if (damage >= targetHealth) {
+            System.out.printf("%s атакует %s и наносит %d урона, убивая в битве.%n",
+                    this.getName(), target.getName(), damage);
+        } else {
+            System.out.printf("%s атакует %s и наносит %d урона. Здоровье %s: %d%n",
+                    this.getName(), target.getName(), damage, target.getName(), target.getHealth());
+        }
+    }
 }
