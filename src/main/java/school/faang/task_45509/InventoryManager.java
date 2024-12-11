@@ -1,41 +1,32 @@
 package school.faang.task_45509;
 
+import lombok.NonNull;
+
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public void addItem(Character character, Item item, Consumer<Item> action) {
-        if (character == null) {
-            throw new IllegalArgumentException("Character s absent");
-        }
-        character.getInventory().add(item);
+    public void addItem(@NonNull Character character, Item item, Consumer<Item> action) {
+        character.addItem(item);
         action.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> condition) {
-        if (character == null) {
-            throw new IllegalArgumentException("Character is absent");
-        }
-        character.getInventory().removeIf(condition);
+    public void removeItem(@NonNull Character character, Predicate<Item> condition) {
+        character.removeItemByCondition(condition);
     }
 
-    public void updateItem(Character character, Predicate<Item> itemFilter, Function<Item, Item> itemTransformer) {
-        if (character == null) {
-            throw new IllegalArgumentException("Character s absent");
-        }
+    public void updateItem(@NonNull Character character, Predicate<Item> itemFilter,
+                           Function<Item, Item> itemTransformer) {
         List<Item> inventory = character.getInventory();
-        for (Item currentItem : inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item currentItem = inventory.get(i);
             if (itemFilter.test(currentItem)) {
-                Item newItem = itemTransformer.apply(currentItem);
-                updateItem(currentItem, inventory, newItem);
+                Item updatedItem = itemTransformer.apply(currentItem);
+                inventory.set(i, updatedItem);
+
             }
         }
-    }
-
-    private void updateItem(Item currentItem, List<Item> inventory, Item newItem) {
-        inventory.remove(currentItem);
-        inventory.add(newItem);
     }
 }
