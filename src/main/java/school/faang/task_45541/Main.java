@@ -6,7 +6,7 @@ public class Main {
 
         String alohomora = "Alohomora";
         String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+        String expelliarmus = "Expeliarmus";
 
         spellCaster.cast(alohomora, spell -> "The door is unlocked by " + spell);
         spellCaster.cast(lumos, spell -> "A beam of light is created by " + spell);
