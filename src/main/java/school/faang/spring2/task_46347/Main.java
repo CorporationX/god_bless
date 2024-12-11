@@ -13,13 +13,17 @@ public class Main {
         Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(),
                 image.getDescription() + " | Фильтр: сепия");
 
+        Function<Image, Image> someFilter = (image) -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: some");
+
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
         System.out.println(sepiaImage.getDescription());
 
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter,
+                sepiaFilter, someFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
     }
