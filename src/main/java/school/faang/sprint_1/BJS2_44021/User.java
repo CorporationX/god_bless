@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.sprint_1.BJS2_44021;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,6 @@ public class User {
     private int age;
     private String workplace;
     private String address;
-
 
     @Override
     public String toString() {
