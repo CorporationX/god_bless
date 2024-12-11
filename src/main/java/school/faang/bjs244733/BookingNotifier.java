@@ -6,10 +6,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 public class BookingNotifier {
 
-    private List<BookingObserver> observers = new ArrayList<>();
+    private final List<BookingObserver> observers = new ArrayList<>();
 
     public void addObserver(BookingObserver observer) {
         this.observers.add(observer);
@@ -19,7 +18,6 @@ public class BookingNotifier {
         this.observers.remove(observer);
     }
 
-    //метод update для всех зарегистрированных наблюдателей, уведомляя их об изменении статуса бронирования.
     public void notifyObservers(Booking booking, Status status) {
         for (BookingObserver bookingObserver : observers) {
             bookingObserver.update(booking, status);
