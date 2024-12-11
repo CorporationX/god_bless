@@ -43,11 +43,6 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         validate(character, "character", predicate, "predicate", function, "function");
 
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            Item item = character.getInventory().get(i);
-            if (predicate.test(item)) {
-                character.getInventory().set(i, function.apply(item));
-            }
-        }
+        character.getInventory().replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
     }
 }
