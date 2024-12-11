@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class ListOperations {
     public static int sumEven(List<Integer> numbers) {
-        return numbers.stream().filter(num -> num % 2 == 0).reduce(0, (sum, number) -> sum+number);
+        return numbers.stream().filter(num -> num % 2 == 0).reduce(0, (sum, number) -> sum + number);
     }
 
     public static int max(List<Integer> numbers) {
@@ -38,7 +38,8 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int bound) {
-        return numbers.stream().filter((item) -> item > bound).min(Integer::compareTo).orElseThrow(() -> new NoSuchElementException("No elements greater than " + bound));
+        return numbers.stream().filter((item) -> item > bound).min(Integer::compareTo).orElseThrow(()
+                -> new NoSuchElementException("No elements greater than " + bound));
     }
 
     public static List<Integer> mapToLength(List<String> strings) {
