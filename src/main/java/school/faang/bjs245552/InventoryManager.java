@@ -31,23 +31,22 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
         validate(character, "character", predicate, "predicate");
 
-        List<String> charactersToRemove = character.getInventory().stream().filter(predicate).map(Item::getName).toList();
+        List<String> charactersToRemove = character.getInventory().stream()
+                .filter(predicate)
+                .map(Item::getName)
+                .toList();
         if (charactersToRemove.isEmpty()) {
             throw new IllegalArgumentException("Item was not found in character's inventory");
         } else {
             character.getInventory().removeIf(predicate);
-            System.out.printf("Item(s): %s was/were removed from character's inventory", String.join( ", ", charactersToRemove));
+            System.out.printf("Item(s): %s was/were removed from character's inventory", String.join(", ",
+                    charactersToRemove));
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         validate(character, "character", predicate, "predicate", function, "function");
 
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            Item item = character.getInventory().get(i);
-            if (predicate.test(item)) {
-                character.getInventory().set(i, function.apply(item));
-            }
-        }
+        character.getInventory().replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
     }
 }
