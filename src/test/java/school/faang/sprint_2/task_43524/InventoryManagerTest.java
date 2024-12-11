@@ -16,7 +16,6 @@ class InventoryManagerTest {
     Consumer<Item> printMessage;
     Predicate<Item> filter;
 
-
     @BeforeEach
     void setUp() {
         frodo = new Character("Frodo");
