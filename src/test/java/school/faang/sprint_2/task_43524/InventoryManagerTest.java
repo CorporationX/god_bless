@@ -23,7 +23,6 @@ class InventoryManagerTest {
         manager = new InventoryManager();
         printMessage = (item) -> System.out.println(item.getName() + " был добавлен в инвентарь.");
         filter = item -> item.getName().equals("The One Ring");
-
     }
 
     @Test
@@ -50,6 +49,5 @@ class InventoryManagerTest {
                 () -> assertEquals(2000, frodo.getInventory().get(0).getValue()),
                 () -> assertEquals(500, frodo.getInventory().get(1).getValue())
         );
-
     }
 }
