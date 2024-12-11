@@ -3,7 +3,7 @@ package school.faang.bjs244699;
 import lombok.Getter;
 
 @Getter
-public class SpellEvent {
+public final class SpellEvent {
 
     private int id;
     private String eventType;
