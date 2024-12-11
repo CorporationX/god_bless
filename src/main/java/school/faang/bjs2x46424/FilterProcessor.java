@@ -1,4 +1,4 @@
-package school.faang.task_BJS2_46424;
+package school.faang.bjs2x46424;
 
 import java.util.function.Function;
 

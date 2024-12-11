@@ -1,4 +1,4 @@
-package school.faang.task_BJS2_46424;
+package school.faang.bjs2x46424;
 
 import java.util.function.Function;
 
@@ -25,5 +25,10 @@ public class Main {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+
+        System.out.println("==================================");
+        Image combinedImage2 = filterProcessor.applyFilter(originalImage, combinedFilter);
+        System.out.println(combinedImage.getDescription());
     }
+
 }
