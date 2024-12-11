@@ -11,9 +11,7 @@ import java.util.UUID;
 @ToString
 public class Product {
     private final UUID id;
-    @EqualsAndHashCode.Exclude
     private final String name;
-    @EqualsAndHashCode.Exclude
     private final ProductCategory category;
 
     public Product(String name, ProductCategory category) {

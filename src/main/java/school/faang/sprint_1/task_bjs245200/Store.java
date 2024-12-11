@@ -4,11 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 
 public class Store {
@@ -16,31 +18,40 @@ public class Store {
     private final Set<Product> warehouse = new HashSet<>();
     private final Map<ProductCategory, List<Product>> groupedProducts = new HashMap<>();
 
+    public Store() {
+        Arrays.stream(ProductCategory.values()).forEach(
+                category -> groupedProducts.put(category, new ArrayList<>()));
+    }
+
     public Product addItem(ProductCategory category, String name) {
         Product product = new Product(name, category);
         warehouse.add(product);
-        List<Product> products = groupedProducts.computeIfAbsent(category, key -> new ArrayList<>());
-        products.add(product);
+        addProductToGroupedMap(groupedProducts, product);
         log.info("product {} was added to category {}", name, category);
         return product;
     }
 
     public void removeItem(ProductCategory category, String name) {
         NameValidator.validateCategoryAndName(category, name);
+        List<Product> productsToDelete = new ArrayList<>();
+        List<Product> productsInStore = groupedProducts.get(category);
+        productsInStore.forEach(product -> {
+            if (Objects.equals(product.getName(), name)
+                    && Objects.equals(product.getCategory(), category)) {
+                productsToDelete.add(product);
+            }
+        });
 
-        Product productForDelete = warehouse.stream()
-                .filter(product -> product.getName().equals(name)
-                        && product.getCategory().equals(category))
-                .findFirst()
-                .orElseThrow(() -> {
-                    log.warn("attempted find to delete a non-existent product {} in category {}", name, category);
-                    return new NoSuchElementException("No such product");
-                });
-        warehouse.remove(productForDelete);
+        if (productsToDelete.isEmpty()) {
+            log.warn("attempted find to delete a non-existent product {} in category {}", name, category);
+            throw new NoSuchElementException("No product " + name + " in category " + category);
+        }
 
-        List<Product> products = groupedProducts.get(category);
-        products.remove(productForDelete);
-        log.info("product {} was deleted from category {}", name, category);
+        productsToDelete.forEach(product -> {
+            productsInStore.remove(product);
+            warehouse.remove(product);
+            log.info("product id: {} name: {} was deleted from category {}", product.getId(), name, category);
+        });
     }
 
     public List<Product> findItemsByCategory(ProductCategory category) {
@@ -54,10 +65,7 @@ public class Store {
 
     public Map<ProductCategory, List<Product>> groupProductsByCategory(Set<Product> products) {
         Map<ProductCategory, List<Product>> grouped = new HashMap<>();
-        products.forEach(product -> {
-            List<Product> tempProductList = grouped.computeIfAbsent(product.getCategory(), key -> new ArrayList<>());
-            tempProductList.add(product);
-        });
+        products.forEach(product -> addProductToGroupedMap(grouped, product));
         log.info("Products have been grouped by category");
         return grouped;
     }
@@ -71,5 +79,10 @@ public class Store {
             System.out.println("Category: " + category);
             products.forEach(System.out::println);
         });
+    }
+
+    private void addProductToGroupedMap(Map<ProductCategory, List<Product>> map, Product product) {
+        List<Product> products = map.computeIfAbsent(product.getCategory(), key -> new ArrayList<>());
+        products.add(product);
     }
 }
