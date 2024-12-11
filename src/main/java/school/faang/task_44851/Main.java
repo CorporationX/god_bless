@@ -5,8 +5,6 @@ public class Main {
         WeatherProvider provider = new WeatherService();
 
         WeatherCacheTemplate standardCache = new StandardWeatherCache(provider);
-        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
-
         long maxCacheAgeMillis = 5000;
 
         System.out.println("Standard Cache:");
@@ -23,6 +21,7 @@ public class Main {
         WeatherData data3 = standardCache.getWeatherData("New York", maxCacheAgeMillis);
         System.out.println(data3);
 
+        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
         System.out.println("Frequent Update Cache:");
         WeatherData frequentCache1 = frequentCache.getWeatherData("London", maxCacheAgeMillis);
         System.out.println(frequentCache1);
