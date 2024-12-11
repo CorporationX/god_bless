@@ -43,7 +43,7 @@ public class StudentDatabase {
     }
 
     //    вывод списка всех студентов и их оценок
-    public void printAll() {
+    public void printAllStud() {
         // Проходим по каждому студенту
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentGrades.entrySet()) {
             Student student = entry.getKey();
@@ -58,5 +58,53 @@ public class StudentDatabase {
         }
     }
 
+    //Добавление нового предмета и списка студентов, изучающих его.
+    public void addSubjectWithStudents(Subject subject, List<Student> students) {
+        subjectStudents.put(subject, new ArrayList<>(students));
+        for (Student student : students) {
+            studentGrades.putIfAbsent(student, new HashMap<>());
+            studentGrades.get(student).put(subject, null);
+        }
+    }
+
+    //добавление студента к существующему предметy
+    public void addStudentToSubject(Student student, Subject subject) {
+        subjectStudents.putIfAbsent(subject, new ArrayList<>());
+        subjectStudents.get(subject).add(student);
+        studentGrades.putIfAbsent(student, new HashMap<>());
+        studentGrades.get(student).put(subject, null);
+    }
+
+    // удаление студента из предмета
+    public void removeStudFromSub(Student student, Subject subject) {
+        List<Student> students = subjectStudents.get(subject);
+
+        //удаляем из subjectStudents
+        if (students != null) {
+            students.remove(student);
+        }
+
+        Map<Subject, Integer> grades = studentGrades.get(student);
+
+        //удаляем из studentsGrades
+        if (grades != null) {
+            grades.remove(subject);
+        }
+    }
+
+    public void printAllSub() {
+        // Проходим по каждому предмету
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
+            Subject subject = entry.getKey();
+            System.out.println("Предмет: " + subject);
+
+            // Проходим по студентикам
+            for (Student student : entry.getValue()) {
+                System.out.println("   Студент: " + student.getName());
+            }
+
+            System.out.println(); // строка для визуального разделения предметов
+        }
+    }
 
 }

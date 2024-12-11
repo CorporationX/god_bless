@@ -42,16 +42,20 @@ public class Main {
 
         // Выводим всех студентов и их оценки
         System.out.println("--- Все студенты и их оценки ---");
-        studentDatabase.printAll();
+        studentDatabase.printAllStud();
 
         // Добавляем новый предмет для существующего студента
         System.out.println("\n--- Добавляем новый предмет для Майка ---");
         studentDatabase.addSubjectForStudent(alice, science, 88);
-        studentDatabase.printAll();
+        studentDatabase.printAllStud();
 
         // Удаляем студента
         System.out.println("\n--- Удаляем Денис из базы данных ---");
         studentDatabase.removeStud(bob, science);
-        studentDatabase.printAll();
+        studentDatabase.printAllStud();
+
+        System.out.println("--- список всех по предметам ---");
+        studentDatabase.printAllSub();
+
     }
 }
