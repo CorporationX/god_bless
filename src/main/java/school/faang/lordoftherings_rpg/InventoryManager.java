@@ -1,6 +1,5 @@
 package school.faang.lordoftherings_rpg;
 
-import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -11,7 +10,6 @@ public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> action) {
         List<Item> inventory = character.getInventory();
         inventory.add(item);
-        character.setInventory(inventory);
 
         action.accept(item);
     }
