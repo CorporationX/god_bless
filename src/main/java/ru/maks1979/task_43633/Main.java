@@ -1,4 +1,4 @@
-package ru.maks1979.ArrayReverse;
+package ru.maks1979.task_43633;
 
 import java.util.Arrays;
 
