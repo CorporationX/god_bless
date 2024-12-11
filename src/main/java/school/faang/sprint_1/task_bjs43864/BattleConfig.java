@@ -1,4 +1,4 @@
-package school.faang.task_bjs43864;
+package school.faang.sprint_1.task_bjs43864;
 
 public class BattleConfig {
     public static final int DEFAULT_POWER = 5;
