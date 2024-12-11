@@ -94,24 +94,22 @@ public class StudentDatabase {
         validate(subjectId);
 
         return subjectsStudents.keySet().stream()
-                .filter(existingStudent -> Objects.equals(existingStudent.getId(), subjectId))
-                .findFirst()
-                .orElseGet(() -> {
-                    System.err.println("Subject not found by Id");
-                    return null;
-                });
+                .filter(existingsubject -> Objects.equals(existingsubject.getId(), subjectId))
+                .reduce((a, b) -> {
+                    throw new IllegalArgumentException("More than one subject found with the same id");
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Subject not found by id"));
     }
 
     public Subject findSubjectByName(String subjectName) {
         validate(subjectName);
 
         return subjectsStudents.keySet().stream()
-                .filter(existingStudent -> Objects.equals(existingStudent.getName(), subjectName))
-                .findFirst()
-                .orElseGet(() -> {
-                    System.err.println("Subject not found by name");
-                    return null;
-                });
+                .filter(existingsubject -> Objects.equals(existingsubject.getName(), subjectName))
+                .reduce((a, b) -> {
+                    throw new IllegalArgumentException("More than one subject found with the same name");
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Subject not found by name"));
     }
 
     public void addSubjectStudent(UUID subjectId, Student studentOnCourse) {
@@ -121,7 +119,6 @@ public class StudentDatabase {
         Subject subject = findSubject(subjectId);
         List<Student> students = subjectsStudents.get(subject);
         students.add(studentOnCourse);
-        subjectsStudents.put(subject, students);
     }
 
     public void removeStudentFromSubject(UUID subjectId, Student studentOnCourse) {
