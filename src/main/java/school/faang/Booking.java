@@ -26,8 +26,8 @@ public class Booking {
         return "Booking{" +
                 "bookingId=" + bookingId +
                 ", room=" + room +
-                ", date='" + date + '\'' +
-                ", timeSlot='" + timeSlot + '\'' +
-                '}';
+                ", date='" + date + '\''
+                + ", timeSlot='" + timeSlot + '\''
+                + '}';
     }
 }

@@ -10,7 +10,7 @@ public class Main {
         BookingSystem bookingSystem = new BookingSystem();
 
         bookingSystem.addObserver((booking, status) ->
-            System.out.println("Notification: Booking " + booking + " is " + status)
+                System.out.println("Notification: Booking " + booking + " is " + status)
         );
 
         Set<String> amenities1 = new HashSet<>(Arrays.asList("Projector", "Video Conference"));
