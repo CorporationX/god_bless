@@ -1,4 +1,4 @@
-package school.faang.sprint_2.task_43527_Gmail_Rich_Filters;
+package school.faang.sprint_2.task_43527;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
