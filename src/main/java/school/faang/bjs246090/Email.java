@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Email {
-    private String subject; // —тема письма;
-    private String body; // —текст письма;
-    private boolean isImportant; // — флаг,указывающий,важное письмоили нет.
+    private String subject;
+    private String body;
+    private boolean isImportant;
 }
