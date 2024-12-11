@@ -16,7 +16,7 @@ public class Droid {
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char)((ch - base + key) % ALPHABET_SIZE + base));
+                    encryptedMessage.append((char) ((ch - base + key) % ALPHABET_SIZE + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
