@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+
 public class NotificationManager {
     private final Map<String, Consumer<Notification>> mapNotification = new HashMap<>();
 
@@ -14,5 +15,6 @@ public class NotificationManager {
     public void sendNotification(Notification notification) {
         Consumer<Notification> consumer = mapNotification.get(notification.getType());
         consumer.accept(notification);
+
     }
 }
