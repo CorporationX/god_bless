@@ -2,7 +2,6 @@ package school.faang.bjs245280;
 
 import lombok.val;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StudentDatabase studentDatabase;
-        studentDatabase = new StudentDatabase(subjectGradleByStudent, studentBySubject);
+        StudentDatabase studentDatabase = new StudentDatabase(subjectGradleByStudent, studentBySubject);
         final Student tom = studentDatabase.addStudent("Tom");
         final Student bob = studentDatabase.addStudent("Bob");
 

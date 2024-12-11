@@ -15,13 +15,12 @@ public class StudentDatabase {
     private int countIdStudent;
     private int countIdSubject;
     @NonNull
-    private final Map<Student, Map<Subject, Integer>> subjectGradleByStudent;
+    private final Map<Student, Map<Subject, Integer>> subjectGradeByStudent;
     @NonNull
     private final Map<Subject, List<Student>> studentBySubject;
 
-    // Добавление нового студента и его предметов с оценками.
     public void addStudentSubjectGrades(Student student, Map<Subject, Integer> grades) {
-        subjectGradleByStudent.put(student, grades);
+        subjectGradeByStudent.put(student, grades);
 
         for (Subject subject : grades.keySet()) {
             studentBySubject.putIfAbsent(subject, new ArrayList<>());
@@ -29,19 +28,18 @@ public class StudentDatabase {
         }
     }
 
-    // Добавление нового предмета для существующего студента с оценкой.
     public void addSubjectForStudent(String nameSubject, Student student, int grade) {
-        if (this.subjectGradleByStudent.containsKey(student)) {
+        if (subjectGradeByStudent.containsKey(student)) {
             Subject subject = this.addSubject(nameSubject);
-            Map<Subject, Integer> gradeBySubject = subjectGradleByStudent.get(student);
+            Map<Subject, Integer> gradeBySubject = subjectGradeByStudent.get(student);
             gradeBySubject.put(subject, grade);
+        } else {
+            throw new IllegalStateException("No such student has been found!");
         }
-
     }
 
-    // Удаление студента и его предметов.
     public void deleteStudentSubject(Student student) {
-        Map<Subject, Integer> grades = subjectGradleByStudent.remove(student);
+        Map<Subject, Integer> grades = subjectGradeByStudent.remove(student);
 
         for (Subject subject : grades.keySet()) {
             List<Student> students = studentBySubject.get(subject);
@@ -51,16 +49,14 @@ public class StudentDatabase {
         }
     }
 
-    // Вывод списка всех студентов и их оценок по предметам.
     public void printStudentSubjectGrade() {
-        subjectGradleByStudent.forEach((student, gradeBySubject) -> {
+        subjectGradeByStudent.forEach((student, gradeBySubject) -> {
             gradeBySubject.forEach((subject, grade) -> {
                 System.out.println(String.format(TEMPLATE_PRINT_INFO_ALL, student, subject, grade));
             });
         });
     }
 
-    // Добавление нового предмета и списка студентов, изучающих его.
     public void addSubjectsWithStudents(Subject subject, List<Student> students) {
         studentBySubject.put(subject, new ArrayList<>(students));
         for (Student student : students) {
@@ -68,8 +64,6 @@ public class StudentDatabase {
         }
     }
 
-
-    // Добавление студента к существующему предмету.
     public void addStudentsForSubject(Subject subject, Student student) {
         if (studentBySubject.containsKey(subject)) {
             List<Student> students = studentBySubject.get(subject);
@@ -81,7 +75,6 @@ public class StudentDatabase {
 
     }
 
-    // Удаление студента из предмета.
     public void deleteStudentsFromSubject(Subject subject, Student student) {
         if (studentBySubject.containsKey(subject)) {
             List<Student> students = studentBySubject.get(subject);
@@ -92,8 +85,6 @@ public class StudentDatabase {
 
     }
 
-
-    // Вывод списка всех предметов и студентов, изучающих их.
     public void printStudentSubject() {
         this.studentBySubject.forEach((subject, students) -> {
             students.forEach((student) -> {
@@ -103,14 +94,14 @@ public class StudentDatabase {
     }
 
     private void addSubjectGradle(Subject subject, Student student) {
-        subjectGradleByStudent.putIfAbsent(student, new HashMap<>());
-        subjectGradleByStudent.get(student).put(subject, null);
+        subjectGradeByStudent.putIfAbsent(student, new HashMap<>());
+        subjectGradeByStudent.get(student).put(subject, null);
     }
 
     public Student addStudent(String name) {
         ++countIdStudent;
         Student student = new Student(countIdStudent, name);
-        this.subjectGradleByStudent.put(student, new HashMap<>());
+        this.subjectGradeByStudent.put(student, new HashMap<>());
         return student;
     }
 

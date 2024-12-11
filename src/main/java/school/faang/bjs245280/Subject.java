@@ -16,6 +16,7 @@ public class Subject {
     @NonNull
     private String name;
 
+    @Override
     public String toString() {
         return this.name;
     }

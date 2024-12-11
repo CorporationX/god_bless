@@ -11,10 +11,12 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Student {
+
     private int id;
     @NonNull
     private String name;
 
+    @Override
     public String toString() {
         return this.name;
     }
