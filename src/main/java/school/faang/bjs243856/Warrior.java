@@ -9,10 +9,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(@NonNull Character character) {
-        if (character.getHealth() - this.getPower() > 0) {
-            character.setHealth(character.getHealth() - this.getPower());
-        } else {
-            character.setHealth(0);
-        }
+        character.setHealth(Math.max(character.getHealth() - this.getPower(), 0));
     }
 }
