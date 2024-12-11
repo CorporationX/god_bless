@@ -7,12 +7,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StudentDatabase database = new StudentDatabase();
-
-        Student student1 = new Student(1, "Аня");
-        Student student2 = new Student(2, "Миша");
-        Student student3 = new Student(3, "Яна");
-
         Subject math = new Subject(101, "Математика");
         Subject physics = new Subject(102, "Физика");
         Subject chemistry = new Subject(103, "Химия");
@@ -24,6 +18,12 @@ public class Main {
         Map<Subject, Integer> grades2 = new HashMap<>();
         grades2.put(math, 78);
         grades2.put(chemistry, 88);
+
+        Student student1 = new Student(1, "Аня");
+        Student student2 = new Student(2, "Миша");
+        Student student3 = new Student(3, "Яна");
+
+        StudentDatabase database = new StudentDatabase();
 
         database.addStudentWithGrades(student1, grades1);
         database.addStudentWithGrades(student2, grades2);

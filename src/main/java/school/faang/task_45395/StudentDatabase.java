@@ -43,7 +43,8 @@ public class StudentDatabase {
             Student student = entry.getKey();
             System.out.println("Студент: " + student.getName());
             for (Map.Entry<Subject, Integer> gradeEntry : entry.getValue().entrySet()) {
-                System.out.println("   Предмет: " + gradeEntry.getKey().getName() + ", Оценка: " + gradeEntry.getValue());
+                System.out.println("   Предмет: " + gradeEntry.getKey().getName() + ", Оценка: "
+                        + gradeEntry.getValue());
             }
         }
     }
