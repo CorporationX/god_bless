@@ -16,11 +16,17 @@ public class NotificationManager {
     }
 
     public void registerHandler(String type, Consumer<Notification> notification) {
+        if (type.isEmpty() || notification == null) {
+            return;
+        }
         notifications.put(type, notification);
     }
 
     public void sendNotification(Notification object) {
         Consumer<Notification> notification = notifications.get(object.getType());
+        if (object == null) {
+            return;
+        }
         if (notification == null) {
             System.out.println(String.format("По типу уведомления %s не найдено обработчика", object.getType()));
             return;

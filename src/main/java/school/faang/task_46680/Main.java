@@ -37,26 +37,30 @@ public class Main {
     }
 
     private static void addNotifications(List<Notification> notifications) {
-        notifications.add(new Notification("email", "Ваша учетная запись успешно активирована"));
-        notifications.add(new Notification("sms", "Вы успешно изменили свой пароль"));
-        notifications.add(new Notification("push", "Новый пост от пользователя: JohnDoe"));
-        notifications.add(new Notification("blocked", "Учетная запись заблокирована"));
-        notifications.add(new Notification("email", "Купите алкоголь и никотин!"));
-        notifications.add(new Notification("email", "Закупил оружие у Иваныча. Приходи тестировать."));
+        String email = NotificationType.EMAIL.toString();
+        String sms = NotificationType.SMS.toString();
+        String push = NotificationType.PUSH.toString();
+        String blocked = NotificationType.BLOCKED.toString();
+
+        notifications.add(new Notification(email, "Ваша учетная запись успешно активирована"));
+        notifications.add(new Notification(sms, "Вы успешно изменили свой пароль"));
+        notifications.add(new Notification(push, "Новый пост от пользователя: JohnDoe"));
+        notifications.add(new Notification(blocked, "Учетная запись заблокирована"));
+        notifications.add(new Notification(email, "Купите алкоголь и никотин!"));
+        notifications.add(new Notification(email, "Закупил оружие у Иваныча. Приходи тестировать."));
     }
 
     private static void registerHandler(NotificationManager notificationManager) {
-        notificationManager.registerHandler("email",
+        notificationManager.registerHandler(NotificationType.EMAIL.toString(),
                 (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
         );
 
-        notificationManager.registerHandler("sms",
+        notificationManager.registerHandler(NotificationType.SMS.toString(),
                 (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
         );
 
-        notificationManager.registerHandler("push",
+        notificationManager.registerHandler(NotificationType.PUSH.toString(),
                 (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
         );
-
     }
 }
