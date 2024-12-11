@@ -7,31 +7,26 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class DataCenterService {
-    @NonNull
-    private final DataCenter dataCenter;
     private final OptimizationStrategy optimizationStrategy;
 
-    public void addServer(Server server) {
-        if (server == null) {
-            throw new IllegalArgumentException("Server doesn't exist");
-        }
+    public void addServer(Server server, @NonNull DataCenter dataCenter) {
         dataCenter.addServer(server);
     }
 
-    public void removeServer(Server server, DataCenter dataCenter) {
+    public void removeServer(Server server, @NonNull DataCenter dataCenter) {
         if (server == null) {
             throw new IllegalArgumentException("Server doesn't exist");
         }
         dataCenter.removeServer(server);
     }
 
-    public double getTotalEnergyConsumption() {
+    public double getTotalEnergyConsumption(@NonNull DataCenter dataCenter) {
         return dataCenter.getServers().stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .sum();
     }
 
-    public boolean allocateResources(ResourceRequest resourceRequest, DataCenter dataCenter) {
+    public boolean allocateResources(ResourceRequest resourceRequest, @NonNull DataCenter dataCenter) {
         double remainingLoad = resourceRequest.getLoad();
         List<Server> servers = dataCenter.getServers();
         for (Server server : servers) {
@@ -50,7 +45,7 @@ public class DataCenterService {
         return false;
     }
 
-    public boolean releaseResources(ResourceRequest request, DataCenter dataCenter) {
+    public boolean releaseResources(ResourceRequest request, @NonNull DataCenter dataCenter) {
         double remainingLoad = request.getLoad();
         List<Server> servers = dataCenter.getServers();
         for (Server server : servers) {
@@ -66,7 +61,7 @@ public class DataCenterService {
         return false;
     }
 
-    public void optimize(DataCenter dataCenter) {
+    public void optimize(@NonNull DataCenter dataCenter) {
         if (optimizationStrategy != null) {
             optimizationStrategy.optimize(dataCenter);
         }

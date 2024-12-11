@@ -7,7 +7,7 @@ import static school.faang.task_45018.DataInitializerUtils.initDataCenter;
 
 class EnergyEfficiencyOptimizationStrategyTest {
     private final DataCenter dataCenter = new DataCenter(initDataCenter());
-    private final DataCenterService dataCenterService = new DataCenterService(dataCenter,
+    private final DataCenterService dataCenterService = new DataCenterService(
             new EnergyEfficiencyOptimizationStrategy());
 
     @Test
