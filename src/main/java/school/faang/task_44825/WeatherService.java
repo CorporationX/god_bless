@@ -6,7 +6,6 @@ public class WeatherService implements WeatherProvider {
     private static final Random RANDOM = new Random();
     private static final double MAX_TEMPERATURE = 50;
     private static final double MIN_TEMPERATURE = -50;
-    private static final int NUMBER_SIGN = RANDOM.nextBoolean() ? 1 : -1;
     private static final int MIN_HUMIDITY = 0;
     private static final int MAX_HUMIDITY = 100;
 
@@ -15,8 +14,9 @@ public class WeatherService implements WeatherProvider {
         if (city == null) {
             throw new IllegalArgumentException("City doesn't exist");
         }
+        int numberSign = RANDOM.nextBoolean() ? 1 : -1;
         double temperature = RANDOM.nextDouble(((MAX_TEMPERATURE - MIN_TEMPERATURE + 1) + MIN_TEMPERATURE))
-                * NUMBER_SIGN;
+                * numberSign;
         double humidity = RANDOM.nextDouble((MAX_HUMIDITY - MIN_HUMIDITY) + 1);
         return new WeatherData(city, temperature, humidity, System.currentTimeMillis());
     }
