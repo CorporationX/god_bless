@@ -1,19 +1,21 @@
 package school.faang.sprint1.bjs_45125;
 
 import com.github.javafaker.Faker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class InventoryManagement {
-    private final HashSet<Product> productsList = new HashSet<>();
-    private final Map<String, List<Product>> productsByCategory = new HashMap<>();
+    private final Set<Product> products = new HashSet<>();
+    private final Map<String, Set<Product>> productsByCategory = new HashMap<>();
+    private static final Logger logs = LoggerFactory.getLogger(InventoryManagement.class);
+    private final Faker faker = new Faker();
 
     public int generateProductId() {
-        Faker faker = new Faker();
         return faker.number().numberBetween(1, 200);
     }
 
@@ -24,36 +26,39 @@ public class InventoryManagement {
     public void addItem(String name, String category) {
         if (checkCategoryAndName(name, category)) {
             Product item = new Product(generateProductId(), name, category);
-            productsByCategory.computeIfAbsent(category, key -> new ArrayList<>())
+            productsByCategory.computeIfAbsent(category, key -> new HashSet<>())
                     .add(item);
-            productsList.add(item);
+            products.add(item);
         }
     }
 
     public void removeItem(String name, String category) {
         if (checkCategoryAndName(name, category)) {
-            boolean wasRemoved = productsList.removeIf(product -> name.equals(product.name()));
+            boolean wasRemoved = products.removeIf(product -> name.equals(product.name()));
             if (wasRemoved) {
-                productsByCategory.get(category).removeIf(product -> name.equals(product.name()));
+                var categoryProducts = productsByCategory.get(category);
+                if (categoryProducts != null) {
+                    categoryProducts.removeIf(product -> name.equals(product.name()));
+                }
             } else {
-                System.out.println("Product not found");
+                logs.warn("Product not found");
             }
         }
     }
 
-    public List<Product> findItemsByCategory(String category) {
+    public Set<Product> findItemsByCategory(String category) {
+        Set<Product> result = new HashSet<>();
         if (category == null) {
-            System.out.println("Not valid data");
-            return new ArrayList<>();
+            logs.warn("Not valid data");
         } else {
             if (!productsByCategory.containsKey(category)) {
-                System.out.println("Category not found");
-                return new ArrayList<>();
+                logs.warn("Category not found");
             } else {
                 printItemsByCategory(category);
-                return productsByCategory.get(category);
+                result = productsByCategory.get(category);
             }
         }
+        return result;
     }
 
     public void printItemsByCategory(String category) {
@@ -62,22 +67,22 @@ public class InventoryManagement {
     }
 
     public void printAllItems() {
-        for (Map.Entry<String, List<Product>> categoryList : productsByCategory.entrySet()) {
+        for (Map.Entry<String, Set<Product>> categoryList : productsByCategory.entrySet()) {
             printItemsByCategory(categoryList.getKey());
             System.out.println();
         }
     }
 
-    public HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
-        HashMap<String, List<Product>> groupedProducts = new HashMap<>();
-        products.forEach(product -> groupedProducts.computeIfAbsent(product.category(), value -> new ArrayList<>())
+    public Map<String, Set<Product>> groupProductsByCategory(Set<Product> products) {
+        HashMap<String, Set<Product>> groupedProducts = new HashMap<>();
+        products.forEach(product -> groupedProducts.computeIfAbsent(product.category(), value -> new HashSet<>())
                 .add(product));
         return groupedProducts;
     }
 
-    public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
-        System.out.println("print by category");
-        for (Map.Entry<String, List<Product>> categoryList : groupedProducts.entrySet()) {
+    public void printProductsByCategory(Map<String, Set<Product>> groupedProducts) {
+        System.out.println("List by category:");
+        for (Map.Entry<String, Set<Product>> categoryList : groupedProducts.entrySet()) {
             printItemsByCategory(categoryList.getKey());
             System.out.println();
         }

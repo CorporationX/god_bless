@@ -1,6 +1,6 @@
 package school.faang.sprint1.bjs_45125;
 
-import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,9 +21,10 @@ public class Main {
         warehouse.removeItem("dress", "cloth");
         System.out.println();
         System.out.println("--------##--------");
-        List<Product> foodList = warehouse.findItemsByCategory("cloth");
+        Set<Product> foodList = warehouse.findItemsByCategory("cloth");
         System.out.println(foodList);
         System.out.println("----------------");
+        warehouse.findItemsByCategory("fitness");
+        warehouse.removeItem("dumbbells", "food");
     }
-
 }
