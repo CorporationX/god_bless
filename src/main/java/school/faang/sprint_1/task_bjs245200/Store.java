@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -33,25 +34,24 @@ public class Store {
 
     public void removeItem(ProductCategory category, String name) {
         NameValidator.validateCategoryAndName(category, name);
-        List<Product> productsToDelete = new ArrayList<>();
-        List<Product> productsInStore = groupedProducts.get(category);
-        productsInStore.forEach(product -> {
-            if (Objects.equals(product.getName(), name)
-                    && Objects.equals(product.getCategory(), category)) {
-                productsToDelete.add(product);
-            }
-        });
+        List<Product> productsInStore = findItemsByCategory(category);
 
-        if (productsToDelete.isEmpty()) {
+        Iterator<Product> productsIterator = productsInStore.iterator();
+        boolean removed = false;
+        while (productsIterator.hasNext()) {
+            Product product = productsIterator.next();
+            if (Objects.equals(product.getName(), name)) {
+                productsIterator.remove();
+                warehouse.remove(product);
+                removed = true;
+                log.info("product id: {} name: {} was deleted from category {}", product.getId(), name, category);
+            }
+        }
+
+        if (!removed) {
             log.warn("attempted find to delete a non-existent product {} in category {}", name, category);
             throw new NoSuchElementException("No product " + name + " in category " + category);
         }
-
-        productsToDelete.forEach(product -> {
-            productsInStore.remove(product);
-            warehouse.remove(product);
-            log.info("product id: {} name: {} was deleted from category {}", product.getId(), name, category);
-        });
     }
 
     public List<Product> findItemsByCategory(ProductCategory category) {
@@ -72,11 +72,11 @@ public class Store {
 
     public void printProductsByCategory(Map<ProductCategory, List<Product>> groupedProducts) {
         groupedProducts.forEach((category, products) -> {
+            System.out.println("Category: " + category);
+
             if (products.isEmpty()) {
                 System.out.println("No products in this category.");
             }
-
-            System.out.println("Category: " + category);
             products.forEach(System.out::println);
         });
     }
