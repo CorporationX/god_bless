@@ -1,0 +1,46 @@
+Вы работаете над игрой во вселенной «Властелина Колец» и вам поручено создать систему для управления инвентарем персонажей. Система должна позволять добавлять, удалять и изменять предметы в инвентаре, используя стандартные функциональные интерфейсы Java, такие как Function, Predicate и Consumer.
+
+Цель:
+
+Создайте класс InventoryManager, который будет управлять инвентарем персонажей с использованием функциональных интерфейсов Java.
+
+Требования:
+
+1. Создайте класс Item с полями:
+
+name — название предмета (например, "Кольцо"),
+
+value — стоимость предмета (например, 1000).
+
+2. Создайте класс Character, у которого есть поле:
+
+inventory — список предметов (объекты Item), которые персонаж носит с собой.
+
+3. Создайте класс InventoryManager с тремя методами:
+
+addItem: добавляет предмет в инвентарь персонажа и выполняет дополнительное действие (например, выводит сообщение о добавлении предмета).
+
+removeItem: удаляет предмет из инвентаря, если он удовлетворяет условию, заданному предикатом (например, удалить все кольца).
+
+updateItem: находит предмет в инвентаре по условию и обновляет его с помощью функции (например, удвоить стоимость предмета).
+
+Пример использования:
+
+Character frodo = new Character("Frodo");
+Item ring = new Item("The One Ring", 1000);
+
+InventoryManager manager = new InventoryManager();
+
+// Добавляем предмет в инвентарь
+manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+
+// Удаляем предмет из инвентаря
+manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+
+// Добавляем обратно предмет и обновляем его стоимость
+manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
+manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+
+// Проверяем результат
+frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+
