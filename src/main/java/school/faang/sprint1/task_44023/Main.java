@@ -9,12 +9,12 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
 
-        User user1 = new User(1, "Сергей Срегеев", 25, new HashSet<>(Arrays.asList("Футбол", "Музыка", "Чтение")));
-        User user2 = new User(2, "Мария Петрова", 30, new HashSet<>(Arrays.asList("Плавание", "Музыка", "Танцы")));
-        User user3 = new User(3, "Алексей Сидоров", 20, new HashSet<>(Arrays.asList("Программирование", "Шахматы")));
-        User user4 = new User(4, "Анна Смирнова", 28, new HashSet<>(Arrays.asList("Йога", "Футбол", "Рисование")));
+        User sergeyS = new User(1, "Сергей Срегеев", 25, new HashSet<>(Arrays.asList("Футбол", "Музыка", "Чтение")));
+        User mariaP = new User(2, "Мария Петрова", 30, new HashSet<>(Arrays.asList("Плавание", "Музыка", "Танцы")));
+        User alexeyS = new User(3, "Алексей Сидоров", 20, new HashSet<>(Arrays.asList("Программирование", "Шахматы")));
+        User annaS = new User(4, "Анна Смирнова", 28, new HashSet<>(Arrays.asList("Йога", "Футбол", "Рисование")));
 
-        List<User> users = Arrays.asList(user1, user2, user3, user4);
+        List<User> users = Arrays.asList(sergeyS, mariaP, alexeyS, annaS);
 
         Set<String> targetHobbies = new HashSet<>(Arrays.asList("Футбол", "Музыка", "Йога"));
 
