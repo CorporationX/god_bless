@@ -6,7 +6,10 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> converter, Consumer<Email> action) {
+    public void processEmails(List<Email> emails,
+                              Predicate<Email> filter,
+                              Function<Email, String> converter,
+                              Consumer<Email> action) {
         for (Email email : emails) {
             if (filter.test(email)) {
                 String newBody = converter.apply(email);
