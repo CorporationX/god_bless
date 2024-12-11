@@ -23,10 +23,6 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "roomId=" + roomId +
-                ", type='" + type + '\'' +
-                ", amenities=" + amenities +
-                '}';
+        return String.format("Room{roomId=%d, type='%s', amenities=%s}", roomId, type, amenities);
     }
 }

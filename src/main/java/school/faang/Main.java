@@ -16,7 +16,7 @@ public class Main {
         Set<String> amenities1 = new HashSet<>(Arrays.asList("Projector", "Video Conference"));
         Room room1 = new Room(1, "Conference Room", amenities1);
 
-        Set<String> amenities2 = new HashSet<>(Arrays.asList("Whiteboard"));
+        Set<String> amenities2 = new HashSet<>(Arrays.asList("Whiteboard", "Markers"));
         Room room2 = new Room(2, "Meeting Room", amenities2);
 
         bookingSystem.addRoom(room1);
@@ -26,7 +26,7 @@ public class Main {
 
         bookingSystem.cancelBooking(1);
 
-        Set<String> requiredAmenities = new HashSet<>(Arrays.asList("Projector"));
+        Set<String> requiredAmenities = new HashSet<>(Arrays.asList("Projector",""));
         List<Room> availableRooms = bookingSystem.findAvailableRooms("2023-12-01", "10:00-11:00", requiredAmenities);
         System.out.println("Available rooms: " + availableRooms);
 
