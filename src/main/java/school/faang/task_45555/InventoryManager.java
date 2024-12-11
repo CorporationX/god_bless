@@ -20,9 +20,6 @@ public class InventoryManager {
         action.accept(item);
     }
 
-    /*
-    Why peek() and not forEach()?
-     */
     public void removeItem(Character character, Predicate<Item> filter) {
         List<Item> items = character.getInventory();
         items.stream().filter(filter).forEach(item -> log.info("Removing item: {}", item.getName()));
@@ -30,10 +27,6 @@ public class InventoryManager {
         log.info("Successfully removed items from inventory");
     }
 
-    /*
-    Is it a good idea to use this implementation, or will it be unclear?
-    items.replaceAll(item -> filter.test(item) ? action.apply(item) : item);
-     */
     public Character updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
         List<Item> items = character.getInventory();
         Stream<Item> itemsAfterFilter = items.stream()
