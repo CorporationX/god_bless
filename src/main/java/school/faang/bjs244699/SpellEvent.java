@@ -5,11 +5,20 @@ import lombok.Getter;
 @Getter
 public final class SpellEvent {
 
-    private int id;
-    private String eventType;
-    private String action;
+    private final int id;
+    private final String eventType;
+    private final String action;
 
     public SpellEvent(int id, String eventType, String action) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID должен быть положительным числом.");
+        }
+        if (eventType == null || eventType.trim().isEmpty()) {
+            throw new IllegalArgumentException("Тип события не может быть пустым.");
+        }
+        if (action == null || action.trim().isEmpty()) {
+            throw new IllegalArgumentException("Тип события не может быть пустым.");
+        }
         this.id = id;
         this.eventType = eventType;
         this.action = action;
@@ -21,30 +30,6 @@ public final class SpellEvent {
 
     public SpellEvent(int id) {
         this(id, "Неизвестный тип", "Неопределенное действие");
-    }
-
-    public void setId(int id) {
-        if (id > 0) {
-            this.id = id;
-        } else {
-            throw new IllegalArgumentException("ID должен быть положительным числом.");
-        }
-    }
-
-    public void setEventType(String eventType) {
-        if (eventType != null || eventType.trim().isEmpty()) {
-            this.eventType = eventType;
-        } else {
-            throw new IllegalArgumentException("Тип события не может быть пустым.");
-        }
-    }
-
-    public void setAction(String action) {
-        if (action != null || action.trim().isEmpty()) {
-            this.action = action;
-        } else {
-            throw new IllegalArgumentException("Тип события не может быть пустым.");
-        }
     }
 
     @Override
