@@ -26,7 +26,7 @@ public class Main {
 
         bookingSystem.cancelBooking(1);
 
-        Set<String> requiredAmenities = new HashSet<>(Arrays.asList("Projector",""));
+        Set<String> requiredAmenities = new HashSet<>(Arrays.asList("Projector", "Video Conference"));
         List<Room> availableRooms = bookingSystem.findAvailableRooms("2023-12-01", "10:00-11:00", requiredAmenities);
         System.out.println("Available rooms: " + availableRooms);
 
