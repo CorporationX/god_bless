@@ -1,8 +1,8 @@
 package school.faang.bjs244816;
 
 import lombok.Getter;
-
 import java.util.HashMap;
+
 @Getter
 public abstract class WeatherCacheTemplate {
     private final HashMap<String, WeatherData> weatherDataLog = new HashMap<>();
