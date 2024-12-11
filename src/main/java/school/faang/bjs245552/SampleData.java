@@ -1,5 +1,7 @@
 package school.faang.bjs245552;
 
+import java.util.Objects;
+
 public class SampleData {
     public void test() {
         Character frodo = new Character("Frodo");
@@ -9,7 +11,7 @@ public class SampleData {
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
 
-        manager.removeItem(frodo, (item) -> item != null && item.getName().equals("The One Ring"));
+        manager.removeItem(frodo, (item) -> Objects.equals(item, item.getName().equals("The One Ring")));
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
