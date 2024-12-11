@@ -8,7 +8,6 @@ public class Main {
         System.out.println("петр атаковал ивана");
         petr.attack(ivan);
         System.out.println("здоровье ивана после атаки: " + ivan.health);
-
     }
 
 
