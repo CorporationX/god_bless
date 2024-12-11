@@ -16,7 +16,7 @@ public class Main {
         return ErrorHandler.withErrorHandling(
                 () -> RemoteService.call(param),
                 e -> {
-                    System.out.println("Exception при вызове сервиса: " + e);
+                    System.out.println("Exception при вызове сервиса: " + e.getMessage());
                     System.out.println("Возвращаем дефолтное значение");
                     return "DEFAULT";
                 }
