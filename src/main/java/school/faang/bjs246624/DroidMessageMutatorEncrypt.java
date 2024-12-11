@@ -1,6 +1,6 @@
 package school.faang.bjs246624;
 
-public class DroidMessageEncryptorEncrypt implements DroidMessageEncryptor {
+public class DroidMessageMutatorEncrypt implements DroidMessageMutator {
 
     @Override
     public String mutate(String message, Integer key) {
