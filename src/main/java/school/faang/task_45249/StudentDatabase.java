@@ -8,7 +8,7 @@ import java.util.Map;
 public class StudentDatabase {
 
     HashMap<Student, Map<Subject, Integer>> studentGrades = Main.getStudentGrades();
-    HashMap<Subject, List<Student>> subjectStudents = Main.subjectStudents;
+    HashMap<Subject, List<Student>> subjectStudents = Main.getSubjectStudents();
 
 
     //    Добавление нового студента и его предметов с оценками
@@ -83,9 +83,7 @@ public class StudentDatabase {
         if (students != null) {
             students.remove(student);
         }
-
         Map<Subject, Integer> grades = studentGrades.get(student);
-
         //удаляем из studentsGrades
         if (grades != null) {
             grades.remove(subject);
