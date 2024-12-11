@@ -41,7 +41,7 @@ public abstract class WeatherCacheTemplate {
             logger.warn("Empty cache");
         } else {
             System.out.println("Cache records:");
-            cacheData.forEach( (city, data) -> System.out.printf("City: %s, data: %s%n", city, data));
+            cacheData.forEach((city, data) -> System.out.printf("City: %s, data: %s%n", city, data));
         }
     }
 }

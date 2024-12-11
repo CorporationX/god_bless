@@ -30,12 +30,11 @@ public class Main {
         logs.info("Compare: {}", Objects.equals(record1, record2));
 
         logs.info("Checking clear cache - should be not equal");
-        WeatherData oldWdata = cache.getWeatherData(city, cacheTime);
+        WeatherData oldData = cache.getWeatherData(city, cacheTime);
         Thread.sleep(cacheTime + 500);
         cache.clearExpiredCache(cacheTime);
-        cache.printAllCachedData();
         WeatherData freshData = cache.getWeatherData(city, cacheTime);
-        logs.info("Compare: {}", Objects.equals(oldWdata, freshData));
+        logs.info("Compare: {}", Objects.equals(oldData, freshData));
         cache.printAllCachedData();
     }
 }
