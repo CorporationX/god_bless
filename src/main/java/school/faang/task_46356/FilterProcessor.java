@@ -8,4 +8,10 @@ public class FilterProcessor {
     }
 
 
+
+    public Function<Image, Image> combineFilters(Function<Image, Image> grayscaleFilter, Function<Image, Image> sepiaFilter) {
+        return grayscaleFilter.andThen(sepiaFilter);
+    }
 }
+
+

@@ -21,8 +21,8 @@ public class Main {
         System.out.println(sepiaImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
 
 // Комбинирование фильтров
-//        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-//        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-//        System.out.println(combinedImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        System.out.println(combinedImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
     }
 }
