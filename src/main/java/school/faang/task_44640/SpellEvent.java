@@ -32,10 +32,9 @@ public class SpellEvent {
 
     @Override
     public String toString() {
-        return "SpellEvent{" +
-                "id=" + id +
-                ", eventType='" + eventType + '\'' +
-                ", action='" + action + '\'' +
-                '}';
+        return "SpellEvent{" + "id="
+                + id + ", eventType='"
+                + eventType + '\'' + ", action='"
+                + action + '\'' + '}';
     }
 }
