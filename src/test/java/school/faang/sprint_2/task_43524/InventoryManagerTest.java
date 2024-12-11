@@ -21,8 +21,8 @@ class InventoryManagerTest {
         frodo = new Character("Frodo");
         ring = new Item("The One Ring", 1000);
         manager = new InventoryManager();
-        printMessage = (item) -> System.out.println(item.getName() + " был добавлен в инвентарь.");
-        filter = item -> item.getName().equals("The One Ring");
+        printMessage = (item) -> System.out.println(item.name() + " был добавлен в инвентарь.");
+        filter = item -> item.name().equals("The One Ring");
     }
 
     @Test
@@ -43,11 +43,11 @@ class InventoryManagerTest {
         Item sword = new Item("Sword", 500);
         manager.addItem(frodo, ring, printMessage);
         manager.addItem(frodo, sword, printMessage);
-        Function<Item, Item> updater = (item) -> new Item(item.getName(), item.getValue() * 2);
+        Function<Item, Item> updater = (item) -> new Item(item.name(), item.value() * 2);
         manager.updateItem(frodo, filter, updater);
         assertAll(
-                () -> assertEquals(2000, frodo.getInventory().get(0).getValue()),
-                () -> assertEquals(500, frodo.getInventory().get(1).getValue())
+                () -> assertEquals(2000, frodo.getInventory().get(0).value()),
+                () -> assertEquals(500, frodo.getInventory().get(1).value())
         );
     }
 }
