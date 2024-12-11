@@ -2,16 +2,21 @@ package school.faang.task_44005;
 
 import java.util.List;
 
+import static school.faang.task_44005.User.formatGroupedUsers;
+
 public class Main {
+
     public static void main(String[] args) {
-        List<User> users = List.of(
-                new User("peter", 20, "Amazon", "California 2"),
-                new User("jack", 20, "Google", "California 3"),
-                new User("susan", 25, "Facebook", "California 1"),
-                new User("jennie", 25, "Google", "California 3"),
-                new User("tom", 30, "Facebook", "California 1"),
-                new User("vlad", 28, "Uber", "Amsterdam")
-        );
-        System.out.printf("Grouped Users:\n%s\n", User.formatGroupedUsers(User.groupUsers(users)));
+        User john = new User("John", 55, "Google LC",
+                "USA, California, 1600 Amphitheatre Parkway in Mountain View");
+        User elon = new User("Elon", 55, "X.com",
+                "USA, California");
+        User sam = new User("Sam", 25, "Facebook", "USA, California, Hacker Way, Menlo Park");
+        User jennie = new User("Jennie", 28, "Netflix LC",
+                "USA, California, Los Gatos 131 Albright Way");
+        User bob = new User("Bob", 28, "Netflix LC", "USA, California, Los Gatos 131 Albright Way");
+
+        List<User> users = List.of(john, elon, sam, jennie, bob);
+        System.out.printf("Список пользователей по возрасту: %n%s%n", formatGroupedUsers(User.groupUsers(users)));
     }
 }
