@@ -6,8 +6,8 @@ import school.faang.task_45555.entity.Item;
 import school.faang.task_45555.entity.Character;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -20,24 +20,27 @@ public class InventoryManager {
         action.accept(item);
     }
 
+    /*
+    Why peek() and not forEach()?
+     */
     public void removeItem(Character character, Predicate<Item> filter) {
         List<Item> items = character.getInventory();
-        items.forEach(item -> {
-            if (filter.test(item)) {
-                log.info("Removing item: {}", item.getName());
-            }
-        });
+        items.stream().filter(filter).forEach(item -> log.info("Removing item: {}", item.getName()));
         items.removeIf(filter);
         log.info("Successfully removed items from inventory");
     }
 
-    public void updateItem(Character character) {
+    /*
+    Is it a good idea to use this implementation, or will it be unclear?
+    items.replaceAll(item -> filter.test(item) ? action.apply(item) : item);
+     */
+    public Character updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
         List<Item> items = character.getInventory();
         Stream<Item> itemsAfterFilter = items.stream()
-                .filter(item -> !Objects.equals(item.getName(), "The One Ring"));
+                .filter(filter.negate());
         Stream<Item> trueItemsAfterFilter = items.stream()
-                .filter(item -> Objects.equals(item.getName(), "The One Ring"))
-                .map(item -> new Item(item.getName(), item.getValue() * 2));
-        character.setInventory(Stream.concat(itemsAfterFilter, trueItemsAfterFilter).toList());
+                .filter(filter)
+                .map(action);
+        return new Character(character.getName(), Stream.concat(itemsAfterFilter, trueItemsAfterFilter).toList());
     }
 }

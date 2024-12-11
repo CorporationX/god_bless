@@ -1,11 +1,9 @@
 package school.faang.task_45555.entity;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
 public class Item {
     private final String name;
