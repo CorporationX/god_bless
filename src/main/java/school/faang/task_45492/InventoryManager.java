@@ -7,12 +7,16 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
 
-    public void addItem(Character character, Item item, Consumer<Item> callBack) {
+    public void addItem(Character character, Item item,
+                        Consumer<Item> callBack) {
+
         character.getItemList().add(item);
         callBack.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> itemPredicate) {
+    public void removeItem(Character character,
+                           Predicate<Item> itemPredicate) {
+
         List<Item> inventory = character.getItemList();
         inventory.removeIf(itemPredicate);
     }
