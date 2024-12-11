@@ -24,13 +24,10 @@ public class User {
         var ageGroups = new HashMap<Integer, List<User>>();
         for (User user : users) {
             int age = user.age;
-            if (ageGroups.containsKey(age)) {
-                ageGroups.get(age).add(user);
-            } else {
-                var initAge = new ArrayList<User>();
-                initAge.add(user);
-                ageGroups.put(age, initAge);
+            if (!ageGroups.containsKey(age)) {
+                ageGroups.put(age, new ArrayList<User>());
             }
+            ageGroups.get(age).add(user);
         }
         return ageGroups;
     }
