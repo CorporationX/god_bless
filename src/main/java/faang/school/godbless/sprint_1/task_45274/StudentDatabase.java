@@ -10,19 +10,15 @@ import java.util.Map;
 @Getter
 public class StudentDatabase {
 
-    private final StudentService studentService = new StudentService();
-
     /**
      * Список предметов и оценок каждого студента
      */
-    private final Map<Student, Map<Subject, Integer>> listOfSubjectsAndGradesForEachStudent
-            = studentService.getListOfSubjectsAndGradesForEachStudent();
+    private final Map<Student, Map<Subject, Integer>> listOfSubjectsAndGradesForEachStudent = new HashMap<>();
 
     /**
      * Студенты, изучающие каждый предмет
      */
-    private final Map<Subject, List<Student>> listOfStudentsStudyingEachSubject
-            = studentService.getListOfStudentsStudyingEachSubject();
+    private final Map<Subject, List<Student>> listOfStudentsStudyingEachSubject = new HashMap<>();
 
     /**
      * Добавляет нового студента и его предмет с оценками
@@ -55,10 +51,7 @@ public class StudentDatabase {
                 && !listOfStudentsStudyingEachSubject.containsKey(subject)) {
 
             listOfSubjectsAndGradesForEachStudent.get(student).put(subject, grade);
-
-            List<Student> students = new ArrayList<>();
-            students.add(student);
-            listOfStudentsStudyingEachSubject.put(subject, students);
+            listOfStudentsStudyingEachSubject.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
