@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-// Регистрация обработчиков оповещений
+        // Регистрация обработчиков оповещений
         notificationManager.registerHandler("e-mail",
                 notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
 
@@ -14,7 +14,7 @@ public class Main {
         notificationManager.registerHandler("push",
                 notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
-// Отправка оповещений
+        // Отправка оповещений
         Notification emailNotification = new Notification("e-mail", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
