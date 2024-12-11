@@ -19,11 +19,13 @@ public class Main {
             return img;
         };
         try {
-            Image bwImage = processor.applyFilter(new Image("photo", "Original image"), blackAndWhiteFilter);
+            Image bwImage = processor.applyFilter(new Image("photo", "Original image"),
+                    blackAndWhiteFilter);
             System.out.println(bwImage.getDescription());
 
             Function<Image, Image> combinedFilter = processor.combineFilters(blackAndWhiteFilter, sepiaFilter);
-            Image combinedImage = processor.applyFilter(new Image("secondPhoto", "Original secondImage"), combinedFilter);
+            Image combinedImage = processor.applyFilter(new Image("secondPhoto", "Original secondImage"),
+                    combinedFilter);
             System.out.println(combinedImage.getDescription());
 
             combinedFilter = processor.combineFilters(combinedFilter, vignetteFilter);
