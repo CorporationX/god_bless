@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Notification {
-    private final String type;
+    private final Enum<Enums.NotificationType> type;
     private final String message;
 }

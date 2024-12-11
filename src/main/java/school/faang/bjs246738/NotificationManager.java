@@ -5,13 +5,16 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> notificationServices = new HashMap<>();
+    Map<Enum<Enums.NotificationType>, Consumer<Notification>> notificationServices = new HashMap<>();
 
-    public void registerHandler(String id, Consumer<Notification> consumer) {
-        if (id.isEmpty()) {
+    public void registerHandler(Enum<Enums.NotificationType> type, Consumer<Notification> consumer) {
+        if (type == null) {
             throw  new IllegalArgumentException("Notification type cannot be null!");
         }
-        notificationServices.put(id, consumer);
+        if (consumer == null) {
+            throw  new IllegalArgumentException("Data consuming operation is null!");
+        }
+        notificationServices.put(type, consumer);
     }
 
     public void sendNotification(Notification notification) {
