@@ -22,7 +22,10 @@ public class EmailProcessor {
         }
     }
 
-    private static void validateInputParameters(List<Email> emails, Predicate<Email> filter, Function<Email, String> converter, Consumer<Email> handler) {
+    private static void validateInputParameters(List<Email> emails,
+                                                Predicate<Email> filter,
+                                                Function<Email, String> converter,
+                                                Consumer<Email> handler) {
         if (emails == null || filter == null || converter == null || handler == null) {
             throw new IllegalArgumentException("Некорректные входные параметры!");
         }
