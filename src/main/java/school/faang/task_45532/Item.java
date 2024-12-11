@@ -1,9 +1,9 @@
 package school.faang.task_45532;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public class Item {
     private final String name;
