@@ -14,17 +14,20 @@ public class Main {
         admin.addRoom(new Room(3, "Фотостудия", Set.of("Kамера", "Прожектор")));
         admin.addRoom(new Room(3, "Фотостудия", Set.of("Kамера", "Прожектор")));
 
-        System.out.println("Доступные комнаты: \n" + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Фотостудия")));
+        System.out.println("Доступные комнаты: \n"
+                + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Прожектор")));
 
         admin.bookRoom(1, "2012-12-12", "10:00-12:00");
         admin.bookRoom(2, "2012-12-12", "10:00-12:00");
         admin.bookRoom(3, "2012-12-12", "10:00-12:00");
 
-        System.out.println("Доступные комнаты: \n" + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Прожектор")));
+        System.out.println("Доступные комнаты: \n"
+                + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Прожектор")));
 
         admin.cancelBooking(1);
 
-        System.out.println("Доступные комнаты: \n" + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Проектор")));
+        System.out.println("Доступные комнаты: \n"
+                + admin.findAvailableRooms("2012-12-12", "10:00-12:00", Set.of("Проектор")));
 
         System.out.println("Забронированные 2012-12-12: \n" + admin.findBookingsForDate("2012-12-12"));
     }

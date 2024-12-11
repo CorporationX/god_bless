@@ -27,7 +27,8 @@ public class BookingSystem {
                 .orElseThrow(() -> new IllegalArgumentException("Комната не найдена"));
 
         boolean isAvailable = bookings.stream()
-                .noneMatch(b -> b.getRoom().getRoomId() == roomId && b.getDate().equals(date) && b.getTimeSlot().equals(timeSlot));
+                .noneMatch(b -> b.getRoom().getRoomId() == roomId && b.getDate()
+                        .equals(date) && b.getTimeSlot().equals(timeSlot));
 
         if (!isAvailable) {
             throw new IllegalStateException("Номер уже бронирован");
