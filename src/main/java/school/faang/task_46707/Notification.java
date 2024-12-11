@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class Notification {
-    private final String type;
+    private final NotificationType type;
     private final String message;
 
-    public Notification(String type, String message) {
+    public Notification(NotificationType type, String message) {
         validateType(type);
         validateMessage(message);
 
@@ -21,9 +21,9 @@ public class Notification {
         }
     }
 
-    private static void validateType(String type) {
-        if (type == null || type.isBlank()) {
-            throw new IllegalArgumentException("Type don't be null or empty!");
+    private static void validateType(NotificationType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Type don't be null!");
         }
     }
 }
