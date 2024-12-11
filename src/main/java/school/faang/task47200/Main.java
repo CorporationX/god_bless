@@ -89,6 +89,7 @@ public class Main {
 
         return words.stream()
                 .filter(word -> word.isEmpty() || word.charAt(0) == character)
+                .sorted()
                 .toList();
     }
 
