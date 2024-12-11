@@ -12,7 +12,8 @@ public class SampleData {
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
+                (item) -> new Item(item.getName(), item.getValue() * 2));
 
         frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
     }
