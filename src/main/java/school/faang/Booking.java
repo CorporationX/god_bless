@@ -22,5 +22,12 @@ public class Booking {
     }
 
     @Override
-    public String toString() { return "Booking{" + "bookingId=" + bookingId + ", room=" + room + ", date='" + date + '\'' + ", timeSlot='" + timeSlot + '\'' + '}'; }
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", room=" + room +
+                ", date='" + date + '\'' +
+                ", timeSlot='" + timeSlot + '\'' +
+                '}';
+    }
 }

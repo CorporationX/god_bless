@@ -22,5 +22,11 @@ public class Room {
     }
 
     @Override
-public String toString() { return "Room{" + "roomId=" + roomId + ", type='" + type + '\'' + ", amenities=" + amenities + '}'; }
+    public String toString() {
+        return "Room{" +
+                "roomId=" + roomId +
+                ", type='" + type + '\'' +
+                ", amenities=" + amenities +
+                '}';
     }
+}
