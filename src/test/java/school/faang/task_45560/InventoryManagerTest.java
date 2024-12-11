@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryManagerTest {
+    private static final String wasAddToInventory = " был добавлен в инвентарь.";
     private InventoryManager manager;
     private Character frodo;
     private Item ring;
@@ -21,15 +22,15 @@ class InventoryManagerTest {
 
     @Test
     void testSuccessAddItem() {
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + wasAddToInventory));
 
         assertTrue(frodo.getInventory().contains(ring));
     }
 
     @Test
     void testSuccessRemoveItem() {
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(frodo, necklace, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + wasAddToInventory));
+        manager.addItem(frodo, necklace, (item) -> System.out.println(item.getName() + wasAddToInventory));
 
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
 
@@ -39,8 +40,8 @@ class InventoryManagerTest {
 
     @Test
     void testRemoveItemIfItemDoesNotPassThroughFilter() {
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-        manager.addItem(frodo, necklace, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + wasAddToInventory));
+        manager.addItem(frodo, necklace, (item) -> System.out.println(item.getName() + wasAddToInventory));
 
         manager.removeItem(frodo, (item) -> item.getName().equals("wrong name"));
 
@@ -57,7 +58,7 @@ class InventoryManagerTest {
 
     @Test
     void testSuccessUpdateItem() {
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + wasAddToInventory));
         manager.updateItem(frodo,
             (item) -> item.getName().equals("The One Ring"),
             (item) -> new Item(item.getName(), item.getValue() * 2)
@@ -79,7 +80,7 @@ class InventoryManagerTest {
 
     @Test
     void testUpdateItemIfItemDoesNotPassThroughFilter() {
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + wasAddToInventory));
         manager.updateItem(frodo,
             (item) -> item.getName().equals("The"),
             (item) -> new Item(item.getName(), item.getValue() * 2)

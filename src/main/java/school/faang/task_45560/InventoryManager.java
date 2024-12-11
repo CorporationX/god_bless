@@ -18,9 +18,9 @@ public class InventoryManager {
     void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> transformer) {
         for (Item inventoryItem : character.getInventory()) {
             if (filter.test(inventoryItem)) {
-                var transormedItem = transformer.apply(inventoryItem);
-                inventoryItem.setName(transormedItem.getName());
-                inventoryItem.setValue(transormedItem.getValue());
+                var transformedItem = transformer.apply(inventoryItem);
+                inventoryItem.setName(transformedItem.getName());
+                inventoryItem.setValue(transformedItem.getValue());
             }
         }
     }
