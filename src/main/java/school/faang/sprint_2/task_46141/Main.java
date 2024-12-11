@@ -30,6 +30,9 @@ public class Main {
 
     public static String toCsv(List<List<String>> table) {
         VectorJoiner<String> vectorJoiner = (vector) -> {
+            if (vector == null) {
+                throw new IllegalArgumentException("Vector can`t be null");
+            }
             if (vector.isEmpty()) {
                 throw new IllegalArgumentException("Vector can`t be empty");
             }
@@ -37,6 +40,9 @@ public class Main {
         };
 
         MatrixJoiner<String> matrixJoiner = (matrix) -> {
+            if (matrix == null) {
+                throw new IllegalArgumentException("Matrix can`t be null");
+            }
             if (matrix.isEmpty()) {
                 throw new IllegalArgumentException("Matrix can`t be empty");
             }
