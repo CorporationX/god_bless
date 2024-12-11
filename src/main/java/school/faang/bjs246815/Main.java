@@ -10,12 +10,16 @@ public class Main {
         Notification push = new Notification("PUSH", "что-то пушнуло");
 
         notificationManager.registerHandler(notif.getType(),
-                notification -> System.out.println("EMAIL " + notification.getMessage()));
+                notification -> printNotification("EMAIL ", notification));
         notificationManager.registerHandler(warn.getType(),
-                notification -> System.out.println("СРОЧНО " + notification.getMessage()));
+                notification -> printNotification("СРОЧНО ", notification));
         notificationManager.registerHandler(push.getType(),
-                notification -> System.out.println("ПРОВЕРЬ ТЕЛЕФОН " + notification.getMessage()));
+                notification -> printNotification("ПРОВЕРЬ ТЕЛЕФОН ", notification));
 
         List.of(notif, warn, push).forEach(notificationManager::sendNotification);
+    }
+
+    private static void printNotification(String prefix, Notification notification) {
+        System.out.println(prefix + notification.getMessage());
     }
 }
