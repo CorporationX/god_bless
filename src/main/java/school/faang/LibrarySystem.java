@@ -1,4 +1,4 @@
-package school.faang.sprint_1.BJS2_45364;
+package school.faang;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class LibrarySystem {
         printAllBooks(library);
     }
 
-    public void addBook(String title, String author, int year, String location, Map<Book, String> books) {
+    public static void addBook(String title, String author, int year, String location, Map<Book, String> books) {
         Book book = new Book(title, author, year);
         books.putIfAbsent(book, location);
         System.out.println("Книга '" + book.getTitle() + "' добавлена на " + location + "-ю полку.");
