@@ -14,7 +14,6 @@ public class Main {
 
         LibrarySystem librarySystem = new LibrarySystem();
 
-        //some info for lib
         librarySystem.addBook("The Hobbit", "J.R.R. Tolkien", 1937, "Shelf 1");
         librarySystem.addBook("1984", "George Orwell", 1949, "Shelf 2");
         librarySystem.addBook("The Catcher in the Rye", "J.D. Salinger", 1951, "Shelf 3");
@@ -22,26 +21,30 @@ public class Main {
         System.out.println("--- All books in the library ---");
         librarySystem.printAllBooks();
 
-        System.out.println("\n--- Finding a specific book ---");
-        Book foundBook = librarySystem.findBook("1984", "George Orwell", 1949);
-        if (foundBook != null) {
-            System.out.println("Found book: " + foundBook);
+        System.out.println("\n--- Finding a specific book (1984)---");
+        String location = librarySystem.findBook("1984", "George Orwell", 1949);
+        if (location != null) {
+            System.out.println("Found book located at: " + location);
         } else {
             System.out.println("Book not found.");
         }
 
         System.out.println("\n--- Removing a book ---");
-        librarySystem.removeBook("The Hobbit", "J.R.R. Tolkien", 1937);
+        boolean removed = librarySystem.removeBook("The Hobbit", "J.R.R. Tolkien", 1937);
+        if (removed) {
+            System.out.println("The book was successfully removed.");
+        } else {
+            System.out.println("The book could not be found for removal.");
+        }
         System.out.println("After removal:");
         librarySystem.printAllBooks();
 
         System.out.println("\n--- Finding a removed book ---");
-        Book removedBook = librarySystem.findBook("The Hobbit", "J.R.R. Tolkien", 1937);
-        if (removedBook != null) {
-            System.out.println("Found removed book: " + removedBook);
+        location = librarySystem.findBook("The Hobbit", "J.R.R. Tolkien", 1937);
+        if (location != null) {
+            System.out.println("Found removed book located at: " + location);
         } else {
             System.out.println("Book not found.");
         }
-
     }
 }

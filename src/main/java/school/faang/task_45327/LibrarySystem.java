@@ -12,22 +12,14 @@ public class LibrarySystem {
         lib.put(newBook, location);
     }
 
-    public void removeBook(String title, String author, int year) {
-        Book toRemove = findBook(title, author, year);
-        if (toRemove != null) {
-            lib.remove(findBook(title, author, year));
-        } else {
-            System.out.println("There is no book with this parameters :( sorry brosito");
-        }
+    public boolean removeBook(String title, String author, int year) {
+        Book toRemove = new Book(title, author, year);
+        return lib.remove(toRemove) != null;
     }
 
-    public Book findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
         Book compareBook = new Book(title, author, year);
-
-        return lib.keySet().stream()
-                .filter(book -> book.equals(compareBook))
-                .findAny()
-                .orElse(null);
+        return lib.get(compareBook);
     }
 
     public void printAllBooks() {
