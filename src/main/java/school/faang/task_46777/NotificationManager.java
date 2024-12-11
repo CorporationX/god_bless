@@ -10,6 +10,7 @@ import java.util.Map;
 @ToString
 public class NotificationManager {
     private Map<String, Consumer<Notification>> notificationMap = new HashMap<>();
+
     public void registerHandler(String type, Consumer<Notification> consumer) {
         notificationMap.put(type, consumer);
     }
