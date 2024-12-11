@@ -12,7 +12,8 @@ public class Character {
 
     public Character(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException(String.format(ErrorMessage.EMPTYFIELD.getValue(), "name of character"));
+            throw new IllegalArgumentException(
+                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "name of character"));
         }
 
         this.name = name;

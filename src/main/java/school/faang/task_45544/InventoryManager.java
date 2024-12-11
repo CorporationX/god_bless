@@ -20,7 +20,8 @@ public class InventoryManager {
                     String.format(ErrorMessage.EMPTYFIELD.getValue(), "action"));
         }
 
-        character.getInventory().stream().filter(item -> item.getName().equals(newItem.getName()))
+        character.getInventory().stream()
+                .filter(item -> item.getName().equals(newItem.getName()))
                 .findFirst()
                 .ifPresentOrElse(existingItem -> {
                     if (Objects.equals(existingItem.getValue(), newItem.getValue())) {
