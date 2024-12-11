@@ -5,11 +5,14 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
 // Регистрация обработчиков оповещений
-        notificationManager.registerHandler("e-mail", notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+        notificationManager.registerHandler("e-mail",
+                notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
 
-        notificationManager.registerHandler("sms", notification -> System.out.println("Отправка SMS: " + notification.getMessage()));
+        notificationManager.registerHandler("sms",
+                notification -> System.out.println("Отправка SMS: " + notification.getMessage()));
 
-        notificationManager.registerHandler("push", notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler("push",
+                notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
 // Отправка оповещений
         Notification emailNotification = new Notification("e-mail", "Ваша учетная запись успешно активирована");
