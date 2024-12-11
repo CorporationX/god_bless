@@ -33,6 +33,11 @@ public class Main {
     }
 
     public static void addItem(String category, String name) {
+        if (category == null || name == null) {
+            System.out.println("Ошибка: категория или имя продукта не могут быть null.");
+            return;
+        }
+
         Product newProduct = new Product(productIdCounter++, name, category);
         if (products.add(newProduct)) {
             System.out.println("Продукт добавлен: " + newProduct);
@@ -42,14 +47,21 @@ public class Main {
     }
 
     public static void removeItem(String category, String name) {
+        if (category == null || name == null) {
+            System.out.println("Ошибка: категория или имя продукта не могут быть NULL.");
+            return;
+        }
+
         boolean removed = products.removeIf(product ->
                 product.getCategory().equals(category) && product.getName().equals(name));
+
         if (removed) {
             System.out.println("Продукт удален: " + name + " из категории " + category);
         } else {
-            System.out.println("Не найден продукт .");
+            System.out.println("Не найден продукт с именем \"" + name + "\" в категории \"" + category + "\".");
         }
     }
+
 
     public static void findItemsByCategory(String category) {
         List<Product> items = new ArrayList<>(); //
@@ -86,7 +98,7 @@ public class Main {
 
     public static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         if (groupedProducts.isEmpty()) {
-            System.out.println("No products grouped by category.");
+            System.out.println("Нет группированных продуктов.");
         } else {
             for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
                 System.out.println("Категория: " + entry.getKey());
