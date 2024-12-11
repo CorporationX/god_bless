@@ -6,14 +6,14 @@ public class MatrixHelper {
 
     private static int[][] transformMatrix(@NonNull int[][] matrix, @NonNull MatrixTransformer transformer) {
         validate(matrix);
-        int verticalSize = matrix.length;
-        int horizontalSize = matrix[0].length;
-        int[][] newMatrix = new int[verticalSize][horizontalSize];
+        int columnSize = matrix.length;
+        int rowSize = matrix[0].length;
+        int[][] newMatrix = new int[columnSize][rowSize];
 
-        for (int column = 0; column < verticalSize; column++) {
-            for (int line = 0; line < horizontalSize; line++) {
-                Coordinates coordinates = transformer.map(line, column);
-                newMatrix[coordinates.y()][coordinates.x()] = matrix[column][line];
+        for (int column = 0; column < columnSize; column++) {
+            for (int row = 0; row < rowSize; row++) {
+                Coordinates coordinates = transformer.map(row, column);
+                newMatrix[coordinates.y()][coordinates.x()] = matrix[column][row];
             }
         }
         return newMatrix;
@@ -21,19 +21,19 @@ public class MatrixHelper {
 
     public static int[][] flipMatrixColumns(@NonNull int[][] matrix) {
         validate(matrix);
-        int horizontalSize = matrix[0].length - 1;
+        int rowSize = matrix[0].length - 1;
         return transformMatrix(
                 matrix,
-                (line, column) -> new Coordinates(horizontalSize - line, column)
+                (line, column) -> new Coordinates(rowSize - line, column)
         );
     }
 
     public static int[][] flipMatrixLines(@NonNull int[][] matrix) {
         validate(matrix);
-        int verticalSize = matrix.length - 1;
+        int columnSize = matrix.length - 1;
         return transformMatrix(
                 matrix,
-                (line, column) -> new Coordinates(line, verticalSize - column)
+                (line, column) -> new Coordinates(line, columnSize - column)
         );
     }
 
@@ -46,11 +46,16 @@ public class MatrixHelper {
     }
 
     private static void validate(@NonNull int[][] matrix) {
-        if (matrix.length == 0) {
+        int columnLength = matrix.length;
+        if (columnLength == 0) {
             throw new IllegalArgumentException("Matrix must be fill");
         }
-        if (matrix[0].length == 0) {
+        int rowLength = matrix[0].length;
+        if (rowLength == 0) {
             throw new IllegalArgumentException("Matrix line must be fill");
+        }
+        if (columnLength != rowLength) {
+            throw new IllegalArgumentException("Matrix must be square");
         }
     }
 }

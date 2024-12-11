@@ -68,4 +68,10 @@ public class MatrixHelperTest {
         int[][] zeroMatrix = new int[0][0];
         assertThrows(IllegalArgumentException.class, () -> MatrixHelper.flipMatrixTransposition(zeroMatrix));
     }
+
+    @Test
+    void testFlipMatrixWithNoSquareMatrix() {
+        int[][] noSquareMatrix = new int[3][2];
+        assertThrows(IllegalArgumentException.class, () -> MatrixHelper.flipMatrixTransposition(noSquareMatrix));
+    }
 }
