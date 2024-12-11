@@ -26,14 +26,13 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> sameAge = new HashMap<>();
-        for (int cycleForMap = 0; cycleForMap < users.size(); cycleForMap++) {
-            List<User> userSameAge = new ArrayList<>();
-            for (int cycleForList = 0; cycleForList < users.size(); cycleForList++) {
-                if (users.get(cycleForList).age == users.get(cycleForMap).age) {
-                    userSameAge.add(users.get(cycleForList));
-                }
+        for (User user : users) {
+            List<User> userSameAge = sameAge.get(user.age);
+            if (userSameAge == null) {
+                userSameAge = new ArrayList<>();
+                sameAge.put(user.age, userSameAge);
             }
-            sameAge.put(users.get(cycleForMap).age, userSameAge);
+            userSameAge.add(user);
         }
         return sameAge;
     }
