@@ -29,4 +29,13 @@ public class SpellEvent {
     public int hashCode() {
         return Objects.hash(id, eventType, action);
     }
+
+    @Override
+    public String toString() {
+        return "SpellEvent{" +
+                "id=" + id +
+                ", eventType='" + eventType + '\'' +
+                ", action='" + action + '\'' +
+                '}';
+    }
 }

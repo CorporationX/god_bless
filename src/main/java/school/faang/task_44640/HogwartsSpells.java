@@ -7,15 +7,13 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-
-    public HogwartsSpells(Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellsByType) {
-        this.spellById = spellById;
-        this.spellsByType = spellsByType;
-    }
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
+        validateString(eventType, "eventType");
+        validateString(actionDescription, "actionDescription");
+
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, spellEvent);
@@ -47,7 +45,14 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
+            System.out.println(entry.getValue().toString());
         }
     }
+
+    private void validateString(String value, String fieldName) {
+        if (value == null || value.isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " cannot be null or empty");
+        }
+    }
+
 }
