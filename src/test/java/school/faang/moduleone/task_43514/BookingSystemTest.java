@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,8 +32,11 @@ class BookingSystemTest {
         };
         spyObserver = Mockito.spy(observer);
 
-        bookingSystem = new BookingSystem();
-        bookingSystem.getBookingNotifier().addObserver(spyObserver);
+        bookingSystem = new BookingSystem(
+                new HashSet<>(),
+                new ArrayList<>(),
+                new BookingNotifier(new ArrayList<>(Arrays.asList(spyObserver))), 0);
+
         room = new Room("type1", Set.of("fridge", "TV", "air-conditioner"));
         bookingSystem.addRoom(room);
     }
@@ -44,7 +50,7 @@ class BookingSystemTest {
         int roomId = bookingSystem.addRoom(newRoom);
 
         //then
-        assertEquals(2, bookingSystem.getRooms().size());
+        assertEquals(2, bookingSystem.getCountOfRegisteredRooms());
         assertTrue(roomId > 0);
     }
 
@@ -67,17 +73,15 @@ class BookingSystemTest {
                 bookingSystem.bookRoom(roomId, LocalDate.now().toString(), TIME_SLOT_12_16.getLabel());
         final int successBookingIdNextTimeSlot =
                 bookingSystem.bookRoom(roomId, LocalDate.now().toString(), TIME_SLOT_16_20.getLabel());
-        final int bookingIdWhenRoomIsNotPresent =
-                bookingSystem.bookRoom(roomId + 1, LocalDate.now().toString(), TIME_SLOT_12_16.getLabel());
-        final int bookingIdWhenTimeSlotIsNotAvailable =
-                bookingSystem.bookRoom(roomId, LocalDate.now().toString(), TIME_SLOT_12_16.getLabel());
 
         //then
         assertTrue(successBookingId > 0);
         assertTrue(successBookingIdNextTimeSlot > 0);
-        assertEquals(-1, bookingIdWhenRoomIsNotPresent);
-        assertEquals(-1, bookingIdWhenTimeSlotIsNotAvailable);
-        assertEquals(2, bookingSystem.getBookings().size());
+        assertThrows(IllegalArgumentException.class,
+                () -> bookingSystem.bookRoom(roomId + 1, LocalDate.now().toString(), TIME_SLOT_12_16.getLabel()));
+        assertThrows(IllegalArgumentException.class,
+                () -> bookingSystem.bookRoom(roomId, LocalDate.now().toString(), TIME_SLOT_12_16.getLabel()));
+        assertEquals(2, bookingSystem.getCountOfBookings());
         Mockito.verify(spyObserver, times(2)).update(any(), any());
     }
 
@@ -92,7 +96,7 @@ class BookingSystemTest {
 
         //then
         assertTrue(resultOfCanceling);
-        assertEquals(0, bookingSystem.getBookings().size());
+        assertEquals(0, bookingSystem.getCountOfBookings());
     }
 
     @Test

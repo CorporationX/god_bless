@@ -1,10 +1,12 @@
 package school.faang.moduleone.task_43514;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
 public class BookingNotifier {
-    private final List<BookingObserver> observers = new ArrayList<>();
+    private final List<BookingObserver> observers;
 
     public boolean addObserver(BookingObserver observer) {
         return observers.add(observer);
@@ -14,7 +16,7 @@ public class BookingNotifier {
         return observers.remove(observer);
     }
 
-    void notifyObservers(Booking booking, String status) {
+    public void notifyObservers(Booking booking, String status) {
         for (BookingObserver observer : observers) {
             observer.update(booking, status);
         }

@@ -1,16 +1,17 @@
 package school.faang.moduleone.task_43514;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Getter
+import static school.faang.moduleone.task_43514.BookingStatus.BOOKING_CANCELED;
+import static school.faang.moduleone.task_43514.BookingStatus.BOOKING_CREATED;
+
+@AllArgsConstructor
 public class BookingSystem {
     private final Set<Room> rooms;
     private final List<Booking> bookings;
@@ -18,23 +19,27 @@ public class BookingSystem {
 
     private int bookingId;
 
-    public BookingSystem() {
-        this.rooms = new HashSet<>();
-        this.bookings = new ArrayList<>();
-        this.bookingNotifier = new BookingNotifier();
-    }
-
     /**
      * Метод добавления комнаты в коллекцию комнат
      *
-     * @return возвращает roomId при успешном добавлении комнаты,
-     * и -1 если добавление не состоялось
+     * @return возвращает roomId при успешном добавлении комнаты, выбрасывает
+     * IllegalArgumentException добавление (регистрация) комнаты не состоялось.
      */
     public int addRoom(Room room) {
         if (rooms.add(room)) {
             return room.getRoomId();
+        } else {
+            throw new IllegalArgumentException(String.format(
+                    "Комната с параметрами %s уже зарегистрирована!", room.toString()));
         }
-        return -1;
+    }
+
+    public int getCountOfRegisteredRooms() {
+        return rooms.size();
+    }
+
+    public int getCountOfBookings() {
+        return bookings.size();
     }
 
     public boolean removeRoom(int roomId) {
@@ -58,21 +63,17 @@ public class BookingSystem {
      * @return при успешном бронировании возвращает int bookingId, при неуспешном -1
      */
     public int bookRoom(int roomId, String date, String timeSlot) {
-        Room room;
-        var roomOpt = getRoomById(roomId);
-        if (roomOpt.isPresent()) {
-            room = roomOpt.get();
-        } else {
-            return -1;
-        }
+        Room room = getRoomById(roomId)
+                .orElseThrow(() -> new IllegalArgumentException("Не найдена комната с id = " + roomId));
         if (isTimeSlotAlreadyBooked(roomId, date, timeSlot)) {
-            return -1;
+            throw new IllegalArgumentException(String.format(
+                    "Таймслот %s для комнаты %d уже забронирован", timeSlot, roomId));
         }
         int bookingId = getNextBookingId();
 
         Booking newBooking = new Booking(bookingId, room, date, timeSlot);
         bookings.add(newBooking);
-        bookingNotifier.notifyObservers(newBooking, "BOOKING_CREATED");
+        bookingNotifier.notifyObservers(newBooking, BOOKING_CREATED.getLabel());
 
         return bookingId;
     }
@@ -86,7 +87,7 @@ public class BookingSystem {
             Booking booking = iterator.next();
             if (booking.getBookingId() == bookingId) {
                 iterator.remove();
-                bookingNotifier.notifyObservers(booking, "BOOKING_CANCELED");
+                bookingNotifier.notifyObservers(booking, BOOKING_CANCELED.getLabel());
                 return true;
             }
         }
@@ -96,7 +97,7 @@ public class BookingSystem {
     public List<Booking> findBookingsForDate(String date) {
         return bookings.stream()
                 .filter(booking -> booking.getDate().equals(date))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private int getNextBookingId() {
