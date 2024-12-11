@@ -12,6 +12,7 @@ import java.util.Set;
 public class User {
     static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    static final int MIN_AGE = 18;
 
     private String name;
     private int age;
@@ -19,37 +20,30 @@ public class User {
     private String address;
 
     public User(String name, int age, String workplace, String address) throws IllegalArgumentException {
-
-        if (!name.isBlank()) {
+        if (validateUser(name, age, workplace, address)) {
             this.name = name;
-        } else {
+            this.age = age;
+            this.workplace = workplace;
+            this.address = address;
+        }
+    }
+
+    private boolean validateUser(String name, int age, String workplace, String address) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Name should not be empty!");
         }
-
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age should be more than 18!");
-        } else {
-            this.age = age;
         }
 
-        for (var validJob : VALID_JOBS) {
-            if (workplace.contains(validJob)) {
-                this.workplace = workplace;
-                break;
-            }
-        }
-        if (this.workplace == null) {
-            throw new IllegalArgumentException("Name of organization should be valid!");
+        if (VALID_JOBS.stream().noneMatch(workplace::contains)) {
+            throw new IllegalArgumentException("Not valid organization!");
         }
 
-        for (var validAddress : VALID_ADDRESSES) {
-            if (address.contains(validAddress)) {
-                this.address = address;
-                break;
-            }
+        if (VALID_ADDRESSES.stream().noneMatch(address::contains)) {
+            throw new IllegalArgumentException("Not valid city!");
         }
-        if (this.address == null) {
-            throw new IllegalArgumentException("City should be valid!");
-        }
+
+        return true;
     }
 }
