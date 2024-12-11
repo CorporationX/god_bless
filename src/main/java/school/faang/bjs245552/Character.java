@@ -2,15 +2,18 @@ package school.faang.bjs245552;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor()
 @Getter
 public class Character {
+    @NonNull
     private final String id;
-    private List<Item> inventory;
+    private final List<Item> inventory;
 
 
     public Character(String id) {
