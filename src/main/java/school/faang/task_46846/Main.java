@@ -5,8 +5,7 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
 // Регистрация обработчиков оповещений
-        notificationManager.registerHandler("e-mail",
-        notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
+        notificationManager.registerHandler("e-mail", notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
         );
 
         notificationManager.registerHandler("sms",
