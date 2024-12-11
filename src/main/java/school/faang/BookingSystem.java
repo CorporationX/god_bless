@@ -52,19 +52,24 @@ public class BookingSystem {
     }
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-        List<Room> availableRooms = new ArrayList<>();
-        for (Room room : rooms) {
-            boolean isAvailable = bookings.stream()
-                    .noneMatch(booking -> booking.getRoom().getRoomId() == room.getRoomId()
-                            && booking.getDate().equals(date)
-                            && booking.getTimeSlot().equals(timeSlot));
-            if (isAvailable && room.getAmenities().containsAll(requiredAmenities)) {
-                availableRooms.add(room);
-            }
-        }
-        logger.info("Available rooms found: {}", availableRooms);
-        return availableRooms;
+    if (date == null || date.trim().isEmpty() || timeSlot == null || timeSlot.trim().isEmpty() || requiredAmenities == null) {
+        logger.error("Invalid input parameters: date={}, timeSlot={}, requiredAmenities={}", date, timeSlot, requiredAmenities);
+        return Collections.emptyList();
     }
+
+    List<Room> availableRooms = new ArrayList<>();
+    for (Room room : rooms) {
+        boolean isAvailable = bookings.stream()
+                .noneMatch(booking -> booking.getRoom().getRoomId() == room.getRoomId()
+                        && booking.getDate().equals(date)
+                        && booking.getTimeSlot().equals(timeSlot));
+        if (isAvailable && room.getAmenities().containsAll(requiredAmenities)) {
+            availableRooms.add(room);
+        }
+    }
+    logger.info("Available rooms found: {}", availableRooms);
+    return availableRooms;
+}
 
     public List<Booking> findBookingsForDate(String date) {
         List<Booking> bookingsForDate = new ArrayList<>();

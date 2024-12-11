@@ -15,6 +15,15 @@ public class Room {
     private final Set<String> amenities;
 
     public Room(int roomId, String type, Set<String> amenities) {
+        if (roomId <= 0) {
+            throw new IllegalArgumentException("Room ID must be a positive number.");
+        }
+        if (type == null || type.trim().isEmpty()) {
+            throw new IllegalArgumentException("Room type cannot be null or empty.");
+        }
+        if (amenities == null || amenities.isEmpty()) {
+            throw new IllegalArgumentException("Amenities cannot be null or empty.");
+        }
         this.roomId = roomId;
         this.type = type;
         this.amenities = amenities;
