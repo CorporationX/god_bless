@@ -64,9 +64,9 @@ public class BookingSystem {
         return newBooking;
     }
 
-    public void cancelBooking(int bookingID) {
+    public void cancelBooking(int bookingId) {
         Booking booking = bookings.stream()
-                .filter(b -> b.getBookingId() == bookingID)
+                .filter(b -> b.getBookingId() == bookingId)
                 .findFirst()
                 .orElse(null);
 
@@ -75,7 +75,7 @@ public class BookingSystem {
             notifier.notifyObservers(booking, "CANCELED");
             log.info("Booking canseled: {}", booking);
         } else {
-            log.warn("Booking with ID {} not found", bookingID);
+            log.warn("Booking with ID {} not found", bookingId);
         }
     }
 
