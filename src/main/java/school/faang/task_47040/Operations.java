@@ -22,9 +22,9 @@ public class Operations {
                 .toList();
     }
 
-    public static List<String> filterAndSortingStrings(List<String> strings) {
+    public static List<String> filterAndSortingStrings(List<String> strings, String letter) {
         return strings.stream()
-                .filter(s -> s.startsWith("a"))
+                .filter(s -> s.startsWith(letter))
                 .sorted((Comparator.comparing(String::length)))
                 .toList();
     }
@@ -37,12 +37,8 @@ public class Operations {
 
     public static List<String> filterStringsByAlphabet(List<String> strings, String alphabet) {
         return strings.stream()
-                .filter(s -> isExistAlphabet(s, alphabet))
+                .filter(s -> s.matches("[" + alphabet + "]+"))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
-    }
-
-    private static boolean isExistAlphabet(String input, String alphabet) {
-        return input.chars().mapToObj(c -> String.valueOf((char) c)).allMatch(alphabet::contains);
     }
 }

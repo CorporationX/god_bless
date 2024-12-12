@@ -12,7 +12,8 @@ public class Main {
                 "USA", "Washington",
                 "Germany", "Berlin")));
 
-        System.out.println(Operations.filterAndSortingStrings(List.of("apple", "banana", "avocado", "apricot")));
+        System.out.println(Operations.filterAndSortingStrings(
+                List.of("apple", "banana", "avocado", "apricot"), "a"));
 
         System.out.println(Operations.convertToBinary(List.of(1, 2, 3, 4)));
 
