@@ -1,6 +1,5 @@
-package school.faang.sprint1;
+package school.faang.sprint1.task_45233;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
-package school.faang.sprint1;
+package school.faang.sprint1.task_45233;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @EqualsAndHashCode
