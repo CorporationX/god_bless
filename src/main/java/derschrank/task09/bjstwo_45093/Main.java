@@ -21,8 +21,9 @@ public class Main {
         Product product5 = new Product("Product5");
         shop.addItem(product5);
 
-        System.out.println("3) Print Products in Category #1");
-        shop.printItemsByCategory("Category1");
+        //System.out.println("3) Print Products in Category #1");
+        //shop.printItemsByCategory("Category1");
+
 
         System.out.println("4) Print All Products");
         shop.printAllItems();
@@ -34,9 +35,9 @@ public class Main {
         System.out.println("\n6) removeItem Product111 from Category1");
         shop.removeItem("Category1", "Product111");
 
-        System.out.println("\n7) removeItem Product1, Product2 from Category1");
-        shop.removeItem("Category1", "Product1");
-        shop.removeItem(category1, product2);
+        //System.out.println("\n7) removeItem Product1, Product2 from Category1");
+        //shop.removeItem("Category1", "Product1");
+        //shop.removeItem(category1, product2);
 
         System.out.println("8) Print All Products");
         shop.printAllItems();

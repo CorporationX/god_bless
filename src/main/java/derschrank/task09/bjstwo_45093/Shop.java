@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Shop {
+public class Shop implements ShopInterface {
     private Set<Product> products;
 
     public Shop(Set<Product> p) {
@@ -21,15 +21,17 @@ public class Shop {
         products.add(product);
     }
 
+    @Override
     public void addItem(String categoryName, Product product) {
         addItem(new Category(categoryName), product);
     }
 
-    public void addItem(Category category, Product product) {
+    private void addItem(Category category, Product product) {
         addItem(product);
         product.setCategory(category);
     }
 
+    @Override
     public void removeItem(String categoryName, String productName) {
         Set<Product> productSet = getSetOfProductsByName(productName);
         if (productSet.isEmpty()) {
@@ -42,7 +44,7 @@ public class Shop {
         }
     }
 
-    public void removeItem(Category category, Product product) {
+    private void removeItem(Category category, Product product) {
         if (product.getCategory().equals(category)) {
             product.setDefaultCategory();
         } else {
@@ -50,7 +52,7 @@ public class Shop {
         }
     }
 
-    public Set<Product> getSetOfProductsByName(String name) {
+    private Set<Product> getSetOfProductsByName(String name) {
         Set<Product> productSet = new HashSet<>();
         products.stream()
                 .filter(x -> x.getName().equals(name))
@@ -60,10 +62,11 @@ public class Shop {
     }
 
 
-    public Map<Category, Set<Product>> groupProductsByCategory() {
+    private Map<Category, Set<Product>> groupProductsByCategory() {
         return groupProductsByCategory(products);
     }
 
+    @Override
     public Map<Category, Set<Product>> groupProductsByCategory(Set<Product> products) {
         Map<Category, Set<Product>> categoryProductMap = new HashMap<>();
         for (Product product : products) {
@@ -75,19 +78,25 @@ public class Shop {
         return categoryProductMap;
     }
 
+    @Override
+    public void printProductsByCategory(Map<Category, Set<Product>> groupedProducts) {
+
+    }
+
+    @Override
     public Set<Product> findItemsByCategory(String categoryName) {
         return findItemsByCategory(new Category(categoryName));
     }
 
-    public Set<Product> findItemsByCategory(Category category) {
+    private Set<Product> findItemsByCategory(Category category) {
         return groupProductsByCategory().get(category);
     }
 
-    public void printItemsByCategory(String categoryName) {
+    private void printItemsByCategory(String categoryName) {
         printItemsByCategory(new Category(categoryName));
     }
 
-    public void printItemsByCategory(Category category) {
+    private void printItemsByCategory(Category category) {
         StringBuilder result = new StringBuilder("All products in category: ");
         result.append(category);
         result.append("\n");
@@ -100,11 +109,11 @@ public class Shop {
         System.out.println(result);
     }
 
+    @Override
     public void printAllItems() {
         System.out.println("All products in all categories.");
         for (Category category : groupProductsByCategory().keySet()) {
             printItemsByCategory(category);
         }
     }
-
 }
