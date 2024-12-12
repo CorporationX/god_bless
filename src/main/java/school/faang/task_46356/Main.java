@@ -20,8 +20,6 @@ public class Main {
         System.out.println(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-
-
         System.out.println(sepiaImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
