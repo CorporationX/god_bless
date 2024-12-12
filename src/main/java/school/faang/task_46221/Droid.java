@@ -19,7 +19,8 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    encryptedMessage.append(
+                            (char) ((ch - base + encryptionKey) % 26 + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -35,7 +36,8 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
+                    decryptedMessage.append(
+                            (char) ((ch - base - decryptionKey + 26) % 26 + base));
                 } else {
                     decryptedMessage.append(ch);
                 }
@@ -45,7 +47,10 @@ public class Droid {
         return decryptor.encryptOrDecrypt(encryptedMessage, key);
     }
 
-    public void sendMessage(Droid receiver, String message, int key, String senderDroidName) {
+    public void sendMessage(Droid receiver,
+                            String message,
+                            int key,
+                            String senderDroidName) {
         if (receiver == null) {
             throw new IllegalArgumentException("receiver не может быть null");
         }
@@ -56,7 +61,8 @@ public class Droid {
             throw new IllegalArgumentException("senderDroidName не может быть пустым");
         }
         String encryptedMessage = encryptMessage(message, key);
-        System.out.printf("%s отправил зашифрованное сообщение: %s%n", senderDroidName, encryptedMessage);
+        System.out.printf("%s отправил зашифрованное сообщение: %s%n",
+                senderDroidName, encryptedMessage);
         receiver.receiveMessage(encryptedMessage, key, receiver.getName());
     }
 
@@ -68,6 +74,7 @@ public class Droid {
             throw new IllegalArgumentException("receiverDroidName не может быть пустым");
         }
         String decryptedMessage = decryptMessage(encryptedMessage, key);
-        System.out.printf("%s получил расшифрованное сообщение: %s%n", receiverDroidName, decryptedMessage);
+        System.out.printf("%s получил расшифрованное сообщение: %s%n",
+                receiverDroidName, decryptedMessage);
     }
 }

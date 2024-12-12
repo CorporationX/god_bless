@@ -28,6 +28,9 @@ public class Main {
         c3po.sendMessage(r2d2, message2, encryptionKey2, c3po.getName());
 
         // BB-8 отправляет сообщение C3PO
-        bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1, bb8.getName());
+        bb8.sendMessage(c3po,
+                "The mission is complete.",
+                encryptionKey1,
+                bb8.getName());
     }
 }
