@@ -1,4 +1,4 @@
-package school.faang.sprint_2.bjs_246282;
+package school.faang.sprint_2.task_bjs246282;
 
 import java.util.List;
 import java.util.Set;
