@@ -20,6 +20,6 @@ public abstract class Character {
         this.health = 100;
     }
 
-    public void attack(Character target) {    }
+    public void attack(Character target) {}
 }
 
