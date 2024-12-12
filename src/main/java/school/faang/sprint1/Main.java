@@ -13,13 +13,10 @@ public class Main {
     public static void main(String[] args) {
         StudentDatabase studentDatabase = new StudentDatabase();
         Subject math = new Subject(
-            1, "Math"
-        );
-        Subject cs = new Subject(
-            2, "Computer Science"
+                1, "Math"
         );
         Student studentRauan = new Student(
-            1, "Rauan"
+                1, "Rauan"
         );
         Student studentDavid = new Student(
                 2, "David"
@@ -29,18 +26,21 @@ public class Main {
         );
 
         studentDatabase.addStudentAndGradeBySubject(
-            math, studentRauan, 98
+                math, studentRauan, 98
         );
 
         studentDatabase.addGradeByStudents(
-            studentDavid, Map.of(
-                    math, 56 , ph ,90
-            )
+                studentDavid, Map.of(
+                        math, 56, ph, 90
+                )
         );
         System.out.println(
-            "All students"
+                "All students"
         );
         studentDatabase.printAllStudents();
+        Subject cs = new Subject(
+                2, "Computer Science"
+        );
 
         List<Student> studentsForHistory = new ArrayList<>();
         studentsForHistory.add(studentDavid);

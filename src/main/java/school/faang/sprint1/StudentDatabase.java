@@ -17,12 +17,11 @@ public class StudentDatabase {
     public void addGradeByStudents(Student student, Map<Subject, Integer> subjectAndEstimation) {
         studentBySubjectAndEstimation.put(student, subjectAndEstimation);
         for (Map.Entry<Subject, Integer> entry : subjectAndEstimation.entrySet()) {
-           if (studentsBySubject.containsKey(entry.getKey())) {
-               addStudentToExistingSubject(student, entry.getKey());
-           }
-           else {
-               addStudentsBySubject(entry.getKey(), new ArrayList<>(List.of(student)));
-           }
+            if (studentsBySubject.containsKey(entry.getKey())) {
+                addStudentToExistingSubject(student, entry.getKey());
+            } else {
+                addStudentsBySubject(entry.getKey(), new ArrayList<>(List.of(student)));
+            }
         }
     }
 
@@ -40,10 +39,13 @@ public class StudentDatabase {
 
     public void printAllStudents() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentBySubjectAndEstimation.entrySet()) {
-            for (Map.Entry<Subject, Integer> innerEntry: entry.getValue().entrySet()) {
+            for (Map.Entry<Subject, Integer> innerEntry : entry.getValue().entrySet()) {
                 Subject subject = innerEntry.getKey();
                 int estimation = innerEntry.getValue();
-                System.out.println("\n\tstudent: " + entry.getKey() + "\n\tsubject: " + subject + "\n\testimation: " + estimation);
+                System.out.println("\n\tstudent: " + entry.getKey()
+                        + "\n\tsubject: " + subject
+                        + "\n\testimation: " + estimation
+                );
                 System.out.println();
             }
         }
@@ -65,6 +67,7 @@ public class StudentDatabase {
             students.remove(student);
         }
     }
+
     public void printAllSubjectsAndStudents() {
         for (Map.Entry<Subject, List<Student>> entry : studentsBySubject.entrySet()) {
             System.out.println(
