@@ -23,6 +23,5 @@ public class Main {
 
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
-
     }
 }
