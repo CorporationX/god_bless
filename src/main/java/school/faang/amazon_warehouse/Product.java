@@ -10,18 +10,14 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public final class Product {
+    private static int idCounter = 1;
     private int id;
     private final String name;
     private final String category;
 
     public Product(String name, String category) {
-        idGenerator();
+        id = idCounter++;
         this.name = name;
         this.category = category;
-    }
-
-    private int idGenerator() {
-        this.id = id++;
-        return this.id;
     }
 }
