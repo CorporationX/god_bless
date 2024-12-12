@@ -110,7 +110,6 @@ public class Main {
         return words.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .filter(word -> word.chars()
-                        .mapToObj(character -> String.valueOf((char) character))
-                        .anyMatch(alphabet::contains)).toList();
+                        .anyMatch(character -> alphabet.contains(String.valueOf((char) character)))).toList();
     }
 }
