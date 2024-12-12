@@ -13,8 +13,10 @@ public class Main {
             System.out.println("Сумма четных чисел: " + ListProcessor.sumOfEvenNumbers(numbers));
             System.out.println("Максимум: " + ListProcessor.findMax(numbers));
             System.out.println("Среднее: " + ListProcessor.findAverage(numbers));
-            System.out.println("Количество строк, начинающихся на 'a': " + ListProcessor.countStringsStartingWith(strings, 'a'));
-            System.out.println("Строки, содержащие 'an': " + ListProcessor.filterStringsContainingSubstring(strings, "an"));
+            System.out.println("Количество строк, начинающихся на 'a': "
+                    + ListProcessor.countStringsStartingWith(strings, 'a'));
+            System.out.println("Строки, содержащие 'an': "
+                    + ListProcessor.filterStringsContainingSubstring(strings, "an"));
             System.out.println("Отсортированные по длине строки: " + ListProcessor.sortByLength(strings));
             System.out.println("Все ли числа чётные? " + ListProcessor.allMatchCondition(numbers, n -> n % 2 == 0));
             System.out.println("Наименьшее число больше 4: " + ListProcessor.findMinGreaterThan(numbers, 4));
