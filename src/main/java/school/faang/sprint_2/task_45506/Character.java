@@ -1,7 +1,18 @@
 package school.faang.sprint_2.task_45506;
 
+import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+
 public class Character {
-    private List <Item> inventory;
+    private final String name;
+    private final List<Item> inventory;
+
+    public Character(String name) {
+        this.name = name;
+        this.inventory = new ArrayList<>();
+    }
 }
