@@ -10,6 +10,9 @@ public class EmailProcessor {
                               Predicate<Email> predicate,
                               Function<Email, String> function,
                               Consumer<Email> consumer) {
+        if (emails == null || predicate == null || consumer == null || function == null) {
+            return;
+        }
         emails.stream().filter(predicate).peek(email -> email.setBody(function.apply(email))).forEach(consumer);
     }
 }
