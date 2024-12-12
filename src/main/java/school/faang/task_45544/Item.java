@@ -3,6 +3,7 @@ package school.faang.task_45544;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import school.faang.task_45544.exception.CheckException;
 
 @Getter
 @Setter
@@ -13,10 +14,10 @@ public class Item {
 
     public Item(String name, Long value) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("name of item не может быть пустым");
+            throw new CheckException("name of item");
         }
         if (value == null) {
-            throw new IllegalArgumentException("value of item не может быть пустым");
+            throw new CheckException("value of item");
         }
 
         this.name = name;

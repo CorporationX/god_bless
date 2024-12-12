@@ -1,8 +1,8 @@
 package school.faang.task_45544;
 
-import java.util.ArrayList;
+import school.faang.task_45544.exception.CheckException;
+
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -12,24 +12,21 @@ public class InventoryManager {
     public void addItem(Character character, Item newItem, Consumer<Item> action) {
         characterCheck(character);
         if (newItem == null) {
-            throw new IllegalArgumentException(
-                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "item"));
+            throw new CheckException("item");
         }
         if (action == null) {
-            throw new IllegalArgumentException(
-                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "action"));
+            throw new CheckException("action");
         }
 
+        //нахожу такой же Item. если он есть то выкидываю ошибку если нет то добавляю
         character.getInventory().stream()
-                .filter(item -> item.getName().equals(newItem.getName()))
+                .filter(item -> item.equals(newItem))
                 .findFirst()
                 .ifPresentOrElse(existingItem -> {
-                    if (Objects.equals(existingItem.getValue(), newItem.getValue())) {
-                        throw new IllegalArgumentException(
-                                String.format("Предмет %s с стоимостью %s уже имеется в инвентаре",
-                                        newItem.getName(),
-                                        newItem.getValue()));
-                    }
+                    throw new IllegalArgumentException(
+                            String.format("Предмет %s с стоимостью %s уже имеется в инвентаре",
+                                    newItem.getName(),
+                                    newItem.getValue()));
                 }, () -> character.getInventory().add(newItem));
 
         action.accept(newItem);
@@ -52,16 +49,13 @@ public class InventoryManager {
         characterCheck(character);
         conditionCheck(condition);
         if (updateFunction == null) {
-            throw new IllegalArgumentException(
-                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "updateFunction"));
+            throw new CheckException("updateFunction");
         }
 
-        List<Item> updatedItems = new ArrayList<>();
 
-        character.getInventory().stream()
+        List<Item> updatedItems = character.getInventory().stream()
                 .filter(condition)
-                .map(updateFunction)
-                .forEach(updatedItems::add);
+                .map(updateFunction).toList();
 
         updatedItems.forEach(updatedItem -> {
             var existItem = getItemByName(character.getInventory(), updatedItem.getName());
@@ -75,15 +69,13 @@ public class InventoryManager {
 
     private void characterCheck(Character character) {
         if (character == null) {
-            throw new IllegalArgumentException(
-                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "character"));
+            throw new CheckException("character");
         }
     }
 
     private void conditionCheck(Predicate<Item> condition) {
         if (condition == null) {
-            throw new IllegalArgumentException(
-                    String.format(ErrorMessage.EMPTYFIELD.getValue(), "condition"));
+            throw new CheckException("condition");
         }
     }
 
