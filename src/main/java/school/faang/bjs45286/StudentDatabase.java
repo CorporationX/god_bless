@@ -15,7 +15,7 @@ public class StudentDatabase {
     public void addStudent(Student student, Map<Subject, Integer> marks) {
         studentMarks.put(student, marks);
         for (var subjectMarkPair : marks.entrySet()) {
-               studentsSubjects.computeIfAbsent(subjectMarkPair.getKey(), k -> new ArrayList<>()).add(student);
+            studentsSubjects.computeIfAbsent(subjectMarkPair.getKey(), k -> new ArrayList<>()).add(student);
         }
     }
 

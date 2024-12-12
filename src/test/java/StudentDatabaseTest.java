@@ -70,6 +70,7 @@ class StudentDatabaseTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> database.linkStudentToSubject(subject, student));
     }
+
     @Test
     void shouldRemoveStudentFromSubject() {
         database.removeStudentFromSubject(math, student);
@@ -77,6 +78,7 @@ class StudentDatabaseTest {
         Assertions.assertFalse(database.getStudentMarks().get(student).containsKey(math));
         Assertions.assertFalse(database.getStudentsSubjects().get(math).contains(student));
     }
+
     @Test
     void shouldAddNewSubjectWithStudents() {
         Subject subject = Mockito.mock(Subject.class);
