@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ListOperations2 {
-    public static Map<Integer, Integer> pairOfNumbers(List<Integer> numbers, int sum) {
+    public static Map<Integer, Integer> getPairOfNumbers(List<Integer> numbers, int sum) {
         Map<Integer, Integer> pairNumbers = new HashMap<>();
 
         numbers.forEach(number -> {
@@ -18,6 +18,13 @@ public class ListOperations2 {
 
         });
         return pairNumbers;
+    }
+
+    public static List<String> getCapitals(Map<String, String> countries) {
+        return countries.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .toList();
     }
 
 }

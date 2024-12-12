@@ -20,9 +20,22 @@ class ListOperations2Test {
         );
     }
 
+    public static Stream<Arguments> getCountries() {
+        return Stream.of(
+                Arguments.of(Map.of("Russia", "Moscow", "USA", "Washington",
+                        "Germany", "Berlin"), Arrays.asList("Berlin", "Moscow", "Washington"))
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("getNumbersAndSum")
-    void pairOfNumbers(List<Integer> numbers, int sum, Map<Integer, Integer> expected) {
-        assertEquals(expected, ListOperations2.pairOfNumbers(numbers, sum));
+    void getPairOfNumbers(List<Integer> numbers, int sum, Map<Integer, Integer> expected) {
+        assertEquals(expected, ListOperations2.getPairOfNumbers(numbers, sum));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getCountries")
+    void getCapitals(Map<String, String> countries, List<String> expected) {
+        assertEquals(expected, ListOperations2.getCapitals(countries));
     }
 }
