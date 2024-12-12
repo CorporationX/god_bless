@@ -9,17 +9,26 @@ public class Email {
     private String body;
     private boolean isImportant;
 
-    public Email(String subject, String body, boolean isImportant) {
-        if (subject.trim().isEmpty()) {
-            this.subject = DEFAULT_SUBJECT;
+    public Email(String subject, String body, boolean isImportant) throws InvalidInputException {
+        if (paramsAreCorrect(subject, body)) {
+            if (subject.trim().isEmpty()) {
+                this.subject = DEFAULT_SUBJECT;
+            } else {
+                this.subject = subject;
+            }
+            this.body = body;
+            this.isImportant = isImportant;
         } else {
-            this.subject = subject;
+            throw new InvalidInputException("invalid parameters of the email.");
         }
-        this.body = body;
-        this.isImportant = isImportant;
     }
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    private boolean paramsAreCorrect(String subject, String body) {
+        return (subject != null
+                && body != null);
     }
 }
