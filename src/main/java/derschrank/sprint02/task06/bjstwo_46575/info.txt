@@ -1,0 +1,56 @@
+Вы работаете в команде Meta и часто видите повторяющийся код. Каждый раз, когда вызывается удалённый сервис, его оборачивают в try/catch, чтобы, в случае ошибки, вернуть дефолтное значение или null. Вы хотите избавиться от этого дублирования и создать один общий метод, который сделает это за вас.
+
+Цель:
+
+Написать статический метод withErrorHandling, который принимает два действия — основное и то, что будет выполнено в случае ошибки.
+
+Требования:
+
+1. Написать статический метод withErrorHandling, который принимает две лямбды: одна выполняет основное действие (например, вызов удалённого сервиса), вторая — обрабатывает ошибки, если они возникнут.
+
+2. Метод должен быть универсальным и возвращать тип T.
+
+3. Вторая лямбда должна принимать исключение Exception и делать что-то с ним (например, возвращать дефолтное значение).
+
+4. Придумайте подходящий функциональный интерфейс для первого действия?
+
+Пример использования:
+
+public class Main {
+    public static void main(String[] args) {
+        // Пример с вызовом удалённого сервиса
+        String result = ErrorHandler.withErrorHandling(
+            () -> RemoteService.call("someParam"),  // Основное действие
+            e -> {  // Обработка ошибки
+                System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                return "DEFAULT";
+            }
+        );
+
+        System.out.println(result);  // Выведет результат: "DEFAULT" при ошибке
+    }
+
+    // Пример метода для удалённого сервиса
+    public static class RemoteService {
+        public static String call(String param) throws Exception {
+            // Здесь возникнет ошибка для демонстрации
+            throw new Exception("Сервис недоступен");
+        }
+    }
+}
+
+
+--------------------------
+18:01:51: Executing ':derschrank.sprint02.task06.bjstwo_46575.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint02.task06.bjstwo_46575.Main.main()
+������ ��� ������ �������, ���������� ��������� ��������
+DEFAULT
+
+BUILD SUCCESSFUL in 5s
+2 actionable tasks: 2 executed
+18:01:57: Execution finished ':derschrank.sprint02.task06.bjstwo_46575.Main.main()'.
