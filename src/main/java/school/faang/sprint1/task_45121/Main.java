@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-    private HashSet<Product> products = new HashSet<>(
+    private static final Set<Product> products = new HashSet<>(
             Arrays.asList(
                     new Product(1, "comp", "compCategory"),
                     new Product(2, "monitor", "compCategory"),
@@ -14,23 +14,22 @@ public class Main {
                     new Product(6, "cup", "kitchen")
             )
     );
-    private ProductRepository productRepository = new ProductRepository();
+    private static final ProductRepository productRepository = new ProductRepository();
 
-    private HashMap<String, ArrayList<Product>> groupProductsByCategory(HashSet<Product> products) {
-        for (Product product : products) {
+    private static Map<String, List<Product>> groupProductsByCategory() {
+        for (Product product : Main.products) {
             productRepository.addItem(product.getCategory(), product.getName());
         }
-        return productRepository.getCategoryProductMap();
+        return productRepository.getProductsByCategories();
     }
 
-    private void printProductsByCategory(Map<String, ArrayList<Product>> groupedProducts) {
-        productRepository.printAllItems(groupedProducts);
+    private static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
+        productRepository.printAllItems();
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
-        HashMap<String, ArrayList<Product>> map = main.groupProductsByCategory(main.products);
+        Map<String, List<Product>> map = groupProductsByCategory();
         System.out.println(map);
-        main.printProductsByCategory(map);
+        printProductsByCategory(map);
     }
 }
