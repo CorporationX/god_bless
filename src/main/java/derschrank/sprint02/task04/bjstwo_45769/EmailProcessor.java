@@ -7,13 +7,16 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails,
-                              Predicate<Email> filter,
-                              Function<Email, String> convert,
-                              Consumer<Email> whatWithEmailToDo) {
+                              Predicate<Email> emailFilter,
+                              Function<Email, String> emailConvert,
+                              Consumer<Email> emailAction) {
         for (Email email : emails) {
-            if (filter.test(email)) {
-                System.out.println("Convert: " + convert.apply(email));
-                whatWithEmailToDo.accept(email);
+            if (emailFilter == null) {
+                continue;
+            }
+            if (emailFilter.test(email)) {
+                System.out.println("Convert: " + emailConvert.apply(email));
+                emailAction.accept(email);
             }
         }
     }
