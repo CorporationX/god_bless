@@ -26,7 +26,7 @@ public class User {
         return name;
     }
 
-    public static Map<Integer, List<User>> groupUsers (List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }
