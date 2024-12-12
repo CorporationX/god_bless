@@ -1,7 +1,7 @@
 package school.faang.task_43926;
 
-public class Character {
-    private String name;
+public abstract class Character {
+    private final String name;
     private int power;
     private int agility;
     private int intelligence;
@@ -17,8 +17,22 @@ public class Character {
         this.intelligence = intelligence;
     }
 
-    //abstract void attack(java.lang.Character) {
+    public abstract void attack(Character character);
 
-    //}
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void setHealth(int healthAfterDamage) {
+        this.health = healthAfterDamage;
+    }
+
+    public int getAgility() {
+        return this.agility;
+    }
+
+    public int getPower() {
+        return this.power;
+    }
 }
 
