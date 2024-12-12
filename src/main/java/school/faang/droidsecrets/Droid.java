@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class Droid {
     private final String name;
+    private static final int ALPHABET_SIZE = 26;
 
     private String encryptMessage(String message, int encryptionKey) {
         DroidMessageEncryptor droidMessageEncryptor = (msg, key) -> {
@@ -17,14 +18,14 @@ public class Droid {
             for (char symbol : msg.toCharArray()) {
                 if (Character.isLetter(symbol)) {
                     char base = Character.isLowerCase(symbol) ? 'a' : 'A';
-                    result.append((char) ((symbol - base + key) % 26 + base));
+                    result.append((char) ((symbol - base + key) % ALPHABET_SIZE + base));
                 } else {
                     result.append(symbol);
                 }
             }
             return result.toString();
         };
-        return droidMessageEncryptor.encryptDroidMessage(message, encryptionKey);
+        return droidMessageEncryptor.encrypt(message, encryptionKey);
     }
 
     private String decryptMessage(String message, int decryptionKey) {
@@ -36,14 +37,14 @@ public class Droid {
             for (char symbol : msg.toCharArray()) {
                 if (Character.isLetter(symbol)) {
                     char base = Character.isLowerCase(symbol) ? 'z' : 'Z';
-                    result.append((char) ((symbol - base - key) % 26 + base));
+                    result.append((char) ((symbol - base - key) % ALPHABET_SIZE + base));
                 } else {
                     result.append(symbol);
                 }
             }
             return result.toString();
         };
-        return droidMessageEncryptor.encryptDroidMessage(message, decryptionKey);
+        return droidMessageEncryptor.encrypt(message, decryptionKey);
     }
 
     public void sendMessage(Droid droid, String message, int encryptionKey) {
