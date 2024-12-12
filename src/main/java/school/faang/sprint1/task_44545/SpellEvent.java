@@ -13,5 +13,5 @@ public class SpellEvent {
 
     private long id;
     private String action;
-    private String evenType;
+    private String eventType;
 }

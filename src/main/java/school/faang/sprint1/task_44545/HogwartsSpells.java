@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    private final HashMap<Long, SpellEvent> spellById = new HashMap<>();
-    private final HashMap<String, ArrayList<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Long, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, ArrayList<SpellEvent>> spellsByType = new HashMap<>();
     private long nextId = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
@@ -29,7 +29,7 @@ public class HogwartsSpells {
     public void deleteSpellEvent(long id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
-            spellsByType.get(spellEvent.getEvenType()).remove(spellEvent);
+            spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
         }
     }
 
