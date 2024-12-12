@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43502;
+package school.faang.moduleone.sprintone.task_43502;
 
 public class Archer extends Character {
     private static final int ARCHERS_POWER = 3;

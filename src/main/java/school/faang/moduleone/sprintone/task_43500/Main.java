@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43500;
+package school.faang.moduleone.sprintone.task_43500;
 
 import java.util.Arrays;
 
