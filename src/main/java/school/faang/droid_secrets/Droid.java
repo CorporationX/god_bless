@@ -10,8 +10,8 @@ public class Droid {
         this.name = name;
     }
 
-    private static final List<Character> ALPHABET = new ArrayList<>(List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-            'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+    private static final List<Character> ALPHABET = new ArrayList<>(List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
     private static final DroidMessageEncryptor encryptor = (message, key) -> {
         char[] messageLetters = message.toCharArray();
         String encryptedMessage = "";
@@ -77,6 +77,7 @@ public class Droid {
     public String encryptMessage(String message, int key) {
         return encryptor.use(message, key);
     }
+
     public String decryptMessage(String message, int key) {
         return decryptor.use(message, key);
     }
