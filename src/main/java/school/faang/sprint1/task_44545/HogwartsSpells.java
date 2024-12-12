@@ -1,22 +1,21 @@
 package school.faang.sprint1.task_44545;
 
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@NoArgsConstructor
 public class HogwartsSpells {
 
     private final HashMap<Long, SpellEvent> spellById = new HashMap<>();
     private final HashMap<String, ArrayList<SpellEvent>> spellsByType = new HashMap<>();
+    private long nextId = 0;
 
-    public void addSpellEvent(long id, String eventType, String actionDescription) {
-        SpellEvent spellEvent = new SpellEvent(id, actionDescription, eventType);
-        spellById.put(id, spellEvent);
+    public void addSpellEvent(String eventType, String actionDescription) {
+        SpellEvent spellEvent = new SpellEvent(nextId, actionDescription, eventType);
+        spellById.put(nextId, spellEvent);
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        nextId++;
     }
 
     public SpellEvent getSpellEventById(long id) {
@@ -29,7 +28,9 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(long id) {
         SpellEvent spellEvent = spellById.remove(id);
-        spellsByType.get(spellEvent.getEvenType()).remove(spellEvent);
+        if (spellEvent != null) {
+            spellsByType.get(spellEvent.getEvenType()).remove(spellEvent);
+        }
     }
 
     public void printAllSpellEvents() {
