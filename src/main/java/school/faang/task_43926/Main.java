@@ -12,5 +12,4 @@ public class Main {
         System.out.println("Health warrior after attack: " + warrior.getHealth());
 
     }
-
 }
