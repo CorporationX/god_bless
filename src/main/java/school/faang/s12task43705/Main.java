@@ -1,36 +1,30 @@
 package school.faang.s12task43705;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.stream.IntStream;
+
 public class Main {
     public static void main(String[] args) {
-        try {
-            User user1 = new User("Saveliy", 35, "Google", "London");
-            System.out.println(user1);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user2 = new User(" ", 35, "Google", "London");
-            System.out.println(user2);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user3 = new User("Saveliy", 16, "Google", "London");
-            System.out.println(user3);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user4 = new User("Saveliy", 35, "NII", "London");
-            System.out.println(user4);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user5 = new User("Saveliy", 35, "Google", "Vologda");
-            System.out.println(user5);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        final Random random = new Random();
+        List<User> users = IntStream.range(0, 100)
+                .mapToObj(i -> {
+                    try {
+                        String company = (String) User.VALID_JOBS.toArray()[i % User.VALID_JOBS.size()];
+                        String city = (String) User.VALID_ADDRESSES.toArray()[i % User.VALID_ADDRESSES.size()];
+                        int age = 18 + random.nextInt(100);
+
+                        return new User("User" + (i + 1), age, company, city);
+
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Error creating user at index " + i + ": " + e.getMessage());
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .toList();
+
+        users.forEach(System.out::println);
     }
 }
