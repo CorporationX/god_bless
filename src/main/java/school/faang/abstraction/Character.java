@@ -6,14 +6,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
+@Getter
 public abstract class Character {
     private String name;
     private Integer strength;
     private Integer dexterity;
     private Integer intelligence;
-    @Getter
     @Setter
     private Integer health;
+
+    public Integer getHealth() {
+        if (health < 0) {
+            throw new IllegalArgumentException("Health cannot be less than 0!");
+        }
+        return health;
+    }
+
     private static final int DEFAULT_HEALTH = 100;
 
     public Character(String name) {

@@ -9,8 +9,12 @@ public class Warrior extends Character {
         super(name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
+    public Warrior(String name, Integer strength, Integer dexterity, Integer intelligence) {
+        super(name, strength, dexterity, intelligence);
+    }
+
     @Override
     public void attack(Character character) {
-        character.setHealth(character.getHealth() - DEFAULT_STRENGTH);
+        character.setHealth(character.getHealth() - character.getStrength());
     }
 }
