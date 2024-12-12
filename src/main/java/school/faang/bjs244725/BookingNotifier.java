@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs244725;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
