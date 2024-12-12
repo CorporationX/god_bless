@@ -20,7 +20,6 @@ public class Main {
         Task.coupleCommonFriends(friends).forEach(list -> System.out.printf("%s ", list));
         System.out.println();
         Task.palindromeNumbers(-100, 2000).forEach(number -> System.out.printf("%s ", number));
-        System.out.println();
         Task.palindromeSubstring("abacded").forEach(substring -> System.out.printf("%s ", substring));
         System.out.println();
 
@@ -38,7 +37,5 @@ public class Main {
 
         System.out.println();
         Task.perfectNumbers(1, 10000).forEach(number -> System.out.printf("%d ", number));
-
-
     }
 }

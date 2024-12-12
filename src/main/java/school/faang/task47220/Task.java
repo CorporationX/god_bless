@@ -20,11 +20,14 @@ public class Task {
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, friends.size())
                         .mapToObj(j -> {
-                            List<String> names = friends.keySet().stream().toList();
-                            String friend1 = names.get(i);
-                            String friend2 = names.get(j);
+                            List<String> namesList = friends.keySet().stream().toList();
 
-                            if (!friends.get(friend1).contains(friend2)) {
+                            String friend1 = namesList.get(i);
+                            String friend2 = namesList.get(j);
+
+                            Set<String> friendsSet = new HashSet<>(friends.get(friend1));
+
+                            if (!friendsSet.contains(friend2)) {
 
                                 List<String> commonFriends = friends.get(friend1).stream()
                                         .filter(friends.get(friend2)::contains)
@@ -46,18 +49,21 @@ public class Task {
 
         return employees.stream()
                 .collect(Collectors.groupingBy(
-                        Employee::getDepartment,
-                        Collectors.averagingDouble(Employee::getSalary)
+                        Employee::department,
+                        Collectors.averagingDouble(Employee::salary)
                 ));
     }
 
     public static List<String> palindromeNumbers(int start, int end) {
         validateStartEnd(start, end);
 
+        StringBuilder reverseString = new StringBuilder();
+
         return IntStream.rangeClosed(start, end)
                 .mapToObj(String::valueOf)
-                .filter(string -> string.contentEquals(new StringBuilder(string).reverse())).toList();
-
+                .filter(string -> string.contentEquals(reverseString.append(string).reverse()))
+                .peek(string -> reverseString.setLength(0))
+                .toList();
     }
 
     public static List<String> palindromeSubstring(String string) {
@@ -65,16 +71,20 @@ public class Task {
             throw new IllegalArgumentException("string can`t be null");
         }
 
+        StringBuilder reverseString = new StringBuilder();
+
         return IntStream.rangeClosed(0, string.length())
                 .boxed().toList().stream()
                 .flatMap(i -> IntStream.rangeClosed(i + 1, string.length())
                         .mapToObj(j -> {
                             String substring = string.substring(i, j);
-                            StringBuilder reverseString = new StringBuilder(substring).reverse();
+                            reverseString.append(substring).reverse();
 
                             if (substring.contentEquals(reverseString)) {
                                 return substring;
                             }
+
+                            reverseString.setLength(0);
 
                             return null;
                         })).filter(Objects::nonNull).distinct()
