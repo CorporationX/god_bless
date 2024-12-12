@@ -10,6 +10,10 @@ public abstract class WeatherCacheTemplate {
     private Map<String, WeatherData> cache = new HashMap<>();
 
     public WeatherData getWeatherData(String city) {
+        if (city == null || city.isEmpty()) {
+            throw new NullPointerException("Название города введено некорректно!");
+        }
+
         if (!isCacheValid(city)) {
             updateWeatherData(city);
         }

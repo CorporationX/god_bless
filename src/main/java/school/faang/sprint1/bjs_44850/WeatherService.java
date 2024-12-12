@@ -14,6 +14,6 @@ public class WeatherService implements WeatherProvider {
     }
 
     private double randomValues(int bound) {
-        return RANDOM.nextInt(bound);
+        return Double.parseDouble(String.format("%.1f", RANDOM.nextDouble(bound)));
     }
 }

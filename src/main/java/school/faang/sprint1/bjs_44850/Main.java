@@ -20,31 +20,6 @@ public class Main {
         printData(weatherData);
     }
 
-    private Map<String, WeatherData> initMap() {
-        Map<String, WeatherData> weatherData = new HashMap<>();
-
-        String[][] data = {
-                {"Moscow", "5.0", "45.5", "1733509975637"},
-                {"Rostov-Na-Donu", "6.0", "35.0", "1733509925656"},
-                {"Sankt Peterburg", "3.5", "60.0", "1733508915637"},
-                {"Voronezh", "4.0", "40.5", "1733509910000"},
-                {"Krasnodar", "8.0", "80.5", "1733509805637"},
-                {"Sochi", "12.0", "100.0", "1733509966637"},
-        };
-
-        for (String[] city : data) {
-            String key = city[0];
-            String name = key;
-            double temperature = Double.parseDouble(city[1]);
-            double humidity = Double.parseDouble(city[2]);
-            long timestamp = Long.parseLong(city[3]);
-
-            weatherData.put(key, new WeatherData(name, temperature, humidity, timestamp));
-        }
-
-        return weatherData;
-    }
-
     private static void printData(WeatherData weatherData) {
         System.out.println("Город: " + weatherData.getCity());
         System.out.println("Температура: " + weatherData.getTemperature());
