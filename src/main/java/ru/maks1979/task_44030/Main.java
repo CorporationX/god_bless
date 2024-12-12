@@ -10,7 +10,7 @@ public class Main {
         User userAnn = new User("Ann", 22, "Yandex", "Muhosransk");
         User userBoris = new User("Boris", 22, "TaxiLider", "Habarovsk");
 
-        List <User> listOfYoung = new ArrayList<>();
+        List<User> listOfYoung = new ArrayList<>();
         listOfYoung.add(userJohn);
         listOfYoung.add(userKatrin);
         listOfYoung.add(userMike);
