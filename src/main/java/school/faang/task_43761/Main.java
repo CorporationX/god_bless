@@ -7,7 +7,7 @@ public class Main {
         List<User> users = List.of(
                 new User("john", 25, "Uber", "Amsterdam"),
                 new User("anna", 23, "Google", "London"),
-                new User("mark", 17, "Amazon", "New York")
+                new User("mark", 19, "Amazon", "New York")
         );
 
         users.forEach(Main::safePrintUser);
