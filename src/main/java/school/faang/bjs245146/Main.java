@@ -5,34 +5,33 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     private static HashSet<Product> products = new HashSet<>();
 
-    private static void addItem(int id, String category, String name) {
-        products.add(new Product(id, category, name));
+    private static void addItem(String name, String category) {
+        products.add(new Product(name, category));
     }
 
-    private static void removeItem(int id, String category, String name) {
-        Product product = new Product(id, category, name);
-        if (products.contains(product)) {
-            products.remove(product);
-        } else {
-            System.out.println("Такого продукта не существует в нашем множестве");
+    private static void removeItem(String name, String category) {
+        Product product = new Product(name, category);
+        if (!products.remove(product)) {
+            System.out.println("This product is not available in our set");
         }
     }
 
     private static void findItemsByCategory(String category) {
         List<Product> listProduct = new ArrayList<>();
         for (Product product : products) {
-            if (product.getCategory().equals(category)) {
+            if (Objects.equals(product.getCategory(), category)) {
                 listProduct.add(product);
             }
         }
         if (!listProduct.isEmpty()) {
             System.out.println(listProduct);
         } else {
-            System.out.println("Указанной категории товаров не существует в нашем множестве");
+            System.out.println("This category is not available in our set");
         }
     }
 
@@ -55,17 +54,16 @@ public class Main {
         }
     }
 
-
     public static void main(String[] args) {
-        addItem(2, "Milk", "Food");
-        addItem(3, "Iphone", "Household appliances");
-        addItem(4, "Soap", "Household chemicals");
-        addItem(5, "TV", "Household appliances");
-        addItem(1, "Apple", "Food");
+        addItem("Milk", "Food");
+        addItem("Iphone", "Household appliances");
+        addItem("Soap", "Household chemicals");
+        addItem("TV", "Household appliances");
+        addItem("Apple", "Food");
 
         printAllItems();
 
-        removeItem(1, "Tomato", "Food");
+        removeItem("Tomato", "Food");
 
         findItemsByCategory("Household appliances");
 
