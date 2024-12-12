@@ -57,6 +57,8 @@ public class StreamOperationsTest {
     public void findPerfectNumbers() {
         List<Integer> expected = List.of(6, 28, 496);
         List<Integer> result = StreamOperations.findPerfectNumbers(1000);
+    
+        assertEquals(expected, result);
     }
 
 }
