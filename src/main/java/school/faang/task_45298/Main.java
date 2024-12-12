@@ -15,8 +15,10 @@ import static school.faang.task_45298.StudentDatabase.printAllFromSubjectGradesB
 import static school.faang.task_45298.StudentDatabase.printAllStudentsBySubject;
 
 public class Main {
+    private static final Map<Student, Map<Subject, Integer>> subjectGradesByStudent = new HashMap<>();
+    private static final Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
+
     public static void main(String[] args) {
-        Map<Student, Map<Subject, Integer>> subjectGradesByStudent = new HashMap<>();
 
         Student john = new Student(1, "John");
         Student anny = new Student(2, "Anny");
@@ -34,8 +36,6 @@ public class Main {
         System.out.println();
         deleteStudentFromSubjectGradesByStudent(subjectGradesByStudent, john);
         printAllFromSubjectGradesByStudent(subjectGradesByStudent);
-
-        Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
 
         System.out.println();
         addSubjectToStudentsBySubject(studentsBySubject, physics, new ArrayList<>(List.of(john, anny)));
