@@ -1,12 +1,13 @@
 package lordrpg;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Function;
 
 public class InventoryManager {
 
     // Метод для добавления предмета в инвентарь
-    public void addItem(Character character, Item item, java.util.function.Consumer<Item> action) {
+    public void addItem(Character character, Item item, Consumer<Item> action) {
         character.addItem(item);
         action.accept(item);  // выполняем дополнительное действие
     }
