@@ -9,7 +9,7 @@ public class EmailProcessor {
     public List<Email> processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> converter,
                               Consumer<Email> processor) {
         if (emails == null || filter == null || converter == null || processor == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The method parameters must be not null!");
         }
 
         List<Email> convertedEmails = emails.stream()
