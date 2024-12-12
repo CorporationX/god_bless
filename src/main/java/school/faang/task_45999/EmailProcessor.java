@@ -9,7 +9,6 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> checkImportant, Consumer<Email> printEmail,
                               Function<Email, String> changeEmail) {
-
         for (Email email : emails) {
             if (checkImportant.test(email)) {
                 String changeBody = changeEmail.apply(email);
