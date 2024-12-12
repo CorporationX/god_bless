@@ -28,20 +28,20 @@ public class Main {
         Set<String> skillsEva = getEva();
         Set<String> skillsArnold = getArnold();
 
-        Employee bob = new Employee(1,"Bob", skillsBob);
-        Employee tom = new Employee(2,"Tom", skillsTom);
-        Employee alice = new Employee(3,"Alice", skillsAlice);
-        Employee eva = new Employee(4,"Eve", skillsEva);
-        Employee arnold = new Employee(5,"Arnold", skillsArnold);
+        Employee bob = new Employee(1, "Bob", skillsBob);
+        Employee tom = new Employee(2, "Tom", skillsTom);
+        Employee alice = new Employee(3, "Alice", skillsAlice);
+        Employee eva = new Employee(4, "Eve", skillsEva);
+        Employee arnold = new Employee(5, "Arnold", skillsArnold);
 
         Set<String> requiredSkillsDatingSite = getRequiredSkillsDatingSite();
         Set<String> requiredSkillsBilling = getRequiredSkillsBilling();
 
         Project projectDatingSite =
-                new Project(1,"A dating site", requiredSkillsDatingSite, new ArrayList<>());
+                new Project(1, "A dating site", requiredSkillsDatingSite, new ArrayList<>());
 
         Project projectBilling =
-                new Project(2,"Billing project", requiredSkillsBilling, new ArrayList<>());
+                new Project(2, "Billing project", requiredSkillsBilling, new ArrayList<>());
 
         List<Employee> employees = new ArrayList<>();
         employees.add(bob);
