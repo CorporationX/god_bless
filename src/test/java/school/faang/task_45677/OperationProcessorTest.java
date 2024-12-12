@@ -7,20 +7,59 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OperationProcessorTest {
-    public static final int PRODUCT_RESULT = 24;
-    public static final int SUM_RESULT = 10;
-
     @Test
     void productTest() {
         int actualResult = OperationProcessor.product(List.of(1, 2, 3, 4));
 
-        assertEquals(PRODUCT_RESULT, actualResult);
+        assertEquals(24, actualResult);
+    }
+
+    @Test
+    void productWithEmptyListTest() {
+        int actualResult = OperationProcessor.product(List.of());
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void productWithOneElementTest() {
+        int actualResult = OperationProcessor.product(List.of(1));
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void productWithNegativesElementsTest() {
+        int actualResult = OperationProcessor.product(List.of(-1, 2, 3));
+
+        assertEquals(-6, actualResult);
     }
 
     @Test
     void sumTest() {
         int actualResult = OperationProcessor.sum(List.of(1, 2, 3, 4));
 
-        assertEquals(SUM_RESULT, actualResult);
+        assertEquals(10, actualResult);
+    }
+
+    @Test
+    void sumWithEmptyListTest() {
+        int actualResult = OperationProcessor.sum(List.of());
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void sumWithOneElementTest() {
+        int actualResult = OperationProcessor.sum(List.of(1));
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void sumWithNegativesElementsTest() {
+        int actualResult = OperationProcessor.sum(List.of(-1, -2));
+
+        assertEquals(-3, actualResult);
     }
 }
