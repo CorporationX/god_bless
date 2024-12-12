@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Task {
-    private static void validateStartEnd(int start, int end){
+    private static void validateStartEnd(int start, int end) {
         if (start > end) {
             throw new IllegalArgumentException("start can`t be more than end");
         }
     }
 
     public static Set<List<String>> coupleCommonFriends(Map<String, List<String>> friends) {
-        if (friends == null){
+        if (friends == null) {
             throw new IllegalArgumentException("friend can't be null");
         }
 
@@ -40,7 +40,7 @@ public class Task {
     }
 
     public static Map<Department, Double> averageSalary(List<Employee> employees) {
-        if (employees == null){
+        if (employees == null) {
             throw new IllegalArgumentException("employees can`t be null");
         }
 
@@ -61,7 +61,7 @@ public class Task {
     }
 
     public static List<String> palindromeSubstring(String string) {
-        if (string == null || string.isBlank()){
+        if (string == null || string.isBlank()) {
             throw new IllegalArgumentException("string can`t be null");
         }
 
