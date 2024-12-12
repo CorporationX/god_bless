@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = getNotificationManager();
 
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваша учетная запись активирована");
+        Notification smsNotification = new Notification(NotificationType.SMS, "Вы успешно изменили свой пароль");
+        Notification pushNotification = new Notification(NotificationType.PUSH, "Новый пост от пользователя: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
@@ -17,15 +17,15 @@ public class Main {
     private static NotificationManager getNotificationManager() {
         NotificationManager notificationManager = new NotificationManager();
 
-        notificationManager.registerHandler("email",
+        notificationManager.registerHandler(NotificationType.EMAIL,
                 (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
         );
 
-        notificationManager.registerHandler("sms",
+        notificationManager.registerHandler(NotificationType.SMS,
                 (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
         );
 
-        notificationManager.registerHandler("push",
+        notificationManager.registerHandler(NotificationType.PUSH,
                 (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
         );
 
