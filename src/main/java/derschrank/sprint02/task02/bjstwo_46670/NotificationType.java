@@ -12,7 +12,7 @@ public enum NotificationType {
 
     private final Consumer<Notification> sender;
 
-    NotificationType(Consumer<Notification> consumer){
+    NotificationType(Consumer<Notification> consumer) {
         this.sender = consumer;
     }
 }
