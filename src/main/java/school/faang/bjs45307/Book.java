@@ -1,12 +1,14 @@
 package school.faang.bjs45307;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Book {
-    private String title;
-    private String author;
-    private int year;
+    private final String title;
+    private final String author;
+    private final int year;
 }
