@@ -1,17 +1,18 @@
 package school.faang.sprint_2.task_46288;
 
 public record Droid(String name) {
+    private static final int ABC_SIZE = 26;
 
     public void sendMessage(Droid droid, String message, int key) {
         if (message == null || message.isEmpty()) {
             throw new IllegalArgumentException("Message cannot be empty or null!");
         }
-        System.out.println(droid.name() + " sent an encrypted message: " + encryptMessage(message, key));
+        System.out.printf("%s sent an encrypted message: %s\n", droid.name(), encryptMessage(message, key));
         receiveMessage(droid.name(), encryptMessage(message, key), key);
     }
 
     public void receiveMessage(String droidName, String encryptedMessage, int key) {
-        System.out.println(droidName + " received a decrypted message: " + decryptMessage(encryptedMessage, key));
+        System.out.printf("%s received a decrypted message: %s\n", droidName, decryptMessage(encryptedMessage, key));
     }
 
     public String encryptMessage(String message, int key) {
@@ -20,7 +21,7 @@ public record Droid(String name) {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptorKey) % 26 + base));
+                    encryptedMessage.append((char) ((ch - base + encryptorKey) % ABC_SIZE + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -36,7 +37,7 @@ public record Droid(String name) {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - encryptorKey + 26) % 26 + base));
+                    decryptedMessage.append((char) ((ch - base - encryptorKey + ABC_SIZE) % ABC_SIZE + base));
                 } else {
                     decryptedMessage.append(ch);
                 }
