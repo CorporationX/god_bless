@@ -4,12 +4,24 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.RequiredArgsConstructor;
 
-//@ToString
-//@Getter
-//@Setter
-//@RequiredArgsConstructor
-//@EqualsAndHashCode
-public record Product(int id, String name, String category) {
+@ToString
+@Getter
+@Setter
+@EqualsAndHashCode
+public final class Product {
+    private int id;
+    private final String name;
+    private final String category;
+
+    public Product(String name, String category) {
+        idGenerator();
+        this.name = name;
+        this.category = category;
+    }
+
+    private int idGenerator() {
+        this.id = id++;
+        return this.id;
+    }
 }
