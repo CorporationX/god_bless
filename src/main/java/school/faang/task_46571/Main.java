@@ -26,7 +26,6 @@ public class Main {
             double longitudeDiff = Math.abs(location.longitude() - baseLongitude);
             return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
         });
-
         System.out.println(distances);
     }
 }
