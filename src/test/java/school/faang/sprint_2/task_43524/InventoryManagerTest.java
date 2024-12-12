@@ -35,7 +35,7 @@ class InventoryManagerTest {
     public void givenInventory_whenRemoveItem_thenReturnInventoryWithoutItem() {
         manager.addItem(frodo, ring, printMessage);
         manager.removeItem(frodo, filter);
-        assertEquals(0, frodo.getInventory().size());
+        assertFalse(frodo.getInventory().contains(ring));
     }
 
     @Test
