@@ -15,8 +15,8 @@ public class Main {
 
     private static void printAllChatacters(List<Character> characters) {
         for (Character character : characters) {
-            System.out.println(String.format("Персонаж: %s в своем инвентаре имеет следующие предметы: %s"
-                    , character.getName(), character.getInventory().toString()));
+            System.out.println(String.format("Персонаж: %s в своем инвентаре имеет следующие предметы: %s",
+                    character.getName(), character.getInventory().toString()));
         }
     }
 
@@ -28,8 +28,8 @@ public class Main {
         Item ring = new Item("The One Ring", 800);
 
         manager.addItem(character, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
-        manager.updateItem(character, (item) -> item.getName().equals("The One Ring")
-                , (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(character, (item) -> item.getName().equals("The One Ring"),
+                (item) -> new Item(item.getName(), item.getValue() * 2));
     }
 
     private static void removeItems(InventoryManager manager, List<Character> characters) {
