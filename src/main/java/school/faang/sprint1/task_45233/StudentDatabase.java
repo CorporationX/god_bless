@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 public class StudentDatabase {
 
-    private Map<Student, Map<Subject, Integer>> studentBySubjectAndEstimation = new HashMap<>();
-    private Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentBySubjectAndEstimation = new HashMap<>();
+    private final Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
 
     public void addGradeByStudents(Student student, Map<Subject, Integer> subjectAndEstimation) {
         studentBySubjectAndEstimation.put(student, subjectAndEstimation);
@@ -64,6 +63,9 @@ public class StudentDatabase {
         List<Student> students = studentsBySubject.get(subject);
         if (students != null) {
             students.remove(student);
+        }
+        if (students == null || students.isEmpty()) {
+            studentsBySubject.remove(subject);
         }
     }
 

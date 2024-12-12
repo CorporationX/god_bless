@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private HashMap<Student, Map<Subject, Integer>> studentBySubjectAndEstimation;
-    private HashMap<Subject, List<Student>> studentsBySubject;
+    private Map<Student, Map<Subject, Integer>> studentBySubjectAndEstimation;
+    private Map<Subject, List<Student>> studentsBySubject;
 
     public static void main(String[] args) {
         StudentDatabase studentDatabase = new StudentDatabase();
