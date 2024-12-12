@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 @Getter
 public class InventoryManager {
@@ -48,5 +49,10 @@ public class InventoryManager {
         validate(character, "character", predicate, "predicate", function, "function");
 
         character.getInventory().replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
+
+//        List<Item> updatedInventory = Stream.concat(
+//                inventory.stream().filter(predicate.negate()),
+//                inventory.stream().filter(predicate).map(action)
+//        ).toList();
     }
 }
