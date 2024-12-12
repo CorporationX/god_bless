@@ -20,7 +20,7 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersByAge = new HashMap<>();
-        for (User user : users){
+        for (User user : users) {
             List<User> usersInList = usersByAge.get(user.getAge());
             if (usersInList == null) {
                 usersInList = new ArrayList<>();
