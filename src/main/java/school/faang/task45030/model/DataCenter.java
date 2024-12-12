@@ -7,5 +7,5 @@ import java.util.List;
 
 @Getter
 public class DataCenter {
-    private final List<Server> serverList = new ArrayList<>();
+    private final List<Server> servers = new ArrayList<>();
 }

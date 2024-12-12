@@ -2,6 +2,7 @@ package school.faang.task45030;
 
 import school.faang.task45030.model.ResourceRequest;
 import school.faang.task45030.model.Server;
+import school.faang.task45030.model.Strategy;
 import school.faang.task45030.service.DataCenterService;
 
 public class Main {
@@ -25,25 +26,31 @@ public class Main {
         ResourceRequest request3 = new ResourceRequest(8);
         ResourceRequest request4 = new ResourceRequest(9);
 
-        service.allocateResources(request1);
-        service.allocateResources(request2);
-        service.allocateResources(request3);
-        service.allocateResources(request4);
+        if (!service.allocateResources(request1) ||
+                !service.allocateResources(request2) ||
+                !service.allocateResources(request3) ||
+                !service.allocateResources(request4)) {
+            System.out.println("Cannot allocate all the resources!");
+        }
 
         System.out.println("Total energy consumption before energy optimization: "
                 + service.getTotalEnergyConsumption());
-        service.optimizeByEnergy();
+        service.setStrategy(Strategy.ByEnergyEfficiency);
+        service.optimize();
         System.out.println("Total energy consumption after energy optimization: "
                 + service.getTotalEnergyConsumption());
-        service.optimizeByLoad();
+        service.setStrategy(Strategy.ByLoad);
+        service.optimize();
 
         service.releaseResources(request4);
         System.out.println("Total energy consumption before energy optimization: "
                 + service.getTotalEnergyConsumption());
-        service.optimizeByEnergy();
+        service.setStrategy(Strategy.ByEnergyEfficiency);
+        service.optimize();
         System.out.println("Total energy consumption after energy optimization: "
                 + service.getTotalEnergyConsumption());
-        service.optimizeByLoad();
+        service.setStrategy(Strategy.ByLoad);
+        service.optimize();
 
         service.removeServer(server1);
         service.removeServer(server5);

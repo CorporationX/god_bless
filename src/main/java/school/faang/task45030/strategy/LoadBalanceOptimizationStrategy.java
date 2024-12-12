@@ -9,7 +9,7 @@ public class LoadBalanceOptimizationStrategy implements OptimizationStrategy {
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getServerList();
+        List<Server> servers = dataCenter.getServers();
         double totalLoad = 0;
         int avaibleServers = 0;
 
