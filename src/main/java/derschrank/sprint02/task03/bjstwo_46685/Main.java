@@ -22,11 +22,13 @@ public class Main {
         System.out.println(superImage); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
 
         // Комбинирование фильтров
-        UnaryOperator<Image> combinedFilter1 = filterProcessor.combineFilters(FilterType.SUPER.getFilter(), FilterType.SEPIA.getFilter());
+        UnaryOperator<Image> combinedFilter1 = filterProcessor.combineFilters(FilterType.SUPER.getFilter(),
+                FilterType.SEPIA.getFilter());
         Image combinedImage1 = filterProcessor.applyFilter(originalImage, combinedFilter1);
         System.out.println(combinedImage1); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
 
-        UnaryOperator<Image> combinedFilter2 = filterProcessor.combineFilters(combinedFilter1, FilterType.GRAYSCALE.getFilter());
+        UnaryOperator<Image> combinedFilter2 = filterProcessor.combineFilters(combinedFilter1,
+                FilterType.GRAYSCALE.getFilter());
         Image combinedImage2 = filterProcessor.applyFilter(originalImage, combinedFilter2);
         System.out.println(combinedImage2); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
     }
