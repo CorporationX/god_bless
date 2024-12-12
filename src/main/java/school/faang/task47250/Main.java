@@ -16,7 +16,8 @@ public class Main {
         System.out.println();
         UserActionAnalyzer.topPopularHashtags(actions).forEach(System.out::println);
         System.out.println();
-        UserActionAnalyzer.actionTypePercentages(actions).forEach((key, value) -> System.out.println(key.getName() + " " + value));
+        UserActionAnalyzer.actionTypePercentages(actions)
+                .forEach((key, value) -> System.out.println(key.getName() + " " + value));
     }
 
     private static List<UserAction> generateData() {
