@@ -3,8 +3,6 @@ package school.faang.task_bjs245611;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 @Getter
@@ -12,6 +10,5 @@ import java.util.List;
 public class Character {
     @NonNull
     private String name;
-    @Setter
-    private List<Item> inventory = new ArrayList<>();
+    private final List<Item> inventory = new ArrayList<>();
 }
