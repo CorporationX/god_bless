@@ -10,70 +10,76 @@ import java.util.*;
 public class BookingSystem {
     private static final Logger logger = LoggerFactory.getLogger(BookingSystem.class);
 
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Booking> bookings = new ArrayList<>();
+    private final Map<Integer, Room> rooms = new HashMap<>();
+    private final Map<Integer, Booking> bookings = new HashMap<>();
     private final BookingNotifier notifier = new BookingNotifier();
 
     public void addRoom(Room room) {
-        rooms.add(room);
+        if (room == null) {
+            throw new IllegalArgumentException("Room cannot be null.");
+        }
+        rooms.put(room.getRoomId(), room);
         logger.info("Room added: {}", room);
     }
 
     public void removeRoom(int roomId) {
-        rooms.removeIf(room -> room.getRoomId() == roomId);
-        logger.info("Room removed with ID: {}", roomId);
+        if (rooms.remove(roomId) != null) {
+            logger.info("Room removed with ID: {}", roomId);
+        } else {
+            logger.warn("Room with ID {} not found.", roomId);
+        }
     }
 
     public void bookRoom(int roomId, String date, String timeSlot) {
-        for (Room room : rooms) {
-            if (room.getRoomId() == roomId) {
-                Booking booking = new Booking(bookings.size() + 1, room, date, timeSlot);
-                bookings.add(booking);
-                notifier.notifyObservers(booking, "Booked");
-                logger.info("Room booked: {}", booking);
-                return;
-            }
+        if (date == null || date.trim().isEmpty() || timeSlot == null || timeSlot.trim().isEmpty()) {
+            throw new IllegalArgumentException("Date and timeSlot cannot be null or empty.");
         }
-        throw new IllegalArgumentException("Room not found");
+        Room room = rooms.get(roomId);
+        if (room == null) {
+            throw new IllegalArgumentException("Room not found");
+        }
+        Booking booking = new Booking(bookings.size() + 1, room, date, timeSlot);
+        bookings.put(booking.getBookingId(), booking);
+        notifier.notifyObservers(booking, "Booked");
+        logger.info("Room booked: {}", booking);
     }
 
     public void cancelBooking(int bookingId) {
-        Iterator<Booking> iterator = bookings.iterator();
-        while (iterator.hasNext()) {
-            Booking booking = iterator.next();
-            if (booking.getBookingId() == bookingId) {
-                iterator.remove();
-                notifier.notifyObservers(booking, "Cancelled");
-                logger.info("Booking cancelled: {}", booking);
-                return;
-            }
+        Booking booking = bookings.remove(bookingId);
+        if (booking != null) {
+            notifier.notifyObservers(booking, "Cancelled");
+            logger.info("Booking cancelled: {}", booking);
+        } else {
+            throw new IllegalArgumentException("Booking not found");
         }
-        throw new IllegalArgumentException("Booking not found");
     }
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-    if (date == null || date.trim().isEmpty() || timeSlot == null || timeSlot.trim().isEmpty() || requiredAmenities == null) {
-        logger.error("Invalid input parameters: date={}, timeSlot={}, requiredAmenities={}", date, timeSlot, requiredAmenities);
-        return Collections.emptyList();
-    }
-
-    List<Room> availableRooms = new ArrayList<>();
-    for (Room room : rooms) {
-        boolean isAvailable = bookings.stream()
-                .noneMatch(booking -> booking.getRoom().getRoomId() == room.getRoomId()
-                        && booking.getDate().equals(date)
-                        && booking.getTimeSlot().equals(timeSlot));
-        if (isAvailable && room.getAmenities().containsAll(requiredAmenities)) {
-            availableRooms.add(room);
+        if (date == null || date.trim().isEmpty() || timeSlot == null || timeSlot.trim().isEmpty() || requiredAmenities == null) {
+            logger.error("Invalid input parameters: date={}, timeSlot={}, requiredAmenities={}", date, timeSlot, requiredAmenities);
+            return Collections.emptyList();
         }
+
+        List<Room> availableRooms = new ArrayList<>();
+        for (Room room : rooms.values()) {
+            boolean isAvailable = bookings.values().stream()
+                    .noneMatch(booking -> booking.getRoom().getRoomId() == room.getRoomId()
+                            && booking.getDate().equals(date)
+                            && booking.getTimeSlot().equals(timeSlot));
+            if (isAvailable && room.getAmenities().containsAll(requiredAmenities)) {
+                availableRooms.add(room);
+            }
+        }
+        logger.info("Available rooms found: {}", availableRooms);
+        return availableRooms;
     }
-    logger.info("Available rooms found: {}", availableRooms);
-    return availableRooms;
-}
 
     public List<Booking> findBookingsForDate(String date) {
+        if (date == null || date.trim().isEmpty()) {
+            throw new IllegalArgumentException("Date cannot be null or empty.");
+        }
         List<Booking> bookingsForDate = new ArrayList<>();
-        for (Booking booking : bookings) {
+        for (Booking booking : bookings.values()) {
             if (booking.getDate().equals(date)) {
                 bookingsForDate.add(booking);
             }
@@ -83,10 +89,16 @@ public class BookingSystem {
     }
 
     public void addObserver(BookingObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("Observer cannot be null.");
+        }
         notifier.addObserver(observer);
     }
 
     public void removeObserver(BookingObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("Observer cannot be null.");
+        }
         notifier.removeObserver(observer);
     }
 }
