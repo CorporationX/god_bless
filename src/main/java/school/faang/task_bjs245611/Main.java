@@ -13,7 +13,8 @@ public class Main {
         frodoInventoryManager.addItem(new Item("Silver ring", 600),
                 item -> System.out.println("В инвентаре новый предмет: " + item.getName()));
         frodoInventoryManager.removeItem(item -> item.getName().equals("Iron sword"));
-        frodoInventoryManager.updateItem(item -> item.getValue() > 800, item -> new Item(item.getName(), item.getValue() / 2));
+        frodoInventoryManager.updateItem(item -> item.getValue() > 800,
+                item -> new Item(item.getName(), item.getValue() / 2));
         System.out.println(character1.getInventory());
     }
 }
