@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer,
                               Function<Email, String> function) {
-        var filteredEmails = emails.stream().filter(email -> predicate.test(email)).toList();
+        List<Email> filteredEmails = emails.stream().filter(predicate).toList();
         filteredEmails.forEach(emailToProcess -> {
             var processedEmail = function.apply(emailToProcess);
             emailToProcess.setBody(processedEmail);
