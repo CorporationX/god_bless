@@ -1,4 +1,4 @@
-package school.faang.task_BJS2_46888;
+package school.faang.bjs2x46888;
 
 
 
