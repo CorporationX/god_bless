@@ -12,8 +12,14 @@ public class NotificationManager {
     private final Map<String, Consumer<Notification>> notifications = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> consumer) {
-        Optional.ofNullable(type).ifPresent(s -> notifications.put(type, consumer));
-        log.info("the type have added");
+
+        Optional.ofNullable(type)
+                .filter(t -> !t.isEmpty())
+                .flatMap(t -> Optional.ofNullable(consumer))
+                .ifPresent(c -> {
+                    notifications.put(type, c);
+                    log.info("The type '{}' have put", type);
+                });
     }
 
     public void sendNotification(Notification notification) {
