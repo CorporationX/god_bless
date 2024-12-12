@@ -32,7 +32,7 @@ public abstract class WeatherCacheTemplate {
         cache.put(city, weatherData);
     }
 
-    public void removeExpiredWeatherData(long maxCacheAgeMillis) {
+    public void weatherDataToRemove(long maxCacheAgeMillis) {
         List<WeatherData> listOfExpiredWeatherData = new ArrayList<>();
         for (WeatherData weatherData : cache.values()) {
             if (System.currentTimeMillis() - weatherData.getTimestamp() > maxCacheAgeMillis) {
