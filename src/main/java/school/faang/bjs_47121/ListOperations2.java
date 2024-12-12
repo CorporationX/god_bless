@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class ListOperations2 {
     public static Map<Integer, Integer> getPairOfNumbers(List<Integer> numbers, int sum) {
@@ -38,6 +39,13 @@ public class ListOperations2 {
     public static List<String> getNumbersInBinary(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
+                .toList();
+    }
+
+    public static List<String> getFilteredAndSortedStrings(List<String> strings, String filterString) {
+        return strings.stream()
+                .filter(string -> Pattern.matches("[" + filterString + "]*", string))
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 

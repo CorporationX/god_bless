@@ -40,6 +40,14 @@ class ListOperations2Test {
         );
     }
 
+    public static Stream<Arguments> getStringsAndFilter() {
+        return Stream.of(
+                Arguments.of(Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape"),
+                        "abcdefghijklmnopqrstuvwxyz",
+                        Arrays.asList("fig", "date", "apple", "grape", "banana", "cherry"))
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("getNumbersAndSum")
     void getPairOfNumbers(List<Integer> numbers, int sum, Map<Integer, Integer> expected) {
@@ -62,5 +70,11 @@ class ListOperations2Test {
     @MethodSource("getNumbersAndBinaryStrings")
     void getNumbersInBinary(List<Integer> numbers, List<String> expected) {
         assertEquals(expected, ListOperations2.getNumbersInBinary(numbers));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getStringsAndFilter")
+    void getFilteredAndSortedStrings(List<String> strings, String filterString, List<String> expected) {
+        assertEquals(expected, ListOperations2.getFilteredAndSortedStrings(strings, filterString));
     }
 }
