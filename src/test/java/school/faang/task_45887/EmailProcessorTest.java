@@ -51,8 +51,9 @@ class EmailProcessorTest {
 
     @Test
     void testProcessEmailsWithEmptyList() {
-        assertThrows(IllegalArgumentException.class,
-            () -> emailProcessor.processEmails(List.of(), importantFilter, toUpperCase, printEmail));
+        List<Email> emptyList = List.of();
+
+        assertDoesNotThrow(() -> emailProcessor.processEmails(emptyList, importantFilter, toUpperCase, printEmail));
     }
 
     @Test
