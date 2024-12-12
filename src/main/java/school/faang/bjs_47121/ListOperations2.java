@@ -1,5 +1,6 @@
 package school.faang.bjs_47121;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,19 @@ public class ListOperations2 {
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
+                .toList();
+    }
+
+    public static List<String> getFilteredAndSortedStrings(List<String> strings, char letter) {
+        return strings.stream()
+                .filter(string -> string.startsWith(String.valueOf(letter)))
+                .sorted(Comparator.comparing(String::length))
+                .toList();
+    }
+
+    public static List<String> getNumbersInBinary(List<Integer> numbers) {
+        return numbers.stream()
+                .map(Integer::toBinaryString)
                 .toList();
     }
 
