@@ -10,6 +10,7 @@ public abstract class Character {
     public Character(String name) {
         this.name = name;
     }
+
     public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
         this.power = power;
