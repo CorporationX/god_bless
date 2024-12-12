@@ -1,4 +1,4 @@
 package school.faang.metaverse;
 
-public record Notification(String type, String message) {
+public record Notification(NotificationType type, String message) {
 }
