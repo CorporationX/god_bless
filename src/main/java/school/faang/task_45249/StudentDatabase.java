@@ -37,13 +37,16 @@ public class StudentDatabase {
         if (grades != null) {
             for (Subject subject : grades.keySet()) {
                 List<Student> studs = subjectStudents.get(subject);
-                studs.remove(stud);
+                if (studs != null) {
+                    studs.remove(stud);
+                }
             }
         }
     }
 
+
     //    вывод списка всех студентов и их оценок
-    public void printAllStud() {
+    public void printAllStudents() {
         // Проходим по каждому студенту
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentGrades.entrySet()) {
             Student student = entry.getKey();
@@ -90,7 +93,7 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllSub() {
+    public void printAllSubjects() {
         // Проходим по каждому предмету
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             Subject subject = entry.getKey();
