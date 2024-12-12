@@ -1,0 +1,1652 @@
+[
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "Java",
+      "SQL",
+      "HTML"
+    ],
+    "salary": 92439,
+    "location": "Berlin",
+    "datePosted": "2022-02-20"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "CSS",
+      "Docker",
+      "JavaScript"
+    ],
+    "salary": 97487,
+    "location": "Paris",
+    "datePosted": "2022-01-02"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "JavaScript",
+      "SQL",
+      "HTML"
+    ],
+    "salary": 192565,
+    "location": "Sydney",
+    "datePosted": "2023-05-13"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "HTML",
+      "Node.js",
+      "AWS"
+    ],
+    "salary": 54520,
+    "location": "New York",
+    "datePosted": "2023-01-06"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "CSS",
+      "Machine Learning",
+      "Azure"
+    ],
+    "salary": 57765,
+    "location": "New York",
+    "datePosted": "2022-12-11"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "HTML",
+      "Machine Learning",
+      "Java"
+    ],
+    "salary": 175793,
+    "location": "Toronto",
+    "datePosted": "2022-01-26"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "SQL",
+      "React",
+      "JavaScript"
+    ],
+    "salary": 122088,
+    "location": "Tokyo",
+    "datePosted": "2023-09-30"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Python",
+      "Machine Learning",
+      "Java"
+    ],
+    "salary": 192209,
+    "location": "London",
+    "datePosted": "2022-07-27"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "Java",
+      "Python",
+      "Azure"
+    ],
+    "salary": 120640,
+    "location": "Beijing",
+    "datePosted": "2023-03-20"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Kubernetes",
+      "Machine Learning",
+      "CSS"
+    ],
+    "salary": 123608,
+    "location": "London",
+    "datePosted": "2022-01-02"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "Agile",
+      "Azure",
+      "Java"
+    ],
+    "salary": 53855,
+    "location": "San Francisco",
+    "datePosted": "2023-07-27"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Java",
+      "CSS",
+      "React"
+    ],
+    "salary": 115592,
+    "location": "Berlin",
+    "datePosted": "2022-10-27"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Agile",
+      "Python",
+      "Docker"
+    ],
+    "salary": 53399,
+    "location": "Toronto",
+    "datePosted": "2023-03-13"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "CSS",
+      "Kubernetes",
+      "SQL"
+    ],
+    "salary": 189605,
+    "location": "San Francisco",
+    "datePosted": "2022-12-15"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "JavaScript",
+      "AWS",
+      "React"
+    ],
+    "salary": 64342,
+    "location": "Beijing",
+    "datePosted": "2023-07-28"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Spring",
+      "React",
+      "Machine Learning"
+    ],
+    "salary": 58940,
+    "location": "San Francisco",
+    "datePosted": "2022-05-17"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Kubernetes",
+      "CSS",
+      "Node.js"
+    ],
+    "salary": 156403,
+    "location": "Sydney",
+    "datePosted": "2022-08-26"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "JavaScript",
+      "Spring",
+      "HTML"
+    ],
+    "salary": 119532,
+    "location": "New York",
+    "datePosted": "2022-11-27"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Kubernetes",
+      "Docker",
+      "SQL"
+    ],
+    "salary": 136862,
+    "location": "Berlin",
+    "datePosted": "2023-07-20"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "SQL",
+      "Machine Learning",
+      "Node.js"
+    ],
+    "salary": 157950,
+    "location": "Paris",
+    "datePosted": "2022-10-13"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Java",
+      "Machine Learning",
+      "JavaScript"
+    ],
+    "salary": 75976,
+    "location": "Toronto",
+    "datePosted": "2023-07-22"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "SQL",
+      "Agile",
+      "CSS"
+    ],
+    "salary": 75191,
+    "location": "Tokyo",
+    "datePosted": "2022-09-30"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "JavaScript",
+      "Docker",
+      "SQL"
+    ],
+    "salary": 118137,
+    "location": "San Francisco",
+    "datePosted": "2023-03-07"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Spring",
+      "JavaScript",
+      "SQL"
+    ],
+    "salary": 90493,
+    "location": "Paris",
+    "datePosted": "2023-03-20"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Spring",
+      "Java",
+      "CSS"
+    ],
+    "salary": 153461,
+    "location": "Paris",
+    "datePosted": "2023-05-04"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Node.js",
+      "Agile",
+      "JavaScript"
+    ],
+    "salary": 166987,
+    "location": "Beijing",
+    "datePosted": "2023-05-09"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Java",
+      "Node.js",
+      "AWS"
+    ],
+    "salary": 119160,
+    "location": "San Francisco",
+    "datePosted": "2022-08-20"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Agile",
+      "HTML",
+      "JavaScript"
+    ],
+    "salary": 187529,
+    "location": "London",
+    "datePosted": "2022-05-22"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Machine Learning",
+      "React",
+      "SQL"
+    ],
+    "salary": 68602,
+    "location": "London",
+    "datePosted": "2022-12-22"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Kubernetes",
+      "Azure",
+      "Java"
+    ],
+    "salary": 94934,
+    "location": "Moscow",
+    "datePosted": "2023-05-02"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "React",
+      "Spring",
+      "Agile"
+    ],
+    "salary": 166675,
+    "location": "Berlin",
+    "datePosted": "2023-02-11"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "SQL",
+      "Spring",
+      "Azure"
+    ],
+    "salary": 143080,
+    "location": "Moscow",
+    "datePosted": "2023-06-02"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "CSS",
+      "SQL",
+      "Spring"
+    ],
+    "salary": 53714,
+    "location": "Tokyo",
+    "datePosted": "2022-12-05"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Spring",
+      "Python",
+      "JavaScript"
+    ],
+    "salary": 155791,
+    "location": "Paris",
+    "datePosted": "2023-06-22"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Agile",
+      "Docker",
+      "SQL"
+    ],
+    "salary": 53677,
+    "location": "Sydney",
+    "datePosted": "2022-05-24"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Machine Learning",
+      "SQL",
+      "Java"
+    ],
+    "salary": 80695,
+    "location": "Tokyo",
+    "datePosted": "2022-11-24"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Spring",
+      "Kubernetes",
+      "React"
+    ],
+    "salary": 143216,
+    "location": "San Francisco",
+    "datePosted": "2022-06-09"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "AWS",
+      "Azure",
+      "SQL"
+    ],
+    "salary": 175563,
+    "location": "Toronto",
+    "datePosted": "2022-04-11"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Node.js",
+      "AWS",
+      "Agile"
+    ],
+    "salary": 139414,
+    "location": "New York",
+    "datePosted": "2023-06-06"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "Node.js",
+      "Python",
+      "Spring"
+    ],
+    "salary": 197493,
+    "location": "New York",
+    "datePosted": "2022-02-21"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Azure",
+      "HTML",
+      "Agile"
+    ],
+    "salary": 104202,
+    "location": "Moscow",
+    "datePosted": "2023-01-17"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Docker",
+      "React",
+      "Spring"
+    ],
+    "salary": 80665,
+    "location": "Tokyo",
+    "datePosted": "2022-07-07"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Azure",
+      "AWS",
+      "Agile"
+    ],
+    "salary": 126097,
+    "location": "London",
+    "datePosted": "2023-01-01"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Docker",
+      "Kubernetes",
+      "SQL"
+    ],
+    "salary": 163583,
+    "location": "Tokyo",
+    "datePosted": "2023-07-15"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "HTML",
+      "Java",
+      "JavaScript"
+    ],
+    "salary": 109354,
+    "location": "Paris",
+    "datePosted": "2023-08-09"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "Java",
+      "Kubernetes",
+      "Docker"
+    ],
+    "salary": 89158,
+    "location": "Sydney",
+    "datePosted": "2022-07-14"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Kubernetes",
+      "Node.js",
+      "HTML"
+    ],
+    "salary": 180352,
+    "location": "London",
+    "datePosted": "2022-09-04"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "AWS",
+      "Docker",
+      "Agile"
+    ],
+    "salary": 154392,
+    "location": "Toronto",
+    "datePosted": "2022-01-03"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Kubernetes",
+      "Python",
+      "React"
+    ],
+    "salary": 130622,
+    "location": "Paris",
+    "datePosted": "2022-01-01"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "CSS",
+      "Machine Learning",
+      "Kubernetes"
+    ],
+    "salary": 114252,
+    "location": "San Francisco",
+    "datePosted": "2022-12-15"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "JavaScript",
+      "Agile",
+      "Machine Learning"
+    ],
+    "salary": 143942,
+    "location": "Tokyo",
+    "datePosted": "2023-05-28"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Python",
+      "Machine Learning",
+      "Agile"
+    ],
+    "salary": 87475,
+    "location": "Toronto",
+    "datePosted": "2022-04-16"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "JavaScript",
+      "Kubernetes",
+      "Azure"
+    ],
+    "salary": 57557,
+    "location": "Beijing",
+    "datePosted": "2022-01-21"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "HTML",
+      "Kubernetes",
+      "Python"
+    ],
+    "salary": 95560,
+    "location": "Beijing",
+    "datePosted": "2022-07-20"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Machine Learning",
+      "Spring",
+      "CSS"
+    ],
+    "salary": 188667,
+    "location": "Berlin",
+    "datePosted": "2023-07-26"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "HTML",
+      "Java",
+      "Docker"
+    ],
+    "salary": 60171,
+    "location": "London",
+    "datePosted": "2022-01-05"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "JavaScript",
+      "Spring",
+      "Node.js"
+    ],
+    "salary": 127117,
+    "location": "Tokyo",
+    "datePosted": "2022-05-07"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Kubernetes",
+      "SQL",
+      "CSS"
+    ],
+    "salary": 102780,
+    "location": "New York",
+    "datePosted": "2022-01-02"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "AWS",
+      "Spring",
+      "Java"
+    ],
+    "salary": 189633,
+    "location": "Moscow",
+    "datePosted": "2023-02-11"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "SQL",
+      "Docker",
+      "Machine Learning"
+    ],
+    "salary": 182308,
+    "location": "Moscow",
+    "datePosted": "2023-09-17"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Agile",
+      "Kubernetes",
+      "Machine Learning"
+    ],
+    "salary": 109834,
+    "location": "London",
+    "datePosted": "2022-01-28"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Java",
+      "React",
+      "Agile"
+    ],
+    "salary": 194527,
+    "location": "Paris",
+    "datePosted": "2022-02-14"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "JavaScript",
+      "React",
+      "Spring"
+    ],
+    "salary": 62982,
+    "location": "London",
+    "datePosted": "2022-12-17"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Machine Learning",
+      "Azure",
+      "Node.js"
+    ],
+    "salary": 51680,
+    "location": "San Francisco",
+    "datePosted": "2022-02-16"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "CSS",
+      "Python",
+      "JavaScript"
+    ],
+    "salary": 55324,
+    "location": "Toronto",
+    "datePosted": "2022-09-20"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Java",
+      "HTML",
+      "AWS"
+    ],
+    "salary": 124988,
+    "location": "Berlin",
+    "datePosted": "2022-02-03"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "JavaScript",
+      "HTML",
+      "Machine Learning"
+    ],
+    "salary": 118167,
+    "location": "San Francisco",
+    "datePosted": "2023-03-30"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Python",
+      "Node.js",
+      "HTML"
+    ],
+    "salary": 124945,
+    "location": "Moscow",
+    "datePosted": "2023-07-08"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "CSS",
+      "HTML",
+      "AWS"
+    ],
+    "salary": 113309,
+    "location": "Moscow",
+    "datePosted": "2023-03-15"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Node.js",
+      "Azure",
+      "SQL"
+    ],
+    "salary": 111272,
+    "location": "Sydney",
+    "datePosted": "2023-05-17"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "CSS",
+      "Kubernetes",
+      "React"
+    ],
+    "salary": 76963,
+    "location": "New York",
+    "datePosted": "2022-07-04"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Spring",
+      "Docker",
+      "AWS"
+    ],
+    "salary": 86166,
+    "location": "New York",
+    "datePosted": "2022-12-19"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Node.js",
+      "JavaScript",
+      "Python"
+    ],
+    "salary": 131973,
+    "location": "Toronto",
+    "datePosted": "2022-06-13"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "JavaScript",
+      "Azure",
+      "Docker"
+    ],
+    "salary": 92207,
+    "location": "Berlin",
+    "datePosted": "2022-01-01"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "HTML",
+      "Spring",
+      "Node.js"
+    ],
+    "salary": 159424,
+    "location": "Sydney",
+    "datePosted": "2023-03-02"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Azure",
+      "React",
+      "AWS"
+    ],
+    "salary": 157755,
+    "location": "London",
+    "datePosted": "2022-08-17"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "Spring",
+      "React",
+      "Docker"
+    ],
+    "salary": 114598,
+    "location": "San Francisco",
+    "datePosted": "2023-02-15"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Kubernetes",
+      "CSS",
+      "Node.js"
+    ],
+    "salary": 141830,
+    "location": "Beijing",
+    "datePosted": "2022-05-08"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "CSS",
+      "Agile",
+      "JavaScript"
+    ],
+    "salary": 76700,
+    "location": "New York",
+    "datePosted": "2023-01-09"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "SQL",
+      "AWS",
+      "Node.js"
+    ],
+    "salary": 152209,
+    "location": "Beijing",
+    "datePosted": "2023-02-28"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "React",
+      "Kubernetes",
+      "Machine Learning"
+    ],
+    "salary": 165274,
+    "location": "Tokyo",
+    "datePosted": "2022-10-21"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Machine Learning",
+      "Java",
+      "Kubernetes"
+    ],
+    "salary": 140662,
+    "location": "Beijing",
+    "datePosted": "2022-12-20"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Machine Learning",
+      "Python",
+      "Kubernetes"
+    ],
+    "salary": 110561,
+    "location": "London",
+    "datePosted": "2023-08-17"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Azure",
+      "Kubernetes",
+      "Node.js"
+    ],
+    "salary": 76660,
+    "location": "London",
+    "datePosted": "2022-06-03"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "Spring",
+      "Azure",
+      "AWS"
+    ],
+    "salary": 197341,
+    "location": "Tokyo",
+    "datePosted": "2022-05-04"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "SQL",
+      "Spring",
+      "HTML"
+    ],
+    "salary": 90618,
+    "location": "New York",
+    "datePosted": "2023-05-23"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Kubernetes",
+      "Docker",
+      "Azure"
+    ],
+    "salary": 168567,
+    "location": "Berlin",
+    "datePosted": "2022-02-03"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Python",
+      "Azure",
+      "CSS"
+    ],
+    "salary": 89874,
+    "location": "Tokyo",
+    "datePosted": "2022-01-22"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "SQL",
+      "CSS",
+      "Node.js"
+    ],
+    "salary": 150979,
+    "location": "New York",
+    "datePosted": "2023-09-17"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Kubernetes",
+      "Azure",
+      "AWS"
+    ],
+    "salary": 101860,
+    "location": "London",
+    "datePosted": "2023-01-28"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Spring",
+      "Machine Learning",
+      "Docker"
+    ],
+    "salary": 171756,
+    "location": "San Francisco",
+    "datePosted": "2022-05-13"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Kubernetes",
+      "Java",
+      "JavaScript"
+    ],
+    "salary": 191808,
+    "location": "London",
+    "datePosted": "2023-04-14"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Agile",
+      "React",
+      "SQL"
+    ],
+    "salary": 106554,
+    "location": "Toronto",
+    "datePosted": "2022-11-08"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Java",
+      "AWS",
+      "Spring"
+    ],
+    "salary": 153617,
+    "location": "Beijing",
+    "datePosted": "2023-07-25"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "Machine Learning",
+      "AWS",
+      "HTML"
+    ],
+    "salary": 69919,
+    "location": "Tokyo",
+    "datePosted": "2023-04-19"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "Agile",
+      "SQL",
+      "Node.js"
+    ],
+    "salary": 190804,
+    "location": "Paris",
+    "datePosted": "2022-05-04"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Python",
+      "AWS",
+      "JavaScript"
+    ],
+    "salary": 73780,
+    "location": "London",
+    "datePosted": "2022-12-30"
+  },
+  {
+    "position": "UX/UI Designer",
+    "requirements": [
+      "Node.js",
+      "Agile",
+      "Spring"
+    ],
+    "salary": 98253,
+    "location": "New York",
+    "datePosted": "2023-05-26"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "HTML",
+      "Python",
+      "JavaScript"
+    ],
+    "salary": 101004,
+    "location": "San Francisco",
+    "datePosted": "2023-07-21"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "HTML",
+      "Azure",
+      "Node.js"
+    ],
+    "salary": 175379,
+    "location": "Moscow",
+    "datePosted": "2023-01-06"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "AWS",
+      "Node.js",
+      "Python"
+    ],
+    "salary": 129522,
+    "location": "Sydney",
+    "datePosted": "2023-02-18"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "CSS",
+      "Agile",
+      "HTML"
+    ],
+    "salary": 99748,
+    "location": "New York",
+    "datePosted": "2023-08-23"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Kubernetes",
+      "Spring",
+      "React"
+    ],
+    "salary": 87181,
+    "location": "Paris",
+    "datePosted": "2023-04-02"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "JavaScript",
+      "CSS",
+      "Agile"
+    ],
+    "salary": 93401,
+    "location": "Tokyo",
+    "datePosted": "2023-07-28"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Agile",
+      "JavaScript",
+      "Node.js"
+    ],
+    "salary": 166458,
+    "location": "Berlin",
+    "datePosted": "2022-11-18"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Azure",
+      "SQL",
+      "Docker"
+    ],
+    "salary": 74594,
+    "location": "Moscow",
+    "datePosted": "2023-03-10"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "AWS",
+      "SQL",
+      "Azure"
+    ],
+    "salary": 91055,
+    "location": "New York",
+    "datePosted": "2022-06-03"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "SQL",
+      "Node.js",
+      "Agile"
+    ],
+    "salary": 175127,
+    "location": "Moscow",
+    "datePosted": "2022-12-19"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Docker",
+      "Spring",
+      "HTML"
+    ],
+    "salary": 75555,
+    "location": "London",
+    "datePosted": "2023-03-08"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Spring",
+      "Python",
+      "JavaScript"
+    ],
+    "salary": 76093,
+    "location": "Paris",
+    "datePosted": "2022-06-26"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Spring",
+      "Python",
+      "JavaScript"
+    ],
+    "salary": 191320,
+    "location": "Beijing",
+    "datePosted": "2023-05-28"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Spring",
+      "HTML",
+      "CSS"
+    ],
+    "salary": 120163,
+    "location": "Beijing",
+    "datePosted": "2022-01-18"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "Node.js",
+      "Agile",
+      "JavaScript"
+    ],
+    "salary": 141297,
+    "location": "Paris",
+    "datePosted": "2022-05-11"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "AWS",
+      "Java",
+      "CSS"
+    ],
+    "salary": 103980,
+    "location": "Beijing",
+    "datePosted": "2023-06-18"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Azure",
+      "Docker",
+      "JavaScript"
+    ],
+    "salary": 152475,
+    "location": "Berlin",
+    "datePosted": "2022-07-07"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "JavaScript",
+      "Java",
+      "AWS"
+    ],
+    "salary": 188312,
+    "location": "Sydney",
+    "datePosted": "2022-08-07"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Azure",
+      "HTML",
+      "Python"
+    ],
+    "salary": 166814,
+    "location": "London",
+    "datePosted": "2023-05-05"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Docker",
+      "SQL",
+      "Agile"
+    ],
+    "salary": 175205,
+    "location": "San Francisco",
+    "datePosted": "2022-02-24"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "Docker",
+      "Azure",
+      "Machine Learning"
+    ],
+    "salary": 122098,
+    "location": "Beijing",
+    "datePosted": "2022-04-03"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "React",
+      "Docker",
+      "Machine Learning"
+    ],
+    "salary": 164994,
+    "location": "Moscow",
+    "datePosted": "2022-08-05"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Agile",
+      "Azure",
+      "Java"
+    ],
+    "salary": 126978,
+    "location": "Beijing",
+    "datePosted": "2022-05-04"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Docker",
+      "JavaScript",
+      "Agile"
+    ],
+    "salary": 121578,
+    "location": "Toronto",
+    "datePosted": "2022-12-26"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Machine Learning",
+      "Docker",
+      "React"
+    ],
+    "salary": 149136,
+    "location": "Moscow",
+    "datePosted": "2023-05-12"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Spring",
+      "AWS",
+      "CSS"
+    ],
+    "salary": 199616,
+    "location": "Berlin",
+    "datePosted": "2023-09-11"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Spring",
+      "JavaScript",
+      "Agile"
+    ],
+    "salary": 198744,
+    "location": "London",
+    "datePosted": "2022-09-13"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "SQL",
+      "Azure",
+      "HTML"
+    ],
+    "salary": 98051,
+    "location": "London",
+    "datePosted": "2022-06-22"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "JavaScript",
+      "SQL",
+      "AWS"
+    ],
+    "salary": 75035,
+    "location": "Berlin",
+    "datePosted": "2023-09-06"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Machine Learning",
+      "Kubernetes",
+      "Java"
+    ],
+    "salary": 180840,
+    "location": "Beijing",
+    "datePosted": "2023-02-14"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Java",
+      "JavaScript",
+      "HTML"
+    ],
+    "salary": 152441,
+    "location": "San Francisco",
+    "datePosted": "2023-02-11"
+  },
+  {
+    "position": "Backend Developer",
+    "requirements": [
+      "HTML",
+      "Agile",
+      "AWS"
+    ],
+    "salary": 157385,
+    "location": "San Francisco",
+    "datePosted": "2023-08-19"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Agile",
+      "JavaScript",
+      "React"
+    ],
+    "salary": 173399,
+    "location": "Sydney",
+    "datePosted": "2023-09-27"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "AWS",
+      "Python",
+      "Azure"
+    ],
+    "salary": 94413,
+    "location": "Beijing",
+    "datePosted": "2023-01-28"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Python",
+      "Docker",
+      "SQL"
+    ],
+    "salary": 157745,
+    "location": "Tokyo",
+    "datePosted": "2023-04-23"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Agile",
+      "Java",
+      "Python"
+    ],
+    "salary": 151705,
+    "location": "Tokyo",
+    "datePosted": "2023-09-21"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "React",
+      "Java",
+      "Azure"
+    ],
+    "salary": 130900,
+    "location": "San Francisco",
+    "datePosted": "2022-02-25"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "SQL",
+      "JavaScript",
+      "HTML"
+    ],
+    "salary": 171552,
+    "location": "Tokyo",
+    "datePosted": "2022-02-15"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "HTML",
+      "SQL",
+      "Python"
+    ],
+    "salary": 114636,
+    "location": "New York",
+    "datePosted": "2022-01-16"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "HTML",
+      "Java",
+      "Agile"
+    ],
+    "salary": 107279,
+    "location": "Paris",
+    "datePosted": "2023-08-19"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Python",
+      "Azure",
+      "Kubernetes"
+    ],
+    "salary": 166388,
+    "location": "Berlin",
+    "datePosted": "2023-02-05"
+  },
+  {
+    "position": "Data Scientist",
+    "requirements": [
+      "Azure",
+      "SQL",
+      "Docker"
+    ],
+    "salary": 127939,
+    "location": "Paris",
+    "datePosted": "2022-08-31"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Node.js",
+      "Docker",
+      "HTML"
+    ],
+    "salary": 58227,
+    "location": "Paris",
+    "datePosted": "2022-03-23"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "Python",
+      "Azure",
+      "Spring"
+    ],
+    "salary": 50575,
+    "location": "Paris",
+    "datePosted": "2023-03-23"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "JavaScript",
+      "Python",
+      "Docker"
+    ],
+    "salary": 139251,
+    "location": "San Francisco",
+    "datePosted": "2023-03-14"
+  },
+  {
+    "position": "QA Engineer",
+    "requirements": [
+      "CSS",
+      "SQL",
+      "Agile"
+    ],
+    "salary": 122990,
+    "location": "London",
+    "datePosted": "2022-11-02"
+  },
+  {
+    "position": "Frontend Developer",
+    "requirements": [
+      "CSS",
+      "Spring",
+      "Java"
+    ],
+    "salary": 96755,
+    "location": "Toronto",
+    "datePosted": "2022-12-10"
+  },
+  {
+    "position": "Software Engineer",
+    "requirements": [
+      "Agile",
+      "CSS",
+      "JavaScript"
+    ],
+    "salary": 124234,
+    "location": "Beijing",
+    "datePosted": "2023-06-16"
+  },
+  {
+    "position": "Database Administrator",
+    "requirements": [
+      "Node.js",
+      "AWS",
+      "CSS"
+    ],
+    "salary": 157246,
+    "location": "Paris",
+    "datePosted": "2023-06-18"
+  },
+  {
+    "position": "DevOps Engineer",
+    "requirements": [
+      "Python",
+      "Kubernetes",
+      "Machine Learning"
+    ],
+    "salary": 134585,
+    "location": "London",
+    "datePosted": "2023-06-18"
+  },
+  {
+    "position": "Cloud Architect",
+    "requirements": [
+      "Machine Learning",
+      "JavaScript",
+      "Agile"
+    ],
+    "salary": 103857,
+    "location": "Berlin",
+    "datePosted": "2022-01-16"
+  },
+  {
+    "position": "Product Manager",
+    "requirements": [
+      "CSS",
+      "Spring",
+      "AWS"
+    ],
+    "salary": 95544,
+    "location": "San Francisco",
+    "datePosted": "2023-04-25"
+  }
+]
