@@ -5,11 +5,11 @@ import java.util.function.Supplier;
 public class ErrorHandler {
 
     public static <T> T withErrorHandling(Supplier<T> supplier,
-                                          ExceptionSupplier<T> exceptionSupplier) {
+                                          ExceptionHandler<T> exceptionHandler) {
         try {
             return supplier.get();
         } catch (Exception e) {
-            return exceptionSupplier.handle(e);
+            return exceptionHandler.handle(e);
         }
     }
 
