@@ -15,7 +15,8 @@ public class LibrarySystem {
         if (!Main.books.containsKey(new Book(title, author, year))) {
             return "Такой книги нет в библиотеке";
         }
-        return "Книга " + title + " находится в локации: " + Main.books.get(new Book(title, author, year));
+        return String.format("Книга %s находится в локации: %s",
+                title, Main.books.get(new Book(title, author, year)));
     }
 
     public static void printAllBooks() {

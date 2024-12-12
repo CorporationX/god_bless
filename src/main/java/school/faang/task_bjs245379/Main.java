@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static Map<Book, String> books = new HashMap<>();
+    static Map<Book, String> books = new HashMap<>();
 
     public static void main(String[] args) {
         LibrarySystem.addBook("Война и мир", "Толстой", 1869, "классика 5 ряд");
