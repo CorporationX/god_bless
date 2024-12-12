@@ -5,6 +5,7 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
         super(provider);
     }
 
+    @Override
     public long getMaxCacheAgeMillis() {
         return 0;
     }

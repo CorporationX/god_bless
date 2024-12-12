@@ -8,6 +8,7 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
         this.maxCacheAgeMillis = maxCacheAgeMillis;
     }
 
+    @Override
     public long getMaxCacheAgeMillis() {
         return maxCacheAgeMillis;
     }
