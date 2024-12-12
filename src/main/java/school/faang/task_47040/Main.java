@@ -6,8 +6,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         System.out.println(Operations.getUniquePairs(List.of(1, 2, 3, 4, 5, 6), 7));
+        System.out.println(Operations.getUniquePairs(List.of(1, 3), 6));
 
-        System.out.println(Operations.getCapitals(Map.of("Russia", "Moscow",
+        System.out.println(Operations.getSortedCapitals(Map.of("Russia", "Moscow",
                 "USA", "Washington",
                 "Germany", "Berlin")));
 

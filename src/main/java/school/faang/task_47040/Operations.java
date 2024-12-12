@@ -8,13 +8,13 @@ public class Operations {
         Set<Integer> set = new HashSet<>(numbers);
 
         return numbers.stream()
-                .filter(num -> set.contains(target - num))
+                .filter(num -> set.contains(target - num) && num != target - num)
                 .map(num -> Arrays.asList(num, target - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
 
-    public static List<String> getCapitals(Map<String, String> countriesWithCapitals) {
+    public static List<String> getSortedCapitals(Map<String, String> countriesWithCapitals) {
         return countriesWithCapitals.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
