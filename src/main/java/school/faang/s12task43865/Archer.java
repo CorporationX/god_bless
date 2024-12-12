@@ -12,9 +12,8 @@ public class Archer extends Character {
 
     @Override
     void attack(Character opponent) {
-        health -= opponent.agility;
         opponent.health -= agility;
-        System.out.println("Атака завершена. Урон героя: " + agility + ". Урон противника: " + opponent.agility);
-        System.out.println("Здоровье героя: " + health + ". Здоровье противника: " + opponent.health);
+        System.out.println("Атака завершена. Урон героя: " + agility + ". Урон противника: " + opponent.getAgility());
+        System.out.println("Здоровье героя: " + health + ". Здоровье противника: " + opponent.getHealth());
     }
 }

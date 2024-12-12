@@ -12,9 +12,11 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character opponent) {
-        health -= opponent.strength;
+        if (opponent.health <= strength) {
+            throw new IllegalArgumentException("The health of opponent is expired");
+        }
         opponent.health -= strength;
-        System.out.println("Атака завершена. Урон героя: " + strength + ". Урон противника: " + opponent.strength);
-        System.out.println("Здоровье героя: " + health + ". Здоровье противника: " + opponent.health);
+        System.out.println("Атака завершена. Урон героя: " + strength + ". Урон противника: " + opponent.getStrength());
+        System.out.println("Здоровье героя: " + health + ". Здоровье противника: " + opponent.getHealth());
     }
 }
