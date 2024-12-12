@@ -2,10 +2,12 @@ package school.faang.sprint1.task_44289;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
 
-    protected HashMap<String, WeatherData> cache = new HashMap<>();
+    private final Map<String, WeatherData> cache = new HashMap<>();
     private final WeatherProvider weatherProvider = new WeatherService();
 
     protected final WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
@@ -30,8 +32,8 @@ public abstract class WeatherCacheTemplate {
         cache.put(city, weatherData);
     }
 
-    public void clearExpiredCache(long maxCacheAgeMillis) {
-        ArrayList<WeatherData> listOfExpiredWeatherData = new ArrayList<>();
+    public void removeExpiredWeatherData(long maxCacheAgeMillis) {
+        List<WeatherData> listOfExpiredWeatherData = new ArrayList<>();
         for (WeatherData weatherData : cache.values()) {
             if (System.currentTimeMillis() - weatherData.getTimestamp() > maxCacheAgeMillis) {
                 listOfExpiredWeatherData.add(weatherData);

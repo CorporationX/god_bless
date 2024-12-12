@@ -6,8 +6,8 @@ public class WeatherService implements WeatherProvider {
     @Override
     public WeatherData fetchWeatherData(String city) {
         Random random = new Random();
-        double randomTemp = random.nextDouble(-30, 65);
-        double randomHumidity = random.nextDouble(0, 1000);
+        double randomTemp = random.nextDouble(TEMPERATURE_MIN_BOUND_VALUE, TEMPERATURE_MAX_BOUND_VALUE);
+        double randomHumidity = random.nextDouble(HUMIDITY_MIN_BOUND_VALUE, HUMIDITY_MAX_BOUND_VALUE);
 
         return new WeatherData(
                 city,
@@ -16,4 +16,9 @@ public class WeatherService implements WeatherProvider {
                 System.currentTimeMillis()
         );
     }
+
+    private static final int TEMPERATURE_MIN_BOUND_VALUE = -30;
+    private static final int TEMPERATURE_MAX_BOUND_VALUE = 65;
+    private static final int HUMIDITY_MIN_BOUND_VALUE = 0;
+    private static final int HUMIDITY_MAX_BOUND_VALUE = 1000;
 }

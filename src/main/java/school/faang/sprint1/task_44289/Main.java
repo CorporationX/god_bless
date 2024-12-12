@@ -1,7 +1,7 @@
 package school.faang.sprint1.task_44289;
 
 public class Main {
-    static long SLEEP_DURATION = 2000;
+    private final static long SLEEP_DURATION = 2000;
 
     public static void main(String[] args) throws InterruptedException {
         WeatherCacheTemplate standardCaching = new StandardWeatherCache();
