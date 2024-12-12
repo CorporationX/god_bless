@@ -1,15 +1,21 @@
 package school.faang.bjs244933;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
+
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@AllArgsConstructor
+@ToString
 public class Project {
-
-    private int projectId;//: уникальный идентификатор проекта;
-
-    private String name;//: название проекта;
-
-    private Set<String> requiredSkills;//: набор навыков, необходимых для проекта;
-
-    private List<Employee> teamMembers;//: список сотрудников, назначенных на проект.
+    private int projectId;
+    private String name;
+    @NonNull
+    private Set<String> requiredSkills;
+    @NonNull
+    private List<Employee> teamMembers;
 }

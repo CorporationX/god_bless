@@ -1,5 +1,6 @@
 package school.faang.bjs244933;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +13,9 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor
 public class Employee {
-    private int id;//: уникальный идентификатор сотрудника;
-    private String name;//: имя сотрудника;
-    private Set<String> skills;//: набор навыков сотрудника.
+    private int id;
+    private String name;
+    private Set<String> skills;
 }
