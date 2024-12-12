@@ -13,30 +13,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ListOperations2Test {
 
-    public static Stream<Arguments> getNumbersAndSum() {
+    private static Stream<Arguments> getNumbersAndSum() {
         return Stream.of(
                 Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), 7,
                         Map.of(1, 6, 2, 5, 3, 4))
         );
     }
 
-    public static Stream<Arguments> getCountries() {
+    private static Stream<Arguments> getCountries() {
         return Stream.of(
                 Arguments.of(Map.of("Russia", "Moscow", "USA", "Washington",
                         "Germany", "Berlin"), Arrays.asList("Berlin", "Moscow", "Washington"))
         );
     }
 
-    public static Stream<Arguments> getStringsAndLetter() {
+    private static Stream<Arguments> getStringsAndLetter() {
         return Stream.of(
                 Arguments.of(Arrays.asList("apple", "banana", "avocado", "apricot"), 'a',
                         Arrays.asList("apple", "avocado", "apricot"))
         );
     }
 
-    public static Stream<Arguments> getNumbersAndBinaryStrings() {
+    private static Stream<Arguments> getNumbersAndBinaryStrings() {
         return Stream.of(
                 Arguments.of(Arrays.asList(1, 2, 3, 4), Arrays.asList("1", "10", "11", "100"))
+        );
+    }
+
+    private static Stream<Arguments> getStringsAndFilter() {
+        return Stream.of(
+                Arguments.of(Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape"),
+                        "abcdefghijklmnopqrstuvwxyz",
+                        Arrays.asList("fig", "date", "apple", "grape", "banana", "cherry"))
         );
     }
 
@@ -62,5 +70,11 @@ class ListOperations2Test {
     @MethodSource("getNumbersAndBinaryStrings")
     void getNumbersInBinary(List<Integer> numbers, List<String> expected) {
         assertEquals(expected, ListOperations2.getNumbersInBinary(numbers));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getStringsAndFilter")
+    void getFilteredByAlphabetAndSortedStrings(List<String> strings, String filterString, List<String> expected) {
+        assertEquals(expected, ListOperations2.getFilteredByAlphabetAndSortedStrings(strings, filterString));
     }
 }
