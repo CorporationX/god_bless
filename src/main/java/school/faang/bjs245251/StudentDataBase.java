@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class StudentDataBase {
@@ -47,21 +48,18 @@ public class StudentDataBase {
     public void addSubjectWithStudents(Subject subject, List<Student> studentsList) {
         subjectsStudents.put(subject, studentsList);
         for (Student student : studentsList) {
-            students.putIfAbsent(student, new HashMap<>());
-            students.get(student).put(subject, null);
+            students.computeIfAbsent(student, student1 -> new HashMap<>()).put(subject, null);
         }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        subjectsStudents.putIfAbsent(subject, new ArrayList<>());
-        subjectsStudents.get(subject).add(student);
-        students.putIfAbsent(student, new HashMap<>());
-        students.get(student).put(subject, null);
+        subjectsStudents.computeIfAbsent(subject, subject1 -> new ArrayList<>()).add(student);
+        students.computeIfAbsent(student, student1 -> new HashMap<>()).put(subject, null);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         subjectsStudents.getOrDefault(subject, new ArrayList<>())
-                .removeIf(currentStudent -> currentStudent.equals(student));
+                .removeIf(currentStudent -> Objects.equals(currentStudent, student));
     }
 
     public void printAllStudents() {
