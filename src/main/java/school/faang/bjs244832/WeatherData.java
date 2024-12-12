@@ -40,23 +40,26 @@ public class WeatherData {
         this.timestamp = timestamp;
     }
 
-    public WeatherData() {
-        this.city = "";
-        this.temperature = 0.0;
-        this.humidity = 0.0;
-        this.timestamp = 0L;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         WeatherData that = (WeatherData) o;
 
-        if (Double.compare(that.temperature, temperature) != 0) return false;
-        if (Double.compare(that.humidity, humidity) != 0) return false;
-        if (timestamp != that.timestamp) return false;
+        if (Double.compare(that.temperature, temperature) != 0) {
+            return false;
+        }
+        if (Double.compare(that.humidity, humidity) != 0) {
+            return false;
+        }
+        if (timestamp != that.timestamp) {
+            return false;
+        }
         return city.equals(that.city);
     }
 
@@ -83,7 +86,3 @@ public class WeatherData {
                 + '}';
     }
 }
-
-
-
-
