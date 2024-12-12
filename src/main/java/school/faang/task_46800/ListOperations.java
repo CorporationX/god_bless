@@ -2,6 +2,7 @@ package school.faang.task_46800;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -24,8 +25,8 @@ public class ListOperations {
                 .getAsDouble();
     }
 
-    public static int countStringsStartingWith(List<String> words, Character character) {
-        return (int) words.stream()
+    public static long countStringsStartingWith(List<String> words, Character character) {
+        return words.stream()
                 .filter(word -> word.startsWith(character.toString()))
                 .count();
     }
@@ -47,11 +48,10 @@ public class ListOperations {
                 .allMatch(predicate);
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int target) {
+    public static Optional<Integer> findMinGreaterThan(List<Integer> numbers, int target) {
         return numbers.stream()
                 .filter(number -> number > target)
-                .findFirst()
-                .orElse(-1);
+                .min(Integer::compareTo);
     }
 
     public static List<Integer> convertToLengths(List<String> words) {

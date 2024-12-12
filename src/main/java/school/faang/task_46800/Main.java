@@ -2,6 +2,7 @@ package school.faang.task_46800;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +17,12 @@ public class Main {
                 + ListOperations.filterStringsContainingSubstring(strings, "an"));
         System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
         System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 4));
+        Optional<Integer> result = ListOperations.findMinGreaterThan(numbers, 3);
+        if (result.isPresent()) {
+            System.out.println("Наименьшее число больше заданного: " + result.get());
+        } else {
+            System.out.println("Нет числа больше заданного!");
+        }
         System.out.println("Длины строк: " + ListOperations.convertToLengths(strings));
     }
 }
