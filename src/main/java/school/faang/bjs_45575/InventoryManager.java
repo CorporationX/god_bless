@@ -12,29 +12,31 @@ public class InventoryManager {
             throw new IllegalArgumentException("Invalid character or Item or Action");
         }
 
-        character.addItem(item);
+        character.getInventory().add(item);
         action.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> filter) {
+    public boolean removeItem(Character character, Predicate<Item> filter) {
         if (character == null || filter == null) {
             throw new IllegalArgumentException("Invalid character or Item or Predicate");
         }
 
-        List<Item> items = character.getInventory().stream()
-                .filter(filter)
-                .toList();
-        items.forEach(character::removeItem);
+        List<Item> items = character.getInventory();
+        return items.removeIf(filter);
     }
 
-    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
+    public long updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
         if (character == null || filter == null || action == null) {
             throw new IllegalArgumentException("Invalid Character or Filter or Action");
         }
 
-        character.getInventory().stream()
+        List<Item> items = character.getInventory().stream()
                 .filter(filter)
-                .forEach(item -> character.updateItem(action.apply(item)));
+                .map(action)
+                .toList();
+        character.getInventory().removeIf(filter);
+        character.getInventory().addAll(items);
+        return items.size();
     }
 
 }

@@ -30,8 +30,9 @@ class InventoryManagerTest {
 
         Assertions.assertTrue(frodo.getInventory().contains(ring));
 
-        inventoryManager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+        boolean removeResult = inventoryManager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
 
+        Assertions.assertTrue(removeResult);
         Assertions.assertFalse(frodo.getInventory().contains(ring));
         Assertions.assertEquals(0, frodo.getInventory().size());
     }
@@ -46,9 +47,10 @@ class InventoryManagerTest {
 
         Assertions.assertTrue(frodo.getInventory().contains(ring));
 
-        inventoryManager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
+        long resultUpdate = inventoryManager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
                 (item) -> new Item(item.getName(), item.getValue() * 2));
 
+        Assertions.assertEquals(1, resultUpdate);
         Assertions.assertEquals(2000, frodo.getInventory().get(0).getValue());
         Assertions.assertEquals(1, frodo.getInventory().size());
     }
