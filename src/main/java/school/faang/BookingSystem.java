@@ -55,8 +55,8 @@ public class BookingSystem {
     }
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-        if (date == null || date.trim().isEmpty() || timeSlot == null ||
-                timeSlot.trim().isEmpty() || requiredAmenities == null) {
+        if (date == null || date.trim().isEmpty() || timeSlot == null
+                || timeSlot.trim().isEmpty() || requiredAmenities == null) {
             logger.error("Invalid input parameters: date={}, timeSlot={}, requiredAmenities={}",
                     date, timeSlot, requiredAmenities);
             return Collections.emptyList();
