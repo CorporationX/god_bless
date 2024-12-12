@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static school.faang.bjs247547.ActionType.COMMENT;
@@ -23,8 +24,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
-                .filter(el -> el.getActionType() != null
-                        && (el.getActionType() == POST || el.getActionType() == COMMENT))
+                .filter(predicate)
                 .flatMap(el -> Arrays.stream(el.getContent().split("\\s+")))
                 .filter(el -> el.startsWith("#"))
                 .collect(Collectors.groupingBy(el -> el, Collectors.counting()))
@@ -59,5 +59,9 @@ public class UserActionAnalyzer {
                         el -> (double) (el.getValue() * 100) / actions.size()
                 ));
     }
+
+    private static final Predicate<UserAction> predicate = userAction -> userAction != null
+            && (userAction.getActionType() == POST
+            || userAction.getActionType() == COMMENT);
 
 }
