@@ -46,9 +46,9 @@ public class BookingSystem {
         }
 
         boolean isAvailable = bookings.stream()
-                .noneMatch(b -> b.getRoom().getRoomId() == roomId &&
-                        b.getDate().equals(date) &&
-                        b.getTimeSlot().equals(timeSlot));
+                .noneMatch(b -> b.getRoom().getRoomId() == roomId
+                        && b.getDate().equals(date)
+                        && b.getTimeSlot().equals(timeSlot));
 
         if (!isAvailable) {
             log.warn("Room with ID {} is already booked at {} on {}", roomId, timeSlot, date);
@@ -83,9 +83,9 @@ public class BookingSystem {
         return rooms.stream()
                 .filter(room -> room.getAmenities().containsAll(requireAmenities))
                 .filter(room -> bookings.stream().noneMatch(b ->
-                        b.getRoom().getRoomId() == room.getRoomId() &&
-                                b.getDate().equals(date) &&
-                                b.getTimeSlot().equals(timeSlot)))
+                        b.getRoom().getRoomId() == room.getRoomId()
+                                && b.getDate().equals(date)
+                                && b.getTimeSlot().equals(timeSlot)))
                 .collect(Collectors.toList());
     }
 
