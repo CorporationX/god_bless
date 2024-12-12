@@ -1,13 +1,11 @@
 package school.faang.task_46221;
 
-import java.util.function.Supplier;
-
 public class ErrorHandler {
-    public static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> errorHandler) {
+    public static void withErrorHandling(Runnable action, ExceptionHandler<Void> errorHandler) {
         try {
-            return action.get();
+            action.run();
         } catch (Exception e) {
-            return errorHandler.handle(e);
+            errorHandler.handle(e);
         }
     }
 }

@@ -2,10 +2,14 @@ package school.faang.task_46221;
 
 public class Main {
     public static void main(String[] args) {
-        ErrorHandler.withErrorHandling(S)
+        ExceptionHandler<Void> errorHandler = e -> {
+            throw new IllegalArgumentException(e.getMessage());
+        };
+
+        ErrorHandler.withErrorHandling(Main::droidsSendMsg, errorHandler);
     }
 
-    public void droidsSendMsg() {
+    public static void droidsSendMsg() {
         // Создаём трёх дроидов
         Droid r2d2 = new Droid("R2D2");
         Droid c3po = new Droid("C3PO");
