@@ -65,3 +65,24 @@ BB-8 отправил зашифрованное сообщение: Wkh plvvlrq
 C3PO получил расшифрованное сообщение: The mission is complete.
 
 --------------------
+
+19:54:49: Executing ':derschrank.sprint02.task07.bjstwo_46653.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint02.task07.bjstwo_46653.Main.main()
+R2D2 sent: Mrlq wkh Uhehoolrq!
+C3PO received: Join the Rebellion!
+
+C3PO sent: Bol Klhbo Abhy pa vwlyhbpvuhs!
+R2D2 received: The Death Star is operational!
+
+BB-8 sent: Wkh plvvlrq lv frpsohwh.
+C3PO received: The mission is complete.
+
+
+BUILD SUCCESSFUL in 5s
+2 actionable tasks: 2 executed
+19:54:55: Execution finished ':derschrank.sprint02.task07.bjstwo_46653.Main.main()'.
