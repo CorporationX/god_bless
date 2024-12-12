@@ -14,10 +14,10 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 public class User {
-    Long id;
-    String name;
-    Integer age;
-    Set<String> activities;
+    private Long id;
+    private String name;
+    private Integer age;
+    private Set<String> activities;
 
     public static Map<Long, String> findHobbyLovers(Set<User> users, Set<String> activities) {
         Map<Long, String> returnUsers = new HashMap<>();
@@ -26,6 +26,7 @@ public class User {
             for (String activity : activities) {
                 if (userActivities.contains(activity)) {
                     returnUsers.put(user.id, activity);
+                    break;
                 }
             }
         }
