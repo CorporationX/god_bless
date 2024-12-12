@@ -1,11 +1,16 @@
 package school.faang.sprint1.task_43861;
 
-abstract class Character {
-    protected String name;
-    protected long strength;
-    protected long agility;
-    protected long intelligence;
-    protected long health = 100;
+import lombok.Getter;
+
+public abstract class Character {
+    private String name;
+    @Getter
+    private long strength;
+    @Getter
+    private long agility;
+    @Getter
+    private long intelligence;
+    private long health = 100;
 
 
     protected Character(String name) {
