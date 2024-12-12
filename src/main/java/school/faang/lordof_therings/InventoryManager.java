@@ -5,7 +5,6 @@ import school.faang.meta_universe.Consumer;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class InventoryManager {
 
@@ -19,11 +18,13 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> doubler) {
-        List<Item> itemList = character.getInventory().stream()
+        List<Item> originalList = character.getInventory();
+        List<Item> changedList = originalList.stream()
                 .filter(filter)
                 .map(doubler)
                 .toList();
-
-        character.setInventory(itemList);
+        originalList.removeIf(filter);
+        originalList.addAll(changedList);
+        character.setInventory(originalList);
     }
 }
