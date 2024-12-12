@@ -2,28 +2,28 @@ package school.faang.task_46221;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            // Создаём трёх дроидов
-            Droid r2d2 = new Droid("R2D2");
-            Droid c3po = new Droid("C3PO");
-            Droid bb8 = new Droid("BB-8");
+        ErrorHandler.withErrorHandling(S)
+    }
 
-            // Оригинальные сообщения
-            String message1 = "Join the Rebellion!";
-            String message2 = "The Death Star is operational!";
-            int encryptionKey1 = 3; // Ключ шифрования для первого сообщения
-            int encryptionKey2 = 7; // Ключ шифрования для второго сообщения
+    public void droidsSendMsg() {
+        // Создаём трёх дроидов
+        Droid r2d2 = new Droid("R2D2");
+        Droid c3po = new Droid("C3PO");
+        Droid bb8 = new Droid("BB-8");
 
-            // R2D2 отправляет сообщение C3PO
-            r2d2.sendMessage(c3po, message1, encryptionKey1, r2d2.getName());
+        // Оригинальные сообщения
+        String message1 = "Join the Rebellion!";
+        String message2 = "The Death Star is operational!";
+        int encryptionKey1 = 3; // Ключ шифрования для первого сообщения
+        int encryptionKey2 = 7; // Ключ шифрования для второго сообщения
 
-            // C3PO отвечает R2D2
-            c3po.sendMessage(r2d2, message2, encryptionKey2, c3po.getName());
+        // R2D2 отправляет сообщение C3PO
+        r2d2.sendMessage(c3po, message1, encryptionKey1, r2d2.getName());
 
-            // BB-8 отправляет сообщение C3PO
-            bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1, bb8.getName());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+        // C3PO отвечает R2D2
+        c3po.sendMessage(r2d2, message2, encryptionKey2, c3po.getName());
+
+        // BB-8 отправляет сообщение C3PO
+        bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1, bb8.getName());
     }
 }
