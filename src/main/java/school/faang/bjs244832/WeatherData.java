@@ -46,6 +46,7 @@ public class WeatherData {
         this.humidity = 0.0;
         this.timestamp = 0L;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,12 +75,12 @@ public class WeatherData {
 
     @Override
     public String toString() {
-        return "WeatherData{" +
-                "city='" + city + '\'' +
-                ", temperature=" + temperature +
-                ", humidity=" + humidity +
-                ", timestamp=" + timestamp +
-                '}';
+        return "WeatherData{"
+                + "city='" + city + '\''
+                + ", temperature=" + temperature
+                + ", humidity=" + humidity
+                + ", timestamp=" + timestamp
+                + '}';
     }
 }
 
