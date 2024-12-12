@@ -41,7 +41,7 @@ public class Main {
         studentDatabase.printAllStudentsWithNotes();
 
         System.out.println("Delete the student");
-        studentDatabase.delStudent(student1);
+        studentDatabase.deleteStudent(student1);
         studentDatabase.printAllStudentsWithNotes();
 
         System.out.println("Add new subject and his students");

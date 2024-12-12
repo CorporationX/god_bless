@@ -3,8 +3,8 @@ package derschrank.task10.bjstwo_45209;
 import java.util.*;
 
 public class StudentDatabase {
-    private final Map<Student, Map<Subject, Integer>> studentsNotesMap;
-    private final Map<Subject, Set<Student>> subjectStudentsMap;
+    private final Map<Student, Map<Subject, Integer>> studentGraidsBySubject;
+    private final Map<Subject, Set<Student>> subjectStudents;
 
     public StudentDatabase() {
         this(new HashMap<>(), new HashMap<>());
@@ -12,23 +12,25 @@ public class StudentDatabase {
 
     public StudentDatabase(Map<Student, Map<Subject, Integer>> studentAndNotes,
                            Map<Subject, Set<Student>> subjectAndStudents) {
-        this.studentsNotesMap = studentAndNotes;
-        this.subjectStudentsMap = subjectAndStudents;
+        this.studentGraidsBySubject = studentAndNotes;
+        this.subjectStudents = subjectAndStudents;
     }
 
 
     private void addStudent(Student student) {
-        studentsNotesMap.computeIfAbsent(student, k -> new HashMap<>());
+        studentGraidsBySubject.computeIfAbsent(student, k -> new HashMap<>());
     }
 
     private void addNotesToStudent(Student student, Map<Subject, Integer> newNotes) {
-        Map<Subject, Integer> oldNotes = studentsNotesMap.get(student);
+        Map<Subject, Integer> oldNotes = studentGraidsBySubject.get(student);
         oldNotes.putAll(newNotes);
     }
 
     public void addOneNoteToStudent(Student student, Subject subject, Integer note) {
-        Map<Subject, Integer> oldNote = studentsNotesMap.get(student);
-        oldNote.put(subject, note);
+        Map<Subject, Integer> oldNote = studentGraidsBySubject.get(student);
+        if (oldNote != null) {
+            oldNote.put(subject, note);
+        }
     }
 
     public void addStudentAndHisNotes(Student student, Map<Subject, Integer> newNote) {
@@ -36,10 +38,10 @@ public class StudentDatabase {
         addNotesToStudent(student, newNote);
     }
 
-    public void delStudent(Student student) {
-        studentsNotesMap.remove(student);
-        for (Subject subject : subjectStudentsMap.keySet()) {
-            subjectStudentsMap.get(subject).remove(student);
+    public void deleteStudent(Student student) {
+        studentGraidsBySubject.remove(student);
+        for (Subject subject : subjectStudents.keySet()) {
+            subjectStudents.get(subject).remove(student);
         }
     }
 
@@ -48,17 +50,17 @@ public class StudentDatabase {
         System.out.println(getStringToPrintAllStudentsWithNotes());
     }
 
-    public String getStringToPrintAllStudentsWithNotes() {
+    private String getStringToPrintAllStudentsWithNotes() {
         int count = 0;
 
-        String stringFormatCountAndStudent = "[%" + (studentsNotesMap.size() / 10 + 1) + "d] %s\n";
+        String stringFormatCountAndStudent = "[%" + (studentGraidsBySubject.size() / 10 + 1) + "d] %s\n";
 
         StringBuilder result = new StringBuilder("All students with their  notes:\n");
 
-        for (Student student : studentsNotesMap.keySet()) {
+        for (Student student : studentGraidsBySubject.keySet()) {
             result.append(String.format(stringFormatCountAndStudent, ++count, student));
 
-            Map<Subject, Integer> subjectsNoteMapOfStudent = studentsNotesMap.get(student);
+            Map<Subject, Integer> subjectsNoteMapOfStudent = studentGraidsBySubject.get(student);
             for (Subject subject : subjectsNoteMapOfStudent.keySet()) {
                 result.append(" - ");
                 result.append(subject);
@@ -73,16 +75,16 @@ public class StudentDatabase {
 
 
     public void addSubject(Subject subject) {
-        subjectStudentsMap.computeIfAbsent(subject, k -> new HashSet<>());
+        subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
     }
 
     public void addStudentsToSubject(Subject subject, Set<Student> students) {
-        Set<Student> oldListOfStudents = subjectStudentsMap.get(subject);
+        Set<Student> oldListOfStudents = subjectStudents.get(subject);
         oldListOfStudents.addAll(students);
     }
 
     public void addOneStudentToSubject(Subject subject, Student student) {
-        Set<Student> oldListOfStudents = subjectStudentsMap.get(subject);
+        Set<Student> oldListOfStudents = subjectStudents.get(subject);
         oldListOfStudents.add(student);
     }
 
@@ -92,7 +94,7 @@ public class StudentDatabase {
     }
 
     public void delStudentFromSubject(Student student, Subject subject) {
-        subjectStudentsMap.get(subject).remove(student);
+        subjectStudents.get(subject).remove(student);
     }
 
     public void printAllSubjectsWithStudents() {
@@ -102,14 +104,14 @@ public class StudentDatabase {
     public String getStringToPrintAllSubjectsWithStudents() {
         int count = 0;
 
-        String stringFormatCountAndSubject = "[%" + (subjectStudentsMap.size() / 10 + 1) + "d] %s: ";
+        String stringFormatCountAndSubject = "[%" + (subjectStudents.size() / 10 + 1) + "d] %s: ";
 
         StringBuilder result = new StringBuilder("All subjects with their students: \n");
 
-        for (Subject subject : subjectStudentsMap.keySet()) {
+        for (Subject subject : subjectStudents.keySet()) {
             result.append(String.format(stringFormatCountAndSubject, ++count, subject));
 
-            Set<Student> studentsList = subjectStudentsMap.get(subject);
+            Set<Student> studentsList = subjectStudents.get(subject);
             for (Student student : studentsList) {
                 result.append(student);
                 result.append(", ");
