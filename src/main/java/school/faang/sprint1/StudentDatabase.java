@@ -1,14 +1,18 @@
 package school.faang.sprint1;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class StudentDatabase {
 
-    private HashMap<Student, Map<Subject, Integer>> studentBySubjectAndEstimation;
-    private HashMap<Subject, List<Student>> studentsBySubject;
+    private Map<Student, Map<Subject, Integer>> studentBySubjectAndEstimation = new HashMap<>();
+    private Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
 
     public void addGradeByStudents(Student student, Map<Subject, Integer> subjectAndEstimation) {
         studentBySubjectAndEstimation.put(student, subjectAndEstimation);
@@ -17,14 +21,14 @@ public class StudentDatabase {
                addStudentToExistingSubject(student, entry.getKey());
            }
            else {
-               addStudentsBySubject(entry.getKey(), List.of(student));
+               addStudentsBySubject(entry.getKey(), new ArrayList<>(List.of(student)));
            }
         }
     }
 
     public void addStudentAndGradeBySubject(Subject subject, Student student, int grade) {
         studentBySubjectAndEstimation.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-        addStudentsBySubject(subject, List.of(student));
+        addStudentsBySubject(subject, new ArrayList<>(List.of(student)));
     }
 
     public void removeStudentAndSubjects(Student student) {
@@ -39,7 +43,7 @@ public class StudentDatabase {
             for (Map.Entry<Subject, Integer> innerEntry: entry.getValue().entrySet()) {
                 Subject subject = innerEntry.getKey();
                 int estimation = innerEntry.getValue();
-                System.out.println("student: " + entry.getKey() + "subject: " + subject + "estimation: " + estimation);
+                System.out.println("\n\tstudent: " + entry.getKey() + "\n\tsubject: " + subject + "\n\testimation: " + estimation);
                 System.out.println();
             }
         }
@@ -64,12 +68,13 @@ public class StudentDatabase {
     public void printAllSubjectsAndStudents() {
         for (Map.Entry<Subject, List<Student>> entry : studentsBySubject.entrySet()) {
             System.out.println(
-                    "Subject: " + entry.getKey() + ", Students: "
+                    "Subject: \n\t" + entry.getKey() + "\nStudents: "
             );
             for (Student student : entry.getValue()) {
                 System.out.print("\t");
                 System.out.print(student);
             }
+            System.out.println();
         }
     }
 }

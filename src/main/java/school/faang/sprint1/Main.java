@@ -37,8 +37,18 @@ public class Main {
                     math, 56 , ph ,90
             )
         );
+        System.out.println(
+            "All students"
+        );
+        studentDatabase.printAllStudents();
 
+        List<Student> studentsForHistory = new ArrayList<>();
+        studentsForHistory.add(studentDavid);
+        studentsForHistory.add(studentRauan);
+        studentDatabase.addStudentsBySubject(cs, studentsForHistory);
+        studentDatabase.addStudentToExistingSubject(studentRauan, ph);
 
-
+        System.out.println("\nAll subjects:");
+        studentDatabase.printAllSubjectsAndStudents();
     }
 }
