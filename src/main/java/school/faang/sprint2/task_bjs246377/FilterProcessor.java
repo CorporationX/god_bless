@@ -1,6 +1,5 @@
 package school.faang.sprint2.task_bjs246377;
 
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -9,8 +8,8 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(BiFunction<Function<Image, Image>, Function<Image, Image>, Function<Image, Image>> filters) {
-        return filters.apply();
+    public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter, Function<Image, Image> secondFilter) {
+        return firstFilter.andThen(secondFilter);
     }
 
 }
