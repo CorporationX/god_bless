@@ -26,10 +26,10 @@ public class Main {
         ResourceRequest request3 = new ResourceRequest(8);
         ResourceRequest request4 = new ResourceRequest(9);
 
-        if (!service.allocateResources(request1) ||
-                !service.allocateResources(request2) ||
-                !service.allocateResources(request3) ||
-                !service.allocateResources(request4)) {
+        if (!service.allocateResources(request1)
+                || !service.allocateResources(request2)
+                || !service.allocateResources(request3)
+                || !service.allocateResources(request4)) {
             System.out.println("Cannot allocate all the resources!");
         }
 
