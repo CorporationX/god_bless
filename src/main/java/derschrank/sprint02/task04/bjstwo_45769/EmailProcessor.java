@@ -10,6 +10,10 @@ public class EmailProcessor {
                               Predicate<Email> emailFilter,
                               Function<Email, String> emailConvert,
                               Consumer<Email> emailAction) {
+        if (emailFilter == null || emailConvert == null || emailAction == null) {
+            return;
+        }
+
         for (Email email : emails) {
             if (emailFilter == null) {
                 continue;
