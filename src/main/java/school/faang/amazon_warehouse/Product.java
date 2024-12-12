@@ -3,15 +3,13 @@ package school.faang.amazon_warehouse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Getter;
-import lombok.Setter;
 
 @ToString
 @Getter
-@Setter
 @EqualsAndHashCode
 public final class Product {
     private static int idCounter = 1;
-    private int id;
+    private final int id;
     private final String name;
     private final String category;
 

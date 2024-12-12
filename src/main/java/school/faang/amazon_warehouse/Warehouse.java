@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,10 +35,37 @@ public class Warehouse {
     }
 
     public void addItem(String category, String name) {
-
+        Product product = new Product(name, category);
+        products.add(product);
+        mapProducts = groupProductsByCategory(products);
+        log.info("{} was added to warehouse", product);
     }
 
-//    public void printAllItems() {
-//        products.forEach(System.out::println);
-//    }
+    public void removeItem(String category, String name) {
+        if (mapProducts.containsKey(category)) {
+            List<Product> productList = mapProducts.get(category);
+            boolean isContains = productList.removeIf(product -> product.getName().equals(name));
+            if (isContains) {
+                log.info("Product {} was deleted from category {}", name, category);
+            } else {
+                log.info("Product {} not found in catrgory {}", name, category);
+            }
+        } else {
+            log.info("Category {} not found", category);
+        }
+    }
+
+    public void findItemsByCategory(String category) {
+        if (mapProducts.containsKey(category)) {
+            List<Product> productList = mapProducts.get(category);
+            log.info("Category: {}", category);
+            productList.forEach(product -> log.info(product.toString()));
+        } else {
+            log.info("Category {} not found", category);
+        }
+    }
+
+    public void printAllItems() {
+        printProductsByCategory(mapProducts);
+    }
 }
