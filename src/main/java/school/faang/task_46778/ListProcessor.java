@@ -34,9 +34,9 @@ public class ListProcessor {
                         .orElse(0.0));
     }
 
-    public static int countStringsStartingWith(List<String> strings, char ch) {
+    public static long countStringsStartingWith(List<String> strings, char ch) {
         return processList(strings, "strings", list ->
-                (int) list.stream()
+                list.stream()
                         .filter(string ->
                                 !string.isEmpty() && string.charAt(0) == ch)
                         .count());
@@ -64,8 +64,7 @@ public class ListProcessor {
                         .allMatch(condition));
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers,
-                                         int number) {
+    public static int findMinGreaterThan(List<Integer> numbers, int number) {
         return processList(numbers, "numbers", list ->
                 list.stream()
                         .filter(n -> n > number)
