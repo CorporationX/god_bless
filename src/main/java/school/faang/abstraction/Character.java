@@ -8,21 +8,14 @@ import lombok.ToString;
 @ToString
 @Getter
 public abstract class Character {
+
+    private static final int DEFAULT_HEALTH = 100;
+
     private String name;
     private Integer strength;
     private Integer dexterity;
     private Integer intelligence;
-    @Setter
     private Integer health;
-
-    public Integer getHealth() {
-        if (health < 0) {
-            throw new IllegalArgumentException("Health cannot be less than 0!");
-        }
-        return health;
-    }
-
-    private static final int DEFAULT_HEALTH = 100;
 
     public Character(String name) {
         this.name = name;
@@ -37,4 +30,11 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void setHealth(Integer health) {
+        if (health < 0) {
+            throw new IllegalArgumentException("Health cannot be less than 0!");
+        }
+        this.health = health;
+    }
 }
