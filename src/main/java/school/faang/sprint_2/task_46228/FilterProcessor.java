@@ -9,8 +9,6 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
-        return image -> Arrays.stream(filters)
-                .reduce(Function.identity(), Function::andThen)
-                .apply(image);
+        return image -> Arrays.stream(filters).reduce(Function.identity(), Function::andThen).apply(image);
     }
 }
