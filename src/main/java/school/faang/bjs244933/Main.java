@@ -28,19 +28,19 @@ public class Main {
         Set<String> skillsEva = getEva();
         Set<String> skillsArnold = getArnold();
 
-        Employee bob = new Employee(1, "Bob", skillsBob);
-        Employee tom = new Employee(2, "Tom", skillsTom);
-        Employee alice = new Employee(3, "Alice", skillsAlice);
-        Employee eva = new Employee(4, "Eve", skillsEva);
-        Employee arnold = new Employee(5, "Arnold", skillsArnold);
+        final Employee bob = new Employee(1, "Bob", skillsBob);
+        final Employee tom = new Employee(2, "Tom", skillsTom);
+        final Employee alice = new Employee(3, "Alice", skillsAlice);
+        final Employee eva = new Employee(4, "Eve", skillsEva);
+        final Employee arnold = new Employee(5, "Arnold", skillsArnold);
 
         Set<String> requiredSkillsDatingSite = getRequiredSkillsDatingSite();
         Set<String> requiredSkillsBilling = getRequiredSkillsBilling();
 
-        Project projectDatingSite =
+        final Project projectDatingSite =
                 new Project(1, "A dating site", requiredSkillsDatingSite, new ArrayList<>());
 
-        Project projectBilling =
+        final Project projectBilling =
                 new Project(2, "Billing project", requiredSkillsBilling, new ArrayList<>());
 
         List<Employee> employees = new ArrayList<>();
