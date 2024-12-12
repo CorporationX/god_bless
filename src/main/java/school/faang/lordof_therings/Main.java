@@ -22,7 +22,6 @@ public class Main {
                 (item) -> new Item(item.getName(), item.getValue() * 2)
         );
 
-// Проверяем результат
         knight.getInventory().forEach(item -> log.info("Name >> {} || Value >> {}", item.getName(), item.getValue()));
     }
 }
