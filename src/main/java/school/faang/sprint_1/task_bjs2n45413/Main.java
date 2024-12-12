@@ -32,8 +32,9 @@ public class Main {
             librarySystem.findBook("Избранное", "Пушкин А.С.", 2015);
             librarySystem.findBook("Избранное", "Пушкин А.С.", 2014);
 
+            librarySystem.removeBook("WWWW", "EEE", 1999);
             System.out.println("\nПроверка на неверные значения(год) при создании книги и выброс exception:");
-            librarySystem.addBook("Избранное", "Пушкин А.С.", 2115, "shelf 2");
+            librarySystem.addBook("Лучшее", "Пушкин А.С.", 2115, "shelf 2");
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }

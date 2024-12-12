@@ -40,10 +40,13 @@ public class Book {
     }
 
     private boolean paramsAreCorrect(String title, String author, int year) {
-        return (title.length() <= MAX_TITLE_LENGTH
+        return (title != null
+                && author != null
+                && title.length() <= MAX_TITLE_LENGTH
                 && author.length() <= MAX_AUTHOR_LENGTH
                 && year >= MIN_YEAR
-                && year <= MAX_YEAR);
+                && year <= MAX_YEAR
+                );
     }
 
     @Override

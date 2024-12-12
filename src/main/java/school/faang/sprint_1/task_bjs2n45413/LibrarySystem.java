@@ -24,7 +24,11 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         try {
-            this.bookStringMap.remove(new Book(title, author, year));
+            String previous = this.bookStringMap.remove(new Book(title, author, year));
+            if (previous == null) {
+                System.out.printf("Книга %s %s %d, которую пытаются удалить отстутствует в библиотеке",
+                                        title, author, year);
+            }
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }
