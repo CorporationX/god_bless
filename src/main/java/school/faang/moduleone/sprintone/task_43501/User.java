@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43501;
+package school.faang.moduleone.sprintone.task_43501;
 
 import lombok.Getter;
 

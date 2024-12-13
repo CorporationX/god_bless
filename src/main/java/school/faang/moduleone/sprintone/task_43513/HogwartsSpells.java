@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43513;
+package school.faang.moduleone.sprintone.task_43513;
 
 import java.util.ArrayList;
 import java.util.HashMap;
