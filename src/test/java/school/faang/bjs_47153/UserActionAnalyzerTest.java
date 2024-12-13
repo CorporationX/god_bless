@@ -121,4 +121,14 @@ class UserActionAnalyzerTest {
         Assertions.assertTrue(actual.containsAll(expected));
         Assertions.assertTrue(expected.containsAll(actual));
     }
+
+    @Test
+    void topHashtags() {
+        List<UserAction> actions = getActions();
+        List<String> actual = UserActionAnalyzer.topHashtags(actions);
+        List<String> expected = new ArrayList<>(Arrays.asList("#review", "#newfeature", "#project", "#Java",
+                "#conference"));
+        Assertions.assertTrue(actual.containsAll(expected));
+        Assertions.assertTrue(expected.containsAll(actual));
+    }
 }

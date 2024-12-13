@@ -1,5 +1,6 @@
 package school.faang.bjs_47153;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +19,42 @@ public class UserActionAnalyzer {
                 .sorted(Map.Entry.comparingByValue())
                 .limit(10)
                 .map(Map.Entry::getKey)
-                .map(id -> actions.stream()
-                        .filter(action -> id.equals(action.getUserId()))
-                        .findAny()
-                        .orElseThrow().getUserName()
-                )
+                .map(id -> getUserNameById(actions, id))
+                .toList();
+    }
+
+    private static String getUserNameById(List<UserAction> actions, Integer userId) {
+        return actions.stream()
+                .filter(action -> userId.equals(action.getUserId()))
+                .findAny()
+                .orElseThrow().getUserName();
+    }
+
+    public static List<String> topHashtags(List<UserAction> actions) {
+        Map<String, Integer> hashTags = new HashMap<>();
+
+        actions.stream()
+                .filter(action -> action.getActionType().equals(ActionType.COMMENT)
+                        || action.getActionType().equals(ActionType.POST))
+                .forEach(action -> addHashtags(action, hashTags));
+
+        return hashTags.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    private static void addHashtags(UserAction action, Map<String, Integer> hashTags) {
+        getHashtags(action.getContent()).forEach(hashtag -> {
+            hashTags.computeIfAbsent(hashtag, k -> 0);
+            hashTags.compute(hashtag, (k, count) -> count + 1);
+        });
+    }
+
+    private static List<String> getHashtags(String string) {
+        return Arrays.stream(string.replaceAll("[,.!]?", "").split(" "))
+                .filter(s -> s.startsWith("#"))
                 .toList();
     }
 }
