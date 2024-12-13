@@ -11,48 +11,38 @@ import java.util.Map;
 @Slf4j
 @Getter
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById;
-    private final Map<String, List<SpellEvent>> spellsByType;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public HogwartsSpells() {
-        this.spellById = new HashMap<>();
-        this.spellsByType = new HashMap<>();
-    }
-
-    public void addSpellEvent(int id, String eventType, String actionDescription) {
+    public void addSpellEvent(int id, EventType eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        log.info("the spell event have added to the spellById");
+        log.info("the spell event have added to the spell by id");
 
-        spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        spellsByType.get(eventType).add(spellEvent);
-        log.info("the spell event have added to the spellsByType");
+        spellsByType.putIfAbsent(eventType.name(), new ArrayList<>());
+        spellsByType.get(eventType.name()).add(spellEvent);
+        log.info("the spell event have added to the spells by type");
     }
 
-    public SpellEvent getSpellEventById(int id) {
-        return spellById.get(id);
+    public void getSpellEventById(int id) {
+        spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+    public void getSpellEventsByType(EventType eventType) {
+        if (eventType == null) {
+            throw new IllegalArgumentException("the event type cannot be null");
+        }
+        spellsByType.get(eventType.name());
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        if (spellEvent != null) {
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
-            if (events != null) {
-                events.remove(spellEvent);
-                if (events.isEmpty()) {
-                    spellsByType.remove(spellEvent.getEventType());
-                }
-            }
+        if (spellEvent == null) {
+            throw new IllegalArgumentException("the spell event " + id + " have not found");
         }
     }
 
     public void printAllSpellEvents() {
-        spellById.forEach((id, spellEvent) -> {
-            System.out.println(id + " - " + spellEvent);
-        });
+        spellById.forEach((id, spellEvent) -> log.info("{}: {}", id, spellEvent));
     }
 }
