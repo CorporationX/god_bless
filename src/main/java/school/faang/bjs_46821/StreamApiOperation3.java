@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamApiOperation3 {
     public static Map<String, String> noFriendsPair(Map<String, List<String>> users) {
@@ -33,6 +35,19 @@ public class StreamApiOperation3 {
             avgSalary.put(department, sumSalary.get() / employeeByDepartment.get(department).size());
         });
         return avgSalary;
+    }
+
+    public static List<Integer> palindromeNumbers(int start, int end) {
+        return IntStream.range(start, end)
+                .filter(StreamApiOperation3::isPalindromeNumber)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private static boolean isPalindromeNumber(int number) {
+        String numberString = String.valueOf(number);
+        String reverseString = new StringBuilder(numberString).reverse().toString();
+        return numberString.equals(reverseString);
     }
 
 }

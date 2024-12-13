@@ -41,4 +41,13 @@ class StreamApiOperation3Test {
                 "IT", 3000.0);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void isPalindromeNumber() {
+        int start = 100;
+        int end = 200;
+        List<Integer> expected = Arrays.asList(101, 111, 121, 131, 141, 151, 161, 171, 181, 191);
+        List<Integer> actual = StreamApiOperation3.palindromeNumbers(start, end);
+        assertEquals(expected, actual);
+    }
 }
