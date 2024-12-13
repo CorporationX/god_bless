@@ -5,10 +5,12 @@ public enum NotificationType {
     SMS("sms"),
     PUSH("push");
     private final String notificationType;
-    NotificationType(String notificationType){
-        this.notificationType= notificationType;
+
+    NotificationType(String notificationType) {
+        this.notificationType = notificationType;
     }
-    public String getNotificationType(){
+
+    public String getNotificationType() {
         return notificationType;
     }
 }
