@@ -20,8 +20,7 @@ public class InventoryManager {
     public void updateItem(Character person, Predicate<Item> condition, Function<Item, Item> change) {
         person.getInventory().stream()
                 .filter(condition)
-                .forEach(item ->
-                {
+                .forEach(item -> {
                     int newCost = change.apply(item).getItemCost();
                     item.setItemCost(newCost);
                 });
