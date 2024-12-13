@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 @EqualsAndHashCode
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
