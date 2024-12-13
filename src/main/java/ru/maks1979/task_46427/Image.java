@@ -17,9 +17,16 @@ public class Image {
 
     @Override
     public String toString() {
-        return "Image{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
+        return "Image{"
+                +
+                "name='"
+                + name
+                + '\''
+                +
+                ", description='"
+                + description
+                + '\''
+                +
                 '}';
     }
 }
