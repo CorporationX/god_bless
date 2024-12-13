@@ -9,6 +9,7 @@ public class Warrior extends Character {
     private static int POWER_DEFAULT = 10;
     private static int AGILITY_DEFAULT = 5;
     private static int INTELLIGENCE_DEFAULT = 3;
+
     public Warrior(String name) {
         super(name, POWER_DEFAULT, AGILITY_DEFAULT, INTELLIGENCE_DEFAULT);
     }
