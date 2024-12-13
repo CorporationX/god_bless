@@ -1,119 +1,87 @@
 package derschrank.task09.bjstwo_45093;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Shop implements ShopInterface {
-    private Set<Product> products;
+    private static int countOfProducts;
 
-    public Shop(Set<Product> p) {
-        products = p;
-    }
+    @Getter
+    private final Set<Product> products;
 
     public Shop() {
         this(new HashSet<>());
     }
 
+    public Shop(Set<Product> p) {
+        products = p;
+        countOfProducts = p.size();
+    }
 
-    public void addItem(Product product) {
+
+    @Override
+    public void addItem(String category, String product) {
+        addItem(new Product(getId(), product, category));
+    }
+
+    private void addItem(Product product) {
         products.add(product);
     }
 
-    @Override
-    public void addItem(String categoryName, Product product) {
-        addItem(new Category(categoryName), product);
-    }
-
-    private void addItem(Category category, Product product) {
-        addItem(product);
-        product.setCategory(category);
-    }
 
     @Override
-    public void removeItem(String categoryName, String productName) {
-        Set<Product> productSet = getSetOfProductsByName(productName);
-        if (productSet.isEmpty()) {
-            System.out.printf("Product/s with name %s not found%n", productName);
-        } else {
-            Category category = new Category(categoryName);
-            for (Product product : productSet) {
-                removeItem(category, product);
-            }
+    public void removeItem(String category, String product) {
+        if (!products.removeIf(x -> product.equals(x.name()) && category.equals(x.category()))) {
+            System.out.printf("Product/s with name %s and category %s not found%n", product, category);
         }
     }
 
-    private void removeItem(Category category, Product product) {
-        if (product.getCategory().equals(category)) {
-            product.setDefaultCategory();
-        } else {
-            System.out.printf("Category %s isn't found in Product %s%n", category, product);
-        }
-    }
-
-    private Set<Product> getSetOfProductsByName(String name) {
-        Set<Product> productSet = new HashSet<>();
-        products.stream()
-                .filter(x -> x.getName().equals(name))
-                .forEach(productSet::add);
-
-        return productSet;
-    }
-
-
-    private Map<Category, Set<Product>> groupProductsByCategory() {
-        return groupProductsByCategory(products);
-    }
 
     @Override
-    public Map<Category, Set<Product>> groupProductsByCategory(Set<Product> products) {
-        Map<Category, Set<Product>> categoryProductMap = new HashMap<>();
+    public Map<String, Set<Product>> groupProductsByCategory(Set<Product> products) {
+        Map<String, Set<Product>> categoryProductMap = new HashMap<>();
         for (Product product : products) {
             categoryProductMap
-                    .computeIfAbsent(product.getCategory(), k -> new HashSet<>())
+                    .computeIfAbsent(product.category(), k -> new HashSet<>())
                     .add(product);
         }
-
         return categoryProductMap;
     }
 
-    @Override
-    public void printProductsByCategory(Map<Category, Set<Product>> groupedProducts) {
-
-    }
 
     @Override
-    public Set<Product> findItemsByCategory(String categoryName) {
-        return findItemsByCategory(new Category(categoryName));
+    public Set<Product> findItemsByCategory(String category) {
+        return products.stream().filter(x -> category.equals(x.category())).collect(Collectors.toSet());
     }
 
-    private Set<Product> findItemsByCategory(Category category) {
-        return groupProductsByCategory().get(category);
-    }
 
-    private void printItemsByCategory(String categoryName) {
-        printItemsByCategory(new Category(categoryName));
-    }
+    @Override
+    public void printProductsByCategory(Map<String, Set<Product>> groupedProducts) {
+        StringBuilder result = new StringBuilder("All products by category:\n");
+        for (String category : groupedProducts.keySet()) {
+            result.append(String.format("In category %s:%n", category));
 
-    private void printItemsByCategory(Category category) {
-        StringBuilder result = new StringBuilder("All products in category: ");
-        result.append(category);
-        result.append("\n");
-
-        for (Product product : findItemsByCategory(category)) {
-            result.append(product);
-            result.append("\n");
+            for (Product product : groupedProducts.get(category)) {
+                result.append(" - " + product + "\n");
+            }
         }
-
         System.out.println(result);
     }
 
     @Override
     public void printAllItems() {
-        System.out.println("All products in all categories.");
-        for (Category category : groupProductsByCategory().keySet()) {
-            printItemsByCategory(category);
-        }
+        StringBuilder result = new StringBuilder("All products:\n");
+        for (Product product : products) {
+            result.append(" - " + product + "\n");        }
+        System.out.println(result);
+    }
+
+    private int getId() {
+        return ++countOfProducts;
     }
 }

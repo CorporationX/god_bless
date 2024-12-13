@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface ShopInterface {
-    void addItem(String category, Product product);
+    void addItem(String category, String product);
 
     void removeItem(String category, String name);
 
@@ -12,7 +12,7 @@ public interface ShopInterface {
 
     void printAllItems();
 
-    Map<Category, Set<Product>> groupProductsByCategory(Set<Product> products);
+    Map<String, Set<Product>>  groupProductsByCategory(Set<Product> products);
 
-    void printProductsByCategory(Map<Category, Set<Product>> groupedProducts);
+    void printProductsByCategory(Map<String, Set<Product>> groupedProducts);
 }

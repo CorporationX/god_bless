@@ -137,3 +137,63 @@ BUILD SUCCESSFUL in 4s
 
 
 В общем задача интересная, но возможно надо ее дописать и дополнить информацией, чтоб понятнее стало.
+
+--------------------------------------
+2024/12/13
+
+21:25:44: Executing ':derschrank.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.task09.bjstwo_45093.Main.main()
+1) Add Products to Shop
+2) Print All Products
+All products:
+ - [category2] Art. 5: product5
+ - [category1] Art. 1: product1
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+3) Print All Products by category
+All products by category:
+In category category2:
+ - [category2] Art. 5: product5
+In category category1:
+ - [category1] Art. 1: product1
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+
+4) removeItem Product1 from Category3
+Product/s with name product1 and category category3 not found
+
+6) removeItem Product111 from Category1
+Product/s with name product111 and category category1 not found
+
+7) removeItem Product1 from Category1
+8) Print All Products
+All products:
+ - [category2] Art. 5: product5
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+9) Print All Products by category
+All products by category:
+In category category2:
+ - [category2] Art. 5: product5
+In category category1:
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+10) Find All Products in Category1
+[[category1] Art. 2: product2, [category1] Art. 3: product3, [category1] Art. 4: product4]
+
+BUILD SUCCESSFUL in 6s
+2 actionable tasks: 2 executed
+21:25:51: Execution finished ':derschrank.task09.bjstwo_45093.Main.main()'.
