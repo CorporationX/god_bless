@@ -16,9 +16,12 @@ public class Main {
                 (notification) -> System.out.println("Отправка push-уведомления: " + notification.message())
         );
 
-        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "Новый пост от пользователя: JohnDoe");
+        Notification emailNotification =
+                new Notification(NotificationType.EMAIL, "Ваша учетная запись успешно активирована");
+        Notification smsNotification =
+                new Notification(NotificationType.SMS, "Вы успешно изменили свой пароль");
+        Notification pushNotification =
+                new Notification(NotificationType.PUSH, "Новый пост от пользователя: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
