@@ -18,6 +18,8 @@ public class Main {
         Product product = new Product(name, category);
         if (!products.remove(product)) {
             System.out.println("This product is not available in our set");
+        } else {
+            System.out.println(product + " has been removed from set");
         }
     }
 
@@ -63,9 +65,9 @@ public class Main {
 
         printAllItems();
 
-        removeItem("Tomato", "Food");
+        removeItem("Milk", "Food");
 
-        findItemsByCategory("Household appliances");
+        findItemsByCategory("Food");
 
         Map<String, List<Product>> categoryProduct = groupProductsByCategory(products);
         printProductsByCategory(categoryProduct);

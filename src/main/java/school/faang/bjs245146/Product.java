@@ -9,6 +9,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Product {
     private static int ID_COUNTER;
+    @EqualsAndHashCode.Exclude
     private int id;
     private String name;
     private String category;
