@@ -18,7 +18,7 @@ public class InventoryManager {
 
     // Метод для удаления предмета, если он удовлетворяет предикату
     public void removeItem(Character character, Predicate<Item> condition) {
-        Objects.requireNonNull(condition,"Condition cannot be null");
+        Objects.requireNonNull(condition, "Condition cannot be null");
         Objects.requireNonNull(character, "Character cannot be null");
         character.getInventory().removeIf(condition);
     }
