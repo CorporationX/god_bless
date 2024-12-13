@@ -14,11 +14,12 @@ public class Main {
 
     public static Set<List<Integer>> findPairs(List<Integer> list, int sum) {
         Set<List<Integer>> result = new HashSet<>();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i) + list.get(j) == sum) {
-                    result.add(List.of(list.get(i), list.get(j)));
-                }
+        Set<Integer> set = new HashSet<>();
+        for (Integer n : list) {
+            if (set.contains(sum - n)) {
+                result.add(List.of(n, sum - n));
+            } else {
+                set.add(n);
             }
         }
         return result;
