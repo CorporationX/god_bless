@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 public class StreamFunc {
 
     public static Set<List<Integer>> getUniquePairs(List<Integer> numbers, int sum) {
+        Set<Integer> tempNumbers = new HashSet<>(numbers);
+
         return numbers.stream()
-                .filter(n -> n < sum)
+                .filter(n -> tempNumbers.contains(sum - n))
                 .map(n -> Arrays.asList(n, sum - n))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());

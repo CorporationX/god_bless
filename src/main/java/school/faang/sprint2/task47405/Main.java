@@ -32,6 +32,5 @@ public class Main {
         List<String> selectedStrings = StreamFunc.sortStringsByAlphabet(someStrings, "abcdefghijklmnopqrstuvwxyz");
         System.out.println(selectedStrings);
 
-
     }
 }
