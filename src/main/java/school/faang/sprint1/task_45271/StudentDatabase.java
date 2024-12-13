@@ -14,7 +14,11 @@ public class StudentDatabase {
         studentGrades.put(student, grades);
         for (Subject subject : grades.keySet()) {
             subjectStudents.putIfAbsent(subject, new ArrayList<>());
-            subjectStudents.get(subject).add(student);
+            if (subjectStudents.get(subject) == null) {
+                System.out.println("Предмет не найден!");
+            } else {
+                subjectStudents.get(subject).add(student);
+            }
         }
 
     }
@@ -50,7 +54,3 @@ public class StudentDatabase {
         }
     }
 }
-
-
-
-
