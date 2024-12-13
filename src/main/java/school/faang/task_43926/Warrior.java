@@ -1,12 +1,20 @@
 package school.faang.task_43926;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Warrior extends Character {
+    private static int POWER_DEFAULT = 10;
+    private static int AGILITY_DEFAULT = 5;
+    private static int INTELLIGENCE_DEFAULT = 3;
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, POWER_DEFAULT, AGILITY_DEFAULT, INTELLIGENCE_DEFAULT);
     }
 
     @Override
     public void attack(Character character) {
-        this.setHealth(this.getHealth() - character.getPower());
+        character.setHealth(character.getHealth() - this.getPower());
     }
 }

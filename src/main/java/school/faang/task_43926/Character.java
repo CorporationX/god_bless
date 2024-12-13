@@ -1,17 +1,32 @@
 package school.faang.task_43926;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
+    private static int POWER_CONST = 0;
+    private static int AGILITY_CONST = 0;
+    private static int INTELLIGENCE = 0;
+    private static int HEALTH_MAX = 100;
+
     private final String name;
-    private int power;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
+    private final int power;
+    private final int agility;
+    private final int intelligence;
+    private int health;
 
     public Character(String name) {
         this.name = name;
+        this.health = HEALTH_MAX;
+        this.intelligence = INTELLIGENCE;
+        this.agility = AGILITY_CONST;
+        this.power = POWER_CONST;
     }
 
     public Character(String name, int power, int agility, int intelligence) {
+        this.health = HEALTH_MAX;
         this.name = name;
         this.power = power;
         this.agility = agility;
@@ -19,21 +34,5 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
-
-    public int getHealth() {
-        return this.health;
-    }
-
-    public void setHealth(int healthAfterDamage) {
-        this.health = healthAfterDamage;
-    }
-
-    public int getAgility() {
-        return this.agility;
-    }
-
-    public int getPower() {
-        return this.power;
-    }
 }
 
