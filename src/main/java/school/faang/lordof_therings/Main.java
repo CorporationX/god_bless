@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        Character knight = new Character("Frodo");
+        Character knight = new Character("Arthur");
         Item sword = new Item("The Excalibur", 3000);
         Item helmet = new Item("The Golden Horn", 2000);
         Item shield = new Item("The Oak Power", 1500);

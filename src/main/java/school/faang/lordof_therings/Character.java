@@ -12,5 +12,5 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Character {
     private final String name;
-    private List<Item> inventory = new ArrayList<>();
+    private final List<Item> inventory = new ArrayList<>();
 }
