@@ -2,7 +2,7 @@ package school.faang.task_44866;
 
 import com.github.javafaker.Faker;
 
-public class WeatherService implements WeatherProvider{
+public class WeatherService implements WeatherProvider {
     Faker faker = new Faker();
 
     @Override
