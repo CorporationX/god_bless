@@ -1,4 +1,4 @@
-package school.faang.task_BJS2_45558;
+package school.faang.task_45558;
 
 @FunctionalInterface
 public interface SpellAction {
