@@ -26,26 +26,36 @@ public class Main {
         Subject physics = new Subject(1, "Physics");
         Subject mathematics = new Subject(2, "Mathematics");
 
-        addStudentToSubjectGradesByStudent(subjectGradesByStudent, john,
+        addStudentToSubjectGradesByStudent(subjectGradesByStudent, studentsBySubject, john,
                 new HashMap<>(Map.of(physics, 6, mathematics, 5)));
-        addStudentToSubjectGradesByStudent(subjectGradesByStudent, anny, new HashMap<>(Map.of(physics, 5)));
+        addStudentToSubjectGradesByStudent(subjectGradesByStudent, studentsBySubject, anny,
+                new HashMap<>(Map.of(physics, 5)));
 
-        addGradeToSubjectGradesByStudent(subjectGradesByStudent, anny, mathematics, 7);
+        addGradeToSubjectGradesByStudent(subjectGradesByStudent, studentsBySubject, anny, mathematics, 7);
         printAllFromSubjectGradesByStudent(subjectGradesByStudent);
-
-        System.out.println();
-        deleteStudentFromSubjectGradesByStudent(subjectGradesByStudent, john);
-        printAllFromSubjectGradesByStudent(subjectGradesByStudent);
-
-        System.out.println();
-        addSubjectToStudentsBySubject(studentsBySubject, physics, new ArrayList<>(List.of(john, anny)));
-        addSubjectToStudentsBySubject(studentsBySubject, mathematics, new ArrayList<>(List.of(john)));
-
-        addStudentToStudentsBySubject(studentsBySubject, mathematics, anny);
         printAllStudentsBySubject(studentsBySubject);
 
         System.out.println();
-        deleteStudentFromStudentsBySubject(studentsBySubject, physics, john);
+        deleteStudentFromSubjectGradesByStudent(subjectGradesByStudent, studentsBySubject, john);
+        printAllFromSubjectGradesByStudent(subjectGradesByStudent);
         printAllStudentsBySubject(studentsBySubject);
+
+        subjectGradesByStudent.clear();
+        studentsBySubject.clear();
+
+        System.out.println();
+        addSubjectToStudentsBySubject(studentsBySubject, subjectGradesByStudent, physics,
+                new ArrayList<>(List.of(john, anny)));
+        addSubjectToStudentsBySubject(studentsBySubject, subjectGradesByStudent, mathematics,
+                new ArrayList<>(List.of(john)));
+
+        addStudentToStudentsBySubject(studentsBySubject, subjectGradesByStudent, mathematics, anny);
+        printAllStudentsBySubject(studentsBySubject);
+        printAllFromSubjectGradesByStudent(subjectGradesByStudent);
+
+        System.out.println();
+        deleteStudentFromStudentsBySubject(studentsBySubject, subjectGradesByStudent, physics, john);
+        printAllStudentsBySubject(studentsBySubject);
+        printAllFromSubjectGradesByStudent(subjectGradesByStudent);
     }
 }
