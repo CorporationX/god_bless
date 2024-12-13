@@ -15,9 +15,9 @@ public class Main {
 
         System.out.println(hogwartsSpells.getSpellEventById(12));
 
-        List<SpellEvent> SpellsByType = hogwartsSpells.getSpellEventsByType("Защита");
+        List<SpellEvent> spellsByType = hogwartsSpells.getSpellEventsByType("Защита");
         System.out.println("\nЗаклинания типа 'Защита':");
-        for (SpellEvent spellEvent : SpellsByType) {
+        for (SpellEvent spellEvent : spellsByType) {
             System.out.println(spellEvent);
         }
 
