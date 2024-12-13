@@ -6,6 +6,6 @@ public class Main {
         Warrior warrior = new Warrior("War");
 
         archer.attack(warrior);
-        System.out.println(warrior.getHealth());
+        System.out.println(warrior.health);
     }
 }
