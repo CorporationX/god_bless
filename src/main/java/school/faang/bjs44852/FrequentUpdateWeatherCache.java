@@ -1,29 +1,14 @@
 package school.faang.bjs44852;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
-    Map<String, WeatherDataProxy> autoUpdatedCache = new HashMap<>();
-    ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     public FrequentUpdateWeatherCache(WeatherProvider weatherProvider) {
         super(weatherProvider);
-    }
-
-    @Override
-    public WeatherData getWeatherData(String city, long maxMillis) {
-        if (autoUpdatedCache.containsKey(city)) {
-            return autoUpdatedCache.get(city);
-        } else {
-            WeatherData weather = fetchAndCacheWeatherData(city);
-            WeatherDataProxy weatherProxy = new WeatherDataProxy(weather, maxMillis, getWeatherProvider());
-            autoUpdatedCache.put(city, weatherProxy);
-            executorService.submit(weatherProxy);
-            return weatherProxy;
-        }
     }
 
     @Override
@@ -33,35 +18,15 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
 
     @Override
     public void updateData(long maxMillis) {
-        // maybe here autoupdating
-    }
-}
-
-class WeatherDataProxy extends WeatherData implements Runnable {
-    private final WeatherProvider weatherProvider;
-    private final long maxMillis;
-
-    WeatherDataProxy(WeatherData weather, long maxMillis, WeatherProvider weatherProvider) {
-        super(weather.getCity(), weather.getTemperature(), weather.getHumidity(), weather.getTimestamp());
-        this.maxMillis = maxMillis;
-        this.weatherProvider = weatherProvider;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(maxMillis);
-
-                WeatherData weather = weatherProvider.fetchWeatherData(super.getCity());
-
-                setTemperature(weather.getTemperature());
-                setHumidity(weather.getHumidity());
-                setTimestamp(weather.getTimestamp());
-
-            } catch (InterruptedException ignored) {
-
-            }
+        for (String city : data.keySet()) {
+            scheduleAutoUpdate(city, maxMillis);
         }
+    }
+
+    private void scheduleAutoUpdate(String city, long maxMillis) {
+        scheduler.scheduleAtFixedRate(() -> {
+            WeatherData weather = fetchAndCacheWeatherData(city);
+            data.put(city, weather);
+        }, maxMillis, maxMillis, TimeUnit.MILLISECONDS);
     }
 }

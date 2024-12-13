@@ -11,12 +11,10 @@ public abstract class WeatherCacheTemplate {
     private final WeatherProvider weatherProvider;
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if (data.containsKey(city)) {
-            WeatherData cityData = data.get(city);
-            if (checkIfDataActual(city, maxCacheAgeMillis)) {
-                return cityData;
-            }
+        if (data.containsKey(city) && checkIfDataActual(city, maxCacheAgeMillis)) {
+            return data.get(city);
         }
+
         WeatherData weather = weatherProvider.fetchWeatherData(city);
         data.put(city, weather);
         return weather;
