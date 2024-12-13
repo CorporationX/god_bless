@@ -5,6 +5,7 @@ import java.util.Set;
 class UserValidator {
     private static final Set<String> ALLOWED_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> ALLOWED_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     protected static String validateName(String name) {
         if (name == null || name.isEmpty()) {
@@ -14,7 +15,7 @@ class UserValidator {
     }
 
     protected static Integer validateAge(int age) {
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age must be greater than or equal to 18");
         }
         return age;
