@@ -1,3 +1,3 @@
-package school.faang.BJS2_45343;
+package school.faang.task_44604;
 
 public record SpellEvent(int id, String eventType, String action) {}
