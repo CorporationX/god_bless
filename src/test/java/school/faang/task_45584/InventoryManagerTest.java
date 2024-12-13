@@ -42,7 +42,7 @@ class InventoryManagerTest {
     @Test
     void testUpdateItem() {
         Item ring = new Item("Ring", ItemCategory.RING, 100);
-        inventoryManager.addItem(frodo, ring, item -> System.out.println(item.name()
+        inventoryManager.addItem(frodo, ring, item  -> System.out.println(item.name()
                 + " был добавлен в инвентарь"));
 
         inventoryManager.updateItem(frodo, item -> item.name().equals("Ring"),

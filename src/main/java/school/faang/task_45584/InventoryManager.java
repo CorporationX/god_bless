@@ -12,15 +12,17 @@ import java.util.function.Predicate;
 @Slf4j
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> message) {
-        checkNotNull(character, "Character cannot be null");
-        checkNotNull(item, "Item cannot be null");
+        checkNotNull(character);
+        checkNotNull(item);
         character.getInventory().add(item);
         message.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> filter) {
-        checkNotNull(character, "Character cannot be null");
-        if (!character.getInventory().removeIf(filter)) {
+        checkNotNull(character);
+        boolean removed = !character.getInventory().removeIf(filter);
+
+        if (removed) {
             String errorMessage = "Item not found";
             log.error(errorMessage);
             throw new NoSuchElementException(errorMessage);
@@ -28,17 +30,20 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> function) {
-        checkNotNull(character, "Character cannot be null");
+        checkNotNull(character);
         List<Item> inventory = character.getInventory();
-        Item item = inventory.stream()
-                .filter(filter)
-                .findAny()
-                .orElseThrow(() -> new NoSuchElementException("Item not found"));
-        inventory.set(inventory.indexOf(item), function.apply(item));
+
+        List<Item> updatedInventory = inventory.stream()
+                .map(item -> filter.test(item) ? function.apply(item) : item)
+                .toList();
+
+        inventory.clear();
+        inventory.addAll(updatedInventory);
     }
 
-    private void checkNotNull(Object object, String message) {
+    private void checkNotNull(Object object) {
         if (object == null) {
+            String message = "Object cannot be null";
             log.error(message);
             throw new IllegalArgumentException(message);
         }
