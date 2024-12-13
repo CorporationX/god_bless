@@ -9,16 +9,16 @@ public class Main {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Function<Image, Image> greenFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " зеленый фильтр");
+                new Image(image.name(), image.description() + " зеленый фильтр");
 
         Function<Image, Image> redFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " красный фильтр");
+                new Image(image.name(), image.description() + " красный фильтр");
 
         Image greenImage = filterProcessor.applyFilter(original, greenFilter);
-        System.out.println("\n" + greenImage.getDescription());
+        System.out.println("\n" + greenImage.description());
 
         Image greenRedImage = filterProcessor.applyFilter(greenImage, redFilter);
-        System.out.println("\n" + greenRedImage.getDescription());
+        System.out.println("\n" + greenRedImage.description());
 
     }
 }
