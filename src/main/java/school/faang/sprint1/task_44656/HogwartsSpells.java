@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    public Map<Integer, SpellEvent> spellById = new HashMap<>();
-    public Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
@@ -18,11 +18,23 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return spellById.get(id);
+        SpellEvent spellEvent = spellById.get(id);
+        if (spellEvent != null) {
+            return spellById.get(id);
+        } else {
+            System.out.println("Заклинание не найдено!");
+        }
+        return spellEvent;
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.get(eventType);
+        List<SpellEvent> spellEvents = spellsByType.get(eventType);
+        if (spellEvents != null) {
+            System.out.print(spellsByType.get(eventType));
+        } else {
+            System.out.print("Заклинание не найдено!" + eventType);
+        }
+        return spellEvents;
     }
 
     public void deleteSpellEvent(int id) {

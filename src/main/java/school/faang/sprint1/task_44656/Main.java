@@ -17,11 +17,16 @@ public class Main {
         System.out.println("Получение заклинания по ID (1):");
         System.out.println(spells.getSpellEventById(1));
 
+        System.out.println("\nПолучение заклинания по ID (5):");
+        System.out.println(spells.getSpellEventById(5));
+
+
         System.out.println("\nПолучение заклинаний по типу (Чар):");
-        List<SpellEvent> charSpells = spells.getSpellEventsByType("Чар");
-        for (SpellEvent event : charSpells) {
-            System.out.println(event);
-        }
+        List<SpellEvent> charSpells1 = spells.getSpellEventsByType("Защита");
+        System.out.println();
+        System.out.println("\nПолучение заклинаний по типу (Чар):");
+        List<SpellEvent> charSpells2 = spells.getSpellEventsByType("Защит");
+        System.out.println();
 
         System.out.println("\nУдаление заклинания с ID (2):");
         spells.deleteSpellEvent(2);
