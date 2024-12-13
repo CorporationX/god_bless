@@ -1,0 +1,64 @@
+Условие задачи:
+Вы — разработчик в компании Google и работаете над приложением Google Maps. Вам поручено создать систему поиска местоположений, которая будет использовать стандартные функциональные интерфейсы Java, такие как Function, Predicate и Consumer, для фильтрации и обработки результатов поиска.
+
+Цель:
+Разработайте класс LocationSearchEngine с методами для фильтрации и обработки местоположений, применяя стандартные функциональные интерфейсы Java.
+
+Требования:
+1️⃣ Создайте класс Location с полями:
+
+name (название местоположения),
+
+latitude (широта),
+
+longitude (долгота).
+
+2️⃣ Создайте класс LocationSearchEngine с тремя методами:
+
+filterLocations:
+
+принимает список объектов типа Location и объект типа Predicate<Location>,
+
+возвращает список местоположений, которые соответствуют условию, заданному предикатом.
+
+processLocations:
+
+принимает список объектов типа Location и объект типа Consumer<Location>,
+
+выполняет действие для каждого местоположения в списке
+
+calculateDistances:
+
+принимает список объектов типа Location и объект типа Function<Location, Double>,
+
+возвращает список расстояний между каждым местоположением и заданной точкой на карте, используя переданную функцию для расчёта расстояний.
+
+Пример использования:
+List<Location> locations = new ArrayList<>(Arrays.asList(
+    new Location("Eiffel Tower", 48.8584, 2.2945),
+    new Location("Statue of Liberty", 40.6892, -74.0445),
+    new Location("Great Wall of China", 40.4319, 116.5704)
+));
+
+LocationSearchEngine searchEngine = new LocationSearchEngine();
+
+// Фильтруем местоположения по долготе
+List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
+
+// Выводим названия отфильтрованных местоположений
+searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
+
+// Вычисляем расстояния от заданной точки до каждого местоположения
+double baseLatitude = 37.4220;
+double baseLongitude = -122.0841;
+List<Double> distances = searchEngine.calculateDistances(locations, (location) -> {
+    double latitudeDiff = Math.abs(location.getLatitude() - baseLatitude);
+    double longitudeDiff = Math.abs(location.getLongitude() - baseLongitude);
+    return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
+});
+Почему эта задача полезна?
+Посмотрите на метод filterLocations. То, что он принимает лямбду в качестве условия, означает, что мы можем передавать ему любую лямбду в разных местах, или же в зависимости от каких-то других действий пользователя.
+
+Например, в Google Maps есть огромное количество фильтров по местоположению. И такой метод, написанный с использованием лямбд, позволил бы очень легко создавать большое количество новых фильтров. Почему? Потому что, чтобы реализовать новый фильтр в целом приложении Google Maps, что тогда нужно сделать?
+
+Просто написать новую лямбду и передать её в этот метод! Именно такая организация кода позволяет большим корпорациям ещё быстрее реализовывать собственные фичи и привлекать как можно больше пользователей. Google Maps сегодня — стандарт в картах. Именно из-за таких вот деталей на всех уровнях. В том числе и на уровне разработки.
