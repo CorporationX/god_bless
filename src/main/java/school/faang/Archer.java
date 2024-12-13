@@ -1,6 +1,6 @@
 package school.faang;
 
-public class Archer extends Character{
+public class Archer extends Character {
 
     public Archer(String name) {
         super(name, 3, 10, 5);
@@ -8,6 +8,6 @@ public class Archer extends Character{
 
     @Override
     public void attack(Character c) {
-       c.setHealth(c.health - dexterity);
+        c.setHealth(c.health - dexterity);
     }
 }
