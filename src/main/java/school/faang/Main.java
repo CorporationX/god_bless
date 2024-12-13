@@ -40,7 +40,7 @@ public class Main {
         users.add(new User("Oleg", 35, "Yandex", "Park Kultury"));
 
         Map<Integer, List<User>> usersByAge = groupUsers(users);
-        for(Map.Entry<Integer, List<User>> entry : usersByAge.entrySet()) {
+        for (Map.Entry<Integer, List<User>> entry : usersByAge.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
