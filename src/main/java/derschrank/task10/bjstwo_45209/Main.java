@@ -50,8 +50,8 @@ public class Main {
         studentDatabase.printAllSubjectsWithStudents();
 
         System.out.println("Add student to subject");
-        studentDatabase.addSubject(subject3);
-        studentDatabase.addSubject(subject4);
+//        studentDatabase.addSubject(subject3);
+//        studentDatabase.addSubject(subject4);
         studentDatabase.addOneStudentToSubject(subject3, student1);
         studentDatabase.addOneStudentToSubject(subject4, student2);
         studentDatabase.printAllSubjectsWithStudents();

@@ -2,7 +2,7 @@ package derschrank.task10.bjstwo_45209;
 
 import java.util.*;
 
-public class StudentDatabase {
+public class StudentDatabase implements  StudentDatabaseInterface {
     private final Map<Student, Map<Subject, Integer>> studentGraidsBySubject;
     private final Map<Subject, Set<Student>> subjectStudents;
 
@@ -16,36 +16,53 @@ public class StudentDatabase {
         this.subjectStudents = subjectAndStudents;
     }
 
-
-    private void addStudent(Student student) {
+    private void addStudentToStudentGraids(Student student) {
         studentGraidsBySubject.computeIfAbsent(student, k -> new HashMap<>());
     }
 
-    private void addNotesToStudent(Student student, Map<Subject, Integer> newNotes) {
-        Map<Subject, Integer> oldNotes = studentGraidsBySubject.get(student);
-        oldNotes.putAll(newNotes);
+    @Override
+    public void addOneNoteToStudent(Student student, Subject subject, Integer note) {
+        addOneNoteToStudentOnly(student, subject, note);
+        addOneStudentToSubjectOnly(subject, student);
     }
 
-    public void addOneNoteToStudent(Student student, Subject subject, Integer note) {
-        Map<Subject, Integer> oldNote = studentGraidsBySubject.get(student);
-        if (oldNote != null) {
-            oldNote.put(subject, note);
+    private void addOneNoteToStudentOnly(Student student, Subject subject, Integer note) {
+        addStudentToStudentGraids(student);
+        studentGraidsBySubject.get(student).put(subject, note);
+        addOneStudentToSubjectOnly(subject, student);
+    }
+
+    @Override
+    public void addStudentAndHisNotes(Student student, Map<Subject, Integer> newNote) {
+        addStudentAndHisNotesOnly(student, newNote);
+        for (Subject subject : newNote.keySet()) {
+            addOneStudentToSubjectOnly(subject, student);
         }
     }
 
-    public void addStudentAndHisNotes(Student student, Map<Subject, Integer> newNote) {
-        addStudent(student);
-        addNotesToStudent(student, newNote);
+    private void addStudentAndHisNotesOnly(Student student, Map<Subject, Integer> newNotes) {
+        addStudentToStudentGraids(student);
+        studentGraidsBySubject.get(student).putAll(newNotes);
     }
 
+
+    private void addStudentAndHisNotesWithSubjectWithOutNote(Student student, Subject subject) {
+        addStudentAndHisNotesOnly(student, (Map.of(subject, 0)));
+    }
+
+    @Override
     public void deleteStudent(Student student) {
-        studentGraidsBySubject.remove(student);
+        deleteStudentFromStudentGraidsBySubjectOnly(student);
         for (Subject subject : subjectStudents.keySet()) {
             subjectStudents.get(subject).remove(student);
         }
     }
 
+    private void deleteStudentFromStudentGraidsBySubjectOnly(Student student) {
+        studentGraidsBySubject.remove(student);
+    }
 
+    @Override
     public void printAllStudentsWithNotes() {
         System.out.println(getStringToPrintAllStudentsWithNotes());
     }
@@ -74,34 +91,50 @@ public class StudentDatabase {
 
 
 
-    public void addSubject(Subject subject) {
+    private void addSubject(Subject subject) {
         subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
     }
 
-    public void addStudentsToSubject(Subject subject, Set<Student> students) {
-        Set<Student> oldListOfStudents = subjectStudents.get(subject);
-        oldListOfStudents.addAll(students);
-    }
-
+    @Override
     public void addOneStudentToSubject(Subject subject, Student student) {
-        Set<Student> oldListOfStudents = subjectStudents.get(subject);
-        oldListOfStudents.add(student);
+        addOneStudentToSubjectOnly(subject, student);
+        addStudentAndHisNotesWithSubjectWithOutNote(student, subject);
     }
 
-    public void addSubjectAndHisStudents(Subject subject, Set<Student> students) {
+    private void addOneStudentToSubjectOnly(Subject subject, Student student) {
         addSubject(subject);
-        addStudentsToSubject(subject, students);
+        subjectStudents.get(subject).add(student);
     }
 
+    @Override
+    public void addSubjectAndHisStudents(Subject subject, Set<Student> students) {
+        addSubjectAndHisStudentsOnly(subject, students);
+        for (Student student : students) {
+            addStudentAndHisNotesWithSubjectWithOutNote(student, subject);
+        }
+    }
+
+    private void addSubjectAndHisStudentsOnly(Subject subject, Set<Student> students) {
+        addSubject(subject);
+        subjectStudents.get(subject).addAll(students);
+    }
+
+    @Override
     public void delStudentFromSubject(Student student, Subject subject) {
+        delStudentFromSubjectOnly(student, subject);
+        deleteStudentFromStudentGraidsBySubjectOnly(student);
+    }
+
+    private void delStudentFromSubjectOnly(Student student, Subject subject) {
         subjectStudents.get(subject).remove(student);
     }
 
+    @Override
     public void printAllSubjectsWithStudents() {
         System.out.println(getStringToPrintAllSubjectsWithStudents());
     }
 
-    public String getStringToPrintAllSubjectsWithStudents() {
+    private String getStringToPrintAllSubjectsWithStudents() {
         int count = 0;
 
         String stringFormatCountAndSubject = "[%" + (subjectStudents.size() / 10 + 1) + "d] %s: ";
