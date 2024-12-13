@@ -1,4 +1,4 @@
-package school.faang.Task_userRegistration;
+package school.faang.task_user_registration;
 
 
 public class Main {
