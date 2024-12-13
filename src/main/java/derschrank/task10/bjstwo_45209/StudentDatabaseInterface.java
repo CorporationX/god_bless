@@ -17,7 +17,7 @@ public interface StudentDatabaseInterface {
 
     void addOneStudentToSubject(Subject subject, Student student);
 
-    void delStudentFromSubject(Student student, Subject subject);
+    void deleteStudentFromSubject(Student student, Subject subject);
 
     void printAllSubjectsWithStudents();
 }

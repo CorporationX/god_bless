@@ -53,8 +53,8 @@ public class StudentDatabase implements  StudentDatabaseInterface {
     @Override
     public void deleteStudent(Student student) {
         deleteStudentFromStudentGraidsBySubjectOnly(student);
-        for (Subject subject : subjectStudents.keySet()) {
-            subjectStudents.get(subject).remove(student);
+        for (Subject subject : (new HashSet<>(subjectStudents.keySet()))) {
+            deleteStudentFromSubjectOnly(student, subject);
         }
     }
 
@@ -120,13 +120,16 @@ public class StudentDatabase implements  StudentDatabaseInterface {
     }
 
     @Override
-    public void delStudentFromSubject(Student student, Subject subject) {
-        delStudentFromSubjectOnly(student, subject);
+    public void deleteStudentFromSubject(Student student, Subject subject) {
+        deleteStudentFromSubjectOnly(student, subject);
         deleteStudentFromStudentGraidsBySubjectOnly(student);
     }
 
-    private void delStudentFromSubjectOnly(Student student, Subject subject) {
+    private void deleteStudentFromSubjectOnly(Student student, Subject subject) {
         subjectStudents.get(subject).remove(student);
+        if (subjectStudents.get(subject).isEmpty()) {
+            subjectStudents.remove(subject);
+        }
     }
 
     @Override

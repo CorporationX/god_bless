@@ -55,8 +55,8 @@ public class Main {
         studentDatabase.printAllSubjectsWithStudents();
 
         System.out.println("Delete the student from subject");
-        studentDatabase.delStudentFromSubject(student1, subject1);
-        studentDatabase.delStudentFromSubject(student1, subject2);
+        studentDatabase.deleteStudentFromSubject(student1, subject1);
+        studentDatabase.deleteStudentFromSubject(student1, subject2);
         studentDatabase.printAllSubjectsWithStudents();
 
         System.out.println("toString:");
