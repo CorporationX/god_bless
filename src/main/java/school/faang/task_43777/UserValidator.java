@@ -16,7 +16,7 @@ class UserValidator {
 
     protected static Integer validateAge(int age) {
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Age must be greater than or equal to 18");
+            throw new IllegalArgumentException("Age must be greater than or equal to " + MIN_AGE);
         }
         return age;
     }
