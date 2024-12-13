@@ -3,8 +3,6 @@ package school.faang.sprint_1.task_45389;
 import java.util.HashMap;
 import java.util.Map;
 
-//import static school.faang.sprint_1.task_45389.Main.books;
-
 public class LibrarySystem {
     private Map<Book, String> books = new HashMap<>();
 
