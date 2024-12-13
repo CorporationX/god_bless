@@ -1,21 +1,24 @@
 package school.faang.sprint2.bjs_46170;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
-        String result = ErrorHandler.withErrorHandling(
-                () -> {
-                    try {
-                        return RemoteService.call("Param");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                },
+        String resultWithError = ErrorHandler.withErrorHandling(
+                () -> RemoteService.exceptionCall("do something"),
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                    log.warn("Ошибка при вызове сервиса, возвращаем дефолтное значение");
                     return "DEFAULT";
                 }
         );
-        System.out.println(result);
+        log.info(resultWithError);
+
+        String successfulResult = ErrorHandler.withErrorHandling(
+                () -> RemoteService.call("All is good"),
+                e -> "DEFAULT"
+        );
+        log.info(successfulResult);
     }
 }
 
