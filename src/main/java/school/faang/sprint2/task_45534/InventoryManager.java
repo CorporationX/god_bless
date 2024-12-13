@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 public class InventoryManager {
@@ -28,7 +29,14 @@ public class InventoryManager {
 
     public void updateItem(@NonNull Predicate<Item> filter, @NonNull Function<Item, Item> updater) {
         List<Item> items = character.getItems();
-        items.replaceAll((item) -> filter.test(item) ? updater.apply(item) : item);
+
+        Stream<Item> filtered = items.stream()
+                .filter(filter).map(updater);
+        Stream<Item> unfiltered = items.stream()
+                .filter(filter.negate());
+
+        List<Item> inventory = Stream.concat(filtered, unfiltered).toList();
+        character.setItems(inventory);
     }
 
     public void printAllItems() {

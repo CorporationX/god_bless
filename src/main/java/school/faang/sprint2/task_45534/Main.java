@@ -25,5 +25,6 @@ public class Main {
                         new Item(item.getName(), item.getValue() * 2));
 
         dmitryInventory.printAllItems();
+
     }
 }
