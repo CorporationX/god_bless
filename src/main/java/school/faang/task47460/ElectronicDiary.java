@@ -35,7 +35,8 @@ public class ElectronicDiary {
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey,
                                 entry -> entry.getValue().stream()
-                                        .mapToDouble(Integer::doubleValue).average().orElse(0.0)))).orElse(Collections.emptyMap());
+                                        .mapToDouble(Integer::doubleValue).average().orElse(0.0))))
+                .orElse(Collections.emptyMap());
     }
 
     public static String hardSubject(List<Student> students) {
@@ -64,11 +65,9 @@ public class ElectronicDiary {
             Map<String, Integer> finalGradeStudent = finalGrade(students, student.firstName(), student.lastName());
 
             subjects.forEach(subject -> {
-                        double grade = averagedGradeStudent.getOrDefault(subject, 0.0);
-                        System.out.printf("%15.1f|", grade);
-
-                    }
-            );
+                double grade = averagedGradeStudent.getOrDefault(subject, 0.0);
+                System.out.printf("%15.1f|", grade);
+            });
 
             int count = averagedGradeStudent.values().size();
             double percent = averagedGradeStudent.values()
