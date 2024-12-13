@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -54,6 +55,13 @@ public class StreamApiOperation3 {
                 .collect(Collectors.toSet());
     }
 
+    public static Set<Integer> perfectNumbers(int start, int end) {
+        return IntStream.range(start, end)
+                .filter(StreamApiOperation3::isPerfect)
+                .boxed()
+                .collect(Collectors.toSet());
+    }
+
     private static boolean isPalindromeNumber(int number) {
         String numberString = String.valueOf(number);
         String reverseString = new StringBuilder(numberString).reverse().toString();
@@ -75,5 +83,16 @@ public class StreamApiOperation3 {
         return s.equals(reverseString);
     }
 
+    private static boolean isPerfect(int number) {
+        AtomicInteger sum = new AtomicInteger();
+        dividers(number).forEach(sum::addAndGet);
+        return Integer.valueOf(sum.get()).equals(number);
+    }
 
+    private static Set<Integer> dividers(int number) {
+        return IntStream.range(1, number / 2 + 1)
+                .filter(n -> number % n == 0)
+                .boxed()
+                .collect(Collectors.toSet());
+    }
 }

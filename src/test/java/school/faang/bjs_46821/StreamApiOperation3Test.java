@@ -59,4 +59,13 @@ class StreamApiOperation3Test {
         Set<String> expected = Set.of("a", "aba", "b", "c");
         assertEquals(expected, actual);
     }
+
+    @Test
+    void perfectNumbers() {
+        int start = 1;
+        int end = 1000;
+        Set<Integer> expected = Set.of(6, 28, 496);
+        Set<Integer> actual = StreamApiOperation3.perfectNumbers(start, end);
+        assertEquals(expected, actual);
+    }
 }
