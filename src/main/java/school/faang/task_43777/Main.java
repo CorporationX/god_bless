@@ -7,7 +7,7 @@ public class Main {
         try {
             new User("Alice", 17, "Google", "London");
         } catch (IllegalArgumentException e) {
-            System.err.println("Ошибка создания пользователя: " + e.getMessage());
+            System.err.println("User creation error: " + e.getMessage());
         }
     }
 }
