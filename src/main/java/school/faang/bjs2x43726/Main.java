@@ -1,5 +1,4 @@
-package school.faang.task_BJS2_43726;
-
+package school.faang.bjs2x43726;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,5 +9,4 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-
 }
