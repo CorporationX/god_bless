@@ -1,13 +1,15 @@
 package school.faang;
 
-public class SpellEvent {
-    public int id;
-    public String eventType;
-    public String action;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-    public SpellEvent(int id, String eventType, String action) {
-        this.id = id;
-        this.eventType = eventType;
-        this.action = action;
-    }
+@Setter
+@Getter
+@AllArgsConstructor
+public class SpellEvent {
+    private int id;
+    private String eventType;
+    private String action;
+
 }

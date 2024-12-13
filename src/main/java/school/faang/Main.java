@@ -12,14 +12,19 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
 
         SpellEvent spellEvent = hogwartsSpells.getSpellEventById(1);
-        System.out.println("SpellEvent by id: " + spellEvent.id + " " + spellEvent.eventType + " " + spellEvent.action);
+        System.out.println("SpellEvent by id: "
+                + spellEvent.getId() + " "
+                + spellEvent.getEventType() + " "
+                + spellEvent.getAction());
 
 
         List<SpellEvent> spellEvents = hogwartsSpells.getSpellEventsByType("Трансфигурация");
+
         System.out.println("SpellEvents by type: "
-                + spellEvents.get(0).id + " "
-                + spellEvents.get(0).eventType + " "
-                + spellEvents.get(0).action);
+                + spellEvents.get(0).getId() + " "
+                + spellEvents.get(0).getEventType() + " "
+                + spellEvents.get(0).getAction());
+        //Тут правильнее было бы проходить foreach и выводить каждый элемент списка
 
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
