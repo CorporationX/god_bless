@@ -1,8 +1,8 @@
-package school.faang.sprint_1.task_bjs43864;
+package school.faang.task_bjs43864;
 
-import static school.faang.sprint_1.task_bjs43864.BattleConfig.DEFAULT_AGILITY;
-import static school.faang.sprint_1.task_bjs43864.BattleConfig.DEFAULT_INTELLIGENCE;
-import static school.faang.sprint_1.task_bjs43864.BattleConfig.DEFAULT_POWER;
+import static school.faang.task_bjs43864.BattleConfig.DEFAULT_AGILITY;
+import static school.faang.task_bjs43864.BattleConfig.DEFAULT_INTELLIGENCE;
+import static school.faang.task_bjs43864.BattleConfig.DEFAULT_POWER;
 
 import lombok.AccessLevel;
 import lombok.Getter;
