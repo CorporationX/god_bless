@@ -17,11 +17,11 @@ public class HogwartsSpells {
     public void addSpellEvent(int id, EventType eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
-        log.info("the spell event have added to the spell by id");
+        log.info("Added spell event with id {} to spellById map", id);
 
-        spellsByType.putIfAbsent(eventType.name(), new ArrayList<>());
-        spellsByType.get(eventType.name()).add(spellEvent);
-        log.info("the spell event have added to the spells by type");
+        List<SpellEvent> spellsOfType = spellsByType.computeIfAbsent(eventType.name(), k -> new ArrayList<>());
+        spellsOfType.add(spellEvent);
+        log.info("Added spell event with id {} and type {} to spellsByType map", id, eventType.name());
     }
 
     public void getSpellEventById(int id) {
@@ -40,6 +40,14 @@ public class HogwartsSpells {
         if (spellEvent == null) {
             throw new IllegalArgumentException("the spell event " + id + " have not found");
         }
+
+        EventType spellType = spellEvent.getEventType();
+        List<SpellEvent> spellsOfType = spellsByType.get(spellType.name());
+        spellsOfType.removeIf(event -> event.getId() == id);
+        if (spellsOfType.isEmpty()) {
+            spellsByType.remove(spellType.name());
+        }
+        log.info("Deleted spell event with id {}", id);
     }
 
     public void printAllSpellEvents() {
