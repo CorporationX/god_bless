@@ -1,4 +1,4 @@
-package school.faang.cendaljoe_instagramf_ilters_bjs2_46403;
+package school.faang.task_46403;
 
 public class Image {
     private String name;
