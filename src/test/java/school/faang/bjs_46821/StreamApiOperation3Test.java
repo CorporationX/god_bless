@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -48,6 +49,14 @@ class StreamApiOperation3Test {
         int end = 200;
         List<Integer> expected = Arrays.asList(101, 111, 121, 131, 141, 151, 161, 171, 181, 191);
         List<Integer> actual = StreamApiOperation3.palindromeNumbers(start, end);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void palindromeSubStrings() {
+        String input = "abac";
+        Set<String> actual = StreamApiOperation3.palindromeSubStrings(input);
+        Set<String> expected = Set.of("a", "aba", "b", "c");
         assertEquals(expected, actual);
     }
 }
