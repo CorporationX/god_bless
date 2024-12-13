@@ -13,11 +13,11 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
                 .map(Server::getMaxLoad)
                 .reduce(0.0, Double::sum);
 
-        double kLoad = totalLoad / totalMaxLoad;
+        double loadFactor = totalLoad / totalMaxLoad;
 
-        if (kLoad < 1) {
+        if (loadFactor < 1) {
             for (var server : dataCenter.getServers()) {
-                server.setLoad(server.getMaxLoad() * kLoad);
+                server.setLoad(server.getMaxLoad() * loadFactor);
             }
         }
     }
