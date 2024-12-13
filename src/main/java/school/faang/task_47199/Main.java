@@ -126,8 +126,7 @@ public class Main {
 
         System.out.println("Top 10 active users: " + topUsers);
         System.out.println("Top 5 popular hashtags: " + topHashtags);
-        System.out.println("\n" +
-                "Top 3 commenters from the last month: " + topCommenters);
+        System.out.println("Top 3 commenters from the last month: " + topCommenters);
         System.out.println("Percentage of actions by type: " + actionPercentages);
     }
 }
