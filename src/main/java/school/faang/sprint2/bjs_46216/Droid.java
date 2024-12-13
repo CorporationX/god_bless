@@ -3,7 +3,7 @@ package school.faang.sprint2.bjs_46216;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public record Droid (String name){
+public record Droid(String name) {
     private static final int ALPHABET_SIZE = 26;
 
     public void sendMessage(Droid toDroid, String msg, int key) {
