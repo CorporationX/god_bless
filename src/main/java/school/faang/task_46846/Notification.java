@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Notification {
-    private String type;
+    private Types type;
     private String message;
 
 }
