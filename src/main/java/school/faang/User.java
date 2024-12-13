@@ -1,19 +1,19 @@
 package school.faang;
 
-import java.util.List;
+import java.util.Set;
 
 public class User {
     private String name;
     private int age;
     private String job;
     private String address;
-    private static List<String> VALID_JOBS;
-    private static List<String> VALID_ADDRESSES;
+    private static Set<String> VALID_JOBS;
+    private static Set<String> VALID_ADDRESSES;
     private static final int MIN_AGE = 18;
 
     static {
-        VALID_JOBS = List.of("Google", "Uber", "Amazon");
-        VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+        VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+        VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     }
 
     public User(String name, int age, String job, String address) {
