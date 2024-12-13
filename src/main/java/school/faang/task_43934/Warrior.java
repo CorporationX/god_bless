@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.task_43934;
 
 public class Warrior extends Character {
 
