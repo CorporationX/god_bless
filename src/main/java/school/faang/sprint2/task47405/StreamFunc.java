@@ -9,6 +9,7 @@ public class StreamFunc {
         Set<Integer> tempNumbers = new HashSet<>(numbers);
 
         return numbers.stream()
+                .peek(tempNumbers::remove)
                 .filter(n -> tempNumbers.contains(sum - n))
                 .map(n -> Arrays.asList(n, sum - n))
                 .peek(Collections::sort)

@@ -9,9 +9,10 @@ public class Main {
     public static void main(String[] args) {
 
         List<Integer> numbers = List.of(11, 12, 13, 14, 1, 2, 3, 4, 5, 8, 4, 5, 6, 7, 8, 9);
+        //List<Integer> numbers = List.of(1,3);
 
-        Set<List<Integer>> pairs = StreamFunc.getUniquePairs(numbers, 10);
-        System.out.println(pairs);
+        Set<List<Integer>> pairs = StreamFunc.getUniquePairs(numbers, 6);
+        System.out.println("Pairs: " + pairs);
 
         Map<String, String> capitals = new HashMap<>();
         capitals.put("Russia", "Moscow");
