@@ -1,13 +1,8 @@
 package lordrpg;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Main {
     public static void main(String[] args) {
-        Character frodo = new Character(" Frodo ");
+        Character frodo = new Character("Frodo");
         Item ring = new Item("The One Ring", 1000);
 
         InventoryManager manager = new InventoryManager();
