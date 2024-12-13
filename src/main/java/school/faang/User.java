@@ -13,7 +13,7 @@ public class User {
     private String address;
 
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
-    private static final List<String> VALID_ADDRESSES = Arrays.asList( "London", "New York", "Amsterdam");
+    private static final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
 
     public User(String name, int age, String workPlace, String address) {
         this.name = Optional.ofNullable(name).orElseThrow(IllegalArgumentException::new);
