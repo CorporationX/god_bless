@@ -1,5 +1,6 @@
 package school.faang;
 
+
 import java.util.List;
 
 public class Main {
@@ -29,4 +30,5 @@ public class Main {
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
     }
+
 }
