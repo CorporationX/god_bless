@@ -18,9 +18,13 @@ public class StreamOperations {
                 .stream()
                 .flatMap(person1 -> peopleWithFriends.entrySet()
                         .stream()
-                        .filter(person2 -> !person1.getKey().equals(person2.getKey()))
-                        .filter(person2 -> !person1.getValue().contains(person2.getKey()))
                         .filter(person2 -> {
+                            if (person1.getKey().equals(person2.getKey())) {
+                                return false;
+                            }
+                            if (person1.getValue().contains(person2.getKey())) {
+                                return false;
+                            }
                             HashSet<String> commonFriends = new HashSet<>(person1.getValue());
                             commonFriends.addAll(person2.getValue());
                             return !commonFriends.isEmpty();
