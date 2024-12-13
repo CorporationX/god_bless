@@ -1,4 +1,4 @@
-package school.faang.task_46184secretsdroid;
+package school.faang.task_46184;
 
 public class Main {
     public static void main(String[] args) {

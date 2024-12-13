@@ -1,4 +1,4 @@
-package school.faang.task_46184secretsdroid;
+package school.faang.task_46184;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +16,10 @@ public class Droid {
         return decryptor.execute(message, key);
     }
 
-    public void sendMessage(Droid sendDroid, String inputMessage, int encryptionKey) {
+    public void sendMessage(Droid receiveDroid, String inputMessage, int encryptionKey) {
         String encryptedMessage = encryptMessage(inputMessage, encryptionKey, CaesarCipherEncryptor.ENCRYPT);
-        System.out.println("Sending " + encryptedMessage + " from " + this.name + " to " + sendDroid.name);
-        sendDroid.receiveMessage(encryptedMessage, encryptionKey);
+        System.out.println("Sending " + encryptedMessage + " from " + this.name + " to " + receiveDroid.name);
+        receiveDroid.receiveMessage(encryptedMessage, encryptionKey);
     }
 
     private void receiveMessage(String encryptedMessage, int encryptionKey) {

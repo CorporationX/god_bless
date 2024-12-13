@@ -1,4 +1,4 @@
-package school.faang.task_46184secretsdroid;
+package school.faang.task_46184;
 
 public final class CaesarCipherEncryptor {
     public static final DroidMessageEncryptor ENCRYPT = (message, key) -> {
