@@ -77,7 +77,8 @@ public class Shop implements ShopInterface {
     public void printAllItems() {
         StringBuilder result = new StringBuilder("All products:\n");
         for (Product product : products) {
-            result.append(" - " + product + "\n");        }
+            result.append(" - " + product + "\n");
+        }
         System.out.println(result);
     }
 
