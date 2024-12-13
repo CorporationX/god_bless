@@ -14,7 +14,6 @@ public class UserActionAnalyzer {
 
         });
 
-
         return users.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .limit(10)
