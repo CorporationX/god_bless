@@ -12,8 +12,9 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     }
 
     @Override
-    protected void updateWeatherData(City city) {
+    protected WeatherData updateWeatherData(City city) {
         WeatherData updatedData = provider.fetchWeatherData(city);
         getWeatherDataCache().put(city.name(), updatedData);
+        return updatedData;
     }
 }
