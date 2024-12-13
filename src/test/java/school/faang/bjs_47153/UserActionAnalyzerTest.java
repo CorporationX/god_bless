@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 class UserActionAnalyzerTest {
 
@@ -139,5 +140,14 @@ class UserActionAnalyzerTest {
         List<String> expected = Arrays.asList("Dave", "Eve", "Charlie");
         Assertions.assertTrue(actual.containsAll(expected));
         Assertions.assertTrue(expected.containsAll(actual));
+    }
+
+    @Test
+    void actionTypePercentages() {
+        List<UserAction> actions = getActions();
+        Map<String, Double> actual = UserActionAnalyzer.actionTypePercentages(actions);
+        Map<String, Double> expected = Map.of("LIKE", 26.53061224489796, "POST", 26.53061224489796,
+                "SHARE", 20.408163265306122, "COMMENT", 26.53061224489796);
+        Assertions.assertEquals(expected, actual);
     }
 }

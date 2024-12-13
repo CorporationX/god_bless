@@ -59,6 +59,22 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
+    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        Map<String, Integer> actionsByType = new HashMap<>();
+        Map<String, Double> percentages = new HashMap<>();
+        int actionsCount = actions.size();
+
+        actions.forEach(action -> {
+            actionsByType.computeIfAbsent(action.getActionType().name(), k -> 0);
+            actionsByType.compute(action.getActionType().name(), (k, count) -> count + 1);
+        });
+
+        actionsByType.forEach((key, value) -> percentages.put(key, 100.0 * value / actionsCount));
+
+        return percentages;
+
+    }
+
     private static String getUserNameById(List<UserAction> actions, Integer userId) {
         return actions.stream()
                 .filter(action -> userId.equals(action.getUserId()))
