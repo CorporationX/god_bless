@@ -8,56 +8,82 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 @Getter
 @AllArgsConstructor
 public class StudentDatabase {
-    HashMap<Student, Map<Subject, Integer>> subjectsWithGrades;
-    HashMap<Subject, List<Student>> subjectWithStudents;
+    private final Map<Student, Map<Subject, Integer>> studentToGrades;
+    private final Map<Subject, List<Student>> subjectWithStudents;
 
     public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Integer> grades) {
-        Optional.ofNullable(student).ifPresent(s -> subjectsWithGrades.put(student, grades));
-        log.info("The Student with Subjects and Grades have added");
+        Optional.ofNullable(student).ifPresent(s -> {
+            studentToGrades.put(student, grades);
+            log.info("Added student with id {}", s.getId());
+            log.debug("Added grades for student {}: {}", s.getName(), grades);
+        });
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        subjectsWithGrades.computeIfAbsent(student, s -> new HashMap<>()).put(subject, grade);
-        log.info("The Subject for Student have added");
+        Map<Subject, Integer> studentGrades = studentToGrades.computeIfAbsent(student, s -> new HashMap<>());
+        studentGrades.put(subject, grade);
+        log.info("Added subject with id {} for student with id {}", subject.getId(), student.getId());
     }
 
     public void removeStudentWithSubjects(Student student) {
-        Optional.ofNullable(student).ifPresent(s -> subjectsWithGrades.remove(s));
-        log.info("The Student have removed");
+        if (student != null) {
+            studentToGrades.remove(student);
+            log.info("The student with id {} have removed", student.getId());
+        } else {
+            log.warn("Attempted to remove a null student");
+        }
     }
 
     public void printAllStudentsWithSubjectsAndGrades() {
-        subjectsWithGrades.forEach((student, subjects) -> {
+        studentToGrades.forEach((student, subjects) -> {
             log.info("{}", student);
             subjects.forEach((subject, grade) -> log.info("{}, {}", subject, grade));
         });
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        Optional.ofNullable(subject).ifPresent(s -> subjectWithStudents.put(subject, students));
-        log.info("The Subject with Students have added");
+        if (subject != null && students != null) {
+            List<Student> studentsList = subjectWithStudents.computeIfAbsent(subject, k -> new ArrayList<>());
+            studentsList.addAll(students);
+            log.info("Added {} students to subject with id {}", students, subject.getId());
+        } else {
+            log.warn("Attempted to add a null subject or students list. Subject: {}, Students: {}", subject, students);
+        }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        subjectWithStudents.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
-        log.info("The Student to the Subject have added");
+        if (subject != null && student != null) {
+            List<Student> students = subjectWithStudents.computeIfAbsent(subject, s -> new ArrayList<>());
+            students.add(student);
+            log.info("Added student with id {} to subject with id {}", student.getId(), subject.getId());
+        } else {
+            log.warn("Attempted to add a null subject or student. Subject: {}, Student: {}", subject, student);
+        }
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        Optional.ofNullable(subject)
-                .ifPresent(s -> subjectWithStudents
-                        .computeIfPresent(s, (k, v) -> {
-                            v.removeIf(st -> st
-                                    .equals(student));
-                            return v;
-                        }));
-        log.info("The Student from Subject have removed");
+        if (student == null || subject == null) {
+            log.warn("Attempted to remove a null student or subject. Student: {}, Subject: {}", student, subject);
+            throw new IllegalArgumentException("Student and subject must not be null");
+        }
+
+        List<Student> students = subjectWithStudents.get(subject);
+        if (students != null) {
+            students.removeIf(existStudent -> Objects.equals(existStudent.getId(), student.getId()));
+            if (students.isEmpty()) {
+                subjectWithStudents.remove(subject);
+            }
+            log.info("Removed student with id {} from subject with id {}", student.getId(), subject.getId());
+        } else {
+            log.warn("Subject with id {} does not exist", subject.getId());
+        }
     }
 
     public void printAllSubjectsWithStudents() {
