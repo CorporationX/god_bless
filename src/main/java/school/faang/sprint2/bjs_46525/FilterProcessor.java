@@ -17,7 +17,7 @@ public class FilterProcessor {
 
     private void isNull(Object object1, Object object2) {
         if (object1 == null || object2 == null) {
-            throw new NullPointerException("Ошибка");
+            throw new IllegalArgumentException("Введенные значения не могут быть равны null!");
         }
     }
 }
