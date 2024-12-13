@@ -1,0 +1,44 @@
+Условие задачи:
+Вы — разработчик приложения Uber, и сейчас работаете над функцией, которая позволяет пользователям оценить стоимость поездки до выбора водителя. Нужно сделать систему, которая будет принимать расстояние и время поездки, а потом рассчитывать стоимость в зависимости от выбранного тарифа.
+
+Цель:
+Создайте класс FareCalculator, который будет использовать BiFunction для подсчёта стоимости поездки.
+
+Требования:
+1️⃣ Создайте класс FareCalculator с методом calculateFare, который будет считать стоимость поездки.
+
+2️⃣ Метод calculateFare должен:
+
+принимать на вход два параметра: расстояние и время поездки;
+
+также принимать BiFunction, которая и будет заниматься вычислением стоимости поездки.
+
+3️⃣ Создайте несколько тарифов с помощью лямбда-выражений и интерфейса BiFunction. Каждый тариф будет иметь свою формулу расчета стоимости.
+
+4️⃣ Протестируйте систему, создав примеры поездок с разными тарифами и выведя их стоимость в консоль.
+
+Пример использования:
+FareCalculator fareCalculator = new FareCalculator();
+
+// Определение тарифов
+BiFunction<Double, Double, Double> economyFare = (distance, time) -> 1.0 * distance + 0.5 * time;
+BiFunction<Double, Double, Double> comfortFare = (distance, time) -> 1.5 * distance + 0.8 * time;
+BiFunction<Double, Double, Double> premiumFare = (distance, time) -> 2.0 * distance + 1.5 * time;
+
+// Пример поездки
+double distance = 10.0;  // километры
+double time = 15.0;      // минуты
+
+// Рассчитываем стоимость для каждого тарифа
+double economyTripCost = fareCalculator.calculateFare(distance, time, economyFare);
+double comfortTripCost = fareCalculator.calculateFare(distance, time, comfortFare);
+double premiumTripCost = fareCalculator.calculateFare(distance, time, premiumFare);
+
+System.out.println("Стоимость поездки на тарифе Economy: " + economyTripCost);
+System.out.println("Стоимость поездки на тарифе Comfort: " + comfortTripCost);
+System.out.println("Стоимость поездки на тарифе Premium: " + premiumTripCost);
+
+Почему эта задача полезна?
+На примере видно, как легко теперь в Uber создать новый тариф прямо на ходу! По сути нужно всего лишь написать новую лямбду и передать её в уже существующий метод. Именно в лямбде и будет содержаться логика нового тарифа поездки.
+
+В результате, разработчики Uber пишут логику лишь один раз. А когда появляется новый тариф, то они попросту пишут новую лямбду со своей собственной логикой, а все общие операции остаются неизменны. Вам даже не нужно знать, как эта лямбда применяется, если вы хотите написать новую! Вы просто пишите и всё! Это надёжно.
