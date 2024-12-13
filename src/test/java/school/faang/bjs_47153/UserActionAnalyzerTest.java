@@ -73,43 +73,43 @@ class UserActionAnalyzerTest {
                 new UserAction(1, "Alice", ActionType.valueOf("comment".toUpperCase()),
                         LocalDate.of(2024, 9, 30), "Excited to try out the new #update!"),
                 new UserAction(2, "Bob", ActionType.valueOf("share".toUpperCase()),
-                        LocalDate.of(2024, 10, 1), ""),
+                        LocalDate.of(2024, 12, 1), ""),
                 new UserAction(3, "Charlie", ActionType.valueOf("comment".toUpperCase()),
-                        LocalDate.of(2024, 10, 2), "The #update has some great features."),
+                        LocalDate.of(2024, 12, 2), "The #update has some great features."),
                 new UserAction(5, "Eve", ActionType.valueOf("like".toUpperCase()),
-                        LocalDate.of(2024, 10, 3), ""),
+                        LocalDate.of(2024, 12, 3), ""),
                 new UserAction(4, "Dave", ActionType.valueOf("share".toUpperCase()),
-                        LocalDate.of(2024, 10, 4), ""),
+                        LocalDate.of(2024, 12, 4), ""),
                 new UserAction(1, "Alice", ActionType.valueOf("post".toUpperCase()),
-                        LocalDate.of(2024, 10, 5), "Loving the new #update so far."),
+                        LocalDate.of(2024, 12, 5), "Loving the new #update so far."),
                 new UserAction(2, "Bob", ActionType.valueOf("like".toUpperCase()),
-                        LocalDate.of(2024, 10, 6), ""),
+                        LocalDate.of(2024, 12, 6), ""),
                 new UserAction(3, "Charlie", ActionType.valueOf("post".toUpperCase()),
-                        LocalDate.of(2024, 10, 7), "Here's my review of the new #update."),
+                        LocalDate.of(2024, 12, 7), "Here's my review of the new #update."),
                 new UserAction(5, "Eve", ActionType.valueOf("comment".toUpperCase()),
-                        LocalDate.of(2024, 10, 8), "Your #review was helpful!"),
+                        LocalDate.of(2024, 12, 8), "Your #review was helpful!"),
                 new UserAction(4, "Dave", ActionType.valueOf("like".toUpperCase()),
-                        LocalDate.of(2024, 10, 9), ""),
+                        LocalDate.of(2024, 12, 9), ""),
                 new UserAction(1, "Alice", ActionType.valueOf("share".toUpperCase()),
-                        LocalDate.of(2024, 10, 10), ""),
+                        LocalDate.of(2024, 12, 10), ""),
                 new UserAction(3, "Charlie", ActionType.valueOf("comment".toUpperCase()),
-                        LocalDate.of(2024, 10, 11), "Sharing my thoughts on the #update."),
+                        LocalDate.of(2024, 12, 11), "Sharing my thoughts on the #update."),
                 new UserAction(5, "Eve", ActionType.valueOf("post".toUpperCase()),
-                        LocalDate.of(2024, 10, 12), "What a great #feature this update brings!"),
+                        LocalDate.of(2024, 12, 12), "What a great #feature this update brings!"),
                 new UserAction(2, "Bob", ActionType.valueOf("like".toUpperCase()),
-                        LocalDate.of(2024, 10, 13), ""),
+                        LocalDate.of(2024, 12, 13), ""),
                 new UserAction(4, "Dave", ActionType.valueOf("comment".toUpperCase()),
-                        LocalDate.of(2024, 10, 14), "#feature works really well."),
+                        LocalDate.of(2024, 11, 14), "#feature works really well."),
                 new UserAction(1, "Alice", ActionType.valueOf("post".toUpperCase()),
-                        LocalDate.of(2024, 10, 15), "The #feature saved me a lot of time."),
+                        LocalDate.of(2024, 11, 15), "The #feature saved me a lot of time."),
                 new UserAction(3, "Charlie", ActionType.valueOf("like".toUpperCase()),
-                        LocalDate.of(2024, 10, 16), ""),
+                        LocalDate.of(2024, 11, 16), ""),
                 new UserAction(5, "Eve", ActionType.valueOf("share".toUpperCase()),
-                        LocalDate.of(2024, 10, 17), ""),
+                        LocalDate.of(2024, 11, 17), ""),
                 new UserAction(2, "Bob", ActionType.valueOf("post".toUpperCase()),
-                        LocalDate.of(2024, 10, 18), "Can't wait for the next #update."),
+                        LocalDate.of(2024, 11, 18), "Can't wait for the next #update."),
                 new UserAction(4, "Dave", ActionType.valueOf("share".toUpperCase()),
-                        LocalDate.of(2024, 10, 19), "")
+                        LocalDate.of(2024, 11, 19), "")
         );
     }
 
@@ -128,6 +128,15 @@ class UserActionAnalyzerTest {
         List<String> actual = UserActionAnalyzer.topHashtags(actions);
         List<String> expected = new ArrayList<>(Arrays.asList("#review", "#newfeature", "#project", "#Java",
                 "#conference"));
+        Assertions.assertTrue(actual.containsAll(expected));
+        Assertions.assertTrue(expected.containsAll(actual));
+    }
+
+    @Test
+    void topCommentersLastMonth() {
+        List<UserAction> actions = getActions();
+        List<String> actual = UserActionAnalyzer.topCommentersLastMonth(actions);
+        List<String> expected = Arrays.asList("Dave", "Eve", "Charlie");
         Assertions.assertTrue(actual.containsAll(expected));
         Assertions.assertTrue(expected.containsAll(actual));
     }

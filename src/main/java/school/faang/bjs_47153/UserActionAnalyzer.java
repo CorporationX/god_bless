@@ -1,5 +1,6 @@
 package school.faang.bjs_47153;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,13 +24,6 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    private static String getUserNameById(List<UserAction> actions, Integer userId) {
-        return actions.stream()
-                .filter(action -> userId.equals(action.getUserId()))
-                .findAny()
-                .orElseThrow().getUserName();
-    }
-
     public static List<String> topHashtags(List<UserAction> actions) {
         Map<String, Integer> hashTags = new HashMap<>();
 
@@ -43,6 +37,33 @@ public class UserActionAnalyzer {
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
+
+    public static List<String> topCommentersLastMonth(List<UserAction> actions) {
+        Map<Integer, Integer> users = new HashMap<>();
+
+        actions.stream()
+                .filter(action -> action.getActionType().equals(ActionType.COMMENT))
+                .filter(action ->
+                        LocalDate.now().minusMonths(1).isBefore(action.getActionDate()))
+                .forEach(action -> {
+                    users.computeIfAbsent(action.getUserId(), k -> 0);
+                    users.compute(action.getUserId(), (k, count) -> count + 1);
+                });
+
+        return users.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(3)
+                .map(Map.Entry::getKey)
+                .map(id -> getUserNameById(actions, id))
+                .toList();
+    }
+
+    private static String getUserNameById(List<UserAction> actions, Integer userId) {
+        return actions.stream()
+                .filter(action -> userId.equals(action.getUserId()))
+                .findAny()
+                .orElseThrow().getUserName();
     }
 
     private static void addHashtags(UserAction action, Map<String, Integer> hashTags) {
