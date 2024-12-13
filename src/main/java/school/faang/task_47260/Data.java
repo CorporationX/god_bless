@@ -27,22 +27,22 @@ public class Data {
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> filterAndSort(List<String> strings, char letter) {
-        return strings.stream().filter(str -> str.startsWith(String.valueOf(letter)))
+        return strings.stream().filter(word -> word.startsWith(String.valueOf(letter)))
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> listStringBinary(List<Integer> ints) {
-        return ints.stream().map(integer -> Integer.toBinaryString(integer)).collect(Collectors.toList());
+        return ints.stream().map(Integer::toBinaryString).toList();
     }
 
     public static List<String> listStringFilter(List<String> words, String alphabet) {
         String regex = "[" + alphabet + "]+";
-        return words.stream().filter(str -> str.matches(regex)).sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+        return words.stream().filter(str -> str.matches(regex))
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 }

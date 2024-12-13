@@ -41,8 +41,3 @@ public class Main {
         output.forEach(System.out::println);
     }
 }
-
-
-
-
-
