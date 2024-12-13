@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Archer extends Character {
-    private static int POWER_DEFAULT = 3;
-    private static int AGILITY_DEFAULT = 10;
-    private static int INTELLIGENCE_DEFAULT = 5;
+    private static final int POWER_DEFAULT = 3;
+    private static final int AGILITY_DEFAULT = 10;
+    private static final int INTELLIGENCE_DEFAULT = 5;
 
     public Archer(String name) {
         super(name, POWER_DEFAULT, AGILITY_DEFAULT, INTELLIGENCE_DEFAULT);

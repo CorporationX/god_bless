@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    private static int POWER_CONST = 0;
-    private static int AGILITY_CONST = 0;
-    private static int INTELLIGENCE = 0;
-    private static int HEALTH_MAX = 100;
+    private static final int POWER_CONST = 0;
+    private static final int AGILITY_CONST = 0;
+    private static final int INTELLIGENCE = 0;
+    private static final int HEALTH_MAX = 100;
 
     private final String name;
     private final int power;
