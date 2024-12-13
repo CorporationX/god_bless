@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static javax.swing.text.html.parser.DTDConstants.EMPTY;
+
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
@@ -24,7 +26,7 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElse(EMPTY);
     }
 
     public static int countStringsStartingWith(List<String> strings, char c) {
