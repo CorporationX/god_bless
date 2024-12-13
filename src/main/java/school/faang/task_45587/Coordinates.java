@@ -2,27 +2,36 @@ package school.faang.task_45587;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @AllArgsConstructor
+@Slf4j
 public class Coordinates {
-    private final int x;
-    private final int y;
+    private final int coordinateX;
+    private final int coordinateY;
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
-        switch (flipDirection) {
-            case VERTICAL -> {
-                return transformMatrix(matrix, (x, y) ->
-                    new Coordinates(matrix.length - 1 - x, y)
-                );
-            }
-            case HORIZONTAL -> {
-                return transformMatrix(matrix, (x, y) ->
-                    new Coordinates(x, matrix[0].length - 1 - y)
-                );
-            }
+        if (flipDirection == null) {
+            log.error("Некорретное значение поворота матрицы!");
+            return new int[0][0];
         }
-        return matrix;
+
+        switch (flipDirection) {
+          case VERTICAL -> {
+              return transformMatrix(matrix, (x, y) ->
+                new Coordinates(matrix.length - 1 - x, y)
+            );
+          }
+          case HORIZONTAL -> {
+              return transformMatrix(matrix, (x, y) ->
+                new Coordinates(x, matrix[0].length - 1 - y)
+            );
+          }
+          default -> {
+              throw new IllegalArgumentException("Некорретное значение поворота матрицы!");
+          }
+        }
     }
 
     private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
@@ -41,8 +50,8 @@ public class Coordinates {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                var transformedCoordinates = transformer.replaceCoordinates(i, j);
-                newMatrix[transformedCoordinates.getX()][transformedCoordinates.getY()] = matrix[i][j];
+                var newCoordinates = transformer.replaceCoordinates(i, j);
+                newMatrix[newCoordinates.getCoordinateX()][newCoordinates.getCoordinateY()] = matrix[i][j];
             }
         }
         return newMatrix;
