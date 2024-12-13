@@ -44,7 +44,8 @@ public class UserActionsProcessor {
                 ));
     }
 
-    private <T, R> List<T> returnMostCountEntryInDescendingOrder(List<R> list, int limit, Function<R, T> groupingFunction) {
+    private <T, R> List<T> returnMostCountEntryInDescendingOrder(
+            List<R> list, int limit, Function<R, T> groupingFunction) {
         return list.stream()
                 .collect(Collectors.groupingBy(groupingFunction, Collectors.counting()))
                 .entrySet().stream()
