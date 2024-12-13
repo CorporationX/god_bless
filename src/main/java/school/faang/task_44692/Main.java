@@ -6,7 +6,14 @@ public class Main {
         HogwartsSpells.addSpellEvent(1, "Чар", "Защищает от атак");
         HogwartsSpells.prinAllSpellEvents();
 
-        System.out.println(HogwartsSpells.getSpellEventsByType(spell.getEventType()));
+        for (var spellFrom : HogwartsSpells.getSpellEventsByType(spell.getEventType())) {
+            System.out.println(spellFrom);
+        }
+
+        HogwartsSpells.deleteSpellEvent(1);
+
+        HogwartsSpells.addSpellEvent(3, "Защита", "Преобразует предмет");
+        HogwartsSpells.prinAllSpellEvents();
 
     }
 }

@@ -12,7 +12,7 @@ public class SpellEvent {
     }
 
     public String getEventType() {
-        return this.getEventType();
+        return this.eventType;
     }
 
     @Override
