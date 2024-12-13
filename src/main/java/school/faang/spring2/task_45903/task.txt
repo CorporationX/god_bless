@@ -1,0 +1,45 @@
+Условие задачи:
+Вам нужно вычислить площадь треугольника, используя только лямбда-выражения. Операции сложения, умножения, деления и другие стандартные арифметические операции нельзя использовать напрямую — только через заранее определённые лямбда-функции.
+
+Требования:
+1️⃣ Даны три стороны треугольника — a, b и c. Ваша задача — вычислить площадь треугольника с помощью лямбда-функций.
+
+2️⃣ В коде уже есть лямбда-функции для сложения, умножения, вычитания, деления и вычисления квадратного корня. Вам нужно использовать их для вычисления площади.
+
+3️⃣ Нельзя использовать арифметические операторы (+, -, *, /) или стандартные методы вроде Math.sqrt.
+
+4️⃣ Добавьте проверку корректности входных параметров (валидацию), чтобы три стороны могли образовать треугольник.
+
+Исходный код:
+public class TriangleAreaCalculator {
+
+    // Лямбда-функции для математических операций
+    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
+
+    // Метод для вычисления площади треугольника
+    public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
+
+        // Напишите ваш код здесь
+    }
+
+    public static void main(String[] args) {
+        TriangleAreaCalculator calculator = new TriangleAreaCalculator();
+
+        try {
+            double area = calculator.calculateTriangleArea(3, 4, 5);
+            System.out.println("Площадь треугольника: " + area);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+Зная три стороны (формула Герона)
+
+
+Почему эта задача полезна?
+В этой задаче мы знакомимся с парадигмой функционального программирования и с функциями высшего порядка. Узнаём, как внутри устроен обычный функциональный интерфейс стандартной библиотеки на примере Function<T, V>.
