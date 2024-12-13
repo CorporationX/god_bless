@@ -27,7 +27,7 @@ public class Main {
                     + ListOperations.findMinGreaterThan(numbers, 4));
             System.out.println("Длины строк: "
                     + ListOperations.convertToLengths(strings));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
