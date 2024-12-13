@@ -1,6 +1,7 @@
 package school.faang.task_45836;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -10,12 +11,15 @@ public class EmailProcessor {
                               Predicate<Email> filter,
                               Consumer<Email> action,
                               Function<Email, String> transformer) {
-        for (Email email : emails) {
-            if (filter.test(email)) {
-                String transformedBody = transformer.apply(email);
-                email.setBody(transformedBody);
-                action.accept(email);
-            }
+
+        if (emails == null || filter == null || action == null || transformer == null) {
+            throw new IllegalArgumentException("One or more arguments are null");
         }
+
+        emails.stream()
+                .filter(Objects::nonNull)
+                .filter(filter)
+                .peek(email -> email.setBody(transformer.apply(email)))
+                .forEach(action);
     }
 }
