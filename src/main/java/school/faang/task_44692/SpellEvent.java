@@ -11,6 +11,10 @@ public class SpellEvent {
         this.action = action;
     }
 
+    public String getEventType() {
+        return this.getEventType();
+    }
+
     @Override
     public String toString() {
         return this.id + ", " + this.eventType + " " + this.action;

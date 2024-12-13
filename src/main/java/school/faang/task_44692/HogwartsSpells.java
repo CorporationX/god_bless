@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private static Map<Integer,SpellEvent> spellById = new HashMap<>();
+    private static Map<Integer, SpellEvent> spellById = new HashMap<>();
     private static Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public static void addSpellEvent(int id, String eventType, String actionDescription) {
@@ -32,7 +32,7 @@ public class HogwartsSpells {
         spellById.remove(id);
     }
 
-    public static void prinAllSpekkEvents() {
+    public static void prinAllSpellEvents() {
         for (Map.Entry<Integer,SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getValue());
         }
