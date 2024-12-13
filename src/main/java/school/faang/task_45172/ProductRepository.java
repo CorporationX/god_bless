@@ -20,15 +20,7 @@ public class ProductRepository {
     public void removeItem(String category, String name) {
         if (productsByCategory.containsKey(category)) {
             Set<Product> products = productsByCategory.get(category);
-            Iterator<Product> iterator = products.iterator();
-            boolean success = false;
-            while (iterator.hasNext()) {
-                Product product = iterator.next();
-                if (Objects.equals(product.getName(), name)) {
-                    iterator.remove();
-                    success = true;
-                }
-            }
+            boolean success = products.removeIf(product -> Objects.equals(product.getName(), name));
             if (!success) {
                 System.out.println("Unable to delete. Product not found");
             }
