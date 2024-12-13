@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         WeatherProvider provider = new WeatherService();
         WeatherCacheTemplate standardWeatherCache = new StandardWeatherCache(provider);
-        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
 
         String city = "London";
         long maxCacheAge = 3000;
@@ -21,6 +20,7 @@ public class Main {
         System.out.println("Third fetch (cache expired): "
                 + standardWeatherCache.getWeatherData(city, maxCacheAge));
 
+        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
         log.info("Testing FrequentWeatherCache...");
         System.out.println("First fetch: " + frequentCache.getWeatherData(city, maxCacheAge));
         Thread.sleep(2000);
