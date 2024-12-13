@@ -35,7 +35,7 @@ public class Main {
 
     public static List<String> filterAndSortString(@NonNull List<String> strings, char beginningChar) {
         return strings.stream()
-                .filter(string -> string.charAt(0) == beginningChar)
+                .filter(string -> string.startsWith(String.valueOf(beginningChar)))
                 .sorted()
                 .toList();
     }
