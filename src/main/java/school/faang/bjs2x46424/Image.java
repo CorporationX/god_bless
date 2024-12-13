@@ -7,6 +7,6 @@ import lombok.*;
 @Setter
 @ToString
 public class Image {
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 }
