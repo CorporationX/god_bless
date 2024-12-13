@@ -2,7 +2,9 @@ package school.faang.task_46790;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
@@ -17,8 +19,7 @@ public class ListOperations {
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return (double) numbers.stream()
-                .reduce(0, Integer::sum) / numbers.size();
+        return numbers.stream().collect(Collectors.averagingDouble(Integer::doubleValue));
     }
 
     public static int countStringsStartingWith(List<String> strings, char symbol) {
@@ -42,12 +43,11 @@ public class ListOperations {
         return numbers.stream().allMatch(predicate);
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int number) {
+    public static Optional<Integer> findMinGreaterThan(List<Integer> numbers, int number) {
         return numbers.stream()
                 .filter(currentNumber -> currentNumber > number)
                 .min(Integer::compareTo).stream()
-                .findFirst()
-                .orElse(0);
+                .findFirst();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
