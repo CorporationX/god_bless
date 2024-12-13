@@ -7,15 +7,14 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(List<Email> emails, Predicate<Email> filter,
+    public void processEmails(List<Email> emails, Predicate<Email> filterBy,
                               Function<Email, String> changeEmailBody, Consumer<Email> processEmail) {
-        emails.forEach(email -> {
-            if (filter.test(email)) {
-                String newBody = changeEmailBody.apply(email);
-                email.setEmailBody(newBody);
-                processEmail.accept(email);
-            }
-        });
+        emails.stream()
+                .filter(filterBy)
+                .forEach(email -> {
+                    String newBody = changeEmailBody.apply(email);
+                    email.setEmailBody(newBody);
+                    processEmail.accept(email);
+                });
     }
 }
-
