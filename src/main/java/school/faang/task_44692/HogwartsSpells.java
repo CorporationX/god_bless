@@ -33,7 +33,7 @@ public class HogwartsSpells {
     }
 
     public static void prinAllSpellEvents() {
-        for (Map.Entry<Integer,SpellEvent> entry : spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getValue());
         }
     }
