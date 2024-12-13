@@ -12,10 +12,18 @@ public class User {
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
 
-        if (name.isEmpty()) throw new IllegalArgumentException("Имя не должен быть пустым");
-        if (age < 18) throw new IllegalArgumentException("Возраст не может быть меньше 18");
-        if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException("Не допустимое место работы");
-        if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("Не допустимый адрес");
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не должен быть пустым");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Не допустимое место работы");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Не допустимый адрес");
+        }
 
         this.name = name;
         this.age = age;
@@ -26,11 +34,28 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
+        return "User{"
+                +
+                "name='"
+                +
+                name
+                +
+                '\''
+                +
+                ", age="
+                +
+                age
+                +
+                ", job='"
+                +
+                job
+                +
+                '\''
+                +
+                ", address='" + address
+                +
+                '\''
+                +
                 '}';
     }
 }
