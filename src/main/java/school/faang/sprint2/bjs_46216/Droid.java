@@ -3,12 +3,8 @@ package school.faang.sprint2.bjs_46216;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Droid {
-    private final String name;
-
-    public Droid(String name) {
-        this.name = name;
-    }
+public record Droid (String name){
+    private static final int ALPHABET_SIZE = 26;
 
     public void sendMessage(Droid toDroid, String msg, int key) {
         log.info("Droid {} sent message: {}", name, msg);
@@ -22,25 +18,22 @@ public class Droid {
         log.info("Decrypted message: {}", decryptedMsg);
     }
 
-    public String encryptMessage(String message, int encryptKey) {
-        boolean flag = true;
-        DroidMessageEncryptor encryptor = (msg, key) -> encryption(msg, key, flag);
+    private String encryptMessage(String message, int encryptKey) {
+        DroidMessageEncryptor encryptor = (msg, key) -> encryption(msg, ALPHABET_SIZE - key);
         return encryptor.encrypt(message, encryptKey);
     }
 
-    public String decryptMessage(String message, int decryptKey) {
-        boolean flag = false;
-        DroidMessageEncryptor encryptor = (msg, key) -> encryption(msg, key, flag);
+    private String decryptMessage(String message, int decryptKey) {
+        DroidMessageEncryptor encryptor = this::encryption;
         return encryptor.encrypt(message, decryptKey);
     }
 
-    private String encryption(String message, int key, boolean flag) {
-        int dop = flag ? key : (26 - key);
+    private String encryption(String message, int key) {
         StringBuilder encryptedMsg = new StringBuilder();
         for (char symbol : message.toCharArray()) {
             if (Character.isLetter(symbol)) {
                 char startLetter = Character.isUpperCase(symbol) ? 'A' : 'a';
-                encryptedMsg.append((char) ((symbol - startLetter + dop) % 26 + startLetter));
+                encryptedMsg.append((char) ((symbol - startLetter + key) % ALPHABET_SIZE + startLetter));
             } else {
                 encryptedMsg.append(symbol);
             }
