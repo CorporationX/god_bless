@@ -27,4 +27,18 @@ class StreamApiOperation3Test {
             }
         });
     }
+
+    @Test
+    void avgSalary() {
+        List<Employee> employees = Arrays.asList(new Employee("Alice", 3000, "IT"),
+                new Employee("Bob", 3450, "Department 1"),
+                new Employee("Charlie", 4500, "Department 1"),
+                new Employee("David", 4500, "Department 2"),
+                new Employee("Eve", 4500, "Department 2"));
+
+        Map<String, Double> actual = StreamApiOperation3.avgSalary(employees);
+        Map<String, Double> expected = Map.of("Department 2", 4500.0, "Department 1", 3975.0,
+                "IT", 3000.0);
+        assertEquals(expected, actual);
+    }
 }
