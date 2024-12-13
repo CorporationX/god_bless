@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43504;
+package school.faang.moduleone.sprintone.task_43504;
 
 import java.util.List;
 import java.util.Set;

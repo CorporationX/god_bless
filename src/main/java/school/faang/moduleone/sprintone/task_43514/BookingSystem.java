@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43514;
+package school.faang.moduleone.sprintone.task_43514;
 
 import lombok.AllArgsConstructor;
 
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static school.faang.moduleone.task_43514.BookingStatus.BOOKING_CANCELED;
-import static school.faang.moduleone.task_43514.BookingStatus.BOOKING_CREATED;
+import static school.faang.moduleone.sprintone.task_43514.BookingStatus.BOOKING_CANCELED;
+import static school.faang.moduleone.sprintone.task_43514.BookingStatus.BOOKING_CREATED;
 
 @AllArgsConstructor
 public class BookingSystem {

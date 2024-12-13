@@ -1,4 +1,4 @@
-package school.faang.moduleone.task_43514;
+package school.faang.moduleone.sprintone.task_43514;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +14,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
-import static school.faang.moduleone.task_43514.TimeSlot.TIME_SLOT_12_16;
-import static school.faang.moduleone.task_43514.TimeSlot.TIME_SLOT_16_20;
+import static school.faang.moduleone.sprintone.task_43514.TimeSlot.TIME_SLOT_12_16;
+import static school.faang.moduleone.sprintone.task_43514.TimeSlot.TIME_SLOT_16_20;
 
 class BookingSystemTest {
     private BookingObserver spyObserver;
