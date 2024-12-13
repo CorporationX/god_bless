@@ -1,0 +1,26 @@
+package school.faang.sprint_2.task_45668;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+public class Main {
+
+    public static void main(String[] args) {
+        List<Integer> nums = Arrays.asList(5, 3);
+        nums.set(0, null);
+
+        int sum = calculate(nums, Integer::sum);
+        System.out.println(sum);
+
+        int product = calculate(nums, (a, b) -> a * b);
+        System.out.println(product);
+    }
+
+    public static int calculate(List<Integer> nums, Calculator calculator) {
+        return nums.stream()
+                .filter(Objects::nonNull)
+                .reduce(calculator::calc)
+                .orElseThrow(() -> new IllegalArgumentException("список пуст"));
+    }
+}
