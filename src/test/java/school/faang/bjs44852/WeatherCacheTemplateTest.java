@@ -5,11 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
@@ -21,13 +18,15 @@ import static org.mockito.Mockito.withSettings;
 class WeatherCacheTemplateTest {
 
     @Nested
-    class gettingWeatherTest {
+    class GettingWeatherTest {
         private final WeatherProvider weatherProvider = mock(WeatherProvider.class);
         private WeatherCacheTemplate cacheService;
 
         @BeforeEach
         public void setUp() {
-            cacheService = mock(WeatherCacheTemplate.class, withSettings().useConstructor(weatherProvider).defaultAnswer(CALLS_REAL_METHODS));
+            cacheService = mock(WeatherCacheTemplate.class, withSettings()
+                    .useConstructor(weatherProvider)
+                    .defaultAnswer(CALLS_REAL_METHODS));
         }
 
         @Test
@@ -63,7 +62,7 @@ class WeatherCacheTemplateTest {
 
 
     @Nested
-    class clearCacheTest {
+    class ClearCacheTest {
         WeatherProvider weatherProvider;
 
         @BeforeEach
