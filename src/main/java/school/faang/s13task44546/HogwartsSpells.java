@@ -43,7 +43,7 @@ public class HogwartsSpells {
 
         EventType spellType = spellEvent.getEventType();
         List<SpellEvent> spellsOfType = spellsByType.get(spellType.name());
-        spellsOfType.removeIf(event -> event.getId() == id);
+        spellsOfType.removeIf(event -> event.getId().equals(id));
         if (spellsOfType.isEmpty()) {
             spellsByType.remove(spellType.name());
         }
