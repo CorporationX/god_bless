@@ -13,7 +13,6 @@ import java.util.Set;
 @Slf4j
 @Getter
 public class WarehouseManagement {
-
     private final Set<Product> products = new HashSet<>();
     private final Map<String, List<Product>> groupedProducts = new HashMap<>();
 
