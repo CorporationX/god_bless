@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 3, 6);
         List<String> strings = Arrays.asList("apple", "banana", "avocado", "apricot");
         List<String> alphaStrings = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -15,8 +15,8 @@ public class Main {
                 "USA", "Washington",
                 "Germany", "Berlin");
 
-        System.out.println("Уникальные пары чисел, сумма которых равна заданному числу: "
-                + MultiOperations.findPairs(numbers, 7));
+        System.out.println("Уникальные пары чисел, сумма которых равна заданному числу (6): "
+                + MultiOperations.findPairs(numbers, 6));
         System.out.println("Список названий столиц стран: "
                 + MultiOperations.getSortedCapitals(countries));
         System.out.println("Отсортированный по длине список строк, начинающихся с символа 'a': "
