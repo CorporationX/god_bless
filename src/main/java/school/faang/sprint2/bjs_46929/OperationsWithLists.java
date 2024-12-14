@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 public class OperationsWithLists {
 
     public static Integer sumOfEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().
-                filter(num -> num % 2 == 0)
+        return numbers.stream()
+                .filter(num -> num % 2 == 0)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
