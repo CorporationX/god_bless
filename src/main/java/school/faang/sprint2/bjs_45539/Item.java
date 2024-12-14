@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
+@Setter
 public class Item {
-    private final String name;
-    @Setter
+    private String name;
     private int itemCost;
 }

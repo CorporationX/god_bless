@@ -1,5 +1,6 @@
 package school.faang.sprint2.bjs_45539;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -18,11 +19,9 @@ public class InventoryManager {
     }
 
     public void updateItem(Character person, Predicate<Item> condition, Function<Item, Item> change) {
-        person.getInventory().stream()
+        List<Item> inventory = person.getInventory();
+        inventory.stream()
                 .filter(condition)
-                .forEach(item -> {
-                    int newCost = change.apply(item).getItemCost();
-                    item.setItemCost(newCost);
-                });
+                .forEach(Item -> inventory.set(inventory.indexOf(Item), change.apply(Item)));
     }
 }
