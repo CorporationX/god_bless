@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public class Character {
-    private final static Logger logger = LoggerFactory.getLogger(Character.class);
+    private static final Logger logger = LoggerFactory.getLogger(Character.class);
 
     private final List<Item> inventory;
     private final String name;

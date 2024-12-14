@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 @Getter
 public class Item {
 
-    private final static Logger logger = LoggerFactory.getLogger(Item.class);
+    private static final Logger logger = LoggerFactory.getLogger(Item.class);
     private final String name;
     private final int value;
 
