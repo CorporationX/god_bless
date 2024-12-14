@@ -8,8 +8,10 @@ import java.util.List;
 @Getter
 public class Character {
     private final List<Item> inventory;
+    private final String name;
 
     public Character(String name) {
+        this.name = name;
         this.inventory = new ArrayList<>();
     }
 
