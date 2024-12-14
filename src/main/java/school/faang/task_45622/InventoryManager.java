@@ -12,33 +12,37 @@ public class InventoryManager {
         }
     }
 
-    public void removeItem(Character character, Predicate<Item> predicate) {
+    public void removeItem(Character character, Predicate<Item> predicate) throws IllegalArgumentException{
         if (character != null) {
             if (predicate != null) {
                 character.getInventory().removeIf(predicate);
                 System.out.println("Предмет удален!!!");
             } else {
-                System.out.println("Функция пустая!!!");
+                throw new IllegalArgumentException("Functional is null!!!");
             }
         } else {
-            System.out.println("Неизвестный персонаж!!!");
+            throw new IllegalArgumentException("Character is null!!!");
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updateItem) {
         if (character != null) {
-            boolean availableItem = false;
-            for (int i = 0; i < character.getInventory().size(); i++) {
-                if (predicate.test(character.getInventory().get(i))) {
-                    availableItem = true;
-                    character.getInventory().set(i, updateItem.apply(character.getInventory().get(i)));
+            if((predicate != null) && (updateItem != null)) {
+                boolean availableItem = false;
+                for (int i = 0; i < character.getInventory().size(); i++) {
+                    if (predicate.test(character.getInventory().get(i))) {
+                        availableItem = true;
+                        character.getInventory().set(i, updateItem.apply(character.getInventory().get(i)));
+                    }
                 }
-            }
-            if (!availableItem) {
-                System.out.println("Данного предмета нет в инвентаре!!!");
+                if (!availableItem) {
+                    System.out.println("Данного предмета нет в инвентаре!!!");
+                }
+            }else {
+                throw new IllegalArgumentException("Functional is null!!!");
             }
         } else {
-            System.out.println("Неизвестный персонаж!!!");
+            throw new IllegalArgumentException("Character is null!!!");
         }
 
     }
