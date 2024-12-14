@@ -84,7 +84,6 @@ public class ProductManager {
         }
     }
 
-
     public HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
         HashMap<String, List<Product>> groupedProducts = new HashMap<>();
 
