@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public class Main {
@@ -20,23 +21,10 @@ public class Main {
             throw new IllegalArgumentException("Empty list");
         }
 
-        int index = 0;
-        while (index < nums.size()) {
-            if (nums.get(index) != null) {
-                break;
-            }
-            index++;
-        }
-
-        int result = nums.get(index++);
-        while (index < nums.size()) {
-            Integer num = nums.get(index);
-            if (num != null) {
-                result = calculator.calculate(result, num);
-            }
-            index++;
-        }
-        return result;
+        return nums.stream()
+                .filter(Objects::nonNull)
+                .reduce(calculator::calculate)
+                .orElseThrow(() -> new IllegalArgumentException("All elements in the list are null"));
     }
 
     public static int sum(@NonNull List<Integer> nums) {
