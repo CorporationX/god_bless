@@ -14,7 +14,7 @@ public class Main {
 
     private static String checkErrorHandler(String param) {
         return ErrorHandler.withErrorHandling(
-                (V) -> RemoteService.call(param),
+                (v) -> RemoteService.call(param),
                 e -> {
                     System.out.println("Exception при вызове сервиса: " + e.getMessage());
                     System.out.println("Возвращаем дефолтное значение");
