@@ -22,6 +22,6 @@ public class InventoryManager {
         List<Item> inventory = person.getInventory();
         inventory.stream()
                 .filter(condition)
-                .forEach(Item -> inventory.set(inventory.indexOf(Item), change.apply(Item)));
+                .forEach(obj -> inventory.set(inventory.indexOf(obj), change.apply(obj)));
     }
 }
