@@ -3,11 +3,7 @@ package school.faang.bjs246919;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
@@ -36,24 +32,20 @@ public class ListOperations {
                 .count();
     }
 
-    public static String filterStringsContainingSubstring(List<String> strings, String string) {
-        return String.join(", ",
-                strings.stream()
-                        .filter(str -> str.contains(string))
-                        .toList());
-    }
-
-    public static String sortByLength(List<String> strings) {
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String string) {
         return strings.stream()
-                        .sorted(Comparator.comparingInt(String::length))
-                        .collect(Collectors.joining(", "));
+                .filter(str -> str.contains(string))
+                .toList();
     }
 
-    public static String allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
+    public static List<String> sortByLength(List<String> strings) {
+        return strings.stream()
+                .sorted(Comparator.comparingInt(String::length)).toList();
+    }
+
+    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
         return numbers.stream()
-                        .filter(predicate)
-                        .map(Objects::toString)
-                .collect(Collectors.joining(", "));
+                .allMatch(predicate);
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int minimal) {
@@ -63,10 +55,9 @@ public class ListOperations {
                 .orElseThrow(() -> new NoSuchElementException("There is not valur grater than min in the list"));
     }
 
-    public static String convertToLengths(List<String> strings) {
+    public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
                         .map(String::length)
-                        .map(Objects::toString)
-                .collect(Collectors.joining(", "));
+                        .toList();
     }
 }
