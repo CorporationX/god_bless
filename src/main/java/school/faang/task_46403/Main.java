@@ -5,23 +5,23 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         Function<Image, Image> grayFilter = (image) -> {
-            image.setDescription("Cерая тема");
-            System.out.println("Добавлен фильтр: " + image.getDescription());
-            return image;
+            return new Image(image.getName(), String.format("%s Добавлен фильтр: Серая тема", image.getDescription()));
         };
-
         Function<Image, Image> retroFilter = (image) -> {
-            image.setDescription("Ретро тема");
-            System.out.println("Добавлен фильтр: " + image.getDescription());
-            return image;
+            return new Image(image.getName(), String.format("%s Добавлен фильтр: Ретро тема", image.getDescription()));
         };
 
         Image myFoto = new Image("FOTO_001", "original");
         FilterProcessor appFilter = new FilterProcessor();
-        appFilter.applyFilter(myFoto, grayFilter);
-        appFilter.applyFilter(myFoto, retroFilter);
+
+        Image myFotoGray = appFilter.applyFilter(myFoto, grayFilter);
+        System.out.println(myFotoGray.getDescription());
+
+        Image myFotoRetro = appFilter.applyFilter(myFoto, retroFilter);
+        System.out.println(myFotoRetro.getDescription());
 
         Function<Image, Image> combineFilters = appFilter.combineFilters(retroFilter, grayFilter);
         Image mixFilterImage = appFilter.applyFilter(myFoto, combineFilters);
+        System.out.println(mixFilterImage.getDescription());
     }
 }
