@@ -19,9 +19,12 @@ public class Main {
     }
 
     private static void setupFilters(NotificationManager notificationManager) {
-        notificationManager.registerFilter("profanity", notification -> notification.getMessage().matches(".*\\b(badword1|badword2)\\b.*"));
-        notificationManager.registerFilter("spam", notification -> notification.getMessage().contains("Buy now") || notification.getMessage().contains("Click here"));
-        notificationManager.registerFilter("hate speech", notification -> notification.getMessage().matches(".*\\b(hateword1|hateword2)\\b.*"));
+        notificationManager.registerFilter("profanity", notification ->
+                notification.getMessage().matches(".*\\b(badword1|badword2)\\b.*"));
+        notificationManager.registerFilter("spam", notification ->
+                notification.getMessage().contains("Buy now") || notification.getMessage().contains("Click here"));
+        notificationManager.registerFilter("hate speech", notification ->
+                notification.getMessage().matches(".*\\b(hateword1|hateword2)\\b.*"));
     }
 
     private static void dispatchNotifications(NotificationManager notificationManager) {
