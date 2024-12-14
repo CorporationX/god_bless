@@ -4,14 +4,14 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        Image originalImage = new Image("original.jpg", TypeDescription.ORIGINAL_IMAGE.getTypeDescription());
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription()
-                + " | Фильтр: черно-белый");
+                + TypeDescription.BLACK_WHITE.getTypeDescription());
         Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription()
-                + " | Фильтр: сепия");
+                + TypeDescription.SEPIA.getTypeDescription());
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
