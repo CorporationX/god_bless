@@ -33,7 +33,6 @@ public class TaskManager {
     public static List<String> sortedByLengthAndSymbol(List<String> list, char symbol) {
         return list.stream()
                 .filter(str -> str.charAt(0) == symbol)
-//                .sorted((str1,str2) -> str1.length() - str2.length())
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
