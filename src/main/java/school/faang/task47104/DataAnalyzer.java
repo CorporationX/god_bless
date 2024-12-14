@@ -21,10 +21,10 @@ public class DataAnalyzer {
 
     private static Map<String, List<Job>> salaryRange(List<Job> jobs, int start, int end) {
         validateList(jobs);
-        if (start < 0 || end < 0){
+        if (start < 0 || end < 0) {
             throw new IllegalArgumentException("start и end не могут быть меньше нуля");
         }
-        if (start < end){
+        if (start < end) {
             throw new IllegalArgumentException("start не может быть больше чем end");
         }
 
@@ -80,29 +80,4 @@ public class DataAnalyzer {
 
         salaryRange.forEach((key, value) -> System.out.printf("%s%s%n", key, value));
     }
-
-//    public static void analyzeTrends(List<Job> jobs) {
-//
-//        List<Job> sortedJobs = jobs.stream().sorted(Comparator.comparing(Job::datePosted)).toList();
-//
-//        sortedJobs.stream().collect(Collectors.groupingBy(
-//                job -> job.datePosted().getDayOfYear(),
-//                Collectors.toList()
-//        )).entrySet().forEach(System.out::println);
-//
-//        sortedJobs.stream().collect(Collectors.groupingBy(
-//                job -> job.datePosted().getDayOfWeek(),
-//                Collectors.toList()
-//        )).entrySet().forEach(System.out::println);
-//
-//        sortedJobs.stream().collect(Collectors.groupingBy(
-//                job -> job.datePosted().getYear(),
-//                Collectors.groupingBy(
-//                        job -> job.datePosted().getMonth(),
-//                        Collectors.toList()
-//                        )
-//                )
-//        ).entrySet().forEach(System.out::println);
-//    }
-
 }
