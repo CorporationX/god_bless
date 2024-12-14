@@ -36,7 +36,8 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> itemPredicate, Function<Item, Item> updater) {
         if (character == null || itemPredicate == null || updater == null) {
-            logger.error("Invalid arguments: character={}, itemPredicate={}, updater={}", character, itemPredicate, updater);
+            logger.error("Invalid arguments: character={}, itemPredicate={}, updater={}",
+                    character, itemPredicate, updater);
             throw new IllegalArgumentException("Character, itemPredicate, and updater must not be null");
         }
         List<Item> inventory = character.getInventory();
