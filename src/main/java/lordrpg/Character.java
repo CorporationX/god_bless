@@ -16,15 +16,6 @@ public class Character {
         this.name = name;
         this.inventory = new ArrayList<>();
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Item> getInventory() {
-        return inventory;
-    }
-
     public void addItem(Item item) {
         inventory.add(item);
     }
