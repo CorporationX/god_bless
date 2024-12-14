@@ -1,0 +1,21 @@
+package school.faang.task_43926;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Warrior extends Character {
+    private static final int POWER_DEFAULT = 10;
+    private static final int AGILITY_DEFAULT = 5;
+    private static final int INTELLIGENCE_DEFAULT = 3;
+
+    public Warrior(String name) {
+        super(name, POWER_DEFAULT, AGILITY_DEFAULT, INTELLIGENCE_DEFAULT);
+    }
+
+    @Override
+    public void attack(Character character) {
+        character.setHealth(character.getHealth() - this.getPower());
+    }
+}
