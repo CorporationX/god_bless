@@ -10,7 +10,6 @@ import lombok.ToString;
 public class Mail {
     private final String sendTo;
     private final String sendFrom;
-    private final String Subject;
-    private final String Body;
-
+    private final String subject;
+    private final String body;
 }
