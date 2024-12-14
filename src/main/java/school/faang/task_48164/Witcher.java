@@ -33,14 +33,14 @@ public class Witcher {
 
         executorService.shutdown();
 
-        long startTimeNM = System.nanoTime();
+        long startTimeNoMultithread = System.nanoTime();
         for (City city : cities) {
             new CityWorker(city, monsters).run();
         }
-        long endTimeNM = System.nanoTime();
-        long durNM = endTimeNM - startTimeNM;
+        long endTimeNoMultithread = System.nanoTime();
+        long durNoMultithread = endTimeNoMultithread - startTimeNoMultithread;
 
         System.out.println("The time of program multithreading : " + dur / 1_000_000_000.0);
-        System.out.println("The time of program no-multithreading : " + durNM / 1_000_000_000.0);
+        System.out.println("The time of program no-multithreading : " + durNoMultithread / 1_000_000_000.0);
     }
 }
