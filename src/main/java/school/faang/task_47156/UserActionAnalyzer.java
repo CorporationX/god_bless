@@ -13,22 +13,24 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String HASHTAG_REGEX = "#\\w+";
+
     public static List<String> getTopActiveUsers(@NonNull List<UserAction> actions, long topCount) {
-        return actions.stream()
+        Map<String, Long> userActionsByUser = actions.stream()
                 .filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(UserAction::userName, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(UserAction::userName, Collectors.counting()));
+
+        return userActionsByUser.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topCount)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> getTopPopularHashtags(@NonNull List<UserAction> actions, long topCount) {
-        final String hashtagRegex = "#\\w+";
-        final Pattern hashtagPattern = Pattern.compile(hashtagRegex);
+        final Pattern hashtagPattern = Pattern.compile(HASHTAG_REGEX);
 
-        return actions.stream()
+        Map<String, Long> hashtagMentionsMap = actions.stream()
                 .filter(action -> action != null
                         && (action.actionType().equals(ActionType.POST)
                         || action.actionType().equals(ActionType.COMMENT)))
@@ -36,26 +38,29 @@ public class UserActionAnalyzer {
                     Matcher matcher = hashtagPattern.matcher(action.content());
                     return matcher.results().map(MatchResult::group);
                 })
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return hashtagMentionsMap.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topCount)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> getTopCommentersLastMonth(@NonNull List<UserAction> actions, long topCount) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
-        return actions.stream()
+
+        Map<String, Long> numberOfCommentsByUserLastMonth = actions.stream()
                 .filter(action -> action != null
-                        && (action.actionType().equals(ActionType.COMMENT)
-                        && action.actionDate().isAfter(oneMonthAgo)))
-                .collect(Collectors.groupingBy(UserAction::userName, Collectors.counting()))
-                .entrySet().stream()
+                        && action.actionType().equals(ActionType.COMMENT)
+                        && action.actionDate().isAfter(oneMonthAgo))
+                .collect(Collectors.groupingBy(UserAction::userName, Collectors.counting()));
+
+        return numberOfCommentsByUserLastMonth.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topCount)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static Map<ActionType, Double> calculateActionTypePercentages(@NonNull List<UserAction> actions) {
