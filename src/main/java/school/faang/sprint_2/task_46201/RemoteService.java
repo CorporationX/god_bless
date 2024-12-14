@@ -1,7 +1,7 @@
 package school.faang.sprint_2.task_46201;
 
 public class RemoteService {
-    public static String call(String param) throws Exception {
-        throw new Exception("Сервис недоступен");
+    public static String call(String param) {
+        throw new RuntimeException("Сервис недоступен");
     }
 }
