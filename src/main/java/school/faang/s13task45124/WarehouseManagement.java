@@ -42,7 +42,8 @@ public class WarehouseManagement {
     }
 
     public void removeItem(Category category, String name) {
-        products.removeIf(product -> Objects.equals(product.getName(), name) && Objects.equals(product.getCategory(), category));
+        products.removeIf(product -> Objects.equals(product.getName(), name)
+                && Objects.equals(product.getCategory(), category));
         if (!groupedProducts.containsKey(category)) {
             log.warn("сategory '{}' have not found", category);
         } else {
