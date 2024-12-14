@@ -14,6 +14,6 @@ import lombok.ToString;
 @ToString
 public class Character {
     @NonNull
-    private  String name;
-    private  List<Item> inventory = new ArrayList<>();
+    private final String name;
+    private final List<Item> inventory = new ArrayList<>();
 }

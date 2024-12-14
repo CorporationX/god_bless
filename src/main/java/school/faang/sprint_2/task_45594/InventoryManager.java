@@ -17,13 +17,18 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> itemPredicate,
                            Function<Item, Item> itemIntegerFunction) {
-        List<Item> itemList = character.getInventory();
-        for (int i = 0; i < itemList.size(); i++) {
-            Item item = itemList.get(i);
-            if (itemPredicate.test(item)) {
-                Item newItem = itemIntegerFunction.apply(item);
-                itemList.set(i, newItem);
-            }
-        }
+
+        List<Item> updatedItems = character.getInventory().stream()
+            .filter(itemPredicate)
+            .map(itemIntegerFunction)
+            .toList();
+
+        List<Item> newItemlist = character.getInventory().stream()
+            .filter(item -> !itemPredicate.test(item))
+            .toList();
+
+        character.getInventory().clear();
+        character.getInventory().addAll(updatedItems);
+        character.getInventory().addAll(newItemlist);
     }
 }
