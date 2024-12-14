@@ -1,23 +1,24 @@
 package school.faang.metabjs46838;
 
 public class Main {
+
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        notificationManager.registerHandler("email",
+        notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Send by email: " + notification.getMessage()));
 
-        notificationManager.registerHandler("sms",
+        notificationManager.registerHandler(NotificationType.SMS,
                 notification -> System.out.println("Send by sms: " + notification.getMessage()));
 
-        notificationManager.registerHandler("push",
+        notificationManager.registerHandler(NotificationType.PUSH,
                 notification -> System.out.println("Send by push: " + notification.getMessage()));
 
-        Notification emailNotification = new Notification("email",
+        Notification emailNotification = new Notification(NotificationType.EMAIL,
                 "Your account has been successfully activated");
-        Notification smsNotification = new Notification("sms",
+        Notification smsNotification = new Notification(NotificationType.SMS,
                 "You have successfully changed your password");
-        Notification pushNotification = new Notification("push",
+        Notification pushNotification = new Notification(NotificationType.PUSH,
                 "New post from user: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
