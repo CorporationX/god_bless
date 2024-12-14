@@ -9,5 +9,3 @@ public class RemoteService {
             throw new RuntimeException(e);
         }
     }
-}
-//
