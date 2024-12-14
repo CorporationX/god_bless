@@ -8,12 +8,12 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (_message, _key) -> {
+        DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
             StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : _message.toCharArray()) {
+            for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + _key) % 26 + base));
+                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -24,12 +24,12 @@ public class Droid {
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (_message, _key) -> {
+        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
             StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : _message.toCharArray()) {
+            for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - _key + 26) % 26 + base));
+                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
                 } else {
                     decryptedMessage.append(ch);
                 }
