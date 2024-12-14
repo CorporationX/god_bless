@@ -16,9 +16,9 @@ public record CityWorker(City city, List<Monster> monsters) implements Runnable 
         double minPathToMonster = monsters.stream()
                 .map((monster) -> Math.sqrt(
                         Math.pow(Math.abs(monster.getLocation().getCoordinateX()
-                                - city.getLocation().getCoordinateY()), 2)
+                                - catheterSecond), 2)
                         + Math.pow(Math.abs(monster.getLocation().getCoordinateY()
-                                - city.getLocation().getCoordinateY()), 2)))
+                                - catheterSecond), 2)))
                 .min(Double::compare).orElse(Double.MIN_VALUE);
 
         System.out.printf("The nearest monster from the city %s is about %.2f km\n", city.getName(), minPathToMonster);
