@@ -2,6 +2,7 @@ package school.faang.bjs246919;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -9,31 +10,30 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static String sumOfEvenNumbers(List<Integer> numbers) {
-        int result = numbers.stream()
+    public static int sumOfEvenNumbers(List<Integer> numbers) {
+        return numbers.stream()
                 .filter(n -> n % 2 == 0)
-                .mapToInt(n -> n)
-                .sum();
-        return Integer.toString(result);
-    }
-
-    public static String findMax(List<Integer> numbers) {
-        Optional<Integer> result = numbers.stream()
-                .max(Comparator.naturalOrder());
-        return result.map(Objects::toString).orElse("No max number found");
-    }
-
-    public static String findAverage(List<Integer> numbers) {
-        OptionalDouble average = numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average();
-        return average.isPresent() ? Double.toString(average.getAsDouble()) : "No average found";
+                .sum();
     }
 
-    public static String countStringsStartingWith(List<String> strings, char chr) {
-        return Long.toString(strings.stream()
+    public static int findMax(List<Integer> numbers) {
+        return numbers.stream()
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new RuntimeException("Max value could not be found"));
+    }
+
+    public static double findAverage(List<Integer> numbers) {
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new RuntimeException("Average value could not be found"));
+    }
+
+    public static long countStringsStartingWith(List<String> strings, char chr) {
+        return strings.stream()
                 .filter(string -> string.charAt(0) == chr)
-                .count());
+                .count();
     }
 
     public static String filterStringsContainingSubstring(List<String> strings, String string) {
@@ -56,11 +56,11 @@ public class ListOperations {
                 .collect(Collectors.joining(", "));
     }
 
-    public static String findMinGreaterThan(List<Integer> numbers, int minimal) {
+    public static int findMinGreaterThan(List<Integer> numbers, int minimal) {
         return numbers.stream()
                 .filter(number -> number > minimal)
                 .min(Comparator.naturalOrder())
-                .toString();
+                .orElseThrow(() -> new NoSuchElementException("There is not valur grater than min in the list"));
     }
 
     public static String convertToLengths(List<String> strings) {
