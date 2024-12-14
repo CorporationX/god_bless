@@ -5,11 +5,6 @@ import java.util.function.Supplier;
 
 public class ErrorHandler {
 
-    @FunctionalInterface
-    public interface ExceptionHandler<T> {
-        T handle(Exception e);
-    }
-
     public static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> errorHandler) {
         try {
             return action.get();
