@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Witcher {
     private static final int POOL_SIZE = 5;
+
     public static void main(String[] args) {
         List<Monster> monsters = new ArrayList<>(List.of(
                 new Monster("monster1", new Location(10, 5)),
