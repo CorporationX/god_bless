@@ -5,10 +5,9 @@ import java.util.stream.Collectors;
 
 public class Operations {
     public static Set<List<Integer>> getUniquePairs(List<Integer> numbers, int target) {
-        Set<Integer> set = new HashSet<>(numbers);
-
         return numbers.stream()
-                .filter(num -> set.contains(target - num) && num != target - num)
+                .filter(num -> numbers.contains(target - num))
+                .filter(num -> numbers.indexOf(num) != numbers.lastIndexOf(target - num))
                 .map(num -> Arrays.asList(num, target - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
