@@ -10,7 +10,7 @@ public class Main {
 
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int targetNumber = 7;
-        System.out.println("Уникальные пары чисел: " + ListOperations.uniquePairsOfNumbers(numbers, targetNumber));
+        System.out.println("Уникальные пары чисел: ");
         System.out.println(ListOperations.uniquePairsOfNumbers(numbers, targetNumber));
 
         Map<String, String> countries = new HashMap<>();
