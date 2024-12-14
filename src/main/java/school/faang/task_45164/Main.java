@@ -14,8 +14,36 @@ public class Main {
     private int productId = 0;
 
     public static void main(String[] args) {
+        Main main = new Main();
 
+        // Добавляем товары
+        main.addItem("Electronics", "Smartphone");
+        main.addItem("Electronics", "Laptop");
+        main.addItem("Groceries", "Apple");
+        main.addItem("Groceries", "Milk");
+        main.addItem("Clothing", "T-Shirt");
+
+        // Пытаемся добавить дубликат
+        main.addItem("Electronics", "Smartphone");
+
+        // Удаляем товар
+        main.removeItem("Electronics", "Laptop");
+
+        // Удаляем несуществующий товар
+        main.removeItem("Groceries", "Bread");
+
+        // Находим товары по категории
+        main.findItemsByCategory("Electronics");
+        main.findItemsByCategory("Toys"); // Несуществующая категория
+
+        // Печатаем все товары
+        main.printAllItems();
+
+        // Группируем товары и печатаем их по категориям
+        Map<String, List<Product>> groupedProducts = main.groupProductsByCategory(main.products);
+        main.printProductsByCategory(groupedProducts);
     }
+
 
     public void addItem(String category, String name) {
         Product newProduct = new Product(productId++, name, category);
@@ -58,9 +86,9 @@ public class Main {
         } else {
             Map<String, List<Product>> groupedProducts = groupProductsByCategory(products);
             groupedProducts.forEach((category, productsList) -> {
-                System.out.printf("Категория: %s", category);
+                System.out.printf("%nКатегория: %s", category);
                 productsList.forEach(product ->
-                        System.out.printf("Продукт с названием: %s", product.getName()));
+                        System.out.printf("%n-- Продукт с названием: %s", product.getName()));
 
             });
         }
@@ -79,7 +107,7 @@ public class Main {
     public void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         for (Map.Entry<String, List<Product>> product : groupedProducts.entrySet()) {
             List<Product> productList = product.getValue().stream().toList();
-            System.out.printf("Категория товаров: %s%n", product.getKey());
+            System.out.printf("%nКатегория товаров: %s%n", product.getKey());
             productList.forEach(product1 -> System.out.printf("-%s", product1.getName()));
         }
     }
