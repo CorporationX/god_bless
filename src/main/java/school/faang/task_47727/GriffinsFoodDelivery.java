@@ -9,10 +9,12 @@ public class GriffinsFoodDelivery {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);
+        Random random = new Random();
         String[] characterNames = new String[]{"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
+        int foodAmount;
         for (String character : characterNames) {
-            int foodAmount = new Random().nextInt(200);
+            foodAmount = random.nextInt(200);
             executorService.submit(new FoodDeliveryTask(character, foodAmount));
         }
 

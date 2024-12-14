@@ -14,17 +14,19 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         String foodType = getFoodType();
-        System.out.printf("Piter gets %d: " + foodType + "\n", foodAmount);
+        System.out.printf(this.character + " gets %d: " + foodType + "\n", foodAmount);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Thread was interrupt!");
         }
-        System.out.printf("Peters eats %d: " + foodType + "\n", foodAmount);
+        System.out.printf(this.character + " eats %d: " + foodType + "\n", foodAmount);
     }
 
     public String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        Random random = new Random();
+        int randomFoodType = random.nextInt(foodTypes.length);
+        return foodTypes[randomFoodType];
     }
 }
