@@ -12,8 +12,8 @@ public class Main {
                 new Customer(new double[]{3.0, 4.5, 7.2}),
                 new Customer(new double[]{8.5, 2.0, 10.0, 15.3})
         };
-
         CashierThread[] cashierThreads = new CashierThread[NUM_OF_CASHIERS];
+
         for (int i = 0; i < NUM_OF_CASHIERS; i++) {
             cashierThreads[i] = new CashierThread(i + 1);
         }
