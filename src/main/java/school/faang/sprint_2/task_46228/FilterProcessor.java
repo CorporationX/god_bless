@@ -1,6 +1,5 @@
 package school.faang.sprint_2.task_46228;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -9,6 +8,12 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
-        return image -> Arrays.stream(filters).reduce(Function.identity(), Function::andThen).apply(image);
+        return image -> {
+            Image result = image;
+            for (var filter : filters) {
+                result = filter.apply(result);
+            }
+            return result;
+        };
     }
 }
