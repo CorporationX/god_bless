@@ -35,9 +35,8 @@ public class ListOperations {
         return numbers.stream().filter(x -> x > i).findFirst().get();
     }
 
-    public static String allMatchCondition(List<Integer> numbers,
-                                           Predicate<Integer> condition) {
-         return numbers.stream().anyMatch(condition) ? "Все" : "Не все";
+    public static String allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
+        return numbers.stream().anyMatch(condition) ? "Все" : "Не все";
     }
 
     public static Integer convertToLengths(List<String> strings) {
