@@ -24,7 +24,7 @@ public class DataAnalyzer {
         if (start < 0 || end < 0) {
             throw new IllegalArgumentException("start и end не могут быть меньше нуля");
         }
-        if (start < end) {
+        if (start > end) {
             throw new IllegalArgumentException("start не может быть больше чем end");
         }
 
