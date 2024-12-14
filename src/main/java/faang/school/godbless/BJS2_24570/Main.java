@@ -10,12 +10,11 @@ public class Main {
         uploadThread.start();
         addThread.start();
         try {
-            Thread.sleep(5000);
-            uploadThread.interrupt();
-            addThread.interrupt();
+            Thread.sleep(100);
+            googlePhotosAutoUploader.setStopAutoUploadThread(true);
+            googlePhotosAutoUploader.setStopNewPhotoThread(true);
         } catch (InterruptedException e) {
-            System.out.println("Все потоки завершены!");
+            System.out.println("It's interrupted!");
         }
-
     }
 }
