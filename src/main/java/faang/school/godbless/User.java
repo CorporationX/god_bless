@@ -6,10 +6,10 @@ import java.util.List;
 
 public class User {
 
-    private final String name;
-    private final int age;
-    private final String workplace;
-    private final String adress;
+    private String name;
+    private int age;
+    private String workplace;
+    private String adress;
 
     public User(String name, int age, String workplace, String adress){
         this.name = name;
