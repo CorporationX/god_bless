@@ -72,7 +72,7 @@ public class Main {
 
         projectManager.removeEmployeeFromProject(1, 1);
         val isAdd = projectManager.assignEmployeeToProject(1, arnold);
-        System.out.println(projectManager.getTeamMembers(1) + ", isAdd: " + isAdd);
+        System.out.println(projectManager.getTeamForProject(1) + ", isAdd: " + isAdd);
 
         System.out.println("--------------------- Billing project --------------------------------");
         projectManager.setAssignmentStrategy(standardTeamAssignmentStrategy);
@@ -102,6 +102,7 @@ public class Main {
     private static Set<String> getEva() {
         Set<String> skills = new HashSet<>();
         skills.add(TESTER);
+        skills.add(DESIGNER);
         return skills;
     }
 

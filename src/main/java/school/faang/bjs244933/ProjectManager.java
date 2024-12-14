@@ -1,6 +1,7 @@
 package school.faang.bjs244933;
 
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,19 +12,17 @@ import java.util.stream.Collectors;
 
 public class ProjectManager {
 
-    private List<Employee> employees;
-    private Map<Integer, Project> projects;
-    private Map<Integer, Employee> employeeById;
+    private final List<Employee> employees;
+    private final Map<Integer, Project> projects;
+    private final Map<Integer, Employee> employeeById;
+
+    @Setter
     private TeamAssignmentStrategy assignmentStrategy;
 
     public ProjectManager(@NonNull List<Employee> employees, @NonNull Map<Integer, Project> projects) {
         this.employees = employees;
         this.projects = projects;
         employeeById = employees.stream().collect(Collectors.toMap(Employee::getId, item -> item));
-    }
-
-    public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
-        assignmentStrategy = strategy;
     }
 
     public void assignTeamToProject(int projectId) {
@@ -73,21 +72,17 @@ public class ProjectManager {
     public void removeEmployeeFromProject(int projectId, int employeeId) {
         Project project = projects.get(projectId);
         if (project != null) {
-            List<Employee> teamMembers = project.getTeamMembers();
-            for (int i = 0; i < teamMembers.size(); i++) {
-                if (teamMembers.get(i).getId() == employeeId) {
-                    teamMembers.remove(i);
-                    break;
-                }
+            if (employeeById.containsKey(employeeId)) {
+                List<Employee> teamMembers = project.getTeamMembers();
+                teamMembers.remove(employeeById.get(employeeId));
+                employeeById.remove(employeeId);
+            } else {
+                throw new IllegalStateException("In a project with this id" + projectId
+                        + ", No employee with this id: " + employeeId + " was found!");
             }
         } else {
             throw new IllegalStateException("The project with the specified id was not found!");
         }
-    }
-
-    public List<Employee> getTeamMembers(int projectId) {
-        Project project = projects.get(projectId);
-        return project != null ? project.getTeamMembers() : Collections.emptyList();
     }
 
     public void removeIneligibleEmployees(Project project) {
