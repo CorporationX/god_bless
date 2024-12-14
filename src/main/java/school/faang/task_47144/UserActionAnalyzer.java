@@ -11,7 +11,6 @@ import static school.faang.task_47144.ActionType.COMMENT;
 public class UserActionAnalyzer {
     private static final String REGEX_FOR_REMOVE_SPECIAL_SYMBOLS = "^\\W+|\\W+$";
     private static final String HASHTAG = "#";
-
     private static final int TOP_3 = 3;
     private static final int TOP_5 = 5;
 
