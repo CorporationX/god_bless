@@ -55,5 +55,4 @@ public class ListOperations {
             throw new NullPointerException("Argument must be not null");
         }
     }
-
 }
