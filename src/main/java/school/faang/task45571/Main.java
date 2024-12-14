@@ -19,7 +19,7 @@ public class Main {
         int rowLength = matrix[0].length;
 
         Arrays.stream(matrix).forEach(array -> {
-            if (array.length != rowLength){
+            if (array.length != rowLength) {
                 throw new IllegalArgumentException("the strings must be of the same length");
             }
         });
