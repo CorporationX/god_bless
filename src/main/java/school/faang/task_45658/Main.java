@@ -8,7 +8,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Main {
-    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         InventoryManager inventoryManager = new InventoryManager();
 
@@ -21,10 +20,6 @@ public class Main {
         Character character = new Character(items);
 
         Consumer<Item> action = (item) -> System.out.println("Добавлен новый предмет: " + item);
-        Function<Item, Item> updateFunction = (item) -> {
-            item.setValue(item.getValue() * 2);
-            return item;
-        };
 
         Item newItem = new Item("НОВЫЙ ПРЕДМЕТ", 100);
 
@@ -39,6 +34,11 @@ public class Main {
 
         System.out.println("\nТекущий инвентарь после удаления:");
         character.getItemList().forEach(System.out::println);
+
+        Function<Item, Item> updateFunction = (item) -> {
+            item.setValue(item.getValue() * 2);
+            return item;
+        };
 
         System.out.println("\n--- Удвоение стоимости предметов с ценой > 400 ---");
         inventoryManager.updateItem(character, updateFunction, item -> item.getValue() > 400);

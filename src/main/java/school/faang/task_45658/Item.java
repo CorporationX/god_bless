@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Item {
-    private String name;
+    private final String name;
     private double value;
 }
