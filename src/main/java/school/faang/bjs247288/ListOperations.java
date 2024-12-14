@@ -2,66 +2,55 @@ package school.faang.bjs247288;
 
 import lombok.NonNull;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.function.Predicate;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static int sumOfEvenNumbers(@NonNull List<Integer> numbers) {
+
+    public static Set<List<Integer>> uniquePairsOfNumbers(@NonNull List<Integer> numbers, int sum) {
+
+        Set<Integer> set = new HashSet<>(numbers);
+
         return numbers.stream()
-                .filter(x -> x % 2 == 0)
-                .mapToInt(Integer::intValue)
-                .sum();
+                .filter(num -> set.contains(sum - num))
+                .map(num -> Arrays.asList(num, sum - num))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
     }
 
-    public static int findMax(@NonNull List<Integer> numbers) {
-        return numbers.stream()
-                .max(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
-    }
-
-    public static double findAverage(@NonNull List<Integer> numbers) {
-        return numbers.stream()
-                .mapToInt(Integer::intValue)
-                .average()
-                .orElse(0.0);
-    }
-
-    public static int countStringsStartingWith(@NonNull List<String> strings, char firstLetterWord) {
-        return (int) strings.stream()
-                .filter(s -> !s.isEmpty() && s.charAt(0) == firstLetterWord)
-                .count();
-    }
-
-    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, String substring) {
-        return strings.stream()
-                .filter(s -> s.contains(substring))
+    public static List<String> getSortedCapitals(@NonNull Map<String, String> countries) {
+        return countries.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
+
     }
 
-    public static List<String> sortByLength(List<String> strings) {
+    public static List<String> filterAndSort(@NonNull List<String> strings, char letter) {
         return strings.stream()
+                .filter(s -> s.startsWith(String.valueOf(letter)))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
-    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
-        return numbers.stream()
-                .allMatch(condition);
+    public static List<String> convertToBinary(@NonNull List<Integer> nums) {
+        return nums.stream()
+                .map(Integer::toBinaryString)
+                .collect(Collectors.toList());
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int threshold) {
-        return numbers.stream()
-                .filter(x -> x > threshold)
-                .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше " + threshold));
-    }
+    public static List<String> filterAndSortByLength(@NonNull List<String> strings, String alphabet) {
+        String regex = "[" + alphabet + "]+";
 
-    public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
-                .map(String::length)
+                .filter(s -> s.matches(regex))
+                .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 }
