@@ -45,7 +45,7 @@ public class MatrixOperations {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 var newCoordinates = transformer.replaceCoordinates(i, j);
-                newMatrix[newCoordinates.getCoordinateX()][newCoordinates.getCoordinateY()] = matrix[i][j];
+                newMatrix[newCoordinates.coordinateX()][newCoordinates.coordinateY()] = matrix[i][j];
             }
         }
         return newMatrix;
