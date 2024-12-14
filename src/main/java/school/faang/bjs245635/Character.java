@@ -9,13 +9,13 @@ import java.util.List;
 
 @Getter
 public class Character {
-   private final static Logger logger = LoggerFactory.getLogger(Character.class);
+    private final static Logger logger = LoggerFactory.getLogger(Character.class);
 
-    private  List<Item> inventory;
-    private String name;
+    private final List<Item> inventory;
+    private final String name;
 
-    public Character (String name){
-        if (name == null || name.trim().isEmpty()){
+    public Character(String name) {
+        if (name == null || name.trim().isEmpty()) {
             logger.error("Invalid Character name : {} ", name);
             throw new IllegalArgumentException("Invalid Character name");
         }

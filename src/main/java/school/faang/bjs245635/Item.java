@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 @Getter
 public class Item {
     private final String name;
-    @Setter
-    private int value;
+    private final int value;
 
     private final static Logger logger = LoggerFactory.getLogger(Item.class);
 

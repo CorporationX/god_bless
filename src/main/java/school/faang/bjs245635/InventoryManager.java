@@ -1,6 +1,5 @@
 package school.faang.bjs245635;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    private final static Logger logger = LoggerFactory.getLogger(InventoryManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(InventoryManager.class);
 
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         if (character == null || item == null || consumer == null) {
