@@ -39,7 +39,7 @@ public class House {
 
         executorService.scheduleAtFixedRate(
                 () -> {
-                    house.collectFood(executorService);
+                    house.collectFood();
                     if (house.allFoodCollected()) {
                         executorService.shutdown();
                         System.out.println("All food was collected");
@@ -47,7 +47,7 @@ public class House {
                 }, 0, 30, TimeUnit.MILLISECONDS);
     }
 
-    public void collectFood(ScheduledExecutorService executorService) {
+    public void collectFood() {
         Random randomIndex = new Random();
         int firstIndex = randomIndex.nextInt(rooms.size());
         int secondIndex;
