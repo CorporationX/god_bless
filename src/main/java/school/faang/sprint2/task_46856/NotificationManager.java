@@ -12,14 +12,22 @@ public class NotificationManager {
     }
 
     public void registerHandler(String messageType, Consumer<Notification> notification) {
-        if (messageType == null) throw new IllegalArgumentException("Message type cannot be null");
-        if (notification == null) throw new IllegalArgumentException("Notification cannot be null");
-        if (notifications.containsKey(messageType)) throw new IllegalArgumentException("Message type already registered");
+        if (messageType == null) {
+            throw new IllegalArgumentException("Message type cannot be null");
+        }
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification cannot be null");
+        }
+        if (notifications.containsKey(messageType)) {
+            throw new IllegalArgumentException("Message type already registered");
+        }
         notifications.put(messageType, notification);
     }
 
     public void sendNotification(Notification notification) {
-        if (notification == null) throw new IllegalArgumentException("Notification cannot be null");
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification cannot be null");
+        }
         if (notifications.containsKey(notification.getType())) {
             notifications.get(notification.getType()).accept(notification);
         } else {
