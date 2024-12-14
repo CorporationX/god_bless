@@ -3,7 +3,6 @@ package school.faang.task45571;
 import java.util.Arrays;
 
 import static school.faang.task45571.FlipDirection.HORIZONTAL;
-import static school.faang.task45571.FlipDirection.VERTICAL;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +12,17 @@ public class Main {
     }
 
     private static void validateMatrix(int[][] matrix) {
-        if (matrix == null) {
-            throw new IllegalArgumentException("matrix can`t be null");
+        if (matrix == null || matrix.length == 0) {
+            throw new IllegalArgumentException("matrix can`t be null or empty");
         }
+
+        int rowLength = matrix[0].length;
+
+        Arrays.stream(matrix).forEach(array -> {
+            if (array.length != rowLength){
+                throw new IllegalArgumentException("the strings must be of the same length");
+            }
+        });
     }
 
     private static int[][] transformMatrix(int[][] matrix, MatrixTransformer matrixTransformer) {
@@ -29,7 +36,7 @@ public class Main {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 Coordinates coordinates = matrixTransformer.transform(i, j);
-                flippedMatrix[coordinates.getFirstCoordinate()][coordinates.getSecondCoordinate()] = matrix[i][j];
+                flippedMatrix[coordinates.row()][coordinates.column()] = matrix[i][j];
             }
         }
         return flippedMatrix;
@@ -45,10 +52,8 @@ public class Main {
 
         if (flipDirection == HORIZONTAL) {
             resultMatrix = transformMatrix(matrix, (i, j) -> new Coordinates(i, matrix.length - 1 - j));
-        } else if (flipDirection == VERTICAL) {
-            resultMatrix = transformMatrix(matrix, (i, j) -> new Coordinates(matrix.length - 1 - i, j));
         } else {
-            throw new IllegalArgumentException("flipDirection is not selected");
+            resultMatrix = transformMatrix(matrix, (i, j) -> new Coordinates(matrix.length - 1 - i, j));
         }
 
         return resultMatrix;

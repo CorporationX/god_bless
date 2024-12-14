@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum FlipDirection {
-    HORIZONTAL("горизонтальные переворот"),
+    HORIZONTAL("горизонтальный переворот"),
     VERTICAL("вертикальный переворот");
 
     private final String name;
