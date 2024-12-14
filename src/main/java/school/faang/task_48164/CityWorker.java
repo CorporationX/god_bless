@@ -7,15 +7,18 @@ public record CityWorker(City city, List<Monster> monsters) implements Runnable 
 
     @Override
     public void run() {
-        int catheterFirst = city.getLocation().getCoordinateX(); //b
-        int catheterSecond = city.getLocation().getCoordinateY(); //a
+        int catheterFirst = city.getLocation().getCoordinateX();
+        int catheterSecond = city.getLocation().getCoordinateY();
 
         double hypotenuse = Math.sqrt(Math.pow(catheterFirst, 2) + Math.pow(catheterSecond, 2));
         System.out.printf("The path from Witcher to city is %.2f km\n", hypotenuse);
 
         double minPathToMonster = monsters.stream()
-                .map((monster) -> Math.sqrt(Math.pow(Math.abs(monster.getLocation().getCoordinateX() - city.getLocation().getCoordinateY()), 2)
-                        + Math.pow(Math.abs(monster.getLocation().getCoordinateY() - city.getLocation().getCoordinateY()), 2)))
+                .map((monster) -> Math.sqrt(
+                        Math.pow(Math.abs(monster.getLocation().getCoordinateX()
+                                - city.getLocation().getCoordinateY()), 2)
+                        + Math.pow(Math.abs(monster.getLocation().getCoordinateY()
+                                - city.getLocation().getCoordinateY()), 2)))
                 .min(Double::compare).orElse(Double.MIN_VALUE);
 
         System.out.printf("The nearest monster from the city %s is about %.2f km\n", city.getName(), minPathToMonster);
