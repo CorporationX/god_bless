@@ -40,7 +40,6 @@ public class HogwartsSpells {
         if (spellEvent == null) {
             throw new IllegalArgumentException("the spell event " + id + " have not found");
         }
-
         EventType spellType = spellEvent.getEventType();
         List<SpellEvent> spellsOfType = spellsByType.get(spellType.name());
         spellsOfType.removeIf(event -> event.getId().equals(id));
