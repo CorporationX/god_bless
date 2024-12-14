@@ -2,6 +2,7 @@ package school.faang.streamapi_two;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,17 @@ public class SolutionMethods {
                 .toList();
     }
 
+    public List<String> findStringStartingWithCharAndSort(List<String> list, char startingChar) {
+        return list.stream()
+                .filter(str -> str.charAt(0) == startingChar)
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
 
+    public List<String> convertIntegerToBinaryString(List<Integer> list) {
+        return list.stream()
+                .map(Integer::toBinaryString)
+                .toList();
+    }
 
 }
