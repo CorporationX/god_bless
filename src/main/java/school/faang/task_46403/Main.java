@@ -20,7 +20,7 @@ public class Main {
         Image myFotoRetro = appFilter.applyFilter(myFoto, retroFilter);
         System.out.println(myFotoRetro.getDescription());
 
-        Function<Image, Image> combineFilters = appFilter.combineFilters(retroFilter, grayFilter);
+        Function<Image, Image> combineFilters = appFilter.combFilters(retroFilter, grayFilter);
         Image mixFilterImage = appFilter.applyFilter(myFoto, combineFilters);
         System.out.println(mixFilterImage.getDescription());
     }
