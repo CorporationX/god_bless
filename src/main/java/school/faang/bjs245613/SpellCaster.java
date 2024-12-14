@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class SpellCaster {
 
-    private final static Logger logger = LoggerFactory.getLogger(SpellCaster.class);
+    private static final Logger logger = LoggerFactory.getLogger(SpellCaster.class);
 
     public void cast(String spellName, SpellAction action) {
         if (spellName == null || spellName.trim().isEmpty()) {
@@ -24,7 +24,6 @@ public class SpellCaster {
             System.out.println(castResult);
         } catch (Exception e) {
             logger.error("Error executing spell '{}' ", spellName);
-
 
         }
     }
