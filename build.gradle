@@ -13,7 +13,18 @@ repositories {
 
 dependencies {
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    ext {
+        jacksonDatabind = '2.14.2'
+        jacksonJsr310 = '2.14.0'
+        jacksonAnnotations = '2.14.0'
+        jacksonCore = '2.14.0'
+    }
+
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonDatabind"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonJsr310"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonAnnotations"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonCore"
+
     implementation("org.slf4j:slf4j-api:2.0.5")
     implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("org.projectlombok:lombok:1.18.26")
