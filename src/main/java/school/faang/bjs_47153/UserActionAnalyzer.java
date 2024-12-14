@@ -2,37 +2,35 @@ package school.faang.bjs_47153;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions) {
-        Map<Integer, Integer> users = new HashMap<>();
+        Map<Integer, Long> groupedCountsById = actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
 
-        actions.forEach(action -> {
-            users.computeIfAbsent(action.getUserId(), k -> 0);
-            users.compute(action.getUserId(), (k, count) -> count + 1);
-
-        });
-
-        return users.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .limit(10)
-                .map(Map.Entry::getKey)
-                .map(id -> getUserNameById(actions, id))
-                .toList();
+        return groupedCountsById.entrySet().stream()
+                .collect(Collectors.toMap(entry -> getUserNameById(actions, entry.getKey()),
+                        Map.Entry::getValue))
+                .keySet()
+                .stream().toList();
     }
 
     public static List<String> topHashtags(List<UserAction> actions) {
-        Map<String, Integer> hashTags = new HashMap<>();
 
-        actions.stream()
-                .filter(action -> action.getActionType().equals(ActionType.COMMENT)
-                        || action.getActionType().equals(ActionType.POST))
-                .forEach(action -> addHashtags(action, hashTags));
+        Map<String, Long> hashTagsCount = actions.stream()
+                .filter(action -> Objects.equals(action.getActionType(), (ActionType.COMMENT))
+                        || Objects.equals(action.getActionType(), ActionType.POST))
+                .flatMap(action ->
+                        Arrays.stream(action.getContent().replaceAll("[,.!]?", "").split(" ")))
+                .filter(s -> s.startsWith("#"))
+                .collect(Collectors.groupingBy(hashTags -> hashTags, Collectors.counting()));
 
-        return hashTags.entrySet().stream()
+        return hashTagsCount.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .limit(5)
                 .map(Map.Entry::getKey)
@@ -40,18 +38,13 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
-        Map<Integer, Integer> users = new HashMap<>();
-
-        actions.stream()
-                .filter(action -> action.getActionType().equals(ActionType.COMMENT))
+        Map<Integer, Long> commentators = actions.stream()
+                .filter(action -> Objects.equals(action.getActionType(), ActionType.COMMENT))
                 .filter(action ->
                         LocalDate.now().minusMonths(1).isBefore(action.getActionDate()))
-                .forEach(action -> {
-                    users.computeIfAbsent(action.getUserId(), k -> 0);
-                    users.compute(action.getUserId(), (k, count) -> count + 1);
-                });
+                .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
 
-        return users.entrySet().stream()
+        return commentators.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .limit(3)
                 .map(Map.Entry::getKey)
@@ -60,38 +53,28 @@ public class UserActionAnalyzer {
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-        Map<String, Integer> actionsByType = new HashMap<>();
-        Map<String, Double> percentages = new HashMap<>();
+        Map<String, Long> actionsByType = actions.stream()
+                .collect(Collectors.groupingBy(action -> action.getActionType().name(),
+                        Collectors.counting()));
+
         int actionsCount = actions.size();
 
-        actions.forEach(action -> {
-            actionsByType.computeIfAbsent(action.getActionType().name(), k -> 0);
-            actionsByType.compute(action.getActionType().name(), (k, count) -> count + 1);
-        });
-
-        actionsByType.forEach((key, value) -> percentages.put(key, 100.0 * value / actionsCount));
-
-        return percentages;
-
+        return actionsByType.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        entry -> entry.getValue() * 100.0 / actionsCount));
     }
 
     private static String getUserNameById(List<UserAction> actions, Integer userId) {
-        return actions.stream()
-                .filter(action -> userId.equals(action.getUserId()))
-                .findAny()
-                .orElseThrow().getUserName();
+        Set<String> foundedUserNames = actions.stream()
+                .filter(action -> Objects.equals(userId, action.getUserId()))
+                .map(UserAction::getUserName)
+                .collect(Collectors.toSet());
+
+        if (foundedUserNames.size() != 1) {
+            throw new UserNotFoundException("User " + userId + " not found");
+        }
+
+        return foundedUserNames.iterator().next();
     }
 
-    private static void addHashtags(UserAction action, Map<String, Integer> hashTags) {
-        getHashtags(action.getContent()).forEach(hashtag -> {
-            hashTags.computeIfAbsent(hashtag, k -> 0);
-            hashTags.compute(hashtag, (k, count) -> count + 1);
-        });
-    }
-
-    private static List<String> getHashtags(String string) {
-        return Arrays.stream(string.replaceAll("[,.!]?", "").split(" "))
-                .filter(s -> s.startsWith("#"))
-                .toList();
-    }
 }

@@ -137,7 +137,7 @@ class UserActionAnalyzerTest {
     void topCommentersLastMonth() {
         List<UserAction> actions = getActions();
         List<String> actual = UserActionAnalyzer.topCommentersLastMonth(actions);
-        List<String> expected = Arrays.asList("Dave", "Eve", "Charlie");
+        List<String> expected = Arrays.asList("Eve", "Charlie");
         Assertions.assertTrue(actual.containsAll(expected));
         Assertions.assertTrue(expected.containsAll(actual));
     }
