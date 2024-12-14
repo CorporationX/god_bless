@@ -1,11 +1,16 @@
 package school.faang.bjs245016;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
+import java.util.Objects;
 import java.util.UUID;
 
 public class DataCenterService {
     private DataCenter datacenter = new DataCenter();
+    private OptimizationStrategy strategy;
+
+    public DataCenterService(OptimizationStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public void addServer(String name, double load, double maxLoad, double energyConsumption) {
         Server server = new Server(UUID.randomUUID(), name, load, maxLoad, energyConsumption);
@@ -13,14 +18,7 @@ public class DataCenterService {
     }
 
     public void removeServer(UUID serverId) {
-        Iterator<Server> iterator = datacenter.getServersList().iterator();
-        while (iterator.hasNext()) {
-            Server server = iterator.next();
-            if (server.getId().equals(serverId)) {
-                iterator.remove();
-                break;
-            }
-        }
+        datacenter.getServersList().removeIf(server -> Objects.equals(server.getId(), serverId));
     }
 
     public double getTotalEnergyConsumption() {
@@ -31,7 +29,7 @@ public class DataCenterService {
 
     public void allocateResources(ResourceRequest request) {
         Server server = datacenter.getServersList().stream()
-                .filter(s -> s.getMaxLoad() - s.getLoad() > s.getLoad())
+                .filter(s -> s.getMaxLoad() - s.getLoad() > request.getLoad())
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("No server found with enough resources"));
 
@@ -46,15 +44,7 @@ public class DataCenterService {
                 .ifPresent(server -> server.setLoad(server.getLoad() - request.getLoad()));
     }
 
-    public void optimizeDatacenter(String strategyClassName) {
-        try {
-            Class<?> cl = Class.forName(Constants.CLASS_REFERECE + strategyClassName);
-            OptimizationStrategy strategy = (OptimizationStrategy) cl.getDeclaredConstructor().newInstance();
-            strategy.optimize(datacenter);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                 | NoSuchMethodException | InvocationTargetException e) {
-            throw new RuntimeException("Failed to instantiate strategy: " + strategyClassName, e);
-        }
-
+    public void optimizeDatacenter() {
+        strategy.optimize(datacenter);
     }
 }

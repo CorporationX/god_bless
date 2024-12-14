@@ -8,10 +8,11 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
     @Override
     public void optimize(DataCenter datacenter) {
         System.out.println("Energy efficient optimization flow");
-        for (Server server : datacenter.getServersList()) {
+
+        datacenter.getServersList().forEach(server -> {
             if (server.getLoad() == 0) {
-                server.setEnergyConsumption(0); // Отключаем сервер для экономии энергии
+                server.shutDown();
             }
-        }
+        });
     }
 }

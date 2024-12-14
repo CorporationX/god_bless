@@ -16,4 +16,8 @@ public class Server {
     private final double maxLoad;
     private double energyConsumption;
 
+    public void shutDown() {
+        this.energyConsumption = 0;
+    }
+
 }

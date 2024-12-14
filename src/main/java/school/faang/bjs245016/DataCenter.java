@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class DataCenter {
-    private List<Server> serversList = new ArrayList<>();
-    private List<ResourceRequest> requestsList = new ArrayList<>();
+    private final List<Server> serversList = new ArrayList<>();
+    private final List<ResourceRequest> requestsList = new ArrayList<>();
 }
