@@ -35,5 +35,4 @@ public class CashierThread extends Thread {
         }
         System.out.println("End! Total sum processed by cashier " + id + ": " + totalSum);
     }
-
 }
