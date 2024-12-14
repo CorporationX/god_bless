@@ -51,7 +51,7 @@ public class ListOperations {
         return integerList.stream()
                 .filter(n -> n > k)
                 .min(Integer::compareTo)
-                .orElseThrow(() ->new NoSuchElementException("Нет элементов удовлетваорящие условиям."));
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов удовлетваорящие условиям."));
     }
 
     public static List<Integer> convertToLengths(List<String> stringList) {
