@@ -90,7 +90,7 @@ class ListOperationsTest {
                 ListOperations.filterStringsContainingSubstring(List.of("str1", "str2", "str3"), "s"));
         assertEquals(List.of("str1", "str2", "str3"),
                 ListOperations.filterStringsContainingSubstring(List.of("str1", "str2", "str3"), ""));
-        assertEquals(List.of("str1", "str2", "str3"),
+        assertEquals(List.of("str1"),
                 ListOperations.filterStringsContainingSubstring(List.of("str1", "str2", "str3"), "r1"));
         assertEquals(List.of("str1"),
                 ListOperations.filterStringsContainingSubstring(List.of("str1"), "tr"));
