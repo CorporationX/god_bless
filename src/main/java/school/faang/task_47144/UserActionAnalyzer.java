@@ -16,7 +16,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<String, Long> actionsByUserNames = actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()));
 
         return actionsByUserNames.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -26,7 +26,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         Map<String, Long> countHashtags = actions.stream()
-                .map(UserAction::getContent)
+                .map(UserAction::content)
                 .map(s -> s.replaceAll(REGEX_FOR_REMOVE_SPECIAL_SYMBOLS, ""))
                 .flatMap(s -> Arrays.stream(s.split(" ")))
                 .filter(s -> s.startsWith(HASHTAG))
@@ -41,9 +41,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         Map<String, Long> countCommentByNames = actions.stream()
-                .filter(f -> f.getActionType().equals(COMMENT.getActionName()))
-                .filter(f -> !f.getContent().isBlank())
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+                .filter(f -> f.actionType().equals(COMMENT))
+                .filter(f -> !f.content().isBlank())
+                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()));
 
         return countCommentByNames.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -52,10 +52,10 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+    public static Map<ActionType, Double> actionTypePercentages(List<UserAction> actions) {
         return actions.stream()
                 .collect(Collectors.groupingBy(
-                        UserAction::getActionType,
+                        UserAction::actionType,
                         Collectors.collectingAndThen(
                                 Collectors.counting(), s -> (double) s * 100 / actions.size()))
                 );

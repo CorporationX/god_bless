@@ -5,15 +5,13 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<UserAction> actions = DataInitializer.initData(); // данные о действиях пользователей
+        List<UserAction> actions = DataInitializer.initData();
 
-        // Получение результатов
         List<String> topUsers = UserActionAnalyzer.topActiveUsers(actions);
         List<String> topHashtags = UserActionAnalyzer.topPopularHashtags(actions);
         List<String> topCommenters = UserActionAnalyzer.topCommentersLastMonth(actions);
-        Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
+        Map<ActionType, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
-        // Вывод результатов
         System.out.println("Топ-10 активных пользователей: " + topUsers);
         System.out.println("Топ-5 популярных хэштегов: " + topHashtags);
         System.out.println("Топ-3 комментаторов за последний месяц: " + topCommenters);
