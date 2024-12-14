@@ -15,13 +15,14 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max((o1, o2) -> o1 - o2)
-                .orElse(0);
+                .orElseThrow();
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(x -> x)
-                .average().orElse(0.0);
+                .average()
+                .orElseThrow();
     }
 
     public static int countStringsStartingWith(List<String> strings, char ch) {
@@ -51,7 +52,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(x -> x > pivot)
                 .min(Comparator.naturalOrder())
-                .orElse(0);
+                .orElseThrow();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
