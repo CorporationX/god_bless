@@ -1,6 +1,6 @@
 package school.faang.task_46222;
 
 @FunctionalInterface
-public interface RiskyAction<T, E extends Throwable> {
-    T call() throws E;
+public interface RiskyAction<T, V, E extends Throwable> {
+    T call(V param) throws E;
 }

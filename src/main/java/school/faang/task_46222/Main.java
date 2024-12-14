@@ -14,12 +14,12 @@ public class Main {
 
     private static String checkErrorHandler(String param) {
         return ErrorHandler.withErrorHandling(
-                () -> RemoteService.call(param),
+                (V) -> RemoteService.call(param),
                 e -> {
                     System.out.println("Exception при вызове сервиса: " + e.getMessage());
                     System.out.println("Возвращаем дефолтное значение");
                     return "DEFAULT";
-                }
-        );
+                },
+                param);
     }
 }
