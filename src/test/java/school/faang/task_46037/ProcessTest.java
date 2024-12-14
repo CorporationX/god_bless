@@ -2,23 +2,23 @@ package school.faang.task_46037;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProcessTest {
 
     @Test
     void testSumPositiveNumbers() {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
         assertEquals(15, Process.sum(numbers));
     }
 
     @Test
     void testProductPositiveNumbers() {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
         assertEquals(120, Process.product(numbers));
     }
 
@@ -59,14 +59,14 @@ public class ProcessTest {
     }
 
     @Test
-    void testSumWithZero(){
-        List<Integer> numbers = List.of(1,0,3,4,5);
+    void testSumWithZero() {
+        List<Integer> numbers = List.of(1, 0, 3, 4, 5);
         assertEquals(13, Process.sum(numbers));
     }
 
     @Test
-    void testProductWithZero(){
-        List<Integer> numbers = List.of(1,0,3,4,5);
+    void testProductWithZero() {
+        List<Integer> numbers = List.of(1, 0, 3, 4, 5);
         assertEquals(0, Process.product(numbers));
     }
 }
