@@ -18,34 +18,33 @@ public class User {
     private String workplace;
     private String address;
 
-    private void validationUser(String name, int age, String workplace, String address) {
-        if (name != null) {
+    public User(String name, int age, String workplace, String address) {
+        if (validationUser(name, age, workplace, address)) {
             this.name = name;
-        } else {
-            throw new IllegalArgumentException("имя не может быть пустым");
-        }
-
-        if (age > MINIMUM_AGE) {
             this.age = age;
-        } else {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
-        }
-
-        if (VALID_JOBS.contains(workplace)) {
             this.workplace = workplace;
-        } else {
-            throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
-        }
-
-        if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
-        } else {
-            throw new IllegalArgumentException("Адрес должен быть содержится в наборе VALID_ADDRESSES.");
         }
     }
 
-    public User(String name, int age, String workplace, String address) {
-        validationUser(name, age, workplace, address);
+    private boolean validationUser(String name, int age, String workplace, String address) {
+        if (name == null) {
+            throw new IllegalArgumentException("имя не может быть пустым");
+        }
+
+        if (age < MINIMUM_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MINIMUM_AGE);
+        }
+
+        if (VALID_JOBS.contains(workplace) == false) {
+            throw new IllegalArgumentException("Место работы должно быть содержится в наборе VALID_JOBS");
+        }
+
+        if (VALID_ADDRESSES.contains(address) == false) {
+            throw new IllegalArgumentException("Адрес должен быть содержится в наборе VALID_ADDRESSES.");
+        } else {
+            return true;
+        }
     }
 
     @Override
