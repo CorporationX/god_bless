@@ -16,9 +16,8 @@ public class StudentService {
     private static final String SUMMARY_GRADE_TABLE_FORMAT = "%-13.2f | %-16.1f|%n";
 
     public Map<String, Double> getAverageSchoolGrade(List<Student> students) {
-        if (students == null) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
-        }
+        ValidationUtils.isNotNull(students, "Список студентов");
+
         return students.stream()
                 .flatMap(student -> student.subjects().entrySet().stream())
                 .collect(Collectors.groupingBy(
@@ -29,14 +28,12 @@ public class StudentService {
     }
 
     public Map<String, Integer> getFinalStudentGrades(List<Student> students, String firstName, String lastName) {
-        if (students == null || students.isEmpty()) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
-        }
-        if ((firstName == null || firstName.isEmpty()) && (lastName == null || lastName.isEmpty())) {
-            throw new IllegalArgumentException("Не верные входные параметры");
-        }
+        ValidationUtils.isNotNull(students, "Список студентов");
+        ValidationUtils.isNotNullAndNotEmpty(firstName, "Имя");
+        ValidationUtils.isNotNullAndNotEmpty(lastName, "Фамилия");
+
         return students.stream()
-                .filter(student -> student.firstName().equals(firstName) && student.lastName().equals(lastName))
+                .filter(student -> firstName.equals(student.firstName()) && lastName.equals(student.lastName()))
                 .findFirst()
                 .map(student -> student.subjects().entrySet().stream()
                         .collect(Collectors.toMap(
@@ -48,9 +45,8 @@ public class StudentService {
     }
 
     public String getMostDifficultSubject(List<Student> students) {
-        if (students == null) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
-        }
+        ValidationUtils.isNotNull(students, "Список студентов");
+
         Map<String, Double> averageSchoolGrades = getAverageSchoolGrade(students);
         return averageSchoolGrades.entrySet().stream()
                 .min(Map.Entry.comparingByValue())
@@ -59,9 +55,8 @@ public class StudentService {
     }
 
     public void printPerformanceTable(List<Student> students) {
-        if (students == null) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
-        }
+        ValidationUtils.isNotNull(students, "Список студентов");
+
         Set<String> subjects = students.stream()
                 .flatMap(student -> student.subjects().keySet().stream())
                 .collect(Collectors.toSet());
