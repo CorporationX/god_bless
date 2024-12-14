@@ -9,40 +9,40 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
+
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
-        Set<List<Integer>> input = findUniquePairs(numbers, 7);
-        input.forEach(System.out::println);
+        List<List<Integer>> uniquePairsWithSum = findUniquePairs(numbers, 7);
+        uniquePairsWithSum.forEach(System.out::println);
 
         /*------------------------------------------------------------------------------------------------------*/
-        Map<String, String> countryMap = Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin");
-        List<String> countryList = countriesSorting(countryMap);
-        countryList.forEach(System.out::println);
+        Map<String, String> countryCapital = Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin");
+        List<String> sortedCountries = countriesSorting(countryCapital);
+        sortedCountries.forEach(System.out::println);
 
         /*------------------------------------------------------------------------------------------------------*/
-        List<String> fruitList = List.of("apple", "banana", "avocado", "apricot");
-        List<String> newFruitList = filterString(fruitList, 'a');
-        newFruitList.forEach(System.out::println);
+        List<String> availableFruits = List.of("apple", "banana", "avocado", "apricot");
+        List<String> filteredFruits = filterString(availableFruits, "a");
+        filteredFruits.forEach(System.out::println);
 
         /*------------------------------------------------------------------------------------------------------*/
-        List<Integer> numList = List.of(1, 2, 3, 4);
-        List<String> strList = convertIntegerListToStringList(numList);
-        strList.forEach(System.out::println);
+        List<Integer> integerValues = List.of(1, 2, 3, 4);
+        List<String> stringRepresentationOfIntegers = convertIntegerListToStringList(integerValues);
+        stringRepresentationOfIntegers.forEach(System.out::println);
 
         /*------------------------------------------------------------------------------------------------------*/
-        List<String> strFruit = List.of("apple", "banana", "cherry", "date", "fig", "grape");
+        List<String> fruitNames = List.of("apple", "banana", "cherry", "date", "fig", "grape");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> newList = filterAndSortStringsByLength(strFruit, alphabet);
-        newFruitList.forEach(System.out::println);
+        List<String> filteredAndSortedStrings = filterAndSortStringsByLength(fruitNames, alphabet);
+        filteredAndSortedStrings.forEach(System.out::println);
 
 
     }
 
-    public static Set<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
+    public static List<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
         return numbers.stream()
                 .flatMap(i -> numbers.stream()
                         .filter(j -> i + j == target && i < j)
-                        .map(j -> Arrays.asList(i, j)))
-                .collect(Collectors.toSet());
+                        .map(j -> Arrays.asList(i, j))).distinct().collect(Collectors.toList());
     }
 
 
@@ -53,9 +53,9 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filterString(List<String> str, Character ch) {
+    public static List<String> filterString(List<String> str, String ch) {
         return str.stream()
-                .filter(s -> s.charAt(0) == ch)
+                .filter(s -> s.startsWith(ch))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
@@ -74,7 +74,4 @@ public class Main {
 
     }
 
-
 }
-
-
