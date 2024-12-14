@@ -1,6 +1,6 @@
 package school.faang.sprint_2.task_46154;
 
-
+//
 import java.util.function.Supplier;
 
 public class ErrorHandler {
