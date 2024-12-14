@@ -33,4 +33,3 @@ public class Main {
         System.out.println(mixImage.getDescription());
     }
 }
-//
