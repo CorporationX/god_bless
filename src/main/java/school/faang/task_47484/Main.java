@@ -67,8 +67,10 @@ public class Main {
     public static Set<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> usersFriends) {
         return usersFriends.keySet().stream()
                 .flatMap(user -> usersFriends.keySet().stream()
-                        .filter(friend -> !user.equals(friend) &&
-                                !usersFriends.get(user).contains(friend) &&
+                        .filter(friend -> !user.equals(friend)
+                                &&
+                                !usersFriends.get(user).contains(friend)
+                                &&
                                 usersFriends.get(user).stream().anyMatch(usersFriends.get(friend)::contains))
                         .map(friend -> {
                             List<String> pair = new ArrayList<>(Arrays.asList(user, friend));
