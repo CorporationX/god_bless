@@ -28,8 +28,10 @@ public class UserActionAnalyzer {
     public List<String> topPopularHashtags(List<UserAction> actions) {
         validate(actions);
         return actions.stream()
-                .filter(action -> action.getContent() != null && action.getActionType().equals("post")
-                        || action.getActionType().equals("comment"))
+                .filter(action ->
+                        action.getContent() != null
+                                && action.getActionType().equals("post")
+                                || action.getActionType().equals("comment"))
                 .flatMap(action -> Arrays.stream(
                         Objects.requireNonNull(action.getContent()).split("\\\\\\\\s+")))
                 .filter(word -> word.startsWith("#"))
@@ -45,8 +47,8 @@ public class UserActionAnalyzer {
         validate(actions);
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action -> action.getActionType().equals("comment") &&
-                        action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action -> action.getActionType().equals("comment")
+                        && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
