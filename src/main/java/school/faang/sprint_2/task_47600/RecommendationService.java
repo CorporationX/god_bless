@@ -2,10 +2,7 @@ package school.faang.sprint_2.task_47600;
 
 import lombok.AllArgsConstructor;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -53,13 +50,12 @@ public class RecommendationService {
         return users.stream()
                 .filter(user -> user.userId() == userId)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException(String.format("Пользователь с ID %d не найден", userId)));
     }
 
     private List<Integer> getSimilarUsers(UserProfile currentUser) {
-        if (currentUser == null) {
-            throw new IllegalArgumentException("Входные параметры не могут быть пустыми");
-        }
+        ValidationUtils.isNotNull(currentUser);
+
         return users.stream()
                 .filter(user -> user.age() == currentUser.age()
                         && user.gender().equals(currentUser.gender())
@@ -69,18 +65,16 @@ public class RecommendationService {
     }
 
     private Map<Integer, Long> countProductOrdersForSimilarUsers(List<Integer> similarUsersId) {
-        if (similarUsersId == null) {
-            throw new IllegalArgumentException("Входные параметры не могут быть пустыми");
-        }
+        ValidationUtils.isNotNull(similarUsersId);
+
         return orders.stream()
                 .filter(order -> similarUsersId.contains(order.userId()))
                 .collect(Collectors.groupingBy(ProductOrder::productId, Collectors.counting()));
     }
 
     private Map<String, Long> countCategoriesFromOrders(UserProfile currentUser) {
-        if (currentUser == null) {
-            throw new IllegalArgumentException("Входные параметры не могут быть пустыми");
-        }
+        ValidationUtils.isNotNull(currentUser);
+
         return orders.stream()
                 .filter(orders -> orders.userId() == currentUser.userId())
                 .map(order -> products.stream()
@@ -93,9 +87,8 @@ public class RecommendationService {
     }
 
     public void printProductList(List<Product> products) {
-        if (products == null) {
-            throw new IllegalArgumentException("Входные параметры не могут быть пустыми");
-        }
+        ValidationUtils.isNotNull(products);
+
         products.forEach(product -> System.out.printf("ID:%s, Наименование: %s, Цена: %.2f, Категория: %s, Метки: %s\n",
                 product.productId(), product.name(), product.price(), product.category(), product.tags()));
     }
