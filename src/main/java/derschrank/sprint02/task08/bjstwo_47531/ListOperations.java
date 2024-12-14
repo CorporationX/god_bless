@@ -34,7 +34,7 @@ public class ListOperations {
         return strings.stream()
                 .filter(x -> x.contains(prefix))
                 .toList();
-    };
+    }
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
@@ -45,7 +45,7 @@ public class ListOperations {
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
         return numbers.stream()
                 .allMatch(predicate);
-    };
+    }
 
     public static Integer findMinGreaterThan(List<Integer> numbers, int pivot) {
         return numbers.stream()
@@ -53,9 +53,10 @@ public class ListOperations {
                 .min(Comparator.naturalOrder())
                 .orElse(0);
     }
+
     public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
                 .map(x -> x.length())
                 .toList();
-    };
+    }
 }
