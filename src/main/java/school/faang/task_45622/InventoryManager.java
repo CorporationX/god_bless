@@ -12,7 +12,7 @@ public class InventoryManager {
         }
     }
 
-    public void removeItem(Character character, Predicate<Item> predicate) throws IllegalArgumentException{
+    public void removeItem(Character character, Predicate<Item> predicate) throws IllegalArgumentException {
         if (character != null) {
             if (predicate != null) {
                 character.getInventory().removeIf(predicate);
@@ -27,7 +27,7 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updateItem) {
         if (character != null) {
-            if((predicate != null) && (updateItem != null)) {
+            if ((predicate != null) && (updateItem != null)) {
                 boolean availableItem = false;
                 for (int i = 0; i < character.getInventory().size(); i++) {
                     if (predicate.test(character.getInventory().get(i))) {
@@ -38,7 +38,7 @@ public class InventoryManager {
                 if (!availableItem) {
                     System.out.println("Данного предмета нет в инвентаре!!!");
                 }
-            }else {
+            } else {
                 throw new IllegalArgumentException("Functional is null!!!");
             }
         } else {

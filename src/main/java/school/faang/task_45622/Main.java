@@ -8,25 +8,24 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, palantir, (item) -> System.out.println(item.getName() + " добавлен в инвентарь."));
 
-            manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-            manager.addItem(frodo, palantir, (item) -> System.out.println(item.getName() + " добавлен в инвентарь."));
+        try {
+            manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
-            try {
-                manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            manager.updateItem(frodo, (item) -> item.getName().equals("Palantir"),
+                    (item) -> new Item(item.getName(), item.getValue() * 2));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
-            try {
-                manager.updateItem(frodo, (item) -> item.getName().equals("Palantir"),
-                        (item) -> new Item(item.getName(), item.getValue() * 2));
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-
-            System.out.println();
-            frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+        System.out.println();
+        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
 
     }
 }
