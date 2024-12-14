@@ -34,7 +34,10 @@ public class MailSender {
 
     private static void fillEmails() {
         for (int i = 0; i < MailSender.MAX_EMAILS; i++) {
-            Mail mail = new Mail("a" + i + "@mail.ru", "hr@microsoft.com", "You are hired!" + i, "Hello, you are hired! Microsoft >> " + i);
+            Mail mail = new Mail("a" + i + "@mail.ru",
+                    "hr@microsoft.com",
+                    "You are hired!" + i,
+                    "Hello, you are hired! Microsoft >> " + i);
             emails.add(mail);
         }
     }
