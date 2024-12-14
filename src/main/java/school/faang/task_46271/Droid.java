@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Droid {
+    private static final int ALPHABET_SIZE = 26;
     private final String name;
 
     private String encryptMessage(String message, int key) {
@@ -15,14 +16,14 @@ public class Droid {
             for (char ch : messageEncrypt.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + keyEncrypt) % 26 + base));
+                    encryptedMessage.append((char) ((ch - base + keyEncrypt) % ALPHABET_SIZE + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
             }
             return encryptedMessage.toString();
         };
-        return encryptor.encryptor(message, key);
+        return encryptor.encrypt(message, key);
     }
 
     private String decryptMessage(String message, int key) {
@@ -32,26 +33,29 @@ public class Droid {
             for (char ch : messageDescriptor.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - keyDescriptor + 26) % 26 + base));
+                    decryptedMessage.append((char) ((ch - base - keyDescriptor + ALPHABET_SIZE)
+                            % ALPHABET_SIZE + base));
                 } else {
                     decryptedMessage.append(ch);
                 }
             }
             return decryptedMessage.toString();
         };
-        return descriptor.encryptor(message, key);
+        return descriptor.encrypt(message, key);
     }
 
-    public void sendMessage(String message, int key, Droid droid) {
-        try {
-            System.out.println(this.getName() + " отправил зашифрованное сообщение: "
-                    + encryptMessage(message, key));
-            receiveMessage(encryptMessage(message, key), key, droid);
-
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
+    public void sendMessage(String message, int key, Droid droid) throws IllegalAccessException {
+        if (message != null) {
+            if (droid != null) {
+                System.out.println(this.getName() + " отправил зашифрованное сообщение: "
+                        + encryptMessage(message, key));
+                receiveMessage(encryptMessage(message, key), key, droid);
+            } else {
+                throw new IllegalAccessException("Droid is null!!!");
+            }
+        } else {
+            throw new IllegalAccessException("Message is null!!!");
         }
-
     }
 
     public void receiveMessage(String encryptMessage, int key, Droid droid) {

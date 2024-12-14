@@ -6,8 +6,13 @@ public class Main {
         Droid c3po = new Droid("C3PO");
         Droid bb8 = new Droid("BB-8");
 
-        r2d2.sendMessage("Join the Rebellion!", 3, c3po);
-        c3po.sendMessage("Join the Rebellion!", 7, bb8);
-        bb8.sendMessage("Hello world!!!", 8, r2d2);
+        try {
+            r2d2.sendMessage("Join the Rebellion!", 3, c3po);
+            c3po.sendMessage("Join the Rebellion!", 7, bb8);
+            bb8.sendMessage("Hello world!!!", 8, r2d2);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
