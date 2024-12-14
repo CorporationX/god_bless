@@ -16,7 +16,9 @@ public class Main {
         var pairsNoFriends = friends.entrySet().stream()
                 .flatMap(personEntry  ->
                         friends.keySet().stream()
-                                .filter(otherPerson -> !personEntry.getValue().contains(otherPerson) && !otherPerson.equals(personEntry.getKey()))
+                                .filter(otherPerson ->
+                                        !personEntry.getValue().contains(otherPerson)
+                                                && !otherPerson.equals(personEntry.getKey()))
                                 .map(otherPerson -> Arrays.asList(personEntry.getKey(), otherPerson))
                 )
                 .peek(pair -> pair.sort(Comparator.naturalOrder()))
