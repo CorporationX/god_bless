@@ -2,8 +2,6 @@ package school.faang.task_47078;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ListOperations {
   static Integer sumOfEvenNumbers(List<Integer> listIntegers) {
@@ -34,7 +32,7 @@ public class ListOperations {
     return numbers.stream().filter(x -> o.equals(x)).count() + "";
   }
 
-  public static Stream findMinGreaterThan(List<Integer> numbers, int i) {
+  public static String findMinGreaterThan(List<Integer> numbers, int i) {
     return null;
   }
 }
