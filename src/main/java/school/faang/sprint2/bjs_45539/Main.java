@@ -14,7 +14,7 @@ public class Main {
         manager.addItem(frodo, hat, (item) -> System.out.println(item.getName() + strItemAdded));
 
         manager.removeItem(frodo, (item) -> item.getName().contains("ir"));
-        manager.addItem(frodo, mirror, (item) -> System.out.println(item.getName() + " снова" +strItemAdded));
+        manager.addItem(frodo, mirror, (item) -> System.out.println(item.getName() + " снова" + strItemAdded));
         System.out.println("----------");
         frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getItemCost()));
 
