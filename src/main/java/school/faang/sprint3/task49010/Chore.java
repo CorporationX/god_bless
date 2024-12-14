@@ -14,8 +14,7 @@ public class Chore implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("Thread " + Thread.currentThread().getName() + " begin to work");
-        System.out.println("Задача: " + chore);
+        System.out.println("Thread " + Thread.currentThread().getName() + " begin to work on : " + chore);
         Thread.sleep(timeInSeconds * 1000L / 4);
         System.out.println(chore + ": 25% done...");
         Thread.sleep(timeInSeconds * 1000L / 4);
