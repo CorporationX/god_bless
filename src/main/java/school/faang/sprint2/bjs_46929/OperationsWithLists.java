@@ -15,20 +15,17 @@ public class OperationsWithLists {
     }
 
     public static Integer findMax(List<Integer> numbers) {
-        if (numbers == null) {
-            return 0;
-        }
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElseThrow(() -> new NullPointerException("empty list"));
+                .orElseThrow(() -> new NullPointerException("Max not found"));
     }
 
     public static Double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow(() -> new NoSuchElementException("empty list"));
+                .orElseThrow(() -> new NoSuchElementException("Average not found"));
     }
 
     public static Integer findMinGreaterThan(List<Integer> numbers, int compareInt) {
@@ -41,22 +38,22 @@ public class OperationsWithLists {
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> function) {
         if (numbers == null) {
-            return false;
+            throw new NullPointerException("parameters could not be null");
         }
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .allMatch(function::test);
     }
 
-    public static Integer countStringsStartingWith(List<String> strings, Character symbol) {
-        return (int) strings.stream()
+    public static long countStringsStartingWith(List<String> strings, Character symbol) {
+        return strings.stream()
                 .filter(string -> string.startsWith(symbol.toString()))
                 .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String str) {
         if (strings == null || str == null) {
-            return List.of();
+            throw new NullPointerException("parameters could not be null");
         }
         return strings.stream()
                 .filter(string -> string.contains(str))
@@ -65,7 +62,7 @@ public class OperationsWithLists {
 
     public static List<String> sortByLength(List<String> strings) {
         if (strings == null) {
-            return List.of();
+            throw new NullPointerException("parameters could not be null");
         }
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
@@ -74,7 +71,7 @@ public class OperationsWithLists {
 
     public static List<Integer> convertToLengths(List<String> strings) {
         if (strings == null) {
-            return List.of();
+            throw new NullPointerException("parameters could not be null");
         }
         return strings.stream()
                 .map(String::length)
