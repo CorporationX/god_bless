@@ -9,13 +9,14 @@ public class Main {
         System.out.println("1. Найдите уникальные пары чисел");
         System.out.println("Вход: [1, 2, 3, 4, 5, 6], целевое число: 7 ");
         System.out.println("Выход: [(1, 6), (2, 5), (3, 4)]");
-        System.out.println("Fact: " + StreamApi2.oneFindSum(List.of(1, 2, 3, 4, 5, 6), 7));
+        System.out.println("Fact: " + StreamApi2.findSum(List.of(1, 2, 3, 4, 5, 6), 7));
+        System.out.println("Fact: " + StreamApi2.findSum(List.of(1, 2, 3, 4, 5, 6), 6));
 
         System.out.println("\n2. Отсортируйте страны и выведите столицы");
         System.out.println("Вход: {Russia: Moscow, USA: Washington, Germany: Berlin}");
         System.out.println("Выход: [Berlin, Moscow, Washington]");
         System.out.println("Fact: " + StreamApi2
-                .twoSortCountryAndGetCapital(
+                .sortCountryAndGetCapital(
                         Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin")
                 )
         );
@@ -24,7 +25,7 @@ public class Main {
         System.out.println("Вход: [apple, banana, avocado, apricot], символ: 'a'");
         System.out.println("Выход: [apple, apricot, avocado]");
         System.out.println("Fact: " + StreamApi2
-                .threeFindCharAndSortStrings(
+                .findCharAndSortStrings(
                         List.of("apple", "banana", "avocado", "apricot"), 'a')
         );
 
@@ -32,13 +33,13 @@ public class Main {
         System.out.println("Вход: [1, 2, 3, 4]");
         System.out.println("Выход: [1, 10, 11, 100]");
         System.out.println("Fact: " + StreamApi2
-                .fourDecToBin(List.of(1, 2, 3, 4)));
+                .makeDecToBin(List.of(1, 2, 3, 4)));
 
         System.out.println("\n5. Фильтрация строк по алфавиту и сортировка по длине");
         System.out.println("Вход: [apple, banana, cherry, date, fig, grape], алфавит: abcdefghijklmnopqrstuvwxyz");
         System.out.println("Выход: [fig, date, apple, grape, banana, cherry]");
         System.out.println("Fact: " + StreamApi2
-                .fiveFilterByAlphabetAndSortByLength(
+                .filterStringsByAlphabetAndSortByLength(
                         List.of("apple", "banana", "cherry", "date", "fig", "grape"),
                         "abcdefghijklmnopqrstuvwxyz")
         );

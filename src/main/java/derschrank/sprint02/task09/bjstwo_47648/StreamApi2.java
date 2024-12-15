@@ -1,49 +1,52 @@
 package derschrank.sprint02.task09.bjstwo_47648;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 public class StreamApi2 {
-    public static List<List<Integer>> oneFindSum(List<Integer> numbers, int sum) {
+    public static List<List<Integer>> findSum(List<Integer> numbers, int sum) {
         return numbers.stream()
+                .filter(x -> numbers.contains(sum - x)
+                        && (x != (sum - x) || Collections.frequency(numbers, x) > 1))
+                .map(x -> List.of(Math.min(x, sum - x), Math.max(x, sum - x)))
                 .distinct()
-                .filter(x -> numbers.contains(sum - x))
-                .map(x -> x < sum - x ? List.of(x, sum - x) :  List.of(sum - x, x))
-                .collect(Collectors.toSet())
-                .stream()
-                .sorted((o1, o2) -> o1.get(0) - o2.get(0))
+                .sorted(Comparator.comparingInt(o -> o.get(0)))
                 .toList();
     }
 
-    public static List<String> twoSortCountryAndGetCapital(Map<String, String> countryAndCapital) {
+
+    public static List<String> sortCountryAndGetCapital(Map<String, String> countryAndCapital) {
         return countryAndCapital
                 .keySet()
                 .stream()
                 .sorted()
-                .map(x -> countryAndCapital.get(x))
+                .map(countryAndCapital::get)
                 .toList();
     }
 
-    public static List<String> threeFindCharAndSortStrings(List<String> strings, char ch) {
+    public static List<String> findCharAndSortStrings(List<String> strings, char ch) {
         return strings.stream()
                 .filter(x -> x.startsWith(Character.toString(ch)))
-                .sorted((o1, o2) -> o1.length() - o2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static List<String> fourDecToBin(List<Integer> numbers) {
+    public static List<String> makeDecToBin(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List<String> fiveFilterByAlphabetAndSortByLength(List<String> string, String alphabet) {
+    public static List<String> filterStringsByAlphabetAndSortByLength(List<String> string, String alphabet) {
+        Predicate<String> predicate = word -> word.chars()
+                .allMatch(ch -> alphabet.contains(Character.toString(ch)));
+
         return string.stream()
-                .filter(
-                        word -> word.chars().allMatch(ch -> alphabet.contains(Character.toString(ch)))
-                )
-                .sorted((o1, o2) -> o1.length() - o2.length())
+                .filter(predicate)
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 }
