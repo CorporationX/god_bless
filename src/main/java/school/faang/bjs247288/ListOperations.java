@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     public static Set<List<Integer>> uniquePairsOfNumbers(@NonNull List<Integer> numbers, int sum) {
-
         Set<Integer> set = new HashSet<>(numbers);
 
         return numbers.stream()
