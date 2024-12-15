@@ -3,7 +3,7 @@ package school.faang.sprint2.task_46340;
 public class Main {
     public static void main(String[] args) {
         DroidMessageEncryptor encryptor = (message, key) -> {
-            String new_str = "";
+            String newStr = "";
             int charCode = 0;
 
             for (char character : message.toCharArray()) {
@@ -11,15 +11,15 @@ public class Main {
                     charCode = Character.toUpperCase(character);
                     charCode = (charCode - 65 + key) % 26 + 65;
                     if (Character.isUpperCase(character)) {
-                        new_str += (char) charCode; // получаем букву по коду
+                        newStr += (char) charCode;
                     } else {
-                        new_str += Character.toLowerCase((char) charCode);
+                        newStr += Character.toLowerCase((char) charCode);
                     }
                 } else {
-                    new_str += character;
+                    newStr += character;
                 }
             }
-            return new_str;
+            return newStr;
         };
 
         // Создаём трёх дроидов
