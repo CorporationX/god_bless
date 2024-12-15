@@ -5,11 +5,11 @@ import java.util.function.Function;
 public class TriangleAreaCalculator {
 
     // Лямбда-функции для математических операций
-    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    Function<Double, Double> squareRoot = Math::sqrt;
+    private final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    private final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    private final Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    private final Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    private final Function<Double, Double> squareRoot = Math::sqrt;
 
     // Метод для вычисления площади треугольника
     public Double calculateTriangleArea(double sideA, double sideB, double sideC) throws IllegalArgumentException {
@@ -25,12 +25,18 @@ public class TriangleAreaCalculator {
         Double subtractB = subtract.apply(semiPerimeter).apply(sideB);
         Double subtractC = subtract.apply(semiPerimeter).apply(sideC);
 
-        return squareRoot.apply(multiply.apply(multiply.apply(multiply.apply(semiPerimeter)
-                .apply(subtractA)).apply(subtractB)).apply(subtractC));
+        Double multiply1 = multiply.apply(semiPerimeter).apply(subtractA);
+        Double multiply2 = multiply.apply(multiply1).apply(subtractB);
+        Double multiply3 = multiply.apply(multiply2).apply(subtractC);
+
+        return squareRoot.apply(multiply3);
     }
 
     private Double getSemiPerimeter(Double a, Double b, Double c) {
-        return divide.apply(add.apply(add.apply(a).apply(b)).apply(c)).apply(2.0);
+        Double ab = add.apply(a).apply(b);
+        Double abc = add.apply(ab).apply(c);
+
+        return divide.apply(abc).apply(2.0);
     }
 
     public static void main(String[] args) {
