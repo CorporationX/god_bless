@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -14,13 +15,12 @@ public class House {
 
     public void collectFood() {
         for (int i = 0; i < 2; i++) {
-            Room randomSelectedRoom = rooms.stream().filter(room -> !room.getFoods().isEmpty()).findAny().orElse(null);
-            if (randomSelectedRoom == null) {
-                break;
-            }
-            List<Food> foods = randomSelectedRoom.getFoods();
-            collectedFood.addAll(foods);
-            randomSelectedRoom.getFoods().clear();
+            Optional<Room> anyRoom = rooms.stream().filter(room -> !room.getFoods().isEmpty()).findAny();
+            anyRoom.ifPresent(room -> {
+                List<Food> foods = room.getFoods();
+                collectedFood.addAll(foods);
+                foods.clear();
+            });
         }
     }
 
