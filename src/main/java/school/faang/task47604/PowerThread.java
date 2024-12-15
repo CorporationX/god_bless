@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class PowerThread extends Thread{
+public class PowerThread extends Thread {
     private final Warrior warrior;
     private int power;
 
