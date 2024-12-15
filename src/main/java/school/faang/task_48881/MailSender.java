@@ -1,0 +1,26 @@
+package school.faang.task_48881;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MailSender {
+    private static final int ONE_THREAD = 200;
+    private static final int COUNT_THREAD = 5;
+
+    public static void main(String[] args) throws InterruptedException {
+
+        List<Thread> threads = new ArrayList<>();
+
+        for (int i = 0; i < COUNT_THREAD; i++) {
+            int start = i * ONE_THREAD + 1;
+            int end = (i + 1) * ONE_THREAD;
+            Thread thread = new Thread(new SenderRunnable(start, end));
+            threads.add(thread);
+            thread.start();
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        System.out.println("Все письма успешно отправлены!");
+    }
+}
