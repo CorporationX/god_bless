@@ -1,12 +1,12 @@
 package school.faang.task_47107;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserAction {
     private int id;
     private String name;
