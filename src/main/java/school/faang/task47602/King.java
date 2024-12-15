@@ -8,7 +8,6 @@ public class King {
     private static final int THREAD_POOL = 2;
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL);
 
         Knight knight1 = new Knight("Джон Сноу");
         Knight knight2 = new Knight("Гора");
@@ -17,6 +16,8 @@ public class King {
         knight1.addTrial(new Trial(knight1.getName(), "Поединок с великаном"));
         knight2.addTrial(new Trial(knight2.getName(), "Сражение с принцем"));
         knight2.addTrial(new Trial(knight2.getName(), "Поединок с братом"));
+
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL);
 
         knight1.startTrials(executorService);
         knight2.startTrials(executorService);
