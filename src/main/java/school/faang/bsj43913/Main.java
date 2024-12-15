@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.bjs45629.SpellCaster;
+package school.faang.bsj43913;
 
 public class Main {
     public static void main(String[] args) {
