@@ -3,6 +3,7 @@ package school.faang.task_48814;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,7 @@ public class Main {
                 new User("John", house),
                 new User("Goo", house)
         ));
+
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
         for (int i = 0; i < users.size(); i++) {
@@ -41,5 +43,6 @@ public class Main {
         });
 
         executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
     }
 }

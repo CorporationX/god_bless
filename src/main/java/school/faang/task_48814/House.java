@@ -1,13 +1,16 @@
 package school.faang.task_48814;
 
 import lombok.Data;
-import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @Data
 public class House {
-    private Map<User, Role> usersPerRoles = new HashMap<>();;
+    private Map<User, Role> usersPerRoles = new HashMap<>();
     private static final List<Role> roles = new ArrayList<>(List.of(Role.Knight, Role.Lord, Role.Wizard));
     private int availableRoles;
 
