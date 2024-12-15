@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Data
 public class House {
     private Map<User, Role> usersPerRoles = new HashMap<>();
@@ -34,7 +33,6 @@ public class House {
         Role role = roles.get(roles.size() - availableRoles - 1);
         usersPerRoles.put(user, role);
     }
-
 
     public synchronized void removeRole(User user) {
         if (!usersPerRoles.containsKey(user)) {

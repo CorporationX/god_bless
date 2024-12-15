@@ -1,6 +1,8 @@
 package school.faang.task_48814;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
@@ -25,10 +27,10 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        };
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
-        };
+        }
         User user = (User) o;
         return Objects.equals(name, user.name);
     }
