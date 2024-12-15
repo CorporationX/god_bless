@@ -9,38 +9,33 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Droid {
     private String name;
-    final int lettersOffset = 26;
+    private static int LETTERS_OFFSET = 26;
 
     public String encryptMessage(String msg, int key) {
+        return encryptingHandler(msg, key, true);
+    }
+
+    public String decryptMessage(String msg, int key) {
+
+        return encryptingHandler(msg, key, false);
+    }
+
+    private String encryptingHandler(String msg, int key, boolean isEncrypting) {
         DroidMessageEncryptor encryptor = (message, encryptionKey) -> {
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    encryptedMessage.append((char) (
+                            (ch - base
+                                    + (isEncrypting ? encryptionKey : -encryptionKey)
+                                    + LETTERS_OFFSET)
+                                    % LETTERS_OFFSET + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
             }
             return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(msg, key);  // Шифруем сообщение
-    }
-
-    public String decryptMessage(String msg, int key) {
-
-        DroidMessageEncryptor encryptor = (message, encryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : message.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - encryptionKey + lettersOffset)
-                            % lettersOffset + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
         };
         return encryptor.encrypt(msg, key);
     }
