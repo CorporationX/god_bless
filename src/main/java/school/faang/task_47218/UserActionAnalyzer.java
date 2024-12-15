@@ -13,18 +13,16 @@ public class UserActionAnalyzer {
 
         Map<String, Long> totalUserActions = new HashMap<>();
 
-        Map<String, Long> postUsersCount =
-                getTopUsersByActionCount(userActions, "post");
-        Map<String, Long> commentUsersCount =
-                getTopUsersByActionCount(userActions, "comment");
-        Map<String, Long> likeUsersCount =
-                getTopUsersByActionCount(userActions, "like");
-        Map<String, Long> shareUsersCount =
-                getTopUsersByActionCount(userActions, "share");
-
+        Map<String, Long> postUsersCount = getTopUsersByActionCount(userActions, "post");
         mergeUserActions(totalUserActions, postUsersCount);
+
+        Map<String, Long> commentUsersCount = getTopUsersByActionCount(userActions, "comment");
         mergeUserActions(totalUserActions, commentUsersCount);
+
+        Map<String, Long> likeUsersCount = getTopUsersByActionCount(userActions, "like");
         mergeUserActions(totalUserActions, likeUsersCount);
+
+        Map<String, Long> shareUsersCount = getTopUsersByActionCount(userActions, "share");
         mergeUserActions(totalUserActions, shareUsersCount);
 
 
