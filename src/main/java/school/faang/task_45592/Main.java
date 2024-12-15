@@ -47,13 +47,10 @@ public class Main {
     }
 
     private static int[][] flipMatrix(@NonNull int[][] matrix, @NonNull FlipDirection flipDirection) {
-        if (FlipDirection.HORIZONTAL.equals(flipDirection)) {
-            return transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[0].length - 1 - y));
-        } else if (FlipDirection.VERTICAL.equals(flipDirection)) {
-            return transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - 1 - x, y));
-        } else {
-            throw new IllegalArgumentException("Invalid flip direction");
-        }
+        return switch (flipDirection) {
+          case HORIZONTAL -> transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[0].length - 1 - y));
+          case VERTICAL -> transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - 1 - x, y));
+        };
     }
 
 }
