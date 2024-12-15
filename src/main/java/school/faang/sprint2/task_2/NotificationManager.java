@@ -1,4 +1,4 @@
-package school.faang.sprint2.task_46856;
+package school.faang.sprint2.task_2;
 
 import java.util.HashMap;
 import java.util.Map;
