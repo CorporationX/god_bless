@@ -1,25 +1,29 @@
 package school.faang.task_47177;
 
-import java.util.Arrays;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StreamOperations {
 
-    public static Set<List<Integer>> collectPair(List<Integer> numbers, int sum) {
-        Set<Integer> pairs = new HashSet<>(numbers);
+    public static List<Pair<Integer, Integer>> collectPair(List<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(num -> pairs.contains(sum - num))
+                .filter(num ->
+                        new HashSet<>(numbers)
+                                .contains(sum - num))
                 .map(num -> {
-                    List<Integer> pair = Arrays.asList(num, sum - num);
-                    Collections.sort(pair);
+                    Pair<Integer, Integer> pair = Pair.of(num, sum - num);
+                    Collections.reverse(numbers);
                     return pair;
-                }).collect(Collectors.toSet());
+                })
+                .distinct()
+                .toList();
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countryCapital) {
@@ -43,9 +47,9 @@ public class StreamOperations {
     }
 
     public List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        String regex = "[" + alphabet + "]+";
+        Pattern pattern = Pattern.compile("[" + Pattern.quote(alphabet) + "]+");
         return strings.stream()
-                .filter(str -> str.matches(regex))
+                .filter(str -> pattern.matcher(str).matches())
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
