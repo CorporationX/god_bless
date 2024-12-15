@@ -29,9 +29,9 @@ public class Main {
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         return switch (flipDirection) {
-            case VERTICAL -> transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - 1 - x, y));
-            case HORIZONTAL -> transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[0].length - 1 - y));
-            default -> throw new IllegalArgumentException("Неверное направление переворота");
+          case VERTICAL -> transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - 1 - x, y));
+          case HORIZONTAL -> transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[0].length - 1 - y));
+          default -> throw new IllegalArgumentException("Неверное направление переворота");
         };
     }
 
