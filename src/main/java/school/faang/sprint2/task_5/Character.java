@@ -1,6 +1,7 @@
 package school.faang.sprint2.task_5;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Character {
     private String name;
     private List<Item> inventory;
 
-    public Character(String name) {
+    public Character(@NonNull String name) {
         this.setName(name);
         inventory = new ArrayList<>();
     }
