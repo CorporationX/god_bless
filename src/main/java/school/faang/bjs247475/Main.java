@@ -11,7 +11,8 @@ public class Main {
                         "USA", "Washington",
                         "Germany", "Berlin")));
         System.out.println(Utilities.filterAndSortByLetter(List.of("apple", "banana", "avocado", "apricot"), 'a'));
-        System.out.println(Utilities.decimalsToBinary(List.of(1,2,3,4,5,6)));
-        System.out.println(Utilities.filterByAlphabet(List.of("apple", "banana", "cherry", "date", "fig", "grape"), "abcdefghijklmnopqrstuvwxyz"));
+        System.out.println(Utilities.decimalsToBinary(List.of(1, 2, 3, 4, 5, 6)));
+        System.out.println(Utilities.filterByAlphabet(List.of("apple", "banana", "cherry", "date", "fig", "grape"),
+                "abcdefghijklmnopqrstuvwxyz"));
     }
 }
