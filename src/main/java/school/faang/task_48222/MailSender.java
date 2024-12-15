@@ -7,10 +7,10 @@ public class MailSender {
     public static void main(String[] args) {
         int j = 0;
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Thread thread = new Thread(new SenderRunnable(j, j + 200));
+        for (int i = 0; i < Constant.THREADS; i++) {
+            Thread thread = new Thread(new SenderRunnable(j, j + Constant.MAIL_FOR_STEP));
             thread.start();
-            j = j + 200;
+            j = j + Constant.MAIL_FOR_STEP;
             threads.add(thread);
         }
         threads.forEach(thread -> {
