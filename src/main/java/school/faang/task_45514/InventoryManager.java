@@ -29,9 +29,9 @@ public class InventoryManager {
         if (character == null || function == null) {
             throw new IllegalArgumentException("Check input data. One of the objects is null");
         }
-        if (character.getInventory().stream().anyMatch(it->condition.test(it))) {
+        if (character.getInventory().stream().anyMatch(it -> condition.test(it))) {
             character.getInventory().stream().forEach(item -> {
-                if ((condition.test(item))){
+                if ((condition.test(item))) {
                     item.setValue(function.apply(item).getValue());
                 }
             });
