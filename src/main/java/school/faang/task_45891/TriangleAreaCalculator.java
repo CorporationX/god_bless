@@ -4,32 +4,35 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class TriangleAreaCalculator {
-    private static final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    private static final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    private static final Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    private static final Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    private static final Function<Double, Double> squareRoot = Math::sqrt;
+    private static final Function<Double, Function<Double, Double>> ADD = (x) -> (y) -> x + y;
+    private static final Function<Double, Function<Double, Double>> MULTIPLY = (x) -> (y) -> x * y;
+    private static final Function<Double, Function<Double, Double>> SUBTRACT = (x) -> (y) -> x - y;
+    private static final Function<Double, Function<Double, Double>> DIVIDE = (x) -> (y) -> x / y;
+    private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
-        if (add.apply(a).apply(b) <= c || add.apply(a).apply(c) <= b || add.apply(b).apply(c) <= a) {
-            throw new IllegalArgumentException("Треугольник с такими сторонами не может существовать");
+        final double aPlusB = ADD.apply(a).apply(b);
+
+        if (aPlusB <= c || ADD.apply(a).apply(c) <= b || ADD.apply(b).apply(c) <= a) {
+            throw new IllegalArgumentException("Invalid triangle sides");
         }
 
-        double perimeter = add.apply(add.apply(a).apply(b)).apply(c);
-        double semiPerimeter = divide.apply(perimeter).apply(2.0);
+        final double perimeter = ADD.apply(aPlusB).apply(c);
+        final double semiPerimeter = DIVIDE.apply(perimeter).apply(2.0);
 
-        double semiPerimeterMinusSideA = subtract.apply(semiPerimeter).apply(a);
-        double semiPerimeterMinusSideB = subtract.apply(semiPerimeter).apply(b);
-        double semiPerimeterMinusSideC = subtract.apply(semiPerimeter).apply(c);
+        final double semiPerimeterMinusSideA = SUBTRACT.apply(semiPerimeter).apply(a);
+        final double semiPerimeterMinusSideB = SUBTRACT.apply(semiPerimeter).apply(b);
+        final double semiPerimeterMinusSideC = SUBTRACT.apply(semiPerimeter).apply(c);
 
-        return squareRoot.apply(
-                Stream.of(
+        final double squaredArea = Stream.of(
                         semiPerimeter,
                         semiPerimeterMinusSideA,
                         semiPerimeterMinusSideB,
                         semiPerimeterMinusSideC
-                ).reduce((x1, x2) -> multiply.apply(x1).apply(x2)).orElseThrow()
-        );
+                ).reduce((x1, x2) -> MULTIPLY.apply(x1).apply(x2))
+                .orElseThrow(() -> new ArithmeticException("Cannot calculate triangle area: invalid values"));
+
+        return SQUARE_ROOT.apply(squaredArea);
     }
 
 }
