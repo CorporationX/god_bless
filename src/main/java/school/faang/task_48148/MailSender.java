@@ -5,18 +5,18 @@ public class MailSender {
 
         int countMessage = 1000;
         int countThread = 5;
-        int batch = countMessage/countThread;
+        int batch = countMessage / countThread;
 
         Thread[] threads = new Thread[countThread];
 
-        for (int i = 0; i < countThread; i++){
+        for (int i = 0; i < countThread; i++) {
             int startIndex = i * batch;
             int endIndex = (1 + i) * batch;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             threads[i].start();
         }
 
-        for (Thread thread : threads){
+        for (Thread thread : threads) {
             thread.join();
         }
 
