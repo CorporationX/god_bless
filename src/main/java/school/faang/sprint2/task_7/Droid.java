@@ -12,25 +12,21 @@ public class Droid {
     private static int LETTERS_OFFSET = 26;
 
     public String encryptMessage(String msg, int key) {
-        return encryptingHandler(msg, key, true);
+        return encryptingHandler(msg, key);
     }
 
     public String decryptMessage(String msg, int key) {
-
-        return encryptingHandler(msg, key, false);
+        return encryptingHandler(msg, -key);
     }
 
-    private String encryptingHandler(String msg, int key, boolean isEncrypting) {
+    private String encryptingHandler(String msg, int key) {
         DroidMessageEncryptor encryptor = (message, encryptionKey) -> {
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
                     encryptedMessage.append((char) (
-                            (ch - base
-                                    + (isEncrypting ? encryptionKey : -encryptionKey)
-                                    + LETTERS_OFFSET)
-                                    % LETTERS_OFFSET + base));
+                            (ch - base + encryptionKey + LETTERS_OFFSET) % LETTERS_OFFSET + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
