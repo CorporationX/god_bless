@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        Image originalImage = new Image("original.jpg", "Original picture");
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(),
@@ -26,5 +26,11 @@ public class Main {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
+
+        Function<Image, Image> combinedFilterStream = filterProcessor.combineFiltersStream(grayscaleFilter,
+                vignette,
+                sepiaFilter);
+        Image combinedImageStream = filterProcessor.applyFilter(originalImage, combinedFilterStream);
+        System.out.println(combinedImageStream.getDescription());
     }
 }

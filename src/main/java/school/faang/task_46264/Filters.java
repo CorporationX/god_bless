@@ -1,9 +1,9 @@
 package school.faang.task_46264;
 
 public enum Filters {
-    GRAYSCALE("черно-белый"),
-    SEPIA("сепия"),
-    VIGNETTE("виньетка");
+    GRAYSCALE("grayscale"),
+    SEPIA("sepia"),
+    VIGNETTE("vignette");
 
     private String title;
 
@@ -17,7 +17,7 @@ public enum Filters {
 
     @Override
     public String toString() {
-        return "Фильтр: "
+        return "Filter: "
                 + title;
     }
 }
