@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,16 +32,34 @@ public class SolutionMethods {
     }
 
     public List<String> findStringStartingWithCharAndSort(List<String> list, char startingChar) {
-        return list.stream()
+        List<String> result = list.stream()
                 .filter(str -> str.charAt(0) == startingChar)
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
+        if (result.isEmpty()) {
+            throw new NoSuchElementException("No strings match condition");
+        }
+        return result;
     }
 
     public List<String> convertIntegerToBinaryString(List<Integer> list) {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("Input list is empty");
+        }
         return list.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
+    public List<String> filterByAlphabetAndSort(List<String> list, String alphabet) {
+        String regex = String.format("[%s]+", alphabet);
+        List<String> result = list.stream()
+                .filter(str -> str.matches(regex))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+        if (result.isEmpty()) {
+            throw new NoSuchElementException("No strings include chars from alphabet");
+        }
+        return result;
+    }
 }
