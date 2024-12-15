@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class House {
     @Getter
     private final List<Room> rooms = new ArrayList<>();
-    private final int MAX_THREAD_POOL_SIZE = 5;
-    private final int TIME_DELAY_SEC = 10;
-    private final int INIT_TIME_DELAY_SEC = 0;
+    private static final int MAX_THREAD_POOL_SIZE = 5;
+    private static final int TIME_DELAY_SEC = 10;
+    private static final int INIT_TIME_DELAY_SEC = 0;
     private final List<Food> collectedFood = new ArrayList<>();
     private volatile boolean isEmpty;
 
@@ -26,8 +26,7 @@ public class House {
         house.collectFood();
     }
 
-    public synchronized void addFood(List<Food> addedFood)
-    {
+    public synchronized void addFood(List<Food> addedFood) {
         this.collectedFood.addAll(addedFood);
     }
 
@@ -83,7 +82,11 @@ public class House {
             List<Food> roomFood = room.getFoodList();
             this.addFood(roomFood);
             int foodQty = roomFood.size();
-            log.info(collectorName + " собрал в комнате " + room.getName() + " " + foodQty + " единиц еды. : " + roomFood);
+            log.info(collectorName
+                    + " собрал в комнате "
+                    + room.getName()
+                    + " " + foodQty + " единиц еды. : "
+                    + roomFood);
             room.clearFood();
         } else {
             log.info(collectorName + " пришел в комнату " + room.getName() + ", но там еда уже собрана. ");
@@ -92,7 +95,6 @@ public class House {
     }
 
     private static House fillHouse() {
-        House house = new House();
         List<Food> roomFoodList1 = new ArrayList<>();
         roomFoodList1.add(new Food("Пиво"));
         roomFoodList1.add(new Food("Чипсы"));
@@ -118,16 +120,15 @@ public class House {
         roomFoodList5.add(new Food("Печенье"));
         roomFoodList5.add(new Food("Мармелад"));
 
+        House house = new House();
         house.rooms.add(new Room("Big room", new ArrayList<>(roomFoodList1)));
         house.rooms.add(new Room("Kitchen", new ArrayList<>(roomFoodList2)));
         house.rooms.add(new Room("Guest room", new ArrayList<>(roomFoodList3)));
         house.rooms.add(new Room("Bedroom", new ArrayList<>(roomFoodList4)));
         house.rooms.add(new Room("Bath", new ArrayList<>(roomFoodList5)));
 
-        //log.info("Дом заполнен едой");
         return house;
     }
-
 
 
 }
