@@ -31,11 +31,20 @@ class ListOperationsTest {
 
     @Test
     void testFindUniquePairsOfNumbers() {
-        assertEquals(Set.of(Set.of(1, 6), Set.of(2, 5), Set.of(3, 4)),
+        assertEquals(Set.of(List.of(0, 0)),
+                ListOperations.findUniquePairsOfNumbers(List.of(1, 2, 3, 4, 0, 0), 0)
+        );
+        assertEquals(Set.of(List.of(1, 6), List.of(2, 5), List.of(3, 4)),
                 ListOperations.findUniquePairsOfNumbers(List.of(1, 2, 3, 4, 5, 6), 7)
         );
-        assertEquals(Set.of(Set.of(5, 2)),
+        assertEquals(Set.of(List.of(2, 5)),
                 ListOperations.findUniquePairsOfNumbers(List.of(2, 4, 6, 5, 0, 36), 7)
+        );
+        assertEquals(Set.of(List.of(-1, 1)),
+                ListOperations.findUniquePairsOfNumbers(List.of(2, 4, 6, 5, 1, -1), 0)
+        );
+        assertEquals(Set.of(List.of(-2, -1)),
+                ListOperations.findUniquePairsOfNumbers(List.of(-2, -1, 6, 5, 0, 0), -3)
         );
         assertEquals(emptySet,
                 ListOperations.findUniquePairsOfNumbers(List.of(2, 4, 1, 2, 0, 36), 7));

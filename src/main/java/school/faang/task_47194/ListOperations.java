@@ -1,5 +1,7 @@
 package school.faang.task_47194;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -10,17 +12,18 @@ import java.util.stream.Collectors;
 
 public class ListOperations {
 
-    public static Set<Set<Integer>> findUniquePairsOfNumbers(List<Integer> integers, int sumOfNumbers) {
+    public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> integers, int sumOfNumbers) {
         if (integers == null) {
             throw new IllegalArgumentException("Input parameters can't be null!");
         }
 
-        Set<Set<Integer>> pairsOfNumbers;
+        Set<List<Integer>> pairsOfNumbers;
         Set<Integer> setOfNumbers = new HashSet<>(integers);
 
         pairsOfNumbers = setOfNumbers.stream()
                 .filter(num -> num != null && setOfNumbers.contains(sumOfNumbers - num))
-                .map(num -> Set.of(num, sumOfNumbers - num))
+                .map(num -> Arrays.asList(num, sumOfNumbers - num))
+                .peek(Collections::sort)
                 .collect(Collectors.toSet());
 
         return pairsOfNumbers;
