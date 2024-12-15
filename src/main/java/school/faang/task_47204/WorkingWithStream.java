@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 
 public class WorkingWithStream {
 
-    public static Set<List<Integer>> uniquePairsOfNumber(List<Integer> listNumber, int sumNumber){
+    public static Set<List<Integer>> uniquePairsOfNumber(List<Integer> listNumber, int sumNumber) {
         Set<Integer> setNumber = new HashSet<>(listNumber);
         return setNumber.stream()
-                .filter(i -> setNumber.contains(sumNumber-i))
-                .map(i -> Arrays.asList(i, sumNumber-i))
+                .filter(i -> setNumber.contains(sumNumber - i))
+                .map(i -> Arrays.asList(i, sumNumber - i))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
 
-    public static List<String> sortingCity(Map<String,String> countryCity){
+    public static List<String> sortingCity(Map<String, String> countryCity) {
         return countryCity.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -28,22 +28,22 @@ public class WorkingWithStream {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filteringAndSortingString(List<String> stringList, char firstLetter){
+    public static List<String> filteringAndSortingString(List<String> stringList, char firstLetter) {
         return stringList.stream()
                 .filter(x -> x.startsWith(String.valueOf(firstLetter)))
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
     }
 
-    public static List<String> conversionBinaryFormat(List<Integer> listNumber){
+    public static List<String> conversionBinaryFormat(List<Integer> listNumber) {
         return listNumber.stream()
                 .map(Integer::toBinaryString)
                 .collect(Collectors.toList());
 
     }
 
-    public static List<String> FilterStringAlphabeticallyAndLength(List<String> listString, String
-            alphabet){
+    public static List<String> filterStringAlphabeticallyAndLength(List<String> listString, String
+            alphabet) {
         String regex = "[" + alphabet + "]+";
 
         return listString.stream()
@@ -51,7 +51,6 @@ public class WorkingWithStream {
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
-
 
 
 }
