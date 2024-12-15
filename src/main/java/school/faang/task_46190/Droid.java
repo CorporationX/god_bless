@@ -2,23 +2,22 @@ package school.faang.task_46190;
 
 import lombok.AllArgsConstructor;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 
 @AllArgsConstructor
 public class Droid {
     private String name;
+    private static final int NUMBER_OF_LETTERS = 26;
+    private static final char BASE = 'a';
 
     private String encryptMessage(String message, int encryptionKey) throws IOException {
         DroidMessageEncryptor encryptor = (msg, key) -> {
             StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + key) % 26 + base));
+            for (char c : msg.toLowerCase().toCharArray()) {
+                if (Character.isLetter(c)) {
+                    encryptedMessage.append((char) ((c - BASE + key) % NUMBER_OF_LETTERS + BASE));
                 } else {
-                    encryptedMessage.append(ch);
+                    encryptedMessage.append(c);
                 }
             }
             return encryptedMessage.toString();
@@ -30,12 +29,11 @@ public class Droid {
     private String decryptMessage(String message, int encryptionKey) throws IOException {
         DroidMessageEncryptor decryptor = (msg, key) -> {
             StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - key + 26) % 26 + base));
+            for (char c : msg.toCharArray()) {
+                if (Character.isLetter(c)) {
+                    decryptedMessage.append((char) ((c - BASE - key + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS + BASE));
                 } else {
-                    decryptedMessage.append(ch);
+                    decryptedMessage.append(c);
                 }
             }
             return decryptedMessage.toString();
