@@ -18,10 +18,10 @@ public class InventoryManager {
         person.getInventory().removeIf(condition);
     }
 
-    public void updateItem(Character person, Predicate<Item> condition, Function<Item, Item> change) {
+    public void updateItem(Character person, Predicate<Item> condition, Function<Item, Item> modifier) {
         List<Item> inventory = person.getInventory();
         inventory.stream()
                 .filter(condition)
-                .forEach(obj -> inventory.set(inventory.indexOf(obj), change.apply(obj)));
+                .forEach(obj -> inventory.set(inventory.indexOf(obj), modifier.apply(obj)));
     }
 }
