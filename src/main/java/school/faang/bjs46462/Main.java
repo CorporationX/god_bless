@@ -8,9 +8,14 @@ public class Main {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
-        Function<Image, Image> someFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: какой-то");
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: черно-белый");
+
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: сепия");
+
+        Function<Image, Image> someFilter = (image) -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: какой-то");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
@@ -18,7 +23,9 @@ public class Main {
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
         System.out.println(sepiaImage.getDescription());
 
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter, someFilter);
+        Function<Image, Image> combinedFilter = filterProcessor
+                .combineFilters(grayscaleFilter, sepiaFilter, someFilter);
+
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
     }
