@@ -12,7 +12,8 @@ public class Main {
         try {
             System.out.printf("Сила армии: %d", army.calculateTotalPower());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+
     }
 }
