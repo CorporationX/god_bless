@@ -15,7 +15,7 @@ public class Main {
 
     private static void printAllChatacters(List<Character> characters) {
         for (Character character : characters) {
-            System.out.println(String.format("Персонаж: %s в своем инвентаре имеет следующие предметы: %s",
+            System.out.println(String.format("Character: %s has the following items in his inventory: %s",
                     character.getName(), character.getInventory().toString()));
         }
     }
@@ -27,8 +27,10 @@ public class Main {
         Character character = characters.stream().filter(charact -> charact.getName().equals("Frodo")).findAny().get();
         Item ring = new Item("The One Ring", 800);
 
-        manager.addItem(character, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
+        manager.addItem(character, ring, (item) -> System.out.println(item.getName() + " added again."));
         manager.updateItem(character, (item) -> item.getName().equals("The One Ring"),
+                (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(character, (item) -> item.getName().equals("The One Rings"),
                 (item) -> new Item(item.getName(), item.getValue() * 2));
     }
 
@@ -49,17 +51,17 @@ public class Main {
         characters.add(hobbitSam);
 
         manager.addItem(hobbitFrodo, new Item("The One Ring", 1000), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitFrodo.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitFrodo.getName())));
         manager.addItem(hobbitFrodo, new Item("Staff", 10), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitFrodo.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitFrodo.getName())));
         manager.addItem(hobbitFrodo, new Item("Food", 500), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitFrodo.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitFrodo.getName())));
 
         manager.addItem(hobbitSam, new Item("Pajamas", 1000), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitSam.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitSam.getName())));
         manager.addItem(hobbitSam, new Item("Staff", 10), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitSam.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitSam.getName())));
         manager.addItem(hobbitSam, new Item("Food", 500), (item) -> System.out.println(String
-                .format("%s был добавлен в инвентарь к %s.", item.getName(), hobbitSam.getName())));
+                .format("%s was added to inventory to %s.", item.getName(), hobbitSam.getName())));
     }
 }
