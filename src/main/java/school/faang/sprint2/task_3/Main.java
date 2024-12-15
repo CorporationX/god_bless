@@ -1,4 +1,4 @@
-package school.faang.sprint2.task_3_46463_instagram;
+package school.faang.sprint2.task_3;
 
 import java.util.function.Function;
 
