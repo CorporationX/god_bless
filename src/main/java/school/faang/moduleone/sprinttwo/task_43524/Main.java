@@ -9,7 +9,7 @@ public class Main {
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
 
-        boolean isItemRemoved = manager.removeItem(frodo, ring, (item) -> item.getName().equals("The One Ring"));
+        boolean isItemRemoved = manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
         if (isItemRemoved) {
             System.out.println("Удаление The One Ring прошло успешно");
         } else {

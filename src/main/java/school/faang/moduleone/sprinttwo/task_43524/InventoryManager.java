@@ -9,12 +9,8 @@ public class InventoryManager {
         action.accept(item);
     }
 
-    public boolean removeItem(Character character, Item item, Predicate<Item> condition) {
-        boolean isItemRemoved = false;
-        if (condition.test(item)) {
-            isItemRemoved = character.getInventory().remove(item);
-        }
-        return isItemRemoved;
+    public boolean removeItem(Character character, Predicate<Item> condition) {
+        return character.getInventory().removeIf(condition);
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Consumer<Item> action) {
