@@ -45,16 +45,12 @@ public class Droid {
     }
 
     public void sendMessage(String message, int key, Droid droid) throws IllegalAccessException {
-        if (message != null) {
-            if (droid != null) {
-                System.out.println(this.getName() + " отправил зашифрованное сообщение: "
-                        + encryptMessage(message, key));
-                receiveMessage(encryptMessage(message, key), key, droid);
-            } else {
-                throw new IllegalAccessException("Droid is null!!!");
-            }
+        if ((message == null) || (droid == null)) {
+            throw new IllegalAccessException("Message or droid is null!!!");
         } else {
-            throw new IllegalAccessException("Message is null!!!");
+            System.out.println(this.getName() + " отправил зашифрованное сообщение: "
+                    + encryptMessage(message, key));
+            receiveMessage(encryptMessage(message, key), key, droid);
         }
     }
 
