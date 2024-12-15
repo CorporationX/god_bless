@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> itemConsumer) {
@@ -17,18 +18,15 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> itemPredicate,
                            Function<Item, Item> itemIntegerFunction) {
-
-        List<Item> updatedItems = character.getInventory().stream()
-            .filter(itemPredicate)
-            .map(itemIntegerFunction)
-            .toList();
-
-        List<Item> newItemlist = character.getInventory().stream()
-            .filter(item -> !itemPredicate.test(item))
+        List<Item> combinedList = Stream.concat(
+                character.getInventory().stream()
+                    .filter(itemPredicate)
+                    .map(itemIntegerFunction),
+                character.getInventory().stream()
+                    .filter(itemPredicate.negate()))
             .toList();
 
         character.getInventory().clear();
-        character.getInventory().addAll(updatedItems);
-        character.getInventory().addAll(newItemlist);
+        character.getInventory().addAll(combinedList);
     }
 }
