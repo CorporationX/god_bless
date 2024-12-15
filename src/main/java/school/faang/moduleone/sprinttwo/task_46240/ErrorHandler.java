@@ -5,12 +5,10 @@ import java.util.function.Supplier;
 
 public class ErrorHandler {
     public static <T> T withErrorHandling(Supplier<T> fineCaseAction, Function<Exception, T> errorCaseAction) {
-        T result;
         try {
-            result = fineCaseAction.get();
+            return fineCaseAction.get();
         } catch (Exception e) {
-            result = errorCaseAction.apply(e);
+            return errorCaseAction.apply(e);
         }
-        return result;
     }
 }
