@@ -14,10 +14,11 @@ public class Music {
             int action = random.nextInt(4);
             executorService.submit(() -> {
                 switch (action) {
-                    case 0 -> player.play();
-                    case 1 -> player.pause();
-                    case 2 -> player.skip();
-                    case 3 -> player.previous();
+                  case 0 -> player.play();
+                  case 1 -> player.pause();
+                  case 2 -> player.skip();
+                  case 3 -> player.previous();
+                  default -> throw new IllegalArgumentException("Something went wrong in testing!");
                 }
                 try {
                     Thread.sleep(500);
