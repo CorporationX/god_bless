@@ -21,5 +21,5 @@ public class Main {
         System.out.println("Наименьшее число больше 4: " + MathTaskClass.minOfNums(numbers, 4));
         System.out.println("Длины строк: " + MathTaskClass.stringLength(strings));
     }
-}
+}//
 

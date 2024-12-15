@@ -65,4 +65,4 @@ public class MathTaskClass {
                 .map(String::length)
                 .collect(Collectors.toList());
     }
-}
+}//
