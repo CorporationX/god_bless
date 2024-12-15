@@ -1,7 +1,7 @@
 package school.faang.task_47059;
 
-import school.faang.error_handler.ErrorHandler;
-import school.faang.error_handler.ExceptionHandler;
+import school.faang.task_46221.ErrorHandler;
+import school.faang.task_46221.ExceptionHandler;
 
 import java.util.Arrays;
 import java.util.HashMap;

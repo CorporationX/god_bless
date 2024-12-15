@@ -1,4 +1,4 @@
-package school.faang.error_handler;
+package school.faang.task_46221;
 
 @FunctionalInterface
 public interface ExceptionHandler<T> {

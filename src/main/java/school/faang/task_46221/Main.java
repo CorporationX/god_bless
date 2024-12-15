@@ -1,8 +1,5 @@
 package school.faang.task_46221;
 
-import school.faang.error_handler.ErrorHandler;
-import school.faang.error_handler.ExceptionHandler;
-
 public class Main {
     public static void main(String[] args) {
         ExceptionHandler<Void> errorHandler = e -> {
