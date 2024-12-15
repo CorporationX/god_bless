@@ -25,13 +25,16 @@ public class UserActionAnalyzer {
         HashMap<String, Integer> hashtagsCount = new HashMap<>();
         actions.forEach(userAction -> {
             String content = userAction.content();
+
             if(content.contains("#")) {
                 int startIndex = content.indexOf("#");
                 int endIndex = startIndex + 1;
+
                 while(endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
                     endIndex++;
                 }
                 String hashtag = content.substring(startIndex, endIndex);
+
                 if(!hashtagsCount.containsKey(hashtag)) {
                     hashtagsCount.put(hashtag, 0);
                 }
@@ -49,6 +52,7 @@ public class UserActionAnalyzer {
         HashMap<String, Integer> commentsCount = new HashMap<>();
         thisMonthActions.stream()
                 .filter(userAction -> userAction.actionType() == ActionType.COMMENT).forEach(userAction -> {
+
                     if(!commentsCount.containsKey(userAction.name())) {
                         commentsCount.put(userAction.name(), 0);
                     }
