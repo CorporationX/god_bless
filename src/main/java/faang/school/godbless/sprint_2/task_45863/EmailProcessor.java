@@ -9,9 +9,14 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> convert, Consumer<Email> process) {
+    public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> convert,
+                              Consumer<Email> process) {
+
         Optional<List<Email>> optionalEmails = Optional.ofNullable(emails);
-        List<Email> emailList = optionalEmails.orElseThrow(() -> new IllegalArgumentException("Список писем не может быть пустым!"));
+
+        List<Email> emailList = optionalEmails.orElseThrow(
+                () -> new IllegalArgumentException("Список писем не может быть пустым!")
+        );
 
         Iterator<Email> emailIterator = emailList.iterator();
         while (emailIterator.hasNext()) {
