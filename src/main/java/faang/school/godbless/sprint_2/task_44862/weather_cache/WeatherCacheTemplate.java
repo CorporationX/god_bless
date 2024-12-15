@@ -14,10 +14,10 @@ public abstract class WeatherCacheTemplate {
     private final Map<String, WeatherData> weatherData = new HashMap<>();
     private final WeatherService weatherService = new WeatherService();
 
-    public abstract boolean isThereNoWeatherDataOrIsItOutOfDate(String city, Long maxCacheAgeMillis);
+    public abstract boolean isExpired(String city, Long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, Long maxCacheAgeMillis) {
-        if (isThereNoWeatherDataOrIsItOutOfDate(city, maxCacheAgeMillis)) {
+        if (isExpired(city, maxCacheAgeMillis)) {
             weatherData.put(city, weatherService.fetchWeatherData(city));
         }
         return weatherData.get(city);
@@ -30,6 +30,6 @@ public abstract class WeatherCacheTemplate {
                 citiesWithOutdatedWeatherData.add(key);
             }
         });
-        citiesWithOutdatedWeatherData.forEach(city -> weatherData.remove(city));
+        citiesWithOutdatedWeatherData.forEach(weatherData::remove);
     }
 }
