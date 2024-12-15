@@ -2,9 +2,8 @@ package school.faang.sprint_2.task_bjs247247;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Arrays;
+import java.util.AbstractMap;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,15 +12,15 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ListOperations {
 
-    public Set<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
-        Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-
-        return uniqueNumbers.stream()
-                .filter(number -> uniqueNumbers.contains(target - number))
-                .map(number -> number < (target - number)
-                        ? Arrays.asList(number, target - number)
-                        : Arrays.asList(target - number, number))
-                .collect(Collectors.toSet());
+    public List<Map.Entry<Integer, Integer>> findUniquePairs(List<Integer> numbers, int target) {
+        return numbers.stream()
+                .distinct()
+                .flatMap(firstNumber -> numbers.stream()
+                        .distinct()
+                        .filter(secondNumber -> firstNumber < secondNumber && firstNumber + secondNumber == target)
+                        .map(secondNumber ->
+                                (Map.Entry<Integer, Integer>) new AbstractMap.SimpleEntry<>(firstNumber, secondNumber)))
+                .toList();
     }
 
     public List<String> getSortedCapitals(Map<String, String> countries) {

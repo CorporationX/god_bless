@@ -30,7 +30,7 @@ public class TestDataGenerator {
     }
 
     public List<String> getForFilterAlphabetSortByLength() {
-        return List.of("apple", "banana", "cherry", "date", "fig", "grape");
+        return List.of("apple", "banana", "cherry", "date", "fig", "grape", "kisa_22", "nagibator2009");
     }
 
 }
