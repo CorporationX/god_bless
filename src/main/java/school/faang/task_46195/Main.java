@@ -13,9 +13,3 @@ public class Main {
         System.out.println(result);
     }
 }
-
-class RemoteService {
-    public static String call(String param) {
-        throw new RuntimeException("Service is unavailable");
-    }
-}
