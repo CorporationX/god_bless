@@ -1,7 +1,6 @@
 package school.faang.gmailfilters;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
