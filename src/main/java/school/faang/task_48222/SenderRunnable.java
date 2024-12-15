@@ -13,6 +13,11 @@ public class SenderRunnable implements Runnable {
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
             System.out.println("Email " + i + " send");
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
