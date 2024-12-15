@@ -25,9 +25,9 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if(notificationsFilter.containsKey(notification.getType())) {
-            if(notificationsFilter.get(notification.getType()).test(notification)) {
-                if(notificationFunctions.containsKey(notification.getType())) {
+        if (notificationsFilter.containsKey(notification.getType())) {
+            if (notificationsFilter.get(notification.getType()).test(notification)) {
+                if (notificationFunctions.containsKey(notification.getType())) {
                     System.out.println(notificationFunctions.get(notification.getType()).apply(notification));
                     return;
                 }
