@@ -13,7 +13,7 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) throws IllegalArgumentException {
-        if ((character == null) || (predicate == null)){
+        if ((character == null) || (predicate == null)) {
             throw new IllegalArgumentException("Remove item error: Functional or character is null!!!");
         } else {
             character.getInventory().removeIf(predicate);
@@ -22,7 +22,7 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updateItem) {
-        if ((character == null) || (predicate == null)){
+        if ((character == null) || (predicate == null)) {
             throw new IllegalArgumentException("Update item error: Functional or character is null!!!");
         } else {
             boolean availableItem = false;
