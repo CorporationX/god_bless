@@ -11,17 +11,21 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> userActions) {
 
-        Map<String, Long> topUsersByPostCount = getTopUsersByActionCount(userActions, "post");
-        Map<String, Long> topUsersByCommentCount = getTopUsersByActionCount(userActions, "comment");
-        Map<String, Long> topUsersByLikeCount = getTopUsersByActionCount(userActions, "like");
-        Map<String, Long> topUsersByShareCount = getTopUsersByActionCount(userActions, "share");
-
         Map<String, Long> totalUserActions = new HashMap<>();
 
-        mergeUserActions(totalUserActions, topUsersByPostCount);
-        mergeUserActions(totalUserActions, topUsersByCommentCount);
-        mergeUserActions(totalUserActions, topUsersByLikeCount);
-        mergeUserActions(totalUserActions, topUsersByShareCount);
+        Map<String, Long> postUsersCount =
+                getTopUsersByActionCount(userActions, "post");
+        Map<String, Long> commentUsersCount =
+                getTopUsersByActionCount(userActions, "comment");
+        Map<String, Long> likeUsersCount =
+                getTopUsersByActionCount(userActions, "like");
+        Map<String, Long> shareUsersCount =
+                getTopUsersByActionCount(userActions, "share");
+
+        mergeUserActions(totalUserActions, postUsersCount);
+        mergeUserActions(totalUserActions, commentUsersCount);
+        mergeUserActions(totalUserActions, likeUsersCount);
+        mergeUserActions(totalUserActions, shareUsersCount);
 
 
         return totalUserActions.entrySet().stream()
@@ -77,8 +81,10 @@ public class UserActionAnalyzer {
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> userActions) {
         long totalActions = userActions.size();
-        return userActions.stream().collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
-                .entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue() * 100.0 / totalActions));
+        return userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue() * 100.0 / totalActions));
     }
 
 }
