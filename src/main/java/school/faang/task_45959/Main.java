@@ -24,6 +24,9 @@ public class Main {
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> {
+            System.out.printf("Тема: %s, Тело письма: %s", email.getSubject(), email.getBody());
+            System.out.println();
+        });
     }
 }

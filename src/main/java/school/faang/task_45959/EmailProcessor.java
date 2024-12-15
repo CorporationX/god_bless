@@ -14,11 +14,11 @@ public class EmailProcessor {
                               Function<Email, String> transformBody,
                               Consumer<Email> processEmail) {
         String body;
-        for (Email email : emails) {
-            if (filter.test(email)) {
-                body = transformBody.apply(email);
-                email.setBody(body);
-                processEmail.accept(email);
+        for (Email mail : emails) {
+            if (filter.test(mail)) {
+                body = transformBody.apply(mail);
+                mail.setBody(body);
+                processEmail.accept(mail);
             }
         }
     }
