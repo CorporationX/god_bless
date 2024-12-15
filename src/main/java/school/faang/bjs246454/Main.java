@@ -1,5 +1,6 @@
 package school.faang.bjs246454;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class Main {
@@ -23,8 +24,17 @@ public class Main {
         Image vignetteFilter = filterProcessor.applyFilter(myCat, filterVignette);
         System.out.println(vignetteFilter);
 
-        Function<Image, Image> twoFilters = filterProcessor.combineFilters(filterSepia, filterVignette);
-        Image comboFilter = filterProcessor.applyFilter(myCat, twoFilters);
-        System.out.println(comboFilter);
+        Function<Image, Image> twoFilters = filterProcessor.combineFilters(filterSepia, filterBlackAndWithe);
+        Image changedCat = twoFilters.apply(myCat);
+        System.out.println(changedCat);
+
+        Function<Image, Image>[] arrayFilters = new Function[3];
+        arrayFilters[0] = filterSepia;
+        arrayFilters[1] = filterVignette;
+        arrayFilters[2] = filterBlackAndWithe;
+
+        Function<Image, Image> comboFilters = filterProcessor.mixFilters(arrayFilters);
+        Image combineChange = filterProcessor.applyFilter(myCat, comboFilters);
+        System.out.println(combineChange);
     }
 }
