@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> notifications = new HashMap<>();
-    Set<Predicate<Notification>> validations = new HashSet<>();
+    private Map<String, Consumer<Notification>> notifications = new HashMap<>();
+    private Set<Predicate<Notification>> validations = new HashSet<>();
 
     public void registerHandler(String type, Consumer<Notification> action) {
         notifications.put(type, action);
