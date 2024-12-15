@@ -1,6 +1,5 @@
 package school.faang.bjs246454;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 public class Main {
