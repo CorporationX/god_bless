@@ -9,7 +9,7 @@ public class Main {
                 notification -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
 
         notificationManager.registerHandler(Types.SMS,
-                notification -> System.out.println("Отправка SMS: " + notification.getMessage()));
+                notification -> System.out.println("Отправка СМС: " + notification.getMessage()));
 
         notificationManager.registerHandler(Types.PUSH,
                 notification -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
