@@ -1,4 +1,4 @@
-package school.faang.exception;
+package school.faang.task_47107.exception;
 
 import lombok.Getter;
 
