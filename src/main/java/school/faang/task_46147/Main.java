@@ -1,31 +1,44 @@
 package school.faang.task_46147;
 
-import java.util.List;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Slf4j
 public class Main {
+    private static final String COMMA_SEPARATOR = ",";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     public static void main(String[] args) {
-        String csv = toCsv(
-                List.of(
-                        List.of("1", "2", "3", "4", "5"),
-                        List.of("6", "7", "8", "9", "10"),
-                        List.of("11", "12", "13", "14", "15"),
-                        List.of("16", "17", "18", "19", "20"),
-                        List.of("21", "22", "23", "24", "25")
-                )
+        List<List<Integer>> intTable = List.of(
+                List.of(1, 2, 3),
+                List.of(4, 5, 6),
+                List.of(7, 8, 9)
         );
-        System.out.println(csv);
+
+        List<List<Character>> charTable = List.of(
+                List.of('0', '1', '2', '3'),
+                List.of('4', '5', '6', '7'),
+                List.of('8', '9', 'A', 'B'),
+                List.of('C', 'D', 'E', 'F')
+        );
+
+        log.info("{}{}", LINE_SEPARATOR, toCsv(intTable));
+        log.info("{}{}", LINE_SEPARATOR, toCsv(charTable));
     }
 
-    public static String toCsv(List<List<String>> table) {
-        VectorJoiner<String> vectorJoiner = vector -> String.join(", ", vector);
+    public static <T> String toCsv(@NonNull List<List<T>> table) {
+        VectorJoiner<T, String> vectorJoiner = vector ->
+                vector.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(COMMA_SEPARATOR));
 
-        MatrixJoiner<String> matrixJoiner = matrix -> {
-            List<String> joinedVector =  matrix.stream()
-                    .map(vectorJoiner::join)
-                    .toList();
-
-            return String.join("\n", joinedVector);
-        };
+        MatrixJoiner<T, String> matrixJoiner = matrix ->
+                matrix.stream()
+                        .map(vectorJoiner::join)
+                        .collect(Collectors.joining(LINE_SEPARATOR));
 
         return matrixJoiner.join(table);
     }
