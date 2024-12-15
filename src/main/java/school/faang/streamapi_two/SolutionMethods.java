@@ -8,16 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class SolutionMethods {
     public Set<List<Integer>> findUniquePairs(List<Integer> list, int sumOfPair) {
         Set<List<Integer>> foundPairs = new HashSet<>();
-        Set<Integer> inputList = new HashSet<>();
+//        Set<Integer> inputList = new HashSet<>();
 
-        inputList.addAll(list);
-        foundPairs = inputList.stream()
-                .filter(number -> inputList.contains(sumOfPair - number))
+//        inputList.addAll(list);
+        foundPairs = list.stream()
+                .collect(Collectors.toSet())
+                .stream()
+                .filter(number -> list.contains(sumOfPair - number))
                 .map(number -> Arrays.asList(number, sumOfPair - number))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
@@ -31,9 +35,9 @@ public class SolutionMethods {
                 .toList();
     }
 
-    public List<String> findStringStartingWithCharAndSort(List<String> list, char startingChar) {
+    public List<String> findStringStartingWithCharAndSort(List<String> list, String startingChar) {
         List<String> result = list.stream()
-                .filter(str -> str.charAt(0) == startingChar)
+                .filter(str -> str.startsWith(startingChar, 0))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
         if (result.isEmpty()) {
@@ -52,9 +56,9 @@ public class SolutionMethods {
     }
 
     public List<String> filterByAlphabetAndSort(List<String> list, String alphabet) {
-        String regex = String.format("[%s]+", alphabet);
+        Pattern pattern = Pattern.compile(String.format("[%s]+", alphabet));
         List<String> result = list.stream()
-                .filter(str -> str.matches(regex))
+                .filter(pattern.asMatchPredicate())
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
         if (result.isEmpty()) {

@@ -12,7 +12,7 @@ public class Main {
         try {
             log.info("{}", solutionMethods.findUniquePairs(numbers, 7));
             log.info("{}", solutionMethods.sortCapitalByAlphabet(countries));
-            log.info("{}", solutionMethods.findStringStartingWithCharAndSort(fruit, 'a'));
+            log.info("{}", solutionMethods.findStringStartingWithCharAndSort(fruit, "a"));
             log.info("{}", solutionMethods.convertIntegerToBinaryString(numbers));
             log.info("{}", solutionMethods.filterByAlphabetAndSort(fruit, "abcdefghijklmnopqrstuvwxyz"));
             log.info("{}", solutionMethods.convertIntegerToBinaryString(emptyList));

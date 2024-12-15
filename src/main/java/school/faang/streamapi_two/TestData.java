@@ -1,6 +1,5 @@
 package school.faang.streamapi_two;
 
-import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
@@ -15,5 +14,5 @@ public class TestData {
     public final Map<String, String> countries = Map.of("Russia", "Moscow",
             "USA", "Washington",
             "Germany", "Berlin");
-    public final List<String> fruit = Arrays.asList("apple", "banana", "avocado", "apricot");
+    public final List<String> fruit = Arrays.asList("apple", "banana", "@pear", "avocado", "apricot", "123");
 }
