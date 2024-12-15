@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class UserActionsProcessor {
     public List<Integer> topMostActiveUsers(List<UserAction> actions, int limit) {
-        return returnMostCountEntryInDescendingOrder(actions, limit, UserAction::getId);
+        return getMostFrequentElementsSorted(actions, limit, UserAction::getId);
     }
 
     public List<String> topMostActiveHashtags(List<UserAction> actions, int limit) {
@@ -20,7 +20,7 @@ public class UserActionsProcessor {
                 .filter(word -> word.startsWith("#"))
                 .map(word -> word.replaceAll("[^\\w]", ""))
                 .toList();
-        return returnMostCountEntryInDescendingOrder(mostOftenWordsWithHashtags, limit, Function.identity());
+        return getMostFrequentElementsSorted(mostOftenWordsWithHashtags, limit, Function.identity());
     }
 
     public List<Integer> topActiveCommentatorsInMonth(List<UserAction> actions, int limit) {
@@ -30,7 +30,7 @@ public class UserActionsProcessor {
                 .filter(action -> currentMonth.equals(YearMonth.from(action.getActionDate())))
                 .map(UserAction::getId)
                 .toList();
-        return returnMostCountEntryInDescendingOrder(activeCommentatorsFromMonth, limit, Function.identity());
+        return getMostFrequentElementsSorted(activeCommentatorsFromMonth, limit, Function.identity());
     }
 
     public Map<String, Integer> processPercentForActionType(List<UserAction> actions) {
@@ -44,7 +44,7 @@ public class UserActionsProcessor {
                 ));
     }
 
-    private <T, R> List<T> returnMostCountEntryInDescendingOrder(
+    private <T, R> List<T> getMostFrequentElementsSorted(
             List<R> list, int limit, Function<R, T> groupingFunction) {
         return list.stream()
                 .collect(Collectors.groupingBy(groupingFunction, Collectors.counting()))
