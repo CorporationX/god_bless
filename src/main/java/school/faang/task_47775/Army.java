@@ -17,14 +17,18 @@ public class Army {
         warriors.add(warrior);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         AtomicInteger totalPower = new AtomicInteger();
         ExecutorService executor = Executors.newFixedThreadPool(warriors.size());
         for (Warrior warrior : warriors) {
             executor.submit(() -> totalPower.addAndGet(warrior.getPower()));
         }
         executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.MINUTES);
+        try {
+            executor.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return totalPower.get();
     }
 }
