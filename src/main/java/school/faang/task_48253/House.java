@@ -20,7 +20,7 @@ public class House {
             int r2Index = rand.nextInt(0, rooms.size());
 
             if (r1Index == r2Index) {
-               continue;
+                continue;
             }
 
             Room room1 = rooms.get(r1Index);
