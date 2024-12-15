@@ -21,11 +21,11 @@ public class ListOperations {
     public static double findAverage(List<Integer> listInteger) {
         int sum = listInteger.stream()
                 .mapToInt(Integer::intValue).sum();
-        return (double) sum/listInteger.size();
+        return (double) sum / listInteger.size();
     }
 
     public static int countStringsStartingWith(List<String> listInteger, char ch) {
-        return (int)listInteger.stream()
+        return (int) listInteger.stream()
                 .filter(s -> s.startsWith(String.valueOf(ch)))
                 .count();
     }
@@ -41,4 +41,24 @@ public class ListOperations {
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
+
+    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
+        return numbers.size() == numbers.stream()
+                .filter(condition)
+                .toList()
+                .size();
+    }
+
+    public static int findMinGreaterThan(List<Integer> numbers, int refValue ) {
+        return numbers.stream()
+                .filter(n -> n > refValue)
+                .mapToInt(x->x).min().getAsInt();
+    }
+
+    public static List<Integer> convertToLengths(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
+                .toList();
+    }
+
 }
