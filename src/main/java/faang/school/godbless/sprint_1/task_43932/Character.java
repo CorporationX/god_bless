@@ -1,14 +1,12 @@
 package faang.school.godbless.sprint_1.task_43932;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
 @ToString
 public abstract class Character {
-    private String name;
+    private final String name;
     private int strength;
     private int dexterity;
     private int intelligence;
@@ -23,6 +21,16 @@ public abstract class Character {
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
+    }
+
+    public void receiveDamage(int damage) {
+        int characterHealthAfterAttack = this.health - damage;
+        if (characterHealthAfterAttack <= 0) {
+            this.health = 0;
+            System.out.println("Противник " + this + " мёртв!");
+            return;
+        }
+        this.health = characterHealthAfterAttack;
     }
 
     public abstract void attack(Character character);

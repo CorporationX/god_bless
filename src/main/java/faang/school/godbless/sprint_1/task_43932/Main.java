@@ -6,12 +6,8 @@ public class Main {
         Archer archer = new Archer("Archer");
 
         while (warrior.getHealth() != 0 && archer.getHealth() != 0) {
-            if (warrior.getHealth() != 0) {
-                warrior.attack(archer);
-            }
-            if (archer.getHealth() != 0) {
-                archer.attack(warrior);
-            }
+            warrior.attack(archer);
+            archer.attack(warrior);
         }
     }
 }
