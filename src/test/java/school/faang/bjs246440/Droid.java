@@ -2,8 +2,10 @@ package school.faang.bjs246440;
 
 public class Droid {
     private static final Integer NUMBER_OF_LETTERS = 26;
-    private static final CryptAction DECRYPT_ACTION = (chr, key, base) -> (char) ((chr - base + key) % NUMBER_OF_LETTERS + base);
-    private static final CryptAction ENCRYPT_ACTION = (chr, key, base) -> (char) ((chr - base - key + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS + base);
+    private static final CryptAction DECRYPT_ACTION = (chr, key, base) ->
+            (char) ((chr - base + key) % NUMBER_OF_LETTERS + base);
+    private static final CryptAction ENCRYPT_ACTION =
+            (chr, key, base) -> (char) ((chr - base - key + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS + base);
 
     private final String name;
 
