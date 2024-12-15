@@ -9,7 +9,6 @@ public class Main {
                     return "DEFAULT";
                 }
         );
-
         System.out.println(result);
     }
 
