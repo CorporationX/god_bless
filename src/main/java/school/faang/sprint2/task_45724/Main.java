@@ -1,4 +1,4 @@
-package school.faang.sprint2.task_1_45724_spells;
+package school.faang.sprint2.task_45724;
 
 public class Main {
 

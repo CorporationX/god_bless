@@ -1,4 +1,4 @@
-package school.faang.sprint2.task_2_46856_notifications;
+package school.faang.sprint2.task_2;
 
 @FunctionalInterface
 public interface Consumer<T> {
