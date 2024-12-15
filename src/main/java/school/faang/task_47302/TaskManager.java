@@ -11,16 +11,14 @@ import java.util.stream.Collectors;
 
 public class TaskManager {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int target) {
-        Set<List<Integer>> pairs = new HashSet<>();
         Set<Integer> set = new HashSet<>();
         set.addAll(numbers);
 
-        pairs = numbers.stream()
+        return numbers.stream()
                 .filter(num -> set.contains(target - num))
                 .map(num -> Arrays.asList(num, target - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> onlyCapitals(Map<String, String> map) {
