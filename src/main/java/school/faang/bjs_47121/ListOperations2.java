@@ -1,25 +1,24 @@
 package school.faang.bjs_47121;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListOperations2 {
-    public static Map<Integer, Integer> getPairOfNumbers(List<Integer> numbers, int sum) {
-        Map<Integer, Integer> pairNumbers = new HashMap<>();
-
-        numbers.forEach(number -> {
-            int secondNumber = sum - number;
-
-            if (numbers.contains(secondNumber) && !pairNumbers.containsKey(secondNumber)
-                    && !pairNumbers.containsValue(secondNumber)) {
-                pairNumbers.put(number, secondNumber);
-            }
-
-        });
-        return pairNumbers;
+    public static Set<List<Integer>> getPairOfNumbers(List<Integer> numbers, int sum) {
+        return numbers.stream()
+                .filter(n -> numbers.contains(sum - n))
+                .collect(Collectors.toMap(k -> k, v -> sum - v))
+                .entrySet()
+                .stream()
+                .map(entry -> Stream.of(entry.getKey(), entry.getValue())
+                        .sorted()
+                        .toList())
+                .collect(Collectors.toSet());
     }
 
     public static List<String> getCapitals(Map<String, String> countries) {
@@ -43,8 +42,10 @@ public class ListOperations2 {
     }
 
     public static List<String> getFilteredByAlphabetAndSortedStrings(List<String> strings, String filterString) {
+        String regEx = "[" + filterString + "]*";
+        Pattern pattern = Pattern.compile(regEx);
         return strings.stream()
-                .filter(string -> Pattern.matches("[" + filterString + "]*", string))
+                .filter(string -> string.matches(pattern.pattern()))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
