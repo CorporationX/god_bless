@@ -13,37 +13,28 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) throws IllegalArgumentException {
-        if (character != null) {
-            if (predicate != null) {
-                character.getInventory().removeIf(predicate);
-                System.out.println("Предмет удален!!!");
-            } else {
-                throw new IllegalArgumentException("Functional is null!!!");
-            }
+        if ((character == null) || (predicate == null)){
+            throw new IllegalArgumentException("Remove item error: Functional or character is null!!!");
         } else {
-            throw new IllegalArgumentException("Character is null!!!");
+            character.getInventory().removeIf(predicate);
+            System.out.println("Предмет удален!!!");
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updateItem) {
-        if (character != null) {
-            if ((predicate != null) && (updateItem != null)) {
-                boolean availableItem = false;
-                for (int i = 0; i < character.getInventory().size(); i++) {
-                    if (predicate.test(character.getInventory().get(i))) {
-                        availableItem = true;
-                        character.getInventory().set(i, updateItem.apply(character.getInventory().get(i)));
-                    }
-                }
-                if (!availableItem) {
-                    System.out.println("Данного предмета нет в инвентаре!!!");
-                }
-            } else {
-                throw new IllegalArgumentException("Functional is null!!!");
-            }
+        if ((character == null) || (predicate == null)){
+            throw new IllegalArgumentException("Update item error: Functional or character is null!!!");
         } else {
-            throw new IllegalArgumentException("Character is null!!!");
+            boolean availableItem = false;
+            for (int i = 0; i < character.getInventory().size(); i++) {
+                if (predicate.test(character.getInventory().get(i))) {
+                    availableItem = true;
+                    character.getInventory().set(i, updateItem.apply(character.getInventory().get(i)));
+                }
+            }
+            if (!availableItem) {
+                System.out.println("Данного предмета нет в инвентаре!!!");
+            }
         }
-
     }
 }
