@@ -15,11 +15,11 @@ public class StreamUtils {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("List doesn't have Max number"));
     }
 
     public static double findAvg(List<Integer> numbers) {
-        return (double) numbers.stream()
+        return numbers.isEmpty() ? 0.0 : (double) numbers.stream()
                 .reduce(0, Integer::sum) / numbers.size();
     }
 
@@ -51,7 +51,7 @@ public class StreamUtils {
                 .sorted()
                 .filter(number -> number > value)
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("List doesn't contain any number more than " + value));
     }
 
     public static List<Integer> mapStringToInteger(List<String> words) {
