@@ -13,9 +13,10 @@ public class EmailProcessor {
         if (emails == null) {
             throw new IllegalArgumentException("Emails cannot be null");
         }
+        String transformedBody;
         for (Email email : emails) {
             if (filter.test(email)) {
-                String transformedBody = transformer.apply(email);
+                transformedBody = transformer.apply(email);
                 email.setBody(transformedBody);
                 action.accept(email);
             }
