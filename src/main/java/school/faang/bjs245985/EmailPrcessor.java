@@ -22,7 +22,7 @@ public class EmailPrcessor {
                 email.setBody(transformerBody);
                 emailConsumerAction.accept(email);
             } else {
-                logger.info("Email didn't pass filter: {}", email.getSubject());
+                logger.info("Email didn't pass filter: {} \n", email.getSubject());
             }
         }
     }
