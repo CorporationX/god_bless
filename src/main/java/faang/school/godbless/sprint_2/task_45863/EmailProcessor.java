@@ -19,8 +19,9 @@ public class EmailProcessor {
         );
 
         Iterator<Email> emailIterator = emailList.iterator();
+        Email email;
         while (emailIterator.hasNext()) {
-            Email email = emailIterator.next();
+            email = emailIterator.next();
             if (filter.test(email)) {
                 email.setBody(convert.apply(email));
                 process.accept(email);
