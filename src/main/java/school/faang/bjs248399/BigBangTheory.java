@@ -27,6 +27,7 @@ public class BigBangTheory {
                 executorService.shutdown();
             }
         } catch (InterruptedException e) {
+            System.err.println("Thread was interrupted: " + e.getMessage());
             executorService.shutdown();
         }
     }
