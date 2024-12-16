@@ -1,36 +1,23 @@
 package school.faang.sprint_1.task_lordofringsbjs2n45608;
 
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class InventoryManager {
-    Logger inventaryLogger = LoggerFactory.getLogger("inventoryLogger");
 
-    public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        if (Stream.of(character, item, consumer).allMatch(Objects::nonNull)) {
-            character.addItem(item);
-            consumer.accept(item);
-        } else {
-            inventaryLogger.warn("Some param(s) in addItem() is NULL");
-        }
+    public void addItem(@NonNull Character character, @NonNull Item item, @NonNull Consumer<Item> consumer) {
+        character.addItem(item);
+        consumer.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
         if (character != null && predicate != null) {
-            // Можно замемнить на  character.getInventory().removeIf(predicate::test);
-            Iterator<Item> iteratorItems = character.getInventory().iterator();
-            while (iteratorItems.hasNext()) {
-                if (predicate.test(iteratorItems.next())) {
-                    iteratorItems.remove();
-                }
-            }
+            character.getInventory().removeIf(predicate::test);
         }
     }
 
