@@ -49,7 +49,7 @@ public class Main {
     }
 
     protected static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
-        if (products.isEmpty()) {
+        if (products == null || products.isEmpty()) {
             throw new IllegalArgumentException("No products found");
         }
 
