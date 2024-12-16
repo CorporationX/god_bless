@@ -162,7 +162,7 @@ class ProductManagerTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> Main.groupProductsByCategory(new HashSet<>()));
 
-        assertEquals("No products found", exception.getMessage());
+        assertEquals("Product list is null or empty", exception.getMessage());
     }
 
     @Test
