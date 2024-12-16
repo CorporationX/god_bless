@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Army {
     private final List<Fighter> fighters = new ArrayList<>();
+    TheadForCalculation thread;
 
     public void addFighter(Fighter fighter) {
         fighters.add(fighter);
@@ -18,8 +19,6 @@ public class Army {
     public int calculateTotalPower() {
         int sumOfPower = 0;
         List<TheadForCalculation> threads = new ArrayList<>();
-
-        TheadForCalculation thread;
 
         for (Fighter fighter : fighters) {
             thread = new TheadForCalculation(fighter);
