@@ -31,6 +31,7 @@ public class MailSender {
             } catch (InterruptedException e) {
                 System.out.println("Поток был прерван: " + thread.getName());
             }
-        }System.out.println("Все письма успешно отправлены!");
+        }
+        System.out.println("Все письма успешно отправлены!");
     }
 }
