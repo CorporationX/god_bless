@@ -12,17 +12,16 @@ public class TelegramBot {
     private LocalDateTime lastRequest = LocalDateTime.now();
 
     public synchronized void sendMessage(String message) {
-        while (true){
+        while (true) {
             Duration deltaSendTime = Duration.between(lastRequest, LocalDateTime.now());
 
-            if (deltaSendTime.toSeconds() < 1){
+            if (deltaSendTime.toSeconds() < 1) {
                 requestCounter++;
-            }
-            else{
+            } else {
                 requestCounter = 1;
             }
 
-            if (requestCounter > REQUEST_LIMIT){
+            if (requestCounter > REQUEST_LIMIT) {
                 try {
                     wait(1000);
                     continue;
