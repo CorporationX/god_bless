@@ -11,7 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Utilities {
-    private static final Function<Integer, String> decToBin = (decimal) -> {
+    private static final Function<Integer, String> DEC_TO_BIN = (decimal) -> {
         StringBuilder binary = new StringBuilder();
         while (decimal > 0) {
             int remainder = decimal % 2;
@@ -51,7 +51,7 @@ public class Utilities {
 
     public static List<String> decimalsToBinary(List<Integer> decimals) {
         return decimals.stream()
-                .map(decToBin)
+                .map(DEC_TO_BIN)
                 .toList();
     }
 
