@@ -8,25 +8,25 @@ public class FilterSystem {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Function<Image, Image> blackAndWhiteFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " ⇢ Фильтр: черно-белый");
+                new Image(image.name(), image.description() + " ⇢ Фильтр: черно-белый");
 
         Function<Image, Image> sepiaFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " ⇢ Фильтр: сепия");
+                new Image(image.name(), image.description() + " ⇢ Фильтр: сепия");
 
         Function<Image, Image> vignetteFilter = (image) ->
-                new Image(image.getName(), image.getDescription() + " ⇢ Фильтр: виньетка");
+                new Image(image.name(), image.description() + " ⇢ Фильтр: виньетка");
 
         Image blackAndWhiteImage = filterProcessor.applyFilter(originalImage, blackAndWhiteFilter);
-        System.out.println(blackAndWhiteImage.getDescription());
+        System.out.println(blackAndWhiteImage.description());
 
         Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription());
+        System.out.println(sepiaImage.description());
 
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
-        System.out.println(vignetteImage.getDescription());
+        System.out.println(vignetteImage.description());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(sepiaFilter, vignetteFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println("\nКОМБИНИРОВАНИЕ ФИЛЬТРОВ\n" + combinedImage.getDescription());
+        System.out.println("\nКОМБИНИРОВАНИЕ ФИЛЬТРОВ\n" + combinedImage.description());
     }
 }
