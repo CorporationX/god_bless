@@ -26,12 +26,12 @@ public class Army {
             threads[i].start();
         }
 
-        try {
-            for (Thread thread : threads) {
+        for (Thread thread : threads) {
+            try {
                 thread.join();
+            } catch (Exception e) {
+                log.info(e.getMessage());
             }
-        } catch (Exception e) {
-            log.info(e.getMessage());
         }
 
         for (PowerCalculator powerCalculator : powerCalculators) {
