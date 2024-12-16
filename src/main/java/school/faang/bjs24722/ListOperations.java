@@ -14,17 +14,7 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> numbers, int sum) {
-    //   Set<List<Integer>> uniquePairs;
-   /*      Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-
-        uniquePairs = numbers.stream()
-                .filter(n -> uniqueNumbers.contains(sum - n))
-                .map(n -> Arrays.asList(n, sum - n))
-                .peek(Collections::sort)
-                .collect(Collectors.toSet());
-        return uniquePairs;*/
-
-  /*      return numbers.stream()
+        return numbers.stream()
                 .distinct()
                 .filter(n -> numbers.contains(sum - n))
                 .map(n -> {
@@ -34,10 +24,7 @@ public class ListOperations {
                 })
                 .distinct()
                 .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toCollection(Set.of(Se)::new));*/
-            //    .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        return null;
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public static List<String> sortCountriesAndEnterCapitals(Map<String, String> countriesAndCapitals) {
