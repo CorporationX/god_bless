@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class ListOperations {
     public static Integer sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .filter(number -> number%2 == 0)
+                .filter(number -> number % 2 == 0)
                 .reduce(0, Integer::sum);
     }
 
