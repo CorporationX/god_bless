@@ -1,13 +1,12 @@
 package school.faang.task49620;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Boss {
-    private final Logger logger = LoggerFactory.getLogger(Boss.class);
 
     private static final int MAX_PLAYERS = 3;
     private final List<Player> currentPlayers = new ArrayList<>();
@@ -22,7 +21,7 @@ public class Boss {
                 }
             }
             currentPlayers.add(player);
-            logger.info(String.format("Игрок: %s врывается в сражение%n", player.name()));
+            log.info(String.format("Игрок: %s врывается в сражение%n", player.name()));
         }
     }
 
@@ -31,12 +30,12 @@ public class Boss {
             throw new IllegalArgumentException("player can`t be null");
         }
         if (!currentPlayers.contains(player)) {
-            logger.error("Такого игрока нет в сражении.");
+            log.error("Такого игрока нет в сражении.");
             return false;
         }
 
         synchronized (this) {
-            logger.info(String.format("Игрок %s выходит из сражения%n", player.name()));
+            log.info(String.format("Игрок %s выходит из сражения%n", player.name()));
             currentPlayers.remove(player);
             this.notify();
         }
