@@ -1,4 +1,4 @@
-package school.faang.task_43518;
+package school.faang.sprint_1.task_43518;
 
 import java.util.*;
 
