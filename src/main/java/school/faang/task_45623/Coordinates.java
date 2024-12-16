@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@SuppressWarnings("checkstyle:MemberName")
 public class Coordinates {
-    private int x;
-    private int y;
+    private int row;
+    private int col;
 }
