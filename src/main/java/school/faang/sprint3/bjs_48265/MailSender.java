@@ -2,30 +2,23 @@ package school.faang.sprint3.bjs_48265;
 
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
-        SenderRunnable firstPartMails = new SenderRunnable(1, 200);
-        Thread firstThread = new Thread(firstPartMails);
-        firstThread.start();
-        firstThread.join();
+        int totalCount = 1000;
+        int threadsAmount = 5;
+        int batchSize = totalCount / threadsAmount;
 
-        SenderRunnable secondPartMails = new SenderRunnable(201, 400);
-        Thread secondThread = new Thread(secondPartMails);
-        secondThread.start();
-        secondThread.join();
+        Thread[] threadPool = new Thread[threadsAmount];
 
-        SenderRunnable thirdPartMails = new SenderRunnable(401, 600);
-        Thread thirdThread = new Thread(thirdPartMails);
-        thirdThread.start();
-        thirdThread.join();
+        for (int i = 0; i < threadsAmount; i++) {
+            int startIndex = i * batchSize;
+            int endIndex = (i + 1) * batchSize;
+            SenderRunnable partMails = new SenderRunnable(startIndex, endIndex);
+            threadPool[i] = new Thread(partMails);
+            threadPool[i].start();
+        }
 
-        SenderRunnable fourthPartMails = new SenderRunnable(601, 800);
-        Thread fourthThread = new Thread(fourthPartMails);
-        fourthThread.start();
-        fourthThread.join();
-
-        SenderRunnable fifthPartMails = new SenderRunnable(801, 1000);
-        Thread fifthThread = new Thread(fifthPartMails);
-        fifthThread.start();
-        fifthThread.join();
+        for (Thread thread : threadPool) {
+            thread.join();
+        }
 
         System.out.println("Все письма успешно отправлены!");
     }
