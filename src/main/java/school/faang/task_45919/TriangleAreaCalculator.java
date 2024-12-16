@@ -4,32 +4,32 @@ import java.util.function.Function;
 
 public class TriangleAreaCalculator {
 
-    // Лямбда-функции для математических операций
     Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
     Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
     Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
     Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
     Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
 
-    // Метод для вычисления площади треугольника
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
-        //validation
+
+        if (a <= 0 || b <= 0 || c <= 0) {
+            throw new IllegalArgumentException("Стороны треугольника должны быть положительными числами");
+        }
+
         if (add.apply(a).apply(c) <= b || add.apply(a).apply(b) <= c || add.apply(b).apply(c) <= a) {
             throw new IllegalArgumentException("Треугольник с такими сторонами не может существовать");
         }
 
-        double semiPerimter = divide.apply(add.apply(c).apply(add.apply(b).apply(a))).apply(2.0);
-        double semiPerimeterMinusSideA = subtract.apply(semiPerimter).apply(a);
-        double semiPerimeterMinusSideB = subtract.apply(semiPerimter).apply(b);
-        double semiPerimeterMinusSideC = subtract.apply(semiPerimter).apply(c);
+        double semiPerimeter = divide.apply(add.apply(c).apply(add.apply(b).apply(a))).apply(2.0);
+        double semiPerimeterMinusSideA = subtract.apply(semiPerimeter).apply(a);
+        double semiPerimeterMinusSideB = subtract.apply(semiPerimeter).apply(b);
+        double semiPerimeterMinusSideC = subtract.apply(semiPerimeter).apply(c);
 
-        double heronProduct = multiply.apply(semiPerimter)
-                .apply(multiply.apply(semiPerimeterMinusSideA)
-                        .apply(multiply.apply(semiPerimeterMinusSideB)
-                                .apply(semiPerimeterMinusSideC)));
+        double product1 = multiply.apply(semiPerimeter).apply(semiPerimeterMinusSideA);
+        double product2 = multiply.apply(product1).apply(semiPerimeterMinusSideB);
+        double heronProduct = multiply.apply(product2).apply(semiPerimeterMinusSideC);
 
-        double result = squareRoot.apply(heronProduct);
-        return result;
+        return squareRoot.apply(heronProduct);
     }
 
     public static void main(String[] args) {
