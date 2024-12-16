@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<UserAction> actions = Arrays.asList(
+        List<UserAction> actions = List.of(
                 new UserAction(1, "Alice", "post", LocalDate.of(2024, 12, 1), "Check out this amazing #newfeature!"),
                 new UserAction(2, "Bob", "comment", LocalDate.of(2024, 11, 2), "I totally agree with #newfeature."),
                 new UserAction(1, "Alice", "like", LocalDate.of(2024, 11, 3), ""),
-                new UserAction(3, "Charlie", "share", LocalDate.of(2024, 11, 4), ""),
+                new UserAction(3, "Charlie", "comment", LocalDate.of(2024, 11, 4), ""),
                 new UserAction(4, "Dave", "post", LocalDate.of(2024, 11, 5), "#Java is awesome!"),
                 new UserAction(2, "Bob", "like", LocalDate.of(2024, 11, 6), ""),
                 new UserAction(3, "Charlie", "post", LocalDate.of(2024, 11, 7), "Check out this cool #project"),
