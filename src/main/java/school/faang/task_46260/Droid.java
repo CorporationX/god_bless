@@ -3,13 +3,14 @@ package school.faang.task_46260;
 public class Droid {
 
     private final String name;
+    private final int numberOfLetters = 26;
 
-    public Droid(String message, String name) {
+    public Droid(String name) {
         this.name = name;
     }
 
     public String encryptMessage(String message, int key) {
-        if (key == 0 && message == null || message.isEmpty()) {
+        if (key == 0 || message == null || message.isEmpty()) {
             throw new IllegalArgumentException("Key cannot be null and message cannot be null or empty");
         }
         DroidMessageEncryptor encryptor = (msg, secretKey) -> {
@@ -18,7 +19,7 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - start + secretKey) % 26 + start));
+                    encryptedMessage.append((char) ((ch - start + secretKey) % numberOfLetters + start));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -29,12 +30,15 @@ public class Droid {
     }
 
     public String decryptMessage(String encryptedMessage, int key) {
+        if (encryptedMessage == null || encryptedMessage.isEmpty() || key == 0) {
+            throw new IllegalArgumentException("Key cannot be null and message cannot be null or empty");
+        }
         DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
             StringBuilder decryptedMessage = new StringBuilder();
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - start - decryptionKey + 26) % 26 + start));
+                    decryptedMessage.append((char) ((ch - start - decryptionKey + numberOfLetters) % numberOfLetters + start));
                 } else {
                     decryptedMessage.append(ch);
                 }

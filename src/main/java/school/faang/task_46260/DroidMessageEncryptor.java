@@ -4,6 +4,3 @@ package school.faang.task_46260;
 public interface DroidMessageEncryptor {
     String encrypt(String message, int key);
 }
-
-
-

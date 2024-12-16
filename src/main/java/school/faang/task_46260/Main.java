@@ -3,9 +3,9 @@ package school.faang.task_46260;
 public class Main {
     public static void main(String[] args) {
 
-        Droid r2d2 = new Droid("R2D2", "R2D2");
-        Droid c3po = new Droid("C3PO", "C3PO");
-        Droid bb8 = new Droid("BB-8", "BB-8");
+        Droid r2d2 = new Droid( "R2D2");
+        Droid c3po = new Droid("C3PO");
+        Droid bb8 = new Droid( "BB-8");
 
         String message1 = "Join the Rebellion!";
         String message2 = "The Death Star is operational!";
