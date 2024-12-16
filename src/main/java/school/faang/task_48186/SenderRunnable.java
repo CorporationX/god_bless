@@ -18,4 +18,5 @@ public class SenderRunnable implements Runnable {
             System.out.printf("Письмо отправлено: %d%n", i);
         }
     }
+
 }
