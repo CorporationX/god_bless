@@ -35,14 +35,5 @@ public class Main {
         String alphab = "abcdefghijklmnopqrstuvwxyz";
         List<String> filter = ListOperations.filterAndSortByLength(string, alphab);
         filter.forEach(System.out::println);
-
-
-
-
-
-
-
-
-
     }
 }

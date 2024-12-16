@@ -7,18 +7,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ListOperations {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
         Set<List<Integer>> pairs;
         Set<Integer> set = new HashSet<>(numbers);
-        pairs = numbers.stream()
+
+        return numbers.stream()
                 .filter(num -> set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countries) {
@@ -37,16 +39,17 @@ public class ListOperations {
     }
 
     public static List<String> convertToBinary(List<Integer> numbers) {
-        return numbers.stream()
-                .map(Integer::toBinaryString)
-                .collect(Collectors.toList());
+        return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        String regex = "[" + alphabet + "]+";
+        Pattern p = Pattern.compile("[" + alphabet + "]+");
 
         return strings.stream()
-                .filter(s -> s.matches(regex))
+                .filter(s -> {
+                    Matcher m = p.matcher(s);
+                    return m.find();
+                })
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
