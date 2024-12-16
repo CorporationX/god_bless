@@ -1,7 +1,6 @@
 package school.faang.task48090;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+@Slf4j
 public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final int AGE_FILTER = 60;
     private static final int COUNT_PEOPLE = 10_000;
     private static final int THREAD_POOL = 5;
@@ -30,7 +29,8 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL);
 
         IntStream.range(0, THREAD_POOL).forEach(i -> {
-            List<Person> subList = people.subList(i * batch, (i + 1) * batch);
+            List<Person> subList = people
+                    .subList(i * batch, batch == people.size() - 1 ? people.size() : (i + 1) * batch);
             executorService.execute(new PersonInfoPrinter(subList));
         });
 
@@ -38,10 +38,11 @@ public class Main {
 
         try {
             if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.out.println("Все задачи завершены.");
+                log.info("Все задачи завершены.");
             }
         } catch (InterruptedException e) {
-            logger.error(e.getMessage());
+            Thread.currentThread().interrupt();
+            log.error(e.getMessage());
         }
     }
 }
