@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ListOperations {
@@ -38,7 +40,12 @@ public class ListOperations {
 
     public static List<String> filterByAbcAndSortAscStrings(List<String> strings, String abc) {
         String regex = "[" + abc + "]+";
-        return strings.stream().filter(str -> str.matches(regex))
+        Pattern pattern = Pattern.compile(regex);
+        return strings.stream().filter(
+                        str -> {
+                            Matcher matcher = pattern.matcher(str);
+                            return matcher.find();
+                        })
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 }
