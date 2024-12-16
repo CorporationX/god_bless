@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -43,13 +42,10 @@ public class ListOperations {
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        Pattern p = Pattern.compile("[" + alphabet + "]+");
+        Pattern pattern = Pattern.compile("[" + Pattern.quote(alphabet) + "]+");
 
         return strings.stream()
-                .filter(s -> {
-                    Matcher m = p.matcher(s);
-                    return m.find();
-                })
+                .filter(s -> pattern.matcher(s).find())
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
