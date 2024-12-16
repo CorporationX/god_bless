@@ -15,12 +15,12 @@ public class Main {
             StringBuilder encrypted = new StringBuilder(message.length());
 
             original.chars().forEach(utfNumber -> {
-                char aChar = (char) utfNumber;
-                if (Character.isAlphabetic(aChar)) {
-                    int base = Character.isUpperCase(aChar) ? UPPER_CASE : LOWER_CASE;
-                    aChar = (char) ((Character.toLowerCase(aChar) - LOWER_CASE + key) % 26 + base);
+                char thisChar = (char) utfNumber;
+                if (Character.isAlphabetic(thisChar)) {
+                    int base = Character.isUpperCase(thisChar) ? UPPER_CASE : LOWER_CASE;
+                    thisChar = (char) ((Character.toLowerCase(thisChar) - LOWER_CASE + key) % 26 + base);
                 }
-                encrypted.append(aChar);
+                encrypted.append(thisChar);
             });
             return encrypted.toString();
         });
@@ -30,12 +30,12 @@ public class Main {
             StringBuilder decrypted = new StringBuilder(message.length());
 
             original.chars().forEach(utfNumber -> {
-                char aChar = (char) utfNumber;
-                if (Character.isAlphabetic(aChar)) {
-                    int base = Character.isUpperCase(aChar) ? UPPER_CASE : LOWER_CASE;
-                    aChar = (char) ((Character.toLowerCase(aChar) - LOWER_CASE - key + 26) % 26 + base);
+                char thisChar = (char) utfNumber;
+                if (Character.isAlphabetic(thisChar)) {
+                    int base = Character.isUpperCase(thisChar) ? UPPER_CASE : LOWER_CASE;
+                    thisChar = (char) ((Character.toLowerCase(thisChar) - LOWER_CASE - key + 26) % 26 + base);
                 }
-                decrypted.append(aChar);
+                decrypted.append(thisChar);
             });
             return decrypted.toString();
         });

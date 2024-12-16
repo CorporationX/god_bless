@@ -3,7 +3,6 @@ package school.faang.bjs46298;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Setter
