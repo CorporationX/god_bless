@@ -21,7 +21,7 @@ public class Boss {
                 }
             }
             currentPlayers.add(player);
-            log.info(String.format("Игрок: %s врывается в сражение%n", player.name()));
+            log.info("Игрок: {} врывается в сражение", player.name());
         }
     }
 
@@ -35,7 +35,7 @@ public class Boss {
         }
 
         synchronized (this) {
-            log.info(String.format("Игрок %s выходит из сражения%n", player.name()));
+            log.info("Игрок {} выходит из сражения", player.name());
             currentPlayers.remove(player);
             this.notify();
         }
