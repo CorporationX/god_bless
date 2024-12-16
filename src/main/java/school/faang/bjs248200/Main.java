@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         String[] chores = {"wash dishes", "sweep the floor", "do laundry", "take out trash"};
 
         ExecutorService executorService = Executors.newFixedThreadPool(4);
@@ -16,7 +16,11 @@ public class Main {
         }
 
         executorService.shutdown();
-        executorService.awaitTermination(5, TimeUnit.SECONDS);
+        try {
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("main ended");
 
         try {
