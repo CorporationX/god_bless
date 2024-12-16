@@ -23,7 +23,7 @@ public class CashierThread extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         System.out.println("Start processing at cashier " + id);
         double totalSum = 0;
         for (Customer customer : customers) {
