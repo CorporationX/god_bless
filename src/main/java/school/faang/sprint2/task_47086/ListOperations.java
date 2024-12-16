@@ -13,7 +13,9 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> integerList) {
-        return integerList.stream().max(Integer::compareTo).orElseThrow();
+        return integerList.stream().max(Integer::compareTo).orElseThrow(
+                () -> new IllegalArgumentException("The input list doesn't contain any number")
+        );
     }
 
     public static double findAverage(List<Integer> integerList) {

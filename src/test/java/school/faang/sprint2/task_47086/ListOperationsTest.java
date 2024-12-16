@@ -31,7 +31,7 @@ public class ListOperationsTest {
         int max = ListOperations.findMax(integerList);
 
         assertEquals(12, max);
-        assertThrows(NoSuchElementException.class, () -> ListOperations.findMax(List.of()));
+        assertThrows(IllegalArgumentException.class, () -> ListOperations.findMax(List.of()));
     }
 
     @Test
