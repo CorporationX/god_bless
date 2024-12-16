@@ -1,25 +1,25 @@
 package school.faang.task48853;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
-    private final Logger logger = LoggerFactory.getLogger(GooglePhotosAutoUploader.class);
 
     private final Object lock = new Object();
     private final List<String> photosAutoUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosAutoUpload.isEmpty()) {
+            while (photosAutoUpload.isEmpty()) {
                 try {
-                    System.out.println("Список фото пуст");
+                    log.info("Список фото пуст");
                     lock.wait();
                 } catch (InterruptedException e) {
-                    logger.error(e.getMessage());
+                    Thread.currentThread().interrupt();
+                    log.error("Поток был прерван во время ожидания {}", e.getMessage());
                 }
             }
             uploadPhotos();
@@ -33,15 +33,17 @@ public class GooglePhotosAutoUploader {
         }
 
         synchronized (lock) {
-            System.out.println("Добавление новой фотографии");
+            log.info("Добавление новой фотографии");
+
             photosAutoUpload.add(photoPath);
             lock.notify();
         }
     }
 
     private void uploadPhotos() {
-        System.out.println("Происходит загрузка фотографий на сервер...");
-        photosAutoUpload.forEach(System.out::println);
+        log.info("Происходит загрузка фотографий на сервер...");
+
+        photosAutoUpload.forEach(log::info);
         photosAutoUpload.clear();
     }
 }
