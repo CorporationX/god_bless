@@ -11,6 +11,7 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> calculators = new ArrayList<>();
@@ -23,8 +24,12 @@ public class Army {
             thread.start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        for (Thread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         for (PowerCalculator calculator : calculators) {
