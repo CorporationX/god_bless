@@ -15,12 +15,13 @@ public class MailSender {
             threads[i].start();
         }
 
-        try {
-            for (Thread thread : threads) {
+
+        for (Thread thread : threads) {
+            try {
                 thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e.getMessage());
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
         }
 
         System.out.println("Все письма отправлены!");
