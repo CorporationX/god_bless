@@ -1,5 +1,8 @@
 package school.faang.task48231;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
+
+    private static final Logger logger = LoggerFactory.getLogger(BigBangTheory.class);
     private static final int THREAD_POOL = 4;
 
     public static void main(String[] args) {
@@ -34,6 +39,7 @@ public class BigBangTheory {
             System.out.println("Все выполнили свои задачи");
         } catch (InterruptedException e) {
             executorService.shutdownNow();
+            logger.error(e.getMessage());
         }
     }
 }
