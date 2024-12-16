@@ -2,22 +2,23 @@ package school.faang.sprint3.bjs_48128;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 @Slf4j
 public class MailSender {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int totalEmails = 1000;
-        int chunkOfEmails = 200;
+        int totalThreads = 5;
 
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        int i = 0;
-        while (i < totalEmails) {
-            SenderRunnable sender = new SenderRunnable(i, i + chunkOfEmails - 1);
-            executor.submit(sender);
-            i += chunkOfEmails;
+        Thread[] threads = new Thread[totalThreads];
+        int chunkOfEmails = totalEmails / totalThreads;
+        for (int i = 0; i < totalThreads; i++) {
+            SenderRunnable sender = new SenderRunnable(chunkOfEmails * i, chunkOfEmails * (i + 1));
+            threads[i] = new Thread(sender);
+            threads[i].start();
         }
-        executor.shutdown();
+
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        log.info("All emails have been sent");
     }
 }
