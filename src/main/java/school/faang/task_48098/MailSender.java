@@ -18,7 +18,11 @@ public class MailSender {
             threads.get(i).start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Поток не может быть завершен " + e.getMessage());
+            }
         }
         System.out.println("Все письма успешно отправлены!");
     }
