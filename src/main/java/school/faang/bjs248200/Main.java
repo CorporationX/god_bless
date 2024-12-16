@@ -5,12 +5,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int THREADS_AMOUNT = 4;
+    private static final String[] CHORES = {"wash dishes", "sweep the floor", "do laundry", "take out trash"};
+
     public static void main(String[] args) {
-        String[] chores = {"wash dishes", "sweep the floor", "do laundry", "take out trash"};
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS_AMOUNT);
 
-        for (String chore : chores) {
+        for (String chore : CHORES) {
             Chore newChore = new Chore(chore);
             executorService.execute(newChore);
         }
@@ -19,7 +21,7 @@ public class Main {
         try {
             executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.err.println("Thread was interrupted: " + e.getMessage());
         }
         System.out.println("main ended");
 
@@ -29,7 +31,7 @@ public class Main {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            System.out.println("The main thread was interrupted while waiting, we forcefully stop the ThreadPool");
+            System.err.println("The main thread was interrupted while waiting, we forcefully stop the ThreadPool");
             executorService.shutdownNow();
         }
     }
