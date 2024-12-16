@@ -7,9 +7,12 @@ import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 public class Student {
+    private static final AtomicInteger idGenerator = new AtomicInteger(1);
+    private final int id;
     @NonNull
     private final String firstName;
     @NonNull
@@ -20,6 +23,7 @@ public class Student {
     public Student(@JsonProperty("firstName") @NonNull String firstName,
                    @JsonProperty("lastName") @NonNull String lastName,
                    @JsonProperty("subjects") @NonNull Map<String, List<Integer>> subjects) {
+        this.id = idGenerator.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.subjects = subjects;

@@ -25,13 +25,9 @@ public class SchoolService {
         return List.copyOf(students);
     }
 
-    //По хорошему этот метод должен вызывать юзер, и возвращать стоит лист подходящих студентов,
-    // а юзер будет выбирать какой именно ему нужен, ну или добавить id студентам
-    // но по условию задачи это не прописано, поэтому так
-    public Student getStudentByFirstAndLastName(@NonNull String firstName, @NonNull String lastName) {
+    public Student getStudentById(int id) {
         return students.stream()
-                .filter(student -> student.getFirstName().equals(firstName)
-                        && student.getLastName().equals(lastName))
+                .filter(student -> student.getId() == id)
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
     }
@@ -48,7 +44,6 @@ public class SchoolService {
                 ));
     }
 
-    //Решил поменять на сразу на student, если где-то нужно, могут сначала получить студента соответствующим методом
     public Map<String, Integer> getStudentFinalGrades(@NonNull Student student) {
         return student.getSubjects()
                 .entrySet()
@@ -94,7 +89,6 @@ public class SchoolService {
                 } else {
                     studentRow.append(String.format(formatSupport + (subject.length() - 1) + "s ", "-"));
                 }
-
             }
 
             double finalGrade = totalGrades / amountOfSubjects;
