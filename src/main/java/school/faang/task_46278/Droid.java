@@ -46,7 +46,8 @@ public class Droid {
             for (char c : msg.toCharArray()) {
                 if (Character.isLetter(c)) {
                     char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    decryptedMessage.append((char) ((c - base - encryptionKey + ALPHABET_LENGTH) % ALPHABET_LENGTH + base));
+                    decryptedMessage.append((char)
+                            ((c - base - encryptionKey + ALPHABET_LENGTH) % ALPHABET_LENGTH + base));
                 } else {
                     decryptedMessage.append(c);
                 }
