@@ -4,16 +4,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ListOperation {
-    public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
-        Set<List<Integer>> pairs = new HashSet<>();
-        Set<Integer> set = new HashSet<>();
-        set.addAll(numbers);
-        pairs = numbers.stream()
-                .filter(num -> set.contains(sum - num))
+    public static List<List<Integer>> findPairs(List<Integer> numbers, int sum) {
+        return numbers.stream()
+                .filter(num -> numbers.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(Collections::sort)
-                .collect(Collectors.toSet());
-        return pairs;
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countries) {
