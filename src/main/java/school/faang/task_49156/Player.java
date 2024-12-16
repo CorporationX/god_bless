@@ -4,28 +4,28 @@ public class Player {
     private boolean isPlaying;
     private final Object lock = new Object();
 
-    public void play(){
-        synchronized (lock){
+    public void play() {
+        synchronized (lock) {
             isPlaying = true;
             System.out.println("isPlaying: " + isPlaying);
         }
     }
 
-    public void pause(){
-        synchronized (lock){
+    public void pause() {
+        synchronized (lock) {
             isPlaying = false;
             System.out.println("isPlaying: " + isPlaying);
         }
     }
 
-    public void skip(){
-        synchronized (lock){
+    public void skip() {
+        synchronized (lock) {
             System.out.println("Track skipped");
         }
     }
 
-    public void previous(){
-        synchronized (lock){
+    public void previous() {
+        synchronized (lock) {
             System.out.println("Player previous");
         }
     }

@@ -10,8 +10,6 @@ import java.util.function.Consumer;
 
 public class Music {
     public static void main(String[] args) {
-        Player player = new Player();
-
         List<Consumer<Player>> consumers = new ArrayList<>();
         consumers.add(Player::play);
         consumers.add(Player::skip);
@@ -20,6 +18,7 @@ public class Music {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         Random rand = new Random();
+        Player player = new Player();
 
         executor.scheduleAtFixedRate(() -> {
             int index = rand.nextInt(0, consumers.size());
@@ -28,13 +27,12 @@ public class Music {
         }, 0, 1, TimeUnit.SECONDS);
 
         try {
-           if(executor.awaitTermination(5, TimeUnit.SECONDS)){
-               System.out.println("Работа завершена полноценно");
-           }
-           else{
-               executor.shutdownNow();
-               System.out.println("Принудительное завершение");
-           }
+            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Работа завершена полноценно");
+            } else {
+                executor.shutdownNow();
+                System.out.println("Принудительное завершение");
+            }
         } catch (InterruptedException e) {
             System.out.println("Ошибка выполнения потока");
         }
