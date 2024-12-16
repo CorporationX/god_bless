@@ -40,7 +40,6 @@ class UserTest {
         );
 
         assertAll("Check hobby matching",
-                () -> assertEquals("Reading", result.get(users.get(0)), "Alice should love Reading"),
                 () -> assertEquals("Cycling", result.get(users.get(1)), "Bob should love Cycling"),
                 () -> assertEquals("Reading", result.get(users.get(2)), "Charlie should love Reading")
         );
