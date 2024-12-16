@@ -1,10 +1,8 @@
 package school.faang.bjs24722;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,15 +14,9 @@ public class ListOperations {
     public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> numbers, int sum) {
         return numbers.stream()
                 .distinct()
-                .filter(n -> numbers.contains(sum - n))
-                .map(n -> {
-                    int a = n;
-                    int b = sum - n;
-                    return a < b ? Map.entry(a, b) : Map.entry(b, a);
-                })
-                .distinct()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .map(num -> Arrays.asList(num, sum - num))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
     }
 
     public static List<String> sortCountriesAndEnterCapitals(Map<String, String> countriesAndCapitals) {
