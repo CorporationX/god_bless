@@ -6,13 +6,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
     public List<String> topActiveUsers(List<UserAction> actions) {
         checkActions(actions);
         return actions.stream()
+                .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -24,14 +27,13 @@ public class UserActionAnalyzer {
     public List<String> topPopularHashtags(List<UserAction> actions) {
         checkActions(actions);
         return actions.stream()
-                .filter(action -> action.getContent() != null
-                        && !action.getContent().isEmpty()
-                        && List.of("post", "comment").contains(action.getActionType()))
+                .filter(Objects::nonNull)
+                .filter(isValidAction())
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())  // Сортировка по частоте
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(5)
                 .map(Map.Entry::getKey).toList();
 
@@ -42,8 +44,10 @@ public class UserActionAnalyzer {
 
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
+                .filter(Objects::nonNull)
                 .filter(action ->
-                        action.getActionType().equals("comment") && action.getActionDate().isAfter(oneMonthAgo))
+                        Objects.equals(action.getActionType(), "comment")
+                                && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -55,6 +59,7 @@ public class UserActionAnalyzer {
         checkActions(actions);
         int actionsSize = actions.size();
         return actions.stream()
+                .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
@@ -65,5 +70,12 @@ public class UserActionAnalyzer {
         if (actions == null) {
             throw new CheckException("actions");
         }
+    }
+
+    private Predicate<UserAction> isValidAction() {
+        return action -> action != null
+                && action.getContent() != null
+                && !action.getContent().isEmpty()
+                && List.of("post", "comment").contains(action.getActionType());
     }
 }
