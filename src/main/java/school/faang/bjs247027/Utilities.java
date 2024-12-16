@@ -17,14 +17,14 @@ public class Utilities {
     public static Integer findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compare)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("Maximum number is not present"));
     }
 
     public static Double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(number -> number)
                 .average()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("Average number is not present"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char ch) {
@@ -53,7 +53,7 @@ public class Utilities {
         return integers.stream()
                 .filter(integer -> integer > target)
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("Minimum number is not present"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
