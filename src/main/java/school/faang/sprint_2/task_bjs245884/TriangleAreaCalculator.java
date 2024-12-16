@@ -4,11 +4,11 @@ import java.util.function.Function;
 
 public class TriangleAreaCalculator {
 
-    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    Function<Double, Double> squareRoot = Math::sqrt;
+    private final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    private final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    private final Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    private final Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    private final Function<Double, Double> squareRoot = Math::sqrt;
 
     public static void main(String[] args) {
         TriangleAreaCalculator calculator = new TriangleAreaCalculator();
@@ -29,20 +29,15 @@ public class TriangleAreaCalculator {
             throw new IllegalArgumentException("Невозможно создать треугольник с указанными сторонами");
         }
 
-        double halfPerimeter = divide.apply(
-                add.apply(sideA).apply(
-                        add.apply(sideB).apply(sideC)
-                )
-        ).apply(2.0);
-        double perimeterMinusSideA = subtract.apply(halfPerimeter).apply(sideA);
-        double perimeterMinusSideB = subtract.apply(halfPerimeter).apply(sideB);
-        double perimeterMinusSideC = subtract.apply(halfPerimeter).apply(sideC);
-        return squareRoot.apply(
-                multiply.apply(halfPerimeter).apply(
-                        multiply.apply(perimeterMinusSideA).apply(
-                                multiply.apply(perimeterMinusSideB).apply(perimeterMinusSideC)
-                        )
-                )
-        );
+        double aPlusB = add.apply(sideA).apply(sideB);
+        double perimeter = add.apply(aPlusB).apply(sideC);
+        double p = divide.apply(perimeter).apply(2.0);
+        double pMinusA = subtract.apply(p).apply(sideA);
+        double pMinusB = subtract.apply(p).apply(sideB);
+        double pMinusC = subtract.apply(p).apply(sideC);
+        double productPa = multiply.apply(p).apply(pMinusA);
+        double productPab = multiply.apply(productPa).apply(pMinusB);
+        double productPabc = multiply.apply(productPab).apply(pMinusC);
+        return squareRoot.apply(productPabc);
     }
 }
