@@ -12,8 +12,6 @@ public class Main {
 
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
-
-        // Регистрация обработчиков оповещений
         notificationManager.registerHandler("email",
                 (notification) -> log.info("Отправлено email оповещение: {}", notification.getMessage())
         );
@@ -26,8 +24,6 @@ public class Main {
                 (notification) -> log.info("Отправлено push-уведомление: {}", notification.getMessage())
         );
 
-        // Регистрация фильтров
-        // Спам
         notificationManager.addFilter("Спам",
                 (notification) -> {
                     String message = notification.getMessage();
@@ -43,7 +39,6 @@ public class Main {
                 }
         );
 
-        // Цензура
         notificationManager.addFilter("Цензура",
                 (notification) -> {
                     String[] words = notification.getMessage().toLowerCase().split(" ");
@@ -63,11 +58,9 @@ public class Main {
                 }
         );
 
-        // Создание фильтров
         Filter filterBadWords = new Filter("Цензура");
         Filter filterSpam = new Filter("Спам");
 
-        // Отправка оповещений
         Notification emailNotification = new Notification("email", "Я твою маму плохоеcлово1");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Поздравляем! Вы выйграли в казино");

@@ -13,7 +13,7 @@ public class NotificationManager {
     static Map<String, Consumer<Notification>> handlerTypeNotification = new HashMap<>();
     static Map<String, Predicate<Notification>> handlerTypeFilter = new HashMap<>();
 
-    void registerHandler(String type, Consumer<Notification> handler) {
+    public void registerHandler(String type, Consumer<Notification> handler) {
         if (type != null && !type.isEmpty() && handler != null) {
             handlerTypeNotification.put(type, handler);
         } else {
@@ -21,7 +21,7 @@ public class NotificationManager {
         }
     }
 
-    void sendNotification(Notification notification, List<Filter> filters) {
+    public void sendNotification(Notification notification, List<Filter> filters) {
         String type = notification.getType();
 
         if (handlerTypeNotification.containsKey(type)) {
@@ -49,11 +49,11 @@ public class NotificationManager {
         }
     }
 
-    void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) {
         sendNotification(notification, null);
     }
 
-    void addFilter(String typeFilter, Predicate<Notification> filter) {
+    public void addFilter(String typeFilter, Predicate<Notification> filter) {
         if (typeFilter != null && filter != null && !typeFilter.isEmpty()) {
             handlerTypeFilter.put(typeFilter, filter);
             log.info("Фильтр добавлен для типа: {}", typeFilter);

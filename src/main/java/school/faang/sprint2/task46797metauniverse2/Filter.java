@@ -14,7 +14,7 @@ class Filter {
     private final String typeFilter;
     private final List<Notification> filteredNotifications = new ArrayList<>();
 
-    Filter(String typeFilter) {
+    public Filter(String typeFilter) {
         this.typeFilter = typeFilter;
     }
 
