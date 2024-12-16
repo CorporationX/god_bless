@@ -10,7 +10,7 @@ public class GriffinsFoodDelivery {
     private static final Random random = new Random();
     private static final int THREAD_POOL_AMOUNT = 3;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         int randomfoodAmount = random.nextInt(50) + 1;
@@ -23,7 +23,11 @@ public class GriffinsFoodDelivery {
         }
 
         executorService.shutdown();
-        executorService.awaitTermination(5, TimeUnit.SECONDS);
+        try {
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
