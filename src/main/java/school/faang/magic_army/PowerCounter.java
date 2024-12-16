@@ -11,6 +11,6 @@ public class PowerCounter extends Thread {
 
     @Override
     public void run() {
-         this.currentPower = unit.getPower();
+        this.currentPower = unit.getPower();
     }
 }

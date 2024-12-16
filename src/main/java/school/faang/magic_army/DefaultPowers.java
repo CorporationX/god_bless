@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class DefaultPowers {
-    public final int ARCHER_POWER = 25;
-    public final int SWORDSMAN_POWER = 40;
-    public final int MAGE_POWER = 50;
+    public static final int ARCHER_POWER = 25;
+    public static final int SWORDSMAN_POWER = 40;
+    public static final int MAGE_POWER = 50;
 }

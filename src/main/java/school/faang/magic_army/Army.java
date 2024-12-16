@@ -1,8 +1,11 @@
 package school.faang.magic_army;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Army {
     private final List<Unit> armyUnits = new ArrayList<>();
 
@@ -12,19 +15,20 @@ public class Army {
 
     public int calculateTotalPower() {
         int totalPower = 0;
-        List<Thread> PowerCounter = new ArrayList<>();
+        List<PowerCounter> unitPowers = new ArrayList<>();
 
-        armyUnits.forEach(unit -> { Thread powerCounter = new PowerCounter(unit);
-            PowerCounter.add(powerCounter);
+        armyUnits.forEach(unit -> {
+            PowerCounter powerCounter = new PowerCounter(unit);
+            unitPowers.add(powerCounter);
             powerCounter.start();
         });
 
-        for (Thread thread : PowerCounter) {
+        for (PowerCounter powerCounter : unitPowers) {
             try {
-                thread.join();
-                totalPower += thread.
+                powerCounter.join();
+                totalPower += powerCounter.getCurrentPower();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
 
