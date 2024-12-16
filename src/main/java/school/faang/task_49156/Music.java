@@ -36,7 +36,7 @@ public class Music {
                System.out.println("Принудительное завершение");
            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Ошибка выполнения потока");
         }
 
         System.out.println("Произведение закончено");
