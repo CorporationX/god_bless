@@ -16,15 +16,14 @@ class RecommendationServiceTest {
     @BeforeEach
     void setUp() {
         List<UserProfile> users = new ArrayList<>();
-        List<Product> products = new ArrayList<>();
-        List<ProductOrder> orders = new ArrayList<>();
-
         users.add(new UserProfile(1, "Male", 30, "New York", List.of("electronics", "gaming")));
         users.add(new UserProfile(2, "Female", 28, "New York", List.of("fashion", "electronics")));
 
+        List<Product> products = new ArrayList<>();
         products.add(new Product(1, "Laptop", "Electronics", 1000.0f, List.of("electronics")));
         products.add(new Product(2, "Dress", "Fashion", 50.0f, List.of("fashion")));
 
+        List<ProductOrder> orders = new ArrayList<>();
         orders.add(new ProductOrder(1, 1, LocalDateTime.now()));
         orders.add(new ProductOrder(2, 2, LocalDateTime.now()));
 
