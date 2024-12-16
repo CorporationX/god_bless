@@ -41,7 +41,8 @@ public class Droid {
     }
 
     public void receiveMessage(String message, Integer encryptionKey, Droid droid) {
-        System.out.printf("%s получил расшифрованное сообщение: %s%n", droid.getName(), decryptMessage(message, encryptionKey));
+        System.out.printf("%s получил расшифрованное сообщение: %s%n", droid.getName(),
+                decryptMessage(message, encryptionKey));
     }
 
     public void sendMessage(Droid droid, String message, Integer encryptionKey) {
