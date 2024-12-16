@@ -11,6 +11,6 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         IntStream.range(startIndex, endIndex)
-                .forEach(i -> System.out.println("Письмо отправлено: " + i));
+                .forEach(i -> System.out.println("Письмо отпрвлено: " + i));
     }
 }
