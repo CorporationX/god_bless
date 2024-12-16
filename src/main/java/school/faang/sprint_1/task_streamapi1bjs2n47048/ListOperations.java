@@ -1,9 +1,12 @@
 package school.faang.sprint_1.task_streamapi1bjs2n47048;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+@Slf4j
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> listInteger) {
         return listInteger.stream()
@@ -13,8 +16,11 @@ public class ListOperations {
 
     public static int findMax(List<Integer> listInteger) {
         return listInteger.stream()
-                .max(Integer::compare).orElseThrow();
-
+                .max(Integer::compare).orElseThrow(
+                        () -> {
+                            log.info("null value in findMax method");
+                            return new NullPointerException("Value by orElseThrow() in findMax method");
+                        });
     }
 
     public static double findAverage(List<Integer> listInteger) {

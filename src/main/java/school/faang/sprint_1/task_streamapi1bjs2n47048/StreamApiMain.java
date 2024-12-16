@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 public class StreamApiMain {
     public static void main(String[] args) {
         Logger loggerMain = LoggerFactory.getLogger("loggerMain");
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, null);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<Integer> numbers2 = Arrays.asList(2, 4, 6);
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
@@ -26,7 +26,7 @@ public class StreamApiMain {
             loggerMain.info("Все ли числа чётные? {}", ListOperations.allMatchCondition(numbers2, n -> n % 2 == 0));
             loggerMain.info("Наименьшее число больше 4: {}", ListOperations.findMinGreaterThan(numbers, 4));
             loggerMain.info("Длины строк: {}", ListOperations.convertToLengths(strings));
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
