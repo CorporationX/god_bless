@@ -22,7 +22,7 @@ public class Main {
             });
         }
 
-        if (!executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+        if (!executorService.awaitTermination(20, TimeUnit.SECONDS)) {
             executorService.shutdown();
             System.out.println("Shutdown!");
         }
