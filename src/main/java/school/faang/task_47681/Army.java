@@ -19,14 +19,11 @@ public class Army {
 
         units.parallelStream()
                 .mapToInt(Unit::getPower)
-                .forEach(power -> {
-                    synchronized (totalPower) {
-                        totalPower.addAndGet(power);
-                    }
-                });
+                .forEach(totalPower::addAndGet);
 
         return totalPower.get();
     }
+
 
     public List<Unit> getUnits() {
         synchronized (units) {
