@@ -26,8 +26,8 @@ public class UserActionAnalyzer {
 
         var whitespaces = "\\s+";
         return userActions.stream()
-                .filter(action -> action.getActionType() == ActionType.POST ||
-                        action.getActionType() == ActionType.COMMENT)
+                .filter(action -> action.getActionType() == ActionType.POST
+                        || action.getActionType() == ActionType.COMMENT)
                 .flatMap(action -> Arrays.stream(action.getContent().split(whitespaces)))
                 .filter(tag -> tag.startsWith("#"))
                 .collect(Collectors.groupingBy(String::valueOf, Collectors.counting()))
@@ -43,8 +43,8 @@ public class UserActionAnalyzer {
 
         var oneMonthAgo = LocalDate.now().minusMonths(1);
         return userActions.stream()
-                .filter(action -> action.getActionType() == ActionType.COMMENT &&
-                        action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action -> action.getActionType() == ActionType.COMMENT
+                        && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
