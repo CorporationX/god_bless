@@ -15,8 +15,4 @@ public class UserAction {
     private final ActionType actionType;
     private final LocalDate date;
     private final String content;
-
-    public enum ActionType {
-        POST, COMMENT, LIKE, SHARE
-    }
 }
