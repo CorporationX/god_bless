@@ -47,11 +47,11 @@ public class Droid {
     public void sendMessage(String message, int key, Droid droid) throws IllegalAccessException {
         if ((message == null) || (droid == null)) {
             throw new IllegalAccessException("Message or droid is null!!!");
-        } else {
-            System.out.println(this.getName() + " отправил зашифрованное сообщение: "
-                    + encryptMessage(message, key));
-            receiveMessage(encryptMessage(message, key), key, droid);
         }
+        System.out.println(this.getName() + " отправил зашифрованное сообщение: "
+                    + encryptMessage(message, key));
+        receiveMessage(encryptMessage(message, key), key, droid);
+
     }
 
     public void receiveMessage(String encryptMessage, int key, Droid droid) {
