@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 1; i <= 5; i++) {
@@ -15,7 +15,11 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("Done");
