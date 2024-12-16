@@ -1,7 +1,6 @@
-package sprint_2.task_47271;
+package school.faang.sprint_2.task_47271;
 
 import org.junit.jupiter.api.Test;
-import school.faang.sprint_2.task_47271.StreamOperations;
 
 import java.util.List;
 import java.util.Map;
