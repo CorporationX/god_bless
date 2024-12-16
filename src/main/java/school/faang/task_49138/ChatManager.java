@@ -19,6 +19,7 @@ public class ChatManager {
                 waitForChat();
             } else {
                 Chat chat = new Chat(user, secondUser);
+                chat.startChat();
 
                 userList.removeUser(user);
                 userList.removeUser(secondUser);
@@ -40,7 +41,7 @@ public class ChatManager {
     public void endChat(Chat chat, User user, User secondUser) throws InterruptedException {
         chat.endChat();
 
-        Thread.sleep(10000);
+        Thread.sleep(3000);
 
         userList.addUser(user);
         userList.addUser(secondUser);

@@ -10,6 +10,9 @@ public class Chat {
     public Chat(User firstUserToChat, User secondUserToChat) {
         this.firstUserToChat = firstUserToChat;
         this.secondUserToChat = secondUserToChat;
+    }
+
+    public void startChat() {
         System.out.println("Chat was started! " + firstUserToChat + " : " + secondUserToChat);
     }
 

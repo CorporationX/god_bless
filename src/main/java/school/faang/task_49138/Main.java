@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int BUFFER_SIZE = 15;
+
     public static void main(String[] args) throws InterruptedException {
         UserList userList = new UserList(new ArrayList<>());
         ChatManager chatManager = new ChatManager(userList);
