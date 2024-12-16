@@ -2,13 +2,16 @@ package school.faang.task_49206;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
-        TelegramBot telegramBot = new TelegramBot();
-        ExecutorService executorService = Executors.newFixedThreadPool(25);
+    private static final int BUFFER_SIZE = 25;
 
-        for (int i = 0; i < 25; i++) {
+    public static void main(String[] args) throws InterruptedException {
+        TelegramBot telegramBot = new TelegramBot();
+        ExecutorService executorService = Executors.newFixedThreadPool(BUFFER_SIZE);
+
+        for (int i = 0; i < BUFFER_SIZE; i++) {
             int finalI = i;
             executorService.execute(() -> {
                 try {
@@ -17,6 +20,11 @@ public class Main {
                     throw new RuntimeException(e);
                 }
             });
+        }
+
+        if (!executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+            executorService.shutdown();
+            System.out.println("Shutdown!");
         }
     }
 }

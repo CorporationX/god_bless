@@ -22,7 +22,8 @@ public class TelegramBot {
             if (lastRequestBeforeNow < 1000) {
                 requestCounter++;
             } else {
-                requestCounter = 0;
+                System.out.println("->");
+                requestCounter = 1;
                 lastRequestTime = System.currentTimeMillis();
             }
 
