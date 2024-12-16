@@ -1,5 +1,6 @@
 package school.faang;
 
-public class Main {
+import school.faang.bjs45629.SpellCaster;
 
+public class Main {
 }
