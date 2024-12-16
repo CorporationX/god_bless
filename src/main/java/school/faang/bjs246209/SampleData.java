@@ -11,11 +11,12 @@ public class SampleData {
         int encryptionKey1 = 3;
         int encryptionKey2 = 7;
 
-        r2d2.sendMessage(c3po, message1, encryptionKey1);
+        EncryptionService service = new EncryptionService();
 
-        c3po.sendMessage(r2d2, message2, encryptionKey2);
+        service.sendMessage(r2d2, c3po, message1, encryptionKey1);
 
-        bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
+        service.sendMessage(c3po, r2d2, message2, encryptionKey2);
 
+        service.sendMessage(bb8, c3po, "The mission is complete.", encryptionKey1);
     }
 }
