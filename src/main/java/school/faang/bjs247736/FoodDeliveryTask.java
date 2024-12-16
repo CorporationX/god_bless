@@ -6,10 +6,10 @@ public class FoodDeliveryTask implements Runnable {
 
     private final String character;
     private final int foodAmount;
-    private final String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
+    private static final String[] FOOD_TYPES = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
 
     private static final Random random = new Random();
-    int randomSeconds = random.nextInt(4001) + 1000;
+    private static final int RANDOM_SECONDS = random.nextInt(4001) + 1000;
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -17,7 +17,7 @@ public class FoodDeliveryTask implements Runnable {
     }
 
     private String getFoodType() {
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return FOOD_TYPES[new Random().nextInt(FOOD_TYPES.length)];
     }
 
     @Override
@@ -25,10 +25,12 @@ public class FoodDeliveryTask implements Runnable {
         String foodType = getFoodType();
         try {
             System.out.println(character + " gets " + foodAmount + " " + foodType);
-            Thread.sleep(randomSeconds);
+            Thread.sleep(RANDOM_SECONDS);
             System.out.println(character + " eats " + foodAmount + " " + foodType);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
         }
     }
 }
