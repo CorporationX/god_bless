@@ -3,29 +3,21 @@ package school.faang.streamapi_two;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class SolutionMethods {
     public Set<List<Integer>> findUniquePairs(List<Integer> list, int sumOfPair) {
-        Set<List<Integer>> foundPairs = new HashSet<>();
-//        Set<Integer> inputList = new HashSet<>();
-
-//        inputList.addAll(list);
-        foundPairs = list.stream()
-                .collect(Collectors.toSet())
-                .stream()
+        return list.stream()
+                .distinct()
                 .filter(number -> list.contains(sumOfPair - number))
                 .map(number -> Arrays.asList(number, sumOfPair - number))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return foundPairs;
     }
 
     public List<String> sortCapitalByAlphabet(Map<String, String> countries) {
@@ -35,9 +27,9 @@ public class SolutionMethods {
                 .toList();
     }
 
-    public List<String> findStringStartingWithCharAndSort(List<String> list, String startingChar) {
+    public List<String> findStringStartingWithCharAndSort(List<String> list, char startingChar) {
         List<String> result = list.stream()
-                .filter(str -> str.startsWith(startingChar, 0))
+                .filter(str -> str.startsWith(String.valueOf(startingChar)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
         if (result.isEmpty()) {
