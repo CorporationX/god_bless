@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int sumTwoNumber = 7;
-        System.out.println("Список пар сумма которых равна " + sumTwoNumber + " :" + ListOperations.foundPairsOfSum(numbers, sumTwoNumber));
+        System.out.println("Список пар сумма которых равна " + sumTwoNumber + " :"
+                + ListOperations.foundPairsOfSum(numbers, sumTwoNumber));
 
         Map<String, String> countries = new HashMap<>();
         countries.put("Russia", "Moscow");
@@ -40,7 +41,8 @@ public class Main {
         List<String> words = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-        System.out.println("Осортированный список с проверкой наличия букв : " + ListOperations.checkWordInAlphabet(words, alphabet));
+        System.out.println("Осортированный список с проверкой наличия букв : "
+                + ListOperations.checkWordInAlphabet(words, alphabet));
     }
 
 
