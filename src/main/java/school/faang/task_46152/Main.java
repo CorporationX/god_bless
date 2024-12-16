@@ -7,7 +7,7 @@ public class Main {
     public static String toCsv(List<List<String>> table) {
         VectorJoiner<String> vectorJoiner = vector -> {
             if (vector == null || vector.isEmpty()) {
-                throw new IllegalArgumentException("\nПустой список");
+                throw new IllegalArgumentException("\nОшибка: Пустой список вектора (строки таблицы)");
             }
             StringBuilder builder = new StringBuilder();
             builder.append(vector.get(0));
@@ -19,7 +19,7 @@ public class Main {
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
             if (matrix == null || matrix.isEmpty()) {
-                throw new IllegalArgumentException("\nПустой список");
+                throw new IllegalArgumentException("\nОшибка: Пустой список матрицы (таблицы)");
             }
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < matrix.size(); i++) {
