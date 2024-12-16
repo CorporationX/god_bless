@@ -28,7 +28,7 @@ public class Army {
         }
 
         for (PowerCalculator calculator : calculators) {
-            totalPower+= calculator.getPower();
+            totalPower += calculator.getPower();
         }
 
         return totalPower;
