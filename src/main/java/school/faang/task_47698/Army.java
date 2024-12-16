@@ -18,7 +18,7 @@ public class Army {
         units.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         Map<UnitType, List<Unit>> unitsByUnitType = units.stream()
                 .collect(Collectors.groupingBy(Unit::getUnitType));
 
@@ -32,9 +32,13 @@ public class Army {
 
         threads.forEach(Thread::start);
 
-        for (Thread thread : threads) {
-            thread.join();
-        }
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         return calculators.stream()
                 .mapToInt(PowerCalculator::getTotalPower)
