@@ -1,6 +1,6 @@
 package school.faang.workinginmicrosoft;
 
-public class SenderRunnable implements Runnable{
+public class SenderRunnable implements Runnable {
     int startIndex;
     int endIndex;
 
