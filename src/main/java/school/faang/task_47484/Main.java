@@ -82,6 +82,9 @@ public class Main {
 
 
     public static Map<String, Double> calculateAverageSalaryByDepartment(List<Employee> emp) {
+        if (emp == null || emp.isEmpty()) {
+            return Collections.emptyMap();
+        }
         return emp.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.averagingInt(Employee::getSalary)));
