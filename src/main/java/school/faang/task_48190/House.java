@@ -16,8 +16,9 @@ import java.util.stream.Stream;
 public class House {
     private List<Room> rooms;
     private List<Food> collectedFoods;
+    private static final int BUFFER_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Food> foods = List.of(
                 new Food("apple"), new Food("banana"), new Food("meat"), new Food("cheese"),
                 new Food("fish"), new Food("bread"), new Food("milk"), new Food("eggs"),
@@ -33,32 +34,56 @@ public class House {
         );
 
         House house = new House(rooms, new ArrayList<>());
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(BUFFER_SIZE);
 
-        int bufferSize = 5;
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(bufferSize);
-
-        executorService.scheduleAtFixedRate(
+        executorService.scheduleWithFixedDelay(
                 () -> {
-                    house.collectFood();
-                    if (house.allFoodCollected()) {
-                        executorService.shutdown();
-                        System.out.println("All food was collected");
+                    synchronized (house) {
+                        house.collectFood();
+                        if (house.allFoodCollected()) {
+                            executorService.shutdown();
+                            System.out.println("All food was collected");
+                        }
                     }
-                }, 0, 30, TimeUnit.MILLISECONDS);
+                }, 0, 5000, TimeUnit.MILLISECONDS);
+
+        try {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                System.out.println("Forcing shutdown...");
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while waiting for termination");
+            executorService.shutdownNow();
+        }
     }
 
     public void collectFood() {
+        if (rooms.size() < 2) {
+            System.out.println("No rooms!");
+            return;
+        }
+
         Random randomIndex = new Random();
-        int firstIndex = randomIndex.nextInt(rooms.size());
+        int firstIndex;
+        while (true) {
+            firstIndex = randomIndex.nextInt(rooms.size());
+            if (!rooms.get(firstIndex).getFoods().isEmpty()) {
+                break;
+            }
+        }
+
         int secondIndex;
-        do {
+        while (true) {
             secondIndex = randomIndex.nextInt(rooms.size());
-        } while (firstIndex == secondIndex);
+            if (firstIndex != secondIndex && !rooms.get(secondIndex).getFoods().isEmpty()) {
+                break;
+            }
+        }
 
         Stream<Food> firstRandomFood = rooms.get(firstIndex).getFoods().stream();
         Stream<Food> secondRandomFood = rooms.get(secondIndex).getFoods().stream();
-        collectedFoods = Stream.concat(firstRandomFood, secondRandomFood)
-                .toList();
+        collectedFoods.addAll(Stream.concat(firstRandomFood, secondRandomFood).toList());
 
         rooms.get(firstIndex).getFoods().clear();
         rooms.get(secondIndex).getFoods().clear();
