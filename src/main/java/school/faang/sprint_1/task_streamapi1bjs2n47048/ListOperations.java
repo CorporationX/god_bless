@@ -3,8 +3,6 @@ package school.faang.sprint_1.task_streamapi1bjs2n47048;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> listInteger) {
@@ -15,7 +13,8 @@ public class ListOperations {
 
     public static int findMax(List<Integer> listInteger) {
         return listInteger.stream()
-                .max(Integer::compare).get();
+                .max(Integer::compare).orElseThrow();
+
     }
 
     public static double findAverage(List<Integer> listInteger) {
@@ -49,10 +48,10 @@ public class ListOperations {
                 .size();
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int refValue ) {
+    public static int findMinGreaterThan(List<Integer> numbers, int refValue) {
         return numbers.stream()
                 .filter(n -> n > refValue)
-                .mapToInt(x->x).min().getAsInt();
+                .mapToInt(x -> x).min().orElseThrow();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
@@ -60,5 +59,4 @@ public class ListOperations {
                 .map(String::length)
                 .toList();
     }
-
 }
