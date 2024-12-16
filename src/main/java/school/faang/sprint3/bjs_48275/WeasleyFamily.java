@@ -18,17 +18,22 @@ public class WeasleyFamily {
 
     private static String[] fillingChoresList() {
         String[] chores = new String[10];
+        String[] choreList = {
+                "помыть посуду",
+                "подмести пол",
+                "пропылесосить",
+                "сходить в магазин",
+                "вынести мусор",
+                "покормить кота",
+                "приготовить ужин",
+                "заправить постель",
+                "погладить белье",
+                "поменять лампочку"
+        };
 
-        chores[0] = "помыть посуду";
-        chores[1] = "подмести пол";
-        chores[2] = "пропылесосить";
-        chores[3] = "сходить в магазин";
-        chores[4] = "вынести мусор";
-        chores[5] = "покормить кота";
-        chores[6] = "приготовить ужин";
-        chores[7] = "заправить постель";
-        chores[8] = "погладить белье";
-        chores[9] = "поменять лампочку";
+        for (int i = 0; i < chores.length; i++) {
+            chores[i] = choreList[i];
+        }
 
         return chores;
     }
