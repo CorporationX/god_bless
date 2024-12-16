@@ -5,11 +5,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Main {
+    public static final String CSV_DELIMITER = ", ";
     private static final VectorJoiner<String> STRINGS_VECTOR_JOINER = vector -> {
         if (vector == null || vector.isEmpty()) {
             throw new IllegalArgumentException("Null or empty vector");
         }
-        return String.join(", ", vector);
+        return String.join(CSV_DELIMITER, vector);
     };
     private static final MatrixJoiner<String> STRINGS_MATRIX_JOINER = matrix -> {
         if (matrix == null || matrix.isEmpty()) {
@@ -26,7 +27,7 @@ public class Main {
         }
         return vector.stream()
                 .map(Objects::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(CSV_DELIMITER));
     };
     private static final MatrixJoiner<Integer> INTEGERS_MATRIX_JOINER = matrix -> {
         if (matrix == null || matrix.isEmpty()) {
