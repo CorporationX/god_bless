@@ -2,6 +2,7 @@ package school.faang.task_47130;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -21,13 +22,13 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("element not found"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average().orElseThrow();
+                .average().orElseThrow(() -> new NoSuchElementException("element not found"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char c) {
@@ -52,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > number)
                 .min(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("element not found"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
