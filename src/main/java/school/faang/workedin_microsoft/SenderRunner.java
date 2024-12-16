@@ -2,10 +2,10 @@ package school.faang.workedin_microsoft;
 
 import java.util.List;
 
-public class SenderRunner implements Runnable{
-    private List<Letter> letters;
-    private int startIndex;
-    private int endIndex;
+public class SenderRunner implements Runnable {
+    private final List<Letter> letters;
+    private final int startIndex;
+    private final int endIndex;
 
     public SenderRunner(List<Letter> letters, int startIndex, int endIndex) {
         this.letters = letters;
@@ -20,9 +20,5 @@ public class SenderRunner implements Runnable{
                 System.out.println("Message " + letters.get(currentIndex).id() + " has been sent");
             }
         }
-    }
-
-    public void setLetters(List<Letter> letters) {
-        this.letters = letters;
     }
 }
