@@ -26,7 +26,8 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> userActions) {
         String hashtags = "#";
         return userActions.stream()
-                .filter(a -> a.content() != null && a.actionType().equals(ActionType.POST) || a.actionType().equals(ActionType.COMMENT))
+                .filter(a -> a.content() != null && a.actionType().equals(ActionType.POST)
+                        || a.actionType().equals(ActionType.COMMENT))
                 .flatMap(a -> Arrays.stream(Objects.requireNonNull(a.content()).split("\\s+")))
                 .filter(w -> w.startsWith(hashtags))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
