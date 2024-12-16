@@ -13,7 +13,7 @@ public class StreamOperations {
 
     public static List<Pair<Integer, Integer>> collectPair(List<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(num ->numbers.contains(sum - num))
+                .filter(num -> numbers.contains(sum - num))
                 .map(num -> {
                     Pair<Integer, Integer> pair = Pair.of(num, sum - num);
                     Collections.reverse(numbers);
