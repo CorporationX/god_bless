@@ -30,7 +30,7 @@ public class Main {
         productManager.addItem("Electronics", "Phone");
         productManager.addItem("Garden", "Lawn Mower");
         productManager.addItem("Furniture", "Dining Table");
-        
+
         logger.info("### Find products by category:");
         productManager.findItemsByCategory("Electronics");
         productManager.findItemsByCategory("Garden");
@@ -50,7 +50,7 @@ public class Main {
 
     protected static Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         if (products == null || products.isEmpty()) {
-            throw new IllegalArgumentException("No products found");
+            throw new IllegalArgumentException("Product list is null or empty");
         }
 
         Map<String, List<Product>> productsByCategory = new HashMap<>();
