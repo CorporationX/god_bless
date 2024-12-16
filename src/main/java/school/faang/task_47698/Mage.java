@@ -6,4 +6,10 @@ public class Mage extends Unit {
     public Mage() {
         super(DEFAULT_POWER);
     }
+
+    @Override
+    public UnitType getUnitType() {
+        return UnitType.MAGE;
+    }
+
 }

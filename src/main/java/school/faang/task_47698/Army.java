@@ -4,7 +4,8 @@ import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Army {
     private final List<Unit> units;
@@ -18,40 +19,24 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        final int threadsCount = 3;
-        final int batchSize = units.size() / threadsCount;
+        Map<UnitType, List<Unit>> unitsByUnitType = units.stream()
+                .collect(Collectors.groupingBy(Unit::getUnitType));
 
-        final int initialCapacity = threadsCount + 1;
-        final List<Thread> threads = new ArrayList<>(initialCapacity);
-        final List<PowerCalculator> tasks = new ArrayList<>(initialCapacity);
+        List<PowerCalculator> calculators = unitsByUnitType.values().stream()
+                .map(PowerCalculator::new)
+                .toList();
 
-        Consumer<PowerCalculator> registerAndStart = calculator -> {
-            tasks.add(calculator);
-            Thread thread = new Thread(calculator);
-            threads.add(thread);
-            thread.start();
-        };
+        List<Thread> threads = calculators.stream()
+                .map(Thread::new)
+                .toList();
 
-        for (int i = 0; i < threadsCount; i++) {
-            int startIndex = i * batchSize;
-            int endIndex = startIndex + batchSize;
-
-            registerAndStart.accept(new PowerCalculator(units, startIndex, endIndex));
-        }
-
-        final int remainingUnitsCount = units.size() - batchSize * threadsCount;
-        if (remainingUnitsCount > 0) {
-            int startIndex = batchSize * threadsCount;
-            int endIndex = startIndex + remainingUnitsCount;
-
-            registerAndStart.accept(new PowerCalculator(units, startIndex, endIndex));
-        }
+        threads.forEach(Thread::start);
 
         for (Thread thread : threads) {
             thread.join();
         }
 
-        return tasks.stream()
+        return calculators.stream()
                 .mapToInt(PowerCalculator::getTotalPower)
                 .sum();
     }

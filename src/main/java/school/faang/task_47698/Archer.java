@@ -6,4 +6,10 @@ public class Archer extends Unit {
     public Archer() {
         super(DEFAULT_POWER);
     }
+
+    @Override
+    public UnitType getUnitType() {
+        return UnitType.ARCHER;
+    }
+
 }

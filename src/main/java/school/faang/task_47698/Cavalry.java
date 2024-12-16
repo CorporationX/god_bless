@@ -6,4 +6,10 @@ public class Cavalry extends Unit {
     public Cavalry() {
         super(DEFAULT_POWER);
     }
+
+    @Override
+    public UnitType getUnitType() {
+        return UnitType.CAVALRY;
+    }
+
 }

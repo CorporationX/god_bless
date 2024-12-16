@@ -6,4 +6,10 @@ public class Swordsman extends Unit {
     public Swordsman() {
         super(DEFAULT_POWER);
     }
+
+    @Override
+    public UnitType getUnitType() {
+        return UnitType.SWORDSMAN;
+    }
+
 }

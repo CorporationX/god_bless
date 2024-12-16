@@ -13,4 +13,6 @@ public abstract class Unit {
     public int getPower() {
         return power;
     }
+
+    public abstract UnitType getUnitType();
 }
