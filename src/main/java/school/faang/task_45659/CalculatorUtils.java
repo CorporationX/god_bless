@@ -3,7 +3,7 @@ package school.faang.task_45659;
 import java.util.List;
 
 public class CalculatorUtils {
-    public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalAccessException {
+    public static int calculate(List<Integer> nums, Calculator calculator) {
         if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("Список не должен быть пустым");
         }
@@ -15,11 +15,11 @@ public class CalculatorUtils {
         return result;
     }
 
-    public static int product(List<Integer> nums) throws IllegalAccessException {
+    public static int product(List<Integer> nums) {
         return calculate(nums, (a, b) -> a * b);
     }
 
-    public static int sum(List<Integer> nums) throws IllegalAccessException {
+    public static int sum(List<Integer> nums) {
         return calculate(nums, (a, b) -> a + b);
     }
 
