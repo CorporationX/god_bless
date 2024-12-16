@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Data
 @AllArgsConstructor
 public class House {
-    private List<Room> rooms;
+    private final List<Room> rooms;
     private List<Food> collectedFoods;
     private static final int BUFFER_SIZE = 5;
 
