@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class Notification {
-    String type;
-    String message;
+    private String type;
+    private String message;
 
     public Notification(String type, String message) {
         this.type = type;
