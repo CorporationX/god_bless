@@ -6,7 +6,9 @@ import java.util.function.Supplier;
 public class Main {
     public static void main(String[] args) {
         String res = withErrorHandling(() -> {
-            if (1 == 1) throw new RuntimeException();
+            if (1 == 1) {
+                throw new RuntimeException();
+            }
             return "Hello, world! (Main)";
         }, e -> {
             if (e instanceof RuntimeException) {
