@@ -15,9 +15,11 @@ public class Army {
         fighters.add(fighter);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int sumOfPower = 0;
         List<TheadForCalculation> threads = new ArrayList<>();
+
+        TheadForCalculation thread = new TheadForCalculation(fighter);
 
         for (Fighter fighter : fighters) {
             TheadForCalculation thead = new TheadForCalculation(fighter);
@@ -26,7 +28,11 @@ public class Army {
         }
 
         for (TheadForCalculation thead : threads) {
-            thead.join();
+            try {
+                thead.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         for (TheadForCalculation thead : threads) {
