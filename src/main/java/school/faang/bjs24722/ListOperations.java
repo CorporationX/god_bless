@@ -41,11 +41,8 @@ public class ListOperations {
     public static List<String> filterByAbcAndSortAscStrings(List<String> strings, String abc) {
         String regex = "[" + abc + "]+";
         Pattern pattern = Pattern.compile(regex);
-        return strings.stream().filter(
-                        str -> {
-                            Matcher matcher = pattern.matcher(str);
-                            return matcher.find();
-                        })
+        return strings.stream()
+                .filter(s -> pattern.matcher(s).find())
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 }
