@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Droid {
-    private final String NAME;
+    private String name;
 
     public String encryptMessage(String message, int key) {
         DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
@@ -41,12 +41,12 @@ public class Droid {
     }
 
     public void receiveMessage(String message, Integer encryptionKey, Droid droid) {
-        System.out.printf("%s получил расшифрованное сообщение: %s%n", droid.getNAME(), decryptMessage(message, encryptionKey));
+        System.out.printf("%s получил расшифрованное сообщение: %s%n", droid.getName(), decryptMessage(message, encryptionKey));
     }
 
     public void sendMessage(Droid droid, String message, Integer encryptionKey) {
         String encryptMessage = encryptMessage(message, encryptionKey);
-        System.out.printf("%s отправил зашифрованное сообщение: %s%n", this.NAME, encryptMessage);
+        System.out.printf("%s отправил зашифрованное сообщение: %s%n", this.name, encryptMessage);
         receiveMessage(encryptMessage, encryptionKey, droid);
     }
 }
