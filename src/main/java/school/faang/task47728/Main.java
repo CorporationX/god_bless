@@ -43,7 +43,8 @@ public class Main {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                logger.error(e.getMessage());
+                Thread.currentThread().interrupt();
+                logger.error("Поток был прерван во время ожидания завершения потока {}", e.getMessage());
             }
         });
 
