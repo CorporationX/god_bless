@@ -1,15 +1,13 @@
 package school.faang.trainingstreamapi2;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 1, 4, 0, 3, 7);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 1, 4, 0, 3, 7);
         int targetNumber = 7;
-        List<String> strings = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
+        List<String> strings = List.of("apple", "banana", "cherry", "date", "fig", "grape");
         char symbol = 'a';
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -22,10 +20,11 @@ public class Main {
         System.out.println("Фильтрация строк по алфавиту и сортировка по длине: "
                 + CollectionOperations.filterAndSortByLength(strings, alphabet));
 
-        Map<String, String> map = new HashMap<>();
-        map.put("Russia", "Moscow");
-        map.put("USA", "Washington");
-        map.put("Germany", "Berlin");
+        Map<String, String> map = Map.of(
+                "Russia", "Moscow",
+                "USA", "Washington",
+                "Germany", "Berlin"
+        );
         System.out.println("Отсортированные по странам столицы : "
                 + CollectionOperations.getSortedCapitals(map));
     }

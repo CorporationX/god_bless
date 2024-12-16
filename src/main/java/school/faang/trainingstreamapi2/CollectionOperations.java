@@ -1,7 +1,6 @@
 package school.faang.trainingstreamapi2;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -12,14 +11,12 @@ import java.util.stream.Collectors;
 public class CollectionOperations {
 
     public static Set<List<Integer>> findUniqueNumberPairs(List<Integer> numbers, int targetNumber) {
-        Set<List<Integer>> pairs = new HashSet<>();
         Set<Integer> set = new HashSet<>(numbers);
-        pairs = set.stream()
+        return set.stream()
                 .filter(number -> set.contains(targetNumber - number))
                 .map(number -> Arrays.asList(number, targetNumber - number))
-                .peek(Collections::sort)
+                .map(pair -> pair.stream().sorted().toList())
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countryCapital) {
