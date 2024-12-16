@@ -19,12 +19,12 @@ public class Army {
         int sumOfPower = 0;
         List<TheadForCalculation> threads = new ArrayList<>();
 
-        TheadForCalculation thread = new TheadForCalculation(fighter);
+        TheadForCalculation thread;
 
         for (Fighter fighter : fighters) {
-            TheadForCalculation thead = new TheadForCalculation(fighter);
-            threads.add(thead);
-            thead.start();
+            thread = new TheadForCalculation(fighter);
+            threads.add(thread);
+            thread.start();
         }
 
         for (TheadForCalculation thead : threads) {
