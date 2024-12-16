@@ -48,8 +48,8 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int target) {
-        return numbers.stream().
-                filter(num -> num > target)
+        return numbers.stream()
+                .filter(num -> num > target)
                 .min(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("Не нашлось подходящего элемента"));
     }
