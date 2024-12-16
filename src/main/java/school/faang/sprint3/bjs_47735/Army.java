@@ -11,13 +11,17 @@ public class Army {
         units.add(warrior);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         AtomicInteger sumPower = new AtomicInteger();
 
         for (Warrior warrior : units) {
             Thread thread = new Thread(() -> sumPower.addAndGet(warrior.getPower()));
             thread.start();
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         return sumPower.get();
