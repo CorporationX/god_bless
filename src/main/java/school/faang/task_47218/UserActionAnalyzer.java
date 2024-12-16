@@ -88,7 +88,8 @@ public class UserActionAnalyzer {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
                 .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue() * PERCENTAGE_MULTIPLIER / totalActions));
+                .collect(Collectors
+                        .toMap(Map.Entry::getKey, entry -> entry.getValue() * PERCENTAGE_MULTIPLIER / totalActions));
     }
 
 }
