@@ -8,8 +8,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-
     public static List<String> topActiveUsers(List<UserAction> actions, int topLimit) {
+        if (topLimit <= 0) {
+            throw new IllegalArgumentException("Parameter for top user's must be greater than 0. ");
+        }
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
@@ -20,10 +22,13 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int topLimit) {
+        if (topLimit <= 0) {
+            throw new IllegalArgumentException("Parameter for top user's must be greater than 0. ");
+        }
         return actions.stream()
                 .filter(action -> (action.actionType().equals("post") || action.actionType().equals("comment")))
                 .map(UserAction::content)
-                .flatMap(string -> Arrays.stream(string.split(" ")))
+                .flatMap(message -> Arrays.stream(message.split("[\\s;:,.!?]+")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
@@ -34,9 +39,13 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int topLimit) {
+        if (topLimit <= 0) {
+            throw new IllegalArgumentException("Parameter for top user's must be greater than 0. ");
+        }
+        LocalDate timePeriod = LocalDate.now().minusMonths(4);
         return actions.stream()
                 .filter(action -> action.actionType().equals("comment")
-                                  && action.actionDate().isAfter(LocalDate.now().minusMonths(4)))
+                                  && action.actionDate().isAfter(timePeriod))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
