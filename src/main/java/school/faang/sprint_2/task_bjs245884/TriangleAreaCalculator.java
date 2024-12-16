@@ -29,15 +29,15 @@ public class TriangleAreaCalculator {
             throw new IllegalArgumentException("Невозможно создать треугольник с указанными сторонами");
         }
 
-        double aPlusB = add.apply(sideA).apply(sideB);
-        double perimeter = add.apply(aPlusB).apply(sideC);
-        double p = divide.apply(perimeter).apply(2.0);
-        double pMinusA = subtract.apply(p).apply(sideA);
-        double pMinusB = subtract.apply(p).apply(sideB);
-        double pMinusC = subtract.apply(p).apply(sideC);
-        double productPa = multiply.apply(p).apply(pMinusA);
-        double productPab = multiply.apply(productPa).apply(pMinusB);
-        double productPabc = multiply.apply(productPab).apply(pMinusC);
+        double sideAplusB = add.apply(sideA).apply(sideB);
+        double perimeter = add.apply(sideAplusB).apply(sideC);
+        double halfPerimeter = divide.apply(perimeter).apply(2.0);
+        double halfPerimeterMinusA = subtract.apply(halfPerimeter).apply(sideA);
+        double halfPerimeterMinusB = subtract.apply(halfPerimeter).apply(sideB);
+        double halfPerimeterMinusC = subtract.apply(halfPerimeter).apply(sideC);
+        double productPa = multiply.apply(halfPerimeter).apply(halfPerimeterMinusA);
+        double productPab = multiply.apply(productPa).apply(halfPerimeterMinusB);
+        double productPabc = multiply.apply(productPab).apply(halfPerimeterMinusC);
         return squareRoot.apply(productPabc);
     }
 }
