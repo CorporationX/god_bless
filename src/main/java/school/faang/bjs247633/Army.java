@@ -1,13 +1,11 @@
 package school.faang.bjs247633;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class Army {
     private final List<Fighter> fighters = new ArrayList<>();
     TheadForCalculation thread;
