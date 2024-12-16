@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private static final int POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Monster> monsters = new ArrayList<>(List.of(
                 new Monster("monster1", new Location(10, 5)),
                 new Monster("monster2", new Location(1, 2)),
@@ -32,7 +33,10 @@ public class Witcher {
         long endTime = System.nanoTime();
         long dur = endTime - startTime;
 
-        executorService.shutdown();
+        if (!executorService.awaitTermination(3, TimeUnit.SECONDS)) {
+            System.out.println("End if threads did not end!");
+            executorService.shutdown();
+        }
 
         long startTimeNoMultithread = System.nanoTime();
         for (City city : cities) {
