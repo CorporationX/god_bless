@@ -10,16 +10,18 @@ public class Army {
         army.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
     public int calculateTotalPower() {
+        PowerCalculator powerCalculator;
+        Thread thread;
         int totalPower = 0;
+
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> calculators = new ArrayList<>();
 
         for (Unit unit : army) {
-            PowerCalculator powerCalculator = new PowerCalculator(unit);
+            powerCalculator = new PowerCalculator(unit);
             calculators.add(powerCalculator);
-            Thread thread = new Thread(powerCalculator);
+            thread = new Thread(powerCalculator);
             threads.add(thread);
             thread.start();
         }
