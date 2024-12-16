@@ -64,7 +64,7 @@ public class ListOperations {
         String regex = "[" + alphabet + "]+";
         Pattern pattern = Pattern.compile(regex);
         return strings.stream()
-                .filter(s -> pattern.matcher(s).find())
+                .filter(s -> pattern.matcher(s).matches())
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
