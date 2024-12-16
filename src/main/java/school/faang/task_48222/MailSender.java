@@ -8,9 +8,14 @@ public class MailSender {
         int j = 0;
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < Constant.THREADS; i++) {
-            Thread thread = new Thread(new SenderRunnable(j, j + Constant.MAIL_FOR_STEP));
+            int end = j + Constant.MAIL_FOR_STEP;
+            if (i == Constant.THREADS - 1) {
+                end = Constant.SUMMARY_MAIL;
+            }
+
+            Thread thread = new Thread(new SenderRunnable(j, end));
             thread.start();
-            j = j + Constant.MAIL_FOR_STEP;
+            j = end;
             threads.add(thread);
         }
         threads.forEach(thread -> {
