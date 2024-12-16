@@ -9,12 +9,16 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final int ACTIVE_USERS_QUANTITY = 10;
+    private static final int POPULAR_HASHTAGS_QUANTITY = 5;
+    private static final int COMMENTERS_LAST_MONTH = 3;
+
     public static List<String> topActiveUsers(List<UserAction> userActions) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(ACTIVE_USERS_QUANTITY)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -22,13 +26,13 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> userActions) {
         String hashtags = "#";
         return userActions.stream()
-                .filter(a -> a.content() != null && a.actionType().equals("post") || a.actionType().equals("comment"))
-                .flatMap(a -> Arrays.stream(Objects.requireNonNull(a.content()).split("\\\\\\\\s+")))
+                .filter(a -> a.content() != null && a.actionType().equals(ActionType.POST) || a.actionType().equals(ActionType.COMMENT))
+                .flatMap(a -> Arrays.stream(Objects.requireNonNull(a.content()).split("\\s+")))
                 .filter(w -> w.startsWith(hashtags))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(POPULAR_HASHTAGS_QUANTITY)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -36,16 +40,16 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> userActions) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return userActions.stream()
-                .filter(a -> a.actionType().equals("comment") && a.actionDate().isBefore(oneMonthAgo))
+                .filter(a -> a.actionType().equals(ActionType.COMMENT) && a.actionDate().isBefore(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(COMMENTERS_LAST_MONTH)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static Map<String, Long> actionTypePercentages(List<UserAction> userActions) {
+    public static Map<ActionType, Long> actionTypePercentages(List<UserAction> userActions) {
         long totalActions = userActions.size();
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()))
