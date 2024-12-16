@@ -12,7 +12,7 @@ public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<Integer, String> idAndNameUsers = getIdAndNameOfUsers(actions);
 
-        Map <Integer, Integer> idAndCountOfActivity = new HashMap<>();
+        Map<Integer, Integer> idAndCountOfActivity = new HashMap<>();
         for (Integer id : idAndNameUsers.keySet()) {
             idAndCountOfActivity.put(
                     id,
@@ -56,7 +56,7 @@ public class UserActionAnalyzer {
                         && action.actionDate().isAfter(lastMothBorder))
                 .collect(Collectors.toMap(
                         action -> Map.entry(action.id(), action.name()),
-                        action ->1,
+                        action -> 1,
                         (a, b) -> a + b
                 )).entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
@@ -71,7 +71,7 @@ public class UserActionAnalyzer {
                         .entrySet().stream()
                         .collect(Collectors
                                 .toMap(Map.Entry::getKey,
-                                        entry -> ((double) 100 * entry.getValue())/actions.size()));
+                                        entry -> ((double) 100 * entry.getValue()) / actions.size()));
     }
 
     private static Map<Integer, String> getIdAndNameOfUsers(List<UserAction> actions) {
