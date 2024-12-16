@@ -10,11 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static Set<List<Integer>> sumDistinctPairs(List<Integer> list, int sum) {
-        Set<Integer> numbers = new HashSet<>(list);
-
-        return numbers.stream()
-                .filter(x -> numbers.contains(sum - x))
+    public static Set<List<Integer>> sumDistinctPairs(List<Integer> digits, int sum) {
+        return digits.stream()
+                .filter(x -> digits.contains(sum - x))
                 .map((a) -> Arrays.asList(a, sum - a))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
@@ -27,23 +25,23 @@ public class ListOperations {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filteredBySymbol(List<String> list, char symbol) {
-        return list.stream()
+    public static List<String> filteredBySymbol(List<String> words, char symbol) {
+        return words.stream()
                 .filter(x -> x.startsWith(String.valueOf(symbol)))
                 .sorted(String::compareTo)
                 .collect(Collectors.toList());
     }
 
-    public static List<String> convertToBinary(List<Integer> list) {
-        return list.stream()
+    public static List<String> convertToBinary(List<Integer> digits) {
+        return digits.stream()
                 .map(Integer::toBinaryString)
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filteredByString(List<String> list, String alphabet) {
+    public static List<String> filteredByString(List<String> words, String alphabet) {
         String regex = "[" + alphabet + "]+";
 
-        return list.stream()
+        return words.stream()
                 .filter(x -> x.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
