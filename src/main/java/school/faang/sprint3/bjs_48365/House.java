@@ -20,6 +20,7 @@ public class House {
     private static final int THREAD_POOL_SIZE = 5;
     private static final int INITIAL_DELAY = 0;
     private static final int PERIOD = 30;
+    private static final int TIMEOUT = 60;
 
     private final List<Room> rooms;
     private List<Food> totalFood = new ArrayList<>();
@@ -33,7 +34,7 @@ public class House {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
