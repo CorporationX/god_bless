@@ -4,7 +4,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -14,9 +13,7 @@ public class StreamOperations {
 
     public static List<Pair<Integer, Integer>> collectPair(List<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(num ->
-                        new HashSet<>(numbers)
-                                .contains(sum - num))
+                .filter(num ->numbers.contains(sum - num))
                 .map(num -> {
                     Pair<Integer, Integer> pair = Pair.of(num, sum - num);
                     Collections.reverse(numbers);
