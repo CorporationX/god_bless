@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 
 @AllArgsConstructor
-public class PhotoUploader implements Runnable{
+public class PhotoUploader implements Runnable {
     private final GooglePhotosAutoUploader uploader;
+
     @SneakyThrows
-    public void run()
-    {
+    public void run() {
         uploader.startAutoUpload();
     }
 }
