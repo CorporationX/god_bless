@@ -10,11 +10,11 @@ public class Main {
 
         Map<String, String> dictionary = new HashMap<>();
 
-        BiConsumer<String, String> addingANewWord = (word, translation) -> dictionary.put(word, translation);
+        BiConsumer<String, String> addingNewWord = (word, translation) -> dictionary.put(word, translation);
 
-        dictionaryProcessor.processWord("привет", "hello", addingANewWord);
-        dictionaryProcessor.processWord("мир", "world", addingANewWord);
-        dictionaryProcessor.processWord("программирование", "programming", addingANewWord);
+        dictionaryProcessor.processWord("привет", "hello", addingNewWord);
+        dictionaryProcessor.processWord("мир", "world", addingNewWord);
+        dictionaryProcessor.processWord("программирование", "programming", addingNewWord);
 
         System.out.println("Словарь: " + dictionary);
     }
