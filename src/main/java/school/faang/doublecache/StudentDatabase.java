@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    Map<Student, Map<Subject, Integer>> students;
-    Map<Subject, List<Student>> subjects;
+    private final Map<Student, Map<Subject, Integer>> students;
+    private final Map<Subject, List<Student>> subjects;
 
     public StudentDatabase(Map<Student, Map<Subject, Integer>> studentsGradesMap,
                            Map<Subject, List<Student>> subjectStudentsMap) {
@@ -16,21 +16,17 @@ public class StudentDatabase {
     }
 
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        // Добавляем студента, предметы и оценки в Map
         students.put(student, grades);
 
-        // По каждому предмету добавляем данного студента в список студентов
         for (Subject subject : grades.keySet()) {
             subjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        // Добавление предмета и оценку в мапу студента
         Map<Subject, Integer> grades = students.getOrDefault(student, new HashMap<>());
         grades.put(subject, grade);
 
-        // Добавление студента в список студентов предмета
         subjects.getOrDefault(subject, new ArrayList<>()).add(student);
     }
 
