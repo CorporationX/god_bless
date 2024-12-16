@@ -2,13 +2,13 @@ package school.faang.doublecache;
 
 
 public class Subject {
-    private static int ID_COUNTER = 0;
+    private static int idCounter = 0;
     private int id;
     private String name;
 
     public Subject(String name) {
-        ID_COUNTER++;
-        this.id = ID_COUNTER;
+        idCounter++;
+        this.id = idCounter;
         this.name = name;
     }
 
