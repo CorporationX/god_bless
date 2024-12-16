@@ -11,10 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ListOperations {
+    private static final String ERROR_MESSAGE = "Input parameters can't be null!";
 
     public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> integers, int sumOfNumbers) {
         if (integers == null) {
-            throw new IllegalArgumentException("Input parameters can't be null!");
+            throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
         Set<List<Integer>> pairsOfNumbers;
@@ -31,29 +32,30 @@ public class ListOperations {
 
     public static List<String> getCapitals(Map<String, String> countriesWithCapitals) {
         if (countriesWithCapitals == null) {
-            throw new IllegalArgumentException("Input parameters can't be null!");
+            throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
-        return countriesWithCapitals.keySet().stream()
-                .sorted(String::compareTo)
-                .map(countriesWithCapitals::get)
+        return countriesWithCapitals.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, char c) {
         if (strings == null) {
-            throw new IllegalArgumentException("Input parameters can't be null!");
+            throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
+        var charValue = String.valueOf(c);
         return strings.stream()
-                .filter(s -> s != null && s.startsWith(String.valueOf(c)))
+                .filter(s -> s != null && s.startsWith(charValue))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
     public static List<String> mapToBinaryCode(List<Integer> integers) {
         if (integers == null) {
-            throw new IllegalArgumentException("Input parameters can't be null!");
+            throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
         return integers.stream()
@@ -64,7 +66,7 @@ public class ListOperations {
 
     public static List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
         if (strings == null || alphabet == null || alphabet.isBlank()) {
-            throw new IllegalArgumentException("Input parameters can't be null!");
+            throw new IllegalArgumentException(ERROR_MESSAGE);
         }
         var pattern = "[" + alphabet + "]+";
 
