@@ -1,0 +1,85 @@
+Потренируем StreamAPI 3
+
+Условие задачи:
+1️⃣ Найдите людей с общими друзьями
+На вход дана Map, где ключи — это имена людей, а значения — списки их друзей. Нужно найти все пары людей, которые не являются друзьями, но имеют общих друзей.
+
+Пример:
+
+Вход:
+{
+  "Alice": ["Bob", "Charlie"],
+  "Bob": ["Alice", "David"],
+  "Charlie": ["Alice", "David"],
+  "David": ["Bob", "Charlie"]
+}
+
+Выход: [(Alice, David), (Bob, Charlie)]
+2️⃣ Найдите среднюю зарплату для каждого отдела
+Дан список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел. Найдите среднюю зарплату для каждого отдела. Метод должен вернуть мапу, где ключ — это название отдела, а значение — средняя зарплата.
+
+3️⃣ Найдите числа-палиндромы
+Напишите метод, который найдет все числа-палиндромы в заданном диапазоне. Число-палиндром - это число, которое одинаково читается слева направо и справа налево.
+
+Пример:
+
+Вход: 100, 200
+Выход: [101, 111, 121, 131, 141, 151, 161, 171, 181, 191]
+4️⃣ Найдите подстроки-палиндромы
+Напишите метод, который найдет все подстроки строки, являющиеся палиндромами.
+
+Пример:
+
+Вход: "abac"
+Выход: ["a", "aba", "b", "c"]
+5️⃣ Найдите совершенные числа
+Напишите метод, который найдет все совершенные числа (сумма делителей числа равна самому числу) в заданном диапазоне.
+
+Пример:
+
+Вход: 1, 1000
+Выход: [6, 28, 496]
+Почему эта задача полезна?
+Решение задач с использованием Stream API позволяет не только улучшить свои навыки в работе с данными, но и познакомиться с более функциональным подходом к программированию. Стримы предоставляют возможность эффективно и элегантно обрабатывать коллекции, а выполнение практических задач помогает лучше понять их возможности и научиться использовать в разных ситуациях.
+
+Мы включили задачи, которые могут встретиться на собеседовании, чтобы вы могли попрактиковаться в их решении, максимально используя Stream API.
+
+---------------------------
+
+5:27:00: Executing ':derschrank.sprint02.task11.bjstwo_47572.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint02.task11.bjstwo_47572.Main.main()
+
+Task 01
+������� ����� � ������ ��������
+Data: {Bob=[Alice, David], Alice=[Bob, Charlie], Charlie=[Alice, David], David=[Bob, Charlie], Ivan=[Charlie, Bob]}
+Assert: [(Alice, David), (Bob, Charlie)]
+Fact: [[Bob, Charlie], [Alice, David]]
+
+Task 02
+������� ������� �������� ��� ������� ������
+Data: [Employee[name=Ivan A, salary=1210, department=hr], Employee[name=Ivan, salary=2010, department=it], Employee[name=Pavel, salary=2020, department=it], Employee[name=Pavel A, salary=1220, department=hr], Employee[name=Smavel A, salary=1230, department=hr], Employee[name=Ivan B, salary=3010, department=ceo], Employee[name=Smavel, salary=2030, department=it], Employee[name=Smavel B, salary=3030, department=ceo], Employee[name=Pavel B, salary=3020, department=ceo]]
+Fact: {hr=1220.0, it=2020.0, ceo=3020.0}
+
+Task 03
+������� �����-����������
+Data: 100, 200
+Fact: [101, 111, 121, 131, 141, 151, 161, 171, 181, 191]
+
+Task 04
+������� ���������-����������
+Data: abac mama mila ramu
+Fact: [mam, a, aba, b, c, i, l, m, r, u, ama]
+
+Task 05
+������� ����������� �����
+Data: 1, 1000
+Fact: [6, 28, 496]
+
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 2 executed
+5:27:04: Execution finished ':derschrank.sprint02.task11.bjstwo_47572.Main.main()'.
