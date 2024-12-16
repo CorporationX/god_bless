@@ -1,7 +1,10 @@
 package school.faang.task48060;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int total = 1000;
         int countThreads = 5;
         int batch = total / countThreads;
@@ -16,9 +19,13 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error(e.getMessage());
+            }
         }
-
-        System.out.println("Все письма отправлены");
+        log.info("Все письма отправлены");
     }
 }
