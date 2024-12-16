@@ -10,7 +10,7 @@ public class EmailProcessor {
                               Predicate<Email> filter,
                               Consumer<Email> processor,
                               Function<Email, String> transformer) {
-        for (Email email : emails){
+        for (Email email : emails) {
             if (filter.test(email)) {
                 String newBody = transformer.apply(email);
                 email.setBody(newBody);

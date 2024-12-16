@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        final EmailProcessor emailProcessor = new EmailProcessor();
 
         List<Email> emails = new ArrayList<>();
         emails.add(new Email("Письмо 1", "Текст письма 1", false));
