@@ -1,24 +1,38 @@
 package school.faang.task_48157;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalMessages = 1000;
         int threadsCount = 5;
         int batchSize = totalMessages / threadsCount;
 
-        Thread[] threads = new Thread[threadsCount];
+        List<Thread> threads;
+        try {
+            threads = createThreads(threadsCount, batchSize);
 
-        for (int i = 0; i < threadsCount; i++) {
-            int start = i * batchSize;
-            int end = (i + 1) * batchSize;
-            threads[i] = new Thread(new SenderRunnable(start, end));
-            threads[i].start();
+            threads.forEach(Thread::start);
+
+            threads.forEach(thread -> {
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    System.err.println("Поток был прерван: " + e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
+            });
+
+            System.out.println("Все сообщения успешно отправлены!");
+        } catch (Exception e) {
+            System.err.println("Произошла ошибка: " + e.getMessage());
         }
+    }
 
-        for (Thread thread : threads) {
-            thread.join();
-        }
-
-        System.out.println();
+    private static List<Thread> createThreads(int threadsCount, int batchSize) {
+        return Stream.of(new Integer[threadsCount])
+                .map(index -> new Thread(new SenderRunnable(index * batchSize, (index + 1) * batchSize)))
+                .toList();
     }
 }

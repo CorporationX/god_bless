@@ -1,6 +1,7 @@
 package school.faang.task_48157;
 
 import lombok.RequiredArgsConstructor;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 public class SenderRunnable implements Runnable {
@@ -9,8 +10,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Письмо отправлено: " + i);
-        }
+        IntStream.range(startIndex, endIndex)
+                .forEach(i -> System.out.println("Письмо отправлено: " + i));
     }
 }
