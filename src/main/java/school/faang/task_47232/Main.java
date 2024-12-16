@@ -6,26 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final List<Integer> num = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    private static final Map<String, String> countries = new HashMap<>();
-    private static final List<String> fruits = Arrays.asList("apple", "banana", "avocado", "apricot", "12a");
-    private static final String englishAlphabet = "abcdefghijklmnopqrstuvwxyz";
+    private static final List<Integer> NUM = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    private static final Map<String, String> COUNTRIES = new HashMap<>();
+    private static final List<String> FRUITS = Arrays.asList("apple", "banana", "avocado", "apricot", "12a");
+    private static final String ENGLISH_ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
     public static void main(String[] args) {
-        countries.put("Россия", "Москва");
-        countries.put("Украина", "Киев");
-        countries.put("Белорусия", "Минск");
-        countries.put("Польша", "Варшава");
+        COUNTRIES.put("Россия", "Москва");
+        COUNTRIES.put("Украина", "Киев");
+        COUNTRIES.put("Белорусия", "Минск");
+        COUNTRIES.put("Польша", "Варшава");
 
-        ListOperations.findPairs(num, 6).stream()
+        ListOperations.findPairs(NUM, 6).stream()
                 .forEach(System.out::println);
-        ListOperations.sortingCountries(countries).stream()
+        ListOperations.sortingCountries(COUNTRIES).stream()
                 .forEach(System.out::println);
-        ListOperations.sortStrings(fruits, 'a').stream()
+        ListOperations.sortStrings(FRUITS, 'a').stream()
                 .forEach(System.out::println);
-        ListOperations.convertToBinaryNumbers(num).stream()
+        ListOperations.convertToBinaryNumbers(NUM).stream()
                 .forEach(System.out::println);
-        ListOperations.filterAndSortByLength(fruits, englishAlphabet).stream()
+        ListOperations.filterAndSortByLength(FRUITS, ENGLISH_ALPHABET).stream()
                 .forEach(System.out::println);
     }
 }

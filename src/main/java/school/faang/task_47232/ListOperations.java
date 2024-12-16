@@ -12,15 +12,13 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
-        Set<List<Integer>> pairs = new HashSet<>();
-        Set<Integer> values = new HashSet<>();
+        Set<Integer> values = new HashSet<>(numbers.size());
         values.addAll(numbers);
-        pairs = numbers.stream()
+        return numbers.stream()
                 .filter(x -> values.contains(sum - x))
                 .map(x -> Arrays.asList(x, sum - x))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> sortingCountries(Map<String, String> countries) {
