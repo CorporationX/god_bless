@@ -7,7 +7,7 @@ public class MailSender {
     private static final int ONE_THREAD = 200;
     private static final int COUNT_THREAD = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
 
         List<Thread> threads = new ArrayList<>();
 
@@ -19,7 +19,11 @@ public class MailSender {
             thread.start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("Все письма успешно отправлены!");
     }
