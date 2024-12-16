@@ -9,11 +9,11 @@ public class Main {
 
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("SPAM");
         MessageFilter lenghtFilter = message -> message.length() > 10;
-        MessageFilter emotionsFilter = message -> !message.contains("\uD83D\uDE00");
 
-        List<MessageFilter> filters = Arrays.asList(spamFilter, lenghtFilter, emotionsFilter);
 
-        String[] messages = {"Привет", "Это spam", "\uD83D\uDE00",
+        List<MessageFilter> filters = Arrays.asList(spamFilter, lenghtFilter);
+
+        String[] messages = {"Привет", "Это spam",
                 "Привет я думаю это длинное сообщение но мне это не важно"};
 
         for (String message : messages) {
