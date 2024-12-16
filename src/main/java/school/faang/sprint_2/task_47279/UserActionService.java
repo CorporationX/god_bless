@@ -8,6 +8,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionService {
+    private static final int  SIZE_TEN = 10;
+    private static final int  SIZE_FIVE = 5;
+    private static final int  SIZE_THREE = 3;
     private static final int PERCENTAGE_INDEX = 100;
 
     public List<String> geTopActiveUsers(List<UserAction> userActions) {
@@ -15,7 +18,7 @@ public class UserActionService {
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(SIZE_TEN)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -23,13 +26,14 @@ public class UserActionService {
     public List<String> getPopularTags(List<UserAction> userActions) {
         return userActions.stream()
                 .filter(userAction -> userAction.content() != null
-                        && "post".equals(userAction.actionType()) || "comment".equals(userAction.actionType()))
-                .flatMap(userAction -> Arrays.stream(userAction.content().split(" ")))
+                        && ActionType.POST.equals(userAction.actionType())
+                        || ActionType.COMMENT.equals(userAction.actionType()))
+                .flatMap(userAction -> Arrays.stream(userAction.content().split("\s+")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(SIZE_FIVE)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -38,11 +42,12 @@ public class UserActionService {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return userActions.stream()
                 .filter(userAction -> userAction.content() != null
-                        && "comment".equals(userAction.actionType()) && userAction.actionDate().isAfter(oneMonthAgo))
+                        && ActionType.COMMENT.equals(userAction.actionType())
+                        && userAction.actionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(SIZE_THREE)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -53,7 +58,7 @@ public class UserActionService {
                 .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
-                        Map.Entry::getKey,
+                        entry -> entry.getKey().toString(),
                         entry -> (entry.getValue() * PERCENTAGE_INDEX) / totalActions
                 ));
     }
