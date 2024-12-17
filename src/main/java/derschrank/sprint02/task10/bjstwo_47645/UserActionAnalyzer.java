@@ -12,17 +12,12 @@ public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<Integer, String> idAndNameUsers = getIdAndNameOfUsers(actions);
 
-        Map<Integer, Integer> idAndCountOfActivity = new HashMap<>();
-        for (Integer id : idAndNameUsers.keySet()) {
-            idAndCountOfActivity.put(
-                    id,
-                    (int) actions.stream()
-                            .filter(action -> id.equals(action.id()))
-                            .count()
-            );
-        }
-
-        return idAndCountOfActivity.entrySet().stream()
+        return idAndNameUsers.keySet().stream()
+                .map(id -> Map.entry(id,
+                        actions.stream()
+                                .filter(action -> id.equals(action.id()))
+                                .count())
+                )
                 .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
                 .limit(10)
                 .map(entry -> idAndNameUsers.get(entry.getKey()))
@@ -30,19 +25,16 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
-        List<String> hashTags = actions.stream()
+
+        return actions.stream()
                 .filter(action -> action.content().startsWith("#"))
                 .map(action -> action.content().split(" ", 2)[0])
-                .toList();
-
-        Map<String, Integer> tagCount = hashTags.stream()
                 .collect(Collectors.toMap(
                         hash -> hash,
                         hash -> 1,
-                        (a, b) -> a + b));
-
-        return tagCount.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
+                        (a, b) -> a + b))
+                .entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
