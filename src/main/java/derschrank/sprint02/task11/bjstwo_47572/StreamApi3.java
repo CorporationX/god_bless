@@ -15,11 +15,26 @@ import java.util.stream.Stream;
 
 public class StreamApi3 {
     public Set<List<String>> taskOneFindCommonFriends(Map<String, List<String>> personsWithTheirFriends) {
-        return personsWithTheirFriends.entrySet().stream()
-
+        return personsWithTheirFriends.values().stream()
+                .flatMap(list -> {
+                    Set<List<String>> allPairOfPersonByOneFriend = new HashSet<>();
+                    try {
+                        for (int first = 0; first < list.size() - 1; first++) {
+                            for (int second = first + 1; second < list.size(); second++) {
+                                allPairOfPersonByOneFriend.add(
+                                        List.of(list.get(first), list.get(second))
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Oy!!!" + e);
+                    }
+                    return allPairOfPersonByOneFriend.stream();
+                })
                 .filter(
-                        x -> !isTheyFriends(personsWithTheirFriends, x.getValue().get(0), x.getValue().get(1))
-                ).map(x -> sortPersonsByNameFromList(x.getValue()))
+                        x -> !isTheyFriends(personsWithTheirFriends, x.get(0), x.get(1))
+                )
+                .map(this::sortPersonsByNameFromList)
                 .collect(Collectors.toSet());
     }
 

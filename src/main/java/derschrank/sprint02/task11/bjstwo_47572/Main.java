@@ -12,7 +12,7 @@ public class Main {
         System.out.println("\nTask 01");
         System.out.println("Найдите людей с общими друзьями");
         Map<String, List<String>> personsWithTheirFriends = new HashMap<>();
-        personsWithTheirFriends.put("Alice", List.of("Bob", "Charlie"));
+        personsWithTheirFriends.put("Alice", List.of("Bob", "Charlie", "Baklan"));
         personsWithTheirFriends.put("Bob", List.of("Alice", "David"));
         personsWithTheirFriends.put("Charlie", List.of("Alice", "David"));
         personsWithTheirFriends.put("David", List.of("Bob", "Charlie"));
