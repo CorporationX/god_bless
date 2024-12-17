@@ -1,5 +1,7 @@
 package school.faang.bjs248399;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -10,15 +12,15 @@ public class BigBangTheory {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_AMOUNT);
 
-        Task sheldonTask = new Task("Sheldon", "theory preparation");
-        Task leonardTask = new Task("Leonard", "experiment modeling");
-        Task howardTask = new Task("Howard", "tool development");
-        Task rajeshTask = new Task("Rajesh", "data analysis");
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Sheldon", "theory preparation"));
+        tasks.add(new Task("Leonard", "experiment modeling"));
+        tasks.add(new Task("Howard", "tool development"));
+        tasks.add(new Task("Rajesh", "data analysis"));
 
-        executorService.execute(sheldonTask);
-        executorService.execute(leonardTask);
-        executorService.execute(howardTask);
-        executorService.execute(rajeshTask);
+        for (Task task : tasks) {
+            executorService.execute(task);
+        }
 
         executorService.shutdown();
         try {

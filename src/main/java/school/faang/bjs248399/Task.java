@@ -13,7 +13,7 @@ public class Task implements Runnable {
     public void run() {
         try {
             System.out.println(name + " started the task: " + task);
-            Thread.sleep(2000);  // task running simulation
+            Thread.sleep(2000);
             System.out.println(name + " completed the task: " + task);
         } catch (InterruptedException e) {
             System.err.println(name + " interrupted the task: " + task);
