@@ -5,23 +5,21 @@ import java.util.stream.Collectors;
 
 public class CollectionStreamProcessor {
     public Set<List<Integer>> getNumberPairs(List<Integer> numbers, int sum) {
-        Set<Integer> number = new HashSet<>(numbers);
-
         return numbers.stream()
-                .filter(num -> number.contains(sum - num))
+                .filter(num -> numbers.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
 
-    public List<String> getSortingCapitals(Map<String, String> capitalsAndCountries) {
+    public List<String> getSortedCapitals(Map<String, String> capitalsAndCountries) {
         return capitalsAndCountries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public List<String> getSortingList(List<String> list, char symbol) {
+    public List<String> getSortedList(List<String> list, char symbol) {
         return list.stream()
                 .filter(string -> string.indexOf(symbol) == 0)
                 .sorted(Comparator.comparingInt(String::length))
@@ -34,7 +32,7 @@ public class CollectionStreamProcessor {
                 .toList();
     }
 
-    public List<String> getStringFiltering(List<String> strings) {
+    public List<String> getFilteredStrings(List<String> strings) {
         String alf = "abcdefghijklmnopqrstuvwxyz";
         String regex = "[" + alf + "]+";
 
