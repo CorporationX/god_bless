@@ -1,5 +1,6 @@
 package school.faang.sprint2task46483;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -7,8 +8,9 @@ public class FilterProcessor {
         return grayscaleFilter.apply(originalImage);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter,
-                                                 Function<Image, Image> secondFilter) {
-        return firstFilter.andThen(secondFilter);
+    @SafeVarargs
+    public final Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
+        return Arrays.stream(filters)
+                .reduce(Function.identity(), Function::andThen);
     }
 }
