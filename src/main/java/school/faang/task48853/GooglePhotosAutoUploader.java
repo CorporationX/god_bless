@@ -28,7 +28,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        if (photoPath == null) {
+        if (photoPath == null || photoPath.isBlank()) {
             throw new IllegalArgumentException("photoPath can`t be null");
         }
 
