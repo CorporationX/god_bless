@@ -5,14 +5,31 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> map = new HashMap<>();
+    Map<NotificationTyp, Consumer<Notification>> map = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> notificationConsumer) {
+    public void registerHandler(NotificationTyp type, Consumer<Notification> notificationConsumer) {
+        if (type == null) {
+            throw new IllegalArgumentException("Type cannot be null");
+        }
+
+        if (notificationConsumer == null) {
+            throw new IllegalArgumentException("Notification consumer cannot be null");
+        }
+
         map.put(type, notificationConsumer);
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification cannot be null");
+        }
+
         Consumer<Notification> notificationConsumer = map.get(notification.getType());
-        notificationConsumer.accept(notification);
+
+        if (notificationConsumer != null) {
+            notificationConsumer.accept(notification);
+        } else {
+            System.out.println("No handler registered for type: " + notification.getType());
+        }
     }
 }
