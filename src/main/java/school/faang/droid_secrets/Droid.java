@@ -21,14 +21,8 @@ public class Droid {
             Character lowerChar = Character.toLowerCase(character);
             Character resultChar = character;
 
-            if (ALPHABET.contains(lowerChar)) {
-                int positionCounter = 0;
-                for (Character letter : ALPHABET) {
-                    if (letter.equals(lowerChar)) {
-                        break;
-                    }
-                    positionCounter++;
-                }
+            if (Character.isLetter(lowerChar)) {
+                int positionCounter = getAlphabetPosition(character);
                 int encryptPosition = positionCounter + key;
                 if (ALPHABET.size() - 1 < encryptPosition) {
                     encryptPosition = encryptPosition - ALPHABET.size();
@@ -42,6 +36,21 @@ public class Droid {
         }
         return encryptedMessage;
     };
+
+    private static int getAlphabetPosition(Character character) {
+        if (!Character.isLetter(character)) {
+            System.out.println("Character " + character + " isn't a letter");
+        }
+
+        int positionCounter = 0;
+        for (Character letter : ALPHABET) {
+            if (letter.equals(Character.toLowerCase(character))) {
+                break;
+            }
+            positionCounter++;
+        }
+        return positionCounter;
+    }
     private static final DroidMessageEncryptor decryptor = (message, key) -> {
         char[] messageLetters = message.toCharArray();
         String encryptedMessage = "";
