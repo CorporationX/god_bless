@@ -7,7 +7,7 @@ public class MailSender {
     private static final int numberOfThreads = 5;
     private static final int numberOfMessages = 1000;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int batchSize = numberOfMessages / numberOfThreads;
 
         List<Thread> threads = IntStream.range(0, numberOfThreads)
@@ -17,8 +17,12 @@ public class MailSender {
 
         threads.forEach(Thread::start);
 
-        for (Thread t : threads) {
-            t.join();
+        try {
+            for (Thread t : threads) {
+                t.join();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
