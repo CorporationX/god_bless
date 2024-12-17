@@ -1,11 +1,10 @@
 package school.faang.task_46222;
 
-import java.util.concurrent.Callable;
-
 public class ErrorHandler {
-    public static <T> T withErrorHandling(Callable<T> riskyAction, ExceptionHandler<T> errorHandler) {
+    public static <T, V> T withErrorHandling(RiskyAction<T, V, Exception> riskyAction,
+                                             ExceptionHandler<T> errorHandler, V v) {
         try {
-            return riskyAction.call();
+            return riskyAction.call(v);
         } catch (Exception e) {
             return errorHandler.handle(e);
         }
