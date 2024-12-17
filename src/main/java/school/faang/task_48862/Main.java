@@ -1,13 +1,15 @@
 package school.faang.task_48862;
 
 public class Main {
+    private static final int PHOTOS_COUNT = 10;
+
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
-        final Thread thread1 = new Thread(uploader::startAutoUpload);
+        final Thread thread1 = new Thread(() -> uploader.startAutoUpload(PHOTOS_COUNT));
         final Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                uploader.onNewPhotoAdded("Photo " + (i + 1));
+            for (int i = 0; i < PHOTOS_COUNT; i++) {
+                uploader.onNewPhotoAdded(String.format("Photo %d.jpg", (i + 1)));
             }
         });
 
