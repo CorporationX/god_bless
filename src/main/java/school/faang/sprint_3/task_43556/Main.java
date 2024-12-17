@@ -8,6 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int POOL_SIZE = 5;
+    private static final int INITIAL_DELAY = 0;
+    private static final int PERIOD = 2;
+
     private static final House house = new House();
 
     public static void main(String[] args) {
@@ -20,7 +23,7 @@ public class Main {
                 executor.shutdown();
                 System.out.println("Вся еда собрана!");
             }
-        }, 0, 2, TimeUnit.SECONDS);
+        }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
     }
 
     public static void initialize() {
