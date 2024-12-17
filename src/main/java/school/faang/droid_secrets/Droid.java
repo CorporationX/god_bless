@@ -50,6 +50,7 @@ public class Droid {
         }
         return positionCounter;
     }
+
     private static final DroidMessageEncryptor decryptor = (message, key) -> {
         char[] messageLetters = message.toCharArray();
         String encryptedMessage = "";
