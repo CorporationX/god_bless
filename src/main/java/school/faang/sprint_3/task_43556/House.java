@@ -21,10 +21,10 @@ public class House {
         Room room2 = rooms.get(random.nextInt(rooms.size()));
 
         if (room1.hasFood() && room2.hasFood()) {
-            System.out.println("Собираем еду в " + room1.getName() + " и " + room2.getName());
-            collectedFood.addAll(room1.getFoodList());
+            System.out.println("Собираем еду в " + room1.name() + " и " + room2.name());
+            collectedFood.addAll(room1.foodList());
             room1.removeAllFood();
-            collectedFood.addAll(room2.getFoodList());
+            collectedFood.addAll(room2.foodList());
             room2.removeAllFood();
         }
     }
@@ -32,7 +32,7 @@ public class House {
     public boolean allFoodCollected() {
         int count = 0;
         for (Room room : rooms) {
-            if (room.getFoodList().isEmpty()) {
+            if (room.foodList().isEmpty()) {
                 count++;
             }
         }
