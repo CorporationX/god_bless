@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class WeasleyFamily {
     public static void main(String[] args) {
 
-        List<String> chores = Arrays.asList("помыть посуду ", "подмести пол ",
-                "приготовить ужин");
+        List<String> chores = Arrays.asList(Constants.WASH_DISHES, Constants.SWEEP_FLOOR,
+                Constants.COOK_DINNER);
 
         ExecutorService executor = Executors.newCachedThreadPool();
 
