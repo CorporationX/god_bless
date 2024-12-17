@@ -9,11 +9,13 @@ public record FoodDeliveryTask(String character, int foodAmount) implements Runn
     @Override
     public void run() {
         String foodType = getFoodType();
+        System.out.println(character + " получает " + foodAmount + " " + foodType);
         try {
             Thread.sleep(new Random().nextInt(RANDOM_SLEEP_TIME) + BASE_SLEEP_TIME);
         } catch (InterruptedException e) {
             System.out.println(character + " не смог получить " + foodType + " из-за прерывания.");
         }
+        System.out.println(character + " ест " + foodAmount + " " + foodType);
     }
 
     private String getFoodType() {
