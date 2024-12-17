@@ -2,6 +2,7 @@ package school.faang.sprint_1.task_microsoftbjs2n48295;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Slf4j
+@NonNull
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
@@ -20,8 +22,9 @@ public class SenderRunnable implements Runnable {
             try {
                 Thread.sleep(1);
                 log.info(emails.get(i));
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | NullPointerException e) {
                 e.printStackTrace();
+                log.info(e.getMessage());
             }
         }
     }
