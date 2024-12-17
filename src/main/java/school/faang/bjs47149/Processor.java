@@ -16,7 +16,7 @@ public class Processor {
     }
 
     public static double avg(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).average().orElse(0);
+        return numbers.stream().mapToInt(Integer::intValue).average().orElseThrow(() -> new RuntimeException("no numbers"));
     }
 
     public static long countStartingWithChar(List<String> strings, char a) {

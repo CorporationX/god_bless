@@ -8,7 +8,6 @@ public class Main {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
-        // Пример использования методов:
         System.out.println("Сумма четных чисел: " + Processor.sumEven(numbers));
         System.out.println("Максимум: " + Processor.max(numbers));
         System.out.println("Среднее: " + Processor.avg(numbers));
