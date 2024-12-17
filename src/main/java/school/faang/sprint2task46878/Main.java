@@ -5,7 +5,8 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler(NotificationTyp.EMAIL,
-                (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
+                (notification) -> System.out.println("Отправка по электронной почте: "
+                        + notification.getMessage())
         );
 
         notificationManager.registerHandler(NotificationTyp.SMS,
@@ -13,12 +14,16 @@ public class Main {
         );
 
         notificationManager.registerHandler(NotificationTyp.PUSH,
-                (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
+                (notification) -> System.out.println("Отправка push-уведомления: "
+                        + notification.getMessage())
         );
 
-        Notification emailNotification = new Notification(NotificationTyp.EMAIL, "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification(NotificationTyp.SMS, "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification(NotificationTyp.PUSH, "Новый пост от пользователя: JohnDoe");
+        Notification emailNotification = new Notification(NotificationTyp.EMAIL,
+                "Ваша учетная запись успешно активирована");
+        Notification smsNotification = new Notification(NotificationTyp.SMS,
+                "Вы успешно изменили свой пароль");
+        Notification pushNotification = new Notification(NotificationTyp.PUSH,
+                "Новый пост от пользователя: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
