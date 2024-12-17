@@ -1,4 +1,4 @@
-package school.faang.task_48885.Entity;
+package school.faang.task_48885.entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,12 +37,11 @@ public class House {
         Room kitchen = new Room();
         Room livingRoom = new Room();
         Room bedroom = new Room();
-
         kitchen.addFood(new Food("Apple"));
-        kitchen.addFood(new Food("Banana"));
         livingRoom.addFood(new Food("Sandwich"));
-        livingRoom.addFood(new Food("Juice"));
+        kitchen.addFood(new Food("Banana"));
         bedroom.addFood(new Food("Chocolate"));
+        livingRoom.addFood(new Food("Juice"));
         bedroom.addFood(new Food("Cookies"));
 
         roomInHouse.add(kitchen);

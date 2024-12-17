@@ -1,4 +1,4 @@
-package school.faang.task_48885.Entity;
+package school.faang.task_48885.entity;
 
 import lombok.Getter;
 import lombok.ToString;
