@@ -8,8 +8,8 @@ public class Main {
         List<UserAction> actions = DataInitializer.initData();
 
         List<String> topUsers = UserActionAnalyzer.topActiveUsers(actions);
-        List<String> topHashtags = UserActionAnalyzer.topPopularHashtags(actions);
-        List<String> topCommenters = UserActionAnalyzer.topCommentersLastMonth(actions);
+        List<String> topHashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
+        List<String> topCommenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
         Map<ActionType, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
         System.out.println("Топ-10 активных пользователей: " + topUsers);

@@ -9,10 +9,8 @@ import java.util.stream.Collectors;
 import static school.faang.task_47144.ActionType.COMMENT;
 
 public class UserActionAnalyzer {
-    private static final String REGEX_FOR_REMOVE_SPECIAL_SYMBOLS = "^\\W+|\\W+$";
+    private static final String SPECIAL_SYMBOLS_REGEX = "^\\W+|\\W+$";
     private static final String HASHTAG = "#";
-    private static final int TOP_3 = 3;
-    private static final int TOP_5 = 5;
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<String, Long> actionsByUserNames = actions.stream()
@@ -24,10 +22,10 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> actions) {
+    public static List<String> topPopularHashtags(List<UserAction> actions, int topPopularHashtags) {
         Map<String, Long> countHashtags = actions.stream()
                 .map(UserAction::content)
-                .map(s -> s.replaceAll(REGEX_FOR_REMOVE_SPECIAL_SYMBOLS, ""))
+                .map(s -> s.replaceAll(SPECIAL_SYMBOLS_REGEX, ""))
                 .flatMap(s -> Arrays.stream(s.split(" ")))
                 .filter(s -> s.startsWith(HASHTAG))
                 .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
@@ -35,11 +33,11 @@ public class UserActionAnalyzer {
         return countHashtags.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(Map.Entry::getKey)
-                .limit(TOP_5)
+                .limit(topPopularHashtags)
                 .toList();
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> actions) {
+    public static List<String> topCommentersLastMonth(List<UserAction> actions, int topPopularComments) {
         Map<String, Long> countCommentByNames = actions.stream()
                 .filter(f -> f.actionType().equals(COMMENT))
                 .filter(f -> !f.content().isBlank())
@@ -47,7 +45,7 @@ public class UserActionAnalyzer {
 
         return countCommentByNames.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(TOP_3)
+                .limit(topPopularComments)
                 .map(Map.Entry::getKey)
                 .toList();
     }
