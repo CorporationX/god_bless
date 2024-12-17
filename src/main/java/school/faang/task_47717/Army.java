@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<PowerThread> mageThreads = new ArrayList<>();
-    List<PowerThread> swordsmanThreads = new ArrayList<>();
-    List<PowerThread> archerThreads = new ArrayList<>();
+    private List<PowerThread> mageThreads = new ArrayList<>();
+    private List<PowerThread> swordsmanThreads = new ArrayList<>();
+    private List<PowerThread> archerThreads = new ArrayList<>();
     private final List<Unit> unitsList = new ArrayList<>();
 
     public void addUnit(Unit unit) {
         unitsList.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
 
         for (Unit unit : unitsList) {
             if (unit.isMage()) {
@@ -25,7 +25,11 @@ public class Army {
             }
         }
 
-        return getTotal();
+        try {
+            return getTotal();
+        } catch (InterruptedException e) {
+            return 0;
+        }
     }
 
     private void startThread(Unit unit) {
