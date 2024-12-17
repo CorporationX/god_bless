@@ -1,6 +1,7 @@
 package school.faang.task_49173;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +11,7 @@ public class Main {
     private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) throws InterruptedException {
-        VideoManager videoManager = new VideoManager(new HashMap<>());
+        VideoManager videoManager = new VideoManager(new ConcurrentHashMap<>());
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
         String[] videos = new String[NUM_VIDEOS];
