@@ -2,6 +2,7 @@ package school.faang.sprint_3.task_43558;
 
 public record Task(String name, String task) implements Runnable {
     private static final int SLEEP_TIME = 3000;
+
     @Override
     public void run() {
         System.out.println(name + " начинает выполнять задачу " + task);
