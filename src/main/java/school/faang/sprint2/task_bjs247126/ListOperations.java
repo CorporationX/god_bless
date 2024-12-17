@@ -11,11 +11,13 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).max().orElse(0);
+        return numbers.stream().mapToInt(Integer::intValue).max()
+                .orElseThrow(() -> new IllegalArgumentException("Нет подходящих чисел."));
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return numbers.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+        return numbers.stream().mapToDouble(Integer::doubleValue).average()
+                .orElseThrow(() -> new IllegalArgumentException("Нет подходящих чисел."));
     }
 
     public static int countStringsStartingWith(List<String> words, char firstSymbol) {
@@ -35,7 +37,8 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int givenNumber) {
-        return numbers.stream().filter(n -> n > givenNumber).mapToInt(Integer::intValue).min().orElse(0);
+        return numbers.stream().filter(n -> n > givenNumber).mapToInt(Integer::intValue).min()
+                .orElseThrow(() -> new IllegalArgumentException("Нет подходящих чисел."));
     }
 
     public static List<Integer> convertToLengths(List<String> words) {
