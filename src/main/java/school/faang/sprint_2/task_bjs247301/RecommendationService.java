@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class RecommendationService {
@@ -18,26 +17,23 @@ public class RecommendationService {
 
     public List<Product> recommendProduct(int userId) {
         UserProfile user = findUserById(userId);
-        return filterProductsByTags(products.stream(), user.interests())
-                .toList();
+        return filterProductsByTags(products, user.interests());
     }
 
     public List<Product> mostPopularProducts(int userId, int maxProducts) {
         List<UserProfile> similarUserProfiles = findSimilarUsersByGenderAgeLocation(userId);
         List<Product> similarUsersProducts = getAllProductsByUsers(similarUserProfiles);
 
-        return findMostFrequent(similarUsersProducts.stream(), Function.identity(), maxProducts);
+        return findMostFrequent(similarUsersProducts, Function.identity(), maxProducts);
     }
 
     public String recommendCategoriesForDiscount(int userId, int limit) {
         UserProfile profile = findUserById(userId);
         List<Product> profileOrders = getAllProductsByUsers(List.of(profile));
+        List<Product> filteredProducts = filterProductsByTags(profileOrders, profile.interests());
+        List<String> mostFrequentCategories = findMostFrequent(filteredProducts, Product::category, limit);
 
-        return findMostFrequent(
-                filterProductsByTags(profileOrders.stream(), profile.interests()),
-                Product::category,
-                limit)
-                .stream()
+        return mostFrequentCategories.stream()
                 .findFirst()
                 .orElse("No category found");
     }
@@ -45,8 +41,18 @@ public class RecommendationService {
     private UserProfile findUserById(int userId) {
         return users.stream()
                 .filter(user -> Objects.equals(user.userId(), userId))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Not found user with id: " + userId));
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        list -> {
+                            if (list.isEmpty()) {
+                                throw new NoSuchElementException("Not found user with id: " + userId);
+                            }
+                            if (list.size() > 1) {
+                                throw new IllegalStateException("Multiple users found with id: " + userId);
+                            }
+                            return list.get(0);
+                        }
+                ));
     }
 
     private List<UserProfile> findSimilarUsersByGenderAgeLocation(int userId) {
@@ -65,23 +71,22 @@ public class RecommendationService {
                 .toList();
 
         return products.stream()
-                .filter(product -> isProductOrderedByUsers(product.productId(), userIds))
+                .filter(product -> orders.stream()
+                        .anyMatch(order -> userIds.contains(order.userId())
+                                && Objects.equals(order.productId(), product.productId())))
                 .toList();
     }
 
-    private boolean isProductOrderedByUsers(int productId, List<Integer> userIds) {
-        return orders.stream()
-                .anyMatch(order -> userIds.contains(order.userId()) && order.productId() == productId);
-    }
-
-    private Stream<Product> filterProductsByTags(Stream<Product> productStream, List<String> interests) {
-        return productStream
+    private List<Product> filterProductsByTags(List<Product> products, List<String> interests) {
+        return products.stream()
                 .filter(product -> product.tags().stream()
-                        .anyMatch(interests::contains));
+                        .anyMatch(interests::contains))
+                .toList();
     }
 
-    private <T, R> List<R> findMostFrequent(Stream<T> stream, Function<T, R> keyExtractor, int limit) {
-        return stream.collect(Collectors.groupingBy(
+    private <T, R> List<R> findMostFrequent(List<T> list, Function<T, R> keyExtractor, int limit) {
+        return list.stream()
+                .collect(Collectors.groupingBy(
                         keyExtractor,
                         Collectors.counting()))
                 .entrySet().stream()
