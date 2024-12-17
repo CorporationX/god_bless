@@ -9,6 +9,7 @@ import static java.lang.Thread.sleep;
 public class MainApp {
 
     private static final int DELTA_TIME_MSEC = 100;
+
     public static void main(String[] args) {
 
         Game game = new Game();
