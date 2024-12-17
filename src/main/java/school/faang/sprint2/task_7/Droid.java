@@ -2,22 +2,13 @@ package school.faang.sprint2.task_7;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
+
 @Getter
 @AllArgsConstructor
 public class Droid {
     private String name;
-    private static int LETTERS_OFFSET = 26;
-
-    public String encryptMessage(String msg, int key) {
-        return encryptingHandler(msg, key);
-    }
-
-    public String decryptMessage(String msg, int key) {
-        return encryptingHandler(msg, -key);
-    }
+    private static final int LETTERS_OFFSET = 26;
 
     private String encryptingHandler(String msg, int key) {
         DroidMessageEncryptor encryptor = (message, encryptionKey) -> {
@@ -37,13 +28,13 @@ public class Droid {
     }
 
     public void sendMessage(Droid droid, String message, int key) {
-        String encryptedMessage = droid.encryptMessage(message, key);
+        String encryptedMessage = droid.encryptingHandler(message, key);
         System.out.println("Droid " + droid.getName() + " sends: " + encryptedMessage);
         droid.receiveMessage(this, encryptedMessage, key);
     }
 
     public void receiveMessage(Droid droid, String message, int key) {
-        String decryptedMessage = droid.decryptMessage(message, key);
+        String decryptedMessage = droid.encryptingHandler(message, -key);
         System.out.println("Droid " + droid.getName() + " receives: " + decryptedMessage);
     }
 }
