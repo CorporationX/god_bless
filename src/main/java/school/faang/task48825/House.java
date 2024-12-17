@@ -14,8 +14,8 @@ public class House {
     private final String nameHouse;
     private final Set<Role> availableRoles;
 
-    public void addRole(Role role){
-        while (!getAvailableRoles().contains(role)){
+    public void addRole(Role role) {
+        while (!getAvailableRoles().contains(role)) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -25,7 +25,7 @@ public class House {
         availableRoles.remove(role);
     }
 
-    public void removeRole(Role role){
+    public void removeRole(Role role) {
         availableRoles.add(role);
         this.notify();
     }
