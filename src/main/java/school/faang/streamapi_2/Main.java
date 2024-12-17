@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Main {
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
     public static void main(String[] args) {
         System.out.println(
                 findPairs(new ArrayList<>(List.of(1, 2, 3, 4, 5, 6)), 7));
@@ -76,7 +77,7 @@ public class Main {
 
     public static List<String> sortByAlphabetAndLength(List<String> strings) {
         strings.stream().filter(str -> str.chars().allMatch(ch -> {
-            for(Character letter : ALPHABET.toCharArray()){
+            for (Character letter : ALPHABET.toCharArray()) {
                 if (letter == ch) {
                     return true;
                 }
