@@ -17,7 +17,7 @@ public class MainSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.printf("Error for thread = %s!", thread.getName());
             }
         }
 
