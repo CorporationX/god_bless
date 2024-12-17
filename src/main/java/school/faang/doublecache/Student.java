@@ -2,20 +2,20 @@ package school.faang.doublecache;
 
 public class Student {
     private static int idCounter = 0;
-    private int id;
-    private String name;
+    private final int studentId;
+    private final String studentName;
 
     public Student(String name) {
         idCounter++;
-        this.id = idCounter;
-        this.name = name;
+        this.studentId = idCounter;
+        this.studentName = name;
     }
 
     @Override
     public String toString() {
         return "Student{"
-                + "id=" + id
-                + ", name='" + name + '\''
+                + "id=" + studentId
+                + ", name='" + studentName + '\''
                 + '}';
     }
 }

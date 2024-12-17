@@ -3,20 +3,20 @@ package school.faang.doublecache;
 
 public class Subject {
     private static int idCounter = 0;
-    private int id;
-    private String name;
+    private final int subjectId;
+    private final String subjectName;
 
     public Subject(String name) {
         idCounter++;
-        this.id = idCounter;
-        this.name = name;
+        this.subjectId = idCounter;
+        this.subjectName = name;
     }
 
     @Override
     public String toString() {
         return "Subject{"
-                + "id=" + id
-                + ", name='" + name + '\''
+                + "id=" + subjectId
+                + ", name='" + subjectName + '\''
                 + '}';
     }
 }
