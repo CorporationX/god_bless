@@ -20,10 +20,8 @@ public class Main {
         if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("The list is empty or null");
         }
-        double res = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            res = calculator.calculate(res, nums.get(i)).doubleValue();
-        }
-        return res;
+        return nums.stream()
+                .reduce((num1, num2) -> calculator.calculate(num1, num2).doubleValue())
+                .orElseThrow(() -> new IllegalArgumentException("Unable to calculate result"));
     }
 }
