@@ -12,7 +12,7 @@ public class Room {
     private final List<Food> foods = new ArrayList<>();
     private Lock lock = new ReentrantLock();
 
-    public boolean hasFood(){
+    public boolean hasFood() {
         return !foods.isEmpty();
     }
 }

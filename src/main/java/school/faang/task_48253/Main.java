@@ -52,7 +52,7 @@ public class Main {
     private static List<Room> generateRooms() {
         List<Room> rooms = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             Room room = new Room();
 
             for (int j = 0; j < 10; j++) {
