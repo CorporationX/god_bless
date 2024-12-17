@@ -2,12 +2,9 @@ package school.faang.task_46466;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
-import java.beans.PropertyEditorSupport;
-
 @Slf4j
 public class Droid {
-    private final int LETTERS_NUMBER = 26;
+    private static final int LETTERS_NUMBER = 26;
     private String name;
 
     public Droid(String name) {
@@ -35,7 +32,7 @@ public class Droid {
             StringBuilder result = new StringBuilder();
             for (char c : msg.toCharArray()) {
                 if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A': 'a';
+                    char base = Character.isUpperCase(c) ? 'A' : 'a';
                     result.append((char) ((c - base - k + LETTERS_NUMBER) % LETTERS_NUMBER + base));
                 } else {
                     result.append(c);
@@ -43,7 +40,7 @@ public class Droid {
             }
             return result.toString();
         };
-        return  decryptor.process(encryptedMessage, encryptionKey);
+        return decryptor.process(encryptedMessage, encryptionKey);
     }
 
     public void sendMessage(Droid receiver, String message, int encryptionKey) {
