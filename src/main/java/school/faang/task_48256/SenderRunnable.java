@@ -15,11 +15,11 @@ public class SenderRunnable implements Runnable {
         try {
             int i = startIndex;
             while (i <= endIndex) {
-                System.out.println(i + " the message sent" + " : " + Thread.currentThread().getName());
+                System.out.println("Sending the message " + i);
                 ++i;
             }
         } catch (RuntimeException e) {
-            throw new RuntimeException("Error in thread");
+            System.out.println("Something went wrong");
         }
     }
 }
