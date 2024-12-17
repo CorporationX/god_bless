@@ -13,7 +13,7 @@ public class UserAction {
 
     private final String name;
 
-    private final String actionType;
+    private final ActionType actionType;
 
     private final LocalDate actionDate;
 
