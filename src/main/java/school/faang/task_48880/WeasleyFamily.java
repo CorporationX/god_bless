@@ -1,10 +1,15 @@
 package school.faang.task_48880;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final Logger log = LoggerFactory.getLogger(WeasleyFamily.class);
+
     public static void main(String[] args) {
         String[] chores = {"Wash the dishes", "Sweep the floor", "Cook food", "Do the laundry"};
         ExecutorService executors = Executors.newCachedThreadPool();
@@ -18,7 +23,7 @@ public class WeasleyFamily {
                 executors.shutdown();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.info("Task interrupted");
         }
     }
 }
