@@ -1,9 +1,14 @@
 package school.faang.bjs246077;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
 public class Email {
-    private String subject;// — тема письма;
-
-    private String Stringbody; //  — текст письма;// ;
-
-    private boolean isImportant ;// — флаг;// , указывающий, важное письмо или нет.
+    private String subject;
+    private String body;
+    private boolean isImportant;
 }

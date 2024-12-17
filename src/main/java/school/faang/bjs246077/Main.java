@@ -1,5 +1,11 @@
 package school.faang.bjs246077;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -25,8 +31,7 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
-
-
+        emails.forEach(email -> System.out.println("Тема: " + email.getSubject()
+                + ", Тело письма: " + email.getBody()));
     }
 }
