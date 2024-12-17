@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public class ErrorHandler {
     public static <T> T withErrorHandling(Action<T> mainAction, Function<Exception, T> errorHandler) {
-        try{
+        try {
             return mainAction.act();
         } catch (Exception error) {
             return errorHandler.apply(error);
