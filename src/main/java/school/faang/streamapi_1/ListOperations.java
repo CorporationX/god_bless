@@ -75,7 +75,7 @@ public class ListOperations {
     public static OptionalInt findMinGreaterThan(List<Integer> numbers, Integer limit) {
         if (numbers.isEmpty()) {
             System.out.println("List is empty");
-            return OptionalInt.of(0);
+            return OptionalInt.empty();
         }
         return numbers.stream()
                 .filter(number -> number > limit)
