@@ -9,17 +9,18 @@ public class Main {
         };
 
         int[][] newMatrix = MatrixProcessor.flipMatrix(matrix, FlipDirection.VERTICAL);
-        for (int[] value : newMatrix) {
-            for (int j = 0; j < value.length; j++) {
-                System.out.print(value[j] + " ");
-            }
-            System.out.println();
-        }
+        printMatrix(newMatrix);
+
         System.out.println();
+
         int[][] newMatrix2 = MatrixProcessor.flipMatrix(matrix, FlipDirection.HORIZONTAL);
-        for (int[] value : newMatrix2) {
-            for (int j = 0; j < value.length; j++) {
-                System.out.print(value[j] + " ");
+        printMatrix(newMatrix2);
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] value : matrix) {
+            for (int i : value) {
+                System.out.print(i + " ");
             }
             System.out.println();
         }
