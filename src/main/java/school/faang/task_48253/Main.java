@@ -23,7 +23,7 @@ public class Main {
             "Mac & Cheese", "Samosa", "Bruschetta", "Poke Bowl", "Shawarma", "Pho"
     };
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         House house = new House();
         house.getRooms().addAll(generateRooms());
 
@@ -33,21 +33,19 @@ public class Main {
         executorService.scheduleAtFixedRate(() -> {
             house.collectFood();
 
-            if (house.getRooms().stream()
-                    .allMatch(r -> r.getFoods().isEmpty())) {
+            if (house.allFoodCollected()) {
                 executorService.shutdown();
             }
         }, 0, 1, TimeUnit.SECONDS);
 
         try {
-            if (executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
+            if (executorService.awaitTermination(5, TimeUnit.MINUTES)) {
                 System.out.println("Еда в доме собрана!");
-
             } else {
-                System.out.println("Не получилось собрать всю еду");
+                System.out.println("Не получилось собрать всю еду за установленное время");
             }
         } catch (InterruptedException e) {
-            System.out.println("Ошибка выполнения кода");
+            System.out.println("Ошибка выполнения кода: " + e);
         }
     }
 

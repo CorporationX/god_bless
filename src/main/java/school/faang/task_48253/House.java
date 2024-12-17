@@ -12,28 +12,26 @@ public class House {
     private final Random rand = new Random();
     private final List<Food> collectedFoods = new ArrayList<>();
 
-
     public void collectFood() {
-
         while (true) {
-            int r1Index = rand.nextInt(0, rooms.size());
-            int r2Index = rand.nextInt(0, rooms.size());
+            Room room1 = rooms.stream()
+                    .filter(Room::hasFood)
+                    .findAny()
+                    .orElse(null);
 
-            if (r1Index == r2Index) {
-                continue;
+            Room room2 = rooms.stream()
+                    .filter(r -> r.hasFood() && r != room1)
+                    .findAny()
+                    .orElse(null);
+
+            if (room1 == null || room2 == null) {
+                return;
             }
-
-            Room room1 = rooms.get(r1Index);
-            Room room2 = rooms.get(r2Index);
 
             if (room1.getLock().tryLock() && room2.getLock().tryLock()) {
                 try {
-                    collectedFoods.addAll(room1.getFoods());
-                    room1.getFoods().clear();
-
-                    collectedFoods.addAll(room2.getFoods());
-                    room2.getFoods().clear();
-
+                    collectFoodFromRoom(room1);
+                    collectFoodFromRoom(room2);
                     break;
                 } finally {
                     room1.getLock().unlock();
@@ -41,5 +39,14 @@ public class House {
                 }
             }
         }
+    }
+
+    private void collectFoodFromRoom(Room room) {
+        collectedFoods.addAll(room.getFoods());
+        room.getFoods().clear();
+    }
+
+    public boolean allFoodCollected() {
+        return rooms.stream().noneMatch(Room::hasFood);
     }
 }
