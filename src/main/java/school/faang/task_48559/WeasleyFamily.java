@@ -2,6 +2,7 @@ package school.faang.task_48559;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,12 +13,13 @@ public class WeasleyFamily {
 
     public static void main(String[] args) {
 
-        List<Chore> choreList = new ArrayList<>();
-        choreList.add(new Chore("сходить за хлебом"));
-        choreList.add(new Chore("помыть посуду"));
-        choreList.add(new Chore("убрать в комнате"));
-        choreList.add(new Chore("приготовить ужин"));
-        choreList.add(new Chore("пребить полку"));
+        List<Chore> choreList = new ArrayList<>(Arrays.asList(
+                new Chore("сходить за хлебом"),
+                new Chore("помыть посуду"),
+                new Chore("убрать в комнате"),
+                new Chore("приготовить ужин"),
+                new Chore("пребить полку")
+        ));
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -35,11 +37,4 @@ public class WeasleyFamily {
             executorService.shutdownNow();
         }
     }
-
 }
-
-
-
-
-
-
