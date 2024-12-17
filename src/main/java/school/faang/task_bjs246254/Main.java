@@ -13,7 +13,7 @@ public class Main {
     }
 
     public static class RemoteService {
-        public static String call(String param) throws RuntimeException {
+        public static String call(String param) {
             throw new RuntimeException("Сервис недоступен");
         }
     }
