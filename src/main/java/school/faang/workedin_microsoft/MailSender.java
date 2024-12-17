@@ -16,10 +16,12 @@ public class MailSender {
         HashMap<Integer, List<Integer>> partsOfLetters = calculateParts(threadsCount, lettersCount);
         System.out.println("Parts: " + partsOfLetters);
 
+        int startIndex;
+        int endIndex;
+
         for (int i = 1; i <= threadsCount; i++) {
-            List<Integer> pair = partsOfLetters.get(i);
-            int startIndex = pair.get(0);
-            int endIndex = pair.get(1);
+            startIndex = partsOfLetters.get(i).get(0);
+            endIndex = partsOfLetters.get(i).get(1);
             SenderRunner senderRunner = new SenderRunner(letters, startIndex, endIndex);
             Thread newThread = new Thread(senderRunner);
             newThread.start();
