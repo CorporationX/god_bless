@@ -18,12 +18,11 @@ public class Droid {
 
         for (Character character : messageLetters) {
             boolean isUpperCase = !character.equals(Character.toLowerCase(character));
-            Character lowerChar = Character.toLowerCase(character);
             Character resultChar = character;
 
-            if (Character.isLetter(lowerChar)) {
-                int positionCounter = getAlphabetPosition(character);
-                int encryptPosition = positionCounter + key;
+            if (Character.isLetter(character)) {
+                int position = getAlphabetPosition(character);
+                int encryptPosition = position + key;
                 if (ALPHABET.size() - 1 < encryptPosition) {
                     encryptPosition = encryptPosition - ALPHABET.size();
                 }
@@ -57,18 +56,11 @@ public class Droid {
 
         for (Character character : messageLetters) {
             boolean isUpperCase = !character.equals(Character.toLowerCase(character));
-            Character lowerChar = Character.toLowerCase(character);
             Character resultChar = character;
 
-            if (ALPHABET.contains(lowerChar)) {
-                int positionCounter = 0;
-                for (Character letter : ALPHABET) {
-                    if (letter.equals(lowerChar)) {
-                        break;
-                    }
-                    positionCounter++;
-                }
-                int encryptPosition = positionCounter - key;
+            if (Character.isLetter(character)) {
+                int position = getAlphabetPosition(character);
+                int encryptPosition = position - key;
                 if (encryptPosition < 0) {
                     encryptPosition = ALPHABET.size() + encryptPosition;
                 }
