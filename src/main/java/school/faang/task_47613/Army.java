@@ -26,7 +26,7 @@ public class Army {
             try {
                 unitThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.printf("Error in thread = %s", unitThread.getName());
             }
         }
 
