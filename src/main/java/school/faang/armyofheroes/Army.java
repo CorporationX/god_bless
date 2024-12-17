@@ -7,13 +7,13 @@ import java.util.List;
 
 @Getter
 public class Army {
-    ArrayList<Unit> units = new ArrayList<>();
+    private final ArrayList<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<Thread> unitThreads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
@@ -27,7 +27,11 @@ public class Army {
         }
 
         for (Thread unitThread : unitThreads) {
-            unitThread.join();
+            try {
+                unitThread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Прерывание потока во время ожидания завершения: " + e.getMessage());
+            }
         }
 
         for (PowerCalculator task : tasks) {
