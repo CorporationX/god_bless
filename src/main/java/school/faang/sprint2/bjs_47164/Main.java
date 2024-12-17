@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, -1, 10, 7, 4, 0, 11);
-        log.info("result {}", findPairs(numbers, 10));
+        List<Integer> numbers = Arrays.asList(2, 3, -1, 9, 1, 10, 7, 11, 6, 4);
+        log.info("result {}", findPairs(numbers, 8));
 
         Map<String, String> geo = Map.of(
                 "Canada", "Ottawa",
@@ -32,7 +32,8 @@ public class Main {
 
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sumOfPair) {
         return numbers.stream()
-                .filter(number -> numbers.contains(sumOfPair - number))
+                .filter(number -> numbers.contains(sumOfPair - number)
+                        && number != sumOfPair - number)
                 .map(number -> Arrays.asList(number, sumOfPair - number))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
@@ -54,14 +55,14 @@ public class Main {
 
     public static List<String> convertDecToBin(List<Integer> numbers) {
         return numbers.stream()
-                .filter(num -> num >= 0)
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
     public static List<String> filterAndSortStrings(List<String> strings, String alphabet) {
+        String regex = "[" + alphabet + "]+";
         return strings.stream()
-                .filter(string -> string.matches("[" + alphabet + "]+"))
+                .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
