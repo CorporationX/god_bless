@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalEmails = 1000;
         int totalThreads = 5;
 
@@ -16,8 +16,12 @@ public class MailSender {
             threads[i].start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
         }
         log.info("All emails have been sent");
     }
