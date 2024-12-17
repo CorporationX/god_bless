@@ -81,14 +81,13 @@ public class Main {
                 .toList();
     }
 
-    private static List<String> findPalindromicSubstrings(@NonNull String str) {
+    private static Set<String> findPalindromicSubstrings(@NonNull String str) {
         return IntStream.range(0, str.length())
                 .boxed()
                 .flatMap(p1 -> IntStream.rangeClosed(p1 + 1, str.length())
                         .mapToObj(p2 -> str.substring(p1, p2)))
                 .filter(Main::isPalindrome)
-                .distinct()
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     private static boolean isPalindrome(@NonNull String str) {
