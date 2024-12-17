@@ -26,8 +26,8 @@ public class Droid {
     }
 
 
-    private String decryptMessage(String message, int encryptionKey) throws IOException {
-        DroidMessageEncryptor decryptor = (msg, key) -> {
+    private String decryptMessage(String message, int decryptionKey) throws IOException {
+        DroidMessageDecryptor decryptor = (msg, key) -> {
             StringBuilder decryptedMessage = new StringBuilder();
             for (char c : msg.toCharArray()) {
                 if (Character.isLetter(c)) {
@@ -38,7 +38,7 @@ public class Droid {
             }
             return decryptedMessage.toString();
         };
-        return decryptor.encrypt(message, encryptionKey);
+        return decryptor.decrypt(message, decryptionKey);
     }
 
     public void sendMessage(Droid droid, String message, int encryptionKey) throws IOException {
