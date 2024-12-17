@@ -7,15 +7,17 @@ public class Chore implements Runnable {
         this.chore = chore;
     }
 
+    private static final int TASK_EXECUTION_TIME_MS = 1000;
+
     @Override
     public void run() {
+        System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + chore);
         try {
-            System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + chore);
-            Thread.sleep(1000);
-            System.out.println(Thread.currentThread().getName() + " завершил задачу: " + chore);
+            Thread.sleep(TASK_EXECUTION_TIME_MS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(Thread.currentThread().getName() + " был прерван при выполнении задачи: " + chore);
         }
+        System.out.println(Thread.currentThread().getName() + " завершил задачу: " + chore);
     }
 }
