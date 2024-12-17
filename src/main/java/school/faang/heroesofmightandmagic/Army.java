@@ -1,37 +1,39 @@
 package school.faang.heroesofmightandmagic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Army {
-    List<Character> characters = new ArrayList<>();
+    private final List<Character> characters = new ArrayList<>();
+    private final List<Class<? extends Character>> characterTypes
+            = new ArrayList<>(List.of(Archer.class, Swordsman.class, Mage.class));
 
     public void addUnit(Character character) {
         characters.add(character);
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        TotalPowerRunner archerTotalPowerRunner = new TotalPowerRunner(
-                characters.stream().filter(character -> character.getClass() == Archer.class).toList());
-        TotalPowerRunner mageTotalPowerRunner = new TotalPowerRunner(
-                characters.stream().filter(character -> character.getClass() == Mage.class).toList());
-        TotalPowerRunner swordsmanTotalPowerRunner = new TotalPowerRunner(
-                characters.stream().filter(character -> character.getClass() == Swordsman.class).toList());
+        HashMap<Thread, TotalPowerRunner> threadsAndRunners = new HashMap<>();
 
-        Thread archerThread = new Thread(archerTotalPowerRunner);
-        Thread mageThread = new Thread(mageTotalPowerRunner);
-        Thread swordsmanThread = new Thread(swordsmanTotalPowerRunner);
+        characterTypes.forEach(characterType -> {
+            TotalPowerRunner totalPowerRunner = new TotalPowerRunner(
+                    characters.stream().filter(character -> character.getClass() == characterType).toList());
 
-        archerThread.start();
-        mageThread.start();
-        swordsmanThread.start();
+            Thread characterThread = new Thread(totalPowerRunner);
 
-        archerThread.join();
-        mageThread.join();
-        swordsmanThread.join();
+            threadsAndRunners.put(characterThread, totalPowerRunner);
 
-        return archerTotalPowerRunner.getTotalPower()
-                + mageTotalPowerRunner.getTotalPower()
-                + swordsmanTotalPowerRunner.getTotalPower();
+            characterThread.start();
+        });
+
+        int result = 0;
+        for (Map.Entry<Thread, TotalPowerRunner> entry : threadsAndRunners.entrySet()) {
+            entry.getKey().join();
+            result += entry.getValue().getTotalPower();
+        }
+
+        return result;
     }
 }
