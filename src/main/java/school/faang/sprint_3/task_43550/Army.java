@@ -30,7 +30,7 @@ public class Army {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Поток был прерван во время ожидания.");
             }
         }
 
