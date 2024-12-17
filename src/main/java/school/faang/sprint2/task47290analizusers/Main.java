@@ -26,7 +26,7 @@ public class Main {
                 new UserAction(1, "Alice", "share", LocalDate.of(2024, 9, 16), ""),
                 new UserAction(5, "Eve", "comment", LocalDate.of(2024, 9, 17), "#update looks great!"),
                 new UserAction(3, "Charlie", "like", LocalDate.of(2024, 9, 18), ""),
-                new UserAction(4, "Dave", "comment", LocalDate.of(2024, 9, 19), "Really liking the new #feature."),
+                new UserAction(4, "Dave", "comment", LocalDate.of(2024, 9, 19), "Really liking th new #feature."),
                 new UserAction(2, "Bob", "share", LocalDate.of(2024, 9, 20), ""),
                 new UserAction(1, "Alice", "post", LocalDate.of(2024, 9, 21), "Excited for the upcoming #conference!"),
                 new UserAction(3, "Charlie", "comment", LocalDate.of(2024, 9, 22), "I'll be at the #conference too!"),
