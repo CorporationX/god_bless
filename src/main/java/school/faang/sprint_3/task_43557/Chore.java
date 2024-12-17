@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+public record Chore(String chore) implements Runnable {
 
     @Override
     public void run() {
