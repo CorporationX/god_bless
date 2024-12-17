@@ -1,23 +1,20 @@
 package school.faang.task47300;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode
-@Setter
-@Getter
 @ToString
+@EqualsAndHashCode
+@AllArgsConstructor
 public class UserAction {
-    private int id;
-    private String name;
-    private String action;
-    private LocalDate actionDate;
-
-    private String content;
+    final int id;
+    final String name;
+    final String action;
+    final LocalDate actionDate;
+    final String content;
 
     public int getId() {
         return id;
@@ -27,7 +24,7 @@ public class UserAction {
         return name;
     }
 
-    public String getActionType() {
+    public String name() {
         return action;
     }
 
@@ -39,13 +36,5 @@ public class UserAction {
         return content;
     }
 
-    public UserAction(int id, String name, String action, LocalDate actionDate, String content) {
-        this.id = id;
-        this.name = name;
-        this.action = action;
-        this.actionDate = actionDate;
-        this.content = content;
-
-    }
 }
 

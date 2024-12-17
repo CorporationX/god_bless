@@ -1,18 +1,16 @@
 package school.faang.task47300;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+@RequiredArgsConstructor
+@Getter
+@ToString
 public enum ActionType {
-    POST("post"),
-    COMMENT("comment"),
-    LIKE("like"),
-    SHARE("share");
-    private final String actionType;
-
-    ActionType(String actionType) {
-        this.actionType = actionType;
-    }
-
-    public String getActionType() {
-        return actionType;
-    }
+    POST,
+    COMMENT,
+    LIKE,
+    SHARE
 
 }
