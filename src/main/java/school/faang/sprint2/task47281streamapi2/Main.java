@@ -19,7 +19,7 @@ public class Main {
         List<String> capitals = sorted(countryCapitals);
         System.out.println("Sorted capitals: " + capitals);
 
-        List<String> words = Arrays.asList("apple", "banana", "apricot", "grape", "avocado");
+        List<String> words = Arrays.asList("apple", "banana", "apricot", "grapes", "avocado");
         char targetChar = 'a';
         List<String> sortedWords = sortedString(words, targetChar);
         System.out.println("Words starting with '" + targetChar + "' sorted by length: " + sortedWords);
