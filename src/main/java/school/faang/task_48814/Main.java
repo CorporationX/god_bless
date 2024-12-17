@@ -12,14 +12,14 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
         List<User> users = new ArrayList<>(List.of(
-                new User("Norair", house),
-                new User("Egor", house),
-                new User("Hke", house),
-                new User("Who", house),
-                new User("Mike", house),
-                new User("Lo", house),
-                new User("John", house),
-                new User("Goo", house)
+                new User("Norair", null, house),
+                new User("Egor", null, house),
+                new User("Hke", null, house),
+                new User("Who", null, house),
+                new User("Mike", null, house),
+                new User("Lo", null, house),
+                new User("John", null, house),
+                new User("Goo", null, house)
         ));
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);

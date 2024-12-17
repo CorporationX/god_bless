@@ -17,21 +17,22 @@ public class House {
         this.availableRoles = roles.size();
     }
 
-    public synchronized void addRole() throws InterruptedException {
+    public synchronized Role addRole() throws InterruptedException {
         while (availableRoles == 0) {
             System.out.println("There is no available roles! Waiting...");
             wait();
         }
         availableRoles--;
+        return roles.get(roles.size() - availableRoles - 1);
     }
 
-    public synchronized void chooseRole(User user) throws InterruptedException {
+    public synchronized Role chooseRole(User user) throws InterruptedException {
         if (user == null) {
             throw new IllegalArgumentException("User is null!");
         }
-        addRole();
-        Role role = roles.get(roles.size() - availableRoles - 1);
+        Role role = addRole();
         usersPerRoles.put(user, role);
+        return role;
     }
 
     public synchronized void removeRole(User user) {

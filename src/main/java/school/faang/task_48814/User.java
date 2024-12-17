@@ -11,10 +11,11 @@ import java.util.Objects;
 @AllArgsConstructor
 public class User {
     private String name;
+    private Role currentRole;
     private final House house;
 
     public synchronized void joinHouse() throws InterruptedException {
-        house.chooseRole(this);
+        this.currentRole = house.chooseRole(this);
         System.out.println(name + " chose role : " + house.getUsersPerRoles().get(this));
     }
 
