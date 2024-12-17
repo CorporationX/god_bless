@@ -10,8 +10,11 @@ import java.util.*;
 public class StudentLoader {
 
     public List<Student> loadStudents() throws IOException {
-        final String PATH_TO_JSON = "src\\main\\java\\derschrank\\sprint02\\task12\\bjstwo_48025\\students_test_data.json";
-        return loadStudents(PATH_TO_JSON);
+        // Требование checkstyle: Аббревиатура в имени 'PATH_TO_JSON' должна содержать
+        // не более '1' последовательных заглавных букв. [AbbreviationAsWordInName]
+        final String pathToJson =
+                "src\\main\\java\\derschrank\\sprint02\\task12\\bjstwo_48025\\students_test_data.json";
+        return loadStudents(pathToJson);
     }
 
     public List<Student> loadStudents(String filePath) throws IOException {

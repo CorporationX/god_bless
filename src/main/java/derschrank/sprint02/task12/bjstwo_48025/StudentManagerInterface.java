@@ -6,7 +6,8 @@ import java.util.Map;
 public interface StudentManagerInterface {
     Map<String, Double> getAverageGradeBySchool(List<Student> students);
 
-    Map<String, Integer> getAverageGradeByStudent(List<Student> students, String firstNameOfStudent, String lastNameOfStudent);
+    Map<String, Integer> getAverageGradeByStudent(
+            List<Student> students, String firstNameOfStudent, String lastNameOfStudent);
 
     String getMostHardSubject(List<Student> students);
 

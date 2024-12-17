@@ -29,7 +29,8 @@ public class StudentManager implements StudentManagerInterface {
     }
 
     @Override
-    public Map<String, Integer> getAverageGradeByStudent(List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
+    public Map<String, Integer> getAverageGradeByStudent(
+            List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
         return getDoubleAverageGradeByStudent(students, firstNameOfStudent, lastNameOfStudent).entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -37,7 +38,8 @@ public class StudentManager implements StudentManagerInterface {
                 ));
     }
 
-    private Map<String, Double> getDoubleAverageGradeByStudent(List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
+    private Map<String, Double> getDoubleAverageGradeByStudent(
+            List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
         return
                 students.stream()
                         .filter(student -> firstNameOfStudent.equals(student.firstName())
@@ -86,7 +88,6 @@ public class StudentManager implements StudentManagerInterface {
                     firstName + " " + lastName,
                     subjects,
                     getDoubleAverageGradeByStudent(students, firstName, lastName)
-                    //averageBySchool
             );
         }
 
