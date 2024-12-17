@@ -2,21 +2,25 @@ package school.faang.task_48851;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class Main {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        List<Food> collectionFood = new ArrayList<>();
+    List<Food> collectionFood = new ArrayList<>();
+
+    House house = new House("myHome", 3);
+
+    ExecutorService executor = Executors.newScheduledThreadPool(5);
+    for (int i = 0; i < 5; i++) {
+      executor.submit(() -> house.collectFood(collectionFood, house));
+    }
 
 
 
-
-    House house = new House("myHome",3);
-
-    house.collectFood(collectionFood);
-
-
-	}
+  }
 }

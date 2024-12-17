@@ -12,7 +12,7 @@ import java.util.Random;
 public class Room {
   private List<Food> listFood;
   private String nameRoom;
-  public static final int CREATE_COUNT_FOOD =10000;
+  public static final int CREATE_COUNT_FOOD =100;
 
   public Room() {
     this.nameRoom = "" + new Random().nextInt(0,10);
@@ -26,5 +26,8 @@ public class Room {
     }
     return listFood;
 
+  }
+  void delFood(Food food) {
+    listFood.remove(food);
   }
 }

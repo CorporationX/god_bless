@@ -6,44 +6,67 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
 public class House {
-    private List<Room> rooms;
-    private String houseName;
-    private int roomsNumber;
 
-    public House(String houseName, int roomsNumber) {
-        this.houseName = houseName;
-        this.roomsNumber = roomsNumber;
+  public static int SELECT_COUNT_ROOM = 2;
 
-        createRooms(roomsNumber);
+  private List<Room> rooms;
+  private String houseName;
+  private int roomsNumber;
 
+  public House(String houseName, int roomsNumber) {
+    this.houseName = houseName;
+    this.roomsNumber = roomsNumber;
+
+    createRooms(roomsNumber);
+  }
+
+  private void createRooms(int countRoom) {
+    List<Room> rooms = new ArrayList<>();
+    for (int i = 0; i < countRoom; i++) {
+      rooms.add(new Room());
     }
+    this.rooms = rooms;
+  }
 
-    private void createRooms(int countRoom) {
-        List<Room> rooms = new ArrayList<>();
-        for (int i = 0; i < countRoom; i++) {
-            rooms.add(new Room());
-        }
-        this.rooms = rooms;
+  /*
+  В классе House реализуйте метод collectFood(), который будет:
+
+  Собирать еду из двух случайно выбранных комнат.
+
+  Удалить собранную еду из списков еды этих комнат.
+
+  Добавить собранную еду в общий список собранной еды.
+   */
+
+  public void collectFood(List<Food> foodList, House house) {
+    List<Food> newFoodList = new ArrayList<>();
+
+    List<Room> newRooms = new ArrayList<>(house.rooms);
+
+    for (int i = 0; i < SELECT_COUNT_ROOM; i++) {
+      try {
+        int random = getRandomRooms(newRooms);
+
+        Food tempfood = house.getRooms().get(random).getListFood().get(0);
+        house.getRooms().get(random).delFood(tempfood);
+        foodList.add(tempfood);
+
+      } finally {
+
+      }
     }
+  }
 
-
-    /*
-    В классе House реализуйте метод collectFood(), который будет:
-
-    Собирать еду из двух случайно выбранных комнат.
-
-    Удалить собранную еду из списков еды этих комнат.
-
-    Добавить собранную еду в общий список собранной еды.
-     */
-
-    public void collectFood(List<Food> foodList) {
-        List<Room> newRooms = new ArrayList<>();
-
-
-    }
+  private int getRandomRooms(List<Room> listRoom) {
+    int a = new Random().nextInt(listRoom.size());
+    listRoom.remove(a);
+    return a;
+  }
 }
