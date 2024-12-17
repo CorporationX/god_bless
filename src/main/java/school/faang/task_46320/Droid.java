@@ -1,7 +1,7 @@
 package school.faang.task_46320;
 
 public class Droid {
-    private String name;
+    private final String name;
 
     public Droid(String name) {
         this.name = name;
@@ -11,8 +11,8 @@ public class Droid {
         return encryptor.encrypt(message, key);
     }
 
-    public String decryptMessage(String encryptedMessage, int key, DroidMessageEncryptor decryptor) {
-        return decryptor.encrypt(encryptedMessage, -key);
+    public String decryptMessage(String encryptedMessage, int key, DroidMessageEncryptor decrypt) {
+        return decrypt.encrypt(encryptedMessage, -key);
     }
 
     public void sendMessage(Droid recipient, String message, int key) {
@@ -35,7 +35,7 @@ public class Droid {
     }
 
     public void receiveMessage(String encryptedMessage, int key) {
-        DroidMessageEncryptor decryptor = (msg, k) -> {
+        DroidMessageEncryptor decrypt = (msg, k) -> {
             StringBuilder decrypted = new StringBuilder();
             for (char c : msg.toCharArray()) {
                 if (Character.isLetter(c)) {
@@ -48,7 +48,7 @@ public class Droid {
             return decrypted.toString();
         };
 
-        String decryptedMessage = decryptMessage(encryptedMessage, key, decryptor);
+        String decryptedMessage = decryptMessage(encryptedMessage, key, decrypt);
         System.out.println(this.name + " получил расшифрованное сообщение: " + decryptedMessage);
     }
 }
