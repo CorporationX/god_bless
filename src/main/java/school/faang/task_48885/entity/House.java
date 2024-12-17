@@ -39,8 +39,8 @@ public class House {
         Room bedroom = new Room();
         kitchen.addFood(new Food("Apple"));
         livingRoom.addFood(new Food("Sandwich"));
-        kitchen.addFood(new Food("Banana"));
         bedroom.addFood(new Food("Chocolate"));
+        kitchen.addFood(new Food("Banana"));
         livingRoom.addFood(new Food("Juice"));
         bedroom.addFood(new Food("Cookies"));
 
