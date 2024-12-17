@@ -44,7 +44,9 @@ public class CashierThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Кассир " + cashierId + " начал обслуживание покупателя c " + customerItems.length + " товарами");
+        System.out.println("Кассир " + cashierId
+                + " начал обслуживание покупателя c "
+                + customerItems.length + " товарами");
 
         int totalPrice = 0;
         int totalItems = 0;
@@ -59,8 +61,8 @@ public class CashierThread extends Thread {
             }
         }
 
-        System.out.println("Кассир " + cashierId + " закончил облуживание покупателя\n" +
-                "Количество обработанных товаров:" + totalItems + "\n" +
-                "Цена к оплате:" + totalPrice);
+        System.out.println("Кассир " + cashierId + " закончил облуживание покупателя\n"
+                + "Количество обработанных товаров:" + totalItems + "\n"
+                + "Цена к оплате:" + totalPrice);
     }
 }
