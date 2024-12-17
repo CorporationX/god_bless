@@ -14,12 +14,14 @@ public class WeasleyFamily {
 
         executorService.shutdown();
 
-        while (!executorService.isTerminated()) {
+        if (!executorService.isTerminated()) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
-                executorService.shutdownNow();
+                System.out.println("tasks are not finished yet..");
             }
+        } else {
+            executorService.shutdownNow();
         }
 
         System.out.println("All tasks finished");
