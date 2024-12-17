@@ -2,7 +2,7 @@ package school.faang.task_48559;
 
 public class Chore implements Runnable {
 
-    private String chore;
+    private final String chore;
 
     public Chore(String chore) {
         if (chore == null || chore.trim().isEmpty()) {
