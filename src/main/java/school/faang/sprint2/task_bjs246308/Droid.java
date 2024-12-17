@@ -38,7 +38,7 @@ public class Droid {
     }
 
     private String decryptMessage(String encryptedMessage, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
+        DroidMessageDecryptor decryptor = (msg, decryptionKey) -> {
             StringBuilder decryptedMessage = new StringBuilder();
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
@@ -50,7 +50,7 @@ public class Droid {
             }
             return decryptedMessage.toString();
         };
-        return decryptor.encrypt(encryptedMessage, key);
+        return decryptor.decrypt(encryptedMessage, key);
     }
 
 }
