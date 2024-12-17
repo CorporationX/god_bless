@@ -16,13 +16,15 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return (numbers.stream()
                 .mapToInt(Integer::intValue)
-                .max().orElse(0));
+                .max()
+                .orElseThrow(() -> new IllegalArgumentException("Список пустой")));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return (numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average().orElse(0));
+                .average()
+                .orElseThrow(() -> new IllegalArgumentException("Список пустой")));
     }
 
     public static int countStringsStartingWith(List<String> strings, char letter) {
@@ -52,7 +54,8 @@ public class ListOperations {
         return listInt.stream()
                 .filter(x -> x > y)
                 .mapToInt(Integer::intValue)
-                .min().orElse(0);
+                .min()
+                .orElseThrow(() -> new IllegalArgumentException("Список пустой"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
