@@ -27,7 +27,7 @@ public class Main {
         System.out.println(StreamTrainingTasks.updateToBinary(numbers));
 
         List<String> strings = new ArrayList<>();
-        strings.add("a");
+        strings.add("ab");
         strings.add("kirill");
         strings.add("spring");
         strings.add("oreo");
