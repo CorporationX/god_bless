@@ -33,8 +33,8 @@ public class Solution {
     }
 
     public static List<String> toBinary(List<Integer> numbers) {
-        return numbers.stream().
-                map(Integer::toBinaryString)
+        return numbers.stream()
+                .map(Integer::toBinaryString)
                 .toList();
     }
 
