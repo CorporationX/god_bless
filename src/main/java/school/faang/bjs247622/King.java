@@ -20,17 +20,9 @@ public class King {
         knight1.startTrials(executorService);
         knight2.startTrials(executorService);
         executorService.shutdown();
-
-        try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.error("The thread was interrupted while waiting for ExecutorService to terminate {} ",
-                    Thread.currentThread().getName());
-        }
-
         try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-                log.info("The delivery tasks were not completed in 5 minutes, we forcefully stop the ThreadPool");
+                log.info("The delivery tasks were not completed in 5 seconds, we forcefully stop the ThreadPool");
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
