@@ -17,7 +17,7 @@ public class House {
     public static void collectFood(List<Room> rooms) {
         synchronized (collectedFood) {
             Room room = rooms.get(rand.nextInt(rooms.size()));
-            if(!room.getFoodList().isEmpty()){
+            if (!room.getFoodList().isEmpty()) {
                 collectedFood.addAll(room.getFoodList());
                 room.getFoodList().clear();
             }
@@ -26,7 +26,7 @@ public class House {
             do {
                 room2 = rooms.get(rand.nextInt(rooms.size()));
             } while (room2 == room);
-            if(!room2.getFoodList().isEmpty()){
+            if (!room2.getFoodList().isEmpty()) {
                 collectedFood.addAll(room2.getFoodList());
                 room2.getFoodList().clear();
             }
@@ -62,9 +62,9 @@ public class House {
         }
 
         try {
-           if(scheduler.awaitTermination(15, TimeUnit.SECONDS)) {
-               scheduler.shutdown();
-           }
+            if (scheduler.awaitTermination(15, TimeUnit.SECONDS)) {
+                scheduler.shutdown();
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
