@@ -1,0 +1,41 @@
+package school.faang.sprint_3.task_43556;
+
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+@Data
+public class House {
+    private List<Room> rooms = new ArrayList<>();
+    private List<Food> collectedFood = new ArrayList<>();
+
+    public void addRoom(Room room) {
+        rooms.add(room);
+    }
+
+    public void collectFood() {
+        Random random = new Random();
+        Room room1 = rooms.get(random.nextInt(rooms.size()));
+        Room room2 = rooms.get(random.nextInt(rooms.size()));
+
+        if (room1.hasFood() && room2.hasFood()) {
+            System.out.println("Собираем еду в " + room1.name() + " и " + room2.name());
+            collectedFood.addAll(room1.foodList());
+            room1.removeAllFood();
+            collectedFood.addAll(room2.foodList());
+            room2.removeAllFood();
+        }
+    }
+
+    public boolean allFoodCollected() {
+        int count = 0;
+        for (Room room : rooms) {
+            if (room.foodList().isEmpty()) {
+                count++;
+            }
+        }
+        return count == rooms.size();
+    }
+}
