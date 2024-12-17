@@ -6,8 +6,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<List<Item>> customers = new ArrayList<>();
-        List<CashierThread> cashiers = new ArrayList<>();
-        CashierThread thread;
 
         customers.add(new ArrayList<>(List.of(
                 new Item("Молоко", 10),
@@ -27,6 +25,9 @@ public class Main {
                 new Item("Чай", 50),
                 new Item("Сливки", 70)
         )));
+
+        List<CashierThread> cashiers = new ArrayList<>();
+        CashierThread thread;
 
         for (List<Item> cart : customers) {
             thread = new CashierThread(cart);
