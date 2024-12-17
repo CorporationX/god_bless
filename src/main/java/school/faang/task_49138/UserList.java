@@ -18,7 +18,7 @@ public class UserList {
                 .toList();
     }
 
-    public synchronized User getRandomUserWantsChat(User user) {
+    public synchronized User getRandomUserWantsChat(User user) throws InterruptedException {
         List<User> availableUsers = getOnlineUsers();
         System.out.println("Checking available users...");
 
@@ -28,7 +28,7 @@ public class UserList {
 
         if (filteredUsers.isEmpty()) {
             System.out.println("No available users for chat");
-            return null;
+            wait();
         }
 
         int id = RANDOM.nextInt(filteredUsers.size());
@@ -39,8 +39,10 @@ public class UserList {
         if (user == null) {
             throw new IllegalArgumentException("User is null");
         }
-        users.add(user);
-        notifyAll();
+        if (!users.contains(user)) {
+            users.add(user);
+            notifyAll();
+        }
     }
 
     public synchronized void removeUser(User user) {

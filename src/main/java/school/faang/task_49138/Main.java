@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -28,7 +27,7 @@ public class Main {
             userList.addUser(user);
         }
 
-        ExecutorService executorService = Executors.newScheduledThreadPool(BUFFER_SIZE);
+        ExecutorService executorService = Executors.newFixedThreadPool(BUFFER_SIZE);
 
         for (User user : users) {
             executorService.submit(() -> {
@@ -39,6 +38,7 @@ public class Main {
                 }
             });
         }
+
 
         if (!executorService.awaitTermination(90, TimeUnit.SECONDS)) {
             executorService.shutdown();
