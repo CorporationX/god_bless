@@ -74,7 +74,7 @@ public class House {
     private static void collectFood() {
         Room currentRoom;
 
-        for (int i = 1; i <= 2; i++){
+        for (int i = 1; i <= 2; i++) {
             currentRoom = rooms.pollFirst();
             if (currentRoom != null && !currentRoom.getFoods().isEmpty()) {
                 collectedFood.addAll(currentRoom.collect());
