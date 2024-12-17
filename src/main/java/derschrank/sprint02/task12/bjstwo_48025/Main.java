@@ -13,10 +13,10 @@ public class Main {
 
         StudentManager manager = new StudentManager();
         System.out.println("\n2) Average grades by School:");
-        System.out.println(manager.getAverageGradeBySchool(students));
+        System.out.println(manager.getAverageGradeBySubjectThroughoutTheSchool(students));
 
         System.out.println("\n3) Average grades by students:");
-        System.out.println(manager.getAverageGradeByStudent(students, "Oleg", "Sidorov"));
+        System.out.println(manager.getTotalGradeByStudent(students, "Oleg", "Sidorov"));
 
         System.out.println("\n4) Most hard subject:");
         System.out.println(manager.getMostHardSubject(students));
