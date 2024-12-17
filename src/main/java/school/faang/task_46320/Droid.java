@@ -2,7 +2,7 @@ package school.faang.task_46320;
 
 public class Droid {
     private String name;
-    // Конструктор
+
     public Droid(String name) {
         this.name = name;
     }
