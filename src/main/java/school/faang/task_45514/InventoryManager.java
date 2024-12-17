@@ -2,7 +2,6 @@ package school.faang.task_45514;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -29,15 +28,11 @@ public class InventoryManager {
         if (character == null || function == null) {
             throw new IllegalArgumentException("Check input data. One of the objects is null");
         }
-        if (character.getInventory().stream().anyMatch(it -> condition.test(it))) {
-            character.getInventory().stream().forEach(item -> {
-                if ((condition.test(item))) {
-                    item.setValue(function.apply(item).getValue());
-                }
-            });
-        } else {
-            System.out.println("There is no such item.");
+        List<Item> items = character.getInventory();
+        Item item = items.stream().filter(it -> condition.test(it)).findFirst().orElse(null);
+        if (item == null) {
+            return;
         }
-
+        items.set(items.indexOf(item), function.apply(item));
     }
 }
