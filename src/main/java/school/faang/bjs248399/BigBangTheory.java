@@ -10,14 +10,13 @@ public class BigBangTheory {
     private static final int THREADS_AMOUNT = 4;
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREADS_AMOUNT);
-
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task("Sheldon", "theory preparation"));
         tasks.add(new Task("Leonard", "experiment modeling"));
         tasks.add(new Task("Howard", "tool development"));
         tasks.add(new Task("Rajesh", "data analysis"));
 
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS_AMOUNT);
         for (Task task : tasks) {
             executorService.execute(task);
         }
