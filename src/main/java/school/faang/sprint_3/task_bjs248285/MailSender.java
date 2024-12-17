@@ -7,7 +7,7 @@ public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREADS_COUNT = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int batchSize = TOTAL_MESSAGES / THREADS_COUNT;
         Thread[] threads = new Thread[THREADS_COUNT];
 
@@ -18,7 +18,12 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread {} was interrupted", thread);
+                Thread.currentThread().interrupt();
+            }
         }
         log.info("All mails sent");
     }
