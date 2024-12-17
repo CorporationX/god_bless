@@ -107,9 +107,9 @@ class UserActionAnalyzerTest {
     @Test
     public void testTopActiveUsers() {
         List<String> expectedList = List.of(
-                userList.get(2).toString(),
                 userList.get(0).toString(),
                 userList.get(1).toString(),
+                userList.get(2).toString(),
                 userList.get(3).toString(),
                 userList.get(4).toString());
 
@@ -135,9 +135,9 @@ class UserActionAnalyzerTest {
     @Test
     public void testTopCommentersLastMonth() {
         List<String> expectedList = List.of(
-                userList.get(2).toString(),
+                userList.get(1).toString(),
                 userList.get(4).toString(),
-                userList.get(1).toString()
+                userList.get(2).toString()
         );
 
         List<String> actualList = analyzer.topCommentersLastMonth(userActions, 3);

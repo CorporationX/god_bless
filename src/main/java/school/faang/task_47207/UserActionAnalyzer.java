@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class UserActionAnalyzer {
     public List<String> topActiveUsers(List<UserAction> actions, int quantity) {
         return requireNonNullList(actions).stream()
                 .collect(Collectors.groupingBy(
-                        UserAction::user, Collectors.counting()))
+                        UserAction::user, LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<User, Long>comparingByValue().reversed())
@@ -44,11 +45,12 @@ public class UserActionAnalyzer {
     public List<String> topCommentersLastMonth(List<UserAction> actions, int quantity) {
         return requireNonNullList(actions).stream()
                 .filter(userAction ->
-                        userAction.actionType() == ActionType.COMMENT)
-                .filter(comment -> comment.actionDate()
-                        .isAfter(LocalDate.now().withDayOfMonth(1)))
+                        userAction.actionType() == ActionType.COMMENT
+                                && userAction.actionDate().isAfter(
+                                LocalDate.now().withDayOfMonth(1))
+                        )
                 .collect(Collectors.groupingBy(
-                        UserAction::user, Collectors.counting()))
+                        UserAction::user, LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<User, Long>comparingByValue().reversed())
