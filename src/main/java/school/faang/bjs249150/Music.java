@@ -30,13 +30,6 @@ public class Music {
         }
 
         executorService.shutdown();
-        try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            System.err.println("The thread was interrupted while waiting for ExecutorService to terminate: "
-                    + e.getMessage());
-        }
-
         System.out.println("The music track is finished");
 
         try {
