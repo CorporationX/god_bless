@@ -54,10 +54,9 @@ public class UserActionAnalyzer {
         return actions.stream()
                 .filter(action -> "comment".equals(action.actionType())
                         && action.actionDate().isAfter(lastMothBorder))
-                .collect(Collectors.toMap(
+                .collect(Collectors.groupingBy(
                         action -> Map.entry(action.id(), action.name()),
-                        action -> 1,
-                        (a, b) -> a + b
+                        Collectors.counting()
                 )).entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
                 .map(entry -> entry.getKey().getValue())
