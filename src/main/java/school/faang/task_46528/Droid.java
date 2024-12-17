@@ -3,8 +3,6 @@ package school.faang.task_46528;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.function.BiFunction;
-
 @RequiredArgsConstructor
 @Getter
 public class Droid {
@@ -25,23 +23,20 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int key) {
-        return getMessageAfterCaesarCipher(message, key,
-                (ch, base) -> (char) ((ch - base + key) % COUNT_LETTERS_ALPHABET + base));
+        return getMessageAfterCaesarCipher(message, key, getShiftForEncrypt(key));
     }
 
     private String decryptMessage(String message, int key) {
-        return getMessageAfterCaesarCipher(message, key,
-                (ch, base) -> (char) ((ch - base - key + COUNT_LETTERS_ALPHABET) % COUNT_LETTERS_ALPHABET + base));
+        return getMessageAfterCaesarCipher(message, key, getShiftForDecrypt(key));
     }
 
-    private String getMessageAfterCaesarCipher(String message, int key,
-                                               BiFunction<Character, Character, Character> cipher) {
+    private String getMessageAfterCaesarCipher(String message, int key, int shift) {
         StringBuilder builder = new StringBuilder();
         DroidMessageEncryptor droidMessageEncryptor = (m, k) -> {
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    builder.append(cipher.apply(ch, base));
+                    builder.append((char) ((ch - base + shift) % COUNT_LETTERS_ALPHABET + base));
                 } else {
                     builder.append(ch);
                 }
@@ -50,5 +45,13 @@ public class Droid {
         };
 
         return droidMessageEncryptor.encrypt(message, key);
+    }
+
+    private int getShiftForDecrypt(int key) {
+        return -key + COUNT_LETTERS_ALPHABET;
+    }
+
+    private int getShiftForEncrypt(int key) {
+        return key;
     }
 }
