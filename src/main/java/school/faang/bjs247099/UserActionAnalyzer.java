@@ -3,15 +3,19 @@ package school.faang.bjs247099;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.*;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
-        return actions.stream().collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(10)
@@ -20,11 +24,12 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
+        String regex = "#[a-z]+";
+        Pattern pattern = Pattern.compile(regex);
         return actions.stream()
                 .filter(action -> action.content() != null
-                        && action.actionType().equals("post") || action.actionType().equals("comment"))
-                .flatMap(action -> Arrays.stream(action.content().split("\\\\\\\\s+")))
-                .filter(word -> word.startsWith("#"))
+                        && action.actionType() == ActionType.POST || action.actionType() == ActionType.COMMENT)
+                .flatMap(action -> pattern.matcher(action.content()).results().map(MatchResult::group))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -35,9 +40,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         return actions.stream()
-                .filter(action -> action.actionType().equals("comment")
+                .filter(action -> action.actionType() == ActionType.COMMENT
                         && action.actionDate().isAfter(LocalDate.now().minusMonths(1)))
-                .collect(Collectors.groupingBy(user -> user.name(), Collectors.counting()))
+                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(3)
@@ -50,8 +55,8 @@ public class UserActionAnalyzer {
                 .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey(),
-                        e -> Math.round(e.getValue() * 100.0 / actions.size()) / 100.0
+                        Map.Entry::getKey,
+                        e -> (e.getValue() * 100.0 / actions.size())
                 ));
     }
 }
