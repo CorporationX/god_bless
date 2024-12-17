@@ -13,6 +13,7 @@ public class ListOperations {
     static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
         return numbers.stream()
             .distinct()
+            .filter(num -> numbers.contains(sum - num))
             .map(num -> Arrays.asList(num, sum - num))
             .peek(Collections::sort)
             .collect(Collectors.toSet());
@@ -40,7 +41,7 @@ public class ListOperations {
 
     static List<String> filterAndSortByLength(List<String> strings, String regex) {
         return strings.stream()
-            .filter(str -> Pattern.compile(regex).matcher(str).matches())
+            .filter(str -> Pattern.compile("[" + regex + "]+").matcher(str).matches())
             .sorted(Comparator.comparingInt(String::length))
             .toList();
     }
