@@ -41,7 +41,7 @@ public class Main {
 
         try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-                System.out.println("The delivery tasks were not completed in 5 minutes, "
+                System.out.println("The tasks were not completed in 5 seconds, "
                         + "we forcefully stop the ThreadPool");
                 executorService.shutdownNow();
             }
