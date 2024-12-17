@@ -1,7 +1,5 @@
 package school.faang.bjs247317;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -44,7 +42,7 @@ public class Processor {
                 .toList();
     }
 
-    public static List<String> sortStartingWithChar(List<String> strings, String alphabet) {
+    public static List<String> sortOfAlphabet(List<String> strings, String alphabet) {
         return strings.stream()
                 .filter(string -> string.chars().allMatch(letter -> alphabet.contains(String.valueOf((char) letter))))
                 .sorted(Comparator.comparingInt(String::length))
