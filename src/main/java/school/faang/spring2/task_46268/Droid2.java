@@ -27,9 +27,9 @@ public class Droid2 {
                                   BiFunction<Character, Integer, Integer> upperProcessor,
                                   BiFunction<Character, Integer, Integer> lowerProcessor) {
         StringBuilder builder = new StringBuilder();
-        for(char ch : msg.toCharArray()) {
-            if(Character.isLetter(ch)) {
-                if(Character.isUpperCase(ch)) {
+        for (char ch : msg.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                if (Character.isUpperCase(ch)) {
                     int code = upperProcessor.apply(ch, key);
                     builder.append((char) code);
                 } else {
@@ -45,10 +45,10 @@ public class Droid2 {
 
 
     public String sendMessage(String message, int key, DroidMessageEncryptor encryptor) {
-        if(encryptor == null) {
+        if (encryptor == null) {
             encryptor = DEFAULT_ENCRYPTOR;
         }
-        if(key < 0) {
+        if (key < 0) {
             throw new IllegalArgumentException("Only positive key allowed");
         }
 
@@ -56,10 +56,10 @@ public class Droid2 {
     }
 
     public String receiveMessage(String decryptedMsg, int key, DroidMessageEncryptor decryptor) {
-        if(decryptor == null) {
+        if (decryptor == null) {
             decryptor = DEFAULT_DECRYPTOR;
         }
-        if(key < 0) {
+        if (key < 0) {
             throw new IllegalArgumentException("Only positive key allowed");
         }
 
@@ -69,7 +69,7 @@ public class Droid2 {
     private static int encrypt(char c, int key, int minBorder, int maxBorder) {
         int code = c;
         code += key;
-        if(code > maxBorder) {
+        if (code > maxBorder) {
             code = code % maxBorder + minBorder - 1;
         }
         return code;
@@ -78,7 +78,7 @@ public class Droid2 {
     private static int decrypt(char c, int key, int minBorder, int maxBorder) {
         int code = c;
         code -= key % ALPHABET_SIZE;
-        if(code < minBorder) {
+        if (code < minBorder) {
             code = maxBorder - (minBorder - code) + 1;
         }
         return code;
