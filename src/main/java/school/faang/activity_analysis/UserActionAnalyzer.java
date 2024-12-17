@@ -23,25 +23,36 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         HashMap<String, Integer> hashtagsCount = new HashMap<>();
+
         actions.forEach(userAction -> {
             String content = userAction.content();
 
-            if(content.contains("#")) {
-                int startIndex = content.indexOf("#");
-                int endIndex = startIndex + 1;
-
-                while(endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
-                    endIndex++;
-                }
-                String hashtag = content.substring(startIndex, endIndex);
-
-                if(!hashtagsCount.containsKey(hashtag)) {
+            getHashtags(content).forEach(hashtag -> {
+                if (!hashtagsCount.containsKey(hashtag)) {
                     hashtagsCount.put(hashtag, 0);
                 }
                 hashtagsCount.put(hashtag, hashtagsCount.get(hashtag) + 1);
-            }
+            });
         });
         return getTop(hashtagsCount, 5);
+    }
+
+    private static List<String> getHashtags(String content) {
+        List<String> hashTags = new ArrayList<>();
+        StringBuilder contentBuilder = new StringBuilder(content);
+
+        while (contentBuilder.indexOf("#") != -1) {
+            int startIndex = content.indexOf("#");
+            int endIndex = startIndex + 1;
+
+            while (endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
+                endIndex++;
+            }
+            String hashtag = content.substring(startIndex, endIndex);
+            contentBuilder.delete(startIndex, endIndex);
+            hashTags.add(hashtag);
+        }
+        return hashTags;
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
@@ -53,7 +64,7 @@ public class UserActionAnalyzer {
         thisMonthActions.stream()
                 .filter(userAction -> userAction.actionType() == ActionType.COMMENT).forEach(userAction -> {
 
-                    if(!commentsCount.containsKey(userAction.name())) {
+                    if (!commentsCount.containsKey(userAction.name())) {
                         commentsCount.put(userAction.name(), 0);
                     }
                     commentsCount.put(userAction.name(), commentsCount.get(userAction.name()) + 1);
