@@ -12,5 +12,3 @@ public class Main {
         System.out.println("Общая сила армии: " + totalPower);
     }
 }
-
-

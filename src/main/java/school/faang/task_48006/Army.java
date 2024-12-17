@@ -10,23 +10,30 @@ public class Army {
         units.add(unit);
     }
 
-    public static int calculateTotalPower() throws InterruptedException {
+    public static int calculateTotalPower() {
 
         int totalPower = 0;
 
         List<Thread> threads = new ArrayList<>();
         List<CalculatePower> task = new ArrayList<>();
 
+        CalculatePower power;
+        Thread thread;
+
         for (Unit unit : units) {
-            CalculatePower power = new CalculatePower(unit);
+            power = new CalculatePower(unit);
             task.add(power);
-            Thread thread = new Thread(power);
+            thread = new Thread(power);
             threads.add(thread);
             thread.start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        for (Thread countThread : threads) {
+            try {
+                countThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         for (CalculatePower powers : task) {
