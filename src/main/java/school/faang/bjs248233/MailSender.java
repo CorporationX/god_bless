@@ -3,9 +3,9 @@ package school.faang.bjs248233;
 public class MailSender {
     public static void main(String[] args) {
 
-        Thread[] threads = new Thread[5];
-        for (int i = 0; i < 5; i++) {
-            threads[i] = new Thread(new SenderRunnable(i * 200, (i + 1) * 200));
+        Thread[] threads = new Thread[Constants.THREADS_AMOUNT];
+        for (int i = 0; i < Constants.THREADS_AMOUNT; i++) {
+            threads[i] = new Thread(new SenderRunnable(i * Constants.CHUNK_SIZE, (i + 1) * Constants.CHUNK_SIZE));
             threads[i].start();
         }
 
