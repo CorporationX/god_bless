@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int TIMEOUT = 2;
+
     private final List<String> chores = new ArrayList<>();
 
     public void addChore(String chore) {
@@ -23,7 +25,7 @@ public class WeasleyFamily {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
                 System.out.println("Не все задачи завершены в указанный период времени.");
             }
         } catch (InterruptedException e) {
