@@ -1,7 +1,5 @@
 package school.faang.users_activity;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -10,5 +8,7 @@ public class Main {
         System.out.println(topUsers);
         List<String> topHashtag = UserActionAnalyzer.topFivePopularHashtags(SourceData.actions);
         System.out.println(topHashtag);
+        List<String> topCommeters = UserActionAnalyzer.topThreeCommentersLastMonth(SourceData.actions);
+        System.out.println(topCommeters);
     }
 }
