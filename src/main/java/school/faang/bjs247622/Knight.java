@@ -13,7 +13,6 @@ public class Knight {
     private final String name;
     private final List<Trial> trials = new ArrayList<>();
 
-
     public void addTrial(Trial trial) {
         trials.add(trial);
     }
