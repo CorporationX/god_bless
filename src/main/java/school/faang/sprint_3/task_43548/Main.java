@@ -24,7 +24,8 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
 
-        int start, end;
+        int start;
+        int end;
         List<Person> batch;
         for (int i = 0; i < POOL_SIZE; i++) {
             start = BATCH_SIZE * i;
