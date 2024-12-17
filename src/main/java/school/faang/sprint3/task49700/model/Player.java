@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @ToString
 public class Player {
-    private final String Name;
+    private final String name;
 
     public void startBattle(Boss boss) {
 
