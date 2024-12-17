@@ -11,16 +11,16 @@ public class Main {
 
         System.out.println("\nTask 01");
         System.out.println("Найдите людей с общими друзьями");
-        Map<String, List<String>> personWithFriends = new HashMap<>();
-        personWithFriends.put("Alice", List.of("Bob", "Charlie"));
-        personWithFriends.put("Bob", List.of("Alice", "David"));
-        personWithFriends.put("Charlie", List.of("Alice", "David"));
-        personWithFriends.put("David", List.of("Bob", "Charlie"));
-        personWithFriends.put("Ivan", List.of("Charlie", "Bob"));
-        System.out.println("Data: " + personWithFriends);
+        Map<String, List<String>> personsWithTheirFriends = new HashMap<>();
+        personsWithTheirFriends.put("Alice", List.of("Bob", "Charlie"));
+        personsWithTheirFriends.put("Bob", List.of("Alice", "David"));
+        personsWithTheirFriends.put("Charlie", List.of("Alice", "David"));
+        personsWithTheirFriends.put("David", List.of("Bob", "Charlie"));
+        personsWithTheirFriends.put("Ivan", List.of("Charlie", "Bob"));
+        System.out.println("Data: " + personsWithTheirFriends);
         System.out.println("Assert: [(Alice, David), (Bob, Charlie)]");
         StreamApi3 api = new StreamApi3();
-        System.out.println("Fact: " + api.taskOneFindCommonFriends(personWithFriends));
+        System.out.println("Fact: " + api.taskOneFindCommonFriends(personsWithTheirFriends));
 
 
         System.out.println("\nTask 02");
@@ -49,10 +49,7 @@ public class Main {
         System.out.println("Найдите подстроки-палиндромы");
         String stringForSubStrings = "abac mama mila ramu";
         System.out.println("Data: " + stringForSubStrings);
-        System.out.println("Fact: " + api.taskFourFindPolindromSubStrings(
-                api.taskFourMakeSubstringsFromString(stringForSubStrings)
-                )
-        );
+        System.out.println("Fact: " + api.taskFourFindPolindrom(stringForSubStrings));
 
         System.out.println("\nTask 05");
         System.out.println("Найдите совершенные числа");

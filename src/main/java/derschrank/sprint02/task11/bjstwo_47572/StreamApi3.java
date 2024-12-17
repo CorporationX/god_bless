@@ -7,21 +7,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamApi3 {
-    public Set<List<String>> taskOneFindCommonFriends(Map<String, List<String>> personWithFriends) {
-        return personWithFriends.entrySet().stream()
-                        .filter(
-                                x -> !isTheyFriends(personWithFriends, x.getValue().get(0), x.getValue().get(1))
-                        ).map(x -> sortPersonsByNameFromList(x.getValue()))
-                        .collect(Collectors.toSet());
+    public Set<List<String>> taskOneFindCommonFriends(Map<String, List<String>> personsWithTheirFriends) {
+        return personsWithTheirFriends.entrySet().stream()
+
+                .filter(
+                        x -> !isTheyFriends(personsWithTheirFriends, x.getValue().get(0), x.getValue().get(1))
+                ).map(x -> sortPersonsByNameFromList(x.getValue()))
+                .collect(Collectors.toSet());
     }
 
     private boolean isTheyFriends(Map<String, List<String>> personWithFriends, String person1, String person2) {
         return personWithFriends.get(person1).contains(person2)
-                &&  personWithFriends.get(person2).contains(person1);
+                && personWithFriends.get(person2).contains(person1);
     }
 
     private List<String> sortPersonsByNameFromList(List<String> c) {
@@ -40,12 +44,17 @@ public class StreamApi3 {
     }
 
     public List<Integer> taskThreeFindPolindromNumbers(int begin, int end) {
-        return Stream.iterate(begin, x -> x <= end, x -> x + 1)
-                .filter(x -> new StringBuilder(String.valueOf(x)).reverse().toString().equals(String.valueOf(x)))
+        return IntStream.rangeClosed(begin, end).boxed()
+                .filter(getPolindromePredicate())
                 .toList();
     }
 
-    public Collection<String> taskFourMakeSubstringsFromString(String s) {
+    public List<String> taskFourFindPolindrom(String string) {
+        return taskFourFindPolindromSubStrings(
+                taskFourMakeSubstringsFromString(string));
+    }
+
+    private Collection<String> taskFourMakeSubstringsFromString(String s) {
         Set<String> setOfSubStrings = new HashSet<>();
         for (int i = 0; i < s.length(); i++) {
             for (int j = i + 1; j <= s.length(); j++) {
@@ -59,18 +68,23 @@ public class StreamApi3 {
         return setOfSubStrings;
     }
 
-    public List<String> taskFourFindPolindromSubStrings(Collection<String> c) {
-        return c.stream()
-                .filter(x -> new StringBuilder(String.valueOf(x)).reverse().toString().equals(String.valueOf(x)))
+    private List<String> taskFourFindPolindromSubStrings(Collection<String> collection) {
+        return collection.stream()
+                //.filter(x -> new StringBuilder(String.valueOf(x)).reverse().toString().equals(String.valueOf(x)))
+                .filter(getPolindromePredicate())
                 .toList();
     }
 
+    private <T> Predicate<T> getPolindromePredicate() {
+        return x -> new StringBuilder(String.valueOf(x)).reverse().toString().equals(String.valueOf(x));
+    }
+
     public List<Integer> taskFiveFindSuperNumber(int begin, int end) {
-        return Stream.iterate(begin, x -> x <= end, x -> x + 1)
+        return IntStream.rangeClosed(begin, end)
                 .filter(x -> Objects.equals(x,
-                        Stream.iterate(1, y -> y < x, y -> y + 1)
+                        IntStream.range(1, x)
                                 .filter(y -> x % y == 0)
-                                .reduce(0, (a, b) -> a + b)))
+                                .sum())).boxed()
                 .toList();
     }
 }
