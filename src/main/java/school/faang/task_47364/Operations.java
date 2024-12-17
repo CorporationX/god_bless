@@ -13,15 +13,12 @@ public class Operations {
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
     public static Set<List<Integer>> findPairsToSum(List<Integer> numbers, int sum) {
-        Set<List<Integer>> pairs;
         Set<Integer> set = new HashSet<>(numbers);
-
-        pairs = numbers.stream()
+        return numbers.stream()
                 .filter(num -> set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> getSortedCapitals(Map<String, String> capitalByCountry) {
