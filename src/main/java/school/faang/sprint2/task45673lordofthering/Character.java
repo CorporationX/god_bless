@@ -9,7 +9,6 @@ import java.util.List;
 public class Character {
     private final String name;
     private List<Item> inventory = new ArrayList<>();
-    private Integer costItems = 0;
 
     Character(String name) {
         this.name = name;
@@ -19,7 +18,9 @@ public class Character {
         inventory.add(itemName);
     }
 
-    public void calculateCostItems(Item item) {
-        costItems += item.getValue();
+    public Integer inventoryCost() {
+        return inventory.stream()
+                .map(Item::getValue)
+                .reduce(0, (item1, item2) -> item1 + item2);
     }
 }

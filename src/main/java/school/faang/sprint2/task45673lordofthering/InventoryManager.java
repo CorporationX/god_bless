@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> addItem) {
         character.addItemToInventory(item);
-        character.calculateCostItems(item);
+        character.inventoryCost();
         addItem.accept(item);
     }
 
