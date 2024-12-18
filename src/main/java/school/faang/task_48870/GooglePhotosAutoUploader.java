@@ -5,7 +5,8 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private List<String> photosToUpload = new ArrayList<>(List.of("/C/direction/user/Ayaz/music", "/C/users/user/private/contract",
+    private List<String> photosToUpload = new ArrayList<>(List.of("/C/direction/user/Ayaz/music",
+            "/C/users/user/private/contract",
             "/D/users/Liam/photos", "/D/cc/dd/ff"));
 
     public void startAutoUpload() {
