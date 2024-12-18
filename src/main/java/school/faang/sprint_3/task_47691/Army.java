@@ -24,9 +24,11 @@ public class Army {
         int currentPositionInList = 0;
         int oneThreadCalculationPart = (int) Math.ceil(warriors.size() / (double) AMOUNT_OF_THREADS);
         List<ParallelCalculator> parallelCalculators = new ArrayList<>();
+        int startOfSublist;
+        int endOfSublist;
         while (currentPositionInList < warriors.size()) {
-            int startOfSublist = currentPositionInList;
-            int endOfSublist = startOfSublist + oneThreadCalculationPart;
+            startOfSublist = currentPositionInList;
+            endOfSublist = startOfSublist + oneThreadCalculationPart;
 
             List<Warrior> sublistToCalculate;
             try {
@@ -38,7 +40,7 @@ public class Army {
             currentPositionInList = endOfSublist;
 
             parallelCalculators.add(new ParallelCalculator(sublistToCalculate));
-            
+
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_OF_THREADS);
