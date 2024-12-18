@@ -1,50 +1,64 @@
 package school.faang.task_48303;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.stream.Stream;
 
+@Slf4j
 public class House {
-    private static final int TOTAL_FOOD_COUNT = 10;
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Food> collectedFood = new ArrayList<>();
-    private final Random random = new Random();
+    private final List<Room> rooms;
+    private final List<Food> collectedFood;
+    @Setter
+    private CountDownLatch cdl;
 
-    public void initialize() {
-        for (int i = 1; i <= 5; i++) {
-            rooms.add(new Room());
+    public House() {
+        rooms = new ArrayList<>();
+        collectedFood = new ArrayList<>();
+        createRooms();
+    }
+
+    public void createRooms() {
+        rooms.addAll(
+                Stream.of(200, 201, 202, 203, 204, 205, 206, 207)
+                        .map(Room::new)
+                        .toList()
+        );
+    }
+
+    public void collectFood() {
+        rooms.stream()
+                .filter(room -> room.tryLock() && !room.isClear())
+                .limit(2)
+                .forEach(room -> {
+                    try {
+                        getFoodFromRoom(room);
+                    } finally {
+                        room.unlock();
+                    }
+                });
+    }
+
+    private void getFoodFromRoom(Room room) {
+        synchronized (collectedFood) {
+            collectedFood.addAll(room.collectFood());
         }
-
-        int foodCounter = 0;
-        while (foodCounter < TOTAL_FOOD_COUNT) {
-            Room room = rooms.get(random.nextInt(rooms.size()));
-            room.addFood(new Food("Еда " + (++foodCounter)));
+        log.info("{} собрал еду из {} комнаты", Thread.currentThread().getName(), room.getNumber());
+        if (cdl != null) {
+            cdl.countDown();
+        } else {
+            log.warn("CountDownLatch не инициализирован!");
         }
     }
 
-    public synchronized void collectFood() {
-        List<Room> roomsWithFood = rooms.stream()
-                .filter(Room::hasFood)
-                .toList();
-
-        if (roomsWithFood.size() < 2) {
-            return;
-        }
-
-        Room room1 = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
-        Room room2;
-
-        do {
-            room2 = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
-        } while (room1 == room2);
-
-        System.out.println("Сбор еды из комнат...");
-        collectedFood.addAll(room1.collectAllFood());
-        collectedFood.addAll(room2.collectAllFood());
-        System.out.println("Собрано: " + collectedFood.size() + " из " + TOTAL_FOOD_COUNT);
+    public int sizeRooms() {
+        return rooms.size();
     }
 
-    public boolean allFoodCollected() {
-        return collectedFood.size() >= TOTAL_FOOD_COUNT;
+    public List<Food> getCollectedFood() {
+        return new ArrayList<>(collectedFood);
     }
 }

@@ -1,34 +1,39 @@
 package school.faang.task_48303;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
-    private static final int THREAD_POOL_SIZE = 5;
+    static final int COUNT_OFFICIANT = 5;
+    static final int DELAY = 10;
+    static final int FREQUENCY = 10;
 
     public static void main(String[] args) {
         House house = new House();
-        house.initialize();
+        CountDownLatch cdl = new CountDownLatch(house.sizeRooms());
+        house.setCdl(cdl);
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(COUNT_OFFICIANT);
 
-        executor.scheduleAtFixedRate(() -> {
-            house.collectFood();
-            if (house.allFoodCollected()) {
-                System.out.println("Еда в доме собрана!");
-                executor.shutdown();
-                try {
-                    if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-                        System.out.println("Принудительная остановка потоков...");
-                        executor.shutdownNow();
-                    }
-                } catch (InterruptedException e) {
-                    System.out.println("Программа была прервана.");
-                    executor.shutdownNow();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }, 0, 1, TimeUnit.SECONDS);
+        for (int i = 0; i < COUNT_OFFICIANT; i++) {
+            executor.scheduleAtFixedRate(() -> new Officiant(house).start(), DELAY, FREQUENCY, TimeUnit.SECONDS);
+        }
+
+        try {
+            cdl.await();
+        } catch (InterruptedException e) {
+            log.error("await проблема ", e);
+        }
+
+        executor.shutdown();
+        System.out.println("Работа закончена");
+
+        List<Food> collected = house.getCollectedFood();
+        collected.forEach(System.out::println);
     }
 }
