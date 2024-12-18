@@ -19,7 +19,7 @@ public class MailSender {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Все письма отправлены");
+        System.out.println("Все письма отправлены!");
         System.out.println("Всего создано потоков: " + createdThreads);
     }
 }
