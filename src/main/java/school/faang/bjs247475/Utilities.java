@@ -25,15 +25,13 @@ public class Utilities {
     };
 
     public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> numbers, Integer target) {
-        Set<List<Integer>> pairs;
         Set<Integer> set = new HashSet<>(numbers);
 
-        pairs = numbers.stream()
+        return numbers.stream()
                 .filter(num -> set.contains(target - num))
                 .map(num -> Arrays.asList(num, target - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> getSortedCapitals(Map<String, String> capitalsByCountry) {
@@ -44,7 +42,7 @@ public class Utilities {
     }
 
     public static List<String> filterAndSortByLetter(List<String> strings, char letter) {
-        return strings.stream().filter(s -> s.startsWith(letter + ""))
+        return strings.stream().filter(s -> s.startsWith(String.valueOf(letter)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
@@ -57,7 +55,7 @@ public class Utilities {
 
     public static List<String> filterByAlphabet(List<String> strings, String alphabet) {
         return strings.stream()
-                .filter(s -> alphabet.chars().anyMatch(c -> s.startsWith((char) c + "")))
+                .filter(s -> alphabet.chars().anyMatch(c -> s.startsWith(String.valueOf(c))))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
