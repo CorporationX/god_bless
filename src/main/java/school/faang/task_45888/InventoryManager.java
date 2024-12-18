@@ -16,10 +16,10 @@ public class InventoryManager {
         character.getInventory().removeIf(filter);
     }
 
-    public void updateItem(Character character, Predicate<Item> filter,Function<Item, Item> function) {
+    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> function) {
         List<Item> inventory = character.getInventory();
-        for(Item item : inventory) {
-            if(filter.test(item)) {
+        for (Item item : inventory) {
+            if (filter.test(item)) {
                 Item updatedItem = function.apply(item);
                 item.setName(updatedItem.getName());
                 item.setValue(updatedItem.getValue());
