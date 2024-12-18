@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SenderRunnable implements Runnable{
+public class SenderRunnable implements Runnable {
     private int startIndex;
 
     private int endIndex;

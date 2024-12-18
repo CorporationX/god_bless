@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class MailSender {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         int totalMessages = 1000;
         int threadsCount = 5;
         int batchSize = totalMessages / threadsCount;
