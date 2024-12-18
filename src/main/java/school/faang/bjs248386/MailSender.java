@@ -17,12 +17,13 @@ public class MailSender {
             threads[i].start();
         }
 
-        for (Thread thread : threads) {
-            try {
+        try {
+            for (Thread thread : threads) {
                 thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         System.out.println("Ishlar tugadi");
