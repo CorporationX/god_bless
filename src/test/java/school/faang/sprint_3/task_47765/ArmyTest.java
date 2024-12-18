@@ -1,11 +1,7 @@
-package school.faang.sprint_3.task_48344;
+package school.faang.sprint_3.task_47765;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.sprint_3.Archer;
-import school.faang.sprint_3.Army;
-import school.faang.sprint_3.Mage;
-import school.faang.sprint_3.Swordsman;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
