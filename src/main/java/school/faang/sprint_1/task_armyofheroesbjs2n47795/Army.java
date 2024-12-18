@@ -21,19 +21,17 @@ public class Army {
 
         for (String className : warriorMap.keySet()) {
             switch (className) {
-                case "Archer" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Archer")));
-                case "Mage" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Mage")));
-                case "Swordsman" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Swordsman")));
-                default -> log.error("warrior map has a key(warrior class name) "
+              case "Archer" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Archer")));
+              case "Mage" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Mage")));
+              case "Swordsman" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Swordsman")));
+              default -> log.error("warrior map has a key(warrior class name) "
                         + "that is not processed for its own thread. Thus not calculated in calculateTotalPower()");
             }
         }
 
         try {
-            List<Thread> threadList = new ArrayList<>();
             for (PowerCalculator<Warrior> powerCalculator : powerCalculators) {
                 Thread thread = new Thread(powerCalculator);
-                threadList.add(thread);
                 thread.start();
                 thread.join();
             }
