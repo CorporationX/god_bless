@@ -13,11 +13,14 @@ public class ListOperations {
     }
 
     public static Integer findMax(List<Integer> numbers) {
-        return Collections.max(numbers);
+        return numbers.stream()
+                .max(Integer::compare)
+                .orElse(null);
     }
 
-    public static Integer findAverage(List<Integer> numbers) {
-        return sumOfEvenNumbers(numbers) / numbers.size();
+    public static double findAverage(List<Integer> numbers) {
+        return numbers.stream().mapToDouble(Integer::doubleValue)
+                .average().orElse(Double.NaN);
     }
 
     public static Integer countStringsStartingWith(List<String> strings, char ch) {
