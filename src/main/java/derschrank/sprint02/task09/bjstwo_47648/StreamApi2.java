@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class StreamApi2 {
-    public static List<List<Integer>> findSum(List<Integer> numbers, int sum) {
+public class StreamApi2 implements StreamApi2Interface {
+    public List<List<Integer>> findSum(List<Integer> numbers, int sum) {
         return numbers.stream()
                 .filter(x -> numbers.contains(sum - x)
                         && (x != (sum - x) || Collections.frequency(numbers, x) > 1))
@@ -18,7 +18,7 @@ public class StreamApi2 {
     }
 
 
-    public static List<String> sortCountryAndGetCapital(Map<String, String> countryAndCapital) {
+    public List<String> sortCountryAndGetCapital(Map<String, String> countryAndCapital) {
         return countryAndCapital
                 .keySet()
                 .stream()
@@ -27,20 +27,20 @@ public class StreamApi2 {
                 .toList();
     }
 
-    public static List<String> findCharAndSortStrings(List<String> strings, char ch) {
+    public List<String> findCharAndSortStrings(List<String> strings, char ch) {
         return strings.stream()
                 .filter(x -> x.startsWith(Character.toString(ch)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static List<String> makeDecToBin(List<Integer> numbers) {
+    public List<String> makeDecToBin(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List<String> filterStringsByAlphabetAndSortByLength(List<String> string, String alphabet) {
+    public List<String> filterStringsByAlphabetAndSortByLength(List<String> string, String alphabet) {
         Predicate<String> isAllCharsFromAlphabet = word -> word.chars()
                 .allMatch(ch -> alphabet.contains(Character.toString(ch)));
 
