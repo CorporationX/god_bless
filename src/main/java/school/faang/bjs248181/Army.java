@@ -41,8 +41,8 @@ public class Army {
                 totalPower.addAndGet(charactersByType
                         .getValue()
                         .stream()
-                        .mapToInt(Character::getPower).
-                        sum()));
+                        .mapToInt(Character::getPower)
+                        .sum()));
         try {
             thread.start();
             thread.join();
