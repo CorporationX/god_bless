@@ -12,13 +12,11 @@ import java.util.stream.Collectors;
 public class StreamTrainingTasks {
     public static Set<List<Integer>> findUniquePairs(List<Integer> numbers, int targetNumber) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-        Set<List<Integer>> uniquePairs;
-        uniquePairs = uniqueNumbers.stream()
+        return uniqueNumbers.stream()
                 .filter(number -> uniqueNumbers.contains(targetNumber - number))
                 .map(number -> Arrays.asList(number, targetNumber - number))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return uniquePairs;
     }
 
     public static List<String> getCapitals(Map<String, String> countries) {
