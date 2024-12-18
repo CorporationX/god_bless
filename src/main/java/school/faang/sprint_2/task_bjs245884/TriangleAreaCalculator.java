@@ -21,7 +21,7 @@ public class TriangleAreaCalculator {
         }
     }
 
-    public Double calculateTriangleArea(double sideA, double sideB, double sideC) throws IllegalArgumentException {
+    public Double calculateTriangleArea(double sideA, double sideB, double sideC) {
         if (sideA >= add.apply(sideB).apply(sideC)
                 || sideB >= add.apply(sideA).apply(sideC)
                 || sideC >= add.apply(sideA).apply(sideB)
