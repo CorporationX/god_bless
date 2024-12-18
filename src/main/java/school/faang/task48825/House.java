@@ -16,10 +16,12 @@ public class House {
 
     public void addRole(Role role) {
         while (!getAvailableRoles().contains(role)) {
+            log.info("{} ожидает", role);
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                log.info(e.getMessage());
+                log.info("Error message", e);
+                Thread.currentThread().interrupt();
             }
         }
         availableRoles.remove(role);
@@ -27,6 +29,6 @@ public class House {
 
     public void removeRole(Role role) {
         availableRoles.add(role);
-        this.notify();
+        this.notifyAll();
     }
 }

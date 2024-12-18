@@ -14,10 +14,9 @@ import static school.faang.task48825.Role.*;
 
 @Slf4j
 public class Main {
-    private static final int THREAD_POOL = 2;
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL);
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
         House house = new House("Ланистеры",
                 new HashSet<>(Set.of(MAGE, KNIGHT, LORD)));
@@ -33,14 +32,23 @@ public class Main {
             executorService.execute(user::joinHouse);
 
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
-                log.error(e.getMessage());
+                log.error("Error message", e);
             }
         });
 
         executorService.execute(() -> users.get(0).leaveHouse());
 
         executorService.shutdown();
+
+        try {
+            if (executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                log.info("Всё завершилось");
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            log.error("Error message", e);
+        }
     }
 }
