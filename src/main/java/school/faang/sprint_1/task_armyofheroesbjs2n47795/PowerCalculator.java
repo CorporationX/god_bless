@@ -1,9 +1,11 @@
 package school.faang.sprint_1.task_armyofheroesbjs2n47795;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @Getter
 public class  PowerCalculator <T extends Warrior> implements Runnable {
     List<T> warriors;
@@ -23,6 +25,7 @@ public class  PowerCalculator <T extends Warrior> implements Runnable {
         int sum = 0;
         for (T warrior : warriors) {
             sum += warrior.getPower();
+            log.info("{} power calculation", warrior.getClass().getSimpleName());
         }
         return sum;
     }

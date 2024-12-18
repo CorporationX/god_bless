@@ -2,7 +2,6 @@ package school.faang.sprint_1.task_armyofheroesbjs2n47795;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 public class Army {
     private final List<Archer> archers = new ArrayList<>();
@@ -39,19 +38,10 @@ public class Army {
     }
 
     public void addUnit(Warrior warrior) {
-        System.out.println(warrior.getClass().getSimpleName());
         switch (warrior.getClass().getSimpleName()) {
             case "Archer" -> archers.add((Archer) warrior);
             case "Mage" -> mages.add((Mage) warrior);
             case "Swordsman" -> swordsmen.add((Swordsman) warrior);
         }
-    }
-
-    private <T extends Warrior> int calculatePower(List<T> warriors) {
-        int sum = 0;
-        for (Warrior warrior : warriors) {
-            sum += warrior.getPower();
-        }
-        return sum;
     }
 }
