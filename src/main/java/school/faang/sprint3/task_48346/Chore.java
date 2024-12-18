@@ -1,22 +1,26 @@
 package school.faang.sprint3.task_48346;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class Chore implements Runnable {
 
+    private static final int SECONDS_TO_SLEEP = 5;
     private final String chore;
 
     @Override
     public void run() {
-        System.out.printf("\nHello, I am thread %s and I am doing %s", Thread.currentThread().getName(), chore);
-
+        log.info("Hello, I am thread {} and I am doing {}", Thread.currentThread().getName(), chore);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(SECONDS_TO_SLEEP * 1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Thread {} was interrupted and has not completed the task", Thread.currentThread().getName());
+            e.printStackTrace();
+            return;
         }
 
-        System.out.printf("\nI am thread %s and I've completed my task successfully", Thread.currentThread().getName());
+        log.info("\nI am thread {} and I've completed my task successfully", Thread.currentThread().getName());
     }
 }
