@@ -11,11 +11,17 @@ public class GooglePhotosAutoUploader {
             "/D/cc/dd/ff"));
 
     public void startAutoUpload() {
+        long timeout = 2000;
+        long startTime = System.currentTimeMillis();
         synchronized (lock) {
             while (true) {
                 if (photosToUpload.isEmpty()) {
                     try {
-                        lock.wait();
+                        lock.wait(timeout);
+                        long elapsedTime = System.currentTimeMillis() - startTime;
+                        if (elapsedTime >= timeout) {
+                            break;
+                        }
                     } catch (InterruptedException e) {
                         System.out.println("sfsdfs" + e.getMessage());
                     }
