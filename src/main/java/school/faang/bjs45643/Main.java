@@ -10,9 +10,9 @@ public class Main {
 
         manager.addItem(character, item, null);
 
-        manager.updateItem(character, (item1) -> item1.getName().equals("Knife"),
-                (item1) -> new Item("Knife", item1.getValue() * 2));
+        manager.updateItem(character, (item1) -> item1.name().equals("Knife"),
+                (item1) -> new Item("Knife", item1.value() * 2));
 
-        System.out.println(character.getInventory());
+        System.out.println(character.inventory());
     }
 }
