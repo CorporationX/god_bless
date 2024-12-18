@@ -30,7 +30,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("!!!Exception!!! " + e);
             }
         }
 
