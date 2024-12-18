@@ -18,7 +18,9 @@ public class InventoryManager {
                 .map(item -> {
                     if (condition.test(item)) {
                         return action.apply(item);
-                    } else return item;
+                    } else {
+                        return item;
+                    }
                 }).toList();
 
         character.inventory().clear();
