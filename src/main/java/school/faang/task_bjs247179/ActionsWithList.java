@@ -8,7 +8,7 @@ public class ActionsWithList {
     public static int findSumOfEven(List<Integer> list){
         return list.stream()
                 .filter(x -> x % 2 == 0)
-                .reduce(0, (sum, number) -> sum += number);
+                .reduce(0, Integer::sum);
     }
 
     public static int findMax(List<Integer> list){
