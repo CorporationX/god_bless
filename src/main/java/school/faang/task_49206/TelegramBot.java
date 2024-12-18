@@ -9,6 +9,7 @@ public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
     private long lastRequestTime;
+    private static final int MSECONDS_LIMIT = 1000;
 
     public TelegramBot() {
         requestCounter = 0;
@@ -19,7 +20,7 @@ public class TelegramBot {
         while (true) {
             long lastRequestBeforeNow = System.currentTimeMillis() - lastRequestTime;
 
-            if (lastRequestBeforeNow < 1000) {
+            if (lastRequestBeforeNow < MSECONDS_LIMIT) {
                 requestCounter++;
             } else {
                 System.out.println("->");
