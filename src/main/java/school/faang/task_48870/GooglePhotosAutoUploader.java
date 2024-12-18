@@ -12,15 +12,19 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("dfgdfg" + e.getMessage());
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("sfsdfs" + e.getMessage());
+                    }
+                } else {
+                    System.out.println("Добавляем новые файлы");
+                    uploadPhotos();
                 }
+
             }
-            System.out.println("Добавляем новые файлы");
-            uploadPhotos();
         }
     }
 
