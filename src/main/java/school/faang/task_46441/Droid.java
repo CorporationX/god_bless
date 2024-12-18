@@ -55,7 +55,7 @@ public class Droid {
                 if (ALPHABET.indexOf(lowerCaseMsg.charAt(i)) != -1) {
                     int index = ALPHABET.indexOf(lowerCaseMsg.charAt(i));
                     int keyId = index - key;
-                    if(keyId < 0) {
+                    if (keyId < 0) {
                         keyId = ALPHABET.length() + keyId;
                     }
                     if (isUpperCase) {
