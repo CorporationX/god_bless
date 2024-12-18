@@ -20,7 +20,8 @@ public class Main {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.description());
-        Function<Image, Image> multiFilter = filterProcessor.combineFilters(makeUpFilter, grayscaleFilter, sepiaFilter, negativeFilter);
+        Function<Image, Image> multiFilter = filterProcessor.combineFilters(
+                makeUpFilter, grayscaleFilter, sepiaFilter, negativeFilter);
         Image multiFilteredImage = filterProcessor.applyFilter(originalImage, multiFilter);
         System.out.println(multiFilteredImage.description());
     }
