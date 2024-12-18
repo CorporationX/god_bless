@@ -51,11 +51,7 @@ public class Main {
 
         return numbers.stream()
                 .filter(num -> set.contains(sum - num))
-                .map(num -> {
-                    List<Integer> pair = Arrays.asList(num, sum - num);
-                    Collections.sort(pair);
-                    return pair;
-                })
+                .map(num -> Arrays.asList(Math.min(num, sum - num), Math.max(num, sum - num)))
                 .collect(Collectors.toSet());
     }
 }
