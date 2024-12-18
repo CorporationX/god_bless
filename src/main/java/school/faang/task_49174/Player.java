@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
-    private final int THREAD_SLEEP_DELAY = 1000;
+    private static final int THREAD_DELAY = 1000;
 
     private boolean isPlaying;
 
@@ -22,7 +22,7 @@ public class Player {
         pause();
         log.info("Player is skipping... Is playing: {}", isPlaying);
         try {
-            Thread.sleep(THREAD_SLEEP_DELAY);
+            Thread.sleep(THREAD_DELAY);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
@@ -33,7 +33,7 @@ public class Player {
         pause();
         log.info("Player returns to the previous one... Is playing: {}", isPlaying);
         try {
-            Thread.sleep(THREAD_SLEEP_DELAY);
+            Thread.sleep(THREAD_DELAY);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
