@@ -1,34 +1,55 @@
 package school.faang.sprint_3;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@AllArgsConstructor
+@Slf4j
 public class Army {
-    private List<Hero> heroes;
+    private final List<Hero> heroes = new ArrayList<>();
+    private int totalPower;
 
-    public int calculateTotalPower() throws InterruptedException {
-        int threadsCount = 4;
-        PowerThread[] threads = new PowerThread[threadsCount];
-        int packageSize = heroes.size() / threadsCount;
+    public int calculateTotalPower() {
+        if (heroes.isEmpty()) {
+            return 0;
+        }
+        int chunkSize = 5;
+        CountDownLatch counter = new CountDownLatch((heroes.size() + chunkSize - 1) / chunkSize);
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
-        for (int i = 0; i < threadsCount; i++) {
-            PowerThread thread = new PowerThread(heroes.subList(i, i + 1));
-            threads[i] = thread;
-            thread.start();
+        for (int i = 0; i < heroes.size(); i += chunkSize) {
+            var finalI = i;
+            executorService.submit(() -> {
+                var powerOfPartHeroes = heroes.subList(finalI, Math.min(heroes.size(), finalI + chunkSize))
+                        .stream()
+                        .mapToInt(Hero::getPower)
+                        .sum();
+                addTotalPower(powerOfPartHeroes);
+                counter.countDown();
+            });
         }
 
-        for (var thread : threads) {
-            thread.join();
+
+        try {
+            counter.await();
+        } catch (InterruptedException e) {
+            log.error("Error when counted await", e);
         }
+        executorService.shutdown();
 
-        System.out.println(
-                Arrays.stream(threads).map(thread -> thread.getPowerSum()).mapToInt(value -> value).sum()
-        );
+        return totalPower;
+    }
 
-        return 0;
+    private synchronized void addTotalPower(int value) {
+        totalPower += value;
+    }
+
+    public void addHero(@NonNull Hero hero) {
+        heroes.add(hero);
     }
 }
