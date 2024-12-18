@@ -3,6 +3,7 @@ package school.faang.sprint_2.task_47968;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ class RecommendationServiceTest {
         users.add(new UserProfile(2, "Female", 28, "New York", List.of("fashion", "electronics")));
 
         List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "Laptop", "Electronics", 1000.0f, List.of("electronics")));
-        products.add(new Product(2, "Dress", "Fashion", 50.0f, List.of("fashion")));
+        products.add(new Product(1, "Laptop", "Electronics", BigDecimal.valueOf(1000), List.of("electronics")));
+        products.add(new Product(2, "Dress", "Fashion", BigDecimal.valueOf(50), List.of("fashion")));
 
         List<ProductOrder> orders = new ArrayList<>();
         orders.add(new ProductOrder(1, 1, LocalDateTime.now()));

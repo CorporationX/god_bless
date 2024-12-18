@@ -15,29 +15,33 @@ public class RecommendationService {
     private List<ProductOrder> orders;
 
     public List<Product> getProductsByUserInterests(int userId) {
-        var user = getUserProfilerById(userId);
+        var user = getUserProfileById(userId);
         return products.stream().filter(
                 product -> product.getTags().stream().anyMatch(tag -> user.getInterests().contains(tag))
         ).toList();
     }
 
     public List<Product> getProductsBuyingSimilarUsers(int userId) {
-        var user = getUserProfilerById(userId);
+        var user = getUserProfileById(userId);
         return users.stream()
                 .filter(similarUser -> similarUser.getAge() == user.getAge()
                         && similarUser.getLocation().equals(user.getLocation())
                         && similarUser.getGender().equals(user.getGender())
                 )
-                .flatMap(similarUser -> orders.stream().filter(order -> order.getUserId() == similarUser.getUserId()))
+                .flatMap(similarUser -> orders
+                                .stream()
+                                .filter(order -> order.getUserId() == similarUser.getUserId())
+                )
                 .map(productOrder -> getProductById(productOrder.getProductId()))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
                 .sorted((a, b) -> Math.toIntExact(b.getValue() - a.getValue()))
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
     public String getDiscountCategoryByUserId(int userId) {
-        var user = getUserProfilerById(userId);
+        var user = getUserProfileById(userId);
         return orders.stream()
                 .filter(order -> order.getUserId() == user.getUserId())
                 .map(order -> getProductById(order.getProductId()))
@@ -53,11 +57,11 @@ public class RecommendationService {
 
     private Product getProductById(int productId) {
         return products.stream().filter(product -> product.getProductId() == productId).findFirst().orElseThrow(
-                () -> new NoSuchElementException("Product with id" + productId + " not exist")
+                () -> new NoSuchElementException("Product with id " + productId + " not exist")
         );
     }
 
-    private UserProfile getUserProfilerById(int userId) {
+    private UserProfile getUserProfileById(int userId) {
         return users.stream().filter(userProfile -> userProfile.getUserId() == userId).findFirst().orElseThrow(
                 () -> new NoSuchElementException("User with id" + userId + " not exist")
         );

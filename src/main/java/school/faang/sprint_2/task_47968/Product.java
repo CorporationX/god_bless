@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,6 @@ public class Product {
     private int productId;
     private String name;
     private String category;
-    private float price;
+    private BigDecimal price;
     private List<String> tags;
 }
