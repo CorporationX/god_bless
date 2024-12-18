@@ -1,10 +1,8 @@
 package school.faang.task_48777;
 
-import lombok.SneakyThrows;
 
 public class MailSender {
-    @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final int countThread = 5;
         final int batchSize = 200;
