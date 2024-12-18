@@ -9,7 +9,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Email sent.");
-        System.out.println(String.format("Start: %d, end: %d", startIndex, endIndex));
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.println(String.format("Email %d sent.", i));
+        }
     }
 }

@@ -1,16 +1,32 @@
 package school.faang.task_48317;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
+    private static final int MAX_THREAD = 5;
+    private static final int MAX_EMAILS = 1000;
+
     public static void main(String[] args) throws InterruptedException {
-        int emailToSent = 1000;
-        int portion = 199;
-        for (int i = 1; i <= emailToSent; i++) {
-            SenderRunnable senderRunnable = new SenderRunnable(i, i + portion);
+        List<Thread> threads = new ArrayList<>();
+        int portion = (MAX_EMAILS / MAX_THREAD) + 1;
+        int strartIndx = 0;
+        int endIndx;
+        for (int i = 0; i < MAX_THREAD; i++) {
+            endIndx = strartIndx + portion > MAX_EMAILS ? MAX_EMAILS : strartIndx + portion;
+            SenderRunnable senderRunnable = new SenderRunnable(strartIndx, endIndx);
             Thread thread = new Thread(senderRunnable);
             thread.start();
-            i += portion;
-            thread.join();
+            System.out.println(String.format("Start: %d. End % d", strartIndx, endIndx));
+            strartIndx += portion;
         }
-        System.out.println("All emails sent");
+        threads.forEach((obj) -> {
+            try {
+                obj.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        System.out.println("All emails sent.");
     }
 }
