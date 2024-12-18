@@ -8,6 +8,7 @@ public class Army {
     private final List<Mage> mages = new ArrayList<>();
     private final List<Swordsman> swordsmen = new ArrayList<>();
 
+
     public int calculateTotalPower() {
         int sum = 0;
         List<PowerCalculator> powerCalculators = List.of(
