@@ -1,0 +1,74 @@
+Условие задачи:
+1️⃣ Найдите уникальные пары чисел
+Дан список целых чисел и целевое число. Найдите все уникальные пары чисел, сумма которых равна заданному числу.
+
+Пример:
+
+Вход: [1, 2, 3, 4, 5, 6], целевое число: 7
+Выход: [(1, 6), (2, 5), (3, 4)]
+2️⃣ Отсортируйте страны и выведите столицы
+На вход получаем Map с названиями стран и их столицами. Отсортируйте страны по алфавиту и верните список названий их столиц.
+
+Пример:
+
+Вход: {"Russia": "Moscow", "USA": "Washington", "Germany": "Berlin"}
+Выход: ["Berlin", "Moscow", "Washington"]
+3️⃣ Фильтрация и сортировка строк
+На вход получаем список строк и символ. Необходимо отфильтровать строки, которые начинаются с заданного символа, и отсортировать их по длине.
+
+Пример:
+
+Вход: ["apple", "banana", "avocado", "apricot"], символ: 'a'
+Выход: ["apple", "apricot", "avocado"]
+4️⃣ Преобразование чисел в двоичный формат
+Напишите метод, который преобразует список целых чисел в список строк, где каждое число записано в двоичном виде.
+
+Пример:
+
+Вход: [1, 2, 3, 4]
+Выход: ["1", "10", "11", "100"]
+5️⃣ Фильтрация строк по алфавиту и сортировка по длине
+Дан список строк. Необходимо отфильтровать строки, которые содержат только буквы из заданного алфавита, и отсортировать их по длине в порядке возрастания.
+
+Пример:
+
+Вход: ["apple", "banana", "cherry", "date", "fig", "grape"], алфавит: "abcdefghijklmnopqrstuvwxyz"
+
+Выход: ["fig", "date", "apple", "grape", "banana", "cherry" ]
+
+-------------------------
+3:00:36: Executing ':derschrank.sprint02.task09.bjstwo_47648.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint02.task09.bjstwo_47648.Main.main()
+1. ������� ���������� ���� �����
+����: [1, 2, 3, 4, 5, 6], ������� �����: 7
+�����: [(1, 6), (2, 5), (3, 4)]
+Fact: [[1, 6], [2, 5], [3, 4]]
+
+2. ������������ ������ � �������� �������
+����: {Russia: Moscow, USA: Washington, Germany: Berlin}
+�����: [Berlin, Moscow, Washington]
+Fact: [Berlin, Moscow, Washington]
+
+3. ���������� � ���������� �����
+����: [apple, banana, avocado, apricot], ������: 'a'
+�����: [apple, apricot, avocado]
+Fact: [apple, avocado, apricot]
+
+4. �������������� ����� � �������� ������
+����: [1, 2, 3, 4]
+�����: [1, 10, 11, 100]
+Fact: [1, 10, 11, 100]
+
+5. ���������� ����� �� �������� � ���������� �� �����
+����: [apple, banana, cherry, date, fig, grape], �������: abcdefghijklmnopqrstuvwxyz
+�����: [fig, date, apple, grape, banana, cherry]
+Fact: [fig, date, apple, grape, banana, cherry]
+
+BUILD SUCCESSFUL in 5s
+2 actionable tasks: 2 executed
+3:00:41: Execution finished ':derschrank.sprint02.task09.bjstwo_47648.Main.main()'.
