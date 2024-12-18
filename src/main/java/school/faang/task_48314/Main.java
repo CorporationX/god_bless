@@ -36,9 +36,9 @@ public class Main {
     }
 
     private static Food getRandomFood() {
-        FoodType[] foodTypes = FoodType.values();
-        int index = (int) (Math.random() * foodTypes.length);
-        return new Food(foodTypes[index]);
+        FoodName[] foodNames = FoodName.values();
+        int index = (int) (Math.random() * foodNames.length);
+        return new Food(foodNames[index]);
     }
 
 }
