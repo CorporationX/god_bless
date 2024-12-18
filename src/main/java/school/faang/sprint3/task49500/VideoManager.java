@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VideoManager {
-    private final static int INIT_VIEWS = 0;
+    private static final int INIT_VIEWS = 0;
     private final Map<String, Integer> viewsMap;
 
     public VideoManager() {
