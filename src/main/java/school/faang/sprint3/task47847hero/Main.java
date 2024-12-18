@@ -5,7 +5,7 @@ public class Main {
         Army army = new Army();
         army.addHero(new Archer(25));
         army.addHero(new Swordsman(40));
-        army.addHero(new Mage(50));
+        army.addHero(new Mage(55));
         army.addHero(new Mage(25));
 
         int totalPower = army.calculateTotalPower();
