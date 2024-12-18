@@ -5,7 +5,7 @@ import java.util.List;
 public class CalculatorService {
     private static int calculate(List<Integer> numbers, Calculator calculator) throws IllegalArgumentException {
         if (numbers.isEmpty()) {
-            throw new IllegalArgumentException("Empty list!");
+            throw new IllegalArgumentException("The list cannot be empty!");
         }
         int result = numbers.get(0);
         for (int i = 1; i < numbers.size(); ++i) {
