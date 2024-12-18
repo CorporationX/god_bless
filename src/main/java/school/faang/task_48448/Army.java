@@ -11,7 +11,7 @@ public class Army {
         army.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
 
         int powerTotal = 0;
 
@@ -27,13 +27,16 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         for (PowerCalculator powerCalculator : powerCalculators) {
             powerTotal = powerTotal + powerCalculator.getPower();
         }
-
         return powerTotal;
     }
 }
