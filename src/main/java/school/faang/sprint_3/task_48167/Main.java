@@ -1,15 +1,31 @@
 package school.faang.sprint_3.task_48167;
 
-public class Main {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-    public static void main(String[] args) {
+public class Main {
+    private static final int AMOUNT_OF_THREADS = 5;
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         int amountOfLettersToSend = 1000;
         int amountOfLettersToOneThread = 200;
 
         int startIndex = 1;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_OF_THREADS);
+        List<Future<String>> futures = new ArrayList<>();
         while (startIndex <= amountOfLettersToSend) {
-            new Thread(new SenderRunnable(startIndex, startIndex += amountOfLettersToOneThread))
-                    .start();
+            futures.add(executorService
+                    .submit(new SenderRunnable(startIndex, startIndex += amountOfLettersToOneThread)));
         }
+
+        for (Future<String> future : futures) {
+            System.out.println(future.get());
+        }
+        executorService.shutdown();
     }
 }
