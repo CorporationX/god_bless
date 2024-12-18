@@ -29,13 +29,14 @@ public class ListOperations {
 
     public static List<String> convertIntegersToBinaryStrings(List<Integer> integers) {
         return integers.stream()
-                .map(integer -> Integer.toBinaryString(integer))
+                .map(Integer::toBinaryString)
                 .collect(Collectors.toList());
     }
 
     public static List<String> filterAndSortByLengthAlphabet(List<String> strings, String alphabet) {
+        String regex = "[" + alphabet + "]+$";
         return strings.stream()
-                .filter(string -> string.chars().allMatch(c -> alphabet.indexOf(c) >= 0))
+                .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
