@@ -1,7 +1,6 @@
 package school.faang.task_47642;
 
 
-
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -12,7 +11,7 @@ public class Main {
             army.addUnit(new Swordsman(75));
         }
 
-        for (Thread thread : army.calculateTotalPower()){
+        for (Thread thread : army.calculateTotalPower()) {
             thread.start();
             thread.join();
         }

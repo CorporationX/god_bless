@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class Army {
-    private final int COUNT_THREAD = 3;
+    private final int countThread = 3;
     private int powerArmy = 0;
     private List<Unit> units = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class Army {
 
         List<Unit> threadUnit = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
-        int countUnit = units.size() / COUNT_THREAD;
+        int countUnit = units.size() / countThread;
         for (int i = 0; i < units.size(); i++) {
             threadUnit.add(units.get(i));
             if ((i + 1) % countUnit == 0) {
