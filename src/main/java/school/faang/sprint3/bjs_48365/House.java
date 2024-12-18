@@ -1,7 +1,6 @@
 package school.faang.sprint3.bjs_48365;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntPredicate;
 
-@RequiredArgsConstructor
 @Getter
 public class House {
     private static final Random RANDOM = new Random();
@@ -21,32 +19,50 @@ public class House {
     private static final int INITIAL_DELAY = 0;
     private static final int PERIOD = 30;
     private static final int TIMEOUT = 60;
+    private static final String[] FOODS = {
+            "apple", "cheese", "bread",
+            "milk", "orange", "pizza",
+            "burger", "salad", "fish",
+            "chocolate", "soup", "rice",
+            "steak", "ice cream", "pasta"
+    };
 
     private final List<Room> rooms;
+    private final Set<Integer> excludedIndex;
     private List<Food> totalFood = new ArrayList<>();
-    private Set<Integer> excludedIndex = new HashSet<>();
-    private IntPredicate roomIndexCondition = i -> isIndexExcluded(i);
+    private IntPredicate excludedRoomPredicate = i -> isIndexExcluded(i);
+
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+        this.excludedIndex = new HashSet<>(rooms.size());
+    }
 
     public static void main(String[] args) {
         House house = initialize();
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
-        executorService.scheduleAtFixedRate(() -> house.collectFood(), INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
 
-        executorService.shutdown();
-        try {
-            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+        if (isAllFoodCollected(house)) {
+            executorService.shutdown();
+            try {
+                if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Поток был прерван!");
+                Thread.currentThread().interrupt();
                 executorService.shutdownNow();
             }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-        }
 
-        System.out.println("Вся еда в доме собрана!");
+            System.out.println("Вся еда в доме собрана!");
+        } else {
+            System.out.println("Не вся еда собрана!");
+        }
     }
 
-    public void collectFood() {
-        int firstRandomRoomIndex = takeRandomRoomIndex(roomIndexCondition);
-        int secondRandomRoomIndex = takeRandomRoomIndex(roomIndexCondition);
+    public synchronized void collectFood() {
+        int firstRandomRoomIndex = takeRandomRoomIndex(excludedRoomPredicate);
+        int secondRandomRoomIndex = takeRandomRoomIndex(excludedRoomPredicate);
 
         List<Food> firstRoomFood = getFoodFromRoom(firstRandomRoomIndex);
         List<Food> secondRoomFood = getFoodFromRoom(secondRandomRoomIndex);
@@ -75,21 +91,13 @@ public class House {
     }
 
     private List<Food> getFoodFromRoom(int roomIndex) {
-        return rooms.get(roomIndex).getFood();
+        return rooms.get(roomIndex).food();
     }
 
     private static House initialize() {
         List<Food> foodList = new ArrayList<>();
 
-        String[] foods = {
-                "apple", "cheese", "bread",
-                "milk", "orange", "pizza",
-                "burger", "salad", "fish",
-                "chocolate", "soup", "rice",
-                "steak", "ice cream", "pasta"
-        };
-
-        for (String food : foods) {
+        for (String food : FOODS) {
             foodList.add(new Food(food));
         }
 
@@ -105,5 +113,9 @@ public class House {
         );
 
         return new House(roomList);
+    }
+
+    private static boolean isAllFoodCollected(House house) {
+        return FOODS.length == house.totalFood.size();
     }
 }
