@@ -41,11 +41,11 @@ public class StreamApi2 {
     }
 
     public static List<String> filterStringsByAlphabetAndSortByLength(List<String> string, String alphabet) {
-        Predicate<String> predicate = word -> word.chars()
+        Predicate<String> isAllCharsFromAlphabet = word -> word.chars()
                 .allMatch(ch -> alphabet.contains(Character.toString(ch)));
 
         return string.stream()
-                .filter(predicate)
+                .filter(isAllCharsFromAlphabet)
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
