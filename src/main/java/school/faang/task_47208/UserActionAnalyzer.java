@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
-    private final static int limitTopUsers = 10;
-    private final static int limitTopPopularTopics = 5;
-    private final static int limitTopUsersByCommentsPerMonth = 3;
-    private final static double multiplierForFindingPercentage = 100.0;
-    private final static String filterForDivisionsLines = "[ ,.;!]+";
+    private static final int limitTopUsers = 10;
+    private static final int limitTopPopularTopics = 5;
+    private static final int limitTopUsersByCommentsPerMonth = 3;
+    private static final double multiplierForFindingPercentage = 100.0;
+    private static final String filterForDivisionsLines = "[ ,.;!]+";
 
     public static List<String> topActiveUsers(List<UserAction> actions, String actionType) {
         return actions.stream()

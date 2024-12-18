@@ -17,12 +17,12 @@ public class UserAction {
     private String content;
 
     public String getActionType() {
-        switch (actionType){
-            case POST: return "post";
-            case COMMENT: return "comment";
-            case LIKE: return "like";
-            case SHARE:return "share";
-            default: return "Enum не определен";
-        }
+        return switch (actionType) {
+          case POST -> "post";
+          case COMMENT -> "comment";
+          case LIKE -> "like";
+          case SHARE -> "share";
+          default -> "Enum не определен";
+        };
     }
 }
