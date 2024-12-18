@@ -13,8 +13,8 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class RocketLaunch {
     private static final int DELAY = 1000;
-    String name;
-    LocalDateTime launchTime;
+    private String name;
+    private LocalDateTime launchTime;
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -29,13 +29,13 @@ public class RocketLaunch {
                     try {
                         rocket.launch();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        log.error("Поток был прерван во время запуска ракеты {}", rocket.name);
                     }
                 });
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            log.error("Планирование запуска прервано");
+            log.error("Планирование запуска ракет прервано");
         } finally {
             executor.shutdown();
         }
