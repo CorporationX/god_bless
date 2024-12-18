@@ -1,24 +1,34 @@
 package school.faang.sprint_1.task_armyofheroesbjs2n47795;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+@Slf4j
 public class Army {
-    private final List<Archer> archers = new ArrayList<>();
-    private final List<Mage> mages = new ArrayList<>();
-    private final List<Swordsman> swordsmen = new ArrayList<>();
-
+    private final List<Warrior> warriors = new ArrayList<>();
 
     public int calculateTotalPower() {
-        int sum = 0;
-        List<PowerCalculator> powerCalculators = List.of(
-                new PowerCalculator<Archer>(archers),
-                new PowerCalculator<Mage>(mages),
-                new PowerCalculator<Swordsman>(swordsmen)
-        );
+
+        List<PowerCalculator<Warrior>> powerCalculators = new ArrayList<>();
+        Map<String, List<Warrior>> warriorMap = warriors.stream()
+                .collect(Collectors.groupingBy(warrior -> warrior.getClass().getSimpleName()));
+
+        for (String className : warriorMap.keySet()) {
+            switch (className) {
+              case "Archer" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Archer")));
+              case "Mage" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Mage")));
+              case "Swordsman" -> powerCalculators.add(new PowerCalculator<>(warriorMap.get("Swordsman")));
+              default -> log.error("warrior map has a key(warrior class name) "
+                      + "that is not processed for its own thread. Thus not calculated in calculateTotalPower()");
+            }
+        }
 
         List<Thread> threadList = new ArrayList<>();
-        for (PowerCalculator powerCalculator : powerCalculators) {
+        for (PowerCalculator<Warrior> powerCalculator : powerCalculators) {
             Thread thread = new Thread(powerCalculator);
             threadList.add(thread);
             thread.start();
@@ -32,17 +42,14 @@ public class Army {
             e.printStackTrace();
         }
 
-        for (PowerCalculator powerCalculator : powerCalculators) {
-            sum += powerCalculator.getSum();
+        int totalPower = 0;
+        for (PowerCalculator<Warrior> powerCalculator : powerCalculators) {
+            totalPower += powerCalculator.getSum();
         }
-        return sum;
+        return totalPower;
     }
 
     public void addUnit(Warrior warrior) {
-        switch (warrior.getClass().getSimpleName()) {
-            case "Archer" -> archers.add((Archer) warrior);
-            case "Mage" -> mages.add((Mage) warrior);
-            case "Swordsman" -> swordsmen.add((Swordsman) warrior);
-        }
+        warriors.add(warrior);
     }
 }
