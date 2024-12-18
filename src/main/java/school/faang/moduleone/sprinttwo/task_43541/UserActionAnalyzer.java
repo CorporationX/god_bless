@@ -2,13 +2,12 @@ package school.faang.moduleone.sprinttwo.task_43541;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -40,23 +39,15 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> source) {
-        Map<String, List<UserAction>> actionsGroupedByMonths = new TreeMap<>(source.stream()
-                .collect(Collectors.groupingBy(
-                        action -> action.getActionDate().getYear() + "-" + action.getActionDate().getMonthValue())));
-
-        List<UserAction> actionsFromLastMonth = actionsGroupedByMonths.entrySet().stream()
-                .findFirst()
-                .map(Map.Entry::getValue)
-                .orElse(Collections.emptyList());
-
-        Map<String, List<UserAction>> lastMonthCommentersActions = actionsFromLastMonth.stream()
-                .filter(action -> action.getActionType().equals("comment"))
-                .collect(Collectors.groupingBy(UserAction::getName));
-
-        return lastMonthCommentersActions.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue().size() - e1.getValue().size())
-                .map(Map.Entry::getKey)
+        return source.stream()
+                .filter(it -> "comment".equals(it.getActionType()))
+                .filter(it -> it.getActionDate().getMonthValue() == LocalDate.now().getMonthValue())
+                .map(UserAction::getName)
+                .collect(Collectors.groupingBy(name -> name, Collectors.counting()))
+                .entrySet().stream()
+                .sorted((e1, e2) -> Math.toIntExact(e2.getValue() - e1.getValue()))
                 .limit(3)
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
