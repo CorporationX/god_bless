@@ -6,7 +6,7 @@ public class Main {
         army.addHero(new Archer(25));
         army.addHero(new Swordsman(40));
         army.addHero(new Mage(50));
-        army.addHero(new Mage(20));
+        army.addHero(new Mage(25));
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Общая сила армии: " + totalPower);
