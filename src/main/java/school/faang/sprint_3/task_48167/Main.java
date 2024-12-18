@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 public class Main {
     private static final int AMOUNT_OF_THREADS = 5;
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         int amountOfLettersToSend = 1000;
         int amountOfLettersToOneThread = 200;
 
@@ -23,9 +23,15 @@ public class Main {
                     .submit(new SenderRunnable(startIndex, startIndex += amountOfLettersToOneThread)));
         }
 
-        for (Future<String> future : futures) {
-            System.out.println(future.get());
+        try {
+            for (Future<String> future : futures) {
+                System.out.println(future.get());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Отправка сообщений прервана");
+            e.printStackTrace();
+        } finally {
+            executorService.shutdown();
         }
-        executorService.shutdown();
     }
 }
