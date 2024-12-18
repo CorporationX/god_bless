@@ -7,5 +7,4 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class Food {
     private final String name;
-
 }
