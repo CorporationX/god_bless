@@ -83,7 +83,9 @@ public class UserActionAnalyzer {
                 ).entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> entry.getKey().name(),
-                        entry -> Double.valueOf(String.format("%.2f", (entry.getValue().doubleValue() / userActions.size()) * 100)))
+                        entry -> Double.valueOf(
+                                String.format("%.2f", (entry.getValue().doubleValue() / userActions.size()) * 100)
+                        ))
                 );
     }
 }
