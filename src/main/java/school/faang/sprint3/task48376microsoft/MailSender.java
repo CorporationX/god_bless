@@ -5,18 +5,19 @@ public class MailSender {
         final int START = 0;
         final int END = 200;
 
-        SenderRunnable runnable = new SenderRunnable(START, END);
-        Thread thread = new Thread(runnable);
         int createdThreads = 0;
-        for (int i = 0; i < 5; i++) {
-            thread.run();
-            createdThreads++;
-        }
 
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < 5; i++) {
+            SenderRunnable runnable = new SenderRunnable(START, END);
+            Thread thread = new Thread(runnable);
+            thread.start();
+            createdThreads++;
+
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("Все письма отправлены!!!");
