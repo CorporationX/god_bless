@@ -5,50 +5,47 @@ import lombok.Data;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Data
 @AllArgsConstructor
 public class UserList {
-    private List<User> users;
+    private final BlockingQueue<User> waitingUsers = new LinkedBlockingQueue<>();
     private static final Random RANDOM = new Random();
 
-    public synchronized List<User> getOnlineUsers() {
-        return users.stream()
+    public List<User> getOnlineUsers() {
+        return waitingUsers.stream()
                 .filter(user -> user.isOnline() && user.isLookingForChat())
                 .toList();
     }
 
-    public synchronized User getRandomUserWantsChat(User user) throws InterruptedException {
-        List<User> availableUsers = getOnlineUsers();
-        System.out.println("Checking available users...");
+    public User getRandomUserWantsChat(User user) throws InterruptedException {
+        while (true) {
+            User matcheingUser = waitingUsers.take();
 
-        List<User> filteredUsers = availableUsers.stream()
-                .filter(u -> !u.equals(user))
-                .toList();
-
-        if (filteredUsers.isEmpty()) {
-            System.out.println("No available users for chat");
-            wait();
-        }
-
-        int id = RANDOM.nextInt(filteredUsers.size());
-        return filteredUsers.get(id);
-    }
-
-    public synchronized void addUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User is null");
-        }
-        if (!users.contains(user)) {
-            users.add(user);
-            notifyAll();
+            if (!matcheingUser.equals(user)) {
+                return matcheingUser;
+            } else {
+                System.out.println("Matched user is the same as the current user");
+            }
         }
     }
 
-    public synchronized void removeUser(User user) {
+    public void addUser(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User is null");
         }
-        users.remove(user);
+
+        if (!waitingUsers.contains(user)) {
+            waitingUsers.offer(user);
+        }
+    }
+
+    public void removeUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User is null");
+        }
+        waitingUsers.remove(user);
     }
 }

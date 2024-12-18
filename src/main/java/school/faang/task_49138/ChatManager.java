@@ -9,9 +9,10 @@ public class ChatManager {
     public void startChat(User user) throws InterruptedException {
         while (true) {
             if (!userList.getOnlineUsers().contains(user)) {
-                throw new IllegalArgumentException("User don`t want to message!");
+                throw new IllegalArgumentException("User doesnt want to message!");
             }
 
+            System.out.println("User " + user + " is waiting for a chat...");
             User secondUser = userList.getRandomUserWantsChat(user);
 
             userList.removeUser(user);

@@ -10,7 +10,7 @@ public class Main {
     private static final int BUFFER_SIZE = 15;
 
     public static void main(String[] args) throws InterruptedException {
-        UserList userList = new UserList(new ArrayList<>());
+        UserList userList = new UserList();
         ChatManager chatManager = new ChatManager(userList);
 
         List<User> users = new ArrayList<>(List.of(
@@ -38,7 +38,6 @@ public class Main {
                 }
             });
         }
-
 
         if (!executorService.awaitTermination(90, TimeUnit.SECONDS)) {
             executorService.shutdown();
