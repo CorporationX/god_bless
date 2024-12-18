@@ -3,21 +3,27 @@ package school.faang.sprint_1.task_streamapi2bjs2n47308;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 
 public class Operations {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, Integer sum) {
-        Set<Integer> set = new HashSet<>(numbers);
+        Set<Integer> set = new TreeSet<>(numbers);
         return set.stream()
                 .filter(num -> set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
-                .collect(Collectors.toSet());
+                .map(pair -> {
+                    Collections.sort(pair);
+                    return List.of(pair.get(0), pair.get(1));
+                })
+                .sorted((o1, o2) -> o1.get(0).compareTo(o2.get(1)))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+
     }
 
     public static List<String> sortedCapitalsOfCountries(Map<String, String> countries) {
@@ -30,7 +36,7 @@ public class Operations {
     public static List<String> filterStrings(List<String> strings, char startSymbol) {
         return strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(startSymbol)))
-                .sorted()
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 

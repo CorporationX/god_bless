@@ -17,9 +17,9 @@ public class StreamApiMain {
                     put("Germany", "Berlin");
             }};
 
-        List<String> fruits = List.of("apple", "banana", "avocado", "apricot");
+        List<String> fruits = List.of("apple", "banana", "avocado", "apricot", "artichoke");
         List<String> words = List.of("apple", "banana", "avocado", "apricot", "date", "fig", "grape");
-        char startChar = 'b';
+        char startChar = 'a';
         String alphabet = "bcvanod";
 
         log.info("Пары чисел, сумма которых равна {}: {}", 9, Operations.findPairs(numbers, 9));
