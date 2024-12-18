@@ -10,9 +10,6 @@ import java.util.List;
 public class JobStreamProcessor {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    //решил заменить парсер по условию, на стандартный jackson,
-    // ибо придумывать способ получить каждый отдельный объект в виде строки,
-    // это какое-то изобретение велосипеда
     public List<Job> processJobStream(InputStream jobStream) throws IOException {
         List<Job> jobs = objectMapper.readValue(jobStream, new TypeReference<>() {
         });

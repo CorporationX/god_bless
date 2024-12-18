@@ -61,10 +61,7 @@ public class DataAnalyzer {
     }
 
     private List<int[]> generateSalaryRanges(int step) {
-        int maxSalary = jobs.stream()
-                .mapToInt(Job::salary)
-                .max()
-                .orElse(0);
+        int maxSalary = getMaxSalary();
 
         List<int[]> ranges = new ArrayList<>();
         int lowerBound = 0;
@@ -75,6 +72,13 @@ public class DataAnalyzer {
         }
         ranges.add(new int[]{lowerBound, Integer.MAX_VALUE});
         return ranges;
+    }
+
+    private int getMaxSalary() {
+        return jobs.stream()
+                .mapToInt(Job::salary)
+                .max()
+                .orElse(0);
     }
 
     private static String determineSalaryRange(int salary, List<int[]> ranges) {
