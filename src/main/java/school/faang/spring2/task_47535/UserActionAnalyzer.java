@@ -1,10 +1,7 @@
 package school.faang.spring2.task_47535;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,22 +15,19 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
+                .filter(action -> action != null && action.getActionType() != null)
                 .filter(action -> action.getContent() != null
-                        && action.getActionType().equals("post")
-                        || action.getActionType().equals("comment"))
+                        && Objects.equals(action.getActionType(), "post")
+                        || Objects.equals(action.getActionType(), "comment"))
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
                 .filter(e -> e.startsWith("#"))
-                .map(e -> {
-                    char lastSymbol = e.charAt(e.length() - 1);
-                    if (!(lastSymbol >= 'a' && lastSymbol <= 'z')) {
-                        e = e.substring(0, e.length() - 1);
-                    }
-                    return e;
-                })
+                .map(UserActionAnalyzer::apply)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(5)
                 .map(Map.Entry::getKey).toList();
     }
+    
+    
 
     public static List<String> top3CommentersLastMonth(List<UserAction> actions) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
@@ -57,5 +51,13 @@ public class UserActionAnalyzer {
                         Map.Entry::getKey,
                         entry -> (entry.getValue() * 100.0) / totalActions
                 ));
+    }
+
+    private static String apply(String e) {
+        char lastSymbol = e.charAt(e.length() - 1);
+        if (!(lastSymbol >= 'a' && lastSymbol <= 'z')) {
+            e = e.substring(0, e.length() - 1);
+        }
+        return e;
     }
 }
