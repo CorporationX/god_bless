@@ -6,15 +6,18 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class PigThread extends Thread {
+    private static final int DELAY = 2000;
+
     private final String pigName;
     private final String material;
 
     public void buildHouse() {
         System.out.println(pigName + " начал строительство дома из материала " + material);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(DELAY);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Поток был прерван");
+            Thread.currentThread().interrupt();
         }
         System.out.println(pigName + " закончил строительство дома из материала " + material);
     }

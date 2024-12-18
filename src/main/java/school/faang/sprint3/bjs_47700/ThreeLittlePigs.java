@@ -3,8 +3,8 @@ package school.faang.sprint3.bjs_47700;
 public class ThreeLittlePigs {
     public static void main(String[] args) throws InterruptedException {
         PigThread pig1 = new Pig1Thread("Ниф-Ниф", "солома");
-        PigThread pig2 = new Pig2Thread("Нуф-Нуф", "палки");
-        PigThread pig3 = new Pig3Thread("Наф-Наф", "кирпичи");
+        PigThread pig2 = new Pig2Thread("Нуф-Нуф", "листья");
+        PigThread pig3 = new Pig3Thread("Наф-Наф", "камни");
 
         pig1.start();
         pig2.start();
