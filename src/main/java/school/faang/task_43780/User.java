@@ -16,11 +16,21 @@ public class User {
     private String address;
 
     public User(String name, int age, String workPlace, String address) {
-        this.name = Optional.ofNullable(name).orElseThrow(IllegalArgumentException::new);
-        this.age = Optional.ofNullable(age > AGE_THRESHOLD ? age : null).orElseThrow(IllegalArgumentException::new);
-        this.workPlace = Optional.ofNullable(VALID_JOBS.contains(workPlace) ? workPlace : null)
-                .orElseThrow(IllegalArgumentException::new);
-        this.address = Optional.ofNullable(VALID_ADDRESSES.contains(address) ? address : null)
-                .orElseThrow(IllegalArgumentException::new);
+        validate(name, age, workPlace, address);
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.address = address;
+    }
+
+    private void validate(String name, int age, String workPlace, String address) {
+        Optional.ofNullable(name)
+                .orElseThrow(() -> new IllegalArgumentException("Name can't be null"));
+        Optional.ofNullable(age > AGE_THRESHOLD ? age : null)
+                .orElseThrow(() -> new IllegalArgumentException("Age can't be lees than %d".formatted(AGE_THRESHOLD)));
+        Optional.ofNullable(VALID_JOBS.contains(workPlace) ? workPlace : null)
+                .orElseThrow(() -> new IllegalArgumentException("Work Place can't exist"));
+        Optional.ofNullable(VALID_ADDRESSES.contains(address) ? address : null)
+                .orElseThrow(() -> new IllegalArgumentException("Address can't exist"));
     }
 }
