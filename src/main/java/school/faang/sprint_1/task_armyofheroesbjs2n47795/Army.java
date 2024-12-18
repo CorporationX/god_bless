@@ -1,5 +1,6 @@
 package school.faang.sprint_1.task_armyofheroesbjs2n47795;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
+@NonNull
 public class Army {
     private final List<Warrior> warriors = new ArrayList<>();
 
@@ -49,7 +51,7 @@ public class Army {
         return totalPower;
     }
 
-    public void addUnit(Warrior warrior) {
+    public void addUnit(@NonNull Warrior warrior) {
         warriors.add(warrior);
     }
 }
