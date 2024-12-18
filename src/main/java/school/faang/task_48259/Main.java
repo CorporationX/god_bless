@@ -1,9 +1,10 @@
 package school.faang.task_48259;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static final int ROCKET_LAUNCH_DELAY = 2000;
+
     public static void main(String[] args) {
         RocketLaunchSystem rocketLaunchSystem = new RocketLaunchSystem();
         List<RocketLaunch> rocketLaunches = setUpRocketLaunches();
@@ -12,21 +13,15 @@ public class Main {
     }
 
     private static List<RocketLaunch> setUpRocketLaunches() {
-        List<RocketLaunch> rocketLaunches = new ArrayList<>();
-
-        long firstRocketLaunchTime = System.currentTimeMillis() + 1000;
+        long firstRocketLaunchTime = System.currentTimeMillis() + ROCKET_LAUNCH_DELAY;
         RocketLaunch rocketLaunch1 = new RocketLaunch("Saturn-13", firstRocketLaunchTime);
 
-        long secondRocketLaunchTime = System.currentTimeMillis() + 2000;
+        long secondRocketLaunchTime = System.currentTimeMillis() + ROCKET_LAUNCH_DELAY;
         RocketLaunch rocketLaunch2 = new RocketLaunch("Apollon-7", secondRocketLaunchTime);
 
-        long thirdRocketLaunchTime = System.currentTimeMillis() + 2000;
+        long thirdRocketLaunchTime = System.currentTimeMillis() + ROCKET_LAUNCH_DELAY;
         RocketLaunch rocketLaunch3 = new RocketLaunch("Moon-2", thirdRocketLaunchTime);
 
-        rocketLaunches.add(rocketLaunch1);
-        rocketLaunches.add(rocketLaunch2);
-        rocketLaunches.add(rocketLaunch3);
-
-        return rocketLaunches;
+        return List.of(rocketLaunch1, rocketLaunch2, rocketLaunch3);
     }
 }
