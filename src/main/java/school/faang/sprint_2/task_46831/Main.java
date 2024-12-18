@@ -43,6 +43,7 @@ public class Main {
     }
 
     public List<Integer> findAllNumbersPalindromes(int leftBorder, int rightBorder) {
+        validateBorders(leftBorder, rightBorder);
         return IntStream.rangeClosed(leftBorder, rightBorder)
                 .boxed()
                 .filter(num -> isPalindrome(String.valueOf(num)))
@@ -51,7 +52,7 @@ public class Main {
 
     public List<String> findAllSubstringsPalindromes(@NonNull String string) {
         if (string.isBlank()) {
-            throw new IllegalArgumentException("String can`t be null");
+            throw new IllegalArgumentException("String can`t be blank");
         }
         return IntStream.range(0, string.length()).boxed()
                 .flatMap(i -> IntStream.rangeClosed(i + 1, string.length()).mapToObj(j -> string.substring(i, j)))
@@ -61,18 +62,25 @@ public class Main {
     }
 
     public List<Integer> findExcellentNumbers(int leftBorder, int rightBorder) {
+        validateBorders(leftBorder, rightBorder);
         return IntStream.rangeClosed(leftBorder, rightBorder).boxed()
-                .filter(preventNum ->
-                    IntStream.range(1, preventNum)
-                            .filter(num -> preventNum % num == 0)
-                            .sum() == preventNum
+                .filter(currentNum ->
+                    IntStream.range(1, currentNum)
+                            .filter(divider -> currentNum % divider == 0)
+                            .sum() == currentNum
                 )
                 .toList();
     }
 
+    private void validateBorders(int leftBorder, int rightBorder) {
+        if (leftBorder >= rightBorder) {
+            throw new IllegalArgumentException("Left border must be less then right border");
+        }
+    }
+
     private boolean isPalindrome(@NonNull String string) {
         if (string.isBlank()) {
-            throw new IllegalArgumentException("String can`t be null");
+            throw new IllegalArgumentException("String can`t be blank");
         }
         return new StringBuilder(string).reverse().toString().equals(string);
     }
