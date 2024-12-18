@@ -4,6 +4,7 @@ import lombok.NonNull;
 import school.faang.sprint_2.task_46716.entity.Company;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -36,5 +37,12 @@ public class CompanyRepository {
     public static void generateCompany(int id) {
         String name = "Company" + id;
         CompanyRepository.addCompany(new Company(id, name, new Random().nextInt(1000)));
+    }
+
+    public static Company getFirstCompanyByName(String companyName) {
+        return companies.stream()
+                .filter(streamCompany -> streamCompany.getCompanyName().equals(companyName))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
     }
 }

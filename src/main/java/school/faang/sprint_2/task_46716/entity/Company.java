@@ -1,6 +1,7 @@
 package school.faang.sprint_2.task_46716.entity;
 
 import lombok.Data;
+import school.faang.sprint_2.task_46716.repository.CompanyRepository;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,10 +20,20 @@ public class Company {
     }
 
     public Company(int id, String companyName, int totalEmployees) {
+        if (!isIdUnique(id)) {
+            throw new IllegalArgumentException("Company id " + id + " is duplicated");
+        }
         this.id = id;
         idCounter.set(id + 1);
 
+
         this.companyName = companyName;
         this.totalEmployees = totalEmployees;
+    }
+
+    private boolean isIdUnique(int id) {
+        return CompanyRepository.getCompanies()
+                .stream()
+                .noneMatch(company -> company.getId() == id);
     }
 }
