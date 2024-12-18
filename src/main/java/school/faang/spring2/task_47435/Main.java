@@ -23,14 +23,11 @@ public class Main {
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        Set<Character> alphabetSet = alphabet.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.toSet());
-
+        String regex = String.format("[%s]+", alphabet);
         return strings.stream()
-                .filter(str -> str.chars().allMatch(ch -> alphabetSet.contains((char) ch)))
+                .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<String> convertToBinary(List<Integer> nums) {
@@ -50,11 +47,15 @@ public class Main {
     }
 
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
-        Set<Integer> set = new HashSet<>();
-        set.addAll(numbers);
+        Set<Integer> set = new HashSet<>(numbers);
+
         return numbers.stream()
-                .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
+                .filter(num -> set.contains(sum - num))
+                .map(num -> {
+                    List<Integer> pair = Arrays.asList(num, sum - num);
+                    Collections.sort(pair);
+                    return pair;
+                })
                 .collect(Collectors.toSet());
     }
 }
