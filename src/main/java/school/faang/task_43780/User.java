@@ -7,7 +7,7 @@ import java.util.*;
 @ToString
 public class User {
 
-    private final int AGE_THRESHOLD = 18;
+    private static final int AGE_THRESHOLD = 18;
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
     private String name;
