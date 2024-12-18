@@ -14,29 +14,23 @@ import java.util.stream.Collectors;
 @Getter
 public class ListOperations {
     public static Set<List<Integer>> foundPairsOfSum(List<Integer> integerList, int sum2Number) {
-        Set<List<Integer>> pairSet = new HashSet<>();
-        Set<Integer> integerSet = new HashSet<>();
-        integerSet.addAll(integerList);
+        Set<Integer> integerSet = new HashSet<>(integerList);
 
-        pairSet = integerList.stream()
+        return integerList.stream()
                 .filter(n -> integerSet.contains(sum2Number - n))
                 .map(n -> Arrays.asList(n, sum2Number - n))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
-        return pairSet;
     }
 
     public static Set<String> sortedCaps(Map<String, String> countriesCap) {
-
         return countriesCap.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toSet());
-
     }
 
     public static List<String> sortedCharAndLenght(List<String> wordList, String symbol) {
-
         return wordList.stream()
                 .filter(word -> word.substring(0, 1).equals(symbol))
                 .sorted(Comparator.comparingInt(String::length))
