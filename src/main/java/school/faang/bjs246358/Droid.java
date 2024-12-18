@@ -52,8 +52,10 @@ public class Droid {
 
     public void sendMessage(String message, int key, Droid recipientName) {
         if (message == null || message.trim().isEmpty() || key == 0 || recipientName == null) {
-            logger.error("Message, key, and recipientName in 'sendMessage' method cannot be null or empty, and key must not be zero");
-            throw new IllegalArgumentException("Message, key, and recipientName must not be null or empty, and key must not be zero");
+            logger.error("Message, key, and recipientName in 'sendMessage' method cannot be null or empty, "
+                    + "and key must not be zero");
+            throw new IllegalArgumentException("Message, key, and recipientName must not be null or empty, "
+                    + "and key must not be zero");
         }
         String encryptedMessage = encryptMessage(message, key);
         System.out.println(this.droidName + " sent an encrypted message: " + encryptedMessage);
@@ -62,7 +64,8 @@ public class Droid {
 
     public void receiveMessage(String encryptedMessage, int key) {
         if (encryptedMessage == null || encryptedMessage.trim().isEmpty() || key == 0) {
-            logger.error("Encrypted message in 'receiveMessage' method cannot be null or empty, and key must not be zero");
+            logger.error("Encrypted message in 'receiveMessage' method cannot be null or empty,"
+                    + " and key must not be zero");
             throw new IllegalArgumentException("Encrypted message must not be null or empty, and key must not be zero");
         }
         String decryptedMessage = decryptMessage(encryptedMessage, key);
