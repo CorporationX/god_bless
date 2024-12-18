@@ -2,6 +2,8 @@ package school.faang.activity_analysis;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
@@ -37,24 +39,6 @@ public class UserActionAnalyzer {
         return getTop(hashtagsCount, 5);
     }
 
-    private static List<String> getHashtags(String content) {
-        List<String> hashTags = new ArrayList<>();
-        StringBuilder contentBuilder = new StringBuilder(content);
-
-        while (contentBuilder.indexOf("#") != -1) {
-            int startIndex = content.indexOf("#");
-            int endIndex = startIndex + 1;
-
-            while (endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
-                endIndex++;
-            }
-            String hashtag = content.substring(startIndex, endIndex);
-            contentBuilder.delete(startIndex, endIndex);
-            hashTags.add(hashtag);
-        }
-        return hashTags;
-    }
-
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         LocalDate currentDate = LocalDate.of(2024, 10, 21);
         LocalDate monthAgo = currentDate.minusDays(30);
@@ -81,6 +65,24 @@ public class UserActionAnalyzer {
             result.put(type.name(), calculatePercentage(typeCount, allActionCount));
         }
         return result;
+    }
+
+    private static List<String> getHashtags(String content) {
+        List<String> hashTags = new ArrayList<>();
+        StringBuilder contentBuilder = new StringBuilder(content);
+
+        while (contentBuilder.indexOf("#") != -1) {
+            int startIndex = content.indexOf("#");
+            int endIndex = startIndex + 1;
+
+            while (endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
+                endIndex++;
+            }
+            String hashtag = content.substring(startIndex, endIndex);
+            contentBuilder.delete(startIndex, endIndex);
+            hashTags.add(hashtag);
+        }
+        return hashTags;
     }
 
     private static double calculatePercentage(double number, double oneHundredNumber) {
