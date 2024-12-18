@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int PEOPLE_AMOUNT = 10000;
     private static final int THREADS_AMOUNT = 10;
-    private static final int peoplePerThread = PEOPLE_AMOUNT / THREADS_AMOUNT;
+    private static final int PEOPLE_PER_THREAD = PEOPLE_AMOUNT / THREADS_AMOUNT;
 
     public static void main(String[] args) {
         List<Person> people = new ArrayList<>();
@@ -29,14 +29,13 @@ public class Main {
 
         for (int i = 1; i <= THREADS_AMOUNT; i++) {
             System.out.println("start");
-            int startIndex = i * peoplePerThread - 1000;
-            int endIndex = startIndex + peoplePerThread;
+            int startIndex = i * PEOPLE_PER_THREAD - 1000;
+            int endIndex = startIndex + PEOPLE_PER_THREAD;
             log.info("Thread {}: startIndex = {}, endIndex = {}", i, startIndex, endIndex);
 
             List<Person> batchOfPeople = people.subList(startIndex, startIndex);
             executorService.submit(new PersonInfoPrinter(batchOfPeople, startIndex, startIndex));
             System.out.println("end");
-            log.info("endd");
         }
 
  /*       for (PersonInfoPrinter personInfoPrinter : batchOfPeople) {
@@ -47,13 +46,6 @@ public class Main {
         }*/
 
         executorService.shutdown();
-
-        try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.error("The thread was interrupted while waiting for ExecutorService to terminate {} ",
-                    Thread.currentThread().getName());
-        }
 
         try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
