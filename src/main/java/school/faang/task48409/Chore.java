@@ -10,11 +10,11 @@ public class Chore implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(Thread.currentThread().getName() + " выполняет задачу " + chore);
+            System.out.println(Thread.currentThread().getName() + Constants.IN_PROGRESS + chore);
             Thread.sleep(1000);
-            System.out.println(chore + " выполнена .");
+            System.out.println(chore + Constants.DONE);
         } catch (InterruptedException e) {
-            System.out.println("Задача : " + chore + " была прервана .");
+            System.out.println("Задача : " + chore + Constants.INTERRUPTED);
         }
     }
 }
