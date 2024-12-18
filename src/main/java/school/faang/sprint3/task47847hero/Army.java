@@ -30,7 +30,8 @@ public class Army {
                 int sum = powers.stream()
                         .reduce(0, Integer::sum);
                 totalPower.addAndGet(sum);
-                System.out.println("Задача выполнена для типа: " + hero.getClass().getSimpleName() + ", суммарная сила: " + sum);
+                System.out.println("Задача выполнена для типа: " + hero.getClass().getSimpleName()
+                        + ", суммарная сила: " + sum);
             });
         }
         executor.shutdown();
