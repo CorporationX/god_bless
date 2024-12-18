@@ -8,14 +8,21 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.util.Map.Entry;
+import static school.faang.task47300.ActionType.COMMENT;
+import static school.faang.task47300.ActionType.POST;
+
 public class UserActionAnalyzer {
+
+    private static final String REGEX_REMOVING_PUNCTUATION = "[\\s,.!;]";
+
     public static List<String> top10ActiveUsers(List<UserAction> actions) {
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .sorted(Entry.<String, Long>comparingByValue().reversed())
                 .limit(10)
-                .map(Map.Entry::getKey)
+                .map(Entry::getKey)
                 .collect(Collectors.toList());
 
     }
@@ -23,14 +30,14 @@ public class UserActionAnalyzer {
     public static List<String> top5Hashtags(List<UserAction> actions) {
         return actions.stream()
                 .filter(Objects::nonNull)
-                .filter(action -> action.name().equals("POST") || action.name().equals("COMMENT"))
-                .flatMap(action -> Arrays.stream(action.getContent().split(Constants.REGEX)))
+                .filter(action -> action.getActionType() == POST || action.getActionType() == COMMENT)
+                .flatMap(action -> Arrays.stream(action.getContent().split(REGEX_REMOVING_PUNCTUATION)))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .sorted(Entry.<String, Long>comparingByValue().reversed())
                 .limit(5)
-                .map(Map.Entry::getKey)
+                .map(Entry::getKey)
                 .collect(Collectors.toList());
 
     }
@@ -38,23 +45,23 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action -> action.name().equals("COMMENT")
+                .filter(action -> action.getActionType() == COMMENT
                         && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .sorted(Entry.<String, Long>comparingByValue().reversed())
                 .limit(3)
-                .map(Map.Entry::getKey)
+                .map(Entry::getKey)
                 .collect(Collectors.toList());
 
     }
 
-    public static Map<String, Double> actionTypePersentages(List<UserAction> actions) {
+    public static Map<ActionType, Double> actionTypePersentages(List<UserAction> actions) {
         long totalActions = actions.size();
         return actions.stream()
-                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
                 .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey,
+                .collect(Collectors.toMap(Entry::getKey,
                         entry -> (entry.getValue() * 100.0) / totalActions
                 ));
 
