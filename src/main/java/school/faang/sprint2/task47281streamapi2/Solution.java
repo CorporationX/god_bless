@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 public class Solution {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
         Set<List<Integer>> pairs = new HashSet<>();
-        Set<Integer> set = new HashSet<>();
-        set.addAll(numbers);
+        Set<Integer> set = new HashSet<>(numbers);
         pairs = numbers.stream()
                 .filter(num -> set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
@@ -40,7 +39,7 @@ public class Solution {
 
     public static List<String> filterAndSorted(List<String> words, String alphabet) {
         return words.stream()
-                .filter(word -> word.chars().allMatch(c -> alphabet.indexOf(c) >= 0))
+                .filter(word -> word.matches("^[" + alphabet + "]+$"))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
