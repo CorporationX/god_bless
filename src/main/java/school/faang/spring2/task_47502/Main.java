@@ -46,7 +46,7 @@ public class Main {
 
     public static int maxElement(List<Integer> list) {
         return list.stream().mapToInt(e -> e)
-                .max().orElseThrow(NoSuchElementException::new);
+                .max().orElseThrow(() -> new NoSuchElementException("Unable to find max element"));
     }
 
     public static double findAverage(List<Integer> list) {
