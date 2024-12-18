@@ -6,6 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Chore implements Runnable {
+    private static final long MILLIS = 5000;
+
     private String chore;
 
     @Override
@@ -13,7 +15,7 @@ public class Chore implements Runnable {
         try {
             System.out.println(String.format("Name of the thread: %s. Name of the work: %s",
                     Thread.currentThread().getName(), chore));
-            Thread.sleep(5000);
+            Thread.sleep(MILLIS);
             System.out.println(String.format("%s is done", chore));
         } catch (InterruptedException e) {
             e.printStackTrace();
