@@ -10,13 +10,19 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
+    private final static int limitTopUsers = 10;
+    private final static int limitTopPopularTopics = 5;
+    private final static int limitTopUsersByCommentsPerMonth = 3;
+    private final static double multiplierForFindingPercentage = 100.0;
+    private final static String filterForDivisionsLines = "[ ,.;!]+";
+
     public static List<String> topActiveUsers(List<UserAction> actions, String actionType) {
         return actions.stream()
                 .filter(x -> x.getActionType().equals(actionType))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .limit(10)
+                .limit(limitTopUsers)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -24,12 +30,12 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
                 .filter(x -> x.getContent() != " " && x.getContent() != null)
-                .flatMap(x -> Arrays.stream(x.getContent().split("[ ,.;!]+")))
+                .flatMap(x -> Arrays.stream(x.getContent().split(filterForDivisionsLines)))
                 .filter(x -> x.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .limit(5)
+                .limit(limitTopPopularTopics)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -47,7 +53,7 @@ public class UserActionAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Comparator.comparing(Map.Entry::getKey))
-                .limit(3)
+                .limit(limitTopUsersByCommentsPerMonth)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -59,6 +65,8 @@ public class UserActionAnalyzer {
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, x -> (x.getValue() * 100.0 / sizeActionType)));
+                .collect(Collectors.toMap(Map.Entry::getKey, x -> (
+                        x.getValue() * multiplierForFindingPercentage / sizeActionType)
+                ));
     }
 }

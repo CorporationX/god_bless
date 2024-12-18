@@ -6,7 +6,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        List<UserAction> actions = CreateUserActions.create();
+        List<UserAction> actions = CreateUserActions.createListUserActions();
 
         List<String> topUsers = UserActionAnalyzer.topActiveUsers(actions, "post");
         System.out.println("Топ-10 активных пользователей: " + topUsers);
@@ -23,7 +23,5 @@ public class Main {
 
         Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
         System.out.println("Процент действий по типам: " + actionPercentages);
-
-
     }
 }
