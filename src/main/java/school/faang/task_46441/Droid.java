@@ -29,7 +29,7 @@ public class Droid {
                 if (ALPHABET.indexOf(lowerCaseMsg.charAt(i)) != -1) {
                     int index = ALPHABET.indexOf(lowerCaseMsg.charAt(i));
                     int keyId = index + shift;
-                    if(keyId > ALPHABET.length() - 1) {
+                    if (keyId > ALPHABET.length() - 1) {
                         keyId = keyId - ALPHABET.length();
                     }
                     if (isUpperCase) {
