@@ -23,7 +23,6 @@ public class MailSender {
                 e.printStackTrace();
             }
         }
-
         System.out.println("Все письма отправлены!");
     }
 }
