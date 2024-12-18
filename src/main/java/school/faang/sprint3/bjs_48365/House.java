@@ -1,12 +1,14 @@
 package school.faang.sprint3.bjs_48365;
 
 import lombok.Getter;
+import lombok.Synchronized;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +21,7 @@ public class House {
     private static final int INITIAL_DELAY = 0;
     private static final int PERIOD = 30;
     private static final int TIMEOUT = 60;
+    private static final int DELAY = 1000;
     private static final String[] FOODS = {
             "apple", "cheese", "bread",
             "milk", "orange", "pizza",
@@ -29,12 +32,14 @@ public class House {
 
     private final List<Room> rooms;
     private final Set<Integer> excludedIndex;
-    private List<Food> totalFood = new ArrayList<>();
-    private IntPredicate excludedRoomPredicate = i -> isIndexExcluded(i);
+    private final List<Food> totalFood = new ArrayList<>();
+    private final IntPredicate excludedRoomPredicate = i -> isIndexExcluded(i);
+    private final CountDownLatch latch;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
         this.excludedIndex = new HashSet<>(rooms.size());
+        this.latch = new CountDownLatch(rooms.stream().mapToInt(r -> r.getFood().size()).sum());
     }
 
     public static void main(String[] args) {
@@ -42,36 +47,58 @@ public class House {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
         executorService.scheduleAtFixedRate(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
 
-        if (isAllFoodCollected(house)) {
+        try {
+            house.getLatch().await();
+
             executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Поток был прерван!");
-                Thread.currentThread().interrupt();
+            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
-
-            System.out.println("Вся еда в доме собрана!");
-        } else {
-            System.out.println("Не вся еда собрана!");
+        } catch (InterruptedException e) {
+            System.out.println("Поток был прерван!");
+            Thread.currentThread().interrupt();
+            executorService.shutdownNow();
         }
+
+        System.out.println(house.totalFood);
+        System.out.println(house.rooms.get(0).getFood());
+        System.out.println("Вся еда в доме собрана!");
     }
 
-    public synchronized void collectFood() {
+    @Synchronized
+    public void collectFood() {
         int firstRandomRoomIndex = takeRandomRoomIndex(excludedRoomPredicate);
         int secondRandomRoomIndex = takeRandomRoomIndex(excludedRoomPredicate);
 
         List<Food> firstRoomFood = getFoodFromRoom(firstRandomRoomIndex);
         List<Food> secondRoomFood = getFoodFromRoom(secondRandomRoomIndex);
 
+        System.out.println("Собрана еда из комнаты " + firstRandomRoomIndex + ": " + firstRoomFood);
+        System.out.println("Собрана еда из комнаты " + secondRandomRoomIndex + ": " + secondRoomFood);
+
+        // Добавляем еду в общий список
         totalFood.addAll(firstRoomFood);
         totalFood.addAll(secondRoomFood);
 
+        // Уменьшаем счетчик для каждого предмета еды
+        firstRoomFood.forEach(food -> {
+            latch.countDown();
+            System.out.println("Еда собрана: " + food.name() + ". Осталось собрать: " + latch.getCount());
+        });
+        secondRoomFood.forEach(food -> {
+            latch.countDown();
+            System.out.println("Еда собрана: " + food.name() + ". Осталось собрать: " + latch.getCount());
+        });
+
+//        rooms.get(firstRandomRoomIndex).setFood(new ArrayList<>());
+//        rooms.get(secondRandomRoomIndex).setFood(new ArrayList<>());
+
         firstRoomFood.clear();
         secondRoomFood.clear();
+
+        System.out.println(totalFood);
+        System.out.println(rooms.get(firstRandomRoomIndex).getFood());
+        System.out.println(rooms.get(secondRandomRoomIndex).getFood());
     }
 
     private int takeRandomRoomIndex(IntPredicate condition) {
@@ -91,7 +118,7 @@ public class House {
     }
 
     private List<Food> getFoodFromRoom(int roomIndex) {
-        return rooms.get(roomIndex).food();
+        return rooms.get(roomIndex).getFood();
     }
 
     private static House initialize() {
