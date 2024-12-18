@@ -7,7 +7,7 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь." +
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь" +
                 "Стоимость инвентаря: " + frodo.getCostItems()));
 
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
