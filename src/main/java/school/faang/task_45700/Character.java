@@ -8,9 +8,8 @@ import java.util.List;
 
 @Getter
 public class Character {
-    public String name;
-    @Setter
-    public List<Item> inventory = new ArrayList<>();
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         if (name.trim().isEmpty()) {
