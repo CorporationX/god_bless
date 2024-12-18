@@ -25,9 +25,8 @@ public class Main {
         try {
             notificationManager.registerHandler(NotificationType.PUSH.getNotificationType(),
                     (notification) -> System.out.println("Отправка push-уведомления: "
-                            + notification.getMessage())
-            );
-        }catch (IllegalArgumentException e){
+                            + notification.getMessage()));
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
