@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public class Boss {
@@ -17,7 +18,8 @@ public class Boss {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    System.out.printf(e.getMessage());
+                    Thread.currentThread().interrupt();
+                    log.error("Error message", e);
                 }
             }
             currentPlayers.add(player);
@@ -26,10 +28,8 @@ public class Boss {
     }
 
     public boolean exitBattle(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("player can`t be null");
-        }
-        if (!currentPlayers.contains(player)) {
+
+        if (!currentPlayers.contains(Objects.requireNonNull(player))) {
             log.error("Такого игрока нет в сражении.");
             return false;
         }
@@ -37,7 +37,7 @@ public class Boss {
         synchronized (this) {
             log.info("Игрок {} выходит из сражения", player.name());
             currentPlayers.remove(player);
-            this.notify();
+            this.notifyAll();
         }
         return true;
     }

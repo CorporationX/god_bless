@@ -14,20 +14,8 @@ public class Battle {
 
         Boss boss = new Boss();
 
-        List<Thread> threads = new ArrayList<>(List.of(
-                new Thread(() ->
-                        players.get(0).startBattle(boss)),
-                new Thread(() ->
-                        players.get(1).startBattle(boss)),
-                new Thread(() ->
-                        players.get(2).startBattle(boss)),
-                new Thread(() ->
-                        players.get(3).startBattle(boss))
-        ));
-
-        threads.forEach(Thread::start);
+        players.forEach(player -> new Thread(() -> player.startBattle(boss)).start());
 
         players.stream().anyMatch(boss::exitBattle);
-
     }
 }
