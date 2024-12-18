@@ -11,8 +11,6 @@ public class Main {
     private static final int FREQUENCY = 5;
 
     public static void main(String[] args) {
-        House house = new House();
-
         Room room1 = new Room();
         room1.addFood(new Food("Cheese"));
         room1.addFood(new Food("Bread"));
@@ -25,6 +23,7 @@ public class Main {
         room3.addFood(new Food("Carrot"));
         room3.addFood(new Food("Potato"));
 
+        House house = new House();
         house.addRoom(room1);
         house.addRoom(room2);
         house.addRoom(room3);
