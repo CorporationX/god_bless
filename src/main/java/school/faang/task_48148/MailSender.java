@@ -16,8 +16,12 @@ public class MailSender {
             threads[i].start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException ie) {
+            System.out.println(ie.getMessage());
         }
 
         System.out.println("Все письма доставлены!");
