@@ -39,15 +39,17 @@ public class House {
         Room firstRoom = rooms.get(firstRoomIndex);
         Room secondRoom = rooms.get(secondRoomIndex);
         if (!firstRoom.isEmpty()) {
-            collectedFood.addAll(firstRoom.getFoodList());
-            firstRoom.removeAllFood();
+            getFoodFromRoom(firstRoom);
             countDownLatch.countDown();
         }
         if (!secondRoom.isEmpty()) {
-            collectedFood.addAll(secondRoom.getFoodList());
-            secondRoom.removeAllFood();
+            getFoodFromRoom(secondRoom);
             countDownLatch.countDown();
         }
         System.out.println("Собрано еды: " + collectedFood.size());
+    }
+
+    private void getFoodFromRoom(Room room) {
+        collectedFood.addAll(room.collectFood());
     }
 }

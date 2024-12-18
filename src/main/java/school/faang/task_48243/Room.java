@@ -1,12 +1,10 @@
 package school.faang.task_48243;
 
-import lombok.Getter;
 import school.faang.exception.CheckException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 public class Room {
     private final List<Food> foodList = new ArrayList<>();
 
@@ -18,8 +16,10 @@ public class Room {
         foodList.add(food);
     }
 
-    public void removeAllFood() {
+    public List<Food> collectFood() {
+        List<Food> collectedFood = new ArrayList<>(foodList);
         foodList.clear();
+        return collectedFood;
     }
 
     public boolean isEmpty() {
