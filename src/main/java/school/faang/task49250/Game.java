@@ -5,22 +5,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
+    private final Object scoreLock = new Object();
+    private final Object liveLock = new Object();
 
+    @Getter
     private int score = 0;
     @Getter
     private int lives = 5;
 
     public void update(boolean earnedScore, boolean losingLive) {
-        synchronized (lock1) {
+        synchronized (scoreLock) {
             if (earnedScore && lives != 0) {
                 score++;
                 log.info("Игрок заработал очки, очки на данный момент {}", score);
             }
         }
 
-        synchronized (lock2) {
+        synchronized (liveLock) {
             if (losingLive) {
                 lives--;
                 log.info("Игрок теряет жизнь");
@@ -32,6 +33,6 @@ public class Game {
     }
 
     private void gameOver() {
-        log.info("Игра окончена");
+        log.info("Игра окончена. Финальный счёт: {}", score);
     }
 }
