@@ -12,6 +12,9 @@ public class NotificationManager {
     private final Map<String, Consumer<Notification>> notifications = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> consumer) {
+        if (type == null || consumer == null) {
+            throw new IllegalArgumentException(" type or consumer == null");
+        }
         notifications.put(type, consumer);
         log.info("The type has been added .");
     }
