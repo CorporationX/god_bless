@@ -1,6 +1,7 @@
 package school.faang.sprint_2.task_46630;
 
 import java.util.function.Function;
+import java.util.Arrays;
 
 public class FilterProcessor {
     public Image applyFilter(Image image, Function<Image, Image> filter) {
@@ -8,6 +9,12 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {
-        return image -> filter2.apply(filter1.apply(image));
+        return filter1.andThen(filter2);
+    }
+
+    @SafeVarargs
+    public final Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
+        return Arrays.stream(filters)
+                .reduce(Function.identity(), Function::andThen);
     }
 }
