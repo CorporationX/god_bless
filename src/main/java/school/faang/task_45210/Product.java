@@ -2,14 +2,12 @@ package school.faang.task_45210;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @ToString
 public class Product {
-    private static final Logger logger = LoggerFactory.getLogger(Product.class);
-
     private static int idCounter = 1;
 
     private final int id;
@@ -28,6 +26,6 @@ public class Product {
         this.name = name;
         this.category = category;
 
-        logger.info("Created product: {id: {}, name: {}, category: {}}", id, name, category);
+        log.info("Created product: {id: {}, name: {}, category: {}}", id, name, category);
     }
 }

@@ -2,13 +2,11 @@ package school.faang.task_45390;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Student {
-    private static final Logger logger = LoggerFactory.getLogger(Student.class);
-
     private static int idCounter = 1;
 
     @EqualsAndHashCode.Include
@@ -22,7 +20,7 @@ public class Student {
         }
         this.id = idCounter++;
         this.name = name;
-        logger.info("Student {} created", name);
+        log.info("Student {} created", name);
     }
 
     @Override

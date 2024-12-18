@@ -1,16 +1,14 @@
 package school.faang.task_45390;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class StudentDatabase {
-    private static final Logger logger = LoggerFactory.getLogger(StudentDatabase.class);
-
     protected final Map<Student, Map<Subject, Integer>> gradesByStudent;
     protected final Map<Subject, List<Student>> studentsBySubject;
 
@@ -38,7 +36,7 @@ public class StudentDatabase {
         gradeBySubject.forEach((subject, grade) ->
                 studentsBySubject.computeIfAbsent(subject, s -> new ArrayList<>()).add(student));
 
-        logger.info("Added student {} with grade map {}", student.getName(), gradeBySubject);
+        log.info("Added student {} with grade map {}", student.getName(), gradeBySubject);
     }
 
     protected void addSubjectForStudent(
@@ -59,7 +57,7 @@ public class StudentDatabase {
         gradesByStudent.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
         studentsBySubject.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
 
-        logger.info("Added subject {} with grade {}", subject, grade);
+        log.info("Added subject {} with grade {}", subject, grade);
     }
 
     protected void removeStudent(Student student) {
@@ -71,7 +69,7 @@ public class StudentDatabase {
 
         gradesByStudent.remove(student);
 
-        logger.info("Student {} removed from the database", student.getName());
+        log.info("Student {} removed from the database", student.getName());
     }
 
     protected void removeStudentFromSubject(
@@ -89,16 +87,16 @@ public class StudentDatabase {
 
         studentsBySubject.getOrDefault(subject, new ArrayList<>()).remove(student);
 
-        logger.info("Student {} removed from subject {}", student.getName(), subject.getName());
+        log.info("Student {} removed from subject {}", student.getName(), subject.getName());
     }
 
     protected void printAllStudentsWithGrades() {
-        logger.info("# All students and their grades:");
-        gradesByStudent.forEach((student, grade) -> logger.info("{}: {}", student, grade));
+        log.info("# All students and their grades:");
+        gradesByStudent.forEach((student, grade) -> log.info("{}: {}", student, grade));
     }
 
     protected void printAllSubjectsAndStudents() {
-        logger.info("# All subjects and their students:");
-        studentsBySubject.forEach((subject, students) -> logger.info("{}:{}", subject, students));
+        log.info("# All subjects and their students:");
+        studentsBySubject.forEach((subject, students) -> log.info("{}:{}", subject, students));
     }
 }
