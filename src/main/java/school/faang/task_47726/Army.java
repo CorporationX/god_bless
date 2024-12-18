@@ -22,7 +22,7 @@ public class Army {
                 thread.join();
                 System.out.println(String.format("Thread %s has finished work", thread.getThread()));
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         });
         return threadList.stream().map(thread -> thread.getPower()).reduce(Integer::sum).orElse(0);
