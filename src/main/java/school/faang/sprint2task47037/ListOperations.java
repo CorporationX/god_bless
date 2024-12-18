@@ -18,17 +18,19 @@ public class ListOperations {
 
     public static int findMax(List<Integer> numbers) {
         checkNull(numbers, "Numbers list cannot be null");
-        return numbers.stream().mapToInt(Integer::intValue).max().orElseThrow(ArithmeticException::new);
+        return numbers.stream().mapToInt(Integer::intValue).max()
+                .orElseThrow(() -> new IllegalStateException("List is empty, cannot find max"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         checkNull(numbers, "Numbers list cannot be null");
-        return numbers.stream().mapToDouble(Integer::intValue).average().orElseThrow(ArithmeticException::new);
+        return numbers.stream().mapToDouble(Integer::intValue).average()
+                .orElseThrow(() -> new IllegalStateException("List is empty, cannot calculate average"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char a) {
         checkNull(strings, "Strings list cannot be null");
-        return (int) strings.stream().filter(k -> k.charAt(0) == a).count();
+        return (int) strings.stream().filter(k -> !k.isEmpty() && k.charAt(0) == a).count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String an) {
@@ -49,7 +51,7 @@ public class ListOperations {
     public static int findMinGreaterThan(List<Integer> numbers, int i) {
         checkNull(numbers, "Numbers list cannot be null");
         return numbers.stream().filter(k -> k > i).mapToInt(Integer::intValue).min()
-                .orElseThrow(ArithmeticException::new);
+                .orElseThrow(() -> new IllegalStateException("No elements greater than " + i));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
