@@ -4,11 +4,7 @@ public class Main {
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
                 () -> {
-                    try {
-                        return RemoteService.call("someParam");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    return RemoteService.call("someParam");
                 },  // Основное действие
                 e -> {  // Обработка ошибки
                     System.out.println("Ошибка при вызове сервиса возвращаем дефолтное значение");
