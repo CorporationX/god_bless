@@ -1,7 +1,8 @@
 package school.faang.sprint_3.task_48204;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+
+    public static void main(String[] args) {
         int emailsCount = 1000;
         int threadsCount = 5;
         int packageSize = emailsCount / threadsCount;
@@ -16,7 +17,11 @@ public class MailSender {
         }
 
         for (var thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("Все письма отправлены!");
