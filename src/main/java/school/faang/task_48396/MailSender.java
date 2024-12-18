@@ -22,6 +22,6 @@ public class MailSender {
                 System.out.println("Поток прерван " + thread.getName());
             }
         }
-        System.out.println("Все письма отправлены!");
+        System.out.println("Все письма отправлены!!");
     }
 }
