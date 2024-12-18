@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class CleanService {
     private static final int THREAD_POOL_SIZE = 5;
     private static final int DELAY = 0;
-    private static final int PERIOD = 3;
+    private static final int PERIOD = 30;
 
     public static void main(String[] args) {
         House house = new House();

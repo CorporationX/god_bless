@@ -15,6 +15,7 @@ public class FoodService implements Runnable {
     public void run() {
         if (house == null) {
             System.out.println("Дом не может быть null");
+            return;
         }
         house.collectFoods();
         if (house.allFoodCollected()) {

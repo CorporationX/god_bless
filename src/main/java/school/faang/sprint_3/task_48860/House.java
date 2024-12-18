@@ -24,7 +24,7 @@ public class House {
         }
     }
 
-    public void collectFoods() {
+    public synchronized void collectFoods() {
         Random random = new Random();
         Room room1 = rooms.get(random.nextInt(rooms.size()));
         Room room2 = rooms.get(random.nextInt(rooms.size()));
@@ -45,7 +45,7 @@ public class House {
     private void collectFoodFromRoom(Room room) {
         collectedFood.addAll(room.getFoods());
         room.removeAllFood();
-        System.out.println(Thread.currentThread().getName() + " cобрал еда из комнаты №" + room.getRoomNumber());
+        System.out.println(Thread.currentThread().getName() + " cобрал еду из комнаты №" + room.getRoomNumber());
     }
 
     public boolean allFoodCollected() {

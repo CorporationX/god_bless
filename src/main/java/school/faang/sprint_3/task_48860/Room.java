@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class Room {
     private static final int FOODS_IN_ROOM = 5;
-    int roomNumber;
-    List<Food> foods;
+    private int roomNumber;
+    private List<Food> foods;
 
     public Room(int roomNumber) {
         this.roomNumber = roomNumber;
