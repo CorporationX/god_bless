@@ -17,7 +17,6 @@ public class Main {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(3, TimeUnit.MINUTES)) {
-                System.out.println("Не все задачи завершены в указанный период времени.");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
