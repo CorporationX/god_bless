@@ -8,6 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class House {
+    private static final int THREAD_COUNT = 5;
+    private static final int FOOD_COUNT_PER_COLLECTFOOD = 5;
     private static final LinkedList<Room> rooms = new LinkedList<>();
     private static final List<Food> collectedFood = new ArrayList<>();
 
@@ -56,7 +58,7 @@ public class House {
                 new Food("potato"),
                 new Food("beer"))));
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_COUNT);
 
         for (int i = 1; i <= 5; i++) {
             executor.scheduleAtFixedRate(House::collectFood, 100 * i, 30, TimeUnit.MILLISECONDS);
@@ -74,7 +76,7 @@ public class House {
     private static void collectFood() {
         Room currentRoom;
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= FOOD_COUNT_PER_COLLECTFOOD; i++) {
             currentRoom = rooms.pollFirst();
             if (currentRoom != null && !currentRoom.getFoods().isEmpty()) {
                 collectedFood.addAll(currentRoom.collect());
