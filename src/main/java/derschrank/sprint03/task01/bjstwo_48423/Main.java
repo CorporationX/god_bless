@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         List<Mail> mails = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1000; i++) {
             mails.add(new Mail(i, "Mail to ABC"));
         }
         MailSender sender = new MailSender(mails);

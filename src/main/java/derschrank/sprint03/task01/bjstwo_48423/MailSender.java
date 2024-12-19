@@ -1,5 +1,6 @@
 package derschrank.sprint03.task01.bjstwo_48423;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender implements MailSenderInterface {
@@ -28,6 +29,7 @@ public class MailSender implements MailSenderInterface {
 
     public void send() {
         int pointer = 0;
+        List<Thread> threads = new ArrayList<>();
         for (int indexOfThread = 1; indexOfThread <= maxThreads && pointer <= size; indexOfThread++) {
             int oldPointer = pointer;
             pointer += sizeOfPaketForOneThread;
@@ -38,6 +40,20 @@ public class MailSender implements MailSenderInterface {
             SenderRunnable senderRunnable = new SenderRunnable(mails, oldPointer, pointer);
             Thread thread = new Thread(senderRunnable);
             thread.start();
+            threads.add(thread);
+        }
+
+        waitForEndOfThreads(threads);
+        System.out.println("\nAll mails were sent!!!");
+
+    }
+    private void waitForEndOfThreads(List<Thread> threads) {
+        for(Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
