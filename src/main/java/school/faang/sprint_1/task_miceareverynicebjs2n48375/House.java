@@ -1,72 +1,99 @@
 package school.faang.sprint_1.task_miceareverynicebjs2n48375;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Getter
-@AllArgsConstructor
-public class House implements Runnable{
+public class House implements Runnable {
     @NonNull
-    private List<Room> rooms;
-    private List<Food> food;
+    private final List<Room> rooms;
+    @NonNull
+    private final List<Food> food;
+    @NonNull
+    private final ScheduledExecutorService executorService;
+    private int numberOfRoomsVisitedAtOnce = 2;
+    private static int NUMBER_OF_THREADS = 5;
+
+    public House(@NonNull List<Room> rooms,
+                 @NonNull List<Food> food,
+                 @NonNull ScheduledExecutorService executorService) {
+        this.rooms = rooms;
+        this.food = food;
+        this.executorService = executorService;
+    }
 
     @Override
     public void run() {
-        collectFood();
+        try {
+            collectFood();
+            if (allFoodInHouseIsCollected()) {
+                log.info(">>> All rooms are empty {} \n", rooms);
+                throw new ExecutionException(new Throwable("collectFood() is successfully finished"));
+            }
+        } catch (ExecutionException e) {
+            Thread.currentThread().interrupt();
+            executorService.shutdown();
+        }
     }
 
     public void collectFood() {
-        int roomNumber1 = randomRoomIndex();
-        int roomNumber2 = randomRoomIndex();
+        List<Integer> numbersOfRoomsToVisit = new ArrayList<>(List.of(0, 0));
+        numbersOfRoomsToVisit.replaceAll(numbers -> randomRoomIndex());
+        if (allFoodInHouseIsCollected()) {
+            log.info("All food in rooms is collected");
 
-        food.addAll(rooms.get(roomNumber1).getFood());
-        rooms.get(roomNumber1).removeFood();
-
-        food.addAll(rooms.get(roomNumber2).getFood());
-        rooms.get(roomNumber2).removeFood();
-        System.out.printf("%s - room %s and %s are visited by mice\n", Thread.currentThread().getName(), roomNumber1, roomNumber2);
+        } else {
+            for (Integer integer : numbersOfRoomsToVisit) {
+                food.addAll(rooms.get(integer).getFood());
+                rooms.get(integer).removeFood();
+            }
+            log.info("rooms {} are visited by mice : {}", numbersOfRoomsToVisit, rooms);
+        }
     }
 
     private int randomRoomIndex() {
-        return (int)((Math.random() * rooms.size()));
+        return (int) ((Math.random() * rooms.size()));
+    }
+
+    private boolean allFoodInHouseIsCollected() {
+        for (Room room : rooms) {
+            if (!room.getFood().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
-        int numberOfThreads = 5;
+        int roomsNumber = 5;
+        List<List<Food>> foodInRooms = new ArrayList<>();
+        for (int i = 0; i < roomsNumber; i++) {
+            foodInRooms.add(
+                    new ArrayList<>(List.of(
+                            new Food("Хлеб"),
+                            new Food("Яблоки")
+                    ))
+            );
+        }
 
-        List<Food> foods = new ArrayList<>(List.of(
-                new Food("Каша гречневая"),
-                new Food("Каша пшеничная"),
-                new Food("Молоко"),
-                new Food("Хлеб"),
-                new Food("Персики"),
-                new Food("Яблоки")
-                ));
-        List<Room> rooms = new ArrayList<>(List.of(
-                new Room(foods),
-                new Room(foods),
-                new Room(foods),
-                new Room(foods),
-                new Room(foods),
-                new Room(foods),
-                new Room(foods),
-                new Room(foods)
-                ));
+        List<Room> rooms = new ArrayList<>();
+        for (int i = 0; i < roomsNumber; i++) {
+            rooms.add(new Room(foodInRooms.get(i)));
+        }
 
-        House house = new House(rooms, new ArrayList<>());
-
-        ScheduledExecutorService executorScheduled = Executors.newScheduledThreadPool(numberOfThreads);
-        executorScheduled.scheduleAtFixedRate(house, 1, 1, TimeUnit.SECONDS);
+        ScheduledExecutorService executorScheduled = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
+        House house = new House(rooms, new ArrayList<>(), executorScheduled);
+        log.info("Initial state of rooms {} :", house.getRooms());
+        ScheduledFuture<?> houseHandle = executorScheduled.scheduleAtFixedRate(house, 1, 3, TimeUnit.SECONDS);
     }
 }
