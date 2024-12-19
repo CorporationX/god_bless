@@ -47,8 +47,9 @@ public class MailSender implements MailSenderInterface {
         System.out.println("\nAll mails were sent!!!");
 
     }
+
     private void waitForEndOfThreads(List<Thread> threads) {
-        for(Thread thread : threads) {
+        for (Thread thread : threads) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
