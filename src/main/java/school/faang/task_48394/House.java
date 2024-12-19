@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final int NUMBER_THREADS = 5;
     private static final long COMPLETION_PERIOD = 30;
+    private static final long DELAY = 0;
     private static final int ROOM_LIMIT = 2;
 
     private final List<Room> roomList;
@@ -42,7 +43,7 @@ public class House {
             if (house.isAllFoodCollected()) {
                 executor.shutdown();
             }
-        }, 0, COMPLETION_PERIOD, TimeUnit.SECONDS);
+        }, DELAY, COMPLETION_PERIOD, TimeUnit.SECONDS);
 
         try {
             long programTimeout = house.getQuantityRooms() / ROOM_LIMIT
@@ -60,7 +61,7 @@ public class House {
                 house.totalListFood.size());
     }
 
-    public void collectFood(int roomLimit) {
+    public synchronized void collectFood(int roomLimit) {
         Collections.shuffle(roomList);
         List<Room> roomsCollectingFood = roomList.stream()
                 .filter(Room::hasFood)
