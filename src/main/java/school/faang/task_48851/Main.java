@@ -14,13 +14,15 @@ public class Main {
     List<Food> collectionFood = new ArrayList<>();
 
     House house = new House("myHome", 3);
+    //house.collectFood(collectionFood, house);
+
 
     ExecutorService executor = Executors.newScheduledThreadPool(5);
     for (int i = 0; i < 5; i++) {
-      executor.submit(() -> house.collectFood(collectionFood, house));
+      executor.submit(() -> {
+          house.collectFood(collectionFood, house);
+      });
     }
-
-
 
   }
 }
