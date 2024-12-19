@@ -30,14 +30,17 @@ public class MailSender implements MailSenderInterface {
     public void send() {
         int pointer = 0;
         List<Thread> threads = new ArrayList<>();
+
+        int oldPointer = 0;
+        SenderRunnable senderRunnable = null;
         for (int indexOfThread = 1; indexOfThread <= maxThreads && pointer <= size; indexOfThread++) {
-            int oldPointer = pointer;
+           oldPointer = pointer;
             pointer += sizeOfPaketForOneThread;
             if (pointer > size || indexOfThread == maxThreads) {
                 pointer = size;
             }
 
-            SenderRunnable senderRunnable = new SenderRunnable(mails, oldPointer, pointer);
+            senderRunnable = new SenderRunnable(mails, oldPointer, pointer);
             Thread thread = new Thread(senderRunnable);
             thread.start();
             threads.add(thread);
@@ -53,7 +56,7 @@ public class MailSender implements MailSenderInterface {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("waitForEndOfThreads: " + e);
             }
         }
     }
