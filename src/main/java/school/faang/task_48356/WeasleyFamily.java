@@ -6,11 +6,10 @@ import java.util.stream.Stream;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
-        final String[] chores = new String[]{"wash dishes", "sweep floors", "make dinner", "wipe off the dust"};
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        Stream.of(chores).forEach(chore -> executorService.submit(new Chore(chore)));
+        Stream.of(Chores.values()).forEach(chores -> executorService.submit(new Chore(chores)));
 
         executorService.shutdown();
 
@@ -18,7 +17,7 @@ public class WeasleyFamily {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                System.out.println("tasks are not finished yet..");
+                Thread.currentThread().interrupt();
             }
         } else {
             executorService.shutdownNow();
