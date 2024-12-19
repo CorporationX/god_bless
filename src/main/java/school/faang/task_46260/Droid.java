@@ -38,7 +38,8 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - start - decryptionKey + numberOfLetters) % numberOfLetters + start));
+                    decryptedMessage.append((char)
+                            ((ch - start - decryptionKey + numberOfLetters) % numberOfLetters + start));
                 } else {
                     decryptedMessage.append(ch);
                 }
