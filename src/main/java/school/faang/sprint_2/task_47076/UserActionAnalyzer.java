@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.Map.Entry.comparingByValue;
@@ -39,8 +41,11 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         LocalDate date = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action -> action.getActionType().equals("comment")
-                && action.getActionDate().isBefore(date))
+                .filter(action -> action != null)
+                .filter(action -> action.getActionDate() != null)
+                .filter(action -> action.getActionType() != null)
+                .filter(action -> Objects.equals(action.getActionType(), "comment"))
+                .filter(action -> action.getActionDate().isBefore(date))
                 .collect(Collectors.groupingBy(
                         UserAction::getName,
                         Collectors.counting()
