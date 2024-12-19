@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Main {
@@ -20,22 +21,18 @@ public class Main {
     private static final int MAX_FOODS = 10;
     private static final int MAX_ROOMS = 10;
     private static final int POOL_SIZE = 5;
-    public static final int PERIOD = 30;
+    private static final int PERIOD = 30;
+    private static final Consumer<ScheduledExecutorService> CALLBACK = (executorService) -> {
+        executorService.shutdown();
+        System.out.println("Еда в доме собрана!");
+    };
 
     public static void main(String[] args) {
-        House house = new House(generateRooms());
+        House house = new House(generateRooms(), CALLBACK);
         house.printFoodsSizes();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(POOL_SIZE);
-        executorService.scheduleAtFixedRate(house::collectFood, 0, PERIOD, TimeUnit.SECONDS);
-        while (true) {
-            if (house.allFoodCollected()) {
-                executorService.shutdown();
-                System.out.println("Еда в доме собрана!");
-                break;
-            }
-        }
-        house.printFoodsSizes();
+        executorService.scheduleAtFixedRate(() -> house.collectFood(executorService), 0, PERIOD, TimeUnit.MILLISECONDS);
     }
 
     private static List<Food> generateFoods() {
