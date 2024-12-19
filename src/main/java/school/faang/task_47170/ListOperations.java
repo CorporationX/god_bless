@@ -24,7 +24,7 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Cannot calculate average for an empty list"));
     }
 
     protected static int countStringsStartingWith(List<String> strings, char prefix) {
