@@ -4,7 +4,7 @@ public record Triangle(
     double a,
     double b,
     double c
-){
+) {
     public Triangle(double a, double b, double c) {
         checkTriangleIsValid(a, b, c);
         this.a = a;
