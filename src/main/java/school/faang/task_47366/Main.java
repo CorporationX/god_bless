@@ -12,8 +12,10 @@ public class Main {
         System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Максимум: " + ListOperations.findMax(numbers));
         System.out.println("Среднее: " + ListOperations.findAverage(numbers));
-        System.out.println("Количество строк, начинающихся на 'a': " + ListOperations.countStringsStartingWith(strings, 'a'));
-        System.out.println("Строки, содержащие 'an': " + ListOperations.filterStringsContainingSubstring(strings, "an"));
+        System.out.println("Количество строк, начинающихся на 'a': "
+                + ListOperations.countStringsStartingWith(strings, 'a'));
+        System.out.println("Строки, содержащие 'an': "
+                + ListOperations.filterStringsContainingSubstring(strings, "an"));
         System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
         System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
         System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 4));
