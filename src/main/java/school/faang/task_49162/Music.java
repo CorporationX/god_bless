@@ -4,11 +4,14 @@ public class Music {
     public static void main(String[] args) {
         Player player = new Player();
 
-        new Thread(player::play).start();
-        new Thread(player::pause).start();
-        new Thread(player::previous).start();
-        new Thread(player::play).start();
-        new Thread(player::skip).start();
+        createAndStartThread(player::play);
+        createAndStartThread(player::pause);
+        createAndStartThread(player::previous);
+        createAndStartThread(player::play);
+        createAndStartThread(player::skip);
+    }
 
+    private static void createAndStartThread(Runnable runnable) {
+        new Thread(runnable).start();
     }
 }
