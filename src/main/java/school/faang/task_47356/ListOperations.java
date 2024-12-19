@@ -50,16 +50,13 @@ public class ListOperations {
     }
 
     public static List<String> findWordWithCertainLettersAndSortedByLength(List<String> source, String alphabet) {
-        List<String> alphabetListOfLetters = createListOfStringLettersFromWord(alphabet);
+        Set<Character> alphabetSet = alphabet.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.toSet());
+
         return source.stream()
-                .filter(it -> new HashSet<>(alphabetListOfLetters).containsAll(createListOfStringLettersFromWord(it)))
+                .filter(it -> it.chars().allMatch(c -> alphabetSet.contains((char) c)))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
-    }
-
-    private static List<String> createListOfStringLettersFromWord(String word) {
-        return word.chars()
-                .mapToObj(c -> String.valueOf((char) c))
-                .toList();
     }
 }
