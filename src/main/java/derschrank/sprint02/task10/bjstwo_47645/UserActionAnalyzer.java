@@ -2,6 +2,7 @@ package derschrank.sprint02.task10.bjstwo_47645;
 
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +33,9 @@ public class UserActionAnalyzer {
         return actions.stream()
                 .filter(action -> ACTION_TYPE_POST.equals(action.actionType())
                         ||  ACTION_TYPE_COMMENT.equals(action.actionType()))
-                .filter(action -> action.content().startsWith("#"))
-                .map(action -> action.content().split(" ", 2)[0])
+                .filter(action -> action.content().contains("#"))
+                .map(action -> Arrays.stream(action.content().split("\\s+"))
+                        .filter(word -> word.startsWith("#")).findFirst().orElse("#error"))
                 .collect(Collectors.toMap(
                         hash -> hash,
                         hash -> 1,
