@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 @ToString
 public class NotificationManager {
-    Map<String, Consumer<Notification>> stringConsumerMap = new HashMap<>();
+    private final Map<String, Consumer<Notification>> stringConsumerMap = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> consumer) {
         if (type != null && consumer != null) {
