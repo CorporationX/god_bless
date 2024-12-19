@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @AllArgsConstructor
 @Getter
 @ToString
@@ -17,7 +18,7 @@ public class Room {
         foods.add(food);
     }
 
-    public void removeFood(){
+    public void removeFood() {
         foods.clear();
     }
 }
