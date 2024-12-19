@@ -5,13 +5,12 @@ public class Main {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
         Thread uploadThread = new Thread(uploader::startAutoUpload);
-        uploadThread.start();
-
         Thread addPhotoThread = new Thread(() -> {
             for (int i = 1; i <= 5; i++) {
                 uploader.onNewPhotoAdded("photo" + i + ".jpg");
             }
         });
+        uploadThread.start();
         addPhotoThread.start();
 
         try {
