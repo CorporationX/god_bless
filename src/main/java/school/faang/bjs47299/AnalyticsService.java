@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public class AnalyticsService {
     public static List<User> topTen(List<UserAction> actions) {
         return actions.stream()
-                .collect(Collectors.groupingBy(action -> new User(action.userId(), action.userName()), Collectors.counting()))
+                .collect(Collectors.groupingBy(action -> new User(action.userId(),
+                        action.userName()), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Comparator.comparingLong(Map.Entry::getValue))
                 .limit(10)
@@ -24,7 +25,8 @@ public class AnalyticsService {
 
     public static List<String> topTopics(List<UserAction> actions) {
         return actions.stream()
-                .filter(action -> action.content() != null && action.type().equals("post") || action.type().equals("comment"))
+                .filter(action -> action.content() != null &&
+                        action.type().equals("post") || action.type().equals("comment"))
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+")))
                 .map(word -> word.replaceAll("!", ""))
                 .map(word -> word.replaceAll("\\.", ""))
