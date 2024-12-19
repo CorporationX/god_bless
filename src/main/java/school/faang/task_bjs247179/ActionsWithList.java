@@ -42,14 +42,13 @@ public class ActionsWithList {
     }
 
     public static boolean predicateByCondition(List<Integer> list, Predicate<Integer> predicate) {
-        return (list.size() ==
-                list.stream().filter(predicate).toList().size());
+        return (list.size() == list.stream().filter(predicate).toList().size());
     }
 
     public static int findMinIntMoreThis(List<Integer> list, int number) {
         return list.stream()
-                .filter(integer -> integer > number).min(Comparator.naturalOrder()).
-                orElseThrow(() -> new IllegalArgumentException("пустой список"));
+                .filter(integer -> integer > number).min(Comparator.naturalOrder())
+                .orElseThrow(() -> new IllegalArgumentException("пустой список"));
     }
 
     public static List<Integer> mapStringsToInt(List<String> list) {
