@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class WeasleyFamily {
     private List<String> chores = List.of("Помыть посуду", "Подмести пол",
             "Протереть пыль", "Помыть пол", "Выкинуть мусор");
-    ExecutorService executor = Executors.newCachedThreadPool();
+    private ExecutorService executor = Executors.newCachedThreadPool();
 
     public void startedChores(List<String> choresFamily) {
         for (String task : choresFamily) {
