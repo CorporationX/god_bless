@@ -34,7 +34,7 @@ public class MailSender implements MailSenderInterface {
         int oldPointer = 0;
         SenderRunnable senderRunnable = null;
         for (int indexOfThread = 1; indexOfThread <= maxThreads && pointer <= size; indexOfThread++) {
-           oldPointer = pointer;
+            oldPointer = pointer;
             pointer += sizeOfPaketForOneThread;
             if (pointer > size || indexOfThread == maxThreads) {
                 pointer = size;
