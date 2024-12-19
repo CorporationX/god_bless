@@ -10,10 +10,10 @@ public class ErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
-    public static <T> T withErrorHandling(@NonNull Callable<T> serviceSupplier,
+    public static <T> T withErrorHandling(@NonNull Callable<T> action,
                                           @NonNull ErrorHandling<T> errorHandling) {
         try {
-            return serviceSupplier.call();
+            return action.call();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return errorHandling.handleError(e);
