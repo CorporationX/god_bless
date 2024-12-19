@@ -1,4 +1,4 @@
-package school.faang.task_48273;
+package school.faang.task_48273.example;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,20 +11,14 @@ public class Main {
     public static void main(String[] args) {
         House house = setUpHouse();
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(Config.SCHEDULED_THREAD_POOL_SIZE);
-        executorService.scheduleAtFixedRate(house::collectFood,
-                0,
-                Config.SCHEDULED_THREAD_POOL_FIXED_SECONDS_RATE,
-                TimeUnit.SECONDS);
-
-        ScheduledExecutorService checkerService = Executors.newScheduledThreadPool(1);
-        checkerService.scheduleAtFixedRate(() -> {
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(Config.FIXED_THREAD_POOL_SIZE);
+        executorService.scheduleAtFixedRate(() -> {
+            house.collectFood();
             if (house.allFoodCollected()) {
                 executorService.shutdown();
-                checkerService.shutdown();
-                log.info("All the food in the house is collected: {}", house.getCollectedFoods());
+                log.info("All food collected: {}", house.getCollectedFood());
             }
-        }, 0, Config.SCHEDULED_THREAD_POOL_FIXED_SECONDS_RATE, TimeUnit.SECONDS);
+        }, 0, Config.FIXED_THREAD_POOL_DELAY, TimeUnit.SECONDS);
     }
 
     private static House setUpHouse() {
