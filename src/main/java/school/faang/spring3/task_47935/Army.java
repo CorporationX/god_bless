@@ -17,17 +17,18 @@ public class Army {
         int totalPower = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerThread> tasks = new ArrayList<>();
-
+        PowerThread powerThread;
+        Thread thread;
         for (Unit unit : units) {
-            PowerThread powerThread = new PowerThread(unit);
+            powerThread = new PowerThread(unit);
             tasks.add(powerThread);
-            Thread thread = new Thread(powerThread);
+            thread = new Thread(powerThread);
             threads.add(thread);
             thread.start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        for (Thread t : threads) {
+            t.join();
         }
 
         for (PowerThread task : tasks) {
