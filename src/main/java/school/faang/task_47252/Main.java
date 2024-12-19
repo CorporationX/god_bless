@@ -100,8 +100,10 @@ public class Main {
 
         StudentsManager studentsManager = new StudentsManager();
         System.out.println("Средние оценки по школе " + studentsManager.averageGradePerSchool(students));
-        System.out.println("Наиболее сложные предмет для учеников " + studentsManager.findMostDifficultSubject(students));
-        System.out.println("Успеваемость конкретного ученкиа " + studentsManager.getFinalGradesForStudent(students, "George", "Irwin"));
+        System.out.println("Наиболее сложные предмет для учеников "
+                + studentsManager.findMostDifficultSubject(students));
+        System.out.println("Успеваемость конкретного ученкиа "
+                + studentsManager.getFinalGradesForStudent(students, "George", "Irwin"));
         studentsManager.printPerformanceTable(students);
     }
 }
