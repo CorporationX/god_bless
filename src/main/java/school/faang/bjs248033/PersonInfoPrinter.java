@@ -10,6 +10,6 @@ public class PersonInfoPrinter implements Runnable {
 
     @Override
     public void run() {
-       people.forEach(System.out::println);
+        people.forEach(System.out::println);
     }
 }
