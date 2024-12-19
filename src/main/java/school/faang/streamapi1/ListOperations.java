@@ -14,20 +14,14 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        Optional<Integer> maxNumber = numbers.stream().max(Comparator.naturalOrder());
-        if (maxNumber.isPresent()) {
-            return maxNumber.get();
-        } else {
-            throw new IllegalArgumentException("List is empty");
-        }
+        return numbers.stream().max(Comparator.naturalOrder())
+                .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
-        if (numbers != null && !numbers.isEmpty()) {
-            return (numbers.stream().mapToInt(Integer::intValue).sum()) / (double) numbers.size();
-        } else {
-            throw new IllegalArgumentException("List is empty");
-        }
+        return Optional.ofNullable(numbers).filter(list -> !list.isEmpty())
+                .map(list -> list.stream().mapToInt(Integer::intValue).sum() / (double) list.size())
+                .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char startChar) {
@@ -46,18 +40,14 @@ public class ListOperations {
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
         if (numbers.stream().filter(condition).count() == numbers.size()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int number) {
-        Optional<Integer> minGreaterThan = numbers.stream().filter(n -> n > number).min(Comparator.naturalOrder());
-        if (minGreaterThan.isPresent()) {
-            return minGreaterThan.get();
-        } else {
-            throw new IllegalArgumentException("List is empty");
-        }
+        return numbers.stream().filter(n -> n > number).min(Comparator.naturalOrder())
+                .orElseThrow(() -> new IllegalArgumentException("List is empty"));
+
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
