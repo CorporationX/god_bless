@@ -8,17 +8,36 @@ import java.util.*;
 public class StreamApp {
     public static void main(String[] args) {
 
-
         Map<String, List<String>> friends = getFriends();
 
         List<List<String>> friendsOfFriends;
 
-
         friendsOfFriends = StreamFunc.getFriendsOfFriends(friends);
 
-        System.out.println("Result 1");
+        System.out.println("Friends of the friends:");
         System.out.println(friendsOfFriends);
 
+        List<Employee> employees = getEmployees();
+
+        Map<String, Double> salaryByDepartments = StreamFunc.getAverageSale(employees);
+        System.out.println("Salary by departments:");
+        System.out.println(salaryByDepartments);
+
+        List<String> numPalindromes = StreamFunc.getAllPalindromes(1000, 2000);
+        System.out.println("Numbers palindromes:");
+        System.out.println(numPalindromes);
+
+        List<String> strPalindromes = StreamFunc.getSubstringPalindromes("abac");
+        System.out.println("Strings palindromes:");
+        System.out.println(strPalindromes);
+
+        List<Integer> perfectNumbers = StreamFunc.getPerfectNumbers(1, 1000);
+        System.out.println("Perfect Numbers:");
+        System.out.println(perfectNumbers);
+
+    }
+
+    private static List<Employee> getEmployees() {
         Employee employee1 = new Employee("John", "Sales", 10000.);
         Employee employee2 = new Employee("Sarah", "Sales", 12000.);
         Employee employee3 = new Employee("Teresa", "Cleaning", 5000.);
@@ -35,23 +54,7 @@ public class StreamApp {
         employees.add(employee5);
         employees.add(employee6);
         employees.add(employee7);
-
-        Map<String, Double> salaryByDepartments = StreamFunc.getAverageSale(employees);
-        System.out.println("salaryByDepartments: ");
-        System.out.println(salaryByDepartments);
-
-        List<String> numPalindromes = StreamFunc.getAllPalindromes(1000, 2000);
-        System.out.println("Numbers-palindromes");
-        System.out.println(numPalindromes);
-
-        List<String> strPalindromes = StreamFunc.getSubstringPalindromes("abac");
-        System.out.println("Strings-palindromes");
-        System.out.println(strPalindromes);
-
-        List<Integer> perfectNumbers = StreamFunc.getPerfectNumbers(1, 1000);
-        System.out.println("Perfect Numbers");
-        System.out.println(perfectNumbers);
-
+        return employees;
     }
 
     private static Map<String, List<String>> getFriends() {

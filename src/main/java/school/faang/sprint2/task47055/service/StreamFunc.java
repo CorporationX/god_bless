@@ -32,24 +32,6 @@ public class StreamFunc {
                 .toList();
     }
 
-    //47484 - рабочий
-    public static Set<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> usersFriends) {
-        return usersFriends.keySet().stream()
-                .flatMap(user -> usersFriends.keySet().stream()
-                        .filter(friend -> !user.equals(friend)
-                                &&
-                                !usersFriends.get(user).contains(friend)
-                                &&
-                                usersFriends.get(user).stream().anyMatch(usersFriends.get(friend)::contains))
-                        //.peek(System.out::println)
-                        .map(friend -> {
-                            List<String> pair = new ArrayList<>(Arrays.asList(user, friend));
-                            Collections.sort(pair); // Сортируем для уникальности
-                            return pair;
-                        }))
-                .collect(Collectors.toSet());
-    }
-
     public static Map<String, Double> getAverageSale(List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
