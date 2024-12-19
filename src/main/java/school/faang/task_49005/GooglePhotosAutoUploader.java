@@ -46,5 +46,4 @@ public class GooglePhotosAutoUploader {
             photosToUpload.notify();
         }
     }
-
 }

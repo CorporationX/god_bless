@@ -26,7 +26,5 @@ public class MainApp {
         if (!addPhotosThread.isAlive()) {
             stopUploader.start();
         }
-
-
     }
 }
