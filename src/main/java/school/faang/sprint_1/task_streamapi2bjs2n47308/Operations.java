@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -47,14 +48,13 @@ public class Operations {
     }
 
     public static List<String> filterByAlphabet(List<String> strings, String alphabet) {
-        String regExp = alphabetToRegularExpression(alphabet);
         return strings.stream()
-                .filter(s -> s.matches(regExp))
+                .filter(stringMatchesAlphabet(alphabet))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
-    private static String alphabetToRegularExpression(String alphabet) {
-        return "^[" + alphabet + "]+$";
+    private static Predicate<String> stringMatchesAlphabet(String alphabet) {
+        return s -> s.matches("^[" + alphabet + "]+$");
     }
 }
