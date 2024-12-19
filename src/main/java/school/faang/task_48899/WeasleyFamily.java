@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class WeasleyFamily {
 
     public static void main(String[] args) {
-        String[] choreNames = new String[] {"помыть посуду","подмести пол", "приготовить ужин"};
+        String[] choreNames = new String[] {"помыть посуду", "подмести пол", "приготовить ужин"};
         ExecutorService executor = Executors.newCachedThreadPool();
 
         for (String name : choreNames) {

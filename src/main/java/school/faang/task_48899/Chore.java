@@ -3,7 +3,7 @@ package school.faang.task_48899;
 import lombok.ToString;
 
 @ToString
-public class Chore implements Runnable{
+public class Chore implements Runnable {
     private final String name;
 
     public Chore(String chore) {
