@@ -18,8 +18,14 @@ public class Main {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
 
         final int initialDelay = 0;
-        final int period = 10;
-        executor.scheduleAtFixedRate(house::collectFood, initialDelay, period, TimeUnit.SECONDS);
+        final int period = 2;
+        executor.scheduleAtFixedRate(() -> {
+            if (!house.isAllRoomsCleared()) {
+                house.collectFood();
+            } else {
+                executor.shutdown();
+            }
+        }, initialDelay, period, TimeUnit.SECONDS);
     }
 
     private static void initData() {
