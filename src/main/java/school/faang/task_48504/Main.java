@@ -9,11 +9,10 @@ public class Main {
         WeasleyFamily weasleyFamily = new WeasleyFamily();
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        executor.execute(() -> {
-            for (int i = 0; i < weasleyFamily.getChores().size(); i++) {
-                new Chore(weasleyFamily.getChores().get(i).toString()).run();
-            }
-        });
+        for (int i = 0; i < weasleyFamily.getChores().size(); i++) {
+            Chore chore = new Chore(weasleyFamily.getChores().get(i).toString());
+            executor.execute(chore);
+        }
 
         executor.shutdown();
 
