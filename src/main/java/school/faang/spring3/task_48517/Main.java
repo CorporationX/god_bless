@@ -24,15 +24,15 @@ public class Main {
         foods5.add(new Food("apple5"));
         foods5.add(new Food("carrot5"));
         House house = new House();
-        house.addRoom(new Room(foods1));
-        house.addRoom(new Room(foods2));
-        house.addRoom(new Room(foods3));
-        house.addRoom(new Room(foods4));
-        house.addRoom(new Room(foods5));
+        house.addRoom(new Room(foods1, 1));
+        house.addRoom(new Room(foods2, 2));
+        house.addRoom(new Room(foods3, 3));
+        house.addRoom(new Room(foods4, 4));
+        house.addRoom(new Room(foods5, 5));
 
 
-        ExecutorService service = Executors.newFixedThreadPool(POOL_SIZE);
-        service.execute(() -> {
+        ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(POOL_SIZE);
+        service.scheduleAtFixedRate(() -> {
 
             house.collectFood();
             if (house.allFoodCollected()) {
@@ -40,7 +40,7 @@ public class Main {
                 System.out.println("All food collected");
             }
 
-        });
+        }, 0, 2, TimeUnit.SECONDS);
 
     }
 }

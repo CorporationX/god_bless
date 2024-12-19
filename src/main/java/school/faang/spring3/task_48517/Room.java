@@ -1,15 +1,19 @@
 package school.faang.spring3.task_48517;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class Room {
-    private List<Food> foods = new ArrayList<>();
+    private List<Food> foods;
+    private final int number;
+
+    public Room(List<Food> foods, int number) {
+        this.foods = foods;
+        this.number = number;
+    }
 
     public boolean hasFood() {
         return !foods.isEmpty();

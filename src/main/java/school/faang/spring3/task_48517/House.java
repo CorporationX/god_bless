@@ -1,17 +1,15 @@
 package school.faang.spring3.task_48517;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 @Getter
 public class House {
-    private List<Room> rooms = new ArrayList<>();
-    private List<Food> allFood = new ArrayList<>();
+    private final List<Room> rooms = new ArrayList<>();
+    private final List<Food> allFood = new ArrayList<>();
 
     public void addRoom(Room room) {
         rooms.add(room);
@@ -45,17 +43,17 @@ public class House {
         Room one = rooms.get(randomRoom1);
         Room two = rooms.get(randomRoom2);
 
-        if (one.hasFood() && two.hasFood()) {
-            allFood.addAll(one.getFoods());
-            allFood.addAll(two.getFoods());
-            System.out.println(Thread.currentThread().getName());
-            System.out.println(one.getFoods());
-            System.out.println(two.getFoods());
-            one.removeAllFood();
-            two.removeAllFood();
+        getFood(one);
+        getFood(two);
+        System.out.println(Thread.currentThread().getName() + " no food");
+    }
+
+    private void getFood(Room room) {
+        if (room.hasFood()) {
+            allFood.addAll(room.getFoods());
+            System.out.println(Thread.currentThread().getName() + " взял еду из комнаты " + room.getNumber());
+            room.removeAllFood();
         }
-
-
     }
 
 
