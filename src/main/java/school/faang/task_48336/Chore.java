@@ -7,10 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+    private static final int SLEEP_TIME = 1000;
 
     public void run() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             log.warn("Thread was interrupted", e);
         }
