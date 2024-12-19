@@ -76,6 +76,7 @@ public class ListOperations {
                 .filter(number -> number > limit)
                 .mapToInt(number -> number).min();
     }
+
     public static List<Integer> convertToLengths(List<String> numbers) {
         if (numbers.isEmpty()) {
             throw new IllegalArgumentException("List is empty");
