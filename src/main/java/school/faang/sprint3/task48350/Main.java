@@ -4,8 +4,13 @@ import school.faang.sprint3.task48350.model.*;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        Army army = getArmy();
+        int totalPower = army.calculateTotalPower();
+        System.out.println("Общая сила армии: " + totalPower);
+    }
 
+    private static Army getArmy() {
         Army army = new Army();
 
         army.addWarrior(new Archer());
@@ -13,9 +18,6 @@ public class Main {
         army.addWarrior(new Swordsman());
         army.addWarrior(new Mage());
         army.addWarrior(new Swordsman());
-
-        int totalPower = army.calculateTotalPower();
-        System.out.println("Общая сила армии: " + totalPower);
-
+        return army;
     }
 }

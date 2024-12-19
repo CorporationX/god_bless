@@ -12,7 +12,7 @@ public class Army {
         warriors.add(warrior);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         AtomicInteger overallPower = new AtomicInteger();
         Thread[] threads = new Thread[warriors.size()];
         int i = 0;
@@ -28,11 +28,14 @@ public class Army {
         }
 
         for (i = 0; i < warriors.size(); i++) {
-            threads[i].join();
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("Overall army's power calculated!");
-
         return overallPower.get();
     }
 }
