@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
@@ -16,24 +15,24 @@ public class GooglePhotosAutoUploader {
         this.photosToUpload = new ArrayList<>();
     }
 
-    public void startAutoUpload(int photosCount) {
+    public void startAutoUpload() {
         synchronized (lock) {
-            int uploadedPhotosCount = 0;
-            Supplier<Integer> uploadPhotos = () -> {
-                try {
-                    while (photosToUpload.isEmpty()) {
+            boolean interrupted = false;
+            while (true) {
+                while (photosToUpload.isEmpty() && !interrupted) {
+                    try {
                         lock.wait();
+                    } catch (InterruptedException e) {
+                        interrupted = true;
+                        log.error("Thread was interrupted", e);
                     }
-                    return uploadPhotos();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 }
-            };
-            while (uploadedPhotosCount < photosCount) {
-                uploadedPhotosCount += uploadPhotos.get();
+                if (interrupted) {
+                    break;
+                }
+                uploadPhotos();
             }
         }
-
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -43,13 +42,10 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    private int uploadPhotos() {
+    private void uploadPhotos() {
         photosToUpload.forEach(log::info);
-
-        int photosCount = photosToUpload.size();
         photosToUpload.clear();
 
-        return photosCount;
     }
 
 }
