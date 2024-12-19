@@ -23,7 +23,7 @@ public class Service {
     }
 
     public static Set<Integer> palindromeNumbers(int lowEdge, int topEdge) {
-        return IntStream.rangeClosed(lowEdge, topEdge )
+        return IntStream.rangeClosed(lowEdge, topEdge)
                 .filter(number -> isPalindrome(String.valueOf(number)))
                 .boxed()
                 .collect(Collectors.toSet());
@@ -37,7 +37,7 @@ public class Service {
                         .map(endIndex -> string.substring(index, endIndex)))
                 .filter(Service::isPalindrome)
                 .toList();
-        }
+    }
 
     public static Set<Integer> perfectNumbers(int lowEdge, int topEdge) {
         return IntStream.rangeClosed(lowEdge, topEdge)
@@ -45,7 +45,7 @@ public class Service {
                 .filter(number -> number.equals(IntStream.rangeClosed(1, (int) Math.sqrt(number))
                         .filter(devisor -> number % devisor == 0)
                         .flatMap(divisor -> IntStream.of(divisor, number / divisor))
-                                .distinct()
+                        .distinct()
                         .sum() - number))
                 .collect(Collectors.toSet());
     }
