@@ -19,6 +19,10 @@ public class Player {
                 log.info("Playlist is empty");
                 return;
             }
+            if (isPlaying) {
+                log.info("Play is already playing");
+                return;
+            }
             isPlaying = true;
             playlist.getCurrentSong();
         }
