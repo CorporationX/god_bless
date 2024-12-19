@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
         final int numberOfLetters = 1000;
         final int numberOfThreads = 5;
-        for (int i = 0; i < numberOfLetters; i += numberOfLetters/numberOfThreads) {
-            final Thread thread = new Thread(new SenderRunnable(i + 1, i + numberOfLetters/numberOfThreads));
+        for (int i = 0; i < numberOfLetters; i += numberOfLetters / numberOfThreads) {
+            final Thread thread = new Thread(new SenderRunnable(i + 1, i + numberOfLetters / numberOfThreads));
             thread.start();
         }
     }
