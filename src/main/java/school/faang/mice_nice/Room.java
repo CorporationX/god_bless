@@ -15,13 +15,15 @@ public class Room {
 
     public void addFood() {
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < DataSet.AMOUNT_OF_FOODS_IN_ROOMS; i++) {
             foods.add(Food.getById(random.nextInt(Food.values().length + 1)));
         }
     }
 
-    public void removeAllFood() {
+    public List<Food> removeAllFood() {
+        List<Food> foodWasInRoom = new ArrayList<>(foods);
         foods.clear();
+        return foodWasInRoom;
     }
 
     public boolean hasFood() {

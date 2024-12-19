@@ -1,12 +1,15 @@
 package school.faang.mice_nice;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.IntStream;
 
- @RequiredArgsConstructor
 public class Initialization {
-    private final House house;
 
-    public void createHouse() {}
-
-
+    public House createHouse() {
+        List<Room> rooms = IntStream.range(0, DataSet.AMOUNT_OF_ROOMS)
+                .mapToObj(number -> new Room(101 + number))
+                .peek(Room::addFood)
+                .toList();
+        return new House(rooms);
+    }
 }
