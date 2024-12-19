@@ -1,6 +1,7 @@
 package school.faang.task_45688;
 
 import lombok.Data;
+
 @Data
 public class Item {
     private String name;
