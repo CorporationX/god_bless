@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String ACTION_TYPE_POST = "post";
+    private static final String ACTION_TYPE_COMMENT = "comment";
+
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<Integer, String> idAndNameUsers = getIdAndNameOfUsers(actions);
 
@@ -27,6 +30,8 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions) {
 
         return actions.stream()
+                .filter(action -> ACTION_TYPE_POST.equals(action.actionType())
+                        ||  ACTION_TYPE_COMMENT.equals(action.actionType()))
                 .filter(action -> action.content().startsWith("#"))
                 .map(action -> action.content().split(" ", 2)[0])
                 .collect(Collectors.toMap(
