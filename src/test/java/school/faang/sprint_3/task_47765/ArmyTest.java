@@ -40,9 +40,9 @@ public class ArmyTest {
 
     @Test
     void testCalculateTotalPowerEmptyListHeroes() {
-        var expect = 0;
+        int expect = 0;
 
-        var actual = army.calculateTotalPower();
+        int actual = army.calculateTotalPower();
 
         assertEquals(expect, actual);
     }

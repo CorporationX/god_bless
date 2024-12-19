@@ -23,7 +23,7 @@ public class Army {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         for (int i = 0; i < heroes.size(); i += chunkSize) {
-            var finalI = i;
+            int finalI = i;
             executorService.submit(() -> {
                 var powerOfPartHeroes = heroes.subList(finalI, Math.min(heroes.size(), finalI + chunkSize))
                         .stream()
