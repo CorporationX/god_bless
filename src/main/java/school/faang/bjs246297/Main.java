@@ -1,7 +1,5 @@
 package school.faang.bjs246297;
 
-import school.faang.ErrorHandler;
-
 public class Main {
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
