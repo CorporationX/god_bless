@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Droid {
-
     private final String droidName;
 
     public Droid(String name) {
