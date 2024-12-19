@@ -16,14 +16,14 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer:: compareTo)
-                .orElseThrow(() -> new NoSuchElementException("!!NULL!!"));
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer:: intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Среднее значение не найдено так как список пуст"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char symbol) {
