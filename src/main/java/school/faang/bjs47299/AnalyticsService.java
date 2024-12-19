@@ -25,8 +25,8 @@ public class AnalyticsService {
 
     public static List<String> topTopics(List<UserAction> actions) {
         return actions.stream()
-                .filter(action -> action.content() != null &&
-                        action.type().equals("post") || action.type().equals("comment"))
+                .filter(action -> action.content() != null
+                        && action.type().equals("post") || action.type().equals("comment"))
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+")))
                 .map(word -> word.replaceAll("!", ""))
                 .map(word -> word.replaceAll("\\.", ""))
