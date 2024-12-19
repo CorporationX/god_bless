@@ -95,11 +95,6 @@ public class StreamFunc {
     }
 
     public static List<Integer> getPerfectNumbers(int from, int to) {
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = from; i <= to; i++) {
-            numbers.add(i);
-        }
-
         return IntStream.rangeClosed(from, to)
                 .filter(i -> Objects.equals(i, IntStream.range(1, i).filter(j -> i % j == 0).sum()))
                 .boxed()

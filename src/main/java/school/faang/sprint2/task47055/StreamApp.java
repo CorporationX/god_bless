@@ -60,7 +60,6 @@ public class StreamApp {
         List<String> aliceFriends = new ArrayList<>();
         aliceFriends.add("Bob");
         aliceFriends.add("Charlie");
-        aliceFriends.add("test");
         friends.put("Alice", aliceFriends);
 
         List<String> bobFriends = new ArrayList<>();
@@ -76,14 +75,8 @@ public class StreamApp {
         List<String> davidFriends = new ArrayList<>();
         davidFriends.add("Bob");
         davidFriends.add("Charlie");
-        davidFriends.add("test");
         friends.put("David", davidFriends);
 
-        List<String> testFriends = new ArrayList<>();
-        davidFriends.add("Bob");
-        davidFriends.add("Charlie");
-        davidFriends.add("test");
-        friends.put("test", davidFriends);
         return friends;
     }
 }
