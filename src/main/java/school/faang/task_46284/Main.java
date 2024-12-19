@@ -16,9 +16,9 @@ public class Main {
 
     // Пример метода для удалённого сервиса
     public static class RemoteService {
-        public static String call(String param) throws Exception {
+        public static String call(String param) {
             // Здесь возникнет ошибка для демонстрации
-            throw new Exception("Сервис недоступен");
+            throw new RuntimeException("Сервис недоступен");
         }
     }
 }
