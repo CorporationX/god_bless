@@ -14,12 +14,12 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().max(Integer::compare).orElse(0);
+        return numbers.stream().max(Integer::compare).orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         IntStream intStream = numbers.stream().mapToInt(Integer::intValue);
-        return intStream.average().orElse(0);
+        return intStream.average().orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
@@ -39,7 +39,7 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int n) {
-        return numbers.stream().filter(i -> i > n).min(Integer::compare).orElse(0);
+        return numbers.stream().filter(i -> i > n).min(Integer::compare).orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
