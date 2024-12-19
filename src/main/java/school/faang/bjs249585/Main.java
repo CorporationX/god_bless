@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 
 public class Main {
     private static final Random random = new Random();
+    private static final int MIN_THREADS_AMOUNT = 1;
     private static final int THREADS_AMOUNT = 5;
 
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_AMOUNT);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = MIN_THREADS_AMOUNT; i <= THREADS_AMOUNT; i++) {
             executorService
                     .submit(() -> methodCalls.get(random.nextInt(0, methodCalls.size())).accept(controller));
         }
