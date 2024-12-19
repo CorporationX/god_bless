@@ -9,10 +9,11 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private static final Logger log = LoggerFactory.getLogger(GooglePhotosAutoUploader.class);
     private final List<String> photosToUpload = new ArrayList<>();
+    private boolean running = true;
 
     public void startAutoUpload() {
         synchronized (photosToUpload) {
-            while (true) {
+            while (running) {
                 if (photosToUpload.isEmpty()) {
                     try {
                         photosToUpload.wait();
@@ -37,6 +38,13 @@ public class GooglePhotosAutoUploader {
     public void uploadPhotos() {
         log.info("Uploading photos...");
         photosToUpload.clear();
+    }
+
+    public void stopUploader() {
+        synchronized (photosToUpload) {
+            running = false;
+            photosToUpload.notify();
+        }
     }
 
 }
