@@ -20,7 +20,8 @@ public class UserActionMethods {
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
                 .filter(action -> action.getContent() != null && action.getContent().contains("#"))
-                .flatMap(action -> Arrays.stream(action.getContent().split("[]\\s.!?:]+"))).filter(action -> action.startsWith("#"))
+                .flatMap(action -> Arrays.stream(action.getContent().split("[]\\s.!?:]+")))
+                .filter(action -> action.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
