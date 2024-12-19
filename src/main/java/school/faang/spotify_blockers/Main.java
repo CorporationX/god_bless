@@ -1,6 +1,5 @@
 package school.faang.spotify_blockers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,9 +12,6 @@ public class Main {
                 new Thread(player::skip),
                 new Thread(player::previous)
         );
-
         threads.forEach(Thread::start);
-
     }
-
 }
