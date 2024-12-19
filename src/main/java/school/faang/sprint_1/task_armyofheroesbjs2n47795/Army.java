@@ -29,10 +29,14 @@ public class Army {
             }
         }
 
+        List<Thread> threads = new ArrayList<>();
         try {
             for (PowerCalculator<Warrior> powerCalculator : powerCalculators) {
                 Thread thread = new Thread(powerCalculator);
+                threads.add(thread);
                 thread.start();
+            }
+            for (Thread thread : threads) {
                 thread.join();
             }
         } catch (Exception e) {

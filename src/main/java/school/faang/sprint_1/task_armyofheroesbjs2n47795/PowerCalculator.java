@@ -7,7 +7,7 @@ import java.util.List;
 @Slf4j
 @Getter
 public class PowerCalculator<T extends Warrior> implements Runnable {
-    List<T> warriors;
+    private List<T> warriors;
     private int sum;
 
     public PowerCalculator(List<T> warriors) {
