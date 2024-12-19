@@ -11,7 +11,10 @@ public enum Food {
     CHEESE(4),
     MEAT(5),
     MILK(6),
-    VEGETABLES(7);
+    VEGETABLES(7),
+    CHICKEN(8),
+    CAKES(9),
+    DRINKS(10);
 
     private final int foodId;
 
