@@ -13,15 +13,13 @@ public class Player {
     public void startBattle(Boss boss) throws InterruptedException {
         try {
             boss.joinBattle(this);
-        }
-        catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println(e.getMessage() + " Ошибка сражения!");
         }
         Thread.sleep(3000);
         try {
             boss.leaveBattle(this);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage() + " Ошибка в освобождении слотов");
         }
     }
