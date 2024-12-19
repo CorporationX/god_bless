@@ -37,7 +37,8 @@ public class TestStreamApi {
     }
 
     public static List<String> filterAndSortStrings(List<String> strings, Set<Character> alphabet) {
-        return strings.stream().filter(s -> {
+        return strings.stream()
+                .filter(s -> {
                     for (char c : s.toCharArray()) {
                         if (!alphabet.contains(c)) {
                             return false;
