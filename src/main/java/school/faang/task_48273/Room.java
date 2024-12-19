@@ -1,4 +1,4 @@
-package school.faang.task_48273.example;
+package school.faang.task_48273;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
