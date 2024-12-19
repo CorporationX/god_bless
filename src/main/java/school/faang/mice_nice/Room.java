@@ -1,10 +1,12 @@
 package school.faang.mice_nice;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Random;
 
+@Getter
 @RequiredArgsConstructor
 public class Room {
     private final List<Food> foods;
