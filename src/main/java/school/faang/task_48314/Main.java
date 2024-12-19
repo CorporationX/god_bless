@@ -1,0 +1,50 @@
+package school.faang.task_48314;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class Main {
+    private static final int CORE_POOL_SIZE = 5;
+
+    private static final int ROOMS_COUNT = 10;
+    private static final int MAX_FOOD_COUNT = 5;
+
+    private static final House house = new House();
+
+    public static void main(String[] args) {
+        initData();
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+
+        final int initialDelay = 0;
+        final int period = 2;
+        executor.scheduleAtFixedRate(() -> {
+            if (!house.isAllRoomsCleared()) {
+                house.collectFood();
+            } else {
+                executor.shutdown();
+            }
+        }, initialDelay, period, TimeUnit.SECONDS);
+    }
+
+    private static void initData() {
+        for (int i = 0; i < ROOMS_COUNT; i++) {
+            Room room = new Room();
+
+            int endIndex = (int) (Math.random() * (MAX_FOOD_COUNT + 1));
+            for (int j = 0; j < endIndex; j++) {
+                room.addFood(getRandomFood());
+            }
+
+            house.addRoom(room);
+        }
+    }
+
+    private static Food getRandomFood() {
+        FoodName[] foodNames = FoodName.values();
+        int index = (int) (Math.random() * foodNames.length);
+        return new Food(foodNames[index]);
+    }
+
+}
