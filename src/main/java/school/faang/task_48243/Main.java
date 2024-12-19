@@ -9,6 +9,7 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 5;
     private static final int DELAY = 0;
     private static final int FREQUENCY = 5;
+    private static final int TIMEOUT = 60;
 
     public static void main(String[] args) {
         Room room1 = new Room();
@@ -34,9 +35,12 @@ public class Main {
         executor.scheduleAtFixedRate(house::collectFood, DELAY, FREQUENCY, TimeUnit.SECONDS);
 
         try {
-            countDownLatch.await();
+            if (countDownLatch.await(TIMEOUT, TimeUnit.SECONDS)) {
+                System.out.println("Еда в доме собрана!");
+            } else {
+                System.out.println("Тайм-аут истек, выполнение завершено не полностью.");
+            }
             executor.shutdown();
-            System.out.println("Еда в доме собрана!");
         } catch (InterruptedException e) {
             System.out.println("Произошла ошибка: " + e);
         }
