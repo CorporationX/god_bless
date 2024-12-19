@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MailSender {
     private static final int MAX_THREADS = 5;
-    private static final int MAX_EMAILS = 1000;
+    private static final int MAX_EMAILS = 1004;
     private static final List<Mail> emails = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
@@ -18,8 +18,16 @@ public class MailSender {
         int batchSize = emails.size() / MAX_THREADS;
         Thread[] threads = new Thread[MAX_THREADS];
 
+        int fromIndex, toIndex;
         for (int i = 0; i < MAX_THREADS; i++) {
-            threads[i] = new Thread(new SenderRunnable(emails, i * batchSize, ((i + 1) * batchSize - 1)));
+            fromIndex = i * batchSize;
+            if (i == MAX_THREADS - 1) {
+                toIndex = emails.size() - 1;
+            } else {
+                toIndex = ((i + 1) * batchSize - 1);
+            }
+
+            threads[i] = new Thread(new SenderRunnable(emails, fromIndex, toIndex));
             threads[i].start();
         }
 

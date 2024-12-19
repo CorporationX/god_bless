@@ -6,6 +6,7 @@ import java.util.List;
 
 public class SenderRunnable implements Runnable {
 
+    private static final int LOAD_IMITATION = 100;
     private final int startIndex;
     private final int endIndex;
     private final List<Mail> mails;
@@ -19,8 +20,13 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
 
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             System.out.println("Mail " + mails.get(i) + " sent to address...");
+            try {
+                Thread.sleep(LOAD_IMITATION);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
