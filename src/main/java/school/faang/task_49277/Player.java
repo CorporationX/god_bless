@@ -3,15 +3,16 @@ package school.faang.task_49277;
 public class Player {
 
     private static final Object LOCK = new Object();
-    public static boolean isPlaying = false;
+    private static boolean isPlaying = false;
 
     public static void play() {
         synchronized (LOCK) {
             if (!isPlaying) {
                 isPlaying = true;
                 System.out.println("музыка воспроизводится");
+            } else {
+                System.out.println("музыка играет");
             }
-            System.out.println("музыка играет");
         }
     }
 
@@ -20,8 +21,9 @@ public class Player {
             if (isPlaying) {
                 isPlaying = false;
                 System.out.println("музыка поствлена на паузу");
+            } else {
+                System.out.println("музыка уже на паузе");
             }
-            System.out.println("музыка уже на паузе");
         }
     }
 
