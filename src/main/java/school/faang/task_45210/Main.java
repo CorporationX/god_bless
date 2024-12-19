@@ -1,7 +1,6 @@
 package school.faang.task_45210;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
     public static void main(String[] args) {
         Set<Product> products = new HashSet<>();
         products.add(new Product("Smartphone", "Electronics"));
@@ -24,26 +22,26 @@ public class Main {
 
         ProductManager productManager = new ProductManager();
 
-        logger.info("### Adding products:");
+        log.info("### Adding products:");
         productManager.addItem("Kitchenware", "Blender");
         productManager.addItem("Electronics", "Tablet");
         productManager.addItem("Electronics", "Phone");
         productManager.addItem("Garden", "Lawn Mower");
         productManager.addItem("Furniture", "Dining Table");
 
-        logger.info("### Find products by category:");
+        log.info("### Find products by category:");
         productManager.findItemsByCategory("Electronics");
         productManager.findItemsByCategory("Garden");
 
-        logger.info("### Remove products:");
+        log.info("### Remove products:");
         productManager.removeItem("Electronics", "Tablet");
         productManager.removeItem("Furniture", "Dining Table");
         productManager.removeItem("Garden", "Lawn Mower");
 
-        logger.info("### Print all products:");
+        log.info("### Print all products:");
         productManager.printProducts();
 
-        logger.info("### Group products by category:");
+        log.info("### Group products by category:");
         Map<String, List<Product>> productsByCategory = groupProductsByCategory(products);
         printProductsByCategory(productsByCategory);
     }
@@ -66,8 +64,8 @@ public class Main {
 
     protected static void printProductsByCategory(Map<String, List<Product>> groupedProducts) {
         for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
-            logger.info("{}: {}", entry.getKey(), entry.getValue().size());
-            entry.getValue().forEach(product -> logger.info("\t{}", product.toString()));
+            log.info("{}: {}", entry.getKey(), entry.getValue().size());
+            entry.getValue().forEach(product -> log.info("\t{}", product.toString()));
         }
     }
 }

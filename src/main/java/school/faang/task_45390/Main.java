@@ -1,7 +1,6 @@
 package school.faang.task_45390;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,41 +8,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
     public static void main(String[] args) {
         final Map<Student, Map<Subject, Integer>> gradesByStudent = new HashMap<>();
         final Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
         final StudentDatabase studentDatabase = new StudentDatabase(gradesByStudent, studentsBySubject);
 
-        logger.info("# Creating students");
+        log.info("# Creating students");
         final Student mark = new Student("Mark");
         final Student john = new Student("John");
         final Student bob = new Student("Bob");
 
-        logger.info("# Creating subjects");
+        log.info("# Creating subjects");
         final Subject math = new Subject("Math");
         final Subject physics = new Subject("Physics");
         final Subject chemistry = new Subject("Chemistry");
 
-        logger.info("# Adding students with grades");
+        log.info("# Adding students with grades");
         studentDatabase.addStudentWithGrades(john, Map.of(math, 90, physics, 85));
         studentDatabase.addStudentWithGrades(bob, Map.of(math, 50));
 
-        logger.info("# Adding subject and grade for student Bob");
+        log.info("# Adding subject and grade for student Bob");
         studentDatabase.addSubjectForStudent(bob, chemistry, 95);
 
-        logger.info("# Printing all students with their grades");
+        log.info("# Printing all students with their grades");
         studentDatabase.printAllStudentsWithGrades();
 
-        logger.info("# Printing all subjects and students");
+        log.info("# Printing all subjects and students");
         studentDatabase.printAllSubjectsAndStudents();
 
-        logger.info("# Removing student John from the database");
+        log.info("# Removing student John from the database");
         studentDatabase.removeStudent(john);
 
-        logger.info("# First implementation without using StudentDatabase");
+        log.info("# First implementation without using StudentDatabase");
         myFirstTryWithoutStudentDatabase(
                 gradesByStudent,
                 studentsBySubject,
@@ -66,24 +64,24 @@ public class Main {
             Subject physics,
             Subject chemistry
     ) {
-        logger.info("# Assigning grades to students");
+        log.info("# Assigning grades to students");
         addGrade(gradesByStudentAndSubject, mark, math, 5);
         addGrade(gradesByStudentAndSubject, mark, physics, 4);
         addGrade(gradesByStudentAndSubject, john, chemistry, 3);
         addGrade(gradesByStudentAndSubject, bob, math, 4);
         addGrade(gradesByStudentAndSubject, bob, chemistry, 5);
 
-        logger.info("# Assigning students to subjects");
+        log.info("# Assigning students to subjects");
         addStudentToSubject(studentsBySubject, math, mark, bob);
         addStudentToSubject(studentsBySubject, chemistry, bob, john);
         addStudentToSubject(studentsBySubject, physics, mark);
 
-        logger.info("# Validating consistency between students and their assigned subjects");
+        log.info("# Validating consistency between students and their assigned subjects");
         validateStudentsBySubjectConsistency(studentsBySubject, gradesByStudentAndSubject);
 
-        logger.info("# Print all data");
-        logger.info("Grades by student and subject: {}", gradesByStudentAndSubject);
-        logger.info("Students by subject: {}", studentsBySubject);
+        log.info("# Print all data");
+        log.info("Grades by student and subject: {}", gradesByStudentAndSubject);
+        log.info("Students by subject: {}", studentsBySubject);
     }
 
     protected static void addGrade(
@@ -94,7 +92,7 @@ public class Main {
     ) {
         grades.putIfAbsent(student, new HashMap<>());
         grades.get(student).put(subject, grade);
-        logger.info("Assigned grade {} to student {}", grade, student.getName());
+        log.info("Assigned grade {} to student {}", grade, student.getName());
     }
 
     protected static void addStudentToSubject(
@@ -104,7 +102,7 @@ public class Main {
     ) {
         studentsMap.putIfAbsent(subject, new ArrayList<>());
         studentsMap.get(subject).addAll(Arrays.asList(students));
-        logger.info("Assigned students {} to subject {}", students, subject.getName());
+        log.info("Assigned students {} to subject {}", students, subject.getName());
     }
 
     protected static void validateStudentsBySubjectConsistency(
@@ -126,6 +124,6 @@ public class Main {
             }
         });
 
-        logger.info("Student-subject consistency validation passed.");
+        log.info("Student-subject consistency validation passed.");
     }
 }

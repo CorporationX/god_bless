@@ -1,16 +1,14 @@
 package school.faang.task_45210;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class ProductManager {
-    private static final Logger logger = LoggerFactory.getLogger(ProductManager.class);
-
     private final Map<String, List<Product>> productsByCategory = new HashMap<>();
 
     public Product addItem(String category, String name) {
@@ -30,7 +28,7 @@ public class ProductManager {
 
         Product product = new Product(name, category);
         products.add(product);
-        logger.info("Added product '{}' in category '{}'.", name, category);
+        log.info("Added product '{}' in category '{}'.", name, category);
         return product;
     }
 
@@ -45,11 +43,11 @@ public class ProductManager {
             throw new IllegalArgumentException("Product not found in category '" + category + "'.");
         }
 
-        logger.info("Removed product '{}' from category '{}'.", name, category);
+        log.info("Removed product '{}' from category '{}'.", name, category);
 
         if (products.isEmpty()) {
             productsByCategory.remove(category);
-            logger.info("Removed category: {}.", category);
+            log.info("Removed category: {}.", category);
         }
 
         return true;
@@ -60,14 +58,14 @@ public class ProductManager {
             throw new IllegalArgumentException("Category not found");
         }
 
-        logger.info("Finding products by category '{}'.", category);
+        log.info("Finding products by category '{}'.", category);
         return new ArrayList<>(productsByCategory.get(category));
     }
 
     public void printProducts() {
         productsByCategory.forEach((category, products) -> {
-            logger.info("Category '{}': {}", category, products.size());
-            products.forEach(product -> logger.info("\tProduct '{}'.", product.getName()));
+            log.info("Category '{}': {}", category, products.size());
+            products.forEach(product -> log.info("\tProduct '{}'.", product.getName()));
         });
     }
 }
