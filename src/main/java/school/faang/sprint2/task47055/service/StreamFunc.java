@@ -72,11 +72,11 @@ public class StreamFunc {
         }
 
         return strings.stream()
-                .filter(substring -> new StringBuilder(String.
-                        valueOf(substring)).
-                        reverse().
-                        toString().
-                        equals(substring))
+                .filter(substring -> new StringBuilder(String
+                        .valueOf(substring))
+                        .reverse()
+                        .toString()
+                        .equals(substring))
                 .toList();
     }
 
