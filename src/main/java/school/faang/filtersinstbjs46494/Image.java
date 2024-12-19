@@ -1,12 +1,5 @@
 package school.faang.filtersinstbjs46494;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record Image(String name, String description){
 
-@AllArgsConstructor
-@Getter
-
-public class Image {
-    private String name;
-    private String description;
 }
