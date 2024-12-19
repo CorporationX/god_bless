@@ -22,7 +22,7 @@ public class InventoryManager {
                            Function<Item, Item> function) {
         List<Item> inventory = character.getInventory();
         for (Item item : inventory) {
-            if(predicate.test(item)) {
+            if (predicate.test(item)) {
                 function.apply(item);
             }
         }
