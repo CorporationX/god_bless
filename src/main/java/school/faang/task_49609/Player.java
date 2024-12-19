@@ -15,7 +15,7 @@ public class Player {
         this.name = name;
     }
 
-    public void startBattle(Boss boss){
+    public void startBattle(Boss boss) {
         boss.joinBattle(this);
         try {
             Thread.sleep(2000);
