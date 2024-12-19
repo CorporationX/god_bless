@@ -33,8 +33,6 @@ public class Army {
         for (PowerThread task : tasks) {
             totalPower += task.getPower();
         }
-
-
         return totalPower;
     }
 }
