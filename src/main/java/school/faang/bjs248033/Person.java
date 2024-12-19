@@ -1,4 +1,13 @@
 package school.faang.bjs248033;
 
-public record Person(String name, String surname, int age, String workplace) {
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
+@ToString
+@AllArgsConstructor
+public class Person {
+    private String name;
+    private String surname;
+    private int age;
+    private String workspace;
 }

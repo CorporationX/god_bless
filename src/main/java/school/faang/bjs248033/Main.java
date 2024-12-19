@@ -33,17 +33,9 @@ public class Main {
             int endIndex = startIndex + PEOPLE_PER_THREAD;
             log.info("Thread {}: startIndex = {}, endIndex = {}", i, startIndex, endIndex);
 
-            List<Person> batchOfPeople = people.subList(startIndex, startIndex);
-            executorService.submit(new PersonInfoPrinter(batchOfPeople, startIndex, startIndex));
-            System.out.println("end");
+            PersonInfoPrinter printer = new PersonInfoPrinter(people.subList(startIndex, endIndex));
+            executorService.submit(printer);
         }
-
- /*       for (PersonInfoPrinter personInfoPrinter : batchOfPeople) {
-            executorService.submit(() -> {
-                log.info("Name: {}, Surname: {}, Age: {}, Workplace: {}",
-                        person.getName(), person.getSurname(), person.getAge(), person.getWorkplace());
-            });
-        }*/
 
         executorService.shutdown();
         try {
