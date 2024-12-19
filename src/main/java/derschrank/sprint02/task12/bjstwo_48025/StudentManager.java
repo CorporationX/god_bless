@@ -14,34 +14,26 @@ public class StudentManager implements StudentManagerInterface {
         return
                 students.stream()
                         .flatMap(student -> student.subjects().entrySet().stream())
-                        .collect(Collectors.toMap(
-                                        subjectEntry -> subjectEntry.getKey(),
-                                        subjectEntry -> subjectEntry.getValue(),
-                                        (oldValue, newValue) -> new ArrayList<>(Stream.concat(
-                                                oldValue.stream(), newValue.stream()).toList())
-                                )
-                        ).entrySet().stream()
-                        .collect(Collectors.toMap(
-                                        Map.Entry::getKey,
-                                        entry -> entry.getValue().stream()
-                                                .mapToInt(x -> x).average().getAsDouble()
-                                )
-                        );
+                        .collect(Collectors.groupingBy(
+                                Map.Entry::getKey,
+                                Collectors.flatMapping(entry -> entry.getValue().stream(),
+                                        Collectors.averagingDouble(Integer::doubleValue))));
     }
 
     @Override
     public Map<String, Integer> getTotalGradeByStudent(
             List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
-        return getDoubleAverageGradeByStudent(students, firstNameOfStudent, lastNameOfStudent)
-                .get()
+        return Optional.of(
+                getDoubleAverageGradeByStudent(students, firstNameOfStudent, lastNameOfStudent)
                 .entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> (int) Math.round(entry.getValue())
-                ));
+                ))
+        ).orElse(Map.of());
     }
 
-    private Optional<Map<String, Double>> getDoubleAverageGradeByStudent(
+    private Map<String, Double> getDoubleAverageGradeByStudent(
             List<Student> students, String firstNameOfStudent, String lastNameOfStudent) {
         return Optional.of(
                 students.stream()
@@ -59,7 +51,7 @@ public class StudentManager implements StudentManagerInterface {
                                                 .getAsDouble())
                                 )
                         )
-        );
+        ).orElse(Map.of());
     }
 
     @Override
@@ -88,7 +80,7 @@ public class StudentManager implements StudentManagerInterface {
             printOneLineOfTable(
                     firstName + " " + lastName,
                     subjects,
-                    getDoubleAverageGradeByStudent(students, firstName, lastName).get(),
+                    getDoubleAverageGradeByStudent(students, firstName, lastName),
                     maxSymbolsInName, maxSymbolsInSubject
             );
         }
