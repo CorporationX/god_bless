@@ -1,11 +1,30 @@
 package school.faang.task_48899;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class WeasleyFamily {
 
-    Chore chore1 = new Chore("помыть посуду");
-    Chore chore2 = new Chore("подмести пол");
-    Chore chore3 = new Chore("приготовить ужин");
+    public static void main(String[] args) {
+        String[] choreNames = new String[] {"помыть посуду","подмести пол", "приготовить ужин"};
+        ExecutorService executor = Executors.newCachedThreadPool();
 
-    Chore[] chores = new Chore[] {chore1,chore2, chore3};
+        for (String name : choreNames) {
+            Chore chore = new Chore(name);
 
+            executor.execute(chore);
+        }
+
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(20, TimeUnit.SECONDS)) {
+                System.out.println("Задачи не завершились за 20 секунд, принудительно останавливаем...");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
+    }
 }

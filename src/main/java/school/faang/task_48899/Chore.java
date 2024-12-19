@@ -1,20 +1,24 @@
 package school.faang.task_48899;
 
+import lombok.ToString;
+
+@ToString
 public class Chore implements Runnable{
-    private String chore;
+    private final String name;
 
     public Chore(String chore) {
-        this.chore = chore;
+        this.name = chore;
     }
 
     @Override
     public void run() {
-        Thread.currentThread().getName();
+        System.out.println("Thread name " + Thread.currentThread() + " " + name);
         try {
-            Thread.sleep(1000);
+            System.out.println("Sleep");
+            Thread.sleep(3000);
+            System.out.println("Wake up");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("!!!Exception!!!" + e);
         }
-
     }
 }
