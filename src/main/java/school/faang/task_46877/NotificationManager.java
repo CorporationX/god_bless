@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 public class NotificationManager {
-    Map<String, Consumer<Notification>> consumerMap = new HashMap<>();
+    private Map<String, Consumer<Notification>> consumerMap = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> notificationConsumer) {
         consumerMap.putIfAbsent(type, notificationConsumer);
