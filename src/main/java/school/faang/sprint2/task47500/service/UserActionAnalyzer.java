@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
-    final static String WORD_REGEX = "[,.!\\s]+";
-    final static String HASHTAG_SIGN = "#";
+    private static final String WORD_REGEX = "[,.!\\s]+";
+    private static final String HASHTAG_SIGN = "#";
 
     public static List<String> getTopActiveUsers(List<UserAction> userActions, int topSize) {
         return userActions.stream()
