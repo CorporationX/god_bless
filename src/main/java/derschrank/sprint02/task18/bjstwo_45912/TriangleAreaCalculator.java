@@ -3,24 +3,28 @@ package derschrank.sprint02.task18.bjstwo_45912;
 import java.util.function.Function;
 
 public class TriangleAreaCalculator {
-    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
+    private Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    private Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    private Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    private Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    private Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
 
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
         Triangle triangle = new Triangle(a, b, c);
         checkSizeOfTriangle(triangle);
         double semiPerimeter = getSemiPerimeter(triangle);
 
+        double[] parametersForCalculatingArea = new double[]{
+                semiPerimeter,
+                getSubtract(semiPerimeter, triangle.a()),
+                getSubtract(semiPerimeter, triangle.b()),
+                getSubtract(semiPerimeter, triangle.c())
+        };
+
         return getSquareRoot(
-                getMuliMultiplyFromArray(new double[]{
-                        semiPerimeter,
-                        getSubtract(semiPerimeter, triangle.a()),
-                        getSubtract(semiPerimeter, triangle.b()),
-                        getSubtract(semiPerimeter, triangle.c()),
-                })
+                getMuliMultiplyNumbersGetsFromArray(
+                        parametersForCalculatingArea
+                )
         );
     }
 
@@ -58,7 +62,7 @@ public class TriangleAreaCalculator {
         return multiply.apply(what).apply(times);
     }
 
-    private double getMuliMultiplyFromArray(double[] numbersForMultiplay) {
+    private double getMuliMultiplyNumbersGetsFromArray(double[] numbersForMultiplay) {
         double result = 1;
         for (double number : numbersForMultiplay) {
             result = getMultiply(result, number);
