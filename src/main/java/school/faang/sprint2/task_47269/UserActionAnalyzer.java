@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
                 .map(UserAction::getContent)
+                .filter(Objects::nonNull)
                 .filter(content -> content.contains("#"))
                 .flatMap(content -> Arrays.stream(content.split("[^#a-zA-Z]")))
                 .filter(word -> word.contains("#"))
@@ -35,8 +37,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         return actions.stream()
-                .filter(userAction -> userAction.getActionType().equals("comment")
-                        && ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) >= 31)
+                .filter(userAction -> userAction.getContent() != null)
+                .filter(userAction -> userAction.getActionType().equals("comment"))
+                .filter(userAction -> ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) >= 31)
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
