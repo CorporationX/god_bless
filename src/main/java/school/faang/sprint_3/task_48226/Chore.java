@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class Chore implements Runnable {
+    private static final int PROCESS_DURATION = 1000;
     @NonNull
     private final String chore;
 
@@ -15,7 +16,7 @@ public class Chore implements Runnable {
                 Thread.currentThread().getName());
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(PROCESS_DURATION);
         } catch (InterruptedException e) {
             System.out.printf("Thread %s was interrupted.\n", Thread.currentThread().getName());
         }
