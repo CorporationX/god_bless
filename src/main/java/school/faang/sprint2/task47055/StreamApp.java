@@ -11,23 +11,13 @@ public class StreamApp {
 
         Map<String, List<String>> friends = getFriends();
 
-        List<List<String>> friendsOfFriends1;
-        List<List<String>> friendsOfFriends2;
-        Set<List<String>> friendsOfFriends3;
+        List<List<String>> friendsOfFriends;
 
-        //System.out.println("CALC RES 1");
-        friendsOfFriends1 = StreamFunc.getFriendsOfFriends(friends);
-        //System.out.println("CALC RES 2");
-        //friendsOfFriends2 = StreamFunc.getCrossFriends(friends); // для сравнения
-        //System.out.println("CALC RES 3");
-        //friendsOfFriends3 = StreamFunc.findNonFriendsWithCommonFriends(friends); // для сравнения
+
+        friendsOfFriends = StreamFunc.getFriendsOfFriends(friends);
 
         System.out.println("Result 1");
-        System.out.println(friendsOfFriends1);
-//        System.out.println("Result 2");
-//        System.out.println(friendsOfFriends2);
-//        System.out.println("Result 3");
-//        System.out.println(friendsOfFriends3);
+        System.out.println(friendsOfFriends);
 
         Employee employee1 = new Employee("John", "Sales", 10000.);
         Employee employee2 = new Employee("Sarah", "Sales", 12000.);
@@ -46,11 +36,9 @@ public class StreamApp {
         employees.add(employee6);
         employees.add(employee7);
 
-        Map <String, Double> salaryByDepartments = StreamFunc.getAverageSale(employees);
+        Map<String, Double> salaryByDepartments = StreamFunc.getAverageSale(employees);
         System.out.println("salaryByDepartments: ");
         System.out.println(salaryByDepartments);
-
-
 
         List<String> numPalindromes = StreamFunc.getAllPalindromes(1000, 2000);
         System.out.println("Numbers-palindromes");
@@ -60,12 +48,9 @@ public class StreamApp {
         System.out.println("Strings-palindromes");
         System.out.println(strPalindromes);
 
-
         List<Integer> perfectNumbers = StreamFunc.getPerfectNumbers(1, 1000);
         System.out.println("Perfect Numbers");
         System.out.println(perfectNumbers);
-
-
 
     }
 

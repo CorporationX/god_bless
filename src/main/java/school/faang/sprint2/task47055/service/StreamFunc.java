@@ -21,11 +21,7 @@ public class StreamFunc {
                                 return false;
                             }
 
-                            if (friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains)) {
-                                return true;
-                            }
-
-                            return false;
+                            return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
                         })
                         .map(result -> Arrays.asList(friend1, result))
                 )
@@ -52,31 +48,6 @@ public class StreamFunc {
                             return pair;
                         }))
                 .collect(Collectors.toSet());
-    }
-
-    //задача 46860
-    public static List<List<String>> getCrossFriends(Map<String, List<String>> peopleWithFriends) {
-        return peopleWithFriends.entrySet()
-                .stream()
-                .flatMap(person1 -> peopleWithFriends.entrySet()
-                        .stream()
-                        .filter(person2 -> {
-                            if (person1.getKey().equals(person2.getKey())) {
-                                return false;
-                            }
-                            if (person1.getValue().contains(person2.getKey())) {
-                                return false;
-                            }
-                            HashSet<String> commonFriends = new HashSet<>(person1.getValue());
-                            commonFriends.addAll(person2.getValue());
-                            return !commonFriends.isEmpty();
-                        })
-                        .map(person2 -> Arrays.asList(person1.getKey(), person2.getKey()))
-                        .map(list -> list.stream()
-                                .sorted()
-                                .toList()))
-                .distinct()
-                .toList();
     }
 
     public static Map<String, Double> getAverageSale(List<Employee> employees) {
