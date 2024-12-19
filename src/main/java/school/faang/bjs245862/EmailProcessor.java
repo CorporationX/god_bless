@@ -7,7 +7,10 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(List<Email> emails, Predicate<Email> predicate, Function<Email, String> func, Consumer<Email> consumer) {
+    public void processEmails(List<Email> emails,
+                              Predicate<Email> predicate,
+                              Function<Email, String> func,
+                              Consumer<Email> consumer) {
 
         emails.forEach(email -> {
             if (predicate.test(email)) {
