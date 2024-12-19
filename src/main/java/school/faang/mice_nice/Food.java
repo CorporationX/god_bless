@@ -15,6 +15,7 @@ public enum Food {
 
     private final int foodId;
 
+
     public static Food getById(int id) {
         for (Food value : values()) {
             if (value.foodId == id) {

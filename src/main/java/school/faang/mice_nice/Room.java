@@ -14,7 +14,9 @@ public class Room {
     public void addFood() {
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            foods.add(Food.getById(random.nextInt(7)));
+            foods.add(Food.getById(random.nextInt(Food.values().length)));
         }
     }
+
+
 }
