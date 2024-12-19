@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlaying = false;
+    private boolean isPlaying = true;
     @Getter
     private final AtomicInteger countThreads = new AtomicInteger();
 
@@ -28,7 +28,10 @@ public class Player {
         synchronized (lock) {
             countThreads.incrementAndGet();
             if (isPlaying) {
+                isPlaying = false;
                 log.info("Music paused");
+            } else {
+                log.info("Music is already paused");
             }
         }
     }
