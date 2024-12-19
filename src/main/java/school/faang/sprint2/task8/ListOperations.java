@@ -14,12 +14,15 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().max(Integer::compare).orElseThrow(() -> new IllegalArgumentException("Error happened"));
+        return numbers.stream()
+                .max(Integer::compare)
+                .orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         IntStream intStream = numbers.stream().mapToInt(Integer::intValue);
-        return intStream.average().orElseThrow(() -> new IllegalArgumentException("Error happened"));
+        return intStream.average()
+                .orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
@@ -31,7 +34,8 @@ public class ListOperations {
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return strings.stream().sorted((s1, s2) -> s1.length() - s2.length()).toList();
+        return strings.stream()
+                .sorted((s1, s2) -> s1.length() - s2.length()).toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
@@ -39,7 +43,9 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int n) {
-        return numbers.stream().filter(i -> i > n).min(Integer::compare).orElseThrow(() -> new IllegalArgumentException("Error happened"));
+        return numbers.stream()
+                .filter(i -> i > n)
+                .min(Integer::compare).orElseThrow(() -> new IllegalArgumentException("Error happened"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
