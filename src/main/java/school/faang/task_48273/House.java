@@ -5,16 +5,17 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 public class House {
-    private final List<Room> rooms = new ArrayList<>();
+    private final List<Room> rooms = Collections.synchronizedList(new ArrayList<>());
     @Getter
-    private final List<Food> collectedFoods = new ArrayList<>();
+    private final List<Food> collectedFoods = Collections.synchronizedList(new ArrayList<>());
     private final RandomRoom randomRoom = new RandomRoom(rooms);
 
-    public void collectFood() {
+    public synchronized void collectFood() {
         Room firstRandomRoom = randomRoom.getRandomRoom();
         Room secondRandomRoom = randomRoom.getRandomRoom();
 
@@ -23,8 +24,8 @@ public class House {
             return;
         }
 
-        List<Food> foodsFromFirstRandomRoom = firstRandomRoom.getFoods();
-        List<Food> foodsFromSecondRandomRoom = secondRandomRoom.getFoods();
+        List<Food> foodsFromFirstRandomRoom = new ArrayList<>(firstRandomRoom.getFoods());
+        List<Food> foodsFromSecondRandomRoom = new ArrayList<>(secondRandomRoom.getFoods());
 
         log.info("The list of food from the first random room {}: {}", firstRandomRoom, foodsFromFirstRandomRoom);
         log.info("The list of food from the second random room {}: {}", secondRandomRoom, foodsFromSecondRandomRoom);
@@ -36,7 +37,7 @@ public class House {
         secondRandomRoom.getFoods().clear();
     }
 
-    public boolean allFoodCollected() {
+    public synchronized boolean allFoodCollected() {
         int foodCollectedCounter = 0;
 
         for (Room room : rooms) {
@@ -48,7 +49,7 @@ public class House {
         return foodCollectedCounter == rooms.size();
     }
 
-    public void addRoom(@NonNull Room room) {
+    public synchronized void addRoom(@NonNull Room room) {
         rooms.add(room);
     }
 }

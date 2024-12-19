@@ -12,11 +12,16 @@ public class Main {
         House house = setUpHouse();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(Config.SCHEDULED_THREAD_POOL_SIZE);
+        executorService.scheduleAtFixedRate(house::collectFood,
+                0,
+                Config.SCHEDULED_THREAD_POOL_FIXED_SECONDS_RATE,
+                TimeUnit.SECONDS);
 
-        executorService.scheduleAtFixedRate(() -> {
-            house.collectFood();
+        ScheduledExecutorService checkerService = Executors.newScheduledThreadPool(1);
+        checkerService.scheduleAtFixedRate(() -> {
             if (house.allFoodCollected()) {
                 executorService.shutdown();
+                checkerService.shutdown();
                 log.info("All the food in the house is collected: {}", house.getCollectedFoods());
             }
         }, 0, Config.SCHEDULED_THREAD_POOL_FIXED_SECONDS_RATE, TimeUnit.SECONDS);

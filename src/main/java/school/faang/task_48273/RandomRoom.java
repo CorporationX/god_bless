@@ -4,16 +4,16 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 public class RandomRoom {
     @NonNull
     private final List<Room> rooms;
-    private final Random random = new Random();
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private int lastRandomIndex = -1;
 
-    public Room getRandomRoom() {
+    public synchronized Room getRandomRoom() {
         if (rooms.isEmpty()) {
             throw new IllegalStateException("Rooms cannot be empty");
         }
