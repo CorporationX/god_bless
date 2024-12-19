@@ -1,9 +1,9 @@
 package school.faang.bsj245090;
 
-import static school.faang.bsj245090.ProductsListUtils.addItem;
-import static school.faang.bsj245090.ProductsListUtils.removeItem;
-import static school.faang.bsj245090.ProductsListUtils.printAllItems;
-import static school.faang.bsj245090.ProductsListUtils.printProductsByCategory;
+import static school.faang.bsj245090.ProductsList.addItem;
+import static school.faang.bsj245090.ProductsList.removeItem;
+import static school.faang.bsj245090.ProductsList.printAllItems;
+import static school.faang.bsj245090.ProductsList.printProductsByCategory;
 
 public class Main {
 
