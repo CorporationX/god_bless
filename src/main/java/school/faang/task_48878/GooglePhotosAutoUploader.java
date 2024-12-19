@@ -27,12 +27,10 @@ public class GooglePhotosAutoUploader {
 
     @SneakyThrows
     private void uploadPhotos(@NonNull List<String> photos) {
-        synchronized (object) {
-            log.info("Upload photos to server: {}", photos);
-            Thread.sleep(1000);
-            photosToUpload.removeAll(photos);
-            log.info("Photos uploaded. Storage count = {}", photosToUpload.size());
-        }
+        log.info("Upload photos to server: {}", photos);
+        Thread.sleep(1000);
+        photosToUpload.removeAll(photos);
+        log.info("Photos uploaded. Storage count = {}", photosToUpload.size());
     }
 
     public void onNewPhotoAdded(String photoPath) {
