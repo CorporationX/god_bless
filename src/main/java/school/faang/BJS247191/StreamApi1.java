@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Slf4j
-public class StreamAPI1 {
+public class StreamApi1 {
 
     public static int sumEvenNumbers(List<Integer> numbers) {
         Integer i = numbers.stream().filter(num -> num % 2 == 0).reduce(0, Integer::sum);
@@ -57,8 +57,8 @@ public class StreamAPI1 {
         return i;
     }
 
-    public static List <Integer> lenghtEachStrings (List <String> strings){
-        List <Integer> i = strings.stream().map(String::length).toList();
+    public static List<Integer> lenghtEachStrings(List<String> strings) {
+        List<Integer> i = strings.stream().map(String::length).toList();
         log.info("Lengths of each string: {}", i);
         return i;
     }

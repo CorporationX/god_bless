@@ -1,9 +1,9 @@
-package school.faang.BJS247191;
+package school.faang.bjs247191;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static school.faang.BJS247191.StreamAPI1.*;
+import static school.faang.BJS247191.StreamApi1.*;
 
 public class Main {
 
@@ -18,7 +18,7 @@ public class Main {
         filterStringsContainingSubstring(strings, "apple");
         sortList(strings);
         isSatisfyCertainConditions(numbers, num -> num > 0);
-        findMinGreaterThan(numbers,3);
+        findMinGreaterThan(numbers, 3);
         lenghtEachStrings(strings);
     }
 }
