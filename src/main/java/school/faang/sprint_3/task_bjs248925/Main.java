@@ -11,8 +11,8 @@ public class Main {
     private static final int FILES_TO_ADD_CAPACITY = 7;
     private static final int MILLIS_WAIT_ADDITIONAL_PHOTOS = 2000;
     private static final int MILLIS_WAIT_SHUTDOWN = 3000;
-    private static int firstFileIndex = 0;
     private static final Object LOCK = new Object();
+    private static int firstFileIndex = 0;
 
     public static void main(String[] args) {
         List<String> files = generateTestPhotoPaths(FILES_CAPACITY);
