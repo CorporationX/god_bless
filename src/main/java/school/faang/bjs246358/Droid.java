@@ -1,16 +1,15 @@
 package school.faang.bjs246358;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Droid {
-    public static final Logger logger = LoggerFactory.getLogger(Droid.class);
 
     private final String droidName;
 
     public Droid(String name) {
         if (name == null || name.trim().isEmpty()) {
-            logger.error("Message cannot be null");
+            log.error("Message cannot be null");
             throw new IllegalArgumentException("Message must not be null");
         }
         this.droidName = name;
@@ -18,11 +17,11 @@ public class Droid {
 
     public String encryptMessage(String message, int key) {
         if (message == null || message.trim().isEmpty() || key == 0) {
-            logger.error("Message in 'encryptMessage' method cannot be null or empty, and key must not be zero");
+            log.error("Message in 'encryptMessage' method cannot be null or empty, and key must not be zero");
             throw new IllegalArgumentException("Message must not be null or empty, and key must not be zero");
         }
         String encryptedMessage = getString(message, key);
-        logger.info("Message encrypted successfully");
+        log.info("Message encrypted successfully");
         return encryptedMessage;
     }
 
@@ -44,7 +43,7 @@ public class Droid {
 
     public String decryptMessage(String message, int key) {
         if (message == null || message.trim().isEmpty() || key == 0) {
-            logger.error("Message in 'decryptMessage' method cannot be null or empty, and key must not be zero");
+            log.error("Message in 'decryptMessage' method cannot be null or empty, and key must not be zero");
             throw new IllegalArgumentException("Message must not be null or empty, and key must not be zero");
         }
         return encryptMessage(message, 26 - key);
@@ -52,7 +51,7 @@ public class Droid {
 
     public void sendMessage(String message, int key, Droid recipientName) {
         if (message == null || message.trim().isEmpty() || key == 0 || recipientName == null) {
-            logger.error("Message, key, and recipientName in 'sendMessage' method cannot be null or empty, "
+            log.error("Message, key, and recipientName in 'sendMessage' method cannot be null or empty, "
                     + "and key must not be zero");
             throw new IllegalArgumentException("Message, key, and recipientName must not be null or empty, "
                     + "and key must not be zero");
@@ -64,7 +63,7 @@ public class Droid {
 
     public void receiveMessage(String encryptedMessage, int key) {
         if (encryptedMessage == null || encryptedMessage.trim().isEmpty() || key == 0) {
-            logger.error("Encrypted message in 'receiveMessage' method cannot be null or empty,"
+            log.error("Encrypted message in 'receiveMessage' method cannot be null or empty,"
                     + " and key must not be zero");
             throw new IllegalArgumentException("Encrypted message must not be null or empty, and key must not be zero");
         }
