@@ -3,43 +3,46 @@ package school.faang.sprint_3.task_bjs248925;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 
 @AllArgsConstructor
 public class GooglePhotosAutoUploader {
-    private final Object lock;
+    private static final int MILLIS_SLEEP_BEFORE_NEW_PHOTO = 890;
     private final List<String> photosToUpload;
-    private final AtomicBoolean exit = new AtomicBoolean(false);
 
     public void startAutoUpload() {
-        while (!exit.get()) {
-            synchronized (lock) {
-                while (photosToUpload.isEmpty() && !exit.get()) {
-                    try {
-                        log.info("Thread is waiting...{}", Thread.currentThread().getName());
-                        lock.wait();
-                        log.info("thread {} catch exit wis value {}", Thread.currentThread().getName(), exit.get());
-                    } catch (InterruptedException e) {
-                        log.warn("Thread {} was interrupted", Thread.currentThread().getName());
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
+        synchronized (photosToUpload) {
+            if (photosToUpload.isEmpty()) {
+                try {
+                    log.info("{} is waiting...", Thread.currentThread().getName());
+                    photosToUpload.wait();
+                } catch (InterruptedException e) {
+                    log.warn("{} was interrupted", Thread.currentThread().getName());
+                    Thread.currentThread().interrupt();
                 }
             }
-            List<String> temp;
-            synchronized (lock) {
-                temp = new ArrayList<>(photosToUpload);
-                photosToUpload.clear();
-            }
-            temp.forEach(photo -> log.info("Thread {} is uploading photo {}", Thread.currentThread().getName(), photo));
+            upload();
         }
     }
 
-    public void setExit() {
-        exit.set(true);
+    private void upload() {
+        photosToUpload.forEach(photo -> log.info("{} is uploading photo {}", Thread.currentThread().getName(), photo));
+        photosToUpload.clear();
+    }
+
+    public void addNewPhoto(String path) {
+        synchronized (photosToUpload) {
+            photosToUpload.add(path);
+            photosToUpload.notify();
+            log.info("{} added new photo {}", Thread.currentThread().getName(), path);
+        }
+        try {
+            Thread.sleep(MILLIS_SLEEP_BEFORE_NEW_PHOTO);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
+        }
     }
 }
