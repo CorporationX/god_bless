@@ -25,7 +25,7 @@ public class User {
                     System.out.println(name + " ждет пока освободится роль");
                     house.wait();
                 } catch (InterruptedException e) {
-                    System.out.println("Произошла ошибка");
+                    throw new RuntimeException("Произошла ошибка");
                 }
             }
             String role = house.getRole();
