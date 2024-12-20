@@ -9,14 +9,14 @@ public class Main {
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
         System.out.println("Вывод инвенторя:");
-        for(Item item : frodo.getInventory()) {
+        for (Item item : frodo.getInventory()) {
             System.out.println(item.getName() + " " + item.getValue());
         }
         System.out.println("Конец вывода инвенторя:");
 
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
         System.out.println("Вывод инвенторя:");
-        for(Item item : frodo.getInventory()) {
+        for (Item item : frodo.getInventory()) {
             System.out.println(item.getName() + " " + item.getValue());
         }
         System.out.println("Конец вывода инвенторя:");

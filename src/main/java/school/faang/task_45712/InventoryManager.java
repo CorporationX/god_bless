@@ -23,7 +23,7 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> func) {
-        for(int i = 0; i < character.getInventory().size(); i++) {
+        for (int i = 0; i < character.getInventory().size(); i++) {
             Item currentItem = character.getInventory().get(i);
             if (predicate.test(currentItem)) {
                 character.getInventory().set(i, func.apply(character.getInventory().get(i)));
