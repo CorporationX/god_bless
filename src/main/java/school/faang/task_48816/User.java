@@ -17,11 +17,12 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House house) {
+    public void joinHouse(House house) {
         this.house = house;
         synchronized (house) {
             while (house.getAvailableRoleCount() == 0) {
                 try {
+                    System.out.println(name + " ждет пока освободится роль");
                     house.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Произошла ошибка");
@@ -33,14 +34,14 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         if (house == null) {
             String msg = "Чтобы покинуть дом, пользователь %s должен сначала вступить в какой-нибудь дом";
             throw new CheckException(msg, Collections.singletonList(name));
         }
         synchronized (house) {
             System.out.println(name + " покидает дом и освобождает роль: " + role);
-            house.removeRole(role);
+            house.removeRole();
             house.notifyAll();
             this.house = null;
             this.role = null;

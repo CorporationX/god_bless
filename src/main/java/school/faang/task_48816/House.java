@@ -30,15 +30,10 @@ public class House {
         Random random = new Random();
         String role = availableRoles.get(random.nextInt(availableRoles.size()));
         availableRoleCount--;
-        availableRoles.remove(role);
         return role;
     }
 
-    public synchronized void removeRole(String role) {
-        if (role == null || role.isEmpty()) {
-            throw new CheckException("role");
-        }
-        availableRoles.add(role);
+    public synchronized void removeRole() {
         availableRoleCount++;
     }
 }
