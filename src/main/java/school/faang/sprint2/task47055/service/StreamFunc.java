@@ -24,13 +24,11 @@ public class StreamFunc {
 
     private static boolean isFriends(Map<String, List<String>> friends, String friend1, String friend2) {
         {
-            if (friend1.equals(friend2)) {
+            if (friend1.equals(friend2) || friends.get(friend1).contains(friend2)) {
                 return false;
+            }else {
+                return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
             }
-            if (friends.get(friend1).contains(friend2)) {
-                return false;
-            }
-            return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
         }
     }
 
@@ -84,9 +82,13 @@ public class StreamFunc {
 
     public static List<Integer> getPerfectNumbers(int from, int to) {
         return IntStream.rangeClosed(from, to)
-                .filter(i -> Objects.equals(i, IntStream.range(1, i).filter(j -> i % j == 0).sum()))
+                .filter(i -> Objects.equals(i, IntStream.range(1, i).filter(j -> isDivided(i, j)).sum()))
                 .boxed()
                 .toList();
     }
 
+    private static boolean isDivided(int i, int j)
+    {
+        return i % j == 0;
+    }
 }
