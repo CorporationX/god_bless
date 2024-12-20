@@ -7,10 +7,12 @@ import java.util.stream.Stream;
 public class JobStreamProcessor {
     private JobScraper jobScraper = new JobScraper();
 
-    public List<Job> processJobs(Stream<String> jsonStream) {
-        return jsonStream
-                .map(jobScraper::parseJob) // Преобразование JSON строки в объект Job
-                .peek(job -> System.out.println("Обработана вакансия: " + job.getPosition())) // Уведомление
-                .collect(Collectors.toList()); // Сохранение вакансий в список
+    public List<Job> getProcessJobs(Stream<String> jsonStream) {
+
+        List<Job> processJobs = jsonStream
+                .map(jobScraper::parseJob)
+                .peek(job -> System.out.println("Обработана вакансия: " + job.getPosition()))
+                .collect(Collectors.toList());
+        return processJobs;
     }
 }
