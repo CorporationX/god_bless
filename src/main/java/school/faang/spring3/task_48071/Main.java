@@ -25,8 +25,11 @@ public class Main {
         ExecutorService service = Executors.newFixedThreadPool(THREAD_COUNT);
         for (int i = 0; i < THREAD_COUNT; i++) {
             startIndex = i * batchSize;
-            if (i == THREAD_COUNT - 1) endIndex = persons.size();
-            else endIndex = (i + 1) * batchSize;
+            if (i == THREAD_COUNT - 1) {
+                endIndex = persons.size();
+            } else {
+                endIndex = (i + 1) * batchSize;
+            }
             batch = persons.subList(startIndex, endIndex);
             service.execute(new PersonInfoPrinter(batch));
         }

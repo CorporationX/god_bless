@@ -13,10 +13,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", workPlace='" + workPlace + '\'' +
-                '}';
+        return "Person{"
+                + "name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", workPlace='" + workPlace + '\''
+                + '}';
     }
 }
