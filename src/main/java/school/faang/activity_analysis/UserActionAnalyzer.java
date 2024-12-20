@@ -2,8 +2,8 @@ package school.faang.activity_analysis;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
 
@@ -25,17 +25,16 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         HashMap<String, Integer> hashtagsCount = new HashMap<>();
-
-        actions.forEach(userAction -> {
-            String content = userAction.content();
-
-            getHashtags(content).forEach(hashtag -> {
-                if (!hashtagsCount.containsKey(hashtag)) {
-                    hashtagsCount.put(hashtag, 0);
-                }
-                hashtagsCount.put(hashtag, hashtagsCount.get(hashtag) + 1);
-            });
-        });
+        actions.stream()
+                .filter(action -> action.content().contains("#"))
+                .flatMap(action -> Arrays.stream(action.content().split(" ")))
+                .filter(word -> word.startsWith("#"))
+                .forEach(hashtag -> {
+                    if (!hashtagsCount.containsKey(hashtag)) {
+                        hashtagsCount.put(hashtag, 0);
+                    }
+                    hashtagsCount.put(hashtag, hashtagsCount.get(hashtag) + 1);
+                });
         return getTop(hashtagsCount, 5);
     }
 
@@ -67,39 +66,14 @@ public class UserActionAnalyzer {
         return result;
     }
 
-    private static List<String> getHashtags(String content) {
-        List<String> hashTags = new ArrayList<>();
-        StringBuilder contentBuilder = new StringBuilder(content);
-
-        while (contentBuilder.indexOf("#") != -1) {
-            int startIndex = content.indexOf("#");
-            int endIndex = startIndex + 1;
-
-            while (endIndex < content.length() && Character.isLetterOrDigit(content.charAt(endIndex))) {
-                endIndex++;
-            }
-            String hashtag = content.substring(startIndex, endIndex);
-            contentBuilder.delete(startIndex, endIndex);
-            hashTags.add(hashtag);
-        }
-        return hashTags;
-    }
-
     private static double calculatePercentage(double number, double oneHundredNumber) {
         return number / (oneHundredNumber / 100);
     }
 
     private static List<String> getTop(HashMap<String, Integer> map, int height) {
-        List<Map.Entry<String, Integer>> sortedEntries = map.entrySet()
+        return map.entrySet()
                 .stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).toList();
-        List<String> result = new ArrayList<>();
-        if (sortedEntries.size() < height) {
-            height = sortedEntries.size();
-        }
-        for (int i = 0; i < height; i++) {
-            result.add(sortedEntries.get(i).getKey());
-        }
-        return result;
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(height).map(Map.Entry::getKey).toList();
     }
 }
