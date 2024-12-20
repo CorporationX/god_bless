@@ -14,13 +14,7 @@ public class InventoryManager {
     }
 
     public void removeItem(Item item, Character character, Predicate<Item> predicate) {
-        List<Item> inventoryItem = new ArrayList<>(character.getInventory());
-        for (Item inventory : inventoryItem) {
-            if (inventory.equals(item) && predicate.test(item)) {
-                character.getInventory().remove(inventory);
-                System.out.println("Вы удалили " + inventory);
-            }
-        }
+        character.getInventory().removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {

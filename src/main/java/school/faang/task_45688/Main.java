@@ -8,10 +8,14 @@ public class Main {
 
         InventoryManager inventoryManager = new InventoryManager();
 
-        inventoryManager.addItem(stick, gandalf, (item) -> System.out.println("Вы добавили в интвентарь "
-                + stick.getName()));
-        inventoryManager.addItem(ring, gandalf, (item) -> System.out.println("Вы добавили в интвентарь "
-                + ring.getName()));
+        inventoryManager.addItem(stick, gandalf, (item) ->
+                System.out.println("""
+                        Вы добавили в интвентарь
+                        """ + stick.getName()));
+        inventoryManager.addItem(ring, gandalf, (item) ->
+                System.out.println("""
+                        Вы добавили в интвентарь
+                        """ + ring.getName()));
         System.out.println(gandalf.getInventory());
         System.out.println("");
 
