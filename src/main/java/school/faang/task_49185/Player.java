@@ -5,13 +5,19 @@ public class Player {
     private boolean isPlaying;
 
     public void play() {
-        System.out.println("Music is playing");
-        changeStatus(true);
+        if (isPlaying) {
+            System.out.println("Music is already playing");
+        } else {
+            changeStatus(true);
+        }
     }
 
     public void pause() {
-        System.out.println("Music is stopped");
-        changeStatus(false);
+        if (isPlaying) {
+            changeStatus(false);
+        } else {
+            System.out.println("Music is already stopped");
+        }
     }
 
     public void skip() {
@@ -29,7 +35,7 @@ public class Player {
     private void changeStatus(boolean status) {
         synchronized (lock) {
             isPlaying = status;
-            System.out.println(String.format("Status of music: %s", isPlaying));
+            System.out.println(String.format("Music is: %s", isPlaying ? "playing" : "stopped"));
         }
     }
 }
