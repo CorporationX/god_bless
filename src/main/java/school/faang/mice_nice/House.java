@@ -1,7 +1,6 @@
 package school.faang.mice_nice;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final int THREAD_COUNT = 5;
     private static final int FOOD_COUNT_PER_COLLECTFOOD = 5;
-    private static final LinkedList<Room> rooms = new LinkedList<>();
+    private static final List<Room> rooms = new ArrayList<>();
     private static final List<Food> collectedFood = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -61,23 +60,31 @@ public class House {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_COUNT);
 
         for (int i = 1; i <= 5; i++) {
-            executor.scheduleAtFixedRate(House::collectFood, 100 * i, 30, TimeUnit.MILLISECONDS);
+            executor.scheduleAtFixedRate(House::collectFood, 100 * i, 5000, TimeUnit.MILLISECONDS);
         }
 
         executor.scheduleAtFixedRate(() -> {
             if (!isThereUntidyFood()) {
                 executor.shutdown();
-                System.out.println("Mission complete!");
+                try {
+                    if (executor.awaitTermination(13, TimeUnit.SECONDS)) {
+                        System.out.println("Mission complete!");
+                    } else {
+                        System.out.println("Something went wrong");
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println(collectedFood.toString());
             }
-        }, 3, 31, TimeUnit.SECONDS);
+        }, 3, 6, TimeUnit.SECONDS);
     }
 
     private static void collectFood() {
         Room currentRoom;
 
         for (int i = 1; i <= FOOD_COUNT_PER_COLLECTFOOD; i++) {
-            currentRoom = rooms.pollFirst();
+            currentRoom = rooms.remove(0);
             if (currentRoom != null && !currentRoom.getFoods().isEmpty()) {
                 collectedFood.addAll(currentRoom.collect());
                 System.out.println("collected");
