@@ -1,5 +1,8 @@
 package school.faang.sprint3.task_48327;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
     private static final int NUM_OF_MESSAGES = 1000;
     private static final int NUM_OF_THREADS = 5;
@@ -18,10 +21,11 @@ public class MailSender {
             try {
                 threads[i].join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error("Thread has been interrupted. Exception : {}", e.toString());
+                return;
             }
         }
 
-        System.out.printf("All the %d messages have been sent successfully !", NUM_OF_MESSAGES);
+        log.info("All the {} messages have been sent successfully !", NUM_OF_MESSAGES);
     }
 }

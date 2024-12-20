@@ -1,10 +1,12 @@
 package school.faang.sprint3.task_48327;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
+@Slf4j
 public class SenderRunnable implements Runnable {
 
     private final int startIndex;
@@ -13,7 +15,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         IntStream.range(startIndex, endIndex).forEachOrdered(
-                count -> System.out.printf("Message %d has been sent successfully !%n", count)
+                count -> log.info("Message {} has been sent successfully !", count)
         );
     }
 }
