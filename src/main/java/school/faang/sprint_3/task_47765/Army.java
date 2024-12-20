@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Army {
     private final List<Hero> heroes = new ArrayList<>();
-    private int totalPower;
 
     public int calculateTotalPower() {
+        AtomicInteger totalPower = new AtomicInteger();
         if (heroes.isEmpty()) {
             return 0;
         }
@@ -29,11 +30,10 @@ public class Army {
                         .stream()
                         .mapToInt(Hero::getPower)
                         .sum();
-                addTotalPower(powerOfPartHeroes);
+                totalPower.addAndGet(powerOfPartHeroes);
                 counter.countDown();
             });
         }
-
 
         try {
             counter.await();
@@ -42,11 +42,7 @@ public class Army {
         }
         executorService.shutdown();
 
-        return totalPower;
-    }
-
-    private synchronized void addTotalPower(int value) {
-        totalPower += value;
+        return totalPower.get();
     }
 
     public void addHero(@NonNull Hero hero) {
