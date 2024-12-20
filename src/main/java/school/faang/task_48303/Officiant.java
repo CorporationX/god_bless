@@ -1,9 +1,7 @@
 package school.faang.task_48303;
 
-import lombok.RequiredArgsConstructor;
-
 @RequiredArgsConstructor
-public class Officiant extends Thread {
+public class Officiant implements Runnable {
     private final House house;
 
     @Override
