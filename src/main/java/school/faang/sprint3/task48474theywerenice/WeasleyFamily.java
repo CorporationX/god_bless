@@ -13,9 +13,7 @@ public class WeasleyFamily {
     }};
 
     public static void main(String[] args) {
-        List<Chore> chores = tasks.stream()
-                .map(Chore::new)
-                .toList();
+        List<Chore> chores = tasks.stream().map(Chore::new).toList();
         ExecutorService executor = Executors.newCachedThreadPool();
 
         for (Chore chore : chores) {
