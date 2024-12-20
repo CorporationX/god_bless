@@ -11,21 +11,24 @@ public class GooglePhotosAutoUploader {
     private List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println(e + " Ошибка отправки");
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println(e + " Ошибка отправки");
+                        Thread.currentThread().interrupt();
+                    }
                 }
-            }
-            if (!photosToUpload.isEmpty()) {
-                uploadPhotos();
+                if (!photosToUpload.isEmpty()) {
+                    uploadPhotos();
+                }
             }
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         for (String photo : photosToUpload) {
             System.out.println("Фотография " + photo + " успешно загружена на сервер!");
         }

@@ -20,6 +20,7 @@ public class Main {
                 System.out.println(e + "Ошибка загрузки фото");
             }
         });
+
         thread1.start();
         thread2.start();
     }
