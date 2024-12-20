@@ -5,16 +5,17 @@ import lombok.Data;
 @Data
 public class Chore implements Runnable {
 
+    private static final long SLEEP_MILLISECOND = 2000;
     private final String chore;
 
     @Override
     public void run() {
         try {
             System.out.println(Thread.currentThread().getName() + " : " + chore);
-            Thread.sleep(2000);
+            Thread.sleep(SLEEP_MILLISECOND);
             System.out.println(chore + " task end");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
