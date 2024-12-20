@@ -16,13 +16,9 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        if (numbers == null) {
-            throw new IllegalArgumentException();
-        }
-
         return numbers.stream()
                 .max(Integer::compare)
-                .orElse(0);
+                .orElseThrow(() -> new IllegalStateException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -48,7 +44,7 @@ public class ListOperations {
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         if (strings == null || substring == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("List of strings and substring cannot be empty");
         }
 
         return strings.stream()
