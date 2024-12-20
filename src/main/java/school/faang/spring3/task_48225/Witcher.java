@@ -8,6 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Witcher {
+    private static final int NUM_THREADS = 4;
+
     public static void main(String[] args) {
         List<City> cities = new ArrayList<>();
         cities.add(new City("Novigrad", new Location(0, 60)));
@@ -21,10 +23,9 @@ public class Witcher {
         monsters.add(new Monster("Cockatrice", new Location(-124, 36)));
         monsters.add(new Monster("Chort", new Location(374, -237)));
 
-        final int NUM_THREADS = 4;
         List<Future<Double>> futures = new ArrayList<>();
         ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
-        for(City city : cities) {
+        for (City city : cities) {
             futures.add(service.submit(new CityHandler(city, monsters)));
         }
         double min = Double.MAX_VALUE;
@@ -33,7 +34,7 @@ public class Witcher {
             // так как мы блокируем поток main в методе get
             try {
                 Double o = future.get();
-                if(o < min) {
+                if (o < min) {
                     min = o;
                 }
             } catch (InterruptedException e) {
@@ -44,8 +45,6 @@ public class Witcher {
         }
         System.out.println("The nearest is " + min);
         service.shutdown();
-
-
 
 
     }

@@ -7,13 +7,13 @@ import java.util.concurrent.Callable;
 
 @AllArgsConstructor
 public class CityHandler implements Callable<Double> {
-    private static final Location WITCHER = new Location(0,0);
+    private static final Location WITCHER = new Location(0, 0);
     private City city;
     private List<Monster> monsters;
 
     private double getDistance(Location p1, Location p2) {
-        return Math.sqrt((p1.getX() - p2.getX()) * (p1.getX() - p2.getX())
-        + (p1.getY() - p2.getY()) * (p1.getY() - p2.getY()));
+        return Math.sqrt((p1.getCoordinateX() - p2.getCoordinateX()) * (p1.getCoordinateX() - p2.getCoordinateX())
+                + (p1.getCoordinateY() - p2.getCoordinateY()) * (p1.getCoordinateY() - p2.getCoordinateY()));
     }
 
     @Override
@@ -21,9 +21,9 @@ public class CityHandler implements Callable<Double> {
         double cityDistance = getDistance(WITCHER, city.getLocation());
         Monster closestMonster = null;
         double minDistance = Double.MAX_VALUE;
-        for(Monster monster : monsters) {
+        for (Monster monster : monsters) {
             double monsterDistance = getDistance(city.getLocation(), monster.getLocation());
-            if(monsterDistance < minDistance) {
+            if (monsterDistance < minDistance) {
                 minDistance = monsterDistance;
                 closestMonster = monster;
             }
