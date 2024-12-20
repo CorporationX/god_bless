@@ -17,7 +17,7 @@ public class Boss {
             try {
                 wait();
             } catch (InterruptedException e) {
-                System.out.println("Произошла ошибка");
+                throw new RuntimeException("Произошла ошибка");
             }
         }
         currentPlayers++;
