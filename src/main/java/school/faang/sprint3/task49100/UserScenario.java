@@ -1,6 +1,8 @@
-package school.faang.sprint3.task49100.model;
+package school.faang.sprint3.task49100;
 
 import lombok.AllArgsConstructor;
+import school.faang.sprint3.task49100.model.House;
+import school.faang.sprint3.task49100.model.User;
 
 @AllArgsConstructor
 public class UserScenario implements Runnable {

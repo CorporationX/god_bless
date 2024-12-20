@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import school.faang.sprint3.task49100.model.House;
 import school.faang.sprint3.task49100.model.Role;
 import school.faang.sprint3.task49100.model.User;
-import school.faang.sprint3.task49100.model.UserScenario;
 
 import java.util.ArrayList;
 import java.util.List;
