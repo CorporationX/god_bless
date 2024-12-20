@@ -1,9 +1,10 @@
 package school.faang.task_49658;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
+
     public static void main(String[] args) {
         Boss boss = new Boss(2);
         Player player1 = new Player("Гарри");
@@ -12,44 +13,17 @@ public class Main {
         Player player4 = new Player("Хагрит");
         Player player5 = new Player("Дамболдор");
 
-        List<Thread> users = new ArrayList<>(5);
-        users.add(new Thread(() -> {
-            try {
-                player1.startBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage() + "Ошибка сражения");
-            }
-        }));
-        users.add(new Thread(() -> {
-            try {
-                player2.startBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage() + "Ошибка сражения");
-            }
-        }));
-        users.add(new Thread(() -> {
-            try {
-                player3.startBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage() + "Ошибка сражения");
-            }
-        }));
-        users.add(new Thread(() -> {
-            try {
-                player4.startBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage() + "Ошибка сражения");
-            }
-        }));
-        users.add(new Thread(() -> {
-            try {
-                player5.startBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage() + "Ошибка сражения");
-            }
-        }));
-
-        users.forEach(Thread::start);
+        List<Player> playerThreads = List.of(player1, player2, player3, player4, player5);
+        playerThreads.stream()
+                .map((s) -> new Thread(() -> {
+                    try {
+                        s.startBattle(boss);
+                    } catch (InterruptedException e) {
+                        Boss.LOGGER.error("{} Ошибка сражения с боссом!", e.getMessage());
+                    }
+                }))
+                .collect(Collectors.toList())
+                .forEach(Thread::start);
 
     }
 }
