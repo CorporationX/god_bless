@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final int TOP_USERS_LIMIT = 10;
+    private static final int TOP_HASHTAGS_LIMIT = 5;
+    private static final int TOP_COMMENTERS_LIMIT = 3;
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<String, Long> userActivityCount = new HashMap<>();
@@ -20,7 +24,7 @@ public class UserActionAnalyzer {
 
         return userActivityCount.entrySet().stream()
                 .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
-                .limit(10)
+                .limit(TOP_USERS_LIMIT)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -29,9 +33,9 @@ public class UserActionAnalyzer {
         Map<String, Long> hashtagCount = new HashMap<>();
 
         for (UserAction action : actions) {
-            if ((action.getActionType().equals("post") || action.getActionType().equals("comment"))
+            if ((action.getActionType().equals(ActionType.POST) || action.getActionType().equals(ActionType.COMMENT))
                     && action.getContent() != null) {
-                String[] words = action.getContent().split("\\s+");
+                String[] words = action.getContent().split(WHITESPACE_REGEX);
                 for (String word : words) {
                     if (word.startsWith("#")) {
                         hashtagCount.put(word, hashtagCount.getOrDefault(word, 0L) + 1);
@@ -42,7 +46,7 @@ public class UserActionAnalyzer {
 
         return hashtagCount.entrySet().stream()
                 .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
-                .limit(5)
+                .limit(TOP_HASHTAGS_LIMIT)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -53,14 +57,14 @@ public class UserActionAnalyzer {
         Map<String, Long> commenterCount = new HashMap<>();
 
         for (UserAction action : actions) {
-            if (action.getActionType().equals("comment") && action.getActionDate().isAfter(oneMonthAgo)) {
+            if (action.getActionType().equals(ActionType.COMMENT) && action.getActionDate().isAfter(oneMonthAgo)) {
                 commenterCount.put(action.getName(), commenterCount.getOrDefault(action.getName(), 0L) + 1);
             }
         }
 
         return commenterCount.entrySet().stream()
                 .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
-                .limit(3)
+                .limit(TOP_COMMENTERS_LIMIT)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -70,16 +74,19 @@ public class UserActionAnalyzer {
         long totalActions = actions.size();
 
         for (UserAction action : actions) {
-            actionCounts.put(action.getActionType(),
-                    actionCounts.getOrDefault(action.getActionType(), 0L) + 1);
+            String actionType = action.getActionType().getType();
+            actionCounts.put(actionType, actionCounts.getOrDefault(actionType, 0L) + 1);
         }
 
         Map<String, Double> percentages = new HashMap<>();
         for (Map.Entry<String, Long> entry : actionCounts.entrySet()) {
-            percentages.put(entry.getKey(), (entry.getValue() * 100.0) / totalActions);
+            double percentage = (entry.getValue() * 100.0) / totalActions;
+            percentages.put(entry.getKey(), Math.round(percentage * 10.0) / 10.0);
         }
 
         return percentages;
     }
+
+
 
 }
