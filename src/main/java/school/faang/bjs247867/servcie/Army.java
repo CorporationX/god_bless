@@ -27,7 +27,7 @@ public class Army {
             try {
                 myThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Thread interrupted. Exception: " + e);
             }
         }
 
