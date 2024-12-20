@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 0, 4, 5, 6, 7);
         int target = 7;
 
-        List<List<Integer>> result = ListOperations.sumLists(numbers, target);
+        Set<List<Integer>> result = ListOperations.getUniquePairs(numbers, target);
         System.out.println(result);
 
         Map<String, String> countriesAndCapitals = new HashMap<>();
