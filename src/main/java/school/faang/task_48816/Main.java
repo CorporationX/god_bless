@@ -12,7 +12,11 @@ public class Main {
     public static void main(String[] args) {
         List<String> starkHouseRoles = Arrays.asList("Lord", "Knight", "Mage");
         House starkHouse = new House("Stark", starkHouseRoles);
-        List<User> userList = Arrays.asList(new User("John"), new User("Arya"), new User("Sansa"), new User("Isaac"));
+        List<User> userList = Arrays.asList(
+                new User("John"),
+                new User("Arya"),
+                new User("Sansa"),
+                new User("Isaac"));
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         for (User user : userList) {
