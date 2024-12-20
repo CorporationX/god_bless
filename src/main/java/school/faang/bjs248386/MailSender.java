@@ -20,10 +20,9 @@ public class MailSender {
         try {
             for (Thread thread : threads) {
                 thread.join();
-
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Thread interrupted");
         }
 
         System.out.println("Ishlar tugadi");
