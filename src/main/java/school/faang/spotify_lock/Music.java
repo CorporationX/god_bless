@@ -14,7 +14,7 @@ public class Music {
         executor.submit(player::pause);
         executor.submit(player::previous);
         executor.shutdown();
-        if (executor.awaitTermination(5, TimeUnit.SECONDS)){
+        if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
             System.out.println("mission complete");
         } else {
             System.out.println("mission not complete");
