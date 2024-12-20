@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<UserAction> userActions = UserActionGenerator.generateRandomActions(3);
+        List<UserAction> userActions = UserActionGenerator.generateRandomActions(50);
         System.out.println(userActions);
 
         List<String> activeUsers = UserActionAnalyzer.topActiveUsers(userActions);
