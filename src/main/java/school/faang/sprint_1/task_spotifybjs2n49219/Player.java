@@ -1,19 +1,44 @@
 package school.faang.sprint_1.task_spotifybjs2n49219;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Player {
-    private Object lock;
+    private final Object lock;
     private boolean isPlaying;
 
-    public void play() {
-
+    public Player() {
+        this.lock = new Object();
+        this.isPlaying = false;
     }
-    public void pause() {
 
+    public synchronized void play() {
+        synchronized (lock) {
+            if (isPlaying) {
+                log.info("music already Playing ..... |>");
+            } else {
+                log.info("Play pressed");
+                isPlaying = true;
+            }
+        }
     }
-    public void skip() {
 
+    public synchronized void pause() {
+        synchronized (lock) {
+            log.info("Pause pressed ");
+            isPlaying = false;
+        }
     }
-    public void previous() {
 
+    public synchronized void skip() {
+        synchronized (lock) {
+            log.info("Skip pressed");
+        }
+    }
+
+    public synchronized void previous() {
+        synchronized (lock) {
+            log.info("Previous pressed");
+        }
     }
 }
