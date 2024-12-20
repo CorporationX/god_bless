@@ -9,13 +9,10 @@ public class WeasleyFamily {
     public static void main(String[] args) {
         String[] tasks = {"помыть посуду", "подмести пол", "приготовить ужин"};
         List<Chore> chores = Arrays.stream(tasks).map(Chore::new).toList();
-
         ExecutorService executorService = Executors.newCachedThreadPool();
-
         for (Chore chore : chores) {
             executorService.execute(chore);
         }
-
         executorService.shutdown();
     }
 }
