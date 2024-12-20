@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         House house = addHouseData();
         ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(MAX_THREAD);
-        executor.scheduleAtFixedRate(() -> house.collectFood(), 0, PERIOD, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(house::collectFood, 0, PERIOD, TimeUnit.SECONDS);
         while (true) {
             if (house.checkAllFoodCollected()) {
                 executor.shutdown();
@@ -29,11 +29,11 @@ public class Main {
         List<Room> rooms = new ArrayList<>();
         List<Food> kitchenFood = new ArrayList<>(Arrays.asList(new Food("Banana"), new Food("Bred")));
         List<Food> bedroomFood = new ArrayList<>(Arrays.asList(new Food("Vine"), new Food("Apple")));
-        List<Food> childRoom = new ArrayList<>(Arrays.asList(new Food("Сandy"), new Food("Сhips"),
+        List<Food> childRoom = new ArrayList<>(Arrays.asList(new Food("Candy"), new Food("Chips"),
                 new Food("Chocolate")));
         rooms.add(new Room("Kitchen", kitchenFood));
         rooms.add(new Room("Bedroom", bedroomFood));
-        rooms.add(new Room("Сhild room", childRoom));
+        rooms.add(new Room("Child room", childRoom));
         return new House(rooms);
     }
 }
