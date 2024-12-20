@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import lombok.SneakyThrows;
+
 public class Army {
     private List<Hero> heroes = new ArrayList<>();
 
@@ -14,7 +16,8 @@ public class Army {
         heroes.add(hero);
     }
 
-    public Integer calculateTotalPower() throws InterruptedException {
+    @SneakyThrows
+    public Integer calculateTotalPower() {
         Map<Hero, List<Integer>> mapHeroes = heroes.stream()
                 .collect(Collectors.toMap(
                         hero -> hero,
@@ -26,11 +29,14 @@ public class Army {
         for (Map.Entry<Hero, List<Integer>> entry : mapHeroes.entrySet()) {
             List<Integer> powers = entry.getValue();
             Hero hero = entry.getKey();
+            List<Integer> powersCopy = new ArrayList<>(powers);
+            Hero heroCopy = hero;
+
             executor.submit(() -> {
-                int sum = powers.stream()
+                int sum = powersCopy.stream()
                         .reduce(0, Integer::sum);
                 totalPower.addAndGet(sum);
-                System.out.println("Задача выполнена для типа: " + hero.getClass().getSimpleName()
+                System.out.println("Задача выполнена для типа: " + heroCopy.getClass().getSimpleName()
                         + ", суммарная сила: " + sum);
             });
         }
