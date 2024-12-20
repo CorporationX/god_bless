@@ -2,6 +2,7 @@ package school.faang.task_47473;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -16,14 +17,14 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(num -> num)
                 .max()
-                .orElse(0);
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(number -> number)
                 .average()
-                .orElse(0);
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static int countStringsStartingWith(List<String> strings, char a) {
@@ -55,7 +56,7 @@ public class ListOperations {
                 .filter(number -> number > i)
                 .mapToInt(number -> number)
                 .min()
-                .orElse(0);
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
