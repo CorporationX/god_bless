@@ -12,7 +12,7 @@ import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 public class UserAction {
     private int id;
     private String name;
-    private EnumActionType actionType;
+    private ActionType actionType;
     private LocalDate actionDate;
     private String content;
 
