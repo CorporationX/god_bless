@@ -3,7 +3,10 @@ package school.faang.task_47078;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
+import java.util.logging.XMLFormatter;
+import java.util.stream.Collectors;
 
 
 public class ListOperations {
@@ -15,31 +18,45 @@ public class ListOperations {
         return listIntegers.stream().max(Integer::compareTo).get();
     }
 
-    public static Integer findAverage(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).sum() / numbers.size();
+    public static Double findAverage(List<Integer> numbers) {
+
+        return numbers.stream()
+                .mapToDouble(x -> (double) x)
+                .average()
+                .orElse(0);
     }
 
     public static String countStringsStartingWith(List<String> strings, Character prefix) {
-        return strings.stream().filter(x -> x.startsWith(String.valueOf(prefix))).count() + "";
+        return strings.stream()
+                .filter(x -> x.startsWith(
+                        String.valueOf(prefix)))
+                .count() + "";
     }
 
     public static String filterStringsContainingSubstring(List<String> strings, String w) {
         return strings.stream().filter(x -> x.contains(w)).count() + "";
     }
 
-    public static String sortByLength(List<String> strings) {
-        return strings.stream().sorted(Comparator.comparing(String::length)).toList().toString();
+    public static List<String> sortByLength(List<String> strings) {
+        return strings.stream()
+                .sorted(Comparator.comparing(String::length))
+                .toList();
     }
 
     public static Integer findMinGreaterThan(List<Integer> numbers, int i) {
-        return numbers.stream().filter(x -> x > i).findFirst().get();
+        return numbers.stream()
+                .filter(x -> x > i)
+                .min(Integer::compareTo).orElse(null);
     }
 
-    public static String allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
-        return numbers.stream().anyMatch(condition) ? "Все" : "Не все";
+    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
+        return numbers.stream()
+                .allMatch(condition);
     }
 
-    public static Integer convertToLengths(List<String> strings) {
-        return strings.stream().map(String::length).reduce(0, Integer::sum);
+    public static List<Integer> convertToLengths(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
+                .collect(Collectors.toList());
     }
 }
