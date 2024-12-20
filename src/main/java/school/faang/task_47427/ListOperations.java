@@ -19,20 +19,20 @@ public class ListOperations {
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> filterAndSort(List<String> strings, char c) {
         return strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(c)))
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> convertToBinary(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
@@ -41,7 +41,7 @@ public class ListOperations {
         return strings.stream()
                 .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }
