@@ -23,7 +23,7 @@ public class Main {
 
         System.out.println(SteamApi2Testing.uniquePairsNumbers(numbers, 7));
         System.out.println(SteamApi2Testing.sortedCapitals(countryCapitalMap));
-        System.out.println(SteamApi2Testing.filtredWords(strings, "a"));
+        System.out.println(SteamApi2Testing.filteredWords(strings, "a"));
         System.out.println(SteamApi2Testing.convertNumberBinary(numbersTwo));
         System.out.println(SteamApi2Testing.filterAlphabeticallySortLength(stringsTwo, alphabet));
     }

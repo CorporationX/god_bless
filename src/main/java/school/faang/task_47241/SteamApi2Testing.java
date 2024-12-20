@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SteamApi2Testing {
@@ -25,13 +27,13 @@ public class SteamApi2Testing {
         return countries.entrySet().stream()
         .sorted(Map.Entry.comparingByKey())
         .map(Map.Entry::getValue)
-        .collect(Collectors.toList());
+        .toList();
     }
 
-    public static List<String> filtredWords(List<String> words, String w) {
+    public static List<String> filteredWords(List<String> words, String startingChar) {
         return words.stream()
-        .filter(word -> word.startsWith(w))
-        .sorted(Comparator.comparing(String::length))
+        .filter(word -> word.startsWith(startingChar))
+        .sorted(Comparator.comparingInt(String::length))
         .toList();
     }
 
@@ -41,10 +43,11 @@ public class SteamApi2Testing {
 
     public static List<String> filterAlphabeticallySortLength(List<String> list, String alphabet) {
         return list.stream()
-          .filter(
-              x -> {
-                  return x.equals(alphabet);
-              })
+          .filter(x -> {
+              Pattern pattern = Pattern.compile('[' + alphabet + "]+");
+              Matcher matcher = pattern.matcher(x);
+              return matcher.matches();
+          })
           .sorted(Comparator.comparing(String::length))
           .collect(Collectors.toList());
     }
