@@ -45,15 +45,15 @@ public class RecommendationService {
                 .orElseThrow(() -> new RuntimeException("No such category"));
     }
 
+    public List<UserProfile> getUserProfiles() {
+        return List.copyOf(userProfiles);
+    }
+
     private List<Product> getOrderedProducts(int userId) {
         return productOrders.stream()
                 .filter(productOrder -> productOrder.userId() == userId)
                 .map(productOrder -> getProductById(productOrder.productId()))
                 .filter(Objects::nonNull)
-                // пришлось сделать систему игнорирования несуществующих данных,
-                // ибо в таблицах с данными есть ложные значения, в order id продукта есть,
-                // а продукта такого почему-то нет
-                // Не уверен насколько правильно это сделал
                 .toList();
     }
 
@@ -64,16 +64,15 @@ public class RecommendationService {
                 .orElse(null);
     }
 
-    private int compareAmountOfProductsSells(Product product1, Product product2) {
-        return Long.compare(getProductSales(product1), getProductSales(product2));
+    private int compareAmountOfProductsSells(Product x, Product y) {
+        return Long.compare(getProductSales(x), getProductSales(y));
     }
 
-    private long getProductSales(Product product1) {
+    private long getProductSales(Product product) {
         return productOrders.stream()
-                .filter(productOrder -> productOrder.productId() == product1.productId())
+                .filter(productOrder -> productOrder.productId() == product.productId())
                 .count();
     }
-
 
     private Stream<Product> getRecommendedProductsAsStream(UserProfile user) {
         return products.stream()
@@ -93,9 +92,5 @@ public class RecommendationService {
                 .filter(userProfile -> userProfile.userId() == userId)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public List<UserProfile> getUserProfiles() {
-        return List.copyOf(userProfiles);
     }
 }

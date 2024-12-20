@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Main {
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     public static void main(String[] args) {
         try {
@@ -39,7 +40,6 @@ public class Main {
                                                   TypeReference<List<T>> typeReference) throws IOException {
         InputStream resourceAsStream = Main.class.getResourceAsStream(fileName);
 
-        ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
         return mapper.readValue(resourceAsStream, typeReference);
     }
