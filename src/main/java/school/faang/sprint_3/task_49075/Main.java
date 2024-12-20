@@ -13,7 +13,7 @@ public class Main {
     public static final int TIMEOUT = 30;
 
     public static void main(String[] args) {
-        Runnable[] tasks = getRunnable();
+        List<Runnable> tasks = getRunnables();
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_SIZE);
 
         for (Runnable task : tasks) {
@@ -31,21 +31,20 @@ public class Main {
         System.out.println("Все пользователи завершили задачи");
     }
 
-    private static Runnable[] getRunnable() {
+    private static List<Runnable> getRunnables() {
         House house = new House(List.of("Маг", "Воин"));
         User alex = new User("Alex");
         User bob = new User("Bob");
         User tom = new User("Tom");
         User ron = new User("Ron");
 
-        Runnable[] tasks = {
+        return List.of(
                 () -> bob.joinHouse(house),
                 () -> alex.joinHouse(house),
                 () -> tom.joinHouse(house),
                 () -> bob.leaveHouse(house),
                 () -> alex.leaveHouse(house),
                 () -> ron.joinHouse(house)
-        };
-        return tasks;
+        );
     }
 }

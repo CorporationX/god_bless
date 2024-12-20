@@ -2,29 +2,29 @@ package school.faang.sprint_3.task_49075;
 
 import lombok.Data;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 @Data
 public class House {
-    private List<String> roles;
-    private int availableRoles;
+    private Queue<String> roles;
+    private final Object lock = new Object();
 
     public House(List<String> roles) {
-        this.roles = roles;
-        this.availableRoles = roles.size();
+        this.roles = new LinkedList<>(roles);
     }
 
     public synchronized String addRole() {
-        if (availableRoles == 0) {
+        if (roles.isEmpty()) {
             System.out.println("Нет доступных ролей");
+            return null;
         }
-        int currentRoleIndex = availableRoles;
-        availableRoles--;
-        return roles.get(currentRoleIndex - 1);
+        return roles.poll();
     }
 
-    public synchronized void removeRole() {
-        availableRoles++;
+    public synchronized void removeRole(String role) {
+        roles.offer(role);
         notifyAll();
     }
 }

@@ -12,12 +12,12 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House house) {
+    public void joinHouse(House house) {
         if (house == null) {
             throw new IllegalArgumentException("Дом не может быть null");
         }
         synchronized (house) {
-            while (house.getAvailableRoles() == 0) {
+            while (house.getRoles().isEmpty()) {
                 System.out.println("Нет доступных ролей в этом Доме для пользователя " + name);
                 try {
                     house.wait();
@@ -32,13 +32,13 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse(House house) {
+    public void leaveHouse(House house) {
         if (house == null) {
             throw new IllegalArgumentException("Дом не может быть null");
         }
         synchronized (house) {
             System.out.println(name + " покинул Дом и освободил роль " + role);
-            house.removeRole();
+            house.removeRole(role);
             this.house = null;
             this.role = null;
             house.notifyAll();
