@@ -49,9 +49,9 @@ public class User {
         }
     }
 
-    public static Map<Integer, List<User>> groupUsers(List< User > user1s) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersByAge = new HashMap<>();
-        for (User user : user1s) {
+        for (User user : users) {
             usersByAge.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
         return usersByAge;
