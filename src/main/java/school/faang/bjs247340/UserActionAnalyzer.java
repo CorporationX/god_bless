@@ -77,7 +77,7 @@ public class UserActionAnalyzer {
         log.info("actionTypePercentages: Calculating action type percentages.");
         long totalActions = actions.size();
         Map<String, Double> result = actions.stream()
-                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
+                .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
