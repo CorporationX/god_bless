@@ -1,27 +1,28 @@
 import org.junit.jupiter.api.Test;
 import school.faang.bjs248406.SenderRunnable;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SenderRunnableTest {
     @Test
-    public void testThreadExecutions() throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-
-        executorService.submit(new SenderRunnable(0, 200));
-        executorService.submit(new SenderRunnable(201, 400));
-        executorService.submit(new SenderRunnable(401, 600));
-        executorService.submit(new SenderRunnable(601, 800));
-        executorService.submit(new SenderRunnable(801, 1000));
-
-        executorService.shutdown();
-
-        boolean executorFinish = executorService.awaitTermination(5, TimeUnit.SECONDS);
-
-        assertTrue(executorFinish, "Not all threads in time");
+    public void testThreadExecutions() {
+        SenderRunnable.resetCounterThread();
+        int startIndex = 1;
+        int finishIndex = 200;
+        Thread[] threads = new Thread[5];
+        try {
+            for (int i = 0; i < 5; i++) {
+                threads[i] = new Thread(new SenderRunnable(startIndex, finishIndex));
+                threads[i].start();
+                startIndex += 200;
+                finishIndex += 200;
+            }
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(SenderRunnable.allThreadsCompleted(threads.length), "Not all threads in time");
     }
 }

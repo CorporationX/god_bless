@@ -1,36 +1,23 @@
 package school.faang.bjs248406;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
-        Thread thread1 = new Thread(new SenderRunnable(1, 200));
-        thread1.start();
-        thread1.join();
-
-        Thread thread2 = new Thread(new SenderRunnable(201, 400));
-        thread2.start();
-        thread2.join();
-
-        Thread thread3 = new Thread(new SenderRunnable(401, 600));
-        thread3.start();
-        thread3.join();
-
-        Thread thread4 = new Thread(new SenderRunnable(601, 800));
-        thread4.start();
-        thread4.join();
-
-        Thread thread5 = new Thread(new SenderRunnable(801, 1000));
-        thread5.start();
-        thread5.join();
-
+    public static void main(String[] args) {
+        int startIndex = 1;
+        int finishIndex = 200;
+        Thread[] threads = new Thread[5];
+        try {
+            for (int i = 0; i < 5; i++) {
+                threads[i] = new Thread(new SenderRunnable(startIndex, finishIndex));
+                threads[i].start();
+                startIndex += 200;
+                finishIndex += 200;
+            }
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("The all letters is successfully sent");
-
-
-
-
-
-
-
-
-
     }
 }
