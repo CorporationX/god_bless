@@ -1,7 +1,6 @@
 package school.faang.sprint3.task48930.model;
 
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +9,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @AllArgsConstructor
 @Data
-@Slf4j
 public class Room {
     private final String name;
     private List<Food> foodList;
-
     ReentrantLock lock;
 
     public Room(String name, List<Food> foodList) {

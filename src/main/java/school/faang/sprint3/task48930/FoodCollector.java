@@ -1,6 +1,7 @@
 package school.faang.sprint3.task48930;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import school.faang.sprint3.task48930.model.Room;
 
@@ -8,15 +9,11 @@ import java.util.ArrayList;
 
 @Slf4j
 @Getter
+@RequiredArgsConstructor
 public class FoodCollector implements Runnable {
 
     private final String name;
     private final House house;
-
-    public FoodCollector(String name, House house) {
-        this.house = house;
-        this.name = name;
-    }
 
     @Override
     public void run() {

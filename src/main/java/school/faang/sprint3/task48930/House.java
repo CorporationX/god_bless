@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 public class House {
-    @Getter
-    private final List<Room> rooms = new ArrayList<>();
     private static final int MAX_THREAD_POOL_SIZE = 5;
     private static final int TIME_DELAY_SEC = 10;
     private static final int INIT_TIME_DELAY_SEC = 0;
+    @Getter
+    private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
-    private volatile boolean isEmpty;
+    //private volatile boolean isEmpty;
+    @Getter
+    private volatile AtomicBoolean isEmpty = new AtomicBoolean(false);
 
     public static void main(String[] args) {
         House house = fillHouse();
@@ -37,7 +40,7 @@ public class House {
             executor.scheduleWithFixedDelay(officiant, INIT_TIME_DELAY_SEC, TIME_DELAY_SEC, TimeUnit.SECONDS);
         }
 
-        while (!this.isEmpty) {
+        while (!this.isEmpty.get()) {
             try {
                 Thread.sleep(TIME_DELAY_SEC * 1000);
             } catch (InterruptedException e) {
@@ -50,13 +53,11 @@ public class House {
         log.info(collectedFood.toString());
 
         try {
-            // Ждём до 5 минут, пока все задачи завершатся
             if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
                 log.info("Задачи не завершились за 5 минут, принудительно останавливаем...");
-                executor.shutdownNow();  // Принудительное завершение, если задачи зависли
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            // Если главный поток был прерван во время ожидания, принудительно останавливаем пул
             executor.shutdownNow();
         }
     }
@@ -69,10 +70,10 @@ public class House {
     public void refreshIsEmpty() {
         for (Room room : rooms) {
             if (!room.isEmpty()) {
-                this.isEmpty = false;
+                this.isEmpty.set(false);
                 return;
             }
-            this.isEmpty = true;
+            this.isEmpty.set(true);
         }
     }
 
@@ -82,14 +83,10 @@ public class House {
             List<Food> roomFood = room.getFoodList();
             this.addFood(roomFood);
             int foodQty = roomFood.size();
-            log.info(collectorName
-                    + " собрал в комнате "
-                    + room.getName()
-                    + " " + foodQty + " единиц еды. : "
-                    + roomFood);
+            log.info("{} собрал в комнате {} {} единиц еды.:{}", collectorName, room.getName(), foodQty, roomFood);
             room.clearFood();
         } else {
-            log.info(collectorName + " пришел в комнату " + room.getName() + ", но там еда уже собрана. ");
+            log.info("{} пришел в комнату {}, но там еда уже собрана.", collectorName, room.getName());
         }
         room.unlock();
     }
