@@ -1,20 +1,16 @@
 package school.faang.sprint2.tests_47089;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 import school.faang.sprint2.task_47089.Operations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OperationsTest {
 
@@ -29,10 +25,10 @@ public class OperationsTest {
     void testFindPairsValid() {
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
         int sum = 7;
-        Set<List<Integer>> expected = new HashSet<>(Set.of(Arrays.asList(1, 6),
+        List<List<Integer>> expected = new ArrayList<>(List.of(Arrays.asList(1, 6),
                 Arrays.asList(2, 5), Arrays.asList(3, 4)));
 
-        Set<List<Integer>> result = operations.findPairs(numbers, sum);
+        List<List<Integer>> result = operations.findPairs(numbers, sum);
 
         assertEquals(expected, result);
     }
@@ -86,7 +82,7 @@ public class OperationsTest {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         List<String> expected = List.of("fig", "date", "apple", "grape", "banana", "cherry");
 
-        List<String> result = operations.filterStringsFromAlphabetSortByLength(list, alphabet);
+        List<String> result = operations.filterAndSortStringsByAlphabet(list, alphabet);
 
         assertEquals(expected, result);
     }
