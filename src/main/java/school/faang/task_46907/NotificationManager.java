@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> map = new HashMap<>();
+    private final Map<String, Consumer<Notification>> map = new HashMap<>();
 
     public void registerHandler(String id, Consumer<Notification> consumer) {
         map.put(id, consumer);
@@ -19,6 +19,5 @@ public class NotificationManager {
             System.out.println("Не найден обработчик для типа уведомления: " + notification.getType());
         }
     }
-
 }
 
