@@ -15,7 +15,6 @@ public class UserActionAnalyzer {
     private static final String HASHTAG_SIGN = "#";
 
     public static List<String> getTopActiveUsers(List<UserAction> userActions, int topSize) {
-
         Map<String, Long> mapGroupedByAction = userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
 
@@ -28,7 +27,6 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> getTopPopularHashtags(List<UserAction> userActions, int topSize) {
-
         Map<String, Long> mapGroupedByTag = userActions.stream()
                 .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT)
                         && !userAction.getContent().isEmpty())
@@ -44,7 +42,6 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> getTopCommentersLastMonth(List<UserAction> userActions, int topSize) {
-
         Map<String, Long> mapGroupedByAction = userActions.stream()
                 .filter(userAction -> (userAction.getActionType().equals(ActionType.COMMENT)
                         && userAction.getActionDate().isAfter(LocalDate.now().minusDays(365))))
