@@ -5,13 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         String result = ErrorHandler.withErrorHandling(
-                () -> {
-                    try {
-                        return FileUpload.uploadFile("C:\\data.txt");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                },
+                () -> FileUpload.uploadFile("C:\\data.txt"),
                 e -> {
                     System.err.println("Error during file uploading, return default value");
                     return "DEFAULT";
