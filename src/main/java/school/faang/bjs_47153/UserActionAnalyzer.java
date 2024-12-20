@@ -5,36 +5,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Matcher;
+import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
+    private static final String HASHTAG_REG = "#[a-zA-Z]*";
+
     public static List<String> topActiveUsers(List<UserAction> actions) {
         Map<Integer, Long> groupedCountsById = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
 
-        Map<String, Long> groupedCountsByName = groupedCountsById.entrySet().stream()
+        return groupedCountsById.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
                 .limit(10)
-                .collect(Collectors.toMap(
-                        entry -> getUserNameById(actions, entry.getKey()),
-                        Map.Entry::getValue)
-                );
-        return groupedCountsByName.keySet().stream()
+                .map(entry -> getUserNameById(actions, entry.getKey()))
                 .toList();
+
     }
 
     public static List<String> topHashtags(List<UserAction> actions) {
-        String reg = "#[a-zA-Z]*";
-        Pattern pattern = Pattern.compile(reg);
+        Pattern pattern = Pattern.compile(HASHTAG_REG);
         Map<String, Long> hashTagsCount = actions.stream()
                 .filter(action -> action.getActionType() == ActionType.COMMENT
                         || action.getActionType() == ActionType.POST)
-                .flatMap(action -> {
-                    Matcher matcher = pattern.matcher(action.getContent());
-                    return matcher.find() ? Stream.of(matcher.group()) : Stream.empty();
-                })
+                .flatMap(action -> pattern.matcher(
+                                action.getContent())
+                        .results()
+                        .map(MatchResult::group))
                 .collect(Collectors.groupingBy(hashTags -> hashTags, Collectors.counting()));
 
         return hashTagsCount.entrySet().stream()

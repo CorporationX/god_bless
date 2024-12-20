@@ -11,9 +11,9 @@ import java.util.Map;
 
 class UserActionAnalyzerTest {
 
-    private final List<UserAction> actions =  Arrays.asList(
+    private final List<UserAction> actions = Arrays.asList(
             new UserAction(1, "Alice", ActionType.valueOf("post".toUpperCase()),
-                    LocalDate.of(2024, 9, 1), "Check out this amazing #newfeature!"),
+                    LocalDate.of(2024, 9, 1), "Check out this amazing #review #newfeature!"),
             new UserAction(2, "Bob", ActionType.valueOf("comment".toUpperCase()),
                     LocalDate.of(2024, 9, 2), "I totally agree with #newfeature."),
             new UserAction(1, "Alice", ActionType.valueOf("like".toUpperCase()),
