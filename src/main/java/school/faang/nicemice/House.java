@@ -10,6 +10,8 @@ import java.util.List;
 @Slf4j
 @Getter
 public class House {
+    private static final int ROOMS_TO_COLLECT = 2;
+
     private final List<Room> rooms;
     private final List<Food> collectedFood;
 
@@ -29,11 +31,10 @@ public class House {
     }
 
     public void collectFood() {
-        int amountRoom = 2;
         Collections.shuffle(rooms);
         rooms.stream()
                 .filter(Room::hasFood)
-                .limit(amountRoom)
+                .limit(ROOMS_TO_COLLECT)
                 .forEach(room -> {
                     collectedFood.addAll(room.getFoods());
                     log.info("{} собрал еду из комнаты {}", Thread.currentThread().getName(), room.getName());
@@ -42,11 +43,6 @@ public class House {
     }
 
     public boolean allFoodCollected() {
-        for (Room room : rooms) {
-            if (room.hasFood()) {
-                return false;
-            }
-        }
-        return true;
+        return rooms.stream().noneMatch(Room::hasFood);
     }
 }
