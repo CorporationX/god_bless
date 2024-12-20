@@ -11,10 +11,10 @@ public class Main {
         Item sword = new Item("Sword", 1200);
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(character, sack, item -> System.out.printf(String.format("%s %d added to the inventory %n",
-                item.getName(), item.getValue())));
-        manager.addItem(character, sword, item -> System.out.printf(String.format("%s %d added to the inventory %n",
-                item.getName(), item.getValue())));
+        manager.addItem(character, sack, item -> System.out.printf("%s %d added to the inventory %n",
+                item.getName(), item.getValue()));
+        manager.addItem(character, sword, item -> System.out.printf("%s %d added to the inventory %n",
+                item.getName(), item.getValue()));
         manager.updateItem(character, item -> item.getValue() <= UPDATE_VALUE,
                 item -> new Item(item.getName(), item.getValue() / DISCOUNT));
         manager.removeItem(character, item -> item.getValue() <= MIN_VALUE);
