@@ -9,6 +9,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Location {
     private final String name;
-    private final Double latitude ;
-    private final Double longitude ;
+    private final Double latitude;
+    private final Double longitude;
 }
