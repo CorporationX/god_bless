@@ -15,13 +15,18 @@ public class StreamApi1 {
     }
 
     public static int maxListElement(List<Integer> numbers) {
-        int max = numbers.stream().max(Integer::compare).orElseThrow();
+        int max = numbers.stream()
+                .max(Integer::compare)
+                .orElseThrow(() -> new IllegalArgumentException("List is empty, cannot determine the maximum element"));
         log.info("Max element: {}", max);
         return max;
     }
 
     public static Double averageListElement(List<Integer> numbers) {
-        Double average = numbers.stream().mapToInt(Integer::intValue).average().orElse(Double.NaN);
+        Double average = numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new IllegalArgumentException("List is empty, cannot determine the average element"));
         log.info("Average of elements: {}", average);
         return average;
     }
@@ -52,7 +57,10 @@ public class StreamApi1 {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int minNumber) {
-        Integer i = numbers.stream().filter(num -> num > minNumber).min(Integer::compare).orElseThrow();
+        Integer i = numbers.stream()
+                .filter(num -> num > minNumber)
+                .min(Integer::compare)
+                .orElseThrow(() -> new IllegalArgumentException("No element greater than " + minNumber));
         log.info("Minimum number greater than {}: {}", minNumber, i);
         return i;
     }
@@ -63,4 +71,3 @@ public class StreamApi1 {
         return i;
     }
 }
-
