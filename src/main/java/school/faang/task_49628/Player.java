@@ -1,7 +1,9 @@
 package school.faang.task_49628;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public record Player(@NonNull String name) {
     public Player {
         if (name.isBlank()) {
@@ -14,7 +16,7 @@ public record Player(@NonNull String name) {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Thread was interrupted", e);
         }
         boss.leaveBattle(this);
     }

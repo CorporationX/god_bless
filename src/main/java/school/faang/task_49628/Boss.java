@@ -19,26 +19,31 @@ public class Boss {
         }
         this.lock = new Object();
         this.maxPlayers = maxPlayers;
-        this.currentPlayers = new HashSet<>(maxPlayers) {
+        this.currentPlayers = new HashSet<>((int) (maxPlayers / 0.75) + 1) {
         };
     }
 
     public void joinBattle(@NonNull Player player) {
         synchronized (lock) {
-            try {
-                while (currentPlayers.size() >= maxPlayers) {
-                    log.warn("{} ждет свободного слота для сражения с боссом.", player.name());
+            boolean interrupted = false;
+            while (currentPlayers.size() >= maxPlayers && !interrupted) {
+                log.warn("{} ждет свободного слота для сражения с боссом.", player.name());
+                try {
                     lock.wait();
+                } catch (InterruptedException e) {
+                    interrupted = true;
+                    log.error("Thread was interrupted", e);
                 }
+            }
+            if (!interrupted) {
                 currentPlayers.add(player);
                 log.info("{} присоединился к сражению с боссом!", player.name());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
+
         }
     }
 
-    public synchronized void leaveBattle(@NonNull Player player) {
+    public void leaveBattle(@NonNull Player player) {
         synchronized (lock) {
             boolean playerRemoved = currentPlayers.remove(player);
             if (playerRemoved) {
