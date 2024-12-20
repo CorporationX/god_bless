@@ -1,57 +1,45 @@
 package school.faang.task_48857;
 
-import java.util.Arrays;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+@Slf4j
 public class Main {
+    private static final int NUM_THREADS = 10;
+
     public static void main(String[] args) {
         House house = new House("House-1", Arrays.asList(Role.LORD, Role.KNIGHT, Role.MAGE));
+        List<User> users = Arrays.asList(new User("User1"), new User("User2"), new User("User3"));
 
-        User user1 = new User("User1");
-        User user2 = new User("User2");
-        User user3 = new User("User3");
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
-        Thread thread1 = new Thread(() -> {
-            user1.joinHouse(house);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            user1.leaveHouse();
+        users.forEach(user -> {
+            executorService.execute(() -> {
+                user.joinHouse(house);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    log.error(e.getMessage());
+                }
+                user.leaveHouse();
+            });
         });
 
-        Thread thread2 = new Thread(() -> {
-            user2.joinHouse(house);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            user2.leaveHouse();
-        });
-
-        Thread thread3 = new Thread(() -> {
-            user3.joinHouse(house);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            user3.leaveHouse();
-        });
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
+        executorService.shutdown();
 
         try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
+            if (executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+                log.info("All users have completed their actions.");
+            } else {
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            log.error(e.getMessage());
         }
-
-        System.out.println("All users have completed their actions.");
     }
 }
