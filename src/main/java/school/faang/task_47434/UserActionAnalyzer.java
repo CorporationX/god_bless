@@ -69,17 +69,17 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-        Map<String, Long> actionCounts = new HashMap<>();
+    public static Map<ActionType, Double> actionTypePercentages(List<UserAction> actions) {
+        Map<ActionType, Long> actionCounts = new HashMap<>();
         long totalActions = actions.size();
 
         for (UserAction action : actions) {
-            String actionType = action.getActionType().getType();
+            ActionType actionType = action.getActionType();
             actionCounts.put(actionType, actionCounts.getOrDefault(actionType, 0L) + 1);
         }
 
-        Map<String, Double> percentages = new HashMap<>();
-        for (Map.Entry<String, Long> entry : actionCounts.entrySet()) {
+        Map<ActionType, Double> percentages = new HashMap<>();
+        for (Map.Entry<ActionType, Long> entry : actionCounts.entrySet()) {
             double percentage = (entry.getValue() * 100.0) / totalActions;
             percentages.put(entry.getKey(), Math.round(percentage * 10.0) / 10.0);
         }

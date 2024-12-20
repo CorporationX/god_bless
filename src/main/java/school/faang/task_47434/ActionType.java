@@ -14,13 +14,4 @@ public enum ActionType {
     ActionType(String type) {
         this.type = type;
     }
-
-    public static ActionType fromString(String type) {
-        for (ActionType actionType : ActionType.values()) {
-            if (actionType.type.equalsIgnoreCase(type)) {
-                return actionType;
-            }
-        }
-        throw new IllegalArgumentException("Unknown action type: " + type);
-    }
 }
