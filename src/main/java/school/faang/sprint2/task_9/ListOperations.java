@@ -31,8 +31,8 @@ public class ListOperations {
     }
 
     public static List<String> filterFruits(List<String> fruits, String symbol) {
-        return fruits.stream().
-                filter(fruit -> fruit.startsWith(symbol))
+        return fruits.stream()
+                .filter(fruit -> fruit.startsWith(symbol))
                 .sorted(Comparator.comparingInt(String::length))
                 .sorted(Comparator.comparing(String::toLowerCase))
                 .toList();
