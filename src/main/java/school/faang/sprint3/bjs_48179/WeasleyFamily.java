@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
+    private static final int TIME_OUT = 1000;
 
     public void runTasks(List<String> chores) {
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -19,7 +20,7 @@ public class WeasleyFamily {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+            if (!executor.awaitTermination(TIME_OUT, TimeUnit.MILLISECONDS)) {
                 log.error("Thread can't be finished");
             } else {
                 log.info("All tasks completed");
