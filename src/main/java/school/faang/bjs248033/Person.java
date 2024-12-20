@@ -1,13 +1,13 @@
 package school.faang.bjs248033;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.ToString;
 
+@Builder
 @ToString
-@AllArgsConstructor
 public class Person {
-    private String name;
-    private String surname;
-    private int age;
-    private String workspace;
+    private final String name;
+    private final String surname;
+    private final int age;
+    private final String workspace;
 }
