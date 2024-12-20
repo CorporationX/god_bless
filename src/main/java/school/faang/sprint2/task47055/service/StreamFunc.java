@@ -12,17 +12,7 @@ public class StreamFunc {
 
         return friends.keySet().stream()
                 .flatMap(friend1 -> friends.keySet().stream()
-                        .filter(friend2 -> {
-                            if (friend1.equals(friend2)) {
-                                return false;
-                            }
-
-                            if (friends.get(friend1).contains(friend2)) {
-                                return false;
-                            }
-
-                            return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
-                        })
+                        .filter(friend2 -> isFriends(friends, friend1, friend2))
                         .map(result -> Arrays.asList(friend1, result))
                 )
                 .map(list -> list.stream()
@@ -30,6 +20,18 @@ public class StreamFunc {
                         .toList())
                 .distinct()
                 .toList();
+    }
+
+    private static boolean isFriends(Map<String, List<String>> friends, String friend1, String friend2) {
+        {
+            if (friend1.equals(friend2)) {
+                return false;
+            }
+            if (friends.get(friend1).contains(friend2)) {
+                return false;
+            }
+            return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
+        }
     }
 
     public static Map<String, Double> getAverageSale(List<Employee> employees) {
