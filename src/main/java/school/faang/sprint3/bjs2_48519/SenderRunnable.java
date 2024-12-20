@@ -1,4 +1,4 @@
-package school.faang.sprint3.bjs2_48519.microsoft;
+package school.faang.sprint3.bjs2_48519;
 
 import lombok.AllArgsConstructor;
 
