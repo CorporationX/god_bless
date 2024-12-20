@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @ToString
-public class User {
+public class User1 {
     private String name;
     private int age;
     private String job;
@@ -49,10 +49,10 @@ public class User {
             throw new IllegalArgumentException("address is not valid");
         }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> usersByAge = new HashMap<>();
-        for (User user : users) {
-            usersByAge.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
+    public static Map<Integer, List<User1>> groupUsers(List<User1> user1s) {
+        Map<Integer, List<User1>> usersByAge = new HashMap<>();
+        for (User1 user1 : user1s) {
+            usersByAge.computeIfAbsent(user1.age, key -> new ArrayList<>()).add(user1);
         }
         return usersByAge;
     }
