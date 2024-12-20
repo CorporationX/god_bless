@@ -30,6 +30,12 @@ public class Main {
         Image combinedImage = filterProcessor.applyFilter(originalImage, filterCombination2);
         System.out.println(combinedImage.getDescription());
         // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия | Фильтр: виньетка
+
+        Function<Image, Image> filterCombinations = filterProcessor.combineMultipleFilters(sepiaFilter, grayscaleFilter,
+                vignetteFilter);
+        Image combinedImage2 = filterProcessor.applyFilter(originalImage, filterCombinations);
+        System.out.println(combinedImage2.getDescription());
+        // Вывод: Оригинальное изображение | Фильтр: сепия | Фильтр: черно-белый | Фильтр: виньетка
     }
 
 }
