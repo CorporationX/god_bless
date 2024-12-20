@@ -15,9 +15,11 @@ public class UserActionAnalyzer {
     private static final String HASHTAG_SIGN = "#";
 
     public static List<String> getTopActiveUsers(List<UserAction> userActions, int topSize) {
-        return userActions.stream()
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
-                .entrySet()
+
+        Map<String, Long> mapGroupedByAction = userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
+        return mapGroupedByAction.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topSize)
@@ -28,12 +30,13 @@ public class UserActionAnalyzer {
 
     public static List<String> getTopPopularHashtags(List<UserAction> userActions, int topSize) {
 
-        return userActions.stream()
+        Map<String, Long> mapGroupedByTag = userActions.stream()
                 .filter(a -> a.getActionType().equals(ActionType.COMMENT) && !a.getContent().isEmpty())
                 .flatMap(a -> Stream.of(a.getContent().split(WORD_REGEX)))
                 .filter(w -> w.startsWith(HASHTAG_SIGN))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return mapGroupedByTag.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topSize)
                 .map(Map.Entry::getKey)
@@ -41,11 +44,13 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> getTopCommentersLastMonth(List<UserAction> userActions, int topSize) {
-        return userActions.stream()
+
+        Map<String, Long> mapGroupedByAction = userActions.stream()
                 .filter(a -> (a.getActionType().equals(ActionType.COMMENT)
                         && a.getActionDate().isAfter(LocalDate.now().minusDays(365))))
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
+        return mapGroupedByAction.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .limit(topSize)
@@ -54,9 +59,10 @@ public class UserActionAnalyzer {
 
     public static Map<ActionType, Double> actionTypePercentages(List<UserAction> userActions) {
         double userActionsQuantity = userActions.size();
-        return userActions.stream()
-                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
-                .entrySet().stream()
+        Map<ActionType, Long> mapGroupedByAction = userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
+
+        return mapGroupedByAction.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> (entry.getValue() * 100.0 / userActionsQuantity))
