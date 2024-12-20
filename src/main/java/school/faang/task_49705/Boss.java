@@ -18,16 +18,16 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) throws InterruptedException {
         while (currentPlayers >= maxPlayers) {
-            log.info("игрок {} ждет свободного слота для сражения с боссом.", player);
+            log.info("игрок {} ждет свободного слота для сражения с боссом.", player.getName());
             wait();
         }
         currentPlayers++;
-        log.info("игрок {} присоединился к сражению с боссом!", player);
+        log.info("игрок {} присоединился к сражению с боссом!", player.getName());
     }
 
     public synchronized void leaveBattle(Player player) throws InterruptedException {
         currentPlayers--;
-        log.info("игрок {} покинул сражение", player);
+        log.info("игрок {} покинул сражение", player.getName());
         notify();
     }
 }

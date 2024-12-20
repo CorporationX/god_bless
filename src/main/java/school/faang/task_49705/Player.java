@@ -1,12 +1,10 @@
 package school.faang.task_49705;
 
 import lombok.Getter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-@ToString
 public class Player {
 
     private final String name;
