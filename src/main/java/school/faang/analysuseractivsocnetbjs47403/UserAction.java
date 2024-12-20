@@ -51,8 +51,8 @@ public class UserAction {
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action -> action.getActionType().equals("comment") &&
-                        action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action -> action.getActionType().equals("comment")
+                        && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName,
                         Collectors.counting()))
                 .entrySet().stream()
