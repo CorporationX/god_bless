@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
+    private static final int MILLISECONDS_IN_SECOND = 1000;
 
     private int requestCounter;
     private long lastRequestTime;
@@ -19,8 +20,9 @@ public class TelegramBot {
             if (requestCounter > REQUEST_LIMIT) {
                 log.info("Превышено число запросов");
                 try {
-                    wait(1000 - afterTime);
+                    wait(MILLISECONDS_IN_SECOND - afterTime);
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     log.error("Error message", e);
                 }
                 requestCounter = 0;

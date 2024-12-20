@@ -11,9 +11,11 @@ public class Main {
     public static void main(String[] args) {
         TelegramBot bot = new TelegramBot(0, System.currentTimeMillis());
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors
+                .newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
-        executorService.scheduleAtFixedRate(() -> bot.sendMessage("Проверка"), 0, 1, TimeUnit.NANOSECONDS);
+        executorService.scheduleAtFixedRate(() ->
+                bot.sendMessage("Проверка"), 0, 1, TimeUnit.MILLISECONDS);
 
         try {
             TimeUnit.SECONDS.sleep(5);
