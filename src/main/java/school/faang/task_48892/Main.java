@@ -13,13 +13,16 @@ public class Main {
             executor.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded(String.format("Photo_%d.jpg", photoNumber)));
         }
         executor.submit(() -> googlePhotosAutoUploader.startAutoUpload());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executor.shutdown();
         try {
             executor.awaitTermination(1, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(executor.isTerminated());
-        System.out.println(executor.isShutdown());
     }
 }

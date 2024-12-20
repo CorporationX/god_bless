@@ -23,7 +23,8 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            System.out.println(String.format("Загружено фото %s потоком %s. Количество незагруженных фото %d", photoPath, Thread.currentThread().getName(), photosToUpload.size()));
+            System.out.println(String.format("Upload photo %s thread %s. Number of uploaded photo's %d", photoPath,
+                    Thread.currentThread().getName(), photosToUpload.size()));
             lock.notify();
         }
     }
@@ -31,8 +32,8 @@ public class GooglePhotosAutoUploader {
     public void uploadPhotos() {
         synchronized (lock) {
             photosToUpload.stream().forEach((photo) -> System.out.println(String
-                    .format("Загрузка фото %s на сервер потоком %s", photo, Thread.currentThread().getName())));
-            System.out.println("Все фото загружены.");
+                    .format("Photo upload %s on server thread %s", photo, Thread.currentThread().getName())));
+            System.out.println("All photo uploaded.");
             photosToUpload.clear();
         }
     }
