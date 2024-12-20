@@ -1,13 +1,11 @@
 package school.faang.google_foto;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Getter
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
@@ -16,7 +14,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             while (photosToUpload.isEmpty()) {
                 try {
-                    log.info("Waiting for new images");
+                    log.info("Waiting for new photos");
                     lock.wait();
                 } catch (InterruptedException e) {
                     log.error("Thread error {}", e.getMessage());
@@ -34,7 +32,14 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        photosToUpload.forEach(photo -> log.info("Image {} successfully uploaded to server", photo));
+        photosToUpload.forEach(photo -> {
+            log.info("Start uploading photo {}", photo);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                log.error("Uploading interrupted");
+            }
+        });
         photosToUpload.clear();
         log.info("All images uploaded");
     }
