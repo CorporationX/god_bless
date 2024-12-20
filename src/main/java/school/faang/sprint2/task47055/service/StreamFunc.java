@@ -40,25 +40,23 @@ public class StreamFunc {
     }
 
     public static List<String> getAllPalindromes(int from, int to) {
-        List<String> numbers = new ArrayList<>();
-
-        for (int i = from; i <= to; i++) {
-            numbers.add(String.valueOf(i));
-        }
-
-        return numbers.stream()
-                .filter(number -> {
-                    int numberLength = number.length();
-                    for (int i = 0; i < (numberLength / 2) + 1; i++) {
-                        if (number.charAt(i) != number.charAt(numberLength - (i + 1))) {
-                            return false;
-                        }
-                    }
-                    return true;
-                })
+        return IntStream.rangeClosed(from, to)
+                .mapToObj(num -> String.valueOf(num))
+                    .filter(number -> isPalindrome(number))
                 .sorted()
                 .peek(System.out::println)
                 .toList();
+    }
+
+    private static boolean isPalindrome (String numberAsString)
+    {
+            int numberLength = numberAsString.length();
+            for (int i = 0; i < (numberLength / 2) + 1; i++) {
+                if (numberAsString.charAt(i) != numberAsString.charAt(numberLength - (i + 1))) {
+                    return false;
+                }
+            }
+            return true;
     }
 
     public static List<String> getSubstringPalindromes(String string) {
@@ -68,7 +66,6 @@ public class StreamFunc {
             for (int j = i + 1; j < strLength + 1; j++) {
                 strings.add(string.substring(i, j));
             }
-
         }
 
         return strings.stream()
