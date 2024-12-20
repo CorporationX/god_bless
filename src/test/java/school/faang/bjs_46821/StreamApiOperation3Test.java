@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StreamApiOperation3Test {
 
@@ -17,16 +18,10 @@ class StreamApiOperation3Test {
                 "Bob", Arrays.asList("Alice", "David"), "Charlie", Arrays.asList("Alice", "David"),
                 "David", Arrays.asList("Bob", "Charlie"));
 
-        Map<String, String> expected = Map.of("Alice", "David", "Bob", "Charlie");
-        Map<String, String> actual = StreamApiOperation3.noFriendsPair(users);
-
-        actual.forEach((k, v) -> {
-            if (!expected.containsKey(k)) {
-                assertEquals(expected.get(v), k);
-            } else {
-                assertEquals(expected.get(k), v);
-            }
-        });
+        List<List<String>> expected = List.of(List.of("Alice", "David"), List.of("Bob", "Charlie"));
+        List<List<String>> actual = StreamApiOperation3.noFriendsPair(users);
+        assertTrue(expected.containsAll(actual));
+        assertTrue(actual.containsAll(expected));
     }
 
     @Test

@@ -1,48 +1,47 @@
 package school.faang.bjs_46821;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamApiOperation3 {
-    public static Map<String, String> noFriendsPair(Map<String, List<String>> users) {
-        Map<String, String> noFriendsPair = new HashMap<>();
+    public static List<List<String>> noFriendsPair(Map<String, List<String>> users) {
+        Map<String, List<String>> friends = users.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream()
+                        .flatMap(friend -> users.get(friend).stream())
+                        .filter(friendFriends -> !Objects.equals(entry.getKey(), friendFriends))
+                        .filter(friendFriends -> !entry.getValue().contains(friendFriends))
+                        .distinct()
+                        .collect(Collectors.toList())
+                ));
 
-        users.forEach((user, friendList) -> friendList.forEach(friend -> users.get(friend).stream()
-                .filter(f -> !f.equals(user) && !friendList.contains(f) && !noFriendsPair.containsKey(f))
-                .forEach(f -> noFriendsPair.put(user, f))));
 
-        return noFriendsPair;
+        return friends.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream()
+                        .map(value -> Map.entry(entry.getKey(), value))
+                )
+                .map(entry -> Stream.of(entry.getKey(), entry.getValue())
+                        .sorted()
+                        .toList())
+                .distinct()
+                .toList();
     }
 
     public static Map<String, Double> avgSalary(List<Employee> employees) {
-        Map<String, Double> avgSalary = new HashMap<>();
-        Map<String, List<Employee>> employeeByDepartment = new HashMap<>();
 
-        employees.forEach(employee -> {
-            employeeByDepartment.computeIfAbsent(employee.getDepartment(), k -> new ArrayList<>());
-            employeeByDepartment.get(employee.getDepartment()).add(employee);
+        return employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
 
-        });
-
-        employeeByDepartment.forEach((department, employeeList) -> {
-            AtomicReference<Double> sumSalary = new AtomicReference<>((double) 0);
-            employeeList.forEach(employee -> sumSalary.updateAndGet(v -> (v + employee.getSalary())));
-            avgSalary.put(department, sumSalary.get() / employeeByDepartment.get(department).size());
-        });
-        return avgSalary;
     }
 
     public static List<Integer> palindromeNumbers(int start, int end) {
         return IntStream.range(start, end)
-                .filter(StreamApiOperation3::isPalindromeNumber)
+                .filter(Palindrome::isPalindrome)
                 .boxed()
                 .collect(Collectors.toList());
     }
@@ -51,48 +50,26 @@ public class StreamApiOperation3 {
         Set<String> palindromeSubStrings = getAllSubstrings(s);
 
         return palindromeSubStrings.stream()
-                .filter(StreamApiOperation3::isPalindrome)
+                .filter(Palindrome::isPalindrome)
                 .collect(Collectors.toSet());
     }
 
     public static Set<Integer> perfectNumbers(int start, int end) {
         return IntStream.range(start, end)
-                .filter(StreamApiOperation3::isPerfect)
+                .filter(PerfectNumber::isPerfect)
                 .boxed()
                 .collect(Collectors.toSet());
     }
 
-    private static boolean isPalindromeNumber(int number) {
-        String numberString = String.valueOf(number);
-        String reverseString = new StringBuilder(numberString).reverse().toString();
-        return numberString.equals(reverseString);
-    }
 
     private static Set<String> getAllSubstrings(String s) {
-        Set<String> subStrings = new HashSet<>();
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {
-                subStrings.add(s.substring(i, j));
-            }
-        }
-        return subStrings;
-    }
-
-    private static boolean isPalindrome(String s) {
-        String reverseString = new StringBuilder(s).reverse().toString();
-        return s.equals(reverseString);
-    }
-
-    private static boolean isPerfect(int number) {
-        AtomicInteger sum = new AtomicInteger();
-        dividers(number).forEach(sum::addAndGet);
-        return Integer.valueOf(sum.get()).equals(number);
-    }
-
-    private static Set<Integer> dividers(int number) {
-        return IntStream.range(1, number / 2 + 1)
-                .filter(n -> number % n == 0)
+        return IntStream.rangeClosed(0, s.length() - 1)
                 .boxed()
+                .flatMap(i -> IntStream.rangeClosed(i + 1, s.length())
+                        .boxed()
+                        .map(j -> s.substring(i, j)))
                 .collect(Collectors.toSet());
     }
+
+
 }
