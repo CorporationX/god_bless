@@ -16,8 +16,7 @@ public class VideoManager {
         return viewMap.getOrDefault(videoId, 0);
     }
 
-    public synchronized void getAllViews() {
-        System.out.println(viewMap);
+    public Map<String, Integer> getViewMap() {
+        return viewMap;
     }
-
 }

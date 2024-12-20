@@ -34,6 +34,6 @@ public class Main {
         } catch (InterruptedException e) {
             log.error("Поток прерван при ожидании завершения задачи");
         }
-        manager.getAllViews();
+        System.out.println(manager.getViewMap());
     }
 }
