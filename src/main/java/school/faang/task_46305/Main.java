@@ -17,13 +17,8 @@ public class Main {
         System.out.println(withErrorHandling(paramZero, functionCall, exceptionCatch));
     }
 
-    public static class RemoteService {
-        public static String call(String param) throws Exception {
-            throw new Exception("Сервис недоступен");
-        }
-    }
-
-    public static String withErrorHandling(String param, ExceptionCatch<String, String, Exception> functionCall,
+    public static String withErrorHandling(String param,
+                                           ExceptionCatch<String, String, Exception> functionCall,
                                            Function<Exception, String> exceptionCatch) {
         try {
             return functionCall.tryCatch(param);
