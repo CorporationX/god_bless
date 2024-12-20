@@ -13,24 +13,22 @@ import java.util.stream.IntStream;
 
 public class MainApp {
     public static void main(String[] args) {
-        House house = new House();
-        List<Room> rooms = new ArrayList<>();
-
         Room kitchen = new Room();
-        Room livingRoom = new Room();
-        Room bedroom = new Room();
-
         kitchen.addFood(new Food("Apple"));
         kitchen.addFood(new Food("Banana"));
+        Room livingRoom = new Room();
         livingRoom.addFood(new Food("Sandwich"));
         livingRoom.addFood(new Food("Juice"));
+        Room bedroom = new Room();
         bedroom.addFood(new Food("Chocolate"));
         bedroom.addFood(new Food("Cookies"));
 
+        List<Room> rooms = new ArrayList<>();
         rooms.add(kitchen);
         rooms.add(livingRoom);
         rooms.add(bedroom);
 
+        House house = new House();
         System.out.println("Before food collected:");
         System.out.println(rooms);
         Runnable task = (() -> house.collectFood(rooms));

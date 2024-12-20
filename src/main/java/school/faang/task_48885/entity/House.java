@@ -19,8 +19,8 @@ public class House {
     private static final Logger log = LoggerFactory.getLogger(House.class);
 
     public void collectFood(List<Room> rooms) {
-        Room room1;
-        Room room2;
+
+
         lock.lock();
         List<Room> availableRooms = rooms.stream().filter(Room::isAvailable).toList();
         if (availableRooms.size() < 2) {
@@ -28,6 +28,9 @@ public class House {
             lock.unlock();
             return;
         }
+
+        Room room1;
+        Room room2;
         room1 = availableRooms.get(rand.nextInt(availableRooms.size()));
         do {
             room2 = availableRooms.get(rand.nextInt(availableRooms.size()));
