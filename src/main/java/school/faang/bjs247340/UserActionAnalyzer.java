@@ -36,7 +36,8 @@ public class UserActionAnalyzer {
         }
         log.info("top5PopularHashtags: Calculating top 5 popular hashtags.");
         List<String> result = actions.stream()
-                .filter(action -> action.content() != null && (action.actionType().equals("post") || action.actionType().equals("comment")))
+                .filter(action -> action.content() != null && (action.actionType().equals("post")
+                        || action.actionType().equals("comment")))
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -56,7 +57,8 @@ public class UserActionAnalyzer {
         }
         LocalDate threeMonthAgo = LocalDate.now().minusMonths(4);
         List<String> result = actions.stream()
-                .filter(action -> action.content() != null && (action.actionType().equals("comment")) && (action.actionDate().isAfter(threeMonthAgo)))
+                .filter(action -> action.content() != null && (action.actionType().equals("comment"))
+                        && (action.actionDate().isAfter(threeMonthAgo)))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
