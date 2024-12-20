@@ -3,7 +3,6 @@ package school.faang.task_49142;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -13,7 +12,7 @@ public class Users {
     private final Set<User> users;
 
     public Users() {
-        this.users = Collections.synchronizedSet(new HashSet<>());
+        this.users = new HashSet<>();
     }
 
     public synchronized void addUser(@NonNull User user) {
