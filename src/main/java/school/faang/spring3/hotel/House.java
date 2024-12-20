@@ -24,17 +24,17 @@ public class House {
 
     public void collectFood() {
         for (int i = 0; i < 2; i++) { // потому что две комнаты за раз
-            for(Room room : rooms) {
-               // synchronized (room) { // блокируем комнату, но не очень хороший вариант
+            for (Room room : rooms) {
+                // synchronized (room) { // блокируем комнату, но не очень хороший вариант
                 // так как другие потоки будут ждать чтоб проверить эту комнату, сделаю лучше локи
-                if(room.tryLock()) {
+                if (room.tryLock()) {
                     if (!room.isClear()) {
                         getFoodFromRoom(room);
                         break;
                     }
                     room.unlock();
                 }
-               // }
+                // }
             }
         }
     }
