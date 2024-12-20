@@ -1,21 +1,14 @@
 package school.faang.sprint3.task48474theywerenice;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WeasleyFamily {
-    private static List<String> tasks = new ArrayList<String>() {{
-        add("Помыть посуду");
-        add("Подмести пол");
-        add("Приготовить ужин");
-    }};
-
     public static void main(String[] args) {
-        List<Chore> chores = tasks.stream()
-                .map(Chore::new)
-                .toList();
+        String[] tasks = {"помыть посуду", "подмести пол", "приготовить ужин"};
+        List<Chore> chores = Arrays.stream(tasks).map(Chore::new).toList();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
