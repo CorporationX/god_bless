@@ -5,32 +5,24 @@ import java.util.stream.Collectors;
 
 public class Operation {
     public static List<int[]> findPairs(int[] numbers, int target) {
+        Set<Integer> seen = new HashSet<>();
         List<int[]> result = new ArrayList<>();
-        Map<Integer, Integer> seen = new HashMap<>();
 
         for (int num : numbers) {
             int complement = target - num;
-            if (seen.getOrDefault(complement, 0) > 0) {
-                result.add(new int[]{Math.min(complement, num), Math.max(complement, num)});
-                seen.put(complement, seen.get(complement) - 1);
+            if (seen.contains(complement)) {
+                result.add(new int[]{Math.min(num, complement), Math.max(num, complement)});
             }
-            seen.put(num, seen.getOrDefault(num, 0) + 1);
+            seen.add(num);
         }
-        return result.stream()
-                .sorted((a, b) -> {
-                    int firstComparison = Integer.compare(a[0], b[0]);
-                    return firstComparison != 0 ? firstComparison : Integer.compare(a[1], b[1]);
-                })
-                .collect(Collectors.toList());
+        return result;
     }
-
 
     public static List<String> sortCapitals(Map<String, String> countryCapitalMap) {
         return Optional.ofNullable(countryCapitalMap)
-                .map(map -> new ArrayList<>(map.values()))
-                .filter(capitals -> !capitals.isEmpty())
-                .map(capitals -> capitals.stream()
-                        .sorted()
+                .map(map -> map.entrySet().stream()
+                        .sorted(Map.Entry.comparingByKey())
+                        .map(Map.Entry::getValue)
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
     }
@@ -38,7 +30,7 @@ public class Operation {
     public static List<String> filterAndSortStrings(List<String> strings, char startChar) {
         return Optional.ofNullable(strings)
                 .map(list -> list.stream()
-                        .filter(str -> str != null && !str.isEmpty() && str.charAt(0) == startChar)
+                        .filter(str -> str != null && !str.isEmpty() && str.startsWith(String.valueOf(startChar)))
                         .sorted()
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
@@ -54,17 +46,11 @@ public class Operation {
     }
 
     public static List<String> filterByAlphabetAndSort(List<String> strings, String alphabet) {
-        Set<Character> alphabetSet = Optional.ofNullable(alphabet)
-                .map(a -> a.chars()
-                        .mapToObj(c -> (char) c)
-                        .collect(Collectors.toSet()))
-                .orElse(Collections.emptySet());
+        String regex = "^[ " + alphabet + "].*";
 
-        return Optional.ofNullable(strings)
-                .map(list -> list.stream()
-                        .filter(str -> str != null && !str.isEmpty() && alphabetSet.contains(str.charAt(0)))
-                        .sorted()
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        return strings.stream()
+                .filter(s -> s.matches(regex))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
