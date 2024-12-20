@@ -17,14 +17,16 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(num -> num)
                 .max()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() ->
+                        new NoSuchElementException("максимальное значение не было найдено"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(number -> number)
                 .average()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() ->
+                        new NoSuchElementException("среднее значение не было найдено"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char a) {
@@ -56,7 +58,8 @@ public class ListOperations {
                 .filter(number -> number > i)
                 .mapToInt(number -> number)
                 .min()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() ->
+                        new NoSuchElementException("минимально порогового значение не было найдено"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
