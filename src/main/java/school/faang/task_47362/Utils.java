@@ -5,8 +5,7 @@ import java.util.stream.Collectors;
 
 public class Utils {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int x) {
-        Set<Integer> set = new HashSet<>();
-        set.addAll(numbers);
+        Set<Integer> set = new HashSet<>(numbers);
         return numbers.stream()
                 .filter(num -> set.contains(x - num))
                 .map(num -> Arrays.asList(num, x - num))
@@ -28,18 +27,17 @@ public class Utils {
                 .collect(Collectors.toList());
     }
 
-    public List<String> convertToBinary(List<Integer> nums) {
+    public static List<String> convertToBinary(List<Integer> nums) {
         return nums.stream()
-                .map(num -> Integer.toBinaryString(num))
+                .map(Integer::toBinaryString)
                 .collect(Collectors.toList());
     }
 
-    public List<String> filterAndSortByLength(List<String> strings, String alphabet) {
+    public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
         String regex = "[" + alphabet + "]+";
         return strings.stream()
                 .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
-
 }

@@ -1,12 +1,11 @@
 package school.faang.task_47362;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Utils utils = new Utils();
-
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
         System.out.println("Pairs with sum 7: " + Utils.findPairs(numbers, 7));
 
         Map<String, String> countries = Map.of(
@@ -16,13 +15,13 @@ public class Main {
         );
         System.out.println("Sorted capitals: " + Utils.getSortedCapitals(countries));
 
-        List<String> strings = Arrays.asList("apple", "banana", "apricot", "avocado");
+        List<String> strings = List.of("apple", "banana", "apricot", "avocado");
         System.out.println("Filtered and sorted strings: " + Utils.filterAndSort(strings, 'a'));
 
-        List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
-        System.out.println("Binary representation: " + utils.convertToBinary(nums));
+        List<Integer> nums = List.of(1, 2, 3, 4, 5);
+        System.out.println("Binary representation: " + Utils.convertToBinary(nums));
 
-        List<String> stringList = Arrays.asList("apple", "banana", "carrot", "applause", "ball");
-        System.out.println("Filtered and sorted by length: " + utils.filterAndSortByLength(stringList, "abc"));
+        List<String> stringList = List.of("apple", "banana", "carrot", "applause", "ball");
+        System.out.println("Filtered and sorted by length: " + Utils.filterAndSortByLength(stringList, "abc"));
     }
 }
