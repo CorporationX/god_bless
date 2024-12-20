@@ -16,40 +16,48 @@ public class Main {
             house.collectFood();
             if (house.allFoodCollected()) {
                 executorService.shutdown();
-                log.info("All food collected: {}", house.getCollectedFood());
             }
         }, 0, Config.FIXED_THREAD_POOL_DELAY, TimeUnit.SECONDS);
+
+        try {
+            if (executorService.awaitTermination(5, TimeUnit.MINUTES)) {
+                log.info("Food is collected: {} {}", house.getCollectedFood(), house.getCollectedFood().size());
+            } else {
+                executorService.shutdownNow();
+                log.info("Food is not collected");
+            }
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+        }
     }
 
     private static House setUpHouse() {
         House house = new House();
 
-        Room room1 = new Room("Kitchen");
-        Food food1 = new Food("Apple");
-        Food food2 = new Food("Steak");
-        room1.addFood(food1);
-        room1.addFood(food2);
-        house.addRoom(room1);
+        String[] roomNames = {"Kitchen", "Bedroom", "Living", "Dining", "Bathroom",
+                "Study", "Garage", "Attic", "Basement", "Library"};
+        String[][] foods = {
+                {"Apple", "Steak"},
+                {"Milk", "Salad"},
+                {"Cucumber", "Rice"},
+                {"Pizza"},
+                {"Bread", "Butter"},
+                {"Chips", "Soda"},
+                {"Carrot", "Potato"},
+                {"Candy", "Chocolate"},
+                {"Eggs", "Cheese"},
+                {"Fish", "Tomato"}
+        };
 
-        Room room2 = new Room("Bedroom");
-        Food food3 = new Food("Milk");
-        Food food4 = new Food("Salad");
-        room2.addFood(food3);
-        room2.addFood(food4);
-        house.addRoom(room2);
-
-        Room room3 = new Room("Living");
-        Food food5 = new Food("Cucumber");
-        Food food6 = new Food("Rice");
-        room3.addFood(food5);
-        room3.addFood(food6);
-        house.addRoom(room3);
-
-        Room room4 = new Room("Dining");
-        Food food7 = new Food("Pizza");
-        room4.addFood(food7);
-        house.addRoom(room4);
+        for (int i = 0; i < roomNames.length; i++) {
+            Room room = new Room(roomNames[i]);
+            for (String foodName : foods[i]) {
+                room.addFood(new Food(foodName));
+            }
+            house.addRoom(room);
+        }
 
         return house;
     }
+
 }
