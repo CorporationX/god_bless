@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class Chore implements Runnable {
+    private static final int DELAY = 100;
     private String chore;
 
     @Override
@@ -13,7 +14,7 @@ public class Chore implements Runnable {
         String threadName = Thread.currentThread().getName();
         log.info("Thread {} is working with chore: {}", threadName, chore);
         try {
-            Thread.sleep(100);
+            Thread.sleep(DELAY);
             log.info("Thread {} completed task", threadName);
         } catch (InterruptedException exception) {
             log.error(exception.getMessage());
