@@ -32,15 +32,14 @@ public class Main {
 
 
         ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(POOL_SIZE);
-        service.scheduleAtFixedRate(() -> {
+        service.scheduleAtFixedRate(() -> extracted(house, service), 0, 2, TimeUnit.SECONDS);
+    }
 
-            house.collectFood();
-            if (house.allFoodCollected()) {
-                service.shutdown();
-                System.out.println("All food collected");
-            }
-
-        }, 0, 2, TimeUnit.SECONDS);
-
+    private static void extracted(House house, ScheduledThreadPoolExecutor service) {
+        house.collectFood();
+        if (house.allFoodCollected()) {
+            service.shutdown();
+            System.out.println("All food collected");
+        }
     }
 }
