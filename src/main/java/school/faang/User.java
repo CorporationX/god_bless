@@ -11,9 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 @Getter
-@AllArgsConstructor
 @ToString
-public class User1 {
+public class User {
     private String name;
     private int age;
     private String job;
@@ -48,11 +47,12 @@ public class User1 {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("address is not valid");
         }
+    }
 
-    public static Map<Integer, List<User1>> groupUsers(List<User1> user1s) {
-        Map<Integer, List<User1>> usersByAge = new HashMap<>();
-        for (User1 user1 : user1s) {
-            usersByAge.computeIfAbsent(user1.age, key -> new ArrayList<>()).add(user1);
+    public static Map<Integer, List<User>> groupUsers(List< User > user1s) {
+        Map<Integer, List<User>> usersByAge = new HashMap<>();
+        for (User user : user1s) {
+            usersByAge.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
         return usersByAge;
     }
