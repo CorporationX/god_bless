@@ -1,11 +1,13 @@
 package school.faang.task49140;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
+@Getter
 @RequiredArgsConstructor
 public class UserList {
     private final List<User> users;
