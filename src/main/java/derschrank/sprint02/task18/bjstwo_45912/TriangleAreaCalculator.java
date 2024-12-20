@@ -20,12 +20,8 @@ public class TriangleAreaCalculator {
                 getSubtract(semiPerimeter, triangle.b()),
                 getSubtract(semiPerimeter, triangle.c())
         };
-
-        return getSquareRoot(
-                getMuliMultiplyNumbersGetsFromArray(
-                        parametersForCalculatingArea
-                )
-        );
+        double resultOfMultiplications = getMultiMultiplyNumbersGetsFromArray(parametersForCalculatingArea);
+        return getSquareRoot(resultOfMultiplications);
     }
 
     public static void main(String[] args) {
@@ -62,9 +58,9 @@ public class TriangleAreaCalculator {
         return multiply.apply(what).apply(times);
     }
 
-    private double getMuliMultiplyNumbersGetsFromArray(double[] numbersForMultiplay) {
+    private double getMultiMultiplyNumbersGetsFromArray(double[] numbersForMultiplication) {
         double result = 1;
-        for (double number : numbersForMultiplay) {
+        for (double number : numbersForMultiplication) {
             result = getMultiply(result, number);
         }
         return result;
