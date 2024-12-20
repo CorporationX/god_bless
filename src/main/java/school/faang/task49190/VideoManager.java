@@ -9,23 +9,28 @@ import java.util.concurrent.ConcurrentHashMap;
 public class VideoManager {
     private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
-    public synchronized void addView(String videoId) {
-        if (!viewsMap.containsKey(videoId)) {
-            log.info("Было добавлено видео {}", videoId);
-        }
-        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
+    public void addView(String videoId) {
+        viewsMap.compute(videoId, (id, count) -> {
+            if (!viewsMap.containsKey(videoId)) {
+                log.info("Было добавлено видео {}", videoId);
+            }
+            return viewsMap.getOrDefault(videoId, 0) + 1;
+        });
     }
 
-    public synchronized void getViewCount(String video) {
+    public int getViewCount(String video) {
         if (video == null || video.isBlank()) {
             throw new IllegalArgumentException("video can`t be null or blank");
         }
 
         if (!viewsMap.containsKey(video)) {
             log.info("Такого видео не существует");
-            return;
+            return 0;
         }
 
-        log.info("Видео {} набрало {} просмотров", video, viewsMap.get(video));
+        int count = viewsMap.get(video);
+
+        log.info("Видео {} набрало {} просмотров", video, count);
+        return count;
     }
 }

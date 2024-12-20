@@ -26,15 +26,13 @@ public class Main {
         executorService.shutdown();
 
         try {
-            if (executorService.isShutdown()) {
-                if (executorService.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
+            if (executorService.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS)) {
+                log.info("Задача выполнена");
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }
