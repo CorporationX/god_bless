@@ -1,10 +1,12 @@
 package school.faang.task_48886;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
 
     private static final Object LOCK = new Object();
@@ -15,9 +17,11 @@ public class GooglePhotosAutoUploader {
         synchronized (LOCK) {
             if (photosToUpload.isEmpty()) {
                 try {
+                    log.info("Тут пока ничего нет. Ожидаем добавления фотографий");
                     LOCK.wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.error("Автоматическая загрузка прервана с ошибкой: {}", e.getMessage());
+                    Thread.currentThread().interrupt();
                 }
             }
             uploadPhotos(photosToUpload);
@@ -27,14 +31,14 @@ public class GooglePhotosAutoUploader {
     public static void onNewPhotoAdded(String photoPath) {
         synchronized (LOCK) {
             photosToUpload.add(photoPath);
-            System.out.println("Фото добавлено в очередь на скачивание: " + photoPath + ".jpg");
+            log.info("Фото добавлено в очередь на скачивание: {} .jpg", photoPath);
             LOCK.notify();
         }
     }
 
     public static void uploadPhotos(List<String> photosToUpload) {
         for (String photos : photosToUpload) {
-            System.out.println("Загрузка фото в облачный сервис: " + photos + ".jpg");
+            log.info("Загрузка фото в облачный сервис: {} .jpg ", photos);
         }
         photosToUpload.clear();
     }

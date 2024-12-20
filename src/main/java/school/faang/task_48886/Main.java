@@ -5,9 +5,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int TIMEOUT = 20;
+    private static final int NUMBER_OF_THREADS = 2;
+
     public static void main(String[] args) {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
         executorService.submit(GooglePhotosAutoUploader::startAutoUpload);
 
@@ -27,7 +30,7 @@ public class Main {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(20, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 System.out.println("Задачи не завершились за 20 секунд, принудительно останавливаем...");
                 executorService.shutdownNow();
             }
@@ -36,8 +39,3 @@ public class Main {
         }
     }
 }
-
-
-
-
-
