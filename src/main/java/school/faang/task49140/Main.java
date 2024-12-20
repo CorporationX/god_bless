@@ -34,8 +34,7 @@ public class Main {
                 new User("Данил", true, true),
                 new User("Сёмен", true, true),
                 new User("Мария", true, true),
-                new User("Анна", true, true),
-                new User("Юлия", true, true)
+                new User("Анна", true, true)
         )));
     }
 
