@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,8 +21,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
-                .filter(k ->
-                        k.getContent() != null && !k.getActionType().equals("like") && k.getContent().contains("#"))
+                .filter(action -> action.getContent() != null)
+                .filter(action -> !Objects.equals(action.getActionType(), "like"))
+                .filter(action -> action.getContent().contains("#"))
                 .flatMap(k -> Arrays.stream(k.getContent().split("\\\\\\\\\\\\\\s+")))
                 .filter(k -> k.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -36,8 +38,8 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action ->
-                        action.getActionType().equals("comment") && action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action -> Objects.equals(action.getActionType(), "comment"))
+                .filter(action -> action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet()
                 .stream()
