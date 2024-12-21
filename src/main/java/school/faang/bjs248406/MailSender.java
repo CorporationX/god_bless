@@ -1,22 +1,26 @@
 package school.faang.bjs248406;
 
 public class MailSender {
+    private static int startIndex = 1;
+    private static int finishIndex = 200;
+    private static Thread[] threads = new Thread[5];
+
     public static void main(String[] args) {
-        int startIndex = 1;
-        int finishIndex = 200;
-        Thread[] threads = new Thread[5];
+
         try {
-            for (int i = 0; i < 5; i++) {
+            int step = 200;
+            for (int i = 0; i < threads.length; i++) {
                 threads[i] = new Thread(new SenderRunnable(startIndex, finishIndex));
                 threads[i].start();
-                startIndex += 200;
-                finishIndex += 200;
+                startIndex += step;
+                finishIndex += step;
             }
             for (Thread thread : threads) {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Thread was interrupted: " + e.getMessage());
+            e.printStackTrace();
         }
         System.out.println("The all letters is successfully sent");
     }
