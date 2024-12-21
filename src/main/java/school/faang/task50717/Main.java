@@ -38,15 +38,13 @@ public class Main {
             completableFutures.add(tournament.startTask(school, task));
         });
 
-        CompletableFuture<Void> all = CompletableFuture
-                .allOf(completableFutures.toArray(CompletableFuture[]::new));
-
-        all.thenRun(() -> {
-            School school = schools.stream().max((school1, school2) -> Integer.compare(school2.getTotalPoints(),
-                    school1.getTotalPoints())).get();
-            log.info("Школа {} набрала больше всех баллов: {}", school.name(), school.getTotalPoints());
-        });
-
-        all.join();
+        CompletableFuture
+                .allOf(completableFutures.toArray(CompletableFuture[]::new))
+                .thenRun(() -> {
+                    School school = schools.stream().max((school1, school2) -> Integer.compare(school2.getTotalPoints(),
+                            school1.getTotalPoints())).get();
+                    log.info("Школа {} набрала больше всех баллов: {}", school.name(), school.getTotalPoints());
+                })
+                .join();
     }
 }
