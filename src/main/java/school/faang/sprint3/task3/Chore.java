@@ -7,13 +7,15 @@ public class Chore implements Runnable {
 
     private String chore;
 
+    private static final int THREAD_TIME = 100;
+
     public void run() {
 
         System.out.println(Thread.currentThread().getName() + " is doing " + chore);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(THREAD_TIME);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.fillInStackTrace();
         }
 
     }
