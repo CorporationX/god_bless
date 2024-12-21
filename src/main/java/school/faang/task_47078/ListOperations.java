@@ -3,9 +3,7 @@ package school.faang.task_47078;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
-import java.util.logging.XMLFormatter;
 import java.util.stream.Collectors;
 
 
@@ -26,15 +24,17 @@ public class ListOperations {
                 .orElse(0);
     }
 
-    public static String countStringsStartingWith(List<String> strings, Character prefix) {
+    public static long countStringsStartingWith(List<String> strings, Character prefix) {
         return strings.stream()
                 .filter(x -> x.startsWith(
                         String.valueOf(prefix)))
-                .count() + "";
+                .count();
     }
 
-    public static String filterStringsContainingSubstring(List<String> strings, String w) {
-        return strings.stream().filter(x -> x.contains(w)).count() + "";
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String word) {
+        return strings.stream()
+            .filter(x -> x.contains(word))
+            .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
