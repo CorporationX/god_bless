@@ -12,12 +12,12 @@ public class Main {
         mapBooks.put(new Book("Black Books", "Andre", 13), "eighth");
         mapBooks.put(new Book("Home Books", "Forka", 11), "free");
         mapBooks.put(new Book("room Books", "Alex", 117), "free");
-        mapBooks.put(new Book("dom Books", "Gnida", 113), "for");
-        mapBooks.put(new Book("suk Books", "Pidr", 23), "sex");
+        mapBooks.put(new Book("dom Books", "Rebeka", 113), "for");
+        mapBooks.put(new Book("robo Books", "Piter", 23), "woon");
 
-        LibrarySystem.addBook("fack books", "Pidr",18, "free",mapBooks);
+        LibrarySystem.addBook("robo Books", "Piter",23, "woon",mapBooks);
         LibrarySystem.removeBook("dark Books", "I", 13, mapBooks);
-        LibrarySystem.findBook("dom Books", "Gnida", 113,mapBooks);
+        LibrarySystem.findBook("dom Books", "Rebeka", 113,mapBooks);
         LibrarySystem.AllBooks(mapBooks);
     }
 }
