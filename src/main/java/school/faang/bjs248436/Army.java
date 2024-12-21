@@ -15,10 +15,12 @@ public class Army {
         int result = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> powerCalculators = new ArrayList<>();
+        PowerCalculator powerCalculator;
+        Thread thread;
         for (Fighter fighter : fighters) {
-            PowerCalculator powerCalculator = new PowerCalculator(fighter);
+            powerCalculator = new PowerCalculator(fighter);
             powerCalculators.add(powerCalculator);
-            Thread thread = new Thread(powerCalculator);
+            thread = new Thread(powerCalculator);
             threads.add(thread);
             thread.start();
         }
