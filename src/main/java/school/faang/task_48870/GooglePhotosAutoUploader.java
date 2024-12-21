@@ -45,7 +45,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Уведомляем лок...");
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
