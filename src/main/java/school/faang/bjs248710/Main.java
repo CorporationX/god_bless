@@ -22,16 +22,25 @@ public class Main {
     private static final int MAX_ROOMS = 10;
     private static final int POOL_SIZE = 5;
     private static final int PERIOD = 30;
+    private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
     private static final Consumer<ScheduledExecutorService> CALLBACK = (executorService) -> {
         executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(PERIOD, TIME_UNIT)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
         System.out.println("Еда в доме собрана!");
     };
+
 
     public static void main(String[] args) {
         House house = new House(generateRooms(), CALLBACK);
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(POOL_SIZE);
-        executorService.scheduleAtFixedRate(() -> house.collectFood(executorService), 0, PERIOD, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(() -> house.collectFood(executorService), 0, PERIOD, TIME_UNIT);
     }
 
     private static List<Food> generateFoods() {

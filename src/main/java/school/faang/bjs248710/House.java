@@ -2,6 +2,7 @@ package school.faang.bjs248710;
 
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.function.Consumer;
 
 @Getter
 @ToString
+@Slf4j
 public class House {
     private static final int STREAM_SIZE = 2;
     private final List<Room> rooms = new ArrayList<>();
@@ -40,7 +42,13 @@ public class House {
     }
 
     public void printFoodsSizes() {
-        System.out.printf("global foods = %s, foods in rooms = %s\n", foods.size(),
-                rooms.stream().map(room -> room.getFoods().size()).reduce(0, Integer::sum));
+        log.info("global foods = {}, foods in rooms = {}", foods.size(),
+                calculateFoodsInRooms());
+    }
+
+    private Integer calculateFoodsInRooms() {
+        return rooms.stream()
+                .map(room -> room.getFoods().size())
+                .reduce(0, Integer::sum);
     }
 }

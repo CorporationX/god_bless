@@ -2,16 +2,15 @@ package school.faang.bjs248710;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @ToString
+@Slf4j
 public class Room {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Room.class);
     private final List<Food> foods = new ArrayList<>();
 
     public Room(List<Food> foods) {
@@ -21,7 +20,7 @@ public class Room {
     public List<Food> collectFoods() {
         List<Food> copy = new ArrayList<>(foods);
         foods.clear();
-        LOGGER.info("Food collected = {}", copy);
+        log.info("Food collected = {}", copy);
         return copy;
     }
 }
