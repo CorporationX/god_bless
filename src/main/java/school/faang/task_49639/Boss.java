@@ -7,11 +7,12 @@ import java.util.List;
 
 public class Boss {
     private int maxPlayers;
-    private List<Player> currentBattleGroup = new ArrayList<>(maxPlayers);
+    private List<Player> currentBattleGroup;
 
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+        currentBattleGroup = new ArrayList<>(maxPlayers);
     }
 
     public synchronized void joinBattle(Player player) {
@@ -24,6 +25,7 @@ public class Boss {
                 wait();
             } catch (InterruptedException e) {
                 System.out.println("sdfsf" + e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -31,6 +33,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentBattleGroup.remove(player);
         System.out.println("игрок" + player.name + " покинул битву");
-        notify();
+        notifyAll();
     }
 }
