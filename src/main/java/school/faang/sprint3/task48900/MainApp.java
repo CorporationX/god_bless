@@ -9,9 +9,7 @@ public class MainApp {
     private static final int READ_SLEEP_TIME_MSEC = 500;
 
     public static void main(String[] args) {
-
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
-
         Runnable photoReader = new PhotoReader(uploader, MAX_PHOTOS, READ_SLEEP_TIME_MSEC);
         Runnable photoUploader = new PhotoUploader(uploader);
 
@@ -19,11 +17,13 @@ public class MainApp {
         executor.schedule(photoReader, 0, TimeUnit.SECONDS);
         executor.scheduleAtFixedRate(photoUploader, 2, 5, TimeUnit.SECONDS);
 
-        try {
-            Thread.sleep(READ_SLEEP_TIME_MSEC * MAX_PHOTOS + 5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(READ_SLEEP_TIME_MSEC * MAX_PHOTOS + 5000, TimeUnit.MILLISECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 }
