@@ -29,7 +29,9 @@ public class Main {
                 broForce.update(Action.PLAYER_WAS_ATTACKED, player, 5);
             });
         }
+
         executor.shutdown();
+
         if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
             System.out.println("Mission complete");
         } else {

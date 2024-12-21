@@ -12,6 +12,7 @@ public class Player {
     public void losingHp() {
         hp--;
     }
+
     @Override
     public String toString() {
         return name;
