@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +27,7 @@ class ListOperationsTest {
                 "David", List.of("Bob", "Charlie")
         );
 
-        assertEquals(List.of(List.of("Bob", "Charlie"), List.of("Alice", "David")),
+        assertEquals(Set.of(List.of("Bob", "Charlie"), List.of("Alice", "David")),
                 ListOperations.findMutualFriends(friends));
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findMutualFriends(null));
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findMutualFriends(Map.of()));

@@ -3,6 +3,7 @@ package school.faang.task_46892;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 public class ListOperations {
     private static final String ERROR_MESSAGE = "Input parameters can't be null or empty!";
 
-    public static List<List<String>> findMutualFriends(Map<String, List<String>> friends) {
+    public static Set<List<String>> findMutualFriends(Map<String, List<String>> friends) {
         if (friends == null || friends.isEmpty()) {
             throw new IllegalArgumentException(ERROR_MESSAGE);
         }
@@ -23,8 +24,7 @@ public class ListOperations {
                         .map(innerEntry ->
                                 Stream.of(entry.getKey(), innerEntry.getKey()).sorted(String::compareTo).toList())
                 )
-                .distinct()
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     public static Map<String, Double> findAverageSalary(List<Employee> employees) {
