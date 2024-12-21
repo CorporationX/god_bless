@@ -11,17 +11,17 @@ import java.util.concurrent.ExecutorService;
 @AllArgsConstructor
 public class Tournament {
     private static final Random RANDOM = new Random();
-    private final int EASY_TIME = 2999;
-    private final int HARD_TIME = 6999;
+    private final int easyTime = 2999;
+    private final int hardTime = 6999;
 
     public CompletableFuture<School> startTask(School school, Task task, ExecutorService executorService) {
         int baseChanceEasyLevel = RANDOM.nextInt(50, 101);
         int baseChanceHardLevel = 20;
 
         return switch (task.getDifficulty()) {
-          case 0, 1, 2 -> makingSomeTasks(school, task, baseChanceEasyLevel, EASY_TIME)
+          case 0, 1, 2 -> makingSomeTasks(school, task, baseChanceEasyLevel, easyTime)
                     .thenApplyAsync(s -> s, executorService);
-          case 3, 4, 5 -> makingSomeTasks(school, task, baseChanceHardLevel, HARD_TIME)
+          case 3, 4, 5 -> makingSomeTasks(school, task, baseChanceHardLevel, hardTime)
                     .thenApplyAsync(s -> s, executorService);
           default -> throw new IllegalArgumentException("Something went wrong!");
         };
