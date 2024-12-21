@@ -20,7 +20,7 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("Skip");
+            System.out.println("Skipp");
         }
     }
 
