@@ -15,8 +15,6 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        int totalPower = 0;
-
         int totalCount = army.size();
         int threadsCount = 3;
         int batchSize = totalCount / threadsCount;
@@ -43,6 +41,8 @@ public class Army {
                 throw new RuntimeException(e);
             }
         });
+
+        int totalPower = 0;
 
         for (ArmyCounterThread counterThread : counterThreads) {
             totalPower += counterThread.getSumPower();
