@@ -20,6 +20,12 @@ public class Food {
 	}
 
 	@Override
+	public String toString() {
+		return "Food{" +"id=" + id
+				+", name='" + name + '\'' +'}';
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

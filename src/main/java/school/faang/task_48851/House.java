@@ -3,12 +3,8 @@ package school.faang.task_48851;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
+
 
 @Getter
 @Setter
@@ -16,6 +12,7 @@ public class House {
 
   public static int SELECT_COUNT_ROOM = 2;
 
+  public static Map<String,Integer> leftoverFoodRoom = new HashMap<>();
   private List<Room> rooms;
   private String houseName;
   private int roomsNumber;
@@ -35,15 +32,6 @@ public class House {
     this.rooms = rooms;
   }
 
-  /*
-  В классе House реализуйте метод collectFood(), который будет:
-
-  Собирать еду из двух случайно выбранных комнат.
-
-  Удалить собранную еду из списков еды этих комнат.
-
-  Добавить собранную еду в общий список собранной еды.
-   */
 
   public void collectFood(List<Food> foodList, House house) {
     List<Food> newFoodList = new ArrayList<>();
@@ -54,9 +42,11 @@ public class House {
       try {
         int random = getRandomRooms(newRooms);
 
-        Food tempfood = house.getRooms().get(random).getListFood().get(0);
-        house.getRooms().get(random).delFood(tempfood);
-        foodList.add(tempfood);
+          Food tempfood = house.getRooms().get(random).getListFood().get(0);
+          house.getRooms().get(random).delFood(tempfood);
+          foodList.add(tempfood);
+          System.out.println("Добавили " + tempfood.toString());
+
 
       } finally {
 
