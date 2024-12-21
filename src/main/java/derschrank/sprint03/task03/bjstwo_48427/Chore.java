@@ -40,8 +40,10 @@ public class Chore implements Runnable {
 
     private void doSomething() {
         final long defaultDelay = 2000L;
+        final long multiplyForDelay = numberOfThread % 10 + 1;
+
         try {
-            Thread.sleep((numberOfThread % 10 + 1) * defaultDelay);
+            Thread.sleep(multiplyForDelay * defaultDelay);
         } catch (InterruptedException e) {
             System.out.println("Error during the SLEEP in Task: " + chore + "\n" + e);
         }
