@@ -52,7 +52,9 @@ public class Game {
                   System.out.println(player + " died. AlivePlayers = " + alivePlayers);
               }
           }
-          default -> { }
+          default -> {
+              System.out.println();
+          }
         }
     }
 
