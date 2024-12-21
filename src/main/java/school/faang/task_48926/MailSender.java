@@ -3,11 +3,16 @@ package school.faang.task_48926;
 public class MailSender {
     public static void main(String[] args) {
 
-        Thread thread1 = new Thread(new SenderRunnable(0, 199));
-        Thread thread2 = new Thread(new SenderRunnable(200, 399));
-        Thread thread3 = new Thread(new SenderRunnable(400, 599));
-        Thread thread4 = new Thread(new SenderRunnable(600, 799));
-        Thread thread5 = new Thread(new SenderRunnable(800, 999));
+        Thread thread1 = new Thread(new
+                SenderRunnable(0, 199));
+        Thread thread2 = new Thread(new
+                SenderRunnable(200, 399));
+        Thread thread3 = new Thread(new
+                SenderRunnable(400, 599));
+        Thread thread4 = new Thread(new
+                SenderRunnable(600, 799));
+        Thread thread5 = new Thread(new
+                SenderRunnable(800, 999));
 
         thread1.start();
         thread2.start();
