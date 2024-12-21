@@ -6,8 +6,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.*;
 
 public class ListOperations {
+    private final List<Integer> integerList;
 
-    public static List<Pair<Integer, Integer>> findUniquePairs(List<Integer> integerList, int targetNumber) {
+    public ListOperations(List<Integer> integerList) {
+        this.integerList = integerList;
+    }
+
+
+    public List<Pair<Integer, Integer>> findUniquePairs(int targetNumber) {
         Set<Integer> integerSet = new HashSet<>();
         return integerList.stream()
                 .filter(num -> {
@@ -23,29 +29,28 @@ public class ListOperations {
                 .toList();
     }
 
-    public static List<String> findSortedCapitals(Map<String, String> countriesWithCapitals) {
+    public List<String> findSortedCapitals(Map<String, String> countriesWithCapitals) {
         return countriesWithCapitals
-                .entrySet()
-                .stream()
+                .entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public static List<String> findSortedStringsStartsWith(List<String> givenStrings, String startString) {
+    public List<String> findSortedStringsStartsWith(List<String> givenStrings, String startString) {
         return givenStrings.stream()
                 .filter(strings -> strings.startsWith(startString))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
-    public static List<String> findBinaryListFromIntegers(List<Integer> integers) {
+    public List<String> findBinaryListFromIntegers(List<Integer> integers) {
         return integers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List<String> filterAllMatchingAsc(List<String> givenStrings, String alphabet) {
+    public List<String> filterAllMatchingAsc(List<String> givenStrings, String alphabet) {
         return givenStrings.stream()
                 .filter(string -> string.chars()
                         .allMatch(c -> alphabet.indexOf(c) >= 0))
