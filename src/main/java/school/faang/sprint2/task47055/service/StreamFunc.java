@@ -26,7 +26,7 @@ public class StreamFunc {
         {
             if (friend1.equals(friend2) || friends.get(friend1).contains(friend2)) {
                 return false;
-            }else {
+            } else {
                 return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
             }
         }
@@ -42,21 +42,20 @@ public class StreamFunc {
     public static List<String> getAllPalindromes(int from, int to) {
         return IntStream.rangeClosed(from, to)
                 .mapToObj(String::valueOf)
-                    .filter(StreamFunc::isPalindrome)
+                .filter(StreamFunc::isPalindrome)
                 .sorted()
                 .peek(System.out::println)
                 .toList();
     }
 
-    private static boolean isPalindrome (String numberAsString)
-    {
-            int numberLength = numberAsString.length();
-            for (int i = 0; i < (numberLength / 2) + 1; i++) {
-                if (numberAsString.charAt(i) != numberAsString.charAt(numberLength - (i + 1))) {
-                    return false;
-                }
+    private static boolean isPalindrome(String numberAsString) {
+        int numberLength = numberAsString.length();
+        for (int i = 0; i < (numberLength / 2) + 1; i++) {
+            if (numberAsString.charAt(i) != numberAsString.charAt(numberLength - (i + 1))) {
+                return false;
             }
-            return true;
+        }
+        return true;
     }
 
     public static List<String> getSubstringPalindromes(String string) {
@@ -84,8 +83,7 @@ public class StreamFunc {
                 .toList();
     }
 
-    private static boolean isDivided(int i, int j)
-    {
+    private static boolean isDivided(int i, int j) {
         return i % j == 0;
     }
 }
