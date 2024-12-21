@@ -6,7 +6,7 @@ import lombok.ToString;
 @ToString
 @Setter
 public class Chore implements Runnable {
-    final int TIME_SLEEP = 3000;
+    static final int TIME_SLEEP = 3000;
     private String name;
 
     public Chore(String name) {
