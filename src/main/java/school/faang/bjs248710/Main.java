@@ -29,7 +29,6 @@ public class Main {
 
     public static void main(String[] args) {
         House house = new House(generateRooms(), CALLBACK);
-        house.printFoodsSizes();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(POOL_SIZE);
         executorService.scheduleAtFixedRate(() -> house.collectFood(executorService), 0, PERIOD, TimeUnit.MILLISECONDS);

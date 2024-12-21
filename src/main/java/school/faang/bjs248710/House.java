@@ -20,6 +20,7 @@ public class House {
     public House(List<Room> rooms, Consumer<ScheduledExecutorService> callback) {
         this.callback = callback;
         this.rooms.addAll(rooms);
+        printFoodsSizes();
     }
 
     public void collectFood(ScheduledExecutorService executor) {
