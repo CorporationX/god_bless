@@ -4,55 +4,27 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.IntStream;
 
 @Getter
 public class Room {
-    private final List<Food> foods;
     private final int number;
-    private final ReentrantLock lock;
+    private final List<Food> foodList = new ArrayList<>();
 
     public Room(int number) {
-        this.foods = new ArrayList<>();
         this.number = number;
-        this.lock = new ReentrantLock();
-        createList();
     }
 
-    public void createList() {
-        IntStream.range(0, 5)
-                .mapToObj(i -> new Food("food " + i))
-                .forEach(foods::add);
+    public boolean hasFood() {
+        return !foodList.isEmpty();
     }
 
-    public List<Food> collectFood() {
-        lock.lock();
-        try {
-            List<Food> list = new ArrayList<>(foods);
-            foods.clear();
-            return list;
-        } finally {
-            lock.unlock();
-        }
+    public List<Food> collectAllFood() {
+        List<Food> collected = new ArrayList<>(foodList);
+        foodList.clear();
+        return collected;
     }
 
-    public boolean isClear() {
-        lock.lock();
-        try {
-            return foods.isEmpty();
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public boolean tryLock() {
-        return lock.tryLock();
-    }
-
-    public void unlock() {
-        if (lock.isHeldByCurrentThread()) {
-            lock.unlock();
-        }
+    public void addFood(Food food) {
+        foodList.add(food);
     }
 }
