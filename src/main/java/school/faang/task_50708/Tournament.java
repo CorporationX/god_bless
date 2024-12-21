@@ -19,11 +19,9 @@ public class Tournament {
         int baseChanceHardLevel = 20;
 
         return switch (task.getDifficulty()) {
-          case 0, 1, 2 -> makingSomeTasks(school, task, baseChanceEasyLevel, easyTime)
-                    .thenApplyAsync(s -> s, executorService);
-          case 3, 4, 5 -> makingSomeTasks(school, task, baseChanceHardLevel, hardTime)
-                    .thenApplyAsync(s -> s, executorService);
-          default -> throw new IllegalArgumentException("Something went wrong!");
+            case 0, 1, 2 -> makingSomeTasks(school, task, baseChanceEasyLevel, easyTime);
+            case 3, 4, 5 -> makingSomeTasks(school, task, baseChanceHardLevel, hardTime);
+            default -> throw new IllegalArgumentException("Something went wrong!");
         };
     }
 
