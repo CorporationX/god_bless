@@ -1,19 +1,19 @@
 package school.faang.task_48314;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 @Slf4j
 public class House {
     private final List<Room> rooms;
 
-    private boolean allRoomsCleared;
+    @Getter
+    private volatile boolean allRoomsCleared;
 
     public House() {
         this.rooms = new ArrayList<>();
@@ -31,23 +31,18 @@ public class House {
                 removedFood.forEach(food -> log.info(food.toString()));
             };
 
-            Stream.of(
-                    getRandomRoomWithFood(), getRandomRoomWithFood()
-            ).forEach(optionalRoom ->
-                    optionalRoom.ifPresentOrElse(foodCollector, () -> this.allRoomsCleared = true));
+            List<Room> roomsWithFood = getTwoRoomsWithFood();
+
+            roomsWithFood.forEach(foodCollector);
+            allRoomsCleared = roomsWithFood.isEmpty();
         }
     }
 
-    private Optional<Room> getRandomRoomWithFood() {
+    private List<Room> getTwoRoomsWithFood() {
         return rooms.stream()
                 .filter(Room::hasFood)
-                .findAny();
-    }
-
-    public boolean isAllRoomsCleared() {
-        synchronized (rooms) {
-            return allRoomsCleared;
-        }
+                .limit(2)
+                .toList();
     }
 
 }

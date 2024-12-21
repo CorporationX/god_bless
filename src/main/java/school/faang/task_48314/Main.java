@@ -1,14 +1,21 @@
 package school.faang.task_48314;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     private static final int CORE_POOL_SIZE = 5;
 
-    private static final int ROOMS_COUNT = 10;
-    private static final int MAX_FOOD_COUNT = 5;
+    private static final int ROOM_COUNT = 10;
+    private static final int FOOD_COUNT_PER_ROOM = 5;
+
+    private static final int INITIAL_DELAY = 0;
+    private static final int PERIOD = 1;
+    private static final TimeUnit UNIT_OF_TIME = TimeUnit.SECONDS;
 
     private static final House house = new House();
 
@@ -17,23 +24,28 @@ public class Main {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
 
-        final int initialDelay = 0;
-        final int period = 2;
         executor.scheduleAtFixedRate(() -> {
-            if (!house.isAllRoomsCleared()) {
-                house.collectFood();
-            } else {
+            if (house.isAllRoomsCleared()) {
                 executor.shutdown();
+            } else {
+                house.collectFood();
             }
-        }, initialDelay, period, TimeUnit.SECONDS);
+        }, INITIAL_DELAY, PERIOD, UNIT_OF_TIME);
+
+        try {
+            if (executor.awaitTermination(10, UNIT_OF_TIME)) {
+                log.info("Task completed successfully.");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private static void initData() {
-        for (int i = 0; i < ROOMS_COUNT; i++) {
+        for (int i = 0; i < ROOM_COUNT; i++) {
             Room room = new Room();
 
-            int endIndex = (int) (Math.random() * (MAX_FOOD_COUNT + 1));
-            for (int j = 0; j < endIndex; j++) {
+            for (int j = 0; j < FOOD_COUNT_PER_ROOM; j++) {
                 room.addFood(getRandomFood());
             }
 
