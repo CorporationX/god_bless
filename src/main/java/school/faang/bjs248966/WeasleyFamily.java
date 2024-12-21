@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class WeasleyFamily {
 
+    public static final int TIME_COMPLETION_WORK = 5;
     private List<String> chores;
 
     public void startChores() {
@@ -25,15 +26,12 @@ public class WeasleyFamily {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TIME_COMPLETION_WORK, TimeUnit.MINUTES)) {
                 System.out.println("Задачи не завершились за 5 минут, принудительно останавливаем...");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-
     }
-
-
 }
