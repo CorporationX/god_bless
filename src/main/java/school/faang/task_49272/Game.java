@@ -9,8 +9,8 @@ public class Game {
 
 
     public synchronized boolean update(boolean earnedPoint, boolean isDed) {
-        synchronized (scoreLock) {
-            if (earnedPoint) {
+        if (earnedPoint) {
+            synchronized (scoreLock) {
                 score++;
                 System.out.println("Очки заработаны и добавлены в общий счет: " + score);
             }
