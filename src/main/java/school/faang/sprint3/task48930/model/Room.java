@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Room {
     private final String name;
     private List<Food> foodList;
-    ReentrantLock lock;
+    private ReentrantLock lock;
 
     public Room(String name, List<Food> foodList) {
         this.name = name;
@@ -28,7 +28,7 @@ public class Room {
         lock.unlock();
     }
 
-    public boolean isEmpty() {
+    public boolean isRoomEmpty() {
         return foodList.isEmpty();
     }
 

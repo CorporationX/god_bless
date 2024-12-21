@@ -20,9 +20,8 @@ public class House {
     @Getter
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
-    //private volatile boolean isEmpty;
     @Getter
-    private volatile AtomicBoolean isEmpty = new AtomicBoolean(false);
+    private AtomicBoolean isHouseEmpty = new AtomicBoolean(false);
 
     public static void main(String[] args) {
         House house = fillHouse();
@@ -40,7 +39,7 @@ public class House {
             executor.scheduleWithFixedDelay(officiant, INIT_TIME_DELAY_SEC, TIME_DELAY_SEC, TimeUnit.SECONDS);
         }
 
-        while (!this.isEmpty.get()) {
+        while (!this.isHouseEmpty.get()) {
             try {
                 Thread.sleep(TIME_DELAY_SEC * 1000);
             } catch (InterruptedException e) {
@@ -69,17 +68,17 @@ public class House {
 
     public void refreshIsEmpty() {
         for (Room room : rooms) {
-            if (!room.isEmpty()) {
-                this.isEmpty.set(false);
+            if (!room.isRoomEmpty()) {
+                isHouseEmpty.set(false);
                 return;
             }
-            this.isEmpty.set(true);
+            isHouseEmpty.set(true);
         }
     }
 
     private void collectFoodInRoom(String collectorName, Room room) {
         room.lock();
-        if (!room.isEmpty()) {
+        if (!room.isRoomEmpty()) {
             List<Food> roomFood = room.getFoodList();
             this.addFood(roomFood);
             int foodQty = roomFood.size();
