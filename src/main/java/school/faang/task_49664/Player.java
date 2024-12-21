@@ -2,16 +2,17 @@ package school.faang.task_49664;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 @Getter
 @RequiredArgsConstructor
 public class Player {
     private final String name;
 
-    public void startBattle(Boss boss) throws InterruptedException {
+    @SneakyThrows
+    public void startBattle(Boss boss) {
         boss.joinBattle(this);
-        System.out.println(name + " сражается с боссом...");
-        Thread.sleep(2000);
+        Thread.sleep(2000); // Имитация сражения
         boss.leaveBattle(this);
     }
 }
