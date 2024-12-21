@@ -11,6 +11,7 @@ public class SenderRunnableTest {
         int finishIndex = 200;
         int step = 200;
         Thread[] threads = new Thread[5];
+
         try {
             for (int i = 0; i < threads.length; i++) {
                 threads[i] = new Thread(new SenderRunnable(startIndex, finishIndex));

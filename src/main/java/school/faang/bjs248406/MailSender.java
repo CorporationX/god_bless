@@ -6,7 +6,6 @@ public class MailSender {
     private static Thread[] threads = new Thread[5];
 
     public static void main(String[] args) {
-
         try {
             int step = 200;
             for (int i = 0; i < threads.length; i++) {
