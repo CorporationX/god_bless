@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private final List<Warrior> warriors = new ArrayList<>();
+    private final List<Unit> warriors = new ArrayList<>();
 
-    public void addWarrior(Warrior warrior) {
+    public void addWarrior(Unit warrior) {
         warriors.add(warrior);
     }
 
     public int calculateTotalPower() {
         int totalPower = 0;
-        for (Warrior warrior : warriors) {
-            WarriorThread thread = new WarriorThread(warrior);
+        WarriorThread thread;
+        for (Unit unit : warriors) {
+            thread = new WarriorThread(unit);
             thread.start();
-            totalPower += warrior.getPower();
+            totalPower += unit.getPower();
             try {
                 thread.join();
             } catch (InterruptedException e) {

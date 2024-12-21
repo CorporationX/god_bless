@@ -8,6 +8,6 @@ public class Main {
         army.addWarrior(new Mage(50));
         army.addWarrior(new Mage(20));
 
-        System.out.printf("Общая сила армии: { %d }", army.calculateTotalPower());
+        System.out.printf("Общая сила армии: << %d >>", army.calculateTotalPower());
     }
 }
