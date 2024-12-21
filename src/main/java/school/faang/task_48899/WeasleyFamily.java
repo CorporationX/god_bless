@@ -11,9 +11,7 @@ public class WeasleyFamily {
         ExecutorService executor = Executors.newCachedThreadPool();
 
         for (String name : choreNames) {
-            Chore chore = new Chore(name);
-
-            executor.execute(chore);
+            executor.execute(new Chore(name));
         }
 
         executor.shutdown();
