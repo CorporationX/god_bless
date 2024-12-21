@@ -72,11 +72,11 @@ public class Main {
     }
 
     private static List<School> getSchools() {
-        School school1 = createSchool("School 1", MAX_STUDENTS_PER_SCHOOL-1);
-        School school2 = createSchool("School 2", MAX_STUDENTS_PER_SCHOOL-2);
-        School school3 = createSchool("School 3", MAX_STUDENTS_PER_SCHOOL-3);
-        School school4 = createSchool("School 4", MAX_STUDENTS_PER_SCHOOL-4);
-        School school5 = createSchool("School 5", MAX_STUDENTS_PER_SCHOOL-5);
+        School school1 = createSchool("School 1", MAX_STUDENTS_PER_SCHOOL);
+        School school2 = createSchool("School 2", MAX_STUDENTS_PER_SCHOOL);
+        School school3 = createSchool("School 3", MAX_STUDENTS_PER_SCHOOL);
+        School school4 = createSchool("School 4", MAX_STUDENTS_PER_SCHOOL);
+        School school5 = createSchool("School 5", MAX_STUDENTS_PER_SCHOOL);
 
         List<School> schools = new ArrayList<>();
         schools.add(school1);
