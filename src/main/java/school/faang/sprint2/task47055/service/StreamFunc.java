@@ -23,11 +23,12 @@ public class StreamFunc {
     }
 
     private static boolean isFriends(Map<String, List<String>> friends, String friend1, String friend2) {
-            if (friend1.equals(friend2) || friends.get(friend1).contains(friend2)) {
-                return false;
-            } else {
-                return friends.get(friend1).stream().anyMatch(friends.get(friend2)::contains);
-            }
+        if (friend1.equals(friend2) || friends.get(friend1).contains(friend2)) {
+            return false;
+        } else {
+            return friends.get(friend1).stream()
+                    .anyMatch(friends.get(friend2)::contains);
+        }
     }
 
     public static Map<String, Double> getAverageSale(List<Employee> employees) {
