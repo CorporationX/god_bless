@@ -41,8 +41,8 @@ public class StreamFunc {
 
     public static List<String> getAllPalindromes(int from, int to) {
         return IntStream.rangeClosed(from, to)
-                .mapToObj(num -> String.valueOf(num))
-                    .filter(number -> isPalindrome(number))
+                .mapToObj(String::valueOf)
+                    .filter(StreamFunc::isPalindrome)
                 .sorted()
                 .peek(System.out::println)
                 .toList();
