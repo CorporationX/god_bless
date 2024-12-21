@@ -6,6 +6,13 @@ import java.util.concurrent.*;
 
 @Slf4j
 public class MasterCardService {
+    private static final int COLLECT_SECONDS = 10;
+    private static final int COLLECT_PAYMENT = 10_000;
+    private static final int ANALYTICS_SECONDS = 5;
+    private static final int ANALYTICS_PAYMENT = 5_000;
+    private static final int THREAD_COUNT = 2;
+    private static final int AWAIT_TERMINATION = 20;
+
     private int handInterrupted(HandInterrupted<Integer> interrupted) {
         try {
             return interrupted.test();
@@ -18,20 +25,20 @@ public class MasterCardService {
 
     private int collectPayment() {
         return handInterrupted(() -> {
-            TimeUnit.SECONDS.sleep(10);
-            return 10_000;
+            TimeUnit.SECONDS.sleep(COLLECT_SECONDS);
+            return COLLECT_PAYMENT;
         });
     }
 
     private int sendAnalytics() {
         return handInterrupted(() -> {
-            TimeUnit.SECONDS.sleep(5);
-            return 5_000;
+            TimeUnit.SECONDS.sleep(ANALYTICS_SECONDS);
+            return ANALYTICS_PAYMENT;
         });
     }
 
     public void doAll() {
-        ExecutorService service = Executors.newFixedThreadPool(2);
+        ExecutorService service = Executors.newFixedThreadPool(THREAD_COUNT);
 
         try {
             Future<Integer> future = service
@@ -44,7 +51,7 @@ public class MasterCardService {
 
             service.shutdown();
 
-            if (service.awaitTermination(20, TimeUnit.SECONDS)) {
+            if (service.awaitTermination(AWAIT_TERMINATION, TimeUnit.SECONDS)) {
                 log.info("Платёж выполнен");
             }
         } catch (InterruptedException | ExecutionException e) {
