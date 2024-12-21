@@ -11,16 +11,19 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) {
-        while (currentPlayers >= maxPlayers) {
-            try {
+        try {
+            while (currentPlayers >= maxPlayers) {
                 System.out.println(player.getName() + " is waiting to join battle");
                 wait();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            currentPlayers++;
+            System.out.println(player.getName() + " has just joined to battle");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(player.getName() + " was interrupted while waiting to join battle");
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
         }
-        currentPlayers++;
-        System.out.println(player.getName() + " has just joined to battle");
     }
 
     public synchronized void leaveBattle(Player player) {
