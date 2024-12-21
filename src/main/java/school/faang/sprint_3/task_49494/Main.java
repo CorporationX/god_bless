@@ -36,7 +36,6 @@ public class Main {
             Thread.currentThread().interrupt();
             log.error("Поток прерван во время ожидания завершения задачи");
         }
-
         System.out.println("Все пользователи распределены");
     }
 
@@ -52,7 +51,7 @@ public class Main {
         ));
 
         return users.getOnlineUser().stream()
-                .map(user -> (Runnable) () -> manager.waitForChat(user))
+                .map(user -> (Runnable) () -> manager.startChat(user))
                 .toList();
     }
 }

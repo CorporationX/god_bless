@@ -3,13 +3,9 @@ package school.faang.sprint_3.task_49494;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class ChatManager {
-    private final ReentrantLock lock = new ReentrantLock();
-    private final Condition condition = lock.newCondition();
     private final List<Chat> chats;
     private final Queue<User> waitingUsers;
 
@@ -23,54 +19,37 @@ public class ChatManager {
         chats.add(chat);
     }
 
-    public void startChat(User user) {
+    public synchronized void startChat(User user) {
         ValidationUtils.isNotNull(user, "Пользователь");
-        lock.lock();
+        while (getFreeChat().isEmpty()) {
+            waitingUsers.add(user);
+            waitForChat();
+        }
+        Optional<Chat> optionalChat = getFreeChat();
+        optionalChat.ifPresent(chat -> {
+            chat.setUser(user);
+            log.info("{} добавлен в чат №{}", user.getName(), chat.getChatId());
+        });
+        user.setLookingForChat(false);
+    }
+
+    private synchronized void waitForChat() {
         try {
-            Optional<Chat> optionalChat = getFreeChat();
-            optionalChat.ifPresent(chat -> {
-                chat.setUser(user);
-                log.info("{} добавлен в чат №{}", user.getName(), chat.getChatId());
-            });
-            user.setLookingForChat(false);
-        } finally {
-            lock.unlock();
+            log.info("Ожидаю освобождение места в чате...");
+            wait();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Поток прерван во время ожидания");
         }
     }
 
-    public void waitForChat(User user) {
-        ValidationUtils.isNotNull(user, "Пользователь");
-        lock.lock();
-        try {
-            if (user.isLookingForChat() && getFreeChat().isPresent()) {
-                startChat(user);
-            } else {
-                try {
-                    log.info("Ожидаю освобождение места в чате...");
-                    waitingUsers.add(user);
-                    condition.await();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.error("Поток прерван во время ожидания");
-                }
-            }
-        } finally {
-            lock.unlock();
+    public synchronized void endChat(Chat chat) {
+        chat.disconnectUsers();
+        log.info("Чат №{} завершен", chat.getChatId());
+        if (!waitingUsers.isEmpty()) {
+            startChat(waitingUsers.poll());
         }
-    }
-
-    public void endChat(Chat chat) {
-        lock.lock();
-        try {
-            chat.disconnectUsers();
-            log.info("Чат №{} завершен", chat.getChatId());
-            while (!waitingUsers.isEmpty() && getFreeChat().isPresent()) {
-                startChat(waitingUsers.poll());
-            }
-            condition.signalAll();
-        } finally {
-            lock.unlock();
-        }
+        notifyAll();
     }
 
     private Optional<Chat> getFreeChat() {

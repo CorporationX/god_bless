@@ -18,7 +18,12 @@ public class Chat {
         this.chatId = chatId;
     }
 
-    public void setUser(User user) {
+    public synchronized void setUser(User user) {
+        if (user.equals(this.user1) || user.equals(this.user2)) {
+            log.info("{} уже подключен к этому чату", user.getName());
+            return;
+        }
+
         if (this.user1 == null) {
             log.info("{} подключился в первую ячейку", user.getName());
             setUser1(user);
