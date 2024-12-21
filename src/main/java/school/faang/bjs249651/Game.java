@@ -13,15 +13,15 @@ public class Game {
     }
 
     public void update(boolean earnedPoints, boolean lostLife) {
-        synchronized (lockForScore) {
-            if (earnedPoints) {
+        if (earnedPoints) {
+            synchronized (lockForScore) {
                 score++;
                 System.out.println(Thread.currentThread().getName() + ". Point gained. Total point is: " + score);
             }
         }
 
-        synchronized (lockForLives) {
-            if (lostLife) {
+        if (lostLife) {
+            synchronized (lockForLives) {
                 lives--;
                 System.out.println(Thread.currentThread().getName() + ". Live lost. Current health is: " + lives);
                 if (lives <= 0) {
