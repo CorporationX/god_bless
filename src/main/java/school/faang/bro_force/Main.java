@@ -6,16 +6,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        int user_count = 5;
-        int standard_user_hp = 5;
+        int userCount = 5;
+        int standardUserHp = 5;
 
         Game broForce = new Game();
-        ExecutorService executor = Executors.newFixedThreadPool(user_count);
+        ExecutorService executor = Executors.newFixedThreadPool(userCount);
 
-        for (int i = 1; i <= user_count; i++) {
+        for (int i = 1; i <= userCount; i++) {
             int copyI = i;
             executor.submit(() -> {
-                Player player = new Player("V" + copyI, standard_user_hp);
+                Player player = new Player("V" + copyI, standardUserHp);
 
                 broForce.update(Action.PLAYER_JOIN, player);
                 broForce.update(Action.PLAYER_SCORE_UP, player);

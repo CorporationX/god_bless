@@ -15,43 +15,42 @@ public class Game {
         if (!alivePlayers.contains(player)) {
             System.out.println("Player not found");
         }
-        switch (action){
-            case PLAYER_SCORE_UP -> {
-                synchronized (scoreLock){
-                    score++;
-                    System.out.println(player + " got score. TotalScore = " + score);
-                }
-            }
-            case PLAYER_WAS_ATTACKED -> {
-                synchronized (livesLock) {
-                    lives--;
-                    System.out.println(player + " got damage. Player lives = " + player.getHp() + " TotalLives = " + lives);
-                }
-                player.losingHp();
-                if (player.getHp() == 0) {
-                    update(Action.PLAYER_DIED, player);
-                    System.out.println(player + " got damage. Player died. AlivePlayers = " + alivePlayers);
-                }
-                if (alivePlayers.isEmpty()) {
-                    gameOver();
-                }
-            }
-            case PLAYER_JOIN -> {
-                synchronized (livesLock) {
-                    lives += player.getHp();
-                }
-                synchronized (alivePlayersLock) {
-                    alivePlayers.add(player);
-                    System.out.println(player + " joined.");
-                }
-
-            }
-            case PLAYER_DIED -> {
-                synchronized (alivePlayersLock) {
-                    alivePlayers.remove(player);
-                    System.out.println(player + " died. AlivePlayers = " + alivePlayers);
-                }
-            }
+        switch (action) {
+          case PLAYER_SCORE_UP -> {
+              synchronized (scoreLock) {
+                  score++;
+                  System.out.println(player + " got score. TotalScore = " + score);
+              }
+          }
+          case PLAYER_WAS_ATTACKED -> {
+              synchronized (livesLock) {
+                  lives--;
+                  System.out.println(player + " got damage. Player lives = " + player.getHp() + " TotalLives = " + lives);
+              }
+              player.losingHp();
+              if (player.getHp() == 0) {
+                  update(Action.PLAYER_DIED, player);
+                  System.out.println(player + " got damage. Player died. AlivePlayers = " + alivePlayers);
+              }
+              if (alivePlayers.isEmpty()) {
+                  gameOver();
+              }
+          }
+          case PLAYER_JOIN -> {
+              synchronized (livesLock) {
+                  lives += player.getHp();
+              }
+              synchronized (alivePlayersLock) {
+                  alivePlayers.add(player);
+                  System.out.println(player + " joined.");
+              }
+          }
+          case PLAYER_DIED -> {
+              synchronized (alivePlayersLock) {
+                  alivePlayers.remove(player);
+                  System.out.println(player + " died. AlivePlayers = " + alivePlayers);
+              }
+          }
         }
     }
 
@@ -64,6 +63,7 @@ public class Game {
     public void gameOver() {
         System.out.println("GAME OVER");
     }
+
     public int getScore() {
         return score;
     }
