@@ -2,8 +2,8 @@ package school.faang.streamapi_two;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static school.faang.streamapi_two.TestData.emptyList;
 import static school.faang.streamapi_two.TestData.numbers;
+import static school.faang.streamapi_two.TestData.emptyList;
 import static school.faang.streamapi_two.TestData.countries;
 import static school.faang.streamapi_two.TestData.fruit;
 
