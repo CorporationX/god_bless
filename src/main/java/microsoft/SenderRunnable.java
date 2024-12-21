@@ -1,18 +1,18 @@
 package microsoft;
 
 public class SenderRunnable implements Runnable {
-    private final int startindex;
-    private final int endindex;
+    private final int startIndex;
+    private final int endIndex;
 
     public SenderRunnable(int startindex, int endindex) {
-        this.startindex = startindex;
-        this.endindex = endindex;
+        this.startIndex = startindex;
+        this.endIndex = endindex;
     }
 
     @Override
     public void run() {
-        for (int i = startindex; i < endindex; i++) {
-            System.out.println("Письмо отправлено: " + i);
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.println("Письмо отправлено: " + (i + 1));
         }
     }
 }
