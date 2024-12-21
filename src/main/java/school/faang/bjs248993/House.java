@@ -5,17 +5,17 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class House {
 
     private final List<Room> rooms;
     @Getter
-    private final List<Food> collectedFood = new ArrayList<>();
+    private final List<Food> collectedFood = new CopyOnWriteArrayList<>();
     private final Random random = new Random();
 
     public House(List<Room> rooms) {
@@ -28,17 +28,25 @@ public class House {
             System.out.println("Not enough rooms to collect food.");
             return;
         }
-        Room room1 = rooms.get(random.nextInt(rooms.size()));
-        Room room2 = rooms.get(random.nextInt(rooms.size()));
-        while (room1 == room2) {
+        Room room1;
+        Room room2;
+        synchronized (rooms) {
+            room1 = rooms.get(random.nextInt(rooms.size()));
             room2 = rooms.get(random.nextInt(rooms.size()));
+            while (room1 == room2) {
+                room2 = rooms.get(random.nextInt(rooms.size()));
+            }
         }
-        List<Food> foodsFromRoom1 = room1.getFoods();
-        List<Food> foodsFromRoom2 = room2.getFoods();
-        collectedFood.addAll(foodsFromRoom1);
-        collectedFood.addAll(foodsFromRoom2);
-        room1.getFoods().clear();
-        room2.getFoods().clear();
+        synchronized (room1) {
+            synchronized (room2) {
+                List<Food> foodsFromRoom1 = room1.getFoods();
+                List<Food> foodsFromRoom2 = room2.getFoods();
+                collectedFood.addAll(foodsFromRoom1);
+                collectedFood.addAll(foodsFromRoom2);
+                room1.getFoods().clear();
+                room2.getFoods().clear();
+            }
+        }
         System.out.println(Thread.currentThread().getName() + " : finished.");
     }
 
