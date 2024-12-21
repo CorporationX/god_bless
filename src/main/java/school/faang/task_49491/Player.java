@@ -26,7 +26,7 @@ public class Player {
 
     public void previous() {
         synchronized (lock) {
-            System.out.println("Previouss");
+            System.out.println("Previous");
         }
     }
 }

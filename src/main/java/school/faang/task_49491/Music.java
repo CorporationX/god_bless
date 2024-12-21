@@ -7,10 +7,9 @@ public class Music {
         var pause = new Thread(player::pause);
         var skip = new Thread(player::skip);
         var previous = new Thread(player::previous);
-
+        previous.start();
         play.start();
         pause.start();
         skip.start();
-        previous.start();
     }
 }
