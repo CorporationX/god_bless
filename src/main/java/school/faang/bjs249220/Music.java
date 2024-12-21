@@ -12,6 +12,6 @@ public class Music {
                 new Thread(player::previous)
         );
 
-        threads.forEach(Thread::start);;
+        threads.forEach(Thread::start);
     }
 }
