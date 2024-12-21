@@ -8,14 +8,18 @@ import java.util.Map;
 public class VideoManager {
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
-    public synchronized void addView(String videoId) {
+    public void addView(String videoId) {
         if (videoId == null || videoId.isEmpty()) {
             throw new CheckException("videoId");
         }
-        viewsMap.merge(videoId, 1, Integer::sum);
+        synchronized (viewsMap) {
+            viewsMap.merge(videoId, 1, Integer::sum);
+        }
     }
 
-    public synchronized int getViewCount(String videoId) {
-        return viewsMap.getOrDefault(videoId, 0);
+    public int getViewCount(String videoId) {
+        synchronized (viewsMap) {
+            return viewsMap.getOrDefault(videoId, 0);
+        }
     }
 }
