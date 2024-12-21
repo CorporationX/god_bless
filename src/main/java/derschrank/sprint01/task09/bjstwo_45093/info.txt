@@ -1,0 +1,199 @@
+Условие задачи:
+
+Вы — разработчик, работающий над системой управления товарами для магазина. Ваша задача — создать приложение для хранения и группировки товаров по категориям с использованием Java. Программа должна обеспечить эффективное распределение товаров на основе категорий и вывод их списка.
+
+Цель:
+
+Научиться использовать Java для хранения и группировки объектов с помощью коллекций HashSet и HashMap.
+
+Требования:
+
+Создайте класс Product с полями:
+
+id;
+
+name;
+
+category .
+
+В классе Main, создайте HashSet с объектами класса Product.
+
+Реализуйте методы для выполнения следующих действий:
+
+addItem(String category, String name) — добавляет новый товар в указанную категорию. Если категории нет, создайте её.
+
+removeItem(String category, String name) — удаляет товар из указанной категории. Если категории или товара нет, метод должен сообщить об этом.
+
+findItemsByCategory(String category) — выводит список всех товаров в указанной категории. Если категория не найдена, метод сообщает об этом.
+
+printAllItems() — выводит список всех товаров в каждой категории.
+
+Реализуйте следующие методы в классе Main:
+
+groupProductsByCategory(HashSet<Product> products) — группирует товары по категориям, принимая HashSet с объектами Product и возвращая HashMap, где ключом выступает String (категория товара), а значением — List<Product> (список товаров в данной категории). Метод проходит по HashSet с товарами и добавляет каждый товар в соответствующий список в HashMap по его категории.
+
+printProductsByCategory(Map<String, List<Product>> groupedProducts) — выводит информацию о товарах в каждой категории, используя обход массива Entry внутри HashMap. Метод последовательно выводит каждую категорию товаров, а также товары, которые к ней относятся.
+
+Тестируйте вашу программу, добавляя товары в HashSet и выполняя группировку по категориям с помощью HashMap. Убедитесь, что ваша программа корректно группирует товары по категориям и выводит результаты на экран.
+
+-----------------------------------
+6:29:06: Executing ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint01.task09.bjstwo_45093.Main.main()
+1) printItemsByCategory
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 4: product4
+
+All products in category: Category2
+[Category2] Art. 5: product5
+
+2) removeItem from Category1
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 2: Product2
+
+3) printAllItems
+All products in all categories.
+All products in category: Category2
+[Category2] Art. 5: product5
+
+All products in category: Category1
+[Category1] Art. 3: Product3
+[Category1] Art. 2: Product2
+
+
+BUILD SUCCESSFUL in 15s
+2 actionable tasks: 2 executed
+6:29:23: Execution finished ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'.
+
+--------------------------------------
+2024/12/09
+
+23:25:43: Executing ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint01.task09.bjstwo_45093.Main.main()
+1) Make Products and Category #1
+2) Add Products to Shop
+3) Print Products in Category #1
+All products in category: Category1
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 3: Product3
+
+4) Print All Products
+All products in all categories.
+All products in category: with out group
+[with out group] Art. 4: Product4
+[with out group] Art. 5: Product5
+
+All products in category: Category1
+[Category1] Art. 1: Product1
+[Category1] Art. 2: Product2
+[Category1] Art. 3: Product3
+
+
+5) removeItem Product1 from Category3
+Category Category3 isn't found in Product [Category1] Art. 1: Product1
+
+6) removeItem Product111 from Category1
+Product/s with name Product111 not found
+
+7) removeItem Product1, Product2 from Category1
+8) Print All Products
+All products in all categories.
+All products in category: with out group
+[with out group] Art. 1: Product1
+[with out group] Art. 2: Product2
+[with out group] Art. 4: Product4
+[with out group] Art. 5: Product5
+
+All products in category: Category1
+[Category1] Art. 3: Product3
+
+
+BUILD SUCCESSFUL in 4s
+2 actionable tasks: 2 executed
+23:25:48: Execution finished ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'.
+
+------------------------
+Много не однозначностей и не понятностей
+1) как продукты попадают в Сет Продуктов, если такого метода нет?
+2) что значит добавить в категорию? изменить поле категория в самом продукте? или создать отдельную мапу где хранить категория-сет продуктов, чтоб “ДОБАВИТЬ”
+
+3) Удаление Продукта по String, а не по Product означает, что я должен через String найти соответсвующий Product и тогда решать удалять его (если категория подходит) или нет?
+
+4) Если мы пишем магазин, и значит логично что его вынесем в отдельный класс, зачем мы в groupProductsByCategory передаем Сет с Продуктами, а не оперируем полем магазина? так же и к printProductsByCategory вопрос.
+
+
+В общем задача интересная, но возможно надо ее дописать и дополнить информацией, чтоб понятнее стало.
+
+--------------------------------------
+2024/12/13
+
+21:25:44: Executing ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint01.task09.bjstwo_45093.Main.main()
+1) Add Products to Shop
+2) Print All Products
+All products:
+ - [category2] Art. 5: product5
+ - [category1] Art. 1: product1
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+3) Print All Products by category
+All products by category:
+In category category2:
+ - [category2] Art. 5: product5
+In category category1:
+ - [category1] Art. 1: product1
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+
+4) removeItem Product1 from Category3
+Product/s with name product1 and category category3 not found
+
+6) removeItem Product111 from Category1
+Product/s with name product111 and category category1 not found
+
+7) removeItem Product1 from Category1
+8) Print All Products
+All products:
+ - [category2] Art. 5: product5
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+9) Print All Products by category
+All products by category:
+In category category2:
+ - [category2] Art. 5: product5
+In category category1:
+ - [category1] Art. 2: product2
+ - [category1] Art. 3: product3
+ - [category1] Art. 4: product4
+
+10) Find All Products in Category1
+[[category1] Art. 2: product2, [category1] Art. 3: product3, [category1] Art. 4: product4]
+
+BUILD SUCCESSFUL in 6s
+2 actionable tasks: 2 executed
+21:25:51: Execution finished ':derschrank.sprint01.task09.bjstwo_45093.Main.main()'.

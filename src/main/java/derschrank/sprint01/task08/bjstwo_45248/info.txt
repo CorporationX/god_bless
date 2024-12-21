@@ -1,0 +1,62 @@
+Условие задачи:
+
+В королевстве Вестероса хранится огромное количество книг, и король поручил вам создать систему учёта этих книг, чтобы обеспечить легкий доступ к ним для жителей королевства. Вы решаете создать программу на Java, используя HashMap для хранения книг и их авторов.
+
+Цель:
+
+Создайте программу на Java, которая будет хранить информацию о библиотеке королевства, используя HashMap для хранения книг и их авторов. Вам нужно будет учесть особенности методов equals и hashCode.
+
+Требования:
+
+Создайте класс Book с полями:
+
+title;
+
+author;
+
+year.
+
+Переопределите методы equals и hashCode в классе Book, чтобы учитывать название книги, автора и год издания при сравнении книг и расчёте их хэш-кода.
+
+В классе Main, создайте HashMap с ключом типа Book и значением типа String (местонахождение книги в библиотеке, например, номер полки).
+
+Добавьте информацию о нескольких книгах в ваш HashMap.
+
+Реализуйте следующие методы в классе LibrarySystem:
+
+addBook(String title, String author, int year, String location) — добавляет новую книгу с её местонахождением в библиотеке.
+
+removeBook(String title, String author, int year) — удаляет книгу из библиотеки по её названию, автору и году издания.
+
+findBook(String title, String author, int year) — ищет книгу по названию, автору и году издания и выводит информацию о её местонахождении в библиотеке. Если книга не найдена, метод должен сообщить об этом.
+
+printAllBooks() — выводит полный список всех книг в библиотеке и их местонахождение.
+
+Тестируйте вашу программу, выполняя различные операции с HashMap и убедитесь, что она работает корректно, учитывая переопределенные методы equals и hashCode.
+
+-------------------------
+4:51:51: Executing ':derschrank.sprint01.task08.bjstwo_45248.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint01.task08.bjstwo_45248.Main.main()
+Library has books:
+Book Book1 (2024) by Author1 is located at: Polka1
+Book Book2 (2024) by Author2 is located at: Polka2
+Book BookX1 (2024) by AuthorX1 is located at: Polka3
+Book BookX2 (2024) by AuthorX2 is located at: Polka2
+
+Looking for Book BookX1 (2024) by AuthorX1, it is located at: Polka3
+Looking for Book BookX2 (2024) by AuthorX2, it is located at: Polka2
+Deleting Book BookX1 (2024) by AuthorX1 and Book BookX2 (2024) by AuthorX2 ...
+
+Library has books:
+Book Book1 (2024) by Author1 is located at: Polka1
+Book Book2 (2024) by Author2 is located at: Polka2
+
+
+BUILD SUCCESSFUL in 6s
+2 actionable tasks: 2 executed
+4:51:59: Execution finished ':derschrank.sprint01.task08.bjstwo_45248.Main.main()'.
