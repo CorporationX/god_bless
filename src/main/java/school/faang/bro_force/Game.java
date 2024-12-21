@@ -25,7 +25,8 @@ public class Game {
           case PLAYER_WAS_ATTACKED -> {
               synchronized (livesLock) {
                   lives--;
-                  System.out.println(player + " got damage. Player lives = " + player.getHp() + " TotalLives = " + lives);
+                  System.out.println(player + " got damage. Player lives = "
+                          + player.getHp() + " TotalLives = " + lives);
               }
               player.losingHp();
               if (player.getHp() == 0) {
@@ -51,6 +52,7 @@ public class Game {
                   System.out.println(player + " died. AlivePlayers = " + alivePlayers);
               }
           }
+          default -> {}
         }
     }
 
