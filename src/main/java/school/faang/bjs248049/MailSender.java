@@ -1,30 +1,43 @@
 package school.faang.bjs248049;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static java.util.concurrent.TimeUnit.MINUTES;
+
 public class MailSender {
+
+    private static final int THREAD_POOL = 5;
+    private static final int EMAILS = 1000;
+
     public static void main(String[] args) {
 
-        long start = System.currentTimeMillis();
-        Thread one = new Thread(new SenderRunnable(1, 200), "one");
-        one.start();
-        Thread two = new Thread(new SenderRunnable(201, 400), "two");
-        two.start();
-        Thread three = new Thread(new SenderRunnable(401, 600), "three");
-        three.start();
-        Thread four = new Thread(new SenderRunnable(601, 800), "four");
-        four.start();
-        Thread five = new Thread(new SenderRunnable(801, 1000), "five");
-        five.start();
-        try {
-            one.join();
-            two.join();
-            three.join();
-            four.join();
-            five.join();
-        } catch (Exception e) {
-            e.printStackTrace();
+        final long start = System.currentTimeMillis();
+        int from = 0;
+        int to = EMAILS / THREAD_POOL;
+        int range = to;
+
+        ExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL);
+        SenderRunnable senderRunnable;
+        for (int i = 0; i < THREAD_POOL; i++) {
+            senderRunnable = new SenderRunnable(from, to);
+            executor.execute(senderRunnable);
+            from += range;
+            to += range;
         }
+        executor.shutdown();
+        try {
+            boolean result = executor.awaitTermination(5, MINUTES);
+            if (!result) {
+                System.out.println("Process terminated due to thread failure");
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+
         long end = System.currentTimeMillis();
-        System.out.println(Thread.currentThread().getName() + ": ended. Time elapsed: " + (end - start));
+        System.out.printf("%s: ended successfully. Time elapsed: %d ms. Count of emails sent: %d%n",
+                Thread.currentThread().getName(), (end - start), SenderRunnable.getEmailCount());
     }
 
 }
