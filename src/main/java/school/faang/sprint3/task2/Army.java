@@ -1,22 +1,24 @@
 package school.faang.sprint3.task2;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Army {
 
-    Map<Character, Thread> threadsToSumPower = new HashMap<>();
+    private final List<Thread> threadsToSumPower = new ArrayList<>();
+    //private final List<Character> characters = new ArrayList<>();
 
     private int totalPower;
 
     public void addUnit(Character character) {
         Thread thread = new Thread(() -> totalPower += character.getPower());
-        threadsToSumPower.put(character, thread);
+        threadsToSumPower.add(thread);
+        //characters.add(character);
     }
 
     public int calculateTotalPower() {
-        threadsToSumPower.forEach((character, thread) -> thread.start());
-        threadsToSumPower.forEach((character, thread) -> {
+        threadsToSumPower.forEach(Thread::start);
+        threadsToSumPower.forEach((thread) -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
