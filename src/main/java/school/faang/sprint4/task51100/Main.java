@@ -50,8 +50,7 @@ public class Main {
         School winnerSchool = Tournament.getSchoolWinner(schools);
         if (winnerSchool != null) {
             log.info("Winner: {} with {} points", winnerSchool.getName(), winnerSchool.getTotalPoints());
-        }else
-        {
+        } else {
             log.info("Winned is undefied");
         }
     }

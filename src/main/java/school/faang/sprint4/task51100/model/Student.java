@@ -15,6 +15,7 @@ public class Student {
     private int points = 0;
 
     private final Object lock = new Object();
+
     public void addPoint(int points) {
         synchronized (lock) {
             this.points += points;
