@@ -1,13 +1,16 @@
 package school.faang.task_49863;
 
 public class MasterCardService {
+    private static final int COLLECTING_TIME = 10000;
+    private static final int ANALYTICS_TIME = 1000;
+
     public int collectPayment() throws InterruptedException {
-        Thread.sleep(10000);
-        return 10000;
+        Thread.sleep(COLLECTING_TIME);
+        return COLLECTING_TIME;
     }
 
     public int sendAnalytics() throws InterruptedException {
-        Thread.sleep(1000);
-        return 1000;
+        Thread.sleep(ANALYTICS_TIME);
+        return ANALYTICS_TIME;
     }
 }
