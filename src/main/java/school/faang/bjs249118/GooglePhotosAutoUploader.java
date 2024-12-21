@@ -11,15 +11,14 @@ public class GooglePhotosAutoUploader {
     public void startAutoUpload() {
         synchronized (lock) {
             System.out.println(Thread.currentThread().getName() + " is working on uploading photos");
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                uploadPhotos();
             }
+            uploadPhotos();
             System.out.println(Thread.currentThread().getName() + " has finished");
         }
     }
@@ -39,13 +38,17 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        String remove = photosToUpload.remove(photosToUpload.size() - 1);
-        System.out.printf("%s uploading %s to the server%n", Thread.currentThread().getName(), remove);
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (!photosToUpload.isEmpty()) {
+            String removed = photosToUpload.remove(photosToUpload.size() - 1);
+            System.out.printf("%s uploading %s to the server%n", Thread.currentThread().getName(), removed);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
         }
+        System.out.printf("%s finished uploading all photos%n", Thread.currentThread().getName());
     }
 
 }
