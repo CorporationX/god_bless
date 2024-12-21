@@ -13,7 +13,7 @@ public class Chore implements Runnable {
             System.out.println("Поток " + Thread.currentThread().getName() + " выполняет задачу " + chore);
             Thread.sleep(1000);
             System.out.println("Задача " + chore + " выполнена");
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Задача " + chore + " была прервана!");
         }
     }

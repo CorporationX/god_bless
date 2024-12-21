@@ -26,7 +26,7 @@ public class WeasleyFamily {
                 System.out.println("Задачи не выполнились за 1 минуту, принудительно останавливаем...");
                 executor.shutdownNow();
             }
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             executor.shutdownNow();
         }
     }
