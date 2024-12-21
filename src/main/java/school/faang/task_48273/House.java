@@ -1,64 +1,62 @@
 package school.faang.task_48273;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 @Slf4j
 public class House {
     private final List<Room> rooms = new ArrayList<>();
-    @Getter
     private final List<Food> collectedFood = new ArrayList<>();
 
-    public void collectFood() {
-        while (true) {
-            Map.Entry<Room, Room> roomEntry = getRandomRooms();
-            Room firstRandomRoom = roomEntry.getKey();
-            Room secondRandomRoom = roomEntry.getValue();
-
-            if (firstRandomRoom == null || secondRandomRoom == null) {
-                return;
-            }
-
-            if (firstRandomRoom.getLock().tryLock() && secondRandomRoom.getLock().tryLock()) {
-                try {
-                    synchronized (collectedFood) {
-                        collectedFood.addAll(firstRandomRoom.collectFood());
-                        collectedFood.addAll(secondRandomRoom.collectFood());
-                    }
-                } finally {
-                    firstRandomRoom.getLock().unlock();
-                    secondRandomRoom.getLock().unlock();
-                }
-                break;
-            }
+    public synchronized boolean collectFood() {
+        if (allFoodCollected()) {
+            return true;
         }
+
+        Pair<Room, Room> roomPair = getTwoRandomRooms();
+
+        collectedFood.addAll(
+                roomPair.getLeft().collectFood());
+
+        collectedFood.addAll(
+                roomPair.getRight().collectFood());
+
+        return allFoodCollected();
     }
 
-    public Map.Entry<Room, Room> getRandomRooms() {
-        Room firstRandomRoom = rooms.stream()
+    private boolean allFoodCollected() {
+        return rooms.stream()
+                .allMatch(room -> room.getFoods().isEmpty());
+    }
+
+    private Pair<Room, Room> getTwoRandomRooms() {
+        List<Room> filteredRooms = rooms.stream()
                 .filter(room -> !room.getFoods().isEmpty())
-                .findAny()
-                .orElse(null);
+                .toList();
 
-        Room secondRandomRoom = rooms.stream()
-                .filter(room -> !room.getFoods().isEmpty()
-                        && room != firstRandomRoom)
-                .findAny()
-                .orElse(null);
+        if (filteredRooms.size() < 2) {
+            throw new IllegalStateException("There must be at least two rooms with non-empty food lists.");
+        }
 
-        return new AbstractMap.SimpleEntry<>(firstRandomRoom, secondRandomRoom);
+        int firstIndex = ThreadLocalRandom.current().nextInt(filteredRooms.size());
+        int secondIndex;
+
+        do {
+            secondIndex = ThreadLocalRandom.current().nextInt(filteredRooms.size());
+        } while (secondIndex == firstIndex);
+
+        return Pair.of(filteredRooms.get(firstIndex),
+                filteredRooms.get(secondIndex));
     }
 
-    public boolean allFoodCollected() {
-        return rooms.stream().allMatch(room -> room.getFoods().isEmpty());
-    }
-
-    public void addRoom(Room room) {
+    public void addRoom(@NonNull Room room) {
         rooms.add(room);
     }
 }
