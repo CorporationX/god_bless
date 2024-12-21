@@ -4,9 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -22,27 +19,36 @@ public class MailSender {
     }
 
     public int sendMail() {
-        ExecutorService executor = Executors.newFixedThreadPool(streamsCount);
-
-        List<SenderRunnable> tasks = IntStream.rangeClosed(0, streamsCount - 1)
+        List<SenderRunnable> senderRunnables = IntStream.rangeClosed(0, streamsCount - 1)
                 .mapToObj(i -> new SenderRunnable(1 + i * mailPerThread, (i + 1) * mailPerThread))
                 .toList();
-        tasks.forEach(executor::submit);
-        executor.shutdown();
 
-        try {
-            executor.awaitTermination(10, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        List<Thread> threads = senderRunnables.stream()
+                .map(Thread::new)
+                .toList();
 
-        int sentMails = tasks.stream().mapToInt(SenderRunnable::getCounter).sum();
+        threads.forEach(thread -> {
+            thread.start();
+            log.info("Starting thread ");
+        });
 
-        if (Objects.equals(sentMails, mailsCount)) {
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        int sum = senderRunnables.stream()
+                .mapToInt(SenderRunnable::getCounter)
+                .sum();
+
+        if (Objects.equals(sum, mailsCount)) {
             log.info("All mails sent");
-            return tasks.stream().mapToInt(SenderRunnable::getCounter).sum();
+            return sum;
         }
 
-        throw new RuntimeException("Not all Mails sent");
+        throw new RuntimeException("Not All mails sent");
     }
 }

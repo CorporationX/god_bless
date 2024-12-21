@@ -21,8 +21,9 @@ public class SenderRunnable implements Runnable {
     public void run() {
         IntStream.rangeClosed(startIndex, endIndex)
                 .forEach(number -> {
-                    log.info("The email has been sent:\t{}", number);
                     counter++;
+                    log.info("The email has been sent:\t{}", number);
+                    log.info("The email has been processed:\t{}", counter);
                 });
     }
 }

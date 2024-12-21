@@ -9,10 +9,8 @@ class MailSenderTest {
     @Test
     void sendMail() {
         MailSender mailSender = new MailSender(5, 1000, 200);
-
-        int excepted = 1000;
         int actual = mailSender.sendMail();
-
-        assertEquals(excepted, actual);
+        int expected = 1000;
+        assertEquals(expected, actual);
     }
 }
