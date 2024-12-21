@@ -8,11 +8,10 @@ public class Game {
 
     private int score;
     private int lives;
-    private boolean isGameOver;
+    private volatile boolean isGameOver;
 
     private final Object scoreLock;
     private final Object livesLock;
-    private final Object isGameOverLock;
 
     public Game() {
         this.score = 0;
@@ -21,19 +20,18 @@ public class Game {
 
         this.scoreLock = new Object();
         this.livesLock = new Object();
-        this.isGameOverLock = new Object();
     }
 
     public void update(boolean earnedPoints, boolean lostLife) {
-        synchronized (scoreLock) {
-            if (earnedPoints) {
+        if (earnedPoints) {
+            synchronized (scoreLock) {
                 score++;
                 log.info("Очки увеличены, текущий счёт: {}", score);
             }
         }
 
-        synchronized (livesLock) {
-            if (lostLife) {
+        if (lostLife) {
+            synchronized (livesLock) {
                 lives--;
                 log.warn("Жизни уменьшены, оставшиеся жизни: {}", lives);
                 if (lives <= 0) {
@@ -44,16 +42,12 @@ public class Game {
     }
 
     private void gameOver() {
-        synchronized (isGameOverLock) {
-            isGameOver = true;
-            log.info("Игра окончена! Все жизни потеряны.\nТекущий счёт: {}", score);
-        }
+        isGameOver = true;
+        log.info("Игра окончена! Все жизни потеряны.\nТекущий счёт: {}", score);
     }
 
     public boolean isGameOver() {
-        synchronized (isGameOverLock) {
-            return isGameOver;
-        }
+        return isGameOver;
     }
 
 }
