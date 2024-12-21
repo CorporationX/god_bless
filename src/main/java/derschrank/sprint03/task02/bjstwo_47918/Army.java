@@ -34,8 +34,9 @@ public class Army implements ArmyInterface {
     private List<CalculatorThread> calculatePowerOfEveryoneUnitInThreads() {
         List<CalculatorThread> threads = new ArrayList<>();
 
+        CalculatorThread thread;
         for (Unit unit : army) {
-            CalculatorThread thread = new CalculatorThread(unit);
+            thread = new CalculatorThread(unit);
             threads.add(thread);
             thread.start();
         }
