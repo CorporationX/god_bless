@@ -18,7 +18,8 @@ public class MailSender {
         int batchSize = emails.size() / MAX_THREADS;
         Thread[] threads = new Thread[MAX_THREADS];
 
-        int fromIndex, toIndex;
+        int fromIndex;
+        int toIndex;
         for (int i = 0; i < MAX_THREADS; i++) {
             fromIndex = i * batchSize;
             if (i == MAX_THREADS - 1) {
