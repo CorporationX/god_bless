@@ -5,7 +5,8 @@ public class MailSender {
         int totalMessages = 1000;
         int threadsCount = 5;
         int batchSize = totalMessages / threadsCount;
-        int start, end;
+        int start;
+        int end;
 
         Thread[] threads = new Thread[threadsCount];
 
