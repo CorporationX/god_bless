@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Archer implements Unit{
+public class Archer implements Unit {
     private int power;
 }

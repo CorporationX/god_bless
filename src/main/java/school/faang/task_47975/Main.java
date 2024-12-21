@@ -11,7 +11,7 @@ public class Main {
         army.addUnit(new Archer(30));
         army.addUnit(new Knight(45));
         int totalPower = army.calculateTotalPower();
-        
+
         System.out.printf("%n Общая сила армии = %s", totalPower);
     }
 }
