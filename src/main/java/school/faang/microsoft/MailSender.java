@@ -12,6 +12,11 @@ public class MailSender {
             int end = (i + 1) * batchSize;
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                System.out.println("Отправка писем прервана...");
+            }
         }
     }
 }
