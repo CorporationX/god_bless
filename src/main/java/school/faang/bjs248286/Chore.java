@@ -11,7 +11,7 @@ public class Chore implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + " started");
-        Thread.sleep(3000);
+        Thread.sleep(Constants.TIMEOUT);
         System.out.println(chore + " completed");
     }
 }
