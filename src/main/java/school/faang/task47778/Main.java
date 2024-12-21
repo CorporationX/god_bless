@@ -1,7 +1,11 @@
 package school.faang.task47778;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Random;
 
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         int[][] customers = {
@@ -33,8 +37,8 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(" Все кассиры завершили работу ");
-        }
 
+        }
+        log.info("All cashiers have completed their work");
     }
 }

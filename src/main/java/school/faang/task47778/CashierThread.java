@@ -1,10 +1,9 @@
 package school.faang.task47778;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-
-
+@Slf4j
 @AllArgsConstructor
 public class CashierThread extends Thread {
     private int cashierId;
@@ -12,8 +11,7 @@ public class CashierThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Кассир " + cashierId + " начал обслуживание покупателя с "
-                + Arrays.toString(customerItems) + " товарами ");
+        log.info("Cashier {} starter serving{}", cashierId, customerItems);
         int totalItems = 0;
         int totalPrice = 0;
 
@@ -26,7 +24,7 @@ public class CashierThread extends Thread {
                 e.printStackTrace();
             }
         }
-        System.out.println("Кассир " + cashierId + " завершил обслуживание. Обработано товаров"
-                + totalItems + " общая стоимость " + totalPrice);
+        log.info("Cashier {} completed the service. Processed items {} total cost {}",
+                cashierId, totalItems, totalPrice);
     }
 }
