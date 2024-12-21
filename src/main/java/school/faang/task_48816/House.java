@@ -26,14 +26,14 @@ public class House {
         this.availableRoleCount = roles.size();
     }
 
-    public synchronized String getRole() {
+    public void addRole() {
+        availableRoleCount++;
+    }
+
+    public String removeRole() {
         Random random = new Random();
         String role = availableRoles.get(random.nextInt(availableRoles.size()));
         availableRoleCount--;
         return role;
-    }
-
-    public synchronized void removeRole() {
-        availableRoleCount++;
     }
 }

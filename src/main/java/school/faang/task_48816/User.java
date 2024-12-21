@@ -18,7 +18,6 @@ public class User {
     }
 
     public void joinHouse(House house) {
-        this.house = house;
         synchronized (house) {
             while (house.getAvailableRoleCount() == 0) {
                 try {
@@ -28,7 +27,8 @@ public class User {
                     throw new RuntimeException("Произошла ошибка");
                 }
             }
-            String role = house.getRole();
+            String role = house.removeRole();
+            this.house = house;
             this.role = role;
             System.out.println(name + " выбрал роль: " + role);
         }
@@ -41,7 +41,7 @@ public class User {
         }
         synchronized (house) {
             System.out.println(name + " покидает дом и освобождает роль: " + role);
-            house.removeRole();
+            house.addRole();
             house.notifyAll();
             this.house = null;
             this.role = null;
