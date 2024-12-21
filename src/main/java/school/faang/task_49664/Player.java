@@ -12,7 +12,7 @@ public class Player {
     @SneakyThrows
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
-        Thread.sleep(2000); // Имитация сражения
+        Thread.sleep(2000);
         boss.leaveBattle(this);
     }
 }
