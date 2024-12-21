@@ -5,28 +5,27 @@ import java.util.List;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    List<Food> collectionFood = new ArrayList<>();
+        List<Food> collectionFood = new ArrayList<>();
 
-    House house = new House("myHome", 3);
+        House house = new House("myHome", 3);
 
+        ExecutorService executor = Executors.newScheduledThreadPool(5);
 
-    house.collectFood(collectionFood, house);
+        while (House.isFoodAvailable(house)) {
+            for (int i = 0; i < 100; i++) {
+                executor.submit(
+                    () -> {
+                        house.collectFood(collectionFood, house);
+                    });
+            }
+        }
+        executor.shutdown();
 
-
-    ExecutorService executor = Executors.newScheduledThreadPool(5);
-
-
-    for (int i = 0; i < 10000; i++) {
-      executor.submit(() -> {
-          house.collectFood(collectionFood, house);
-      });
     }
-    System.out.println();
-  }
 }
