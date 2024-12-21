@@ -31,8 +31,9 @@ public class MailSender implements MailSenderInterface {
         int pointer = 0;
         List<Thread> threads = new ArrayList<>();
 
-        int oldPointer = 0;
-        SenderRunnable senderRunnable = null;
+        int oldPointer;
+        SenderRunnable senderRunnable;
+        Thread thread;
         for (int indexOfThread = 1; indexOfThread <= maxThreads && pointer <= size; indexOfThread++) {
             oldPointer = pointer;
             pointer += sizeOfPaketForOneThread;
@@ -41,7 +42,7 @@ public class MailSender implements MailSenderInterface {
             }
 
             senderRunnable = new SenderRunnable(mails, oldPointer, pointer);
-            Thread thread = new Thread(senderRunnable);
+            thread = new Thread(senderRunnable);
             thread.start();
             threads.add(thread);
         }

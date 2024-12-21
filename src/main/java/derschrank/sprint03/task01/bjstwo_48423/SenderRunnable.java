@@ -19,9 +19,10 @@ public class SenderRunnable implements Runnable {
         String colorBegin = getColorMarkerBeginner(threadName);
         String colorEnd = getColorMarkerEnd();
 
+        Mail mail;
         for (int i = startIndex; i < endIndex; i++) {
             try {
-                Mail mail = mails.get(i);
+                mail = mails.get(i);
                 if (mail != null) {
                     System.out.print(colorBegin);
                     System.out.printf("Mail was sent in %s: %s%n", threadName, mail);
