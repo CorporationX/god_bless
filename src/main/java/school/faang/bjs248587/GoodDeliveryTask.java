@@ -9,6 +9,8 @@ import java.util.Random;
 @AllArgsConstructor
 public class GoodDeliveryTask implements Runnable {
 
+    private static final int MAX_SLEEP_TIME = 6000;
+    private static final int MIN_SLEEP_TIME = 1000;
     private String character;
     private int foodAmount;
 
@@ -17,7 +19,7 @@ public class GoodDeliveryTask implements Runnable {
         String food = getFoodType();
         System.out.printf("%s receiving %d %s%n", character, foodAmount, food);
         try {
-            Thread.sleep(new Random().nextInt(6000) + 1000);
+            Thread.sleep(new Random().nextInt(MAX_SLEEP_TIME) + MIN_SLEEP_TIME);
         } catch (Exception e) {
             e.printStackTrace();
         }
