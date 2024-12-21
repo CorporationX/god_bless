@@ -1,6 +1,9 @@
 package school.faang.bjs249204;
 
 public class Music {
+
+    public static final int SLEEP_MILLISECOND = 1000;
+
     public static void main(String[] args) {
 
         Player player = new Player();
@@ -20,14 +23,16 @@ public class Music {
             player.pause();
         });
 
-        member1.start();
-        member2.start();
-        member3.start();
+        Thread[] threads = {member1, member2, member3};
+
+        for (Thread thread : threads) {
+            thread.start();
+        }
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_MILLISECOND);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
 
         System.out.println(player.getIsPlaying());
