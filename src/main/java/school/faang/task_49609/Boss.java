@@ -11,7 +11,7 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) {
         String playerName = player.getName();
-        if (currentPlayers >= maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             System.out.println(playerName
                     + " ждет свободного слота для сражения с боссом.");
             try {
