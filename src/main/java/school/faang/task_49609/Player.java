@@ -20,7 +20,7 @@ public class Player {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            System.out.println("Произошла ошибка");
+            throw new RuntimeException("Произошла ошибка");
         }
         boss.leaveBattle(this);
     }
