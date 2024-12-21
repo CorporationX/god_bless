@@ -20,8 +20,8 @@ public class Tournament {
 
         return switch (task.getDifficulty()) {
           case 0, 1, 2 -> CompletableFuture.supplyAsync(() -> {
-                int chance = RANDOM.nextInt(0, 101);
-                school.setStudents(school.getStudents().stream()
+              int chance = RANDOM.nextInt(0, 101);
+              school.setStudents(school.getStudents().stream()
                         .peek(student -> {
                             if (chance <= baseChanceEasyLevel) {
                                 student.setPoints(student.getPoints() + task.getReward());
@@ -29,17 +29,17 @@ public class Tournament {
                         })
                         .toList());
 
-                try {
-                    Thread.sleep(EASY_TIME);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return school;
-            }, executorService);
+              try {
+                  Thread.sleep(EASY_TIME);
+              } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+              }
+              return school;
+          }, executorService);
 
           case 3, 4, 5 -> CompletableFuture.supplyAsync(() -> {
-                int chance = RANDOM.nextInt(0, 101);
-                school.setStudents(school.getStudents().stream()
+              int chance = RANDOM.nextInt(0, 101);
+              school.setStudents(school.getStudents().stream()
                         .peek(student -> {
                             if (chance <= baseChanceHardLevel) {
                                 student.setPoints(student.getPoints() + task.getReward());
@@ -47,13 +47,13 @@ public class Tournament {
                         })
                         .toList());
 
-                try {
-                    Thread.sleep(HARD_TIME);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return school;
-            }, executorService);
+              try {
+                  Thread.sleep(HARD_TIME);
+              } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+              }
+              return school;
+          }, executorService);
 
           default -> throw new IllegalArgumentException("Something went wrong!");
         };
