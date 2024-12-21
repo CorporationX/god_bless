@@ -19,7 +19,7 @@ public class Tournament {
         int baseChanceHardLevel = 20;
 
         return switch (task.getDifficulty()) {
-            case 0, 1, 2 -> CompletableFuture.supplyAsync(() -> {
+          case 0, 1, 2 -> CompletableFuture.supplyAsync(() -> {
                 int chance = RANDOM.nextInt(0, 101);
                 school.setStudents(school.getStudents().stream()
                         .peek(student -> {
@@ -37,7 +37,7 @@ public class Tournament {
                 return school;
             }, executorService);
 
-            case 3, 4, 5 -> CompletableFuture.supplyAsync(() -> {
+          case 3, 4, 5 -> CompletableFuture.supplyAsync(() -> {
                 int chance = RANDOM.nextInt(0, 101);
                 school.setStudents(school.getStudents().stream()
                         .peek(student -> {
@@ -55,7 +55,7 @@ public class Tournament {
                 return school;
             }, executorService);
 
-            default -> throw new IllegalArgumentException("Something went wrong!");
+          default -> throw new IllegalArgumentException("Something went wrong!");
         };
     }
 }
