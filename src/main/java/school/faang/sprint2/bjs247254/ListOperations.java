@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     public static int sumUpEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().
-                filter(number -> number % 2 == 0)
+        return numbers.stream()
+                .filter(number -> number % 2 == 0)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
