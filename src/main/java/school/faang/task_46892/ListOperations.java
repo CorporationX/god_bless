@@ -88,8 +88,20 @@ public class ListOperations {
     }
 
     private static boolean isPalindrome(String str) {
-        String reversed = new StringBuilder(str).reverse().toString();
+        if (str == null || str.length() <= 1) {
+            return true;
+        }
+        var left = 0;
+        var right = str.length() - 1;
+        var letters = str.toCharArray();
 
-        return str.equals(reversed);
+        while (left < right) {
+            if (letters[left] != letters[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 }

@@ -66,8 +66,6 @@ class ListOperationsTest {
         assertEquals(List.of(),
                 ListOperations.findPalindromes(List.of(200, 100)));
 
-        System.out.println(ListOperations.findSubstringPalindromes("abac"));
-
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findPalindromes(List.of(10)));
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findPalindromes(List.of(10, 22, 30)));
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findPalindromes(null));
@@ -80,7 +78,6 @@ class ListOperationsTest {
         assertEquals(List.of("aaa", "aa", "a"), ListOperations.findSubstringPalindromes("aaa"));
         assertEquals(List.of("e", "d", "c", "b", "a"), ListOperations.findSubstringPalindromes("abcde"));
         assertEquals(List.of("a", "c", "!!", "!"), ListOperations.findSubstringPalindromes("a!!ca"));
-
 
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findSubstringPalindromes(""));
         assertThrows(IllegalArgumentException.class, () -> ListOperations.findSubstringPalindromes(null));
