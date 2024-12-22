@@ -23,7 +23,7 @@ public class House {
     private final Random random = new Random();
 
     public boolean collectFood() {
-        synchronized (rooms) {
+        synchronized (random) {
             IntStream.range(0, DataSet.AMOUNT_OF_ROOMS)
                     .mapToObj(number -> rooms.get(random.nextInt(DataSet.AMOUNT_OF_ROOMS)))
                     .filter(Room::hasFood)
@@ -40,9 +40,9 @@ public class House {
         return collectedFood.size() == DataSet.TOTAL_AMOUNT_OF_FOODS;
     }
 
-    private void preparedRoomsToTidy() {
-        ArrayList<Room> modifiableList = new ArrayList<>(rooms);
-        Collections.shuffle(modifiableList);
-        readyToTidyRooms.addAll(modifiableList);
-    }
+//    private void preparedRoomsToTidy() {
+//        ArrayList<Room> modifiableList = new ArrayList<>(rooms);
+//        Collections.shuffle(modifiableList);
+//        readyToTidyRooms.addAll(modifiableList);
+//    }
 }
