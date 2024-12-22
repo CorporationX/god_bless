@@ -1,9 +1,9 @@
 package school.faang.sprint_1.task_supercowbjs2n49687;
 
 public class Boss {
-    private int maxPlayers;
+    private final int maxPlayers;
     private int currentPlayers;
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
