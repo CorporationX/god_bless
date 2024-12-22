@@ -28,6 +28,7 @@ public class CashierThread extends Thread {
                         Thread.sleep(ITEM_PROCESSING_DELAY);
                     } catch (InterruptedException e) {
                         System.out.printf("Processing of %s interrupted\n", item.name());
+                        Thread.currentThread().interrupt();
                     }
                 })
                 .map(Item::price)

@@ -30,6 +30,7 @@ public class Main {
             System.out.println("All cashiers end work");
         } catch (InterruptedException e) {
             System.out.println("Main thread interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 
