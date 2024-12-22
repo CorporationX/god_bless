@@ -11,7 +11,7 @@ public class Player {
     }
 
     public void startBattle(Boss boss) {
-        System.out.printf("%s wants to join battle\n", this.name);
+        System.out.printf("%s wants to join battle -> ", this.name);
         boss.joinBattle(this);
     }
 

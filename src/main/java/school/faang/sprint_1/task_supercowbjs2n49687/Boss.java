@@ -13,7 +13,7 @@ public class Boss {
         synchronized (lock) {
             if (currentPlayers < maxPlayers) {
                 currentPlayers++;
-                System.out.printf("%s has joined battle\n", player.getName());
+                System.out.printf("+ %s has joined battle\n", player.getName());
             } else {
                 try {
                     lock.wait();
