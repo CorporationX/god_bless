@@ -24,7 +24,8 @@ public class PotionGathering {
                         potions.stream()
                                 .parallel()
                                 .map(potion ->
-                                        CompletableFuture.supplyAsync(() -> sum.getAndAdd(gatheringAllIngredients(potion))))
+                                        CompletableFuture.supplyAsync(() ->
+                                                sum.getAndAdd(gatheringAllIngredients(potion))))
                                 .toArray(CompletableFuture[]::new))
                 .thenRun(() -> log.info("Общее количество ингредиентов: {}", sum.intValue()))
                 .join();
