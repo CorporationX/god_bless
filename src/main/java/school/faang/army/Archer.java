@@ -1,8 +1,6 @@
 package school.faang.army;
 
 public class Archer extends Unit {
-    private int power;
-
     public Archer(int power) {
         super(power);
     }

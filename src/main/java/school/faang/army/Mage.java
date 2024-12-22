@@ -1,8 +1,6 @@
 package school.faang.army;
 
 public class Mage extends Unit {
-    private int power;
-
     public Mage(int power) {
         super(power);
     }
