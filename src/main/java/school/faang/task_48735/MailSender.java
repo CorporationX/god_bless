@@ -1,26 +1,36 @@
 package school.faang.task_48735;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
 
-    public static void main(String[] args) throws InterruptedException {
-        var threadsCount = 5;
-        var tasksCount = 1000;
-        var taskPerThreadCount = tasksCount / threadsCount;
+    public static void main(String[] args) {
+        int start;
+        int end;
+        int threadsCount = 5;
+        int tasksCount = 1000;
+        int taskPerThreadCount = tasksCount / threadsCount;
 
         Thread[] threads = new Thread[threadsCount];
 
         for (int i = 0; i < threadsCount; i++) {
-            var start = i * taskPerThreadCount;
-            var end = (i + 1) * taskPerThreadCount;
+            start = i * taskPerThreadCount;
+            end = (i + 1) * taskPerThreadCount;
 
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted", e);
+                Thread.currentThread().interrupt();
+            }
         }
 
-        System.out.println("Программа завершилась!");
+        log.info("Программа завершилась!");
     }
 }
