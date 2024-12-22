@@ -36,10 +36,13 @@ public class VideoApp {
             });
         }
 
+        executor.shutdown();
         try {
-            Thread.sleep(2000);
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
 
         log.info("Общий результат:");
@@ -50,15 +53,5 @@ public class VideoApp {
         }
 
         log.info("Всего зарегистрировано просмотров : {}. Ожидаемое значение: {}", cnt, NUM_THREADS);
-
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
-        }
-
     }
 }
