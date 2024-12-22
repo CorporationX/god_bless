@@ -12,7 +12,7 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         GooglePhotosAutoUpdater googlePhotosAutoUpdater = new GooglePhotosAutoUpdater();
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         executorService.submit(googlePhotosAutoUpdater::startAutoUpload);
         executorService.submit(() -> googlePhotosAutoUpdater.onNewPhotoAdded("/path/to/image"));

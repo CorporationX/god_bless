@@ -8,6 +8,7 @@ import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUpdater {
+    private static final int PHOTO_PROCESSING_DELAY_MS = 3000;
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
@@ -29,8 +30,7 @@ public class GooglePhotosAutoUpdater {
 
     @SneakyThrows
     public void onNewPhotoAdded(String photoPath) {
-        int sleepSeconds = 3000;
-        Thread.sleep(sleepSeconds);
+        Thread.sleep(PHOTO_PROCESSING_DELAY_MS);
         synchronized (lock) {
             photosToUpload.add(photoPath);
             log.info("Add new photo");
