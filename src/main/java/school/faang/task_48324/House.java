@@ -12,11 +12,17 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Getter
 public class House implements Runnable {
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Food> collectedFood = new ArrayList<>();
     private static final int THREADS_COUNT = 5;
     private static final int ROOMS_TO_COLLECT_COUNT = 2;
     private static final int SLEEP_TIME = 1000;
+
+    private final List<Room> rooms = new ArrayList<>();
+    private final List<Food> collectedFood = new ArrayList<>();
+
+    @Override
+    public void run() {
+        collectFood();
+    }
 
     public void collectFood() {
         for (var i = 0; i < ROOMS_TO_COLLECT_COUNT; i++) {
@@ -28,9 +34,6 @@ public class House implements Runnable {
         }
     }
 
-    public void run() {
-        this.collectFood();
-    }
 
     public boolean isFoodCollected() {
         for (var room : rooms) {
