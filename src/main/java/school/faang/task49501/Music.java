@@ -1,27 +1,56 @@
 package school.faang.task49501;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+
+@Slf4j
 public class Music {
 
-    private static final int POOL_SIZE = 4;
+    private static final Random RANDOM = new Random();
+    private static final Integer AMOUNT = 8;
 
     public static void main(String[] args) {
 
 
         Player player = new Player();
+        List<Thread> threads = getTestThreads(player, AMOUNT);
+        threads.forEach(Thread::start);
 
-        ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
-
-        for (int i = 0; i < 5; i++) {
-            executor.execute(player::play);
-            executor.execute(player::pause);
-            executor.execute(player::skip);
-            executor.execute(player::previous);
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread {} was interrupted ", thread);
+                Thread.currentThread().interrupt();
+            }
         }
-
-        executor.shutdown();
+        log.info("Total threads worked {} ", player.getCountThreads().get());
 
     }
+
+    private static List<Thread> getTestThreads(Player player, Integer amount) {
+
+        return IntStream.range(0, amount)
+                .mapToObj(i -> new Thread(() -> {
+                    int action = RANDOM.nextInt(4);
+                    switch (action) {
+                      case 0 -> player.play();
+
+                      case 1 -> player.pause();
+
+                      case 2 -> player.skip();
+
+                      case 3 -> player.previous();
+
+                      default -> throw new IllegalStateException("Unexpected value :"
+                                + action);
+                    }
+                }))
+                .toList();
+    }
+
 }
+
