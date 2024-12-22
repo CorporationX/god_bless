@@ -18,7 +18,7 @@ public class Main {
                 new Player("Tim")
         );
 
-        while (game.getTotalLivesLost() > 0) {
+        while (game.getRemainingLives() > 0) {
             for (Player player : players) {
                 game.update(player, Math.random() < 0.5, Math.random() > 0.5);
                 try {
