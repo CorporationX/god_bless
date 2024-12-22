@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    private static final List<String> tasks = List.of("помыть посуду", "подмести пол", "приготовить ужин", "станцевать");
+    private static final List<String> tasks =
+            List.of("помыть посуду", "подмести пол", "приготовить ужин", "станцевать");
 
     public static void main(String[] args) {
         ExecutorService executors = Executors.newCachedThreadPool();
