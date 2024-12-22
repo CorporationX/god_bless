@@ -28,8 +28,9 @@ public class House {
             collectedFood.addAll(room2.takeAllFood());
         } else {
             System.out.println(
-                    "В команатах " + room1.getName() + " и/или " + room2.getName() +
-                            " уже была собрана еда"
+                    "В команатах " + room1.getName()
+                            + " и/или " + room2.getName()
+                            + " уже была собрана еда"
             );
         }
 

@@ -11,12 +11,12 @@ public class Main {
     private static final int PLUG_MILLISECONDS = 1000;
 
     public static void main(String[] args) {
-        House house = new House();
         Room room1 = new Room("room1");
         room1.addFood(new Food("Cheese"));
         room1.addFood(new Food("Bread"));
         room1.addFood(new Food("Butter"));
         room1.addFood(new Food("Milk"));
+        House house = new House();
         house.addRoom(room1);
 
         Room room2 = new Room("room2");
