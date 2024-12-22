@@ -10,7 +10,7 @@ public class Main {
     private static final int NUMBER_OF_THREADS = 5;
     private static final int START_SCHEDULE = 0;
     private static final int REPEAT_SCHEDULE = 30;
-    private static final int IS_COLLECTED_CHECK_DELAY = 1000;
+    private static final int IS_COLLECTED_CHECK_DELAY = 10000;
     private static final int AMOUNT_OF_ROOMS = 10;
     private static final int AMOUNT_OF_FOOD_PER_ROOM = 10;
 
@@ -26,15 +26,15 @@ public class Main {
                         REPEAT_SCHEDULE,
                         TimeUnit.SECONDS);
             }
-            while (!house.isAllFoodCollected()) {
-                Thread.sleep(IS_COLLECTED_CHECK_DELAY);
+            Thread.sleep(IS_COLLECTED_CHECK_DELAY);
+            if (!house.isAllFoodCollected()) {
+                throw new RuntimeException("All food was not collected");
             }
             System.out.println("All food collected");
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");
         } finally {
             executorService.shutdown();
-
         }
     }
 

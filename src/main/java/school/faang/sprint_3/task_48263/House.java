@@ -13,23 +13,12 @@ import java.util.Random;
 public class House {
     @NonNull
     private final List<Room> rooms;
-
     private final List<Food> collectedFood = new ArrayList<>();
 
     public void collectFood() {
         Random random = new Random();
         collectedFood.addAll(collectFoodFromRoom(random.nextInt(rooms.size())));
         collectedFood.addAll(collectFoodFromRoom(random.nextInt(rooms.size())));
-    }
-
-    private List<Food> collectFoodFromRoom(int roomIndex) {
-        Room room = rooms.get(roomIndex);
-        List<Food> foodCollectedFromRoom = room.collectAllFood();
-        log.info("Collecting food from room {} by thread {}. Collected {} food",
-                room,
-                Thread.currentThread().getName(),
-                foodCollectedFromRoom.size());
-        return foodCollectedFromRoom;
     }
 
     public boolean isAllFoodCollected() {
@@ -47,5 +36,15 @@ public class House {
 
     public List<Room> getRooms() {
         return List.copyOf(rooms);
+    }
+
+    private List<Food> collectFoodFromRoom(int roomIndex) {
+        Room room = rooms.get(roomIndex);
+        List<Food> foodCollectedFromRoom = room.collectAllFood();
+        log.info("Collecting food from room {} by thread {}. Collected {} food",
+                room,
+                Thread.currentThread().getName(),
+                foodCollectedFromRoom.size());
+        return foodCollectedFromRoom;
     }
 }
