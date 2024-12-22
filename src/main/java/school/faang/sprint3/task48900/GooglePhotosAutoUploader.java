@@ -23,15 +23,15 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            log.info("Photo " + photoPath + " was added");
+            log.info("Photo {} was added", photoPath);
             lock.notify();
         }
     }
 
     private void uploadPhotos() {
         synchronized (lock) {
-            for (String s : photosToUpload) {
-                log.info("Photo " + s + " uploaded to server");
+            for (String photo : photosToUpload) {
+                log.info("Photo {} uploaded to server", photo);
             }
             photosToUpload.clear();
             lock.notify();
