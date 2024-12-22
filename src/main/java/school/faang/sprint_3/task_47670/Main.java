@@ -7,9 +7,9 @@ public class Main {
 
     public static void main(String[] args) {
         List<PigThread> gameThreads = new ArrayList<>();
-        gameThreads.add(new Pig3Thread("Nif-Nif", "straw"));
-        gameThreads.add(new Pig2Thread("Nuf-Nuf", "sticks"));
-        gameThreads.add(new Pig1Thread("Naf-Naf", "bricks"));
+        gameThreads.add(new ThirdPigThread("Nif-Nif", "straw"));
+        gameThreads.add(new SecondPigThread("Nuf-Nuf", "sticks"));
+        gameThreads.add(new FirstPigThread("Naf-Naf", "bricks"));
 
         for (PigThread gameThread : gameThreads) {
             gameThread.start();
