@@ -27,7 +27,10 @@ public class House {
             collectedFood.addAll(room1.takeAllFood());
             collectedFood.addAll(room2.takeAllFood());
         } else {
-            System.out.println("В команатах " + room1.getName() + " и/или " + room2.getName() + " уже была собрана еда");
+            System.out.println(
+                    "В команатах " + room1.getName() + " и/или " + room2.getName() +
+                            " уже была собрана еда"
+            );
         }
 
         System.out.println("Поток " + threadName + " закончил задачу");
@@ -35,8 +38,9 @@ public class House {
 
     public boolean allFoodCollected() {
         for (Room room : rooms) {
-            if (room.hasFood())
+            if (room.hasFood()) {
                 return false;
+            }
         }
         return true;
     }
