@@ -17,6 +17,4 @@ public class Player {
         }
         boss.leaveBattle(this);
     }
-
-
 }
