@@ -16,10 +16,14 @@ public class Main {
         executor.scheduleAtFixedRate(() -> {
             hotel.collectFood();
             if (hotel.hasAllFoodCollected()) {
-                executor.shutdown();
-                log.info("All rooms served");
-                System.out.println(hotel.getCollectedFood());
+                try {
+                    executor.awaitTermination(3, TimeUnit.SECONDS);
+                    executor.shutdown();
+                } catch (InterruptedException e) {
+                    log.error("Tasks completed with errors {}", e.getMessage());
+                }
             }
         }, DataSet.THREAD_INITIAL_DELAY, DataSet.THREAD_TIMEOUT, TimeUnit.SECONDS);
+        log.info("Collected food from rooms {}", hotel.getCollectedFood());
     }
 }
