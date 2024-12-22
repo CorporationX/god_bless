@@ -3,7 +3,6 @@ package school.faang.sprint4.task1;
 public class Music {
     public static void main(String[] args) {
 
-
         Player player = new Player();
         Thread playThread = new Thread(player::play);
         Thread pauseThread = new Thread(player::pause);
