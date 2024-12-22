@@ -1,6 +1,5 @@
 package school.faang.task_50656;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -9,6 +8,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     private static final int POOL_SIZE = 5;
+
     public static void main(String[] args) throws InterruptedException {
         AtomicInteger atomicInteger = new AtomicInteger();
         TwitterAccount twitterAccount = new TwitterAccount("az3l1t", atomicInteger);
