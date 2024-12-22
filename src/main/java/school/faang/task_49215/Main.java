@@ -38,7 +38,7 @@ public class Main {
                 log.info("Просмотры не завершены");
             }
         } catch (InterruptedException e) {
-            log.error(e.getMessage());
+            log.error("Ошибка завершения потоков");
         }
     }
 }

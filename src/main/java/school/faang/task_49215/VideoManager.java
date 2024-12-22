@@ -2,12 +2,12 @@ package school.faang.task_49215;
 
 import lombok.Data;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 @Data
 public class VideoManager {
-    private final ConcurrentMap<String, Integer> views = new ConcurrentHashMap<>();
+    private final Map<String, Integer> views = new ConcurrentHashMap<>();
 
     public void addView(String videoId) {
         views.put(videoId, views.getOrDefault(videoId, 0) + 1);
