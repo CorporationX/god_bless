@@ -55,7 +55,7 @@ public class House implements HouseInterface {
                 Thread.sleep(DELAY_WAIT_FOR_FINISH_OF_CLEANING);
             }
             executor.shutdown();
-            executor.awaitTermination( DELAY_WAIT_FOR_SHUTDOWN_EXECUTER, TimeUnit.SECONDS);
+            executor.awaitTermination(DELAY_WAIT_FOR_SHUTDOWN_EXECUTER, TimeUnit.SECONDS);
             System.out.println(SPLITTER + "Cleaning is finished :");
         } catch (InterruptedException e) {
             System.out.println("HOTEL. CLEARING WAS INTERRUPTED!!!");
