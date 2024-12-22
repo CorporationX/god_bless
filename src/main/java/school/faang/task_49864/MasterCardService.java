@@ -8,8 +8,11 @@ import java.util.concurrent.ExecutorService;
 @Slf4j
 public class MasterCardService {
     public void doAll(ExecutorService executorService) {
-        CompletableFuture<Integer> collectPayment = CompletableFuture.supplyAsync(this::collectPayment, executorService);
-        CompletableFuture<Integer> sendAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
+        CompletableFuture<Integer> collectPayment = CompletableFuture
+                .supplyAsync(this::collectPayment, executorService);
+
+        CompletableFuture<Integer> sendAnalytics = CompletableFuture
+                .supplyAsync(this::sendAnalytics, executorService);
 
         sendAnalytics.thenAccept(analytics -> {
             log.info("The analysis has been sent: {}", analytics);
