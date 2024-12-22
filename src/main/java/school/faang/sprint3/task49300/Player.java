@@ -41,6 +41,4 @@ public class Player {
             log.info("Music rewind to previous track");
         }
     }
-
-
 }
