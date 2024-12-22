@@ -14,7 +14,7 @@ public class SupercowMain {
                 new Player("Player5")
         ));
 
-        for(Player player : players) {
+        for (Player player : players) {
             player.startBattle(boss);
         }
     }
