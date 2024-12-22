@@ -19,27 +19,22 @@ public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFood = new ArrayList<>();
     private final Random random = new Random();
-    private final AtomicBoolean atomicFlag = new AtomicBoolean(false);
 
     public void collectFood() {
-        try {
-            if (hasAllFoodCollected()) {
-                log.info("Done!");
-                atomicFlag.set(false);
-            }
-            synchronized (this) {
-                IntStream.range(0, 2)
-                        .mapToObj(number -> rooms.get(random.nextInt(DataSet.AMOUNT_OF_ROOMS)))
-                        .filter(Room::hasFood)
-                        .map(Room::removeAllFood)
-                        .forEach(collectedFood::addAll);
-            }
-        } finally {
-            atomicFlag.set(false);
+        if (hasAllFoodCollected()) {
+            log.info("Done!");
+            return;
+        }
+        synchronized (this) {
+            IntStream.range(0, 2)
+                    .mapToObj(number -> rooms.get(random.nextInt(DataSet.AMOUNT_OF_ROOMS)))
+                    .filter(Room::hasFood)
+                    .map(Room::removeAllFood)
+                    .forEach(collectedFood::addAll);
         }
     }
 
-    public boolean hasAllFoodCollected() {
+    public synchronized boolean hasAllFoodCollected() {
         return collectedFood.size() == DataSet.TOTAL_AMOUNT_OF_FOODS;
     }
 }
