@@ -8,7 +8,7 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
 
     @Override
     void clearExpiredCache() {
-        weatherDataLog.entrySet()
+        getWeatherDataLog().entrySet()
                 .removeIf(entry -> checkTtl(entry.getValue().getTimestamp()));
     }
 }
