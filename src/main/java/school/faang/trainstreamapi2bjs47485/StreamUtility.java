@@ -2,23 +2,27 @@ package school.faang.trainstreamapi2bjs47485;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class Utility {
+public class StreamUtility {
     public static List<List<Integer>> findUniquePairs(List<Integer> numbers,
                                                       int target) {
-        Set<List<Integer>> pairs = new HashSet<>();
         Set<Integer> seen = new HashSet<>();
 
-        for (int number : numbers) {
-            int complement = target - number;
-            if (seen.contains(complement)) {
-                List<Integer> pair = Arrays.asList(Math.min(number, complement),
-                        Math.max(number, complement));
-                pairs.add(pair);
-            }
-            seen.add(number);
-        }
-        return new ArrayList<>(pairs);
+        return numbers.stream()
+                .flatMap(number -> {
+                    int complement = target - number;
+                    if (seen.contains(complement)) {
+                        return Stream.of(List.of(Math.min(number, complement),
+                                Math.max(number, complement)));
+                    } else {
+                        seen.add(number);
+                        return Stream.empty();
+                    }
+                })
+                .collect(Collectors.toSet())
+                .stream()
+                .collect(Collectors.toList());
     }
 
     public static List<String> sortCountriesAndGetCapitals(Map<String, String> countries) {
