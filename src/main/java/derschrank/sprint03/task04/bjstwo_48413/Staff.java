@@ -27,12 +27,12 @@ public class Staff extends Thread implements StaffInterface {
 
     @Override
     public void collectFood() throws InterruptedException {
-        while (hasAFreeHand()) {
+        while (hasAfreeHand()) {
             for (RoomInterface room : house.getRooms()) {
                 if (!room.isClear()) {
                     room.knockKnock(this);
                 }
-                if (!hasAFreeHand()) {
+                if (!hasAfreeHand()) {
                     break;
                 }
 
@@ -45,7 +45,7 @@ public class Staff extends Thread implements StaffInterface {
     }
 
     @Override
-    public boolean hasAFreeHand() {
+    public boolean hasAfreeHand() {
         for (int i = 0; i < hands.length; i++) {
             if (hands[i] == null) {
                 return true;

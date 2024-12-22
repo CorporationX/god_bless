@@ -54,8 +54,8 @@ public class House implements HouseInterface {
 
         String number;
         final int roomsByLevel = 10;
-        for (int i = 0; i < countOfRooms; i++){
-            number = String.format("%d0%d", 2 + i / roomsByLevel,i % roomsByLevel);
+        for (int i = 0; i < countOfRooms; i++) {
+            number = String.format("%d0%d", 2 + i / roomsByLevel, i % roomsByLevel);
             rooms.add(new Room(number));
         }
     }

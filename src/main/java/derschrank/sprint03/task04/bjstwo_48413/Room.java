@@ -22,9 +22,9 @@ public class Room implements RoomInterface {
 
     private void giveAwayFood(Staff staff) {
         if (!food.isEmpty()) {
-            if(staff.receiveFood(food.get(0))) {
+            if (staff.receiveFood(food.get(0))) {
                 food.remove(0);
-            };
+            }
         }
     }
 
