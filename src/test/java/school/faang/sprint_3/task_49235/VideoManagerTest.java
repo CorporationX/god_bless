@@ -19,14 +19,14 @@ public class VideoManagerTest {
 
     @RepeatedTest(5)
     void testAddViewBaseCase() {
-        final int NUM_THREADS = 100;
-        final int NUM_VIDEOS = 10;
-        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        final int numThread = 100;
+        final int numVideos = 10;
+        ExecutorService executor = Executors.newFixedThreadPool(numThread);
 
         try {
-            for (int i = 0; i < NUM_VIDEOS; i++) {
+            for (int i = 0; i < numVideos; i++) {
                 final String videoId = "video" + i;
-                for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
+                for (int j = 0; j < numThread / numVideos; j++) {
                     executor.submit(() -> videoManager.addView(videoId));
                 }
             }
@@ -36,7 +36,7 @@ public class VideoManagerTest {
                 throw new RuntimeException("Executor did not terminate in the specified time.");
             }
 
-            for (int i = 0; i < NUM_VIDEOS; i++) {
+            for (int i = 0; i < numVideos; i++) {
                 assertEquals(11, videoManager.getViewCount("video" + i), "Video " + i);
             }
 
