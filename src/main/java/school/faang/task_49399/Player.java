@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Player {
-    boolean isPlaying;
-    final Lock lock;
+    private boolean isPlaying;
+    private final Lock lock;
 
     public void play() {
         System.out.println("Befor Play music, status isPlaying = " + isPlaying);
