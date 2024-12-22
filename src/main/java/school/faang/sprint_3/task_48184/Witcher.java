@@ -15,6 +15,7 @@ public class Witcher {
     private static final int MAX_X_BORDER = 1000;
     private static final int MAX_Y_BORDER = 1000;
 
+    private static final int THREADS_POOL_SIZE_1 = 1;
     private static final int THREADS_POOL_SIZE_4 = 4;
     private static final int THREADS_POOL_SIZE_16 = 16;
     private static final int TERMINATION_DELAY = 5;
@@ -24,18 +25,8 @@ public class Witcher {
         List<Monster> monsters = generateEntities(AMOUNT_OF_MONSTERS, "Monster", Monster::new);
 
         long startOfExecution = System.currentTimeMillis();
-        long endOfExecution;
-        for (City city : cities) {
-            Thread thread = new Thread(new CityWorker(city, monsters));
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                System.out.println("Main thread interrupted");
-                return;
-            }
-        }
-        endOfExecution = System.currentTimeMillis();
+        parallelExecution(cities, monsters, THREADS_POOL_SIZE_1);
+        long endOfExecution = System.currentTimeMillis();
         System.out.printf("\n\nOne thread execution time: %d\n\n\n", (endOfExecution - startOfExecution));
 
         startOfExecution = System.currentTimeMillis();
@@ -65,6 +56,7 @@ public class Witcher {
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -16,21 +16,26 @@ public class CityWorker implements Runnable {
     public void run() {
         Location witcherLocation = new Location(0, 0);
         double distanceFromWitcher = calculateDistance(witcherLocation);
-        double distanceToNearestMonster = monsters.stream()
-                .map(monster -> calculateDistance(monster.getLocation()))
-                .min(Double::compareTo)
-                .orElse(0.0);
+        double distanceToNearestMonster = getDistanceToNearestMonster();
 
+        String cityName = city.getName();
         System.out.printf("""
                         Distance from witcher to %s %.2f,
                         distance from %s to the nearest monster %.2f,
                         total distance %.2f
                         """,
-                city.getName(),
+                cityName,
                 distanceFromWitcher,
-                city.getName(),
+                cityName,
                 distanceToNearestMonster,
                 distanceFromWitcher + distanceToNearestMonster);
+    }
+
+    private Double getDistanceToNearestMonster() {
+        return monsters.stream()
+                .map(monster -> calculateDistance(monster.getLocation()))
+                .min(Double::compareTo)
+                .orElse(0.0);
     }
 
     private double calculateDistance(Location location) {
