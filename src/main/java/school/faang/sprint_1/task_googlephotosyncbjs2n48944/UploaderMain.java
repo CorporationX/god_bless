@@ -1,13 +1,12 @@
 package school.faang.sprint_1.task_googlephotosyncbjs2n48944;
 
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class UploaderMain {
+    @SneakyThrows
     public static void main(String[] args) {
         List<String> pathsToPhotos = new ArrayList<>(List.of(
                 "C:\\Photos\\Photo1.png",
@@ -18,21 +17,26 @@ public class UploaderMain {
                 "C:\\Photos\\Photo6.png"
         ));
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader(pathsToPhotos);
-        Runnable addNewPhotoToUploader = () -> googlePhotosAutoUploader.addNewPhoto();
-        Runnable autoUploadToServer = () -> {
-            try {
-                googlePhotosAutoUploader.startAutoUpload();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        Runnable addNewPhotoToUploader = () -> {
+            googlePhotosAutoUploader.onNewPhotoAdded("Photo_001");
+            googlePhotosAutoUploader.onNewPhotoAdded("Photo_002");
+            googlePhotosAutoUploader.onNewPhotoAdded("Photo_003");
+            googlePhotosAutoUploader.onNewPhotoAdded("Photo_004");
         };
-
-        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(3);
-        scheduledExecutor.scheduleAtFixedRate(addNewPhotoToUploader,0, 3, TimeUnit.SECONDS);
-        scheduledExecutor.scheduleAtFixedRate(autoUploadToServer,0, 1, TimeUnit.SECONDS);
+        Runnable autoUploadToServer = () -> googlePhotosAutoUploader.startAutoUpload();
 
 
+//        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(2);
+//        scheduledExecutor.scheduleAtFixedRate(autoUploadToServer,0, 1, TimeUnit.SECONDS);
+//        scheduledExecutor.scheduleAtFixedRate(addNewPhotoToUploader,0, 3, TimeUnit.SECONDS);
+
+
+        Thread uploadThread = new Thread(autoUploadToServer);
+        Thread photoAdderThread = new Thread(addNewPhotoToUploader);
+        uploadThread.start();
+        photoAdderThread.start();
 //        new Thread(addNewPhotoToUploader).start();
 //        new Thread(autoUploadToServer).start();
+
     }
 }
