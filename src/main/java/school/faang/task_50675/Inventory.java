@@ -23,9 +23,10 @@ public class Inventory {
         if (item == null || item2 == null) {
             throw new IllegalArgumentException("Error : 23, Inventory");
         }
-        String resultName = item.getName() + item2.getName();
-        int resultPower = item.getPower() + item2.getPower();
-        return new Item(resultName, resultPower);
+        Item result = new Item();
+        result.setName(item.getName() + item2.getName());
+        result.setPower(item.getPower() + item2.getPower());
+        return result;
     }
 
     public CompletableFuture<Item> getItemFromChest(ExecutorService executorService) {
@@ -42,7 +43,9 @@ public class Inventory {
                                                              String type,
                                                              int time) {
         return CompletableFuture.supplyAsync(() -> {
-            Item item = new Item(name, power);
+            Item item = new Item();
+            item.setPower(power);
+            item.setName(name);
             System.out.println("Getting item from " + type);
             try {
                 Thread.sleep(2000);
@@ -54,7 +57,8 @@ public class Inventory {
         }, executorService);
     }
 
-    public CompletableFuture<Void> thenDoCombineCompose(CompletableFuture<Item> firstItem, CompletableFuture<Item> secondItem) {
+    public CompletableFuture<Void> thenDoCombineCompose(CompletableFuture<Item> firstItem,
+                                                        CompletableFuture<Item> secondItem) {
         return firstItem.thenCombine(secondItem, this::combineItem)
                 .thenCompose(item -> CompletableFuture.runAsync(() -> addItem(item)));
     }
