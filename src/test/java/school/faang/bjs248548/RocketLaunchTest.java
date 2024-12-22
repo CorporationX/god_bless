@@ -7,6 +7,9 @@ import java.util.List;
 
 
 class RocketLaunchTest {
+
+    public static final int MILLIS = 7000;
+
     @Test
     void launch() throws InterruptedException {
         List<RocketLaunch> launches = List.of(
@@ -21,6 +24,6 @@ class RocketLaunchTest {
 
         RocketLaunch.planRocketLaunches(launches);
 
-        Thread.sleep(20000);
+        Thread.sleep(MILLIS);
     }
 }

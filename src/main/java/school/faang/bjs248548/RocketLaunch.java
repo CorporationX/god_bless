@@ -9,7 +9,6 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @AllArgsConstructor
@@ -50,12 +49,12 @@ public class RocketLaunch {
 
     private static void shutdown(ExecutorService executor) {
         executor.shutdown();
-        try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
+        while (!executor.isTerminated()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
             }
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
         }
     }
 
