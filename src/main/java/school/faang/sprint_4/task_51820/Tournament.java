@@ -12,6 +12,7 @@ public class Tournament {
             try {
                 Thread.sleep(task.difficulty().getTimeToComplete());
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 log.error("Поток прерван во время ожидания завершения задачи");
             }
             for (Student student : school.team()) {

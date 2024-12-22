@@ -2,10 +2,9 @@ package school.faang.sprint_4.task_51820;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.locks.Condition;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,7 +24,13 @@ public class Main {
         for (int i = 0; i < schools.size(); i++) {
             School school = schools.get(i);
             Task task = tasks.get(i);
-            CompletableFuture<School> futureSchool = tournament.startTask(school, task);
+            CompletableFuture<School> futureSchool = tournament.startTask(school, task)
+                    .exceptionally(ex -> {
+                        log.error("Ошибка при выполнении задачи для {}:{}",
+                                school.name(),
+                                ex.getMessage());
+                        return new School("Ошибка", Collections.emptyList());
+                    });
             futureSchools.add(futureSchool);
         }
 

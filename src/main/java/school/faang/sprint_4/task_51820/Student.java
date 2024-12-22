@@ -11,6 +11,9 @@ public final class Student {
     private int points;
 
     public void addPoints(int rewardPoints) {
+        if (rewardPoints < 0) {
+            throw new IllegalArgumentException("Вознаграждение должно быть положительным числом");
+        }
         points += rewardPoints;
     }
 }
