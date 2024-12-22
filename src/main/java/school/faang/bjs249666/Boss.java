@@ -17,7 +17,7 @@ public class Boss {
             }
             currentPlayers++;
             System.out.println(player.getName() + " joined the battle!");
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("Exception: " + e.getMessage());
         }
     }
@@ -25,6 +25,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         System.out.println(player.getName() + " left the battle!");
-        notify();
+        notifyAll();
     }
 }
