@@ -28,6 +28,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) throws InterruptedException {
         currentPlayers--;
         log.info("игрок {} покинул сражение", player.getName());
-        notify();
+        notifyAll();
     }
 }

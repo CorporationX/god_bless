@@ -19,7 +19,7 @@ public class Player {
             Thread.sleep(1000);
             boss.leaveBattle(this);
         } catch (InterruptedException e) {
-            log.error("игрок {} выбросил исключение ", name, e);
+            log.error("Ошибка в сражении: {}", e.getMessage(), e);
         }
     }
 }
