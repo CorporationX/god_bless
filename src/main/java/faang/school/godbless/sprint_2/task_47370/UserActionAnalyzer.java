@@ -25,7 +25,7 @@ public class UserActionAnalyzer {
                 .filter(u -> u.getContent() != null && u.getContent().contains(hashtag))
                 .flatMap(u -> {
                     String[] strings = u.getContent().split(" ");
-                    return Arrays.stream(strings).filter(s -> s.contains(hashtag)).toList().stream();
+                    return Arrays.stream(strings).filter(s -> s.startsWith(hashtag)).toList().stream();
                 })
                 .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
                 .entrySet().stream()
@@ -38,8 +38,9 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> userActions) {
         checkListForNull(userActions);
         return userActions.stream()
-                .filter(u -> u.getActionDate().getMonth() == LocalDate.now().minusMonths(1).getMonth()
-                        && u.getActionType() == ActionType.COMMENT)
+                .filter(u -> u.getActionType() == ActionType.COMMENT)
+                .filter(u -> u.getActionDate() != null)
+                .filter(u -> u.getActionDate().getMonth() == LocalDate.now().minusMonths(1).getMonth())
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
