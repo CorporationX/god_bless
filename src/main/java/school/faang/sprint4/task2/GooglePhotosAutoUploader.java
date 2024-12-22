@@ -16,7 +16,7 @@ public class GooglePhotosAutoUploader {
                     e.fillInStackTrace();
                 }
             }
-            this.uploadPhotos();
+            uploadPhotos();
         }
     }
 
