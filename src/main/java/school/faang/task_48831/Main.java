@@ -1,8 +1,11 @@
 package school.faang.task_48831;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         List<Role> roles = new ArrayList<>();
@@ -24,25 +27,20 @@ public class Main {
                 System.out.println(user.getName() + " пытается присоединиться к дому...");
                 user.joinHouse(house);
                 System.out.println(user.getName() + " присоединился как " + user.getBusyRole().getName());
+
+                try {
+                    Thread.sleep((long) (Math.random() * 10));
+                } catch (InterruptedException e) {
+                    log.error("Ошибка выполнения потока: {}", e.getMessage());
+                }
+
+                System.out.println(user.getName() + " покидает дом...");
+                user.leaveHouse(house);
+                System.out.println(user.getName() + " покинул дом.");
             }));
         }
 
         threads.forEach(Thread::start);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Thread threadLeave = new Thread(() -> {
-            System.out.println(users[0].getName() + " покидает дом...");
-            users[0].leaveHouse(house);
-            System.out.println(users[0].getName() + " покинул дом.");
-        });
-
-        threadLeave.start();
-
         threads.forEach(thread -> {
             try {
                 thread.join();
@@ -50,12 +48,6 @@ public class Main {
                 e.printStackTrace();
             }
         });
-
-        try {
-            threadLeave.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         System.out.println("Состояние дома после выхода пользователей:");
         house.getRoles().forEach(role -> {

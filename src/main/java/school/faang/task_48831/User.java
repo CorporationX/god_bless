@@ -1,7 +1,9 @@
 package school.faang.task_48831;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 
 public class User {
@@ -14,25 +16,20 @@ public class User {
     }
 
     public void joinHouse(House house) {
-        while (true) {
-            synchronized (house) {
-                Role desiredRole = house.getRoles().stream()
-                        .filter(role -> role.getUser() == null)
-                        .findAny()
-                        .orElse(null);
+        synchronized (house) {
+            Role desiredRole = house.getRoles().stream()
+                    .filter(role -> role.getUser() == null)
+                    .findAny()
+                    .orElse(null);
 
-                if (desiredRole == null) {
-                    try {
-                        house.wait();
-                    } catch (InterruptedException e) {
-                        System.out.println("Ошибка выполнения кода: " + e);
-                    }
-                } else {
-                    desiredRole.setUser(this);
-                    busyRole = desiredRole;
-                    this.house = house;
-                    break;
+            if (desiredRole == null) {
+                try {
+                    house.wait();
+                } catch (InterruptedException e) {
+                    log.error("Ошибка выполнения кода: {}", String.valueOf(e));
                 }
+            } else {
+                house.addRole(desiredRole, this);
             }
         }
     }
@@ -43,11 +40,6 @@ public class User {
             return;
         }
 
-        synchronized (house) {
-            this.house = null;
-            busyRole.setUser(null);
-            busyRole = null;
-            house.notifyAll();
-        }
+        house.removeRole(busyRole, this);
     }
 }
