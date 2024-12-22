@@ -8,22 +8,26 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 public class MailSender {
 
     private static final int THREAD_POOL = 5;
-    private static final int EMAILS = 1000;
+    private static final int EMAILS = 1003;
 
     public static void main(String[] args) {
 
         final long start = System.currentTimeMillis();
-        int from = 0;
-        int to = EMAILS / THREAD_POOL;
-        int range = to;
+        int from;
+        int to;
+        int range = EMAILS / THREAD_POOL;
+        int remainder = EMAILS % THREAD_POOL;
 
         ExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL);
         SenderRunnable senderRunnable;
         for (int i = 0; i < THREAD_POOL; i++) {
+            from = i * range;
+            to = (i + 1) * range;
+            if (i == THREAD_POOL - 1) {
+                to += remainder;
+            }
             senderRunnable = new SenderRunnable(from, to);
             executor.execute(senderRunnable);
-            from += range;
-            to += range;
         }
         executor.shutdown();
         try {
@@ -32,6 +36,7 @@ public class MailSender {
                 System.out.println("Process terminated due to thread failure");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Something went wrong");
         }
 
