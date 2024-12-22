@@ -21,6 +21,7 @@ public class Main {
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
         CompletableFuture
                 .allOf(accounts.stream()
+                        .parallel()
                         .map(account -> {
                             try {
                                 return system.followAccount(account, accounts.get(random.nextInt(accounts.size())));
