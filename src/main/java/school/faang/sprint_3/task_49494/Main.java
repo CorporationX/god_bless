@@ -31,7 +31,10 @@ public class Main {
         executor.shutdown();
 
         try {
-            executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES);
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
+                log.error("Поток принудительно завершен из-за превышения времени ожидания выполнения задачи");
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Поток прерван во время ожидания завершения задачи");

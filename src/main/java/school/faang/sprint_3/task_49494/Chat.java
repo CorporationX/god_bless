@@ -31,7 +31,7 @@ public class Chat {
             log.info("{} подключился во вторую ячейку", user.getName());
             setUser2(user);
         } else {
-            System.out.println("Места для пользователя нет");
+            log.info("Места для пользователя нет");
         }
     }
 

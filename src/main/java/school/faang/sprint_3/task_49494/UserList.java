@@ -14,7 +14,7 @@ public class UserList {
     }
 
     public List<User> getOnlineUser() {
-        return users.stream()
+        return users.parallelStream()
                 .filter(user -> user.isOnline() && user.isLookingForChat())
                 .toList();
     }
