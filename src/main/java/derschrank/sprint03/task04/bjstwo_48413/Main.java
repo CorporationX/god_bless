@@ -6,7 +6,7 @@ public class Main {
     private static final int COUNT_OF_STAFFS = 10;
 
     public static void main(String[] args) {
-        HouseInterface hotel = new House(COUNT_OF_ROOMS, COUNT_OF_STAFFS);
+        HouseInterface hotel = new House(COUNT_OF_ROOMS);
 
         System.out.println(SPLITTER);
         System.out.println(hotel);
