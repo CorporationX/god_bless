@@ -30,9 +30,11 @@ public class Boss {
     }
 
     public void leaveBattle(Player player) {
-        if (battlePlayers.remove(player)) {
-            currentPlayers = battlePlayers.size();
-            log.info("{} leave the battle with Boss. Total players in battle: {}", player, currentPlayers);
+        synchronized (lock) {
+            if (battlePlayers.remove(player)) {
+                currentPlayers = battlePlayers.size();
+                log.info("{} leave the battle with Boss. Total players in battle: {}", player, currentPlayers);
+            }
         }
     }
 

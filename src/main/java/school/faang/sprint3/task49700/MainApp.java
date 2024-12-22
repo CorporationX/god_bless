@@ -23,7 +23,6 @@ public class MainApp {
             Player player = new Player("Player " + i);
             players.add(player);
         }
-
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
         Boss boss = new Boss(MAX_BATTLE_PLAYERS);
@@ -35,14 +34,12 @@ public class MainApp {
                 throw new RuntimeException(e);
             }
         }
-
         try {
             Thread.sleep(TIME_TO_KILL);
             boss.killEmAll();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         executor.shutdown();
 
         try {
