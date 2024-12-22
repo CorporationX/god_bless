@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public class MasterCardService {
+    private static final int THREAD_DELAY = 1000;
+
     public void doAll(ExecutorService executorService) {
         CompletableFuture<Integer> collectPayment = CompletableFuture
                 .supplyAsync(this::collectPayment, executorService);
@@ -26,17 +28,17 @@ public class MasterCardService {
             return 10_000;
         } catch (InterruptedException e) {
             log.error(e.getMessage());
-            throw new RuntimeException();
+            return 0;
         }
     }
 
     private int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(THREAD_DELAY);
+            return 1000;
         } catch (InterruptedException e) {
             log.error(e.getMessage());
-            throw new RuntimeException();
+            return 0;
         }
     }
 }
