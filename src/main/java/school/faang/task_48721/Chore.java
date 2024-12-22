@@ -3,7 +3,7 @@ package school.faang.task_48721;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Chore implements Runnable{
+public class Chore implements Runnable {
     private String chore;
 
     @Override
