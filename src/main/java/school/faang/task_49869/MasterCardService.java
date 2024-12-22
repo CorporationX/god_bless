@@ -11,8 +11,10 @@ public class MasterCardService {
     private static final int THREAD_DELAY = 1000;
 
     public void doAll(ExecutorService executorService) {
-        CompletableFuture<Integer> collectPayment = CompletableFuture.supplyAsync(this::collectPayment, executorService);
-        CompletableFuture<Integer> sendAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
+        CompletableFuture<Integer> collectPayment =
+                CompletableFuture.supplyAsync(this::collectPayment, executorService);
+        CompletableFuture<Integer> sendAnalytics =
+                CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
 
         sendAnalytics.thenAccept(analytics -> {
             log.info("Аналитика отправлена: {}", analytics);
