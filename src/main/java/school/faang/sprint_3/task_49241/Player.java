@@ -1,0 +1,19 @@
+package school.faang.sprint_3.task_49241;
+
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@RequiredArgsConstructor
+@Getter
+@Setter
+public class Player {
+    @NonNull
+    private final String name;
+    private int lives;
+
+    public void decreaseLives() {
+        lives--;
+    }
+}
