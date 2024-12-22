@@ -1,19 +1,17 @@
 package school.faang.sprint3.bjs_49390;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
-        Thread[] threads = new Thread[4];
+        Runnable[] commands = new Runnable[4];
 
-        threads[0] = new Thread(() -> player.play());
-        threads[1] = new Thread(() -> player.pause());
-        threads[2] = new Thread(() -> player.skip());
-        threads[3] = new Thread(() -> player.previous());
+        commands[0] = () -> player.play();
+        commands[1] = () -> player.pause();
+        commands[2] = () -> player.skip();
+        commands[3] = () -> player.previous();
 
-        for (Thread thread : threads) {
+        for (int i = 0; i < commands.length; i++) {
+            Thread thread = new Thread(commands[i]);
             thread.start();
         }
     }
