@@ -2,7 +2,7 @@ package school.faang.task50717;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -30,19 +30,16 @@ public class Main {
                 new Task("Yule Ball Preparations", Difficulty.MIDDLE, 50)
         );
 
-        List<CompletableFuture<School>> completableFutures = new ArrayList<>();
-
-        IntStream.range(0, tasks.size()).forEach(i -> {
-            School school = schools.get(i);
-            Task task = tasks.get(i);
-            completableFutures.add(tournament.startTask(school, task));
-        });
+        List<CompletableFuture<School>> completableFutures = IntStream.range(0, tasks.size())
+                .mapToObj(i -> tournament.startTask(schools.get(i), tasks.get(i)))
+                .toList();
 
         CompletableFuture
                 .allOf(completableFutures.toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
-                    School school = schools.stream().max((school1, school2) -> Integer.compare(school2.getTotalPoints(),
-                            school1.getTotalPoints())).get();
+                    School school = schools.stream()
+                            .max(Comparator.comparingInt(School::getTotalPoints))
+                            .get();
                     log.info("Школа {} набрала больше всех баллов: {}", school.name(), school.getTotalPoints());
                 })
                 .join();

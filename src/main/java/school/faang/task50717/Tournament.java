@@ -13,7 +13,7 @@ public class Tournament {
                 TimeUnit.SECONDS.sleep(task.difficulty().getSeconds());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.error("Error message: ", e);
+                log.error("Error message in {} and {}: ", school, task, e);
             }
             school.team().forEach(student -> student.addPoints(task.reward()));
             return school;
