@@ -14,17 +14,17 @@ public class Army {
 
     @SneakyThrows
     public int calculateTotalPower() {
-        List<PowerCalculator> powerCalculators = new ArrayList<>();
-        for (Unit unit : units) {
-            PowerCalculator calculatePower = new PowerCalculator(unit);
-            powerCalculators.add(calculatePower);
-            calculatePower.start();
-        }
+        List<PowerCalculator> powerCalculators = units.stream()
+            .map(PowerCalculator::new)
+            .toList();
+
+        powerCalculators.forEach(PowerCalculator::start);
 
         for (PowerCalculator powerCalculator : powerCalculators) {
             powerCalculator.join();
             totalPower += powerCalculator.getPower();
         }
+
         return totalPower;
     }
 }
