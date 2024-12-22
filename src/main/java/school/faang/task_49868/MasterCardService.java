@@ -3,10 +3,10 @@ package school.faang.task_49868;
 
 public class MasterCardService {
     static int collectPayment() {
-        final int COLLECT = 10000;
+        final int collectPaymentConst = 10000;
         try {
-            Thread.sleep(COLLECT);
-            return COLLECT;
+            Thread.sleep(collectPaymentConst);
+            return collectPaymentConst;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -14,10 +14,10 @@ public class MasterCardService {
     }
 
     static int sendAnalytics() {
-        final int SEND = 1000;
+        final int sendAnalyticsConst = 1000;
         try {
-            Thread.sleep(SEND);
-            return SEND;
+            Thread.sleep(sendAnalyticsConst);
+            return sendAnalyticsConst;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
