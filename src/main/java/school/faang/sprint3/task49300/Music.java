@@ -28,23 +28,12 @@ public class Music {
     private static void userOperation(Player player, PlayerOperation operation) {
         Thread thread;
         switch (operation) {
-            case PLAY:
-                thread = new Thread(player::play);
-                thread.start();
-                break;
-            case PAUSE:
-                thread = new Thread(player::pause);
-                thread.start();
-                break;
-            case SKIP:
-                thread = new Thread(player::skip);
-                thread.start();
-                break;
-            case PREVIOUS:
-                thread = new Thread(player::previous);
-                thread.start();
-                break;
-            default:
+            case PLAY -> thread = new Thread(player::play);
+            case PAUSE -> thread = new Thread(player::pause);
+            case SKIP -> thread = new Thread(player::skip);
+            case PREVIOUS -> thread = new Thread(player::previous);
+            default -> throw new IllegalArgumentException("Некорректная операция над плеером!");
         }
+        thread.start();
     }
 }
