@@ -24,23 +24,17 @@ public class Player {
                 System.out.println("Музыка уже приостановлена.");
             }
         }
-
     }
 
     public void skip() {
         synchronized (lock) {
-            synchronized (lock) {
-                System.out.println("Трек пропущен.");
-            }
-
+            System.out.println("Трек пропущен.");
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            synchronized (lock) {
-                System.out.println("Включен предыдущий трек.");
-            }
+            System.out.println("Включен предыдущий трек.");
         }
     }
 }

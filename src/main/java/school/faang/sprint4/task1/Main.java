@@ -1,19 +1,25 @@
 package school.faang.sprint4.task1;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Main {
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(player::play);
-        playThread.start();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
 
-        Thread pauseThread = new Thread(player::pause);
-        pauseThread.start();
+        executor.submit(player::play);
+        executor.submit(player::pause);
+        executor.submit(player::skip);
+        executor.submit(player::previous);
 
-        Thread skipThread = new Thread(player::skip);
-        skipThread.start();
-
-        Thread previousThread = new Thread(player::previous);
-        previousThread.start();
+        executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
