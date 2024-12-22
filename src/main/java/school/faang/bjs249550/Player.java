@@ -20,8 +20,9 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            if (checkPlayingMusic())
+            if (checkPlayingMusic()) {
                 return;
+            }
             isPlaying = false;
             log.info("Music is paused");
         }
@@ -29,15 +30,18 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            if (checkPlayingMusic())
+            if (checkPlayingMusic()) {
                 return;
+            }
             log.info("Music is skipped");
         }
     }
+
     public void previous() {
         synchronized (lock) {
-            if (checkPlayingMusic())
+            if (checkPlayingMusic()) {
                 return;
+            }
             log.info("Music is previous");
         }
     }
