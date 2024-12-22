@@ -1,0 +1,178 @@
+Mice are very nice!
+👩‍💻 🧠🧠
+
+
+
+
+Условие задачи:
+Том и Джерри живут в большом доме, и у них важная миссия — собрать всю еду в этом доме. Чтобы ускорить процесс, необходимо разделить задачу на несколько потоков, которые будут собирать еду из комнат с интервалом в 30 секунд.
+
+Требования:
+1️⃣ Создайте класс House, который будет содержать список всех комнат дома.
+
+2️⃣ Создайте класс Room, который будет содержать список еды, находящейся в этой комнате.
+
+3️⃣ Создайте класс Food, который будет описывать еду (например, её название).
+
+4️⃣ В классе House реализуйте метод collectFood(), который будет:
+
+Собрать еду из двух случайно выбранных комнат.
+
+Удалить собранную еду из списков еды этих комнат.
+
+Добавить собранную еду в общий список собранной еды.
+
+5️⃣ В методе main() класса House:
+
+Создайте объект класса House и заполните его комнаты и еду в каждой комнате.
+
+Создайте пул потоков на 5 потоков с помощью newScheduledThreadPool.
+
+Для каждого потока назначьте задачу, которая будет запускать сбор еды из двух комнат с интервалом в 30 секунд c помощью метода scheduleAtFixedRate
+
+Когда все потоки завершат работу, выведите сообщение «Еда в доме собрана!».
+
+
+
+Почему эта задача полезна?
+YouTube может использовать newScheduledThreadPool для обновления кэша видео, чтобы ускорить загрузку и снизить нагрузку на серверы. Например, можно запускать периодический процесс обновления кэша, чтобы хранить видеофайлы в более доступной и быстрой форме. Это позволяет пользователям получать быстрый доступ к видео, не загружая их каждый раз заново с сервера, что снижает нагрузку на серверы YouTube и улучшает пользовательский опыт.
+
+
+
+Немного теории:
+Как работает метод scheduleAtFixedRate()?
+Он позволяет запускать задачу с заданным интервалом времени, независимо от того, сколько времени занимает выполнение предыдущей задачи.
+
+scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+
+Runnable command: Задача, которую нужно периодически выполнять (например, вызов метода collectFood()).
+
+initialDelay: Задержка перед первым запуском задачи (например, можно указать 0, чтобы задача запустилась сразу).
+
+period: Интервал между запуском задач (например, 30 секунд).
+
+TimeUnit unit: Единицы измерения для initialDelay и period (секунды, минуты, часы и т.д.).
+
+Как это работает:
+
+Когда метод вызывается, программа сначала ждёт initialDelay (задержку перед первым запуском).
+
+Затем выполняется задача, которая передана в виде Runnable.
+
+После выполнения задачи программа ждет period и снова запускает задачу. Этот цикл повторяется до тех пор, пока задача не будет завершена (например, через вызов shutdown()).
+
+Важно:
+
+Если выполнение задачи занимает больше времени, чем интервал period, программа не начнет новую задачу до завершения предыдущей. То есть, задачи не будут накладываться друг на друга.
+
+Этот метод полезен, когда вам нужно запускать задачи на регулярной основе, независимо от времени выполнения самих задач.
+
+Что такое TimeUnit?
+TimeUnit — это перечисление (enum), которое используется для работы с временными интервалами. Оно позволяет указывать единицы времени (например, секунды, минуты, часы) и делает код более читаемым и понятным.
+
+Основные значения TimeUnit:
+
+TimeUnit.SECONDS — секунды.
+
+TimeUnit.MINUTES — минуты.
+
+TimeUnit.HOURS — часы.
+
+TimeUnit.MILLISECONDS — миллисекунды.
+
+TimeUnit.MICROSECONDS — микросекунды.
+
+TimeUnit.NANOSECONDS — наносекунды.
+
+------------------------------------------------------
+3:35:02: Executing ':derschrank.sprint03.task04.bjstwo_48413.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task04.bjstwo_48413.Main.main()
+==============================
+HOTEL/HOUSE HAS ROOMS: 10 [FOOD IN ROOMS: 21, IN KITCHEN: 0, TOTAL: 21]. STAFF: 5.
+------------------------------------
+FOOD IN ROOMS:
+Room: 200. Total: 2 [#200.1, #200.2]
+Room: 201. Total: 3 [#201.1, #201.2, #201.3]
+Room: 202. Total: 1 [#202.1]
+Room: 203. Total: 4 [#203.1, #203.2, #203.3, #203.4]
+Room: 204. Total: 0 []
+Room: 205. Total: 2 [#205.1, #205.2]
+Room: 206. Total: 2 [#206.1, #206.2]
+Room: 207. Total: 4 [#207.1, #207.2, #207.3, #207.4]
+Room: 208. Total: 3 [#208.1, #208.2, #208.3]
+Room: 209. Total: 0 []
+------------------------------------
+FOOD IN KITCHEN:
+Leftovers of food: 0 []
+------------------------------------
+Clearing:
+Staff become leftover: #200.1. Staff: pool-1-thread-5 - Officiant: 4
+Staff become leftover: #201.1. Staff: pool-1-thread-1 - Officiant: 1
+Staff become leftover: #202.1. Staff: pool-1-thread-2 - Officiant: 2
+Staff become leftover: #203.1. Staff: pool-1-thread-4 - Officiant: 5
+Staff become leftover: #205.1. Staff: pool-1-thread-3 - Officiant: 3
+Staff become leftover: #205.2. Staff: pool-1-thread-1 - Officiant: 1
+Staff become leftover: #206.1. Staff: pool-1-thread-5 - Officiant: 4
+Staff become leftover: #207.1. Staff: pool-1-thread-3 - Officiant: 3
+Staff become leftover: #208.1. Staff: pool-1-thread-2 - Officiant: 2
+Staff become leftover: #200.2. Staff: pool-1-thread-4 - Officiant: 5
+Kitchen become leftover: #201.1 from: pool-1-thread-1
+Kitchen become leftover: #205.2 from: pool-1-thread-1
+Kitchen become leftover: #200.1 from: pool-1-thread-5
+Kitchen become leftover: #206.1 from: pool-1-thread-5
+Kitchen become leftover: #205.1 from: pool-1-thread-3
+Kitchen become leftover: #207.1 from: pool-1-thread-3
+Kitchen become leftover: #202.1 from: pool-1-thread-2
+Kitchen become leftover: #208.1 from: pool-1-thread-2
+Kitchen become leftover: #203.1 from: pool-1-thread-4
+Kitchen become leftover: #200.2 from: pool-1-thread-4
+Staff become leftover: #201.2. Staff: pool-1-thread-1 - Officiant: 1
+Staff become leftover: #203.2. Staff: pool-1-thread-4 - Officiant: 5
+Staff become leftover: #206.2. Staff: pool-1-thread-2 - Officiant: 4
+Staff become leftover: #207.2. Staff: pool-1-thread-5 - Officiant: 2
+Staff become leftover: #208.2. Staff: pool-1-thread-3 - Officiant: 3
+Staff become leftover: #201.3. Staff: pool-1-thread-5 - Officiant: 2
+Staff become leftover: #203.3. Staff: pool-1-thread-2 - Officiant: 4
+Staff become leftover: #207.3. Staff: pool-1-thread-4 - Officiant: 5
+Staff become leftover: #208.3. Staff: pool-1-thread-1 - Officiant: 1
+Staff become leftover: #203.4. Staff: pool-1-thread-3 - Officiant: 3
+Kitchen become leftover: #207.2 from: pool-1-thread-5
+Kitchen become leftover: #201.3 from: pool-1-thread-5
+Kitchen become leftover: #206.2 from: pool-1-thread-2
+Kitchen become leftover: #203.3 from: pool-1-thread-2
+Kitchen become leftover: #203.2 from: pool-1-thread-4
+Kitchen become leftover: #207.3 from: pool-1-thread-4
+Kitchen become leftover: #201.2 from: pool-1-thread-1
+Kitchen become leftover: #208.3 from: pool-1-thread-1
+Kitchen become leftover: #208.2 from: pool-1-thread-3
+Kitchen become leftover: #203.4 from: pool-1-thread-3
+Staff become leftover: #207.4. Staff: pool-1-thread-5 - Officiant: 2
+Kitchen become leftover: #207.4 from: pool-1-thread-5
+------------------------------------
+Cleaning is finished :
+==============================
+HOTEL/HOUSE HAS ROOMS: 10 [FOOD IN ROOMS: 0, IN KITCHEN: 21, TOTAL: 21]. STAFF: 5.
+------------------------------------
+FOOD IN ROOMS:
+Room: 200. Total: 0 []
+Room: 201. Total: 0 []
+Room: 202. Total: 0 []
+Room: 203. Total: 0 []
+Room: 204. Total: 0 []
+Room: 205. Total: 0 []
+Room: 206. Total: 0 []
+Room: 207. Total: 0 []
+Room: 208. Total: 0 []
+Room: 209. Total: 0 []
+------------------------------------
+FOOD IN KITCHEN:
+Leftovers of food: 21 [#201.1, #205.2, #200.1, #206.1, #205.1, #207.1, #202.1, #208.1, #203.1, #200.2, #207.2, #201.3, #206.2, #203.3, #203.2, #207.3, #201.2, #208.3, #208.2, #203.4, #207.4]
+
+BUILD SUCCESSFUL in 1m 16s
+2 actionable tasks: 2 executed
+3:36:20: Execution finished ':derschrank.sprint03.task04.bjstwo_48413.Main.main()'.
