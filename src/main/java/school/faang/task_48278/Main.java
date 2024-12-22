@@ -1,7 +1,5 @@
 package school.faang.task_48278;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -22,8 +20,6 @@ public class Main {
         long end = System.currentTimeMillis();
         long executionTime = end - start;
         System.out.printf("Время выполнения метода planRocketLaunches: %d миллисекунд\n", executionTime);
-
-
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
