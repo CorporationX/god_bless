@@ -1,7 +1,10 @@
 package school.faang.bjs48074;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
+@Slf4j
 public class Army {
     private final List<Unit> units;
 
@@ -27,7 +30,7 @@ public class Army {
                     try {
                         entry.join();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        log.error("Ошибка при join потока в main: {}", e.getMessage());
                     }
                 })
                 .map(PowerCalculator::getPower)
