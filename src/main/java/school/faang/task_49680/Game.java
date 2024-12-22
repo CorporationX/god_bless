@@ -17,7 +17,7 @@ public class Game {
     public void update(Player player, boolean scores, boolean live) {
 
         synchronized (scoreLock) {
-            if (scores &&  remainingLives != 0) {
+            if (scores && remainingLives != 0) {
                 totalScore++;
                 log.info("игрок {} заработал очки. Текущий счёт: {}", player.getName(), totalScore);
             }
@@ -26,9 +26,9 @@ public class Game {
         synchronized (livesLock) {
             if (live) {
                 remainingLives--;
-                log.info("игрок {} потерял жизнь. Осталось жизней: {}", player.getName(),  remainingLives);
+                log.info("игрок {} потерял жизнь. Осталось жизней: {}", player.getName(), remainingLives);
             }
-            if ( remainingLives <= 0) {
+            if (remainingLives <= 0) {
                 gameOver(player);
             }
         }
