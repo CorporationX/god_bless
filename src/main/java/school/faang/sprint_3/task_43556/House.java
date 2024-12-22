@@ -30,12 +30,8 @@ public class House {
     }
 
     public boolean allFoodCollected() {
-        int count = 0;
-        for (Room room : rooms) {
-            if (room.foodList().isEmpty()) {
-                count++;
-            }
-        }
-        return count == rooms.size();
+        return (int) rooms.stream()
+                .filter(room -> room.foodList().isEmpty())
+                .count() == rooms.size();
     }
 }
