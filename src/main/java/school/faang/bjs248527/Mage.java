@@ -12,6 +12,7 @@ public class Mage extends Unit {
         }
         log.info("Creating Mage with power = {}", power);
     }
+
     @Override
     public String toString() {
         return "Mage{" + "power=" + power + '}';

@@ -17,6 +17,7 @@ public class Unit {
         this.power = power;
         log.info("Successfully created Unit with power = {}", power);
     }
+
     @Override
     public String toString() {
         return "Unit{" + "power=" + power + '}';
