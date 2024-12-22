@@ -12,7 +12,7 @@ public class Player {
             if (isPlaying) {
                 log.info("Music already playing");
             } else {
-                log.info("Music start playing");
+                log.info("Music start play");
                 isPlaying = true;
             }
         }

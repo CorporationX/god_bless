@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Player player = new Player();
         List<Thread> threads = new ArrayList<>();
+
         while (true) {
             threads.add(new Thread(player::play));
             threads.add(new Thread(player::stop));
