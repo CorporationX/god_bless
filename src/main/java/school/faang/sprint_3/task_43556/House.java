@@ -20,13 +20,17 @@ public class House {
         Room room1 = rooms.get(random.nextInt(rooms.size()));
         Room room2 = rooms.get(random.nextInt(rooms.size()));
 
-        if (room1.hasFood() && room2.hasFood()) {
+        if (hasFood(room1, room2)) {
             System.out.println("Собираем еду в " + room1.name() + " и " + room2.name());
             collectedFood.addAll(room1.foodList());
             room1.removeAllFood();
             collectedFood.addAll(room2.foodList());
             room2.removeAllFood();
         }
+    }
+
+    public boolean hasFood(Room room1, Room room2) {
+        return room1.hasFood() && room2.hasFood();
     }
 
     public boolean allFoodCollected() {
