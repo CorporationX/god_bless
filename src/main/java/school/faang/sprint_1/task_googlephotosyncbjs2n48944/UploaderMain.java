@@ -12,7 +12,7 @@ public class UploaderMain {
                 "C:\\Photos\\Photo3.png"
         ));
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader(pathsToPhotos);
-        Thread uploadThread = new Thread(() -> googlePhotosAutoUploader.startAutoUpload());
+        Thread uploadThread = new Thread(googlePhotosAutoUploader::startAutoUpload);
         Thread photoAdderThread = new Thread(() -> {
             googlePhotosAutoUploader.onNewPhotoAdded("Photo_001");
             googlePhotosAutoUploader.onNewPhotoAdded("Photo_002");
