@@ -20,13 +20,19 @@ public class Boss {
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (lock) {
             if (battlePlayers.size() >= maxPlayers) {
-                log.info(player + " is waiting for battle with Boss");
+                log.info("{} is waiting for battle with Boss", player);
                 lock.wait();
             }
-
             battlePlayers.add(player);
             currentPlayers = battlePlayers.size();
-            log.info(player + " joined to battle with Boss. Total players in battle: " + currentPlayers);
+            log.info("{} joined to battle with Boss. Total players in battle: {}", player, currentPlayers);
+        }
+    }
+
+    public void leaveBattle(Player player) {
+        if (battlePlayers.remove(player)) {
+            currentPlayers = battlePlayers.size();
+            log.info("{} leave the battle with Boss. Total players in battle: {}", player, currentPlayers);
         }
     }
 
@@ -40,5 +46,4 @@ public class Boss {
             }
         }
     }
-
 }

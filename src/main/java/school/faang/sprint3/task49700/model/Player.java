@@ -1,25 +1,19 @@
 package school.faang.sprint3.task49700.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 
-@Slf4j
-@Getter
-@AllArgsConstructor
-@ToString
+@Data
 public class Player {
+    private static final int ROUND_TIME_SEC = 5;
     private final String name;
 
     public void startBattle(Boss boss) {
-
         try {
             boss.joinBattle(this);
+            Thread.sleep(ROUND_TIME_SEC * 1000);
+            boss.leaveBattle(this);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
-
 }
