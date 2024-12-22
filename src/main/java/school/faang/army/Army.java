@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Army {
     private List<Unit> units = new ArrayList<>();
-    private int DEFAULT_POOL_SIZE = 3;
+    private static final int DEFAULT_THREAD_POOL_SIZE = 3;
 
     public void addUnit(Unit unit) {
         units.add(unit);
@@ -18,7 +18,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ForkJoinPool customThreadPool = new ForkJoinPool(DEFAULT_POOL_SIZE);
+        ForkJoinPool customThreadPool = new ForkJoinPool(DEFAULT_THREAD_POOL_SIZE);
         try {
             return customThreadPool.submit(() -> units.parallelStream()
                     .peek(unit -> System.out.println(Thread.currentThread().getName() + " - power: " + unit.getPower()))
