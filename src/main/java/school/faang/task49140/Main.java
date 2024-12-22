@@ -19,7 +19,7 @@ public class Main {
             handler.test();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            log.error("Error message: ", e);
+            log.error("Error message in method {} ", e.getStackTrace()[2].getMethodName(), e);
         }
     }
 
@@ -63,6 +63,10 @@ public class Main {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Error message: ", e);
+        } finally {
+            if (!executorService.isShutdown()) {
+                executorService.shutdownNow();
+            }
         }
     }
 }
