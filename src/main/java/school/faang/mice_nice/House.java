@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 @Setter
@@ -23,21 +22,21 @@ public class House {
     private final CopyOnWriteArrayList<Room> readyToTidyRooms = new CopyOnWriteArrayList<>();
     private final Random random = new Random();
 
-    public void collectFood() {
-        synchronized (this) {
+    public boolean collectFood() {
+        synchronized (rooms) {
             IntStream.range(0, DataSet.AMOUNT_OF_ROOMS)
                     .mapToObj(number -> rooms.get(random.nextInt(DataSet.AMOUNT_OF_ROOMS)))
                     .filter(Room::hasFood)
                     .map(Room::removeAllFood)
                     .forEach(collectedFood::addAll);
         }
-//        if (hasAllFoodCollected()) {
-//            log.info("Done!");
-//            return true;
-//        }
-//        return false;
+        if (hasAllFoodCollected()) {
+            log.info("Done!");
+            return true;
+        }
+        return false;
     }
-    public synchronized boolean hasAllFoodCollected() {
+    private synchronized boolean hasAllFoodCollected() {
         return collectedFood.size() == DataSet.TOTAL_AMOUNT_OF_FOODS;
     }
 
