@@ -33,7 +33,7 @@ public class House implements HouseInterface {
         System.out.println(SPLITTER + "Clearing:");
 
         List<Thread> staffs = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             Thread staff = new Staff(this);
             staffs.add(staff);
             staff.start();
