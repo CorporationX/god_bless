@@ -20,10 +20,10 @@ public class WeasleyFamily {
             Chore chore = new Chore(task);
             executor.execute(chore);
         }
-
+        executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.out.println("Задачи не выполнились за 1 минуту, принудительно останавливаем...");
+            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                System.out.println("Задачи не выполнились за 5 минут, принудительно останавливаем...");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
