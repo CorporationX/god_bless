@@ -6,8 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private final static int POOL_SIZE = 5;
-    private final static int MAX_PLAYERS = 2;
+    private static final int POOL_SIZE = 5;
+    private static final int MAX_PLAYERS = 2;
 
     public static void main(String[] args) {
         Boss boss = new Boss(MAX_PLAYERS);
