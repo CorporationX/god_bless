@@ -19,15 +19,15 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        int cityX = city.getLocation().getX();
-        int cityY = city.getLocation().getY();
+        int cityX = city.getLocation().getXPos();
+        int cityY = city.getLocation().getYPos();
 
         double distanceCastleToCity = calculateDistance(CASTLE_X, CASTLE_Y, cityX, cityY);
         double distanceCityToNearestMonster = Integer.MAX_VALUE;
 
         for (Monster monster : monsters) {
-            int monsterX = monster.getLocation().getX();
-            int monsterY = monster.getLocation().getY();
+            int monsterX = monster.getLocation().getXPos();
+            int monsterY = monster.getLocation().getYPos();
 
             double minDist = calculateDistance(cityX, cityY, monsterX, monsterY);
 
