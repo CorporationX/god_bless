@@ -19,6 +19,7 @@ public class Trial implements Runnable {
             System.out.printf("%s ends trial %s\n", knightName, trialName);
         } catch (InterruptedException e) {
             System.out.println(trialName + " interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 }
