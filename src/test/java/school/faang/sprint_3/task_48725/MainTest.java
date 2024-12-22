@@ -10,10 +10,10 @@ import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest {
+public class MainTest {
 
     @Test
-    void testChoreExecution() {
+    public void testChoreExecution() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
@@ -32,7 +32,7 @@ class MainTest {
     }
 
     @Test
-    void testMultipleChoresExecution() {
+    public void testMultipleChoresExecution() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
@@ -57,7 +57,7 @@ class MainTest {
     }
 
     @Test
-    void testThreadReuse() {
+    public void testThreadReuse() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
