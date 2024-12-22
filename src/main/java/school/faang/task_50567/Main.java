@@ -14,11 +14,7 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(POOL_SIZE);
         List<CompletableFuture<Notification>> futures = IntStream.range(0, POOL_SIZE)
                 .mapToObj(i -> {
-                    try {
-                        return notificationManager.fetchNotification(executorService);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    return notificationManager.fetchNotification(executorService);
                 })
                 .toList();
 

@@ -24,7 +24,7 @@ public class NotificationManager {
         return notification;
     }
 
-    public CompletableFuture<Notification> fetchNotification(ExecutorService executorService) throws InterruptedException {
+    public CompletableFuture<Notification> fetchNotification(ExecutorService executorService) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 int counterAndIncrement = counter.getAndIncrement();
