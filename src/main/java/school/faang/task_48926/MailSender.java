@@ -1,28 +1,34 @@
 package school.faang.task_48926;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
+
+    private static final int NUMBER_OF_THREADS = 5;
+    private static final int LIST_SIZE = 10;
+
     public static void main(String[] args) {
 
-        Thread thread1 = new Thread(new SenderRunnable(0, 199));
-        thread1.start();
-        Thread thread2 = new Thread(new SenderRunnable(200, 399));
-        thread2.start();
-        Thread thread3 = new Thread(new SenderRunnable(400, 599));
-        thread3.start();
-        Thread thread4 = new Thread(new SenderRunnable(600, 799));
-        thread4.start();
-        Thread thread5 = new Thread(new SenderRunnable(800, 999));
-        thread5.start();
+        int batchSize = LIST_SIZE / NUMBER_OF_THREADS;
 
+        Thread[] threads = new Thread[NUMBER_OF_THREADS];
 
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage() != null ? e.getMessage() : "Поток был прерван.");
+        for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+            SenderRunnable senderRunnable = new SenderRunnable(batchSize * i + 1, batchSize * i + batchSize);
+            Thread thread = new Thread(senderRunnable);
+            threads[i] = thread;
+            thread.start();
+        }
+
+        for (Thread thread : threads) {
+            try {
+                if (thread != null) {
+                    thread.join();
+                }
+            } catch (InterruptedException e) {
+                log.info("Поток был прерван: " + e.getMessage());
+            }
         }
 
         System.out.println("******************************** Все письма отправлены ********************************");
