@@ -18,11 +18,10 @@ public class UploaderMain {
             googlePhotosAutoUploader.onNewPhotoAdded("Photo_002");
             googlePhotosAutoUploader.onNewPhotoAdded("Photo_003");
             googlePhotosAutoUploader.onNewPhotoAdded("Photo_004");
+            googlePhotosAutoUploader.onNewPhotoAdded("Hammer.png");
+            googlePhotosAutoUploader.onNewPhotoAdded("Rose.png");
         });
         uploadThread.start();
         photoAdderThread.start();
     }
 }
-
-//Runnable autoUploadToServer = () -> googlePhotosAutoUploader.startAutoUpload();
-//Runnable addNewPhotoToUploader =

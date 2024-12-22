@@ -9,13 +9,16 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload;
-    private long startTime;
+    private final long startTime;
+    private final int uploaderWorkTime = 6_000;
+    private final int addNewPhotoInterval = 1_000;
 
     public GooglePhotosAutoUploader(@NonNull List<String> photosToUpload) {
         this.photosToUpload = photosToUpload;
         startTime = System.currentTimeMillis();
     }
-    public synchronized void startAutoUpload() {
+
+    public void startAutoUpload() {
         synchronized (lock) {
             do {
                 if (photosToUpload.isEmpty()) {
@@ -28,48 +31,29 @@ public class GooglePhotosAutoUploader {
                 } else {
                     uploadPhotos();
                 }
-            } while (System.currentTimeMillis() - startTime < 10_000);
+            } while (System.currentTimeMillis() - startTime < uploaderWorkTime);
         }
     }
-    public synchronized void onNewPhotoAdded(String photoPath) {
+
+    public void onNewPhotoAdded(@NonNull String photoPath) {
         synchronized (lock) {
             log.info("adding new photo ....");
             photosToUpload.add(photoPath);
             lock.notify();
+            try {
+                Thread.sleep(addNewPhotoInterval);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
     private void uploadPhotos() {
-        for (String photo : photosToUpload) {log.info("{} is uploaded to server", photo);}
+        for (String photo : photosToUpload) {
+            log.info("{} is uploaded to server", photo);
+        }
         photosToUpload.clear();
     }
 }
 
-//            if (photosToUpload.isEmpty()) {
-//                log.info("Waiting for new photos to come");
-//                photosToUpload.wait();
-//            } else {
-//                uploadPhotos();
-//            }
-
-//try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-
-//public synchronized void addNewPhoto(){
-//    try {
-//        Thread.sleep(500);
-//    } catch (InterruptedException e) {
-//        throw new RuntimeException(e);
-//    }
-//    onNewPhotoAdded("Photo_" + LocalDateTime.now()
-//            .format(DateTimeFormatter.ofPattern("mm_ss.SSS")));
-//    log.info("new photo added");
-
-//   try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
 
