@@ -30,8 +30,7 @@ public class Main {
         try {
             if (executor.awaitTermination(3, TimeUnit.SECONDS)) {
                 log.info("All tasks finished");
-            }
-            else {
+            } else {
                 log.info("Time left, some tasks still running");
             }
         } catch (InterruptedException e) {
