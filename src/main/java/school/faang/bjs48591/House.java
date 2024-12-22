@@ -35,7 +35,7 @@ public class House {
             return Collections.emptyList();
         }
 
-        var food = room.getFoodList();
+        final var food = room.getFoodList();
         room.clearRoom();
         roomsLeft.remove(room);
 

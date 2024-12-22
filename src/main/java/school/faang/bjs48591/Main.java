@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private final static int THREAD_POOL_SIZE = 2;
-    private final static int FREQUENCY = 10;
+    private static final int THREAD_POOL_SIZE = 2;
+    private static final int FREQUENCY = 10;
 
     public static void main(String[] args) {
         var house = initHouse();
@@ -68,8 +68,8 @@ public class Main {
         Room room1 = new Room(201, new ArrayList<>());
         Room room2 = new Room(202, new ArrayList<>(List.of(food1, food2, food3)));
         Room room3 = new Room(203, new ArrayList<>(List.of(food4, food5, food6, food7, food8, food9, food10)));
-        Room room4 = new Room(204, new ArrayList<>
-                (List.of(food11, food12, food13, food14, food15, food16, food17, food18, food19, food20)));
+        Room room4 = new Room(204, new ArrayList<>(
+                List.of(food11, food12, food13, food14, food15, food16, food17, food18, food19, food20)));
         Room room5 = new Room(205, new ArrayList<>(List.of(food21, food22, food23, food24)));
         Room room6 = new Room(206, new ArrayList<>(List.of(food25, food26, food27, food28, food29, food30)));
 
