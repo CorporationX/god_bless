@@ -16,11 +16,13 @@ public class Main {
         });
 
         t1.start();
+
         t2.start();
         try {
-            Thread.sleep(2000);
+            t1.join();
+            t2.join();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Thread interrupted");
         }
 
         System.out.println("Process is done !!!");

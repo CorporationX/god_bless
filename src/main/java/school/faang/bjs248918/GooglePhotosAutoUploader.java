@@ -15,7 +15,7 @@ public class GooglePhotosAutoUploader {
                 }
                 uploadPhotos();
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("Error occurred while uploading photos: " + e.getMessage());
         }
     }
@@ -30,7 +30,7 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
