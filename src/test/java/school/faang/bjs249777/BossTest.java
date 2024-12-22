@@ -20,7 +20,7 @@ class BossTest {
                 new Player("2"),
                 new Player("3"),
                 new Player("4"),
-                new Player("4")
+                new Player("5")
         );
 
         Boss boss = new Boss(List.of(), 2);
