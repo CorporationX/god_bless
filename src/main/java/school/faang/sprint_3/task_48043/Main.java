@@ -10,6 +10,8 @@ public class Main {
     private static final int AMOUNT_OF_PERSONS = 10000;
     private static final int AMOUNT_OF_THREADS = 8;
     private static final int AWAIT_TERMINATION_DELAY = 5;
+    public static final int START_AGE = 20;
+    public static final int AGE_GENERATION_SUPPORT = 10;
 
     public static void main(String[] args) {
         List<Person> persons = generatePersons(AMOUNT_OF_PERSONS);
@@ -36,6 +38,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -44,7 +47,7 @@ public class Main {
         for (int i = 1; i <= amountOfPersons; i++) {
             persons.add(new Person("Name " + i,
                     "Surname " + i,
-                    20 + (i % 10),
+                    START_AGE + (i % AGE_GENERATION_SUPPORT),
                     "Workplace " + i));
         }
         return persons;
