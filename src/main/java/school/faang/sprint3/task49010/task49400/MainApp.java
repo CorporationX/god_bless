@@ -7,8 +7,9 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Thread.sleep;
 
 public class MainApp {
-
     private static final int DELTA_TIME_MSEC = 100;
+    private static final int PROBABILITY_TO_WIN = 50;
+    private static final int PROBABILITY_TO_DIE = 50;
 
     public static void main(String[] args) {
 
@@ -32,15 +33,15 @@ public class MainApp {
         boolean earnedPoints;
         boolean lostLife;
         do {
-            earnedPoints = Math.random() > 0.5;
-            lostLife = Math.random() > 0.5;
+            earnedPoints = Math.random() > (double) PROBABILITY_TO_WIN / 100;
+            lostLife = Math.random() > (double) PROBABILITY_TO_DIE / 100;
             game.update(earnedPoints, lostLife);
             try {
                 sleep(DELTA_TIME_MSEC);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        } while (!game.isOver());
+        } while (!game.getIsOver().get());
     }
 
 }
