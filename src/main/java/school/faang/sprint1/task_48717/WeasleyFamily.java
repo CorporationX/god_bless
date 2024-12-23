@@ -17,7 +17,7 @@ public class WeasleyFamily {
         }
         try {
             Thread.sleep(5000);
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Поток прерван");
         }
         threadPool.shutdown();
