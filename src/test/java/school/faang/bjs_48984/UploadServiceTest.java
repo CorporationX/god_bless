@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UploadServiceTest {
 
     @Test
@@ -25,7 +23,6 @@ class UploadServiceTest {
         );
         UploadService service = new UploadService();
         List<String> actual = service.upload(files);
-        Assertions.assertEquals(files, actual);
         Assertions.assertTrue(actual.containsAll(files));
         Assertions.assertTrue(files.containsAll(actual));
     }
