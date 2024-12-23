@@ -14,9 +14,10 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
+        final int millis = 1000;
         try {
             System.out.println(Thread.currentThread().getName() + " начинает задачу: " + chore);
-            Thread.sleep(1000);
+            Thread.sleep(millis);
             System.out.println(Thread.currentThread().getName() + " завершил задачу: " + chore);
         } catch (InterruptedException e) {
             System.out.println(Thread.currentThread().getName() + " был прерван.");
