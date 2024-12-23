@@ -5,67 +5,45 @@ import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 @Slf4j
 @ToString
 public class House {
-    @Getter
-    private final List<Room> rooms;
+    public static final int ROOMS_PER_THREAD = 2;
+    private final Queue<Room> rooms;
     @Getter
     private final Queue<Food> collectedFood = new ConcurrentLinkedQueue<>();
-    @Getter
-    private final AtomicInteger roomsRemaining = new AtomicInteger();
-    private Queue<Integer> roomIndexes = new ConcurrentLinkedQueue<>();
-
 
     public House(@NonNull List<Room> rooms) {
-        this.rooms = rooms;
-        roomIndexes = initializeRoomIndexes(rooms);
+        this.rooms = initializeRoomIndexes(rooms);
     }
 
-    public void collectFood(int roomPerThread) {
-        List<Integer> roomsToProcess;
-        synchronized (this) {
-            if (roomIndexes.isEmpty()) {
-                log.info("No more rooms to work. Thread {} is waiting", Thread.currentThread().getName());
-                return;
-            }
-            roomsToProcess = new ArrayList<>();
-            IntStream.range(0, roomPerThread).forEach(value -> {
-                Integer roomIndex = roomIndexes.poll();
-                roomsRemaining.decrementAndGet();
-                roomsToProcess.add(roomIndex);
-                log.info("Thread {} roomIndex {} rooms remaining {}",
-                        Thread.currentThread().getName(), roomIndex, roomsRemaining.get());
-            });
-        }
-
-        roomsToProcess.stream()
-                .filter(Objects::nonNull)
-                .forEach(activeRoomIndex -> {
-                    Room room = rooms.get(activeRoomIndex);
+    public void collectFood() {
+        IntStream.range(0, ROOMS_PER_THREAD)
+                .mapToObj(i -> rooms.poll())
+                .filter(room -> Objects.nonNull(room) && !room.getFoods().isEmpty())
+                .peek(room -> log.info("Thread {} will process room {} (remaining rooms: {})",
+                        Thread.currentThread().getName(), room, rooms.size()))
+                .forEach(room -> {
                     List<Food> c = room.collectFood();
                     collectedFood.addAll(c);
-                    log.info("Thread {} processed room index {} room number {}",
-                            Thread.currentThread().getName(), activeRoomIndex, room.getNumber());
+                    log.info("Thread {} collected food from room {}",
+                            Thread.currentThread().getName(), room);
                 });
     }
 
-    private Queue<Integer> initializeRoomIndexes(List<Room> inputData) {
-        Collections.shuffle(inputData);
+    public synchronized boolean isFoodCollected() {
+        return rooms.isEmpty();
+    }
 
-        Queue<Integer> indexes = new ConcurrentLinkedQueue<>();
-        IntStream.range(0, inputData.size())
-                .forEach(indexes::add);
-        roomsRemaining.set(indexes.size());
-        return indexes;
+    private Queue<Room> initializeRoomIndexes(List<Room> inputData) {
+        Collections.shuffle(inputData);
+        return new ConcurrentLinkedQueue<>(inputData);
     }
 }

@@ -23,7 +23,7 @@ public class Room {
 
         Thread.sleep(MILLIS_EMULATE_COLLECTING_FOOD);
 
-        foods = new ArrayList<>();
+        foods.clear();
         return result;
     }
 }

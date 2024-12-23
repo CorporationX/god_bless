@@ -12,21 +12,24 @@ public class Main {
     private static final int HOUSE_ROOM_CAPACITY = 21;
     private static final int HOUSE_FOOD_PER_ROOM_CAPACITY = 4;
     private static final int EXECUTORS_POOL_SIZE = 5;
-    private static final int EXECUTORS_ROOM_PER_THREAD = 2;
     private static final int EXECUTORS_INITIAL_DELAY_SECONDS = 0;
     private static final int EXECUTORS_PERIOD_SECONDS = 10;
-    private static final int EXECUTORS_TERMINATION_TIMEOUT_SECONDS = 3;
+    private static final int EXECUTORS_TERMINATION_TIMEOUT_SECONDS = 30;
 
     public static void main(String[] args) {
         House house = TestDataGenerator.generateHouse(HOUSE_ROOM_CAPACITY, HOUSE_FOOD_PER_ROOM_CAPACITY);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(EXECUTORS_POOL_SIZE);
 
-        IntStream.range(0, EXECUTORS_POOL_SIZE).forEach(i -> executor.scheduleAtFixedRate(() -> {
-            if (house.getRoomsRemaining().get() == 0) {
-                executor.shutdown();
+        IntStream.range(0, EXECUTORS_POOL_SIZE).forEach(i -> {
+            if (!executor.isShutdown()) {
+                executor.scheduleAtFixedRate(() -> {
+                    if (house.isFoodCollected()) {
+                        executor.shutdown();
+                    }
+                    house.collectFood();
+                }, EXECUTORS_INITIAL_DELAY_SECONDS, EXECUTORS_PERIOD_SECONDS, TimeUnit.SECONDS);
             }
-            house.collectFood(EXECUTORS_ROOM_PER_THREAD);
-        }, EXECUTORS_INITIAL_DELAY_SECONDS, EXECUTORS_PERIOD_SECONDS, TimeUnit.SECONDS));
+        });
 
 
         try {
