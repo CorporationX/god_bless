@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int THREAD_POOL_SIZE = 2;
+
     public static void main(String[] args) {
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
@@ -13,7 +15,7 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", 20, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 5, 100);
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         QuestSystem questSystem = new QuestSystem();
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1, executor);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2, executor);
