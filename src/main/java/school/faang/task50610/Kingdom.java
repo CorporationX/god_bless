@@ -15,20 +15,19 @@ public record Kingdom(String name) {
 
     public CompletableFuture<String> sendRaven(Kingdom sender, Kingdom receiver) {
         return CompletableFuture.runAsync(() -> {
-                    if (Math.random() < 0.4) {
-                        throw new IllegalArgumentException("sender не смог отправить сообщение");
-                    }
-                    sender.sendMessage(receiver);
-                })
-                .handle((result, ex) -> {
-                    if (Objects.nonNull(ex)) {
-                        log.error(ex.getMessage());
-                        return ex.getMessage();
-                    }
+            if (Math.random() < 0.4) {
+                throw new IllegalArgumentException("sender не смог отправить сообщение");
+            }
+            sender.sendMessage(receiver);
+        }).handle((result, ex) -> {
+            if (Objects.nonNull(ex)) {
+                log.error(ex.getMessage());
+                return ex.getMessage();
+            }
 
-                    log.info(SUCCESS_MESSAGE);
+            log.info(SUCCESS_MESSAGE);
 
-                    return SUCCESS_MESSAGE;
-                });
+            return SUCCESS_MESSAGE;
+        });
     }
 }
