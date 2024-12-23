@@ -27,7 +27,8 @@ public class Game {
                 if (getPoint) {
                     player.setScore(player.getScore() + 1);
                     score++;
-                    System.out.println("Количество очков " + player.getName() + " увеличено. Общий счет: " + player.getScore());
+                    System.out.println("Количество очков " + player.getName() + " увеличено. Общий счет: "
+                            + player.getScore());
                 }
             } else {
                 System.out.println(player.getName() + " уже закончил игру.");
