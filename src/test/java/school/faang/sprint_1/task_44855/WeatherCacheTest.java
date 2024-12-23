@@ -1,12 +1,6 @@
 package school.faang.sprint_1.task_44855;
 
 import org.junit.jupiter.api.Test;
-import school.faang.sprint_1.task_44855.FrequentUpdateWeatherCache;
-import school.faang.sprint_1.task_44855.StandardWeatherCache;
-import school.faang.sprint_1.task_44855.WeatherCacheTemplate;
-import school.faang.sprint_1.task_44855.WeatherData;
-import school.faang.sprint_1.task_44855.WeatherProvider;
-import school.faang.sprint_1.task_44855.WeatherService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
