@@ -16,8 +16,9 @@ public class Initialization {
     }
 
     private void addFoodToRoom(List<Food> foods) {
-        IntStream.range(0, DataSet.AMOUNT_OF_FOODS_IN_ROOMS)
-                .mapToObj(food -> foods.add(Food.getById(random.nextInt(Food.values().length + 1))))
-                .toList();
+        Food[] randomFoods = Food.values();
+        for (int i = 0; i < DataSet.AMOUNT_OF_FOODS_IN_ROOMS; i++) {
+            foods.add(randomFoods[random.nextInt(randomFoods.length)]);
+        }
     }
 }

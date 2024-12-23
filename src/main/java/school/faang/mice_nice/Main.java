@@ -11,19 +11,23 @@ public class Main {
     public static void main(String[] args) {
         Initialization initialization = new Initialization();
         House hotel = initialization.createHouse();
+        hotel.preparedRoomsToTidy();
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(DataSet.THREAD_POOL_SIZE);
         executor.scheduleAtFixedRate(() -> {
-            boolean isWorkComplete = hotel.collectFood();
-            if (isWorkComplete) {
-                try {
-                    executor.awaitTermination(3, TimeUnit.SECONDS);
-                    executor.shutdownNow();
-                    log.info("Collected food from rooms {}", hotel.getCollectedFood());
-                } catch (InterruptedException e) {
-                    log.error("Tasks completed with errors {}", e.getMessage());
-                }
+            if (hotel.collectFood()) {
+                executor.shutdown();
             }
         }, DataSet.THREAD_INITIAL_DELAY, DataSet.THREAD_TIMEOUT, TimeUnit.SECONDS);
+
+        try {
+            if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                log.info("Amount of food collected from rooms {}", hotel.getCollectedFood().size());
+            } else {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("Tasks completed with errors {}", e.getMessage());
+        }
     }
 }
