@@ -19,19 +19,19 @@ public class Music {
 
         for (int i = 0; i < totalActions; i++) {
             int action = random.nextInt(4);
-            switch(action) {
-            case 0:
-                executor.submit(myPlayer::play);
-                break;
-            case 1:
-                executor.submit(myPlayer::pause);
-                break;
-            case 2:
-                executor.submit(myPlayer::skip);
-                break;
-            default:
-                executor.submit(myPlayer::previous);
-                break;
+            switch (action) {
+              case 0:
+                  executor.submit(myPlayer::play);
+                  break;
+              case 1:
+                  executor.submit(myPlayer::pause);
+                  break;
+              case 2:
+                  executor.submit(myPlayer::skip);
+                  break;
+              default:
+                  executor.submit(myPlayer::previous);
+                  break;
             }
         }
         executor.shutdown();
