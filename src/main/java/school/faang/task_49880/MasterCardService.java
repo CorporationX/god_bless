@@ -1,15 +1,23 @@
 package school.faang.task_49880;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MasterCardService {
+    private final static int PAYMENT = 10_000;
+    private final static int ANALYTICS = 1000;
+    private final static int SLEEP_WAIT = 2000;
+    private static final Logger log = LoggerFactory.getLogger(MasterCardService.class);
+
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(PAYMENT);
+            return PAYMENT;
         } catch (InterruptedException e) {
             throw new RuntimeException();
         }
@@ -17,8 +25,8 @@ public class MasterCardService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(ANALYTICS);
+            return ANALYTICS;
         } catch (InterruptedException e) {
             throw new RuntimeException();
         }
@@ -30,9 +38,9 @@ public class MasterCardService {
         Future<Integer> thread2 = executor.submit(MasterCardService::sendAnalytics);
         while (!thread.isDone() || !thread2.isDone()) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(SLEEP_WAIT);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.info("Interrupted");
             }
             System.out.println("Waiting for thread to finish");
         }
