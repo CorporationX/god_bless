@@ -14,7 +14,7 @@ public class VideoManager {
         Integer videoViews = views.get(videoId);
         try {
             isVideoExist(videoViews);
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
         views.put(videoId, videoViews + 1);
@@ -25,7 +25,7 @@ public class VideoManager {
         Integer videoViews = views.get(videoId);
         try {
             isVideoExist(videoViews);
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
         System.out.println(videoId + ": всего просмотров - " + videoViews);
