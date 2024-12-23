@@ -8,11 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -21,49 +20,52 @@ public class House {
     @Getter
     private final List<Room> rooms;
     @Getter
-    private final List<Food> collectedFood = new CopyOnWriteArrayList<>();
-    private final Queue<Integer> roomIndexes = new ConcurrentLinkedDeque<>();
+    private final Queue<Food> collectedFood = new ConcurrentLinkedQueue<>();
     @Getter
     private final AtomicInteger roomsRemaining = new AtomicInteger();
+    private Queue<Integer> roomIndexes = new ConcurrentLinkedQueue<>();
 
 
     public House(@NonNull List<Room> rooms) {
         this.rooms = rooms;
-        initializeRoomIndexes();
+        roomIndexes = initializeRoomIndexes(rooms);
     }
 
     public void collectFood(int roomPerThread) {
-        if (roomsRemaining.get() <= 0) {
-            log.info("All rooms processed.");
-            return;
+        List<Integer> roomsToProcess;
+        synchronized (this) {
+            if (roomIndexes.isEmpty()) {
+                log.info("No more rooms to work. Thread {} is waiting", Thread.currentThread().getName());
+                return;
+            }
+            roomsToProcess = new ArrayList<>();
+            IntStream.range(0, roomPerThread).forEach(value -> {
+                Integer roomIndex = roomIndexes.poll();
+                roomsRemaining.decrementAndGet();
+                roomsToProcess.add(roomIndex);
+                log.info("Thread {} roomIndex {} rooms remaining {}",
+                        Thread.currentThread().getName(), roomIndex, roomsRemaining.get());
+            });
         }
 
-        List<Integer> roomsToProcess = new ArrayList<>();
-        for (int i = 0; i < roomPerThread && !roomIndexes.isEmpty(); i++) {
-            Integer roomIndex = roomIndexes.poll();
-            roomsToProcess.add(roomIndex);
-            log.info("Thread {} roomIndex {}", Thread.currentThread().getName(), roomIndex);
-        }
-
-        roomsToProcess.forEach(activeRoomIndex -> {
-            Room room = rooms.get(activeRoomIndex);
-            collectedFood.addAll(room.collectFood());
-            room.clearFood();
-            roomsRemaining.decrementAndGet();
-            log.info("Thread {} processed room {}, update roomsRemaining to {}",
-                    Thread.currentThread().getName(), activeRoomIndex, roomsRemaining.get());
-        });
+        roomsToProcess.stream()
+                .filter(Objects::nonNull)
+                .forEach(activeRoomIndex -> {
+                    Room room = rooms.get(activeRoomIndex);
+                    List<Food> c = room.collectFood();
+                    collectedFood.addAll(c);
+                    log.info("Thread {} processed room index {} room number {}",
+                            Thread.currentThread().getName(), activeRoomIndex, room.getNumber());
+                });
     }
 
-    private void initializeRoomIndexes() {
-        roomIndexes.addAll(IntStream.range(0, rooms.size())
-                .boxed()
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toList(),
-                        list -> {
-                            Collections.shuffle(list);
-                            return new ConcurrentLinkedDeque<>(list);
-                        })));
-        roomsRemaining.set(roomIndexes.size());
+    private Queue<Integer> initializeRoomIndexes(List<Room> inputData) {
+        Collections.shuffle(inputData);
+
+        Queue<Integer> indexes = new ConcurrentLinkedQueue<>();
+        IntStream.range(0, inputData.size())
+                .forEach(indexes::add);
+        roomsRemaining.set(indexes.size());
+        return indexes;
     }
 }
