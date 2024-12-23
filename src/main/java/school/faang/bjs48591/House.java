@@ -3,15 +3,21 @@ package school.faang.bjs48591;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 public class House {
+    public static final int MAX_SPACE = 2;
+    public static final Random RANDOM;
+
     private final List<Room> rooms;
     private final List<Food> collectedFood;
-    private volatile List<Room> roomsLeft;
+    private final List<Room> roomsLeft;
+
+    static {
+        RANDOM = new Random();
+    }
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -20,7 +26,7 @@ public class House {
     }
 
     public void collectFood() {
-        for (int roomsCollected = 0; roomsCollected < 2 && !roomsLeft.isEmpty(); roomsCollected++) {
+        for (int roomsCollected = 0; roomsCollected < MAX_SPACE && !roomsLeft.isEmpty(); roomsCollected++) {
             var foodFromRoom = cleanRandomRoom();
             if (foodFromRoom.isEmpty()) {
                 roomsCollected--;
@@ -31,21 +37,20 @@ public class House {
     }
 
     private List<Food> cleanRandomRoom() {
-        Optional<Room> anyRoom = roomsLeft.stream().findAny();
-
-        if (anyRoom.isEmpty() || !anyRoom.get().tryLock()) {
-            return Collections.emptyList();
+        Room randomRoom;
+        synchronized (roomsLeft) {
+            int roomNumber = RANDOM.nextInt(roomsLeft.size());
+            randomRoom = roomsLeft.get(roomNumber);
+            roomsLeft.remove(randomRoom);
         }
-        var room = anyRoom.get();
 
-        final var food = room.getFoodList();
-        room.clearRoom();
-        roomsLeft.remove(room);
+        final var food = randomRoom.foodList();
+        randomRoom.clearRoom();
 
-        log.info("{} cleared room {}", Thread.currentThread().getName(), room.getNumber());
-        room.unlock();
+        log.info("{} cleared room {}", Thread.currentThread().getName(), randomRoom.number());
         return food;
     }
+
 
     public boolean allFoodCollected() {
         return roomsLeft.isEmpty();

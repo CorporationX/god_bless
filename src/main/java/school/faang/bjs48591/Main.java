@@ -30,6 +30,14 @@ public class Main {
         }
 
         executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
+
         System.out.println(house.getCollectedFood().size());
     }
 
