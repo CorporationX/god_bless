@@ -35,17 +35,24 @@ public class House {
     public void collectFood() {
         for (int i = 0; i < 2; i++) {
             for (Room room : rooms) {
-                if (room.tryLock()) {
-                    if (room.hasFood()) {
-                        collectedFood.addAll(room.collectFood());
-                        log.info("Поток {} собрал еду из комнаты {}",
-                                Thread.currentThread().getName(), room.getNumber());
-                        cdl.countDown();
-                        break;
-                    }
-                    room.unlock();
+                if (collectFoodFromRoom(room)) {
+                    break;
                 }
             }
         }
+    }
+
+    private boolean collectFoodFromRoom(Room room) {
+        if (room.tryLock()) {
+            if (room.hasFood()) {
+                collectedFood.addAll(room.collectFood());
+                log.info("Поток {} собрал еду из комнаты {}",
+                        Thread.currentThread().getName(), room.getNumber());
+                cdl.countDown();
+                return true;
+            }
+            room.unlock();
+        }
+        return false;
     }
 }
