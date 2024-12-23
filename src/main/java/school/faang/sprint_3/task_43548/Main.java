@@ -16,23 +16,11 @@ public class Main {
 
     public static void main(String[] args) {
         List<Person> people = new ArrayList<>();
-
-        for (int i = 0; i < PEOPLE_LIST_SIZE; i++) {
-            people.add(new Person("Name " + i, "Surname " + i,
-                    BASE_AGE + (i % DIVIDER), "Workplace " + i));
-        }
+        createPeople(people);
 
         ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
 
-        int start;
-        int end;
-        List<Person> batch;
-        for (int i = 0; i < POOL_SIZE; i++) {
-            start = BATCH_SIZE * i;
-            end = BATCH_SIZE * (i + 1);
-            batch = people.subList(start, end);
-            executor.execute(new PersonInfoPrinter(batch));
-        }
+        executePersonBatch(people, executor);
 
         executor.shutdown();
 
@@ -42,6 +30,25 @@ public class Main {
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+        }
+    }
+
+    private static void createPeople(List<Person> people) {
+        for (int i = 0; i < PEOPLE_LIST_SIZE; i++) {
+            people.add(new Person("Name " + i, "Surname " + i,
+                    BASE_AGE + (i % DIVIDER), "Workplace " + i));
+        }
+    }
+
+    private static void executePersonBatch(List<Person> people, ExecutorService executor) {
+        int start;
+        int end;
+        List<Person> batch;
+        for (int i = 0; i < POOL_SIZE; i++) {
+            start = BATCH_SIZE * i;
+            end = BATCH_SIZE * (i + 1);
+            batch = people.subList(start, end);
+            executor.execute(new PersonInfoPrinter(batch));
         }
     }
 }
