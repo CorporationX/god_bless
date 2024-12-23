@@ -31,7 +31,7 @@ public class OrderProcessor {
         List<CompletableFuture<Void>> allOrdersProcessed = orders.stream()
                 .map(order -> processOrder(order))
                 .collect(Collectors.toList());
-        CompletableFuture<Void> result = CompletableFuture.allOf();//не понимаю :(
+        //CompletableFuture<Void> result = CompletableFuture.allOf() тут я не понимаю...
     }
 
     public void shutdownExecutor() {
