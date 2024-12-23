@@ -18,7 +18,8 @@ public record ResultConsumer(AtomicLong sumOfSquaredNumbers) {
         return sumOfSquaredNumbers.get();
     }
 
-    public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) throws ExecutionException, InterruptedException {
+    public static Long fanOutFanIn(List<SquareRequest> requests,
+                                   ResultConsumer resultConsumer) throws ExecutionException, InterruptedException {
         return CompletableFuture.allOf(requests.stream()
                         .parallel()
                         .map(request -> CompletableFuture.supplyAsync(() -> request.longTimeSquare(resultConsumer))
