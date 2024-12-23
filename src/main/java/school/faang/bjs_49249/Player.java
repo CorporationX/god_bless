@@ -8,30 +8,32 @@ public class Player {
     private boolean isPlaying;
 
     public void play() {
-        synchronized (lock) {
-            isPlaying = true;
+        if (isPlaying) {
+            log.info("Player is already playing");
+        } else {
+            synchronized (lock) {
+                isPlaying = true;
+            }
             log.info("play");
         }
     }
 
     public void pause() {
-        synchronized (lock) {
-            isPlaying = false;
+        if (isPlaying) {
+            synchronized (lock) {
+                isPlaying = false;
+            }
             log.info("pause");
+        } else {
+            log.info("Player is not playing");
         }
     }
 
     public void skip() {
-        synchronized (lock) {
-            isPlaying = true;
-            log.info("skip");
-        }
+        log.info("skip");
     }
 
     public void previous() {
-        synchronized (lock) {
-            isPlaying = true;
-            log.info("previous");
-        }
+        log.info("previous");
     }
 }
