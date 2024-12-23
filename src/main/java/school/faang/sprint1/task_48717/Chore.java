@@ -1,7 +1,7 @@
 package school.faang.sprint1.task_48717;
 
 public class Chore implements Runnable {
-    private String chore;
+    private final String chore;
 
     public Chore(String chore) {
         this.chore = chore;
