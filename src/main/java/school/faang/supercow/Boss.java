@@ -1,7 +1,5 @@
 package school.faang.supercow;
 
-import com.fasterxml.jackson.databind.JsonSerializable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,9 +15,9 @@ public class Boss {
         Boss boss = new Boss();
 
         for (int i = 1; i <= 5; i++) {
-            int Icopy = i;
+            int copyI = i;
             executor.submit(() -> {
-                Player player = new Player("player " + Icopy);
+                Player player = new Player("player " + copyI);
                 try {
                     player.battle(boss);
                 } catch (InterruptedException e) {
