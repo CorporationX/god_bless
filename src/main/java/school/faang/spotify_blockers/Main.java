@@ -1,21 +1,26 @@
 package school.faang.spotify_blockers;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         Player player = new Player();
-        List<Thread> threads = new ArrayList<>();
+        List<Runnable> actions = Arrays.asList(
+                (player::play),
+                (player::stop),
+                (player::skip),
+                (player::previous));
 
-        while (true) {
-            threads.add(new Thread(player::play));
-            threads.add(new Thread(player::stop));
-            threads.add(new Thread(player::skip));
-            threads.add(new Thread(player::previous));
-            break;
-        }
-        threads.forEach(Thread::start);
+        actions.forEach(action -> {
+            new Thread(action).start();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("Thread was interrupted");
+            }
+        });
     }
 }
+
 
