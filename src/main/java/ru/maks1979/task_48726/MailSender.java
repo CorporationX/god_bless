@@ -9,14 +9,14 @@ public class MailSender {
         SenderRunnable fifthSender = new SenderRunnable(801, 1000);
 
         Thread thread1 = new Thread(firstSender);
-        Thread thread2 = new Thread(secondSender);
-        Thread thread3 = new Thread(thirdSender);
-        Thread thread4 = new Thread(fourthSender);
-        Thread thread5 = new Thread(fifthSender);
         thread1.start();
+        Thread thread2 = new Thread(secondSender);
         thread2.start();
+        Thread thread3 = new Thread(thirdSender);
         thread3.start();
+        Thread thread4 = new Thread(fourthSender);
         thread4.start();
+        Thread thread5 = new Thread(fifthSender);
         thread5.start();
         try {
             thread1.join();
