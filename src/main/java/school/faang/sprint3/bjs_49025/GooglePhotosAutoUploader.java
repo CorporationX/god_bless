@@ -1,48 +1,54 @@
 package school.faang.sprint3.bjs_49025;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
     private static final int DELAY = 3000;
 
     private final Object lock = new Object();
-    private List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Поток был прерван");
+            while (true) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        e.printStackTrace();
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
-    public void uploadPhotos() {
-        System.out.println("Выгружаем фотографии на сервер...");
+    private void uploadPhotos() {
+        log.info("Выгружаем фотографии на сервер...");
         sleepThread();
-        System.out.println("Фотографии загружены, очищаем список...");
+        log.info("Фотографии загружены, очищаем список...");
         photosToUpload.clear();
         sleepThread();
-        System.out.println("Список очищен!");
+        log.info("Список очищен!");
     }
 
     private void sleepThread() {
         try {
             Thread.sleep(DELAY);
         } catch (InterruptedException e) {
-            System.out.println("Поток был прерван");
+            e.printStackTrace();
         }
     }
 }
