@@ -57,7 +57,7 @@ public class Main {
         house.addRoom(bathroom);
 
         CountDownLatch count = new CountDownLatch(house.sizeHouse());
-        house.setCount(count);
+        house.setRoomCounter(count);
 
         try {
             ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);

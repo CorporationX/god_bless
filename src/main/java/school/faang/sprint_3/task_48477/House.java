@@ -13,7 +13,7 @@ public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFood;
     @Setter
-    CountDownLatch count;
+    CountDownLatch roomCounter;
 
     public House(String name) {
         this.name = name;
@@ -32,21 +32,27 @@ public class House {
     public void collectFood() {
         for (int i = 0; i < 2; i++) {
             for (Room room : rooms) {
-                if (room.tryLock()) {
-                    if (!room.allFoodTaken()) {
-                        takeFoodFromTheRoom(room);
-                        break;
+                try {
+                    if (room.tryLock()) {
+                        if (!room.allFoodTaken()) {
+                            takeFoodFromTheRoom(room);
+                            break;
+                        }
                     }
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                } finally {
                     room.unlock();
                 }
             }
         }
     }
 
+
     private void takeFoodFromTheRoom(Room room) {
         collectedFood.addAll(room.pickUpFood());
         log.info("{} collected food from: {}", Thread.currentThread().getName(), room.getName());
-        count.countDown();
+        roomCounter.countDown();
     }
 
     public int sizeHouse() {
