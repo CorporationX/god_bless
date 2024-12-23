@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
@@ -17,14 +18,14 @@ public record ResultConsumer(AtomicLong sumOfSquaredNumbers) {
         return sumOfSquaredNumbers.get();
     }
 
-    public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        CompletableFuture.allOf(requests.stream()
+    public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) throws ExecutionException, InterruptedException {
+        return CompletableFuture.allOf(requests.stream()
                         .parallel()
-                        .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer))
+                        .map(request -> CompletableFuture.supplyAsync(() -> request.longTimeSquare(resultConsumer))
                                 .thenRun(() -> log.info(request.number().toString())))
                         .toArray(CompletableFuture[]::new))
-                .join();
-
-        return resultConsumer.getSum();
+                .thenApply(function -> resultConsumer)
+                .get()
+                .getSum();
     }
 }
