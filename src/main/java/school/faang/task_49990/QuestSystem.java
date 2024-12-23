@@ -7,13 +7,12 @@ public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
-                    setSleepTime(quest);
-                    return quest.getReward();
-                })
-                .thenApply((reward) -> {
-                    player.setExperience(player.getExperience() + reward);
-                    return player;
-                });
+            setSleepTime(quest);
+            return quest.getReward();
+        }).thenApply((reward) -> {
+            player.setExperience(player.getExperience() + reward);
+            return player;
+        });
     }
 
     private void setSleepTime(Quest quest) {
