@@ -9,7 +9,7 @@ public class Player {
     private String name;
     private int hp;
 
-    public void losingHp() {
+    public void takeDamage() {
         hp--;
     }
 

@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int userCount = 5;
         int standardUserHp = 5;
 
@@ -32,10 +32,16 @@ public class Main {
 
         executor.shutdown();
 
-        if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
-            System.out.println("Mission complete");
-        } else {
-            System.out.println("Something went wrong...");
+        try {
+            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Mission complete");
+            } else {
+                System.out.println("Something went wrong...");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Thread was interrupted " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

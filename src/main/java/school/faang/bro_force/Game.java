@@ -28,7 +28,7 @@ public class Game {
                   System.out.println(player + " got damage. Player lives = "
                           + player.getHp() + " TotalLives = " + lives);
               }
-              player.losingHp();
+              player.takeDamage();
               if (player.getHp() == 0) {
                   update(Action.PLAYER_DIED, player);
                   System.out.println(player + " got damage. Player died. AlivePlayers = " + alivePlayers);
@@ -66,17 +66,5 @@ public class Game {
 
     public void gameOver() {
         System.out.println("GAME OVER");
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public List<Player> getAlivePlayers() {
-        return alivePlayers;
     }
 }
