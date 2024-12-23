@@ -15,7 +15,7 @@ public class OrderProcessor {
     public CompletableFuture<Void> processOrder(Order order) {
         CompletableFuture<Void> futureOrder = CompletableFuture.runAsync(() -> {
                     try {
-                        Thread.sleep(2000);
+                        Thread.currentThread().sleep(2000);
                         order.setStatus("обработан");
                         totalProcessedOrders.getAndIncrement();
                     } catch (InterruptedException e) {
