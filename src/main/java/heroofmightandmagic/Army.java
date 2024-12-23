@@ -20,8 +20,10 @@ public class Army {
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
 
+        PowerCalculator calculator;
+
         for (Unit unit : units) {
-            PowerCalculator calculator = new PowerCalculator(unit);
+            calculator = new PowerCalculator(unit);
             tasks.add(calculator);
             Thread thread = new Thread(calculator);
             threads.add(thread);
