@@ -6,10 +6,16 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload() throws InterruptedException {
+    public void startAutoUpload() {
         synchronized (photosToUpload) {
             if (photosToUpload.isEmpty()) {
-                photosToUpload.wait();
+                try {
+                    photosToUpload.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Thread was interrupted: " + e.getMessage());
+                    throw new RuntimeException(e);
+                }
             }
             uploadPhotos();
         }
@@ -19,7 +25,7 @@ public class GooglePhotosAutoUploader {
         synchronized (photosToUpload) {
             photosToUpload.add(photoPath);
             System.out.println("new photo added " + photoPath);
-            photosToUpload.notify();
+            photosToUpload.notifyAll();
         }
     }
 
