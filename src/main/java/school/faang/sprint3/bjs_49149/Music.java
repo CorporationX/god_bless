@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Music {
     public static void main(String[] args) {
         int totalActions = 7;
-        int time_out = 100;
+        int timeOut = 100;
 
         Random random = new Random();
         Player myPlayer = new Player();
@@ -28,7 +28,7 @@ public class Music {
                 case 2:
                     executor.submit(myPlayer::skip);
                     break;
-                case 3:
+                default :
                     executor.submit(myPlayer::previous);
                     break;
             }
@@ -36,7 +36,7 @@ public class Music {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(time_out, TimeUnit.MILLISECONDS)) {
+            if (!executor.awaitTermination(timeOut, TimeUnit.MILLISECONDS)) {
                 log.error("Thread can't be finished");
             } else {
                 log.info("All tasks completed");
