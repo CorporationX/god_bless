@@ -5,12 +5,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
 
-    public static final int INCREASE_IN_NUMBER_OF_VIEWS_BY = 1;
+    public static final int VIEW_INCREMENT = 1;
 
     private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
     public void addView(String videoId) {
-        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + INCREASE_IN_NUMBER_OF_VIEWS_BY);
+        viewsMap.merge(videoId, VIEW_INCREMENT, Integer::sum);
     }
 
     public int getViewCount(String videoId) {
