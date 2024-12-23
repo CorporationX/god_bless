@@ -22,33 +22,32 @@ public class Main {
                 new Food("pelmeni"),
                 new Food("borsch")
         );
+        Room kitchen = new Room("Kitchen");
+        kitchen.addFood(foods1);
 
         List<Food> foods2 = List.of(
                 new Food("bacon"),
                 new Food("chips"),
                 new Food("snacks")
         );
+        Room livingRoom = new Room("Living room");
+        livingRoom.addFood(foods2);
 
         List<Food> foods3 = List.of(
                 new Food("snacks"),
                 new Food("cookies"),
                 new Food("nuts")
         );
+        Room bedroom = new Room("Bedroom");
+        bedroom.addFood(foods3);
+
 
         List<Food> foods4 = List.of(
                 new Food("nuts"),
                 new Food("cookies")
         );
-
-        Room kitchen = new Room("Kitchen");
-        Room livingRoom = new Room("Living room");
-        Room bedroom = new Room("Bedroom");
         Room bathroom = new Room("Bathroom");
-
         bathroom.addFood(foods4);
-        kitchen.addFood(foods1);
-        livingRoom.addFood(foods2);
-        bedroom.addFood(foods3);
 
         House house = new House("Tom House");
 
