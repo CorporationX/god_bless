@@ -39,7 +39,7 @@ public class User {
     }
 
     public void leaveHouse() {
-        if (houseName==EMPTY_HOUSE) {
+        if (houseName == EMPTY_HOUSE) {
             log.info("{} Not part of any house", name);
             return;
         }

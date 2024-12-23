@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainApp {
     private static final Logger log = LoggerFactory.getLogger(MainApp.class);
+
     public static void main(String[] args) {
         House starkHouse = new House("Stark",
                 Arrays.asList(UserRole.ARCHER, UserRole.MAGE, UserRole.LORD, UserRole.WARRIOR));
