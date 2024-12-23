@@ -10,19 +10,19 @@ public class MasterCardService {
     public int collectPayment() {
         try {
             Thread.sleep(PAYMENT_SLEEP_DURATION);
-            return 1000;
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
+        return 1000;
     }
 
     public int sendAnalytics() {
         try {
             Thread.sleep(ANALYTICS_SLEEP_DURATION);
-            return 10000;
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
+        return 10000;
     }
 
 }
