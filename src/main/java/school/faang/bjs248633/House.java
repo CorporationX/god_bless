@@ -40,8 +40,7 @@ public class House {
         Room room1 = rooms.get(firstRoom);
         Room room2 = rooms.get(secondRoom);
 
-        log.info("Collecting food from two random rooms: '{}' and '{}' "
-                , room1.getRoomName(), room2.getRoomName());
+        log.info("Collecting food from two random rooms: '{}' and '{}' ", room1.getRoomName(), room2.getRoomName());
 
         List<Food> fromRoom1 = room1.removeFood();
         if (!fromRoom1.isEmpty()) {
