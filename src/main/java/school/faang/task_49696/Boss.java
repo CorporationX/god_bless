@@ -30,6 +30,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         System.out.println(player.getName() + " ended the battle " + Thread.currentThread().getName());
-        player.notifyAll();
+        player.notify();
     }
 }
