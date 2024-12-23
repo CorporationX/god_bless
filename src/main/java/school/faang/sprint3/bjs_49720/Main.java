@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int TIMEOUT = 300;
+
     public static void main(String[] args) {
         Boss boss = new Boss(4);
         List<Player> players = initialize();
@@ -24,7 +26,7 @@ public class Main {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(300, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
