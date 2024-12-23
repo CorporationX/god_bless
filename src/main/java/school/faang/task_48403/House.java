@@ -1,5 +1,6 @@
 package school.faang.task_48403;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -7,8 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 @Slf4j
+@RequiredArgsConstructor
 public class House {
-    private final List<Room> rooms = initializeRooms();
+    private final List<Room> rooms;
     private final List<Food> allFoods = new ArrayList<>();
 
     public void collectFood() {
@@ -25,7 +27,12 @@ public class House {
     }
 
     private long getCountAllFoodsInAllRooms() {
-        return rooms.stream().flatMap(m -> m.getFoods().stream()).count();
+        if (rooms.isEmpty()) {
+            return 0L;
+        }
+        return rooms.stream()
+                .flatMap(m -> m.getFoods().stream())
+                .count();
     }
 
     private void removeFoodsFromRoom(int numberRoom) {
@@ -35,19 +42,11 @@ public class House {
             log.info("In room = {} removing foods....", numberRoom);
             allFoods.addAll(foodsFromRoom);
             log.info("Collected foods: {}\nNumber foods collected = {}", allFoods, getCollectedFoods());
-            room.removeFood(foodsFromRoom);
+            room.removeFoods();
             log.info("Room = {} is clean\n", numberRoom);
         } else {
             log.info("Room = {} is already cleaned\n", numberRoom);
         }
-    }
-
-    private List<Room> initializeRooms() {
-        List<Room> initialRooms = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            initialRooms.add(new Room(i));
-        }
-        return initialRooms;
     }
 
     private int getRandomNumberRoom() {

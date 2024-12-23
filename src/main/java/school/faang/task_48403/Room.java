@@ -21,7 +21,7 @@ public class Room {
         return initialFoods;
     }
 
-    public void removeFood(List<Food> foodsForRemove) {
-        foods.removeAll(foodsForRemove);
+    public void removeFoods() {
+        foods.clear();
     }
 }
