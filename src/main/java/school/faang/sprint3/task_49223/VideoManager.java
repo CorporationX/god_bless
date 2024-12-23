@@ -22,7 +22,7 @@ public class VideoManager {
 
     public void getAllVideo() {
         System.out.println("Все видео: ");
-        viewsMap.entrySet().stream()
+        viewsMap.entrySet()
                 .forEach(System.out::println);
     }
 }
