@@ -39,7 +39,6 @@ public class MasterCardService {
             return 1000;
         } catch (InterruptedException e) {
             log.error("Ошибка в sendAnalytics: {}", e.getMessage());
-            Thread.currentThread().interrupt();
             return 0;
         }
     }

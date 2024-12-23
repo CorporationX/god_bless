@@ -27,7 +27,6 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("Ошибка завершения ExecutorService: {}", e.getMessage());
-            Thread.currentThread().interrupt();
         }
     }
 }
