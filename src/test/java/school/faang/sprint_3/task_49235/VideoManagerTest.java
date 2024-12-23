@@ -37,7 +37,7 @@ public class VideoManagerTest {
             }
 
             for (int i = 0; i < numVideos; i++) {
-                assertEquals(11, videoManager.getViewCount("video" + i), "Video " + i);
+                assertEquals(10, videoManager.getViewCount("video" + i), "Video " + i);
             }
 
         } catch (InterruptedException e) {

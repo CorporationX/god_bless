@@ -1,17 +1,16 @@
 package school.faang.sprint_3.task_49235;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
-    private Map<String, AtomicInteger> views = new HashMap<>();
+    private Map<String, Integer> views = new ConcurrentHashMap<>();
 
-    public synchronized void addView(String videoId) {
-        views.computeIfAbsent(videoId, (key) -> new AtomicInteger(1)).incrementAndGet();
+    public void addView(String videoId) {
+        views.merge(videoId, 1, Integer::sum);
     }
 
-    public synchronized int getViewCount(String videoId) {
-        return views.getOrDefault(videoId, new AtomicInteger(0)).get();
+    public int getViewCount(String videoId) {
+        return views.getOrDefault(videoId, 0);
     }
 }
