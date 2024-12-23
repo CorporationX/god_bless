@@ -20,12 +20,17 @@ public class House {
     }
 
     public void collectFood() {
-        for (int roomsWorked = 0; roomsWorked < 2 && !roomsLeft.isEmpty(); roomsWorked++) {
-            collectedFood.addAll(getRandomRoom());
+        for (int roomsCollected = 0; roomsCollected < 2 && !roomsLeft.isEmpty(); roomsCollected++) {
+            var foodFromRoom = cleanRandomRoom();
+            if (foodFromRoom.isEmpty()) {
+                roomsCollected--;
+                continue;
+            }
+            this.collectedFood.addAll(foodFromRoom);
         }
     }
 
-    private List<Food> getRandomRoom() {
+    private List<Food> cleanRandomRoom() {
         Optional<Room> anyRoom = roomsLeft.stream().findAny();
 
         if (anyRoom.isEmpty() || !anyRoom.get().tryLock()) {

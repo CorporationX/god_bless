@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int THREAD_POOL_SIZE = 2;
-    private static final int FREQUENCY = 10;
+    private static final int THREAD_POOL_SIZE = 5;
+    private static final int FREQUENCY = 30;
 
     public static void main(String[] args) {
         var house = initHouse();
