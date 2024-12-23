@@ -14,9 +14,8 @@ public class MailSender {
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
         }
-        for (Thread thread:threads){
+        for (Thread thread : threads) {
             thread.join();
         }
-
     }
 }
