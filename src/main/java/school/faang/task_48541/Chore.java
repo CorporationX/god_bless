@@ -6,6 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Chore implements Runnable {
+    private static final int SLEEP_TIME_MS = 3000;
+    private static final String TASK_STARTED_MSG = "%s выполняет: %s %n";
+    private static final String TASK_COMPLETED_MSG = "%s выполнился %n";
+    private static final String EXCEPTION_OCCURRED = "Произошло исключение с: %s %n";
+
     private String chore;
 
     public Chore(String chore) {
@@ -16,11 +21,11 @@ public class Chore implements Runnable {
     public void run() {
         try {
             String name = Thread.currentThread().getName();
-            System.out.printf("%s выполняет: %s %n", name, chore);
-            Thread.sleep(3000);
-            System.out.printf("%s выполнился %n", chore);
+            System.out.printf(TASK_STARTED_MSG, name, chore);
+            Thread.sleep(SLEEP_TIME_MS);
+            System.out.printf(TASK_COMPLETED_MSG, chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.printf(EXCEPTION_OCCURRED, chore);
         }
     }
 }
