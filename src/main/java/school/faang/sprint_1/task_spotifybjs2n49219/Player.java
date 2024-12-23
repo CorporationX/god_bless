@@ -12,7 +12,7 @@ public class Player {
         this.isPlaying = false;
     }
 
-    public synchronized void play() {
+    public void play() {
         synchronized (lock) {
             if (isPlaying) {
                 log.info("music already Playing ..... |>");
@@ -23,20 +23,20 @@ public class Player {
         }
     }
 
-    public synchronized void pause() {
+    public void pause() {
         synchronized (lock) {
             log.info("Pause pressed ");
             isPlaying = false;
         }
     }
 
-    public synchronized void skip() {
+    public void skip() {
         synchronized (lock) {
             log.info("Skip pressed");
         }
     }
 
-    public synchronized void previous() {
+    public void previous() {
         synchronized (lock) {
             log.info("Previous pressed");
         }
