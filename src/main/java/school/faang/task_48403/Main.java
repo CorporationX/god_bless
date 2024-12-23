@@ -28,7 +28,7 @@ public class Main {
             }
         }
 
-        while(!executorService.isShutdown()) {
+        while (!executorService.isShutdown()) {
             Thread.sleep(1000);
         }
     }
