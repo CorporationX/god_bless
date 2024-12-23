@@ -7,7 +7,7 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public synchronized void startAutoUpload() {
-        if (photosToUpload.isEmpty()) {
+        while (photosToUpload.isEmpty()) {
             try {
                 System.out.println("Фото для загрузки нет, давай подождём, пока они появятся");
                 wait();
