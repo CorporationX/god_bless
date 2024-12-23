@@ -31,7 +31,7 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         synchronized (lock) {
-            photosToUpload.stream().forEach((photo) -> System.out.println(String
+            photosToUpload.forEach((photo) -> System.out.println(String
                     .format("Photo upload %s on server thread %s", photo, Thread.currentThread().getName())));
             System.out.println("All photo uploaded.");
             photosToUpload.clear();
