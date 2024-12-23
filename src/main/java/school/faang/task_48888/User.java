@@ -11,17 +11,19 @@ import org.slf4j.LoggerFactory;
 @ToString
 public class User {
     private static final Logger log = LoggerFactory.getLogger(User.class);
+    private static final House EMPTY_HOUSE = new EmptyHouse();
     private final String name;
-    private House houseName;
+    private House houseName = EMPTY_HOUSE;
     private UserRole userRole;
 
-    public User(String name) {
+    public User(String name, UserRole userRole) {
         this.name = name;
+        this.userRole = userRole;
     }
 
     public void joinHouse(House house, UserRole role) {
         synchronized (house) {
-            if (!(house.getPossiblePosition() > 0) || !house.getUserRoles().contains(role)) {
+            while (!(house.getPossiblePosition() > 0) || !house.getUserRoles().contains(role)) {
                 log.info("Waiting for a free position or role...");
                 try {
                     house.wait();
@@ -37,7 +39,7 @@ public class User {
     }
 
     public void leaveHouse() {
-        if (houseName == null || userRole == null) {
+        if (houseName==EMPTY_HOUSE) {
             log.info("{} Not part of any house", name);
             return;
         }
@@ -45,8 +47,8 @@ public class User {
             houseName.removeRole(userRole);
             houseName.notifyAll();
             log.info(" {} leaving house {}", name, houseName.getHouseName());
-            this.houseName = null;
-            this.userRole = null;
+            this.houseName = EMPTY_HOUSE;
+            this.userRole = UserRole.NONE;
         }
     }
 }

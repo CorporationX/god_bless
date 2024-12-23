@@ -4,5 +4,6 @@ public enum UserRole {
     MAGE,
     LORD,
     WARRIOR,
+    NONE,
     ARCHER
 }
