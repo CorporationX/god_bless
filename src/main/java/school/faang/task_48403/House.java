@@ -1,6 +1,5 @@
 package school.faang.task_48403;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -8,18 +7,22 @@ import java.util.List;
 import java.util.Random;
 
 @Slf4j
-@RequiredArgsConstructor
 public class House {
     private final List<Room> rooms;
+    private final long countAllFoods;
     private final List<Food> allFoods = new ArrayList<>();
 
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+        countAllFoods = getCountAllFoodsInAllRooms();
+    }
+
     public void collectFood() {
-        removeFoodsFromRoom(getRandomNumberRoom());
         removeFoodsFromRoom(getRandomNumberRoom());
     }
 
     public boolean allCollectedFood() {
-        return getCountAllFoodsInAllRooms() == getCollectedFoods();
+        return countAllFoods == getCollectedFoods();
     }
 
     private int getCollectedFoods() {
@@ -27,12 +30,9 @@ public class House {
     }
 
     private long getCountAllFoodsInAllRooms() {
-        if (rooms.isEmpty()) {
-            return 0L;
-        }
         return rooms.stream()
-                .flatMap(m -> m.getFoods().stream())
-                .count();
+                .mapToLong(m -> m.getFoods().size())
+                .sum();
     }
 
     private void removeFoodsFromRoom(int numberRoom) {
@@ -42,7 +42,7 @@ public class House {
             log.info("In room = {} removing foods....", numberRoom);
             allFoods.addAll(foodsFromRoom);
             log.info("Collected foods: {}\nNumber foods collected = {}", allFoods, getCollectedFoods());
-            room.removeFoods();
+            room.removeFood();
             log.info("Room = {} is clean\n", numberRoom);
         } else {
             log.info("Room = {} is already cleaned\n", numberRoom);

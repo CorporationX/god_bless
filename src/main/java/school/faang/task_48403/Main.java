@@ -1,5 +1,6 @@
 package school.faang.task_48403;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,8 +12,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
-    private static final int PERIOD = 30;
+    private static final int PERIOD = 1;
 
+    @SneakyThrows
     public static void main(String[] args) {
         House house = new House(initializeRooms());
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
@@ -24,6 +26,10 @@ public class Main {
                 log.info("All foods collected");
                 break;
             }
+        }
+
+        while(!executorService.isShutdown()) {
+            Thread.sleep(1000);
         }
     }
 
