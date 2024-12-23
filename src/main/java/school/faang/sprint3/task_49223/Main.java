@@ -6,20 +6,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        final int NUM_THREADS = 100;
-        final int NUM_VIDEOS = 10;
+        final int numThreads = 100;
+        final int numVideos = 10;
 
         VideoManager manager = new VideoManager();
 
-        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
-        // Добавляем задачи в ExecutorService
-        for (int i = 0; i < NUM_VIDEOS; i++) {
+        for (int i = 0; i < numVideos; i++) {
             String videoId = "video" + i;
 
-            for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
+            for (int j = 0; j < numThreads / numVideos; j++) {
                 executor.submit(() -> {
-                    manager.addView(videoId); // Добавляем просмотр
+                    manager.addView(videoId);
                     System.out.println("Video " + videoId + " просмотров: " + manager.getViewCount(videoId));
                 });
             }

@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
-    private static final Map<String, Integer> viewsMap = new ConcurrentHashMap<>() {
+    private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>() {
     };
 
-    public static void addView(String videoId) {
+    public void addView(String videoId) {
         synchronized (viewsMap) {
             viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
         }
