@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ChoreTest {
 
     @Test
-    void testExecutorServiceCompletedAllTasks() throws InterruptedException {
+    public void testExecutorServiceCompletedAllTasks() throws InterruptedException {
         String[] chores = {"wash the dishes", "sweep the floor", "cook dinner"};
         ExecutorService executorService = Executors.newCachedThreadPool();
         CountDownLatch countDownLatch = new CountDownLatch(3);

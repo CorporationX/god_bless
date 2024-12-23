@@ -10,12 +10,13 @@ import java.util.concurrent.CountDownLatch;
 public class Chore implements Runnable {
     private final String chore;
     private final CountDownLatch countDownLatch;
+    private final int leadTime = 3000;
 
     @Override
     public void run() {
         try {
             System.out.println(Thread.currentThread().getName() + " start task: " + chore);
-            Thread.sleep(3000);
+            Thread.sleep(leadTime);
             System.out.println(Thread.currentThread().getName() + " finish task: " + chore);
         } catch (InterruptedException e) {
             e.printStackTrace();
