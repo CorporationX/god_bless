@@ -11,6 +11,8 @@ public class Main {
     private static final int POOL_SIZE = 5;
     private static final int TIMEOUT = 5;
 
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
         List<House> houses = new ArrayList<>(List.of(
                 new House("Bronn"), new House("Greyjoy"),
@@ -21,7 +23,7 @@ public class Main {
 
         for (int i = 0; i < POOL_SIZE; i++) {
             User user = new User("User " + (i + 1));
-            executor.execute(() -> user.joinHouse(houses.get(new Random().nextInt(houses.size()))));
+            executor.execute(() -> user.joinHouse(houses.get(random.nextInt(houses.size()))));
         }
 
         executor.shutdown();

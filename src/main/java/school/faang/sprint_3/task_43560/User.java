@@ -9,6 +9,8 @@ public class User {
     private static final int SLEEP_TIME = 5000;
 
     private static final Object houseLock = new Object();
+    private static final Random random = new Random();
+
     private final String name;
     private House house;
     private Role role;
@@ -29,7 +31,7 @@ public class User {
                     System.out.println("Поток был прерван во время ожидания.");
                 }
             }
-            Role role = house.getAvailableRoles().get(new Random().nextInt(house.getAvailableRoles().size()));
+            Role role = house.getAvailableRoles().get(random.nextInt(house.getAvailableRoles().size()));
             house.addRole(role);
             this.house = house;
             this.role = role;
