@@ -1,7 +1,7 @@
 package school.faang.sprint_3.task_48514;
 
 public class Chore implements Runnable {
-    private final int SLEEP_MILLISECONDS = 2000;
+    private static final int SLEEP_MILLISECONDS = 2000;
 
     private final String chore;
 
