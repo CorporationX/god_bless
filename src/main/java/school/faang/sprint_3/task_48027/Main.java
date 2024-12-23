@@ -1,18 +1,16 @@
 package school.faang.sprint_3.task_48027;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Army army = new Army();
-        army.addUnit(new Archer(25));   // считаем в потоке 1
-        army.addUnit(new Swordsman(40)); // считаем в потоке 1
-        army.addUnit(new Mage(50));     // считаем в потоке 1
-        army.addUnit(new Mage(20));     // считаем в потоке 2
-        army.addUnit(new Archer(25));   // считаем в потоке 2
-        army.addUnit(new Swordsman(40)); // считаем в потоке 2
-        army.addUnit(new Mage(50)); // считаем в потоке 3
-        army.addUnit(new Archer(25));   // считаем в потоке 3
-        army.addUnit(new Swordsman(40)); // считаем в потоке 3
-        army.addUnit(new Mage(50)); // считаем в потоке 4
+        List<Unit> unitList= List.of(
+                new Archer(25), new Swordsman(40), new Mage(50),
+                new Mage(20), new Archer(25), new Swordsman(40),
+                new Mage(50), new Archer(25), new Swordsman(40)
+        );
+
+        Army army = new Army(unitList);
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Общая сила армии: " + totalPower);

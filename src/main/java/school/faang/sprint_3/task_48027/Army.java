@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private final List<Unit> army = new ArrayList<>();
+    private final List<Unit> army;
 
-    public void addUnit(Unit unit) {
-        if (unit != null) {
-            army.add(unit);
-        } else {
-            throw new IllegalArgumentException("Unit is null");
-        }
+    public Army(List<Unit> army) {
+        this.army = army;
     }
 
     public int calculateTotalPower() {
@@ -38,7 +34,7 @@ public class Army {
             try {
                 armyCounterThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Поток " + armyCounterThread.getName() + " прервал поток main");
             }
         });
 
