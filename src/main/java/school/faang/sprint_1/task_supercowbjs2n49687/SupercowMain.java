@@ -11,11 +11,16 @@ public class SupercowMain {
                 new Player("Player2"),
                 new Player("Player3"),
                 new Player("Player4"),
-                new Player("Player5")
+                new Player("Player5"),
+                new Player("Player6"),
+                new Player("Player7")
         ));
 
         for (Player player : players) {
-            player.startBattle(boss);
+            Thread thread = new Thread(() -> player.startBattle(boss));
+            thread.start();
+            Thread threadToLeave = new Thread(() -> player.leaveBattle(boss));
+            threadToLeave.start();
         }
     }
 }
