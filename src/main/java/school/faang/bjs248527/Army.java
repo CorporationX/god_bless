@@ -7,14 +7,14 @@ import java.util.List;
 
 @Slf4j
 public class Army {
-    List<Unit> units = new ArrayList<>();
+    private List<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);
         log.info("Added unit: {} \n", unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
@@ -28,7 +28,12 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted: {}", e.getMessage());
+                Thread.currentThread().interrupt();
+            }
         }
 
         for (PowerCalculator task : tasks) {
@@ -37,5 +42,4 @@ public class Army {
         log.info("Total power of the army: {}", totalPower);
         return totalPower;
     }
-
 }
