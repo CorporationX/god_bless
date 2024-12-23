@@ -5,20 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 
 @Slf4j
 public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFood;
     private volatile List<Room> roomsLeft;
-    Random random;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
         collectedFood = new ArrayList<>();
         roomsLeft = new ArrayList<>(rooms);
-        random = new Random();
     }
 
     public void collectFood() {
@@ -28,12 +26,12 @@ public class House {
     }
 
     private List<Food> getRandomRoom() {
-        int roomNumber = random.nextInt(roomsLeft.size());
-        Room room = roomsLeft.get(roomNumber);
+        Optional<Room> anyRoom = roomsLeft.stream().findAny();
 
-        if (!room.tryLock() || !roomsLeft.contains(room)) {
+        if (anyRoom.isEmpty() || !anyRoom.get().tryLock()) {
             return Collections.emptyList();
         }
+        var room = anyRoom.get();
 
         final var food = room.getFoodList();
         room.clearRoom();
