@@ -11,7 +11,6 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 5;
 
     public static void main(String[] args) {
-        House house = new House();
 
         Room kitchen = new Room("Kitchen");
         kitchen.addFood(new Food("Cheese"));
@@ -40,6 +39,7 @@ public class Main {
         attic.addFood(new Food("Jelly"));
         attic.addFood(new Food("Crackers"));
 
+        House house = new House();
         house.addRoom(kitchen);
         house.addRoom(livingRoom);
         house.addRoom(bedroom);
