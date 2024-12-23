@@ -10,6 +10,7 @@ public class Main {
     private static final int POOL_SIZE = 5;
     private static final int INITIAL_DELAY = 0;
     private static final int PERIOD = 2;
+    private static final int TIMEOUT = 5;
 
     private static final House house = new House();
 
@@ -24,6 +25,15 @@ public class Main {
                 System.out.println("Вся еда собрана!");
             }
         }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
+
+        try {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
+                System.out.println("Не все задачи завершены в указанный период времени.");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 
     public static void initialize() {
