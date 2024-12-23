@@ -10,7 +10,7 @@ import java.util.List;
 @Slf4j
 public class House {
 
-    private final List<Role> availableRole;
+    private final List<Role> availableRoles;
     private final String name;
     private int availableRolesCount;
 
@@ -23,7 +23,7 @@ public class House {
             log.error("AvailableRole is null");
             throw new IllegalArgumentException("AvailableRole is null");
         }
-        this.availableRole = new ArrayList<>(availableRole);
+        this.availableRoles = new ArrayList<>(availableRole);
         this.name = name;
         this.availableRolesCount = availableRole.size();
     }
@@ -33,18 +33,18 @@ public class House {
     }
 
     public synchronized void addRole(Role role) {
-        availableRole.add(role);
+        availableRoles.add(role);
         availableRolesCount++;
         log.info("Роль {} освобождена. Доступно ролей: {} ", role, availableRolesCount);
         notifyAll();
     }
 
     public synchronized Role removeRole() {
-        if (availableRole.isEmpty()) {
+        if (availableRoles.isEmpty()) {
             log.error("Нет доступных ролей");
             throw new IllegalStateException("Нет доступных ролей");
         }
-        Role role = availableRole.remove(0);
+        Role role = availableRoles.remove(0);
         availableRolesCount--;
         log.info("Роль {} занята. Осталось ролей: {} ", role, availableRolesCount);
         return role;

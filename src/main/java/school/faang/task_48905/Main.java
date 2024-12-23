@@ -8,6 +8,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final  int ROLE_HOLD_TIME_MS = 1000;
+    private static final  int TIMEOUT_AWAIT_TERMINATION = 30;
+
     public static void main(String[] args) {
 
         ExecutorService executors = Executors.newCachedThreadPool();
@@ -25,7 +28,7 @@ public class Main {
             executors.submit(() -> {
                 try {
                     user.joinHouse(starkHouse);
-                    Thread.sleep(1000);
+                    Thread.sleep(ROLE_HOLD_TIME_MS);
                     user.leaveHouse();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -36,7 +39,7 @@ public class Main {
         executors.shutdown();
 
         try {
-            if (!executors.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executors.awaitTermination(TIMEOUT_AWAIT_TERMINATION, TimeUnit.SECONDS)) {
                 executors.shutdownNow();
             }
         } catch (InterruptedException e) {

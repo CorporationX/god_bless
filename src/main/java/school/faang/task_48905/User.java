@@ -34,7 +34,6 @@ public class User {
         synchronized (house) {
             log.info("{} покидает дом и освобождает роль: {} ", name, role);
             house.addRole(role);
-            house.notifyAll();
             this.house = null;
             this.role = null;
         }
