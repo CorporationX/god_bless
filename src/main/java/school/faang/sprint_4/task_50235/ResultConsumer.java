@@ -14,7 +14,7 @@ public class ResultConsumer {
 
     public Long add(final Long num) {
         if (num < 0) {
-            log.error("Число должно быть положительным");
+            throw new IllegalArgumentException("Число не может быть null");
         }
         return sumOfSquaredNumbers.addAndGet(num);
     }

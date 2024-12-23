@@ -15,13 +15,14 @@ public class SquareRequest {
 
     public void longTimeSquare(ResultConsumer resultConsumer) {
         if (resultConsumer == null) {
-            log.error("Потребить не может быть null");
+            throw new IllegalArgumentException("Число не может быть null");
         }
         var randomTimeout = ThreadLocalRandom.current().nextInt(100);
         try {
             Thread.sleep(MIN_TIMEOUT + randomTimeout);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("Поток прерван во время ожидания задачи");
+            Thread.currentThread().interrupt();
         } finally {
             resultConsumer.add(number * number);
         }

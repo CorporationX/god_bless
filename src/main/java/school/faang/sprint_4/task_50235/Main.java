@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
@@ -17,7 +18,7 @@ public class Main {
 
     private static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         if (requests.isEmpty() || resultConsumer == null) {
-            log.error("Неверный входные параметры");
+            throw new IllegalArgumentException("Неверные входные параметры");
         }
         List<CompletableFuture<Void>> futures = requests.stream()
                 .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)))
@@ -28,10 +29,9 @@ public class Main {
     }
 
     private static void launch() {
-        List<SquareRequest> requests = new ArrayList<>();
-        for (long i = POW_START_NUMBER; i <= POW_END_NUMBER; i++) {
-            requests.add(new SquareRequest(i));
-        }
+        List<SquareRequest> requests = IntStream.rangeClosed(POW_START_NUMBER, POW_END_NUMBER)
+                .mapToObj(index -> new SquareRequest((long) index))
+                .toList();
 
         ResultConsumer consumer = new ResultConsumer(0L);
         Long sumResult = fanOutFanIn(requests, consumer);
