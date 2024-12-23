@@ -2,6 +2,8 @@ package school.faang.task_48830;
 
 public class Chore implements  Runnable {
 
+    static final int SLEEP_TIME = 2000;
+
     private String chore;
 
     public Chore(String chore) {
@@ -14,8 +16,7 @@ public class Chore implements  Runnable {
         System.out.println("Thread " + threadName + " is starting the chore: " + chore);
 
         try {
-            // Имитация выполнения задачи
-            Thread.sleep(2000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             System.out.println("Thread " + threadName + " was interrupted while doing " + chore);
         }
