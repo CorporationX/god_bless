@@ -20,12 +20,6 @@ public class OrderProcessor {
         List<CompletableFuture<Order>> processAllOrders = orders.stream()
                 .map(this::processOrder).toList();
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-        }
-
         processAllOrders.forEach(CompletableFuture::join);
 
         log.info("Total processed orders: {}", totalProcessedOrders.get());
