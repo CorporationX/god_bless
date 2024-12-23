@@ -14,5 +14,5 @@ public enum Food {
     VEGETABLES,
     CHICKEN,
     CAKES,
-    DRINKS;
+    DRINKS
 }
