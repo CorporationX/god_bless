@@ -8,10 +8,8 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = Collections.synchronizedList(new ArrayList<>());
-    //private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public void startAutoUpload() {
-        //scheduler.scheduleAtFixedRate(() -> {
         while (true) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
@@ -27,9 +25,7 @@ public class GooglePhotosAutoUploader {
                 System.out.println("Uploading new files...");
                 uploadPhotos();
             }
-
         }
-        //}, 0, 1, TimeUnit.SECONDS);
     }
 
     private void uploadPhotos() {
@@ -52,6 +48,10 @@ public class GooglePhotosAutoUploader {
     }
 
     public void addNewPhotos(List<String> filenames) {
+        splitArrayToFibonacciChunksAndProcess(filenames);
+    }
+
+    private void splitArrayToFibonacciChunksAndProcess(List<String> filenames) {
         int a = 0;
         int b = 1;
         while (a <= filenames.size()) {
