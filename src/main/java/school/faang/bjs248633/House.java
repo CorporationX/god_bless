@@ -17,7 +17,7 @@ public class House {
         this.rooms = new ArrayList<>();
         this.collectFoods = new ArrayList<>();
         this.random = new Random();
-        log.info("House created. Ready to add rooms and collect food.\n" );
+        log.info("House created. Ready to add rooms and collect food.\n");
     }
 
     public void addRoom(Room room) {
@@ -40,8 +40,8 @@ public class House {
         Room room1 = rooms.get(firstRoom);
         Room room2 = rooms.get(secondRoom);
 
-        log.info("Collecting food from two random rooms: '{}' and '{}' " ,
-                room1.getRoomName(), room2.getRoomName() );
+        log.info("Collecting food from two random rooms: '{}' and '{}' "
+                , room1.getRoomName(), room2.getRoomName());
 
         List<Food> fromRoom1 = room1.removeFood();
         if (!fromRoom1.isEmpty()) {
