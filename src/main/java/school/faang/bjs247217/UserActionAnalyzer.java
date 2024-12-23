@@ -2,6 +2,7 @@ package school.faang.bjs247217;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ public class UserActionAnalyzer {
         List<Integer> topIds = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry<Integer, Long>::getValue).reversed())
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -29,7 +30,7 @@ public class UserActionAnalyzer {
                 .map(UserAction::getContent)
                 .flatMap(content -> Arrays.stream((content.split("\\s+"))))
                 .filter(word -> word.startsWith("#"))
-                .map(word -> word.replaceAll("^#|[^a-zA-Z0-9]$", ""))
+                .map(word -> word.replaceAll(Constants.ONLY_LETTERS_AND_SYMBOLS, ""))
                 .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
