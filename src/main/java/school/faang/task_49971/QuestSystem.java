@@ -4,7 +4,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
-    CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
+    CompletableFuture<Player> startQuest(Player player,
+                                         Quest quest,
+                                         ExecutorService executor) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty() + 1000);
