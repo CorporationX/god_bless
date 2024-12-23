@@ -1,8 +1,10 @@
 package school.faang.sprint3.bjs_49320;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Slf4j
 public class Game {
     private int score;
     private int lives;
@@ -10,23 +12,23 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
-    public Game() {
+    public Game(int lives) {
         this.score = 0;
-        this.lives = 6;
+        this.lives = lives;
     }
 
     public void update(boolean isScorePointGot, boolean isLivePointLost) {
         synchronized (scoreLock) {
             if (isScorePointGot) {
                 score++;
-                System.out.println("Получено 1 очко. Текущий счет: " + score + " очков");
+                log.info("Получено 1 очко. Текущий счет: {} очков", score);
             }
         }
 
         synchronized (livesLock) {
             if (isLivePointLost) {
                 lives--;
-                System.out.println("Вы потеряли 1 жизнь. Осталось жизней: " + lives);
+                log.info("Вы потеряли 1 жизнь. Осталось жизней: {}", lives);
             }
 
             if (lives == 0) {
@@ -36,6 +38,6 @@ public class Game {
     }
 
     private void gameOver() {
-        System.out.println("Конец игры. Вы набрали: " + score + " очков");
+        log.info("Конец игры. Вы набрали: {} очков", score);
     }
 }
