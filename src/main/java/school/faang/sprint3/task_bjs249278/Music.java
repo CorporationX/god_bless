@@ -1,21 +1,21 @@
 package school.faang.sprint3.task_bjs249278;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(player::play);
-        Thread playThreadAgain = new Thread(player::play);
-        Thread pauseThread = new Thread(player::pause);
-        Thread pauseThreadAgain = new Thread(player::pause);
-        Thread skipThread = new Thread(player::skip);
-        Thread previousThread = new Thread(player::previous);
+        List<Thread> threads = Arrays.asList(
+                new Thread(player::play),
+                new Thread(player::play),
+                new Thread(player::pause),
+                new Thread(player::pause),
+                new Thread(player::skip),
+                new Thread(player::previous)
+        );
 
-        playThread.start();
-        playThreadAgain.start();
-        pauseThread.start();
-        pauseThreadAgain.start();
-        skipThread.start();
-        previousThread.start();
+        threads.forEach(Thread::start);
     }
 }
