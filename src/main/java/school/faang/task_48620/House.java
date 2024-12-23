@@ -35,11 +35,11 @@ class House {
         System.out.println("Сбор еды из комнат: " + room1.getName() + " и " + room2.getName());
 
         synchronized (this) {
-            List<Food> foodFromRoom1 = new ArrayList<>(room1.getFoodList());
-            List<Food> foodFromRoom2 = new ArrayList<>(room2.getFoodList());
-
             room1.getFoodList().clear();
             room2.getFoodList().clear();
+
+            List<Food> foodFromRoom2 = new ArrayList<>(room2.getFoodList());
+            List<Food> foodFromRoom1 = new ArrayList<>(room1.getFoodList());
 
             collectedFood.addAll(foodFromRoom1);
             collectedFood.addAll(foodFromRoom2);
