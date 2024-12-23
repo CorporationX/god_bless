@@ -6,7 +6,7 @@ import java.util.Random;
 
 @Data
 public class User {
-    private final int SLEEP_TIME = 5000;
+    private static final int SLEEP_TIME = 5000;
 
     private static final Object houseLock = new Object();
     private final String name;
