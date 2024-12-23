@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Queue;
-import java.util.Random;
 
 @Getter
 public class House {
     @Getter(AccessLevel.NONE)
     private final Queue<Role> availableRoles;
-    private final Random random = new Random();
     private int availableCountRoles;
 
     public House(@NonNull Queue<Role> availableRoles) {
@@ -21,7 +19,7 @@ public class House {
 
     public Role addPlayer() {
         if (availableCountRoles == 0) {
-            throw new RuntimeException("House is full");
+            throw new HouseFullException();
         }
         availableCountRoles--;
         return availableRoles.remove();

@@ -15,7 +15,7 @@ public class User {
 
     public void joinHouse(@NonNull House house) {
         synchronized (house) {
-            if (house.getAvailableCountRoles() == 0) {
+            while (house.getAvailableCountRoles() == 0) {
                 try {
                     System.out.println(name + " waiting");
                     house.wait();
