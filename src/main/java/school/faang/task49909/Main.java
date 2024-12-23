@@ -23,6 +23,7 @@ public class Main {
             Thread.currentThread().interrupt();
             log.error("Не удалось найти сумму", e);
         }
+
         log.info(sum);
     }
 }
