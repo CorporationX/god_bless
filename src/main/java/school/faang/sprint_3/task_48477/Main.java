@@ -45,10 +45,10 @@ public class Main {
         Room bedroom = new Room("Bedroom");
         Room bathroom = new Room("Bathroom");
 
+        bathroom.addFood(foods4);
         kitchen.addFood(foods1);
         livingRoom.addFood(foods2);
         bedroom.addFood(foods3);
-        bathroom.addFood(foods4);
 
         House house = new House("Tom House");
 
