@@ -21,7 +21,7 @@ public class Battle {
         executorService.shutdown();
 
         try {
-            if(!executorService.awaitTermination(8, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(8, TimeUnit.SECONDS)) {
                 System.out.println("shutting down..");
                 executorService.shutdownNow();
             }
