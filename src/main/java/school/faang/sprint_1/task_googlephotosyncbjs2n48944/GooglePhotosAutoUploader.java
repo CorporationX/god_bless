@@ -2,20 +2,16 @@ package school.faang.sprint_1.task_googlephotosyncbjs2n48944;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload;
-    private final long startTime;
-    private final int uploaderWorkTime = 6_000;
-    private final int addNewPhotoInterval = 1_000;
+
 
     public GooglePhotosAutoUploader(@NonNull List<String> photosToUpload) {
         this.photosToUpload = photosToUpload;
-        startTime = System.currentTimeMillis();
     }
 
     public void startAutoUpload() {
@@ -31,7 +27,7 @@ public class GooglePhotosAutoUploader {
                 } else {
                     uploadPhotos();
                 }
-            } while (System.currentTimeMillis() - startTime < uploaderWorkTime);
+            } while (true);
         }
     }
 
@@ -41,7 +37,7 @@ public class GooglePhotosAutoUploader {
             photosToUpload.add(photoPath);
             lock.notify();
             try {
-                Thread.sleep(addNewPhotoInterval);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
