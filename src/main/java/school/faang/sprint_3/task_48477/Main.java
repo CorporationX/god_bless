@@ -36,10 +36,9 @@ public class Main {
         );
 
         List<Food> foods4 = List.of(
-                new Food("nuts")
+                new Food("nuts"),
+                new Food("cookies")
         );
-
-        House house = new House("Tom House");
 
         Room kitchen = new Room("Kitchen");
         Room livingRoom = new Room("Living room");
@@ -50,6 +49,8 @@ public class Main {
         livingRoom.addFood(foods2);
         bedroom.addFood(foods3);
         bathroom.addFood(foods4);
+
+        House house = new House("Tom House");
 
         house.addRoom(kitchen);
         house.addRoom(livingRoom);
