@@ -2,7 +2,6 @@ package school.faang.task_48457;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

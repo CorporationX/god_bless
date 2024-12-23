@@ -5,7 +5,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @ToString
 @Getter
 public class Room {
+    private static final int FOOD_COUNT = 10;
     private final List<Food> foods;
     private final int number;
     private final ReentrantLock lock;
@@ -25,13 +25,13 @@ public class Room {
     }
 
     private void createFoods() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < FOOD_COUNT; i++) {
             foods.add(new Food("food " + i));
         }
     }
 
     public boolean hasFood() {
-        return !(foods == null) && !foods.isEmpty();
+        return foods != null && !foods.isEmpty();
     }
 
     public List<Food> collectFood() {

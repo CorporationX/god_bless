@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 @Getter
 @Setter
 public class House {
+    private static final int ROOM_COUNT = 10;
     private List<Food> collectedFood;
     private List<Room> rooms;
     private CountDownLatch cdl;
@@ -23,7 +24,7 @@ public class House {
     }
 
     private void createRooms() {
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < ROOM_COUNT; i++) {
             rooms.add(new Room(100 + i));
         }
     }
@@ -43,16 +44,19 @@ public class House {
     }
 
     private boolean collectFoodFromRoom(Room room) {
-        if (room.tryLock()) {
-            if (room.hasFood()) {
-                collectedFood.addAll(room.collectFood());
-                log.info("Поток {} собрал еду из комнаты {}",
-                        Thread.currentThread().getName(), room.getNumber());
-                cdl.countDown();
-                return true;
+        try {
+            if (room.tryLock()) {
+                if (room.hasFood()) {
+                    collectedFood.addAll(room.collectFood());
+                    log.info("Поток {} собрал еду из комнаты {}",
+                            Thread.currentThread().getName(), room.getNumber());
+                    cdl.countDown();
+                    return true;
+                }
             }
+            return false;
+        } finally {
             room.unlock();
         }
-        return false;
     }
 }
