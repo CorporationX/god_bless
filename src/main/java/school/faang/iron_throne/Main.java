@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private final static int THREADS_COUNT = 6;
+    private static final int THREADS_COUNT = 6;
 
     public static void main(String[] args) {
         House house = new House("Liquid");
