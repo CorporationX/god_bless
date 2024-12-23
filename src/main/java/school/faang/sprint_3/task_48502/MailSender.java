@@ -23,7 +23,7 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Поток " + thread.getName() + " прервал поток main");
             }
         }
     }
