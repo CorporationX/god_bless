@@ -18,12 +18,11 @@ public class GooglePhotosAutoUploader {
         isStarted = true;
         List<String> uploadedPhotos = new ArrayList<>();
 
-        while (isStarted) {
-            synchronized (lock) {
+        synchronized (lock) {
+            while (isStarted) {
                 if (photosToUpload.isEmpty()) {
                     try {
                         lock.wait(WAIT_TIME);
-//                        isStarted = false;
                     } catch (InterruptedException e) {
                         log.error("Thread was interrupted", e);
                     }
@@ -42,20 +41,18 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             lock.notify();
-            log.info("New photo added: {}", photoPath);
         }
+
+        log.info("New photo added: {}", photoPath);
     }
 
     public List<String> uploadPhotos() {
-        synchronized (lock) {
-            List<String> newPhotos = new ArrayList<>();
-            photosToUpload.forEach(photoPath -> {
-                newPhotos.add(photoPath);
-                log.info("Uploading photo: {}", photoPath);
-            });
-            photosToUpload.removeAll(newPhotos);
+        List<String> newPhotos = photosToUpload.stream()
+                .peek(photo -> log.info("Uploading photo: {}", photo))
+                .toList();
 
-            return newPhotos;
-        }
+        photosToUpload.removeAll(newPhotos);
+
+        return newPhotos;
     }
 }
