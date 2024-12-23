@@ -23,7 +23,7 @@ public class User {
 
     public void joinHouse(House house) {
         synchronized (houseLock) {
-            if (house.getAvailableRoles().isEmpty()) {
+            while (house.getAvailableRoles().isEmpty()) {
                 try {
                     System.out.println(name + " ожидает пока освободится роль");
                     houseLock.wait();
