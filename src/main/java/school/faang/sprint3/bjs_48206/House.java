@@ -9,7 +9,7 @@ import java.util.Random;
 
 @Slf4j
 public class House {
-    private final int FOOD_TYPE_AMOUNT = 7;
+    private final int foodTypeAmount = 7;
     private final int roomsInHouse;
 
     private final List<Room> rooms;
@@ -28,7 +28,7 @@ public class House {
 
     private void generateFoodTypes() {
         Faker faker = new Faker();
-        for (int i = 0; i < FOOD_TYPE_AMOUNT * roomsInHouse; i++) {
+        for (int i = 0; i < foodTypeAmount * roomsInHouse; i++) {
             String foodType = faker.food().toString();
             foodTypes.add(foodType);
         }
@@ -39,7 +39,7 @@ public class House {
             int number = random.nextInt(100, 200);
             Room roomN = new Room(number);
             log.info("Added room {}", number);
-            for (int j = 0; j < FOOD_TYPE_AMOUNT; j++) {
+            for (int j = 0; j < foodTypeAmount; j++) {
                 String foodName = foodTypes.get(random.nextInt(foodTypes.size()));
                 roomN.addFood(foodName);
             }
@@ -59,8 +59,7 @@ public class House {
         int room2;
         do {
             room2 = random.nextInt(rooms.size());
-        }
-        while (room2 != room1);
+        } while (room2 != room1);
         Room secondRoom = rooms.get(room1);
         if (!secondRoom.isRoomCleaned()) {
             collectedFood.addAll(secondRoom.getFoodFromRoom());

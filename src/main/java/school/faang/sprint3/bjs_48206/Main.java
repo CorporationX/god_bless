@@ -8,20 +8,21 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        final int ROOMS_IN_HOUSE = 5;
-        final int THREADS = 5;
-        final int DELAY = 1;
-        final int PERIOD = 1;
+    public static void main(String[] args) {
+        int roomsInHouse = 9;
+        int numbersOfThreads = 5;
+        int delayOnStart = 1;
+        int timeOut = 1;
+        int waitingMsec = 1000;
 
-        House house = new House(ROOMS_IN_HOUSE);
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREADS);
-        executorService.scheduleAtFixedRate(house::collectFood, DELAY, PERIOD, TimeUnit.SECONDS);
+        House house = new House(roomsInHouse);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(numbersOfThreads);
+        executorService.scheduleAtFixedRate(house::collectFood, delayOnStart, timeOut, TimeUnit.SECONDS);
 
         log.info("Cleaning started...");
         try {
             while (!house.allFoodCollected()) {
-                Thread.sleep(1000);
+                Thread.sleep(waitingMsec);
             }
             log.info("All food collected");
             executorService.shutdown();
