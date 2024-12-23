@@ -3,14 +3,10 @@ package school.faang.sprint_1.task_miceareverynicebjs2n48375;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Getter
@@ -22,7 +18,7 @@ public class House implements Runnable {
     @NonNull
     private final ScheduledExecutorService executorService;
     private int numberOfRoomsVisitedAtOnce = 2;
-    private static int NUMBER_OF_THREADS = 5;
+
 
     public House(@NonNull List<Room> rooms,
                  @NonNull List<Food> food,
@@ -51,7 +47,6 @@ public class House implements Runnable {
         numbersOfRoomsToVisit.replaceAll(numbers -> randomRoomIndex());
         if (allFoodInHouseIsCollected()) {
             log.info("All food in rooms is collected");
-
         } else {
             for (Integer integer : numbersOfRoomsToVisit) {
                 food.addAll(rooms.get(integer).getFood());
@@ -72,28 +67,5 @@ public class House implements Runnable {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        int roomsNumber = 5;
-        List<List<Food>> foodInRooms = new ArrayList<>();
-        for (int i = 0; i < roomsNumber; i++) {
-            foodInRooms.add(
-                    new ArrayList<>(List.of(
-                            new Food("Хлеб"),
-                            new Food("Яблоки")
-                    ))
-            );
-        }
-
-        List<Room> rooms = new ArrayList<>();
-        for (int i = 0; i < roomsNumber; i++) {
-            rooms.add(new Room(foodInRooms.get(i)));
-        }
-
-        ScheduledExecutorService executorScheduled = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
-        House house = new House(rooms, new ArrayList<>(), executorScheduled);
-        log.info("Initial state of rooms {} :", house.getRooms());
-        ScheduledFuture<?> houseHandle = executorScheduled.scheduleAtFixedRate(house, 1, 3, TimeUnit.SECONDS);
     }
 }
