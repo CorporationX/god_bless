@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class UploadService {
     private static final int THREAD_POOL_SIZE = 2;
-    private static final int TIMEOUT_SECONDS = 30;
+    private static final int TIMEOUT_SERVICE_RUNNING_MILLIS = 5000;
+    private static final int TIMEOUT_STOPPING_SECONDS = 1;
 
     public List<String> upload(List<String> files) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
@@ -23,17 +24,13 @@ public class UploadService {
             uploadedFiles.addAll(upFiles);
         };
 
-        Runnable addPhotoRunnable = new Runnable() {
-            public void run() {
-                files.forEach(uploader::onNewPhotoAdded);
-            }
-        };
+        Runnable addPhotoRunnable = () -> files.forEach(uploader::onNewPhotoAdded);
 
         executor.submit(uploadRunnable);
         executor.submit(addPhotoRunnable);
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(TIMEOUT_SERVICE_RUNNING_MILLIS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -41,7 +38,7 @@ public class UploadService {
         uploader.stopAutoUpload();
 
         try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+            executor.awaitTermination(TIMEOUT_STOPPING_SECONDS, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             log.error("Upload interrupted", e);
         }
