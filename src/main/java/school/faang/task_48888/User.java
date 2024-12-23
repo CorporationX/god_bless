@@ -6,14 +6,15 @@ import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 @Setter
 @Getter
 @ToString
 public class User {
     private static final Logger log = LoggerFactory.getLogger(User.class);
-    private static final House EMPTY_HOUSE = new EmptyHouse();
     private final String name;
-    private House houseName = EMPTY_HOUSE;
+    private Optional<House> houseName;
     private UserRole userRole;
 
     public User(String name, UserRole userRole) {
@@ -32,22 +33,23 @@ public class User {
                 }
             }
             house.addRole(role);
-            this.houseName = house;
+            this.houseName = Optional.of(house);
             this.userRole = role;
             log.info("{} successfully joined house", name);
         }
     }
 
     public void leaveHouse() {
-        if (houseName == EMPTY_HOUSE) {
+        if (houseName.isEmpty()) {
             log.info("{} Not part of any house", name);
             return;
         }
-        synchronized (houseName) {
-            houseName.removeRole(userRole);
-            houseName.notifyAll();
-            log.info(" {} leaving house {}", name, houseName.getHouseName());
-            this.houseName = EMPTY_HOUSE;
+        House house = houseName.get();
+        synchronized (house) {
+            houseName.get().removeRole(userRole);
+            house.notifyAll();
+            log.info(" {} leaving house {}", name, houseName.get().getHouseName());
+            this.houseName = Optional.empty();
             this.userRole = UserRole.NONE;
         }
     }

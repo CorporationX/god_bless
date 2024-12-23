@@ -38,7 +38,6 @@ public class MainApp {
         try {
             if (executor.awaitTermination(5000, TimeUnit.MILLISECONDS)) {
                 log.info("All users have been joined or tasks are completed.");
-                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
