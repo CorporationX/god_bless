@@ -2,7 +2,6 @@ package school.faang.bjs_48570;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +10,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class Cleaning {
     private static final int POOL_SIZE = 5;
-    private static final int SCHEDULED_PERIOD = 30;
+    private static final int SCHEDULED_PERIOD = 10;
 
     private final House house;
 
@@ -21,14 +20,12 @@ public class Cleaning {
 
     public void clean() {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(POOL_SIZE);
+        Runnable task = house::collectFood;
 
-        List<Runnable> tasks = IntStream.rangeClosed(1, POOL_SIZE)
-                .mapToObj(index -> (Runnable) house::collectFood)
-                .toList();
-
-        tasks.forEach(task ->
+        IntStream.range(0, POOL_SIZE).forEach(i ->
                 executorService.scheduleAtFixedRate(task, 0, SCHEDULED_PERIOD, TimeUnit.SECONDS)
         );
+
 
         while (!house.isClean()) {
             try {
@@ -40,5 +37,13 @@ public class Cleaning {
 
         log.info("Clean completed");
         executorService.shutdown();
+
+        try {
+            if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.info("Clean interrupted");
+        }
     }
 }

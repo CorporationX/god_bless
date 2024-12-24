@@ -4,19 +4,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 class CleaningTest {
 
     @Test
     void clean() {
-        List<Room> rooms = List.of(
-                new Room("Kitchen"),
-                new Room("Hall"),
-                new Room("Living room"),
-                new Room("Bathroom "),
-                new Room("Bedroom")
-        );
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(new Room("Kitchen"));
+        rooms.add(new Room("Hall"));
+        rooms.add(new Room("Living room"));
+        rooms.add(new Room("Bathroom "));
+        rooms.add(new Room("Bedroom"));
+
         List<Food> foodList = List.of(
                 new Food("Bacon"),
                 new Food("Pasta"),
@@ -26,9 +27,7 @@ class CleaningTest {
                 new Food("Burger"),
                 new Food("Chicken")
         );
-        rooms
-                .forEach(room -> foodList
-                        .forEach(room::addFood));
+        rooms.forEach(room -> foodList.forEach(room::addFood));
 
         House house = new House(rooms);
         Cleaning cleaning = new Cleaning(house);
@@ -42,7 +41,11 @@ class CleaningTest {
         expected.addAll(foodList);
 
         List<Food> actual = house.getCollectedFood();
-        Assertions.assertTrue(actual.containsAll(expected));
-        Assertions.assertTrue(expected.containsAll(actual));
+
+        Comparator<Food> comparator = Comparator.comparing(Food::getName);
+        expected.sort(comparator);
+        actual.sort(comparator);
+
+        Assertions.assertEquals(expected, actual);
     }
 }
