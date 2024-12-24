@@ -18,6 +18,8 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("org.projectlombok:lombok:1.18.26")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
