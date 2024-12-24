@@ -22,7 +22,7 @@ public class PotionService {
                 .map(this::gatherIngredients)
                 .toList();
 
-
+        CompletableFuture.allOf();
     }
 
     private CompletableFuture<Integer> gatherIngredients(Potion potion) {
