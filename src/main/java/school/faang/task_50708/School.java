@@ -13,6 +13,7 @@ public class School {
 
     public int getTotalPoints() {
         return students.stream()
-                .reduce(0, (sum, student) -> sum + student.getPoints(), Integer::sum);
+                .mapToInt(Student::getPoints)
+                .sum();
     }
 }

@@ -11,25 +11,17 @@ import java.util.concurrent.ExecutorService;
 @AllArgsConstructor
 public class Tournament {
     private static final Random RANDOM = new Random();
-    private final int easyTime = 2999;
-    private final int hardTime = 6999;
 
     public CompletableFuture<School> startTask(School school, Task task, ExecutorService executorService) {
-        int baseChanceEasyLevel = RANDOM.nextInt(50, 101);
-        int baseChanceHardLevel = 20;
-
-        return switch (task.getDifficulty()) {
-          case 0, 1, 2 -> makingSomeTasks(school, task, baseChanceEasyLevel, easyTime);
-          case 3, 4, 5 -> makingSomeTasks(school, task, baseChanceHardLevel, hardTime);
-          default -> throw new IllegalArgumentException("Something went wrong!");
-        };
+        return makingSomeTasks(school, task, executorService);
     }
 
-    public CompletableFuture<School> makingSomeTasks(School school, Task task, int baseChance, int time) {
+    public CompletableFuture<School> makingSomeTasks(School school, Task task, ExecutorService executorService) {
         return CompletableFuture.supplyAsync(() -> {
-            int chance = RANDOM.nextInt(0, 101);
             school.setStudents(school.getStudents().stream()
                     .peek(student -> {
+                        int chance = RANDOM.nextInt(0, 101);
+                        int baseChance = Math.max(0, 100 - task.getDifficulty() * 20);
                         if (chance <= baseChance) {
                             student.setPoints(student.getPoints() + task.getReward());
                         }
@@ -37,11 +29,12 @@ public class Tournament {
                     .toList());
 
             try {
-                Thread.sleep(time);
+                Thread.sleep(task.getDifficulty() * (long) 500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
             return school;
-        });
+        }, executorService);
     }
 }

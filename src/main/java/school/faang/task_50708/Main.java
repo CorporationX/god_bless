@@ -28,8 +28,17 @@ public class Main {
                 System.out.println("Error : " + exception.getMessage());
             } else {
                 try {
-                    System.out.println(hogwartsTask.get().getStudents());
-                    System.out.println(beauxbatonsTask.get().getStudents());
+                    int resultHogwarts = hogwartsTask.get().getTotalPoints();
+                    int resultBeaux = beauxbatonsTask.get().getTotalPoints();
+                    System.out.println(resultHogwarts);
+                    System.out.println(resultBeaux);
+                    if (resultHogwarts > resultBeaux) {
+                        System.out.println("Hogwarts win!");
+                    } else if (resultHogwarts < resultBeaux) {
+                        System.out.println("Hogwarts lose!");
+                    } else {
+                        System.out.println("Draw");
+                    }
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
