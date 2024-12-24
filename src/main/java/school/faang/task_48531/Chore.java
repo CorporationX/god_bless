@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class Chore implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(Chore.class.getName());
-    private final int SLEEP_TIME  = 3000;
+    private static final int SLEEP_TIME = 3000;
     private String chore;
 
     public Chore(String chore) {
@@ -18,8 +18,8 @@ public class Chore implements Runnable {
             Thread.sleep(SLEEP_TIME);
             System.out.println("Задача выполненена");
         } catch (InterruptedException e) {
-          LOGGER.log(Level.SEVERE, "поток прерван на задаче" + chore, e);
-          Thread.currentThread().interrupt();
+            LOGGER.log(Level.SEVERE, "поток прерван на задаче" + chore, e);
+            Thread.currentThread().interrupt();
         }
     }
 }
