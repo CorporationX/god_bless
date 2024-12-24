@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import school.faang.bjs248493.Chore;
-import school.faang.bjs248493.WeasleyFamily;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
