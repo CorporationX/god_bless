@@ -4,18 +4,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class UserActionAnalyzerTest {
     private List<UserAction> userActions;
+    private List<UserAction> mockActions;
     private List<UserAction> emptyUserActionList;
 
     @BeforeEach
     void setUp() {
+        mockActions = new ArrayList<>();
         userActions = Arrays.asList(
                 new UserAction(1L, "Alice", ActionType.POST, LocalDate.of(2024, 9, 1),
                         "Check out this amazing #newfeature!"),
@@ -93,7 +99,6 @@ class UserActionAnalyzerTest {
                         "Can't wait for the next #update."),
                 new UserAction(4L, "Dave", ActionType.SHARE, LocalDate.of(2024, 11, 19), ""),
                 new UserAction(6L, "John", ActionType.COMMENT, LocalDate.of(2024, 12, 11), "")
-
         );
     }
 
@@ -121,8 +126,17 @@ class UserActionAnalyzerTest {
 
     @Test
     void testTopCommentersLastMonth() {
-        assertEquals(List.of("Eve", "Charlie", "John"),
-                UserActionAnalyzer.topCommentersLastMonth(userActions));
+        mockActions.add(createMockAction(1L, "Eve", ActionType.COMMENT, LocalDate.now()));
+        mockActions.add(createMockAction(1L, "Eve", ActionType.COMMENT, LocalDate.now().minusDays(10)));
+        mockActions.add(createMockAction(2L, "Bob", ActionType.COMMENT, LocalDate.now().minusDays(15)));
+        mockActions.add(createMockAction(2L, "Bob", ActionType.COMMENT, LocalDate.now().minusDays(20)));
+        mockActions.add(createMockAction(2L, "Bob", ActionType.COMMENT, LocalDate.now().minusDays(25)));
+        mockActions.add(createMockAction(3L, "Charlie", ActionType.COMMENT, LocalDate.now().minusDays(16)));
+        mockActions.add(createMockAction(4L, "John", ActionType.COMMENT, LocalDate.now().minusDays(29)));
+        mockActions.add(createMockAction(5L, "Alice", ActionType.POST, LocalDate.now()));
+        mockActions.add(createMockAction(6L, "Rianna", ActionType.LIKE, LocalDate.now().minusDays(30)));
+        assertEquals(List.of("Bob", "Eve", "Charlie"),
+                UserActionAnalyzer.topCommentersLastMonth(mockActions));
 
         assertThrows(IllegalArgumentException.class,
                 () -> UserActionAnalyzer.topCommentersLastMonth(emptyUserActionList));
@@ -142,5 +156,14 @@ class UserActionAnalyzerTest {
                 () -> UserActionAnalyzer.actionPercentages(emptyUserActionList));
         assertThrows(IllegalArgumentException.class,
                 () -> UserActionAnalyzer.actionPercentages(null));
+    }
+
+    private UserAction createMockAction(Long userId, String name, ActionType actionType, LocalDate actionDate) {
+        UserAction action = mock(UserAction.class);
+        when(action.getId()).thenReturn(userId);
+        when(action.getName()).thenReturn(name);
+        when(action.getActionType()).thenReturn(actionType);
+        when(action.getActionDate()).thenReturn(actionDate);
+        return action;
     }
 }
