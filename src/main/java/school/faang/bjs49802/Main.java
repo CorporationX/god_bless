@@ -1,21 +1,22 @@
 package school.faang.bjs49802;
 
+import java.util.List;
+
 public class Main {
 
+    private static final int TAMAGOTCHI_COUNT = 2;
+
     public static void main(String[] args) {
-        TamagotchiVlad vladinka = new TamagotchiVlad("Vladinka");
-        TamagotchiVlad vladushka = new TamagotchiVlad("Vladushka");
         VladController parvin = new VladController();
-        parvin.addVlad(vladinka);
-        parvin.addVlad(vladushka);
-        Thread t1 = new Thread(parvin::feedAll);
-        t1.start();
-        Thread t2 = new Thread(parvin::playAll);
-        t2.start();
-        Thread t3 = new Thread(parvin::cleanAll);
-        t3.start();
-        Thread t4 = new Thread(parvin::sleepAll);
-        t4.start();
+        for (int i = 0; i < TAMAGOTCHI_COUNT; i++) {
+            parvin.addVlad(new TamagotchiVlad("Vladushka " + i));
+        }
+        List<Runnable> tasks = List.of(
+                parvin::feedAll,
+                parvin::playAll,
+                parvin::cleanAll,
+                parvin::sleepAll);
+        tasks.forEach(task -> new Thread(task).start());
     }
 
 }
