@@ -1,6 +1,8 @@
 package school.faang.viewscounter_youtube;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,7 +24,7 @@ public class VideoManager {
         viewsMap.put(video, 0);
     }
 
-    public Map<String, Integer> getViewsMap() {
-        return new HashMap<>(viewsMap);
+    public List<String> getVideos() {
+        return viewsMap.keySet().stream().toList();
     }
 }

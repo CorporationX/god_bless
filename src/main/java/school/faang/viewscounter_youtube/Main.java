@@ -16,7 +16,7 @@ public class Main {
         for (int i = 1; i <= NUM_VIDEOS; i++) {
             videoManager.addNewVideo("Video " + i);
         }
-        videoManager.getViewsMap().forEach((video, views) -> {
+        videoManager.getVideos().forEach(video -> {
             for (int i = 1; i <= NUM_THREADS / NUM_VIDEOS; i++) {
                 executor.submit(() -> {
                     videoManager.addView(video);
