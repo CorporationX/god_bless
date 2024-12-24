@@ -8,7 +8,7 @@ public class VideoManager {
     };
 
     public synchronized void addView(String videoId) {
-            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
+        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
     }
 
     public synchronized int getViewCount(String videoId) {
