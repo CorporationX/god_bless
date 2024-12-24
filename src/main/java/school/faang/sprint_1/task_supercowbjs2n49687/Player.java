@@ -14,13 +14,12 @@ public class Player {
 
     public void startBattle(Boss boss) {
         try {
-            Thread.sleep((long) (Math.random() * 700));
+            Thread.sleep((long) (Math.random() * 600));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         System.out.printf("%s wants to join battle \n", this.name);
         boss.joinBattle(this);
-
     }
 
     public void leaveBattle(Boss boss) {
