@@ -22,7 +22,7 @@ public class Room {
     void createFoodList() {
         listFood = new ArrayList<>();
         for (int i = 0; i < CREATE_COUNT_FOOD; i++) {
-            listFood.add(new Food("Food" + i));
+            listFood.add(new Food("Food" + i, new Random().nextInt(100000)));
         }
         countFoodRoom.put(nameRoom, listFood.size());
     }
