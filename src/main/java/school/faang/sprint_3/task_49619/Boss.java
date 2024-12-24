@@ -10,7 +10,7 @@ public class Boss {
     private int currentPlayers = 0;
 
     public synchronized void joinBattle(Player player) {
-        while (!(currentPlayers < maxPlayers)) {
+        while (currentPlayers >= maxPlayers) {
             try {
                 System.out.println(player.name() + " is waiting for battle");
                 wait(WAIT_DELAY);
