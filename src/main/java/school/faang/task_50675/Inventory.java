@@ -48,7 +48,7 @@ public class Inventory {
             item.setName(name);
             System.out.println("Getting item from " + type);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(time);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
