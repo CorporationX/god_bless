@@ -10,7 +10,7 @@ public class Game {
     public void update(boolean earnedPoints, boolean lostLife) {
         synchronized (scoreLock) {
             if (earnedPoints) {
-                score += 10;
+                score += 1;
             }
         }
         synchronized (livesLock) {
@@ -27,12 +27,8 @@ public class Game {
     private void gameOver() {
         synchronized (scoreLock) {
             synchronized (livesLock) {
-                if (lives == 0) {
-                    System.out.println("Game Over! Your score is " + score);
-                    System.exit(0);
-                }
+                System.out.println("Game Over! Your score is " + score);
             }
         }
     }
-
 }
