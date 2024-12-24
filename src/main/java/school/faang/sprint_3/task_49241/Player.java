@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @RequiredArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Player {
     @NonNull
     private final String name;

@@ -8,17 +8,34 @@ public class Game {
     private int lives = 0;
 
     public void update(Player player, boolean isSuccessfulTry) {
-        synchronized (scoreLock) {
-            synchronized (livesLock) {
-                if (isSuccessfulTry) {
+        if (!Thread.currentThread().isInterrupted()) {
+            if (isSuccessfulTry) {
+                synchronized (scoreLock) {
+                    System.out.println(player + " successful try");
                     score++;
-                } else {
+                    printCurrentScoreAndLives();
+                }
+            } else {
+                synchronized (livesLock) {
+                    System.out.println(player + " unsuccessful try");
                     lives++;
                     player.decreaseLives();
+                    printCurrentScoreAndLives();
+                    if (player.getLives() == 0) {
+                        gameOver(player);
+                    }
                 }
-                System.out.println("Current score: " + score);
-                System.out.println("Current lives: " + lives);
             }
         }
+    }
+
+    private void gameOver(Player player) {
+        System.out.println(player + " has no lives. And left the game");
+        Thread.currentThread().interrupt();
+    }
+
+    private void printCurrentScoreAndLives() {
+        System.out.println("Current score: " + score);
+        System.out.println("Current lives: " + lives);
     }
 }
