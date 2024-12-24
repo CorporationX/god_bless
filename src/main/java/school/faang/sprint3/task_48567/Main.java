@@ -6,8 +6,9 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
+        WeasleyFamily weasleyFamily = new WeasleyFamily();
 
-        WeasleyFamily.getChores().forEach(executorService::submit);
+        weasleyFamily.getChores().forEach(executorService::submit);
 
         executorService.shutdown();
     }
