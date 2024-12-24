@@ -14,8 +14,9 @@ public class MasterCardService {
             return 10_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            log.error(e.getMessage());
         }
+        return 0;
     }
 
     public static int sendAnalytics() {
@@ -24,8 +25,9 @@ public class MasterCardService {
             return 1_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            log.error(e.getMessage());
         }
+        return 0;
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
