@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class Inventory {
@@ -25,15 +24,12 @@ public class Inventory {
             if (items.stream().anyMatch(Item::isCollectable)) {
                 CompletableFuture<Item> buyItem = CompletableFuture.supplyAsync(() -> item);
                 CompletableFuture<Item> oldItem = CompletableFuture.supplyAsync(() ->
-                        items.stream().filter(Item::isCollectable).findFirst().get());
+                        items.stream().filter(Item::isCollectable).findFirst().orElseThrow());
 
-                try {
-                    Item newItem = buyItem.thenCombine(oldItem, this::combineItems).get();
-                    printAddedItem(newItem);
-                    return;
-                } catch (InterruptedException | ExecutionException e) {
-                    log.error("Произошла ошибка при добавлении предмета", e);
-                }
+                buyItem.thenCombine(oldItem, this::combineItems)
+                        .thenAccept(this::printAddedItem)
+                        .join();
+                return;
             }
         }
 
@@ -49,6 +45,6 @@ public class Inventory {
     public synchronized Item combineItems(Item buyItem, Item oldItem) {
         items.remove(oldItem);
         log.info("{} был удалён, так как он был скомбинирован с {}", oldItem.name(), buyItem.name());
-        return new Item("newItem", buyItem.power() + buyItem.power(), false);
+        return new Item("newItem", buyItem.power() + oldItem.power(), false);
     }
 }
