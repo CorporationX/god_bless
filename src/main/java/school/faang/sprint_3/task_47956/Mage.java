@@ -8,4 +8,8 @@ public class Mage extends Unit {
         super(power);
     }
 
+    @Override
+    public String getUnitType() {
+        return "Маг";
+    }
 }

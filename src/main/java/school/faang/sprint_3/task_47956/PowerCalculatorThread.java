@@ -19,5 +19,4 @@ public class PowerCalculatorThread extends Thread {
             totalPower += unit.getPower();
         }
     }
-
 }

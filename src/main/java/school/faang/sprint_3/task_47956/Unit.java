@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Unit {
+public abstract class Unit {
     private int power;
 
+    public abstract String getUnitType();
 }

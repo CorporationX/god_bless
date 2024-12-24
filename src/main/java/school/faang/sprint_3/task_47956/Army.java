@@ -2,6 +2,7 @@ package school.faang.sprint_3.task_47956;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Army {
@@ -11,36 +12,33 @@ public class Army {
         units.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
-        List<Unit> archers = units.stream()
-                .filter(unit -> unit instanceof Archer)
-                .collect(Collectors.toList());
-        List<Unit> swordsman = units.stream()
-                .filter(unit -> unit instanceof Swordsman)
-                .collect(Collectors.toList());
-        List<Unit> mages = units.stream()
-                .filter(unit -> unit instanceof Mage)
-                .collect(Collectors.toList());
+    public int calculateTotalPower() {
+        try {
+            Map<String, List<Unit>> unitsByType = units.stream()
+                    .collect(Collectors.groupingBy(Unit::getUnitType));
 
-        PowerCalculatorThread archerThread = new PowerCalculatorThread(archers);
-        PowerCalculatorThread swordsmanThread = new PowerCalculatorThread(swordsman);
-        PowerCalculatorThread magesThread = new PowerCalculatorThread(mages);
+            int totalPower = 0;
 
-        archerThread.start();
-        swordsmanThread.start();
-        magesThread.start();
+            for (Map.Entry<String, List<Unit>> entry : unitsByType.entrySet()) {
+                String unitType = entry.getKey();
+                List<Unit> unitList = entry.getValue();
 
-        archerThread.join();
-        swordsmanThread.join();
-        magesThread.join();
+                PowerCalculatorThread thread = new PowerCalculatorThread(unitList);
+                thread.start();
+                thread.join();
 
-        int totalPower = archerThread.getTotalPower() + swordsmanThread.getTotalPower() + magesThread.getTotalPower();
+                int power = thread.getTotalPower();
+                System.out.println("Общая сила " + unitType.toLowerCase() + ": " + power);
 
-        System.out.println("Общая сила лучников: " + archerThread.getTotalPower());
-        System.out.println("Общая сила мечников: " + swordsmanThread.getTotalPower());
-        System.out.println("Общая сила магов: " + magesThread.getTotalPower());
-        System.out.println("Общая сила армии: " + totalPower);
+                totalPower += power;
+            }
 
-        return totalPower;
+            System.out.println("Общая сила армии: " + totalPower);
+            return totalPower;
+        } catch (InterruptedException e) {
+            System.err.println("Ошибка при выполнении потока: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            return 0;
+        }
     }
 }
