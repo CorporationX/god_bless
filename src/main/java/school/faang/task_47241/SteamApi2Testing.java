@@ -42,9 +42,9 @@ public class SteamApi2Testing {
     }
 
     public static List<String> filterAlphabeticallySortLength(List<String> list, String alphabet) {
+        Pattern pattern = Pattern.compile('[' + alphabet + "]+");
         return list.stream()
           .filter(x -> {
-              Pattern pattern = Pattern.compile('[' + alphabet + "]+");
               Matcher matcher = pattern.matcher(x);
               return matcher.matches();
           })
