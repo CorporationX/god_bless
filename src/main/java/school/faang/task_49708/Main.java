@@ -11,15 +11,18 @@ public class Main {
         Player player5 = new Player("Игрок 5");
 
         Thread t1 = new Thread(() -> player1.startBattle(boss));
-        Thread t2 = new Thread(() -> player2.startBattle(boss));
-        Thread t3 = new Thread(() -> player3.startBattle(boss));
-        Thread t4 = new Thread(() -> player4.startBattle(boss));
-        Thread t5 = new Thread(() -> player5.startBattle(boss));
-
         t1.start();
+
+        Thread t2 = new Thread(() -> player2.startBattle(boss));
         t2.start();
+
+        Thread t3 = new Thread(() -> player3.startBattle(boss));
         t3.start();
+
+        Thread t4 = new Thread(() -> player4.startBattle(boss));
         t4.start();
+
+        Thread t5 = new Thread(() -> player5.startBattle(boss));
         t5.start();
 
         try {
