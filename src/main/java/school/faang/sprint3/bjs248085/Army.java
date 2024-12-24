@@ -10,26 +10,32 @@ class Army {
         warriors.add(warrior);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
 
-        for (Warrior warrior : warriors) {
-            PowerCalculator calculator = new PowerCalculator(warrior);
-            tasks.add(calculator);
+        try {
+            for (Warrior warrior : warriors) {
+                PowerCalculator calculator = new PowerCalculator(warrior);
+                tasks.add(calculator);
 
-            Thread thread = new Thread(calculator);
-            threads.add(thread);
-            thread.start();
-        }
+                Thread thread = new Thread(calculator);
+                threads.add(thread);
+                thread.start();
+            }
 
-        for (Thread thread : threads) {
-            thread.join();
-        }
+            for (Thread thread : threads) {
+                thread.join();
+            }
 
-        for (PowerCalculator task : tasks) {
-            totalPower += task.getPower();
+            for (PowerCalculator task : tasks) {
+                totalPower += task.getPower();
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Поток был прерван.");
+        } catch (Exception e) {
+            System.err.println("Непредвиденная ошибка.");
         }
 
         return totalPower;
