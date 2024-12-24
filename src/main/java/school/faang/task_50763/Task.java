@@ -1,12 +1,12 @@
 package school.faang.task_50763;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Task {
     private final String name;
     private final int difficulty;
-    private final int awardPoints;
+    private final int reward;
 }

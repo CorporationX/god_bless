@@ -1,40 +1,35 @@
 package school.faang.task_50763;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-@Slf4j
 public class Main {
     public static void main(String[] args) {
         ExecutorService executorService = ExecutorServiceFactory.createExecutorService();
         Tournament tournament = new Tournament(executorService);
 
-        School hogwarts = TournamentFactory.createHogwarts();
-        School beauxbatons = TournamentFactory.createBeauxbatons();
-        var tasks = TournamentFactory.createTasks();
+        List<School> schools = List.of(
+                new School("Hogwarts", List.of(
+                        new Student("Harry", 5, 95),
+                        new Student("Hermione", 5, 98),
+                        new Student("Ron", 5, 50)
+                )),
+                new School("Beauxbatons", List.of(
+                        new Student("Fleur", 6, 88),
+                        new Student("Gabrielle", 6, 72)
+                )),
+                new School("Durmstrang", List.of(
+                        new Student("Viktor", 7, 90),
+                        new Student("Igor", 7, 85)
+                ))
+        );
 
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, tasks.get(0));
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, tasks.get(1));
+        List<Task> tasks = List.of(
+                new Task("Triwizard Tournament", 10, 100),
+                new Task("Potions Exam", 8, 80),
+                new Task("Quidditch Match", 6, 60)
+        );
 
-        CompletableFuture.allOf(hogwartsTask, beauxbatonsTask).thenRun(() -> {
-            int hogwartsPoints = hogwarts.getTotalPoints();
-            int beauxbatonsPoints = beauxbatons.getTotalPoints();
-
-            if (hogwartsPoints > beauxbatonsPoints) {
-                log.info("The winner is {} with {} points!", hogwarts.getName(), hogwartsPoints);
-            } else if (hogwartsPoints < beauxbatonsPoints) {
-                log.info("The winner is {} with {} points!", beauxbatons.getName(), beauxbatonsPoints);
-            } else {
-                log.info("It's a draw between {} and {} with {} points each!",
-                        hogwarts.getName(), beauxbatons.getName(), hogwartsPoints);
-            }
-        }).join();
-
-        executorService.shutdown();
-        if (!executorService.isShutdown()) {
-            log.info("ExecutorService is shutting down gracefully.");
-        }
+        tournament.startTournament(schools, tasks);
     }
 }

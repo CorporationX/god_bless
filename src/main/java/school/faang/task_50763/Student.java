@@ -1,16 +1,23 @@
 package school.faang.task_50763;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
-@AllArgsConstructor
 public class Student {
     private final String name;
     private final int year;
-    private int points;
+    private final int mastery;
+    private final AtomicInteger points = new AtomicInteger();
 
-    public synchronized void addPoints(int pointsToAdd) {
-        this.points += pointsToAdd;
+    public Student(String name, int year, int mastery) {
+        this.name = name;
+        this.year = year;
+        this.mastery = mastery;
+    }
+
+    public void addPoints(int pointsToAdd) {
+        points.addAndGet(pointsToAdd);
     }
 }

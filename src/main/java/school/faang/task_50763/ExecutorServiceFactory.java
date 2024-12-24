@@ -5,6 +5,6 @@ import java.util.concurrent.Executors;
 
 public class ExecutorServiceFactory {
     public static ExecutorService createExecutorService() {
-        return Executors.newFixedThreadPool(Constants.NUM_THREADS);
+        return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 }
