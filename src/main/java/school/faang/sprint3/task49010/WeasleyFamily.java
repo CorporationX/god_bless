@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
-
         List<Chore> chores = new ArrayList<>();
         chores.add(new Chore("Помыть посуду", 10));
         chores.add(new Chore("Помыть полы", 20));
@@ -19,23 +18,18 @@ public class WeasleyFamily {
         chores.add(new Chore("Сходить в магазин", 30));
         chores.add(new Chore("Приготовить еду", 35));
         chores.add(new Chore("Почистить обувь", 10));
-
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         for (Chore chore : chores) {
             executorService.submit(chore);
         }
-
         executorService.shutdown();
 
         try {
-            // Ждём до 5 минут, пока все задачи завершатся
-            if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
-                System.out.println("Задачи не завершились за 5 минут, принудительно останавливаем...");
-                executorService.shutdownNow();  // Принудительное завершение, если задачи зависли
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            // Если главный поток был прерван во время ожидания, принудительно останавливаем пул
             executorService.shutdownNow();
         }
     }
