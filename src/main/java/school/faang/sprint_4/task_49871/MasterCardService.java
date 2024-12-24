@@ -10,24 +10,30 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     private static final int NUMBER_OF_THREADS = 4;
     private static final int AWAIT_DELAY = 1;
+    private static final int PAYMENT_DELAY = 10000;
+    private static final int PAYMENT_VALUE = 10000;
+    private static final int ANALYTICS_DELAY = 10000;
+    private static final int ANALYTICS_VALUE = 10000;
 
     public int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(PAYMENT_DELAY);
+            return PAYMENT_VALUE;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
     public int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(ANALYTICS_DELAY);
+            return ANALYTICS_VALUE;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
