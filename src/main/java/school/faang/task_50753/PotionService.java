@@ -24,7 +24,7 @@ public class PotionService {
                 .toList();
 
         futures.forEach(future -> totalIngredients.addAndGet(future.join()));
-        System.out.println("totalIngredients: " + totalIngredients);
+        System.out.println("totalIngredients: " + totalIngredients.get());
     }
 
     private CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService executor) {
