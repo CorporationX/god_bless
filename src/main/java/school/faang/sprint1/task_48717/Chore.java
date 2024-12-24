@@ -1,10 +1,10 @@
 package school.faang.sprint1.task_48717;
 
 public class Chore implements Runnable {
-    private final String CHORE;
+    private final String chore;
 
-    public Chore(String CHORE) {
-        this.CHORE = CHORE;
+    public Chore(String chore) {
+        this.chore = chore;
     }
 
     @Override
@@ -12,9 +12,9 @@ public class Chore implements Runnable {
         try {
             System.out.println(Thread.currentThread().getName() + " Событие");
             Thread.sleep(5000);
-            System.out.println(CHORE + " Ready");
+            System.out.println(chore + " Ready");
         } catch (InterruptedException e) {
-            System.out.println("Задача " + CHORE + " прервана");
+            System.out.println("Задача " + chore + " прервана");
         }
 
     }
