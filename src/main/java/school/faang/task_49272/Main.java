@@ -29,7 +29,7 @@ public class Main {
                 });
             }
         } finally {
-            executorService.shutdown(); // Завершение ExecutorService
+            executorService.shutdown();
             try {
                 if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
                     System.err.println("Потоки не завершились вовремя");
