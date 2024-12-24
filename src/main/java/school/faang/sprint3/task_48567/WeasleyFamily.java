@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
+
 @Getter
 public class WeasleyFamily {
     public static final int COUNT_OF_CHORES = 8;
