@@ -16,11 +16,10 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    if (photosToUpload.isEmpty()) {
+                    while (photosToUpload.isEmpty()) {
                         lock.wait(WAIT_TIME);
-                    } else {
-                        uploadPhotos();
                     }
+                    uploadPhotos();
                 } catch (InterruptedException e) {
                     System.out.println("Auto upload interrupted");
                     Thread.currentThread().interrupt();
@@ -36,7 +35,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         synchronized (lock) {
             Iterator<String> photosIterator = photosToUpload.iterator();
             while (photosIterator.hasNext()) {

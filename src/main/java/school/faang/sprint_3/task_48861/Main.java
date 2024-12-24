@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int AMOUNT_OF_PHOTOS_TO_UPLOAD = 100;
     private static final int NUMBER_OF_THREADS = 2;
-    private static final int AWAIT_DELAY = 5;
+    private static final int AWAIT_DELAY = 20;
 
     public static void main(String[] args) {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader(new ArrayList<>());
@@ -27,6 +27,7 @@ public class Main {
                 System.out.println("Await termination timed out. Shutting down...");
                 executorService.shutdownNow();
             }
+            System.out.println("Termination successful.");
         } catch (InterruptedException e) {
             System.out.println("Main thread interrupted. Shutting down...");
             executorService.shutdownNow();
