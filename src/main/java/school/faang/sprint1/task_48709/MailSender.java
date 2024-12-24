@@ -1,7 +1,7 @@
 package school.faang.sprint1.task_48709;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalMessage = 1000;
         int threadsCount = 5;
         int batchSize = totalMessage / threadsCount;
@@ -13,9 +13,14 @@ public class MailSender {
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
         }
-        for (Thread thread : threads) {
-            thread.join();
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
         System.out.println("Операция завершена");
     }
 }
