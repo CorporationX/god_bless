@@ -1,5 +1,8 @@
 package school.faang.bjs248696;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
 
     public static void main(String[] args) throws InterruptedException {
@@ -15,7 +18,12 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted: {}", e.getMessage());
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }
