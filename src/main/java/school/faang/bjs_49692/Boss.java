@@ -1,5 +1,6 @@
 package school.faang.bjs_49692;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -7,6 +8,8 @@ public class Boss {
     private final int maxPlayers;
     private final Object lock = new Object();
     private int currentPlayers;
+    @Getter
+    private int totalPlayers;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
@@ -23,10 +26,10 @@ public class Boss {
                 }
             }
             currentPlayers++;
-            log.info("Player {} joined the battle", player);
+            totalPlayers++;
             log.info("Current players: {}", currentPlayers);
         }
-
+        log.info("Player {} joined the battle", player);
     }
 
     public void leaveBattle(Player player) {
