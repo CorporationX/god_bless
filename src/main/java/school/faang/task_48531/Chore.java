@@ -16,7 +16,7 @@ public class Chore implements Runnable {
         System.out.println(Thread.currentThread().getName() + "выполняет задачу " + chore);
         try {
             Thread.sleep(SLEEP_TIME);
-            System.out.println("Задача выполненена");
+            System.out.println("Задача выполненена!");
         } catch (InterruptedException e) {
             LOGGER.log(Level.SEVERE, "поток прерван на задаче" + chore, e);
             Thread.currentThread().interrupt();

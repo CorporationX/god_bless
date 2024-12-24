@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
-        String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
+        String[] chores = {"помыть посуду", "подмести полы", "приготовить ужин"};
 
         ExecutorService threadPool = Executors.newCachedThreadPool();
         for (String task : chores) {
