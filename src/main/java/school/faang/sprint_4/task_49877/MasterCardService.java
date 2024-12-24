@@ -13,6 +13,8 @@ public class MasterCardService {
     private static final int PAYMENT_TIME_SLEEP = 10;
     private static final int ANALYTICS_TIME_SLEEP = 1;
     private static final int TIMEOUT_PAYMENT = 30;
+    private static final int COLLECTED_PAYMENT = 10_000;
+    private static final int SENT_ANALYTICS = 1_000;
 
     public void doAll() {
         ExecutorService service = Executors.newSingleThreadExecutor();
@@ -38,7 +40,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("Error message: ", e);
         }
-        return 10_000;
+        return COLLECTED_PAYMENT;
     }
 
     public static int sendAnalytics() {
@@ -47,6 +49,6 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("Error message: ", e);
         }
-        return 1_000;
+        return SENT_ANALYTICS;
     }
 }
