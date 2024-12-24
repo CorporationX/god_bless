@@ -12,7 +12,6 @@ public class WeasleyFamily {
             Chore chore = new Chore(task);
             threadPool.execute(chore);
         }
-
         threadPool.shutdown();
     }
 }
