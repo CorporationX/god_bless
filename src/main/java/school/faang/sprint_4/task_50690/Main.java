@@ -23,7 +23,7 @@ public class Main {
                 log.error("Поток прерван во время ожидания");
                 Thread.currentThread().interrupt();
             }
-            Item item = new Item("Chest Item", 50);
+            Item item = new Item("Orb", 50);
             log.info("Получен предмет {} из Магазина", item.name());
             return item;
         });
@@ -37,7 +37,7 @@ public class Main {
                 log.error("Поток прерван во время ожидания");
                 Thread.currentThread().interrupt();
             }
-            Item item = new Item("Shop Item", 100);
+            Item item = new Item("Sword", 100);
             log.info("Получен предмет {} из Магазина", item.name());
             return item;
         });
@@ -60,6 +60,9 @@ public class Main {
         return futureCombinedItem.thenCompose(item -> {
             log.info("{} помещен в инвентарь", item.name());
             return CompletableFuture.runAsync(() -> inventory.addItem(item));
+        }).exceptionally(ex -> {
+            log.error("Произошла ошибка при добавлении предмета в инвентарь");
+            return null;
         });
 
     }

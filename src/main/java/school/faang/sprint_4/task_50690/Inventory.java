@@ -7,7 +7,7 @@ import java.util.List;
 
 @Slf4j
 public class Inventory {
-    List<Item> items;
+    private List<Item> items;
 
     public Inventory() {
         items = new ArrayList<>();
@@ -21,8 +21,8 @@ public class Inventory {
         items.add(item);
     }
 
-    public static synchronized  Item combineItem(Item item1, Item item2) {
-        String combinedName = "Combined Item";
+    public static synchronized Item combineItem(Item item1, Item item2) {
+        String combinedName = item1.name() + " " + item2.name();
         int sumPower = item1.power() + item2.power();
         return new Item(combinedName, sumPower);
     }
