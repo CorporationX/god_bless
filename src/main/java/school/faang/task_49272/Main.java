@@ -29,7 +29,6 @@ public class Main {
                         System.err.println("Ошибка ожидания завершения потоков: " + e.getMessage());
                     }
                 }
-
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
