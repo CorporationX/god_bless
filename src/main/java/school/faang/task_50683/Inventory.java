@@ -12,10 +12,7 @@ public class Inventory {
     }
 
     public Item combine(Item first, Item second) {
-        Item item = new Item();
-        item.setName(first.getName() + " + " + second.getName());
-        item.setPower(first.getPower() + second.getPower());
-        return item;
+        return new Item(first.getName() + " + " + second.getName(), first.getPower() + second.getPower());
     }
 
     public CompletableFuture<Item> getFromChest() {
@@ -25,10 +22,7 @@ public class Inventory {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Item item = new Item();
-            item.setName("Sword");
-            item.setPower(10);
-            return item;
+            return new Item("Swore", 10);
         });
     }
 
@@ -39,10 +33,7 @@ public class Inventory {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Item item = new Item();
-            item.setName("Spear");
-            item.setPower(20);
-            return item;
+            return new Item("Spear", 20);
         });
     }
 
@@ -52,7 +43,8 @@ public class Inventory {
         CompletableFuture<Item> bought = inventory.buy();
 
         fromChest.thenCombine(bought, inventory::combine)
-                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.add(item)));
+                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.add(item)))
+                .join();
     }
 
 }
