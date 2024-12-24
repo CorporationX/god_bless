@@ -23,6 +23,6 @@ public class VideoManager {
     }
 
     public Map<String, Integer> getViewsMap() {
-        return viewsMap;
+        return new HashMap<>(viewsMap);
     }
 }
