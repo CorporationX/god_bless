@@ -26,7 +26,6 @@ public class OrderProcessor {
                         + " был успешно обработан и переведен в статус: " + order.getStatus()));
         return futureOrder;
     }
-
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Void>> allOrdersProcessed = orders.stream()
                 .map(order -> processOrder(order))
