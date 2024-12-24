@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
+    private static final int MILLISECONDS_IN_SECOND = 1000;
 
     private int requestCounter;
     private long lastRequestTime;
@@ -14,15 +15,15 @@ public class TelegramBot {
         this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public void sendMessage(String message) {
+    public synchronized void sendMessage(String message) {
         long currentTime = System.currentTimeMillis();
-        long elapsedTimeAmount = currentTime - lastRequestTime;
+        long elapsedTime = currentTime - lastRequestTime;
 
         try {
-            if (elapsedTimeAmount < 1000) {
+            if (elapsedTime < MILLISECONDS_IN_SECOND) {
                 requestCounter++;
                 if (requestCounter > REQUEST_LIMIT) {
-                    wait(1000 - elapsedTimeAmount);
+                    wait(1000 - elapsedTime);
                     requestCounter = 0;
                 }
             } else {
@@ -33,7 +34,7 @@ public class TelegramBot {
 
             log.info("Сообщение отправлено: " + message);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.info("Поток был прерван");
         }
     }
 }

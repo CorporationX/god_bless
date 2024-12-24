@@ -18,6 +18,8 @@ public class Main {
         }
 
         executor.shutdown();
-        executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS);
+        if (executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
+        }
     }
 }
