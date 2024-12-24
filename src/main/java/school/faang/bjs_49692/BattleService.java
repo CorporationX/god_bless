@@ -1,5 +1,6 @@
 package school.faang.bjs_49692;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -11,11 +12,12 @@ import java.util.stream.IntStream;
 @Slf4j
 public class BattleService {
     private static final int BOSS_MAX_PLAYERS = 5;
+    @Getter
     private static final int PLAYERS_COUNT = 20;
     private static final int THREAD_POOL_SIZE = 10;
     private static final int TERMINATION_TIMEOUT_SECONDS = 60;
 
-    public void battle() {
+    public int battle() {
         Boss boss = new Boss(BOSS_MAX_PLAYERS);
         List<Player> players = IntStream.range(0, PLAYERS_COUNT)
                 .boxed()
@@ -33,5 +35,6 @@ public class BattleService {
         } catch (InterruptedException e) {
             log.error("Battle thread interrupted", e);
         }
+        return boss.getTotalPlayers();
     }
 }
