@@ -24,8 +24,12 @@ public class TournamentTest {
         Task task1 = new Task("Triwizard Tournament", 10, 100);
         Task task2 = new Task("Yule Ball Preparations", 5, 50);
 
-        CompletableFuture<School> hogwartsTask = CompletableFuture.supplyAsync(() -> tournament.startTask(hogwarts, task1));
-        CompletableFuture<School> beauxbatonsTask = CompletableFuture.supplyAsync(() ->  tournament.startTask(beauxbatons, task2));
+        CompletableFuture<School> hogwartsTask = CompletableFuture.supplyAsync(
+                () -> tournament.startTask(hogwarts, task1)
+        );
+        CompletableFuture<School> beauxbatonsTask = CompletableFuture.supplyAsync(
+                () ->  tournament.startTask(beauxbatons, task2)
+        );
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.join();
