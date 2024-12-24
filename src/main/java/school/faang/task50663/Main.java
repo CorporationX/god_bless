@@ -2,10 +2,7 @@ package school.faang.task50663;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
@@ -22,15 +19,15 @@ public class Main {
         CompletableFuture
                 .allOf(accounts.stream()
                         .parallel()
-                        .map(account -> {
+                        .map(account -> CompletableFuture.supplyAsync(() -> {
                             try {
-                                return system.followAccount(account, accounts.get(random.nextInt(accounts.size())));
+                                return Optional.of(system.followAccount(account, accounts
+                                        .get(random.nextInt(accounts.size()))));
                             } catch (IllegalArgumentException e) {
                                 log.info(e.getMessage());
                             }
-                            return null;
-                        })
-                        .filter(Objects::nonNull)
+                            return Optional.empty();
+                        }))
                         .toArray(CompletableFuture[]::new))
                 .join();
     }
