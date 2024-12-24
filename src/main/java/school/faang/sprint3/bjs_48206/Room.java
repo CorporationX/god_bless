@@ -15,19 +15,18 @@ public class Room {
         foodInRoom = new ArrayList<>();
     }
 
-    public void addFood(String foodName) {
-        foodInRoom.add(new Food(foodName));
+    public void addFood(Food food) {
+        foodInRoom.add(food);
     }
 
     public List<Food> getFoodFromRoom() {
-        return foodInRoom;
+        List<Food> copyOfFoodList = new ArrayList<>(foodInRoom);
+        foodInRoom.clear();
+        return copyOfFoodList;
     }
 
     public boolean isRoomCleaned() {
         return foodInRoom.isEmpty();
     }
 
-    public void cleanRoom() {
-        foodInRoom.clear();
-    }
 }
