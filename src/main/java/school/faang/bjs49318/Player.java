@@ -71,6 +71,9 @@ public class Player {
                 Thread.sleep(100);
             }
             if (i >= song.length()) {
+                if (currentSong == songs.size() - 1) {
+                    return;
+                }
                 skip();
                 playSong();
                 return;

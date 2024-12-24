@@ -24,28 +24,22 @@ public class Main {
 
         for (int i = 0; i < 10; i++) {
             Thread thread;
-            switch (random.nextInt(5)) {
-                case 1: {
+            int actionType = random.nextInt(5);
+
+            if (actionType == 1) {
+                thread = new Thread(player::play);
+            } else if (actionType == 2) {
+                if (!player.isPlaying()) {
                     thread = new Thread(player::play);
-                    break;
-                }
-                case 2: {
-                    if (!player.isPlaying()) {
-                        thread = new Thread(player::play);
-                        break;
-                    }
+                } else {
                     thread = new Thread(player::pause);
-                    break;
                 }
-                case 3: {
-                    thread = new Thread(player::previous);
-                    break;
-                }
-                default: {
-                    thread = new Thread(player::skip);
-                    break;
-                }
+            } else if (actionType == 3) {
+                thread = new Thread(player::previous);
+            } else {
+                thread = new Thread(player::skip);
             }
+
             threads.add(thread);
         }
 
