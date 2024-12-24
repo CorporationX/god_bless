@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 public class SuperheroBattle {
+    private static final double CHANCE_WIN = 0.5;
+
     public void runCompetitions(List<Pair<Superhero>> pairs) {
         CompletableFuture
                 .allOf(pairs.stream()
@@ -15,6 +18,10 @@ public class SuperheroBattle {
                                 .supplyAsync(() -> battle(pair))
                                 .thenAccept(hero -> log.info("В паре {} выявлен победитель: {}", pair, hero.name())))
                         .toArray(CompletableFuture[]::new))
+                .exceptionally(exception -> {
+                    log.error(exception.getMessage(), exception);
+                    return null;
+                })
                 .join();
     }
 
@@ -31,6 +38,6 @@ public class SuperheroBattle {
             return hero2;
         }
 
-        return Math.random() > 0.5 ? hero1 : hero2;
+        return ThreadLocalRandom.current().nextFloat(1) > CHANCE_WIN ? hero1 : hero2;
     }
 }
