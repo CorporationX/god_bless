@@ -8,9 +8,10 @@ public class Main {
     private static final int LAST_FACTORIAL_NUMBER = 100;
 
     public static void main(String[] args) {
-        List<Integer> numbers = IntStream.rangeClosed(1, LAST_FACTORIAL_NUMBER).boxed().toList();
+        List<Integer> numbers = IntStream.rangeClosed(-100, LAST_FACTORIAL_NUMBER).boxed().toList();
         Factorial factorial = new Factorial();
 
-        CompletableFuture.allOf(factorial.factorials(numbers).toArray(CompletableFuture[]::new)).join();
+        CompletableFuture.allOf(factorial.factorials(numbers).toArray(CompletableFuture[]::new))
+                .join();
     }
 }

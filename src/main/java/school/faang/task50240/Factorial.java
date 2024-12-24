@@ -24,6 +24,9 @@ public class Factorial {
     }
 
     private static void checkNumberRange(int n, int range) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Факториал не может быть отрицательным либо равен 0");
+        }
         if (n > range) {
             throw new IllegalArgumentException(String.format("Число должно быть меньше %d", range));
         }
@@ -32,6 +35,7 @@ public class Factorial {
     private static BigInteger range(int start, int end) {
 
         return IntStream.rangeClosed(start, end)
+                .parallel()
                 .mapToObj(BigInteger::valueOf)
                 .reduce(BigInteger.ONE, BigInteger::multiply);
     }
@@ -62,6 +66,13 @@ public class Factorial {
                         .thenApply(result -> {
                             log.info("Факториал числа {} равен {}", number, result);
                             return result;
+                        })
+                        .handle((value, ex) -> {
+                            if (ex != null) {
+                                log.error(ex.getMessage());
+                                return new BigInteger(String.valueOf(-1));
+                            }
+                            return value;
                         }))
                 .toList();
     }
