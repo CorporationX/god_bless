@@ -1,7 +1,7 @@
 package school.faang.task_48691;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         int threadCount = 5;
         int mails = 1000;
@@ -21,7 +21,12 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.err.println("Поток " + thread.getName() + " был прерван: " + e.getMessage());
+                Thread.currentThread().interrupt();
+            }
         }
 
         System.out.println("Все письма отправлены!");
