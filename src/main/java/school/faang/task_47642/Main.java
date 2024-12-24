@@ -3,7 +3,7 @@ package school.faang.task_47642;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Army army = new Army();
         for (int i = 0; i < 10; i++) {
             army.addUnit(new Archer(25));
@@ -11,11 +11,6 @@ public class Main {
             army.addUnit(new Swordsman(75));
         }
 
-        for (Thread thread : army.calculateTotalPower()) {
-            thread.start();
-            thread.join();
-        }
-
-        System.out.println(army.getPowerArmy());
+        System.out.println(army.calculateTotalPower());
     }
 }
