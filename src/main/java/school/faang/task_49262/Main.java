@@ -1,5 +1,6 @@
 package school.faang.task_49262;
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -11,9 +12,9 @@ public class Main {
         Game game = new Game(MAX_LIVES);
         ExecutorService executor = Executors.newCachedThreadPool();
         while (game.getLives() > 0) {
-            executor.submit(game::update);
+            executor.submit(() -> game.update(new Random().nextBoolean(), new Random().nextBoolean()));
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

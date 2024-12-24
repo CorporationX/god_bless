@@ -17,23 +17,29 @@ public class Game {
         }
     }
 
-    public void update() {
-        synchronized (lockLives) {
-            if (lives > 0) {
-                lives--;
-                System.out.println(String.format("Lives: %d.", lives));
-            } else {
-                gameOver();
-                return;
+    public void update(boolean scoreAdd, boolean liveLose) {
+        if (liveLose) {
+            synchronized (lockLives) {
+                if (lives > 0) {
+                    lives--;
+                    System.out.println(String.format("Lives: %d.", lives));
+                    if (lives == 0) {
+                        gameOver();
+                    }
+                } else {
+                    gameOver();
+                }
             }
         }
-        synchronized (lockScore) {
-            score++;
-            System.out.println(String.format("Game score: %d", score));
+        if (scoreAdd) {
+            synchronized (lockScore) {
+                score++;
+                System.out.println(String.format("Game score: %d", score));
+            }
         }
     }
 
-    private synchronized void gameOver() {
+    private void gameOver() {
         System.out.println("Game over.");
         System.out.println(String.format("Game score: %d", score));
     }
