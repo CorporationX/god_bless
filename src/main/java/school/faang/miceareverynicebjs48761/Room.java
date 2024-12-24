@@ -21,8 +21,7 @@ public class Room {
         if (foodItems.isEmpty()) {
             return null;
         }
-        int randomIndex = (int) (Math.random()
-                * foodItems.size());
+        int randomIndex = (int) (Math.random() * foodItems.size());
         return foodItems.remove(randomIndex);
     }
 }

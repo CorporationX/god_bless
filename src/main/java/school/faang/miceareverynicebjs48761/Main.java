@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         House house = new House();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             Room room = new Room();
             room.addFood(new Food("Food " + (i + FOOD_NAME_OFFSET_1)));
             room.addFood(new Food("Food: " + (i + FOOD_NAME_OFFSET_2)));
