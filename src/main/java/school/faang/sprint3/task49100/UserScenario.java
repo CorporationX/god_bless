@@ -11,6 +11,7 @@ public class UserScenario implements Runnable {
     private final User user;
     private final House house;
 
+    @Override
     public void run() {
         user.joinHouse(house);
 
