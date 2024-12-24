@@ -6,26 +6,31 @@ import school.faang.exception.CheckException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionService {
     private final AtomicInteger totalIngredients = new AtomicInteger(0);
-    private static final int SLEEP_DURATION = 2000;
+    private static final int SLEEP_DURATION = 5000;
 
-    public void gatherAllIngredients(List<Potion> potionList) {
+    public void gatherAllIngredients(List<Potion> potionList, ExecutorService executor) {
         if (potionList == null || potionList.isEmpty()) {
             throw new CheckException("potionList");
         }
         List<CompletableFuture<Integer>> futures = potionList.stream()
                 .filter(Objects::nonNull)
-                .map(this::gatherIngredients)
+                .map(potion -> gatherIngredients(potion, executor))
                 .toList();
 
-        CompletableFuture.allOf();
+        futures.forEach(future -> totalIngredients.addAndGet(future.join()));
+        System.out.println("totalIngredients: " + totalIngredients);
     }
 
-    private CompletableFuture<Integer> gatherIngredients(Potion potion) {
+    private CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService executor) {
+        if (potion == null) {
+            throw new CheckException("potion");
+        }
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(SLEEP_DURATION);
@@ -33,6 +38,6 @@ public class PotionService {
                 log.error(e.getMessage());
             }
             return potion.getRequiredIngredients();
-        });
+        }, executor);
     }
 }
