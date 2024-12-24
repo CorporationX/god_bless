@@ -15,7 +15,8 @@ public class Main {
             int photoNumber = i;
             executor.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded(String.format("Photo_%d.jpg", photoNumber)));
         }
-        Future result = (Future) executor.submit(() -> googlePhotosAutoUploader.startAutoUpload()).get(1, TimeUnit.MINUTES);
+        Future result = (Future) executor.submit(() -> googlePhotosAutoUploader.startAutoUpload())
+                .get(1, TimeUnit.MINUTES);
         executor.shutdown();
         try {
             executor.awaitTermination(1, TimeUnit.MINUTES);
