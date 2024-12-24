@@ -32,12 +32,7 @@ public class House {
                 return null;
             }
         }
-        String availableRole = availableRoles.entrySet()
-                .stream()
-                .filter(Map.Entry::getValue)
-                .findFirst()
-                .map(Map.Entry::getKey)
-                .orElseThrow(RuntimeException::new);
+        String availableRole = getAvailableRole();
         availableRoles.put(availableRole, false);
         return availableRole;
     }
@@ -45,5 +40,14 @@ public class House {
     public synchronized void removeRole(String role) {
         availableRoles.put(role, true);
         notify();
+    }
+
+    private String getAvailableRole() {
+        return availableRoles.entrySet()
+                .stream()
+                .filter(Map.Entry::getValue)
+                .findFirst()
+                .map(Map.Entry::getKey)
+                .orElseThrow(RuntimeException::new);
     }
 }
