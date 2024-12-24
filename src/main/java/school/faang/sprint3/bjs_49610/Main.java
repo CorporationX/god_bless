@@ -18,7 +18,7 @@ public class Main {
 
         List<Player> playerList = new ArrayList<>();
         for (int i = 0; i < players; i++) {
-            playerList.add(new Player("Name" + i ));
+            playerList.add(new Player("Name" + i));
         }
 
         Boss boss = new Boss(maxPlayers);
