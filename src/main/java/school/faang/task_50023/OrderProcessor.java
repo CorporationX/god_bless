@@ -14,18 +14,17 @@ public class OrderProcessor {
 
     public CompletableFuture<Void> processOrder(Order order) {
         CompletableFuture<Void> futureOrder = CompletableFuture.runAsync(() -> {
-                    try {
-                        Thread.currentThread().sleep(2000);
-                        order.setStatus("обработан");
-                        totalProcessedOrders.getAndIncrement();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }, executor)
-                .thenRun(() -> System.out.println("Заказ " + order.getId()
-                        + " был успешно обработан и переведен в статус: " + order.getStatus()));
+            try {
+                Thread.currentThread().sleep(2000);
+                order.setStatus("обработан");
+                totalProcessedOrders.getAndIncrement();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, executor);
         return futureOrder;
     }
+
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Void>> allOrdersProcessed = orders.stream()
                 .map(order -> processOrder(order))
