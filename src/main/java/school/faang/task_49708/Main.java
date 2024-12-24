@@ -5,23 +5,22 @@ public class Main {
         Boss boss = new Boss(3);
 
         Player player1 = new Player("Игрок 1");
-        Player player2 = new Player("Игрок 2");
-        Player player3 = new Player("Игрок 3");
-        Player player4 = new Player("Игрок 4");
-        Player player5 = new Player("Игрок 5");
-
         Thread t1 = new Thread(() -> player1.startBattle(boss));
         t1.start();
 
+        Player player2 = new Player("Игрок 2");
         Thread t2 = new Thread(() -> player2.startBattle(boss));
         t2.start();
 
+        Player player3 = new Player("Игрок 3");
         Thread t3 = new Thread(() -> player3.startBattle(boss));
         t3.start();
 
+        Player player4 = new Player("Игрок 4");
         Thread t4 = new Thread(() -> player4.startBattle(boss));
         t4.start();
 
+        Player player5 = new Player("Игрок 5");
         Thread t5 = new Thread(() -> player5.startBattle(boss));
         t5.start();
 
