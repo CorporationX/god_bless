@@ -5,17 +5,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int USER_COUNT = 5;
+    private static final int STANDARD_USER_HP = 5;
+
     public static void main(String[] args) {
-        int userCount = 5;
-        int standardUserHp = 5;
 
         Game broForce = new Game();
-        ExecutorService executor = Executors.newFixedThreadPool(userCount);
+        ExecutorService executor = Executors.newFixedThreadPool(USER_COUNT);
 
-        for (int i = 1; i <= userCount; i++) {
+        for (int i = 1; i <= USER_COUNT; i++) {
             int copyI = i;
             executor.submit(() -> {
-                Player player = new Player("V" + copyI, standardUserHp);
+                Player player = new Player("V" + copyI, STANDARD_USER_HP);
 
                 broForce.update(Action.PLAYER_JOIN, player);
                 broForce.update(Action.PLAYER_SCORE_UP, player);
