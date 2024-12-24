@@ -1,13 +1,13 @@
 package school.faang.sprint_3.task_49332;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
-    private Map<String, Integer> viewsMap;
+    private final Map<String, Integer> viewsMap;
 
     public VideoManager() {
-        viewsMap = new HashMap<>();
+        viewsMap = new ConcurrentHashMap<>();
     }
 
     public synchronized void addView(String videoId) {
