@@ -11,12 +11,10 @@ public class VideoManager {
 
     public void addView(String viewName) {
         synchronized (viewsMap) {
-            if (!viewsMap.containsKey(viewName)) {
-                viewsMap.put(viewName, 0);
-            }
-            log.info("Add view: {}", viewName);
+            viewsMap.putIfAbsent(viewName, 0);
             viewsMap.put(viewName, viewsMap.get(viewName) + 1);
         }
+        log.info("Add view: {}", viewName);
     }
 
     public int getViewCount(String viewName) {
