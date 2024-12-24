@@ -8,13 +8,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Boss {
     private static final int MAX_PLAYERS = 3;
+    private static final int PLAYERS_COUNT = 5;
     private final List<Player> currentPlayers = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(PLAYERS_COUNT);
         Boss boss = new Boss();
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= PLAYERS_COUNT; i++) {
             int copyI = i;
             executor.submit(() -> {
                 Player player = new Player("player " + copyI);
@@ -33,12 +34,16 @@ public class Boss {
         }
     }
 
-    public void joinBattle(Player player) throws InterruptedException {
+    public void joinBattle(Player player) {
         synchronized (this) {
-            if (currentPlayers.size() == MAX_PLAYERS) {
+            while (currentPlayers.size() >= MAX_PLAYERS) {
                 System.out.println("Battlefield is full.");
                 System.out.println("Player " + player.getName() + " is waiting");
-                this.wait();
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
             currentPlayers.add(player);
             System.out.println("Player " + player.getName() + " joined the battle");
