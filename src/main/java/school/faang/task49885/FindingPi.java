@@ -8,14 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 @Slf4j
-public class FindingPI {
+public class FindingPi {
     private static final int SIDE_LENGTH_SQUARE = 1;
     private static final int MULTIPLIER_FOR_PI = 4;
 
     private final AtomicInteger allPoints = new AtomicInteger(0);
     private final AtomicInteger insidePoints = new AtomicInteger(0);
 
-    public double calculatePI(int n) {
+    public double calculatePi(int n) {
         if (n < 1) {
             throw new IllegalArgumentException("Число точек не может быть меньше 1");
         }
