@@ -38,10 +38,10 @@ public class Main {
         try {
             if (!executorService.awaitTermination(timeOut, TimeUnit.MINUTES)) {
                 log.warn("Not all threads stopped by themselves");
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("Threads forced to stopped");
-        } finally {
             executorService.shutdownNow();
         }
     }
