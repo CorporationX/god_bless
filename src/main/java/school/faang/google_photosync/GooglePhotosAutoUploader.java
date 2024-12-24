@@ -8,7 +8,7 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (photosToUpload) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     photosToUpload.wait();
                 } catch (InterruptedException e) {
