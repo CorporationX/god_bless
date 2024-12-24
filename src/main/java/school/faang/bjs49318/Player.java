@@ -24,7 +24,8 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                log.info("Switched to pause song by {}, current song {}", Thread.currentThread().getName(), currentSong);
+                log.info("Switched to pause song by {}, current song {}",
+                        Thread.currentThread().getName(), currentSong);
             }
         }
     }
@@ -51,7 +52,8 @@ public class Player {
         synchronized (lock) {
             if (currentSong > 0) {
                 currentSong--;
-                log.info("Switched to previous song by {}, current song {}", Thread.currentThread().getName(), currentSong);
+                log.info("Switched to previous song by {}, current song {}",
+                        Thread.currentThread().getName(), currentSong);
             }
         }
     }

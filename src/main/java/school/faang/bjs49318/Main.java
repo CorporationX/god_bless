@@ -17,7 +17,7 @@ public class Main {
         Thread mainPlayer = new Thread(() -> {
             try {
                 player.playSong();
-            } catch (InterruptedException e ) {
+            } catch (InterruptedException e) {
                 log.error("Error while playing {}", e.getMessage());
             }
         });
@@ -28,17 +28,20 @@ public class Main {
                 case 1: {
                     thread = new Thread(player::play);
                     break;
-                } case 2: {
+                }
+                case 2: {
                     if (!player.isPlaying()) {
                         thread = new Thread(player::play);
                         break;
                     }
                     thread = new Thread(player::pause);
                     break;
-                } case 3: {
+                }
+                case 3: {
                     thread = new Thread(player::previous);
                     break;
-                } default: {
+                }
+                default: {
                     thread = new Thread(player::skip);
                     break;
                 }
