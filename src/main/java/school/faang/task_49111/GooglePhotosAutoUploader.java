@@ -4,31 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private final Lock lock = new Lock();
+    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.size() == 0) {
+            while (!photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
+                    uploadPhotos();
                 } catch (InterruptedException e) {
                     System.out.println("!!!Exception!!! " + e);
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
-            uploadPhotos();
+
         }
     }
 
-    public synchronized void onNewPhotoAdded(String photoPath) {
+    public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
+            System.out.println("Загружено Фото " + photoPath);
             lock.notify();
         }
     }
 
-    public final void uploadPhotos() {
+    private void uploadPhotos() {
         photosToUpload.forEach(s -> System.out.println("Photos from " + s + " is upload"));
         photosToUpload.clear();
     }
