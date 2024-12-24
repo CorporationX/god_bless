@@ -1,8 +1,6 @@
 package school.faang.task_48960;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +8,11 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock;
     private final List<String> photosToUpload;
-    @Getter
-    private boolean shouldWork;
+
 
     public GooglePhotosAutoUploader() {
         this.photosToUpload = new ArrayList<>();
         this.lock = new Object();
-        this.shouldWork = true;
     }
 
     public void startAutoUpload() {
