@@ -2,16 +2,17 @@ package school.faang.bjs248871;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class House {
 
-    private final List<String> roles;
+    private final List<String> roles = new ArrayList<>();
     private int countOfRoles;
 
     public House(List<String> roles) {
-        this.roles = roles;
+        this.roles.addAll(roles);
         countOfRoles = roles.size();
     }
 
@@ -25,5 +26,4 @@ public class House {
         roles.remove(role);
         countOfRoles--;
     }
-
 }
