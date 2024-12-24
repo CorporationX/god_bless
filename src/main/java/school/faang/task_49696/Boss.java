@@ -17,7 +17,7 @@ public class Boss {
             try {
                 System.out.println(player.getName() + " is waiting "
                         + Thread.currentThread().getName());
-                player.wait();
+                wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -30,6 +30,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         System.out.println(player.getName() + " ended the battle " + Thread.currentThread().getName());
-        player.notify();
+        notify();
     }
 }
