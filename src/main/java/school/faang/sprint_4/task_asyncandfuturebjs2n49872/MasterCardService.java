@@ -37,5 +37,7 @@ public class MasterCardService {
         log.info("Analytics result = {}", analyticsResult);
         int paymentResult = collectPaymentResult.get();
         log.info("Payment result = {}", paymentResult);
+
+        executor.shutdown();
     }
 }
