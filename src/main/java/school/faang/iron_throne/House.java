@@ -9,7 +9,6 @@ import java.util.List;
 public class House {
     private final String name;
     private final List<String> roles = new ArrayList<>();
-    private int roleCount = 0;
 
     public House(String name) {
         this.name = name;
@@ -17,12 +16,11 @@ public class House {
 
     public synchronized void addRole(String role) {
         roles.add(role);
-        roleCount++;
         System.out.println("New role " + role + " added");
     }
 
     public synchronized String takeRole() {
-        if (roleCount == 0) {
+        while (roles.size() == 0) {
             try {
                 System.out.println("waiting..");
                 this.wait();
@@ -32,14 +30,12 @@ public class House {
                 throw new RuntimeException(e);
             }
         }
-        roleCount--;
         System.out.println("Role " + roles.get(0) + " taken");
         return roles.remove(0);
     }
 
     public synchronized void returnRole(String role) {
         roles.add(role);
-        roleCount++;
         System.out.println("Role " + role + " returned");
         System.out.println("notifying");
         this.notify();

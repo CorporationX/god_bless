@@ -23,8 +23,9 @@ public class Main {
                     Thread.sleep(40);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+                } finally {
+                    user.leaveHouse();
                 }
-                user.leaveHouse();
             });
         }
         executor.shutdown();
