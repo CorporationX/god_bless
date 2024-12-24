@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
-    private static final int TIME_SLEEP = 2;
+    private static final int GATHERING_DELAY_SECONDS = 2;
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -22,7 +22,6 @@ public class PotionGathering {
 
         CompletableFuture.allOf(
                         potions.stream()
-                                .parallel()
                                 .map(potion ->
                                         CompletableFuture.supplyAsync(() ->
                                                 sum.getAndAdd(gatheringAllIngredients(potion))))
@@ -34,10 +33,11 @@ public class PotionGathering {
     private static int gatheringAllIngredients(Potion potion) {
 
         try {
-            TimeUnit.SECONDS.sleep(TIME_SLEEP);
+            TimeUnit.SECONDS.sleep(GATHERING_DELAY_SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Сбор ингредиентов прерван", e);
+            return -1;
         }
         return potion.ingredients();
     }
