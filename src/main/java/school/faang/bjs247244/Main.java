@@ -8,10 +8,14 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class Main {
+
+    public static final int STEP = 50_000;
+    public static final int LIMIT = 5;
+
     public static void main(String[] args) {
 
         JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
-        List<Job> jobs = null;
+        List<Job> jobs;
 
         try (Stream<String> jsonStream = Files.lines(Paths.get("god_bless/vacancies.json"))) {
             jobs = jobStreamProcessor.getProcessJobs(jsonStream);
@@ -21,16 +25,16 @@ public class Main {
 
         if (jobs != null) {
             DataAnalyzer dataAnalyzer = new DataAnalyzer();
-            List<String> topSkills = dataAnalyzer.getTopSkills(jobs);
+            List<String> topSkills = dataAnalyzer.getTopSkills(jobs, LIMIT);
             System.out.println("************ топ-5 наиболее востребованных навыков ******************************");
             topSkills.forEach(System.out::println);
 
 
-            List<String> topItemNames = dataAnalyzer.getTopItemNames(jobs);
+            List<String> topItemNames = dataAnalyzer.getTopItemNames(jobs, LIMIT);
             System.out.println("************ топ-5 популярных названий позиций **********************************");
             topItemNames.forEach(System.out::println);
 
-            Map<String, List<Job>> getSalaryDistribByVacancy = dataAnalyzer.getSalaryDistribByVacancy(jobs);
+            Map<String, List<Job>> getSalaryDistribByVacancy = dataAnalyzer.getSalaryDistribByVacancy(jobs, STEP);
 
             System.out.println("************ распределения зарплат по вакансиям, группируя их по диапазонам ****");
             getSalaryDistribByVacancy.forEach((range, vacancyList) -> {
@@ -40,7 +44,7 @@ public class Main {
             });
 
 
-            List<String> topOfficeLocations = dataAnalyzer.getTopOfficeLocations(jobs);
+            List<String> topOfficeLocations = dataAnalyzer.getTopOfficeLocations(jobs, LIMIT);
             System.out.println("************ топ-5 популярных местоположений офисов *****************************");
             topOfficeLocations.forEach(System.out::println);
 

@@ -1,58 +1,53 @@
 package school.faang.bjs247244;
 
+import lombok.val;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
-    public List<String> getTopSkills(List<Job> jobs) {
-
-        List<String> topSkills = jobs.stream()
+    public List<String> getTopSkills(List<Job> jobs, int limit) {
+        val topSkills = jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
+
+        return topSkills.entrySet().stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .limit(5)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-        return topSkills;
     }
 
-    public List<String> getTopItemNames(List<Job> jobs) {
+    public List<String> getTopItemNames(List<Job> jobs, int limit) {
+        val topItemNames = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()));
 
-        List<String> topItemNames = jobs.stream()
-                .collect(Collectors.groupingBy(job -> job.getPosition(), Collectors.counting()))
-                .entrySet().stream()
+        return topItemNames.entrySet().stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .limit(5)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-        return topItemNames;
     }
 
-    public Map<String, List<Job>> getSalaryDistribByVacancy(List<Job> jobs) {
-        int step = 50_000;
-
-        Map<String, List<Job>> groupedBySalary = jobs.stream()
+    public Map<String, List<Job>> getSalaryDistribByVacancy(List<Job> jobs, int step) {
+        return jobs.stream()
                 .distinct()
                 .collect(Collectors.groupingBy(job -> {
                     int rangeStart = (Integer.parseInt(job.getSalary()) / step) * step;
                     int rangeEnd = rangeStart + step - 1;
                     return rangeStart + " - " + rangeEnd;
                 }));
-        return groupedBySalary;
     }
 
-    public List<String> getTopOfficeLocations(List<Job> jobs) {
+    public List<String> getTopOfficeLocations(List<Job> jobs, int limit) {
+        val topOfficeLocations = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
 
-        List<String> topOfficeLocations = jobs.stream()
-                //.flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(job -> job.getLocation(), Collectors.counting()))
-                .entrySet().stream()
+        return topOfficeLocations.entrySet().stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .limit(5)
+                .limit(limit)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-        return topOfficeLocations;
+                .toList();
     }
 }

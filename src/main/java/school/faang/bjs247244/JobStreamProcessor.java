@@ -1,18 +1,22 @@
 package school.faang.bjs247244;
 
+import lombok.NonNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class JobStreamProcessor {
-    private JobScraper jobScraper = new JobScraper();
+    private final JobScraper jobScraper;
 
-    public List<Job> getProcessJobs(Stream<String> jsonStream) {
+    public JobStreamProcessor() {
+        this.jobScraper = new JobScraper();
+    }
 
-        List<Job> processJobs = jsonStream
+    public List<Job> getProcessJobs(@NonNull Stream<String> jsonStream) {
+        return jsonStream
                 .map(jobScraper::parseJob)
                 .peek(job -> System.out.println("Обработана вакансия: " + job.getPosition()))
                 .collect(Collectors.toList());
-        return processJobs;
     }
 }
