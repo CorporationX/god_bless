@@ -22,12 +22,10 @@ public class Boss {
                     e.printStackTrace();
                 }
             }
-            if (maxPlayers > currentPlayers) {
-                if (!players.contains(player)) {
-                    players.add(player);
-                    currentPlayers++;
-                    System.out.println(String.format("Player %s has joined to battle", player.getName()));
-                }
+            if (!players.contains(player)) {
+                players.add(player);
+                currentPlayers++;
+                System.out.println(String.format("Player %s has joined to battle", player.getName()));
             }
         }
     }
