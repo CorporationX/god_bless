@@ -16,9 +16,9 @@ public class Main {
         int roomsInHouse = 7;
         int foodNamesAmount = 10;
 
-        int numbersOfThreads = 3;
+        int numbersOfThreads = 5;
         int delayOnStart = 1;
-        int timeOut = 1;
+        int timeOut = 5;
         int waitingMsec = 1000;
 
         House house = new House(addRooms(roomsInHouse, foodNamesAmount));
@@ -35,6 +35,16 @@ public class Main {
             executorService.shutdown();
         } catch (InterruptedException e) {
             log.warn("Something went wrong - threads forced to stop");
+            executorService.shutdownNow();
+        }
+
+        try {
+            if (!executorService.awaitTermination(timeOut, TimeUnit.SECONDS)) {
+                log.warn("Not all threads stopped by themselves");
+            }
+        } catch (InterruptedException e) {
+            log.error("Threads forced to stopped");
+        } finally {
             executorService.shutdownNow();
         }
     }

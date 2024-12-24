@@ -25,8 +25,7 @@ public class Room {
         return copyOfFoodList;
     }
 
-    public boolean isRoomCleaned() {
-        return foodInRoom.isEmpty();
+    public boolean hasFood() {
+        return !foodInRoom.isEmpty();
     }
-
 }

@@ -18,15 +18,17 @@ public class House {
         collectedFood = new ArrayList<>();
     }
 
-    public void collectFood() {
-        Room room = rooms.get(getRoomForCleaning());
-        if (!room.isRoomCleaned()) {
-            collectedFood.addAll(room.getFoodFromRoom());
-            log.info("Food collected from room {}", room.getRoomNumber());
+    public synchronized void collectFood() {
+        for (int i = 0; i < 2; i++) {
+            Room room = rooms.get(getRoomForCleaning());
+            if (room.hasFood()) {
+                collectedFood.addAll(room.getFoodFromRoom());
+                log.info("Food collected from room {}", room.getRoomNumber());
+            }
         }
     }
 
-    private synchronized int getRoomForCleaning() {
+    private int getRoomForCleaning() {
         Random random = new Random();
         int indexRoomInList;
         do {
@@ -39,8 +41,8 @@ public class House {
     public boolean allFoodCollected() {
         boolean workDone = true;
         for (Room room : rooms) {
-            workDone &= room.isRoomCleaned();
+            workDone &= !room.hasFood();
         }
-        return workDone;
+        return workDone && (rooms.size() == takenRooms.size());
     }
 }
