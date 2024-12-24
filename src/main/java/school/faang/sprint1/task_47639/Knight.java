@@ -8,8 +8,8 @@ import java.util.concurrent.ExecutorService;
 
 @Getter
 public class Knight {
-    private String name;
-    private List<Trial> trials;
+    private final String name;
+    private final List<Trial> trials;
 
     public Knight(String name) {
         this.name = name;

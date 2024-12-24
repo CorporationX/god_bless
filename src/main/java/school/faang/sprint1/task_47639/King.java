@@ -7,14 +7,21 @@ import java.util.concurrent.TimeUnit;
 public class King {
     public static void main(String[] args) throws InterruptedException {
         Knight firstKnight = new Knight("Harry");
-        Knight twoKnight = new Knight("Rohn");
+        Knight secondKnight = new Knight("Rohn");
         firstKnight.addTrial(new Trial(firstKnight.getName(), "Jump over the fire"));
-        twoKnight.addTrial(new Trial(twoKnight.getName(), "To swim over the river"));
+        secondKnight.addTrial(new Trial(secondKnight.getName(), "To swim over the river"));
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         firstKnight.startTrials(executorService);
-        twoKnight.startTrials(executorService);
+        secondKnight.startTrials(executorService);
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        try {
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                System.out.println("Задача завершена");
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Задача прервана");
+            executorService.shutdownNow();
+        }
         System.out.println("Project complete");
     }
 }
