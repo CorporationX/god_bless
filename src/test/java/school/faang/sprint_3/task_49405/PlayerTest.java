@@ -3,10 +3,10 @@ package school.faang.sprint_3.task_49405;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlayerTest {
+public class PlayerTest {
 
     @Test
-    void testPlay() {
+    public void testPlay() {
         Player player = new Player();
 
         player.play();
@@ -14,7 +14,7 @@ class PlayerTest {
     }
 
     @Test
-    void testPause() {
+    public void testPause() {
         Player player = new Player();
 
         player.pause();
@@ -24,21 +24,21 @@ class PlayerTest {
     }
 
     @Test
-    void testSkip() {
+    public void testSkip() {
         Player player = new Player();
 
         player.skip();
     }
 
     @Test
-    void testPrevious() {
+    public void testPrevious() {
         Player player = new Player();
 
         player.previous();
     }
 
     @Test
-    void testConcurrency() throws InterruptedException {
+    public void testConcurrency() throws InterruptedException {
         Player player = new Player();
 
         Thread playThread = new Thread(player::play, "PlayThread");
