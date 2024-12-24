@@ -23,6 +23,7 @@ public class GooglePhotosAutoUploader {
                             break;
                         }
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                         System.out.println("sfsdfs" + e.getMessage());
                     }
                 } else {
