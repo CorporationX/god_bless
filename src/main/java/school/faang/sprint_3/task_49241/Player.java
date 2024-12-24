@@ -18,4 +18,9 @@ public class Player {
     public void decreaseLives() {
         lives--;
     }
+
+    public void gameOver() {
+        System.out.println(name + " has no lives. And left the game");
+        Thread.currentThread().interrupt();
+    }
 }

@@ -22,6 +22,7 @@ public class Main {
             });
         }
 
+        game.gameOver();
         executorService.shutdown();
 
         try {

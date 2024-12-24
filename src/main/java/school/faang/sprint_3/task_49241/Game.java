@@ -22,16 +22,17 @@ public class Game {
                     player.decreaseLives();
                     printCurrentScoreAndLives();
                     if (player.getLives() == 0) {
-                        gameOver(player);
+                        player.gameOver();
                     }
                 }
             }
         }
     }
 
-    private void gameOver(Player player) {
-        System.out.println(player + " has no lives. And left the game");
-        Thread.currentThread().interrupt();
+    public void gameOver() {
+        System.out.println("Game over");
+        System.out.println("Score: " + score);
+        System.out.println("Lives: " + lives);
     }
 
     private void printCurrentScoreAndLives() {
