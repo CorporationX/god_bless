@@ -8,6 +8,8 @@ class BattleServiceTest {
     @Test
     void battle() {
         BattleService battleService = new BattleService();
-        Assertions.assertDoesNotThrow(battleService::battle);
+        int actual = battleService.battle();
+        int expected = BattleService.getPLAYERS_COUNT();
+        Assertions.assertEquals(expected, actual);
     }
 }
