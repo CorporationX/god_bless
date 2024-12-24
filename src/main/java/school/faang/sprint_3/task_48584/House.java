@@ -28,7 +28,7 @@ public class House {
             collectedFood.addAll(room2.takeAllFood());
         } else {
             System.out.println(
-                    "В команатах " + room1.getName()
+                    "В комнатах " + room1.getName()
                             + " и/или " + room2.getName()
                             + " уже была собрана еда"
             );
@@ -38,11 +38,6 @@ public class House {
     }
 
     public boolean allFoodCollected() {
-        for (Room room : rooms) {
-            if (room.hasFood()) {
-                return false;
-            }
-        }
-        return true;
+        return rooms.stream().noneMatch(Room::hasFood);
     }
 }

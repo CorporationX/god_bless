@@ -9,6 +9,7 @@ public class Main {
     private static final long INITIAL_DELAY = 0;
     private static final long PERIOD = 30;
     private static final int PLUG_MILLISECONDS = 1000;
+    private static final int TIMEOUT = 30;
 
     public static void main(String[] args) {
         Room room1 = new Room("room1");
@@ -55,11 +56,15 @@ public class Main {
         System.out.println("Еда в доме собрана!");
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
-                System.out.println("Задачи не завершились за 5 минут, принудительно останавливаем...");
+            if (executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                System.out.println("Все задачи завершены");
+            } else {
+                System.out.println("Задачи не завершились за 30 секунд, принудительно останавливаем...");
                 executor.shutdownNow();
             }
+
         } catch (InterruptedException e) {
+            System.out.println("Поток main был прерван. Принудительно останавливаем задачи...");
             executor.shutdownNow();
         }
     }
