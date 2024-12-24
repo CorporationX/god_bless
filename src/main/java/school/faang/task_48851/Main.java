@@ -2,10 +2,9 @@ package school.faang.task_48851;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -24,8 +23,16 @@ public class Main {
                         house.collectFood(collectionFood, house);
                     });
             }
+
         }
-        executor.shutdown();
+        try {
+            executor.shutdown();
+            executor.awaitTermination(5, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

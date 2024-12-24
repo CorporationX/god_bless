@@ -27,7 +27,7 @@ public class Room {
         countFoodRoom.put(nameRoom, listFood.size());
     }
 
-    void delFood(Food food) {
+    void deleteFood(Food food) {
         listFood.remove(food);
     }
 }

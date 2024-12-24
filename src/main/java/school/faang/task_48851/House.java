@@ -31,17 +31,12 @@ public class House {
     }
 
     public void collectFood(List<Food> foodList, House house) {
-        List<Food> newFoodList = new ArrayList<>();
 
         List<Room> newRooms = new ArrayList<>(house.rooms);
 
         for (int i = 0; i < SELECT_COUNT_ROOM; i++) {
-            try {
-                int random = getRandomRooms(newRooms);
-                addDelete(this, foodList, random);
-            } finally {
-
-            }
+            int random = getRandomRooms(newRooms);
+            addDeleteFood(this, foodList, random);
         }
     }
 
@@ -55,9 +50,9 @@ public class House {
         return house.getRooms().stream().anyMatch(room -> !room.getListFood().isEmpty());
     }
 
-    private synchronized void addDelete(House house, List<Food> foodList, int random) {
-        Food tempfood = house.getRooms().get(random).getListFood().get(0);
-        foodList.add(tempfood);
-        house.getRooms().get(random).delFood(tempfood);
+    private synchronized void addDeleteFood(House house, List<Food> foodList, int random) {
+        Food tempFood = house.getRooms().get(random).getListFood().get(0);
+        foodList.add(tempFood);
+        house.getRooms().get(random).deleteFood(tempFood);
     }
 }
