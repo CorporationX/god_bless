@@ -1,19 +1,21 @@
 package school.faang.sprint_3.task_49288;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Music {
+    private static final int NUMBERS_OF_THREADS = 4;
+
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread thread1 = new Thread(player::play);
-        thread1.start();
-
-        Thread thread2 = new Thread(player::pause);
-        thread2.start();
-
-        Thread thread3 = new Thread(player::skip);
-        thread3.start();
-
-        Thread thread4 = new Thread(player::previous);
-        thread4.start();
+        ExecutorService executor = Executors.newFixedThreadPool(NUMBERS_OF_THREADS);
+        for (int i = 0; i < NUMBERS_OF_THREADS; i++) {
+            executor.submit(player::play);
+            executor.submit(player::pause);
+            executor.submit(player::skip);
+            executor.submit(player::previous);
+        }
+        executor.shutdown();
     }
 }
