@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private final static int THREAD_POOL_SIZE = 5;
-    private final static int AWAIT_TERMINATION_TIME = 60;
+    private static final int THREAD_POOL_SIZE = 5;
+    private static final int AWAIT_TERMINATION_TIME = 60;
 
     public static void main(String[] args) {
         List<Student> hogwartsTeam = List.of(
@@ -35,16 +35,15 @@ public class Main {
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2, executor);
 
         CompletableFuture.allOf(hogwartsTask, beauxbatonsTask).thenRun(() -> {
-                    Map<String, Integer> schoolPoints = new HashMap<>();
-                    schoolPoints.put(hogwarts.getName(), hogwarts.getTotalPoints());
-                    schoolPoints.put(beauxbatons.getName(), beauxbatons.getTotalPoints());
-                    getWinner(schoolPoints);
-                })
-                .exceptionally((ex) -> {
-                    log.error(ex.getMessage());
-                    System.out.println("Победитель не найден!");
-                    return null;
-                });
+            Map<String, Integer> schoolPoints = new HashMap<>();
+            schoolPoints.put(hogwarts.getName(), hogwarts.getTotalPoints());
+            schoolPoints.put(beauxbatons.getName(), beauxbatons.getTotalPoints());
+            getWinner(schoolPoints);
+        }).exceptionally((ex) -> {
+            log.error(ex.getMessage());
+            System.out.println("Победитель не найден!");
+            return null;
+        });
 
         executor.shutdown();
         try {
