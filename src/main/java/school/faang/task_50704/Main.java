@@ -6,37 +6,39 @@ import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
-        TwitterAccount TailorSwift = new TwitterAccount("tailorpfficial", 100);
-        TwitterAccount TimothyShalomet = new TwitterAccount("shalometTim", 200);
+        TwitterAccount tailorSwift = new TwitterAccount("tailorpfficial", 100);
+        TwitterAccount timothyShalomet = new TwitterAccount("shalometTim", 200);
 
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
         List<CompletableFuture<TwitterAccount>> TailorFollowers = Arrays.asList(
-                system.followAccount(TailorSwift),
-                system.followAccount(TailorSwift)
+                system.followAccount(tailorSwift),
+                system.followAccount(tailorSwift)
         );
 
         List<CompletableFuture<TwitterAccount>> TimothyFollowers = Arrays.asList(
-                system.followAccount(TimothyShalomet),
-                system.followAccount(TimothyShalomet),
-                system.followAccount(TimothyShalomet)
+                system.followAccount(timothyShalomet),
+                system.followAccount(timothyShalomet),
+                system.followAccount(timothyShalomet)
         );
 
-        CompletableFuture<Void> allTailorFollowers = CompletableFuture.allOf(TailorFollowers.stream().toArray(CompletableFuture[]::new))
+        CompletableFuture<Void> allTailorFollowers
+                = CompletableFuture.allOf(TailorFollowers.stream().toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
                     try {
                         system.shutdownExecutor();
-                        System.out.println("Всего фолловеров у Tailor " + TailorSwift.getFollowers());
+                        System.out.println("Всего фолловеров у Tailor " + tailorSwift.getFollowers());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
 
-        CompletableFuture<Void> allTimothyFollowers = CompletableFuture.allOf(TimothyFollowers.stream().toArray(CompletableFuture[]::new))
+        CompletableFuture<Void> allTimothyFollowers
+                = CompletableFuture.allOf(TimothyFollowers.stream().toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
                     try {
                         system.shutdownExecutor();
-                        System.out.println("Всего фолловеров у Tailor " + TimothyShalomet.getFollowers());
+                        System.out.println("Всего фолловеров у Tailor " + timothyShalomet.getFollowers());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
