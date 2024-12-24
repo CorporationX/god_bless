@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private static final int THREAD_POOL_SIZE = 3;
+
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
