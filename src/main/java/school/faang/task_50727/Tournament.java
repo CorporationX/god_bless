@@ -8,7 +8,7 @@ public class Tournament {
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<School> startTask(School school, Task task) {
-        CompletableFuture<School> futureResult = CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(task.getDifficulty() * 100);
             } catch (InterruptedException e) {
@@ -21,7 +21,6 @@ public class Tournament {
             System.out.println("Текущий таск " + task.getName() + " закончил свое выполнение");
             return school;
         }, executor);
-        return futureResult;
     }
 
     public void shutdownExecutor() {
