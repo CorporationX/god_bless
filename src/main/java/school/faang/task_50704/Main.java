@@ -11,19 +11,19 @@ public class Main {
 
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
-        List<CompletableFuture<TwitterAccount>> TailorFollowers = Arrays.asList(
+        List<CompletableFuture<TwitterAccount>> tailorFollowers = Arrays.asList(
                 system.followAccount(tailorSwift),
                 system.followAccount(tailorSwift)
         );
 
-        List<CompletableFuture<TwitterAccount>> TimothyFollowers = Arrays.asList(
+        List<CompletableFuture<TwitterAccount>> timothyFollowers = Arrays.asList(
                 system.followAccount(timothyShalomet),
                 system.followAccount(timothyShalomet),
                 system.followAccount(timothyShalomet)
         );
 
         CompletableFuture<Void> allTailorFollowers
-                = CompletableFuture.allOf(TailorFollowers.stream().toArray(CompletableFuture[]::new))
+                = CompletableFuture.allOf(tailorFollowers.stream().toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
                     try {
                         system.shutdownExecutor();
@@ -34,7 +34,7 @@ public class Main {
                 });
 
         CompletableFuture<Void> allTimothyFollowers
-                = CompletableFuture.allOf(TimothyFollowers.stream().toArray(CompletableFuture[]::new))
+                = CompletableFuture.allOf(timothyFollowers.stream().toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
                     try {
                         system.shutdownExecutor();
