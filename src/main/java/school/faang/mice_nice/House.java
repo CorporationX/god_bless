@@ -62,22 +62,23 @@ public class House {
         for (int i = 1; i <= 5; i++) {
             executor.scheduleAtFixedRate(House::collectFood, 100 * i, 5000, TimeUnit.MILLISECONDS);
         }
-
-        executor.scheduleAtFixedRate(() -> {
-            if (!isThereUntidyFood()) {
-                executor.shutdown();
-                try {
-                    if (executor.awaitTermination(13, TimeUnit.SECONDS)) {
-                        System.out.println("Mission complete!");
-                    } else {
-                        System.out.println("Something went wrong");
-                    }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(1, TimeUnit.SECONDS)) {
                 System.out.println(collectedFood.toString());
+                System.out.println("Mission complete!");
+            } else {
+                System.out.println(collectedFood.toString());
+                System.out.println("Something went wrong");
             }
-        }, 3, 6, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void collectFood() {
@@ -94,9 +95,5 @@ public class House {
 
     public void addRoom(String name, List<Food> foods) {
         rooms.add(new Room(name, foods));
-    }
-
-    private static boolean isThereUntidyFood() {
-        return rooms.stream().anyMatch(room -> !room.getFoods().isEmpty());
     }
 }
