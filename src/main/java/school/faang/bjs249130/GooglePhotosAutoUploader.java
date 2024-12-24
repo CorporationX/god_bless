@@ -36,10 +36,8 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        synchronized (lock) {
-            log.info("Uploading {} photos", photosToUpload.size());
-            photosToUpload.clear();
-            log.info("Photos Uploaded");
-        }
+        log.info("Uploading {} photos", photosToUpload.size());
+        photosToUpload.clear();
+        log.info("Photos Uploaded");
     }
 }
