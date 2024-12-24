@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
-
+    @Getter
     private int score;
+    @Getter
     private int lives;
     @Getter
     private boolean isRunning = true;
@@ -20,31 +20,27 @@ public class Game {
 
     public void update(boolean addingPoints, boolean lostOfLive) {
         synchronized (livesLock) {
-            if (!isRunning) {
-                return;
+            if (lives == 0 && isRunning) {
+                gameOver();
             }
 
-            synchronized (scoreLock) {
-                if (addingPoints) {
-                    score++;
-                    log.info("Adding points. Total: {}", score);
-                }
-            }
-
-            if (lostOfLive) {
+            if (lostOfLive && isRunning) {
                 lives--;
                 if (lives == 0) {
                     gameOver();
                 }
                 log.info("Lost live. Total: {}", lives);
             }
+
+            if (addingPoints && isRunning) {
+                score++;
+                log.info("Adding points. Total: {}", score);
+            }
         }
     }
 
     private void gameOver() {
-        synchronized (livesLock) {
-            isRunning = false;
-            log.info("Game over. Score: {}", score);
-        }
+        isRunning = false;
+        log.info("Game over. Score: {}", score);
     }
 }
