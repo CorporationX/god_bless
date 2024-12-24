@@ -15,7 +15,6 @@ public class Game {
             }
         }
 
-        // Блокировка доступа к жизням
         synchronized (livesLock) {
             if (lostLife) {
                 lives--;
