@@ -22,9 +22,8 @@ public class User {
                 if (addedRole != null) {
                     this.role = addedRole;
                     this.house = house;
-                    log.info("User " + this.name
-                            + " joined to house of " + this.house
-                            + " with a role of " + this.role);
+                    log.info("User {} joined to house of {} with a role of {}",
+                            this.name, this.house.getName(), this.role.name());
                     return;
                 }
             }
@@ -34,12 +33,10 @@ public class User {
     public void leaveHouse() {
         if (house != null) {
             house.removeRole(this.role);
-            log.info("User " + this.name
-                    + " leave house of " + this.house
-                    + ". Role " + this.role + " is vacant now.");
+            log.info("User {} leave house of {}. Role {}} is vacant now.",
+                    this.name, this.house.getName(), this.role.name());
             role = null;
             house = null;
         }
-
     }
 }

@@ -2,13 +2,10 @@ package school.faang.sprint3.task49100.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode
-@ToString
+//@ToString
 public class House {
 
     @Getter
@@ -16,15 +13,16 @@ public class House {
     private final List<Role> availableRoles;
     @Getter
     private Integer availableRolesQuantity;
+    private final Object listLock = new Object();
 
     public House(String name, List<Role> availableRoles) {
         this.name = name;
-        this.availableRoles = new ArrayList<>(availableRoles);
-        this.availableRolesQuantity = this.availableRoles.size();
+        this.availableRoles = availableRoles;
+        this.availableRolesQuantity = availableRoles.size();
     }
 
     public Role addRole(Role role) {
-        synchronized (availableRoles) {
+        synchronized (listLock) {
             if (!availableRoles.isEmpty()) {
                 if (availableRoles.remove(role)) {
                     availableRolesQuantity = availableRoles.size();
@@ -34,7 +32,7 @@ public class House {
                 }
             } else {
                 try {
-                    availableRoles.wait();
+                    listLock.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -44,10 +42,10 @@ public class House {
     }
 
     public void removeRole(Role role) {
-        synchronized (availableRoles) {
+        synchronized (listLock) {
             availableRoles.add(role);
             availableRolesQuantity = availableRoles.size();
-            availableRoles.notify();
+            listLock.notify();
         }
     }
 }

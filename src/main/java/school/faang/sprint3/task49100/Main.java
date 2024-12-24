@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     private static final int MAX_USERS = 20;
-    private static final int TIME_DELTA_SEC = 1;
 
     public static void main(String[] args) {
 
@@ -25,15 +24,9 @@ public class Main {
         for (int i = 0; i < MAX_USERS; i++) {
             UserScenario userScenario = new UserScenario(new User("User " + i), house);
             executor.submit(userScenario);
-            try {
-                Thread.sleep(TIME_DELTA_SEC * 1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         executor.shutdown();
-
         try {
             if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
                 executor.shutdownNow();

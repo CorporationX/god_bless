@@ -1,14 +1,15 @@
 package school.faang.sprint3.task49100;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import school.faang.sprint3.task49100.model.House;
 import school.faang.sprint3.task49100.model.User;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserScenario implements Runnable {
-    private static final int TIME_TO_SERVE_SEC = 15;
-    User user;
-    House house;
+    private static final int TIME_TO_SERVE_SEC = 5;
+
+    private final User user;
+    private final House house;
 
     public void run() {
         user.joinHouse(house);
