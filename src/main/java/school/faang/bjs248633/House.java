@@ -16,7 +16,7 @@ public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFoods;
     private final Random random;
-    private final static int NUMBER_OF_ROOMS = 6;
+    private final  int NUMBER_OF_ROOMS = 6;
     private final Set<Room> clearedRooms;
     @Getter
     private final CountDownLatch roomClearLatch;

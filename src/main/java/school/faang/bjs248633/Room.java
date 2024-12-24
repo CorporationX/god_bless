@@ -10,7 +10,6 @@ import java.util.List;
 @Slf4j
 @ToString
 
-
 public class Room {
     private final List<Food> foodList;
     @Getter
@@ -42,8 +41,7 @@ public class Room {
         return whatWasCollected;
     }
 
-    public boolean isClear (){
+    public boolean isClear() {
         return foodList.isEmpty();
     }
-
 }
