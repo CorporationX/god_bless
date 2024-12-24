@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public class Tournament {
-    private final static long MILLIS = 1000L;
+    private static final long MILLIS = 1000L;
 
     public CompletableFuture<School> startTask(School school,
                                                Task task,
