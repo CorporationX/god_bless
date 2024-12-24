@@ -1,26 +1,50 @@
 package school.faang.bjs248633;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 public class House {
 
     private final List<Room> rooms;
-    private final List<Food> collectFoods;
+    private final List<Food> collectedFoods;
     private final Random random;
+    private final static int NUMBER_OF_ROOMS = 6;
+    private final Set<Room> clearedRooms;
+    @Getter
+    private final CountDownLatch roomClearLatch;
 
     public House() {
         this.rooms = new ArrayList<>();
-        this.collectFoods = new ArrayList<>();
+        this.collectedFoods = new ArrayList<>();
         this.random = new Random();
+        this.roomClearLatch = new CountDownLatch(NUMBER_OF_ROOMS);
+        this.clearedRooms = new HashSet<>();
+
         log.info("House created. Ready to add rooms and collect food.\n");
     }
 
-    public void addRoom(Room room) {
+    public void initialize() {
+        for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
+            Room room = new Room("Room number " + (i + 1));
+            int foodCount = random.nextInt(10) + 1;
+            for (int j = 0; j < foodCount; j++) {
+                room.addFood(new Food("Dish food number " + (j + 1)));
+            }
+            addRoom(room);
+        }
+        log.info("House initialization completed. Rooms count: {}", rooms.size());
+
+    }
+
+    public synchronized void addRoom(Room room) {
         if (room == null) {
             log.warn("Attempted to add a null Room to the House.");
             throw new IllegalArgumentException("Room cannot be null.");
@@ -29,35 +53,48 @@ public class House {
         log.info("Room '{}' added to the House.", room.getRoomName());
     }
 
-    public void collectFood() {
-        if (rooms.size() < 2) {
-            log.warn("Not enough rooms to collect food. Current rooms count: {}", rooms.size());
+    public synchronized void collectFood() {
+        List<Room> notEmptyRooms = new ArrayList<>();
+        for (Room r : rooms) {
+            if (!r.isClear()) {
+                notEmptyRooms.add(r);
+            }
+        }
+
+        if (notEmptyRooms.size() < 2) {
+            log.warn("There are fewer than 2 non-empty rooms left. Cannot collect further.");
             return;
         }
-        int firstRoom = random.nextInt(rooms.size());
-        int secondRoom = random.nextInt(rooms.size());
 
-        Room room1 = rooms.get(firstRoom);
-        Room room2 = rooms.get(secondRoom);
-
-        log.info("Collecting food from two random rooms: '{}' and '{}' ", room1.getRoomName(), room2.getRoomName());
-
-        List<Food> fromRoom1 = room1.removeFood();
-        if (!fromRoom1.isEmpty()) {
-            collectFoods.addAll(fromRoom1);
-            log.debug("Collected {} items from Room '{}'", fromRoom1.size(), room1.getRoomName());
-        } else {
-            log.debug("Room '{}' was empty. No items collected.", room1.getRoomName());
+        int firstIndex = random.nextInt(notEmptyRooms.size());
+        int secondIndex = random.nextInt(notEmptyRooms.size());
+        while (secondIndex == firstIndex) {
+            secondIndex = random.nextInt(notEmptyRooms.size());
         }
 
-        List<Food> fromRoom2 = room2.removeFood();
-        if (!fromRoom2.isEmpty()) {
-            collectFoods.addAll(fromRoom2);
-            log.debug("Collected {} items from Room '{}'", fromRoom2.size(), room2.getRoomName());
+        Room room1 = notEmptyRooms.get(firstIndex);
+        Room room2 = notEmptyRooms.get(secondIndex);
+
+        log.info("Collecting food from two random rooms: '{}' and '{}'.",
+                room1.getRoomName(), room2.getRoomName());
+
+        collectFoodFromRoom(room1);
+        collectFoodFromRoom(room2);
+    }
+
+    private void collectFoodFromRoom(Room room) {
+        List<Food> foodFromRoom = room.removeFood();
+        if (!foodFromRoom.isEmpty()) {
+            collectedFoods.addAll(foodFromRoom);
+            log.debug("Collected {} items from Room '{}'.", foodFromRoom.size(), room.getRoomName());
         } else {
-            log.debug("Room '{}' was empty. No items collected.", room2.getRoomName());
+            log.debug("Room '{}' was empty. No items collected.", room.getRoomName());
         }
-        log.info("Total collected foods : {}", collectFoods.size());
+
+        if (room.isClear()) {
+            roomClearLatch.countDown();
+            log.info("Room '{}' became empty. Latch count: {}", room.getRoomName(), roomClearLatch.getCount());
+            clearedRooms.add(room);
+        }
     }
 }
-

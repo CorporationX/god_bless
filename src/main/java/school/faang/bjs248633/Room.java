@@ -9,10 +9,11 @@ import java.util.List;
 
 @Slf4j
 @ToString
-@Getter
+
 
 public class Room {
     private final List<Food> foodList;
+    @Getter
     private final String roomName;
 
     public Room(String roomName) {
@@ -40,4 +41,9 @@ public class Room {
         log.debug("All food cleared from Room '{}'. Removed items: {}", roomName, whatWasCollected);
         return whatWasCollected;
     }
+
+    public boolean isClear (){
+        return foodList.isEmpty();
+    }
+
 }

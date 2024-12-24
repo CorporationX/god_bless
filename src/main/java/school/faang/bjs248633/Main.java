@@ -2,6 +2,7 @@ package school.faang.bjs248633;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -9,58 +10,36 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
+    private static final int COLLECT_INTERVAL_SECONDS = 5;
+    private static final int WAIT_TIME_SECONDS = 120;
 
     public static void main(String[] args) {
 
-        Room kitchen = new Room("Kitchen");
-        kitchen.addFood(new Food("Cheese"));
-        kitchen.addFood(new Food("Milk"));
-        kitchen.addFood(new Food("Eggs"));
-        kitchen.addFood(new Food("Butter"));
-
-        Room livingRoom = new Room("Living Room");
-        livingRoom.addFood(new Food("Chips"));
-        livingRoom.addFood(new Food("Soda"));
-        livingRoom.addFood(new Food("Popcorn"));
-        livingRoom.addFood(new Food("Chocolate"));
-
-        Room bedroom = new Room("Bedroom");
-        bedroom.addFood(new Food("Candy"));
-        bedroom.addFood(new Food("Cookies"));
-        bedroom.addFood(new Food("Gum"));
-
-        Room basement = new Room("Basement");
-        basement.addFood(new Food("Juice"));
-        basement.addFood(new Food("Cereal"));
-        basement.addFood(new Food("Granola Bars"));
-
-        Room attic = new Room("Attic");
-        attic.addFood(new Food("Peanut Butter"));
-        attic.addFood(new Food("Jelly"));
-        attic.addFood(new Food("Crackers"));
-
         House house = new House();
-        house.addRoom(kitchen);
-        house.addRoom(livingRoom);
-        house.addRoom(bedroom);
-        house.addRoom(basement);
-        house.addRoom(attic);
+        house.initialize();
+
+        CountDownLatch latch = house.getRoomClearLatch();
 
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
-        log.info("ScheduledExecutorService created with 5 threads.");
+        log.info("ScheduledExecutorService created with {} threads.", THREAD_POOL_SIZE);
 
-        for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-            scheduledExecutorService.scheduleAtFixedRate(
-                    house::collectFood,
-                    0,
-                    30,
-                    TimeUnit.SECONDS
-            );
-        }
+        scheduledExecutorService.scheduleAtFixedRate(
+                house::collectFood,
+                0,
+                COLLECT_INTERVAL_SECONDS,
+                TimeUnit.SECONDS
+        );
+
+        boolean allRoomsEmptied = false;
         try {
-            Thread.sleep(120);
-        } catch (InterruptedException e) {
-            log.error("Main thread interrupted while sleeping.", e);
+            allRoomsEmptied = latch.await(WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+            if (allRoomsEmptied) {
+                log.info("All rooms are empty (CountDownLatch reached zero).");
+            } else {
+                log.warn("Not all rooms emptied within {} seconds.", WAIT_TIME_SECONDS);
+            }
+        } catch (InterruptedException ex) {
+            log.error("Main thread interrupted while waiting for latch.", ex);
             Thread.currentThread().interrupt();
         }
 
