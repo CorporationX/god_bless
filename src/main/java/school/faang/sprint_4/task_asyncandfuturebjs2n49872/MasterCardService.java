@@ -8,10 +8,13 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class MasterCardService {
+    private static int COLLECT_PAYMENT_DELAY = 10_000;
+    private static int SEND_ANALYTICS_DELAY = 1_000;
+
     public static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(COLLECT_PAYMENT_DELAY);
+            return COLLECT_PAYMENT_DELAY;
         } catch (InterruptedException e) {
             e.printStackTrace();
             log.error(e.getMessage());
@@ -21,8 +24,8 @@ public class MasterCardService {
 
     public static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SEND_ANALYTICS_DELAY);
+            return SEND_ANALYTICS_DELAY;
         } catch (InterruptedException e) {
             e.printStackTrace();
             log.error(e.getMessage());
