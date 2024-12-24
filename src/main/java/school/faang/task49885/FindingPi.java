@@ -21,7 +21,6 @@ public class FindingPi {
         }
 
         CompletableFuture.runAsync(() -> IntStream.range(0, n)
-                .parallel()
                 .forEach(i -> {
                     Point point = new Point(ThreadLocalRandom.current().nextDouble(SIDE_LENGTH_SQUARE),
                             ThreadLocalRandom.current().nextDouble(SIDE_LENGTH_SQUARE));
