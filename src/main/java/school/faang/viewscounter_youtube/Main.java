@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int NUM_THREADS = 100;
-    private static final int NUM_VIDEOS = 100;
+    private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
 

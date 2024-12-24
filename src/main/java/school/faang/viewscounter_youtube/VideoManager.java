@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class VideoManager {
     private final ConcurrentHashMap<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
-    public void addView(String video) {
+    public synchronized void addView(String video) {
         if (!viewsMap.containsKey(video)) {
             viewsMap.put(video, 0);
         }
