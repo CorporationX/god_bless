@@ -21,7 +21,7 @@ public class Main {
         for (int i = 0; i < numberOfPlayers; i++) {
             int leftBros = game.getPlayersLeft();
             executorService.submit(() -> {
-                while(!game.isGameOver()) {
+                while (!game.isGameOver()) {
                     game.update(Bro::battle, RANDOM.nextInt(leftBros), RANDOM.nextInt(leftBros));
                 }
             });

@@ -43,7 +43,8 @@ public class Bro {
     private static void battleResult(Bro winner, Bro loser) {
         winner.score.incrementAndGet();
         int livesLeft = loser.lives.decrementAndGet();
-        log.info("{} killed {}. {} score {}, {} lives {}", winner.name, loser.name, winner.name, winner.score, loser.name, loser.lives);
+        log.info("{} killed {}. {} score {}, {} lives {}",
+                winner.name, loser.name, winner.name, winner.score, loser.name, loser.lives);
         if (livesLeft == 0) {
             loser.eliminated.getAndSet(true);
             log.info("Game over for {} with score {}", loser.name, loser.score);
