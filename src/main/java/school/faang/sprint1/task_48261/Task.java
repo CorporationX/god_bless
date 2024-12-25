@@ -1,6 +1,8 @@
 package school.faang.sprint1.task_48261;
 
 public class Task implements Runnable {
+    private final int sleepThread = 5000;
+
     private final String name;
     private final String task;
 
@@ -13,7 +15,7 @@ public class Task implements Runnable {
     public void run() {
         try {
             System.out.println(name + " начал выполнение задачи - " + task);
-            Thread.sleep(5000);
+            Thread.sleep(sleepThread);
             System.out.println(name + " Завершил задачу");
         } catch (InterruptedException e) {
             System.out.println("Выполнение задачи прервано");

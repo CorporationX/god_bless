@@ -1,5 +1,6 @@
 package school.faang.sprint1.task_48261;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -11,10 +12,10 @@ public class BigBangTheory {
         Task leonard = new Task("Leonard", "Create project");
         Task govard = new Task("Govard", "Check the project");
         Task redjer = new Task("Redjer", "Present the project");
-        executor.execute(sheldon);
-        executor.execute(leonard);
-        executor.execute(govard);
-        executor.execute(redjer);
+        List<Task> tasks = List.of(sheldon, leonard, govard, redjer);
+        for (Task task : tasks) {
+            executor.execute(task);
+        }
         executor.shutdown();
         try {
             if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
