@@ -46,7 +46,8 @@ public class GooglePhotosAutoUploader implements GooglePhotosAutoUploaderInterfa
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             if (photosToUpload.add(photoPath)) {
-                System.out.println("Photo was added to list for upload: " + photoPath + " [ " + Thread.currentThread().getName() + " ]");
+                System.out.println("Photo was added to list for upload: "
+                        + photoPath + " [ " + Thread.currentThread().getName() + " ]");
                 lock.notify();
             }
         }
