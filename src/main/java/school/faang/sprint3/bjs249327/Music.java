@@ -5,10 +5,10 @@ public class Music {
 
     public void start() {
         try {
-            Thread playThread = new Thread(player::play);
-            Thread pauseThread = new Thread(player::pause);
-            Thread skipThread = new Thread(player::skip);
-            Thread previousThread = new Thread(player::previous);
+            final Thread playThread = new Thread(player::play);
+            final Thread pauseThread = new Thread(player::pause);
+            final Thread skipThread = new Thread(player::skip);
+            final Thread previousThread = new Thread(player::previous);
 
             playThread.start();
             pauseThread.start();
