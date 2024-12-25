@@ -5,8 +5,6 @@ import java.util.concurrent.ExecutorService;
 
 public class Main {
     public static void main(String[] args) {
-        ExecutorService executorService = ExecutorServiceFactory.createExecutorService();
-        Tournament tournament = new Tournament(executorService);
 
         School hogwarts = new School("Hogwarts");
         hogwarts.addStudent(new Student("Harry", 5));
@@ -28,6 +26,9 @@ public class Main {
                 new Task("Potions Exam", 8, 80),
                 new Task("Quidditch Match", 6, 60)
         );
+
+        ExecutorService executorService = ExecutorServiceFactory.createExecutorService();
+        Tournament tournament = new Tournament(executorService);
 
         tournament.startTournament(schools, tasks);
 
