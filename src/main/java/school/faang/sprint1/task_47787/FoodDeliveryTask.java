@@ -6,6 +6,9 @@ import java.util.Random;
 
 @Getter
 public class FoodDeliveryTask implements Runnable {
+    private final int lowDelay = 1000;
+    private final int maxDelay = 5000;
+
     private String character;
     private int foodAmount;
     private Random random = new Random();
@@ -25,7 +28,7 @@ public class FoodDeliveryTask implements Runnable {
         String food = getFoodType();
         try {
             System.out.println(character + " получает " + foodAmount + " " + food);
-            Thread.sleep(random.nextInt(5000) + 1000);
+            Thread.sleep(random.nextInt(maxDelay) + lowDelay);
             System.out.println(character + " получил" + foodAmount + " " + food);
         } catch (InterruptedException e) {
             System.out.println(character + " не получил " + food + "т.к доставка прервалась");
