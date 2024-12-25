@@ -5,15 +5,5 @@ public class Main {
 
         MasterCardService service = new MasterCardService();
         service.doAll();
-
-        // MasterCardService.doAll(); насколько правильно будет так написать?
-        // doAll() не работает с полями и я не знаю можно делать так или лучше через создание объекта ?
     }
 }
-
-
-
-
-
-
-
