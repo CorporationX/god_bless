@@ -20,7 +20,7 @@ public class RocketLaunch {
             Thread.sleep(SLEEP_TIME);
             System.out.printf("Запускаем: %s%n", name);
         } catch (InterruptedException e) {
-            System.out.println("Ошибка");
+            System.out.printf("Запуск %s прерван!%n", name);
         }
     }
 }

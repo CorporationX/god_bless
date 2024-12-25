@@ -1,34 +1,44 @@
 package school.faang.task_48919;
 
-import lombok.SneakyThrows;
-
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class LaunchingSystem {
 
-    @SneakyThrows
     public void planRocketLaunches(List<RocketLaunch> launches) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        List<RocketLaunch> mutableLaunches = new ArrayList<>(launches);
+        mutableLaunches.sort(Comparator.comparing(RocketLaunch::getLaunchTime));
 
-        launches.forEach(launch -> {
-            Duration duration = Duration.between(LocalDateTime.now(), launch.getLaunchTime());
-            long millis = duration.getSeconds() * 1000;
-            try {
-                Thread.sleep(millis);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        for (RocketLaunch launch : launches) {
+            long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(), launch.getLaunchTime());
+            if (delay > 0) {
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    System.out.println("Ожидание прервано!");
+                }
             }
-            executorService.submit(launch::launchRocket);
-        });
-        executorService.shutdown();
-        Thread.sleep(2000);
-        while (!executorService.isTerminated()) {
-            executorService.shutdownNow();
+
+            executor.submit(launch::launchRocket);
         }
 
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(15, TimeUnit.SECONDS)) {
+                System.out.println("Не все задачи завершены!");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Ошибка при завершении пула потоков!");
+            executor.shutdownNow();
+        }
     }
 }
