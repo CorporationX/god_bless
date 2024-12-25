@@ -5,12 +5,12 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     List<String> photosToUpload = new ArrayList<>();
-    final int TIMEOUT = 1000;
+    final int timeOut = 1000;
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (photosToUpload) {
             while (photosToUpload.isEmpty()) {
-                photosToUpload.wait(TIMEOUT);
+                photosToUpload.wait(timeOut);
             }
             uploadPhotos();
         }
