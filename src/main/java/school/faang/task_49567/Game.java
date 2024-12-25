@@ -4,19 +4,19 @@ public class Game {
     private int score = 0;
     private int lives = 5;
 
-    final Object flagScore = new Object();
-    final Object flagLives = new Object();
+    private final Object lockScore = new Object();
+    private final Object lockLives = new Object();
 
     public void update(boolean scoresPoints, boolean losesLife) {
 
-        synchronized (flagScore) {
-            if (scoresPoints) {
+        if (scoresPoints) {
+            synchronized (lockScore) {
                 score++;
             }
         }
 
-        synchronized (flagLives) {
-            if (losesLife) {
+        if (losesLife) {
+            synchronized (lockLives) {
                 lives--;
             }
 
