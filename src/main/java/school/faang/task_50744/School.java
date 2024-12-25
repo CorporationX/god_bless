@@ -23,6 +23,6 @@ public class School {
     }
 
     public int getTotalPoints() {
-        return team.stream().mapToInt(Student::getPoints).sum();
+        return team.stream().mapToInt(student -> student.getPoints().get()).sum();
     }
 }
