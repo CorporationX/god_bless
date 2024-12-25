@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Boss {
-    private final Integer maxPlayers;
-    private Integer currentPlayers;
+    private final int maxPlayers;
+    private int currentPlayers;
 
-    public Boss(Integer maxPlayers) {
+    public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
         this.currentPlayers = 0;
     }
@@ -18,6 +18,7 @@ public class Boss {
                 log.info("В битве максимальное количество игроков, ожидаем свободное место...");
                 wait();
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 log.error("Поток был прерван во время выполнения метода wait()", e);
             }
         }
