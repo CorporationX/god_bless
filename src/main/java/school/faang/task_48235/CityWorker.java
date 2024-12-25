@@ -3,13 +3,14 @@ package school.faang.task_48235;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public class CityWorker implements Runnable {
     private static final int CASTLE_X = 0;
     private static final int CASTLE_Y = 0;
 
-    private City city;
+    private final City city;
     private final List<Monster> monsters;
 
     public CityWorker(City city, List<Monster> monsters) {
@@ -19,17 +20,17 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        int cityX = city.getLocation().getCoordinateX();
-        int cityY = city.getLocation().getCoordinateY();
+        Optional<Integer> cityX = Optional.ofNullable(city.location().coordinateX());
+        Optional<Integer> cityY = Optional.ofNullable(city.location().coordinateY());
 
-        double distanceCastleToCity = calculateDistance(CASTLE_X, CASTLE_Y, cityX, cityY);
+        double distanceCastleToCity = calculateDistance(CASTLE_X, CASTLE_Y, cityX.orElse(0), cityY.orElse(0));
         double distanceCityToNearestMonster = Integer.MAX_VALUE;
 
         for (Monster monster : monsters) {
-            int monsterX = monster.getLocation().getCoordinateX();
-            int monsterY = monster.getLocation().getCoordinateY();
+            double monsterX = monster.location().coordinateX();
+            double monsterY = monster.location().coordinateY();
 
-            double minDist = calculateDistance(cityX, cityY, monsterX, monsterY);
+            double minDist = calculateDistance(cityX.orElse(0), cityY.orElse(0), monsterX, monsterY);
 
             if (minDist < distanceCityToNearestMonster) {
                 distanceCityToNearestMonster = minDist;
@@ -37,9 +38,10 @@ public class CityWorker implements Runnable {
 
             double totalDistance = distanceCastleToCity + distanceCityToNearestMonster;
 
-            System.out.printf("Расстояние от замка до города: %s\n"
-                            + "Расстояние от города до ближайшего монстра: %s\n"
-                            + "Общее расстояние до монстра: %s\n",
+            System.out.printf("""
+                            \nРасстояние от замка до города: %s"
+                            Расстояние от города до ближайшего монстра: %s"
+                            Общее расстояние до монстра: %s\n""",
                     distanceCastleToCity, distanceCityToNearestMonster, totalDistance);
 
         }
