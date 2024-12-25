@@ -5,13 +5,11 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class House {
     private final List<Room> rooms = new ArrayList<>();
     @Getter
-    private final List<Food> collectedFood = Collections.synchronizedList(new ArrayList<>());
-    private final Random random = new Random();
+    private final List<Food> collectedFood = new ArrayList<>();
 
     public void addRoom(Room room) {
         rooms.add(room);
@@ -23,14 +21,14 @@ public class House {
                     .filter(Room::hasFood)
                     .toList());
 
-            if (nonEmptyRooms.size() < 2) {
-                System.out.println("Недостаточно комнат с едой для сбора.");
+            if (nonEmptyRooms.isEmpty()) {
+                System.out.println("Все комнаты пусты. Еда собрана.");
                 return;
             }
 
-            Collections.shuffle(nonEmptyRooms);
+            int roomsToSelect = Math.min(2, nonEmptyRooms.size());
             List<Room> selectedRooms = nonEmptyRooms.stream()
-                    .limit(2)
+                    .limit(roomsToSelect)
                     .toList();
 
             List<Food> collectedFromRooms = selectedRooms.stream()
