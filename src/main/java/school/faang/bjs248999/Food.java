@@ -4,5 +4,5 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Food {
-    private String name;
+    private final String name;
 }

@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.management.StringValueExp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -15,15 +16,19 @@ public class House {
     private final List<Food> foods;
     @Setter
     private CountDownLatch countDownLatch;
+    private final int numberRooms;
+    private final int amountFood;
 
-    public House() {
+    public House(int numberRooms, int amountFood) {
+        this.numberRooms = numberRooms;
+        this.amountFood = amountFood;
         this.foods = new ArrayList<>();
         this.rooms = new ArrayList<>();
         createRooms();
     }
 
     private void createRooms() {
-        for (int i = 1; i < 9; i++) {
+        for (int i = 1; i < numberRooms; i++) {
             int number = 100 + i;
             rooms.add(new Room(number));
             log.info("{} create room num: {}", Thread.currentThread().getName(), number);
@@ -31,15 +36,21 @@ public class House {
     }
 
     public void collectFood() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < amountFood; i++) {
             for (Room room : rooms) {
-                if (room.tryLock()) {
-                    if (!room.isClear()) {
-                        getFoodFromRoom(room);
-                        break;
+                try {
+                    if (room.tryLock()) {
+                        if (!room.isClear()) {
+                            getFoodFromRoom(room);
+                            break;
+                        }
                     }
+                } catch (Exception ex) {
+                    log.info("Error! {}", String.valueOf(ex));
+
+                } finally {
+                    room.unLock();
                 }
-                room.unLock();
             }
         }
     }
