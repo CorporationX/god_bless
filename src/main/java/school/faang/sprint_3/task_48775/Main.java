@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
-    private static final int COLLECTION_INTERVAL_SECONDS = 10;
     private static final int NUMBER_OF_ROOMS = 3;
     private static final int FOOD_PER_ROOM = 2;
 
