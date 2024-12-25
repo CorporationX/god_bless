@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Getter
@@ -14,8 +15,8 @@ public class ChatManager {
     private final List<Chat> chats = new ArrayList<>();
 
     public synchronized void startChat(User user) {
-        List<User> usersReadyToChat = userList.getUsersReadyToChatWith(user);
-        while (usersReadyToChat.isEmpty()) {
+        Optional<User> userReadyToChat = userList.getUserReadyToChatWith(user);
+        while (userReadyToChat.isEmpty()) {
             try {
                 wait(MAX_WAIT_TIME);
             } catch (InterruptedException e) {
@@ -24,7 +25,7 @@ public class ChatManager {
                 return;
             }
         }
-        User otherUser = usersReadyToChat.get(0);
+        User otherUser = userReadyToChat.get();
         Chat chat = new Chat(user, otherUser);
         chats.add(chat);
         user.setChat(chat);

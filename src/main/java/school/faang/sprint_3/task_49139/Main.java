@@ -1,6 +1,6 @@
 package school.faang.sprint_3.task_49139;
 
-import java.util.Random;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -17,13 +17,12 @@ public class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_OF_THREADS);
 
-        Random random = new Random();
         for (int i = 1; i <= AMOUNT_OF_REQUESTS; i++) {
             executorService.submit(() -> {
                 User user = chatManager
                         .getUserList()
-                        .getUsersReadyToChatWith(null)
-                        .get(random.nextInt(AMOUNT_OF_REQUESTS));
+                        .getUserReadyToChatWith(null)
+                        .orElseThrow(NoSuchElementException::new);
                 chatManager.startChat(user);
                 chatManager.endChat(user);
             });
