@@ -12,18 +12,14 @@ public class TwitterSubscriptionSystem {
     }
 
     public CompletableFuture<TwitterAccount> followAccount(TwitterAccount account) {
-        CompletableFuture<TwitterAccount> accountFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.currentThread().sleep(2000);
-                addFollower(account);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-            return account;
-        }, executor); // тут я хотел бы доабавить thenRun(() -> sout("вы успешно подписались на аккаунт "
-        // + account.getUsername()))
-        return accountFuture;
+        return CompletableFuture.supplyAsync(() -> {
+                    addFollower(account);
+                    return account;
+                }, executor)
+                .thenApply(follower -> {
+                    System.out.println("Follower добавлен: " + follower.getUsername());
+                    return follower;
+                });
     }
 
     public void shutdownExecutor() {
