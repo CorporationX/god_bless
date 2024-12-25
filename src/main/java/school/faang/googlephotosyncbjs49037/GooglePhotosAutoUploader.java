@@ -33,8 +33,8 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         synchronized (lock) {
-            List<String> photosTOUploadCopy = new ArrayList<>(photosToUpload);
-            photosTOUploadCopy.forEach(photoPath -> {
+            List<String> photosToUploadCopy = new ArrayList<>(photosToUpload);
+            photosToUploadCopy.forEach(photoPath -> {
                 System.out.println("Upload photo: " + photoPath);
                 try {
                     Thread.sleep(UPLOAD_DELAY_MS);
