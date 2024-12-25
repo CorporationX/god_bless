@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Boss {
-    static final int MAX_PLAYERS = 2;
+    private static final int MAX_PLAYERS = 2;
     private int currentPlayers;
 
     public synchronized void joinBattle(Player player) {
@@ -16,8 +16,12 @@ public class Boss {
             System.out.println("Player " + player.getName() + " Wait Befor start, currentPlayers = " + currentPlayers);
             try {
                 wait();
+                if (currentPlayers < MAX_PLAYERS) {
+                    currentPlayers++;
+                }
             } catch (InterruptedException e) {
                 System.out.println("Exception " + e);
+                return;
             }
 
             currentPlayers++;
