@@ -12,13 +12,13 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House house, String role) {
+    public void joinHouse(House house, String role) {
         synchronized (house) {
             while (house.getCountAvaliableRoles() == 0) {
                 try {
                     System.out.println(String.format("Waiting for a role...%s", name));
                     house.wait();
-                    Thread.sleep(1000);
+
                     System.out.println("Resume...");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -33,7 +33,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (house) {
             if (!(house == null) && !(role == null)) {
                 house.removeRole();

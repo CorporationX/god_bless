@@ -29,6 +29,12 @@ public class Main {
         executor.execute(() -> userC.joinHouse(houseStark, houseStark.getRoles().get(random.nextInt(houseStark
                 .getRoles().size()))));
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         executor.execute(userA::leaveHouse);
         executor.execute(userB::leaveHouse);
         executor.execute(userC::leaveHouse);
