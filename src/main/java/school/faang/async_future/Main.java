@@ -27,6 +27,7 @@ public class Main {
         }
 
         log.info("Payment info: {}", analyticsResult.join());
+
         executor.shutdown();
     }
 }
