@@ -16,12 +16,12 @@ public class Main {
         ExecutorService executor = Executors.newCachedThreadPool();
 
         List<User> users = Arrays.asList(
-                new User("User1", house, Role.ARCHER),
-                new User("User2", house, Role.MAGE),
-                new User("User3", house, Role.SWORDSMAN),
-                new User("User4", house, Role.SWORDSMAN),
-                new User("User5", house, Role.ARCHER),
-                new User("User6", house, Role.ARCHER)
+                new User("User1", house),
+                new User("User2", house),
+                new User("User3", house),
+                new User("User4", house),
+                new User("User5", house),
+                new User("User6", house)
         );
 
         users.forEach(user -> executor.execute(() -> {

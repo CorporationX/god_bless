@@ -10,32 +10,33 @@ import java.util.Set;
 public class House {
     private final Set<Role> availableRoles;
 
+    private int availableRoleCount;
+
     public House(@NonNull Set<Role> roles) {
         this.availableRoles = new HashSet<>(roles);
+        this.availableRoleCount = roles.size();
     }
 
-    public void addRole(@NonNull User user) {
-        boolean interrupted = false;
-        while ((availableRoles.isEmpty()
-                || !availableRoles.contains(user.role()))
-                && !interrupted) {
-            log.info("{} ждет, пока освободится роль в доме.", user.name());
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                interrupted = true;
-                log.error("Thread {} was interrupted", Thread.currentThread().getName(), e);
-            }
-        }
-        if (availableRoles.remove(user.role()) && !interrupted) {
-            log.info("{} выбирает роль: {}", user.name(), user.role());
+    public Role addRole() {
+        synchronized (availableRoles) {
+            Role role = availableRoles.iterator().next();
+            availableRoles.remove(role);
+            availableRoleCount = availableRoles.size();
+            return role;
         }
     }
 
-    public void removeRole(@NonNull User user) {
-        log.info("{} покидает дом и освобождает роль: {}", user.name(), user.role());
-        availableRoles.add(user.role());
-        notifyAll();
+    public void removeRole(@NonNull Role role) {
+        synchronized (availableRoles) {
+            availableRoles.add(role);
+            availableRoleCount = availableRoles.size();
+        }
+    }
+
+    public int getAvailableRoleCount() {
+        synchronized (availableRoles) {
+            return availableRoleCount;
+        }
     }
 
 }
