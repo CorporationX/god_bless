@@ -1,0 +1,80 @@
+Supercow!
+👩‍💻 🧠
+
+
+
+
+Условия задачи
+Вы пишете игру Supercow, в которой игроки сражаются с боссами на различных уровнях. Каждый босс имеет определённое количество слотов для игроков, которые могут сражаться с ним одновременно. Ваша задача — создать систему, которая управляет доступом игроков к сражению с боссом, следя за тем, чтобы не было больше игроков, чем позволяет босс. Если все слоты заняты, игрок должен ждать, пока не освободится место.
+
+Требования:
+1️⃣ Создайте класс Boss с полями:
+
+maxPlayers — максимальное количество игроков, которые могут одновременно сражаться с боссом.
+
+currentPlayers — текущее количество игроков, которые участвуют в сражении.
+
+2️⃣ Реализуйте метод joinBattle(Player player), который:
+
+Проверяет, есть ли свободные слоты для присоединения к сражению.
+
+Если слоты есть, увеличивает количество занятых слотов и добавляет игрока в сражение.
+
+Если все слоты заняты, игрок должен "ждать" с помощью метода wait(), пока один из слотов не освободится.
+
+3️⃣ Синхронизируйте доступ к боссу с помощью ключевого слова synchronized, чтобы предотвратить одновременный доступ нескольких потоков к одному и тому же боссу.
+
+4️⃣ Когда игрок завершает сражение, вызовите метод notify(), чтобы уведомить других игроков, ожидающих своей очереди, о том, что освободился слот.
+
+5️⃣ Создайте класс Player с полем name, представляющим имя игрока.
+
+6️⃣ Реализуйте метод startBattle(Boss boss) в классе Player, который:
+
+Вызывает метод joinBattle() для попытки присоединиться к сражению.
+
+Если все слоты заняты, поток игрока блокируется до тех пор, пока слот не освободится.
+
+7️⃣ Проверьте работу программы, создав экземпляр класса Boss с ограниченным количеством слотов и несколько экземпляров класса Player, которые будут пытаться присоединиться к сражению.
+
+------------------
+4:20:53: Executing ':derschrank.sprint03.task07.bjstwo_49649.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task07.bjstwo_49649.Main.main()
+Fight was started
++ Player 1 was joined to the fight with the Boss
++ Player 0 was joined to the fight with the Boss
+. Player 2 waits for a slot to the fight with the Boss
+. Player 3 waits for a slot to the fight with the Boss
+. Player 4 waits for a slot to the fight with the Boss
+. Player 5 waits for a slot to the fight with the Boss
+. Player 6 waits for a slot to the fight with the Boss
+. Player 9 waits for a slot to the fight with the Boss
+. Player 8 waits for a slot to the fight with the Boss
+. Player 7 waits for a slot to the fight with the Boss
+- Player 0 was left from the fight with the Boss
++ Player 2 was joined to the fight with the Boss
+- Player 1 was left from the fight with the Boss
++ Player 3 was joined to the fight with the Boss
+- Player 2 was left from the fight with the Boss
++ Player 4 was joined to the fight with the Boss
+- Player 3 was left from the fight with the Boss
++ Player 5 was joined to the fight with the Boss
+- Player 4 was left from the fight with the Boss
++ Player 6 was joined to the fight with the Boss
+- Player 5 was left from the fight with the Boss
++ Player 9 was joined to the fight with the Boss
+- Player 6 was left from the fight with the Boss
++ Player 8 was joined to the fight with the Boss
+- Player 9 was left from the fight with the Boss
++ Player 7 was joined to the fight with the Boss
+- Player 8 was left from the fight with the Boss
+- Player 7 was left from the fight with the Boss
+Fight was ended
+
+BUILD SUCCESSFUL in 15s
+2 actionable tasks: 2 executed
+4:21:09: Execution finished ':derschrank.sprint03.task07.bjstwo_49649.Main.main()'.
