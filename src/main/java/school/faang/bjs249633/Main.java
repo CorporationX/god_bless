@@ -15,10 +15,10 @@ public class Main {
         Game game = new Game();
 
         for (int i = 0; i < CYCLE_GAME; i++) {
-            boolean earnedPoints = Math.random() > CHANCE_EARN_POINTS;
-            boolean lostLife = Math.random() > CHANCE_LOSE_LIFE;
+            boolean isEarnedPoints = Math.random() > CHANCE_EARN_POINTS;
+            boolean isLostLife = Math.random() > CHANCE_LOSE_LIFE;
 
-            boolean liveStatus = game.update(earnedPoints, lostLife);
+            boolean liveStatus = game.update(isEarnedPoints, isLostLife);
             if (!liveStatus) {
                 break;
             }
@@ -26,7 +26,7 @@ public class Main {
             try {
                 Thread.sleep(DELAY_GAME_STEP);
             } catch (InterruptedException ex) {
-                log.error("Error interrupted exception! {}", String.valueOf(ex));
+                log.error("Error interrupted exception!! {}", String.valueOf(ex));
             }
         }
     }
