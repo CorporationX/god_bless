@@ -1,16 +1,17 @@
 package school.faang.spotifyblocking;
 
+import java.util.List;
+
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
+        List<Thread> threads = List.of(
+                new Thread(player::play),
+                new Thread(player::pause),
+                new Thread(player::skip),
+                new Thread(player::previous)
+        );
 
-        Thread playThread = new Thread(player::play);
-        playThread.start();
-        Thread pauseThread = new Thread(player::pause);
-        pauseThread.start();
-        Thread skipThread = new Thread(player::skip);
-        skipThread.start();
-        Thread previousThread = new Thread(player::previous);
-        previousThread.start();
+        threads.forEach(Thread::start);
     }
 }
