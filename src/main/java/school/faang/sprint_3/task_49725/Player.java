@@ -1,4 +1,5 @@
 package school.faang.sprint_3.task_49725;
+
 import lombok.Getter;
 
 public class Player implements Runnable {
@@ -12,23 +13,21 @@ public class Player implements Runnable {
     }
 
     @Override
-    public void run(){
+    public void run() {
         try {
             boss.joinBattle(this);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        try {
-            Thread.sleep((long)(Math.random() * 5000));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(name + " закончил файт");
-        try {
-            boss.leaveBattle(this);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
+        try {
+            Thread.sleep((long) (Math.random() * 5000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(name + " закончил файт");
+
+        boss.leaveBattle(this);
+    }
 }

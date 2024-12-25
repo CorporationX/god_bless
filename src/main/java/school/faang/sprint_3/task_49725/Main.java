@@ -9,7 +9,9 @@ public class Main {
         Boss boss = new Boss(3);
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        IntStream.range(1,11).mapToObj(i -> new Player(i, boss)).forEach(executorService::execute);
+        IntStream.range(1, 11)
+                .mapToObj(i -> new Player(i, boss))
+                .forEach(executorService::execute);
 
         executorService.shutdown();
     }
