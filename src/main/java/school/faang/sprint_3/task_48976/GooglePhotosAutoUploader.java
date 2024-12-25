@@ -11,8 +11,8 @@ public class GooglePhotosAutoUploader {
         this.photosToUpload = photosToUpload;
     }
 
-    public void startAutoUpload(){
-        synchronized(lock) {
+    public void startAutoUpload() {
+        synchronized (lock) {
             if (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
@@ -25,7 +25,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized(lock) {
+        synchronized (lock) {
             if (photoPath != null) {
                 photosToUpload.add(photoPath);
                 lock.notify();
