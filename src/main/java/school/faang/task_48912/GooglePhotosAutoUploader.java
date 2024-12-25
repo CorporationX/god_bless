@@ -17,42 +17,30 @@ public class GooglePhotosAutoUploader {
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
-                } else {
-                    uploadPhotos();
                 }
             }
+            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
+            isEnded = true;
             lock.notify();
+            startAutoUpload();
         }
     }
 
     public void uploadPhotos() {
-        photosToUpload.forEach(photo -> {
-            System.out.println("uploading photo: " + photo + " "
-                    + Thread.currentThread().getName());
+        for (String photo : photosToUpload) {
+            System.out.println("uploading photo " + photo);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-        });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
         photosToUpload.clear();
-    }
-
-    public void stop() {
-        synchronized (lock) {
-            isEnded = true;
-            lock.notify();
-        }
     }
 }
