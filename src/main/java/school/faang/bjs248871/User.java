@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class User {
     private final String name;
-    private String choseRole;
+    private String chosenRole;
     private House house;
 
     public void joinHouse(House house, String role) {
@@ -17,19 +17,20 @@ public class User {
                 try {
                     house.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     System.out.println("Thread interrupted");
                 }
             }
             house.addRole(role);
-            this.choseRole = role;
+            this.chosenRole = role;
             System.out.println(name + " choose role : " + role);
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (house) {
             System.out.println(name + " leave house");
-            house.removeRole(choseRole);
+            house.removeRole(chosenRole);
             house.notifyAll();
         }
     }
