@@ -60,7 +60,7 @@ public class House {
         countDownLatch.countDown();
     }
 
-    public int notCleanedUpRoom() {
+    public int getNumberDirtyRooms() {
         return rooms.size();
     }
 }

@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         House house = new House();
-        CountDownLatch countDownLatch = new CountDownLatch(house.notCleanedUpRoom());
+        CountDownLatch countDownLatch = new CountDownLatch(house.getNumberDirtyRooms());
         house.setCountDownLatch(countDownLatch);
 
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(COUNT_COLLECTORS);
