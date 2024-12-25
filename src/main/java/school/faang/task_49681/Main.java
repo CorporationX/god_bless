@@ -33,5 +33,7 @@ public class Main {
             Player player = iterator.next();
             player.finishBattle(boss);
         }
+
+        service.shutdownNow();
     }
 }

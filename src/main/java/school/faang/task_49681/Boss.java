@@ -22,12 +22,13 @@ public class Boss {
             return;
         }
 
-        if (currentPlayers >= maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             try {
                 System.out.println(player.getName() + " is waiting");
                 wait();
             } catch (InterruptedException e) {
-                log.warn("Thread was interrupted", e);
+                Thread.currentThread().interrupt();
+                return;
             }
         }
 
