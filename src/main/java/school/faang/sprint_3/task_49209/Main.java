@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int NUMBER_OF_THREADS = 4;
-    private static final int Number_OF_MESSAGES = 1000;
+    private static final int NUMBER_OF_MESSAGES = 1000;
     private static final int AWAIT_DELAY = 1;
 
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-        for (int i = 1; i <= Number_OF_MESSAGES; i++) {
+        for (int i = 1; i <= NUMBER_OF_MESSAGES; i++) {
             int finalI = i;
             executorService.submit(() -> telegramBot.sendMessage("Message " + finalI));
         }
