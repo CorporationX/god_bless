@@ -2,18 +2,17 @@ package school.faang.sprint3.bjs_49172;
 
 import lombok.NonNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class VideoManager {
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final ConcurrentHashMap<String, AtomicInteger> viewsMap = new ConcurrentHashMap<>();
 
     public synchronized void addView(@NonNull String videoId) {
-        int counter = viewsMap.getOrDefault(videoId, 0) + 1;
-        viewsMap.put(videoId, counter);
+        viewsMap.computeIfAbsent(videoId, id -> new AtomicInteger(0)).incrementAndGet();
     }
 
     public synchronized int getViewCount(@NonNull String videoId) {
-        return viewsMap.getOrDefault(videoId, 0);
+        return viewsMap.getOrDefault(videoId, new AtomicInteger(0)).get();
     }
 }
