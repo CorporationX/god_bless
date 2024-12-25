@@ -27,6 +27,7 @@ public class House {
         Room[] selectedRooms = roomService.get2RandomRooms();
         for (Room selectedRoom : selectedRooms) {
             List<Food> foods = selectedRoom.foods();
+            foods.clear();
             collectedFood.addAll(foods);
             System.out.println("Log: collectedFood " + foods);
         }
