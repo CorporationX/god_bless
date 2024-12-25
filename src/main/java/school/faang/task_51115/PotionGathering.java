@@ -11,11 +11,7 @@ public class PotionGathering {
     private static final long SLEEP_TIME = 1000;
 
     public int gatherIngredients(List<Potion> potions) {
-        List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> {
-                    setSleepTime(potion);
-                    return potion.getRequiredIngredients();
-                })).toList();
+        List<CompletableFuture<Integer>> futures = executeTask(potions);
         CompletableFuture<Void> allDone = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 
         allDone.join();
@@ -31,12 +27,17 @@ public class PotionGathering {
                 .sum();
     }
 
-    private void setSleepTime(Potion potion) {
-        try {
-            Thread.sleep(potion.getRequiredIngredients() * PotionGathering.SLEEP_TIME);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+    private List<CompletableFuture<Integer>> executeTask(List<Potion> potions) {
+        return potions.stream()
+                .map(potion -> CompletableFuture.supplyAsync(() -> {
+                    try {
+                        Thread.sleep(potion.getRequiredIngredients() * PotionGathering.SLEEP_TIME);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return potion.getRequiredIngredients();
+                })).toList();
     }
 }
 
