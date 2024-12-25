@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
-    private final static long SLEEP_TIME = 10_000;
+    private static final long SLEEP_TIME = 10_000;
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public int processAllOrders(List<Order> orders) {
