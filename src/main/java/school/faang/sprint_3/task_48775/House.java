@@ -9,6 +9,7 @@ import java.util.List;
 public class House {
     private final List<Room> rooms = new ArrayList<>();
     @Getter
+    private final List<Food> collectedFood = new ArrayList<>();
 
     public void addRoom(Room room) {
         rooms.add(room);
@@ -20,10 +21,14 @@ public class House {
                     .filter(Room::hasFood)
                     .toList());
 
+            if (nonEmptyRooms.isEmpty()) {
+                System.out.println("Все комнаты пусты. Еда собрана.");
                 return;
             }
 
+            int roomsToSelect = Math.min(2, nonEmptyRooms.size());
             List<Room> selectedRooms = nonEmptyRooms.stream()
+                    .limit(roomsToSelect)
                     .toList();
 
             List<Food> collectedFromRooms = selectedRooms.stream()

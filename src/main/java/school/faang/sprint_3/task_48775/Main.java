@@ -1,5 +1,6 @@
 package school.faang.sprint_3.task_48775;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +8,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
+    private static final int COLLECTION_INTERVAL_SECONDS = 5;
     private static final int NUMBER_OF_ROOMS = 3;
     private static final int FOOD_PER_ROOM = 2;
 
