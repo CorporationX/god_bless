@@ -7,7 +7,7 @@ public class Player {
     public static void play() {
         synchronized (lock) {
             isPlaying = true;
-            System.out.println("Play");
+            System.out.println("Play!");
         }
     }
 
