@@ -23,8 +23,4 @@ public class VideoManager {
     public void addNewVideo(String video) {
         viewsMap.put(video, 0);
     }
-
-    public List<String> getVideos() {
-        return viewsMap.keySet().stream().toList();
-    }
 }

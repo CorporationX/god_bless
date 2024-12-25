@@ -1,5 +1,7 @@
 package school.faang.viewscounter_youtube;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -13,10 +15,13 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         VideoManager videoManager = new VideoManager();
 
+        List<String> videos = new ArrayList<>();
         for (int i = 1; i <= NUM_VIDEOS; i++) {
-            videoManager.addNewVideo("Video " + i);
+            String video = "Video " + i;
+            videoManager.addNewVideo(video);
+            videos.add(video);
         }
-        videoManager.getVideos().forEach(video -> {
+        videos.forEach(video -> {
             for (int i = 1; i <= NUM_THREADS / NUM_VIDEOS; i++) {
                 executor.submit(() -> {
                     videoManager.addView(video);
