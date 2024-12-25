@@ -1,7 +1,7 @@
 package school.faang.task_48828;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Main {
     static final int COUNT_MOUSE = 3;

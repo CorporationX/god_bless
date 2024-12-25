@@ -3,8 +3,8 @@ package school.faang.task_48828;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 public class Room {

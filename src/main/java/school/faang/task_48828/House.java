@@ -10,7 +10,7 @@ import java.util.List;
 @Slf4j
 public class House {
     private final List<Room> rooms;
-   @Getter
+    @Getter
     private final List<Food> collectedFood;
     @Getter
     private boolean work;
