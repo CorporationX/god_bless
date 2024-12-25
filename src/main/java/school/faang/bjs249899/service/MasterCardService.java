@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class MasterCardService implements Runnable{
+public class MasterCardService implements Runnable {
     public String collectPayment() {
         try {
             Thread.sleep(10000);
