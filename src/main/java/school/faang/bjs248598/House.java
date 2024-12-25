@@ -11,13 +11,13 @@ import java.util.concurrent.CountDownLatch;
 @Getter
 public class House {
     private final List<Room> rooms;
-    private final List<Food> collectFood;
+    private final List<Food> collectedFood;
     @Setter
     private CountDownLatch countDownLatch;
 
     public House() {
         rooms = new ArrayList<>();
-        collectFood = new ArrayList<>();
+        collectedFood = new ArrayList<>();
         createRooms();
     }
 
@@ -28,7 +28,7 @@ public class House {
     }
 
     public void collectFood() {
-        List<Room> randomRoom = getTwoRandomRoom(rooms);
+        List<Room> randomRoom = getTwoRandomRoom();
         for (Room room : randomRoom) {
             if (room.tryLock()) {
                 if (!room.isClear()) {
@@ -40,7 +40,7 @@ public class House {
         }
     }
 
-    public List<Room> getTwoRandomRoom(List<Room> rooms) {
+    private List<Room> getTwoRandomRoom() {
         Random random = new Random();
         int firstIndex = random.nextInt(rooms.size());
         int secondIndex;
@@ -54,13 +54,13 @@ public class House {
         return randomRooms;
     }
 
-    public void getFoodFromRoom(Room room) {
-        collectFood.addAll(room.collectFood());
+    private void getFoodFromRoom(Room room) {
+        collectedFood.addAll(room.collectFood());
         System.out.println(Thread.currentThread().getName() + " has been collect in room " + room.getNumber());
         countDownLatch.countDown();
     }
 
-    public int roomSize() {
+    public int notCleanedUpRoom() {
         return rooms.size();
     }
 }
