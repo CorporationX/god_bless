@@ -34,6 +34,7 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         if (photoPath.isEmpty()) {
             log.info("No new photos");
+            return;
         }
         synchronized (lock) {
             if (!photosToUpload.contains(photoPath)) {
@@ -43,7 +44,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    private synchronized void uploadPhotos() {
+    private void uploadPhotos() {
         for (String photo : photosToUpload) {
             log.info("Photo: {} added", photo);
         }
