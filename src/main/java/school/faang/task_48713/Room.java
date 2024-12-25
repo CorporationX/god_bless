@@ -9,9 +9,13 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class Room {
+    private static final int FOOD_PER_ROOM = 3;
+
+
     private final List<Food> foods;
     private final String room;
     private final Lock lock = new ReentrantLock();
+
 
     public Room(String room) {
         foods = new ArrayList<>();
@@ -20,7 +24,7 @@ public class Room {
     }
 
     public void createList() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < FOOD_PER_ROOM; i++) {
             foods.add(new Food("food" + i));
         }
     }

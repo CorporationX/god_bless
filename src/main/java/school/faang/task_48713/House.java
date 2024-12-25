@@ -12,9 +12,14 @@ import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 public class House {
+    private static final int ROOMS_TO_COLLECT = 2;
+    private static final int ROOM_COUNT = 10;
+
     @Getter
     private final List<Room> rooms;
-    private List<Food> collectedFood;
+
+    @Getter
+    private final List<Food> collectedFood;
 
     @Setter
     private CountDownLatch latch;
@@ -26,7 +31,7 @@ public class House {
     }
 
     public void createRooms() {
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < ROOM_COUNT; i++) {
             rooms.add(new Room("room" + i));
         }
     }
@@ -44,7 +49,7 @@ public class House {
                         getFoodFromRoom(room);
                         collectedRooms++;
 
-                        if (collectedRooms == 2) {
+                        if (collectedRooms == ROOMS_TO_COLLECT) {
                             break;
                         }
                     }
@@ -56,11 +61,11 @@ public class House {
 
     }
 
-
     private void getFoodFromRoom(Room room) {
-        collectedFood.addAll(room.collectFood());
-
-        log.info("{} collected  food from {}", Thread.currentThread().getName(), room.getRoom());
+        synchronized (collectedFood) {
+            collectedFood.addAll(room.collectFood());
+        }
+        log.info("{} collected food from {}", Thread.currentThread().getName(), room.getRoom());
         latch.countDown();
     }
 }

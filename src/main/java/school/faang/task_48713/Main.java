@@ -1,9 +1,12 @@
 package school.faang.task_48713;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     static final int CORE_POOL_SIZE = 5;
     static final int INITIAL_DELAY = 0;
@@ -27,7 +30,8 @@ public class Main {
         try {
             latch.await();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Waiting for tasks to complete was interrupted: ", e);
+            Thread.currentThread().interrupt();
         }
 
         executor.shutdown();
