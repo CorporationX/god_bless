@@ -14,8 +14,8 @@ public class SuperheroBattle {
         return battlePairs.stream()
                 .map(pair -> CompletableFuture.supplyAsync(() -> {
                     Superhero winner = (pair.first.strength + pair.first.agility)
-                            >= (pair.second.strength + pair.second.agility) ?
-                            new Superhero(pair.first.name, pair.first.strength, pair.first.agility)
+                            >= (pair.second.strength + pair.second.agility)
+                            ? new Superhero(pair.first.name, pair.first.strength, pair.first.agility)
                             : new Superhero(pair.second.name, pair.second.strength, pair.second.agility);
                     return winner;
                 }, executor))
