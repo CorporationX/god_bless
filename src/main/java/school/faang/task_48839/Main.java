@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -19,13 +20,18 @@ public class Main {
         User userA = new User("Artem");
         User userB = new User("Anton");
         User userC = new User("Sveta");
+        Random random = new Random();
         ExecutorService executor = Executors.newCachedThreadPool();
-        executor.execute(() -> userA.joinHouse(houseStark, houseStark.getRoles().get(new Random().nextInt(houseStark.getRoles().size()))));
-        executor.execute(() -> userB.joinHouse(houseStark, houseStark.getRoles().get(new Random().nextInt(houseStark.getRoles().size()))));
-        executor.execute(() -> userC.joinHouse(houseStark, houseStark.getRoles().get(new Random().nextInt(houseStark.getRoles().size()))));
+        executor.execute(() -> userA.joinHouse(houseStark, houseStark.getRoles().get(random.nextInt(houseStark
+                .getRoles().size()))));
+        executor.execute(() -> userB.joinHouse(houseStark, houseStark.getRoles().get(random.nextInt(houseStark
+                .getRoles().size()))));
+        executor.execute(() -> userC.joinHouse(houseStark, houseStark.getRoles().get(random.nextInt(houseStark
+                .getRoles().size()))));
 
         executor.execute(userA::leaveHouse);
         executor.execute(userB::leaveHouse);
+        executor.execute(userC::leaveHouse);
 
         executor.shutdown();
         try {
