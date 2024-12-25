@@ -22,10 +22,9 @@ public class Player {
                         SHOP_COLLECTING_TIME,
                         "Fireball",
                         25));
-        Item combinedItem = firstItemFuture.thenCombine(secondItemFuture,
-                inventory::combineItems).join();
-
-        inventory.addItem(combinedItem);
+        firstItemFuture.thenCombine(secondItemFuture,
+                inventory::combineItems)
+                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)));
 
         System.out.println(inventory);
     }
