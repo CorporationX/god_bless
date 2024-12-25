@@ -13,13 +13,12 @@ public class TwitterSubscriptionSystem {
 
     public CompletableFuture<TwitterAccount> followAccount(TwitterAccount account) {
         return CompletableFuture.supplyAsync(() -> {
-                    addFollower(account);
-                    return account;
-                }, executor)
-                .thenApply(follower -> {
-                    System.out.println("Follower добавлен: " + follower.getUsername());
-                    return follower;
-                });
+            addFollower(account);
+            return account;
+        }, executor).thenApply(follower -> {
+            System.out.println("Follower добавлен: " + follower.getUsername());
+            return follower;
+        });
     }
 
     public void shutdownExecutor() {
