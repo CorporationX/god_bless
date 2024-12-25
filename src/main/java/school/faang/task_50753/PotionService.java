@@ -23,8 +23,17 @@ public class PotionService {
                 .map(potion -> gatherIngredients(potion, executor))
                 .toList();
 
-        futures.forEach(future -> totalIngredients.addAndGet(future.join()));
-        System.out.println("totalIngredients: " + totalIngredients.get());
+        CompletableFuture<?>[] futuresArray = futures.toArray(new CompletableFuture[0]);
+
+        CompletableFuture.allOf(futuresArray)
+                .thenRun(() -> {
+                    futures.forEach(future -> totalIngredients.addAndGet(future.join()));
+                    System.out.println("totalIngredients: " + totalIngredients.get());
+                })
+                .exceptionally((e) -> {
+                    log.error(e.getMessage());
+                    return null;
+                });
     }
 
     private CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService executor) {

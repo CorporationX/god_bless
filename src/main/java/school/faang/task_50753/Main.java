@@ -17,5 +17,6 @@ public class Main {
         PotionService service = new PotionService();
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         service.gatherAllIngredients(potions, executorService);
+        System.out.println("Ждем пока посчитается totalIngredients!");
     }
 }
