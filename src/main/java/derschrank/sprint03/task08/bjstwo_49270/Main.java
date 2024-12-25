@@ -40,7 +40,7 @@ public class Main {
     private static void executorShutdown(ExecutorService executor) {
         executor.shutdown();
         try {
-            executor.awaitTermination( DEFAULT_AWAIT_TIME_SECONDS, TimeUnit.SECONDS);
+            executor.awaitTermination(DEFAULT_AWAIT_TIME_SECONDS, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.out.println("Main was interrupted");
         }
