@@ -1,6 +1,8 @@
 package school.faang.sprint_4.task_50752;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class MagicalTournament {
@@ -25,5 +27,13 @@ public class MagicalTournament {
         allTasks.join();
         System.out.println(hogwarts);
         System.out.println(beauxbatons);
+
+        List<School> schools = List.of(hogwarts, beauxbatons);
+        System.out.println("Winner - " + getWinner(schools).orElse(null));
+    }
+
+    private static Optional<School> getWinner(List<School> schools) {
+        return schools.stream()
+                .max(Comparator.comparingInt(School::getTotalPoints));
     }
 }

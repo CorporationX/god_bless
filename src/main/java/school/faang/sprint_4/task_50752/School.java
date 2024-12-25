@@ -19,8 +19,8 @@ public class School {
 
     public synchronized int getTotalPoints() {
         return team.stream()
-                .map(Student::getPoints)
-                .reduce(0, Integer::sum);
+                .mapToInt(Student::getPoints)
+                .sum();
     }
 
     public synchronized void addStudent(Student student) {
