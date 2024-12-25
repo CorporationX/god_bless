@@ -1,14 +1,13 @@
 package school.faang.bjs49318;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
 public class Player {
+    public static final long SOUND_FREQUENCY = 1500;
     private final Object lock;
-    @Getter
     private boolean isPlaying;
     private final List<String> songs;
     private int currentSong;
@@ -26,7 +25,9 @@ public class Player {
                 isPlaying = false;
                 log.info("Switched to pause song by {}, current song {}",
                         Thread.currentThread().getName(), currentSong);
+                return;
             }
+            log.info("Not switched to pause, because was paused {}", Thread.currentThread().getName());
         }
     }
 
@@ -34,8 +35,11 @@ public class Player {
         synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
+                lock.notifyAll();
                 log.info("Switched to play song by {}, current song {}", Thread.currentThread().getName(), currentSong);
+                return;
             }
+            log.info("Not switched to play, because was playing {}", Thread.currentThread().getName());
         }
     }
 
@@ -67,9 +71,12 @@ public class Player {
                 playSong();
                 return;
             }
-            while (!isPlaying) {
-                Thread.sleep(100);
+            synchronized (lock) {
+                while (!isPlaying) {
+                    lock.wait();
+                }
             }
+
             if (i >= song.length()) {
                 if (currentSong == songs.size() - 1) {
                     return;
@@ -79,7 +86,11 @@ public class Player {
                 return;
             }
             log.info("Playing song {} at second: {}", song, i);
-            Thread.sleep(1500);
+            Thread.sleep(SOUND_FREQUENCY);
         }
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
     }
 }
