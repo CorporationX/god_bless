@@ -12,7 +12,7 @@ public class Main {
     private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
-        VideManager manager = new VideManager();
+        VideoManager manager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
         for (int i = 0; i < NUM_VIDEOS; i++) {
