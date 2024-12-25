@@ -16,6 +16,7 @@ public class Music {
         Thread threadPrevious = new Thread(
                 Player::previous
         );
+
         threadPlay.start();
         threadPause.start();
         threadSkip.start();

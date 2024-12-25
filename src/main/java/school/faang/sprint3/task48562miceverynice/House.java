@@ -7,10 +7,10 @@ public class House {
     private Set<Food> collectFoods = new HashSet<>();
 
 
-    public void collectFood(){
+    public void collectFood() {
         int randomRoom1 = (int) (Math.random() * (rooms.size() - 1));
         int randomRoom2 = randomRoom1;
-        while (randomRoom1 == randomRoom2){
+        while (randomRoom1 == randomRoom2) {
             randomRoom2 = (int) (Math.random() * (rooms.size() - 1));
         }
         collectFoods.addAll(rooms.get(randomRoom1).getFoods());
@@ -31,18 +31,18 @@ public class House {
                 getFoods().add(new Food("Cheese"));
                 getFoods().add(new Food("Milk"));
                 getFoods().add(new Food("Bread"));
-            }}, new Room(){{
+            }}, new Room() {{
                 getFoods().add(new Food("Apple"));
                 getFoods().add(new Food("Milk"));
                 getFoods().add(new Food("Bread"));
-            }}, new Room(){{
+            }}, new Room() {{
                 getFoods().add(new Food("Apple"));
                 getFoods().add(new Food("Banana"));
-            }}, new Room(){{
+            }}, new Room() {{
                 getFoods().add(new Food("Banana"));
                 getFoods().add(new Food("Bread"));
             }}));
         }};
-        
+
     }
 }
