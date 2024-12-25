@@ -12,15 +12,18 @@ public class SenderRunnable implements Runnable {
     private int endIndex;
 
     public int getStartIndex(int startIndex) {
-        return this.startIndex=startIndex;
+
+        return this.startIndex = startIndex;
     }
 
     public int getEndIndex(int endIndex) {
-        return this.endIndex=endIndex;
+
+        return this.endIndex = endIndex;
     }
 
     @Override
     public void run() {
+
         System.out.println("Письма с " + startIndex + "по " + endIndex + "отправлены");
     }
 }

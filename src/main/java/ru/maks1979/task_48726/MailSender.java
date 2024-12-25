@@ -5,7 +5,7 @@ public class MailSender {
         SenderRunnable sender = null;
         int delta = 200;
         for (int i = 1; i < 6; i++) {
-            sender = new SenderRunnable(sender.getStartIndex((delta*i-200)+i), sender.getEndIndex(delta*i));
+            sender = new SenderRunnable(sender.getStartIndex((delta * i - 200) + i), sender.getEndIndex(delta * i));
             Thread thread = new Thread(sender);
             thread.start();
             try {
@@ -16,4 +16,5 @@ public class MailSender {
             }
         }
 
-}}
+    }
+}
