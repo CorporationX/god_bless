@@ -8,21 +8,20 @@ public class Main {
         ExecutorService executorService = ExecutorServiceFactory.createExecutorService();
         Tournament tournament = new Tournament(executorService);
 
-        List<School> schools = List.of(
-                new School("Hogwarts", List.of(
-                        new Student("Harry", 5, 95),
-                        new Student("Hermione", 5, 98),
-                        new Student("Ron", 5, 50)
-                )),
-                new School("Beauxbatons", List.of(
-                        new Student("Fleur", 6, 88),
-                        new Student("Gabrielle", 6, 72)
-                )),
-                new School("Durmstrang", List.of(
-                        new Student("Viktor", 7, 90),
-                        new Student("Igor", 7, 85)
-                ))
-        );
+        School hogwarts = new School("Hogwarts");
+        hogwarts.addStudent(new Student("Harry", 5));
+        hogwarts.addStudent(new Student("Hermione", 5));
+        hogwarts.addStudent(new Student("Ron", 5));
+
+        School beauxbatons = new School("Beauxbatons");
+        beauxbatons.addStudent(new Student("Fleur", 6));
+        beauxbatons.addStudent(new Student("Gabrielle", 6));
+
+        School durmstrang = new School("Durmstrang");
+        durmstrang.addStudent(new Student("Viktor", 7));
+        durmstrang.addStudent(new Student("Igor", 7));
+
+        List<School> schools = List.of(hogwarts, beauxbatons, durmstrang);
 
         List<Task> tasks = List.of(
                 new Task("Triwizard Tournament", 10, 100),
@@ -31,5 +30,7 @@ public class Main {
         );
 
         tournament.startTournament(schools, tasks);
+
+        executorService.shutdown();
     }
 }

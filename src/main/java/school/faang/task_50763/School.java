@@ -2,32 +2,30 @@ package school.faang.task_50763;
 
 import lombok.Getter;
 
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 public class School {
     private final String name;
-    private final List<Student> team;
+    private final Map<String, Student> team;
 
-    public School(String name, List<Student> team) {
+    public School(String name) {
         this.name = name;
-        this.team = team;
+        this.team = new ConcurrentHashMap<>();
     }
 
-    public double getAverageMastery() {
-        return team.stream()
-                .mapToInt(Student::getMastery)
-                .average()
-                .orElse(0.0);
-    }
-
-    public int getTotalPoints() {
-        return team.stream()
-                .mapToInt(student -> student.getPoints().get())
-                .sum();
+    public void addStudent(Student student) {
+        team.put(student.getName(), student);
     }
 
     public void addReward(Task task) {
-        team.forEach(student -> student.addPoints(task.getReward()));
+        team.values().forEach(student -> student.addPoints(task.getReward()));
+    }
+
+    public int getTotalPoints() {
+        return team.values().stream()
+                .mapToInt(student -> student.getPoints().get())
+                .sum();
     }
 }
