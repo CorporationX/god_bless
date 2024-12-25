@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class UserAction {
     private final int id;
     private final String name;
-    private final String actionType;
+    private final ActionType actionType;
     private final LocalDate actionDate;
     private final String content;
 }
