@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Factorial {
-    public static final int MAX_INT_FACTORIAL = 12;
-    public static final int MAX_LONG_FACTORIAL = 19;
+    private static final int MAX_INT_FACTORIAL = 12;
+    private static final int MAX_LONG_FACTORIAL = 19;
 
     public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
         List<CompletableFuture<BigInteger>> futureList = new ArrayList<>();

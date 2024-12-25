@@ -3,44 +3,48 @@ package school.faang.sprint_4.task_50260;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
-    public static final int THREADS_SIZE = 2;
-    public static final int TIMEOUT = 60;
+    private static final int THREADS_SIZE = Runtime.getRuntime().availableProcessors();
+    private static final int TIMEOUT = 60;
 
     public static void main(String[] args) {
         List<Integer> numbers = List.of(11, 12, 13, 18, 19, 20, 25);
         List<CompletableFuture<BigInteger>> futureList = Factorial.factorials(numbers);
         AtomicInteger counter = new AtomicInteger(0);
+        List<CompletableFuture<Void>> tasks = new ArrayList<>();
+
+        log.info("Количество доступных процессоров при расчете факториалов: {}", THREADS_SIZE);
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_SIZE);
 
         for (int i = 0; i < numbers.size(); i++) {
             int index = i;
-            CompletableFuture.runAsync(() -> {
-                BigInteger factorial = futureList.get(index).join();
+            CompletableFuture<Void> task = CompletableFuture.supplyAsync(() -> {
+                try {
+                    return futureList.get(index).join();
+                } catch (CompletionException e) {
+                    log.error("Ошибка при вычислении факториала числа {}: {}", numbers.get(index), e.getMessage());
+                    return null;
+                }
+            }, executor).thenAccept(factorial -> {
                 log.info("Факториал числа {} это {}", numbers.get(index), factorial);
                 counter.incrementAndGet();
-            }, executor);
+            });
+            tasks.add(task);
         }
 
-
-        executor.shutdown();
+        CompletableFuture<Void> allOfTasks = CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0]));
         try {
-            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                log.error("Задачи не завершились в течение заданного времени.");
-            }
+            allOfTasks.join();
             log.info("Все асинхронные задачи завершены. Итераций ожидания: {}", counter.get());
-        } catch (InterruptedException e) {
-            log.error("Поток прерван во время ожидания завершения задач", e);
-            Thread.currentThread().interrupt();
+            executor.shutdown();
+        } catch (CompletionException e) {
+            log.error("Ошибка при ожидании завершения всех задач");
         }
-
     }
 }
