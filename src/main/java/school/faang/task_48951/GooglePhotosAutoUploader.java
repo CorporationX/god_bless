@@ -12,19 +12,20 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     System.out.println("There are no photos. Thread is waiting...");
                     lock.wait();
                 } catch (InterruptedException e) {
-                    log.warn("Thread was interrupted", e);
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
             uploadPhotos();
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         synchronized (lock) {
             for (var photo : photosToUpload) {
                 System.out.println("Photo with path '" + photo + "' is uploaded to Google Photos server");

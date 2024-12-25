@@ -10,28 +10,26 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int PHOTO_RANGE = 1000;
     private static final int ADD_RANGE = 5;
-    private static final int THREAD_COUNT = 2;
     private static final int PERIOD = 5;
     private static final int DELAY = 20000;
 
     public static void main(String[] args) {
         GooglePhotosAutoUploader loader = new GooglePhotosAutoUploader();
 
-        Runnable[] tasks = new Runnable[] {
-                () -> {
-                    int addPhotoCount = (int) (Math.random() * ADD_RANGE);
-                    for (var i = 0; i < addPhotoCount; i++) {
-                        loader.onNewPhotoAdded("photo_path_" + (int) (Math.random() * PHOTO_RANGE));
-                    }
-                },
-                () -> loader.startAutoUpload()
-        };
+        Thread thread = new Thread(() -> {
+            while (true) {
+                loader.startAutoUpload();
+            }
+        });
+        thread.start();
 
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(THREAD_COUNT);
-
-        for (var i = 0; i < THREAD_COUNT; i++) {
-            service.scheduleAtFixedRate(tasks[i], 0, PERIOD, TimeUnit.SECONDS);
-        }
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.scheduleAtFixedRate(() -> {
+            int addPhotoCount = (int) (Math.random() * ADD_RANGE);
+            for (var i = 0; i < addPhotoCount; i++) {
+                loader.onNewPhotoAdded("photo_path_" + (int) (Math.random() * PHOTO_RANGE));
+            }
+        }, 0, PERIOD, TimeUnit.SECONDS);
 
         try {
             Thread.sleep(DELAY);
