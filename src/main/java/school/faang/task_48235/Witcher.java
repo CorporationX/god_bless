@@ -48,6 +48,10 @@ public class Witcher {
         }
         executorService.shutdown();
 
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        System.out.printf("\nВремя выполнения: %d миллисекунд", executionTime);
+
         try {
             if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
@@ -56,11 +60,5 @@ public class Witcher {
             executorService.shutdownNow();
             log.info("Принудительное завершение при прерывании" + e.getMessage());
         }
-
-        long endTime = System.currentTimeMillis();
-        long executionTime = endTime - startTime;
-        System.out.printf("\nВремя выполнения: %d миллисекунд", executionTime);
-
     }
-
 }
