@@ -1,35 +1,34 @@
 package school.faang.bjs248223.model;
 
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+import school.faang.bjs248223.service.RoomService;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
-@NoArgsConstructor
+@ToString
 public class House {
-    private final List<Room> rooms = new ArrayList<>();
-    private final Set<Food> collectedFood = new HashSet<>();
+    @Getter
+    private final List<Room> rooms;
+    @Getter
+    private final Set<Food> collectedFood = Collections.synchronizedSet(new HashSet<>());
+    private final RoomService roomService;
+
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+        this.roomService = new RoomService(rooms);
+    }
 
     public void collectFood() {
-        for (int i = 0; i < 2; i++) {
-            Optional<Room> anyRoom = rooms.stream().filter(room -> !room.getFoods().isEmpty()).findAny();
-            anyRoom.ifPresent(room -> {
-                List<Food> foods = room.getFoods();
-                collectedFood.addAll(foods);
-                foods.clear();
-            });
+        System.out.println("Log: collectFood is started");
+        Room[] selectedRooms = roomService.get2RandomRooms();
+        for (Room selectedRoom : selectedRooms) {
+            List<Food> foods = selectedRoom.foods();
+            collectedFood.addAll(foods);
+            System.out.println("Log: collectedFood " + foods);
         }
-    }
-
-    public void add(List<Room> rooms) {
-        this.rooms.addAll(rooms);
-    }
-
-    @Override
-    public String toString() {
-        return this.collectedFood.toString();
     }
 }

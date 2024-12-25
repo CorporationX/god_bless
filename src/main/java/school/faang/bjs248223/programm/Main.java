@@ -12,11 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-        House house = new House();
-        house.add(getTestList());
+        House house = new House(getTestList());
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
-        executorService.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(house::collectFood, 0, 1, TimeUnit.NANOSECONDS);
     }
 
     private static List<Room> getTestList() {
