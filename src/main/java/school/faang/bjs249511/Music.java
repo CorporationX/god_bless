@@ -1,5 +1,8 @@
 package school.faang.bjs249511;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class Music {
 
     public static Thread playThread;
@@ -21,13 +24,10 @@ public class Music {
         skipThread = new Thread(player::skip);
         previousThread = new Thread(player::previous);
 
-        playThread.start();
-        playThreadAgain.start();
-        playThreadOnceMore.start();
-
-        pauseThread.start();
-        skipThread.start();
-        previousThread.start();
+        Arrays.asList(playThread, playThreadAgain,
+                        playThreadOnceMore, pauseThread,
+                        skipThread, previousThread)
+                .forEach(Thread::start);
     }
 
     private static Thread getPlayThread(Player player) {
