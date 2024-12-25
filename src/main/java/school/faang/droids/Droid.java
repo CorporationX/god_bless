@@ -24,19 +24,19 @@ public class Droid {
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, decryptionKey) -> {
-            StringBuilder encrypted = new StringBuilder();
+        DroidMessageDecryptor decryptor = (msg, decryptionKey) -> {
+            StringBuilder decrypted = new StringBuilder();
             for (char letter : msg.toCharArray()) {
                 if (Character.isLetter(letter)) {
                     char base = Character.isLowerCase(letter) ? 'a' : 'A';
-                    encrypted.append((char) ((letter - base - decryptionKey + 26) % 26 + base));
+                    decrypted.append((char) ((letter - base - decryptionKey + 26) % 26 + base));
                 } else {
-                    encrypted.append(letter);
+                    decrypted.append(letter);
                 }
             }
-            return encrypted.toString();
+            return decrypted.toString();
         };
-        return encryptor.encrypt(message, key);
+        return decryptor.decrypt(message, key);
     }
 
     public void sendMessage(Droid receiver, String message, int key) {
