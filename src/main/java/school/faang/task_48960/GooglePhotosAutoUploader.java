@@ -19,10 +19,11 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             while (photosToUpload.isEmpty()) {
                 try {
-                    lock.wait();
                     log.info("Ожидание фото для загрузки...");
+                    lock.wait();
                 } catch (InterruptedException e) {
                     log.error("Произошло исключение при выполнении метода wait()", e);
+                    Thread.currentThread().interrupt();
                 }
             }
             uploadPhotos();
@@ -48,6 +49,5 @@ public class GooglePhotosAutoUploader {
         }
         photosToUpload.clear();
         log.info("Фотографии загружены на сервер!");
-        lock.notify();
     }
 }

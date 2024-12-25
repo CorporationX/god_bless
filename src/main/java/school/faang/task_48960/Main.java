@@ -19,5 +19,14 @@ public class Main {
         for (Thread thread : threads) {
             thread.start();
         }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Поток был прерван при выполнении метода join()", e);
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
