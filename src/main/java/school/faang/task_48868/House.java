@@ -18,17 +18,14 @@ public class House {
         this.currentAvailableRoles = new ArrayList<>(availableRoles);
     }
 
-    public synchronized void releaseRole(@NonNull Role role) {
-        currentAvailableRoles.add(role);
-        this.notifyAll();
+    public void releaseRole(@NonNull Role role) {
+        synchronized (this) {
+            currentAvailableRoles.add(role);
+            this.notifyAll();
+        }
     }
 
-    public synchronized void reserveRole(@NonNull Role role) {
+    public void reserveRole(@NonNull Role role) {
         currentAvailableRoles.remove(role);
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

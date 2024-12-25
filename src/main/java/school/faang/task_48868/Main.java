@@ -23,16 +23,15 @@ public class Main {
         users.forEach(user -> executorService.execute(() -> {
             user.joinHouse(house);
             try {
-                Thread.sleep(1000);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
-                log.error("Ошибка потока: {}", e.getMessage());
                 Thread.currentThread().interrupt();
+                log.error("Ошибка потока: {}", e.getMessage());
             }
             user.leaveHouse();
         }));
 
         executorService.shutdown();
-
         if (executorService.awaitTermination(15, TimeUnit.SECONDS)) {
             log.info("Все пользователи завершили действия.");
         } else {
