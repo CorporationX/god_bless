@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class VideoManager {
-    private ConcurrentHashMap<String, Integer> viewsMap;
+    private final ConcurrentHashMap<String, Integer> viewsMap;
 
     public VideoManager() {
         this.viewsMap = new ConcurrentHashMap<>();
