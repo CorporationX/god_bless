@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-        int sizeThread = 6;
-        List<Person> persons = createPerson(10000);
+        final int listPerson = 10000;
+        final int sizeThread = 6;
+        List<Person> persons = createPerson(listPerson);
 
         ExecutorService executor = Executors.newFixedThreadPool(sizeThread);
         int batchSize = persons.size() / sizeThread;
@@ -25,6 +26,7 @@ public class Main {
                 System.out.println("Все задачи завершены");
             } else {
                 System.out.println("Задача прервана");
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -34,7 +36,7 @@ public class Main {
     public static List<Person> createPerson(int size) {
         List<Person> addPerson = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            addPerson.add(new Person("Name" + i, "Surnsme"
+            addPerson.add(new Person("Name" + i, "Surname"
                     + i, 25 + (i % 50), "Workplace" + i));
         }
         return addPerson;

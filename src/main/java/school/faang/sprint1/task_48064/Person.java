@@ -1,7 +1,9 @@
 package school.faang.sprint1.task_48064;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
 public class Person {
     private final String name;
@@ -9,10 +11,5 @@ public class Person {
     private final int age;
     private final String workplace;
 
-    public Person(String name, String surname, int age, String workplace) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.workplace = workplace;
-    }
+
 }
