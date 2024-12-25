@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    private static final Integer MAX_LIVES = 5;
-    private Integer score;
-    private Integer lives;
+    private static final int MAX_LIVES = 5;
+    private int score;
+    private int lives;
     private final Object scoreLock;
     private final Object livesLock;
 
@@ -17,16 +17,16 @@ public class Game {
         this.livesLock = new Object();
     }
 
-    public void update(boolean isAddScore, boolean isLostLive) {
+    public void update(boolean isPointsEarned, boolean isLifeLost) {
         synchronized (scoreLock) {
-            if (isAddScore) {
+            if (isPointsEarned) {
                 score++;
                 log.info("Добавили 1 очко в счет...");
             }
         }
 
         synchronized (livesLock) {
-            if (isLostLive) {
+            if (isLifeLost) {
                 if (lives > 0) {
                     lives--;
                     log.info("Потеряли 1 очко жизни...");
