@@ -16,15 +16,15 @@ public class House {
         currentNumberOfAvailableRoles = roles.size();
     }
 
-    public synchronized Roles addRole() {
+    public Roles addRole() {
         if (currentNumberOfAvailableRoles == 0) {
-            log.info("No roles available!");
+            throw new IllegalArgumentException("No roles available!");
         }
         currentNumberOfAvailableRoles--;
         return availableRoles.get(currentNumberOfAvailableRoles - 1);
     }
 
-    public synchronized void removeRole() {
+    public void removeRole() {
         currentNumberOfAvailableRoles++;
         notifyAll();
     }
