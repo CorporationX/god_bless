@@ -18,6 +18,7 @@ public class Boss {
             try {
                 wait();
             } catch (InterruptedException e) {
+                log.error(e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }
@@ -28,6 +29,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         log.info("{} завершил сражение", player.getName());
-        notify();
+        notifyAll();
     }
 }

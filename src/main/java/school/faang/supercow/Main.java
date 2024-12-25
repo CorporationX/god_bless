@@ -1,47 +1,34 @@
 package school.faang.supercow;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Boss boss = new Boss(2);
+        List<Player> players = List.of(
+                new Player("Simon"),
+                new Player("Dimon"),
+                new Player("Limon"),
+                new Player("Bimon")
+        );
 
-        Player player1 = new Player("Simon");
-        Thread thread1 = new Thread(() -> {
-            try {
-                player1.startBattle(boss);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread1.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(players.size());
 
-        Player player2 = new Player("Dimon");
-        Thread thread2 = new Thread(() -> {
-            try {
-                player2.startBattle(boss);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread2.start();
-
-        Player player3 = new Player("Limon");
-        Thread thread3 = new Thread(() -> {
-            try {
-                player3.startBattle(boss);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread3.start();
-
-        Player player4 = new Player("Bimon");
-        Thread thread4 = new Thread(() -> {
-            try {
-                player4.startBattle(boss);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread4.start();
+        for (Player player : players) {
+            executorService.submit(() -> {
+                try {
+                    player.startBattle(boss);
+                } catch (InterruptedException e) {
+                    log.error(e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
+            });
+        }
+        executorService.shutdown();
     }
 }

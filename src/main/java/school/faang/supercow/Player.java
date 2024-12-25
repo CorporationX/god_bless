@@ -6,11 +6,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Player {
+    public static final int BATTLE_DURATION_MS = 3000;
+
     private final String name;
 
-    public synchronized void startBattle(Boss boss) throws InterruptedException {
+    public void startBattle(Boss boss) throws InterruptedException {
         boss.joinBattle(this);
-        Thread.sleep(3000);
+        Thread.sleep(BATTLE_DURATION_MS);
         boss.leaveBattle(this);
     }
 }
