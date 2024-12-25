@@ -31,17 +31,17 @@ public class House {
                 .toList();
 
         Random random = new Random();
-        Room room1 = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
-        Room room2;
+        Room firstRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
+        Room secondRoom;
 
         do {
-            room2 = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
-        } while (room1 == room2);
+            secondRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
+        } while (firstRoom == secondRoom);
 
-        System.out.println(Thread.currentThread().getName() + " собирает еду из " + room1.getName()
-                + " и " + room2.getName());
-        collectedFood.addAll(room1.removeAllFood());
-        collectedFood.addAll(room2.removeAllFood());
+        System.out.println(Thread.currentThread().getName() + " собирает еду из " + firstRoom.getName()
+                + " и " + secondRoom.getName());
+        collectedFood.addAll(firstRoom.removeAllFood());
+        collectedFood.addAll(secondRoom.removeAllFood());
     }
 
     public void initialize() {
