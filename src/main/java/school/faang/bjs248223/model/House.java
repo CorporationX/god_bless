@@ -23,13 +23,13 @@ public class House {
     }
 
     public void collectFood() {
-        System.out.println("Log: collectFood is started");
-        Room[] selectedRooms = roomService.get2RandomRooms();
+        System.out.println("Log: " + Thread.currentThread().getStackTrace()[1].getMethodName() + " is started");
+        Room[] selectedRooms = roomService.get2Rooms();
         for (Room selectedRoom : selectedRooms) {
             List<Food> foods = selectedRoom.foods();
-            foods.clear();
             collectedFood.addAll(foods);
-            System.out.println("Log: collectedFood " + foods);
+            System.out.println("Log: collectedFood: " + foods);
+            foods.clear();
         }
     }
 }

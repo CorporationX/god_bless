@@ -16,6 +16,13 @@ public class Main {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
         executorService.scheduleAtFixedRate(house::collectFood, 0, 1, TimeUnit.NANOSECONDS);
+        try {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                executorService.shutdown();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static List<Room> getTestList() {
