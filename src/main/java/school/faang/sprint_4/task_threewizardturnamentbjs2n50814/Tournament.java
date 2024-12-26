@@ -2,6 +2,7 @@ package school.faang.sprint_4.task_threewizardturnamentbjs2n50814;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -18,11 +19,11 @@ public class Tournament {
         log.info("startTask for {}", school.getName());
         int randomStudent = (int) (Math.random() * school.getTeam().size());
         school.getTeam().get(randomStudent)
-                        .addPoints(task.getReward());
+                .addPoints(task.getReward());
         try {
             Thread.sleep((long) DEFAULT_DELAY * task.getDifficulty());
         } catch (InterruptedException e) {
-           log.error(e.getMessage());
+            log.error(e.getMessage());
         }
         return school;
     }
