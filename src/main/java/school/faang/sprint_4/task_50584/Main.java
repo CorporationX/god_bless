@@ -19,7 +19,7 @@ public class Main {
         List<Future<Superhero>> winnersFutures = superheroBattle.runCompetitions(superheroPairs);
 
         while (winnersFutures.size() > 1) {
-            List<Superhero> previousStageWinners = printWinners(winnersFutures);
+            List<Superhero> previousStageWinners = getWinnersFromFuturesAndPrint(winnersFutures);
             List<Pair<Superhero, Superhero>> pairsToNextStep = generatePairsToNextStep(previousStageWinners);
             winnersFutures = superheroBattle.runCompetitions(pairsToNextStep);
         }
@@ -40,7 +40,7 @@ public class Main {
         return pairs;
     }
 
-    private static List<Superhero> printWinners(List<Future<Superhero>> winnersFutures) {
+    private static List<Superhero> getWinnersFromFuturesAndPrint(List<Future<Superhero>> winnersFutures) {
         List<Superhero> winners = new ArrayList<>();
         for (int i = 0; i < winnersFutures.size(); i++) {
             try {
@@ -61,8 +61,6 @@ public class Main {
         Superhero captainAmerica = new Superhero("Captain America", 8, 8);
         Superhero thor = new Superhero("Thor", 10, 7);
         Superhero hulk = new Superhero("Hulk", 10, 4);
-        Superhero batman = new Superhero("Batman", 10, 3);
-        Superhero billy = new Superhero("Billy", 10, 2);
 
         return Arrays.asList(
                 new Pair<>(ironMan, captainAmerica),
