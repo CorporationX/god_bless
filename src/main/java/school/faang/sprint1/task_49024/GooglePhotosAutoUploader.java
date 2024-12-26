@@ -6,6 +6,7 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpLoad = new ArrayList<>();
+    private final int delay = 2000;
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
@@ -18,16 +19,18 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             while (photosToUpLoad.isEmpty()) {
                 try {
+                    Thread.sleep(delay);
                     lock.wait();
                 } catch (InterruptedException e) {
-                    System.out.println("Что-то пошло не так");
+                    e.printStackTrace();
                 }
+                break;
             }
             uploadPhotos();
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         for (String photo : photosToUpLoad) {
             System.out.println("Загрузка фото " + photo);
         }

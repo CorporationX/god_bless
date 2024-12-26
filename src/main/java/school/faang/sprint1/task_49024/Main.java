@@ -5,10 +5,16 @@ public class Main {
 
         GooglePhotosAutoUploader loader = new GooglePhotosAutoUploader();
 
-        Thread autoUpLoad = new Thread(loader::startAutoUpload);
+        Thread autoUpLoad = new Thread(() -> {
+            while (true) {
+                loader.startAutoUpload();
+            }
+        });
         Thread addPhoto = new Thread(() -> {
-            loader.onNewPhotoAdded("photo1");
-            loader.onNewPhotoAdded("photo2");
+            for (int i = 0; i < 10000; i++) {
+                loader.onNewPhotoAdded("photo" + i);
+            }
+
         });
 
         autoUpLoad.start();
