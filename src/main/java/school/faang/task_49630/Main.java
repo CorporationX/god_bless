@@ -1,6 +1,6 @@
 package school.faang.task_49630;
 
-public class SupercowGame {
+public class Main {
     public static void main(String[] args) {
         Boss boss = new Boss(2);
 
@@ -9,7 +9,7 @@ public class SupercowGame {
         Player player3 = new Player("Player 3");
         Player player4 = new Player("Player 4");
 
-        Thread thread1 = new Thread(() -> {
+        final Thread thread1 = new Thread(() -> {
             try {
                 player1.startBattle(boss);
             } catch (InterruptedException e) {
