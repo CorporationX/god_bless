@@ -17,6 +17,7 @@ public class Player {
             Thread.sleep(BATTLE_TIME_IN_SECONDS);
             boss.leaveFromBattle(this);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error("Поток был прерван во время выполнения метода sleep()", e);
         }
     }
