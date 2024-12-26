@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    public static final long TEST_TIME = 10_000;
     public static void main(String[] args) {
         Random random = new Random();
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
@@ -19,12 +20,20 @@ public class Main {
             try {
                 uploader.startAutoUpload();
             } catch (InterruptedException e) {
-                log.error("Error  while autouploading {}", e.getMessage());
+                log.info("Was interrupted while autouploading {}", e.getMessage());
             }
         });
 
         try {
-            if (!executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+            Thread.sleep(TEST_TIME);
+        } catch (InterruptedException e) {
+            log.error("Error while testing within test time");
+        }
+        log.info("Test time expired, shutting down");
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(TEST_TIME, TimeUnit.MILLISECONDS)) {
+                log.info("Shutting now");
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
