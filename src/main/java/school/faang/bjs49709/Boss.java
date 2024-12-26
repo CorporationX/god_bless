@@ -12,20 +12,18 @@ public class Boss {
         currentPlayers = 0;
     }
 
-    public void joinBattle(Player player) throws InterruptedException {
+    public synchronized void joinBattle(Player player) throws InterruptedException {
         while (currentPlayers >= maxPlayers) {
-            synchronized (this) {
-                wait();
-                log.info("Player {} send to wait because limit reache", player.name());
-            }
+            log.info("Player {} send to wait because limit reached", player.name());
+            wait();
         }
-        synchronized (this) {
-            currentPlayers++;
-        }
+        log.info("{} entered boss {}", player.name(), this);
+        currentPlayers++;
     }
 
     public synchronized void exitBattle(Player player) {
         currentPlayers--;
+        log.info("{} exited boss {}", player.name(), this);
         notify();
     }
 }
