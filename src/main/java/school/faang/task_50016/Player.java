@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Player {
-    private final static int XP_LEVELUP = 500;
+    private static final int XP_LEVELUP = 500;
 
     private String name;
     private int level;
