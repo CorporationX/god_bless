@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -17,7 +18,7 @@ public class MasterCardService {
         log.info("Process payment started...");
         Thread.sleep(TEN_SECONDS);
         log.info("Process payment ended!");
-        return 10_000;
+        return TEN_SECONDS;
     }
 
     @SneakyThrows
@@ -25,12 +26,12 @@ public class MasterCardService {
         log.info("Send analytics started...");
         Thread.sleep(ONE_SECOND);
         log.info("Send analytics ended");
-        return 1_000;
+        return ONE_SECOND;
     }
 
     @SneakyThrows
     public void doAll() {
-        var executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> future = executorService.submit(this::collectPayment);
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
         int analytics = completableFuture.get();
