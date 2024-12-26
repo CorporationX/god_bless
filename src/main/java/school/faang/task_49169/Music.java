@@ -7,20 +7,19 @@ public class Music {
     public static void main(String[] args) {
         Player player = new Player();
 
-        try (ExecutorService executor = Executors.newFixedThreadPool(4)) {
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        try {
+            executor.execute(() -> safeExecute(player::play));
+            executor.execute(() -> safeExecute(player::pause));
+            executor.execute(() -> safeExecute(player::skip));
+            executor.execute(() -> safeExecute(player::previous));
 
-        executor.execute(() -> safeExecute(player::play));
-        executor.execute(() -> safeExecute(player::pause));
-        executor.execute(() -> safeExecute(player::skip));
-        executor.execute(() -> safeExecute(player::previous));
-
-        executor.execute(() -> safeExecute(player::play));
-        executor.execute(() -> safeExecute(player::pause));
-
-            executor.shutdown();
-
-        } catch (Exception e) { // Обработка возможных ошибок
+            executor.execute(() -> safeExecute(player::play));
+            executor.execute(() -> safeExecute(player::pause));
+        } catch (Exception e) {
             System.out.println("Error while working with threads: " + e.getMessage());
+        } finally {
+            executor.shutdown();
         }
     }
 
