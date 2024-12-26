@@ -17,6 +17,8 @@ public class Music {
         executor.execute(() -> safeExecute(player::play));
         executor.execute(() -> safeExecute(player::pause));
 
+            executor.shutdown();
+
         } catch (Exception e) { // Обработка возможных ошибок
             System.out.println("Error while working with threads: " + e.getMessage());
         }
