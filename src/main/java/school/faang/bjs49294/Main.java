@@ -22,8 +22,8 @@ public class Main {
             String video = "Video " + RANDOM.nextInt(100, 999);
             for (int j = 0; j < THREAD_NUMBER / VIDEOS_NUMBER; j++) {
                 executorService.submit(() -> {
-                   videoManager.addView(video);
-                   var views = videoManager.viewCount(video);
+                    videoManager.addView(video);
+                    var views = videoManager.viewCount(video);
                     views.ifPresent((num) -> System.out.println(video + ": " + num));
                 });
             }
@@ -31,7 +31,7 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(10,TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
