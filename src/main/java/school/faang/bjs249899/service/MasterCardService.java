@@ -1,27 +1,33 @@
 package school.faang.bjs249899.service;
 
+import lombok.extern.slf4j.Slf4j;
+import school.faang.bjs249899.util.Constants;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+@Slf4j
 public class MasterCardService implements Runnable {
     public String collectPayment() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(Constants.SLEEP_TIME);
             return "Payment was successfully collected " + this;
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage(), e);
+            return null;
         }
     }
 
     public String sendAnalytics() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(Constants.SLEEP_TIME);
             return "Analytics was sent " + this;
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage(), e);
+            return null;
         }
     }
 
@@ -35,7 +41,7 @@ public class MasterCardService implements Runnable {
         try {
             System.out.println(paymentResult.get());
         } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage(), e);
         } finally {
             threadPool.shutdown();
         }
