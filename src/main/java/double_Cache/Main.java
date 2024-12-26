@@ -8,7 +8,7 @@ import java.util.Map;
 public class Main {
     private static Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
     private static Map<Subject, List<Student>> studentsStudyingSubject = new HashMap<>();
-    private static final StudentDatabase studentDatabase = new StudentDatabase();
+    private static final StudentDatabase studentDatabase = new StudentDatabase(new Validator());
 
     public static void main(String[] args) {
         Student Petr = new Student("Petr");
@@ -29,6 +29,7 @@ public class Main {
         System.out.println(studentGrades);
         System.out.println(studentGrades);
 
+        studentDatabase.addAssessmentsStudents(Petr, physics, 4, studentGrades);
         studentDatabase.printAllAssessmentsStudents(studentGrades);
 
         //Обработка методов для StudentsStudyingSubject

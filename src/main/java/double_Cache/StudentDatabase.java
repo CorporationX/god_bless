@@ -1,14 +1,19 @@
 package double_Cache;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
+@RequiredArgsConstructor
 public class StudentDatabase {
-    public static final Validator validator = new Validator();
+    private final Validator validator;
 
-    public void AddAssessmentsStudents(Student student, Subject subject, Integer grade, Map<Student, Map<Subject, Integer>> studentMapMap) {
+    public void addAssessmentsStudents(Student student, Subject subject, Integer grade, Map<Student, Map<Subject, Integer>> studentMapMap) {
         validator.checkGrade(grade);
         studentMapMap.compute(student, (key, value) -> {
             if (value == null) value = new HashMap<>();
@@ -21,7 +26,7 @@ public class StudentDatabase {
 
     public void removeStudent(Student student, Map<Student, Map<Subject, Integer>> studentMapMap) {
         validator.checkStudentIsBlank(student);
-        validator.checkMapIsEmptry(studentMapMap);
+        validator.checkMapIsEmpty(studentMapMap);
 
         studentMapMap.remove(student);
 
@@ -30,7 +35,7 @@ public class StudentDatabase {
     }
 
     public void printAllAssessmentsStudents(Map<Student, Map<Subject, Integer>> studentMapMap) {
-        validator.checkMapIsEmptry(studentMapMap);
+        validator.checkMapIsEmpty(studentMapMap);
 
         studentMapMap.forEach((key, value) -> {
             System.out.println("Студент: " + key.getName());
@@ -47,13 +52,13 @@ public class StudentDatabase {
             value.add(student);
             return value;
         });
-        validator.CheckAddMapSubject(subject, student, subjectListMap);
+        validator.checkAddMapSubject(subject, student, subjectListMap);
         System.out.println("Студент добавлен!");
     }
 
     public void addSubjectWithListStudents(Subject subject, List<Student> studentList, Map<Subject, List<Student>> subjectListMap) {
         validator.checkSubjectNameIsBlank(subject);
-        validator.checkListSudentsIsEmpty(studentList);
+        validator.checkListStudentsIsEmpty(studentList);
         int sizeBefore = subjectListMap.getOrDefault(subject, List.of()).size();
         subjectListMap.compute(subject, (key, value) -> {
             if (value == null) {

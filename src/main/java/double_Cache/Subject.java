@@ -2,11 +2,13 @@ package double_Cache;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@Component
 public class Subject {
     private static Integer idCounter = 0;
     private Integer id;

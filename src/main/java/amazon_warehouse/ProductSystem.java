@@ -1,10 +1,13 @@
 package amazon_warehouse;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class ProductSystem {
 
     public void addItem(String category, String name, Set<Product> products) {
@@ -23,14 +26,15 @@ public class ProductSystem {
 
     public void removeItem(String category, String name, Set<Product> products) {
         validateIsBlank(category, name);
-        Product product = new Product(name,category);
-        if (!products.contains(product)) {
+        Product product = new Product(name, category);
+        if (products.contains(product)) {
             throw new IllegalStateException("Невозможно удалить товар: такого товара не существует!");
         }
         products.remove(product);
         if (products.contains(product)) {
             throw new IllegalStateException("Товар не удален из каталога!");
         }
+        System.out.println("Товар удален из списка");
     }
 
     public void findItemsByCategory(String category, Set<Product> products) {

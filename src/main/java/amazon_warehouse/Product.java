@@ -2,11 +2,13 @@ package amazon_warehouse;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@Component
 public class Product {
     private static int idCounter = 0;
     private Integer id;
@@ -39,8 +41,9 @@ public class Product {
                 ", category='" + category + '\'' +
                 '}';
     }
-    public String validatorValue(String value){
-        if(value.isBlank()){
+
+    public String validatorValue(String value) {
+        if (value.isBlank()) {
             throw new IllegalArgumentException("поле не может быть пустым!");
         }
         return value.toLowerCase();

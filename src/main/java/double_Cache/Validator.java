@@ -1,8 +1,14 @@
 package double_Cache;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 import java.util.Map;
 
+@Component
+@RequiredArgsConstructor
 public class Validator {
 
     public void checkGrade(Integer grade) {
@@ -18,12 +24,12 @@ public class Validator {
     }
 
     public void checkStudentIsBlank(Student student) {
-        if (student.getName().isBlank()) {
+        if (!StringUtils.hasText(student.getName())) {
             throw new IllegalArgumentException("У студенто должно быть имя!");
         }
     }
 
-    public void checkMapIsEmptry(Map<Student, Map<Subject, Integer>> studentMapMap) {
+    public void checkMapIsEmpty(Map<Student, Map<Subject, Integer>> studentMapMap) {
         if (studentMapMap.isEmpty()) {
             throw new IllegalStateException("Нельзя удалить из пустого списка!");
         }
@@ -35,20 +41,20 @@ public class Validator {
         }
     }
 
-    public void CheckAddMapSubject(Subject subject, Student student, Map<Subject, List<Student>> subjectListMap) {
-        if (subjectListMap.get(subject).contains(student)) {
+    public void checkAddMapSubject(Subject subject, Student student, Map<Subject, List<Student>> subjectListMap) {
+        if (!subjectListMap.get(subject).contains(student)) {
             throw new IllegalStateException("Ошибка: список студентов не добавился!");
         }
     }
 
-    public void checkListSudentsIsEmpty(List<Student> studentList) {
+    public void checkListStudentsIsEmpty(List<Student> studentList) {
         if (studentList.isEmpty()) {
             throw new IllegalArgumentException("Список не должен быть пустым!");
         }
     }
 
     public void checkSubjectNameIsBlank(Subject subject) {
-        if (subject.getName().isBlank()) {
+        if (!StringUtils.hasText(subject.getName())) {
             throw new IllegalArgumentException("У предмета должно быть название!");
         }
     }
@@ -66,7 +72,7 @@ public class Validator {
     }
 
     public void checkMapKeySubject(Subject subject, Map<Subject, List<Student>> subjectListMap) {
-        if (subjectListMap.containsKey(subject)) {
+        if (!subjectListMap.containsKey(subject)) {
             throw new IllegalArgumentException("Такого предмета нет в списке!");
         }
     }
