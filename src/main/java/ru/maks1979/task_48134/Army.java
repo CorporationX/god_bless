@@ -18,8 +18,6 @@ public class Army {
 
     public int calculateTotalPower() {
         AtomicInteger total1 = new AtomicInteger();
-        AtomicInteger total2 = new AtomicInteger();
-        AtomicInteger total3 = new AtomicInteger();
         Thread archerThread = new Thread(() -> total1.set(listOfFighters.stream()
                 .filter(arch -> arch instanceof Archer)
                 .mapToInt(arch -> ((Archer) arch).getPower()).sum()));
@@ -29,6 +27,7 @@ public class Army {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        AtomicInteger total2 = new AtomicInteger();
         Thread mageThread = new Thread(() -> total2.set(listOfFighters.stream()
                 .filter(mag -> mag instanceof Mage)
                 .mapToInt(mag -> ((Mage) mag).getPower()).sum()));
@@ -38,6 +37,7 @@ public class Army {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        AtomicInteger total3 = new AtomicInteger();
         Thread swordsmanThread = new Thread(() -> total3.set(listOfFighters.stream()
                 .filter(swman -> swman instanceof Swordsman)
                 .mapToInt(swman -> ((Swordsman) swman).getPower()).sum()));
