@@ -3,6 +3,7 @@ package school.faang.sprint_4.task_50698;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -14,33 +15,35 @@ public class Player {
     public static void main(String[] args) {
         CompletableFuture<Item> firstItemFuture = CompletableFuture
                 .supplyAsync(() -> collectItem("Collect item from chest",
-                CHEST_COLLECTING_TIME,
-                "Sword",
-                15));
+                        CHEST_COLLECTING_TIME,
+                        "Sword",
+                        15)
+                        .orElseThrow(IllegalArgumentException::new));
         CompletableFuture<Item> secondItemFuture = CompletableFuture
                 .supplyAsync(() -> collectItem("Collect item from chest",
                         SHOP_COLLECTING_TIME,
                         "Fireball",
-                        25));
+                        25)
+                        .orElseThrow(IllegalArgumentException::new));
         firstItemFuture.thenCombine(secondItemFuture,
-                inventory::combineItems)
+                        inventory::combineItems)
                 .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)));
 
-        System.out.println(inventory);
+        log.info("Inventory from player is: {}", inventory);
     }
 
-    public static Item collectItem(@NonNull String collectionMessage,
-                            int collectionTime,
-                            @NonNull String itemName,
-                            int itemPower) {
+    public static Optional<Item> collectItem(@NonNull String collectionMessage,
+                                             int collectionTime,
+                                             @NonNull String itemName,
+                                             int itemPower) {
         try {
             Thread.sleep(collectionTime);
             log.info(collectionMessage);
-            return new Item(itemName, itemPower);
+            return Optional.of(new Item(itemName, itemPower));
         } catch (InterruptedException e) {
             log.info("Collecting interrupted");
             Thread.currentThread().interrupt();
-            return null;
+            return Optional.empty();
         }
     }
 }
