@@ -22,7 +22,7 @@ public class Tournament {
         try {
             Thread.sleep((long) DEFAULT_DELAY * task.getDifficulty());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+           log.error(e.getMessage());
         }
         return school;
     }
