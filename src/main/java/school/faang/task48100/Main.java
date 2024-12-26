@@ -33,29 +33,22 @@ public class Main {
 
         for (int i = 0; i < numThreads; i++) {
             List<Person> currentPartition = people.get(i);
-            executor.submit(new PersonInfoPrinter(currentPartition));
+            currentPartition.forEach(personList -> executor.submit(new PersonInfoPrinter(personList)));
         }
 
-//        int batchSize = persons.size() / numThreads;
-//        for (int i = 0; i < numThreads; i++) {
-//            int start = i * batchSize;
-//            int end = (i == numThreads - 1) ? persons.size() : (i + 1) * batchSize;
-//
-//            List<Person> batch = persons.subList(start, end);
-        //   batch.forEach(personList -> executor.submit(new PersonInfoPrinter(personList)));
-//
-//        }
         executor.shutdown();
 
         try {
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (executor.awaitTermination(3, TimeUnit.MINUTES)) {
                 log.info("Work is done .");
+                executor.shutdownNow();
             } else {
                 log.info("Work is not done!");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            executor.shutdownNow();
         }
 
     }
