@@ -13,11 +13,13 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Поток " + Thread.currentThread().getName() + " прервался");
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
             uploadPhotos();
