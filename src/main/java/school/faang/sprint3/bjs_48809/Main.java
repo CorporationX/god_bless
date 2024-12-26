@@ -9,12 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) {
-        List<String> rolesList = List.of("Lord", "Wizard", "Knight");
-        int threadAmount = 5;
-        int timeOut = 1;
-        int timeToLeave = 200;
+    private static final int NUM_THREADS = 5;
+    private static final int TIME_OUT = 10;
+    private static final int TIME_TO_LEAVE = 100;
 
+    public static void main(String[] args) {
+        List<Role> rolesList = List.of(Role.LORD, Role.KNIGHT, Role.MAGICIAN);
         List<User> users = List.of(
                 new User("User1"),
                 new User("User2"),
@@ -24,12 +24,12 @@ public class Main {
 
         House house = new House(rolesList);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(threadAmount);
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         users.forEach(user -> executorService.execute(() -> {
             try {
                 user.joinHouse(house);
-                Thread.sleep(timeToLeave);
-                user.leaveHouse(house);
+                Thread.sleep(TIME_TO_LEAVE);
+                user.leaveHouse();
             } catch (InterruptedException e) {
                 log.error("Unexpected error");
             }
@@ -37,7 +37,7 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(timeOut, TimeUnit.MINUTES)) {
+            if (!executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
                 log.warn("Not all threads stopped by themselves");
             }
         } catch (InterruptedException e) {
