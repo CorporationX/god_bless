@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int TIMEOUT = 5;
     private final String[] chores;
     ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -21,7 +22,7 @@ public class WeasleyFamily {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
                 System.out.println("Не все задачи завершены в указанный период времени.");
             }
         } catch (InterruptedException e) {
