@@ -1,34 +1,34 @@
 package school.faang.task_48912;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 public class MainLoader {
+
     public static void main(String[] args) {
         GooglePhotosAutoUploader loader = new GooglePhotosAutoUploader();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.submit(loader::startAutoUpload);
-        executorService.submit(() -> {
-            loader.onNewPhotoAdded("photo4.jpg");
-            loader.onNewPhotoAdded("photo5.jpg");
-            loader.onNewPhotoAdded("photo1.jpg");
-            loader.onNewPhotoAdded("photo2.jpg");
+        Thread loadPhoto = new Thread(() -> {
+            while (true) {
+                loader.startAutoUpload();
+            }
         });
 
-        executorService.shutdown();
-
-        try {
-            if (!executorService.awaitTermination(7, TimeUnit.SECONDS)) {
-                System.out.println("beginning shutdown...");
-                executorService.shutdownNow();
+        Thread addPhoto = new Thread(() -> {
+            loader.onNewPhotoAdded("photo1");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted");
-            executorService.shutdownNow();
-        }
+            loader.onNewPhotoAdded("photo2");
+            loader.onNewPhotoAdded("photo3");
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
 
-        System.out.println("All photos uploaded");
+        loadPhoto.setDaemon(true);
+        loadPhoto.start();
+        addPhoto.start();
     }
 }

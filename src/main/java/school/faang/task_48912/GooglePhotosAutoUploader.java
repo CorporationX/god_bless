@@ -1,22 +1,20 @@
 package school.faang.task_48912;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GooglePhotosAutoUploader {
-    private volatile boolean isEnded;
     private final Object lock = new Object();
-    private final List<String> photosToUpload = new CopyOnWriteArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (!isEnded) {
-                if (photosToUpload.isEmpty()) {
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+            while (photosToUpload.isEmpty()) {
+                try {
+                    System.out.println("waiting.." + Thread.currentThread().getName());
+                    lock.wait(900);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
             uploadPhotos();
@@ -26,21 +24,19 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            isEnded = true;
             lock.notify();
-            startAutoUpload();
         }
     }
 
-    public void uploadPhotos() {
-        for (String photo : photosToUpload) {
-            System.out.println("uploading photo " + photo);
+    private void uploadPhotos() {
+        photosToUpload.forEach(photo -> {
+            System.out.println("uploading photo: " + photo + " " + Thread.currentThread().getName());
             try {
-                Thread.sleep(1000);
+                Thread.sleep(900);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
             }
-        }
+        });
         photosToUpload.clear();
     }
 }
