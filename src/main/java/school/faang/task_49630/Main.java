@@ -9,7 +9,7 @@ public class Main {
         Player player3 = new Player("Player 3");
         Player player4 = new Player("Player 4");
 
-        final Thread thread1 = new Thread(() -> {
+        Thread thread1 = new Thread(() -> {
             try {
                 player1.startBattle(boss);
             } catch (InterruptedException e) {
