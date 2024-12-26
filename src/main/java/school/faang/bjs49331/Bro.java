@@ -2,18 +2,16 @@ package school.faang.bjs49331;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @EqualsAndHashCode
+@Slf4j
 public class Bro {
     public static final Random RANDOM = new Random();
     public static final int INIT_LIVES = 2;
-    private static final Logger log = LoggerFactory.getLogger(Bro.class);
 
     @Getter
     private final String name;

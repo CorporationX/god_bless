@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Game game = initRandomGame();
         final int numberOfPlayers = game.getTotalPlayers();
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfPlayers / 2);
 
         for (int i = 0; i < numberOfPlayers; i++) {
             int leftBros = game.getPlayersLeft();
@@ -29,12 +29,14 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("While waiting to shutdown {}", e.getMessage());
+            executorService.shutdownNow();
         }
+
         System.out.println("Total score: " + game.getScore() + ". Total deaths: " + game.getLives());
     }
 
