@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class King {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Knight knight1 = new Knight("Джеймс  ");
         Knight knight2 = new Knight("Лорес   ");
 
@@ -22,6 +22,13 @@ public class King {
         knight2.startTrails(executorService);
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        try {
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            executorService.shutdownNow();
+        }
     }
 }

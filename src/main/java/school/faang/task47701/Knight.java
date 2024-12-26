@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+
 @Getter
 public class Knight {
     private final String name;
-    private List<Trail> trails = new ArrayList<>();
+    private final List<Trail> trails = new ArrayList<>();
 
     public Knight(String name) {
         this.name = name;
@@ -17,13 +18,12 @@ public class Knight {
 
 
     public void addTrail(Trail trail) {
+
         trails.add(trail);
     }
 
     public void startTrails(ExecutorService executorService) {
-        for (Trail trail : trails) {
-            executorService.submit(trail);
-        }
+        trails.forEach(executorService::submit);
     }
 }
 

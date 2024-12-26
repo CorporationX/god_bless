@@ -1,13 +1,12 @@
 package school.faang.task47701;
 
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Trail implements Runnable {
     private final String knaightName;
     private final String trailName;
-
-    public Trail(String knaightName, String trailName) {
-        this.knaightName = knaightName;
-        this.trailName = trailName;
-    }
 
     @Override
     public void run() {
