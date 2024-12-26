@@ -31,7 +31,8 @@ public class MasterCardService {
     public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(() -> MasterCardService.collectPayment());
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(() -> MasterCardService.sendAnalytics());
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.
+                supplyAsync(() -> MasterCardService.sendAnalytics());
         executor.shutdown();
 
         Integer analyticsResult = analyticsFuture.join();
