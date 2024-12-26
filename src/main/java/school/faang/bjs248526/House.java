@@ -12,9 +12,10 @@ import java.util.stream.IntStream;
 public class House {
     private final List<Room> roomsList = Collections.synchronizedList(new ArrayList<>());
     private final List<Food> collectedFood = Collections.synchronizedList(new ArrayList<>());
+    Random random = new Random();
 
     public void initialize() {
-        Random random = new Random();
+
         roomsList.addAll(
                 IntStream.rangeClosed(1, random.nextInt(20) + 1)
                         .mapToObj(roomNo -> new Room("Room no: " + roomNo,
@@ -31,11 +32,11 @@ public class House {
 
     public void collectFood() {
         System.out.println("Collect food on thread: " + Thread.currentThread().getId());
-        Random random = new Random();
 
         synchronized (roomsList) {
             int count = (int) roomsList.stream()
-                    .filter(Room::hasFood).count();
+                    .filter(Room::hasFood)
+                    .count();
 
             for (int i = 0; i < (Math.min(count, Constants.ROOMS)); i++) {
                 int roomId = random.nextInt(count);
@@ -48,9 +49,9 @@ public class House {
                                 .findFirst()
                                 .orElseThrow(IllegalStateException::new);
 
-                        synchronized (collectedFood) {
-                            collectedFood.add(foodData);
-                        }                        System.out.println("Food collected : " + foodData);
+
+                        collectedFood.add(foodData);
+                        System.out.println("Food collected : " + foodData);
                         room.removeFood(foodData);
                         System.out.println("Food removed from " + room.getName());
                         if (!room.hasFood()) {

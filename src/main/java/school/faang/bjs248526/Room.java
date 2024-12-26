@@ -24,15 +24,11 @@ public class Room {
     }
 
     public boolean hasFood() {
-        synchronized (foodList) {
-            System.out.printf("%s hasFood check on thread %s\n", this.name, Thread.currentThread().getId());
-            return !foodList.isEmpty();
-        }
+        System.out.printf("%s hasFood check on thread %s\n", this.name, Thread.currentThread().getId());
+        return !foodList.isEmpty();
     }
 
     public void removeFood(Food food) {
-        synchronized (foodList) {
-            foodList.remove(food);
-        }
+        foodList.remove(food);
     }
 }
