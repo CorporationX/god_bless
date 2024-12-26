@@ -9,12 +9,14 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) {
-        if (currentPlayers == maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             try {
                 System.out.println(player.getName() + " ждёт очереди");
                 this.wait();
             } catch (InterruptedException e) {
                 System.out.println("Поток " + Thread.currentThread().getName() + " прервал работу");
+                Thread.currentThread().interrupt();
+                return;
             }
         }
         currentPlayers++;

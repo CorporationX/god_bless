@@ -9,6 +9,8 @@ public class Player {
     private static int count = 0;
     private final String name;
 
+    private final Random random = new Random();
+
     public Player() {
         name = "Player" + ++count;
     }
@@ -21,7 +23,7 @@ public class Player {
 
     private void fight() {
         try {
-            Thread.sleep(new Random().nextInt(1000, 8001));
+            Thread.sleep(random.nextInt(1000, 8001));
         } catch (InterruptedException e) {
             System.out.println("Поток " + Thread.currentThread().getName() + " прервал работу");
         }
