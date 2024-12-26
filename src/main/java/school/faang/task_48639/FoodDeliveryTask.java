@@ -12,6 +12,7 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
+    private static final int THREAD_SLEEP_TIME = 1000;
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
@@ -20,13 +21,12 @@ public class FoodDeliveryTask implements Runnable {
 
     @Override
     public void run() {
-        Random random = new Random();
         String randomFood = getFoodType();
         log.info("{} got {} {}", character, foodAmount, randomFood);
         try {
-            Thread.sleep(random.nextInt(1, 5) * 1000L);
+            Thread.sleep(THREAD_SLEEP_TIME);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.info("Unexpected interrupt: " + e);
         }
         log.info("{} eat {} {}", character, foodAmount, randomFood);
     }
