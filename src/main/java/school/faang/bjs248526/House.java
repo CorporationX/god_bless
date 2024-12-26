@@ -63,7 +63,6 @@ public class House {
                                 .findFirst()
                                 .orElseThrow(IllegalStateException::new);
 
-
                         collectedFood.add(foodData);
                         System.out.println("Food collected : " + foodData);
                         room.removeFood(foodData);
