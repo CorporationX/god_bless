@@ -16,19 +16,15 @@ public class WitcherService implements Runnable {
 
     @Override
     public void run() {
-        double distanceFromCastle = getDistance(city.location(), Constants.WITCHER_CASTLE);
+        double distanceFromCastle = Location.getDistance(city.location(), Constants.WITCHER_CASTLE);
         monsters.stream()
-                .min(Comparator.comparingDouble(monster -> getDistance(monster.location(), city.location())))
+                .min(Comparator.comparingDouble(monster -> Location.getDistance(monster.location(), city.location())))
                 .ifPresentOrElse(
                         monster -> System.out.println("Distance from castle:" + distanceFromCastle + " city: "
                                 + city.name() + " "
                                 + ", nearest monster: " + monster
                                 + ", summary distance: "
-                                + (distanceFromCastle + getDistance(monster.location(), city.location()))),
+                                + (distanceFromCastle + Location.getDistance(monster.location(), city.location()))),
                         () -> System.out.println(city + " don't have monsters."));
-    }
-
-    private double getDistance(Location l1, Location l2) {
-        return Math.abs(Math.sqrt(Math.pow((l2.x() - l1.x()), 2) + Math.pow((l2.y() - l1.y()), 2)));
     }
 }
