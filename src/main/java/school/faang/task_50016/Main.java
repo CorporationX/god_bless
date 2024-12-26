@@ -13,5 +13,7 @@ public class Main {
 
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
     }
 }
