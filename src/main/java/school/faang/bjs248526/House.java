@@ -32,6 +32,7 @@ public class House {
 
     public void collectFood() {
         System.out.println("Collect food on thread: " + Thread.currentThread().getId());
+        Room emptyRoom = null;
 
         synchronized (roomsList) {
             int count = (int) roomsList.stream()
@@ -54,17 +55,19 @@ public class House {
                         System.out.println("Food collected : " + foodData);
                         room.removeFood(foodData);
                         System.out.println("Food removed from " + room.getName());
-                        if (!room.hasFood()) {
-                            System.out.printf("%s has no food, removing it\n", room.getName());
-                            roomsList.remove(roomId);
-                            System.out.printf("%s has been removed!\n", room.getName());
-                        }
 
+                        if (!room.hasFood()) {
+                            emptyRoom = room;
+                        }
                     } catch (Exception e) {
                         System.out.println("Error!");
                         System.out.println(e.getMessage());
                     }
                 }
+            }
+
+            synchronized (roomsList) {
+                roomsList.remove(emptyRoom);
             }
         }
     }
