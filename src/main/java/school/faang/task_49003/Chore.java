@@ -1,6 +1,7 @@
 package school.faang.task_49003;
 
 public class Chore implements Runnable {
+    private static final int DELAY = 2000;
     private String chore;
 
     public Chore(String chore) {
@@ -12,7 +13,7 @@ public class Chore implements Runnable {
         try {
             String threadName = Thread.currentThread().getName();
             System.out.println("Thread '" + threadName + "' is executing a chore '" + chore + "'");
-            Thread.sleep(2000);
+            Thread.sleep(DELAY);
             System.out.println("Thread '" + threadName + "' executed a chore '" + chore + "'");
 
         } catch (InterruptedException e) {
