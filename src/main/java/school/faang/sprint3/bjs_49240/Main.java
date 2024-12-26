@@ -2,30 +2,52 @@ package school.faang.sprint3.bjs_49240;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int PLAYERS = 20;
+    private static final int GAME_SCORE = 0;
+    private static final int GAME_LIVES = 5;
+    private static final int TIME_OUT = 1;
+
     public static void main(String[] args) {
-        int gameLevels = 33;
-        int sleepTime = 500;
         Random random = new Random();
 
-        Game game = new Game();
-
-        while (gameLevels > 0) {
-            boolean getPoints = random.nextBoolean();
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < PLAYERS; i++) {
             boolean lostLife = random.nextBoolean();
+            boolean getPoints = random.nextBoolean();
+            players.add(new Player("Player name " + i, lostLife, getPoints));
+        }
 
+        Game game = new Game(GAME_SCORE, GAME_LIVES);
+        ExecutorService executor = Executors.newFixedThreadPool(PLAYERS);
+
+        players.forEach(player -> executor.execute(() -> {
             try {
-                log.info("Game level: {}", gameLevels);
-                game.update(getPoints, lostLife);
-                gameLevels--;
-                Thread.sleep(sleepTime);
-            } catch (RuntimeException | InterruptedException e) {
+                game.update(player);
+            } catch (GameOverException exc) {
+                executor.shutdownNow();
                 log.info("Game over");
-                gameLevels = 0;
             }
+        }));
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(TIME_OUT, TimeUnit.MINUTES)) {
+                log.warn("Not all threads stopped by themselves");
+            }
+        } catch (InterruptedException e) {
+            log.error("Thread forced to stopped");
+            Thread.currentThread().interrupt();
+        } finally {
+            executor.shutdownNow();
         }
     }
 }
