@@ -16,13 +16,11 @@ public class Main {
         marketingDepartment.setDepartmentAnalyze(designDepartment);
 
         CompletableFuture.allOf(CompletableFuture.supplyAsync(() -> {
-                            designDepartment.run();
-                            return designDepartment;
-                        }),
-                        CompletableFuture.supplyAsync(() -> {
-                            marketingDepartment.run();
-                            return marketingDepartment;
-                        }).thenAccept(Department::readFiles))
-                .join();
+            designDepartment.run();
+            return designDepartment;
+        }), CompletableFuture.supplyAsync(() -> {
+            marketingDepartment.run();
+            return marketingDepartment;
+        }).thenAccept(Department::readFiles)).join();
     }
 }
