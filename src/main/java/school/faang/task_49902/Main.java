@@ -17,7 +17,6 @@ public class Main {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
     }
 
