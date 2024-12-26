@@ -31,10 +31,15 @@ public class House {
     }
 
     public void collectFood() {
-        System.out.println("Collect food on thread: " + Thread.currentThread().getId());
         List<Room> emptyRooms = new ArrayList<>();
 
         synchronized (roomsList) {
+            if (roomsList.isEmpty()) {
+                System.out.println("No more rooms with food.");
+                return;
+            }
+
+            System.out.println("Collect food on thread: " + Thread.currentThread().getId());
             int count = (int) roomsList.stream()
                     .filter(Room::hasFood)
                     .count();
@@ -46,8 +51,14 @@ public class House {
 
                 synchronized (room) {
                     try {
-                        foodData = room.getFoodList().stream()
-                                .min((a, b) -> random.nextInt(3) - 1)
+                        if (!room.hasFood()) {
+                            System.out.println("Error! Got empty food list somehow");
+                        }
+
+                        List<Food> shuffledFood = new ArrayList<>(room.getFoodList());
+                        Collections.shuffle(shuffledFood);
+                        foodData = shuffledFood.stream()
+                                .findFirst()
                                 .orElseThrow(IllegalStateException::new);
 
 
@@ -60,8 +71,7 @@ public class House {
                             emptyRooms.add(room);
                         }
                     } catch (Exception e) {
-                        System.out.println("Error!");
-                        System.out.println(e.getMessage());
+                        System.out.println(e);
                     }
                 }
             }
