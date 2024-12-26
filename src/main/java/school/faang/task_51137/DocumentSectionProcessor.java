@@ -10,17 +10,15 @@ public class DocumentSectionProcessor implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 3; i++) {
-            String data = documentSection.read();
-            String newData = process(data);
-            documentSection.write(newData);
+        String data = documentSection.read();
+        String newData = process(data);
+        documentSection.write(newData);
 
-            try {
-                Thread.sleep((long) (Math.random() * 1000));
-            } catch (InterruptedException e) {
-                log.error("Ошибка выполения потока{}", e.getMessage());
-                Thread.currentThread().interrupt();
-            }
+        try {
+            Thread.sleep((long) (Math.random() * 1000));
+        } catch (InterruptedException e) {
+            log.error("Ошибка выполения потока{}", e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 
