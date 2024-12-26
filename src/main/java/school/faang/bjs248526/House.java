@@ -53,6 +53,8 @@ public class House {
                     try {
                         if (!room.hasFood()) {
                             System.out.println("Error! Got empty food list somehow");
+                            emptyRooms.add(room);
+                            continue;
                         }
 
                         List<Food> shuffledFood = new ArrayList<>(room.getFoodList());
