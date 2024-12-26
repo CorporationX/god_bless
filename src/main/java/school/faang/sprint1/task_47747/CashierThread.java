@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 
 
 public class CashierThread extends Thread  {
-    private int cashierId;
-    private int[] customerItems;
+    private final int cashierId;
+    private final int[] customerItems;
 
     public CashierThread(int cashierId, int[] customerItems) {
         this.cashierId = cashierId;

@@ -3,28 +3,33 @@ package school.faang.sprint1.task_47747;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int[][] customers = {
-                {10, 20, 30},
-                {50, 60},
-                {5, 15, 25, 35}
+                {5, 7, 3, 2},
+                {1, 2, 3},
+                {6, 5, 2},
+                {10, 2, 1, 3, 5}
         };
-        int numberOfCashiers = 3;
-        CashierThread[] cashiers = new CashierThread[numberOfCashiers];
+
+        int numCashiers = 3;
+
+        CashierThread[] cashiers = new CashierThread[customers.length];
+
         Random random = new Random();
+
         for (int i = 0; i < customers.length; i++) {
-            int cashierId = random.nextInt(numberOfCashiers);
-            cashiers[cashierId] = new CashierThread(cashierId, customers[i]);
-            cashiers[cashierId].start();
-        }
-        for (int i = 0; i < cashiers.length; i++) {
-            try {
-                cashiers[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            int cashierId = random.nextInt(numCashiers) + 1;
+            cashiers[i] = new CashierThread(cashierId, customers[i]);
         }
 
-        System.out.println("Все покупатели обслужены.");
+        for (CashierThread cashier : cashiers) {
+            cashier.start();
+        }
+
+        for (CashierThread cashier : cashiers) {
+            cashier.join();
+        }
+
+        System.out.println("Все кассиры завершили работу.");
     }
 }
