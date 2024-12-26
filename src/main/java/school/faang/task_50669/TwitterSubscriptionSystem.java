@@ -19,8 +19,9 @@ public class TwitterSubscriptionSystem {
                 .toArray(CompletableFuture[]::new);
 
         CompletableFuture.allOf(futuresArray)
-                .thenRun(() ->
-                        System.out.printf("У аккаунта: %s - %s подписчиков!%n", account.getUsername(), account.getFollowers().get()));
+                .thenRun(() -> System.out.printf("У аккаунта: %s - %s подписчиков!%n",
+                        account.getUsername(),
+                        account.getFollowers().get()));
     }
 
     public CompletableFuture<Void> followAccount(TwitterAccount account, ExecutorService executor) {
