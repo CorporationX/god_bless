@@ -1,6 +1,5 @@
 package school.faang.task_50060;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -15,6 +14,7 @@ public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public void processAllOrders(List<Order> orders) {
+        log.info("Processing all orders");
         CompletableFuture.allOf(
                         orders.stream()
                                 .map(this::processOrder)
@@ -22,7 +22,6 @@ public class OrderProcessor {
                 .join();
     }
 
-    @SneakyThrows
     public CompletableFuture<Order> processOrder(Order order) {
         log.info("Start processing order: {}", order.getId());
         return CompletableFuture.supplyAsync(() -> {
