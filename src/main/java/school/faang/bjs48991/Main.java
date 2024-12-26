@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     public static final long TEST_TIME = 10_000;
+
     public static void main(String[] args) {
         Random random = new Random();
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
