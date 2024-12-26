@@ -47,7 +47,7 @@ public class House {
                 synchronized (room) {
                     try {
                         foodData = room.getFoodList().stream()
-                                .findFirst()
+                                .min((a, b) -> random.nextInt(3) - 1)
                                 .orElseThrow(IllegalStateException::new);
 
 
