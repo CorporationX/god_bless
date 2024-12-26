@@ -23,7 +23,7 @@ public class VideoManager {
         }
     }
 
-    private static void validateVideoId(String videoId) {
+    private void validateVideoId(String videoId) {
         if (videoId.isBlank()) {
             throw new IllegalArgumentException("Video id is required");
         }

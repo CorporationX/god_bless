@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -27,8 +28,8 @@ public class Main {
         }
 
         executorService.shutdown();
-        while (!executorService.isShutdown()) {
-            Thread.sleep(TWO_SECONDS);
+        if (!executorService.awaitTermination(TWO_SECONDS, TimeUnit.MILLISECONDS)) {
+            executorService.shutdownNow();
         }
     }
 }
