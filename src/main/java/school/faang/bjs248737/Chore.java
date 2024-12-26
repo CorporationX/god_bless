@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Chore implements Runnable {
 
+    private static final int SLEEP_DURATION_MS = 1000;
     private String chore;
 
     public Chore(String chore) {
@@ -20,7 +21,7 @@ public class Chore implements Runnable {
         Thread thread = Thread.currentThread();
         try {
             log.info("Task '{}' started by Thread '{}' ", chore, thread.getName());
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_DURATION_MS);
             log.info("Task '{}' completed by Thread '{}' ", chore, thread.getName());
         } catch (InterruptedException e) {
             log.warn("Task '{}' was interrupted ", chore);
