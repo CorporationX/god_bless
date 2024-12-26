@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFood;
-    private static final int PERIOD = 30;
-    private static final int TIME = 30;
+    private static final int PERIOD = 2;
+    private static final int TIME = 2;
 
     public House() {
         this.rooms = new ArrayList<>();
@@ -25,32 +24,22 @@ public class House {
         rooms.add(room);
     }
 
-    public synchronized void collectFood() {
-
-        Room room1 = rooms.stream()
+    public synchronized void collectFood(int numberOfRooms) {
+        List<Room> selectedRooms = rooms.stream()
                 .filter(Room::hasFood)
-                .findAny()
-                .orElse(null);
+                .limit(numberOfRooms)
+                .toList();
 
-        Room room2 = rooms.stream()
-                .filter(r -> r.hasFood() && r != room1)
-                .findAny()
-                .orElse(null);
-
-        if (room1 == null || room2 == null) {
-            System.out.println("Все комнаты пусты!");
+        if (selectedRooms.size() < numberOfRooms) {
+            System.out.println("Недостаточно комнат с едой!");
             return;
         }
 
-        collectedFood.addAll(room1.getFoodList());
-        collectedFood.addAll(room2.getFoodList());
-
-        System.out.println("Собрали еду из комнат:");
-        System.out.println("Комната 1: " + room1.getFoodList());
-        System.out.println("Комната 2: " + room2.getFoodList());
-
-        room1.getFoodList().clear();
-        room2.getFoodList().clear();
+        selectedRooms.forEach(room -> {
+            collectedFood.addAll(room.getFoodList());
+            System.out.println("Собрали еду из комнаты: " + room.getFoodList());
+            room.getFoodList().clear();
+        });
     }
 
     public static void main(String[] args) {
@@ -65,11 +54,25 @@ public class House {
         }
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
-        Runnable task = house::collectFood;
+
+        Runnable task = () -> house.collectFood(3);
 
         executor.scheduleAtFixedRate(task, 0, PERIOD, TimeUnit.SECONDS);
+
         executor.schedule(() -> {
             executor.shutdown();
+            try {
+                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                    System.out.println("Принудительное завершение пула потоков...");
+                    executor.shutdownNow();
+                } else {
+                    System.out.println("Все потоки завершены");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Ожидание завершения потоков было прервано");
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
             System.out.println("Еда в доме собрана!");
             System.out.println("Собранная еда: " + house.collectedFood);
         }, TIME, TimeUnit.MINUTES);
