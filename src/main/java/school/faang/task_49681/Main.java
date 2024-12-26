@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -34,6 +35,13 @@ public class Main {
             player.finishBattle(boss);
         }
 
-        service.shutdownNow();
+        service.shutdown();
+        try {
+            if (!service.awaitTermination(DELAY, TimeUnit.MILLISECONDS)) {
+                service.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            service.shutdownNow();
+        }
     }
 }
