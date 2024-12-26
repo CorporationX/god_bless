@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 @Getter
 public class WeasleyFamily {
     private final ExecutorService executorService = Executors.newCachedThreadPool();
-    private final Chore[] chores = new Chore[] {new Chore("Помыть посуду"), new Chore("Подмести пол"),
+    private final Chore[] chores = new Chore[]{new Chore("Помыть посуду"), new Chore("Подмести пол"),
             new Chore("Приготовить ужин")};
 
     public void doChores() {
