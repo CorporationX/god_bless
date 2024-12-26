@@ -18,7 +18,7 @@ public class VideoManager implements VideoManagerInterface {
 
     @Override
     public int getViewCount(String videoId) {
-        return viewsMap.get(videoId).get();
+        return viewsMap.getOrDefault(videoId, new AtomicInteger(0)).get();
     }
 
     @Override
