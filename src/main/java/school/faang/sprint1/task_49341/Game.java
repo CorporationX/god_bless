@@ -11,14 +11,15 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean earnedPoints, boolean lostLife) {
-        synchronized (scoreLock) {
-            if (earnedPoints) {
+        if (earnedPoints) {
+            synchronized (scoreLock) {
                 score++;
                 System.out.println("Очки увеличены, текущий счёт: " + score);
             }
         }
-        synchronized (livesLock) {
-            if (lostLife) {
+
+        if (lostLife) {
+            synchronized (livesLock) {
                 lives--;
                 System.out.println("Жизни уменьшены, оставшиеся жизни: " + lives);
                 if (lives <= 0) {
@@ -28,7 +29,7 @@ public class Game {
         }
     }
 
-    public void gameOver() {
+    private void gameOver() {
         System.out.println("Персонаж погиб");
     }
 
