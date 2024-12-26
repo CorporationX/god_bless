@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int THREAD_POOL_SIZE = 5;
+    private static final int THREAD_POOL_SIZE = 30;
     private static final int COLLECT_INTERVAL_SECONDS = 5;
     private static final int WAIT_TIME_SECONDS = 120;
 
@@ -24,10 +24,11 @@ public class Main {
         log.info("ScheduledExecutorService created with {} threads.", THREAD_POOL_SIZE);
 
         scheduledExecutorService.scheduleAtFixedRate(
+
                 house::collectFood,
                 0,
                 COLLECT_INTERVAL_SECONDS,
-                TimeUnit.SECONDS
+                TimeUnit.MICROSECONDS
         );
 
         boolean allRoomsEmptied = false;

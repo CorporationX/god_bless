@@ -16,7 +16,7 @@ public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFoods;
     private final Random random;
-    private static final int NUMBER_OF_ROOMS = 6;
+    private static final int NUMBER_OF_ROOMS = 100;
     private final Set<Room> clearedRooms;
     @Getter
     private final CountDownLatch roomClearLatch;
@@ -34,7 +34,7 @@ public class House {
     public void initialize() {
         for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
             Room room = new Room("Room number " + (i + 1));
-            int foodCount = random.nextInt(10) + 1;
+            int foodCount = random.nextInt(1000) + 1;
             for (int j = 0; j < foodCount; j++) {
                 room.addFood(new Food("Dish food number " + (j + 1)));
             }

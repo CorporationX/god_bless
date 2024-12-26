@@ -25,7 +25,7 @@ public class Room {
         log.debug("Room created: {}", this.roomName);
     }
 
-    public void addFood(Food food) {
+    public synchronized void addFood(Food food) {
         if (food == null) {
             log.warn("Attempted to add null Food to Room: {}", roomName);
             throw new IllegalArgumentException("Food cannot be null.");
@@ -34,14 +34,14 @@ public class Room {
         log.debug("Food '{}' added to Room '{}'", food.foodName(), roomName);
     }
 
-    public List<Food> removeFood() {
+    public synchronized List<Food> removeFood() {
         List<Food> whatWasCollected = new ArrayList<>(foodList);
         foodList.clear();
         log.debug("All food cleared from Room '{}'. Removed items: {}", roomName, whatWasCollected);
         return whatWasCollected;
     }
 
-    public boolean isClear() {
+    public synchronized boolean isClear() {
         return foodList.isEmpty();
     }
 }
