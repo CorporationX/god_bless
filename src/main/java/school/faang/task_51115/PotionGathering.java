@@ -4,31 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class PotionGathering {
     private static final long SLEEP_TIME = 1000;
 
     public int gatherIngredients(List<Potion> potions) {
-        List<CompletableFuture<Integer>> futures = executeTask(potions);
-        CompletableFuture<Void> allDone = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-
-        allDone.join();
-
-        return futures.stream()
-                .mapToInt((future) -> {
-                    try {
-                        return future.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .sum();
-    }
-
-
-    private List<CompletableFuture<Integer>> executeTask(List<Potion> potions) {
         return potions.stream()
                 .map(potion -> CompletableFuture.supplyAsync(() -> {
                     try {
@@ -37,8 +18,11 @@ public class PotionGathering {
                         throw new RuntimeException(e);
                     }
                     return potion.getRequiredIngredients();
-                })).toList();
+                }))
+                .mapToInt(CompletableFuture::join)
+                .sum();
     }
+
 }
 
 
