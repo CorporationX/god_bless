@@ -13,6 +13,7 @@ public class QuestSystem {
                 int questTime = quest.getDifficulty() * 1000;
                 Thread.sleep(questTime);
             } catch (InterruptedException e) {
+                log.error("Thread error: {}", e.getMessage());
                 throw new RuntimeException(e);
             }
             log.info("Quest: {} ended", quest);
