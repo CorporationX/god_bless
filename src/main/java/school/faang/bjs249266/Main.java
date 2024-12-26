@@ -11,6 +11,7 @@ public class Main {
 
     public static final int NUMBER_THREADS = 100;
     public static final int NUMBER_VIDEOS = 10;
+    private static final long TIMEOUT_WORK_FINISH = 5;
 
     public static void main(String[] args) {
         VideoManager manager = new VideoManager();
@@ -28,9 +29,14 @@ public class Main {
         }
 
         executor.shutdown();
+
         try {
-            executor.awaitTermination(1, TimeUnit.MINUTES);
+            if (!executor.awaitTermination(TIMEOUT_WORK_FINISH, TimeUnit.MINUTES)) {
+                System.out.println("Не все задачи завершены в указанный период времени.");
+                executor.shutdownNow();
+            }
         } catch (InterruptedException ex) {
+            executor.shutdownNow();
             log.error("Error interrupted exception! {}", String.valueOf(ex));
         }
     }
