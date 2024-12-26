@@ -2,10 +2,10 @@ package school.faang.sprint_3.task_48990;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.Closeable;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
         List<String> photos = List.of("photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg");
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
-        try (AutoCloseable close = executor::shutdown) {
+        try {
             for (int i = 0; i <= NUM_THREADS; i++) {
                 executor.submit(googlePhotos::startAutoUpload);
 
@@ -27,7 +27,13 @@ public class Main {
                     }
                 });
             }
-        } catch (Exception e) {
+            executor.shutdown();
+            if (executor.awaitTermination(AWAIT_TIME_MINUTES, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
             log.error("Error message: ", e);
         }
     }
