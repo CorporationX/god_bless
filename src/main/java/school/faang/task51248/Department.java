@@ -1,6 +1,7 @@
 package school.faang.task51248;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -11,15 +12,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Department implements Runnable, Cloneable {
+public class Department implements Runnable {
 
+    @Setter
     private Department departmentAnalyze;
     private final Set<String> files;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
-
-    public void setDepartmentAnalyze(Department departmentAnalyze) {
-        this.departmentAnalyze = departmentAnalyze.clone();
-    }
 
     @Override
     public void run() {
@@ -65,15 +63,6 @@ public class Department implements Runnable, Cloneable {
             log.info("Файлы добавлены {} в {}", oldFiles, this);
         } finally {
             lock.writeLock().unlock();
-        }
-    }
-
-    @Override
-    public Department clone() {
-        try {
-            return (Department) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
         }
     }
 }
