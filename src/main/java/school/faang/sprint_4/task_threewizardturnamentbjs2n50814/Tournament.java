@@ -2,7 +2,6 @@ package school.faang.sprint_4.task_threewizardturnamentbjs2n50814;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
