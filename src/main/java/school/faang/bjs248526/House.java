@@ -32,7 +32,7 @@ public class House {
 
     public void collectFood() {
         System.out.println("Collect food on thread: " + Thread.currentThread().getId());
-        Room emptyRoom = null;
+        List<Room> emptyRooms = new ArrayList<>();
 
         synchronized (roomsList) {
             int count = (int) roomsList.stream()
@@ -57,7 +57,7 @@ public class House {
                         System.out.println("Food removed from " + room.getName());
 
                         if (!room.hasFood()) {
-                            emptyRoom = room;
+                            emptyRooms.add(room);
                         }
                     } catch (Exception e) {
                         System.out.println("Error!");
@@ -65,10 +65,7 @@ public class House {
                     }
                 }
             }
-
-            synchronized (roomsList) {
-                roomsList.remove(emptyRoom);
-            }
+            roomsList.removeAll(emptyRooms);
         }
     }
 }
