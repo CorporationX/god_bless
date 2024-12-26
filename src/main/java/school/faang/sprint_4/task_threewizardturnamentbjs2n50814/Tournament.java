@@ -11,16 +11,15 @@ import java.util.concurrent.CompletableFuture;
 public class Tournament {
     private static int DEFAULT_DELAY = 400;
 
-    public CompletableFuture<School>  startTask(School school, Task task) {
-        CompletableFuture<School> executorFuture = CompletableFuture.supplyAsync(() -> doTournament(school, task));
-        return executorFuture;
+    public CompletableFuture<School> startTask(School school, Task task) {
+        return CompletableFuture.supplyAsync(() -> doTournament(school, task));
     }
 
     private School doTournament(@NonNull School school, @NonNull Task task) {
-        log.info("startTask {}, {}", school, task);
+        log.info("startTask for {}", school.getName());
         int randomStudent = (int) (Math.random() * school.getTeam().size());
         school.getTeam().get(randomStudent)
-                .addPoints(task.getReward());
+                        .addPoints(task.getReward());
         try {
             Thread.sleep((long) DEFAULT_DELAY * task.getDifficulty());
         } catch (InterruptedException e) {
@@ -35,8 +34,8 @@ public class Tournament {
             @Override
             public int compare(School o1, School o2) {
                 int o1PointsSum = o1.getTeam().stream()
-                        .mapToInt(Student::getPoints) // преобразуем элементы в поток и получаем значения очков
-                        .sum(); // суммируем очки
+                        .mapToInt(Student::getPoints)
+                        .sum();
 
                 int o2PointsSum = o2.getTeam().stream()
                         .mapToInt(Student::getPoints)
