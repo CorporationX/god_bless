@@ -34,19 +34,15 @@ public class Tournament {
         Comparator<School> compareSchools = new Comparator<School>() {
             @Override
             public int compare(School o1, School o2) {
-                int o1PointsSum = 0;
-                int o2PointsSum = 0;
-                for (int i = 0; i < o1.getTeam().size(); i++) {
-                    o1PointsSum += o1.getTeam().get(i).getPoints();
-                }
-                for (int i = 0; i < o2.getTeam().size(); i++) {
-                    o2PointsSum += o2.getTeam().get(i).getPoints();
-                }
-                if (o1PointsSum > o2PointsSum) {
-                    return 1;
-                } else if (o1PointsSum < o2PointsSum) {
-                    return -1;
-                } else {return 0;}
+                int o1PointsSum = o1.getTeam().stream()
+                        .mapToInt(Student::getPoints) // преобразуем элементы в поток и получаем значения очков
+                        .sum(); // суммируем очки
+
+                int o2PointsSum = o2.getTeam().stream()
+                        .mapToInt(Student::getPoints)
+                        .sum();
+
+                return Integer.compare(o1PointsSum, o2PointsSum);
             }
         };
         return schools.stream()
