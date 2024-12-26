@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -29,7 +28,8 @@ public class MasterCardService {
         return 1_000;
     }
 
-    public void doAll() throws ExecutionException, InterruptedException {
+    @SneakyThrows
+    public void doAll() {
         var executorService = Executors.newSingleThreadExecutor();
         Future<Integer> future = executorService.submit(this::collectPayment);
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
