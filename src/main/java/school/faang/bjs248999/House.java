@@ -1,10 +1,8 @@
 package school.faang.bjs248999;
 
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.management.StringValueExp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -14,26 +12,16 @@ import java.util.concurrent.CountDownLatch;
 public class House {
     private final List<Room> rooms;
     private final List<Food> foods;
-    @Setter
-    private CountDownLatch countDownLatch;
-    private final int numberRooms;
+    private final CountDownLatch countDownLatch;
     private final int amountFood;
 
-    public House(int numberRooms, int amountFood) {
-        this.numberRooms = numberRooms;
+    public House(int amountFood, List<Room> rooms, CountDownLatch countDownLatch) {
         this.amountFood = amountFood;
         this.foods = new ArrayList<>();
-        this.rooms = new ArrayList<>();
-        createRooms();
+        this.rooms = rooms;
+        this.countDownLatch = countDownLatch;
     }
 
-    private void createRooms() {
-        for (int i = 1; i < numberRooms; i++) {
-            int number = 100 + i;
-            rooms.add(new Room(number));
-            log.info("{} create room num: {}", Thread.currentThread().getName(), number);
-        }
-    }
 
     public void collectFood() {
         for (int i = 0; i < amountFood; i++) {
@@ -59,9 +47,5 @@ public class House {
         foods.addAll(room.collectFood());
         log.info("{} get foods from room {}", Thread.currentThread().getName(), room.getNumber());
         countDownLatch.countDown();
-    }
-
-    public int numberRooms() {
-        return rooms.size();
     }
 }

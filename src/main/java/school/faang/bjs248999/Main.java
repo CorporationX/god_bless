@@ -2,6 +2,8 @@ package school.faang.bjs248999;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -13,13 +15,15 @@ public class Main {
     public static final int NUMBER_ROOMS = 9;
     public static final int AMOUNT_FOOD = 2;
     public static final int TIMEOUT_WORK_FINISH = 5;
+    public static final int NUMBER_FLOOR = 100;
     public static int FREQUENCY = 2;
 
     public static void main(String[] args) {
 
-        House house = new House(NUMBER_ROOMS, AMOUNT_FOOD);
-        CountDownLatch countDownLatch = new CountDownLatch(house.numberRooms());
-        house.setCountDownLatch(countDownLatch);
+        List<Room> rooms = createRooms(NUMBER_FLOOR, NUMBER_ROOMS);
+        CountDownLatch countDownLatch = new CountDownLatch(rooms.size());
+
+        House house = new House(AMOUNT_FOOD, rooms, countDownLatch);
 
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(COUNT_OFFICIANT);
         for (int i = 0; i < COUNT_OFFICIANT; i++) {
@@ -44,5 +48,14 @@ public class Main {
         }
 
         System.out.println("Еда в доме собрана!");
+    }
+
+    public static List<Room> createRooms(int numberFloor, int numberRooms) {
+        List<Room> rooms = new ArrayList<>();
+        for (int i = 1; i < numberRooms; i++) {
+            int number = numberFloor + i;
+            rooms.add(new Room(number));
+        }
+        return rooms;
     }
 }
