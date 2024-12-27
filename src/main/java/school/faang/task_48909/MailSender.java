@@ -5,23 +5,18 @@ public class MailSender {
 
         SenderRunnable senderRunnable1 = new SenderRunnable(0, 200);
         Thread thread1 = new Thread(senderRunnable1);
-
+        thread1.start();
         SenderRunnable senderRunnable2 = new SenderRunnable(201, 400);
         Thread thread2 = new Thread(senderRunnable2);
-
+        thread2.start();
         SenderRunnable senderRunnable3 = new SenderRunnable(401, 600);
         Thread thread3 = new Thread(senderRunnable3);
-
+        thread3.start();
         SenderRunnable senderRunnable4 = new SenderRunnable(601, 800);
         Thread thread4 = new Thread(senderRunnable4);
-
+        thread4.start();
         SenderRunnable senderRunnable5 = new SenderRunnable(801, 100);
         Thread thread5 = new Thread(senderRunnable5);
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
         thread5.start();
 
         thread1.join();
