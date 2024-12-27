@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ChatManager {
+    private static final int SIMULATION_TIME = 3000;
+
     private final UserList userList;
     private final Lock lock;
     private final Condition availablePartner;
@@ -59,7 +61,7 @@ public class ChatManager {
     private void simulateChat(Chat chat) {
         new Thread(() -> {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(SIMULATION_TIME);
                 endChat(chat);
             } catch (InterruptedException e) {
                 logger.log(Level.SEVERE, "Ошибка во время симуляции чата.", e);
