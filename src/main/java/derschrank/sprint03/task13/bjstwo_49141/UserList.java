@@ -9,6 +9,7 @@ public class UserList implements UserListInterface {
     public UserList() {
         users = new ArrayList<>();
     }
+
     @Override
     public List<User> getOnlineUsersAwaitForNewChat() {
         List<User> copyOfUsers;

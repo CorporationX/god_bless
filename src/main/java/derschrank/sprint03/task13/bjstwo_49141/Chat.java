@@ -1,6 +1,6 @@
 package derschrank.sprint03.task13.bjstwo_49141;
 
-public record Chat (
+public record Chat(
     User user1,
     User user2
 ) {

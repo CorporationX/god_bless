@@ -86,6 +86,12 @@ public class User {
         return hasChat == null;
     }
 
+    public void setActiveLookingForChat(boolean flag) {
+        lock.lock();
+        isActiveLookingForChat = flag;
+        lock.unlock();
+    }
+
     @Override
     public String toString() {
         return name;

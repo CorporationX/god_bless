@@ -5,11 +5,10 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private static final boolean FLAG_ACTIVE_USER = true;
-    private static final int SIZE_OF_THREADPOOL = 5;
+    private static final int SIZE_OF_THREADPOOL = 15;
 
     public static void main(String[] args) {
         UserList users = new UserList();
-        users.addUser(new User("Chupokabra"));
         users.addUser(new User("Ivan", FLAG_ACTIVE_USER));
         users.addUser(new User("Petr", FLAG_ACTIVE_USER));
         users.addUser(new User("Sidr", FLAG_ACTIVE_USER));
@@ -21,6 +20,7 @@ public class Main {
         users.addUser(new User("Julia", FLAG_ACTIVE_USER));
         users.addUser(new User("Polina", FLAG_ACTIVE_USER));
         users.addUser(new User("Elena", FLAG_ACTIVE_USER));
+        users.addUser(new User("Chupokabra"));
 
         ChatManagerInterface manager = new ChatManager(users);
 
