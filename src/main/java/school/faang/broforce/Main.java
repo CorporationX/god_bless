@@ -5,10 +5,10 @@ public class Main {
         Game game = new Game();
 
         while (!game.isTheEnd()) {
-            boolean earnedPoints = Math.random() > 0.1;
-            boolean lostLife = Math.random() > 0.7;
+            boolean isEarnedPoints = Math.random() > 0.1;
+            boolean isLostLife = Math.random() > 0.7;
 
-            game.update(earnedPoints, lostLife);
+            game.update(isEarnedPoints, isLostLife);
         }
         try {
             Thread.sleep(100);

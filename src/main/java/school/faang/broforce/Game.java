@@ -8,7 +8,7 @@ import java.util.Random;
 @Slf4j
 @Getter
 public class Game {
-    Random random = new Random();
+    private final Random random = new Random();
 
     private int score = 0;
     private int lives = 5;
@@ -22,20 +22,20 @@ public class Game {
                 score++;
                 log.info("Счёт увеличен, текущий счёт - {}", score);
             }
-            synchronized (livesLock) {
-                if (lostLive) {
-                    lives--;
-                    log.info("Количество жизней уменьшено, текущее количество - {}", lives);
-                    if (lives <= 0) {
-                        isTheEnd = true;
-                        gameOver();
-                    }
+        }
+        synchronized (livesLock) {
+            if (lostLive) {
+                lives--;
+                log.info("Количество жизней уменьшено, текущее количество - {}", lives);
+                if (lives <= 0) {
+                    isTheEnd = true;
+                    gameOver();
                 }
             }
         }
     }
 
     private void gameOver() {
-        log.info("The end");
+        log.info("Игра окончена!");
     }
 }
