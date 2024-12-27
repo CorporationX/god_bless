@@ -35,7 +35,7 @@ public class SampleData {
                 })
         );
 
-        System.out.printf("%s Adding executor on Thread: %s\n",
+        System.out.printf("%s Waiting for executor shutdown on thread: %s\n",
                 LocalDateTime.now(), Thread.currentThread().getId());
         executor.shutdown();
         if (executor.awaitTermination(TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
