@@ -3,14 +3,18 @@ package school.faang.bjs249123;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 public class User {
-    @NonNull
+    public User(String name) {
+        System.out.println(name + " игрок готов выбрать роль");
+        this.name = name;
+    }
+
     private String name;
     private House house;
     private String chosenRole;
 
-    public synchronized void joinHouse(House house) throws InterruptedException {
+    public void joinHouse(House house) throws InterruptedException {
         synchronized (house) {
             while (house.getAvailableRoleCount() == 0) {
                 System.out.println(name + " ждет, пока освободится роль в доме.");
@@ -27,11 +31,11 @@ public class User {
         chosenRole = role;
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (house) {
             System.out.println(name + " покидает дом и освобождает роль: " + chosenRole);
             house.removeRole(chosenRole);
-            house.notifyAll(); // Оповещаем всех ожидающих пользователей
+            house.notifyAll();
         }
     }
 
