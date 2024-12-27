@@ -15,7 +15,8 @@ public class Main {
                 uploader.onNewPhotoAdded("photo2.jpg");
                 Thread.sleep(LONG_DELAY);
                 uploader.onNewPhotoAdded("photo3.jpg");
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException e) {
+                System.out.println("Добавление фотографий прервано: " + e.getMessage());
             } finally {
                 uploader.stopAutoUpload();
             }
@@ -27,7 +28,8 @@ public class Main {
         try {
             uploadThread.join();
             addPhotosThread.join();
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            System.out.println("Ошибка ожидания завершения потоков: " + e.getMessage());
         }
     }
 }
