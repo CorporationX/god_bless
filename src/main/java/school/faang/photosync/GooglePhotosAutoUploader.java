@@ -5,8 +5,8 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
 
-    Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private Object lock = new Object();
+    private List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
@@ -23,18 +23,18 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
-        synchronized (lock) {
-            System.out.println(String.format("%s - uploading photos : %s", Thread.currentThread().getName(),
-                    photosToUpload.toString()));
-            photosToUpload.clear();
-            System.out.println("All photos uploaded.");
-        }
+    private void uploadPhotos() {
+
+        System.out.println(String.format("%s - uploading photos : %s", Thread.currentThread().getName(),
+                photosToUpload.toString()));
+        photosToUpload.clear();
+        System.out.println("All photos uploaded.");
+
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
-            this.photosToUpload.add(photoPath);
+            photosToUpload.add(photoPath);
             System.out.println("New photo added: " + photoPath);
             lock.notify();
         }
