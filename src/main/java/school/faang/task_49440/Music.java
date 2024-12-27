@@ -21,12 +21,12 @@ public class Music {
         Player player = new Player();
 
         Thread playThread = new Thread(() -> repeatAction(player::play, 1500));
-        Thread pauseThread = new Thread(() -> repeatAction(player::pause, 1000));
-        Thread skipThread = new Thread(() -> repeatAction(player::skip, 500));
-        Thread previousThread = new Thread(() -> repeatAction(player::previous, 1000));
         playThread.start();
+        Thread pauseThread = new Thread(() -> repeatAction(player::pause, 1000));
         pauseThread.start();
+        Thread skipThread = new Thread(() -> repeatAction(player::skip, 500));
         skipThread.start();
+        Thread previousThread = new Thread(() -> repeatAction(player::previous, 1000));
         previousThread.start();
 
         try {
