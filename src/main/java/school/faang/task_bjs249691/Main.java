@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int MAX_FIGHTERS = 2;
-
     private static final int THREADS_COUNT = 4;
 
     public static void main(String[] args) {
