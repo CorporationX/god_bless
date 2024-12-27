@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int THREAD_SIZE = 5;
+    private static final int THREAD_POOL_SIZE = 5;
     private static final long INITIAL_DELAY = 0;
-    private static final long PERIOD = 5;
+    private static final long PERIOD = 30;
     private static final int WAIT_MS = 250;
     private static final int TIMEOUT = 20;
 
@@ -36,7 +36,7 @@ public class Main {
         room4.addFood(new Food("Eggs"));
         house.addRoom(room4);
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_SIZE);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
         executor.scheduleWithFixedDelay(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
 
         while (!house.allFoodCollected()) {
@@ -56,7 +56,7 @@ public class Main {
             if (executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 log.info("Все задачи завершены");
             } else {
-                log.error("Задачи не завершились за 30 секунд, принудительно останавливаем программу");
+                log.error("Задачи не завершились за 20 секунд, принудительно останавливаем программу");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

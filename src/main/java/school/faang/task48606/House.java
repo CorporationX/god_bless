@@ -18,7 +18,7 @@ public class House {
         }
     }
 
-    public void collectFood() {
+    public synchronized void collectFood() {
         String threadName = Thread.currentThread().getName();
 
         log.info("Поток {} приступил к выполнению задачи", threadName);
@@ -31,6 +31,13 @@ public class House {
         Collections.shuffle(rooms);
         Room room1 = rooms.get(0);
         Room room2 = rooms.get(1);
+
+        if (room1.equals(room2)) {
+            room2 = rooms.stream()
+                    .filter(room -> !room.equals(room1))
+                    .findFirst()
+                    .orElse(room2);
+        }
 
         if (room1.hasFood() && room2.hasFood()) {
             collectedFood.addAll(room1.takeAllFood());
