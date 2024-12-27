@@ -24,7 +24,7 @@ public class MailSender {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Произошло исключение!" + e);
         }
 
         System.out.println("Все письма отправлены!");
