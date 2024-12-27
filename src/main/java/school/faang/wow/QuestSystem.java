@@ -14,7 +14,8 @@ public class QuestSystem {
                 log.info("{} is starting quest: {}", player.getName(), quest.name());
                 Thread.sleep(quest.difficulty() * DURATION_MS);
             } catch (InterruptedException e) {
-                throw new RuntimeException("Operation timed out while waiting");
+                log.error("Operation timed out while waiting");
+                Thread.currentThread().interrupt();
             }
             player.updateExperience(quest.reward());
             return player;
