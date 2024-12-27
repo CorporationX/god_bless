@@ -3,12 +3,12 @@ package school.faang.sprint_4.task_49913;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
 
 @Slf4j
 public class Main {
@@ -35,11 +35,9 @@ public class Main {
     }
 
     private static void launch() {
-        List<SquareRequest> squareRequests = new ArrayList<>();
-
-        for (int i = 1; i <= AMOUNT_OF_REQUESTS; i++) {
-            squareRequests.add(new SquareRequest((long) i));
-        }
+        List<SquareRequest> squareRequests = LongStream.rangeClosed(1, AMOUNT_OF_REQUESTS)
+                .mapToObj(SquareRequest::new)
+                .toList();
 
         Long result = fanOutFanIn(squareRequests, new ResultConsumer((long) 0));
         System.out.println("Sum of squares from 1 to " + AMOUNT_OF_REQUESTS + ": " + result);
