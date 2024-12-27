@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Chore implements Runnable {
+
+    private static final int CHORE_EXECUTION_TIME_IN_MILLISECONDS = 5000;
+
     private final String chore;
 
     @Override
@@ -11,9 +14,9 @@ public class Chore implements Runnable {
         String currentThreadName = Thread.currentThread().getName();
         System.out.println("Поток \"" + currentThreadName + "\" начинает выполнение задачи \"" + chore + "\"");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(CHORE_EXECUTION_TIME_IN_MILLISECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Произошло исключение!" + e);
         }
         System.out.println("Поток \"" + currentThreadName + "\" закончил выполнение задачи \"" + chore + "\"");
     }
