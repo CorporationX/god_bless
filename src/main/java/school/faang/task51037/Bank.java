@@ -49,6 +49,9 @@ public class Bank {
         Account account1 = accounts.get(fromAccountId);
         Account account2 = accounts.get(accountId);
 
+        Objects.requireNonNull(account1);
+        Objects.requireNonNull(account2);
+
         Account firstLock = fromAccountId < accountId ? account1 : account2;
         Account secondLock = fromAccountId < accountId ? account2 : account1;
 
@@ -85,9 +88,14 @@ public class Bank {
     }
 
     public double getTotalBalance() {
+        lockAccount.readLock().lock();
 
-        double total = accounts.values().stream().mapToDouble(Account::getBalance).sum();
-        log.info("Общий баланс {}", total);
-        return total;
+        try {
+            double total = accounts.values().stream().mapToDouble(Account::getBalance).sum();
+            log.info("Общий баланс {}", total);
+            return total;
+        } finally {
+            lockAccount.readLock().unlock();
+        }
     }
 }

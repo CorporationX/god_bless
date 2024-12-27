@@ -16,6 +16,12 @@ public class Account {
     private double balance;
     private final ReentrantLock lock = new ReentrantLock();
 
+    private void validateAmount(double amount){
+        if (amount < 0){
+            throw new IllegalArgumentException("amount не может быть меньше нуля");
+        }
+    }
+
     private void lockBalance(Runnable runnable) {
         lock.lock();
 
@@ -30,12 +36,18 @@ public class Account {
         }
     }
 
+
+
     public void deposit(double amount) {
+        validateAmount(amount);
+
         lockBalance(() -> balance += amount);
         log.info("Был выполнен депозит {}", balance);
     }
 
     public void withdraw(double amount) {
+        validateAmount(amount);
+
         lockBalance(() -> balance -= amount);
     }
 }
