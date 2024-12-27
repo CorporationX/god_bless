@@ -30,6 +30,8 @@ public class Main {
             try {
                 Thread.sleep(MONITOR_TIME_SEC * 1000);
             } catch (InterruptedException e) {
+                log.error("Thread was interrupted");
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             log.info("Semifinal in progress... Please wait");

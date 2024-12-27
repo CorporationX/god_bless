@@ -14,7 +14,7 @@ public class Battle {
         this.executor = executor;
     }
 
-    public Future<Robot> fight(Robot robot1, Robot robot2, int battleTimeSec) {
+    public Future<Robot> fight(Robot robot1, Robot robot2, long battleTimeSec) {
         return executor.submit(() -> {
             int deltaRobot1 = robot1.getAttackPower() - robot1.getDefensePower();
             int deltaRobot2 = robot2.getAttackPower() - robot2.getDefensePower();
@@ -25,6 +25,8 @@ public class Battle {
             try {
                 Thread.sleep(battleTimeSec * 1000);
             } catch (InterruptedException e) {
+                log.error("Thread was interrupted");
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
 
