@@ -10,10 +10,7 @@ public class Tournament {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            school.getTeam().forEach(teammate -> {
-                teammate.setPoints(teammate.getPoints() + task.reward());
-                school.updateStudent(teammate);
-            });
+            school.addPointsToTeam(task.reward());
             return school;
         });
     }
