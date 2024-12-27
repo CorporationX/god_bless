@@ -7,18 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class Game {
     private static final double CHANCE_TO_EARN_POINTS = 0.7;
-    public static final double CHANCE_TO_LOSE_LIFE = 0.5;
+    private static final double CHANCE_TO_LOSE_LIFE = 0.5;
     private int score;
     private int lives;
     private boolean lostLife;
     private boolean earnedPoints;
-    private final Object lockScore;
-    private final Object lockLive;
+    private final Object scoreLock;
+    private final Object liveLock;
 
 
     public Game() {
-        lockScore = new Object();
-        lockLive = new Object();
+        scoreLock = new Object();
+        liveLock = new Object();
         score = 0;
         lives = 10;
         lostLife = false;
@@ -26,13 +26,13 @@ public class Game {
     }
 
     public void update(boolean earnedPoints, boolean lostLife) {
-        synchronized (lockScore) {
+        synchronized (scoreLock) {
             if (earnedPoints && lives > 0) {
                 score++;
                 log.info("{} - earned scores", score);
             }
         }
-        synchronized (lockLive) {
+        synchronized (liveLock) {
             if (lostLife && lives > 0) {
                 lives--;
                 log.info("{} - remaining lives", lives);
@@ -48,11 +48,11 @@ public class Game {
         Thread.currentThread().interrupt();
     }
 
-    public boolean earnedPoints() {
+    public boolean isEarnedPoints() {
         return earnedPoints = Math.random() > CHANCE_TO_EARN_POINTS;
     }
 
-    public boolean lostLife() {
+    public boolean isLostLife() {
         return lostLife = Math.random() > CHANCE_TO_LOSE_LIFE;
     }
 }

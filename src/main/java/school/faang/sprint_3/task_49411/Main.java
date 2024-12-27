@@ -19,7 +19,7 @@ public class Main {
             for (int i = 0; i < NUM_THREADS; i++) {
                 executor.submit(() -> {
                     while (darkSouls.getLives() > 0) {
-                        darkSouls.update(darkSouls.earnedPoints(), darkSouls.lostLife());
+                        darkSouls.update(darkSouls.isEarnedPoints(), darkSouls.isLostLife());
                     }
                 });
             }
