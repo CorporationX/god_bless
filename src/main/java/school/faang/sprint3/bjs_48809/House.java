@@ -16,8 +16,12 @@ public class House {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof House house)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof House house)) {
+            return false;
+        }
         return Objects.equals(availableRoles, house.availableRoles);
     }
 
