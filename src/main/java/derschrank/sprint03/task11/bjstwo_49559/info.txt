@@ -1,0 +1,208 @@
+Тамагочи Влад
+👩‍💻 🧠 (Дополнительная задача)
+
+Условия задачи
+Задач становится так много, что удовлетворение базовых потребностей Влада приходится программировать и запускать в нескольких потоках. Вы должны помочь Владу наладить режим сна и питания. Ну ещё и поиграть с ним немного нужно, а то у него стресс.
+
+Требования:
+1️⃣ Создайте класс TamagotchiVlad, который будет представлять Влада и иметь следующие методы:
+feed() — чтобы покормить Влада.
+play() — чтобы поиграть с Владом.
+clean() — чтобы почистить Влада.
+sleep() — чтобы переводить Влада в режим сна.
+Каждый метод должен выводить сообщение в консоль, описывая текущее действие (например, "Влад ест", "Влад играет").
+Все методы должны быть синхронизированы (с использованием ключевого слова synchronized), чтобы предотвратить одновременный доступ нескольких потоков к одному и тому же тамагочи.
+
+2️⃣ Создайте класс VladController, который управляет несколькими экземплярами Влада. Этот класс должен:
+Позволять добавлять и удалять экземпляры TamagotchiVlad.
+Иметь методы для взаимодействия с всеми экземплярами Влада одновременно:
+feedAll() — кормит всех.
+playAll() — играет со всеми.
+cleanAll() — чистит всех.
+sleepAll() — отправляет всех спать.
+Контроллер должен безопасно работать в многопоточной среде.
+
+3️⃣ Отслеживание состояния Влада:
+Добавьте возможность отслеживания состояния Влада (например, "сыт", "весел", "устал") и выводите в консоль сообщения о том, как изменяется его состояние после каждого вызова метода.
+
+4️⃣ Запуск потоков:
+Для тестирования создайте несколько потоков, которые будут одновременно кормить, играть, чистить и отправлять спать Влада, используя методы контроллера.
+
+Почему эта задача полезна?
+Задача демонстрирует ситуацию, когда нужно гарантировать, что данные не будут изменены несколькими потоками одновременно. Такие ситуации обычно возникают в многопользовательских приложениях, где необходима синхронизация доступа к общим ресурсам.
+Такой подход синхронизации для обеспечения правильной работы многопоточных приложений использует Dropbox для синхронизации файлов в облачном хранилище. Когда пользователь изменяет файл, программа Dropbox должна отправить обновлённую версию файла на сервер, чтобы она могла быть синхронизирована со всеми другими устройствами пользователя, на которых установлен Dropbox.
+Для этой функции Dropbox использует механизмы синхронизации для того, чтобы предотвратить конфликты, когда несколько пользователей пытаются изменить один и тот же файл одновременно. Dropbox блокирует файл на время его изменения, чтобы другие пользователи не могли его изменять в то же время, и только после того, как изменения будут сохранены на сервере, они станут доступными другим пользователям.
+
+---------------
+
+7:42:34: Executing ':derschrank.sprint03.task11.bjstwo_49559.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task11.bjstwo_49559.Main.main()
+main -> Tamo Tamo #0 was added in list
+main -> Tamo Tamo #1 was added in list
+main -> Tamo Tamo #2 was added in list
+main -> Tamo Tamo #3 was added in list
+main -> Tamo Tamo #4 was added in list
+main -> Tamo Tamo #5 was added in list
+main -> Tamo Tamo #6 was added in list
+main -> Tamo Tamo #7 was added in list
+main -> Tamo Tamo #8 was added in list
+main -> Tamo Tamo #9 was added in list
+Thread-1 -> Tamo #0 eats
+Thread-1 -> Tamo #1 eats
+Thread-1 -> Tamo #2 eats
+Thread-1 -> Tamo #3 eats
+Thread-1 -> Tamo #4 eats
+Thread-1 -> Tamo #5 eats
+Thread-1 -> Tamo #6 eats
+Thread-1 -> Tamo #7 eats
+Thread-1 -> Tamo #8 eats
+Thread-1 -> Tamo #9 eats
+Thread-1 -> Tamo #0 plays
+Thread-1 -> Tamo #1 plays
+Thread-1 -> Tamo #2 plays
+Thread-1 -> Tamo #3 plays
+Thread-1 -> Tamo #4 plays
+Thread-1 -> Tamo #5 plays
+Thread-1 -> Tamo #6 plays
+Thread-1 -> Tamo #7 plays
+Thread-1 -> Tamo #8 plays
+Thread-1 -> Tamo #9 plays
+Thread-0 -> Tamo #0 eats
+Thread-0 -> Tamo #1 eats
+Thread-0 -> Tamo #2 eats
+Thread-0 -> Tamo #3 eats
+Thread-0 -> Tamo #4 eats
+Thread-0 -> Tamo #5 eats
+Thread-0 -> Tamo #6 eats
+Thread-0 -> Tamo #7 eats
+Thread-0 -> Tamo #8 eats
+Thread-0 -> Tamo #9 eats
+Thread-1 -> Tamo #0 sleeps
+Thread-1 -> Tamo #1 sleeps
+Thread-1 -> Tamo #2 sleeps
+Thread-1 -> Tamo #3 sleeps
+Thread-1 -> Tamo #4 sleeps
+Thread-1 -> Tamo #5 sleeps
+Thread-1 -> Tamo #6 sleeps
+Thread-1 -> Tamo #7 sleeps
+Thread-1 -> Tamo #8 sleeps
+Thread-1 -> Tamo #9 sleeps
+Tamo #0 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #1 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #2 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #3 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #4 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #5 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #6 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #7 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #8 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Tamo #9 has hunger: 3, has tiredness: 0, has filthy: 7, has boredom: 2
+Thread-0 -> Tamo #0 plays
+Thread-0 -> Tamo #1 plays
+Thread-0 -> Tamo #2 plays
+Thread-0 -> Tamo #3 plays
+Thread-0 -> Tamo #4 plays
+Thread-0 -> Tamo #5 plays
+Thread-0 -> Tamo #6 plays
+Thread-0 -> Tamo #7 plays
+Thread-0 -> Tamo #8 plays
+Thread-0 -> Tamo #9 plays
+Tamo #0 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #1 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #2 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #3 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #4 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #5 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #6 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #7 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #8 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Tamo #9 has hunger: 3, has tiredness: 3, has filthy: 10, has boredom: 0
+Thread-0 -> Tamo #0 cleans
+Thread-0 -> Tamo #1 cleans
+Thread-0 -> Tamo #2 cleans
+Thread-0 -> Tamo #3 cleans
+Thread-0 -> Tamo #4 cleans
+Thread-0 -> Tamo #5 cleans
+Thread-0 -> Tamo #6 cleans
+Thread-0 -> Tamo #7 cleans
+Thread-0 -> Tamo #8 cleans
+Thread-0 -> Tamo #9 cleans
+Tamo #0 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #1 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #2 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #3 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #4 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #5 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #6 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #7 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #8 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Tamo #9 has hunger: 4, has tiredness: 4, has filthy: 0, has boredom: 1
+Thread-0 -> Tamo #0 eats
+Thread-0 -> Tamo #1 eats
+Thread-0 -> Tamo #2 eats
+Thread-0 -> Tamo #3 eats
+Thread-0 -> Tamo #4 eats
+Thread-0 -> Tamo #5 eats
+Thread-0 -> Tamo #6 eats
+Thread-0 -> Tamo #7 eats
+Thread-0 -> Tamo #8 eats
+Thread-0 -> Tamo #9 eats
+Tamo #0 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #1 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #2 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #3 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #4 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #5 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #6 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #7 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #8 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Tamo #9 has hunger: 0, has tiredness: 5, has filthy: 2, has boredom: 2
+Thread-1 -> Tamo #0 cleans
+Thread-1 -> Tamo #1 cleans
+Thread-1 -> Tamo #2 cleans
+Thread-1 -> Tamo #3 cleans
+Thread-1 -> Tamo #4 cleans
+Thread-1 -> Tamo #5 cleans
+Thread-1 -> Tamo #6 cleans
+Thread-1 -> Tamo #7 cleans
+Thread-1 -> Tamo #8 cleans
+Thread-1 -> Tamo #9 cleans
+Thread-1 -> Tamo #0 eats
+Thread-1 -> Tamo #1 eats
+Thread-1 -> Tamo #2 eats
+Thread-1 -> Tamo #3 eats
+Thread-1 -> Tamo #4 eats
+Thread-1 -> Tamo #5 eats
+Thread-1 -> Tamo #6 eats
+Thread-1 -> Tamo #7 eats
+Thread-1 -> Tamo #8 eats
+Thread-1 -> Tamo #9 eats
+Thread-1 -> Tamo #0 sleeps
+Thread-1 -> Tamo #1 sleeps
+Thread-1 -> Tamo #2 sleeps
+Thread-1 -> Tamo #3 sleeps
+Thread-1 -> Tamo #4 sleeps
+Thread-1 -> Tamo #5 sleeps
+Thread-1 -> Tamo #6 sleeps
+Thread-1 -> Tamo #7 sleeps
+Thread-1 -> Tamo #8 sleeps
+Thread-1 -> Tamo #9 sleeps
+Tamo #0 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #1 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #2 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #3 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #4 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #5 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #6 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #7 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #8 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+Tamo #9 has hunger: 3, has tiredness: 0, has filthy: 2, has boredom: 5
+
+BUILD SUCCESSFUL in 8s
+2 actionable tasks: 2 executed
+7:42:43: Execution finished ':derschrank.sprint03.task11.bjstwo_49559.Main.main()'.
