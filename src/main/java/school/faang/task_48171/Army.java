@@ -15,7 +15,7 @@ public class Army {
         units.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         for (Unit unit : units) {
             UnitThread unitThread = new UnitThread(unit);
@@ -24,7 +24,12 @@ public class Army {
         }
 
         for (UnitThread unitThread : unitThreads) {
-            unitThread.join();
+            try {
+                unitThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
             totalPower += unitThread.getPower();
         }
         return totalPower;
