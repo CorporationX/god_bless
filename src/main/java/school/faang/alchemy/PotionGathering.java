@@ -2,6 +2,7 @@ package school.faang.alchemy;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class PotionGathering {
@@ -31,6 +32,15 @@ public class PotionGathering {
                 e.printStackTrace();
             }
         }
+        int totalGatheredIngredients = ingredientsCount.stream().mapToInt(i -> {
+            try {
+                return i.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }).sum();
+        System.out.println("Общее количество собранных ингредиентов: " + totalGatheredIngredients);
     }
 
     private static int gatherIngredients(Potion potion) {
