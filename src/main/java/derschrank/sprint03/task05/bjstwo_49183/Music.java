@@ -1,37 +1,46 @@
 package derschrank.sprint03.task05.bjstwo_49183;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Music {
-    private static final int COUNT_OF_ITERATION = 10;
+    private static final int COUNT_OF_ITERATION = 1;
+    private static final int SIZE_OF_THREADPOOL = 2;
 
     public static void main(String[] args) {
-        PlayerInterface player = new Player();
-        Runnable play = () -> player.play();
-        Runnable pause = () -> player.pause();
-        Runnable skip = () -> player.skip();
-        Runnable previous = () -> player.previous();
 
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        PlayerInterface player = new Player();
+        List<Runnable> commands = new ArrayList<>();
+        commands.add(player::play);
+        Runnable pause;
+        commands.add(pause = player::pause);
+        commands.add(player::skip);
+        commands.add(player::previous);
+
+        ExecutorService executor = Executors.newFixedThreadPool(SIZE_OF_THREADPOOL);
         for (int i = 0; i < COUNT_OF_ITERATION; i++) {
-            executor.execute(play);
-            executor.execute(pause);
-            executor.execute(skip);
-            executor.execute(previous);
+            for (Runnable cmd : commands) {
+                executor.execute(cmd);
+            }
         }
 
+        executorShutdownAndAwait(executor);
+
+        CompletableFuture<Void> future = CompletableFuture
+                .runAsync(pause)
+                .thenRun(() -> System.out.println("Music was ended"));
+    }
+
+    private static void executorShutdownAndAwait(ExecutorService executor){
         try {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             System.out.println("Music was interrupted: " + e);
         }
-
-        CompletableFuture<Void> future = CompletableFuture
-                .runAsync(pause)
-                .thenRun(() -> System.out.println("Music was ended"));
     }
 }
