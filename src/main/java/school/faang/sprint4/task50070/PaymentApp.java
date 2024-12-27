@@ -7,6 +7,4 @@ public class PaymentApp {
         MasterCardService paymentService = new MasterCardService();
         paymentService.doAll();
     }
-
-
 }

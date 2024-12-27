@@ -9,10 +9,12 @@ import java.util.concurrent.*;
 public class MasterCardService {
     private static final int TIME_TO_PAYMENT_PROC_SEC = 10;
     private static final int TIME_TO_SEND_ANALYTICS_SEC = 1;
+    private static final int PAYMENT_VALUE = 10000;
+    private static final int ANALITICS_SIZE = 1000;
 
     public int collectPayment() {
         processPayment();
-        return 10_000;
+        return PAYMENT_VALUE;
     }
 
     public int sendAnalytics() {
@@ -22,13 +24,14 @@ public class MasterCardService {
             log.error(e.getMessage());
             throw new RuntimeException();
         }
-        return 1_000;
+        return ANALITICS_SIZE;
     }
 
     private void processPayment() {
         try {
             Thread.sleep(TIME_TO_PAYMENT_PROC_SEC * 1000);
         } catch (InterruptedException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -40,11 +43,12 @@ public class MasterCardService {
         Future<Integer> payment = executor.submit(this::collectPayment);
         CompletableFuture<Integer> data = CompletableFuture.supplyAsync(this::sendAnalytics);
 
-        log.info("Application data recieved: " + data.join());
+        log.info("Application data recieved: {}", data.join());
 
         try {
-            log.info("Application payments recieved: " + payment.get());
+            log.info("Application payments recieved: {}", payment.get());
         } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
