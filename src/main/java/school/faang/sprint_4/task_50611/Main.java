@@ -27,8 +27,6 @@ public class Main {
                     }));
         }
 
-        for (CompletableFuture<String> completableFuture : completableFutures) {
-            completableFuture.join();
-        }
+        completableFutures.forEach(CompletableFuture::join);
     }
 }
