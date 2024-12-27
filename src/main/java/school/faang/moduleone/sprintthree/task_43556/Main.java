@@ -13,15 +13,16 @@ public class Main {
     static final int DELAY = 0;
     static final int PERIOD = 5;
     static final int ROOMS_COUNT = 20;
+    static final int THREADS_COUNT = 5;
+    static final int TIMEOUT = 5;
 
     public static void main(String[] args) {
-        House house = new House(ROOMS_COUNT);
         CountDownLatch cdl = new CountDownLatch(ROOMS_COUNT);
-        house.setCountDownLatch(cdl);
+        House house = new House(ROOMS_COUNT, cdl);
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(COLLECTORS_COUNT);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < THREADS_COUNT; i++) {
             executor.scheduleAtFixedRate(new FoodCollector(house), DELAY, PERIOD, TimeUnit.SECONDS);
         }
 
@@ -30,7 +31,18 @@ public class Main {
         } catch (InterruptedException e) {
             log.error("Some error with await: {}", e.getMessage());
         }
+
         executor.shutdown();
-        log.info("Вся еда собрана. Завершаем работу.");
+        try {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                log.error("Часть потоков не смогли завершить работу. Останавливаем принудительно.");
+                executor.shutdownNow();
+            }
+            log.info("Все потоки корректно завершили работу");
+        } catch (InterruptedException e) {
+            log.error("Завершение работы потоков было прервано: " + e.getMessage());
+            executor.shutdownNow();
+        }
+        log.info("Вся еда собрана. Работа завершена.");
     }
 }

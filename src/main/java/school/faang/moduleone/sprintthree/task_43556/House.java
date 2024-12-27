@@ -1,6 +1,5 @@
 package school.faang.moduleone.sprintthree.task_43556;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,11 +12,13 @@ public class House {
     private final int roomsCount;
     private final List<Room> rooms;
     private final List<Food> collectedFood;
-    @Setter
-    private CountDownLatch countDownLatch;
+    private final Random random = new Random();
+    private final int countOfRoomsForCleaningPerThread = 2;
+    private final CountDownLatch countDownLatch;
 
-    public House(int roomsCount) {
+    public House(int roomsCount, CountDownLatch cdl) {
         this.roomsCount = roomsCount;
+        this.countDownLatch = cdl;
         this.rooms = new ArrayList<>(roomsCount);
         this.collectedFood = new ArrayList<>();
         createRooms(roomsCount);
@@ -30,11 +31,11 @@ public class House {
     }
 
     public void collectFood() {
-        for (int i = 0; i < 2; i++) {
-            while (isFoodPresentInAnyRoom()) {
-                int roomIndex = getRandomRoomIndex();
-                Room room = rooms.get(roomIndex);
-                synchronized (room) {
+        for (int i = 0; i < countOfRoomsForCleaningPerThread; i++) {
+            synchronized (rooms) {
+                while (isFoodPresentInAnyRoom()) {
+                    int roomIndex = getRandomRoomIndex();
+                    Room room = rooms.get(roomIndex);
                     if (room.hasFood()) {
                         getFoodFromRoom(room);
                         break;
@@ -46,8 +47,7 @@ public class House {
 
     private boolean isFoodPresentInAnyRoom() {
         return rooms.stream()
-                .map(room -> room.getFoods().size())
-                .anyMatch(it -> it > 0);
+                .anyMatch(Room::hasFood);
     }
 
     private void getFoodFromRoom(Room room) {
@@ -58,7 +58,6 @@ public class House {
     }
 
     private int getRandomRoomIndex() {
-        Random random = new Random();
         return random.nextInt(roomsCount);
     }
 }
