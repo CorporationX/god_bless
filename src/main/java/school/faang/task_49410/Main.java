@@ -5,7 +5,7 @@ public class Main {
         Game game = new Game();
 
         for (int i = 0; i < 50; i++) {
-            if (game.isGameOver()){
+            if (game.isGameOver()) {
                 break;
             }
 
