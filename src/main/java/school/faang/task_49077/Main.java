@@ -1,5 +1,8 @@
 package school.faang.task_49077;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     private static final int SHORT_DELAY = 1000;
     private static final int LONG_DELAY = 2000;
@@ -16,7 +19,8 @@ public class Main {
                 Thread.sleep(LONG_DELAY);
                 uploader.onNewPhotoAdded("photo3.jpg");
             } catch (InterruptedException e) {
-                System.out.println("Добавление фотографий прервано: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                log.error("Добавление фотографий прервано: {}", e.getMessage());
             } finally {
                 uploader.stopAutoUpload();
             }
@@ -29,7 +33,8 @@ public class Main {
             uploadThread.join();
             addPhotosThread.join();
         } catch (InterruptedException e) {
-            System.out.println("Ошибка ожидания завершения потоков: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            log.error("Ошибка ожидания завершения потоков: {}", e.getMessage());
         }
     }
 }

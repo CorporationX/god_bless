@@ -1,8 +1,11 @@
 package school.faang.task_49077;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
 
     private final List<String> photosToUpload = new ArrayList<>();
@@ -13,19 +16,19 @@ public class GooglePhotosAutoUploader {
         while (true) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
-                    if (!isRunning) {
-                        break;
-                    }
+                    if (!isRunning) break;
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.error("Поток загрузки прерван: {}", e.getMessage());
                         return;
                     }
                 }
                 uploadPhotos();
             }
         }
-        System.out.println("Загрузка завершена.");
+        log.info("Загрузка завершена.");
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -43,7 +46,7 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        photosToUpload.forEach(photo -> System.out.println("Загружается: " + photo));
+        photosToUpload.forEach(photo -> log.info("Загружается: {}", photo));
         photosToUpload.clear();
     }
 }
