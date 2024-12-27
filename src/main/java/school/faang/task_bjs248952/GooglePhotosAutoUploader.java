@@ -7,17 +7,18 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
+
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                System.out.println("Нет фото для загрузки. Ожидаем...");
+            while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
+                    uploadPhotos();
                 } catch (InterruptedException e) {
-                    System.out.println("Поток был прерван во время ожидания");
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
-            uploadPhotos();
         }
     }
 
@@ -28,11 +29,9 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
-        synchronized (lock) {
-            System.out.println("Загружаем фото на сервер: " + photosToUpload);
-            photosToUpload.clear();
-        }
+    private void uploadPhotos() {
+        System.out.println("Загружаем фото на сервер: " + photosToUpload);
+        photosToUpload.clear();
     }
 }
 
