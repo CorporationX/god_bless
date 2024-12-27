@@ -20,6 +20,6 @@ public record Chat(
 
     @Override
     public String toString() {
-        return "Chat between " + user1 + " and " + user2;
+        return "Chat between " + user1.getName() + " and " + user2.getName();
     }
 }

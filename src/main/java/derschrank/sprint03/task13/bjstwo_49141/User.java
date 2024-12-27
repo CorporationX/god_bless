@@ -2,6 +2,7 @@ package derschrank.sprint03.task13.bjstwo_49141;
 
 import lombok.Data;
 
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Data
@@ -11,6 +12,7 @@ public class User {
     private boolean isActiveLookingForChat;
     private Chat hasChat;
     private User engageToUser;
+    private AtomicLong hadChats;
 
     private ReentrantLock lock;
 
@@ -24,6 +26,7 @@ public class User {
         this.name = name;
         this.isActiveLookingForChat = isActiveLookingForChat;
         lock = new ReentrantLock();
+        hadChats = new AtomicLong(0);
     }
     
     public synchronized boolean isAwaitForNewChat() {
@@ -45,6 +48,7 @@ public class User {
             isActiveLookingForChat = false;
             hasChat = chat;
             lock.unlock();
+            hadChats.incrementAndGet();
             return true;
         }
         lock.unlock();
@@ -94,6 +98,6 @@ public class User {
 
     @Override
     public String toString() {
-        return name;
+        return name + " had chats: " + hadChats.get();
     }
 }

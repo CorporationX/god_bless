@@ -3,6 +3,9 @@ package derschrank.sprint03.task13.bjstwo_49141;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ChatManager implements ChatManagerInterface {
     private static final User FLAG_USER_IS_EGAGED_ALS_ACTIVE_USER = new User("user-plug for flag");
@@ -11,14 +14,17 @@ public class ChatManager implements ChatManagerInterface {
 
     private final UserList users;
     private final List<Chat> chats;
+    ReentrantLock lock;
+    ExecutorService
 
     public ChatManager(UserList users) {
         this.users = users;
         chats = new ArrayList<>();
+        lock = new ReentrantLock();
     }
 
     @Override
-    public synchronized void startChat(User forUser) {
+    public void startChat(User forUser) {
         while (true) {
             if (engageUser(forUser, FLAG_USER_IS_EGAGED_ALS_ACTIVE_USER)
                 && getAnyFreeUserAndTryStartNewChat(forUser)) {
@@ -36,10 +42,12 @@ public class ChatManager implements ChatManagerInterface {
 
             if ((optionalChat = tryMakeAchat(forUser, withUser)).isPresent()) {
                 Chat chat = optionalChat.get();
-
                 ChatManagerService.logChatIsMade(chat);
                 chatting(chat);
 
+                synchronized (this){
+                    chats.add(chat);
+                }
                 return true;
             } else {
                 ChatManagerService.logChatIsNotMade(forUser, withUser);
@@ -102,17 +110,21 @@ public class ChatManager implements ChatManagerInterface {
         unengageUser(forUser, FLAG_USER_IS_EGAGED_ALS_ACTIVE_USER);
         forUser.setActiveLookingForChat(false);
         try {
-            wait(TIMEOUT_FOR_AWAIT_NOTIFICATION_MILLIS);
+            synchronized (this) {
+                wait(TIMEOUT_FOR_AWAIT_NOTIFICATION_MILLIS);
+            }
         } catch (InterruptedException e) {
             ChatManagerService.logUserAwaitWasInterrupted(forUser, e);
         }
     }
 
     @Override
-    public synchronized void endChat(Chat chat) {
+    public void endChat(Chat chat) {
         ChatManagerService.logChatIsEnded(chat);
         chat.end();
-        chats.remove(chat);
-        this.notifyAll();
+            chats.remove(chat);
+        synchronized (this) {
+            this.notifyAll();
+        }
     }
 }
