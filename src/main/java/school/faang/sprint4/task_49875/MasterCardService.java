@@ -45,6 +45,8 @@ public class MasterCardService {
             System.out.println("Payment was processed: " + paymentResult);
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
+        } finally {
+            executorService.shutdown();
         }
     }
 }
