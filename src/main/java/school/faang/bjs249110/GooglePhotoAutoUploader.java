@@ -21,7 +21,7 @@ public class GooglePhotoAutoUploader {
                     } catch (InterruptedException e) {
                         log.error("Auto-upload thread interrupted.", e);
                         Thread.currentThread().interrupt();
-
+                        return;
                     }
                 }
                 uploadPhotos();
