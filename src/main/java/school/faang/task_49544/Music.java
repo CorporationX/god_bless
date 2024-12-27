@@ -5,13 +5,16 @@ public class Music {
         Player player = new Player();
 
         Thread playThread = new Thread(player::play, "Пользователь 1");
-        Thread pauseThread = new Thread(player::pause, "Пользователь 2");
-        Thread skipThread = new Thread(player::skip, "Пользователь 3");
-        Thread previousThread = new Thread(player::previous, "Пользователь 4");
-
         playThread.start();
+
+        Thread pauseThread = new Thread(player::pause, "Пользователь 2");
         pauseThread.start();
+
+        Thread skipThread = new Thread(player::skip, "Пользователь 3");
         skipThread.start();
+
+        Thread previousThread = new Thread(player::previous, "Пользователь 4");
         previousThread.start();
+
     }
 }
