@@ -8,7 +8,8 @@ public class QuestSystem {
             try {
                 Thread.sleep(quest.getDifficulty() * 10);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                CompletableFuture.completedFuture(null);
             }
             player.addExperience(quest.getReward());
             return player;
