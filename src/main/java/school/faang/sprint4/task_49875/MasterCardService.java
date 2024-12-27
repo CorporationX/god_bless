@@ -7,11 +7,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MasterCardService {
+    private static final int SEND_ANALYTICS_TIME = 1000;
+    private static final int COLLECT_PAYMENT_TIME = 10000;
+    private static final int PAYMENT_VALUE = 5000;
+    private static final int ANALYTICS_VALUE = 1000;
 
     public int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(COLLECT_PAYMENT_TIME);
+            return PAYMENT_VALUE;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -20,8 +24,8 @@ public class MasterCardService {
 
     public int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SEND_ANALYTICS_TIME);
+            return ANALYTICS_VALUE;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
