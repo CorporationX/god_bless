@@ -7,7 +7,6 @@ public class Main {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Image originalImage = new Image( "my cute dog","Original Image");
-        String filter = "сепия";
 
         Image imageBlackWhite = filterProcessor.applyFilter(originalImage,filterProcessor.BlackWhite);
         System.out.println(imageBlackWhite.getDescription());
