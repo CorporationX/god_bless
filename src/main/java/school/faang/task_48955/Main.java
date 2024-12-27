@@ -15,12 +15,11 @@ public class Main {
         House house = new House();
         ScheduledExecutorService es = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
         es.scheduleAtFixedRate(() -> {
-            house.collectFood();
-            if (house.hasCollectedAllFood()) {
-                es.shutdown();
-            }
-            },
-                INIT_DELAY, PERIOD, TimeUnit.SECONDS);
+                house.collectFood();
+                if (house.hasCollectedAllFood()) {
+                    es.shutdown();
+                }
+            }, INIT_DELAY, PERIOD, TimeUnit.SECONDS);
         try {
             es.awaitTermination(5, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
