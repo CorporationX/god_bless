@@ -1,8 +1,11 @@
 package school.faang.async_future;
 
+
 import java.util.concurrent.*;
 
 public class MasterCardService {
+    private static final long COLLECT_PAYMENT_TIME = 10000;
+    private static final long SEND_ANALYTICS_TIME = 1000;
 
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(1);
@@ -13,17 +16,15 @@ public class MasterCardService {
         try {
             System.out.println("Analysis has been sent: " + number2.get());
             System.out.println("Payment completed: " + number.get());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
     private static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(COLLECT_PAYMENT_TIME);
+            return (int) COLLECT_PAYMENT_TIME;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -32,8 +33,8 @@ public class MasterCardService {
 
     private static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SEND_ANALYTICS_TIME);
+            return (int) SEND_ANALYTICS_TIME;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
