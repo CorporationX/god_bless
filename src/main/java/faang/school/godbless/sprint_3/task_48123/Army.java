@@ -31,9 +31,8 @@ public class Army {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("An exception occurred!" + e);
         }
-
 
         return totalPower.get();
     }
