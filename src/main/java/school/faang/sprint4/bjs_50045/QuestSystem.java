@@ -18,9 +18,8 @@ public class QuestSystem {
             try {
                 Thread.sleep(quest.getDifficulty() * MILLISECOND);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 log.info("Поток был прерван");
-                throw new RuntimeException();
+                Thread.currentThread().interrupt();
             }
             player.setExperience(player.getExperience() + quest.getReward());
 
