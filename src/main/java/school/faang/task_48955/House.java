@@ -23,7 +23,8 @@ public class House {
 
     public void collectFood() {
         Random rand = new Random();
-        int room1Index, room2Index;
+        int room1Index;
+        int room2Index;
         do {
             room1Index = rand.nextInt(rooms.size());
             room2Index = rand.nextInt(rooms.size());
@@ -31,11 +32,11 @@ public class House {
         Room room1 = rooms.get(room1Index);
         Room room2 = rooms.get(room2Index);
         if (room1.hasFood() || room2.hasFood()) {
-            if(room1.hasFood()) {
+            if (room1.hasFood()) {
                 foods.addAll(room1.getFoodList());
                 System.out.println(Thread.currentThread().getName() + " collect food from room1");
             }
-            if(room2.hasFood()) {
+            if (room2.hasFood()) {
                 foods.addAll(room2.getFoodList());
                 System.out.println(Thread.currentThread().getName() + " collect food from room2");
             }

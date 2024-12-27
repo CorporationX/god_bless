@@ -16,7 +16,9 @@ public class Main {
         ScheduledExecutorService es = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
         es.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if(house.hasCollectedAllFood()) es.shutdown();
+            if (house.hasCollectedAllFood()) {
+                es.shutdown();
+            }
             },
                 INIT_DELAY, PERIOD, TimeUnit.SECONDS);
         try {
