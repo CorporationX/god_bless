@@ -18,10 +18,9 @@ public class MasterCardService {
         log.info("Payment in progress");
         try {
             Thread.sleep(PAYMENT_DURATION_MS);
-            return 10000;
+            return PAYMENT_DURATION_MS;
         } catch (InterruptedException e) {
-            log.error("Payment wasn't completed");
-            throw new RuntimeException();
+            throw new RuntimeException("Payment wasn't completed");
         }
     }
 
@@ -29,10 +28,9 @@ public class MasterCardService {
         log.info("Sending analytics in progress");
         try {
             Thread.sleep(SENDING_DURATION_MS);
-            return 1000;
+            return SENDING_DURATION_MS;
         } catch (InterruptedException e) {
-            log.error("Analytics wasn't sent");
-            throw new RuntimeException();
+            throw new RuntimeException("Analytics wasn't sent");
         }
     }
 
