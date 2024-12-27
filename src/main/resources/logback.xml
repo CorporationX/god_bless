@@ -9,18 +9,40 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-    <appender name="CONSOLE_OTHER" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE_DEBUG" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%level › %msg%n</pattern>
+            <pattern>🟪%level › %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>ACCEPT</onMismatch>
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="CONSOLE_WARN" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>🟨%level › %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="CONSOLE_ERROR" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>🟥%level › %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
     <root level="debug">
         <appender-ref ref="CONSOLE_INFO"/>
-        <appender-ref ref="CONSOLE_OTHER"/>
+        <appender-ref ref="CONSOLE_DEBUG"/>
+        <appender-ref ref="CONSOLE_WARN"/>
+        <appender-ref ref="CONSOLE_ERROR"/>
     </root>
 </configuration>
