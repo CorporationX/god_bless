@@ -15,7 +15,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("Поток {} был прерван", Thread.currentThread().getName(), e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException();
+            return 0;
         }
     }
 
@@ -26,7 +26,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("Поток {} был прерван", Thread.currentThread().getName(), e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException();
+            return "Отчет не был сформирован";
         }
     }
 }
