@@ -35,13 +35,13 @@ public class User {
 
     public void leaveHouse() {
         synchronized (house) {
-            if (!(house == null) && !(role == null)) {
+            if (house != null && role != null) {
                 house.removeRole();
                 System.out.println(String.format("User %s has leaved the house %s with role %s. Occupied roles: %d."
                                 + "Thread %s", name, house.getName(), role, house.getCountAvaliableRoles(),
                         Thread.currentThread().getName()));
-                System.out.println("Notify all users about roles...");
-                house.notifyAll();
+                System.out.println("Notify users about free role...");
+                house.notify();
                 this.house = null;
                 this.role = null;
             }
