@@ -1,9 +1,9 @@
 package derschrank.sprint03.task10.bjstwo_48849;
 
 public interface HouseInterface {
-    Role getRole(User user);
+    Role getRole();
 
-    Role releaseRole(User user);
+    void releaseRole(Role role);
 
     int getAvailableRoleCount();
 }

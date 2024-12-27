@@ -17,7 +17,7 @@ public class House implements HouseInterface {
     }
 
     @Override
-    public Role getRole(User user) {
+    public Role getRole() {
         synchronized (rolesManipulationLocker) {
             if (availableRoleCount > 0) {
                 availableRoleCount--;
@@ -28,18 +28,14 @@ public class House implements HouseInterface {
     }
 
     @Override
-    public Role releaseRole(User user) {
+    public void releaseRole(Role role) {
         synchronized (rolesManipulationLocker) {
-            if (user != null) {
-                Role role = user.getRole();
-                if (role != null) {
-                    availableRoles.push(role);
-                    availableRoleCount++;
-                    this.notifyAll();
-                }
+            if (role != null) {
+                availableRoles.push(role);
+                availableRoleCount++;
+                this.notifyAll();
             }
         }
-        return null;
     }
 
     public int getAvailableRoleCount() {

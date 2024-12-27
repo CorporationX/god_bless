@@ -2,44 +2,43 @@ package derschrank.sprint03.task10.bjstwo_48849;
 
 import lombok.Getter;
 
-import java.util.List;
-
 public class User {
-
-    private final String name;
     @Getter
+    private final String name;
     private Role role;
+    private HouseInterface house;
 
     public User(String name) {
         this.name = name;
     }
 
-    void joinHouse(HouseInterface house) {
+    synchronized void joinHouse(HouseInterface house) {
         if (!hasArole()) {
+            this.house = house;
             synchronized (house) {
                 while (house.getAvailableRoleCount() == 0) {
-                    System.out.println(this + ": House hasn't any vacant role. Wait for...");
-                    waitForNotification(house);
+                    System.out.println(this + ": = House hasn't any vacant role. Wait for...");
+                    waitForNotification();
                 }
-                role = house.getRole(this);
-                System.out.println(this + ": Became the role: " + role);
+                role = house.getRole();
+                System.out.println(this + ": + Became the role: " + role);
             }
         }
     }
 
-    void leaveHouse(HouseInterface house) {
+    synchronized void leaveHouse() {
         if (hasArole()) {
             synchronized (house) {
-                System.out.print(this + ": Released the role: " + role);
-                role = house.releaseRole(this);
-                System.out.println(", and now has role: " + role);
+                System.out.println(this + ": - Released the role: " + role);
+                house.releaseRole(role);
+                role = null;
                 house.notifyAll();
+                house = null;
             }
         }
     }
 
-
-    private void waitForNotification(HouseInterface house) {
+    private void waitForNotification() {
         try {
             house.wait();
         } catch (InterruptedException e) {
@@ -48,7 +47,7 @@ public class User {
     }
 
     private boolean hasArole() {
-        return role != null;
+        return role != null && house != null;
     }
 
     @Override

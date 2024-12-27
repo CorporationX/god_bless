@@ -84,3 +84,48 @@ End!
 BUILD SUCCESSFUL in 8s
 2 actionable tasks: 2 executed
 23:57:12: Execution finished ':derschrank.sprint03.task10.bjstwo_48849.Main.main()'.
+
+--------------------------
+Fix Review #1
+
+2:31:21: Executing ':derschrank.sprint03.task10.bjstwo_48849.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task10.bjstwo_48849.Main.main()
+User 2: + Became the role: Role 0
+User 9: + Became the role: Role 1
+User 8: + Became the role: Role 2
+User 7: + Became the role: Role 3
+User 6: + Became the role: Role 4
+User 5: = House hasn't any vacant role. Wait for...
+User 4: = House hasn't any vacant role. Wait for...
+User 0: = House hasn't any vacant role. Wait for...
+User 3: = House hasn't any vacant role. Wait for...
+User 1: = House hasn't any vacant role. Wait for...
+User 2: - Released the role: Role 0
+User 5: + Became the role: Role 0
+User 1: = House hasn't any vacant role. Wait for...
+User 3: = House hasn't any vacant role. Wait for...
+User 0: = House hasn't any vacant role. Wait for...
+User 4: = House hasn't any vacant role. Wait for...
+User 8: - Released the role: Role 2
+User 6: - Released the role: Role 4
+User 7: - Released the role: Role 3
+User 9: - Released the role: Role 1
+User 4: + Became the role: Role 1
+User 0: + Became the role: Role 3
+User 3: + Became the role: Role 4
+User 1: + Became the role: Role 2
+User 5: - Released the role: Role 0
+User 0: - Released the role: Role 3
+User 4: - Released the role: Role 1
+User 1: - Released the role: Role 2
+User 3: - Released the role: Role 4
+End!
+
+BUILD SUCCESSFUL in 5s
+2 actionable tasks: 2 executed
+2:31:27: Execution finished ':derschrank.sprint03.task10.bjstwo_48849.Main.main()'.

@@ -12,7 +12,7 @@ public class Main {
     private static final int DEFAULT_COUNT_OF_USERS = 10;
     private static final int DEFAULT_SIZE_OF_POOL = 10;
     private static final int DEFAULT_TIME_OF_OWNERSHIP_OF_ROLE = 2;
-    private static final int DEFAULT_TIME_TO_AWAIT = 20;
+    private static final int DEFAULT_TIME_TO_AWAIT = 120;
 
 
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Main {
 
         HouseInterface house = new House(roles);
         for (User user : users) {
-            Runnable releaseRoleRunnable = () -> user.leaveHouse(house);
+            Runnable releaseRoleRunnable = user::leaveHouse;
             Runnable getRoleRunnable = () -> {
                 user.joinHouse(house);
                 executorForReleaseRole.schedule(releaseRoleRunnable,
