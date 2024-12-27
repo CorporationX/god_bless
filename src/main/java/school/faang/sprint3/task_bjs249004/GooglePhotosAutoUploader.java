@@ -4,15 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Getter
 @ToString
 @NoArgsConstructor
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private final List<String> photosToUpload = new CopyOnWriteArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
@@ -23,8 +23,8 @@ public class GooglePhotosAutoUploader {
                     System.out.println("Ошибка в потоке");
                 }
             }
+            uploadPhotos();
         }
-        uploadPhotos();
     }
 
     public void onNewPhotoAdded(String photoPath) {
