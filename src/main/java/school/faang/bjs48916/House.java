@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class House {
-    public static final long GOVERNANCE_PERIOD = 2000;
-    public static enum Role {
+    public static final long GOVERNANCE_PERIOD = 3000;
+    public  enum Role {
         LORD,
         ELDER,
         MAGE,
