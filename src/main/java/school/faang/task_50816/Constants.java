@@ -1,6 +1,14 @@
 package school.faang.task_50816;
 
-public class Constants {
-    public static final int TASK_DELAY_MULTIPLIER = 100;
-    public static final int NUM_THREADS = 4;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum Constants {
+    TASK_DELAY_MULTIPLIER(100),
+    NUM_THREADS(4),
+    AWAIT_TERMINATION_TIMEOUT(10);
+
+    private final int value;
 }
