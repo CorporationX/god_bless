@@ -33,7 +33,8 @@ public class Order {
         List<OrderStatus> validStatus = VALID_TRANSIT_STATUS.getOrDefault(this.status, List.of());
 
         if (!validStatus.contains(newStatus)) {
-            String ex = String.format("Ошибка в заказе id: {}. Невозможно изменить статус заказа с {} на {}", id, status, newStatus);
+            String ex = String.format("Ошибка в заказе id: {}. Невозможно изменить статус заказа с {} на {}",
+                    id, status, newStatus);
             throw new IllegalStateException(ex);
         }
         this.status = newStatus;
