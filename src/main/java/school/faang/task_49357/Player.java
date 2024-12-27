@@ -1,7 +1,7 @@
 package school.faang.task_49357;
 
 public class Player {
-    Object lock = new Object();
+    private final Object lock = new Object();
     boolean isPlaying = false;
 
     public void play() {
