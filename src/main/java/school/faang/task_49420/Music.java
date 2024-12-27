@@ -4,14 +4,13 @@ public class Music {
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(() -> player.play());
-        Thread pauseThread = new Thread(() -> player.pause());
-        Thread skipThread = new Thread(() -> player.skip());
-        Thread previousThread = new Thread(() -> player.previous());
-
+        final Thread playThread = new Thread(() -> player.play());
         playThread.start();
+        final Thread pauseThread = new Thread(() -> player.pause());
         pauseThread.start();
+        final Thread skipThread = new Thread(() -> player.skip());
         skipThread.start();
+        final Thread previousThread = new Thread(() -> player.previous());
         previousThread.start();
 
         try {
@@ -22,7 +21,6 @@ public class Music {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.out.println("All threads completed.");
     }
 }
