@@ -17,7 +17,8 @@ public class QuestSystem {
                 try {
                     Thread.sleep(quest.getDifficulty());
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.error("Quest {} interrupted", quest.getName());
+                    Thread.currentThread().interrupt();
                 }
                 log.info("Quest {} is finished", quest.getName());
                 return p;

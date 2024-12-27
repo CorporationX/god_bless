@@ -11,6 +11,4 @@ public class Player {
     private final int level;
     @Setter
     private int experience;
-
-
 }
