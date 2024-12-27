@@ -36,7 +36,7 @@ public class Main {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) {
                 log.warn("Main thread was interrupted", e);
-                System.exit(0);
+                break;
             }
 
             service.submit(() -> game.update(player));
