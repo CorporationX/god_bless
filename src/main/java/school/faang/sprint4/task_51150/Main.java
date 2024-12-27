@@ -7,17 +7,20 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 public class Main {
+    private static final int INITIAL_POSTS = 10;
+    private static final int THREAD_COUNT = 50;
+
     public static void main(String[] args) {
         PostService postService = new PostService();
 
-        IntStream.range(0, 10).forEach(i -> {
+        IntStream.range(0, INITIAL_POSTS).forEach(i -> {
             Post post = new Post(i, "Post " + i, "Content for post " + i, "Author" + i);
             postService.addPost(post);
         });
 
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
-        IntStream.range(0, 50).forEach(i -> {
+        IntStream.range(0, THREAD_COUNT).forEach(i -> {
             futures.add(CompletableFuture.runAsync(() -> {
                 int postId = ThreadLocalRandom.current().nextInt(1000, 2000);
                 String title = "Generated Post " + postId;
