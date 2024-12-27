@@ -25,7 +25,7 @@ public class Main {
 
     private static void update(Random rnd, Game game) {
         if (game.isAlive()) {
-            game.update(rnd.nextBoolean());
+            game.update(rnd.nextBoolean(), rnd.nextBoolean());
         }
     }
 

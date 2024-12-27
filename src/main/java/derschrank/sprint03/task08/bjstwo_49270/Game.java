@@ -1,5 +1,6 @@
 package derschrank.sprint03.task08.bjstwo_49270;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
@@ -7,36 +8,35 @@ public class Game {
 
     private final AtomicInteger score = new AtomicInteger();
     private final AtomicInteger lives = new AtomicInteger();
-    private boolean isDead;
+    private AtomicBoolean isDead;
 
     public Game() {
-        isDead = false;
+        isDead = new AtomicBoolean(false);
         lives.set(DEFAULT_LIVES);
         System.out.println("Game began. You have life's points: " + lives);
     }
 
-    public void update(boolean flagScoreOrLives) {
-        if (!isDead) {
-            if (flagScoreOrLives) {
+    public void update(boolean flagScore, boolean flagLives) {
+        if (!isDead.get()) {
+            if (flagScore) {
                 incrementScore();
-            } else {
+            }
+            if (flagLives) {
                 decrementLives();
             }
         }
     }
 
     private void incrementScore() {
-        synchronized (score) {
-            score.incrementAndGet();
-            System.out.println("You received one game's point ");
-        }
+        score.incrementAndGet();
+        System.out.println("You received one game's point ");
     }
 
     private void decrementLives() {
         synchronized (lives) {
-            int l = lives.decrementAndGet();
-            System.out.println("You lost one life's point. Rest: " + lives);
-            if (l <= 0) {
+            int lives = this.lives.decrementAndGet();
+            System.out.println("You lost one life's point. Rest: " + this.lives);
+            if (lives <= 0) {
                 gameOver();
             }
         }
@@ -44,10 +44,10 @@ public class Game {
 
     private void gameOver() {
         System.out.println("Game is over.");
-        isDead = true;
+        isDead.set(true);
     }
 
     public boolean isAlive() {
-        return !isDead;
+        return !isDead.get();
     }
 }
