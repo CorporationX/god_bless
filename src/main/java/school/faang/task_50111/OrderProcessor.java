@@ -25,13 +25,14 @@ public class OrderProcessor {
 
             } catch (InterruptedException e) {
                 log.error("Ошибка обработки заказа {}: ", order.getId(), e);
+                Thread.currentThread().interrupt();
             } catch (IllegalStateException ex) {
                 log.error("Невалидный переход статуса заказа {}", order.getId());
             }
         });
     }
 
-    public void processAllOrder(List<Order> allOrders) {
+    public void processAllOrders(List<Order> allOrders) {
         List<CompletableFuture<Void>> futures = allOrders.stream().map(this::processOrder).toList();
 
         CompletableFuture<Void> future = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));

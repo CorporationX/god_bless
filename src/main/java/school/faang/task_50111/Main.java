@@ -15,6 +15,6 @@ public class Main {
                 new Order(3, New)
         );
 
-        processor.processAllOrder(orders);
+        processor.processAllOrders(orders);
     }
 }
