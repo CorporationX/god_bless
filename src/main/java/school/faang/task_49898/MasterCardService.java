@@ -7,27 +7,35 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MasterCardService {
+    static final int PAYMENT_DELAY = 10000;
+    static final int ANALYSIS_DELAY = 1000;
+    static final int PAYMENT_RESULT = 10000;
+    static final int ANALYSIS_RESULT = 1000;
+
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+
+            Thread.sleep(PAYMENT_DELAY);
+            return PAYMENT_RESULT ;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(ANALYSIS_DELAY);
+            return ANALYSIS_RESULT;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
-    public void doAll() throws ExecutionException, InterruptedException {
+    public void doAll() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> future1 = executorService.submit(MasterCardService::collectPayment);
 
@@ -36,7 +44,13 @@ public class MasterCardService {
         Integer future2Result = future2.join();
         System.out.println("Аналитика отправлена: " + future2Result);
 
-        Integer future1Result = future1.get();
+        Integer future1Result = null;
+        try {
+            future1Result = future1.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
         System.out.println("Платеж выполнен: " + future1Result);
 
         executorService.shutdown();
