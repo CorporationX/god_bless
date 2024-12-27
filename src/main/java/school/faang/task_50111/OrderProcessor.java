@@ -23,8 +23,8 @@ public class OrderProcessor {
                 totalProcessedOrders.incrementAndGet();
                 log.info("Заказ {} обработан. Статус: {}", order.getId(), order.getStatus());
 
-            } catch (InterruptedException e) {
-                log.error("Ошибка обработки заказа {}: ", order.getId(), e);
+            } catch (InterruptedException ex) {
+                log.error("Ошибка обработки заказа {}: ", order.getId(), ex);
                 Thread.currentThread().interrupt();
             } catch (IllegalStateException ex) {
                 log.error("Невалидный переход статуса заказа {}", order.getId());
