@@ -13,6 +13,12 @@ public class Factorial {
     private static final int MAX_INT_FACTORIAL = 12;
     private static final int MAX_LONG_FACTORIAL = 19;
 
+    public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
+        return numbers.stream()
+                .map(number -> CompletableFuture.supplyAsync(() -> calculateFactorial(number)))
+                .toList();
+    }
+
     public static int factorialInt(int n) {
         if (n > MAX_INT_FACTORIAL) {
             throw new IllegalArgumentException("Can't count factorial greater than " + MAX_INT_FACTORIAL);
@@ -37,12 +43,6 @@ public class Factorial {
         return IntStream.rangeClosed(MAX_LONG_FACTORIAL + 1, n)
                 .mapToObj(BigInteger::valueOf)
                 .reduce(longResult, BigInteger::multiply);
-    }
-
-    public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
-        return numbers.stream()
-                .map(number -> CompletableFuture.supplyAsync(() -> calculateFactorial(number)))
-                .toList();
     }
 
     private static BigInteger calculateFactorial(int number) {
