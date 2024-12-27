@@ -3,9 +3,6 @@ package school.faang.bjs48916;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
-
 @Slf4j
 public class User {
     @Getter
