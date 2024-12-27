@@ -1,5 +1,7 @@
 package school.faang.task_49773;
 
+import java.util.Objects;
+
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
@@ -10,10 +12,7 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) {
-        if (player == null) {
-            System.out.println("Неизвестный игрок не может присоединиться к сражению.");
-            return;
-        }
+        Objects.requireNonNull(player, "Неизвестный игрок не может присоединиться к сражению.");
         try {
             while (currentPlayers >= maxPlayers) {
                 System.out.println(player.name() + " ждет свободного слота для сражения с боссом.");
@@ -28,12 +27,9 @@ public class Boss {
     }
 
     public synchronized void leaveBattle(Player player) {
-        if (player == null) {
-            System.out.println("Неизвестный игрок не может завершить сражение.");
-            return;
-        }
+        Objects.requireNonNull(player, "Неизвестный игрок не может завершить сражение.");
         currentPlayers--;
         System.out.println(player.name() + " завершил сражение с боссом!");
-        notify();
+        notifyAll();
     }
 }
