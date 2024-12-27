@@ -5,9 +5,5 @@ import java.util.List;
 public interface HouseInterface {
     void collectFood();
 
-    KitchenInterface getKitchen();
-
-    List<RoomInterface> getRooms();
-
-
+    void collectAllFood();
 }

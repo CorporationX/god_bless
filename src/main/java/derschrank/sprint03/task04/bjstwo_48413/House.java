@@ -5,130 +5,147 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class House implements HouseInterface {
-    private static final String SPLITTER = "------------------------------------\n";
-    private static final int MAX_FOOD_PER_ROOM = 5;
     private static final int DEFAULT_COUNT_OF_ROOMS = 10;
-    private static final int DEFAULT_COUNT_OF_STAFF = 5;
-    private static final int SCHEDULE_DELAY = 0;
-    private static final int SCHEDULE_FREQUENCY = 20;
-    private static final int DELAY_WAIT_FOR_FINISH_OF_CLEANING = 1000;
-    private static final int DELAY_WAIT_FOR_SHUTDOWN_EXECUTER = 60;
+    private static final int DEFAULT_COUNT_OF_THREAD_TO_REMOVE_FOOD = 2;
+    private static final int ROOMS_PRO_THREAD = 2;
+    private static final int SCHEDULE_FREQUENCY_MILLIS = 2000;
+    private static final int DELAY_WAIT_FOR_SHUTDOWN_EXECUTOR_SECONDS = 60;
 
-    private KitchenInterface kitchen;
-    private List<RoomInterface> rooms;
-    private List<Staff> staff;
-    private int countOfStaffs;
+    private final List<RoomInterface> rooms;
+    private final List<Food> collectedFood;
+    private final int countOfThreadForRemoveFood;
+    private final ReentrantLock lockForCollectAllFood;
+
+    private ScheduledExecutorService executor;
 
     public House() {
         this(DEFAULT_COUNT_OF_ROOMS);
     }
 
     public House(int countOfRooms) {
-        this(countOfRooms, DEFAULT_COUNT_OF_STAFF);
+        this(countOfRooms, DEFAULT_COUNT_OF_THREAD_TO_REMOVE_FOOD);
     }
 
-    public House(int countOfRooms, int countOfStaffs) {
-        this.countOfStaffs = countOfStaffs;
-        makeRooms(countOfRooms);
-        deliverFoodToRooms();
+    public House(int countOfRooms, int countOfThreadsForRemoveFood) {
+        this.countOfThreadForRemoveFood = countOfThreadsForRemoveFood;
+        collectedFood = new ArrayList<>();
+        lockForCollectAllFood = new ReentrantLock();
 
-        kitchen = new Kitchen();
+        rooms = HouseService.getNewRooms(countOfRooms);
+        HouseService.deliveryNewFoodToRooms(rooms);
     }
 
 
     @Override
     public void collectFood() {
-        System.out.println(SPLITTER + "Clearing:");
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(countOfStaffs);
-        for (int i = 1; i <= countOfStaffs; i++) {
-            executor.scheduleAtFixedRate(
-                    new Staff(this, "Officiant: " + i),
-                    SCHEDULE_DELAY, SCHEDULE_FREQUENCY, TimeUnit.SECONDS);
+        if (hasAnyFoodInRooms()) {
+            Random rnd = new Random();
+            RoomInterface room;
+            for (int i = 0; i < ROOMS_PRO_THREAD; i++) {
+                do {
+                    room = getRandomRoomFromHouse(rnd);
+                    if (room.hasFood()
+                            && tryLockTheRoomAndTransferFoodFromTheRoomToCollectedFood(room)) {
+                        break;
+                    }
+                } while (hasAnyFoodInRooms());
+            }
         }
+    }
+
+    private RoomInterface getRandomRoomFromHouse(Random rnd) {
+        return rooms.get(rnd.nextInt(rooms.size()));
+    }
+
+    private boolean tryLockTheRoomAndTransferFoodFromTheRoomToCollectedFood(RoomInterface room) {
+        ReentrantLock lock = room.getLock();
+        if (lock.tryLock()) {
+            List<Food> foodFromRoom = room.removeAllFood();
+            lock.unlock();
+
+            System.out.println(Thread.currentThread().getName()
+                    + " got food from Room: " + room.getName() + ", food: " + foodFromRoom);
+
+            synchronized (collectedFood) {
+                collectedFood.addAll(foodFromRoom);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void collectAllFood() {
+        if (lockForCollectAllFood.tryLock()) {
+            System.out.println("Let's start collecting food!!!");
+
+            if (executor == null) {
+                executor = Executors.newScheduledThreadPool(countOfThreadForRemoveFood);
+            }
+
+            Runnable runnable = this::collectFood;
+            List<ScheduledFuture<?>> listOfThreads = new ArrayList<>();
+            for (int i = 0; i < countOfThreadForRemoveFood; i++) {
+                listOfThreads.add(
+                        executor.scheduleAtFixedRate(runnable,
+                                0,
+                                SCHEDULE_FREQUENCY_MILLIS,
+                                TimeUnit.MILLISECONDS)
+                );
+            }
+
+            while (hasAnyFoodInRooms()) {
+                System.out.println("House has still food...");
+                sleep(SCHEDULE_FREQUENCY_MILLIS);
+            }
+            System.out.println("There is no food in the house now!!!");
+
+            for (ScheduledFuture<?> future : listOfThreads) {
+                future.cancel(true);
+            }
+            executorShutdownAndAwait();
+            System.out.println("The food collection is complete!");
+        } else {
+            System.out.println("Someone is already collecting food. Try later.");
+        }
+    }
 
 
+    private boolean hasAnyFoodInRooms() {
+        return HouseService.hasAnyFoodInRooms(rooms);
+    }
+
+    private List<Food> getCollectedFood() {
+        synchronized (collectedFood) {
+            return new ArrayList<>(collectedFood);
+        }
+    }
+
+    private void sleep(int millis) {
         try {
-            while (getCountFoodInAllRooms() != 0) {
-                Thread.sleep(DELAY_WAIT_FOR_FINISH_OF_CLEANING);
-            }
-            executor.shutdown();
-            executor.awaitTermination(DELAY_WAIT_FOR_SHUTDOWN_EXECUTER, TimeUnit.SECONDS);
-            System.out.println(SPLITTER + "Cleaning is finished :");
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
-            System.out.println("HOTEL. CLEARING WAS INTERRUPTED!!!");
+            System.out.println("this::sleep was interrupted: " + e);
         }
     }
 
-
-    private void makeRooms(int countOfRooms) {
-        rooms = new ArrayList<>();
-
-        String number;
-        final int roomsByLevel = 10;
-        for (int i = 0; i < countOfRooms; i++) {
-            number = String.format("%d0%d", 2 + i / roomsByLevel, i % roomsByLevel);
-            rooms.add(new Room(number));
+    private void executorShutdownAndAwait() {
+        executor.shutdown();
+        try {
+            executor.awaitTermination(DELAY_WAIT_FOR_SHUTDOWN_EXECUTOR_SECONDS,
+                    TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("this::executorShutdownAndAwait was interrupted: " + e);
         }
     }
-
-    private void deliverFoodToRooms() {
-        Random rnd = new Random();
-
-        int countOfFoodsForThisRoom;
-        for (RoomInterface room : rooms) {
-            countOfFoodsForThisRoom = rnd.nextInt(MAX_FOOD_PER_ROOM);
-            for (int i = 1; i <= countOfFoodsForThisRoom; i++) {
-                room.receiveFood(new Food(String.format("#%s.%d", room.getNumber(), i)));
-            }
-        }
-    }
-
 
     @Override
     public String toString() {
-        int foodInRooms;
-        int foodInKitchen;
-        StringBuilder result = new StringBuilder(
-                String.format("HOTEL/HOUSE HAS ROOMS: %d [FOOD IN ROOMS: %d, IN KITCHEN: %d, TOTAL: %d]. STAFF: %d.\n",
-                        rooms.size(),
-                        foodInRooms = getCountFoodInAllRooms(),
-                        foodInKitchen = kitchen.getCountOfFood(),
-                        foodInRooms + foodInKitchen,
-                        countOfStaffs
-                )
-        );
-
-
-        result.append(SPLITTER).append("FOOD IN ROOMS:\n");
-        for (RoomInterface room : rooms) {
-            result.append(room).append("\n");
-        }
-
-        result.append(SPLITTER).append("FOOD IN KITCHEN:\n")
-                .append(kitchen);
-
-        return result.toString();
+        return HouseService.getTableOfTheHouseForPrint(rooms, getCollectedFood(), countOfThreadForRemoveFood);
     }
-
-    @Override
-    public KitchenInterface getKitchen() {
-        return kitchen;
-    }
-
-    @Override
-    public List<RoomInterface> getRooms() {
-        return new ArrayList<>(rooms);
-    }
-
-    private int getCountFoodInAllRooms() {
-        int result = 0;
-        for (RoomInterface room : rooms) {
-            result += room.getCountOfFood();
-        }
-        return result;
-    }
-
 }

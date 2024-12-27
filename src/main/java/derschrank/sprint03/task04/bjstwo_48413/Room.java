@@ -5,56 +5,53 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Room implements RoomInterface {
-    List<Food> food;
-    String number;
-    ReentrantLock lock;
+    private final String name;
+    private final ReentrantLock lock;
+    private List<Food> food;
 
     public Room(String number) {
-        this.number = number;
+        this.name = number;
         this.food = new ArrayList<>();
         this.lock = new ReentrantLock();
     }
 
     @Override
-    public void receiveFood(Food food) {
+    public void addFood(Food food) {
         this.food.add(food);
     }
 
-    private void giveAwayFood(Staff staff) {
-        if (!food.isEmpty()) {
-            if (staff.receiveFood(food.get(0))) {
-                food.remove(0);
-            }
+    @Override
+    public List<Food> removeAllFood() {
+        List<Food> foodToReturn = food;
+        synchronized (this) {
+            food = new ArrayList<>();
         }
+        return foodToReturn;
     }
 
     @Override
-    public void knockKnock(Staff staff) {
-        if (lock.tryLock()) {
-            giveAwayFood(staff);
-            lock.unlock();
-        }
-    }
-
-
-    @Override
-    public boolean isClear() {
-        return food.isEmpty();
+    public synchronized boolean hasFood() {
+        return !food.isEmpty();
     }
 
     @Override
-    public String getNumber() {
-        return number;
-    }
-
-    @Override
-    public int getCountOfFood() {
+    public synchronized int getCountOfFood() {
         return food.size();
     }
 
     @Override
+    public ReentrantLock getLock() {
+        return lock;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("Room: ").append(number).append(". ");
+        StringBuilder result = new StringBuilder("Room: ").append(name).append(". ");
         result.append("Total: ").append(food.size()).append(" ").append(food);
 
         return result.toString();
