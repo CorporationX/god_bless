@@ -13,20 +13,24 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    System.out.println("[" + Thread.currentThread().getName()
-                            + "] Нет фотографий для загрузки. Ожидание...");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    System.out.println("[" + Thread.currentThread().getName()
-                            + "] Поток был прерван, прерывание загрузки.");
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        System.out.println("[" + Thread.currentThread().getName()
+                                + "] Нет фотографий для загрузки. Ожидание...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("[" + Thread.currentThread().getName()
+                                + "] Поток был прерван, прерывание загрузки.");
+                        return;
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
+
     }
 
     private void uploadPhotos() {
@@ -40,7 +44,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Добавлена новая фотография: " + photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
