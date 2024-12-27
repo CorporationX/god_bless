@@ -16,10 +16,10 @@ public class Main {
         VideoManager manager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int j = 0; j < NUM_VIDEOS; j++) {
-            String videoId = "Video" + j;
+        for (int videoIndex = 0; videoIndex < NUM_VIDEOS; videoIndex++) {
+            String videoId = "Video" + videoIndex;
 
-            for (int i = 0; i < NUM_THREADS / NUM_VIDEOS; i++) {
+            for (int threadIndex = 0; threadIndex < NUM_THREADS / NUM_VIDEOS; threadIndex++) {
                 executor.submit(() -> {
                     manager.addView(videoId);
                     log.info("Количество просмотров видео {} составляет {}", videoId, manager.getViewCount(videoId));
