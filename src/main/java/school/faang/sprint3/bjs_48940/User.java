@@ -5,19 +5,19 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @Slf4j
 public class User {
-    private static final Random RANDOM = new Random();
+    private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 
     private final String name;
     private final House house;
     @Setter
     private String role;
 
-    public synchronized void joinHouse() throws InterruptedException {
+    public void joinHouse() throws InterruptedException {
         synchronized (house) {
             while (house.getAvailableRolesAmount() == 0) {
                 log.info("{} ждет освобождения роли...", name);
@@ -29,7 +29,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() throws InterruptedException {
+    public void leaveHouse() throws InterruptedException {
         synchronized (house) {
             log.info("Пользователь {} освободил роль: {}", name, role);
             removeRole();
