@@ -26,7 +26,7 @@ public class Witcher {
 
         long startTime = System.currentTimeMillis();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
         for (City city : cities) {
             CityWorker worker = new CityWorker(city, monsters);
