@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class House {
     public static final long GOVERNANCE_PERIOD = 3000;
+
     public  enum Role {
         LORD,
         ELDER,
@@ -40,8 +41,7 @@ public class House {
                 currentRoles.put(role, user);
                 periodManager.schedule(() -> kick(role), GOVERNANCE_PERIOD, TimeUnit.MILLISECONDS);
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
