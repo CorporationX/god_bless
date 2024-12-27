@@ -35,7 +35,7 @@ public class Music {
                 .thenRun(() -> System.out.println("Music was ended"));
     }
 
-    private static void executorShutdownAndAwait(ExecutorService executor){
+    private static void executorShutdownAndAwait(ExecutorService executor) {
         try {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.MINUTES);
