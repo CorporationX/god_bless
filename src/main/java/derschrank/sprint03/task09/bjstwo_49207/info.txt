@@ -1,0 +1,58 @@
+Условия задачи
+Вам нужно разработать многопоточный класс VideoManager, который управляет просмотрами видео на YouTube. Ваша задача заключается в том, чтобы корректно подсчитывать количество просмотров для каждого видео, несмотря на большое количество параллельных запросов. Для этого нужно синхронизировать доступ к просмотрам, чтобы избежать состояния гонки
+
+Требования:
+1️⃣ Создайте класс VideoManager, который будет содержать приватное поле viewsMap для хранения количества просмотров каждого видео (можно использовать Map<String, Integer>).
+
+2️⃣ Реализуйте метод addView(String videoId), который:
+
+Добавляет один просмотр для видео с данным videoId.
+
+Этот метод должен быть потокобезопасным.
+
+3️⃣ Реализуйте метод getViewCount(String videoId), который:
+
+Возвращает текущее количество просмотров для данного videoId.
+
+Этот метод также должен быть потокобезопасным.
+
+4️⃣ В методе main():
+
+Создайте объект VideoManager.
+
+Определите NUM_THREADS (например, 100) — количество потоков и NUM_VIDEOS (например, 10) — количество видео, которые будут обрабатываться.
+
+Создайте пул потоков с помощью Executors.newFixedThreadPool(NUM_THREADS).
+
+В цикле создайте NUM_VIDEOS видео, и NUM_THREADS / NUM_VIDEOS потоков, каждый из которых будет добавлять просмотр и выводить количество просмотров на консоль.
+
+После добавления всех задач вызовите shutdown() у ExecutorService, чтобы предотвратить добавление новых задач.
+
+Вызовите awaitTermination(), чтобы дождаться завершения всех задач.
+
+---------------
+
+20:39:43: Executing ':derschrank.sprint03.task09.bjstwo_49207.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task09.bjstwo_49207.Main.main()
+End!
+Table of views:
+Video #8 has views: 200
+Video #9 has views: 200
+Video #6 has views: 200
+Video #7 has views: 200
+Video #0 has views: 200
+Video #1 has views: 200
+Video #4 has views: 200
+Video #5 has views: 200
+Video #2 has views: 200
+Video #3 has views: 200
+
+
+BUILD SUCCESSFUL in 6s
+2 actionable tasks: 2 executed
+20:39:49: Execution finished ':derschrank.sprint03.task09.bjstwo_49207.Main.main()'.
