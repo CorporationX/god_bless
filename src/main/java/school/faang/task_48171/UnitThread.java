@@ -6,6 +6,7 @@ public class UnitThread extends Thread {
     @Getter
     private int power;
     private Unit unit;
+
     public UnitThread(Unit unit) {
         this.unit = unit;
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private final List<Unit> units = new ArrayList<>();;
+    private final List<Unit> units = new ArrayList<>();
     final List<UnitThread> unitThreads;
 
     public Army() {
