@@ -17,19 +17,21 @@ public class Music {
 
         for (int i = 0; i < threads.length; i++) {
             int methodNumber = random.nextInt(NUMBER_OF_PLAYER_METHODS);
+
             switch (methodNumber) {
-                case (0):
-                    threads[i] = new Thread(player::play);
-                    break;
-                case (1):
-                    threads[i] = new Thread(player::pause);
-                    break;
-                case (2):
-                    threads[i] = new Thread(player::skip);
-                    break;
-                case (3):
-                    threads[i] = new Thread(player::previous);
-                    break;
+              case (0):
+                  threads[i] = new Thread(player::play);
+                  break;
+              case (1):
+                  threads[i] = new Thread(player::pause);
+                  break;
+              case (2):
+                  threads[i] = new Thread(player::skip);
+                  break;
+              case (3):
+                  threads[i] = new Thread(player::previous);
+                  break;
+              default:
             }
         }
 
