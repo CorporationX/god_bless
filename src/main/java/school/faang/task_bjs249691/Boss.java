@@ -20,7 +20,8 @@ public class Boss {
             try {
                 wait();
             } catch (InterruptedException e) {
-                System.out.println("Ошибка в ожидании босса");
+                System.out.println("Ошибка в ожидании босса: " + e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
         currentPlayers++;
