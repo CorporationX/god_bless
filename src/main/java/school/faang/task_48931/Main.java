@@ -16,11 +16,11 @@ public class Main {
         User user2 = new User("Dima");
         User user3 = new User("Masha");
         User user4 = new User("John");
-        User user5 = new User("Maks");
 
         Thread t1 = new Thread(() -> user1.joinHouse(house));
-        Thread t2 = new Thread(() -> user2.joinHouse(house));
-        Thread t3 = new Thread(() -> user3.joinHouse(house));
+        final Thread t2 = new Thread(() -> user2.joinHouse(house));
+        final Thread t3 = new Thread(() -> user3.joinHouse(house));
+
         Thread t4 = new Thread(() -> {
             try {
                 Thread.sleep(2000);
@@ -29,6 +29,8 @@ public class Main {
                 e.printStackTrace();
             }
         });
+        t4.start();
+        User user5 = new User("Maks");
         Thread t5 = new Thread(() -> {
             try {
                 Thread.sleep(5000);
@@ -38,11 +40,10 @@ public class Main {
             }
         });
 
+        t5.start();
         t1.start();
         t2.start();
         t3.start();
-        t4.start();
-        t5.start();
 
         try {
             Thread.sleep(7000);
