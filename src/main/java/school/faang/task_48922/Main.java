@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     static final int THREAD_POOL_SIZE = 5;
     static final int DELAY = 0;
-    static final int FREQUENCY = 5;
+    static final int FREQUENCY = 30;
 
     public static void main(String[] args) {
 
@@ -20,7 +20,7 @@ public class Main {
             house.collectFood();
             if (house.allFoodCollected()) {
                 executorService.shutdown();
-                System.out.println("Еда в доме собрана!");
+                System.out.println("The food in the house is collected!");
                 System.out.println("Collected food: " + house.getCollectedFood());
             }
         }, DELAY, FREQUENCY, TimeUnit.SECONDS);

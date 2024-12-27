@@ -18,6 +18,9 @@ public class House {
     }
 
     public void addRoom(Room room) {
+        if (room == null) {
+            throw new IllegalArgumentException("Room cannot be null");
+        }
         rooms.add(room);
     }
 
@@ -25,24 +28,33 @@ public class House {
         return rooms.stream().allMatch(room -> room.getFoodList().isEmpty());
     }
 
-    public synchronized void collectFood() {
-
-        List<Room> roomsWithFood = rooms.stream()
-                .toList();
-
-        Random random = new Random();
-        Room firstRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
+    public void collectFood() {
+        Room firstRoom;
         Room secondRoom;
 
-        do {
-            secondRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
-        } while (firstRoom == secondRoom);
+        synchronized (rooms) {
+            List<Room> roomsWithFood = rooms.stream()
+                    .filter(room -> !room.getFoodList().isEmpty())
+                    .toList();
 
-        System.out.println(Thread.currentThread().getName() + " собирает еду из " + firstRoom.getName()
-                + " и " + secondRoom.getName());
-        collectedFood.addAll(firstRoom.removeAllFood());
-        collectedFood.addAll(secondRoom.removeAllFood());
+            Random random = new Random();
+            firstRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
+
+            do {
+                secondRoom = roomsWithFood.get(random.nextInt(roomsWithFood.size()));
+            } while (firstRoom == secondRoom);
+        }
+
+        synchronized (firstRoom) {
+            synchronized (secondRoom) {
+                System.out.println(Thread.currentThread().getName() + " collects food from "
+                        + firstRoom.getName() + " and " + secondRoom.getName());
+                collectedFood.addAll(firstRoom.removeAllFood());
+                collectedFood.addAll(secondRoom.removeAllFood());
+            }
+        }
     }
+
 
     public void initialize() {
         for (int i = 1; i <= COUNT_OF_ROOMS; i++) {
