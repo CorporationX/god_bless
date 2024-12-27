@@ -2,17 +2,16 @@ package faang.school.godbless.sprint_3.task_49042;
 
 public class Main {
 
-    private static final int NUMBER_OF_PHOTOS = 4;
-
     public static void main(String[] args) {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
         Thread addingPhotos = new Thread(() -> {
-            for (int i = 0; i < NUMBER_OF_PHOTOS; i++) {
-                String photoPath = "path/to/photo/" + i + ".jpeg";
+            int photoNumber = 1;
+            while (true) {
+                String photoPath = "path/to/photo/" + photoNumber++ + ".jpeg";
                 googlePhotosAutoUploader.onNewPhotoAdded(photoPath);
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -20,7 +19,7 @@ public class Main {
         });
 
         Thread uploadingPhotos = new Thread(() -> {
-            for (int i = 0; i < NUMBER_OF_PHOTOS; i++) {
+            while (true) {
                 try {
                     googlePhotosAutoUploader.startAutoUpload();
                     Thread.sleep(5000);

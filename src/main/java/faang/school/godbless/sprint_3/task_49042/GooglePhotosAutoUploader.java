@@ -7,10 +7,14 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload() throws InterruptedException {
+    public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                lock.wait();
+            while (photosToUpload.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
             uploadPhotos();
         }
