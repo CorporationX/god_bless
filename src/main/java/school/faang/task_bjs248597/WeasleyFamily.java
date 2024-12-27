@@ -16,7 +16,7 @@ public class WeasleyFamily {
         }
         tasks.shutdown();
         try {
-            if (!tasks.awaitTermination(3, TimeUnit.SECONDS)) {
+            if (!tasks.awaitTermination(10, TimeUnit.SECONDS)) {
                 tasks.shutdownNow();
             }
         } catch (InterruptedException e) {
