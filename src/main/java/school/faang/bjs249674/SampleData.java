@@ -41,9 +41,11 @@ public class SampleData {
         if (executor.awaitTermination(TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
             System.out.println("Executor terminated on timeout of " + TERMINATION_TIMEOUT + " seconds");
         } else {
-            System.out.println("Executor did not terminate in the specified time of " + TERMINATION_TIMEOUT + " seconds");
+            System.out.println("Executor did not terminate in the specified time of "
+                    + TERMINATION_TIMEOUT + " seconds");
             List<Runnable> droppedTasks = executor.shutdownNow();
-            System.out.println("Executor was abruptly shut down. " + droppedTasks.size() + " tasks will not be executed.");
+            System.out.println("Executor was abruptly shut down. "
+                    + droppedTasks.size() + " tasks will not be executed.");
         }
     }
 
