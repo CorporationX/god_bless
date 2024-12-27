@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class WeasleyFamily {
     private final List<String> chores;
+    private final int timeout = 1;
 
     public WeasleyFamily() {
         this.chores = new ArrayList<>();
@@ -28,7 +29,6 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            final int timeout = 1;
             if (!executor.awaitTermination(timeout, TimeUnit.MINUTES)) {
                 log.info("Задачи не завершились за указанный таймаут = {} мин. Завершаем принудительно..", timeout);
                 executor.shutdownNow();
