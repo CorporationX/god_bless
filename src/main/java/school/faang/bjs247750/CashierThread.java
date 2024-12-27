@@ -30,6 +30,7 @@ public class CashierThread extends Thread {
             }
         }
 
-        log.info("The cashier {} finished serving. Products processed: {}, total cost: {}", cashierId, totalItems, totalPrice);
+        log.info("The cashier {} finished serving. Products processed: {}, total cost: {}",
+                cashierId, totalItems, totalPrice);
     }
 }
