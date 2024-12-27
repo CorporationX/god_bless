@@ -50,6 +50,7 @@ public class House {
     }
 
     private Role getAvailableRole() {
-        return availableRoles.stream().findFirst().orElseThrow();
+        return availableRoles.stream().findFirst().orElseThrow(
+                () -> new NoSuchElementException("Нет доступных ролей!"));
     }
 }
