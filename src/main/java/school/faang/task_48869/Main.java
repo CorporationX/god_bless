@@ -16,7 +16,7 @@ public class Main {
                 uploader.onNewPhotoAdded("photo3.jpg");
                 uploader.onNewPhotoAdded("photo4.jpg");
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
 
