@@ -30,7 +30,7 @@ public class Boss {
 
         try {
             Thread.sleep(1000);
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         } finally {
             leaveButtle(player);
