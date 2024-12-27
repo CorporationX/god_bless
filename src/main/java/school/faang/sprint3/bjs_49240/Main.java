@@ -30,11 +30,8 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(PLAYERS);
 
         players.forEach(player -> executor.execute(() -> {
-            try {
+            if (!game.isGameOver()) {
                 game.update(player);
-            } catch (GameOverException exc) {
-                executor.shutdownNow();
-                log.info("Game over");
             }
         }));
 
@@ -42,12 +39,11 @@ public class Main {
         try {
             if (!executor.awaitTermination(TIME_OUT, TimeUnit.MINUTES)) {
                 log.warn("Not all threads stopped by themselves");
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("Thread forced to stopped");
             Thread.currentThread().interrupt();
-        } finally {
-            executor.shutdownNow();
         }
     }
 }

@@ -10,30 +10,35 @@ public class Game {
     private int totalLives;
     private final Object lockScore = new Object();
     private final Object lockLives = new Object();
-    private final AtomicBoolean isGameOver = new AtomicBoolean(false);
+    private final AtomicBoolean gameOver = new AtomicBoolean(false);
 
     public Game(int totalScore, int totalLives) {
         this.totalScore = totalScore;
         this.totalLives = totalLives;
     }
 
-    public void update(Player player) throws GameOverException {
+    public boolean isGameOver() {
+        return gameOver.get();
+    }
+
+    public void update(Player player) {
         if (player.lostLife()) {
             synchronized (lockLives) {
-                if (!isGameOver.get()) {
+                if (!gameOver.get()) {
                     totalLives--;
                     if (totalLives <= 0) {
                         log.info("No lives left in current game");
-                        isGameOver.set(true);
-                        throw new GameOverException();
+                        gameOver.set(true);
+                        log.info("Game over");
+                    } else {
+                        log.info("Lives left {}", totalLives);
                     }
-                    log.info("Lives left {}", totalLives);
                 }
             }
         }
         if (player.getPoints()) {
             synchronized (lockScore) {
-                if (!isGameOver.get()) {
+                if (!gameOver.get()) {
                     totalScore++;
                     log.info("Total score of the game : {}", totalScore);
                 }
