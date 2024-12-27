@@ -3,6 +3,7 @@ package school.faang.sprint3.task_48467;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 import static school.faang.sprint3.task_48467.HouseSettings.THREAD_COUNT;
 
@@ -11,15 +12,27 @@ public class Main {
         House house = new House();
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_COUNT);
 
-        for (int i = 0; i < THREAD_COUNT; i++) {
-            executorService.scheduleAtFixedRate(house::collectFood, 0, 5, TimeUnit.SECONDS);
-        }
+        IntStream.range(0, THREAD_COUNT).forEach((i) ->
+                executorService.scheduleAtFixedRate(house::collectFood, 0, 5, TimeUnit.SECONDS)
+        );
 
-        while (true) {
+        ScheduledExecutorService checker = Executors.newSingleThreadScheduledExecutor();
+        checker.scheduleAtFixedRate(() -> {
             if (house.allFoodIsCollected()) {
+                System.out.println("All food is collected. Shutting down");
                 executorService.shutdown();
-                break;
+                checker.shutdown();
             }
+        }, 0, 1, TimeUnit.SECONDS);
+
+        try {
+            executorService.awaitTermination(30, TimeUnit.SECONDS);
+            checker.awaitTermination(30, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            executorService.shutdownNow();
+            checker.shutdownNow();
         }
 
         house.printAllCollectedFood();

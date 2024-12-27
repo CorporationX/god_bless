@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static school.faang.sprint3.task_48467.HouseSettings.ROOM_COUNT;
@@ -15,6 +16,7 @@ import static school.faang.sprint3.task_48467.HouseSettings.ROOM_COUNT;
 public class House {
     private final List<Room> rooms = new CopyOnWriteArrayList<>();
     private final List<Food> collected = Collections.synchronizedList(new ArrayList<>());
+    private final AtomicInteger clearedRooms = new AtomicInteger();
 
     public House() {
         List<Room> generated = IntStream.range(0, ROOM_COUNT)
@@ -24,10 +26,23 @@ public class House {
     }
 
     public void collectFood() {
-        List<Integer> indexes = generateTwoRandomRooms();
-        for (Integer i : indexes) {
-            List<Food> food = rooms.get(i).collectFood();
-            collected.addAll(food);
+        Random random = new Random();
+        int generatedRooms = 0;
+
+        while (generatedRooms < 2) {
+            if (allFoodIsCollected()) {
+                return;
+            }
+
+            int generated = random.nextInt(rooms.size());
+            Room room = rooms.get(generated);
+
+            if (room.getLock().tryLock() && !room.getFood().isEmpty()) {
+                List<Food> food = room.collectFood();
+                collected.addAll(food);
+                generatedRooms++;
+                clearedRooms.incrementAndGet();
+            }
         }
     }
 
@@ -37,26 +52,6 @@ public class House {
     }
 
     public boolean allFoodIsCollected() {
-        synchronized (rooms) {
-            return rooms.stream().allMatch((room) -> room.compareAndSetInQueue(true, true));
-        }
-    }
-
-    private List<Integer> generateTwoRandomRooms() {
-        List<Integer> roomsIndexes = new ArrayList<>();
-        Random random = new Random();
-
-        while (roomsIndexes.size() < 2) {
-            if (allFoodIsCollected()) {
-                break;
-            }
-            int generated = random.nextInt(rooms.size());
-            Room room = rooms.get(generated);
-            if (!roomsIndexes.contains(generated) && room.compareAndSetInQueue(false, true)) {
-                roomsIndexes.add(generated);
-            }
-        }
-        log.info(Thread.currentThread().getName() + " generated rooms " + roomsIndexes);
-        return roomsIndexes;
+        return clearedRooms.get() == rooms.size();
     }
 }

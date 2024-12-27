@@ -7,18 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
 import static school.faang.sprint3.task_48467.HouseSettings.FOOD_IN_ROOM_COUNT;
 
 @Slf4j
+@Getter
 @ToString
 public class Room {
     private final int roomId;
     @NonNull
     private final List<Food> food = new ArrayList<>();
-    private final AtomicBoolean inQueue = new AtomicBoolean(false);
+    private final Lock lock = new ReentrantLock();
 
     public Room(int roomId) {
         this.roomId = roomId;
@@ -26,15 +28,16 @@ public class Room {
     }
 
     public List<Food> collectFood() {
-        List<Food> collected = new ArrayList<>(food);
-        food.clear();
-        return collected;
+        lock.lock();
+        try {
+            List<Food> collected = new ArrayList<>(food);
+            food.clear();
+            return collected;
+        } finally {
+            log.info("RoomId = {}, food is collected by {} thread", roomId, Thread.currentThread().getName());
+            lock.unlock();
+        }
     }
-
-    public boolean compareAndSetInQueue(boolean expected, boolean newValue) {
-        return inQueue.compareAndSet(expected, newValue);
-    }
-
 
     private void initFood() {
         List<Food> generated = IntStream.range(0, FOOD_IN_ROOM_COUNT)
