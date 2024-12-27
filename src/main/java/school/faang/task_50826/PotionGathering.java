@@ -17,23 +17,25 @@ public class PotionGathering {
 
     private static void gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Potion>> futureList = new ArrayList<>();
-        potions.forEach((potion) -> {
-            CompletableFuture<Potion> futurePotion = CompletableFuture.supplyAsync(() -> {
-                try {
-                    System.out.println(String.format("Begin of collecting ingredients for the potion %s...",
-                            potion.getName()));
-                    Thread.sleep(1000 * potion.getRequiredIngredients());
-                    System.out.println(String.format("Ingredients for the potion %s is collected.",
-                            potion.getName()));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return potion;
-            });
-            futureList.add(futurePotion);
-        });
+        potions.stream().map(potion -> collectIngridients(potion)).forEach(future -> futureList.add(future));
+
         AtomicInteger totalQuantity = new AtomicInteger(0);
         futureList.forEach(future -> totalQuantity.addAndGet(future.join().getRequiredIngredients()));
         System.out.println(String.format("Total amount of ingredients collected: %d", totalQuantity.get()));
+    }
+
+    private static CompletableFuture<Potion> collectIngridients(Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println(String.format("Begin of collecting ingredients for the potion %s...",
+                        potion.getName()));
+                Thread.sleep(1000 * potion.getRequiredIngredients());
+                System.out.println(String.format("Ingredients for the potion %s is collected.",
+                        potion.getName()));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return potion;
+        });
     }
 }
