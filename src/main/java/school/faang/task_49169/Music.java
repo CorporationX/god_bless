@@ -1,5 +1,6 @@
 package school.faang.task_49169;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -9,13 +10,17 @@ public class Music {
 
         ExecutorService executor = Executors.newFixedThreadPool(4);
         try {
-            executor.execute(() -> safeExecute(player::play));
-            executor.execute(() -> safeExecute(player::pause));
-            executor.execute(() -> safeExecute(player::skip));
-            executor.execute(() -> safeExecute(player::previous));
+            List<Runnable> tasks = List.of(
+                    () -> safeExecute(player::play),
+                    () -> safeExecute(player::pause),
+                    () -> safeExecute(player::skip),
+                    () -> safeExecute(player::previous),
+                    () -> safeExecute(player::play),
+                    () -> safeExecute(player::pause)
+            );
 
-            executor.execute(() -> safeExecute(player::play));
-            executor.execute(() -> safeExecute(player::pause));
+            tasks.forEach(executor::execute);
+
         } catch (Exception e) {
             System.out.println("Error while working with threads: " + e.getMessage());
         } finally {
