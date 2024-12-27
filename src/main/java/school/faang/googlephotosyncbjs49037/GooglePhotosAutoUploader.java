@@ -1,32 +1,40 @@
 package school.faang.googlephotosyncbjs49037;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
+    private static final Logger logger =
+            LoggerFactory.getLogger(GooglePhotosAutoUploader.class);
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
     private static final int UPLOAD_DELAY_MS = 1000;
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                System.out.println("There are no new photos. Expectation...");
+        while (true) {
+            synchronized (lock) {
+                if (photosToUpload.isEmpty()) {
+                    logger.info("There are no new photos. Expectation...");
+                }
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("Upload interrupted", e);
+                    return;
+                }
             }
-            try {
-                lock.wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
+            uploadPhotos();
         }
-        uploadPhotos();
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            System.out.println("Added a new photo: " + photoPath);
+            logger.info("Added a new photo: " + photoPath);
             lock.notify();
         }
     }
@@ -35,16 +43,17 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             List<String> photosToUploadCopy = new ArrayList<>(photosToUpload);
             photosToUploadCopy.forEach(photoPath -> {
-                System.out.println("Upload photo: " + photoPath);
+                logger.info("Upload photo: " + photoPath);
                 try {
                     Thread.sleep(UPLOAD_DELAY_MS);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    logger.error("Upload interrupted", e);
                     return;
                 }
                 photosToUpload.remove(photoPath);
             });
-            System.out.println("All photo upload");
+            logger.info("All photo upload");
         }
     }
 }
