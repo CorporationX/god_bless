@@ -11,7 +11,7 @@ public class Order {
 
     public Order(int id) {
         this.id = id;
-        status = OrderStatus.New;
+        status = OrderStatus.NEW;
     }
 
 }
