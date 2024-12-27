@@ -10,17 +10,18 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int THREAD_NUMBER = 100;
-    public static final int VIDEOS_NUMBER = 10;
+    public static final int THREAD_NUMBER = 10;
+    public static final int VIDEOS_NUMBER = 100;
     public static final Random RANDOM = new Random();
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUMBER);
         VideoManager videoManager = new VideoManager(new HashMap<>());
 
-        for (int i = 0; i < VIDEOS_NUMBER; i++) {
+        //String video;
+        for (int i = 0; i < THREAD_NUMBER; i++) {
             String video = "Video " + RANDOM.nextInt(100, 999);
-            for (int j = 0; j < THREAD_NUMBER / VIDEOS_NUMBER; j++) {
+            for (int j = 0; j < VIDEOS_NUMBER / THREAD_NUMBER; j++) {
                 executorService.submit(() -> {
                     videoManager.addView(video);
                     var views = videoManager.viewCount(video);
