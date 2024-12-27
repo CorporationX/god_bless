@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -32,11 +31,12 @@ public class MasterCardService {
     public static int sendAnalytics() {
         try {
             Thread.sleep(ANALYTICS_AMOUNT);
-            return ANALYTICS_AMOUNT;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            log.info("Поток был прерван");
+            Thread.currentThread().interrupt();
         }
+
+        return ANALYTICS_AMOUNT;
     }
 
     @SneakyThrows
