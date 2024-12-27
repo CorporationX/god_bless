@@ -6,7 +6,6 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload;
-    private final int maxPhotosToUpload = 10;
     private int countUploadPhoto = 0;
 
     public GooglePhotosAutoUploader() {
@@ -14,9 +13,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() throws InterruptedException {
-        while (maxPhotosToUpload > countUploadPhoto) {
+        while (countUploadPhoto < 10) {
             synchronized (lock) {
-                if (photosToUpload.isEmpty()) {
+                while (photosToUpload.isEmpty()) {
                     System.out.println("There are no photo to upload. Wait new photo.");
                     lock.wait();
                 }
