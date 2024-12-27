@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
@@ -12,11 +13,9 @@ public class Army {
     private static final int SWORDSMAN_QUANTITY = 100;
     private static final int MAGE_QUANTITY = 100;
 
-    List<Character> mages = Collections.nCopies(MAGE_QUANTITY, new Mage());
-    List<Character> swordsmen = Collections.nCopies(SWORDSMAN_QUANTITY, new Swordsman());
-    List<Character> archers = Collections.nCopies(ARCHER_QUANTITY, new Archer());
-
-    List<Thread> threads = new ArrayList<>();
+    private final List<Character> mages = Collections.nCopies(MAGE_QUANTITY, new Mage());
+    private final List<Character> swordsmen = Collections.nCopies(SWORDSMAN_QUANTITY, new Swordsman());
+    private final List<Character> archers = Collections.nCopies(ARCHER_QUANTITY, new Archer());
 
     @SneakyThrows
     public int calculateTotalPower() {
@@ -26,8 +25,20 @@ public class Army {
         army.addAll(archers);
         AtomicInteger totalPower = new AtomicInteger();
 
+        int maxThreads = Runtime.getRuntime().availableProcessors();
+        Semaphore semaphore = new Semaphore(maxThreads);
+
+        List<Thread> threads = new ArrayList<>();
         for (Character character : army) {
-            Thread thread = new Thread(() -> totalPower.addAndGet(character.getPower()));
+            semaphore.acquire();
+            Thread thread = new Thread(() -> {
+                try {
+                    totalPower.addAndGet(character.getPower());
+                } finally {
+                    semaphore.release();
+                }
+
+            });
             threads.add(thread);
             thread.start();
         }
