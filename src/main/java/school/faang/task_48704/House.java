@@ -5,23 +5,24 @@ import lombok.Data;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 public class House {
+    private static final int ROOMS_TO_CHECK_COUNT = 2;
     private List<Room> rooms;
     private List<Food> allFoods = new ArrayList<>();
-    private int quantityRoom = 2;
 
     public House(List<Room> rooms) {
-        this.rooms = rooms;
+        this.rooms = Objects.requireNonNull(rooms, "List of rooms cannot be null");
     }
 
-    public boolean collectFood() {
-        for (int i = 0; i < quantityRoom; i++) {
+    public synchronized boolean collectFood() {
+        for (int i = 0; i < ROOMS_TO_CHECK_COUNT; i++) {
             Room room = randomRooms();
             if (!room.getFoods().isEmpty()) {
                 allFoods.addAll(room.getFoods());
-                room.getFoods().removeAll(room.getFoods());
+                room.getFoods().clear();
                 System.out.println("Комната " + room.getName() + " обобрана");
             } else if (!allFoodCollected()) {
                 System.out.println("Комната " + room.getName() + " была пуста");

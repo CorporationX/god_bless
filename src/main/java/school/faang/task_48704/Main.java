@@ -39,6 +39,11 @@ public class Main {
         executor.scheduleAtFixedRate(() -> {
             if (house.collectFood()) {
                 executor.shutdown();
+                try {
+                    executor.awaitTermination(1, TimeUnit.MINUTES);
+                } catch (InterruptedException e) {
+                    System.out.println("Прерывание потока");
+                }
             }
         }, 0, 30, TimeUnit.SECONDS);
     }
