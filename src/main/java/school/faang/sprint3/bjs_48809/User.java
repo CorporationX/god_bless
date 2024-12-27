@@ -11,6 +11,7 @@ public class User {
 
     public User(String name) {
         this.name = name;
+        this.joinedHouse = null;
     }
 
     public void joinHouse(House house) throws InterruptedException {
@@ -23,19 +24,23 @@ public class User {
                     log.warn("No available roles");
                 }
             }
-            chosenRole = house.getTheRole();
+            chosenRole = house.getRole();
             joinedHouse = house;
             log.info("{} chose the role {}", name, chosenRole);
         }
     }
 
-    public void leaveHouse() {
-        synchronized (lockHouse) {
-            log.info("{} leave the house", name);
-            joinedHouse.returnRole(chosenRole);
+    public void leaveHouse(House house) {
+        if (!house.equals(joinedHouse)) {
+            log.warn("You are not joined to this house");
+        } else {
+            synchronized (lockHouse) {
+                joinedHouse.returnRole(chosenRole);
+                lockHouse.notifyAll();
+            }
             chosenRole = null;
             joinedHouse = null;
-            lockHouse.notifyAll();
+            log.info("{} leave the house", name);
         }
     }
 }

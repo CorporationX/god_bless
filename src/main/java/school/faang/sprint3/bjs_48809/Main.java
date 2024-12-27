@@ -29,7 +29,7 @@ public class Main {
             try {
                 user.joinHouse(house);
                 Thread.sleep(TIME_TO_LEAVE);
-                user.leaveHouse();
+                user.leaveHouse(house);
             } catch (InterruptedException e) {
                 log.error("Unexpected error");
             }
@@ -39,11 +39,11 @@ public class Main {
         try {
             if (!executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
                 log.warn("Not all threads stopped by themselves");
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            log.error("Threads forced to stopped");
-        } finally {
-            executorService.shutdownNow();
+            log.error("Thread forced to stopped");
+            Thread.currentThread().interrupt();
         }
     }
 }
