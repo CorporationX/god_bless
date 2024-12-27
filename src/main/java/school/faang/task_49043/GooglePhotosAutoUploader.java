@@ -9,16 +9,18 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         System.out.println("Загрузка фотографий на сервер");
-        while (true) synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    System.out.println("Ожидание фоток");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        System.out.println("Ожидание фоток");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
