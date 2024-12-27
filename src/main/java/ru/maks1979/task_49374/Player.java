@@ -5,33 +5,33 @@ import lombok.Setter;
 
 public class Player {
     @Getter
-    private final Object Lock = new Object();
+    private final Object LockObj= new Object();
     @Setter
     @Getter
     private boolean isPlaying;
 
     public void play() {
-        synchronized (Lock) {
+        synchronized (LockObj) {
             setPlaying(true);
             System.out.println("Проигрывается трек");
         }
     }
 
     public void pause() {
-        synchronized (Lock) {
+        synchronized (LockObj) {
             setPlaying(false);
             System.out.println("Пауза");
         }
     }
 
     public void skip() {
-        synchronized (Lock) {
+        synchronized (LockObj) {
             System.out.println("Следующий трек");
         }
     }
 
     public void previous() {
-        synchronized (Lock) {
+        synchronized (LockObj) {
             System.out.println("Возврат к предыдущему треку");
         }
     }
