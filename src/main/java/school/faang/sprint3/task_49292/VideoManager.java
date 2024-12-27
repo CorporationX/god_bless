@@ -5,13 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class VideoManager {
     @NonNull
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
-    public synchronized void addView(String videoId) {
+    public void addView(String videoId) {
         Integer value = viewsMap.merge(videoId, 1, Integer::sum);
         log.info(Thread.currentThread().getName() + "| " + videoId + " | " + value);
     }
