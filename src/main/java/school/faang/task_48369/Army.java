@@ -14,7 +14,7 @@ public class Army {
         units.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
@@ -29,8 +29,13 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
-            System.out.println("Thread " + thread.getId() + " finished.");
+            try {
+                thread.join();
+                System.out.println("Thread " + thread.getId() + " finished.");
+            } catch (InterruptedException e) {
+                System.err.println("Thread " + thread.getId() + " was interrupted: " + e.getMessage());
+                Thread.currentThread().interrupt();
+            }
         }
 
         for (PowerCalculator task : tasks) {
@@ -39,5 +44,6 @@ public class Army {
 
         return totalPower;
     }
+
 }
 
