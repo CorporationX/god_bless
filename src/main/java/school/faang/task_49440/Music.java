@@ -24,7 +24,6 @@ public class Music {
         Thread pauseThread = new Thread(() -> repeatAction(player::pause, 1000));
         Thread skipThread = new Thread(() -> repeatAction(player::skip, 500));
         Thread previousThread = new Thread(() -> repeatAction(player::previous, 1000));
-
         playThread.start();
         pauseThread.start();
         skipThread.start();
