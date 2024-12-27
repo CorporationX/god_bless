@@ -1,12 +1,22 @@
 package school.faang.task_49876;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
+    private static final long THREAD_COLLECT = 10_000;
+    private static final long THREAD_ANALYTIC = 1_000;
+    private static final int VALUE_COLLECT = 10_000;
+    private static final int VALUE_ANALYTIC = 1_000;
+
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(THREAD_COLLECT);
+            return VALUE_COLLECT;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -15,8 +25,8 @@ public class MasterCardService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(THREAD_ANALYTIC);
+            return VALUE_ANALYTIC;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -34,9 +44,7 @@ public class MasterCardService {
         try {
             Integer resultCollect = resultFutureCollect.get();
             System.out.println(String.format("Result's of collecting payments = %d", resultCollect));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -48,7 +56,3 @@ public class MasterCardService {
         }
     }
 }
-//Запустите метод collectPayment() в отдельном потоке и получите результат через Future.
-//Запустите метод sendAnalytics() асинхронно через CompletableFuture.
-//Основной поток должен сначала дождаться завершения отправки аналитики и вывести результат.
-//После этого основной поток должен дождаться завершения обработки платежа и вывести результат.
