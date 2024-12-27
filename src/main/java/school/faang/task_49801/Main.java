@@ -1,6 +1,5 @@
 package school.faang.task_49801;
 
-import ch.qos.logback.core.joran.conditional.ThenAction;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
