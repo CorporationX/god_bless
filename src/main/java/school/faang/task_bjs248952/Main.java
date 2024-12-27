@@ -20,8 +20,8 @@ public class Main {
         addPhotosService.shutdown();
 
         try {
-            if (!autoUploader.awaitTermination(5, TimeUnit.SECONDS) || !addPhotosService
-                    .awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!autoUploader.awaitTermination(10, TimeUnit.SECONDS) || !addPhotosService
+                    .awaitTermination(10, TimeUnit.SECONDS)) {
                 autoUploader.shutdownNow();
                 addPhotosService.shutdownNow();
             }
