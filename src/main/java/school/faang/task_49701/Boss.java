@@ -13,7 +13,7 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) {
-        while (currentPlayers == maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             try {
                 log.info("В битве максимальное количество игроков, ожидаем свободное место...");
                 wait();
@@ -29,6 +29,6 @@ public class Boss {
     public synchronized void leaveFromBattle(Player player) {
         currentPlayers--;
         log.info("Игрок {} покинул битву", player.getName());
-        notify();
+        notifyAll();
     }
 }

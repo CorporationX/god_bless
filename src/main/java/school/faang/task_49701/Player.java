@@ -7,14 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class Player {
-    private static final Integer BATTLE_TIME_IN_SECONDS = 2000;
+    private static final Integer BATTLE_TIME_MILLIS = 2000;
     @Getter
     private final String name;
 
-    public synchronized void startBattle(Boss boss) {
+    public void startBattle(Boss boss) {
         try {
             boss.joinBattle(this);
-            Thread.sleep(BATTLE_TIME_IN_SECONDS);
+            Thread.sleep(BATTLE_TIME_MILLIS);
             boss.leaveFromBattle(this);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
