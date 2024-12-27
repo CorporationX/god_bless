@@ -5,8 +5,8 @@ public class Main {
         Game game = new Game(0, 10);
 
         for (int i = 0; i < 100; i++) {
-            boolean earnedPoints = Math.random() > 0.5; // 50% шанс заработать очки
-            boolean lostLife = Math.random() > 0.7;     // 30% шанс потерять жизнь
+            boolean earnedPoints = Math.random() > 0.5;
+            boolean lostLife = Math.random() > 0.7;
 
             game.update(earnedPoints, lostLife);
             if (game.getLives() <= 0) {
@@ -14,16 +14,10 @@ public class Main {
             }
 
             try {
-                Thread.sleep(100); // Задержка для симуляции шага игры
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
-//        ExecutorService executor = Executors.newFixedThreadPool(5);
-//        while (game.getLives() > 0) {
-//            executor.submit(game::update);
-//        }
-//        executor.shutdown();
     }
 }
