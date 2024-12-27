@@ -21,6 +21,14 @@ public class Main {
                 return;
             }
             house.collectFood();
-        }, 0, 2, TimeUnit.SECONDS);
+        }, 0, 30, TimeUnit.SECONDS);
+
+        try {
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                System.out.println("Все задачи завершены!");
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Произошло исключение!" + e);
+        }
     }
 }

@@ -14,7 +14,6 @@ public class House {
     private final Random random = new Random();
 
     private final List<Room> rooms = new ArrayList<>();
-    private final List<Food> allFood = new ArrayList<>();
 
     private final List<Food> collectedFood = new ArrayList<>();
 
