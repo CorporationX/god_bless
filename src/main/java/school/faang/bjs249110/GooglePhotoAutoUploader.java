@@ -14,7 +14,7 @@ public class GooglePhotoAutoUploader {
     public void startAutoUpload() {
         while (true) {
             synchronized (lock) {
-                if (photosToUpload.isEmpty()) {
+                while (photosToUpload.isEmpty()) {
                     try {
                         log.info("No photos to upload. Waiting for new photos...");
                         lock.wait();
