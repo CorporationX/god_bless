@@ -7,13 +7,13 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
     public static void main(String[] args) {
         List<Student> studentsMan = new ArrayList<>();
-        List<Student> studentsWomen = new ArrayList<>();
         studentsMan.add(new Student("Павел", 5, 0));
         studentsMan.add(new Student("Алексей", 5, 0));
         studentsMan.add(new Student("Владимир", 5, 0));
         studentsMan.add(new Student("Виктор", 5, 0));
         studentsMan.add(new Student("Николай", 5, 0));
 
+        List<Student> studentsWomen = new ArrayList<>();
         studentsWomen.add(new Student("Маша", 4, 0));
         studentsWomen.add(new Student("Катя", 4, 0));
         studentsWomen.add(new Student("Юля", 4, 0));
