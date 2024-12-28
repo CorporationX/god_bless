@@ -13,6 +13,7 @@ public class Tournament {
             try {
                 Thread.sleep(task.difficulty() * EXECUTION_TIME);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 log.error("Поток был прерван при выполнении метода sleep()", e);
             }
             school.getStudents().forEach(student -> student.updatePoints(task.reward()));
