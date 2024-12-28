@@ -4,8 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import school.faang.sprint4.task50950.model.Potion;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 
 @Slf4j
 public class Main {
@@ -13,6 +12,7 @@ public class Main {
     private static final int INGREDIENTS_MOPSUS = 20;
     private static final int INGREDIENTS_INVISIBLE = 30;
     private static final int TIME_TO_GATHER_MSEC = 1000;
+    private static ExecutorService executor;
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -20,6 +20,7 @@ public class Main {
                 new Potion("Mopsus", INGREDIENTS_MOPSUS),
                 new Potion("Invisible", INGREDIENTS_INVISIBLE)
         );
+        executor = Executors.newFixedThreadPool(10);
         gatherAllIngredients(potions);
     }
 
@@ -31,13 +32,17 @@ public class Main {
             gotheredResults = potions.stream()
                     .map(Main::gatherIngredients)
                     .toList();
-            CompletableFuture all = CompletableFuture.allOf((CompletableFuture<Integer>) gotheredResults.toArray()[0]);
 
             try {
-                all.get();
-            } catch (InterruptedException | ExecutionException e) {
+                CompletableFuture.allOf(gotheredResults.toArray(new CompletableFuture[gotheredResults.size()]))
+                        .get(1, TimeUnit.MINUTES);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException | TimeoutException e) {
+                log.error("Error waiting threads result: {}", e.getMessage());
                 throw new RuntimeException(e);
             }
+
             needToGatherQuantity = potions.stream().mapToInt(Potion::getRequiredIngredients).sum();
         } while (needToGatherQuantity > 0);
 
@@ -62,6 +67,6 @@ public class Main {
                 log.info("All ingredients for potion {} are collected", potion.getName());
             }
             return numOfRequiredIngredients;
-        });
+        }, executor);
     }
 }
