@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
     private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+
     public void processAllOrders(List<Order> orders) {
         CompletableFuture[] futures = orders.stream().map(order -> CompletableFuture.supplyAsync(() -> processOrder(order))).toArray(CompletableFuture[]::new);
         while (!CompletableFuture.allOf(futures).isDone()) {
