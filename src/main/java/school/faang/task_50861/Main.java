@@ -20,9 +20,9 @@ public class Main {
                 new Student("Гермиона", 1990, 50));
 
         List<Student> noHogwartsTeam = List.of(
-                new Student("малфой", 1990, 10),
-                new Student("воланд", 1960, 90),
-                new Student("филч", 1930, 70)
+                new Student("Малфой", 1990, 10),
+                new Student("Воланд", 1960, 90),
+                new Student("Филч", 1930, 70)
         );
 
         School hogwarts = new School("Hogwarts", hogwartsTeam);

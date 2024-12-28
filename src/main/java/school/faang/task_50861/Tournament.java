@@ -14,6 +14,7 @@ public class Tournament {
                 Thread.sleep(task.getDifficulty() * TIME_OUT_MS);
             } catch (InterruptedException e) {
                 log.error("Error {}", e.getMessage());
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
 
