@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class OrderProcessor {
     private static final long EXECUTION_TIME = 2000;
-    AtomicInteger totalProcessedOrders;
+    private final AtomicInteger totalProcessedOrders;
 
     public OrderProcessor() {
         this.totalProcessedOrders = new AtomicInteger(0);
