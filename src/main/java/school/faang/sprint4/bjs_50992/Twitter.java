@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Twitter {
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
+    private static final int FOLLOWERS_PER_ACCOUNT = 3;
 
     public static void main(String[] args) {
         TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem();
         List<TwitterAccount> accounts = accountsInitialize();
         List<CompletableFuture<Void>> futures = futuresInitialize(subscriptionSystem, accounts);
 
-        for (CompletableFuture<Void> future : futures) {
-            future.join();
-        }
+        CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
 
         printFollowers(accounts);
     }
@@ -28,7 +28,7 @@ public class Twitter {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
         for (TwitterAccount account : accounts) {
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= FOLLOWERS_PER_ACCOUNT; i++) {
                 futures.add(system.followAccount(account));
             }
         }
@@ -46,7 +46,7 @@ public class Twitter {
         };
 
         for (String name : names) {
-            accounts.add(new TwitterAccount(name, RANDOM.nextInt(1000)));
+            accounts.add(new TwitterAccount(name, new AtomicInteger(RANDOM.nextInt(1000))));
         }
 
         return accounts;
