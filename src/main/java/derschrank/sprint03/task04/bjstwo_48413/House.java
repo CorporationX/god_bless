@@ -20,6 +20,7 @@ public class House implements HouseInterface {
     private final List<Food> collectedFood;
     private final int countOfThreadForRemoveFood;
     private final ReentrantLock lockForCollectAllFood;
+    private final Random rnd;
 
     private ScheduledExecutorService executor;
 
@@ -38,19 +39,20 @@ public class House implements HouseInterface {
 
         rooms = HouseService.getNewRooms(countOfRooms);
         HouseService.deliveryNewFoodToRooms(rooms);
+        rnd = new Random();
+        executor = Executors.newScheduledThreadPool(countOfThreadForRemoveFood);
     }
 
 
     @Override
     public void collectFood() {
         if (hasAnyFoodInRooms()) {
-            Random rnd = new Random();
             RoomInterface room;
             for (int i = 0; i < ROOMS_PRO_THREAD; i++) {
                 do {
                     room = getRandomRoomFromHouse(rnd);
                     if (room.hasFood()
-                            && tryLockTheRoomAndTransferFoodFromTheRoomToCollectedFood(room)) {
+                            && tryLockRoomAndTransferFoodFromRoomToCollectedFood(room)) {
                         break;
                     }
                 } while (hasAnyFoodInRooms());
@@ -62,7 +64,7 @@ public class House implements HouseInterface {
         return rooms.get(rnd.nextInt(rooms.size()));
     }
 
-    private boolean tryLockTheRoomAndTransferFoodFromTheRoomToCollectedFood(RoomInterface room) {
+    private boolean tryLockRoomAndTransferFoodFromRoomToCollectedFood(RoomInterface room) {
         ReentrantLock lock = room.getLock();
         if (lock.tryLock()) {
             List<Food> foodFromRoom = room.removeAllFood();
@@ -83,10 +85,6 @@ public class House implements HouseInterface {
     public void collectAllFood() {
         if (lockForCollectAllFood.tryLock()) {
             System.out.println("Let's start collecting food!!!");
-
-            if (executor == null) {
-                executor = Executors.newScheduledThreadPool(countOfThreadForRemoveFood);
-            }
 
             Runnable runnable = this::collectFood;
             List<ScheduledFuture<?>> listOfThreads = new ArrayList<>();
