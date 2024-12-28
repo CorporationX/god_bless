@@ -6,12 +6,27 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 public class TwitterAccount {
     private String username;
-    private AtomicInteger followers;
+    private int followers;
     private List<User> users = new ArrayList<>();
+
+    public TwitterAccount(String username) {
+        this.username = username;
+        this.followers = 0;
+    }
+
+    public synchronized void addUserToAccount(User user) {
+        followers++;
+        users.add(user);
+    }
+
+    public synchronized void deleteUserFromAccount(User user) {
+        followers--;
+        users.remove(user);
+    }
 }
