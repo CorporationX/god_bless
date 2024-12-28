@@ -23,7 +23,7 @@ public class OrderProcessor {
             String status = "Обработано";
             order.changeStatus(status);
             System.out.printf("У заказа с id:%s сменился статус на %s%n", order.getId(), status);
-            totalProcessedOrders.addAndGet(1);
+            totalProcessedOrders.incrementAndGet();
         }, executor);
     }
 
