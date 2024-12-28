@@ -13,7 +13,7 @@ public class Twitter {
         List<TwitterAccount> accountList = Arrays.asList(
                 new TwitterAccount("Clark Gable", 123_999),
                 new TwitterAccount("Carlos Castaneda", 149_999),
-                new TwitterAccount("Dooley Wilson", -199),
+                new TwitterAccount("Dooley Wilson", 199),
                 new TwitterAccount("Donna Tartt", 3_199)
         );
 

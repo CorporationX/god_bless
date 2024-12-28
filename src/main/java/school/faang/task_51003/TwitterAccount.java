@@ -3,24 +3,26 @@ package school.faang.task_51003;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
 @Slf4j
 public class TwitterAccount {
 
     private String username;
-    private int followers;
+    private AtomicInteger followers;
 
     public TwitterAccount(String username, int followers) {
-        if (username == null || username.isEmpty() || followers <= 0) {
+        if (username == null || username.isEmpty() || followers < 0) {
             log.error("Username or Followers is empty");
             throw new IllegalArgumentException("Username or Followers is empty");
         }
         this.username = username;
-        this.followers = followers;
+        this.followers = new AtomicInteger(followers);
     }
 
-    public synchronized void addFollower() {
-        followers += 1;
+    public void addFollower() {
+        followers.incrementAndGet();
     }
 
     @Override
