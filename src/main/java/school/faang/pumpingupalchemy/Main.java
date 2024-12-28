@@ -3,7 +3,6 @@ package school.faang.pumpingupalchemy;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),

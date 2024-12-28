@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
-    public static final int DURATION_MS = 2000;
+    private static final int DURATION_MS = 2000;
 
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {

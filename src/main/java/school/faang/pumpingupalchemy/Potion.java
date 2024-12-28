@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Potion {
-
     private final String name;
     private final int requiredIngredients;
     private final List<Potion> potions = new ArrayList<>();
