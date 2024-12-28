@@ -9,18 +9,19 @@ public class Music {
         Player player = new Player();
 
         Thread playThread = new Thread(player::play);
-        Thread pouseThread = new Thread(player::pause);
-        Thread skipThread = new Thread(player::skip);
-        Thread previusThread = new Thread(player::previous);
-
         log.info("Starting playThread");
         playThread.start();
+
+        Thread pouseThread = new Thread(player::pause);
         log.info("Starting pouseThread");
         pouseThread.start();
+
+        Thread skipThread = new Thread(player::skip);
         log.info("Starting skipThread");
         skipThread.start();
+
+        Thread previusThread = new Thread(player::previous);
         log.info("Starting previusThread");
         previusThread.start();
-
     }
 }

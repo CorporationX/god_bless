@@ -29,9 +29,9 @@ public class Player {
                     isPlaying = false;
                     log.info("Music on a pause");
                 } else {
-                    log.info ("Music is already on a pause ");
+                    log.info("Music is already on a pause ");
                 }
-            }catch (Exception e ){
+            } catch (Exception e) {
                 log.error("An error occurred in te pause method");
             }
         }
