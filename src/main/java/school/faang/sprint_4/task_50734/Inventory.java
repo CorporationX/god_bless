@@ -9,15 +9,10 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Inventory {
-    private List<Item> chest = new ArrayList<>();
+    private final List<Item> chest = new ArrayList<>();
 
     private void addItem(Item item) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            log.warn("Add item interrupt", e);
-            Thread.currentThread().interrupt();
-        }
+        sleep(1000);
         chest.add(item);
         log.info("{} was added", item.getName());
     }
@@ -54,24 +49,28 @@ public class Inventory {
     }
 
     private Item getItemFromChest(@NonNull Item item) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            log.warn("Get item from chest interrupt", e);
-            Thread.currentThread().interrupt();
-        }
+        sleep(1000);
         log.info("{} was taken from chest", item.getName());
         return new Item(item.getName(), item.getPower());
     }
 
     private Item getItemFromShop(@NonNull Item item) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            log.warn("Get item from shop interrupt", e);
-            Thread.currentThread().interrupt();
-        }
+        sleep(1000);
         log.info("{} was taken from shop", item.getName());
         return new Item(item.getName(), item.getPower());
     }
+
+    public List<Item> getChest() {
+        return List.copyOf(chest);
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            log.warn("Sleep interrupted", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
 }
