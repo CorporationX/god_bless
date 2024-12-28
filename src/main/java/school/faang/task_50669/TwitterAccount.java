@@ -19,6 +19,6 @@ public class TwitterAccount {
     }
 
     public void addFollower() {
-        this.followers.addAndGet(1);
+        this.followers.incrementAndGet();
     }
 }
