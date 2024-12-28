@@ -29,5 +29,6 @@ public class TwitterSubscriptionSystem {
         allTasks.join();
         System.out.println(String.format("Total amount of twitter account %s : %d", account.getUsername(),
                 account.getFollowers()));
+        System.out.println(account.getUsers());
     }
 }
