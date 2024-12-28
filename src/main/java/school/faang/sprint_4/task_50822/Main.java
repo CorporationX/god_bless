@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
-    private final static long SIMULATION_EXECUTION_MILLIS = 10000;
+    private static final long SIMULATION_EXECUTION_MILLIS = 10000;
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();

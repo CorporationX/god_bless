@@ -8,9 +8,9 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Inventory {
-    private final static long SIMULATION_EXECUTION_MILLIS = 3000;
-    private final static int POWER_FIRST = 100;
-    private final static int POWER_SECOND = 200;
+    private static final long SIMULATION_EXECUTION_MILLIS = 3000;
+    private static final int POWER_FIRST = 100;
+    private static final int POWER_SECOND = 200;
     private final List<Item> items;
 
     public Inventory() {
