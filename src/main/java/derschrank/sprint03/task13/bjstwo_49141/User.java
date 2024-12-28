@@ -2,6 +2,8 @@ package derschrank.sprint03.task13.bjstwo_49141;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,6 +16,7 @@ public class User {
     private Chat hasChat;
     private User engageToUser;
     private final AtomicLong hadChats;
+    private final List<User> hadChatsWith;
 
     private final ReentrantLock lock;
 
@@ -26,8 +29,10 @@ public class User {
         isOnline = true;
         this.name = name;
         this.isActiveLookingForChat = new AtomicBoolean(isActiveLookingForChat);
+
         lock = new ReentrantLock();
         hadChats = new AtomicLong(0);
+        hadChatsWith = new ArrayList<>();
     }
     
     public boolean isAwaitForNewChat() {
@@ -50,6 +55,7 @@ public class User {
         lock.lock();
         if (isEngagedToUser(withUser)) {
             hasChat = chat;
+            hadChatsWith.add(withUser);
             lock.unlock();
             hadChats.incrementAndGet();
             return true;
@@ -97,12 +103,13 @@ public class User {
         isActiveLookingForChat.set(flag);
     }
 
-    @Override
-    public String toString() {
-        return name + " had chats: " + hadChats.get();
-    }
-
     public boolean isActiveLookingForChat() {
         return isActiveLookingForChat.get();
+    }
+
+    @Override
+    public String toString() {
+        return name + " had count of chats: " + hadChats.get()
+                + ", with: " + hadChatsWith.stream().map(User::getName).toList();
     }
 }

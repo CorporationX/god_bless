@@ -45,7 +45,7 @@ public class ChatManager implements ChatManagerInterface {
                 ChatManagerService.logChatIsMade(chat);
                 chatting(chat);
 
-                synchronized (this){
+                synchronized (this) {
                     chats.add(chat);
                 }
                 return true;
@@ -122,9 +122,13 @@ public class ChatManager implements ChatManagerInterface {
     public void endChat(Chat chat) {
         ChatManagerService.logChatIsEnded(chat);
         chat.end();
-            chats.remove(chat);
         synchronized (this) {
+            chats.remove(chat);
             this.notifyAll();
         }
+    }
+
+    public boolean isNotActiveChats() {
+        return chats.isEmpty();
     }
 }

@@ -6,4 +6,6 @@ public interface ChatManagerInterface {
     void waitForChat(User forUser);
 
     void endChat(Chat chat);
+
+    boolean isNotActiveChats();
 }

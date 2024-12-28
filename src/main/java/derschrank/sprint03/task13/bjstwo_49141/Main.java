@@ -7,10 +7,26 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final boolean FLAG_ACTIVE_USER = true;
     private static final int SIZE_OF_THREADPOOL = 10;
-    private static final int AWAIT_TERMINATION_SECONDS = 20;
+    private static final int AWAIT_TERMINATION_SECONDS = 60;
 
     public static void main(String[] args) {
         UserList users = new UserList();
+        makeUsers(users);
+
+        ChatManagerInterface manager = new ChatManager(users);
+
+        ExecutorService executor = Executors.newFixedThreadPool(SIZE_OF_THREADPOOL);
+        for (User user : users.getUsers()) {
+            if (user.isActiveLookingForChat()) {
+                executor.execute(() -> manager.startChat(user));
+            }
+        }
+
+        executorShutdownAndWaitForEndOfChats(executor, manager);
+        printStatusOfUsers(users);
+    }
+
+    private static void makeUsers(UserList users) {
         users.addUser(new User("Ivan", FLAG_ACTIVE_USER));
         users.addUser(new User("Petr", FLAG_ACTIVE_USER));
         users.addUser(new User("Sidr", FLAG_ACTIVE_USER));
@@ -23,24 +39,23 @@ public class Main {
         users.addUser(new User("Polina", FLAG_ACTIVE_USER));
         users.addUser(new User("Elena", FLAG_ACTIVE_USER));
         users.addUser(new User("Chupokabra"));
+    }
 
-        ChatManagerInterface manager = new ChatManager(users);
-
-        ExecutorService executor = Executors.newFixedThreadPool(SIZE_OF_THREADPOOL);
-        for (User user : users.getUsers()) {
-            if (user.isActiveLookingForChat()) {
-                executor.execute(() -> manager.startChat(user));
-            }
-        }
-
+    private static void executorShutdownAndWaitForEndOfChats(ExecutorService executor, ChatManagerInterface manager) {
         executor.shutdown();
         try {
             executor.awaitTermination(AWAIT_TERMINATION_SECONDS, TimeUnit.SECONDS);
+            while (!manager.isNotActiveChats()) {
+                Thread.sleep(1000);
+            }
+            System.out.println("\nAll chats was ended.\n");
         } catch (InterruptedException e) {
             System.out.println("Main::main was interrupted");
         }
+    }
 
-        System.out.println("Every user had chats with personen: ");
+    private static void printStatusOfUsers(UserList users) {
+        System.out.println("Every user had chats with count of person: ");
         for (User user : users.getUsers()) {
             System.out.println(user);
         }

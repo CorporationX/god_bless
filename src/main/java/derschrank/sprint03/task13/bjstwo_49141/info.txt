@@ -31,3 +31,64 @@ endChat() — завершает чат и уведомляет потоки, к
 Почему эта задача полезна?
 В приложениях для знакомств, таких как Tinder, например, может быть множество пользователей, которые хотят начать общение в режиме реального времени. В этом случае, используя методы wait() и notifyAll(), приложение может управлять потоками и предоставлять пользователям возможность начать общение мгновенно, как только совпадение найдено. Примерно такой же подход работает во многих мессенджерах.
 ----------------------------
+
+20:49:21: Executing ':derschrank.sprint03.task13.bjstwo_49141.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint03.task13.bjstwo_49141.Main.main()
+ + Chat is made: Chat between Sidr and Elena
+ + Chat is made: Chat between Petr and Chupokabra
+ . Chatting... Chat between Sidr and Elena
+ . Chatting... Chat between Petr and Chupokabra
+ + Chat is made: Chat between Polina and Olga
+ + Chat is made: Chat between Alexander and Ivan
+ + Chat is made: Chat between Mike and Julia
+ . Chatting... Chat between Polina and Olga
+ . Chatting... Chat between Mike and Julia
+ . Chatting... Chat between Alexander and Ivan
+ - Chat is ended: Chat between Sidr and Elena
+ - Chat is ended: Chat between Petr and Chupokabra
+ + Chat is made: Chat between Elena and Petr
+ + Chat is made: Chat between Fedr and Sidr
+ + Chat is made: Chat between Alex and Chupokabra
+ . Chatting... Chat between Elena and Petr
+ . Chatting... Chat between Fedr and Sidr
+ . Chatting... Chat between Alex and Chupokabra
+ - Chat is ended: Chat between Polina and Olga
+ + Chat is made: Chat between Olga and Polina
+ . Chatting... Chat between Olga and Polina
+ - Chat is ended: Chat between Alexander and Ivan
+ - Chat is ended: Chat between Mike and Julia
+ + Chat is made: Chat between Ivan and Mike
+ + Chat is made: Chat between Julia and Alexander
+ . Chatting... Chat between Ivan and Mike
+ . Chatting... Chat between Julia and Alexander
+ - Chat is ended: Chat between Fedr and Sidr
+ - Chat is ended: Chat between Elena and Petr
+ - Chat is ended: Chat between Alex and Chupokabra
+ - Chat is ended: Chat between Olga and Polina
+ - Chat is ended: Chat between Ivan and Mike
+ - Chat is ended: Chat between Julia and Alexander
+
+All chats was ended.
+
+Every user had chats with count of person:
+Ivan had count of chats: 2, with: [Alexander, Mike]
+Petr had count of chats: 2, with: [Chupokabra, Elena]
+Sidr had count of chats: 2, with: [Elena, Fedr]
+Fedr had count of chats: 1, with: [Sidr]
+Mike had count of chats: 2, with: [Julia, Ivan]
+Alex had count of chats: 1, with: [Chupokabra]
+Alexander had count of chats: 2, with: [Ivan, Julia]
+Olga had count of chats: 2, with: [Polina, Polina]
+Julia had count of chats: 2, with: [Mike, Alexander]
+Polina had count of chats: 2, with: [Olga, Olga]
+Elena had count of chats: 2, with: [Sidr, Petr]
+Chupokabra had count of chats: 2, with: [Petr, Alex]
+
+BUILD SUCCESSFUL in 15s
+2 actionable tasks: 2 executed
+20:49:39: Execution finished ':derschrank.sprint03.task13.bjstwo_49141.Main.main()'.
