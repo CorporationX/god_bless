@@ -9,9 +9,7 @@ import school.faang.sprint4.task51100.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 @Slf4j
 public class Main {
@@ -20,6 +18,8 @@ public class Main {
     private static final int MIN_RAND_YEAR_BOUND = 1970;
     private static final int MIN_RAND_YEAR_DELTA = 10;
     private static final int MAX_STUDENTS_PER_SCHOOL = 10;
+    private static final int MAX_TASKS_PER_SCHOOL = 5;
+
 
     public static void main(String[] args) {
         List<School> schools = getSchools();
@@ -27,24 +27,20 @@ public class Main {
         Tournament tournament = new Tournament();
 
         List<Future<School>> schoolTasks = new ArrayList<>();
-        schoolTasks.add(tournament.startTask(schools.get(0), tasks.get(0)));
-        schoolTasks.add(tournament.startTask(schools.get(1), tasks.get(1)));
-        schoolTasks.add(tournament.startTask(schools.get(2), tasks.get(2)));
-        schoolTasks.add(tournament.startTask(schools.get(3), tasks.get(3)));
-        schoolTasks.add(tournament.startTask(schools.get(4), tasks.get(4)));
+        for (int i = 0; i < MAX_TASKS_PER_SCHOOL; i++) {
+            schoolTasks.add(tournament.startTask(schools.get(i), tasks.get(i)));
+        }
 
-        schoolTasks.add(tournament.startTask(schools.get(0), tasks.get(4)));
-        schoolTasks.add(tournament.startTask(schools.get(1), tasks.get(3)));
-        schoolTasks.add(tournament.startTask(schools.get(2), tasks.get(2)));
-        schoolTasks.add(tournament.startTask(schools.get(3), tasks.get(1)));
-        schoolTasks.add(tournament.startTask(schools.get(4), tasks.get(0)));
+        for (int i = 0; i < MAX_TASKS_PER_SCHOOL; i++) {
+            schoolTasks.add(tournament.startTask(schools.get(i), tasks.get(MAX_TASKS_PER_SCHOOL - i - 1)));
+        }
 
-        CompletableFuture<?>[] schoolTasksArray = schoolTasks.toArray(new CompletableFuture<?>[0]);
+        CompletableFuture<?>[] schoolTasksArray = schoolTasks.toArray(new CompletableFuture[schoolTasks.size()]);
         Future<Void> allTask = CompletableFuture.allOf(schoolTasksArray);
 
         try {
-            allTask.get();
-        } catch (InterruptedException | ExecutionException e) {
+            allTask.get(2, TimeUnit.MINUTES);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }
         School winnerSchool = Tournament.getSchoolWinner(schools);
@@ -72,11 +68,11 @@ public class Main {
     }
 
     private static List<School> getSchools() {
-        School school1 = createSchool("School 1", MAX_STUDENTS_PER_SCHOOL);
-        School school2 = createSchool("School 2", MAX_STUDENTS_PER_SCHOOL);
-        School school3 = createSchool("School 3", MAX_STUDENTS_PER_SCHOOL);
-        School school4 = createSchool("School 4", MAX_STUDENTS_PER_SCHOOL);
-        School school5 = createSchool("School 5", MAX_STUDENTS_PER_SCHOOL);
+        School school1 = createSchool("School 1");
+        School school2 = createSchool("School 2");
+        School school3 = createSchool("School 3");
+        School school4 = createSchool("School 4");
+        School school5 = createSchool("School 5");
 
         List<School> schools = new ArrayList<>();
         schools.add(school1);
@@ -87,9 +83,9 @@ public class Main {
         return schools;
     }
 
-    private static School createSchool(String name, int numOfStudents) {
+    private static School createSchool(String name) {
         List<Student> students = new ArrayList<>();
-        for (int i = 0; i < numOfStudents; i++) {
+        for (int i = 0; i < MAX_STUDENTS_PER_SCHOOL; i++) {
             students.add(createStudent());
         }
         return new School(name, students);
