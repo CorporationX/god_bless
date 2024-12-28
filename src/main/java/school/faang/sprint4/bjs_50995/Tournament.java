@@ -30,12 +30,12 @@ public class Tournament {
     }
 
     private void findTotalPoints(School school, int reward) {
-        int totalPoints = 0;
-
-        for (Student student : school.getTeam()) {
-            student.addPoints(reward);
-            totalPoints += student.getPoints();
-        }
+        int totalPoints = school.getTeam().stream()
+                .mapToInt(student -> {
+                    student.addPoints(reward);
+                    return student.getPoints();
+                })
+                .sum();
 
         school.setTotalPoints(totalPoints);
     }
