@@ -28,7 +28,7 @@ public class Factorial {
         if (n < MAX_INT_FACTORIAL) {
             return factorialInt(n);
         }
-        int result = factorialInt(MAX_INT_FACTORIAL);
+        long result = factorialInt(MAX_INT_FACTORIAL);
         for (int i = MAX_INT_FACTORIAL + 1; i <= n; i++) {
             result *= i;
         }
@@ -48,6 +48,9 @@ public class Factorial {
     }
 
     public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
-        return numbers.stream().map(number -> CompletableFuture.supplyAsync(() -> factorialBig(number))).toList();
+        return numbers
+                .stream()
+                .map(number -> CompletableFuture.supplyAsync(() -> factorialBig(number)))
+                .toList();
     }
 }

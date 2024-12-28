@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = List.of(500, 100, 2, 3, 400, 600);
-        AtomicInteger noCalculatedFactorialsCount = new AtomicInteger(numbers.size());
+        AtomicInteger remainingFactorialsCount = new AtomicInteger(numbers.size());
 
         List<CompletableFuture<BigInteger>> factorialsFutures = Factorial.factorials(numbers);
 
@@ -21,7 +21,7 @@ public class Main {
                     "Факторил числа {}: {}. Ещё осталось {}",
                     numbers.get(finalI),
                     factorial,
-                    noCalculatedFactorialsCount.decrementAndGet()
+                    remainingFactorialsCount.decrementAndGet()
             ));
         }
 
