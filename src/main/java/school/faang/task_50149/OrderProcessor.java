@@ -25,14 +25,14 @@ public class OrderProcessor {
     private CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
+                order.changeStatus(StatusOrder.PROCESSED);
                 Thread.sleep(EXECUTION_TIME);
             } catch (InterruptedException e) {
-                log.error("Поток был прерван при выполнении метода sleep()", e);
                 order.changeStatus(StatusOrder.CANCELED);
                 Thread.currentThread().interrupt();
+                log.error("Поток был прерван при выполнении метода sleep()", e);
             }
 
-            order.changeStatus(StatusOrder.PROCESSED);
             totalProcessedOrders.getAndIncrement();
         });
     }
