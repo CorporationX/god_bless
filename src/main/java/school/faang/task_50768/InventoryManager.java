@@ -21,6 +21,7 @@ public class InventoryManager {
         try {
             result.get();
         } catch (InterruptedException | ExecutionException e) {
+            Thread.currentThread().interrupt();
             log.error("Не удалось получить результат асинхронного комбинирования предметов", e);
         }
     }
