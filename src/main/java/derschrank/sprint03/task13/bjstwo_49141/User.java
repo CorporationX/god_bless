@@ -2,6 +2,7 @@ package derschrank.sprint03.task13.bjstwo_49141;
 
 import lombok.Data;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,12 +10,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class User {
     private final String name;
     private boolean isOnline;
-    private boolean isActiveLookingForChat;
+    private final AtomicBoolean isActiveLookingForChat;
     private Chat hasChat;
     private User engageToUser;
-    private AtomicLong hadChats;
+    private final AtomicLong hadChats;
 
-    private ReentrantLock lock;
+    private final ReentrantLock lock;
 
 
     public User(String name) {
@@ -24,20 +25,23 @@ public class User {
     public User(String name, boolean isActiveLookingForChat) {
         isOnline = true;
         this.name = name;
-        this.isActiveLookingForChat = isActiveLookingForChat;
+        this.isActiveLookingForChat = new AtomicBoolean(isActiveLookingForChat);
         lock = new ReentrantLock();
         hadChats = new AtomicLong(0);
     }
     
-    public synchronized boolean isAwaitForNewChat() {
-        return isOnline && !isActiveLookingForChat && isNotEngaged() && isNotInChat();
+    public boolean isAwaitForNewChat() {
+        return isOnline && isNotEngaged() && isNotInChat();
     }
 
     public boolean engage(User user) {
-        if (lock.tryLock() && isNotEngaged()) {
-            engageToUser = user;
+        if (lock.tryLock()) {
+            if (isNotEngaged()) {
+                engageToUser = user;
+                lock.unlock();
+                return true;
+            }
             lock.unlock();
-            return true;
         }
         return false;
     }
@@ -45,7 +49,6 @@ public class User {
     public boolean joinToChat(Chat chat, User withUser) {
         lock.lock();
         if (isEngagedToUser(withUser)) {
-            isActiveLookingForChat = false;
             hasChat = chat;
             lock.unlock();
             hadChats.incrementAndGet();
@@ -91,13 +94,15 @@ public class User {
     }
 
     public void setActiveLookingForChat(boolean flag) {
-        lock.lock();
-        isActiveLookingForChat = flag;
-        lock.unlock();
+        isActiveLookingForChat.set(flag);
     }
 
     @Override
     public String toString() {
         return name + " had chats: " + hadChats.get();
+    }
+
+    public boolean isActiveLookingForChat() {
+        return isActiveLookingForChat.get();
     }
 }

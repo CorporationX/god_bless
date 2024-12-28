@@ -15,7 +15,7 @@ public class ChatManager implements ChatManagerInterface {
     private final UserList users;
     private final List<Chat> chats;
     ReentrantLock lock;
-    ExecutorService
+    //ExecutorService
 
     public ChatManager(UserList users) {
         this.users = users;
