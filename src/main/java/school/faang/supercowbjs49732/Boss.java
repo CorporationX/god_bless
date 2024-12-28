@@ -10,6 +10,9 @@ public class Boss {
             LoggerFactory.getLogger(Boss.class);
 
     public Boss(int maxPlayers) {
+        if (maxPlayers <= 0) {
+            throw new IllegalArgumentException("maxPlayers must be greater than 0");
+        }
         this.maxPlayers = maxPlayers;
         this.currentPlayers = 0;
     }
@@ -22,6 +25,7 @@ public class Boss {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 logger.warn("{} was interrupted", player.getName());
+                return;
             }
         }
         currentPlayers++;
@@ -33,6 +37,6 @@ public class Boss {
         currentPlayers--;
         logger.info("{} completed the battle! Current players: {}", player.getName(),
                 currentPlayers);
-        notify();
+        notifyAll();
     }
 }
