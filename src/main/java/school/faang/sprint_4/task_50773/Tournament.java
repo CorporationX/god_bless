@@ -4,10 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Tournament {
+
+    public static final long MILLISECONDS_IN_SECONDS = 1000L;
+
     public School startTask(School school, Task task) {
         log.info("{} start task {}", school.getName(), task.getName());
         try {
-            Thread.sleep(1000L * task.getDifficult());
+            Thread.sleep(MILLISECONDS_IN_SECONDS * task.getDifficult());
         } catch (InterruptedException e) {
             log.error("The task thread is going to be stopped", e);
         }
