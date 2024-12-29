@@ -6,14 +6,17 @@ import java.util.concurrent.Future;
 
 public class Battle {
 
-    private ExecutorService service = Executors.newFixedThreadPool(3);
+    private static final int THREAD_POOL = 3;
+    private static final int SLEEP_TIME = 5_000;
+
+    private ExecutorService service = Executors.newFixedThreadPool(THREAD_POOL);
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
         return service.submit(() -> {
             System.out.printf("%s. Battle started between %s and %s%n",
                     Thread.currentThread().getName(), robot1.getName(), robot2.getName());
             try {
-                Thread.sleep(5_000);
+                Thread.sleep(SLEEP_TIME);
             } catch (Exception e) {
                 e.printStackTrace();
             }
