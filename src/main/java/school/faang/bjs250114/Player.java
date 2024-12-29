@@ -24,7 +24,7 @@ public class Player {
         this.experience = experience;
     }
 
-    public void addExperience(int experience){
-        this.experience+=experience;
+    public void addExperience(int experience) {
+        this.experience += experience;
     }
 }
