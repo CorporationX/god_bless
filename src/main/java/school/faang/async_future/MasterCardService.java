@@ -4,23 +4,26 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MasterCardService {
+    private static final int PAYMENT_VALUE = 10_000;
+    private static final int ANALYTICS_VALUE = 1_000;
+
     public int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(PAYMENT_VALUE);
         } catch (InterruptedException e) {
             log.error("Thread running was interrupted {}", Thread.currentThread().getName());
-            throw new RuntimeException();
+            Thread.currentThread().interrupt();
         }
+        return PAYMENT_VALUE;
     }
 
     public int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(ANALYTICS_VALUE);
         } catch (InterruptedException e) {
             log.error("Thread running was interrupted {}", Thread.currentThread().getName());
-            throw new RuntimeException();
+            Thread.currentThread().interrupt();
         }
+        return ANALYTICS_VALUE;
     }
 }
