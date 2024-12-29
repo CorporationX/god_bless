@@ -56,6 +56,9 @@ public class Game {
     }
 
     public synchronized void gameOver() {
+        if (!gameOn) {
+            return;
+        }
         Integer playerMaxScore = 0;
         String winnerPlayer = "";
         gameOn = false;
