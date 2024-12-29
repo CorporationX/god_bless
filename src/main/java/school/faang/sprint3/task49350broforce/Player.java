@@ -25,7 +25,7 @@ public class Player {
         this.lives = lives;
     }
 
-    public synchronized void scoredPoints() {
+    public synchronized void earnPoints() {
         score++;
         System.out.printf("%s заработал очки %n", this.name);
     }

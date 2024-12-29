@@ -9,7 +9,7 @@ import java.util.List;
 public class Game {
     private int maxScore;
     private List<Player> players = new ArrayList<>();
-    private volatile boolean isGame;
+    private volatile boolean gameOn;
 
     private final Object lockeScore = new Object();
     private final Object lockeLives = new Object();
@@ -17,7 +17,7 @@ public class Game {
 
     Game(int maxScore) {
         this.maxScore = maxScore;
-        this.isGame = true;
+        this.gameOn = true;
     }
 
     public void addPlayers(List<Player> listPlayers) {
@@ -29,44 +29,44 @@ public class Game {
     }
 
     public void update(Player player, boolean earnedPoints, boolean lostLife) {
-        if (!isGame) {
-            return;
-        }
-        synchronized (lockeScore) {
-            synchronized (lockeIsGame) {
-                if (earnedPoints) {
-                    maxScore++;
-                    player.scoredPoints();
-                    if (player.getScore() >= maxScore) {
-                        gameOver();
-                    }
+        if (earnedPoints) {
+            synchronized (lockeScore) {
+                if (!gameOn) {
+                    return;
                 }
+                if (player.getScore() >= maxScore) {
+                    System.out.println("Набрано максимальное количество очков");
+                    gameOver();
+                }
+                maxScore++;
+                player.earnPoints();
             }
         }
-        synchronized (lockeLives) {
-            synchronized (lockeIsGame) {
-                if (lostLife) {
-                    player.loseLives();
-                    if (player.getLives() <= 0) {
-                        gameOver();
-                    }
+        if (lostLife) {
+            synchronized (lockeLives) {
+                if (!gameOn) {
+                    return;
                 }
+                if (player.getLives() <= 0) {
+                    gameOver();
+                }
+                player.loseLives();
             }
         }
     }
 
     public synchronized void gameOver() {
-        System.out.println("Игра окончена");
         Integer playerMaxScore = 0;
         String winnerPlayer = "";
+        gameOn = false;
 
         for (Player player : this.getPlayers()) {
-            if (player.getScore() > playerMaxScore) {
+            if (player.getScore() > playerMaxScore && player.getLives() > 0) {
                 playerMaxScore = player.getScore();
                 winnerPlayer = player.getName();
             }
         }
-        isGame = false;
-        System.out.printf("Победил %s со счётом %d %n", winnerPlayer, playerMaxScore);
+        System.out.println("Игра окончена");
+        System.out.printf("Победил %s со счётом %d", winnerPlayer, playerMaxScore);
     }
 }

@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game(100);
+        Game game = new Game(5);
         List<Player> players = IntStream.range(1, 6)
                 .mapToObj(i -> new Player("Player" + i))
                 .toList();
@@ -18,9 +18,9 @@ public class Main {
 
         for (Player player : players) {
             boolean earnedPoints = Math.random() > 0.2;
-            boolean lostLife = Math.random() > 0.8;
+            boolean lostLife = Math.random() > 0.7;
             executor.submit(() -> {
-                while (game.isGame()) {
+                while (game.isGameOn()) {
                     game.update(player, earnedPoints, lostLife);
                 }
             });
