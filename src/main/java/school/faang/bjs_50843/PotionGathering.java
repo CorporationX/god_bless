@@ -12,19 +12,6 @@ public class PotionGathering {
     private static final long GATHERING_DURATION = 100;
     private final ExecutorService executor = Executors.newFixedThreadPool(1000);
 
-    public int gatherIngredients(Potion potion) {
-        log.info("Gathering ingredients for {} start", potion.getName());
-
-        try {
-            Thread.sleep(potion.getRequiredIngredients() * GATHERING_DURATION);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        log.info("Gathering ingredients for {} finish", potion.getName());
-        return potion.getRequiredIngredients();
-    }
-
     public int gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> futures = potions.stream()
                 .map(potion -> {
@@ -50,5 +37,18 @@ public class PotionGathering {
         }
 
         return sum;
+    }
+
+    private int gatherIngredients(Potion potion) {
+        log.info("Gathering ingredients for {} start", potion.getName());
+
+        try {
+            Thread.sleep(potion.getRequiredIngredients() * GATHERING_DURATION);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("Gathering ingredients for {} finish", potion.getName());
+        return potion.getRequiredIngredients();
     }
 }
