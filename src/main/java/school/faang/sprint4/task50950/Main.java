@@ -12,6 +12,7 @@ public class Main {
     private static final int INGREDIENTS_MOPSUS = 20;
     private static final int INGREDIENTS_INVISIBLE = 30;
     private static final int TIME_TO_GATHER_MSEC = 1000;
+    private static final int THREAD_POOL_SIZE = 10;
     private static ExecutorService executor;
 
     public static void main(String[] args) {
@@ -20,7 +21,7 @@ public class Main {
                 new Potion("Mopsus", INGREDIENTS_MOPSUS),
                 new Potion("Invisible", INGREDIENTS_INVISIBLE)
         );
-        executor = Executors.newFixedThreadPool(10);
+        executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         gatherAllIngredients(potions);
     }
 
@@ -48,6 +49,18 @@ public class Main {
 
         gotheredIngredients = potions.stream().mapToInt(Potion::getCapacity).sum();
         log.info("Work complete! Collected {} of ingredients", gotheredIngredients);
+
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            log.error("Executor was terminated");
+            throw new RuntimeException(e);
+        }
     }
 
     private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
