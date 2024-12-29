@@ -23,12 +23,12 @@ public class TwitterSubscriptionSystem {
 
     public void followAccount(TwitterAccount account, List<User> usersToAdd) {
         List<CompletableFuture<TwitterAccount>> futureList = new ArrayList<>();
-        usersToAdd.stream().map(user -> addFollower(account, user)).forEach(future -> futureList.add(future));
+        usersToAdd.stream().map(user -> addFollower(account, user)).forEach(futureList::add);
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(futureList
                 .toArray(new CompletableFuture[futureList.size()]));
         allTasks.join();
         System.out.println(String.format("Total amount of twitter account %s : %d", account.getUsername(),
-                account.getFollowers()));
+                account.getUsers().size()));
         System.out.println(account.getUsers());
     }
 }
