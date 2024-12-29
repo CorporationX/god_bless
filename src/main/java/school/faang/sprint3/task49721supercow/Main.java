@@ -21,23 +21,19 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
         List<? extends Future<?>> futures = Arrays.stream(players)
-                .map(player -> executor.submit(() -> {
-                    try {
-                        player.startBattle();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }))
+                .map(executor::submit)
                 .toList();
 
         for (Future<?> future : futures) {
-            try {
-                future.get();
-            } catch (Exception e) {
-                log.error("Ошибка " + e);
+            while (!future.isDone()) {
+                doSomething();
             }
         }
-
         executor.shutdown();
+
+    }
+
+    public static void doSomething() {
+        ///
     }
 }

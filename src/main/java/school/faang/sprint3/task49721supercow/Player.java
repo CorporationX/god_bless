@@ -7,17 +7,22 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @Setter
-public class Player {
+public class Player implements Runnable {
     private final String name;
     private Boss boss;
 
     public void startBattle() throws InterruptedException {
-        synchronized (boss) {
-            boss.joinBattle(this);
-            Thread.sleep(500);
-            boss.setCurrentPlayers(boss.getCurrentPlayers() - 1);
-            System.out.printf("%s completed the battle %n", this.name);
-            boss.notifyAll();
+        boss.joinBattle(this);
+        Thread.sleep(500);
+        boss.leaveBattle(this);
+    }
+
+    @Override
+    public void run() {
+        try {
+            startBattle();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

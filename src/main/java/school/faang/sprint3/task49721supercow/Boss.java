@@ -22,4 +22,10 @@ public class Boss {
         System.out.printf("%s join to battle %n", player.getName());
 
     }
+
+    public synchronized void leaveBattle(Player player) {
+        this.setCurrentPlayers(this.getCurrentPlayers() - 1);
+        System.out.printf("%s completed the battle %n", player.getName());
+        this.notifyAll();
+    }
 }
