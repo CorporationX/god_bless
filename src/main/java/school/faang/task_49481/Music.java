@@ -1,17 +1,18 @@
 package school.faang.task_49481;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        final Thread playThread = new Thread(player::play);
-        final Thread pauseThread = new Thread(player::pause);
-        final Thread skipThread = new Thread(player::skip);
-        final Thread previousThread = new Thread(player::previous);
+        executorService.submit(player::play);
+        executorService.submit(player::pause);
+        executorService.submit(player::skip);
+        executorService.submit(player::previous);
 
-        playThread.start();
-        pauseThread.start();
-        previousThread.start();
-        skipThread.start();
+        executorService.shutdownNow();
     }
 }
