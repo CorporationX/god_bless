@@ -26,6 +26,9 @@ public class Inventory {
     }
 
     public Item combineItems(Item first, Item second) {
+        if (first == null || second == null) {
+            throw new IllegalArgumentException("Items should not be empty!");
+        }
         Item combiItem = new Item(first.name() + second.name(), first.power() + second.power());
         log.info("Combined element: {}", combiItem);
         return combiItem;

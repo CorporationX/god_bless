@@ -21,6 +21,7 @@ public class Main {
             Thread.sleep(SIMULATION_EXECUTION_MILLIS);
         } catch (InterruptedException e) {
             log.error("Error message: ", e);
+            Thread.currentThread().interrupt();
         }
     }
 }
