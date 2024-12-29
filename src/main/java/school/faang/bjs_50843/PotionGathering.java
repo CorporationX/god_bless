@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
@@ -13,24 +14,18 @@ public class PotionGathering {
     private final ExecutorService executor = Executors.newFixedThreadPool(1000);
 
     public int gatherAllIngredients(List<Potion> potions) {
-        List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor))
+        AtomicInteger sum = new AtomicInteger(0);
+        List<CompletableFuture<Void>> futures = potions.stream()
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor)
+                        .thenAcceptAsync(sum::addAndGet))
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .join();
-
-        log.info("Finished numbers futures: {}", futures.stream()
-                .filter(CompletableFuture::isDone)
-                .count());
-
-        int sum;
+        log.info("Finished numbers futures: {}", futures.size());
         log.info("Gathering all ingredients");
-        sum = futures.stream()
-                .map(CompletableFuture::join)
-                .reduce(0, Integer::sum);
 
-        return sum;
+        return sum.get();
     }
 
     private int gatherIngredients(Potion potion) {
@@ -39,7 +34,7 @@ public class PotionGathering {
         try {
             Thread.sleep(potion.getRequiredIngredients() * GATHERING_DURATION);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Gathering ingredients for {} interrupted", potion.getName());
         }
 
         log.info("Gathering ingredients for {} finish", potion.getName());
