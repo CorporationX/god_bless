@@ -12,7 +12,6 @@ public class Music {
         executorService.submit(player::pause);
         executorService.submit(player::skip);
         executorService.submit(player::previous);
-
         executorService.shutdownNow();
     }
 }
