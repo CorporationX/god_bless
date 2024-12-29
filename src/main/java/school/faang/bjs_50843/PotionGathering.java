@@ -25,12 +25,10 @@ public class PotionGathering {
                 .count());
 
         int sum;
-        synchronized (potions) {
-            log.info("Gathering all ingredients");
-            sum = futures.stream()
-                    .map(CompletableFuture::join)
-                    .reduce(0, Integer::sum);
-        }
+        log.info("Gathering all ingredients");
+        sum = futures.stream()
+                .map(CompletableFuture::join)
+                .reduce(0, Integer::sum);
 
         return sum;
     }
