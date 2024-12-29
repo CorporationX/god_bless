@@ -14,11 +14,7 @@ public class PotionGathering {
 
     public int gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> {
-                    synchronized (potions) {
-                        return CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor);
-                    }
-                })
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor))
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
