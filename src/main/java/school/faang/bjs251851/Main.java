@@ -14,7 +14,7 @@ public class Main {
         );
 
         List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion)))
+                .map(Main::gatherIngredients)
                 .toList();
 
         Integer totalIngredients = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
@@ -27,13 +27,15 @@ public class Main {
         System.out.println("time elapsed: " + (end - start));
     }
 
-    public static int gatherIngredients(Potion potion) {
-        try {
-            Thread.sleep(potion.getRequiredIngredients() * 1000L);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return potion.getRequiredIngredients();
+    public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(potion.getRequiredIngredients() * 1000L);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return potion.getRequiredIngredients();
+        });
     }
 
 }
