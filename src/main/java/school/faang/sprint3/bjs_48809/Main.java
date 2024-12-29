@@ -5,12 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
     private static final int NUM_THREADS = 5;
-    private static final int TIME_OUT = 10;
     private static final int TIME_TO_LEAVE = 100;
 
     public static void main(String[] args) {
@@ -29,21 +27,11 @@ public class Main {
             try {
                 user.joinHouse(house);
                 Thread.sleep(TIME_TO_LEAVE);
-                user.leaveHouse(house);
+                user.leaveHouse();
             } catch (InterruptedException e) {
                 log.error("Unexpected error");
             }
         }));
-
         executorService.shutdown();
-        try {
-            if (!executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
-                log.warn("Not all threads stopped by themselves");
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.error("Thread forced to stopped");
-            Thread.currentThread().interrupt();
-        }
     }
 }

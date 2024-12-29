@@ -30,8 +30,8 @@ public class User {
         }
     }
 
-    public void leaveHouse(House house) {
-        if (!house.equals(joinedHouse)) {
+    public void leaveHouse() {
+        if (joinedHouse == null) {
             log.warn("You are not joined to this house");
         } else {
             synchronized (lockHouse) {
