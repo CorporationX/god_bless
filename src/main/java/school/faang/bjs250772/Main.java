@@ -19,7 +19,7 @@ public class Main {
 
         CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0])).join();
 
-        System.out.println("Total number of followers: " + account.getFollowers());
+        System.out.println("Total number of followers: " + account.getFollowerCount());
         long end = System.currentTimeMillis();
         System.out.println("time elapsed: " + (end - start));
     }
