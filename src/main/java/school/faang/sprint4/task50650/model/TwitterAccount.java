@@ -12,6 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class TwitterAccount {
     private final String username;
-    private AtomicInteger followers = new AtomicInteger(0);
+    private final AtomicInteger followers = new AtomicInteger(0);
 
+    public int incrementFollowersCount() {
+        return followers.incrementAndGet();
+    }
 }

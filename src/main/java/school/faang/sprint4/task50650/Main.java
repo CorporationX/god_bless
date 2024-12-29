@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int ITERATIONS_NUM = 10;
+    private static final int NUM_OF_FOLLOWERS = 10;
     private static final int THREADS_NUM = 10;
 
     public static void main(String[] args) {
@@ -20,16 +20,15 @@ public class Main {
         TwitterAccount account = new TwitterAccount("Elon Mask");
         List<CompletableFuture<Void>> results = new ArrayList<>();
 
-        for (int i = 0; i < ITERATIONS_NUM; i++) {
+        for (int i = 0; i < NUM_OF_FOLLOWERS; i++) {
             results.add(TwitterSubscriptionSystem.followAccount(executor, account));
         }
 
-        CompletableFuture overallResult = CompletableFuture.allOf((CompletableFuture<?>) results.toArray()[0]);
-        overallResult.join();
+        CompletableFuture.allOf(results.toArray(new CompletableFuture[results.size()])).join();
 
         executor.shutdown();
         try {
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
