@@ -2,6 +2,7 @@ package school.faang.bjs251814;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ public class School {
 
     public int getTotalPoints() {
         return team.stream()
-                .map(Student::getPoints)
+                .map(el -> el.getPoints().get())
                 .reduce(0, Integer::sum);
     }
 
