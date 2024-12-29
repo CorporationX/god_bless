@@ -9,7 +9,9 @@ public class QuestSystem {
             try {
                 Thread.sleep(quest.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                System.err.println("Thread was interrupted during quest execution: " + e.getMessage());
+                return null;
             }
             player.setExperience(player.getExperience() + quest.getReward());
             return player;
