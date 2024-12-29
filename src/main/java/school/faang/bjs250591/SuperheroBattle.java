@@ -22,7 +22,8 @@ public class SuperheroBattle {
                     }
                     Superhero first = pair.first;
                     Superhero second = pair.second;
-                    return pair.first.getTotalPower() > pair.second.getTotalPower() ? first : second;
+                    return pair.first.getTotalPower() > pair.second.getTotalPower() ? first
+                            : pair.first.getTotalPower() < pair.second.getTotalPower() ? second : null;
                 }, executor);
                 futures.add(future);
             }
