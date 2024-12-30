@@ -12,7 +12,7 @@ public class Main {
     private static final int TIME_TO_LEAVE = 100;
 
     public static void main(String[] args) {
-        List<Role> rolesList = List.of(Role.LORD, Role.KNIGHT, Role.MAGICIAN);
+        List<Role> rolesList = List.of(Role.KNIGHT, Role.LORD, Role.MAGICIAN);
         List<User> users = List.of(
                 new User("User1"),
                 new User("User2"),
