@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class QuestSystem {
 
     public static final int WORK_TIME = 1000;
+
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
 
         return CompletableFuture.supplyAsync(() -> {

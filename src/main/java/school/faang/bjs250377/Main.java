@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         QuestSystem questSystem = new QuestSystem();
 
@@ -22,7 +22,7 @@ public class Main {
         List<CompletableFuture<Player>> players = Arrays.asList(player1Quest, player2Quest);
 
         players.forEach(CompletableFuture::join);
-        players.forEach(v->v.thenAccept(player -> System.out.println(player.getName()
+        players.forEach(v -> v.thenAccept(player -> System.out.println(player.getName()
                 + " has completed the quest and now has " + player.getExperience() + " experience points.")));
     }
 }
