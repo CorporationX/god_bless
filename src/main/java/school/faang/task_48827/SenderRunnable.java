@@ -20,7 +20,7 @@ public class SenderRunnable implements Runnable {
         ExecutorService executor = Executors.newFixedThreadPool(5);
         for (int startInd = getStartIndex(); startInd < getEndIndex(); startInd++) {
             int num = startInd + 1;
-            executor.submit(() -> System.out.println("Письмо № d% отправлено" + num));
+            executor.submit(() -> System.out.println("Письмо № "+ num +" отправлено"));
         }
     }
 }
