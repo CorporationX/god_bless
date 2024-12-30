@@ -5,14 +5,15 @@ import lombok.RequiredArgsConstructor;
 
 
 public class User {
-    public User(String name) {
-        System.out.println(name + " игрок готов выбрать роль");
-        this.name = name;
-    }
 
     private String name;
     private House house;
     private String chosenRole;
+
+    public User(String name) {
+        System.out.println(name + " игрок готов выбрать роль");
+        this.name = name;
+    }
 
     public void joinHouse(House house) throws InterruptedException {
         synchronized (house) {

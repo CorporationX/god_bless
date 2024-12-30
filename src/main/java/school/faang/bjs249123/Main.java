@@ -84,6 +84,7 @@ public class Main {
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                executor.shutdownNow();
                 System.out.println("Await termination interrupted!");
             }
         }

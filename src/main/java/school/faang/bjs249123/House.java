@@ -15,7 +15,7 @@ public class House {
         this.availableRoleCount = availableRoles.size();
     }
 
-    public String addRole() {
+    public synchronized String addRole() {
         val numLastRole = availableRoles.size() - 1;
         val role = availableRoles.remove(numLastRole);
         availableRoleCount = availableRoles.size();
@@ -23,7 +23,7 @@ public class House {
         return role;
     }
 
-    public void removeRole(String role) {
+    public synchronized void removeRole(String role) {
         availableRoles.add(role);
         availableRoleCount = availableRoles.size();
         notifyAll();
