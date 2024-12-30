@@ -12,8 +12,9 @@ import java.util.concurrent.Future;
 public class Main {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        CompletableFuture<Void> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
-                .thenAccept(result -> System.out.println("Аналитика отправлена: " + result));
+        CompletableFuture<Void> analyticsFuture =
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
+                        .thenAccept(result -> System.out.println("Аналитика отправлена: " + result));
 
         try {
             Future<Integer> future = executor.submit(MasterCardService::collectPayment);
