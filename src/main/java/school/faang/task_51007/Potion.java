@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Potion {
-    private String name;
-    private int requiredIngredients;
+    private final String name;
+    private final int requiredIngredients;
 }
