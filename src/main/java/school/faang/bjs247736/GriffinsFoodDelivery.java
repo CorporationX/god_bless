@@ -25,13 +25,6 @@ public class GriffinsFoodDelivery {
         executorService.shutdown();
 
         try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            System.err.println("The thread was interrupted while waiting for ExecutorService to terminate: "
-                    + e.getMessage());
-        }
-
-        try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
                 System.out.println("The delivery tasks were not completed in 5 minutes, "
                         + "we forcefully stop the ThreadPool");
