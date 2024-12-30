@@ -22,15 +22,16 @@ public class Game {
             return;
         }
 
-        synchronized (scoreLock) {
-            if (isScoreIncreased) {
+        if (isScoreIncreased) {
+            synchronized (scoreLock) {
+
                 score++;
                 System.out.println("Счёт увеличен! Текущий счёт: " + score);
             }
         }
 
-        synchronized (livesLock) {
-            if (isLifeLost) {
+        if (isLifeLost) {
+            synchronized (livesLock) {
                 if (lives < 1) {
                     gameOver();
                     return;
