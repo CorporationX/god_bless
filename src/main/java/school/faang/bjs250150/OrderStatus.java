@@ -1,4 +1,4 @@
-package school.faang.BJS250150;
+package school.faang.bjs250150;
 
 public enum OrderStatus {
     NEW,
