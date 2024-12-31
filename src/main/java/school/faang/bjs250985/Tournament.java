@@ -10,9 +10,8 @@ public class Tournament {
     private static final long CONVERT_MS = 1000L;
 
     public CompletableFuture<School> startTask(School school, Task task) {
-
         return CompletableFuture.supplyAsync(() -> {
-            log.info("The task has started {}", task.name());
+            log.info("The task {} has started", task.name());
 
             try {
                 Thread.sleep(task.difficulty() * CONVERT_MS);
@@ -21,8 +20,8 @@ public class Tournament {
                 Thread.currentThread().interrupt();
             }
 
-            int points = school.getTotalPoints(school.students()) + task.reward();
-            log.info("Total number of points of the school {} is {}", school.name(), points);
+            school.updateStudentPoints(school.students(), task);
+            int points = school.getTotalPoints();
             return school;
         });
     }
