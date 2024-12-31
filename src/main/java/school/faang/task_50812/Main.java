@@ -3,6 +3,7 @@ package school.faang.task_50812;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -18,7 +19,7 @@ public class Main {
             logger.info("Retrieving item from chest...");
             simulateDelay(DELAY);
             return new Item("Shield", 15);
-        }).exceptionally(e -> {
+        }).thenApply(Main::validateItem).exceptionally(e -> {
             logger.error("Error retrieving chest item: {}", e.getMessage(), e);
             return new Item("FallbackShield", 5);
         });
@@ -28,7 +29,7 @@ public class Main {
             logger.info("Retrieving item from store...");
             simulateDelay(DELAY);
             return new Item("Sword", 10);
-        }).exceptionally(e -> {
+        }).thenApply(Main::validateItem).exceptionally(e -> {
             logger.error("Error retrieving store item: {}", e.getMessage(), e);
             return new Item("FallbackSword", 5);
         });
@@ -64,5 +65,13 @@ public class Main {
             logger.error("SimulateDelay method was interrupted", e);
             throw new RuntimeException("SimulateDelay method was interrupted", e);
         }
+    }
+
+    private static Item validateItem(Item item) {
+        if (Objects.isNull(item)) {
+            logger.error("Item validation failed: item is null");
+            throw new IllegalArgumentException("Item cannot be null");
+        }
+        return item;
     }
 }
