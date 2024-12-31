@@ -13,17 +13,15 @@ public class Main {
         Kingdom westerlands = new Kingdom("Westerlands");
 
         IntStream.range(0, 20)
-                .forEach(i -> {
-                    service.sendRaven(westerlands, winterfell)
-                            .handle((result, exception) -> {
-                                if (exception != null) {
-                                    log.error("Message didn't get {}", exception.getMessage());
-                                } else {
-                                    log.info(result);
-                                }
-                                return null;
-                            })
-                            .join();
-                });
+                .forEach(i -> service.sendRaven(westerlands, winterfell)
+                        .handle((result, exception) -> {
+                            if (exception != null) {
+                                log.error("Message didn't get {}", exception.getMessage());
+                            } else {
+                                log.info(result);
+                            }
+                            return null;
+                        })
+                        .join());
     }
 }
