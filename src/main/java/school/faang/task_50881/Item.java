@@ -8,7 +8,7 @@ public class Item {
     private int power;
 
     public Item(String name, int power) {
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
         this.name = name;
