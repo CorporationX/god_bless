@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class RavenPostService {
     public CompletableFuture<String> sendRaven(Kingdom sender, Kingdom receiver) {
         return CompletableFuture.supplyAsync(() -> {
-            try{
+            try {
                 return sender.sendMessage(receiver);
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage());

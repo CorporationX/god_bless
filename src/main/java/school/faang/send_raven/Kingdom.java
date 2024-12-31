@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class Kingdom {
     private final String name;
 
-    public String sendMessage(Kingdom receiver) throws RuntimeException{
+    public String sendMessage(Kingdom receiver) throws RuntimeException {
         if (Math.random() < 0.2) {
             throw new RuntimeException("Raven was lost, message didn't send!");
         }
