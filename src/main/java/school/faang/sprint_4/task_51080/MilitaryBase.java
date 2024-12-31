@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @Slf4j
 public class MilitaryBase implements Runnable {
-    public static final int DELAY = 1000;
+    private static final ReentrantLock lock = new ReentrantLock();
+    private static final int DELAY = 1000;
     private final String name;
     private final LinkedBlockingQueue<String> inbox;
     private volatile boolean running = true;
@@ -23,8 +25,11 @@ public class MilitaryBase implements Runnable {
         while (running) {
             try {
                 Thread.sleep(DELAY);
+                if (!running) {
+                    break;
+                }
                 if (inbox.isEmpty()) {
-                    log.info("Сообщение в почте не обнаружено");
+                    log.info("Сообщений в почте не обнаружено");
                 } else {
                     String decryptedMessage = inbox.take();
                     String encryptedMessage = EncryptionUtils.decrypt(decryptedMessage);

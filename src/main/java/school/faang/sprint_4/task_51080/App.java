@@ -18,12 +18,16 @@ public class App {
 
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>(List.of(
-                CompletableFuture.runAsync(volga, executor),
-                CompletableFuture.runAsync(don, executor)
-        ));
-
-        sendAndStop(volga, don);
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        futures.add(CompletableFuture.runAsync(volga, executor));
+        futures.add(CompletableFuture.runAsync(don, executor));
+        futures.add(CompletableFuture.runAsync(() -> {
+            try {
+                sendAndStop(volga, don);
+            } catch (Exception e) {
+                log.error("Произошла ошибка во время выпаленная задачи: {}", e.getMessage());
+            }
+        },  executor));
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .whenComplete((result, throwable) -> {
