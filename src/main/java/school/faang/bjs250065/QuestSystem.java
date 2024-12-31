@@ -11,7 +11,7 @@ public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
-            System.out.println(quest.name() + " was running");
+            log.info("{} was running", quest.name());
 
             try {
                 Thread.sleep(quest.difficulty() * CONVERT_MS);
