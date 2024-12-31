@@ -11,6 +11,7 @@ public record School(String name, List<Student> students) {
     }
 
     public void updateStudentPoints(List<Student> students, Task task) {
-        students.forEach(student -> student.setPoints(student.getPoints() + task.reward() / students.size()));
+        students.forEach(student ->
+                student.setPoints(student.getPoints() + task.reward() / students.size()));
     }
 }

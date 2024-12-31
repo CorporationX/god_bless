@@ -21,7 +21,6 @@ public class Tournament {
             }
 
             school.updateStudentPoints(school.students(), task);
-            int points = school.getTotalPoints();
             return school;
         });
     }
