@@ -11,12 +11,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class School {
     private final String name;
-    private final List<Student> team = new ArrayList<>();
+    private final List<Student> team;
 
     public int getTotalPoints() {
         return team.stream()
-                .map(Student::getPoints)
-                .mapToInt(Integer::intValue)
+                .mapToInt(Student::getPoints)
                 .sum();
     }
 }
