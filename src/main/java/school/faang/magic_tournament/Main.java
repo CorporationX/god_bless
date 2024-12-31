@@ -1,10 +1,15 @@
 package school.faang.magic_tournament;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
+    private static final String WINNER_MESSAGE = "School {} wins with {} total scores";
+
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
@@ -20,13 +25,15 @@ public class Main {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
-
-        allTasks.thenRun(() -> {
+        CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+                .thenRun(() -> {
+                    if (hogwarts.getTotalPoints() == beauxbatons.getTotalPoints()) {
+                        log.info("Friendship wins");
+                    }
                     if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
-                        System.out.println(hogwarts.getName() + " wins the tournament with " + hogwarts.getTotalPoints());
+                        log.info(WINNER_MESSAGE, hogwarts.getName(), hogwarts.getTotalPoints());
                     } else {
-                        System.out.println(beauxbatons.getName() + " wins the tournament!");
+                        log.info(WINNER_MESSAGE, beauxbatons.getName(), beauxbatons.getTotalPoints());
                     }
                 })
                 .join();

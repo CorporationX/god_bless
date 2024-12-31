@@ -6,14 +6,15 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Tournament {
-    private final static long SLEEP_MULTIPLIER = 200L;
+    private static final long SLEEP_MULTIPLIER = 200L;
 
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(task.getReward() * SLEEP_MULTIPLIER);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error("Thread {} running was interrupted", Thread.currentThread().getName());
+                Thread.currentThread().interrupt();
             }
             school.getTeam()
                     .forEach(student -> {

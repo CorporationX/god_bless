@@ -3,9 +3,7 @@ package school.faang.magic_tournament;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor
