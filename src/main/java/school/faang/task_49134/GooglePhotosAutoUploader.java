@@ -1,6 +1,9 @@
 package school.faang.task_49134;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,32 +17,38 @@ public class GooglePhotosAutoUploader {
     private Set<String> photosToUpload = new HashSet<>();
 
 
-    @SneakyThrows
-    public void startAutoUpload(Set<String> pathsToPhotos) {
-        synchronized (lock) {
-            while (pathsToPhotos.isEmpty()) {
-                lock.wait();
-                System.out.println("Ждёмс так как pathsToPhotos.isEmpty()");
+    public void startAutoUpload() {
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        System.out.println("Ожидание новых фотографий...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("Поток загрузки был прерван!");
+                        return;
+                    }
+                }
+                System.out.println("Загружаем изображения!");
+                uploadPhotos();
             }
-            uploadPhotos();
-            System.out.println("Вызов uploadPhotos() внутри startAutoUpload");
-
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            System.out.println("Добавлено в путь");
+            System.out.println("Добавлено в путь: " + photoPath);
             lock.notify();
-            System.out.println("notified");
         }
     }
 
     public void uploadPhotos() {
         synchronized (lock) {
-            System.out.println("Загружены на сервер");
+            System.out.println("Загружаем фотографии: " + photosToUpload);
             photosToUpload.clear();
+            System.out.println("Фотографии успешно загружены!");
         }
     }
 }
