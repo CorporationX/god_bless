@@ -6,10 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter
-@Setter
 public class Order {
 
     private int id;
+
+    @Setter
     private OrderStatus status;
 
     public Order(int id, OrderStatus status) {

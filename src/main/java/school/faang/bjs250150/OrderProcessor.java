@@ -18,7 +18,7 @@ public class OrderProcessor {
                 order.setStatus(OrderStatus.PROCESSED);
                 int total = totalProcessedOrders.incrementAndGet();
                 log.info("Order {} processed. Total processed orders: {}", order.getId(), total);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 log.error("Error processing order {}", order.getId(), e);
                 Thread.currentThread().interrupt();
             }
