@@ -31,13 +31,15 @@ public class Bank {
 
         synchronized (firstLock) {
             if (firstLock.withdraw(amount)) {
-                log.info("Transfer error, not enough money. Sender balance: {}. Transfer amount: {}", firstLock.getBalance(), amount);
+                log.info("Transfer error, not enough money. Sender balance: {}. Transfer amount: {}",
+                        firstLock.getBalance(), amount);
                 return false;
             }
 
             synchronized (secondLock) {
                 secondLock.deposit(amount);
-                log.info("Transferred {} from account with id = {}. To account with id = {}", amount, fromAccountId, toAccountId);
+                log.info("Transferred {} from account with id = {}. To account with id = {}",
+                        amount, fromAccountId, toAccountId);
             }
         }
         return true;
