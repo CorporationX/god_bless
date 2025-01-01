@@ -18,10 +18,26 @@ public class Bank {
             log.info("Account didn't find");
             return false;
         }
-        fromAccount.withdraw(amount);
+        if (!fromAccount.withdraw(amount)) {
+            return false;
+        };
         toAccount.deposit(amount);
+        accounts.put(fromAccountId, fromAccount);
+        accounts.put(toAccountId, toAccount);
+        log.info("Transfer successfully completed");
+        return true;
     }
 
+    public double getTotalBalance() {
+        totalBalanceLock.lock();
+        try {
+            return accounts.values().stream()
+                    .mapToDouble(Account::getBalance)
+                    .sum();
+        } finally {
+            totalBalanceLock.unlock();
+        }
+    }
 
 
 }

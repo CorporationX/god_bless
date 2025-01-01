@@ -1,10 +1,12 @@
 package school.faang.play_banking;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+@Getter
 @Slf4j
 @RequiredArgsConstructor
 public class Account {
@@ -21,10 +23,15 @@ public class Account {
         }
     }
 
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         lock.lock();
         try {
+            if (balance < amount) {
+                log.info("Insufficient funds in the account");
+                return false;
+            }
             balance -= amount;
+            return true;
         } finally {
             lock.unlock();
         }
