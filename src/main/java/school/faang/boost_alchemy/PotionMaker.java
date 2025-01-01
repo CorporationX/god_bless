@@ -9,14 +9,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionMaker {
-    private static final long THREAD_SLEEP_TIME = 3000L;
+    private static final long THREAD_SLEEP_TIME = 1000L;
     @Getter
     private final AtomicInteger totalIngredients = new AtomicInteger(0);
 
     private CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep((long) (THREAD_SLEEP_TIME * Math.random() + 0.1));
+                Thread.sleep((long) (THREAD_SLEEP_TIME * (Math.random() + 0.1)));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Thread {} error", Thread.currentThread().getName());
