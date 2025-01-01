@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class Bank {
-    private Map<Integer, Account> accounts = new ConcurrentHashMap<>();
-    private final ReentrantLock totalBalanceLock = new ReentrantLock();
+    private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
 
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         Account fromAccount = accounts.get(fromAccountId);
@@ -18,26 +16,37 @@ public class Bank {
             log.info("Account didn't find");
             return false;
         }
-        if (!fromAccount.withdraw(amount)) {
-            return false;
-        };
-        toAccount.deposit(amount);
-        accounts.put(fromAccountId, fromAccount);
-        accounts.put(toAccountId, toAccount);
-        log.info("Transfer successfully completed");
-        return true;
-    }
+        Account firstLock = fromAccountId < toAccountId ? fromAccount : toAccount;
+        Account secondLock = fromAccountId < toAccountId ? toAccount : fromAccount;
 
-    public double getTotalBalance() {
-        totalBalanceLock.lock();
+        firstLock.getLock().lock();
+        secondLock.getLock().lock();
+
+
+//        fromAccount.getLock().lock();
+//        toAccount.getLock().lock();
         try {
-            return accounts.values().stream()
-                    .mapToDouble(Account::getBalance)
-                    .sum();
+            if (!fromAccount.withdraw(amount)) {
+                return false;
+            }
+            toAccount.deposit(amount);
+            log.info("Transfer successfully completed");
+            return true;
         } finally {
-            totalBalanceLock.unlock();
+//            fromAccount.getLock().unlock();
+//            toAccount.getLock().unlock();
+            firstLock.getLock().unlock();
+            secondLock.getLock().unlock();
         }
     }
 
+    public double getTotalBalance() {
+        return accounts.values().stream()
+                .mapToDouble(Account::getBalance)
+                .sum();
+    }
 
+    public void addAccount(Account account) {
+        accounts.put(account.getId(), account);
+    }
 }

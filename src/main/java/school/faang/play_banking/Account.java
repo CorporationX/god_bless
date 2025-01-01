@@ -8,11 +8,15 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @Slf4j
-@RequiredArgsConstructor
 public class Account {
     private final int id;
     private double balance;
     private final ReentrantLock lock = new ReentrantLock();
+
+    public Account(int id, double balance) {
+        this.id = id;
+        this.balance = balance;
+    }
 
     public void deposit(double amount) {
         lock.lock();
