@@ -14,7 +14,8 @@ public class TwitterSubscriptionSystem {
     public synchronized void addFollower(TwitterAccount account) {
         account.setFollowers(account.getFollowers() + 1);
         int followersCount = totalFollowers.incrementAndGet();
-        log.info("Account {} now has {} followers. Total followers: {}", account.getUsername(), account.getFollowers(), followersCount);
+        log.info("Account {} now has {} followers. Total followers: {}",
+                account.getUsername(), account.getFollowers(), followersCount);
     }
 
     public CompletableFuture<Void> followAccount(TwitterAccount account) {
