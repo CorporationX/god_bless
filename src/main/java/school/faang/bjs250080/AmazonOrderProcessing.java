@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class AmazonOrderProcessing {
+    private static final int AWAIT_TIME = 5;
+
     public static void main(String[] args) {
         List<Order> orders = List.of(
                 new Order(1, Status.NEW),
@@ -27,7 +29,7 @@ public class AmazonOrderProcessing {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(AWAIT_TIME, TimeUnit.SECONDS)) {
                 log.info("The tasks were not completed in 5 seconds, stoped the ThreadPool forcefully");
                 executorService.shutdownNow();
             }
