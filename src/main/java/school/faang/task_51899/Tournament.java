@@ -32,7 +32,8 @@ public class Tournament {
             int beauxbatonsPoints = beauxbatons.getTotalPoints();
             String winner = "";
 
-            log.info("'{}': {} points, '{}' : {} points", hogwarts.name(), hogwartsPoints, beauxbatons.name(), beauxbatonsPoints);
+            log.info("'{}': {} points, '{}' : {} points", hogwarts.name(), hogwartsPoints,
+                    beauxbatons.name(), beauxbatonsPoints);
 
             if (hogwartsPoints > beauxbatonsPoints) {
                 winner = hogwarts.name();
