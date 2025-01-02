@@ -1,4 +1,8 @@
 package derschrank.sprint04.task03.bjstwo_51033;
 
-public class Task {
+public record Task(
+        String name,
+        int difficulty,
+        int reward
+) {
 }

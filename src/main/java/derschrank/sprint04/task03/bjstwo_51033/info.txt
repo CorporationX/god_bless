@@ -69,3 +69,36 @@ public class MagicalTournament {
 
 
 -----------------------------
+
+3:49:24: Executing ':derschrank.sprint04.task03.bjstwo_51033.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task03.bjstwo_51033.Main.main()
+Summary Begin:
+School: Hogwarts has total points: 0
+ - Harry (5year), has points: 0
+ - Hermione (5year), has points: 0
+
+School: Beauxbatons has total points: 0
+ - Fleur (6year), has points: 0
+ - Gabrielle (6year), has points: 0
+
+Tournament was ended
+[Hogwarts] wins/win the tournament!!!
+
+Summary Begin:
+School: Hogwarts has total points: 200
+ - Harry (5year), has points: 100
+ - Hermione (5year), has points: 100
+
+School: Beauxbatons has total points: 100
+ - Fleur (6year), has points: 50
+ - Gabrielle (6year), has points: 50
+
+
+BUILD SUCCESSFUL in 12s
+2 actionable tasks: 2 executed
+3:49:38: Execution finished ':derschrank.sprint04.task03.bjstwo_51033.Main.main()'.
