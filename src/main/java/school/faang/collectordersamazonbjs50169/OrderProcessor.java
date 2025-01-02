@@ -16,8 +16,8 @@ public class OrderProcessor {
                 Thread.sleep(PROCESSING_TIME_MS);
                 order.setStatus(OrderStatus.PROCESSED);
                 int processedCount = totalProcessedOrders.incrementAndGet();
-                log.info("The order with the ID {} has been processed. " +
-                        "Total number of orders processed: {}", order.getId(), processedCount);
+                log.info("The order with the ID {} has been processed. "
+                        + "Total number of orders processed: {}", order.getId(), processedCount);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Order processing has been interrupted", e);
