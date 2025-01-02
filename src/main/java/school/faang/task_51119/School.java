@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @ToString
 public class School {
-    private  String name;
+    private String name;
     private List<Student> team;
 
     public School(String name, List<Student> team) {
@@ -18,9 +18,10 @@ public class School {
         this.name = name;
         this.team = team;
     }
+
     public int getTotalPoints() {
         return team.stream().mapToInt(Student::getPoints).sum();
-    };
+    }
 
     public void addPointsToTeam(int points) {
         int pointsPerStudent = points / team.size();
