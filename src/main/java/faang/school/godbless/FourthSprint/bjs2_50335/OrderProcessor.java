@@ -26,6 +26,7 @@ public class OrderProcessor {
                 .map(order -> processOrder(order))
                 .collect(Collectors.toList());
         CompletableFuture.allOf(processed.toArray(new CompletableFuture[0]))
-                .thenRun(() -> System.out.println("Всего заказов было обработано: " + totalProcessedOrders.get()));
+                .thenRun(() -> System.out.println("Всего заказов было обработано: " + totalProcessedOrders.get()))
+                .join();
     }
 }
