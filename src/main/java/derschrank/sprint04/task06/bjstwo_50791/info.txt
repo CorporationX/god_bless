@@ -1,0 +1,98 @@
+derschrank2000-S04-T06-BJS2-50791
+derschrank.sprint04.task06.bjstwo_50791
+
+Sprint04. Task06. CompletableFuture. TwitterSubscriptionSystem
+------------
+Становимся celebrity в Twitter
+👩‍💻 🧠🧠
+
+Условия задачи
+Представьте, что вам нужно разработать простую модель системы подписок для Twitter. Ваша задача — создать программу на Java, которая будет использовать CompletableFuture для асинхронного добавления подписчиков в учетные записи Twitter, и синхронизировать доступ к общему ресурсу — количеству подписчиков.
+
+Цель:
+Создайте программу, которая асинхронно добавляет подписчиков в учетную запись Twitter и корректно синхронизирует доступ к общему ресурсу.
+
+Требования:
+1️⃣ Создайте класс TwitterAccount, который представляет учетную запись Twitter. Поля:
+username — уникальное имя учетной записи,
+followers — количество подписчиков.
+Создайте конструктор и методы getters/setters для этих полей.
+
+2️⃣ Создайте класс TwitterSubscriptionSystem, который будет управлять подписками на учетные записи Twitter.
+
+3️⃣ Реализуйте метод addFollower(TwitterAccount account), который увеличивает количество подписчиков учетной записи. Этот метод должен быть синхронизирован, чтобы корректно работать при одновременном доступе из нескольких потоков.
+
+4️⃣ Создайте метод followAccount(TwitterAccount account), который асинхронно добавляет подписчика к учетной записи, вызывая addFollower.
+
+5️⃣ Используйте CompletableFuture для асинхронного запуска задач внутри метода followAccount.
+
+6️⃣ Запустите несколько задач подписки на одну учетную запись, ожидайте завершения всех задач с помощью CompletableFuture.allOf() и выведите количество подписчиков учетной записи.
+
+Почему эта задача полезна?
+Эта задача показывает важность синхронизации потоков при работе с общим ресурсом. Когда несколько потоков одновременно изменяют одно и то же состояние (например, количество подписчиков), важно обеспечить правильный доступ к этому ресурсу, чтобы избежать ошибок и некорректных данных.
+
+Это модель поведения реальных приложений, таких как Twitter, где множество пользователей подписываются на один аккаунт одновременно, и система должна корректно увеличивать счетчик подписчиков.
+
+
+------------
+6:55:47: Executing ':derschrank.sprint04.task06.bjstwo_50791.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task06.bjstwo_50791.Main.main()
+ + Ivanov Burb following Sidorov Burb
+ - Ivanov Burb followed Sidorov Burb
+ + Ivanov Burb following Petrov Gena
+ + Ivanov Burb following Petrov Gena
+ - Ivanov Burb followed Petrov Gena
+ + Ivanov Burb following Petrov Gena
+ - Ivanov Burb followed Petrov Gena
+ - Ivanov Burb followed Petrov Gena
+ + Sidorov Burb following Petrov Gena
+ . Ivanov Burb can't subscribe to yourself
+ + Sidorov Burb following Petrov Gena
+ - Sidorov Burb followed Petrov Gena
+ - Sidorov Burb followed Petrov Gena
+ . Sidorov Burb can't subscribe to yourself
+ + Sidorov Burb following Petrov Gena
+ . Sidorov Burb can't subscribe to yourself
+ - Sidorov Burb followed Petrov Gena
+ + Petrov Gena following Ivanov Burb
+ - Petrov Gena followed Ivanov Burb
+ . Petrov Gena can't subscribe to yourself
+ + Petrov Gena following Ivanov Burb
+ + Petrov Gena following Ivanov Burb
+ - Petrov Gena followed Ivanov Burb
+ + Petrov Gena following Sidorov Burb
+ - Petrov Gena followed Ivanov Burb
+ - Petrov Gena followed Sidorov Burb
+ + Ivanov Burb following Blogger #1
+ + Ivanov Burb following Blogger #2
+ - Ivanov Burb followed Blogger #1
+ + Ivanov Burb following Blogger #3
+ - Ivanov Burb followed Blogger #2
+ - Ivanov Burb followed Blogger #3
+ + Sidorov Burb following Blogger #1
+ - Sidorov Burb followed Blogger #1
+ + Sidorov Burb following Blogger #2
+ + Sidorov Burb following Blogger #3
+ - Sidorov Burb followed Blogger #2
+ + Petrov Gena following Blogger #1
+ - Sidorov Burb followed Blogger #3
+ + Petrov Gena following Blogger #2
+ - Petrov Gena followed Blogger #1
+ + Petrov Gena following Blogger #3
+ - Petrov Gena followed Blogger #2
+ - Petrov Gena followed Blogger #3
+Ivanov Burb has followers: 1 and follows: 5
+Sidorov Burb has followers: 2 and follows: 4
+Petrov Gena has followers: 2 and follows: 5
+Blogger #1 has followers: 3 and follows: 0
+Blogger #2 has followers: 3 and follows: 0
+Blogger #3 has followers: 3 and follows: 0
+
+BUILD SUCCESSFUL in 29s
+2 actionable tasks: 2 executed
+6:56:17: Execution finished ':derschrank.sprint04.task06.bjstwo_50791.Main.main()'.
