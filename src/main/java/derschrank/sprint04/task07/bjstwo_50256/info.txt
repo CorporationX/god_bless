@@ -1,4 +1,10 @@
 Star Wars Arena
+derschrank2000-S04-T07-BJS2-50256
+derschrank.sprint04.task07.bjstwo_50256
+
+Sprint04. Task07. Future. Star Wars Arena
+---------------------
+Star Wars Arena
 👩‍💻 🧠 (Дополнительная задача)
 
 Условия задачи
