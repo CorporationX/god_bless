@@ -14,7 +14,6 @@ public class QuestSystem {
             }
             return player;
         });
-        questCompletableFuture.join();
         return questCompletableFuture;
     }
 }
