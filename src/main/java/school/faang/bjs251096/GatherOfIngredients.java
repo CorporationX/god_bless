@@ -20,7 +20,6 @@ public class GatherOfIngredients {
         return potion.getRequiredIngredients();
     }
 
-
     public void gatherAllIngredients(List<Potion> potionList) {
         log.info("Starting to gather all ingredients for {} potions", potionList.size());
         List<CompletableFuture<Integer>> futures = potionList.stream()
@@ -35,7 +34,6 @@ public class GatherOfIngredients {
             log.info("Gathered {} ingredients", ingredients);
             totalIngredients.addAndGet(ingredients);
         });
-
         log.info("Total ingredients gathered: {}", totalIngredients.get());
     }
 }
