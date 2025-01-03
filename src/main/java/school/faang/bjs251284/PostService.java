@@ -40,11 +40,9 @@ public class PostService {
                     .filter(post -> post.getId() == postId)
                     .findFirst()
                     .ifPresentOrElse(post -> {
-                                post.addComment(comment);
-                                log.info("Comment added successfully to post ID {}: {}", postId, comment.getText());
-                            },
-                            () -> log.error("Post not found with ID: {}", postId)
-                    );
+                        post.addComment(comment);
+                        log.info("Comment added successfully to post ID {}: {}", postId, comment.getText());
+                    }, () -> log.error("Post not found with ID: {}", postId));
         } finally {
             lock.unlock();
         }
