@@ -22,7 +22,7 @@
         </encoder>
     </appender>
 
-    <logger name="faang.school.godbless" level="info" additivity="false">
+    <logger name="faang.school.godbless.ThirdSprint.BJS2_48288" level="info" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
