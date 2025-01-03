@@ -3,7 +3,7 @@ package derschrank.sprint04.task11.bjstwo_50572;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationManager implements NotificationManagerInterface{
+public class NotificationManager implements NotificationManagerInterface {
     private static final int DELAY_FOR_FETCHNOTIFICATION_MILLIS = 1000;
     private final List<Notification> notifications;
 

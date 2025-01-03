@@ -15,8 +15,7 @@ public class Main {
                 .toList();
         CompletableFuture.allOf(
                 futures.toArray(new CompletableFuture[0])
-        )
-        .join();
+        ).join();
 
         manager.printNotifications();
     }
