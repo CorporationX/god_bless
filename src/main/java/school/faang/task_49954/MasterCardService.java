@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     @SneakyThrows
     public static int collectPayment() {
-        Thread.sleep(1050);
+        Thread.sleep(10000);
         return 10000;
     }
 
@@ -31,10 +31,6 @@ public class MasterCardService {
 
         Integer analyticResults = analyticsFuture.join();
         System.out.println("Analytics sent: " + analyticResults);
-
-        while (!paymentFuture.isDone()) {
-            System.out.println("Payment is in progress..");
-        }
 
         Integer paymentResults = paymentFuture.get();
         System.out.println("Payment completed: " + paymentResults);
