@@ -1,5 +1,9 @@
 package school.faang.task_50158;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,9 +19,14 @@ public class Main {
         Quest quest3 = new Quest("doing nothing", 6, 80);
         Quest quest4 = new Quest("doing something", 12, 170);
 
-        questSystem.startQuest(player1, quest1);
-        questSystem.startQuest(player2, quest2);
-        questSystem.startQuest(player3, quest3);
-        questSystem.startQuest(player4, quest4);
+        List<CompletableFuture<Player>> list = new ArrayList<>();
+        list.add(questSystem.startQuest(player1, quest1));
+        list.add(questSystem.startQuest(player2, quest2));
+        list.add(questSystem.startQuest(player3, quest3));
+        list.add(questSystem.startQuest(player4, quest4));
+
+        list.forEach(quest -> quest.thenAccept(player -> System.out.println(player.getName()
+                + " has completed the quest and now has " + player.getExperience() + " experience points "
+                + Thread.currentThread().getName())).join());
     }
 }
