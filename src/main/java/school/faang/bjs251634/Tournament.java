@@ -25,5 +25,4 @@ public class Tournament {
             return school;
         });
     }
-
 }
