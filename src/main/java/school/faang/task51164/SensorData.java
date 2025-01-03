@@ -13,7 +13,7 @@ public class SensorData {
     private final AtomicInteger count = new AtomicInteger(0);
 
     public void addData(double data) {
-        sum.getAndSet(sum.get() + data);
+        sum.updateAndGet(result -> sum.get() + data);
         count.incrementAndGet();
     }
 

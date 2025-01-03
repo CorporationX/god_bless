@@ -47,6 +47,7 @@ public class Substation {
     }
 
     public void stopGeneration() {
+        service.shutdown();
         try {
             service.awaitTermination(TIME_TO_SHUTDOWN, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
