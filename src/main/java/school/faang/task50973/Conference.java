@@ -6,18 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CyclicBarrier;
 
 @Slf4j
+@Getter
 public class Conference {
-    @Getter
     private final CyclicBarrier barrier;
-    private boolean isStart;
+    private volatile boolean isStarted;
 
     public Conference(int requiredParticipants) {
         this.barrier = new CyclicBarrier(requiredParticipants, this::startStreaming);
     }
 
     private void startStreaming() {
-        if (!isStart) {
-            isStart = true;
+        if (!isStarted) {
+            isStarted = true;
             log.info("Конференция началась");
         }
     }

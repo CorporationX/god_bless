@@ -9,7 +9,7 @@ import java.util.concurrent.CyclicBarrier;
 public record Participant(int id,
                           Conference conference) {
 
-    private static final String waitConference = "{} присоеденяется к конференции";
+    private static final String WAIT_CONFERENCE = "{} присоеденяется к конференции";
 
     public void joinConference() {
         CyclicBarrier barrier = conference.getBarrier();
@@ -18,7 +18,7 @@ public record Participant(int id,
                 log.info("{} ожидает конференции", this);
                 barrier.await();
             }
-            log.info(waitConference, this);
+            log.info(WAIT_CONFERENCE, this);
         } catch (InterruptedException | BrokenBarrierException e) {
             log.error("Произошла ошибка при входе на конференцию {}", this, e);
             Thread.currentThread().interrupt();
