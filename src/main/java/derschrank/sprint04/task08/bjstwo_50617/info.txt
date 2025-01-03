@@ -1,0 +1,114 @@
+Пошлите ворона!
+derschrank2000-S04-T08-BJS2-50617
+derschrank.sprint04.task08.bjstwo_50617
+
+Sprint04. Task08.  CompletableFuture. Handle. Send Raven.
+---------------------------
+Пошлите ворона!
+👩‍💻 🧠 (Дополнительная задача)
+
+Условия задачи
+В сеттинге «Игры престолов», семь королевств сражаются за железный трон. Ваша задача — написать программу на Java, используя CompletableFuture, которая асинхронно отправляет разведывательных воронов с сообщениями между королевствами. Если ворон не смог доставить сообщение, программа должна обрабатывать ошибку с помощью метода handle у CompletableFuture.
+
+Требования:
+1️⃣ Создайте класс Kingdom, который представляет королевство. Поля:
+name — название королевства;
+и метод sendMessage(Kingdom receiver) — метод, который отправляет сообщение из одного королевства в другое.
+
+2️⃣ Реализуйте метод sendRaven(Kingdom sender, Kingdom receiver), который:
+Асинхронно отправляет сообщение из королевства sender в королевство receiver.
+Иногда вызывает исключение, имитируя недоставленное сообщение.
+Возвращает сообщение об успешной доставке или бросает исключение.
+
+3️⃣ Используйте метод handle у CompletableFuture, чтобы:
+Обрабатывать успешные отправки сообщений.
+Перехватывать исключения и обрабатывать недоставленные сообщения, выводя информацию об ошибке.
+
+Почему эта задача полезна?
+Обработка ошибок важна всегда. В любой системе, даже в Google Search всегда были и будут какие-то ошибки, исключения, нестандартные ситуации. Именно поэтому хороший разработчик всегда наперед думает об их обработке.
+
+И то же самое справедливо для асинхронных задач. Они ведь тоже могут завершаться успешно, а могут с ошибками. Так вот у CompletableFuture есть удобные методы для обработки таких ситуаций!
+---------------------------
+22:52:38: Executing ':derschrank.sprint04.task08.bjstwo_50617.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task08.bjstwo_50617.Main.main()
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #0. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #0. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #0. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #1. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #1. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #1. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #2. Hallo!!!
+ >= Kingdom *King's Landing* received from kingdom *Winterfell* message: #2. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #2. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #2. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #3. Hallo!!!
+ >= Kingdom *King's Landing* received from kingdom *Winterfell* message: #3. Hallo!!!
+ ++ Kingdom *Winterfell*. SUCCESS. Message was received by *King's Landing* SUCCESS!!!
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #3. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #3. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #4. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #4. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #4. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #5. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #5. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #5. What's up!!!!
+ ++ Kingdom *King's Landing*. SUCCESS. Message was received by *Winterfell* SUCCESS!!!
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #6. Hallo!!!
+ !! Kingdom *Winterfell* doesn't know if the message from was received by *King's Landing*
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #6. What's up!!!!
+ >= Kingdom *Winterfell* received from kingdom *King's Landing* message: #6. What's up!!!!
+ !! Kingdom *King's Landing* doesn't know if the message from was received by *Winterfell*
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #7. Hallo!!!
+ >= Kingdom *King's Landing* received from kingdom *Winterfell* message: #7. Hallo!!!
+ ++ Kingdom *Winterfell*. SUCCESS. Message was received by *King's Landing* SUCCESS!!!
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #7. What's up!!!!
+ !! Kingdom *King's Landing* doesn't know if the message from was received by *Winterfell*
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #8. Hallo!!!
+ >= Kingdom *King's Landing* received from kingdom *Winterfell* message: #8. Hallo!!!
+ ++ Kingdom *Winterfell*. SUCCESS. Message was received by *King's Landing* SUCCESS!!!
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #8. What's up!!!!
+ !! Kingdom *King's Landing* doesn't know if the message from was received by *Winterfell*
+
+ -> Kingdom *Winterfell* sended to kingdom *King's Landing* message: #9. Hallo!!!
+ >= Kingdom *King's Landing* received from kingdom *Winterfell* message: #9. Hallo!!!
+ ++ Kingdom *Winterfell*. SUCCESS. Message was received by *King's Landing* SUCCESS!!!
+
+ -> Kingdom *King's Landing* sended to kingdom *Winterfell* message: #9. What's up!!!!
+ !! Kingdom *King's Landing* doesn't know if the message from was received by *Winterfell*
+
+BUILD SUCCESSFUL in 27s
+2 actionable tasks: 2 executed
+22:53:06: Execution finished ':derschrank.sprint04.task08.bjstwo_50617.Main.main()'.
