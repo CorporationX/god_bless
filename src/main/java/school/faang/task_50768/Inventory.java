@@ -17,7 +17,7 @@ public class Inventory {
 
     public void addItem(Item item) {
         if (item == null) {
-            throw new IllegalArgumentException("Некорретное значение для предмета!");
+            throw new IllegalArgumentException("Некорректное значение для предмета!");
         }
 
         items.add(item);
@@ -29,19 +29,19 @@ public class Inventory {
 
     public CompletableFuture<Item> getItemFromChest() {
         return CompletableFuture.supplyAsync(() -> {
-            getItem();
+            simulateDelay();
             return new Item("Item from chest", 100);
         });
     }
 
     public CompletableFuture<Item> getItemFromStore() {
         return CompletableFuture.supplyAsync(() -> {
-            getItem();
+            simulateDelay();
             return new Item("Item from store", 150);
         });
     }
 
-    private static void getItem() {
+    private static void simulateDelay() {
         try {
             Thread.sleep(PICK_UP_TIME);
         } catch (InterruptedException e) {
