@@ -32,6 +32,6 @@ public class QuestSystem {
         questFuture.thenAccept(result -> {
             printQuestResult(player);
         });
-        questFuture.join();
+
     }
 }

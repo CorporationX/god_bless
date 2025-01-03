@@ -30,5 +30,11 @@ public class Main {
         questSystem.handleQuestCompletion(player4Quest4, player4);
         questSystem.handleQuestCompletion(player5Quest5, player5);
 
+        player1Quest1.join();
+        player2Quest2.join();
+        player3Quest3.join();
+        player4Quest4.join();
+        player5Quest5.join();
+
     }
 }
