@@ -2,12 +2,12 @@ package school.faang.play_banking;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
@@ -27,27 +27,28 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_AMOUNT);
         Runnable task = () -> {
             Random random = new Random();
-            for (int i = 0; i < 10; i++) {
-                int fromAccountId = random.nextInt(4) + 1; // Случайный счёт от 1 до 4
-                int toAccountId = random.nextInt(4) + 1;   // Случайный счёт от 1 до 4
-                double amount = random.nextInt(500);       // Случайная сумма до 500
+            IntStream.range(1, 10)
+                    .forEach(i -> {
+                        int fromAccountId = random.nextInt(4) + 2;
+                        int toAccountId = random.nextInt(4) + 1;
+                        double amount = random.nextInt(i * 300);
 
-                if (fromAccountId != toAccountId) {
-                    bank.transfer(fromAccountId, toAccountId, amount);
-                }
-            }
+                        if (fromAccountId != toAccountId) {
+                            boolean transferStatus = bank.transfer(fromAccountId, toAccountId, amount);
+                            if (!transferStatus) {
+                                log.info("Money transfer cancelled");
+                            }
+                        }
+                    });
         };
 
-        // Запускаем 4 потока
-        for (int i = 0; i < THREAD_AMOUNT; i++) {
-            executor.submit(task);
-        }
+        IntStream.range(0, THREAD_AMOUNT)
+                .forEach(i -> executor.submit(task));
 
-        // Завершаем работу пула потоков
         executor.shutdown();
         try {
             if (executor.awaitTermination(3, TimeUnit.SECONDS)) {
-                log.info("Complete");
+                log.info("Transfer process complete");
             } else {
                 executor.shutdownNow();
             }
@@ -55,10 +56,6 @@ public class Main {
             log.error("Tasks completed with errors {}", e.getMessage());
         }
 
-        // Вывод общего баланса
-        System.out.println("Общий баланс всех счетов: " + bank.getTotalBalance());
-
-//        System.out.println(bank.getTotalBalance());
-
+        log.info("Total balance: {}", bank.getTotalBalance());
     }
 }

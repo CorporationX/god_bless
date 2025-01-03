@@ -3,6 +3,7 @@ package school.faang.play_banking;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -12,19 +13,16 @@ public class Bank {
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         Account fromAccount = accounts.get(fromAccountId);
         Account toAccount = accounts.get(toAccountId);
-        if (fromAccount == null || toAccount == null) {
-            log.info("Account didn't find");
+        if (Objects.equals(fromAccount, null) || Objects.equals(toAccount, null)) {
+            log.info("Account not found");
             return false;
         }
+
         Account firstLock = fromAccountId < toAccountId ? fromAccount : toAccount;
         Account secondLock = fromAccountId < toAccountId ? toAccount : fromAccount;
 
         firstLock.getLock().lock();
         secondLock.getLock().lock();
-
-
-//        fromAccount.getLock().lock();
-//        toAccount.getLock().lock();
         try {
             if (!fromAccount.withdraw(amount)) {
                 return false;
@@ -33,8 +31,6 @@ public class Bank {
             log.info("Transfer successfully completed");
             return true;
         } finally {
-//            fromAccount.getLock().unlock();
-//            toAccount.getLock().unlock();
             firstLock.getLock().unlock();
             secondLock.getLock().unlock();
         }
