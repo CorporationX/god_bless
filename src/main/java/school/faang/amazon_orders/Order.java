@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @AllArgsConstructor
 public class Order {
     private final int id;
-    @Getter
     @Setter
     private OrderStatus status;
 }
