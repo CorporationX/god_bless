@@ -44,8 +44,8 @@ public class MasterCardService {
         Future<Integer> collect = executor.submit(() -> collectPayment());
         CompletableFuture<Integer> sendAnalytic = CompletableFuture.supplyAsync(() -> sendAnalytics());
 
-        Integer futureResult = collect.get();
         Integer completableResult = sendAnalytic.join();
+        Integer futureResult = collect.get();
 
         logger.info("Аналитика отправлена: " + completableResult);
         logger.info("Платеж выполнен: " + futureResult);
