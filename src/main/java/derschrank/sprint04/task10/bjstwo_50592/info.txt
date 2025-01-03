@@ -1,0 +1,122 @@
+Superheroes battle
+derschrank2000-S04-T10-BJS2-50592
+derschrank.sprint04.task10.bjstwo_50592
+
+Sprint04. Task10. Future. Superheroes battle
+--------------------
+Superheroes battle
+👩‍💻 🧠🧠 (Дополнительная задача)
+
+Условия задачи
+Вы являетесь разработчиком системы для анализа силы супергероев Marvel. Вам нужно создать систему, которая будет асинхронно проводить сражения между супергероями в парах и определять победителей. Для этого необходимо использовать ExecutorService и Future для асинхронного выполнения и сбора результатов соревнований.
+
+Требования:
+1️⃣ Создайте класс Superhero, который представляет супергероя. Поля:
+name — имя супергероя,
+strength — сила супергероя,
+agility — ловкость супергероя.
+
+2️⃣ Создайте класс SuperheroBattle с методом runCompetitions, который:
+Принимает список пар супергероев (например, List<Pair<Superhero, Superhero>>),
+Асинхронно проводит соревнования между парами супергероев и возвращает список Future<Superhero> с победителями каждой пары.
+
+3️⃣ Метод runCompetitions должен использовать ExecutorService для асинхронного выполнения соревнований и сбора результатов.
+
+4️⃣ Создайте несколько супергероев и запустите соревнования между ними, используя класс SuperheroBattle.
+
+5️⃣ Обработайте результаты соревнований, используя коллекцию Future.
+
+6️⃣ Задание со звездочкой: После определения победителей всех пар, рандомно сформируйте из них новые пары и снова проведите соревнования. Повторяйте процесс до тех пор, пока не останется один победитель — сильнейший супергерой.
+
+Пример использования:
+SuperheroBattle superheroBattle = new SuperheroBattle();
+
+// Создание супергероев
+Superhero ironMan = new Superhero("Iron Man", 9, 6);
+Superhero captainAmerica = new Superhero("Captain America", 8, 8);
+Superhero thor = new Superhero("Thor", 10, 7);
+Superhero hulk = new Superhero("Hulk", 10, 4);
+
+// Создание списка пар супергероев
+List<Pair<Superhero, Superhero>> superheroPairs = Arrays.asList(
+    new Pair<>(ironMan, captainAmerica),
+    new Pair<>(thor, hulk)
+);
+
+// Запуск серии соревнований
+List<Future<Superhero>> winnersFutures = superheroBattle.runCompetitions(superheroPairs);
+
+// Обработка результатов соревнований
+for (int i = 0; i < winnersFutures.size(); i++) {
+    try {
+        Superhero winner = winnersFutures.get(i).get();
+        System.out.println("Победитель соревнования " + (i + 1) + ": " + winner.getName());
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+    }
+}
+Почему эта задача полезна?
+Асинхронное выполнение здесь позволит нам гораздо быстрее провести соревнование в многопользовательском режиме. В очередной нашей онлайн-игре ни один пользователь не должен ждать начала своей битвы в зависимости от других битв. Он должен сразу быть готовым играть, когда для него доступен соперник/
+
+Если этого нет, то все пользователи просто уйдут от нас, потому что мы заставляем их ждать. Но с использованием асинхронного подхода эта проблема решается быстро — каждую отдельную битву 1 на 1 мы запускаем отдельной асинхронной задачей в своём потоке, и эта задача не зависит от всех остальных.
+
+Только финальный результат зависит от результата выполнения ВСЕХ задач. Это и получается список. Т.о. мы значительно ускоряем взаимодействие пользователей и они получают гораздо более интересный опыт в нашей игре. А это развивает наш игровой бизнес! То же самое делают Valve в Dota 2, например. Персонажи ведь перемещаются асинхронно, и иногда взаимодействуют. Но ни один из них не ждёт другого.
+--------------------
+5:34:59: Executing ':derschrank.sprint04.task10.bjstwo_50592.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task10.bjstwo_50592.Main.main()
+ROUND #0. Begin!
+Fight Wayne Bruce (S:4/A:7) vs Curry Victor (S:4/A:4): Winner is WAYNE BRUCE
+Fight Strange Stephen (S:8/A:2) vs Stark Steve (S:3/A:8): Winner is STARK STEVE
+Fight Maximoff Wanda (S:2/A:8) vs Rogers Natasha (S:0/A:6): Winner is MAXIMOFF WANDA
+Fight Allen Barry (S:1/A:4) vs Prince Tony (S:2/A:5): Winner is PRINCE TONY
+Fight Romanoff Natasha (S:8/A:8) vs Parker Wanda (S:1/A:1): Winner is ROMANOFF NATASHA
+Fight Stark Tony (S:0/A:7) vs Strange Barry (S:2/A:9): Winner is STRANGE BARRY
+Fight Kent Clark (S:8/A:1) vs Jordan Arthur (S:9/A:1): Winner is KENT CLARK
+Fight Parker Peter (S:3/A:5) vs Romanoff Peter (S:5/A:6): Winner is ROMANOFF PETER
+Fight Rogers Steve (S:4/A:2) vs Maximoff Stephen (S:6/A:8): Winner is MAXIMOFF STEPHEN
+Fight Prince Diana (S:1/A:2) vs Allen Hal (S:2/A:5): Winner is ALLEN HAL
+Fight Grey Jean (S:2/A:5) vs Summers Scott (S:8/A:0): Winner is GREY JEAN
+Fight Curry Arthur (S:2/A:7) vs Wayne Clark (S:9/A:5): Winner is WAYNE CLARK
+Fight Stone Victor (S:9/A:4) vs Wagner Kurt (S:7/A:1): Winner is STONE VICTOR
+Fight Jordan Hal (S:9/A:1) vs Kent Diana (S:7/A:0): Winner is JORDAN HAL
+Fight Howlett Logan (S:9/A:3) vs McCoy Hank (S:8/A:0): Winner is HOWLETT LOGAN
+Fight Xavier Charles (S:2/A:1) vs Munroe Ororo (S:6/A:3): Winner is MUNROE ORORO
+ROUND #0. Ended!
+
+ROUND #1. Begin!
+Fight Maximoff Wanda (S:2/A:8) vs Stark Steve (S:3/A:8): Winner is STARK STEVE
+Fight Maximoff Stephen (S:6/A:8) vs Wayne Clark (S:9/A:5): Winner is MAXIMOFF STEPHEN
+Fight Allen Hal (S:2/A:5) vs Grey Jean (S:2/A:5): Winner is GREY JEAN
+Fight Romanoff Peter (S:5/A:6) vs Prince Tony (S:2/A:5): Winner is ROMANOFF PETER
+Fight Kent Clark (S:8/A:1) vs Howlett Logan (S:9/A:3): Winner is HOWLETT LOGAN
+Fight Wayne Bruce (S:4/A:7) vs Munroe Ororo (S:6/A:3): Winner is WAYNE BRUCE
+Fight Strange Barry (S:2/A:9) vs Stone Victor (S:9/A:4): Winner is STONE VICTOR
+Fight Romanoff Natasha (S:8/A:8) vs Jordan Hal (S:9/A:1): Winner is ROMANOFF NATASHA
+ROUND #1. Ended!
+
+ROUND #2. Begin!
+Fight Howlett Logan (S:9/A:3) vs Romanoff Peter (S:5/A:6): Winner is HOWLETT LOGAN
+Fight Wayne Bruce (S:4/A:7) vs Stark Steve (S:3/A:8): Winner is STARK STEVE
+Fight Grey Jean (S:2/A:5) vs Romanoff Natasha (S:8/A:8): Winner is ROMANOFF NATASHA
+Fight Stone Victor (S:9/A:4) vs Maximoff Stephen (S:6/A:8): Winner is MAXIMOFF STEPHEN
+ROUND #2. Ended!
+
+ROUND #3. Begin!
+Fight Howlett Logan (S:9/A:3) vs Romanoff Natasha (S:8/A:8): Winner is ROMANOFF NATASHA
+Fight Stark Steve (S:3/A:8) vs Maximoff Stephen (S:6/A:8): Winner is MAXIMOFF STEPHEN
+ROUND #3. Ended!
+
+ROUND #4. Begin!
+Fight Maximoff Stephen (S:6/A:8) vs Romanoff Natasha (S:8/A:8): Winner is ROMANOFF NATASHA
+ROUND #4. Ended!
+
+BATTLE ENDED
+
+BUILD SUCCESSFUL in 11s
+2 actionable tasks: 2 executed
+5:35:10: Execution finished ':derschrank.sprint04.task10.bjstwo_50592.Main.main()'.
