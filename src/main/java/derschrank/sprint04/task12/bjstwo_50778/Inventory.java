@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Inventory implements WorkshopInterface{
+public class Inventory implements WorkshopInterface {
     private final List<Item> items;
 
     public Inventory() {
