@@ -1,7 +1,6 @@
 package school.faang.bjs250134;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class QuestSystem {
 
@@ -19,13 +18,8 @@ public class QuestSystem {
                 }
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " is interrupted");
-                throw new CompletionException(e);
             }
             return copyPlayer;
-        }).exceptionally(ex -> {
-            System.out.println("Error: " + ex.getMessage());
-            ex.printStackTrace();
-            return new Player("Default name", 0, 0);
         });
     }
 }
