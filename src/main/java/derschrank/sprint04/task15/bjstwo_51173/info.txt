@@ -2,7 +2,7 @@
 derschrank2000-S04-T15-BJS2-51173
 derschrank.sprint04.task15.bjstwo_51173
 
-Sprint04. Task15/1. Volotile. PostService
+Sprint04. Task15/1. Locker. PostService
 ----------------------
 Оставляем комментарий
 👩‍💻 🧠 (Дополнительная задача)
