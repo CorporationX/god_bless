@@ -15,8 +15,8 @@ public class Main {
         List<CompletableFuture<Void>> processAllOrders = orders.stream()
                 .map(processor::processOrder).toList();
 
-        CompletableFuture<Void> AllOrders = CompletableFuture.allOf(processAllOrders.toArray(new CompletableFuture[0]));
-        AllOrders.join();
+        CompletableFuture<Void> allOrders = CompletableFuture.allOf(processAllOrders.toArray(new CompletableFuture[0]));
+        allOrders.join();
 
         System.out.println("Обработано заказов: " + OrderProcessor.getTotalProcessedOrders());
     }
