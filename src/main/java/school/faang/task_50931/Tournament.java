@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class Tournament {
@@ -22,13 +21,13 @@ public class Tournament {
                 //по совету ChatGPT. Просто возвращать school, который получаем неправильно на мой взгляд
             }
 
-            synchronized (school) {
-                for (var student : school.getTeam()) {
-                    int updatedPoints = student.getPoints() + task.getReward();
-                    student.setPoints(updatedPoints);
-                }
-                return school;
+            int reward = task.getReward();
+
+            for (var student : school.getTeam()) {
+                student.addPoints(reward);
             }
+
+            return school;
         });
     }
 
@@ -50,24 +49,17 @@ public class Tournament {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
 
-        allTasks.thenAccept(result -> {
-            try {
-                int hogwartsPoints = hogwartsTask.get().getTotalPoints();
-                int beauxbatonsPoints = beauxbatonsTask.get().getTotalPoints();
+        allTasks.join();
 
-                if (hogwartsPoints > beauxbatonsPoints) {
-                    System.out.println("hogwarts won with score " + hogwartsPoints + " over " + beauxbatonsPoints);
-                } else if (hogwartsPoints < beauxbatonsPoints) {
-                    System.out.println("beauxbatons won with score " + beauxbatonsPoints + " over " + hogwartsPoints);
-                } else {
-                    System.out.println("it's a draw " + beauxbatonsPoints + " to " + hogwartsPoints);
-                }
+        int hogwartsPoints = hogwarts.getTotalPoints();
+        int beauxbatonsPoints = beauxbatons.getTotalPoints();
 
-            } catch (ExecutionException e) {
-                log.error("ExecutionException occurred", e);
-            } catch (InterruptedException e) {
-                log.warn("Main thread was interrupted", e);
-            }
-        }).join();
+        if (hogwartsPoints > beauxbatonsPoints) {
+            System.out.println("hogwarts won with score " + hogwartsPoints + " over " + beauxbatonsPoints);
+        } else if (hogwartsPoints < beauxbatonsPoints) {
+            System.out.println("beauxbatons won with score " + beauxbatonsPoints + " over " + hogwartsPoints);
+        } else {
+            System.out.println("it's a draw " + beauxbatonsPoints + " to " + hogwartsPoints);
+        }
     }
 }
