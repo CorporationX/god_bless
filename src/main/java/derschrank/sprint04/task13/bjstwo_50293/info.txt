@@ -3,39 +3,7 @@ derschrank2000-S04-T13-BJS2-50293
 derschrank.sprint04.task13.bjstwo_50293
 
 Sprint04. Task13. CompletableFuture. Factorial
--------------------------1:22:22: Executing ':derschrank.sprint04.task13.bjstwo_50293.Main.main()'…
-
-                         > Task :compileJava
-                         > Task :processResources NO-SOURCE
-                         > Task :classes
-
-                         > Task :derschrank.sprint04.task13.bjstwo_50293.Main.main()
-                         Factorial for 0 is 0
-                         Factorial for 1 is 1
-                         Factorial for 2 is 2
-                         Factorial for 3 is 6
-                         Factorial for 4 is 24
-                         Factorial for 5 is 120
-                         Factorial for 6 is 720
-                         Factorial for 7 is 5040
-                         Factorial for 8 is 40320
-                         Factorial for 9 is 362880
-                         Factorial for 10 is 3628800
-                         Factorial for 11 is 39916800
-                         Factorial for 12 is 479001600
-                         Factorial for 13 is 6227020800
-                         Factorial for 14 is 87178291200
-                         Factorial for 15 is 1307674368000
-                         Factorial for 16 is 20922789888000
-                         Factorial for 17 is 355687428096000
-                         Factorial for 18 is 6402373705728000
-                         Factorial for 19 is 121645100408832000
-                         Factorial for 20 is 2432902008176640000
-
-                         BUILD SUCCESSFUL in 4s
-                         2 actionable tasks: 2 executed
-                         1:22:27: Execution finished ':derschrank.sprint04.task13.bjstwo_50293.Main.main()'.
-
+-------------------------
 Великий и ужасный факториал!
 👩‍💻 🧠🧠🧠🧠 (Дополнительная задача)
 
