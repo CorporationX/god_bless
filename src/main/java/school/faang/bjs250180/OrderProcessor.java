@@ -20,8 +20,8 @@ public class OrderProcessor {
                 Thread.currentThread().interrupt();
                 log.error("Thread interrupted while processing order: {}", order);
             }
-            log.info("Order processed: {}", order);
             order.setStatus("Обработано");
+            log.info("Order processed: {}", order);
             return order;
         });
     }
@@ -44,6 +44,4 @@ public class OrderProcessor {
 
         return totalProcessedOrders.get();
     }
-
-
 }
