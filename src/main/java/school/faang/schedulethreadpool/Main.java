@@ -11,15 +11,14 @@ public class Main {
     public static final int THREAD_POOL_SIZE = 5;
 
     public static void main(String[] args) {
-        House house = new House();
-        initializedHouse(house);
+        House house = new House(initializedRoom());
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
         Runnable task = () -> {
             System.out.println("Task is running at " + System.currentTimeMillis());
 
-            if (house.collectFood()) {
+            if (house.isFoodCollected()) {
                 scheduler.shutdown();
                 System.out.println("All the food in the house is collected!");
             }
@@ -29,24 +28,22 @@ public class Main {
 
     }
 
-    private static void initializedHouse(House house) {
-        List<Food> foods = new ArrayList<>();
+    private static List<Room> initializedRoom() {
 
-        for (int i = 0; i < 20; i++) {
-            foods.add(new Food("food" + i + 1));
-        }
         List<Room> rooms = new ArrayList<>();
         for (int i = 0, j = 0; i < 5; i++) {
-            Room room = new Room();
-            while (room.getFoods().size() < 4) {
-                room.addFood(foods.get(j));
-                j++;
-            }
+            Room room = new Room(initializeFood(i));
             rooms.add(room);
         }
+        return rooms;
+    }
+
+    private static List<Food> initializeFood(int roomNumber) {
+        List<Food> foods = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            house.addRoom(rooms.get(i));
+            foods.add(new Food("food for room number " + roomNumber + " ," + (i + 1)));
         }
+        return foods;
     }
 
 }

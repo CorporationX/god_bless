@@ -9,17 +9,21 @@ public class House {
     private List<Food> collectedFood = new ArrayList<>();
     private Random random = new Random();
 
-    public void addRoom(Room room) {
-        this.rooms.add(room);
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
-    public boolean allFoodCollected() {
+    public boolean isAllFoodCollected() {
         return rooms.stream().allMatch(room -> room.getFoods().isEmpty());
     }
 
-    public boolean collectFood() {
+    public boolean isFoodCollected() {
         if (rooms.isEmpty()) {
             System.out.println("The rooms are empty of food!");
+            return false;
+        }
+        if (rooms.size() == 1) {
+            System.out.println("The number of rooms must be at least two!");
             return false;
         }
         int roomIndex1 = generateRandomNumber(rooms.size());
@@ -39,7 +43,7 @@ public class House {
 
         collectedFood.addAll(foodToCollect);
         System.out.println("Collected food from two rooms: " + roomIndex1 + ", " + roomIndex2);
-        return allFoodCollected();
+        return isAllFoodCollected();
     }
 
     private int generateRandomNumber(int numberOfRooms) {
