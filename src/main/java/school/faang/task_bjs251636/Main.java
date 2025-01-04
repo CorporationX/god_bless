@@ -23,9 +23,9 @@ public class Main {
         allTasks.thenRun(() -> {
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
                 System.out.println(hogwarts.getName() + " wins the tournament!");
-            }else if(hogwarts.getTotalPoints() == beauxbatons.getTotalPoints()){
+            } else if (hogwarts.getTotalPoints() == beauxbatons.getTotalPoints()) {
                 System.out.println("ничья");
-            }else {
+            } else {
                 System.out.println(beauxbatons.getName() + " wins the tournament!");
             }
         }).join();
