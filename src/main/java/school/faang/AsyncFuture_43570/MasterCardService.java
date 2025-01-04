@@ -1,4 +1,4 @@
-package school.faang.AsyncFuture;
+package school.faang.AsyncFuture_43570;
 
 import lombok.SneakyThrows;
 
