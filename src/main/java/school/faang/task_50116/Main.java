@@ -15,13 +15,18 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(player ->
-                System.out.println(player.getName() + " has completed the quest and now has "
-                        + player.getExperience() + " experience points.")
-        );
-        player2Quest.thenAccept(player ->
-                System.out.println(player.getName() + " has completed the quest and now has "
-                        + player.getExperience() + " experience points.")
+        Player playerOne = player1Quest.join();
+        printQuestCompletionMessage(playerOne);
+
+        Player playerTwo = player2Quest.join();
+        printQuestCompletionMessage(playerTwo);
+    }
+
+    public static void printQuestCompletionMessage(Player player) {
+        System.out.printf(
+                "%s has completed the quest and now has %s experience points.\n",
+                player.getName(), player.getExperience()
         );
     }
+
 }
