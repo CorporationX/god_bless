@@ -15,8 +15,6 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-.school.faang.noNONONONO*
-
 # Eclipse Gradle plugin generated files
 # Eclipse Core
 .project
