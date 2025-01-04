@@ -13,10 +13,10 @@ public record Potion(String name, int requiredIngredients) {
                 TimeUnit.MILLISECONDS.sleep(2000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                return 0;
+                throw new RuntimeException(e);
             }
             return potion.requiredIngredients();
-        });
+        }).orTimeout(3, TimeUnit.SECONDS);
     }
 
     public static void gatherAllIngredients(List<Potion> potions) {
