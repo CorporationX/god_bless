@@ -33,7 +33,8 @@ public record Potion(String name, int requiredIngredients) {
             futures.forEach(future -> {
                 try {
                     totalIngredients.addAndGet(future.get());
-                } catch (InterruptedException | ExecutionException ignored) {
+                } catch (InterruptedException | ExecutionException e) {
+                    throw new RuntimeException(e);
                 }
             });
 
