@@ -26,10 +26,8 @@ public class Main {
                     result.stream()
                             .map(CompletableFuture::join)
                             .reduce(0, Integer::sum));
-                System.out.println("Общее количество собранных ингредиентов: " + sum.get());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+            System.out.println("Общее количество собранных ингредиентов: " + sum.get());
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
