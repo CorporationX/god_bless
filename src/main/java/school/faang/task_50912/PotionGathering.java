@@ -13,5 +13,7 @@ public class PotionGathering {
         );
 
         gatherAllIngredients(potions);
+
+        System.out.println("Potion gathering completed!");
     }
 }
