@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
-    private final static AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private static final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public static AtomicInteger getTotalProcessedOrders() {
         int newTotalProcessedOrders = totalProcessedOrders.get();
