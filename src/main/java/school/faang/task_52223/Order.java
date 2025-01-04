@@ -13,9 +13,12 @@ public class Order {
     private List<Product> products = new ArrayList<>();
 
     public void applyDiscount(double discount) {
-        double totalPrice = getTotalPrice();
         calculateDiscountedPrice(products, discount);
-        log.info("Скидка на каждый продукт применена, общая сумма: " + totalPrice);
+        double totalPrice = getTotalPrice();
+
+        log.info(discount != 0 ? "Скидка на каждый продукт применена, общая сумма покупки: " + totalPrice
+                : "Скидка не применена, общая сумма покупки: " + totalPrice);
+
     }
 
     public double getTotalPrice() {
@@ -26,11 +29,11 @@ public class Order {
 
     private void calculateDiscountedPrice(List<Product> products, double discount) {
         double originalPrice = getTotalPrice();
+
         if (originalPrice < 0 || discount < 0 || discount > TOTAL_DISCOUNT) {
             log.error("Некорректные значения цены или скидки");
         } else {
-            double percentDiscount = (discount / 100);
-            products.forEach(s -> s.setPrice(s.getPrice() * percentDiscount));
+            products.forEach(s -> s.setPrice(s.getPrice() - (s.getPrice() / 100 * discount)));
         }
     }
 

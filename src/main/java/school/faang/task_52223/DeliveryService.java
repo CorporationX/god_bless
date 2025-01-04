@@ -5,47 +5,63 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
 public class DeliveryService {
 
-    private Map<String, PromoCode> promoCodeStatus = new HashMap<>();
+    private Map<String, PromoCode> promoCodes = new ConcurrentHashMap<>();
     private List<Order> processedOrders = new ArrayList<>();
 
     public void addPromoCode(PromoCode promoCode) {
-        promoCodeStatus.put(promoCode.getCode(), promoCode);
+        promoCodes.put(promoCode.getCode(), promoCode);
     }
 
-    public void processOrder(Order order, List<PromoCode> promoCodes) {
-        List<PromoCode> validPromoCode = promoCodes.stream().filter(s -> s.isValidForOrder(order)).collect(Collectors.toList());
-        log.info("Валидация к заказу пройдена!\nПроверяем максимальную скидку.\n");
+    public synchronized void processOrder(Order order, List<PromoCode> promoCods) {
+
+        List<PromoCode> validPromoCode = checkPromoCodeExists(order, promoCods);
 
         PromoCode promoCodeWithMAxDiscount = getMaxDiscount(validPromoCode);
-        order.applyDiscount(promoCodeWithMAxDiscount.getDiscount());
-        log.info("Максимальная скидка применена!");
 
-        promoCodeWithMAxDiscount.markAsUsed();
+        if (promoCodeWithMAxDiscount != null) {
+            order.applyDiscount(promoCodeWithMAxDiscount.getDiscount());
+            log.info("Максимальная скидка применена!");
+            promoCodeWithMAxDiscount.markAsUsed();
+            deletePromoCode(promoCodeWithMAxDiscount);
+        } else {
+            order.applyDiscount(0);
+            log.info("Нет действующих промокодов, скидка не применима");
+        }
 
         processedOrders.add(order);
 
-        deletePromoCode(promoCodeWithMAxDiscount);
     }
 
-    private PromoCode getMaxDiscount(List<PromoCode> promoCodes) {
-        return promoCodes.stream()
+    private List<PromoCode> checkPromoCodeExists(Order order, List<PromoCode> promoCods) {
+        List<PromoCode> validPromoCode = promoCods.stream()
+                .filter(s -> s.isValidForOrder(order) && promoCodes.containsKey(s.getCode()))
+                .collect(Collectors.toList());
+
+        log.info(validPromoCode.isEmpty() ? "Валидация промокода не пройдена!" :
+                "Валидация промокодов к заказу пройдена!\nПроверяем максимальную скидку.\n");
+
+        return validPromoCode;
+    }
+
+
+    private PromoCode getMaxDiscount(List<PromoCode> promoCods) {
+        return promoCods.stream()
                 .max(Comparator.comparingDouble(PromoCode::getDiscount))
-                .orElseThrow(() -> new NoSuchElementException("Нет подходящих промокодов"));
+                .orElse(null);
     }
 
     private void deletePromoCode(PromoCode promoCode) {
-        promoCodeStatus.remove(promoCode.getCode());
-        log.info(String.format("Промокод №%s удален!", promoCode.getCode()));
+        promoCodes.remove(promoCode.getCode());
+        log.info(String.format("Промокод <%s> удален!", promoCode.getCode()));
     }
 
 }
