@@ -24,10 +24,11 @@ public class MasterCardService {
             throw new RuntimeException();
         }
     }
+
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        Future <Integer> future = executor.submit(this::collectPayment);
-        CompletableFuture <Integer> future1 = CompletableFuture.supplyAsync(this::sendAnalytics);
+        Future<Integer> future = executor.submit(this::collectPayment);
+        CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(this::sendAnalytics);
         executor.shutdown();
 
         int analyticResult;
@@ -40,4 +41,5 @@ public class MasterCardService {
         }
         System.out.println("Analytics result: " + analyticResult);
         System.out.println("Payment result: " + paymentResult);
-    }}
+    }
+}
