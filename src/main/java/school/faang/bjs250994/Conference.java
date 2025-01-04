@@ -1,6 +1,5 @@
 package school.faang.bjs250994;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.BrokenBarrierException;
@@ -8,7 +7,7 @@ import java.util.concurrent.CyclicBarrier;
 
 @Slf4j
 public class Conference {
-@Getter
+
     private final int requiredParticipants;
     private final CyclicBarrier barrier;
 
