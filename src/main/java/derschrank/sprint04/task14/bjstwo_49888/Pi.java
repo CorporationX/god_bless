@@ -15,7 +15,7 @@ public class Pi {
     public double calculatePi(int n) {
         List<CompletableFuture<Point>> futures = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-              futures.add(CompletableFuture.supplyAsync(this::gereneratPoint));
+            futures.add(CompletableFuture.supplyAsync(this::gereneratPoint));
         }
 
         futures.forEach(future -> {
@@ -32,12 +32,14 @@ public class Pi {
         return calculatePi(countOfPointsInside, countOfAllPoints);
     }
 
+    public double calculatePi(long inside, long all) {
+        return 4.0 * inside / all;
+    }
+
     public Point gereneratPoint() {
         Random rnd = ThreadLocalRandom.current();
         return new Point(rnd.nextDouble(), rnd.nextDouble());
     }
 
-    public double calculatePi(long inside, long all) {
-        return 4.0 * inside / all;
-    }
+
 }
