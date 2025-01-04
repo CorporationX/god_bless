@@ -13,6 +13,9 @@ public class Player {
     private int experience;
 
     public void addExperience(int reward) {
+        if (reward < 0) {
+            throw new IllegalArgumentException("Reward cannot be negative");
+        }
         this.experience += reward;
     }
 }

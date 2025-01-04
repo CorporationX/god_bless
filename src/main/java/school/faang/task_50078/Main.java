@@ -12,23 +12,20 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1)
+                .exceptionally(e -> player1);
 
-        player1Quest.thenAccept(player -> {
-            System.out.println(player.getName() + " completed the quest and now has "
-                    + player.getExperience() + " experience points.");
-        });
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2)
+                .exceptionally(e -> player2);
 
-        player2Quest.thenAccept(player -> {
-            System.out.println(player.getName() + " completed the quest and now has "
-                    + player.getExperience() + " experience points.");
-        });
+        player1Quest.thenAccept(Main::processCompletion);
+        player2Quest.thenAccept(Main::processCompletion);
 
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
+    }
+
+    private static void processCompletion(Player player) {
+        System.out.println(player.getName() + " completed the quest and now has "
+                + player.getExperience() + " experience points.");
     }
 }

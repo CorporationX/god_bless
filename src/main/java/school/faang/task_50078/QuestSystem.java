@@ -9,9 +9,8 @@ public class QuestSystem {
                 System.out.println(player.getName() + " started the quest: " + quest.getName());
                 Thread.sleep(quest.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-
             player.addExperience(quest.getReward());
             System.out.println(player.getName() + " completed the quest: " + quest.getName());
             return player;
