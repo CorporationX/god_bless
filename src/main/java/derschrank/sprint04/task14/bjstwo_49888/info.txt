@@ -2,7 +2,7 @@
 derschrank2000-S04-T14-BJS2-49888
 derschrank.sprint04.task14.bjstwo_49888
 
-Sprint04. Task13. CompletableFuture. ThreadLocalRandom. Pi
+Sprint04. Task14. CompletableFuture. ThreadLocalRandom. Pi
 -----------------------------
 Вычислим число ПИ
 👩‍💻 🧠🧠🧠🧠 (Дополнительная задача)
