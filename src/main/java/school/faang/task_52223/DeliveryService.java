@@ -25,13 +25,13 @@ public class DeliveryService {
 
         List<PromoCode> validPromoCode = checkPromoCodeExists(order, promoCods);
 
-        PromoCode promoCodeWithMAxDiscount = getMaxDiscount(validPromoCode);
+        PromoCode promoCodeWithMaxDiscount = getMaxDiscount(validPromoCode);
 
-        if (promoCodeWithMAxDiscount != null) {
-            order.applyDiscount(promoCodeWithMAxDiscount.getDiscount());
+        if (promoCodeWithMaxDiscount != null) {
+            order.applyDiscount(promoCodeWithMaxDiscount.getDiscount());
             log.info("Максимальная скидка применена!");
-            promoCodeWithMAxDiscount.markAsUsed();
-            deletePromoCode(promoCodeWithMAxDiscount);
+            promoCodeWithMaxDiscount.markAsUsed();
+            deletePromoCode(promoCodeWithMaxDiscount);
         } else {
             order.applyDiscount(0);
             log.info("Нет действующих промокодов, скидка не применима");
