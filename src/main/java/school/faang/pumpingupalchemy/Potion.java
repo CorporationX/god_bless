@@ -12,5 +12,4 @@ import java.util.List;
 public class Potion {
     private final String name;
     private final int requiredIngredients;
-    private final List<Potion> potions = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package school.faang.pumpingupalchemy;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,7 +31,12 @@ public class PotionGathering {
                 .toList();
 
         AtomicInteger totalIngredients = new AtomicInteger(0);
-        futures.forEach((future) -> totalIngredients.addAndGet(future.join()));
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenRun(() -> {
+                    totalIngredients.set(futures.stream()
+                            .mapToInt(CompletableFuture::join)
+                            .sum());
+                }).join();
 
         int total = totalIngredients.get();
         log.info("Общее количество собранных ингредиентов: {}", total);
