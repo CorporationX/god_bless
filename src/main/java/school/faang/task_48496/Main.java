@@ -7,8 +7,8 @@ public class Main {
         List<Hero> heroes = List.of(new Swordsman(50), new Archer(25), new Mage(15));
         Army army = new Army(heroes);
 
-        int allHerosPower = army.calculateTotalPower();
-        System.out.println("Общая сила армии: " + allHerosPower);
+        int allHereosPower = army.calculateTotalPower();
+        System.out.println("Общая сила армии: " + allHereosPower);
 
     }
 }
