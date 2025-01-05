@@ -17,7 +17,9 @@ public class Main {
 
         CompletableFuture.allOf(firstPlayerQuest, secondPlayerQuest).join();
 
-        firstPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил " + player.getExperience() + " опыта."));
-        secondPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил " + player.getExperience() + " опыта."));
+        firstPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил "
+                + player.getExperience() + " опыта."));
+        secondPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил "
+                + player.getExperience() + " опыта."));
     }
 }
