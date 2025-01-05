@@ -6,33 +6,21 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
     public static final int N_THREADS = 2;
-    public static final long WAIT_TIME = 2000;
 
     public void doAll() throws Exception {
         ExecutorService service = Executors.newFixedThreadPool(N_THREADS);
 
         Future<Integer> paymentFuture = service.submit(MasterCardService::collectPayment);
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
-                .thenAccept((res) -> log.info("Analysis: {}", res));
+        var analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
-        while (!paymentFuture.isDone()) {
-            Thread.sleep(WAIT_TIME);
-        }
         log.info("Total payment {}", paymentFuture.get());
+        analytics.thenAccept((res) -> log.info("Analytics: {}", res));
 
         service.shutdown();
-        try {
-            if (!service.awaitTermination(WAIT_TIME, TimeUnit.MILLISECONDS)) {
-                service.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            service.shutdownNow();
-        }
     }
 
     static int collectPayment() {
@@ -48,7 +36,7 @@ public class MasterCardService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(2_000);
             return 1_000;
         } catch (InterruptedException e) {
             log.error("Error while sending analytics");
