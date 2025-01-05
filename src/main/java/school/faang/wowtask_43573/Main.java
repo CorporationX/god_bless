@@ -1,6 +1,4 @@
-package school.faang.wow_task_43573;
-
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+package school.faang.wowtask_43573;
 
 import java.util.concurrent.CompletableFuture;
 

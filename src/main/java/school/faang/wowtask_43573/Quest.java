@@ -1,4 +1,4 @@
-package school.faang.wow_task_43573;
+package school.faang.wowtask_43573;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
