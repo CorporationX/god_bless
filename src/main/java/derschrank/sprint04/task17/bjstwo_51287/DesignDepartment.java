@@ -17,13 +17,14 @@ public class DesignDepartment implements Department, Runnable {
             System.out.println("DesignDepartment is reading MarketingResources in Thread: "
                     + Thread.currentThread().getName());
             List<File> files = marketingRes.getFiles();
-        }
 
-        synchronized (designRes){
-            System.out.println("DesignDepartment is adding files in DesignDepartment in Thread: "
-                    + Thread.currentThread().getName());
-            designRes.addFile(new File("Marketing Analisis 1.txt"));
-            designRes.addFile(new File("Marketing Analisis 2.txt"));
+
+            synchronized (designRes) {
+                System.out.println("DesignDepartment is adding files in DesignDepartment in Thread: "
+                        + Thread.currentThread().getName());
+                designRes.addFile(new File("Marketing Analisis 1.txt"));
+                designRes.addFile(new File("Marketing Analisis 2.txt"));
+            }
         }
     }
 }
