@@ -13,14 +13,14 @@ public class Main {
         Tournament tournament = new Tournament();
 
         List<CompletableFuture<School>> completedTasks = new ArrayList<>();
-        Student Ron = new Student("Ron", 1);
-        Student Harry = new Student("Harry", 5);
-        Student Hermione = new Student("Hermione", 5);
-        Student Draco = new Student("Draco", 4);
-        Student Luna = new Student("Luna", 3);
+        Student ron = new Student("Ron", 1);
+        Student harry = new Student("Harry", 5);
+        Student hermione = new Student("Hermione", 5);
+        Student draco = new Student("Draco", 4);
+        Student luna = new Student("Luna", 3);
 
-        School hogwarts = new School("Hogwarts", new ArrayList<>(List.of(Ron, Harry, Hermione)));
-        School durmstrang = new School("Durmstrang", new ArrayList<>(List.of(Draco, Luna)));
+        School hogwarts = new School("Hogwarts", new ArrayList<>(List.of(ron, harry, hermione)));
+        School durmstrang = new School("Durmstrang", new ArrayList<>(List.of(draco, luna)));
 
         Task quest1 = new Task("Triwizard Tournament", 5, 200);
         Task quest2 = new Task("Magical Creatures Hunt", 1, 150);
