@@ -1,0 +1,35 @@
+Поддержим животных
+derschrank2000-S04-T16-BJS2-51571
+derschrank.sprint04.task16.bjstwo_51571
+
+Sprint04. Task16/2. AtomicInteger. Donation
+------------------------------------
+------------------------------------
+1:27:25: Executing ':derschrank.sprint04.task16.bjstwo_51571.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task16.bjstwo_51571.Main.main()
+Donations: 0, amount: 100
+Donations: 2, amount: 100
+Donations: 6, amount: 100
+Donations: 1, amount: 100
+Donations: 5, amount: 100
+Donations: 4, amount: 100
+Donations: 3, amount: 100
+Donations: 12, amount: 100
+...
+onations: 991, amount: 100
+Donations: 996, amount: 100
+Donations: 997, amount: 100
+Donations: 998, amount: 100
+Donations: 999, amount: 100
+Donations: 988, amount: 100
+Donations: 985, amount: 100
+Donations: 969, amount: 100
+Donations: 992, amount: 100
+Donations: 995, amount: 100
+Donations: 994, amount: 100
+Sum of Donations is: 100000
