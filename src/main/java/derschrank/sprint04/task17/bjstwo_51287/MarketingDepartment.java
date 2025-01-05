@@ -13,18 +13,15 @@ public class MarketingDepartment implements Department, Runnable {
 
     @Override
     public void run() {
-        synchronized (designRes) {
-            System.out.println("MarketingDepartment is reading DesignResources in Thread: "
-                    + Thread.currentThread().getName());
-            List<File> files = designRes.getFiles();
+        System.out.println("MarketingDepartment is reading DesignResources in Thread: "
+                + Thread.currentThread().getName());
+        List<File> files = designRes.getFiles();
 
 
-            synchronized (marketingRes) {
-                System.out.println("MarketingDepartment is adding files in MarketingResources in Thread: "
-                        + Thread.currentThread().getName());
-                marketingRes.addFile(new File("Designe Sketch 1.txt"));
-                marketingRes.addFile(new File("Designe Sketch 2.txt"));
-            }
-        }
+
+        System.out.println("MarketingDepartment is adding files in MarketingResources in Thread: "
+                + Thread.currentThread().getName());
+        marketingRes.addFile(new File("Designe Sketch 1.txt"));
+        marketingRes.addFile(new File("Designe Sketch 2.txt"));
     }
 }

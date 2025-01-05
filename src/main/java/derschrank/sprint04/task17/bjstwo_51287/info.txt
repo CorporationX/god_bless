@@ -24,7 +24,7 @@ BUILD SUCCESSFUL in 17s
 2:33:09: Execution finished ':derschrank.sprint04.task17.bjstwo_51287.Main.main()'.
 
 ------------------------------
-DEADLOCK in branch DEADLOCK
+DEADLOCK in commit DEADLOCK
 ------------------------------
 2:34:37: Executing ':derschrank.sprint04.task17.bjstwo_51287.Main.main()'…
 
@@ -35,3 +35,22 @@ DEADLOCK in branch DEADLOCK
 > Task :derschrank.sprint04.task17.bjstwo_51287.Main.main()
 MarketingDepartment is reading DesignResources in Thread: Thread-0
 DesignDepartment is reading MarketingResources in Thread: Thread-1
+
+------------------------------
+ReadWriteLock
+------------------------------
+2:52:52: Executing ':derschrank.sprint04.task17.bjstwo_51287.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task17.bjstwo_51287.Main.main()
+DesignDepartment is reading MarketingResources in Thread: Thread-1
+MarketingDepartment is reading DesignResources in Thread: Thread-0
+MarketingDepartment is adding files in MarketingResources in Thread: Thread-0
+DesignDepartment is adding files in DesignDepartment in Thread: Thread-1
+
+BUILD SUCCESSFUL in 10s
+2 actionable tasks: 2 executed
+2:53:03: Execution finished ':derschrank.sprint04.task17.bjstwo_51287.Main.main()'.
