@@ -25,16 +25,16 @@ public class OrderProcessor {
 
     private CompletableFuture<Order> processOrder(Order order) {
         return CompletableFuture.supplyAsync(() -> {
-                    try {
-                        Thread.sleep(PROCESSING_TIME);
-                    } catch (InterruptedException e) {
-                        log.info("Error processing {}", e.getMessage());
-                    }
-                    order.setProcessed(true);
-                    totalProcessedCount.incrementAndGet();
-                    log.info("Order {} processed", order.getId());
-                    return order;
+                try {
+                    Thread.sleep(PROCESSING_TIME);
+                } catch (InterruptedException e) {
+                    log.info("Error processing {}", e.getMessage());
                 }
+                order.setProcessed(true);
+                totalProcessedCount.incrementAndGet();
+                log.info("Order {} processed", order.getId());
+                return order;
+            }
         );
     }
 
