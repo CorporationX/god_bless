@@ -30,7 +30,7 @@ public class Substation implements SubstationInterface {
     public void startCalculatingAverages() {
         executor.scheduleAtFixedRate(
                 () -> calculatingAverage(),
-        0,
+            0,
                 PERIOD_OF_CALCULATING_SEC,
                 TimeUnit.MILLISECONDS);
     }

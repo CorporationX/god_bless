@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
-    private final static String SPLITTER = "\n=============================\n";
-    private final static int COUMT_OF_SUBSTATIONS = 10;
-    private final static int COUNT_OF_SENSORS = 10;
-    private final static int TIME_FOR_PROGRAM_MILLIS = 6000;
+    private static final String SPLITTER = "\n=============================\n";
+    private static final int COUMT_OF_SUBSTATIONS = 10;
+    private static final int COUNT_OF_SENSORS = 10;
+    private static final int TIME_FOR_PROGRAM_MILLIS = 6000;
 
     public static void main(String[] args) {
         MonitoringSystem system = new MonitoringSystem();
