@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Student {
-    private  final String name;
+    private final String name;
     private int year;
     private int  points;
 }

@@ -1,9 +1,15 @@
 package school.faang.task_51774;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
@@ -29,10 +35,9 @@ public class Main {
                         ? hogwartsResult
                         : beauxbatonsResult;
 
-                System.out.println("The winner is: " + winner.name() + " with total points: "
-                        + winner.getTotalPoints());
+                logger.info("The winner is: {} with total points: {}", winner.name(), winner.getTotalPoints());
             } catch (Exception e) {
-                System.err.println("Error while determining the winner: " + e.getMessage());
+                logger.error("Error while determining the winner: {}", e.getMessage(), e);
             }
         }).join();
     }
