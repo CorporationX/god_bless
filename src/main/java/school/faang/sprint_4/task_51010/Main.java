@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+
+    public static final int TIMEOUT = 30;
+
     public static void main(String[] args) {
         int numberOfStores = 3;
         CountDownLatch latch = new CountDownLatch(numberOfStores);
@@ -25,12 +29,23 @@ public class Main {
             latch.await();
         } catch (InterruptedException e) {
             log.error("Произошла ошибка во время ожидания потока");
+            Thread.currentThread().interrupt();
         }
 
         ReportGenerator reportGenerator = new ReportGenerator(salesDataList);
         reportGenerator.generateReport();
 
         executor.shutdown();
+        try {
+            if (executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                log.info("Все задачи завершены");
+            } else {
+                log.error("Задачи не выполнены за отведенное время");
+            }
+        } catch (InterruptedException e) {
+            log.error("Произошла ошибка во время ожидания завершения задачи");
+            Thread.currentThread().interrupt();
+        }
     }
 
 }
