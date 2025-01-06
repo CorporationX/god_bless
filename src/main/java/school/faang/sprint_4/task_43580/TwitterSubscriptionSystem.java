@@ -8,8 +8,6 @@ public class TwitterSubscriptionSystem {
     }
 
     public CompletableFuture<Void> followAccount(TwitterAccount account) {
-        return CompletableFuture.runAsync(() -> {
-            addFolLower(account);
-        });
+        return CompletableFuture.runAsync(() -> addFolLower(account));
     }
 }
