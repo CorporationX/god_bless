@@ -5,9 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
+    private static final int DELAY = 30;
+
     public static int gatherIngredients(Potion potion) {
         try {
             Thread.sleep(potion.getRequiredIngredients());
@@ -21,17 +27,26 @@ public class PotionGathering {
     }
 
     public static void gatherAllIngredients(List<Potion> potions) {
+        ExecutorService executor = Executors.newFixedThreadPool(potions.size());
+
         List<CompletableFuture<Integer>> ingredients = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion)))
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor))
                 .toList();
 
-        CompletableFuture.allOf(ingredients.toArray(new CompletableFuture[0]))
-                .thenRun(() -> {
-                    int total = ingredients.stream()
-                            .map(CompletableFuture::join)
-                            .reduce(0, Integer::sum);
-                    System.out.println("Общее количество собранных ингредиентов: " + total);
-                }).join();
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+        ingredients.forEach(future -> totalIngredients.addAndGet(future.join()));
+
+        int total = totalIngredients.get();
+        System.out.println("Общее количество собранных ингредиентов: " + total);
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(DELAY, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 
     public static void main(String[] args) {
