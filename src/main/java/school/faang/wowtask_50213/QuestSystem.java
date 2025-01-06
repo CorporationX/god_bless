@@ -1,4 +1,4 @@
-package school.faang.wowtask_43573;
+package school.faang.wowtask_50213;
 
 import java.util.concurrent.CompletableFuture;
 
