@@ -2,7 +2,6 @@ package school.faang.task_51899;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,6 +14,7 @@ public class Tournament {
             try {
                 Thread.sleep(task.difficulty() * DIFFICULTY_MULTIPLIER);
             } catch (InterruptedException e) {
+                log.error("Task interrupted: {}", e.getMessage(), e);
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
@@ -42,9 +42,11 @@ public class Tournament {
             } else {
                 log.info("It's a tie!");
             }
-            log.info("'{}' wins!", winner);
+
+            if (!winner.isEmpty()) {
+                log.info("'{}' wins!", winner);
+            }
 
         }).join();
     }
 }
-
