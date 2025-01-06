@@ -49,7 +49,8 @@ public class Main {
                 .map(comment -> CompletableFuture.runAsync(() -> {
                     int postId = (comments.indexOf(comment) % posts.size()) + 1;
                     postService.addComment(postId, comment);
-                    log.info("Пользователь {} добавил комментарий к посту {}", comment.author(), posts.get(postId - 1).getAuthor());
+                    log.info("Пользователь {} добавил комментарий к посту {}",
+                            comment.author(), posts.get(postId - 1).getAuthor());
                 }))
                 .toList();
 
