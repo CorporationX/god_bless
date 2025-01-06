@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SquareRequest {
     private static final long MIN_TIMEOUT = 3000L;
+    private static final int RANDOM_BOUND = 1000;
 
     private final Long number;
 
@@ -12,7 +13,7 @@ public class SquareRequest {
     }
 
     public void longTimeSquare(ResultConsumer resultConsumer) {
-        var randomTimeout = ThreadLocalRandom.current().nextInt(1000);
+        var randomTimeout = ThreadLocalRandom.current().nextInt(RANDOM_BOUND);
         try {
             Thread.sleep(MIN_TIMEOUT + randomTimeout);
         } catch (InterruptedException e) {
