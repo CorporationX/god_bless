@@ -9,4 +9,8 @@ public class Player {
     private final String name;
     private int level;
     private int experience;
+
+    public void increaseExperience(int experience) {
+        this.experience += experience;
+    }
 }
