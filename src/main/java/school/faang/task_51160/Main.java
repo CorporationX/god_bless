@@ -15,7 +15,7 @@ public class Main {
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
         Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task task2 = new Task("Yule Ball Preparations", 5, 100);
 
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
@@ -27,6 +27,10 @@ public class Main {
         allTasks.thenRun(() -> {
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
                 System.out.println(hogwarts.getName() + " wins the tournament!");
+            } else if (hogwarts.getTotalPoints() < beauxbatons.getTotalPoints()) {
+                System.out.println(beauxbatons.getName() + " wins the tournament!");
+            } else if (hogwarts.getTotalPoints() == beauxbatons.getTotalPoints()) {
+                System.out.println("victory is a draw");
             }
         });
     }

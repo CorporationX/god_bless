@@ -18,7 +18,7 @@ public class Tournament {
                         + ". Cумма баллов команды: " + school.getTotalPoints());
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                throw new RuntimeException();
+                Thread.currentThread().interrupt();
             }
             return school;
         });
