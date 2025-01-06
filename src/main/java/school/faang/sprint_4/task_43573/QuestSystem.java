@@ -13,7 +13,7 @@ public class QuestSystem {
             } catch (InterruptedException e) {
                 System.out.println("Игрок прервал выполнение квеста!");
             }
-            player.setExperience(player.getExperience() + quest.reward());
+            player.increaseExperience(quest.reward());
             return player;
         });
     }
