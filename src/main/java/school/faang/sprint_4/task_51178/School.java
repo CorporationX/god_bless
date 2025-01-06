@@ -10,18 +10,12 @@ public class School {
     private List<Student> team;
 
     public int getTotalPoints() {
-        int totalPoints = 0;
-
-        for (Student student : team) {
-            totalPoints += student.getPoints();
-        }
-
-        return totalPoints;
+        return team.stream()
+                .map(Student::getPoints)
+                .reduce(0, Integer::sum);
     }
 
     public void updatePoints(int points) {
-        for (Student student : team) {
-            student.addPoints(points);
-        }
+        team.forEach(student -> student.addPoints(points));
     }
 }
