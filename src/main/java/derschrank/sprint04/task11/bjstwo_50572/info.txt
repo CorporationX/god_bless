@@ -1,0 +1,197 @@
+Рассылаем уведомления в Facebook
+derschrank2000-S04-T11-BJS2-50572
+derschrank.sprint04.task11.bjstwo_50572
+
+Sprint04. Task11. CompletableFuture. Notification Facebook
+
+-----------------------------------
+Рассылаем уведомления в Facebook
+👩‍💻 🧠🧠 (Дополнительная задача)
+
+
+Условия задачи
+Вам нужно создать систему уведомлений для Facebook, которая будет асинхронно получать уведомления и добавлять их в общий список. Необходимо использовать CompletableFuture для асинхронного добавления уведомлений и synchronized для контроля доступа к общему списку уведомлений.
+
+Цель:
+Создайте программу, которая будет асинхронно добавлять уведомления в общий список и корректно синхронизировать доступ к этому списку с помощью synchronized.
+
+Требования:
+1️⃣ Создайте класс Notification, который представляет собой уведомление с полями:
+id — уникальный идентификатор уведомления (тип int),
+message — сообщение уведомления (тип String).
+Создайте конструктор и методы getters для этих полей.
+
+2️⃣ Создайте класс NotificationManager, который управляет уведомлениями. В нем должен быть список List<Notification>, который хранит все уведомления.
+
+3️⃣ Реализуйте метод synchronized addNotification(Notification notification), который добавляет уведомление в список. Подумайте, почему он должен быть synchronized? Какая у нас мотивация его делать таковым?
+
+4️⃣ Создайте метод fetchNotification(), который асинхронно создает новое уведомление и добавляет его в список через вызов addNotification. Имитируйте задержку с помощью Thread.sleep внутри задачи.
+
+5️⃣ Вызовите метод fetchNotification несколько раз в цикле, собирая CompletableFuture для каждой задачи в список.
+
+6️⃣ Ожидайте завершения всех задач, используя CompletableFuture.allOf(), и выведите список всех уведомлений.
+
+Пример использования:
+public class FacebookNotificationSystem {
+    public static void main(String[] args) {
+        NotificationManager manager = new NotificationManager();
+
+        // Запуск асинхронного добавления уведомлений
+        List<CompletableFuture<Void>> futures = IntStream.range(0, 10)
+            .mapToObj(i -> manager.fetchNotification(i, "Сообщение " + i))
+            .collect(Collectors.toList());
+
+        // Ожидание завершения всех задач
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        allFutures.join(); // Ждем завершения
+
+        // Вывод всех уведомлений
+        manager.printNotifications();
+    }
+}
+
+Почему эта задача полезна?
+Проблема синхронизации нескольких потоков — очень важная тема в многопоточности. И когда вы работаете с асинхронным выполнением задач, то она не теряет своей актуальности, ведь все асинхронные задачи выполняются в разных потоках. Если они взаимодействуют с каким-то общим состоянием, то доступ к нему нужно синхронизировать
+
+Такой подход вы увидите вообще в любой серьезной системе. Например, здесь действительно мы могли бы собирать информацию об отправленных нотификациях в Facebook в какую-то общую базу данных (у нас просто список), а затем следить, таким образом, сколько нотификаций наш сервис отправляет и за какой-то период времени. Это задача observability в больших системах, т.е. наблюдения за работой сервисов.
+
+Наблюдать за сервисами очень важно для гарантии качества работы действительно серьезных приложений.
+-----------------------------------
+19:16:18: Executing ':derschrank.sprint04.task11.bjstwo_50572.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task11.bjstwo_50572.Main.main()
+Message was added: [0] Message #0
+Message was added: [6] Message #6
+Message was added: [2] Message #2
+Message was added: [5] Message #5
+Message was added: [3] Message #3
+Message was added: [1] Message #1
+Message was added: [4] Message #4
+Message was added: [8] Message #8
+Message was added: [7] Message #7
+Message was added: [10] Message #10
+Message was added: [11] Message #11
+Message was added: [13] Message #13
+Message was added: [9] Message #9
+Message was added: [12] Message #12
+Message was added: [15] Message #15
+Message was added: [16] Message #16
+Message was added: [14] Message #14
+Message was added: [17] Message #17
+Message was added: [18] Message #18
+Message was added: [19] Message #19
+Message was added: [20] Message #20
+Message was added: [22] Message #22
+Message was added: [23] Message #23
+Message was added: [21] Message #21
+Message was added: [27] Message #27
+Message was added: [25] Message #25
+Message was added: [24] Message #24
+Message was added: [26] Message #26
+Message was added: [28] Message #28
+Message was added: [30] Message #30
+Message was added: [29] Message #29
+Message was added: [32] Message #32
+Message was added: [33] Message #33
+Message was added: [31] Message #31
+Message was added: [34] Message #34
+Message was added: [35] Message #35
+Message was added: [36] Message #36
+Message was added: [37] Message #37
+Message was added: [38] Message #38
+Message was added: [39] Message #39
+Message was added: [40] Message #40
+Message was added: [41] Message #41
+Message was added: [43] Message #43
+Message was added: [44] Message #44
+Message was added: [42] Message #42
+Message was added: [45] Message #45
+Message was added: [48] Message #48
+Message was added: [47] Message #47
+Message was added: [46] Message #46
+Message was added: [51] Message #51
+Message was added: [50] Message #50
+Message was added: [49] Message #49
+Message was added: [53] Message #53
+Message was added: [52] Message #52
+Message was added: [54] Message #54
+Message was added: [55] Message #55
+Message was added: [56] Message #56
+Message was added: [58] Message #58
+Message was added: [57] Message #57
+Message was added: [59] Message #59
+Message was added: [61] Message #61
+Message was added: [62] Message #62
+Message was added: [60] Message #60
+Message was added: [65] Message #65
+Message was added: [63] Message #63
+Message was added: [64] Message #64
+Message was added: [69] Message #69
+Message was added: [66] Message #66
+Message was added: [68] Message #68
+Message was added: [67] Message #67
+Message was added: [70] Message #70
+Message was added: [71] Message #71
+Message was added: [72] Message #72
+Message was added: [73] Message #73
+Message was added: [74] Message #74
+Message was added: [76] Message #76
+Message was added: [75] Message #75
+Message was added: [79] Message #79
+Message was added: [80] Message #80
+Message was added: [77] Message #77
+Message was added: [78] Message #78
+Message was added: [81] Message #81
+Message was added: [82] Message #82
+Message was added: [83] Message #83
+Message was added: [84] Message #84
+Message was added: [85] Message #85
+Message was added: [86] Message #86
+Message was added: [88] Message #88
+Message was added: [87] Message #87
+Message was added: [89] Message #89
+Message was added: [90] Message #90
+Message was added: [95] Message #95
+Message was added: [91] Message #91
+Message was added: [93] Message #93
+Message was added: [94] Message #94
+Message was added: [92] Message #92
+Message was added: [97] Message #97
+Message was added: [96] Message #96
+Message was added: [98] Message #98
+Message was added: [99] Message #99
+[2] Message #2
+[6] Message #6
+[5] Message #5
+[1] Message #1
+[3] Message #3
+[0] Message #0
+[4] Message #4
+[7] Message #7
+[9] Message #9
+[10] Message #10
+[8] Message #8
+[11] Message #11
+[12] Message #12
+[13] Message #13
+[15] Message #15
+[16] Message #16
+[14] Message #14
+[17] Message #17
+///
+[95] Message #95
+[93] Message #93
+[91] Message #91
+[92] Message #92
+[97] Message #97
+[96] Message #96
+[99] Message #99
+[98] Message #98
+
+BUILD SUCCESSFUL in 21s
+2 actionable tasks: 2 executed
+19:16:40: Execution finished ':derschrank.sprint04.task11.bjstwo_50572.Main.main()'.
