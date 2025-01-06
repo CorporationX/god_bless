@@ -17,18 +17,16 @@ public class Tournament {
             log.info("School {} started working on a task {}", school.name(), task.name());
             long leadTime = task.difficulty() * 1000L;
 
-            try {
-                Thread.sleep(leadTime);
-            } catch (InterruptedException e) {
-                log.error("Error occurred: {}", e.getMessage());
-                throw new RuntimeException(e);
-            }
-
-            school.studentList().forEach(s ->
-                    s.addPoints(task.reward()));
+            completionProcess(leadTime);
 
             log.info("School {} finished working on a task {}", school.name(), task.name());
             return school;
+        }).thenApply(updatedSchool -> {
+            synchronized (school) {
+                updatedSchool.studentList().forEach(s ->
+                        s.addPoints(task.reward()));
+            }
+            return updatedSchool;
         });
     }
 
@@ -42,6 +40,15 @@ public class Tournament {
         } catch (InterruptedException e) {
             log.error("Error occurred: {}", e.getMessage());
             executorService.shutdownNow();
+        }
+    }
+
+    private void completionProcess(long leadTime) {
+        try {
+            Thread.sleep(leadTime);
+        } catch (InterruptedException e) {
+            log.error("Error occurred: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

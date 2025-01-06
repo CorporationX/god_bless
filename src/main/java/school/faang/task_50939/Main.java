@@ -37,15 +37,14 @@ public class Main {
                     log.info("{} became the winner, earning {} points",
                             winner.name(), winner.getTotalPoints());
                 })
-                .exceptionally(ex -> {
-                    log.error("An error occurred during the tournament: {}",
-                            ex.getMessage());
-                    return null;
+                .whenComplete((result, ex) -> {
+                    if (ex != null) {
+                        log.error("An error occurred during the tournament: {}",
+                                ex.getMessage());
+                    }
                 });
         allTasks.join();
 
         tournament.finishTournament(LEAD_TIME);
-        tournament = null;
-        System.gc();
     }
 }

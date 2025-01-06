@@ -10,7 +10,7 @@ public final class Student {
     private final int year;
     private int points;
 
-    public void addPoints(int reward) {
+    public synchronized void addPoints(int reward) {
         this.points += reward;
     }
 
