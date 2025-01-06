@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PiCalculator {
     public double calculatePi(int n) {
-        ExecutorService service = Executors.newFixedThreadPool(Math.min(n, 8));
+        ExecutorService service = Executors.newFixedThreadPool(Math.min(n, Runtime.getRuntime().availableProcessors()));
         AtomicInteger inside = new AtomicInteger(0);
         CompletableFuture<?>[] futures = new CompletableFuture[n];
 
