@@ -16,7 +16,7 @@ public class Main {
         Conference conference = new Conference(REQUIRED_PARTICIPANTS);
         List<Future<?>> futures = new LinkedList<>();
 
-        for(int i = 0; i < REQUIRED_PARTICIPANTS * 3; i++) {
+        for (int i = 0; i < REQUIRED_PARTICIPANTS * 3; i++) {
             final int id = i;
             futures.add(
                     executor.submit(() -> {
@@ -29,7 +29,7 @@ public class Main {
         for (Future<?> future : futures) {
             try {
                 future.get();
-            } catch (InterruptedException | ExecutionException e){
+            } catch (InterruptedException | ExecutionException e) {
                 System.out.println("Main was interrupted: " + e);
             }
         }
