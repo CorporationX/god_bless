@@ -1,5 +1,4 @@
 package school.faang.task_51182;
-
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -9,6 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int NUM_COMMENTS = 10;
+    private static final int SHUTDOWN_TIMEOUT_SECONDS = 10;
+
     public static void main(String[] args) {
         PostService postService = new PostService();
         ExecutorService executor = ExecutorServiceFactory.getExecutorService();
@@ -23,7 +25,7 @@ public class Main {
         postService.addPost(post2);
 
         Runnable addCommentsTask = () -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < NUM_COMMENTS; i++) {
                 Comment comment = new Comment("Comment " + i, user1, LocalDateTime.now());
                 postService.addComment(post1.getId(), comment);
                 log.info("Added comment: {}", comment);
@@ -42,7 +44,7 @@ public class Main {
 
         executor.shutdown();
         try {
-            if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (executor.awaitTermination(SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 log.info("Remaining comments in post1: {}", post1.getComments().size());
                 log.info("All tasks successfully completed");
             } else {
@@ -52,7 +54,6 @@ public class Main {
         } catch (InterruptedException e) {
             log.error("Error during shutdown: {}", e.getMessage());
             executor.shutdownNow();
-            Thread.currentThread().interrupt();
         }
     }
 }
