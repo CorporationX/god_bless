@@ -1,0 +1,83 @@
+Система трекинга
+derschrank2000-S04-T22-BJS2-51227
+derschrank.sprint04.task22.bjstwo_51227
+
+Sprint04. Task22/8. Volatile. Vehicle
+------------------------------------------
+------------------------------------------
+22:06:52: Executing ':derschrank.sprint04.task22.bjstwo_51227.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task22.bjstwo_51227.Main.main()
+Vehicle: VEHICLE #3. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #5. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #0. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #2. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #4. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #8. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #6. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #7. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #9. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #1. Status was updated. Old: FREE, new: BUSY
+Vehicle: VEHICLE #0. Location was updated. Old: [0,000000:0,000000], new: [0,023370:0,060261]
+Vehicle: VEHICLE #9. Location was updated. Old: [0,000000:0,000000], new: [0,018052:0,045924]
+Vehicle: VEHICLE #8. Location was updated. Old: [0,000000:0,000000], new: [0,052717:0,069957]
+Vehicle: VEHICLE #7. Location was updated. Old: [0,000000:0,000000], new: [0,019998:0,063898]
+Vehicle: VEHICLE #6. Location was updated. Old: [0,000000:0,000000], new: [0,033137:0,028133]
+Vehicle: VEHICLE #5. Location was updated. Old: [0,000000:0,000000], new: [0,063280:0,024863]
+Vehicle: VEHICLE #4. Location was updated. Old: [0,000000:0,000000], new: [0,032437:0,074533]
+Vehicle: VEHICLE #3. Location was updated. Old: [0,000000:0,000000], new: [0,067311:0,090877]
+Vehicle: VEHICLE #1. Location was updated. Old: [0,000000:0,000000], new: [0,085071:0,035254]
+Vehicle: VEHICLE #2. Location was updated. Old: [0,000000:0,000000], new: [0,006437:0,059028]
+Vehicle: VEHICLE #0. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #4. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #3. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #2. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #1. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #9. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #8. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #7. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #6. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #5. Status was updated. Old: BUSY, new: FREE
+Vehicle: VEHICLE #0. Location was updated. Old: [0,023370:0,060261], new: [0,087333:0,082903]
+Vehicle: VEHICLE #9. Location was updated. Old: [0,018052:0,045924], new: [0,050629:0,102425]
+Vehicle: VEHICLE #8. Location was updated. Old: [0,052717:0,069957], new: [0,139554:0,162520]
+Vehicle: VEHICLE #7. Location was updated. Old: [0,019998:0,063898], new: [0,095749:0,078656]
+Vehicle: VEHICLE #6. Location was updated. Old: [0,033137:0,028133], new: [0,096541:0,069991]
+Vehicle: VEHICLE #3. Location was updated. Old: [0,067311:0,090877], new: [0,163594:0,141162]
+Vehicle: VEHICLE #5. Location was updated. Old: [0,063280:0,024863], new: [0,092734:0,041330]
+Vehicle: VEHICLE #4. Location was updated. Old: [0,032437:0,074533], new: [0,073741:0,170400]
+Vehicle: VEHICLE #2. Location was updated. Old: [0,006437:0,059028], new: [0,074913:0,127877]
+Vehicle: VEHICLE #1. Location was updated. Old: [0,085071:0,035254], new: [0,098477:0,125091]
+Vehicle: VEHICLE #0. Location was updated. Old: [0,087333:0,082903], new: [0,147834:0,153872]
+Vehicle: VEHICLE #9. Location was updated. Old: [0,050629:0,102425], new: [0,118484:0,107416]
+Vehicle: VEHICLE #8. Location was updated. Old: [0,139554:0,162520], new: [0,178966:0,202782]
+Vehicle: VEHICLE #7. Location was updated. Old: [0,095749:0,078656], new: [0,124365:0,109926]
+Vehicle: VEHICLE #6. Location was updated. Old: [0,096541:0,069991], new: [0,107781:0,130126]
+Vehicle: VEHICLE #4. Location was updated. Old: [0,073741:0,170400], new: [0,077245:0,222732]
+Vehicle: VEHICLE #5. Location was updated. Old: [0,092734:0,041330], new: [0,153934:0,077466]
+Vehicle: VEHICLE #3. Location was updated. Old: [0,163594:0,141162], new: [0,216846:0,199782]
+Vehicle: VEHICLE #2. Location was updated. Old: [0,074913:0,127877], new: [0,122090:0,148060]
+Vehicle: VEHICLE #1. Location was updated. Old: [0,098477:0,125091], new: [0,138201:0,179530]
+
+----------------------------
+INFO ON END:
+----------------------------
+
+Vehicle: VEHICLE #0, Status: FREE, Location: [0,147834:0,153872]
+Vehicle: VEHICLE #1, Status: FREE, Location: [0,138201:0,179530]
+Vehicle: VEHICLE #2, Status: FREE, Location: [0,122090:0,148060]
+Vehicle: VEHICLE #3, Status: FREE, Location: [0,216846:0,199782]
+Vehicle: VEHICLE #4, Status: FREE, Location: [0,077245:0,222732]
+Vehicle: VEHICLE #5, Status: FREE, Location: [0,153934:0,077466]
+Vehicle: VEHICLE #6, Status: FREE, Location: [0,107781:0,130126]
+Vehicle: VEHICLE #7, Status: FREE, Location: [0,124365:0,109926]
+Vehicle: VEHICLE #8, Status: FREE, Location: [0,178966:0,202782]
+Vehicle: VEHICLE #9, Status: FREE, Location: [0,118484:0,107416]
+
+BUILD SUCCESSFUL in 24s
+2 actionable tasks: 2 executed
+22:07:17: Execution finished ':derschrank.sprint04.task22.bjstwo_51227.Main.main()'.
