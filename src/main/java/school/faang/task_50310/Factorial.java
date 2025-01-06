@@ -3,14 +3,19 @@ package school.faang.task_50310;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Factorial {
+    private static final Logger logger = LoggerFactory.getLogger(Factorial.class);
+
     private static final int MAX_INT_FACTORIAL = 12;
     private static final int MAX_LONG_FACTORIAL = 19;
 
     private static int factorialInt(int n) {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
-            throw new IllegalArgumentException("Value out of range for int factorial: " + n);
+            logger.error("Value n = {} out of range for int factorial [0..{}]", n, MAX_INT_FACTORIAL);
+            throw new IllegalArgumentException("Value n = " + n + " out of range for int factorial [0.." + MAX_INT_FACTORIAL + "]");
         }
 
         int result = 1;
@@ -27,7 +32,8 @@ public class Factorial {
         }
 
         if (n > MAX_LONG_FACTORIAL) {
-            throw new IllegalArgumentException("Value out of range for long factorial: " + n);
+            logger.error("Value n = {} out of range for long factorial [0..{}]", n, MAX_LONG_FACTORIAL);
+            throw new IllegalArgumentException("Value n = " + n + " out of range for long factorial [0.." + MAX_LONG_FACTORIAL + "]");
         }
 
         long result = 1L;
@@ -64,7 +70,7 @@ public class Factorial {
         return nums.stream()
                 .map(number -> CompletableFuture.supplyAsync(() -> factorial(number))
                         .exceptionally(ex -> {
-                            System.err.println("Error: " + ex.getMessage());
+                            logger.error("Error calculating factorial for number: {}", number, ex);
                             return BigInteger.ZERO;
                         }))
                 .toList();
