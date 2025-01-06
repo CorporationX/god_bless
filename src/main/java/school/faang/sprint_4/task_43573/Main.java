@@ -15,11 +15,11 @@ public class Main {
         CompletableFuture<Player> firstPlayerQuest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> secondPlayerQuest = questSystem.startQuest(player2, quest2);
 
-        CompletableFuture.allOf(firstPlayerQuest, secondPlayerQuest).join();
-
         firstPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил "
-                + player.getExperience() + " опыта."));
+                + quest1.reward() + " опыта."));
         secondPlayerQuest.thenAccept(player -> System.out.println(player.getName() + " получил "
-                + player.getExperience() + " опыта."));
+                + quest2.reward() + " опыта."));
+
+        CompletableFuture.allOf(firstPlayerQuest, secondPlayerQuest).join();
     }
 }
