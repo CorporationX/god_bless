@@ -15,7 +15,8 @@ public class Factorial {
     private static int factorialInt(int n) {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
             logger.error("Value n = {} out of range for int factorial [0..{}]", n, MAX_INT_FACTORIAL);
-            throw new IllegalArgumentException("Value n = " + n + " out of range for int factorial [0.." + MAX_INT_FACTORIAL + "]");
+            throw new IllegalArgumentException("Value n = "
+                    + n + " out of range for int factorial [0.." + MAX_INT_FACTORIAL + "]");
         }
 
         int result = 1;
@@ -33,7 +34,8 @@ public class Factorial {
 
         if (n > MAX_LONG_FACTORIAL) {
             logger.error("Value n = {} out of range for long factorial [0..{}]", n, MAX_LONG_FACTORIAL);
-            throw new IllegalArgumentException("Value n = " + n + " out of range for long factorial [0.." + MAX_LONG_FACTORIAL + "]");
+            throw new IllegalArgumentException("Value n = "
+                    + n + " out of range for long factorial [0.." + MAX_LONG_FACTORIAL + "]");
         }
 
         long result = 1L;
