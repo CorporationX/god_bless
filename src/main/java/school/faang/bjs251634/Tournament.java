@@ -21,7 +21,7 @@ public class Tournament {
                 log.error("Task interrupted", e);
             }
             school.getStudents().forEach(student ->
-                    student.setPoints(student.getPoints() + task.getReward()));
+                    student.addPoints(task.getReward()));
             return school;
         });
     }
