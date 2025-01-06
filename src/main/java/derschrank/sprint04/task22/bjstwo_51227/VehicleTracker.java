@@ -46,10 +46,10 @@ public class VehicleTracker {
         if (management.isThereVehicle(vehicleId)) {
             futures.add(
                     executor.scheduleAtFixedRate(() -> {
-                                Location oldLocation = management.getVehicleLocation(vehicleId);
-                                Location newLocation = generateRandomLocation(oldLocation);
-                                management.updateVehicleLocation(vehicleId, newLocation);
-                            },
+                        Location oldLocation = management.getVehicleLocation(vehicleId);
+                        Location newLocation = generateRandomLocation(oldLocation);
+                        management.updateVehicleLocation(vehicleId, newLocation);
+                    },
                             LOCATION_DELAY_UPDATE_SEC,
                             LOCATION_FREQUENCY_UPDATE_SEC,
                             TimeUnit.SECONDS
@@ -62,10 +62,10 @@ public class VehicleTracker {
         if (management.isThereVehicle(vehicleId)) {
             futures.add(
                     executor.scheduleAtFixedRate(() -> {
-                                Status oldStatus = management.getVehicleStatus(vehicleId);
-                                Status newStatus = generateStatus(oldStatus);
-                                management.updateVehicleStatus(vehicleId, newStatus);
-                            },
+                        Status oldStatus = management.getVehicleStatus(vehicleId);
+                        Status newStatus = generateStatus(oldStatus);
+                        management.updateVehicleStatus(vehicleId, newStatus);
+                    },
                             STATUS_DELAY_UPDATE_SEC,
                             STATUS_FREQUENCY_UPDATE_SEC,
                             TimeUnit.SECONDS
