@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class Order {
     private int id;
-    private String status;
+    private Status status;
 
-    public Order(int id, String status) {
+    public Order(int id, Status status) {
         this.id = id;
         this.status = status;
     }

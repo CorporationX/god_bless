@@ -1,12 +1,10 @@
 package school.faang.task_50179;
 
-import lombok.Data;
-import lombok.Getter;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
+    private static final int SLEEP_CONSTANT = 1000;
     private static final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public static AtomicInteger getTotalProcessedOrders() {
@@ -17,8 +15,8 @@ public class OrderProcessor {
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
-                order.setStatus("Обработано");
+                Thread.sleep(SLEEP_CONSTANT);
+                order.setStatus(Status.PROCESSED);
                 totalProcessedOrders.addAndGet(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
