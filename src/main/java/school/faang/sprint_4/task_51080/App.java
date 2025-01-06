@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class App {
-    public static final int DELAY = 5000;
+    private static final int DELAY = 5000;
 
     public static void main(String[] args) throws Exception {
         MilitaryBase volga = new MilitaryBase("Волга");

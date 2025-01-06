@@ -4,12 +4,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @Slf4j
 public class MilitaryBase implements Runnable {
-    private static final ReentrantLock lock = new ReentrantLock();
     private static final int DELAY = 1000;
     private final String name;
     private final LinkedBlockingQueue<String> inbox;
@@ -35,13 +33,15 @@ public class MilitaryBase implements Runnable {
                     String encryptedMessage = EncryptionUtils.decrypt(decryptedMessage);
                     log.info("Зашифрованное сообщение {} расшифровано в {}", decryptedMessage, encryptedMessage);
                 }
+            } catch (InterruptedException e) {
+                log.error("Произошла ошибка во время ожидания задачи: {}", e.getMessage());
             } catch (Exception e) {
-                log.error("Произошла ошибка при выполнении задачи: {}", e.getMessage());
+                log.error("Произошла ошибка во время расшифровки сообщения: {}", e.getMessage());
             }
         }
     }
 
-    public synchronized void sendMessage(MilitaryBase destinationBase, String message) throws Exception {
+    public void sendMessage(MilitaryBase destinationBase, String message) throws Exception {
         try {
             String encryptedMessage = EncryptionUtils.encrypt(message);
             destinationBase.inbox.put(encryptedMessage);
@@ -52,7 +52,7 @@ public class MilitaryBase implements Runnable {
         }
     }
 
-    public synchronized void stop() {
+    public void stop() {
         log.info("Работа военной базы остановлена");
         running = false;
     }
