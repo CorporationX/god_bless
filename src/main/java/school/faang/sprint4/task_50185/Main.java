@@ -1,7 +1,9 @@
 package school.faang.sprint4.task_50185;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -16,8 +18,10 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        player1Quest.thenAccept(player -> log.info("{} has completed the quest and now has {} experience points.",
+                player.getName(), player.getExperience()));
+        player2Quest.thenAccept(player -> log.info("{} has completed the quest and now has {} experience points.",
+                player.getName(), player.getExperience()));
 
         player1Quest.join();
         player2Quest.join();
