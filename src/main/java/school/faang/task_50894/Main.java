@@ -1,8 +1,10 @@
 package school.faang.task_50894;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         TwitterSubscriptionSystem twitterSubscription = new TwitterSubscriptionSystem();
@@ -22,6 +24,6 @@ public class Main {
                 twitterAccountFuture2, twitterAccountFuture3);
         allTwitterSubscription.join();
 
-        System.out.println("Подписчиков: " + twitterAccountMain.getFollowers());
+        log.info("Подписчиков: {}", twitterAccountMain.getFollowers());
     }
 }
