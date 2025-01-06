@@ -26,8 +26,7 @@ public class Sensor {
 
     public void startGeneratingData() {
         log.info("Sensor {} started generating data", id);
-        scheduledExecutorService.scheduleAtFixedRate(() ->
-        {
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
             double data = Math.random() * 100;
             substation.receiveData(id, data);
         }, 0, 1, TimeUnit.SECONDS);

@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class MonitoringSystem {
 
-    private ConcurrentHashMap <Integer, Double> substationData = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, Double> substationData = new ConcurrentHashMap<>();
 
     public void updateData(int substationId, double averageData) {
         if (substationId <= 0 || averageData < 0) {
