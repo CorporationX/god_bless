@@ -1,0 +1,108 @@
+Мини Zoom
+derschrank2000-S04-T21-BJS2-50984
+derschrank.sprint04.task21.bjstwo_50984
+
+Sprint04. Task21/7. CyclicBarrier. Conference
+--------------------------
+Мини Zoom
+??? ??? (Дополнительная задача)
+
+
+Условия задачи
+Вы разрабатываете приложение для трансляции онлайн-конференций, где каждый участник должен подключиться к приложению по сети и начать трансляцию своего видео и звука. Трансляция может быть запущена только после того, как определённое количество участников присоединится к конференции. Ваше задание — написать механизм, который будет ожидать прибытия всех участников перед запуском трансляции.
+
+Требования:
+1?? Создайте класс Conference, который хранит информацию о конференции. Добавьте поле requiredParticipants — количество участников, необходимых для начала трансляции.
+
+2?? В классе Conference создайте объект для синхронизации, который будет использоваться для ожидания всех участников перед началом трансляции. Подумайте, какой класс из пакета java.util.concurrent лучше всего подходит для этой задачи
+
+3?? Реализуйте метод startStreaming() в классе Conference, который:
+Будет вызываться после того, как все участники присоединятся к конференции.
+Для тестирования достаточно вывести сообщение о начале трансляции.
+
+4?? Создайте класс Participant, представляющий участника конференции. В нем реализуйте метод joinConference(), который:
+Будет вызываться, когда участник присоединяется к конференции.
+Должен ожидать, пока все участники не присоединятся.
+
+5?? В классе Main создайте объекты Conference и несколько объектов Participant:
+Запустите несколько потоков для участников конференции.
+Убедитесь, что все участники дождутся других перед началом трансляции.
+
+Почему эта задача полезна?
+В реальной жизни часто возникают ситуации, когда необходимо обеспечить синхронизацию между несколькими потоками или процессами. Например, в приложениях для онлайн-конференций необходимо обеспечить синхронизацию между участниками, чтобы начать трансляцию только тогда, когда все они подключатся. Понимание механизмов синхронизации и их использования помогает разработчикам создавать надежные и безопасные приложения, которые работают корректно в условиях высокой нагрузки и большого количества пользователей.
+--------------------------
+4:53:39: Executing ':derschrank.sprint04.task21.bjstwo_50984.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task21.bjstwo_50984.Main.main()
+ . Participant: Teilnehmer #4 is waiting on conference...
+ . Participant: Teilnehmer #8 is waiting on conference...
+ . Participant: Teilnehmer #0 is waiting on conference...
+ . Participant: Teilnehmer #5 is waiting on conference...
+ . Participant: Teilnehmer #7 is waiting on conference...
+ . Participant: Teilnehmer #2 is waiting on conference...
+ . Participant: Teilnehmer #9 is waiting on conference...
+ . Participant: Teilnehmer #1 is waiting on conference...
+ . Participant: Teilnehmer #6 is waiting on conference...
+ . Participant: Teilnehmer #3 is waiting on conference...
+We have 10 participants, so begin we conference
+ ! Participant: Teilnehmer #3 is on conference!!!
+ ! Participant: Teilnehmer #0 is on conference!!!
+ ! Participant: Teilnehmer #5 is on conference!!!
+ ! Participant: Teilnehmer #6 is on conference!!!
+ . Participant: Teilnehmer #10 is waiting on conference...
+ ! Participant: Teilnehmer #4 is on conference!!!
+ . Participant: Teilnehmer #11 is waiting on conference...
+ . Participant: Teilnehmer #12 is waiting on conference...
+ . Participant: Teilnehmer #13 is waiting on conference...
+ ! Participant: Teilnehmer #1 is on conference!!!
+ ! Participant: Teilnehmer #9 is on conference!!!
+ ! Participant: Teilnehmer #7 is on conference!!!
+ ! Participant: Teilnehmer #2 is on conference!!!
+ ! Participant: Teilnehmer #8 is on conference!!!
+ . Participant: Teilnehmer #18 is waiting on conference...
+ . Participant: Teilnehmer #17 is waiting on conference...
+ . Participant: Teilnehmer #16 is waiting on conference...
+ . Participant: Teilnehmer #15 is waiting on conference...
+ . Participant: Teilnehmer #14 is waiting on conference...
+ . Participant: Teilnehmer #19 is waiting on conference...
+We have 10 participants, so begin we conference
+ ! Participant: Teilnehmer #19 is on conference!!!
+ ! Participant: Teilnehmer #18 is on conference!!!
+ ! Participant: Teilnehmer #15 is on conference!!!
+ ! Participant: Teilnehmer #13 is on conference!!!
+ ! Participant: Teilnehmer #12 is on conference!!!
+ ! Participant: Teilnehmer #11 is on conference!!!
+ ! Participant: Teilnehmer #10 is on conference!!!
+ . Participant: Teilnehmer #25 is waiting on conference...
+ . Participant: Teilnehmer #24 is waiting on conference...
+ . Participant: Teilnehmer #23 is waiting on conference...
+ . Participant: Teilnehmer #22 is waiting on conference...
+ ! Participant: Teilnehmer #14 is on conference!!!
+ . Participant: Teilnehmer #21 is waiting on conference...
+ . Participant: Teilnehmer #20 is waiting on conference...
+ ! Participant: Teilnehmer #16 is on conference!!!
+ ! Participant: Teilnehmer #17 is on conference!!!
+ . Participant: Teilnehmer #28 is waiting on conference...
+ . Participant: Teilnehmer #27 is waiting on conference...
+ . Participant: Teilnehmer #26 is waiting on conference...
+ . Participant: Teilnehmer #29 is waiting on conference...
+We have 10 participants, so begin we conference
+ ! Participant: Teilnehmer #29 is on conference!!!
+ ! Participant: Teilnehmer #22 is on conference!!!
+ ! Participant: Teilnehmer #26 is on conference!!!
+ ! Participant: Teilnehmer #23 is on conference!!!
+ ! Participant: Teilnehmer #25 is on conference!!!
+ ! Participant: Teilnehmer #24 is on conference!!!
+ ! Participant: Teilnehmer #27 is on conference!!!
+ ! Participant: Teilnehmer #28 is on conference!!!
+ ! Participant: Teilnehmer #20 is on conference!!!
+ ! Participant: Teilnehmer #21 is on conference!!!
+END
+
+BUILD SUCCESSFUL in 6s
+2 actionable tasks: 2 executed
+4:53:45: Execution finished ':derschrank.sprint04.task21.bjstwo_50984.Main.main()'.
