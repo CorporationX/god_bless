@@ -40,7 +40,8 @@ public class MasterCardService {
         Future<Integer> collectPaymentFuture = executorService.submit(this::collectPayment);
 
         CompletableFuture.supplyAsync(this::sendAnalytics, executorService)
-                .thenAccept(result -> System.out.printf("Analytics has been sent:%d\n", result));
+                .thenAccept(result -> System.out.printf("Analytics has been sent:%d\n", result))
+                .join();
 
         try {
             int paymentResult = collectPaymentFuture.get();
