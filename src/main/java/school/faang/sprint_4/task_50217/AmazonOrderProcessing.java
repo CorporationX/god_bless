@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class AmazonOrderProcessing {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         List<Order> orders = List.of(
                 new Order(1),
                 new Order(2),

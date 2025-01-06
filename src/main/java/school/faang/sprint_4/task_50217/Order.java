@@ -12,7 +12,7 @@ public class Order {
         this.status = OrderStatus.NEW;
     }
 
-    public void changeStatus() {
+    public void setProcessedStatus() {
         if (status == OrderStatus.NEW) {
             status = OrderStatus.PROCESSED;
         } else {
