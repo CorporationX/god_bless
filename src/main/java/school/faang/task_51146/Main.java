@@ -1,18 +1,21 @@
 package school.faang.task_51146;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Main {
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(potion.getRequiredIngredients() * 1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+                log.warn("Ошибка: {1}", e);
+                throw new RuntimeException(e);
             }
             return potion.getRequiredIngredients();
         });
