@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static final int TIMEOUT = 5;
-    private static final int COMMENTS_NUM = 5;
     private static final int POOL_SIZE = 10;
 
     private static final AtomicInteger NUM_GENERATOR = new AtomicInteger(0);
