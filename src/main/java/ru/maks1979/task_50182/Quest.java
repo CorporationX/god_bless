@@ -13,4 +13,4 @@ public class Quest {
         this.difficulty = difficulty;
         this.reward = reward;
     }
-}/
+}
