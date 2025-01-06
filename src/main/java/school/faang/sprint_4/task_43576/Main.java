@@ -1,7 +1,5 @@
 package school.faang.sprint_4.task_43576;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 

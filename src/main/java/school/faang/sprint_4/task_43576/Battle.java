@@ -17,10 +17,10 @@ public class Battle {
         System.out.println("Идет битва между " + robot1.name() + " и " + robot2.name());
         Thread.sleep(SLEEP_TIME);
         Future<Robot> future = executor.submit(() -> {
-                    int robot1Power = robot1.attackPower() + robot1.defensePower();
-                    int robot2Power = robot2.attackPower() + robot2.defensePower();
-                    return robot1Power > robot2Power ? robot1 : robot2;
-                }
+            int robot1Power = robot1.attackPower() + robot1.defensePower();
+            int robot2Power = robot2.attackPower() + robot2.defensePower();
+            return robot1Power > robot2Power ? robot1 : robot2;
+        }
         );
         System.out.println("Битва между " + robot1.name() + " и " + robot2.name() + " окончена!");
         return future;
