@@ -1,4 +1,4 @@
-package school.faang.sprint_4;
+package school.faang.sprint_4.task_43570;
 
 import lombok.SneakyThrows;
 
