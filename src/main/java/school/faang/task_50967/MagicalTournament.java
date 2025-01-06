@@ -26,18 +26,22 @@ public class MagicalTournament {
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
 
         allTasks.thenRun(() -> {
-            CompletableFuture<Integer> hogwartsPoints = hogwartsTask.thenApply(School::getTotalPoints);
-            CompletableFuture<Integer> beauxbatonsPoints = beauxbatonsTask.thenApply(School::getTotalPoints);
+            CompletableFuture<Integer> hogwartsPointsFeature = hogwartsTask
+                    .thenApply(School::getTotalPoints);
+            CompletableFuture<Integer> beauxbatonsPointsFeature = beauxbatonsTask
+                    .thenApply(School::getTotalPoints);
 
-            hogwartsPoints.thenAccept(hp -> beauxbatonsPoints.thenAccept(bp -> {
-                if (hp > bp) {
-                    System.out.println(hogwarts.getName() + " wins the tournament!");
-                } else if (hp < bp) {
-                    System.out.println(beauxbatons.getName() + " wins the tournament!");
-                } else {
-                    System.out.println("It's a tie!");
-                }
-            }));
+            hogwartsPointsFeature.thenAccept(hogwartsPoints ->
+                    beauxbatonsPointsFeature.thenAccept(beauxbatonsPoints -> {
+                        if (hogwartsPoints > beauxbatonsPoints) {
+                            System.out.println(hogwarts.getName() + " wins the tournament!");
+                        } else if (hogwartsPoints < beauxbatonsPoints) {
+                            System.out.println(beauxbatons.getName() + " wins the tournament!");
+                        } else {
+                            System.out.println("It's a tie!");
+                        }
+                    })
+            );
         });
 
         allTasks.join();
