@@ -8,6 +8,6 @@ public class TwitterSubscriptionSystem {
     }
 
     private synchronized void addFolLower(TwitterAccount account) {
-        account.setFollowers(account.getFollowers() + 1);
+        account.incrementFollowers();
     }
 }

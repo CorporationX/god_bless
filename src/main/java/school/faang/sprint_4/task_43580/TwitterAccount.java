@@ -8,4 +8,8 @@ import lombok.Data;
 public class TwitterAccount {
     private final String username;
     private int followers;
+
+    public void incrementFollowers() {
+        followers++;
+    }
 }
