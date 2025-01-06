@@ -14,11 +14,11 @@ public class MasterCardService {
     public void doAll() throws Exception {
         ExecutorService service = Executors.newFixedThreadPool(N_THREADS);
 
-        Future<Integer> paymentFuture = service.submit(MasterCardService::collectPayment);
         var analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        log.info("Analytics: {}", analytics.join());
 
+        Future<Integer> paymentFuture = service.submit(MasterCardService::collectPayment);
         log.info("Total payment {}", paymentFuture.get());
-        analytics.thenAccept((res) -> log.info("Analytics: {}", res));
 
         service.shutdown();
     }
