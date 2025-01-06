@@ -13,11 +13,11 @@ public class Order {
         this.status = status;
     }
 
-    public synchronized void setStatus(@NonNull OrderStatus status) {
+    public void setStatus(@NonNull OrderStatus status) {
         this.status = status;
     }
 
-    public synchronized OrderStatus getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
