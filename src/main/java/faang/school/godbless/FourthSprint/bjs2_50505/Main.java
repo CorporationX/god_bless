@@ -2,10 +2,7 @@ package faang.school.godbless.FourthSprint.bjs2_50505;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
@@ -17,10 +14,19 @@ public class Main {
         for (int i = 0; i < factorials.size(); i++) {
             try {
                 System.out.println("факториал чила " + numbers.get(i) + " равен " + factorials.get(count.get()).get());
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
             }
             count.incrementAndGet();
+        }
+        while (!executor.isTerminated()){
+            try {
+                executor.awaitTermination(1, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         executor.shutdown();
     }

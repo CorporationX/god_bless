@@ -11,7 +11,7 @@ public class Factorial {
 
     static int factorialInt(int n) throws IllegalArgumentException {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("This argument is illegal!");
         }
         int result = 1;
         while (n > 0) {
