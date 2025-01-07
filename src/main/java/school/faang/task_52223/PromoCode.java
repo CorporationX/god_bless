@@ -22,8 +22,8 @@ public class PromoCode {
 
     public boolean isValidForOrder(Order order) {
         return order.getTotalPrice() > MINIMUM_ORDER_VALUE
-                & status == PromoCodeStatus.ACTIVE
-                & LocalDate.now().isBefore(date);
+                && status == PromoCodeStatus.ACTIVE
+                && LocalDate.now().isBefore(date);
     }
 
     public void markAsUsed() {

@@ -27,7 +27,7 @@ public class Order {
                 .sum();
     }
 
-    private void calculateDiscountedPrice(List<Product> products, double discount) {
+    private synchronized void calculateDiscountedPrice(List<Product> products, double discount) {
         double originalPrice = getTotalPrice();
 
         if (originalPrice < 0 || discount < 0 || discount > TOTAL_DISCOUNT) {

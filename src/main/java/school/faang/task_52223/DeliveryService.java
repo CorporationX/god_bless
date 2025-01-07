@@ -21,9 +21,9 @@ public class DeliveryService {
         promoCodes.put(promoCode.getCode(), promoCode);
     }
 
-    public synchronized void processOrder(Order order, List<PromoCode> promoCods) {
+    public synchronized void processOrder(Order order, List<PromoCode> promoCodes) {
 
-        List<PromoCode> validPromoCode = checkPromoCodeExists(order, promoCods);
+        List<PromoCode> validPromoCode = checkPromoCodeExists(order, promoCodes);
 
         PromoCode promoCodeWithMaxDiscount = getMaxDiscount(validPromoCode);
 
