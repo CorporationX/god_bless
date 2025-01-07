@@ -8,10 +8,17 @@ public class Main {
     public static void main(String[] args) {
 
         TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem();
+        TwitterAccount account = new TwitterAccount("user");
 
-        for (int i = 1; i <= new Random().nextInt(100); i++) {
-            TwitterAccount account = new TwitterAccount("user " + i);
-            subscriptionSystem.multipleFollowers(account, new Random().nextInt(10000));
+        int numberOfFollowers = new Random().nextInt(10000);
+        CompletableFuture[] futureFollowers = new CompletableFuture[numberOfFollowers];
+
+        for (int i = 0; i < numberOfFollowers; i++) {
+            futureFollowers[i] = subscriptionSystem.followAccount(account);
         }
+
+        CompletableFuture.allOf(futureFollowers).join();
+
+        System.out.println("Final number of followers for account " + account.getUsername() + ": " + account.getFollowers());
     }
 }

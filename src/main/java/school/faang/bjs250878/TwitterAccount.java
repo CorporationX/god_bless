@@ -1,16 +1,16 @@
 package school.faang.bjs250878;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Getter
 public class TwitterAccount {
 
     private final String username;
-    @Setter
-    private int followers;
+    private final AtomicInteger followers;
 
     public TwitterAccount(String username) {
         if (username == null || username.trim().isEmpty()) {
@@ -19,7 +19,14 @@ public class TwitterAccount {
         }
 
         this.username = username;
-        this.followers = 0;
+        this.followers = new AtomicInteger(0);
+    }
 
+    public void addFollower() {
+        followers.incrementAndGet();
+    }
+
+    public int getFollowers() {
+        return followers.get();
     }
 }

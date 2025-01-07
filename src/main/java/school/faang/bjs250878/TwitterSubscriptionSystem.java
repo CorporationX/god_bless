@@ -12,7 +12,7 @@ public class TwitterSubscriptionSystem {
     private final AtomicInteger totalFollowers = new AtomicInteger(0);
 
     public synchronized void addFollower(TwitterAccount account) {
-        account.setFollowers(account.getFollowers() + 1);
+        account.addFollower();
         int followersCount = totalFollowers.incrementAndGet();
         log.info("Account {} now has {} followers. Total followers: {}",
                 account.getUsername(), account.getFollowers(), followersCount);
