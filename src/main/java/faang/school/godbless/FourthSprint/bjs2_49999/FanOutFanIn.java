@@ -18,24 +18,24 @@ public class FanOutFanIn {
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        ExecutorService execotor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-        List<CompletableFuture<Void>> requestFutures = requests.stream().map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), execotor)).collect(Collectors.toList());
+        List<CompletableFuture<Void>> requestFutures = requests.stream().map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executor)).collect(Collectors.toList());
 
         CompletableFuture.allOf(requestFutures.toArray(new CompletableFuture[0])).join();
         Long result = resultConsumer.getSum();
-        execotor.shutdown();
+        executor.shutdown();
 
         return result;
     }
 
     public static void launch() {
-        List<SquareRequest> requests = new ArrayList<>(1000);
+        List<SquareRequest> requests = new ArrayList<>(100);
         for (long i = 1L; i <= 100; i++) {
             requests.add(new SquareRequest(i));
         }
         ResultConsumer consumer = new ResultConsumer(0L);
 
-        logger.info("fanOutFanIn method result " + fanOutFanIn(requests, consumer).toString());
+        logger.info("fanOutFanIn method result {}", fanOutFanIn(requests, consumer).toString());
     }
 }

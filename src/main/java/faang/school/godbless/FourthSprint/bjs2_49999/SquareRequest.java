@@ -16,6 +16,7 @@ public class SquareRequest {
             Thread.sleep(MIN_TIMEOUT + randomTimeout);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         } finally {
             resultConsumer.add(number * number);
         }
