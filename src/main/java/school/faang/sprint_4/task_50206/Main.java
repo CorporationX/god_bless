@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
-        Player player1 = new Player("First player", 3, 80);
+        Player player1 = new Player("First player", 4, 80);
         Player player2 = new Player("Second player", 5, 100);
 
         Quest quest1 = new Quest("Defeat the Lich King", 2, 50);
