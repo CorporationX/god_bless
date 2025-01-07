@@ -19,6 +19,15 @@ public class Main {
             log.info("Post added with {}", post2);
         });
 
+        postPublication1.start();
+        postPublication2.start();
+        try {
+            postPublication1.join();
+            postPublication2.join();
+        } catch (InterruptedException e) {
+            log.error("Error when publishing a post: {}", e.getMessage());
+        }
+
         Thread commentPublication1 = new Thread(() -> {
             Comment comment1 = new Comment("Oh... good", "Lana");
             postService.addComment(2, comment1);
@@ -31,6 +40,15 @@ public class Main {
             log.info("Comment added {}", comment2);
         });
 
+        commentPublication1.start();
+        commentPublication2.start();
+        try {
+            commentPublication1.join();
+            commentPublication2.join();
+        } catch (InterruptedException e) {
+            log.error("Error when publishing a comment: {}", e.getMessage());
+        }
+
         Thread postDeletion = new Thread(() -> {
             boolean isDeletedPost = postService.deletePost(1, "Anna");
             log.info("Post with ID 1 deleted: {}", isDeletedPost);
@@ -41,24 +59,6 @@ public class Main {
             boolean isDeletedComment = postService.deleteComment(2, commentDelete, "Karl");
             log.info("Comment {}, deleted: {}", commentDelete, isDeletedComment);
         });
-
-        postPublication1.start();
-        postPublication2.start();
-        try {
-            postPublication1.join();
-            postPublication2.join();
-        } catch (InterruptedException e) {
-            log.error("Error when publishing a post: {}", e.getMessage());
-        }
-
-        commentPublication1.start();
-        commentPublication2.start();
-        try {
-            commentPublication1.join();
-            commentPublication2.join();
-        } catch (InterruptedException e) {
-            log.error("Error when publishing a comment: {}", e.getMessage());
-        }
 
         commentDeletion.start();
         postDeletion.start();
