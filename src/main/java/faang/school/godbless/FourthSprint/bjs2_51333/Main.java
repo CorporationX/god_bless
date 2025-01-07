@@ -9,13 +9,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
+    private static final int USER_NUMBER = 5;
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<User> authors = new ArrayList<>();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         PostService postService = new PostService();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < USER_NUMBER; i++) {
             authors.add(new User(i, "user #" + i));
         }
         for (int i = 0; i < authors.size(); i++) {
