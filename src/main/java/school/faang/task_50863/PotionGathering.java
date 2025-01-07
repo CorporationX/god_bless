@@ -29,12 +29,14 @@ public class PotionGathering {
     public static void gatherAllIngredients(List<Potion> potions) {
         ExecutorService executor = Executors.newFixedThreadPool(potions.size());
 
-        List<CompletableFuture<Integer>> ingredients = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor))
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+
+        List<CompletableFuture<Integer>> allIngredients = potions.stream()
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor)
+                                .thenApply(totalIngredients::addAndGet))
                 .toList();
 
-        AtomicInteger totalIngredients = new AtomicInteger(0);
-        ingredients.forEach(future -> totalIngredients.addAndGet(future.join()));
+        CompletableFuture.allOf(allIngredients.toArray(new CompletableFuture[0])).join();
 
         int total = totalIngredients.get();
         System.out.println("Общее количество собранных ингредиентов: " + total);
