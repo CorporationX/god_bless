@@ -9,15 +9,19 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class Tournament {
 
+    private static final int DEFAULT_SLEEP_TIME = 1000;
+
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     public static CompletableFuture<School> startTask(School school, Task task) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
         CompletableFuture<School> completableFuture = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(task.getDifficulty() + 1000);
-                school.getStudents().forEach(student -> student.setPoints(student.getPoints() + 1));
+                Thread.sleep(task.getDifficulty() + DEFAULT_SLEEP_TIME);
+                school.getStudents().forEach(student -> student.setPoints(student.getPoints() + task.getReward()));
                 return school;
             } catch (InterruptedException e) {
                 log.error("Ошибка выполнения задания" + e);
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         }, executorService);
