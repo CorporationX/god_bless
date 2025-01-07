@@ -7,15 +7,16 @@ import java.util.concurrent.atomic.DoubleAdder;
 
 @Getter
 public class Organization {
+    private static final long SLEEP_TIME = 100;
     private DoubleAdder balance = new DoubleAdder();
 
     public void addDonation(Donation donation) {
-//        try {
-//            Thread.sleep(100);
+        try {
+            Thread.sleep(SLEEP_TIME);
             balance.add(donation.getAmount());
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
