@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         TwitterAccount account = new TwitterAccount("user", 15);
 
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
