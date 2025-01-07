@@ -7,17 +7,10 @@ public class Main {
     public static void main(String[] args) {
         PostService postService = new PostService();
 
-        Thread postPublication1 = new Thread(() -> {
-            Post post1 = new Post(1, "Hello everyone", "It is my first post!", "Anna");
-            postService.addPost(post1);
-            log.info("Post added with {}", post1);
-        });
-
-        Thread postPublication2 = new Thread(() -> {
-            Post post2 = new Post(2, "Wether is nice", "Sharing with you...", "Bob");
-            postService.addPost(post2);
-            log.info("Post added with {}", post2);
-        });
+        Thread postPublication1 =
+                createPostThread(1, "Hello everyone", "It's my first post", "Anna", postService);
+        Thread postPublication2 =
+                createPostThread(2, "Wether is nice", "Sharing with you...", "Bob", postService);
 
         postPublication1.start();
         postPublication2.start();
@@ -28,17 +21,8 @@ public class Main {
             log.error("Error when publishing a post: {}", e.getMessage());
         }
 
-        Thread commentPublication1 = new Thread(() -> {
-            Comment comment1 = new Comment("Oh... good", "Lana");
-            postService.addComment(2, comment1);
-            log.info("Comment added {}", comment1);
-        });
-
-        Thread commentPublication2 = new Thread(() -> {
-            Comment comment2 = new Comment("Hi, choco", "Bob");
-            postService.addComment(1, comment2);
-            log.info("Comment added {}", comment2);
-        });
+        Thread commentPublication1 = createCommentThread("Oh... good", "Lana", 2, postService);
+        Thread commentPublication2 = createCommentThread("Hi, choco", "Bob", 1, postService);
 
         commentPublication1.start();
         commentPublication2.start();
@@ -72,6 +56,22 @@ public class Main {
         postService.getPosts().forEach(post -> {
             log.info("post {}", post);
             post.getComments().forEach(comment -> log.info("comment {}", comment));
+        });
+    }
+
+    private static Thread createPostThread(int id, String title, String content, String author, PostService postService) {
+        return new Thread(() -> {
+            Post post = new Post(id, title, content, author);
+            postService.addPost(post);
+            log.info("Post added with {}", post);
+        });
+    }
+
+    private static Thread createCommentThread(String text, String author, int postId, PostService postService) {
+        return new Thread(() -> {
+            Comment comment = new Comment(text, author);
+            postService.addComment(postId, comment);
+            log.info("Comment added {}", comment);
         });
     }
 }
