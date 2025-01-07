@@ -4,11 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
+    private static ExecutorService executor = Executors.newFixedThreadPool(3);
+
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
@@ -16,34 +20,46 @@ public class PotionGathering {
                 new Potion("Stamina Potion", 4)
         );
 
-        // Асинхронный сбор ингредиентов
         int totalIngredientsSum = gatherAllIngredients(potions);
         log.info("total ingredients sum = {}", totalIngredientsSum);
+
+        shutdownGracefully(executor);
     }
 
     private static int gatherAllIngredients(List<Potion> potions) {
-        List<CompletableFuture<Integer>> futureIngredients = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return potion.getRequiredIngredients();
-                }))
-                .toList();
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+        CompletableFuture.allOf(potions.stream()
+                .map(potion -> gatherIngredients(potion)
+                        .thenAccept(totalIngredients::addAndGet))
+                .toArray(CompletableFuture[]::new)
+        ).join();
+        return totalIngredients.get();
+    }
 
-        CompletableFuture.allOf(futureIngredients.toArray(new CompletableFuture[0]))
-                .join();
-
-        AtomicInteger totalSum = new AtomicInteger(0);
-        for (CompletableFuture<Integer> futureIngredient : futureIngredients) {
+    private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
             try {
-                totalSum.addAndGet(futureIngredient.get());
-            } catch (InterruptedException | ExecutionException e) {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("Поток {} был прерван во время исполнения", Thread.currentThread().getName());
                 throw new RuntimeException(e);
             }
+            return potion.getRequiredIngredients();
+        }, executor);
+    }
+
+    private static void shutdownGracefully(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                log.error("часть потоков не завершили задачи в отведенное время. Останавливаем принудительно");
+                executor.shutdownNow();
+            }
+            log.info("Все потоки завершились успешно");
+        } catch (InterruptedException e) {
+            log.error("Корректное завершение потоков было прервано. Останавливаем принудительно");
+            executor.shutdownNow();
         }
-        return totalSum.get();
     }
 }
