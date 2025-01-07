@@ -14,11 +14,6 @@ public class MagicalTournament {
     private static final int HOGWARTS_POINTS = 0;
     private static final int BEAUXBATONS_POINTS = 0;
 
-    private static final int TASK1_DIFFICULTY = 10;
-    private static final int TASK1_REWARD = 100;
-    private static final int TASK2_DIFFICULTY = 5;
-    private static final int TASK2_REWARD = 50;
-
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
@@ -32,8 +27,8 @@ public class MagicalTournament {
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
-        Task task1 = new Task("Triwizard Tournament", TASK1_DIFFICULTY, TASK1_REWARD);
-        Task task2 = new Task("Yule Ball Preparations", TASK2_DIFFICULTY, TASK2_REWARD);
+        Task task1 = new Task("Triwizard Tournament", 10, 100);
+        Task task2 = new Task("Yule Ball Preparations", 5, 50);
 
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
@@ -49,11 +44,11 @@ public class MagicalTournament {
             logger.info("Beauxbatons total points: {}", beauxbatonsPoints);
 
             if (hogwartsPoints > beauxbatonsPoints) {
-                System.out.println("Hogwarts wins the tournament!");
+                logger.info("Hogwarts wins the tournament!");
             } else if (beauxbatonsPoints > hogwartsPoints) {
-                System.out.println("Beauxbatons wins the tournament!");
+                logger.info("Beauxbatons wins the tournament!");
             } else {
-                System.out.println("It's a tie!");
+                logger.info("It's a tie!");
             }
         }).join();
     }
