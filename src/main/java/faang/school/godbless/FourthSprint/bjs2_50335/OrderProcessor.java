@@ -7,16 +7,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class OrderProcessor {
+    private static final long SLEEP_TIME = 1000L;
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            order.setStatus("Обработано");
+            order.setStatus(Status.PROCESSED);
             totalProcessedOrders.incrementAndGet();
         });
     }

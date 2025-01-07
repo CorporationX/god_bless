@@ -9,5 +9,10 @@ import lombok.Setter;
 @Setter
 public class Order {
     private int id;
-    private volatile String status;
+    private volatile Status status;
+}
+
+enum Status{
+    NEW,
+    PROCESSED
 }
