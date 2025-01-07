@@ -1,11 +1,4 @@
 package school.faang.bjs251106;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class Potion {
-    private String name;
-    private int requiredIngredients;
+public record Potion(String name, int requiredIngredients) {
 }

@@ -11,7 +11,7 @@ public class PotionGathering {
 
     private static final int TWO_SECOND = 2000;
 
-    private CompletableFuture<Integer> gatherIngredients(Potion potions) {
+    private CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(TWO_SECOND);
@@ -19,20 +19,21 @@ public class PotionGathering {
                 Thread.currentThread().interrupt();
                 log.error("Thread interrupted", e);
             }
-            return potions.getRequiredIngredients();
+            return potion.requiredIngredients();
         });
     }
 
     public void gatherAllIngredients(List<Potion> potions) {
-        List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(this::gatherIngredients)
-                .toList();
-
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         AtomicInteger totalIngredients = new AtomicInteger(0);
 
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                potions.stream()
+                        .map(potion -> gatherIngredients(potion)
+                                .thenAccept(totalIngredients::addAndGet))
+                        .toArray(CompletableFuture[]::new)
+        );
+
         allFutures.join();
-        futures.forEach(future -> totalIngredients.addAndGet(future.join()));
 
         log.info("Total ingredients: {}", totalIngredients.get());
     }
