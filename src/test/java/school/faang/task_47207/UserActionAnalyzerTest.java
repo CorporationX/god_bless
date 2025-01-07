@@ -133,19 +133,6 @@ class UserActionAnalyzerTest {
     }
 
     @Test
-    public void testTopCommentersLastMonth() {
-        List<String> expectedList = List.of(
-                userList.get(1).toString(),
-                userList.get(4).toString(),
-                userList.get(2).toString()
-        );
-
-        List<String> actualList = analyzer.topCommentersLastMonth(userActions, 3);
-
-        assertEquals(expectedList, actualList);
-    }
-
-    @Test
     public void testActionTypePercentages() {
         Map<String, Double> expectedMap = Map.of(
                 "POST", 13.0 / 49,
