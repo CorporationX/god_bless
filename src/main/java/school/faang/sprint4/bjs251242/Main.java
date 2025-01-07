@@ -59,10 +59,10 @@ public class Main {
         });
     }
 
-    private static Thread createPostThread(int id, String title, String content, String author, PostService postService) {
+    private static Thread createPostThread(int id, String title, String content, String author, PostService postServ) {
         return new Thread(() -> {
             Post post = new Post(id, title, content, author);
-            postService.addPost(post);
+            postServ.addPost(post);
             log.info("Post added with {}", post);
         });
     }
