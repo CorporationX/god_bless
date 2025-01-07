@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class MagicalTournament {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         Tournament tournament = new Tournament();
 
         List<Student> hogwartsTeam = List.of(
@@ -28,32 +28,24 @@ public class MagicalTournament {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+        CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
                 .thenRun(() -> {
-                    try {
-                        School hogwartsTaskResult = hogwartsTask.get();
-                        School beauxbatonsTaskResult = beauxbatonsTask.get();
+                    log.info(
+                            "{} total points {}",
+                            hogwarts.getName(),
+                            hogwarts.getTotalPoints()
+                    );
+                    log.info(
+                            "{} total points: {}",
+                            beauxbatons.getName(),
+                            beauxbatons.getTotalPoints()
+                    );
 
-                        log.info(
-                                "{} total points {}",
-                                hogwartsTaskResult.getName(),
-                                hogwartsTaskResult.getTotalPoints()
-                        );
-                        log.info(
-                                "{} total points: {}",
-                                beauxbatonsTaskResult.getName(),
-                                beauxbatonsTaskResult.getTotalPoints()
-                        );
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-        try {
-            allTasks.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+                    School winner = hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()
+                            ? hogwarts : beauxbatons;
+                    log.info("The winner is: {}", winner.getName());
+                })
+                .get();
     }
 }
 

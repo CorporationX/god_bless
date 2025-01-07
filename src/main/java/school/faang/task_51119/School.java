@@ -8,8 +8,8 @@ import java.util.List;
 @Getter
 @ToString
 public class School {
-    private String name;
-    private List<Student> team;
+    private final String name;
+    private final List<Student> team;
 
     public School(String name, List<Student> team) {
         if (name.isEmpty() || team.isEmpty()) {

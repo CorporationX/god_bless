@@ -8,13 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @ToString
 public class Student {
-    private String name;
-    private int year;
+    private final String name;
+    private final int year;
     private int points;
 
     public Student(String name, int year, int points) {
         if (name.isEmpty()) {
-            log.error("Field name cannot be empty");
+            throw new IllegalArgumentException("Field name cannot be empty");
         }
         this.name = name;
         this.year = year;
