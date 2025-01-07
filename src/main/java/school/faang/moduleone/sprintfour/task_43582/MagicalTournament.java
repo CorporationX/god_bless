@@ -1,11 +1,20 @@
 package school.faang.moduleone.sprintfour.task_43582;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class MagicalTournament {
+    private static final int TEAM_COUNTS = 2;
+
     public static void main(String[] args) {
-        Tournament tournament = new Tournament();
+        ExecutorService executor = Executors.newFixedThreadPool(TEAM_COUNTS);
+        Tournament tournament = new Tournament(executor);
 
         List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
         List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
@@ -31,5 +40,21 @@ public class MagicalTournament {
                 });
 
         allTasks.join();
+
+        shutdownGracefully(executor);
+    }
+
+    private static void shutdownGracefully(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                log.error("часть потоков не завершили задачи в отведенное время. Останавливаем принудительно");
+                executor.shutdownNow();
+            }
+            log.info("Все потоки завершились успешно");
+        } catch (InterruptedException e) {
+            log.error("Корректное завершение потоков было прервано. Останавливаем принудительно");
+            executor.shutdownNow();
+        }
     }
 }

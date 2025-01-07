@@ -16,4 +16,10 @@ public class School {
                 .mapToInt(Student::getPoints)
                 .sum();
     }
+
+    public void updateStudentsPointsWithReward(int reward) {
+        for (Student student : team) {
+            student.addPoints(reward);
+        }
+    }
 }
