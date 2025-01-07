@@ -1,0 +1,168 @@
+База, прием!
+derschrank2000-S04-T23-BJS2-51054
+derschrank.sprint04.task23.bjstwo_51054
+
+Sprint04. Task23/9. LinkedBlockingQueue. EncryptionUtils
+-------------------------------------------
+База, прием!
+??? ??? (Дополнительная задача)
+
+
+Условия задачи
+Пентагон разрабатывает систему обмена сообщениями между военными базами. Ваша задача — разработать приложение на Java, которое обеспечивает безопасный и быстрый обмен информацией между военными базами. Обмен сообщениями осуществляется с использованием симметричного шифрования AES, многопоточности и потокобезопасной очереди LinkedBlockingQueue.
+
+Требования:
+1?? Создайте класс EncryptionUtils, который будет содержать методы для шифрования и расшифровывания сообщений с использованием алгоритма AES.
+AES-шифрование — алгоритм симметричного шифрования, для которого требуется один и тот же ключ для шифрования и расшифрования данных.
+В таком случае, нам понадобится поле KEY — симметричный ключ шифрования (можно использовать константу).
+Добавьте методы:
+encrypt(String message) — принимает строку-сообщение и возвращает зашифрованную строку,
+decrypt(String encryptedMessage) — принимает зашифрованную строку и возвращает расшифрованное сообщение.
+
+2?? Создайте класс MilitaryBase, который представляет военную базу. Поля:
+inbox — очередь сообщений для данной военной базы
+running — флаг активности, контролирующий состояние объекта MilitaryBase (запущен/остановлен)
+Класс должен реализовывать интерфейс Runnable. В методе run должна быть постоянная проверка очереди сообщений (если база активна, раз в секунду пробовать доставать сообщения из inbox и расшифровывать их с выводом в консоль).
+Метод sendMessage(MilitaryBase destinationBase, String message) — зашифровывает сообщение и отправляет его в inbox другой базы,
+а метод stop() — для остановки объекта MilitaryBase. Он останавливает проверку сообщений (меняет флаг running на false).
+
+3?? Создайте класс App с методом main:
+В методе создайте два экземпляра класса MilitaryBase,
+Используйте Executors.newCachedThreadPool() для создания потоков, которые будут исполнять объекты MilitaryBase,
+Отправляйте сообщения между базами и выводите результаты,
+Остановите работу баз с помощью метода stop(),
+Не забудьте вызвать shutdown для остановки всех потоков в ExecutorService.
+
+Почему эта задача полезна?
+Военные учреждения и службы безопасности часто используют системы передачи и обработки информации с использованием шифрования. Они также должны уметь работать в многопоточной среде для эффективной обработки большого количества данных.
+Разработка безопасной системы передачи и обработки информации требует использования различных методов шифрования, в том числе и алгоритма AES, который был использован в данной задаче. Также, для обеспечения высокой производительности и эффективности работы системы, очередь LinkedBlockingQueue и многопоточность являются необходимыми компонентами.
+-------------------------------------------
+3:22:43: Executing ':derschrank.sprint04.task23.bjstwo_51054.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task23.bjstwo_51054.Main.main()
+Base: MilitaryBase #0 is RUNNING for receive messages.
+Base: MilitaryBase #1 is RUNNING for receive messages.
+Base: MilitaryBase #2 is RUNNING for receive messages.
+Base: MilitaryBase #3 is RUNNING for receive messages.
+Base: MilitaryBase #4 is RUNNING for receive messages.
+
+----------------------------------
+TRANSMITTING MESSAGES: BEGIN
+----------------------------------
+
+From Base: MilitaryBase #0, message: Super Message #0-2, to base: MilitaryBase #2
+From Base: MilitaryBase #0, message: Super Message #0-1, to base: MilitaryBase #1
+From Base: MilitaryBase #0, message: Super Message #0-3, to base: MilitaryBase #3
+From Base: MilitaryBase #0, message: Super Message #0-4, to base: MilitaryBase #4
+From Base: MilitaryBase #1, message: Super Message #0-6, to base: MilitaryBase #2
+From Base: MilitaryBase #1, message: Super Message #0-7, to base: MilitaryBase #3
+From Base: MilitaryBase #1, message: Super Message #0-5, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #0-9, to base: MilitaryBase #0
+From Base: MilitaryBase #1, message: Super Message #0-8, to base: MilitaryBase #4
+From Base: MilitaryBase #2, message: Super Message #0-10, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #0-13, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #0-12, to base: MilitaryBase #4
+From Base: MilitaryBase #2, message: Super Message #0-11, to base: MilitaryBase #3
+From Base: MilitaryBase #4, message: Super Message #0-17, to base: MilitaryBase #0
+From Base: MilitaryBase #3, message: Super Message #0-16, to base: MilitaryBase #4
+From Base: MilitaryBase #3, message: Super Message #0-15, to base: MilitaryBase #2
+From Base: MilitaryBase #3, message: Super Message #0-14, to base: MilitaryBase #1
+From Base: MilitaryBase #4, message: Super Message #0-19, to base: MilitaryBase #2
+From Base: MilitaryBase #4, message: Super Message #0-20, to base: MilitaryBase #3
+From Base: MilitaryBase #4, message: Super Message #0-18, to base: MilitaryBase #1
+From Base: MilitaryBase #0, message: Super Message #1-23, to base: MilitaryBase #3
+From Base: MilitaryBase #0, message: Super Message #1-21, to base: MilitaryBase #1
+From Base: MilitaryBase #0, message: Super Message #1-22, to base: MilitaryBase #2
+From Base: MilitaryBase #1, message: Super Message #1-25, to base: MilitaryBase #0
+From Base: MilitaryBase #1, message: Super Message #1-26, to base: MilitaryBase #2
+From Base: MilitaryBase #0, message: Super Message #1-24, to base: MilitaryBase #4
+From Base: MilitaryBase #1, message: Super Message #1-27, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #1-29, to base: MilitaryBase #0
+From Base: MilitaryBase #1, message: Super Message #1-28, to base: MilitaryBase #4
+From Base: MilitaryBase #3, message: Super Message #1-33, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #1-31, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #1-32, to base: MilitaryBase #4
+From Base: MilitaryBase #2, message: Super Message #1-30, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #1-34, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #1-35, to base: MilitaryBase #2
+From Base: MilitaryBase #3, message: Super Message #1-36, to base: MilitaryBase #4
+From Base: MilitaryBase #4, message: Super Message #1-37, to base: MilitaryBase #0
+From Base: MilitaryBase #4, message: Super Message #1-38, to base: MilitaryBase #1
+From Base: MilitaryBase #4, message: Super Message #1-39, to base: MilitaryBase #2
+From Base: MilitaryBase #0, message: Super Message #2-42, to base: MilitaryBase #2
+From Base: MilitaryBase #0, message: Super Message #2-41, to base: MilitaryBase #1
+From Base: MilitaryBase #4, message: Super Message #1-40, to base: MilitaryBase #3
+From Base: MilitaryBase #1, message: Super Message #2-45, to base: MilitaryBase #0
+From Base: MilitaryBase #0, message: Super Message #2-44, to base: MilitaryBase #4
+From Base: MilitaryBase #0, message: Super Message #2-43, to base: MilitaryBase #3
+From Base: MilitaryBase #1, message: Super Message #2-46, to base: MilitaryBase #2
+From Base: MilitaryBase #2, message: Super Message #2-49, to base: MilitaryBase #0
+From Base: MilitaryBase #1, message: Super Message #2-48, to base: MilitaryBase #4
+From Base: MilitaryBase #1, message: Super Message #2-47, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #2-50, to base: MilitaryBase #1
+From Base: MilitaryBase #2, message: Super Message #2-52, to base: MilitaryBase #4
+From Base: MilitaryBase #2, message: Super Message #2-51, to base: MilitaryBase #3
+From Base: MilitaryBase #3, message: Super Message #2-53, to base: MilitaryBase #0
+From Base: MilitaryBase #3, message: Super Message #2-54, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #2-55, to base: MilitaryBase #2
+From Base: MilitaryBase #4, message: Super Message #2-59, to base: MilitaryBase #2
+From Base: MilitaryBase #4, message: Super Message #2-58, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #2-56, to base: MilitaryBase #4
+From Base: MilitaryBase #4, message: Super Message #2-57, to base: MilitaryBase #0
+From Base: MilitaryBase #4, message: Super Message #2-60, to base: MilitaryBase #3
+From Base: MilitaryBase #0, message: Super Message #3-62, to base: MilitaryBase #2
+From Base: MilitaryBase #0, message: Super Message #3-61, to base: MilitaryBase #1
+From Base: MilitaryBase #1, message: Super Message #3-65, to base: MilitaryBase #0
+From Base: MilitaryBase #0, message: Super Message #3-64, to base: MilitaryBase #4
+From Base: MilitaryBase #0, message: Super Message #3-63, to base: MilitaryBase #3
+From Base: MilitaryBase #1, message: Super Message #3-66, to base: MilitaryBase #2
+From Base: MilitaryBase #1, message: Super Message #3-68, to base: MilitaryBase #4
+From Base: MilitaryBase #1, message: Super Message #3-67, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #3-72, to base: MilitaryBase #4
+From Base: MilitaryBase #2, message: Super Message #3-69, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #3-70, to base: MilitaryBase #1
+From Base: MilitaryBase #2, message: Super Message #3-71, to base: MilitaryBase #3
+From Base: MilitaryBase #3, message: Super Message #3-75, to base: MilitaryBase #2
+From Base: MilitaryBase #3, message: Super Message #3-74, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #3-73, to base: MilitaryBase #0
+From Base: MilitaryBase #4, message: Super Message #3-78, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #3-76, to base: MilitaryBase #4
+From Base: MilitaryBase #4, message: Super Message #3-77, to base: MilitaryBase #0
+From Base: MilitaryBase #4, message: Super Message #3-79, to base: MilitaryBase #2
+From Base: MilitaryBase #4, message: Super Message #3-80, to base: MilitaryBase #3
+From Base: MilitaryBase #0, message: Super Message #4-81, to base: MilitaryBase #1
+From Base: MilitaryBase #0, message: Super Message #4-84, to base: MilitaryBase #4
+From Base: MilitaryBase #0, message: Super Message #4-83, to base: MilitaryBase #3
+From Base: MilitaryBase #1, message: Super Message #4-85, to base: MilitaryBase #0
+From Base: MilitaryBase #0, message: Super Message #4-82, to base: MilitaryBase #2
+From Base: MilitaryBase #1, message: Super Message #4-88, to base: MilitaryBase #4
+From Base: MilitaryBase #1, message: Super Message #4-86, to base: MilitaryBase #2
+From Base: MilitaryBase #1, message: Super Message #4-87, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #4-91, to base: MilitaryBase #3
+From Base: MilitaryBase #2, message: Super Message #4-89, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #4-90, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #4-94, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #4-93, to base: MilitaryBase #0
+From Base: MilitaryBase #2, message: Super Message #4-92, to base: MilitaryBase #4
+From Base: MilitaryBase #4, message: Super Message #4-97, to base: MilitaryBase #0
+From Base: MilitaryBase #3, message: Super Message #4-95, to base: MilitaryBase #2
+From Base: MilitaryBase #4, message: Super Message #4-98, to base: MilitaryBase #1
+From Base: MilitaryBase #3, message: Super Message #4-96, to base: MilitaryBase #4
+
+----------------------------------
+TRANSMITTING MESSAGES: ENDED
+----------------------------------
+
+Base: MilitaryBase #0 is STOPPED for receive messages.
+Base: MilitaryBase #1 is STOPPED for receive messages.
+Base: MilitaryBase #2 is STOPPED for receive messages.
+Base: MilitaryBase #3 is STOPPED for receive messages.
+Base: MilitaryBase #4 is STOPPED for receive messages.
+
+BUILD SUCCESSFUL in 42s
+2 actionable tasks: 2 executed
+3:23:26: Execution finished ':derschrank.sprint04.task23.bjstwo_51054.Main.main()'.
