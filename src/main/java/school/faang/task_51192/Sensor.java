@@ -19,7 +19,8 @@ public class Sensor {
     private final Substation substation;
 
     public void startGeneratingData() {
-        scheduler.scheduleAtFixedRate(() -> {
+        scheduler.scheduleAtFixedRate(
+                () -> {
                     double data = ThreadLocalRandom.current().nextDouble(0.0, 100.0);
                     substation.receiveData(id, data);
                 },

@@ -27,7 +27,8 @@ public class Substation {
     public void startCalculatingAverages() {
         scheduler.scheduleAtFixedRate(
                 () -> {
-                    double average = sensorDataMap.values().stream().collect(Collectors.averagingDouble(SensorData::getAverage));
+                    double average = sensorDataMap.values().stream()
+                            .collect(Collectors.averagingDouble(SensorData::getAverage));
                     monitoringSystem.updateData(id, average);
                 },
                 INITIAL_DELAY,
