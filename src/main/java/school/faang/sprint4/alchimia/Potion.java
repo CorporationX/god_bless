@@ -36,7 +36,7 @@ public class Potion {
             });
             futurePotion.add(future);
         }
-        Integer sumRequiredIngredients  = CompletableFuture
+        Integer sumRequiredIngredients = CompletableFuture
                 .allOf(futurePotion.toArray(new CompletableFuture[0]))
                 .thenApply((v) -> futurePotion.stream()
                         .map(CompletableFuture::join)
