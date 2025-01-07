@@ -20,8 +20,8 @@ public class Inventory {
     }
 
     public Item combine(Item firstItem, Item secondItem) {
-        String combinedName = firstItem.getName() + secondItem.getName();
-        int combinedPower = firstItem.getPower() + secondItem.getPower();
+        String combinedName = firstItem.name() + secondItem.name();
+        int combinedPower = firstItem.power() + secondItem.power();
 
         log.info("Combined item: {name: {}, power: {}}", combinedName, combinedPower);
         return new Item(combinedName, combinedPower);

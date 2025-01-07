@@ -10,9 +10,9 @@ public class Main {
         Inventory inventory = new Inventory();
         CompletableFuture<Item> fromChest = inventory.getFromChest();
         CompletableFuture<Item> bought = inventory.buy();
-//        CompletableFuture.allOf(fromChest, bought)
-//                .thenApply(v -> inventory.combine(fromChest.join(), bought.join()))
-//                .thenAccept(item -> System.out.println("Combined item: " + item));
+        //  CompletableFuture.allOf(fromChest, bought)
+        //      .thenApply(v -> inventory.combine(fromChest.join(), bought.join()))
+        //      .thenAccept(item -> System.out.println("Combined item: " + item));
         fromChest.thenCombine(bought, inventory::combine)
                 .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)));
         Thread.sleep(3000);
