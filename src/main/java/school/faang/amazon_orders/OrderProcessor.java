@@ -29,6 +29,7 @@ public class OrderProcessor {
             System.out.println("Прервано");
             return false;
         }
+        order.setStatus("Обработан");
         totalProcessedOrders.getAndIncrement();
         return true;
     }
