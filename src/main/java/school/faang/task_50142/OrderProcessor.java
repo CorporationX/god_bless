@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
 
     private static AtomicInteger totalProcessedOrders = new AtomicInteger(0);
-    private List<CompletableFuture<Void>> futures = new ArrayList<>();
+    private final List<CompletableFuture<Void>> futures = new ArrayList<>();
 
     public void processOrder(Order order) {
         CompletableFuture<Void> completableFuture =
@@ -25,6 +25,7 @@ public class OrderProcessor {
 
                     } catch (InterruptedException e) {
                         log.error("Ошибка подсчета заказов" + e);
+                        Thread.currentThread().interrupt();
                         throw new RuntimeException(e);
                     }
                 });
@@ -44,7 +45,7 @@ public class OrderProcessor {
         try {
             allOrders.get();
         } catch (Exception e) {
-            log.error("Ошибка при ожидании завершения заказов: " + e);
+            log.error("Ошибка при ожидании завершения заказов: ", e);
         }
     }
 }
