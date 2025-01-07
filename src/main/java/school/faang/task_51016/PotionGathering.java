@@ -5,12 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class PotionGathering {
 
-    public static AtomicInteger atomicInteger = new AtomicInteger(0);
+    public static final AtomicInteger totalIngredientsCount = new AtomicInteger(0);
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -20,11 +19,10 @@ public class PotionGathering {
         );
 
         potions.stream()
-                .map(potion -> gatherIngredients(potion))
-                .collect(Collectors.toList())
-                .forEach(future -> atomicInteger.addAndGet(future.join()));
+                .map(PotionGathering::gatherIngredients)
+                .forEach(future -> totalIngredientsCount.addAndGet(future.join()));
 
-        int result = atomicInteger.get();
+        int result = totalIngredientsCount.get();
         System.out.println("Общее количество собранных ингредиентов: " + result);
 
     }
@@ -35,6 +33,7 @@ public class PotionGathering {
                 Thread.sleep(1_000);
             } catch (InterruptedException e) {
                 log.error("Ошибка сбора: " + e);
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             return potion.getRequiredIngredients();
