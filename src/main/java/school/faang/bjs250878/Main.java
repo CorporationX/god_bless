@@ -19,6 +19,7 @@ public class Main {
 
         CompletableFuture.allOf(futureFollowers).join();
 
-        System.out.println("Final number of followers for account " + account.getUsername() + ": " + account.getFollowers());
+        System.out.println("Final number of followers for account " + account.getUsername()
+                + ": " + account.getFollowers());
     }
 }
