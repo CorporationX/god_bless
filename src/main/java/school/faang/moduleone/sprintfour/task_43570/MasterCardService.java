@@ -14,17 +14,22 @@ public class MasterCardService {
 
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Integer> collectionResult = executor.submit(() -> collectPayment());
 
-        CompletableFuture<Integer> integerCompletableFuture = CompletableFuture
-                .supplyAsync(() -> sendAnalytics(), executor);
+        Future<Integer> paymentResult = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture<Integer> analyticResult = CompletableFuture
+                .supplyAsync(MasterCardService::sendAnalytics, executor);
+
+        analyticResult.thenAccept(result -> log.info("Аналитика отправлена: {}", result))
+                .exceptionally(e -> {
+                    log.error("Ошибка аналитики", e);
+                    return null;
+                });
 
         try {
-            System.out.println("Платеж выполнен: " + collectionResult.get());
+            log.info("Платеж выполнен: {}", paymentResult.get());
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Аналитика отправлена: " + integerCompletableFuture.join());
 
         shutdownGracefully(executor);
     }
