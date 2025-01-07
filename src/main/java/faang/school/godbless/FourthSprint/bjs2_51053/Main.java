@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
+    private static final int FOLLOWERS_COUNT = 15;
     public static void main(String[] args) {
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
         TwitterAccount mainAccount = new TwitterAccount("John");
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < FOLLOWERS_COUNT; i++) {
             futures.add(system.followAccount(mainAccount));
         }
 
