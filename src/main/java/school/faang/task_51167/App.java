@@ -10,12 +10,16 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class App {
+
+    private static final int START_BOUNDARY = 1;
+    private static final int END_BOUNDARY = 3;
+
     public static void main(String[] args) {
         CollaborativeDocument collaborativeDocument = new CollaborativeDocument();
 
         List<DocumentSection> sections = new ArrayList<>();
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = START_BOUNDARY; i <= END_BOUNDARY; i++) {
             DocumentSection section = new DocumentSection("section" + i, collaborativeDocument);
             section.write("Initial data for section " + i);
             sections.add(section);
