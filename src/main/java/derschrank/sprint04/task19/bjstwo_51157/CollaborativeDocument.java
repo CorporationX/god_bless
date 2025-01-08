@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class CollaborativeDocument implements  Document {
-    Map<String, String> sections;
+    private final Map<String, String> sections;
 
     public CollaborativeDocument() {
         sections = new ConcurrentHashMap<>();
