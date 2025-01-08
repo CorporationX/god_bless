@@ -21,6 +21,10 @@ public class Bank {
     }
 
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
+        if (fromAccountId == toAccountId) {
+            System.out.println("Transfer from one account to the same account is not possible: " + fromAccountId);
+            return false;
+        }
         Account fromAccount = accounts.get(fromAccountId);
         if (fromAccount == null) {
             System.out.println("Account FROM is not found by: " + fromAccountId);

@@ -9,35 +9,43 @@ public record Account(
         DoubleAdder balance,
         Lock lock
 ) {
+    private static final int AWAIT_FOR_TRY_LOCK_MILLIS = 100;
     public Account(int id) {
         this(id, new DoubleAdder(), new ReentrantLock());
     }
 
     public void deposit(double amount) {
-        lock.lock();
-        try {
-            balance.add(amount);
-        } finally {
-            lock.unlock();
+        if (amount > 0) {
+            while (!lock.tryLock()) {
+                delayToTry(AWAIT_FOR_TRY_LOCK_MILLIS);
+            }
+            try {
+                balance.add(amount);
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
     public boolean withdraw(double amount) {
-        lock.lock();
-        try {
-            if (amount < balance.doubleValue()) {
-                balance.add((-1 * amount));
-                return true;
-            } else {
-                return false;
+        if (amount > 0) {
+            lock.lock();
+            try {
+                if (amount < balance.doubleValue()) {
+                    balance.add((-1 * amount));
+                    return true;
+                }
+            } finally {
+                lock.unlock();
             }
-        } finally {
-            lock.unlock();
         }
+        return false;
     }
 
     public double getBalance() {
-        lock.lock();
+        while (!lock.tryLock()) {
+            delayToTry(AWAIT_FOR_TRY_LOCK_MILLIS);
+        }
         try {
             return balance.doubleValue();
         } finally {
@@ -48,5 +56,14 @@ public record Account(
     @Override
     public String toString() {
         return String.format("[# %4d] %7.2f$", id, balance.doubleValue());
+    }
+
+    private void delayToTry(int delay) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            System.out.println("Deposit was interrupted: " + e);
+            Thread.currentThread().interrupt();
+        }
     }
 }
