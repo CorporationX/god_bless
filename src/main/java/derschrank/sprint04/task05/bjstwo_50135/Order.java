@@ -10,7 +10,7 @@ public class Order {
     private final int id;
     private volatile Status status;
 
-    public void changeStatus(Status status) {
+    public synchronized void changeStatus(Status status) {
         this.status = status;
     }
 }
