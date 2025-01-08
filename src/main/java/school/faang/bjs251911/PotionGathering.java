@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class PotionGathering {
@@ -18,9 +19,10 @@ public class PotionGathering {
     public static final int REQUIRED_INGREDIENTS = 2;
     public static final int NUMBER_POTIONS = 500;
     public static final int NUMBER_THREADS = 10;
+    public static final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_THREADS);
+    private static final long TIME_DELAY_FINISH = 60;
 
     public static void main(String[] args) {
-
         List<Potion> potions = createPotions();
 
         val total = gatherIngredients(potions);
@@ -28,14 +30,14 @@ public class PotionGathering {
     }
 
     private static int gatherIngredients(List<Potion> potions) {
-        ExecutorService executor = Executors.newFixedThreadPool(NUMBER_THREADS);
-        return calcIngredients(potions, executor);
+        return calcIngredients(potions);
     }
 
-    private static int calcIngredients(List<Potion> potions, ExecutorService executor) {
+    private static int calcIngredients(List<Potion> potions) {
         try {
             List<CompletableFuture<Integer>> futures = potions.stream()
-                    .map(potion -> CompletableFuture.supplyAsync(potion::getRequiredIngredients, executor))
+                    .map(potion -> CompletableFuture.supplyAsync(potion::getRequiredIngredients,
+                            PotionGathering.executor))
                     .toList();
 
             CompletableFuture<Void> allDoneFuture = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
@@ -46,7 +48,16 @@ public class PotionGathering {
                             .sum()
             ).join();
         } finally {
-            executor.shutdown();
+            PotionGathering.executor.shutdown();
+            try {
+                if (!executor.awaitTermination(TIME_DELAY_FINISH, TimeUnit.SECONDS)) {
+                    System.out.println("Принудительное завершение пула потоков.");
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException ex) {
+                executor.shutdownNow();
+                log.error("Everything is bad! {}", String.valueOf(ex));
+            }
         }
     }
 
