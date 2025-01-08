@@ -1,0 +1,123 @@
+ упоны на доставку
+derschrank2000-S04-T25-BJS2-51104
+derschrank.sprint04.task25.bjstwo_51104
+
+Sprint04. Task25/11. ConcurrentHashMap. DeliveryService
+----------------------------------------------------------------
+„тоб сгенерировать проверку в классе Main, пришлось потрудитс€.
+—оздал класс User, у которого будет свой список промо кодов, и списко заказов.
+ќт его имени и будут запускатьс€ заказы, с кодами в систему доставки.
+----------------------------------------------------------------
+----------------------------------------------------------------
+ѕ–»ћ≈– ƒЋя ќƒЌќ√ќ ѕќЋ№«ќ¬ј“≈Ћя:
+----------------------------------------------------------------
+4:34:07: Executing ':derschrank.sprint04.task25.bjstwo_51104.Main.main()'Е
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task25.bjstwo_51104.Main.main()
+
+-------------------------------
+WE HAVE USERS WITH ORDERS AND PROMOS:
+-------------------------------
+
+Ivan
+ - has promos (5): [Easy coupon #1-1, Easy coupon #1-2, NY coupon #1, BlackFriday #1, SuperTotal #1]
+ - has orders (10): [O-Ivan-7, 890,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Ivan-1, 210,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Ivan-8, 940,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Ivan-2, 260,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Ivan-10, 1160,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Ivan-3, 330,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Ivan-5, 680,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$], O-Ivan-4, 480,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Ivan-6, 780,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$], O-Ivan-9, 1010,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$]]
+
+-------------------------------
+DELIVERY SERVICE HAS PROMOS:
+-------------------------------
+
+[#NY coupon #1, discount: 20, expiration: 2025-04-08, min: 100,00, used: false, #BlackFriday #1, discount: 30, expiration: 2025-04-08, min: 500,00, used: false, #Easy coupon #1-1, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #Easy coupon #1-2, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #SuperTotal #1, discount: 50, expiration: 2025-04-08, min: 1000,00, used: false]
+
+-------------------------------
+PROCESSING ORDERS:
+-------------------------------
+
+To delivery: O-Ivan-10, price: 1160,00, discount: 50, price with discount 580,00 (promo: **SuperTotal #1**) is processed.
+To delivery: O-Ivan-2, price: 260,00, discount: 20, price with discount 208,00 (promo: **NY coupon #1**) is processed.
+To delivery: O-Ivan-6, price: 780,00, discount: 10, price with discount 702,00 (promo: **Easy coupon #1-2**) is processed.
+To delivery: O-Ivan-9, price: 1010,00, discount: 0, price with discount 1010,00 (promo: none) is processed.
+To delivery: O-Ivan-7, price: 890,00, discount: 30, price with discount 623,00 (promo: **BlackFriday #1**) is processed.
+To delivery: O-Ivan-8, price: 940,00, discount: 0, price with discount 940,00 (promo: none) is processed.
+To delivery: O-Ivan-3, price: 330,00, discount: 0, price with discount 330,00 (promo: none) is processed.
+To delivery: O-Ivan-1, price: 210,00, discount: 0, price with discount 210,00 (promo: none) is processed.
+To delivery: O-Ivan-5, price: 680,00, discount: 0, price with discount 680,00 (promo: none) is processed.
+To delivery: O-Ivan-4, price: 480,00, discount: 10, price with discount 432,00 (promo: **Easy coupon #1-1**) is processed.
+
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 2 executed
+4:34:11: Execution finished ':derschrank.sprint04.task25.bjstwo_51104.Main.main()'.
+
+----------------------------------------------------------------
+ѕ–»ћ≈– ƒЋя “–≈’ ѕќЋ№«ќ¬ј“≈Ћ≈…:
+----------------------------------------------------------------
+4:38:09: Executing ':derschrank.sprint04.task25.bjstwo_51104.Main.main()'Е
+
+> Task :compileJava UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+
+> Task :derschrank.sprint04.task25.bjstwo_51104.Main.main()
+
+-------------------------------
+WE HAVE USERS WITH ORDERS AND PROMOS:
+-------------------------------
+
+Ivan
+ - has promos (5): [Easy coupon #1-1, Easy coupon #1-2, NY coupon #1, BlackFriday #1, SuperTotal #1]
+ - has orders (10): [O-Ivan-7, 890,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Ivan-1, 210,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Ivan-8, 940,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Ivan-2, 260,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Ivan-10, 1160,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Ivan-3, 330,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Ivan-5, 680,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$], O-Ivan-4, 480,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Ivan-6, 780,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$], O-Ivan-9, 1010,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$]]
+Petr
+ - has promos (5): [Easy coupon #2-1, Easy coupon #2-2, NY coupon #2, BlackFriday #2, SuperTotal #2]
+ - has orders (10): [O-Petr-9, 1010,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Petr-7, 890,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Petr-3, 330,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Petr-2, 260,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Petr-1, 210,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Petr-4, 480,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Petr-6, 780,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$], O-Petr-10, 1160,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Petr-8, 940,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Petr-5, 680,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$]]
+Sidr
+ - has promos (5): [Easy coupon #3-1, Easy coupon #3-2, NY coupon #3, BlackFriday #3, SuperTotal #3]
+ - has orders (10): [O-Sidr-9, 1010,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Sidr-5, 680,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$], O-Sidr-2, 260,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$], O-Sidr-6, 780,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$], O-Sidr-4, 480,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Sidr-10, 1160,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$], O-Sidr-7, 890,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Sidr-1, 210,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$], O-Sidr-3, 330,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$], O-Sidr-8, 940,00$ : [Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$, Zuker 1kg, 70,00$, Eggs 10st, 150,00$, Cola 2l, 200,00$, Milk 1l, 100,00$, Kefir 1l, 110,00$, Bread 0.5kg, 50,00$]]
+
+-------------------------------
+DELIVERY SERVICE HAS PROMOS:
+-------------------------------
+
+[#NY coupon #1, discount: 20, expiration: 2025-04-08, min: 100,00, used: false, #NY coupon #2, discount: 20, expiration: 2025-04-08, min: 100,00, used: false, #NY coupon #3, discount: 20, expiration: 2025-04-08, min: 100,00, used: false, #Easy coupon #1-1, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #Easy coupon #1-2, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #Easy coupon #2-1, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #BlackFriday #2, discount: 30, expiration: 2025-04-08, min: 500,00, used: false, #BlackFriday #1, discount: 30, expiration: 2025-04-08, min: 500,00, used: false, #BlackFriday #3, discount: 30, expiration: 2025-04-08, min: 500,00, used: false, #Easy coupon #2-2, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #SuperTotal #2, discount: 50, expiration: 2025-04-08, min: 1000,00, used: false, #Easy coupon #3-1, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #Easy coupon #3-2, discount: 10, expiration: 2025-04-08, min: 0,00, used: false, #SuperTotal #3, discount: 50, expiration: 2025-04-08, min: 1000,00, used: false, #SuperTotal #1, discount: 50, expiration: 2025-04-08, min: 1000,00, used: false]
+
+-------------------------------
+PROCESSING ORDERS:
+-------------------------------
+
+To delivery: O-Ivan-3, price: 330,00, discount: 0, price with discount 330,00 (promo: none) is processed.
+To delivery: O-Ivan-10, price: 1160,00, discount: 50, price with discount 580,00 (promo: **SuperTotal #1**) is processed.
+To delivery: O-Ivan-1, price: 210,00, discount: 20, price with discount 168,00 (promo: **NY coupon #1**) is processed.
+To delivery: O-Ivan-9, price: 1010,00, discount: 0, price with discount 1010,00 (promo: none) is processed.
+To delivery: O-Ivan-7, price: 890,00, discount: 0, price with discount 890,00 (promo: none) is processed.
+To delivery: O-Petr-9, price: 1010,00, discount: 50, price with discount 505,00 (promo: **SuperTotal #2**) is processed.
+To delivery: O-Ivan-4, price: 480,00, discount: 0, price with discount 480,00 (promo: none) is processed.
+To delivery: O-Ivan-2, price: 260,00, discount: 0, price with discount 260,00 (promo: none) is processed.
+To delivery: O-Ivan-6, price: 780,00, discount: 10, price with discount 702,00 (promo: **Easy coupon #1-2**) is processed.
+To delivery: O-Ivan-5, price: 680,00, discount: 10, price with discount 612,00 (promo: **Easy coupon #1-1**) is processed.
+To delivery: O-Ivan-8, price: 940,00, discount: 30, price with discount 658,00 (promo: **BlackFriday #1**) is processed.
+To delivery: O-Petr-6, price: 780,00, discount: 0, price with discount 780,00 (promo: none) is processed.
+To delivery: O-Petr-4, price: 480,00, discount: 0, price with discount 480,00 (promo: none) is processed.
+To delivery: O-Petr-1, price: 210,00, discount: 10, price with discount 189,00 (promo: **Easy coupon #2-2**) is processed.
+To delivery: O-Petr-2, price: 260,00, discount: 10, price with discount 234,00 (promo: **Easy coupon #2-1**) is processed.
+To delivery: O-Petr-3, price: 330,00, discount: 20, price with discount 264,00 (promo: **NY coupon #2**) is processed.
+To delivery: O-Petr-7, price: 890,00, discount: 30, price with discount 623,00 (promo: **BlackFriday #2**) is processed.
+To delivery: O-Sidr-2, price: 260,00, discount: 20, price with discount 208,00 (promo: **NY coupon #3**) is processed.
+To delivery: O-Sidr-5, price: 680,00, discount: 30, price with discount 476,00 (promo: **BlackFriday #3**) is processed.
+To delivery: O-Sidr-9, price: 1010,00, discount: 50, price with discount 505,00 (promo: **SuperTotal #3**) is processed.
+To delivery: O-Petr-5, price: 680,00, discount: 0, price with discount 680,00 (promo: none) is processed.
+To delivery: O-Petr-8, price: 940,00, discount: 0, price with discount 940,00 (promo: none) is processed.
+To delivery: O-Sidr-3, price: 330,00, discount: 0, price with discount 330,00 (promo: none) is processed.
+To delivery: O-Sidr-8, price: 940,00, discount: 0, price with discount 940,00 (promo: none) is processed.
+To delivery: O-Petr-10, price: 1160,00, discount: 0, price with discount 1160,00 (promo: none) is processed.
+To delivery: O-Sidr-1, price: 210,00, discount: 0, price with discount 210,00 (promo: none) is processed.
+To delivery: O-Sidr-7, price: 890,00, discount: 0, price with discount 890,00 (promo: none) is processed.
+To delivery: O-Sidr-10, price: 1160,00, discount: 0, price with discount 1160,00 (promo: none) is processed.
+To delivery: O-Sidr-4, price: 480,00, discount: 10, price with discount 432,00 (promo: **Easy coupon #3-2**) is processed.
+To delivery: O-Sidr-6, price: 780,00, discount: 10, price with discount 702,00 (promo: **Easy coupon #3-1**) is processed.
+
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 1 executed, 1 up-to-date
+4:38:15: Execution finished ':derschrank.sprint04.task25.bjstwo_51104.Main.main()'.
