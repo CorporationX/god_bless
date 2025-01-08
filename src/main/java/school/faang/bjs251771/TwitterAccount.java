@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class TwitterAccount {
     private String username;
-    private int followers;
+    private volatile int followers;
 }
