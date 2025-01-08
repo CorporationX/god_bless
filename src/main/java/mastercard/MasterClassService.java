@@ -3,10 +3,12 @@ package mastercard;
 import java.util.concurrent.*;
 
 public class MasterClassService {
+    static final long TIME = 10_000L;
+    static final long SEC = 1_000L;
     static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(TIME);
+            return (int) TIME;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -15,8 +17,8 @@ public class MasterClassService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SEC);
+            return (int) SEC;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
