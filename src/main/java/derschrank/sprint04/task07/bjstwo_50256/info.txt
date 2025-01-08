@@ -1,0 +1,112 @@
+Star Wars Arena
+derschrank2000-S04-T07-BJS2-50256
+derschrank.sprint04.task07.bjstwo_50256
+
+Sprint04. Task07. Future. Star Wars Arena
+---------------------
+Star Wars Arena
+👩‍💻 🧠 (Дополнительная задача)
+
+Условия задачи
+Вы являетесь разработчиком системы для арены Звёздных войн, на которой роботы сражаются друг с другом. Вам необходимо разработать систему, которая будет определять победителя в каждой битве между двумя роботами. Используйте Future в Java для асинхронного определения победителя.
+
+Цель:
+Создайте систему, которая будет асинхронно запускать битвы между роботами с использованием ExecutorService и возвращать результат битвы через Future.
+
+Требования:
+1️⃣ Создайте класс Robot, который представляет робота, с полями:
+name — имя робота,
+attackPower — сила атаки робота,
+defensePower — сила защиты робота.
+
+2️⃣ Создайте класс Battle, в котором будет метод fight, который принимает двух роботов и возвращает Future<Robot> — победителя битвы.
+
+3️⃣ Метод fight должен использовать ExecutorService для асинхронного запуска битвы между роботами.
+
+4️⃣ Победителем считается робот с наибольшей разницей между суммой силы атаки и защиты. Если значения одинаковы, можно выбрать случайного победителя.
+
+5️⃣ Создайте несколько роботов и запустите несколько битв, используя класс Battle.
+
+6️⃣ Обработайте результаты битв, используя Future для получения победителя.
+
+Пример использования:
+public class StarWarsArena {
+    public static void main(String[] args) {
+        Battle battle = new Battle();
+
+        // Создание роботов
+        Robot r2d2 = new Robot("R2-D2", 5, 7);
+        Robot c3po = new Robot("C-3PO", 4, 8);
+        Robot bb8 = new Robot("BB-8", 6, 6);
+
+        // Запуск битвы
+        Future<Robot> winnerFuture = battle.fight(r2d2, c3po);
+
+        // Обработка результата битвы
+        try {
+            Robot winner = winnerFuture.get();
+            System.out.println("Победитель битвы: " + winner.getName());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+---------------------
+18:27:55: Executing ':derschrank.sprint04.task07.bjstwo_50256.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task07.bjstwo_50256.Main.main()
+ROUND #: 1. BEGIN!!!
+Fight: R2-D1 [5/7] vs BB-9-6 [7/5]: We have a winner!!! It is: R2-D1 [5/7]
+Fight: R2-D2 [5/7] vs BB-9-5 [7/5]: We have a winner!!! It is: R2-D2 [5/7]
+Fight: R2-D3 [5/7] vs BB-9-4 [7/5]: We have a winner!!! It is: BB-9-4 [7/5]
+Fight: R2-D4 [5/7] vs BB-9-3 [7/5]: We have a winner!!! It is: R2-D4 [5/7]
+Fight: R2-D5 [5/7] vs BB-9-2 [7/5]: We have a winner!!! It is: BB-9-2 [7/5]
+Fight: R2-D6 [5/7] vs BB-9-1 [7/5]: We have a winner!!! It is: BB-9-1 [7/5]
+Fight: R2-D7 [5/7] vs BB-9-0 [7/5]: We have a winner!!! It is: BB-9-0 [7/5]
+Fight: R2-D8 [5/7] vs BB-8-9 [6/6]: We have a winner!!! It is: BB-8-9 [6/6]
+Fight: C-3PO-1 [4/8] vs BB-8-8 [6/6]: We have a winner!!! It is: C-3PO-1 [4/8]
+Fight: C-3PO-2 [4/8] vs BB-8-7 [6/6]: We have a winner!!! It is: C-3PO-2 [4/8]
+Fight: C-3PO-3 [4/8] vs BB-8-6 [6/6]: We have a winner!!! It is: BB-8-6 [6/6]
+Fight: C-3PO-4 [4/8] vs BB-8-5 [6/6]: We have a winner!!! It is: C-3PO-4 [4/8]
+Fight: C-3PO-5 [4/8] vs BB-8-4 [6/6]: We have a winner!!! It is: BB-8-4 [6/6]
+Fight: C-3PO-6 [4/8] vs BB-8-3 [6/6]: We have a winner!!! It is: C-3PO-6 [4/8]
+Fight: C-3PO-7 [4/8] vs BB-8-2 [6/6]: We have a winner!!! It is: BB-8-2 [6/6]
+Fight: C-3PO-8 [4/8] vs BB-8-1 [6/6]: We have a winner!!! It is: C-3PO-8 [4/8]
+ROUND #: 1. ENDED!!!
+
+ROUND #: 2. BEGIN!!!
+Fight: R2-D1 [5/7] vs C-3PO-8 [4/8]: We have a winner!!! It is: R2-D1 [5/7]
+Fight: R2-D2 [5/7] vs BB-8-2 [6/6]: We have a winner!!! It is: BB-8-2 [6/6]
+Fight: BB-9-4 [7/5] vs C-3PO-6 [4/8]: We have a winner!!! It is: C-3PO-6 [4/8]
+Fight: R2-D4 [5/7] vs BB-8-4 [6/6]: We have a winner!!! It is: R2-D4 [5/7]
+Fight: BB-9-2 [7/5] vs C-3PO-4 [4/8]: We have a winner!!! It is: BB-9-2 [7/5]
+Fight: BB-9-1 [7/5] vs BB-8-6 [6/6]: We have a winner!!! It is: BB-9-1 [7/5]
+Fight: BB-9-0 [7/5] vs C-3PO-2 [4/8]: We have a winner!!! It is: C-3PO-2 [4/8]
+Fight: BB-8-9 [6/6] vs C-3PO-1 [4/8]: We have a winner!!! It is: C-3PO-1 [4/8]
+ROUND #: 2. ENDED!!!
+
+ROUND #: 3. BEGIN!!!
+Fight: R2-D1 [5/7] vs C-3PO-1 [4/8]: We have a winner!!! It is: R2-D1 [5/7]
+Fight: BB-8-2 [6/6] vs C-3PO-2 [4/8]: We have a winner!!! It is: BB-8-2 [6/6]
+Fight: C-3PO-6 [4/8] vs BB-9-1 [7/5]: We have a winner!!! It is: C-3PO-6 [4/8]
+Fight: R2-D4 [5/7] vs BB-9-2 [7/5]: We have a winner!!! It is: R2-D4 [5/7]
+ROUND #: 3. ENDED!!!
+
+ROUND #: 4. BEGIN!!!
+Fight: R2-D1 [5/7] vs R2-D4 [5/7]: We have a winner!!! It is: R2-D1 [5/7]
+Fight: BB-8-2 [6/6] vs C-3PO-6 [4/8]: We have a winner!!! It is: C-3PO-6 [4/8]
+ROUND #: 4. ENDED!!!
+
+ROUND #: 5. BEGIN!!!
+Fight: R2-D1 [5/7] vs C-3PO-6 [4/8]: We have a winner!!! It is: C-3PO-6 [4/8]
+ROUND #: 5. ENDED!!!
+
+
+BUILD SUCCESSFUL in 14s
+2 actionable tasks: 2 executed
+18:28:09: Execution finished ':derschrank.sprint04.task07.bjstwo_50256.Main.main()'.
