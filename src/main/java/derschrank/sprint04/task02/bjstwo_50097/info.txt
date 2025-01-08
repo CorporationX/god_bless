@@ -1,0 +1,114 @@
+WOW
+👩‍💻 🧠
+
+
+
+
+Условие задачи:
+Представьте, что вы являетесь разработчиком системы для MMORPG World of Warcraft. Ваша задача — создать систему, которая моделирует выполнение заданий игроками и получение результатов с использованием CompletableFuture в Java. Вам нужно реализовать асинхронную модель выполнения квестов, где игроки выполняют задания параллельно, а результаты обрабатываются после завершения каждого задания.
+
+Цель:
+Создайте класс QuestSystem, который использует CompletableFuture для асинхронного выполнения заданий и возвращает результаты с использованием методов thenApply, thenAccept и других методов CompletableFuture.
+
+Требования:
+1️⃣ Создайте класс Player с полями:
+name (имя игрока),
+level (уровень игрока),
+experience (опыт игрока).
+
+2️⃣ Создайте класс Quest с полями:
+name (название задания),
+difficulty (сложность задания),
+reward (награда за выполнение задания).
+
+3️⃣ Создайте класс QuestSystem с методом startQuest, который:
+Принимает на вход объекты Player и Quest.
+Возвращает объект CompletableFuture<Player>.
+
+4️⃣ Метод startQuest должен:
+Запускать выполнение квеста асинхронно, используя CompletableFuture.supplyAsync.
+Обновлять опыт игрока после выполнения квеста.
+Имитировать выполнение квеста с использованием Thread.sleep на количество секунд, равное сложности квеста.
+
+5️⃣ Создайте несколько объектов игроков и заданий, затем запустите выполнение квестов для них с использованием QuestSystem.
+
+6️⃣ Обработайте результаты выполнения квестов, используя методы CompletableFuture.
+
+Пример использования:
+QuestSystem questSystem = new QuestSystem();
+
+// Создание игроков
+Player player1 = new Player("Thrall", 10, 250);
+Player player2 = new Player("Sylvanas", 12, 450);
+
+// Создание заданий
+Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
+Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+
+// Запуск заданий
+CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+
+// Обработка результатов заданий
+player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+
+Почему эта задача полезна?
+Эта задача покажет вам, как легко управлять асинхронными задачами в многопользовательской игре. С помощью CompletableFuture можно запускать несколько квестов одновременно для разных игроков и получать результаты их выполнения по мере завершения. Это позволяет моделировать реальную игру, где все игроки проходят квесты одновременно.
+
+Использование CompletableFuture упрощает работу с асинхронностью в Java и делает код более понятным и лаконичным по сравнению с использованием традиционных потоков.
+
+---------------------------
+5:14:30: Executing ':derschrank.sprint04.task02.bjstwo_50097.Main.main()'…
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :derschrank.sprint04.task02.bjstwo_50097.Main.main()
+Sylvanas [level: 12, experience: 450] has played quest: Defeat the Lich King [difficulty: 10, reward: 150], and became experience: 137
+Sylvanas [level: 12, experience: 587] has played quest: Defeat the King Lich [difficulty: 11, reward: 150], and became experience: 143
+Sylvanas has completed the quest and now has 587 experience points.
+Sylvanas has completed the quest and now has 730 experience points.
+Thrall [level: 10, experience: 250] has played quest: Defeat the Lich King [difficulty: 10, reward: 150], and became experience: 150
+Thrall has completed the quest and now has 400 experience points.
+Sylvanas [level: 12, experience: 730] has played quest: Defeat the Lich Lich King [difficulty: 12, reward: 150], and became experience: 150
+Sylvanas has completed the quest and now has 880 experience points.
+Thrall [level: 10, experience: 400] has played quest: Defeat the King Lich [difficulty: 11, reward: 150], and became experience: 157
+Thrall has completed the quest and now has 557 experience points.
+Thrall [level: 10, experience: 557] has played quest: Defeat the Lich Lich King [difficulty: 12, reward: 150], and became experience: 165
+Thrall has completed the quest and now has 722 experience points.
+Thrall [level: 10, experience: 722] has played quest: Defeat the King King Lich [difficulty: 13, reward: 150], and became experience: 172
+Thrall has completed the quest and now has 894 experience points.
+Sylvanas [level: 12, experience: 880] has played quest: Retrieve the Sword of Azeroth [difficulty: 8, reward: 100], and became experience: 83
+Sylvanas has completed the quest and now has 963 experience points.
+Thrall [level: 10, experience: 894] has played quest: Retrieve the Sword of Azeroth [difficulty: 8, reward: 100], and became experience: 90
+Thrall has completed the quest and now has 984 experience points.
+Sylvanas [level: 12, experience: 963] has played quest: Retrieve the Sword of Lich [difficulty: 7, reward: 100], and became experience: 79
+Thrall [level: 10, experience: 984] has played quest: Retrieve the Sword of Lich [difficulty: 7, reward: 100], and became experience: 85
+Sylvanas has level up from 12 to: 13
+Sylvanas has completed the quest and now has 42 experience points.
+Thrall has level up from 10 to: 11
+Thrall has completed the quest and now has 69 experience points.
+Sylvanas [level: 13, experience: 42] has played quest: Defeat the King King Lich [difficulty: 13, reward: 150], and became experience: 156
+Sylvanas has completed the quest and now has 198 experience points.
+Sylvanas [level: 13, experience: 198] has played quest: Defeat the Lich * King [difficulty: 14, reward: 250], and became experience: 270
+Sylvanas has completed the quest and now has 468 experience points.
+Sylvanas [level: 13, experience: 468] has played quest: Retrieve the Sword of Defeat [difficulty: 5, reward: 100], and became experience: 69
+Sylvanas has completed the quest and now has 537 experience points.
+Sylvanas [level: 13, experience: 537] has played quest: Retrieve the Sword of King [difficulty: 6, reward: 100], and became experience: 75
+Sylvanas has completed the quest and now has 612 experience points.
+Thrall [level: 11, experience: 69] has played quest: Retrieve the Sword of King [difficulty: 6, reward: 100], and became experience: 80
+Thrall has completed the quest and now has 149 experience points.
+Thrall [level: 11, experience: 149] has played quest: Defeat the Lich * King [difficulty: 14, reward: 250], and became experience: 300
+Thrall [level: 11, experience: 449] has played quest: Retrieve the Sword of Defeat [difficulty: 5, reward: 100], and became experience: 72
+Thrall has completed the quest and now has 449 experience points.
+Thrall has completed the quest and now has 521 experience points.
+Sylvanas [level: 13, experience: 612] has played quest: Retrieve the Sword of King Azeroth [difficulty: 9, reward: 200], and became experience: 169
+Sylvanas has completed the quest and now has 781 experience points.
+Thrall [level: 11, experience: 521] has played quest: Retrieve the Sword of King Azeroth [difficulty: 9, reward: 200], and became experience: 181
+Thrall has completed the quest and now has 702 experience points.
+
+BUILD SUCCESSFUL in 21s
+2 actionable tasks: 2 executed
+5:14:53: Execution finished ':derschrank.sprint04.task02.bjstwo_50097.Main.main()'.
