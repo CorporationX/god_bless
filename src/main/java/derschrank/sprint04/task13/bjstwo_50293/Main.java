@@ -13,7 +13,7 @@ public class Main {
 
         List<CompletableFuture<BigInteger>> futures = Factorial.factorials(numbers);
 
-        futures.forEach(CompletableFuture::join);
+        CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
 
         for (int i = 0; i < numbers.size(); i++) {
             System.out.printf("Factorial for %d is %s%n", numbers.get(i), futures.get(i).join());

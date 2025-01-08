@@ -10,13 +10,11 @@ public class Factorial {
     private static final int MAX_LONG_FACTORIAL = 19;
 
     public static int factorialInt(int n) throws IllegalArgumentException {
-        if (n < 1) {
-            return 0;
-        }
-        if (n == 1) {
+        if (n < 0) {
+            throw new IllegalArgumentException("n < 0");
+        } else if (n <= 1 ) {
             return n;
-        }
-        if (n > MAX_INT_FACTORIAL) {
+        } else if (n > MAX_INT_FACTORIAL) {
             throw new IllegalArgumentException(String.format("n > %d", MAX_INT_FACTORIAL));
         }
 
