@@ -22,12 +22,7 @@ public class Conference {
         }
     }
 
-
     public void startConference() {
         System.out.printf("We have %d participants, so begin we conference%n", requiredParticipants);
-    }
-
-    public void ifEnoughParticipants() {
-
     }
 }
