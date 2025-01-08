@@ -7,16 +7,12 @@ public record School(
         List<Student> team
 ) {
     public int getTotalPoints() {
-        int result = 0;
-        for (Student student : team) {
-            result += student.getPoints();
-        }
-        return result;
+        return team.stream().mapToInt(Student::getPoints).sum();
     }
 
     public School updatePoints(Task task) {
         int reward = task.reward();
-        team.forEach(x -> x.addPoints(reward));
+        team.forEach(s -> s.addPoints(reward));
         return this;
     }
 
