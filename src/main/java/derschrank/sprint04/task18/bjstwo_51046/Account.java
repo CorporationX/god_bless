@@ -10,6 +10,7 @@ public record Account(
         Lock lock
 ) {
     private static final int AWAIT_FOR_TRY_LOCK_MILLIS = 100;
+
     public Account(int id) {
         this(id, new DoubleAdder(), new ReentrantLock());
     }
