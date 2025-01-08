@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
     public static void main(String[] args) {
         TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem();
-        TwitterAccount account = new TwitterAccount("MaximMas");
+        TwitterAccount account = new TwitterAccount("MaximMass");
 
         int FOLLOWERS = 4;
 
