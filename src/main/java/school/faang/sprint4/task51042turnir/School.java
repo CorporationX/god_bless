@@ -13,10 +13,8 @@ public class School {
     private List<Student> team = new ArrayList<>();
 
     public Integer getTotalPoints() {
-        Integer result = team.stream()
+        return team.stream()
                 .mapToInt(Student::getPoints)
                 .sum();
-        return result;
-
     }
 }

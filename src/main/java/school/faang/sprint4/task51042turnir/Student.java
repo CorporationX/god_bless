@@ -8,9 +8,9 @@ import lombok.Data;
 public class Student {
     private String name;
     private Integer year;
-    private Integer points;
+    private volatile Integer points;
 
-    public void addPoints(Integer points) {
+    public synchronized void addPoints(Integer points) {
         this.points += points;
     }
 }
