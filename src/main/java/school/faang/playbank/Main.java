@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     public static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     public static final int THREAD_AMOUNT = 5;
     public static final int AWAIT_TIME = 10;
     public static final double MIN_AMOUNT = 99;
@@ -36,7 +37,7 @@ public class Main {
             for (int i = 0; i < THREAD_AMOUNT; i++) {
                 int fromAccountId = accounts.get(RANDOM.nextInt(accounts.size() - 1)).getId();
                 int toAccountId = accounts.get(RANDOM.nextInt(accounts.size() - 1)).getId();
-                double amount = Double.parseDouble(new DecimalFormat("#.##")
+                double amount = Double.parseDouble(DECIMAL_FORMAT
                         .format(RANDOM.nextDouble(MIN_AMOUNT, MAX_AMOUNT)));
                 bank.transfer(fromAccountId, toAccountId, amount);
             }

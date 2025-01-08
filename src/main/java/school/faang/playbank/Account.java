@@ -1,10 +1,12 @@
 package school.faang.playbank;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Slf4j
 @Getter
 public class Account {
     private final int id;
@@ -19,7 +21,11 @@ public class Account {
     public void deposit(double amount) {
         lock.lock();
         try {
-            balance += amount;
+            if (balance <= 0 || amount <= 0) {
+                log.info("Отрицательное значение баланса либо суммы :(");
+            } else {
+                balance += amount;
+            }
         } finally {
             lock.unlock();
         }
