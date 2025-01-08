@@ -22,15 +22,16 @@ public class Main {
         TwitterAccount account = new TwitterAccount("Bob", 111);
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
-        CompletableFuture<?>[] futuresArray = getCompletableFutures(system, account);
+        CompletableFuture<Void>[] futuresArray = getCompletableFutures(system, account);
 
         CompletableFuture.allOf(futuresArray)
                 .thenRun(() -> log.info(OUT_TEMPLATE, account.getUsername(), account.getFollowers()))
                 .join();
     }
 
-    private static CompletableFuture<?>[] getCompletableFutures(TwitterSubscriptionSystem system,
-                                                                TwitterAccount account) {
+    @SuppressWarnings("unchecked")
+    private static CompletableFuture<Void>[] getCompletableFutures(TwitterSubscriptionSystem system,
+                                                                   TwitterAccount account) {
         List<CompletableFuture<Void>> futuresList = new ArrayList<>();
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_THREADS);
 
