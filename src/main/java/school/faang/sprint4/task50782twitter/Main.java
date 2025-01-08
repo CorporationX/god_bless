@@ -9,7 +9,7 @@ public class Main {
         TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem();
         TwitterAccount account = new TwitterAccount("MaximMass");
 
-        int FOLLOWERS = 4;
+        final int FOLLOWERS = 4;
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
