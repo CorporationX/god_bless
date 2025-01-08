@@ -36,6 +36,11 @@ public class Inventory implements WorkshopInterface {
     }
 
     @Override
+    public Optional<Item> getFirst() {
+        return getItem(0);
+    }
+
+    @Override
     public synchronized List<Item> getListOfItems() {
         return new ArrayList<>(items);
     }

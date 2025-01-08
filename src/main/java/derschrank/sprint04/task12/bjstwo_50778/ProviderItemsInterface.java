@@ -8,6 +8,8 @@ public interface ProviderItemsInterface {
 
     Optional<Item> getItem(int index);
 
+    Optional<Item> getFirst();
+
     List<Item> getListOfItems();
 
     int getCountOfItems();

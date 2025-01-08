@@ -30,8 +30,8 @@ public class Main {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         int originalCountOfItems = unit.getCountOfItems();
         for (int i = 0; i < originalCountOfItems; i++) {
-            CompletableFuture<Item> futFromShop = CompletableFuture.supplyAsync(() -> shop.getItem(0).get());
-            CompletableFuture<Item> futFromInventory = CompletableFuture.supplyAsync(() -> unit.getItem(0).get());
+            CompletableFuture<Item> futFromShop = CompletableFuture.supplyAsync(() -> shop.getFirst().get());
+            CompletableFuture<Item> futFromInventory = CompletableFuture.supplyAsync(() -> unit.getFirst().get());
             futures.add(
                     futFromShop
                             .thenCombine(futFromInventory, unit::combineItems)

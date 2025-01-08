@@ -27,6 +27,11 @@ public class Shop implements ProviderItemsInterface {
     }
 
     @Override
+    public Optional<Item> getFirst() {
+        return getItem(0);
+    }
+
+    @Override
     public synchronized List<Item> getListOfItems() {
         return new ArrayList<>(items);
     }
