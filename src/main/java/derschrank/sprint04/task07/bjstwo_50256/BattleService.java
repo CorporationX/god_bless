@@ -3,6 +3,7 @@ package derschrank.sprint04.task07.bjstwo_50256;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -55,40 +56,19 @@ public class BattleService {
     }
 
     public static List<Robot> getRobots() {
-        List<Robot> robots = new ArrayList<>();
-        robots.add(new Robot("R2-D1", 5, 7));
-        robots.add(new Robot("R2-D2", 5, 7));
-        robots.add(new Robot("R2-D3", 5, 7));
-        robots.add(new Robot("R2-D4", 5, 7));
-        robots.add(new Robot("R2-D5", 5, 7));
-        robots.add(new Robot("R2-D6", 5, 7));
-        robots.add(new Robot("R2-D7", 5, 7));
-        robots.add(new Robot("R2-D8", 5, 7));
-        robots.add(new Robot("C-3PO-1", 4, 8));
-        robots.add(new Robot("C-3PO-2", 4, 8));
-        robots.add(new Robot("C-3PO-3", 4, 8));
-        robots.add(new Robot("C-3PO-4", 4, 8));
-        robots.add(new Robot("C-3PO-5", 4, 8));
-        robots.add(new Robot("C-3PO-6", 4, 8));
-        robots.add(new Robot("C-3PO-7", 4, 8));
-        robots.add(new Robot("C-3PO-8", 4, 8));
-        robots.add(new Robot("BB-8-1", 6, 6));
-        robots.add(new Robot("BB-8-2", 6, 6));
-        robots.add(new Robot("BB-8-3", 6, 6));
-        robots.add(new Robot("BB-8-4", 6, 6));
-        robots.add(new Robot("BB-8-5", 6, 6));
-        robots.add(new Robot("BB-8-6", 6, 6));
-        robots.add(new Robot("BB-8-7", 6, 6));
-        robots.add(new Robot("BB-8-8", 6, 6));
-        robots.add(new Robot("BB-8-9", 6, 6));
-        robots.add(new Robot("BB-9-0", 7, 5));
-        robots.add(new Robot("BB-9-1", 7, 5));
-        robots.add(new Robot("BB-9-2", 7, 5));
-        robots.add(new Robot("BB-9-3", 7, 5));
-        robots.add(new Robot("BB-9-4", 7, 5));
-        robots.add(new Robot("BB-9-5", 7, 5));
-        robots.add(new Robot("BB-9-6", 7, 5));
+        List<Robot> robots = new ArrayList<>(32);
+        robots.addAll(getRobots("R2-D", 5, 7, 8));
+        robots.addAll(getRobots("C-3PO-", 4, 8, 8));
+        robots.addAll(getRobots("BB-8-", 6, 6, 9));
+        robots.addAll(getRobots("BB-9-0", 7, 5, 7));
+        return robots;
+    }
 
+    public static List<Robot> getRobots(String name, int attackPower, int defensePower, int count) {
+        List<Robot> robots = new LinkedList<>();
+        for (int i = 1; i <= count; i++) {
+            robots.add(new Robot(name + i, attackPower, defensePower));
+        }
         return robots;
     }
 }
