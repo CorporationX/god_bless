@@ -19,6 +19,6 @@ public class DesignResources {
     }
 
     public synchronized List<String> getFiles() {
-      return files;
+        return files;
     }
 }
