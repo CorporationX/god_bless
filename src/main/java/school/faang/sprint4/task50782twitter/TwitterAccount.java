@@ -1,6 +1,5 @@
 package school.faang.sprint4.task50782twitter;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
