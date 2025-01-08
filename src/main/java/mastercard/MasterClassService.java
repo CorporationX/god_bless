@@ -5,6 +5,7 @@ import java.util.concurrent.*;
 public class MasterClassService {
     static final long TIME = 10_000L;
     static final long SEC = 1_000L;
+
     static int collectPayment() {
         try {
             Thread.sleep(TIME);
