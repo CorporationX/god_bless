@@ -9,17 +9,17 @@ public class Tournament {
     public static final long TIME_TASK_COMPLETION = 1000L;
 
     public CompletableFuture<School> startTask(School school, Task task) {
-        return CompletableFuture.supplyAsync(() -> competitionAction(school, task));
+        return CompletableFuture.supplyAsync(() -> compete(school, task));
     }
 
-    private School competitionAction(School school, Task task) {
+    private School compete(School school, Task task) {
         try {
             Thread.sleep(task.getDifficulty() * TIME_TASK_COMPLETION);
         } catch (InterruptedException ex) {
             log.error("The task has been aborted! {}", String.valueOf(ex));
             Thread.currentThread().interrupt();
         }
-        school.getTeam().forEach(s -> s.addPoints(task.getReward()));
+        school.updatePoints(task);
         return school;
     }
 }

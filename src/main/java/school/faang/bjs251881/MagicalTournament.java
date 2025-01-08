@@ -3,6 +3,7 @@ package school.faang.bjs251881;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -33,27 +34,20 @@ public class MagicalTournament {
         CompletableFuture<?>[] futuresArray = futuresList.toArray(new CompletableFuture[0]);
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(futuresArray);
-
-        allTasks.thenRun(() -> {
-            List<School> schools = getSchools(futuresList);
-
-            schools.stream()
-                    .max(Comparator.comparingInt(School::getTotalPoints))
-                    .ifPresent(school -> System.out.println(school.getName()
-                            + " wins the tournament with a total of " + school.getTotalPoints() + " points!"));
-        });
         allTasks.join();
+
+        List<School> schools = new ArrayList<>();
+        schools.add(hogwarts);
+        schools.add(beauxbatons);
+
+        displayResultsOfCompetition(schools);
     }
 
-    private static List<School> getSchools(List<CompletableFuture<School>> futuresList) {
-        return futuresList.stream().map(future -> {
-            try {
-                return future.get();
-            } catch (InterruptedException | ExecutionException ex) {
-                log.error("The task has been aborted!{}", String.valueOf(ex));
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(ex);
-            }
-        }).toList();
+
+    private static void displayResultsOfCompetition(List<School> schools) {
+        schools.stream()
+                .max(Comparator.comparingInt(School::getTotalPoints))
+                .ifPresent(school -> System.out.println(school.getName()
+                        + " wins the tournament with a total of " + school.getTotalPoints() + " points!"));
     }
 }

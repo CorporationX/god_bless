@@ -17,4 +17,8 @@ public class School {
                 .map(Student::getPoints)
                 .reduce(0, Integer::sum);
     }
+
+    public void updatePoints(Task task) {
+        team.forEach(s -> s.addPoints(task.getReward()));
+    }
 }
