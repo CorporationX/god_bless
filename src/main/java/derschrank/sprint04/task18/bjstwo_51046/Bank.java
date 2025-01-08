@@ -16,7 +16,7 @@ public class Bank {
         accounts = new ConcurrentHashMap<>();
     }
 
-    public synchronized void addAccount(Account account) {
+    public void addAccount(Account account) {
         accounts.put(account.id(), account);
     }
 
@@ -57,10 +57,7 @@ public class Bank {
     }
 
     public void printAllAccounts() {
-        List<Account> accountsList;
-        synchronized (this) {
-            accountsList = new ArrayList<>(accounts.values());
-        }
+        List<Account> accountsList = new ArrayList<>(accounts.values());
         for (int i = 0; i < accountsList.size(); i++) {
             System.out.print(accountsList.get(i) + " | ");
             if (i % PRINT_ACCOUNTS_IN_ROW == 0) {
