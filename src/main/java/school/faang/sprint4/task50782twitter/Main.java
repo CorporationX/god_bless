@@ -9,11 +9,11 @@ public class Main {
         TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem();
         TwitterAccount account = new TwitterAccount("MaximMass");
 
-        final int FOLLOWERS = 4;
+        final int followers = 4;
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        for (int i = 0; i < FOLLOWERS; i++) {
+        for (int i = 0; i < followers; i++) {
             futures.add(subscriptionSystem.followAccount(account));
         }
         CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
