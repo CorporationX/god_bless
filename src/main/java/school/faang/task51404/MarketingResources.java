@@ -10,11 +10,11 @@ public class MarketingResources {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void addFile(String file) {
-        lock.readLock().lock();
+        lock.writeLock().lock();
         try {
             files.add(file);
         } finally {
-            lock.readLock().unlock();
+            lock.writeLock().unlock();
         }
 
     }
