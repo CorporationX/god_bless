@@ -8,9 +8,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Order {
     private final int id;
-    private Status status;
+    private volatile Status status;
 
-    public synchronized void changeStatus(Status status) {
+    public void changeStatus(Status status) {
         this.status = status;
     }
 }
