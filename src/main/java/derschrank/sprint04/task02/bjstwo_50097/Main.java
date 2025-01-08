@@ -1,12 +1,11 @@
 package derschrank.sprint04.task02.bjstwo_50097;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
-    private static final int  DELAY_FOR_END_MILLIS = 7000;
-
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
@@ -15,15 +14,18 @@ public class Main {
         List<Player> players = List.of(player1, player2);
 
         List<Quest> quests = getQuests();
+        List<CompletableFuture<Void>> futures = new LinkedList<>();
         for (Quest quest : quests) {
             for (Player player : players) {
                 CompletableFuture<Player> future = questSystem.startQuest(player, quest);
-                future.thenAccept(p -> System.out.println(p.getName()
+                futures.add(future.thenAccept(p -> System.out.println(p.getName()
                         + " has completed the quest and now has "
-                        + p.getExperience() + " experience points."));
+                        + p.getExperience() + " experience points."))
+                );
             }
         }
-        questSystem.mySleep(DELAY_FOR_END_MILLIS);
+
+        futures.forEach(CompletableFuture::join);
     }
 
     private static List<Quest> getQuests() {
