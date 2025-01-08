@@ -1,0 +1,169 @@
+Carry отожрался
+derschrank2000-S04-T12-BJS2-50778
+derschrank.sprint04.task12.bjstwo_50778
+
+Sprint04. Task12. CompletableFuture. Carry. f.thenCombine() и f.thenCompose()
+------------------------
+Carry отожрался
+👩‍💻 🧠🧠🧠 (Дополнительная задача)
+
+
+Условия задачи
+В мире Dota 2, игроки собирают предметы, которые могут быть скомбинированы для создания более мощных предметов. Вам нужно написать программу, которая асинхронно собирает предметы и комбинирует их в более сильные предметы.
+
+Используйте методы thenCombine и thenCompose у CompletableFuture для асинхронного получения предметов и их объединения.
+
+Требования:
+1️⃣ Создайте класс Item — он описывает предметы и их характеристики. Поля:
+name — название предмета;
+power — сила предмета.
+
+2️⃣ Создайте класс Inventory — он описывает инвентарь игрока. У него должно быть поле items — список предметов в инвентаре.
+И методы:
+addItem(Item) — добавляет предмет в инвентарь;
+combineItems(Item, Item) — комбинирует два предмета и создаёт новый с суммарной силой и новым названием.
+
+3️⃣ Создайте асинхронные методы, которые выполняют следующие действия:
+Получение первого предмета из сундука.
+Получение второго предмета из магазина.
+Комбинирование предметов в более мощный предмет. Т.е. выполняется, когда первые две операции выполнены, как бы комбинируя их. Используем метод thenCombine из CompletableFuture.
+Когда предметы скомбинированны, то нужно ещё асинхронно положить результирующий предмет в инвентарь персонажа. Для этого используем метод thenCompose на результирующем CompletableFuture после комбинирования, запуская новую асинхронную задачу добавления предмета в инвентарь
+
+4️⃣Затем, добавьте полученный предмет в инвентарь игрока. Используйте thenCombine и thenCompose для асинхронного выполнения этих действий и обработки результата.
+
+Почему эта задача полезна?
+CompletableFuture имеет несколько очень удобных методов для работы со множеством асинхронных задач. thenCombine и thenCompose позволяют комбинировать и асинхронно запускать дополнительные задачи
+
+Это очень полезно во множестве приложений. Например, в Telegram вы могли бы асинхронно выполнять загрузку картинки для сообщения, а когда она загружена, то асинхронно же отправить пользовательское событие об успешной загрузке, которое и приведёт к отправке целого сообщения с этой картинкой.
+
+И это лишь один из множества примеров!
+------------------------
+21:29:29: Executing ':derschrank.sprint04.task12.bjstwo_50778.Main.main()'…
+
+> Task :compileJava UP-TO-DATE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+
+> Task :derschrank.sprint04.task12.bjstwo_50778.Main.main()
+
+SHOP HAS ITEMS:
+[Ancient Blade (power: 4), Enchanted Shield (power: 7), Shadow Amulet (power: 5), Mystic Bow (power: 1), Flaming Ring (power: 5), Frozen Staff (power: 6), Thunder Orb (power: 9), Crystal Helmet (power: 0), Dark Boots (power: 9), Holy Gauntlets (power: 1), Venomous Armor (power: 9), Golden Dagger (power: 3), Steel Axe (power: 5), Phantom Crown (power: 9), Ethereal Pendant (power: 7), Blood Lantern (power: 6), Storm Spear (power: 4), Infernal Tome (power: 6), Cursed Cape (power: 8), Radiant Quiver (power: 1), Ancient Shield (power: 9), Enchanted Amulet (power: 7), Shadow Bow (power: 5), Mystic Ring (power: 5), Flaming Staff (power: 5), Frozen Orb (power: 7), Thunder Helmet (power: 7), Crystal Boots (power: 8), Dark Gauntlets (power: 3), Holy Armor (power: 6), Venomous Dagger (power: 9), Golden Axe (power: 3), Steel Crown (power: 5), Phantom Pendant (power: 3), Ethereal Lantern (power: 9), Blood Spear (power: 2), Storm Tome (power: 2), Infernal Cape (power: 1), Cursed Quiver (power: 1), Radiant Blade (power: 8), Ancient Amulet (power: 1), Enchanted Bow (power: 6), Shadow Ring (power: 2), Mystic Staff (power: 7), Flaming Orb (power: 8), Frozen Helmet (power: 3), Thunder Boots (power: 0), Crystal Gauntlets (power: 0), Dark Armor (power: 2), Holy Dagger (power: 3), Venomous Axe (power: 6), Golden Crown (power: 0), Steel Pendant (power: 8), Phantom Lantern (power: 7), Ethereal Spear (power: 3), Blood Tome (power: 0), Storm Cape (power: 2), Infernal Quiver (power: 6), Cursed Blade (power: 1), Radiant Shield (power: 7), Ancient Bow (power: 1), Enchanted Ring (power: 2), Shadow Staff (power: 5), Mystic Orb (power: 5), Flaming Helmet (power: 0), Frozen Boots (power: 9), Thunder Gauntlets (power: 4), Crystal Armor (power: 8), Dark Dagger (power: 6), Holy Axe (power: 1), Venomous Crown (power: 7), Golden Pendant (power: 1), Steel Lantern (power: 0), Phantom Spear (power: 7), Ethereal Tome (power: 5), Blood Cape (power: 3), Storm Quiver (power: 0), Infernal Blade (power: 0), Cursed Shield (power: 1), Radiant Amulet (power: 2), Ancient Ring (power: 5), Enchanted Staff (power: 0), Shadow Orb (power: 9), Mystic Helmet (power: 2), Flaming Boots (power: 9), Frozen Gauntlets (power: 7), Thunder Armor (power: 8), Crystal Dagger (power: 6), Dark Axe (power: 2), Holy Crown (power: 8), Venomous Pendant (power: 2), Golden Lantern (power: 7), Steel Spear (power: 7), Phantom Tome (power: 9), Ethereal Cape (power: 3), Blood Quiver (power: 3), Storm Blade (power: 3), Infernal Shield (power: 7), Cursed Amulet (power: 1), Radiant Bow (power: 0)]
+Item was bought: Holy Armor (power: 6)
+Item was bought: Venomous Dagger (power: 9)
+Item was bought: Radiant Blade (power: 8)
+Item was bought: Blood Spear (power: 2)
+Item was bought: Shadow Ring (power: 2)
+Item was bought: Holy Crown (power: 8)
+Item was bought: Mystic Orb (power: 5)
+Item was bought: Steel Spear (power: 7)
+Item was bought: Dark Dagger (power: 6)
+Item was bought: Ethereal Tome (power: 5)
+Item was bought: Blood Quiver (power: 3)
+Item was bought: Golden Lantern (power: 7)
+Item was bought: Cursed Quiver (power: 1)
+Item was bought: Storm Blade (power: 3)
+Item was bought: Enchanted Ring (power: 2)
+Item was bought: Ancient Ring (power: 5)
+Item was bought: Shadow Bow (power: 5)
+Item was bought: Infernal Tome (power: 6)
+Item was bought: Crystal Dagger (power: 6)
+Item was bought: Storm Cape (power: 2)
+Item was bought: Phantom Pendant (power: 3)
+Item was bought: Blood Cape (power: 3)
+Item was bought: Phantom Spear (power: 7)
+Item was bought: Ethereal Cape (power: 3)
+Item was bought: Enchanted Amulet (power: 7)
+Item was bought: Crystal Helmet (power: 0)
+Item was bought: Crystal Boots (power: 8)
+Item was bought: Steel Pendant (power: 8)
+Item was bought: Golden Pendant (power: 1)
+Item was bought: Steel Crown (power: 5)
+Item was bought: Flaming Staff (power: 5)
+Item was bought: Steel Lantern (power: 0)
+Item was bought: Frozen Gauntlets (power: 7)
+Item was bought: Golden Axe (power: 3)
+Item was bought: Cursed Amulet (power: 1)
+Item was bought: Shadow Amulet (power: 5)
+Item was bought: Mystic Staff (power: 7)
+Item was bought: Frozen Boots (power: 9)
+Item was bought: Storm Quiver (power: 0)
+Item was bought: Dark Gauntlets (power: 3)
+Item was bought: Cursed Blade (power: 1)
+Item was bought: Blood Lantern (power: 6)
+Item was bought: Shadow Orb (power: 9)
+Item was bought: Thunder Gauntlets (power: 4)
+Item was bought: Ancient Shield (power: 9)
+Item was bought: Thunder Orb (power: 9)
+Item was bought: Blood Tome (power: 0)
+Item was bought: Thunder Armor (power: 8)
+Item was bought: Ethereal Spear (power: 3)
+Item was bought: Infernal Quiver (power: 6)
+
+NOW INVENTORY HAS 50 ITEMS:
+[Holy Armor (power: 6), Venomous Dagger (power: 9), Radiant Blade (power: 8), Blood Spear (power: 2), Shadow Ring (power: 2), Holy Crown (power: 8), Mystic Orb (power: 5), Steel Spear (power: 7), Dark Dagger (power: 6), Ethereal Tome (power: 5), Blood Quiver (power: 3), Golden Lantern (power: 7), Cursed Quiver (power: 1), Storm Blade (power: 3), Enchanted Ring (power: 2), Ancient Ring (power: 5), Shadow Bow (power: 5), Infernal Tome (power: 6), Crystal Dagger (power: 6), Storm Cape (power: 2), Phantom Pendant (power: 3), Blood Cape (power: 3), Phantom Spear (power: 7), Ethereal Cape (power: 3), Enchanted Amulet (power: 7), Crystal Helmet (power: 0), Crystal Boots (power: 8), Steel Pendant (power: 8), Golden Pendant (power: 1), Steel Crown (power: 5), Flaming Staff (power: 5), Steel Lantern (power: 0), Frozen Gauntlets (power: 7), Golden Axe (power: 3), Cursed Amulet (power: 1), Shadow Amulet (power: 5), Mystic Staff (power: 7), Frozen Boots (power: 9), Storm Quiver (power: 0), Dark Gauntlets (power: 3), Cursed Blade (power: 1), Blood Lantern (power: 6), Shadow Orb (power: 9), Thunder Gauntlets (power: 4), Ancient Shield (power: 9), Thunder Orb (power: 9), Blood Tome (power: 0), Thunder Armor (power: 8), Ethereal Spear (power: 3), Infernal Quiver (power: 6)]
+
+NOW SHOP HAS 50 ITEMS:
+[Ancient Blade (power: 4), Enchanted Shield (power: 7), Mystic Bow (power: 1), Flaming Ring (power: 5), Frozen Staff (power: 6), Dark Boots (power: 9), Holy Gauntlets (power: 1), Venomous Armor (power: 9), Golden Dagger (power: 3), Steel Axe (power: 5), Phantom Crown (power: 9), Ethereal Pendant (power: 7), Storm Spear (power: 4), Cursed Cape (power: 8), Radiant Quiver (power: 1), Mystic Ring (power: 5), Frozen Orb (power: 7), Thunder Helmet (power: 7), Ethereal Lantern (power: 9), Storm Tome (power: 2), Infernal Cape (power: 1), Ancient Amulet (power: 1), Enchanted Bow (power: 6), Flaming Orb (power: 8), Frozen Helmet (power: 3), Thunder Boots (power: 0), Crystal Gauntlets (power: 0), Dark Armor (power: 2), Holy Dagger (power: 3), Venomous Axe (power: 6), Golden Crown (power: 0), Phantom Lantern (power: 7), Radiant Shield (power: 7), Ancient Bow (power: 1), Shadow Staff (power: 5), Flaming Helmet (power: 0), Crystal Armor (power: 8), Holy Axe (power: 1), Venomous Crown (power: 7), Infernal Blade (power: 0), Cursed Shield (power: 1), Radiant Amulet (power: 2), Enchanted Staff (power: 0), Mystic Helmet (power: 2), Flaming Boots (power: 9), Dark Axe (power: 2), Venomous Pendant (power: 2), Phantom Tome (power: 9), Infernal Shield (power: 7), Radiant Bow (power: 0)]
+
+NOW WORKSHOP WITH ITEMS FROM SHOP AND INVENTORY:
+[Ancient Blade (power: 4), Enchanted Shield (power: 7), Mystic Bow (power: 1), Flaming Ring (power: 5), Frozen Staff (power: 6), Dark Boots (power: 9), Holy Gauntlets (power: 1), Venomous Armor (power: 9), Golden Dagger (power: 3), Steel Axe (power: 5), Phantom Crown (power: 9), Ethereal Pendant (power: 7), Storm Spear (power: 4), Cursed Cape (power: 8), Radiant Quiver (power: 1), Mystic Ring (power: 5), Frozen Orb (power: 7), Thunder Helmet (power: 7), Ethereal Lantern (power: 9), Storm Tome (power: 2), Infernal Cape (power: 1), Ancient Amulet (power: 1), Enchanted Bow (power: 6), Flaming Orb (power: 8), Frozen Helmet (power: 3), Thunder Boots (power: 0), Crystal Gauntlets (power: 0), Dark Armor (power: 2), Holy Dagger (power: 3), Venomous Axe (power: 6), Golden Crown (power: 0), Phantom Lantern (power: 7), Radiant Shield (power: 7), Ancient Bow (power: 1), Shadow Staff (power: 5), Flaming Helmet (power: 0), Crystal Armor (power: 8), Holy Axe (power: 1), Venomous Crown (power: 7), Infernal Blade (power: 0), Cursed Shield (power: 1), Radiant Amulet (power: 2), Enchanted Staff (power: 0), Mystic Helmet (power: 2), Flaming Boots (power: 9), Dark Axe (power: 2), Venomous Pendant (power: 2), Phantom Tome (power: 9), Infernal Shield (power: 7), Radiant Bow (power: 0)]
+Ancient Blade+Holy Armor (power: 10)
+Enchanted Shield+Venomous Dagger (power: 16)
+Mystic Bow+Radiant Blade (power: 9)
+Flaming Ring+Blood Spear (power: 7)
+Frozen Staff+Shadow Ring (power: 8)
+Holy Gauntlets+Steel Spear (power: 8)
+Golden Dagger+Dark Dagger (power: 9)
+Venomous Armor+Mystic Orb (power: 14)
+Steel Axe+Ethereal Tome (power: 10)
+Dark Boots+Holy Crown (power: 17)
+Phantom Crown+Blood Quiver (power: 12)
+Ethereal Pendant+Golden Lantern (power: 14)
+Cursed Cape+Storm Blade (power: 11)
+Mystic Ring+Ancient Ring (power: 10)
+Radiant Quiver+Enchanted Ring (power: 3)
+Frozen Orb+Shadow Bow (power: 12)
+Storm Spear+Cursed Quiver (power: 5)
+Storm Tome+Storm Cape (power: 4)
+Thunder Helmet+Infernal Tome (power: 13)
+Ethereal Lantern+Crystal Dagger (power: 15)
+Infernal Cape+Phantom Pendant (power: 4)
+Ancient Amulet+Blood Cape (power: 4)
+Enchanted Bow+Phantom Spear (power: 13)
+Flaming Orb+Ethereal Cape (power: 11)
+Frozen Helmet+Enchanted Amulet (power: 10)
+Thunder Boots+Crystal Helmet (power: 0)
+Crystal Gauntlets+Crystal Boots (power: 8)
+Dark Armor+Steel Pendant (power: 10)
+Golden Crown+Flaming Staff (power: 5)
+Holy Dagger+Golden Pendant (power: 4)
+Venomous Axe+Steel Crown (power: 11)
+Phantom Lantern+Steel Lantern (power: 7)
+Radiant Shield+Frozen Gauntlets (power: 14)
+Flaming Helmet+Shadow Amulet (power: 5)
+Crystal Armor+Mystic Staff (power: 15)
+Shadow Staff+Cursed Amulet (power: 6)
+Holy Axe+Frozen Boots (power: 10)
+Ancient Bow+Golden Axe (power: 4)
+Enchanted Staff+Shadow Orb (power: 9)
+Venomous Crown+Storm Quiver (power: 7)
+Infernal Blade+Cursed Blade (power: 1)
+Cursed Shield+Blood Lantern (power: 7)
+Mystic Helmet+Dark Gauntlets (power: 5)
+Radiant Amulet+Thunder Gauntlets (power: 6)
+Flaming Boots+Ancient Shield (power: 18)
+Infernal Shield+Ethereal Spear (power: 10)
+Phantom Tome+Thunder Armor (power: 17)
+Venomous Pendant+Blood Tome (power: 2)
+Dark Axe+Thunder Orb (power: 11)
+Radiant Bow+Infernal Quiver (power: 6)
+
+NOW INVENTORY HAS 50 ITEMS:
+[Ancient Blade+Holy Armor (power: 10), Enchanted Shield+Venomous Dagger (power: 16), Mystic Bow+Radiant Blade (power: 9), Flaming Ring+Blood Spear (power: 7), Frozen Staff+Shadow Ring (power: 8), Holy Gauntlets+Steel Spear (power: 8), Venomous Armor+Mystic Orb (power: 14), Dark Boots+Holy Crown (power: 17), Golden Dagger+Dark Dagger (power: 9), Steel Axe+Ethereal Tome (power: 10), Phantom Crown+Blood Quiver (power: 12), Ethereal Pendant+Golden Lantern (power: 14), Cursed Cape+Storm Blade (power: 11), Mystic Ring+Ancient Ring (power: 10), Storm Spear+Cursed Quiver (power: 5), Frozen Orb+Shadow Bow (power: 12), Radiant Quiver+Enchanted Ring (power: 3), Ethereal Lantern+Crystal Dagger (power: 15), Storm Tome+Storm Cape (power: 4), Thunder Helmet+Infernal Tome (power: 13), Infernal Cape+Phantom Pendant (power: 4), Flaming Orb+Ethereal Cape (power: 11), Ancient Amulet+Blood Cape (power: 4), Enchanted Bow+Phantom Spear (power: 13), Frozen Helmet+Enchanted Amulet (power: 10), Thunder Boots+Crystal Helmet (power: 0), Crystal Gauntlets+Crystal Boots (power: 8), Dark Armor+Steel Pendant (power: 10), Holy Dagger+Golden Pendant (power: 4), Venomous Axe+Steel Crown (power: 11), Golden Crown+Flaming Staff (power: 5), Phantom Lantern+Steel Lantern (power: 7), Radiant Shield+Frozen Gauntlets (power: 14), Flaming Helmet+Shadow Amulet (power: 5), Shadow Staff+Cursed Amulet (power: 6), Ancient Bow+Golden Axe (power: 4), Crystal Armor+Mystic Staff (power: 15), Holy Axe+Frozen Boots (power: 10), Radiant Amulet+Thunder Gauntlets (power: 6), Enchanted Staff+Shadow Orb (power: 9), Venomous Crown+Storm Quiver (power: 7), Mystic Helmet+Dark Gauntlets (power: 5), Infernal Blade+Cursed Blade (power: 1), Cursed Shield+Blood Lantern (power: 7), Flaming Boots+Ancient Shield (power: 18), Venomous Pendant+Blood Tome (power: 2), Dark Axe+Thunder Orb (power: 11), Phantom Tome+Thunder Armor (power: 17), Infernal Shield+Ethereal Spear (power: 10), Radiant Bow+Infernal Quiver (power: 6)]
+
+NOW SHOP HAS 0 ITEMS:
+[]
+
+BUILD SUCCESSFUL in 11s
+2 actionable tasks: 1 executed, 1 up-to-date
+21:29:41: Execution finished ':derschrank.sprint04.task12.bjstwo_50778.Main.main()'.
