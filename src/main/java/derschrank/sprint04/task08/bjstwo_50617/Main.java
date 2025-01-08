@@ -11,10 +11,10 @@ public class Main {
 
         for (int i = 0; i < COUNT_OF_ITERATION; i++) {
             one.sendMessage(two, "#" + i + ". Hallo!!!");
-            Service.toSleep(DELAY_BETWEEN_MESSAGES_MILLIS);
+            Utils.doSleepForCurrentThread(DELAY_BETWEEN_MESSAGES_MILLIS);
 
             two.sendMessage(one, "#" + i + ". What's up!!!!");
-            Service.toSleep(DELAY_BETWEEN_MESSAGES_MILLIS);
+            Utils.doSleepForCurrentThread(DELAY_BETWEEN_MESSAGES_MILLIS);
         }
     }
 }

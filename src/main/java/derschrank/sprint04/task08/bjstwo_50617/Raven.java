@@ -10,7 +10,7 @@ public record Raven(
 ) {
     private static final int DELAY_ROAD_TIME_MILLIS = 1000;
     private static final int PROCENT_OF_FAILURE_OF_RAVEN = 30;
-    private static final Random rnd = Service.RANDOM;
+    private static final Random rnd = Utils.RANDOM;
 
     public Raven(String msg, Kingdom sender, Kingdom receiver) {
         this(TypeMsg.NEW_MSG, msg, sender, receiver);
@@ -21,11 +21,11 @@ public record Raven(
     }
 
     public Raven send() {
-        Service.toSleep(DELAY_ROAD_TIME_MILLIS);
-        Service.makeRandomTimeException(rnd, PROCENT_OF_FAILURE_OF_RAVEN);
+        Utils.doSleepForCurrentThread(DELAY_ROAD_TIME_MILLIS);
+        Utils.makeRandomTimeException(rnd, PROCENT_OF_FAILURE_OF_RAVEN);
 
         Raven ravenWithAnswer = receiver.receiveRaven(this);
-        Service.makeRandomTimeException(rnd, PROCENT_OF_FAILURE_OF_RAVEN);
+        Utils.makeRandomTimeException(rnd, PROCENT_OF_FAILURE_OF_RAVEN);
         return ravenWithAnswer;
     }
 }

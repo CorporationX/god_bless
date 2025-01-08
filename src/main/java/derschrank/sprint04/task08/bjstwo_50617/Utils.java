@@ -5,10 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Random;
 
 @Slf4j
-public class Service {
+public class Utils {
+    public static final int HUNDRED_PERCENT = 100;
     public static final Random RANDOM = new Random();
 
-    public static void toSleep(int delay) {
+    public static void doSleepForCurrentThread(int delay) {
         try {
             Thread.sleep(delay);
         } catch (InterruptedException e) {
@@ -16,8 +17,8 @@ public class Service {
         }
     }
 
-    public static void makeRandomTimeException(Random rnd, int procentOfException) {
-        if (rnd.nextInt(100) < procentOfException) {
+    public static void makeRandomTimeException(Random rnd, int probabilityOfExceptionsInPercent) {
+        if (rnd.nextInt(HUNDRED_PERCENT) < probabilityOfExceptionsInPercent) {
             throw new RuntimeException("The raven got lost");
         }
     }

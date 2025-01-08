@@ -11,17 +11,15 @@ public record Kingdom(
         System.out.printf("%n -> Kingdom *%s* sended to kingdom *%s* message: %s%n", name, receiver.name(), msg);
 
         future.handle((ravenWithAnswer, exception) -> {
-            if (exception == null) {
-                if (ravenWithAnswer.type() == TypeMsg.SUCCESS) {
-                    System.out.printf(" ++ Kingdom *%s*. SUCCESS. "
-                             + "Message was received by *%s* SUCCESS!!!%n", name, receiver.name());
-                } else {
-                    System.out.printf(" -- Kingdom *%s*. NOT SUCCESS. "
-                             + "Message was received by *%s*, but WITH OUT SUCCESS!!!%n", name, receiver.name());
-                }
-            } else {
+            if (exception != null) {
                 System.out.printf(" !! Kingdom *%s* doesn't know if the message "
-                         + "was received by *%s*%n", name, receiver.name());
+                        + "was received by *%s*%n", name, receiver.name());
+            } else if (ravenWithAnswer.type() == TypeMsg.SUCCESS) {
+                System.out.printf(" ++ Kingdom *%s*. SUCCESS. "
+                         + "Message was received by *%s* SUCCESS!!!%n", name, receiver.name());
+            } else {
+                System.out.printf(" -- Kingdom *%s*. NOT SUCCESS. "
+                         + "Message was received by *%s*, but WITH OUT SUCCESS!!!%n", name, receiver.name());
             }
             return raven;
         });
