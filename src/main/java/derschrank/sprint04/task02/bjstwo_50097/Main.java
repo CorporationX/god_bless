@@ -3,6 +3,7 @@ package derschrank.sprint04.task02.bjstwo_50097;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -29,17 +30,37 @@ public class Main {
     }
 
     private static List<Quest> getQuests() {
+        Object[] arrayOfQuestsParameters = getArrayOfQuestsParameters();
+        String[] names = (String[]) arrayOfQuestsParameters[0];
+        int[] difficulty = (int[]) arrayOfQuestsParameters[1];
+        int[] reward = (int[]) arrayOfQuestsParameters[2];
+
         List<Quest> quests = new ArrayList<>();
-        quests.add(new Quest("Defeat the Lich King", 10, 150));
-        quests.add(new Quest("Defeat the King Lich", 11, 150));
-        quests.add(new Quest("Defeat the Lich Lich King", 12, 150));
-        quests.add(new Quest("Defeat the King King Lich", 13, 150));
-        quests.add(new Quest("Defeat the Lich * King", 14, 250));
-        quests.add(new Quest("Retrieve the Sword of Azeroth", 8, 100));
-        quests.add(new Quest("Retrieve the Sword of Lich", 7, 100));
-        quests.add(new Quest("Retrieve the Sword of King", 6, 100));
-        quests.add(new Quest("Retrieve the Sword of Defeat", 5, 100));
-        quests.add(new Quest("Retrieve the Sword of King Azeroth", 9, 200));
+        for (int i = 0; i < names.length; i++) {
+            quests.add(new Quest(
+                    names[i],
+                    difficulty[i % difficulty.length],
+                    reward[i % reward.length]
+            ));
+        }
         return quests;
+    }
+
+    private static Object[] getArrayOfQuestsParameters() {
+        String[] names = new String[]{
+                "Defeat the Lich King",
+                "Defeat the King Lich",
+                "Defeat the Lich Lich King",
+                "Defeat the King King Lich",
+                "Defeat the Lich * King",
+                "Retrieve the Sword of Azeroth",
+                "Retrieve the Sword of Lich",
+                "Retrieve the Sword of King",
+                "Retrieve the Sword of Defeat",
+                "Retrieve the Sword of King Azeroth"};
+        int[] diffuculty = {10, 11, 12, 13, 14, 8, 7, 6, 5, 9};
+        int[] reward = {150, 150, 150, 150, 250, 100, 100, 100, 100, 200};
+
+        return new Object[]{names, diffuculty, reward};
     }
 }

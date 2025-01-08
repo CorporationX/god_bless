@@ -11,7 +11,6 @@ public class Player {
     private int level;
     private int experience;
 
-
     public synchronized void addExperience(int delta) {
         int levelup = (experience += delta) / EXPERIENCE_BY_LEVEL;
         if (levelup > 0) {
