@@ -11,25 +11,27 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class MasterCardService {
-    private static final int PAYMENT_TIME = 10000;
-    private static final int ANALYTICS_TIME = 1000;
+    private static final int PAYMENT_TIME = 2500;
+    private static final int ANALYTICS_TIME = 3000;
 
     @SneakyThrows
     public void doAll() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Integer> paymentResult = executorService.submit(this::collectPayment);
-        CompletableFuture<Integer> analyticResult = CompletableFuture.supplyAsync(this::sendAnalytics);
 
-        try {
-            log.info("Payment processing...");
-            paymentResult.get();
-            analyticResult.join();
-            log.info("Analytics have been sent");
-            executorService.shutdown();
-        } catch (ExecutionException | InterruptedException e) {
-            log.error("Processing interrupted");
-            executorService.shutdownNow();
-        }
+        CompletableFuture.supplyAsync(this::sendAnalytics)
+                .thenAccept(analyticData -> {
+                    log.info("Analytics {} have been sent", analyticData);
+
+                    Future<Integer> paymentResult = executorService.submit(this::collectPayment);
+                    try {
+                        log.info("Payment processing...");
+                        log.info("Payment of {} completed", paymentResult.get());
+                    } catch (ExecutionException | InterruptedException e) {
+                        log.error("Processing interrupted");
+                    } finally {
+                        executorService.shutdown();
+                    }
+                }).get();
     }
 
     private int collectPayment() {
