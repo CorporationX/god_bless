@@ -14,7 +14,7 @@ public class School {
     public int getTotalPoints() {
         int totalPoints = 0;
         for (Student student : team) {
-            totalPoints += student.getPoints();
+            totalPoints += student.getPoints().get();
         }
         return totalPoints;
     }

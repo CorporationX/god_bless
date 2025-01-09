@@ -21,12 +21,12 @@ class TournamentTest {
 
     @Test
     void testHoldTournament() {
-        int student1Points = STUDENT_1.getPoints() + TASK.getReward();
-        int student2Points = STUDENT_2.getPoints() + TASK.getReward();
+        int student1Points = STUDENT_1.getPoints().get() + TASK.getReward();
+        int student2Points = STUDENT_2.getPoints().get() + TASK.getReward();
 
         tournament.holdTournament(SCHOOL, TASK);
 
-        assertEquals(student1Points, STUDENT_1.getPoints());
-        assertEquals(student2Points, STUDENT_2.getPoints());
+        assertEquals(student1Points, STUDENT_1.getPoints().get());
+        assertEquals(student2Points, STUDENT_2.getPoints().get());
     }
 }

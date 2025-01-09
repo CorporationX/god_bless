@@ -12,8 +12,8 @@ class StudentTest {
 
     @Test
     void testAddPoints() {
-        int studentPoints = STUDENT.getPoints() + POINTS;
+        int studentPoints = STUDENT.getPoints().get() + POINTS;
         STUDENT.addPoints(POINTS);
-        assertEquals(studentPoints, STUDENT.getPoints());
+        assertEquals(studentPoints, STUDENT.getPoints().get());
     }
 }

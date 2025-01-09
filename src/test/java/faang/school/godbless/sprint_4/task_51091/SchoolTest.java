@@ -20,7 +20,7 @@ class SchoolTest {
     void testGetTotalPoints() {
         int totalPoints = 0;
         for (Student student : TEAM) {
-            totalPoints += student.getPoints();
+            totalPoints += student.getPoints().get();
         }
         assertEquals(totalPoints, school.getTotalPoints());
     }
