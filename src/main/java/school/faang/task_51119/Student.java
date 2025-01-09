@@ -4,13 +4,15 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Slf4j
 @Getter
 @ToString
 public class Student {
     private final String name;
     private final int year;
-    private int points;
+    private volatile int points;
 
     public Student(String name, int year, int points) {
         if (name.isEmpty()) {
@@ -21,7 +23,7 @@ public class Student {
         this.points = points;
     }
 
-    public void addPoints(int points) {
+    public synchronized void addPoints(int points) {
         this.points += points;
     }
 }
