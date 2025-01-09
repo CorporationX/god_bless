@@ -18,7 +18,7 @@ public class MilitaryBase implements Base {
     private final String name;
 
     private Future<?> future;
-    private boolean running;
+    private volatile boolean running;
 
     public MilitaryBase(String name) {
         running = false;

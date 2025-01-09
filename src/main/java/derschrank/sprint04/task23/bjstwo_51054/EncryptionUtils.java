@@ -1,15 +1,14 @@
 package derschrank.sprint04.task23.bjstwo_51054;
 
-import javax.crypto.BadPaddingException;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+@Slf4j
 public class EncryptionUtils {
     private static SecretKey KEY;
 
@@ -24,20 +23,21 @@ public class EncryptionUtils {
     }
 
     public static String encrypt(String message) {
-        String encryptedMessage = "* null * error *";
+        String encryptedMessage;
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, KEY);
             byte[] encryptedBytes = cipher.doFinal(message.getBytes());
             encryptedMessage = Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
-            System.out.println("encrypt... " + e);
+            log.error("Error in encrypt: " + e);
+            throw new RuntimeException("Error in encrypt!!!" + e);
         }
         return encryptedMessage;
     }
 
     public static String decrypt(String encryptedMessage) {
-        String decryptedMessage = "* null * error *";
+        String decryptedMessage;
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, KEY);
@@ -45,7 +45,8 @@ public class EncryptionUtils {
             byte[] decryptedBytes = cipher.doFinal(decodedBytes);
             decryptedMessage = new String(decryptedBytes);
         } catch (Exception e) {
-            System.out.println("decrypt... " + e);
+            log.error("Error in decrypt: " + e);
+            throw new RuntimeException("Error in decrypt!!!" + e);
         }
         return decryptedMessage;
     }
