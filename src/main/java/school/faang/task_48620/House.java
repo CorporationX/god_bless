@@ -10,6 +10,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 class House {
+    private static final int MIN_ROOMS_REQUIRED = 2;
+    private static final int THREAD_POOL_SIZE = 5;
+    private static final int INITIAL_DELAY = 0;
+    private static final int COLLECT_INTERVAL = 30; // seconds
+
     @Getter
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
@@ -20,26 +25,21 @@ class House {
     }
 
     public void collectFood() {
-        if (rooms.size() < 2) {
+        if (rooms.size() < MIN_ROOMS_REQUIRED) {
             System.out.println("В доме недостаточно комнат для сбора еды.");
             return;
         }
 
-        Room room1 = rooms.get(random.nextInt(rooms.size()));
-        Room room2 = rooms.get(random.nextInt(rooms.size()));
-
-        while (room1 == room2) {
-            room2 = rooms.get(random.nextInt(rooms.size()));
-        }
-
-        System.out.println("Сбор еды из комнат: " + room1.getName() + " и " + room2.getName());
+        List<Room> uniqueRooms = new ArrayList<>(rooms);
+        Room room1 = uniqueRooms.remove(random.nextInt(uniqueRooms.size()));
+        Room room2 = uniqueRooms.get(random.nextInt(uniqueRooms.size()));
 
         synchronized (this) {
+            List<Food> foodFromRoom1 = new ArrayList<>(room1.getFoodList());
+            List<Food> foodFromRoom2 = new ArrayList<>(room2.getFoodList());
+
             room1.getFoodList().clear();
             room2.getFoodList().clear();
-
-            List<Food> foodFromRoom2 = new ArrayList<>(room2.getFoodList());
-            List<Food> foodFromRoom1 = new ArrayList<>(room1.getFoodList());
 
             collectedFood.addAll(foodFromRoom1);
             collectedFood.addAll(foodFromRoom2);
@@ -51,15 +51,32 @@ class House {
     }
 
     public void startCollectingFood() {
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
-        Runnable task = this::collectFood;
+        Runnable collectFoodTask = this::collectFood;
 
-        executorService.scheduleAtFixedRate(task, 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(collectFoodTask, INITIAL_DELAY, COLLECT_INTERVAL, TimeUnit.SECONDS);
 
-        executorService.schedule(() -> {
-            executorService.shutdown();
-            System.out.println("Еда в доме собрана!");
-        }, 3, TimeUnit.MINUTES);
+        new Thread(() -> {
+            while (true) {
+                synchronized (this) {
+                    if (rooms.stream().allMatch(room -> room.getFoodList().isEmpty())) {
+                        executorService.shutdown();
+                        break;
+                    }
+                }
+
+                try {
+                    if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                        System.out.println("Еда в доме собрана!");
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("Главный поток был прерван.");
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }).start();
     }
 }
