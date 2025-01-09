@@ -14,18 +14,18 @@ public class Bank {
 
     private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
 
-    public boolean transfer(int fromAccountId, int toAccountId, double amount) {
+    public void transfer(int fromAccountId, int toAccountId, double amount) {
         Account fromAccount = accounts.get(fromAccountId);
         Account toAccount = accounts.get(toAccountId);
 
         if (fromAccount == null || toAccount == null) {
             log.error("One or both accounts do not exist");
-            return false;
+            return;
         }
 
         if (fromAccount.getBalance() < amount) {
             log.error("Insufficient balance in account {}", fromAccountId);
-            return false;
+            return;
         }
 
         Account firstLock;
@@ -49,7 +49,6 @@ public class Bank {
             log.info("Now the balance with id {} has increased: {}", toAccountId, toAccount.getBalance());
 
             log.info("Transfer completed");
-            return true;
 
         } finally {
             firstLock.getLock().unlock();

@@ -29,7 +29,7 @@ public class Main {
         try {
             allFutures.get();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            log.error("Error occurred while waiting for futures to complete", e);
         }
 
         bank.getTotalBalance();
