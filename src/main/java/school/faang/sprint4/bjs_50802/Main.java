@@ -2,12 +2,11 @@ package school.faang.sprint4.bjs_50802;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
@@ -27,30 +26,19 @@ public class Main {
                 new Task("Yule Ball Preparations", 5, 50));
 
         Tournament tournament = new Tournament();
-        ConcurrentHashMap<School, Task> magicTournament = new ConcurrentHashMap<>();
+        List<CompletableFuture<School>> startTournaments = new ArrayList<>();
         for (int i = 0; i < schools.size(); i++) {
-            magicTournament.put(schools.get(i), tasks.get(i));
+            startTournaments.add(tournament.startTask(schools.get(i), tasks.get(i)));
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(4);
-        List<CompletableFuture<School>> startTournament = magicTournament.entrySet().stream()
-                .map(entry -> tournament.startTask(entry.getKey(), entry.getValue(), executor))
-                .toList();
+        CompletableFuture<Void> allTournaments = CompletableFuture.allOf(
+                startTournaments.toArray(new CompletableFuture[0]));
+        allTournaments.join();
 
-        CompletableFuture<School> maxPointsSchool = CompletableFuture.allOf(
-                        startTournament.toArray(new CompletableFuture[0]))
-                .thenApply(schl -> startTournament.stream()
-                        .map(CompletableFuture::join)
-                        .max(Comparator.comparingInt(School::getTotalPoints))
-                        .orElse(null));
-        executor.shutdown();
+        Optional<School> winSchool = schools.stream()
+                .max(Comparator.comparingInt(School::getTotalPoints));
 
-        maxPointsSchool.thenAccept(winSchool -> {
-            if (winSchool != null) {
-                log.info("Winner: {} school with max points: {}", winSchool.name(), winSchool.getTotalPoints());
-            } else {
-                log.info("Wrong data");
-            }
-        });
+        log.info("Winner: {} school with max points: {}", winSchool.get().name(), winSchool.get().getTotalPoints());
+
     }
 }

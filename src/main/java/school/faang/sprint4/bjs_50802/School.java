@@ -12,7 +12,7 @@ public record School(String name, List<Student> team) {
 
     public void updatePoints(int reward) {
         for (Student student : team) {
-            student.setPoints(student.getPoints() + reward);
+            student.setPoints(reward);
         }
     }
 }
