@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class Student {
-    private final String nameStudent;
+    private final String name;
     private final int year;
     @Getter
     private int points;
