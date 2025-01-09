@@ -12,15 +12,11 @@ public class TwitterSubscriptionSystem {
         return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(SLEEP_TIME);
-                addFollower(account);
+                account.addFollower();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Process was interrupted");
             }
         });
-    }
-
-    private synchronized void addFollower(TwitterAccount account) {
-        account.setFollowers(account.getFollowers() + 1);
     }
 }
