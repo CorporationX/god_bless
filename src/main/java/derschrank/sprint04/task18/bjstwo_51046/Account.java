@@ -17,27 +17,15 @@ public record Account(
 
     public void deposit(double amount) {
         if (amount > 0) {
-            while (!lock.tryLock()) {
-                delayToTry(AWAIT_FOR_TRY_LOCK_MILLIS);
-            }
-            try {
-                balance.add(amount);
-            } finally {
-                lock.unlock();
-            }
+            balance.add(amount);
         }
     }
 
     public boolean withdraw(double amount) {
         if (amount > 0) {
-            lock.lock();
-            try {
-                if (amount < balance.doubleValue()) {
-                    balance.add((-1 * amount));
-                    return true;
-                }
-            } finally {
-                lock.unlock();
+            if (amount < balance.doubleValue()) {
+                balance.add((-1 * amount));
+                return true;
             }
         }
         return false;

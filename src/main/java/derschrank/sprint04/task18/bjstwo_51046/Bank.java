@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.DoubleAccumulator;
 import java.util.concurrent.atomic.DoubleAdder;
-import java.util.concurrent.locks.Lock;
 
 public class Bank {
+    private static final int AWAIT_FOR_TRY_LOCK_MILLIS = 100;
     private static final int PRINT_ACCOUNTS_IN_ROW = 10;
     private final Map<Integer, Account> accounts;
 
@@ -21,6 +20,38 @@ public class Bank {
     }
 
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
+        if (!validateTransfer(fromAccountId, toAccountId)) {
+            return false;
+        }
+
+        Account fromAccount = accounts.get(fromAccountId);
+        Account toAccount = accounts.get(toAccountId);
+        while (true) {
+            if (fromAccount.lock().tryLock()) {
+                try {
+                    if (toAccount.lock().tryLock()) {
+                        try {
+                            if (fromAccount.withdraw(amount)) {
+                                toAccount.deposit(amount);
+                                printSuccessTransfer(amount, fromAccountId, toAccountId);
+                                return true;
+                            } else {
+                                System.out.println("Insufficient funds: " + amount);
+                                return false;
+                            }
+                        } finally {
+                            toAccount.lock().unlock();
+                        }
+                    }
+                } finally {
+                    fromAccount.lock().unlock();
+                }
+            }
+            delayToTry(AWAIT_FOR_TRY_LOCK_MILLIS);
+        }
+    }
+
+    private boolean validateTransfer(int fromAccountId, int toAccountId) {
         if (fromAccountId == toAccountId) {
             System.out.println("Transfer from one account to the same account is not possible: " + fromAccountId);
             return false;
@@ -35,23 +66,13 @@ public class Bank {
             System.out.println("Account TO is not found by: " + toAccountId);
             return false;
         }
-        if (fromAccount.withdraw(amount)) {
-            toAccount.deposit(amount);
-            System.out.printf("The transfer %f was successfully completed from the account %d to the account %d%n",
-                    amount,
-                    fromAccount.id(),
-                    toAccount.id());
-            return true;
-        } else {
-            System.out.println("Insufficient funds: " + amount);
-            return false;
-        }
+        return true;
     }
 
     public double getTotalBalance() {
         DoubleAdder total = new DoubleAdder();
         accounts.values().forEach(account ->
-            total.add(account.getBalance())
+                total.add(account.getBalance())
         );
         return total.doubleValue();
     }
@@ -67,5 +88,21 @@ public class Bank {
         if ((accountsList.size() - 1) % PRINT_ACCOUNTS_IN_ROW != 0) {
             System.out.print("\n");
         }
+    }
+
+    private void delayToTry(int delay) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            System.out.println("Deposit was interrupted: " + e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private static void printSuccessTransfer(double amount, int fromAccountId, int toAccountId) {
+        System.out.printf("The transfer %f was successfully completed from the account %d to the account %d%n",
+                amount,
+                fromAccountId,
+                toAccountId);
     }
 }
