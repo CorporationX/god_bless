@@ -10,6 +10,7 @@ public class Main {
     private static final int COUNT_OF_BASE = 5;
     private static final int COUNT_OF_TRANSMISSION = 5;
     private static final int TIME_BETWEEN_MESSAGES_MILLIS = 300;
+    private static List<CompletableFuture<Void>> futuresBases;
 
     public static void main(String[] args) {
         List<Base> bases = generateBase(COUNT_OF_BASE);
@@ -30,9 +31,9 @@ public class Main {
     }
 
     private static void startBases(List<Base> bases) {
-        bases.stream()
+        futuresBases = bases.stream()
                 .map(CompletableFuture::runAsync)
-                .forEach(CompletableFuture::join);
+                .toList();
     }
 
     private static void transmitMessage(List<Base> bases) {
@@ -68,6 +69,7 @@ public class Main {
 
     private static void stopBases(List<Base> bases) {
         bases.forEach(Base::stop);
+        futuresBases.forEach(CompletableFuture::join);
     }
 
     private static void doSleep(int delayMillis) {
@@ -78,5 +80,4 @@ public class Main {
             ;
         }
     }
-
 }

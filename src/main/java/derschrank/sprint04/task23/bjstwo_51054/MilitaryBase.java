@@ -10,21 +10,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MilitaryBase implements Base {
-    private static final int DELAY_SEC = 0;
     private static final int FREQUENCY_SEC = 1;
 
-    private final ScheduledExecutorService executor;
     private final Queue<String> inbox;
     private final String name;
 
-    private Future<?> future;
     private volatile boolean running;
 
     public MilitaryBase(String name) {
         running = false;
         this.name = name;
         inbox = new LinkedBlockingQueue<>();
-        executor = Executors.newSingleThreadScheduledExecutor();
     }
 
     @Override
@@ -43,9 +39,6 @@ public class MilitaryBase implements Base {
     @Override
     public void stop() {
         running = false;
-        Optional.ofNullable(future).ifPresent(f -> f.cancel(true));
-        Optional.ofNullable(executor).ifPresent(ExecutorService::shutdownNow);
-        System.out.printf("Base: %s is STOPPED for receive messages.%n", name);
     }
 
     @Override
@@ -67,13 +60,21 @@ public class MilitaryBase implements Base {
     @Override
     public void run() {
         running = true;
-        future = executor.scheduleAtFixedRate(
-                () -> checkNewMessages(),
-                DELAY_SEC,
-                FREQUENCY_SEC,
-                TimeUnit.SECONDS
-        );
         System.out.printf("Base: %s is RUNNING for receive messages.%n", name);
+        while (running && !Thread.currentThread().isInterrupted()) {
+            checkNewMessages();
+            doSleep(FREQUENCY_SEC);
+        }
+        System.out.printf("Base: %s is STOPPED for receive messages.%n", name);
+    }
+
+    private void doSleep(int delaySec) {
+        try {
+            Thread.sleep(delaySec * 1000);
+        } catch (InterruptedException e) {
+            System.out.println("Was interrupted: " + e);
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override
