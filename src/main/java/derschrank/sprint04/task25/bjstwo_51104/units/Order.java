@@ -2,9 +2,7 @@ package derschrank.sprint04.task25.bjstwo_51104.units;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 public class Order {
@@ -12,14 +10,10 @@ public class Order {
     private final List<Product> products;
     private int discount;
 
-    private boolean isProcessed;
-    private Optional<PromoCode> promoCodeOpt;
-
     public Order(String num, List<Product> products) {
         number = num;
         this.products = products;
         discount = 0;
-        promoCodeOpt = Optional.empty();
     }
 
     public double getTotalPrice() {
@@ -30,24 +24,10 @@ public class Order {
         return getTotalPrice() * (100 - discount) / 100;
     }
 
-    public void applyDiscount(PromoCode promoCode) {
-        promoCodeOpt = Optional.of(promoCode);
-        int disc = promoCode.getDiscount();
-        if (disc > 0 && disc <= 100) {
-            this.discount = disc;
+    public void applyDiscount(int discount) {
+        if (discount > 0 && discount <= 100) {
+            this.discount = discount;
         }
-    }
-
-    public void processing() {
-        isProcessed = true;
-    }
-
-    public boolean hasDiscount() {
-        return discount > 0;
-    }
-
-    public boolean isProcessed() {
-        return isProcessed;
     }
 
     @Override

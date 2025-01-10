@@ -27,17 +27,14 @@ public class DeliveryService {
     }
 
     public void processOrder(Order order, List<String> usersPromoCodes) {
-        if (!order.isProcessed()) {
-            implementPromoCode(order, usersPromoCodes);
-            order.processing();
-            processedOrders.add(order);
-            toDelivery(order);
-        }
+        implementPromoCode(order, usersPromoCodes);
+        processedOrders.add(order);
+        toDelivery(order);
     }
 
     private void implementPromoCode(Order order, List<String> usersPromoCodes) {
         if (!promoCodes.isEmpty()
-                && !order.hasDiscount()) {
+                && order.getDiscount() == 0) {
             Optional<PromoCode> promoOpt = usersPromoCodes.stream()
                     .map(promoCodes::get)
                     .filter(promo -> promo.isValidForOrder(order))
@@ -49,8 +46,7 @@ public class DeliveryService {
 
     private void usePromoCodeForOrder(PromoCode promoCode, Order order) {
         if (promoCode.markAsUsed(order)) {
-            //System.out.printf("Using promo: %s for order: %s%n", promoCode, order);
-            order.applyDiscount(promoCode);
+            order.applyDiscount(promoCode.getDiscount());
             promoCodes.remove(promoCode);
             usedPromoCodes.add(promoCode);
         }
@@ -58,12 +54,11 @@ public class DeliveryService {
 
     private void toDelivery(Order order) {
         System.out.printf(
-                "To delivery: %s, price: %.2f, discount: %d, price with discount %.2f (promo: %s) is processed.%n",
+                "To delivery: %s, price: %.2f, discount: %d, price with discount %.2f is processed.%n",
                 order.getNumber(),
                 order.getTotalPrice(),
                 order.getDiscount(),
-                order.getTotalPriceWithDiscount(),
-                (order.getPromoCodeOpt().isPresent() ? "**" + order.getPromoCodeOpt().get().getCode() + "**" : "none")
+                order.getTotalPriceWithDiscount()
         );
     }
 
