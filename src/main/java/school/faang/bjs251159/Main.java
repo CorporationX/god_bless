@@ -33,7 +33,7 @@ public class Main {
                 }))
                 .toList());
 
-/*      CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        /* CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         CompletableFuture<Void> post1 = CompletableFuture.runAsync(() -> postService.addPost(postA));
         CompletableFuture<Void> post2 = CompletableFuture.runAsync(() -> postService.addPost(postB));
@@ -45,7 +45,7 @@ public class Main {
         CompletableFuture<Void> comment3 = CompletableFuture.runAsync(() ->
                 postService.addComment(1, commentC));
 
-        CompletableFuture.allOf(post1, post2, comment1, comment2, comment3).join();*/
+        CompletableFuture.allOf(post1, post2, comment1, comment2, comment3).join();  */
 
         postService.printPosts();
     }
