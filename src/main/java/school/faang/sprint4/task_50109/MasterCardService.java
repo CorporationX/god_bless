@@ -1,8 +1,6 @@
 package school.faang.sprint4.task_50109;
 
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.*;
 
 @Slf4j
@@ -29,18 +27,22 @@ public class MasterCardService {
             throw new RuntimeException();
         }
     }
+
     static void doAll() {
         // collect payment
         Future<Integer> futurePayment = threadPool.submit(MasterCardService::collectPayment);
         // send analytics
-        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, threadPool);
+        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(
+                MasterCardService::sendAnalytics,
+                threadPool
+        );
         futureAnalytics.thenAccept((analyticsSeconds) -> {
             System.out.println("аналитика отправлена : " + analyticsSeconds);
         }).join();
         try {
             Integer paymentSeconds = futurePayment.get();
             System.out.println("платеж отправлен : " + paymentSeconds);
-        } catch (InterruptedException | ExecutionException e){
+        } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }
         threadPool.shutdown();
