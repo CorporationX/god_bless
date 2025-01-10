@@ -36,7 +36,7 @@ public class Bank {
                                 printSuccessTransfer(amount, fromAccountId, toAccountId);
                                 return true;
                             } else {
-                                System.out.println("Insufficient funds: " + amount);
+                                printNotSuccessTransfer(amount);
                                 return false;
                             }
                         } finally {
@@ -104,5 +104,9 @@ public class Bank {
                 amount,
                 fromAccountId,
                 toAccountId);
+    }
+
+    private static void printNotSuccessTransfer(double amount) {
+        System.out.println("Insufficient funds: " + amount);
     }
 }
