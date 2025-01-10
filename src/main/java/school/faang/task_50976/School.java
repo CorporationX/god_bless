@@ -12,9 +12,6 @@ public class School {
     private List<Student> team;
 
     public int getTotalPoints() {
-        return team.stream()
-                .map(Student::getPoints)
-                .reduce(0, Integer::sum);
-
+        return team.stream().mapToInt(Student::getPoints).sum();
     }
 }
