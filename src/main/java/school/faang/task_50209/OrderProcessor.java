@@ -1,21 +1,22 @@
 package school.faang.task_50209;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public void processAllOrders(List<Order> orders) {
-        // Список для хранения CompletableFuture задач
         CompletableFuture<?>[] futures = orders.stream()
                 .map(this::processOrder)
                 .toArray(CompletableFuture[]::new);
 
         CompletableFuture.allOf(futures).join();
-
-        System.out.println("Обработано заказов: " + totalProcessedOrders.get());
+        log.info("Обработано заказов: {}", totalProcessedOrders.get());
     }
 
     public CompletableFuture<Void> processOrder(Order order) {
@@ -26,7 +27,7 @@ class OrderProcessor {
                 totalProcessedOrders.incrementAndGet();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.err.println("Ошибка при обработке заказа: " + order.getId());
+                log.error("Ошибка при обработке заказа с ID {}", order.getId(), e);
             }
         });
     }
