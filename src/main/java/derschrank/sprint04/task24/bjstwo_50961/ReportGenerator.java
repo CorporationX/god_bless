@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class ReportGenerator {
-    public static List<SalesData> generateReport(List<Integer> stores) {
+    List<SalesData> salesDataList;
+    public void generateReport(List<Integer> stores) {
         final int countOfStores = stores.size();
         final CountDownLatch latch = new CountDownLatch(countOfStores);
 
@@ -16,9 +17,12 @@ public class ReportGenerator {
 
         latchAwait(latch);
 
-        return collectors.stream()
+        salesDataList = collectors.stream()
                 .map(Collector::fetchSalesFromStore)
                 .toList();
+
+        System.out.println("REPORT OF STORES:");
+        salesDataList.forEach(System.out::println);
     }
 
     private static void latchAwait(CountDownLatch latch) {

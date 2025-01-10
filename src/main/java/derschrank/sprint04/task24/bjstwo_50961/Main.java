@@ -9,10 +9,7 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> stores = generateStores(COUNT_OF_STORES);
 
-        List<SalesData> data = ReportGenerator.generateReport(stores);
-
-        System.out.println("REPORT OF STORES:");
-        data.forEach(System.out::println);
+        new ReportGenerator().generateReport(stores);
     }
 
     private static List<Integer> generateStores(int count) {
