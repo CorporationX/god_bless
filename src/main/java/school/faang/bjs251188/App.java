@@ -6,6 +6,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
 public class App {
+    private static final int LOW_RANGE = 0;
+    private static final int UPPER_RANGE = 3;
+
     public static void main(String[] args) {
 
         CollaborativeDocument collaborativeDocument = new CollaborativeDocument();
@@ -14,7 +17,7 @@ public class App {
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        IntStream.range(0, 3)
+        IntStream.range(LOW_RANGE, UPPER_RANGE)
                 .mapToObj(i -> new DocumentSection(i, collaborativeDocument))
                 .forEach(documentSection ->
                         futures.add(CompletableFuture.runAsync(new DocumentSectionProcessor(documentSection))));
