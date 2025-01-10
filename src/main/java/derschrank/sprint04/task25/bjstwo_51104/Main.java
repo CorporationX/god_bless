@@ -84,12 +84,12 @@ public class Main {
 
     private static void generateOrdersAndImplementItForUser(User user) {
         for (int i = 1; i <= COUNT_OF_ORDERS_BY_USER; i++) {
-            Order order = new Order("O-" + user.name() + "-" + i);
-            user.addOrder(order);
-
+            List<Product> productsInOrder = new ArrayList<>();
             for (int p = 0; p <= i; p++) {
-                order.addProduct(products[p % products.length]);
+                productsInOrder.add(products[p % products.length]);
             }
+            Order order = new Order("O-" + user.name() + "-" + i, productsInOrder);
+            user.addOrder(order);
         }
     }
 

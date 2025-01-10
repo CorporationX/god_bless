@@ -15,15 +15,11 @@ public class Order {
     private boolean isProcessed;
     private Optional<PromoCode> promoCodeOpt;
 
-    public Order(String num) {
+    public Order(String num, List<Product> products) {
         number = num;
-        products = new ArrayList<>();
+        this.products = products;
         discount = 0;
         promoCodeOpt = Optional.empty();
-    }
-
-    public synchronized void addProduct(Product product) {
-        products.add(product);
     }
 
     public double getTotalPrice() {

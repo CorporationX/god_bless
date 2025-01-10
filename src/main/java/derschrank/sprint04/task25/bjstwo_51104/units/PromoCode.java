@@ -14,8 +14,8 @@ public class PromoCode {
     private final int discount;
     private final LocalDate expirationDate;
     private final double minimumOrderValue;
-    private boolean isUsed;
-    private Order isUsedForOrder;
+    private volatile boolean isUsed;
+    private volatile Order isUsedForOrder;
 
     public PromoCode(String code) {
         this(code, DEFAULT_DISCOUNT, DEFAULT_MINIMUM_ORDER);
