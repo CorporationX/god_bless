@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class ReportGenerator {
-    List<SalesData> salesDataList;
+    private List<SalesData> salesDataList;
+
     public void generateReport(List<Integer> stores) {
         final int countOfStores = stores.size();
         final CountDownLatch latch = new CountDownLatch(countOfStores);
