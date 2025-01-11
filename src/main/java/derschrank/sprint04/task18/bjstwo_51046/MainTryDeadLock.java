@@ -9,7 +9,7 @@ public class MainTryDeadLock {
     private static final int COUNT_OF_ACCOUNTS = 2;
     private static final int DEFAULT_DEPOSIT = 1000;
     private static final int DEFAULT_DEPOSIT_TRY = 1;
-    private static final int COUNT_OF_TRY = 1000;
+    private static final int COUNT_OF_TRY = 1000000;
 
     public static void main(String[] args) {
         Bank bank = new Bank();

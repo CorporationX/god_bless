@@ -26,10 +26,21 @@ public class Bank {
 
         Account fromAccount = accounts.get(fromAccountId);
         Account toAccount = accounts.get(toAccountId);
+
+        Account firstLock;
+        Account secondLock;
+        if (fromAccountId < toAccountId) {
+            firstLock = fromAccount;
+            secondLock = toAccount;
+        } else {
+            firstLock = toAccount;
+            secondLock = fromAccount;
+        }
+
         while (true) {
-            if (fromAccount.lock().tryLock()) {
+            if (firstLock.lock().tryLock()) {
                 try {
-                    if (toAccount.lock().tryLock()) {
+                    if (secondLock.lock().tryLock()) {
                         try {
                             if (fromAccount.withdraw(amount)) {
                                 toAccount.deposit(amount);
@@ -40,11 +51,11 @@ public class Bank {
                                 return false;
                             }
                         } finally {
-                            toAccount.lock().unlock();
+                            secondLock.lock().unlock();
                         }
                     }
                 } finally {
-                    fromAccount.lock().unlock();
+                    firstLock.lock().unlock();
                 }
             }
             delayToTry(AWAIT_FOR_TRY_LOCK_MILLIS);
