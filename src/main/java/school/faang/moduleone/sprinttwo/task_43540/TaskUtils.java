@@ -13,8 +13,7 @@ public class TaskUtils {
     public static Set<Set<String>> findPairsWithCommonFriends(Map<String, List<String>> source) {
         Set<Set<String>> result = new HashSet<>();
 
-        for (Map.Entry<String, List<String>> entry : source.entrySet()) {
-            List<String> everyPersonFriends = entry.getValue();
+        source.forEach((key, everyPersonFriends) -> {
             for (int i = 0; i < everyPersonFriends.size(); i++) {
                 String friend = everyPersonFriends.get(i);
                 everyPersonFriends.stream()
@@ -22,7 +21,7 @@ public class TaskUtils {
                         .filter(it -> !source.get(it).contains(friend))
                         .forEach(it -> result.add(Set.of(friend, it)));
             }
-        }
+        });
         return result;
     }
 
