@@ -11,7 +11,7 @@
     </appender>
     <appender name="CONSOLE_DEBUG" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>🟪%level › %msg%n</pattern>
+            <pattern>%level › %logger{0} › %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -21,7 +21,7 @@
     </appender>
     <appender name="CONSOLE_WARN" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>🟨%level › %msg%n</pattern>
+            <pattern>%level › %logger{0} › %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>WARN</level>
@@ -31,7 +31,7 @@
     </appender>
     <appender name="CONSOLE_ERROR" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>🟥%level › %msg%n</pattern>
+            <pattern>%level › %logger{0} › %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
