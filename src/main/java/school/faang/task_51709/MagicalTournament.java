@@ -8,8 +8,10 @@ public class MagicalTournament {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
-        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
-        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
+        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0),
+                new Student("Hermione", 5, 0));
+        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0),
+                new Student("Gabrielle", 6, 0));
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
@@ -26,8 +28,10 @@ public class MagicalTournament {
                 School completedHogwarts = hogwartsTask.get();
                 School completedBeauxbatons = beauxbatonsTask.get();
 
-                System.out.println(completedHogwarts.getName() + " total points: " + completedHogwarts.getTotalPoints());
-                System.out.println(completedBeauxbatons.getName() + " total points: " + completedBeauxbatons.getTotalPoints());
+                System.out.println(completedHogwarts.getName() + " total points: "
+                        + completedHogwarts.getTotalPoints());
+                System.out.println(completedBeauxbatons.getName() + " total points: "
+                        + completedBeauxbatons.getTotalPoints());
 
                 if (completedHogwarts.getTotalPoints() > completedBeauxbatons.getTotalPoints()) {
                     System.out.println("Winner: " + completedHogwarts.getName());
