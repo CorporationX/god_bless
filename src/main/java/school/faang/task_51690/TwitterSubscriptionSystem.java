@@ -21,8 +21,7 @@ public class TwitterSubscriptionSystem {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 
-        allTasks.thenRun(() -> {
-            System.out.println("Final follower count for " + account.getUsername() + ": " + account.getFollowers());
-        }).join();
+        allTasks.thenRun(() -> System.out.println("Final follower count for "
+                + account.getUsername() + ": " + account.getFollowers())).join();
     }
 }
