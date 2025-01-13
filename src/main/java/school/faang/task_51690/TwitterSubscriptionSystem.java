@@ -8,7 +8,8 @@ public class TwitterSubscriptionSystem {
     public CompletableFuture<Void> followAccount(TwitterAccount account) {
         return CompletableFuture.runAsync(() -> {
             account.addFollower();
-            System.out.println("Added a follower to " + account.getUsername() + ". Total followers: " + account.getFollowers());
+            System.out.println("Added a follower to " + account.getUsername()
+                    + ". Total followers: " + account.getFollowers());
         });
     }
 
