@@ -19,13 +19,18 @@ public class Vehicle {
     }
 
     public void updateStatus(Status newStatus) {
-        System.out.printf("Vehicle: %s. Status was updated. Old: %s, new: %s%n",
-                id, status, this.status = newStatus);
+        logUpdate("Status", status, newStatus);
+        status = newStatus;
     }
 
     public void updateLocation(Location newLocation) {
-        System.out.printf("Vehicle: %s. Location was updated. Old: %s, new: %s%n",
-                id, location, this.location = newLocation);
+        logUpdate("Location", location, newLocation);
+        location = newLocation;
+    }
+
+    private void logUpdate(String type, Object oldValue, Object newValue) {
+        System.out.printf("Vehicle: %s. %s was updated. Old: %s, new: %s%n",
+                id, type, oldValue, newValue);
     }
 
     @Override
