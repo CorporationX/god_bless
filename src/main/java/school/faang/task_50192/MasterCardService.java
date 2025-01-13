@@ -27,6 +27,11 @@ public class MasterCardService {
         }
     }
 
+    public static void main(String[] args) {
+        MasterCardService service = new MasterCardService();
+        service.doAll();
+    }
+
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -46,10 +51,5 @@ public class MasterCardService {
         } finally {
             executor.shutdown();
         }
-    }
-
-    public static void main(String[] args) {
-        MasterCardService service = new MasterCardService();
-        service.doAll();
     }
 }
