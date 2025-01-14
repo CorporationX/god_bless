@@ -55,7 +55,8 @@ public class PostService {
         try {
             for (Post post : posts) {
                 if (post.getId() == postId) {
-                    post.getComments().removeIf(comment -> comment.getAuthor().equals(commentAuthor) && commentAuthor.equals(removingUser));
+                    post.getComments().removeIf(comment -> comment.getAuthor().equals(commentAuthor)
+                            && commentAuthor.equals(removingUser));
                     System.out.println("Comment removed by author " + removingUser);
                     return;
                 }

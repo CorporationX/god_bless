@@ -5,7 +5,8 @@ public class FacebookCommentSystem {
         PostService postService = new PostService();
 
         Runnable user1 = () -> {
-            Post post = new Post(1, "First Post", "This is the content of the first post.", "User1");
+            Post post = new Post(1, "First Post",
+                    "This is the content of the first post.", "User1");
             postService.addPost(post);
             postService.addComment(1, new Comment("Great post!", "User2"));
             postService.addComment(1, new Comment("Thanks for sharing!", "User3"));
