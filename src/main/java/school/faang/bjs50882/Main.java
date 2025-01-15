@@ -27,7 +27,7 @@ public class Main {
                 potionsFuture.stream()
                         .map(potionFuture -> {
                             try {
-                                return potionFuture.get().getIngredientNumber();
+                                return potionFuture.get().ingredientNumber();
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -37,12 +37,10 @@ public class Main {
 
     public static CompletableFuture<Potion> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
-            for (int i = 1; i <= potion.getIngredientNumber(); i++) {
-                try {
-                    Thread.sleep(INGREDIENT_SEARCH_TIME);
-                } catch (InterruptedException e) {
-                    log.info("Error while collecting ingredients for {}", potion.getName());
-                }
+            try {
+                Thread.sleep(potion.ingredientNumber() * INGREDIENT_SEARCH_TIME);
+            } catch (InterruptedException e) {
+                log.error("Interrupted while collecting potion");
             }
             return potion;
         });
