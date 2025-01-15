@@ -8,5 +8,6 @@ public class Main {
         User notValidAge = new User("Zhanna", 8, "Google", "London");
         User notValidJob = new User("Zhanna", 8, "OneZero", "London");
         User notValidAddress = new User("Zhanna", 8, "Google", "France");
+        System.out.println("test");
     }
 }
