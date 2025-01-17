@@ -16,7 +16,7 @@ public class TestClass {
             default:
                 System.out.println("not found");
         }
-        if (i<5) {
+        if (i < 5) {
             System.out.println("incorrect style");
         }
     }
