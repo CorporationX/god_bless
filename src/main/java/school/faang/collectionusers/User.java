@@ -1,21 +1,30 @@
 package school.faang.collectionusers;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
 @AllArgsConstructor
 public class User {
-    private int id;
-    private String name;
-    private int age;
-    private Set<String> activities;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> activities;
 
+    /**
+     * Метод для поиска пользователей, у которых есть совпадения по активностям.
+     *
+     * @param users      Список пользователей.
+     * @param hobbies Множество активностей для поиска.
+     * @return Мапа, где ключ — пользователь, значение — совпавшая активность.
+     */
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
@@ -29,4 +38,3 @@ public class User {
         return hobbyLovers;
     }
 }
-
