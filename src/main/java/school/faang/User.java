@@ -1,10 +1,13 @@
 package school.faang;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class User {
     private final String name;
     private final int age;
@@ -29,11 +32,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("User{")
+                .append("name='").append(name).append('\'')
+                .append(", age=").append(age)
+                .append(", workplace='").append(workplace).append('\'')
+                .append(", address='").append(address).append('\'')
+                .append('}');
+        return sb.toString();
     }
 }
