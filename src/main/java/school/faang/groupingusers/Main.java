@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-
     private static final String AGE_FORMAT = "Age %d:\n";
     private static final String NAME_FORMAT = "Name: %s, ";
     private static final String WORKPLACE_FORMAT = "workplace: %s, ";

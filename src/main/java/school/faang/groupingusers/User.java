@@ -24,7 +24,7 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
         if (listUsers.isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
+            throw new NullPointerException("List is empty");
         }
         Map<Integer, List<User>> usersByAge = new HashMap<>();
 
