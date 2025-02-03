@@ -12,7 +12,7 @@ public class Main {
                 new User("Olga", 30, "Amazon", "Washington")
         );
 
-       Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey());
