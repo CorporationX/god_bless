@@ -1,6 +1,8 @@
 package school.faang.service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class User {
     private final int id;
@@ -16,7 +18,7 @@ public class User {
         this.hobbies = hobby;
     }
 
-    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         HashMap<User, String> result = new HashMap<>();
         for (User user : users) {
             for (String hobby : hobbies) {
