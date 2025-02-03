@@ -31,6 +31,7 @@ public class User {
             }
         }
     }
+
     public static void main(String[] args) {
 
         ArrayList<User> users = new ArrayList<>();
@@ -46,8 +47,5 @@ public class User {
         users.add(artem);
         users.add(maria);
         groupUser(users);
-
-
-
     }
 }
