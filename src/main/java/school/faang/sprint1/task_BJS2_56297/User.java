@@ -21,8 +21,9 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> foundUsers = new HashMap<>();
 
-        if (users.isEmpty()) return foundUsers;
-        if (hobbies.isEmpty()) return foundUsers;
+        if (users.isEmpty() || hobbies.isEmpty()) {
+            return foundUsers;
+        }
 
         for (User user : users) {
             for (String hobby : hobbies) {
