@@ -9,8 +9,8 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         User user1 = new User("Ivan", 25, "Sber", "Moscow");
-        User user3 = new User("Ira", 23, "Avito", "Novosibirsk");
         User user2 = new User("Roman", 25, "Yandex", "Moscow");
+        User user3 = new User("Ira", 23, "Avito", "Novosibirsk");
         User user4 = new User("Sasha", 24, "Sber", "Moscow");
         User user5 = new User("Max", 25, "Avito", "Novgorod");
         User user6 = new User("Daria", 24, "Megafon", "Moscow");
