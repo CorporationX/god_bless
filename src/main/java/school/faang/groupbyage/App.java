@@ -17,10 +17,10 @@ public class App {
         User tanya = new User("Tanya", 30, "Компания 1", "789 Maple Ave");
         User masha = new User("Masha", 25, "Компания 1", "101 Oak St");
 
-        List<User> users = Arrays.asList(alice, bob, stepan, danya, david, anton, vova,
+        List<User> users = List.of(alice, bob, stepan, danya, david, anton, vova,
                 petya, tanya, masha);
 
-        Map<Integer, List<User>> result = User.qroupUsers(users);
+        Map<Integer, List<User>> result = User.groupUsers(users);
 
         for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             Integer age = entry.getKey();

@@ -52,21 +52,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return String.format("User {name=%s, age=%d, workplace=%s, address=%s}",
+                name, age, workplace, address);
     }
 
-    public static Map<Integer, List<User>> qroupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-            if (!result.containsKey(age)) {
-                result.put(age, new ArrayList<User>());
-            }
+            result.putIfAbsent(age, new ArrayList<User>());
             result.get(age).add(user);
         }
         return result;
