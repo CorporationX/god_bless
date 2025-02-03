@@ -6,8 +6,8 @@ import lombok.ToString;
 
 import java.util.Set;
 
-@Getter
 @Setter
+@Getter
 @ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
