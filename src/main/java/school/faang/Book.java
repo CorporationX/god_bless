@@ -27,7 +27,7 @@ public class Book {
 
     public void validateYear(int year) {
         if (year > Year.now().getValue()) {
-            throw new IllegalArgumentException("Year can't be less than 2025");
+            throw new IllegalArgumentException("The year can't be more than 2025.");
         }
     }
 
