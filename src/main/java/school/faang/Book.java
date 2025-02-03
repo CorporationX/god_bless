@@ -4,6 +4,7 @@ package school.faang;
 import lombok.ToString;
 
 import java.time.Year;
+import java.util.Objects;
 
 @ToString
 public class Book {
@@ -42,16 +43,12 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         Book book = (Book) obj;
-        return (year == book.year &&
-                title.equals(book.title) &&
-                author.equals(book.author));
+        return Objects.equals(year, book.year) && Objects.equals(title, book.title)
+                && Objects.equals(author, book.author);
     }
 
     @Override
