@@ -14,12 +14,12 @@ public class User {
     private String location;
 
     public static void groupUser(ArrayList<User> users) {
-        Map<Integer, ArrayList<User>> userMap = new HashMap<Integer, ArrayList<User>>();
+        Map<Integer, ArrayList<User>> userMap = new HashMap<>();
         for (User user : users) {
             if (!userMap.containsKey(user.age)) {
                 userMap.put(user.age, new ArrayList<>());
             }
-            userMap.get(user.age).add(user);;
+            userMap.get(user.age).add(user);
         }
         for (Map.Entry<Integer, ArrayList<User>> entry : userMap.entrySet()) {
             Integer key = entry.getKey();
@@ -33,7 +33,7 @@ public class User {
     }
     public static void main(String[] args) {
 
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         User andrew = new User("Andrew", 45, "Service", "Novosibirsk");
         User artur = new User("Artur", 35, "Five Group", "Tomsk");
         User angelina = new User("Angelina", 21, "IT-Company", "Moscow");
