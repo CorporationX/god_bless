@@ -25,16 +25,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User: " +
+                "name: '" + name + '\'' +
+                ", age: " + age +
+                ", workplace: '" + workplace + '\'' +
+                ", address: '" + address + '\'';
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-       Map<Integer, List<User>> groupedUsers = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
             List<User> userList = groupedUsers.get(user.getAge());
             if (userList != null) {

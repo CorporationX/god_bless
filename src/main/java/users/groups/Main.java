@@ -2,6 +2,7 @@ package users.groups;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +13,9 @@ public class Main {
         users.add(new User("David", 30, "Apple", "los Angeles"));
         users.add(new User("John", 35, "Microsoft", "Portland"));
 
-        System.out.println(User.groupUsers(users));
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
+        for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
     }
 }
