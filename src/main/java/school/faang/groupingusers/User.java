@@ -23,6 +23,9 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
+        if (listUsers.isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
         Map<Integer, List<User>> usersByAge = new HashMap<>();
 
         for (User user : listUsers) {
@@ -30,8 +33,7 @@ public class User {
             if (usersByAge.containsKey(age)) {
                 usersByAge.get(age).add(user);
             } else {
-                usersByAge.put(age, new ArrayList<>());
-                usersByAge.get(age).add(user);
+                usersByAge.computeIfAbsent(age, key -> new ArrayList<>()).add(user);
             }
         }
         return usersByAge;
