@@ -1,21 +1,14 @@
 package school.faang;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        User pavel = new User("Павел", 31, "yandex", "Moscow");
-        User semen = new User("Семен", 12, "yandex", "Orlov");
-        User anton = new User("Антон", 75, "yandex", "Krasnodar");
-        User ivan = new User("Иван", 12, "yandex", "Adler");
-        User nikolai = new User("Николай", 57, "yandex", "Moscow");
-        List<User> users = new ArrayList<>();
-        users.add(pavel);
-        users.add(semen);
-        users.add(anton);
-        users.add(ivan);
-        users.add(nikolai);
+       List<User> users = List.of(new User("Павел", 31, "yandex", "Moscow"),
+                new User("Семен", 12, "yandex", "Orlov"),
+                new User("Антон", 75, "yandex", "Krasnodar"),
+                new User("Иван", 12, "yandex", "Adler"),
+                new User("Николай", 57, "yandex", "Moscow"));
 
         System.out.println(User.groupUsers(users));
 
