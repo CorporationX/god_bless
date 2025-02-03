@@ -6,17 +6,17 @@ import lombok.ToString;
 
 import java.util.Set;
 
-@Getter
-@Setter
+@Getter @Setter
 @ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         if (!name.isBlank()) {
@@ -24,10 +24,10 @@ public class User {
         } else {
             throw new IllegalArgumentException("Name cannot be blank.");
         }
-        if (age >= 18) {
+        if (age >= MIN_AGE) {
             this.age = age;
         } else {
-            throw new IllegalArgumentException("Age cannot be greater than 18.");
+            throw new IllegalArgumentException("Age cannot be less than 18.");
         }
         if (VALID_JOBS.contains(job)) {
             this.job = job;
