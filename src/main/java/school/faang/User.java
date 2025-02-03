@@ -26,8 +26,8 @@ public class User {
             ArrayList<User> userList = entry.getValue();
             System.out.println(key + " Age: ");
             for (User user : userList) {
-                System.out.println( "Name: " + user.name + " , age: " + user.age +
-                        " , work: " + user.work + " , location: " + user.location );
+                System.out.println("Name: " + user.name + " , age: " + user.age +
+                        " , work: " + user.work + " , location: " + user.location);
             }
         }
     }
