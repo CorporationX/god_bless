@@ -25,7 +25,7 @@ public class User {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.activities = new HashSet<>(activities);;
+        this.activities = new HashSet<>(activities);
     }
 
     public int getId() {
