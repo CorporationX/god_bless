@@ -4,8 +4,16 @@ import org.junit.jupiter.api.Test;
 import school.faang.registeringusers.User;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class UserTest {
+
+    @Test
+    public void testUserPositive() {
+        assertDoesNotThrow(() ->
+                new User("Maxim", 26, "Google", "New York"));
+    }
+
     @Test
     public void testUserNameException() {
         assertThrows(IllegalArgumentException.class, () ->

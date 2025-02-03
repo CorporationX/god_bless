@@ -5,7 +5,7 @@ public class Main {
         try {
             User validUser = new User("Maxim", 26, "Google", "New York");
 
-            System.out.printf("Name: %s, age: %d, job: %s, address: %s",
+            System.out.printf("Name: %s, age: %d, job: %s, address: %s\n",
                     validUser.getName(), validUser.getAge(), validUser.getJob(), validUser.getAddress());
         } catch (Exception error) {
             System.out.print(error.getMessage());
