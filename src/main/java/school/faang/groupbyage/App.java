@@ -26,7 +26,7 @@ public class App {
             Integer age = entry.getKey();
             List<User> userList = entry.getValue();
             System.out.println("Age: " + age);
-            for (User user: userList) {
+            for (User user : userList) {
                 System.out.println(user.toString());
             }
         }
