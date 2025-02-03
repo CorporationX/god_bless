@@ -25,7 +25,6 @@ public class Main {
         users.add(dima);
 
 //        System.out.println(User.findHobbyLovers(users,hobbies));
-//        User.findHobbyLovers(users,hobbies);
         for (Map.Entry<User,String> value : User.findHobbyLovers(users,hobbies).entrySet())
             System.out.println(value.getKey().getName()+" "+ value.getValue());
 
