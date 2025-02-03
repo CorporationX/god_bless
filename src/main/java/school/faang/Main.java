@@ -17,10 +17,10 @@ public class Main {
         hobbies.add("Вышивание");
 
         List<User> users = new ArrayList<>();
-        User vasya = new User(0,"Вася", 33, new HashSet<>(Arrays.asList("Футбол", "Рыбалка")));
-        User petya = new User(1,"Петя", 28, new HashSet<>(Arrays.asList("Волейбол", "Рыбалка")));
-        User irina = new User(2,"Ирина", 25, new HashSet<>(Arrays.asList("Волейбол", "Вышивание")));
-        User dima = new User(3,"Дима", 28, new HashSet<>(Arrays.asList("Хоккей", "Программирование")));
+        User vasya = new User(0, "Вася", 33, new HashSet<>(Arrays.asList("Футбол", "Рыбалка")));
+        User petya = new User(1, "Петя", 28, new HashSet<>(Arrays.asList("Волейбол", "Рыбалка")));
+        User irina = new User(2, "Ирина", 25, new HashSet<>(Arrays.asList("Волейбол", "Вышивание")));
+        User dima = new User(3, "Дима", 28, new HashSet<>(Arrays.asList("Хоккей", "Программирование")));
 
         users.add(vasya);
         users.add(petya);

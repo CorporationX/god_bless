@@ -10,7 +10,6 @@ public class User {
     private final int age;
     private final Set<String> hobbies;
 
-
     public User(int id, String name, int age, Set<String> hobby) {
         this.id = id;
         this.name = name;
