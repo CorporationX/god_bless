@@ -37,8 +37,7 @@ public class User {
         for (User user : users) {
             List<User> userList = groupedUsers.get(user.getAge());
             if (userList != null) {
-                userList.add(user);
-                groupedUsers.put(user.getAge(), userList);
+                groupedUsers.get(user.getAge()).add(user);
                 continue;
             }
             userList = new ArrayList<>();
