@@ -2,11 +2,10 @@ package school.faang;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-       User pavel = new User("Павел", 31, "yandex", "Moscow");
+        User pavel = new User("Павел", 31, "yandex", "Moscow");
         User semen = new User("Семен", 12, "yandex", "Orlov");
         User anton = new User("Антон", 75, "yandex", "Krasnodar");
         User ivan = new User("Иван", 12, "yandex", "Adler");
