@@ -1,37 +1,39 @@
 package school.faang.collectinguser;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class User {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private int age;
     private Set<String> activities;
 
     public User(int id, String name, int age, Set<String> activities) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        }
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Имя пользователя не может быть пустым");
+        }
+
         this.id = id;
         this.name = name;
         this.age = age;
-        this.activities = activities;
+        this.activities = new HashSet<>(activities);;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAge() {
@@ -39,6 +41,9 @@ public class User {
     }
 
     public void setAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        }
         this.age = age;
     }
 
@@ -46,8 +51,8 @@ public class User {
         this.activities = activities;
     }
 
-    private Set<String> getActivities() {
-        return activities;
+    public Set<String> getActivities() {
+        return Collections.unmodifiableSet(new HashSet<>(activities));
     }
 
     @Override
