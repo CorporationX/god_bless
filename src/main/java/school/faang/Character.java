@@ -28,9 +28,8 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack(Character opponent) {
-        reduceStrength(opponent, agility);
-    }
+    public abstract void attack(Character opponent);
+
 
     protected void reduceStrength(Character opponent, int damage) {
         opponent.health = Math.max(opponent.health - damage, 0);
