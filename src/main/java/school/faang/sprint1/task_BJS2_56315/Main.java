@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = List.of(
-                new User("Petya", 23, "zavod", "msk"),
-                new User("Andrey", 22, "developer", "spb"),
-                new User("Kolya", 53, "devops", "Kaliningrad")
-                );
+        User petya = new User("Petya", 23, "zavod", "msk");
+        User andrey = new User("Andrey", 22, "developer", "spb");
+        User kolya = new User("Kolya", 53, "devops", "Kaliningrad");
+
+        List<User> users = List.of(petya, andrey, kolya);
         System.out.println(User.groupUsers(users));
     }
 }
