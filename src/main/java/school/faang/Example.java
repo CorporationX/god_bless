@@ -1,12 +1,14 @@
 package school.faang;
 
 
+import java.util.Random;
+
 public class Example {
 
     /**
-     * Метод reverse разворачивает переданный массив целых чисел.
+     * The reverse method expands the passed array of integers.
      *
-     * @param nums массив целых чисел, который нужно развернуть.
+     * @param nums array of integers to expand.
      */
     public static void reverse(int[] nums) {
         if (nums == null || nums.length <= 1) {
@@ -26,14 +28,25 @@ public class Example {
     }
 
     public static void main(String[] args) {
-        int[] nums = {5, 10, 20, 50, 100, 1};
-        System.out.println("The original array:");
-        printArray(nums);
+        int size = 10;
 
-        reverse(nums);
+        int[] array = new int[size];
+
+        // Creating a Random object to generate random numbers
+        Random random = new Random();
+
+        // Filling the array with random numbers
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(100);
+        }
+
+        System.out.println("The original array:");
+        printArray(array);
+
+        reverse(array);
 
         System.out.println("The reversed array:");
-        printArray(nums);
+        printArray(array);
     }
 
     private static void printArray(int[] nums) {
