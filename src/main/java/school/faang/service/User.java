@@ -3,22 +3,24 @@ package school.faang.service;
 import java.util.*;
 
 public class User {
-    private String name;
-    private int age;
-    private Set<String> hobby;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> hobbies;
 
 
-    public User(String name, int age, Set<String> hobby) {
+    public User(int id, String name, int age, Set<String> hobby) {
+        this.id = id;
         this.name = name;
         this.age = age;
-        this.hobby = hobby;
+        this.hobbies = hobby;
     }
 
-    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbys) {
+    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         HashMap<User, String> result = new HashMap<>();
         for (User user : users) {
-            for (String hobby : hobbys) {
-                if (user.getHobby().contains(hobby)) {
+            for (String hobby : hobbies) {
+                if (user.getHobbies().contains(hobby)) {
                     result.put(user, hobby);
                     break;
                 }
@@ -31,23 +33,7 @@ public class User {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Set<String> getHobby() {
-        return hobby;
-    }
-
-    public void setHobby(Set<String> hobby) {
-        this.hobby = hobby;
+    public Set<String> getHobbies() {
+        return hobbies;
     }
 }
