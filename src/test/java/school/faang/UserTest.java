@@ -64,12 +64,12 @@ class UserTest {
     }
 
     @Test
-    void testFindHobbyLovers_WhenUserHasNoHobbies() {
-        User userWithoutHobbies = new User(3L, "Charlie", 44, null);
-        List<User> usersWithNoHobbies = List.of(userWithoutHobbies);
-        Map<User, String> result = User.findHobbyLovers(usersWithNoHobbies, activities);
+    void testFindHobbyLovers_WhenUserHasEmptyHobbies() {
+        User userWithoutHobbies = new User(3L, "Charlie", 44, new HashSet<>());
+        List<User> usersWithEmptyHobbies = List.of(userWithoutHobbies);
+        Map<User, String> result = User.findHobbyLovers(usersWithEmptyHobbies, activities);
 
-        assertTrue(result.isEmpty(), "Result should be empty when user has no hobbies.");
+        assertTrue(result.isEmpty(), "Result should be empty when user has no matching hobbies.");
     }
 
     @Test
