@@ -20,6 +20,10 @@ public abstract class Character {
 
     public Character(String name, int strength, int agility, int intelligence) {
         validateName(name);
+        validateAgility(agility);
+        validateIntelligence(intelligence);
+        validateStrength(strength);
+
         this.name = name;
         this.strength = strength;
         this.agility = agility;
@@ -31,6 +35,24 @@ public abstract class Character {
     protected void validateHealth() {
         if (health < 0) {
             throw new IllegalArgumentException("Health can't be below 0");
+        }
+    }
+
+    private void validateStrength(int strength) {
+        if (strength < 0) {
+            throw new IllegalArgumentException("Strength can't be below 0");
+        }
+    }
+
+    private void validateAgility(int agility) {
+        if (agility < 0) {
+            throw new IllegalArgumentException("Agility can't be below 0");
+        }
+    }
+
+    private void validateIntelligence(int intelligence) {
+        if (intelligence < 0) {
+            throw new IllegalArgumentException("Intelligence can't be below 0");
         }
     }
 
