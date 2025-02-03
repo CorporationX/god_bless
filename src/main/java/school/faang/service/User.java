@@ -1,5 +1,6 @@
 package school.faang.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class User {
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        HashMap<User, String> result = new HashMap<>();
+        Map<User, String> result = new HashMap<>();
         for (User user : users) {
             for (String hobby : hobbies) {
                 if (user.getHobbies().contains(hobby)) {
