@@ -5,7 +5,7 @@ public class Main {
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addBook("Can't hurt me", "David Goggins", 2018, "left");
         librarySystem.addBook("Atomic Habits", "James Clear", 2018, "right");
-        librarySystem.findBook("Getting things done", "David Allen", 1922);
+        System.out.println(librarySystem.findBook("Getting things done", "David Allen", 1982));
         librarySystem.removeBook("Atomic Habits", "James Clear", 2018);
         librarySystem.printAllBooks();
     }

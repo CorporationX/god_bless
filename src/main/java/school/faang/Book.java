@@ -9,10 +9,11 @@ public class Book {
     private final String title;
     private final String author;
     private final int year;
+    private static final int CURRENT_YEAR = 2025;
 
     public void validateTitle(String title) {
-        if (title == null) {
-            throw new IllegalArgumentException("Title can't be null");
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Title can't be null or blank");
         }
     }
 
@@ -22,9 +23,17 @@ public class Book {
         }
     }
 
+    public void validateYear(int year) {
+        if (year < 0 || year > CURRENT_YEAR) {
+            throw new IllegalArgumentException("Year can't be negative or bigger than current");
+        }
+    }
+
     public Book(String title, String author, int year) {
         validateTitle(title);
         validateAuthor(author);
+        validateYear(year);
+
         this.title = title;
         this.year = year;
         this.author = author;
@@ -36,7 +45,8 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
+        return Objects.equals(year, book.year) && Objects.equals(title, book.title)
+                && Objects.equals(author, book.author);
     }
 
     @Override
