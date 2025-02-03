@@ -17,15 +17,24 @@ public class Main {
                 new HashSet<>(List.of("Курение", "Бег", "Чтение")));
 
         List<User> users = List.of(oneUser, secondUser, thirdUser);
+        // проверку на пустые коллекции  и null
+        if (users.isEmpty()) {
+            System.out.println("Добавте Пользователей");
+        }
 
         Set<String> hobbies = new HashSet<>(List.of("Курение", "Лыжи"));
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
 
+        StringBuilder result = new StringBuilder();
+
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println("Пользователь: " + entry.getKey() + ", Первое Хобби: " + entry.getValue());
+            result.append("Пользователь:")
+                    .append(entry.getKey())
+                    .append(", Первое Хобби: ")
+                    .append(entry.getValue())
+                    .append("\n");
+            System.out.println(result);
         }
-
-
     }
 }
