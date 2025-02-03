@@ -1,6 +1,6 @@
 package school.faang.task_56329;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         strength = 10;
