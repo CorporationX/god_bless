@@ -27,7 +27,7 @@ public abstract class Character {
 
     public void checkOpponentHealth(Character opponent, int injury) {
 
-        if(opponent.health - injury < 0) {
+        if (opponent.health - injury < 0) {
 
             //System.out.println("Health can't be less 0");
             throw new IllegalArgumentException("Health can't be less 0");
@@ -38,44 +38,4 @@ public abstract class Character {
 
 }
 
-class Warrior extends Character {
 
-    public Warrior(String name) {
-        super(name);
-        setStrength(10);
-        setAgility(5);
-        setIntellect(3);
-    }
-
-    public Warrior(String name, int willpower, int adroitness, int intellect) {
-        super(name, willpower, adroitness, intellect);
-    }
-
-    @Override
-    public void attack(Character opponent) {
-
-        checkOpponentHealth(opponent, getStrength());
-        opponent.setHealth(opponent.getHealth() - getStrength());
-    }
-}
-
-class Archer extends Character {
-
-    public Archer(String name) {
-        super(name);
-        setStrength(3);
-        setAgility(10);
-        setIntellect(5);
-    }
-
-    public Archer(String name, int willpower, int adroitness, int intellect) {
-        super(name, willpower, adroitness, intellect);
-    }
-
-    @Override
-    public void attack(Character opponent) {
-
-        checkOpponentHealth(opponent, getAgility());
-        opponent.setHealth(opponent.getHealth() - getAgility());
-    }
-}

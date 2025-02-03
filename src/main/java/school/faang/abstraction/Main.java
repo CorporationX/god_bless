@@ -13,12 +13,11 @@ public class Main {
 
         System.out.printf("War1 health before attack: %d\n", war1.getHealth());
 
-        for(int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 10; i++) {
 
             try {
                 war2.attack(war1);
-            }
-            catch (IllegalArgumentException ex) {
+            } catch (IllegalArgumentException ex) {
 
                 System.out.println(ex.getMessage());
             }
@@ -36,12 +35,12 @@ public class Main {
 
         System.out.printf("Arch1 health before attack: %d\n", arch1.getHealth());
 
-        for(int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 10; i++) {
 
             try {
+
                 arch2.attack(arch1);
-            }
-            catch (IllegalArgumentException ex) {
+            } catch (IllegalArgumentException ex) {
 
                 System.out.println(ex.getMessage());
             }
