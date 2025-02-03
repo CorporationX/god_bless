@@ -16,10 +16,10 @@ public class User {
 
     public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbys) {
         HashMap<User, String> result = new HashMap<>();
-        for (User user: users) {
-            for (String hobby:hobbys) {
+        for (User user : users) {
+            for (String hobby : hobbys) {
                 if (user.getHobby().contains(hobby)) {
-                    result.put(user,hobby);
+                    result.put(user, hobby);
                     break;
                 }
             }

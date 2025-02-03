@@ -8,11 +8,10 @@ public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         Set<String> hobbies = new HashSet<>();
+
+        //список хобби на поиск
         hobbies.add("Футбол");
-//        hobbies.add("Рыбалка");
-//        hobbies.add("Волейбол");
         hobbies.add("Вышивание");
-//        hobbies.add("Программирование");
 
         User vasya = new User("Вася", 33, new HashSet<>(Arrays.asList("Футбол", "Рыбалка")));
         User petya = new User("Петя", 28, new HashSet<>(Arrays.asList("Волейбол", "Рыбалка")));
@@ -24,9 +23,8 @@ public class Main {
         users.add(irina);
         users.add(dima);
 
-//        System.out.println(User.findHobbyLovers(users,hobbies));
-        for (Map.Entry<User,String> value : User.findHobbyLovers(users,hobbies).entrySet())
-            System.out.println(value.getKey().getName()+" "+ value.getValue());
+        for (Map.Entry<User, String> value : User.findHobbyLovers(users, hobbies).entrySet())
+            System.out.println(value.getKey().getName() + " " + value.getValue());
 
 
     }
