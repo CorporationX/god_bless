@@ -1,21 +1,39 @@
 package school.faang;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
     private static final Logger logger = Logger.getLogger(User.class.getName());
 
-    private Long id;
-    private String name;
-    private int age;
-    private Set<String> hobbies;
+    private final Long id;
+    private final String name;
+    private final int age;
+    private final Set<String> hobbies;
+
+    /**
+     * Constructor with validation for fields.
+     *
+     * @param id       the user ID (must not be null)
+     * @param name     the user name (must not be null)
+     * @param age      the user age
+     * @param hobbies  the set of user hobbies (must not be null)
+     * @throws NullPointerException if any required field is null
+     */
+    public User(Long id, String name, int age, Set<String> hobbies) {
+        this.id = Objects.requireNonNull(id, "ID cannot be null");
+        this.name = Objects.requireNonNull(name, "Name cannot be null");
+        this.age = age;
+        this.hobbies = Objects.requireNonNull(hobbies, "Hobbies cannot be null");
+    }
 
     /**
      * Searches for users who have at least one of the specified activities.
