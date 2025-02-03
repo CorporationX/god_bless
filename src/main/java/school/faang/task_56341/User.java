@@ -8,19 +8,19 @@ import java.util.List;
 @ToString
 @Getter
 public class User {
-    private final String NAME;
-    private final int AGE;
-    private final String JOB;
-    private final String ADDRESS;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String addres;
     private static final int MINIMUM_AGE = 18;
     private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        this.NAME = validateName(name);
-        this.AGE = validateAge(age);
-        this.JOB = validateJob(job);
-        this.ADDRESS = validateAddress(address);
+        this.name = validateName(name);
+        this.age = validateAge(age);
+        this.job = validateJob(job);
+        this.addres = validateAddress(address);
     }
 
     private String validateName(String name) {
