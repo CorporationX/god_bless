@@ -3,11 +3,14 @@ package school.faang;
 
 import lombok.ToString;
 
+import java.time.Year;
+
 @ToString
 public class Book {
     private final String title;
     private final String author;
     private final int year;
+
 
     public void validateTitle(String title) {
         if (title == null || title.isBlank()) {
@@ -22,7 +25,7 @@ public class Book {
     }
 
     public void validateYear(int year) {
-        if (year > 2025) {
+        if (year > Year.now().getValue()) {
             throw new IllegalArgumentException("Year can't be less than 2025");
         }
     }
