@@ -1,6 +1,5 @@
 package school.faang.groupingByAge;
 
-import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -17,6 +16,10 @@ public class User {
     private String address;
 
     public User(String name, Integer year, Integer month, Integer day, String job, String address) {
+        if (name == null || year == null || month == null
+                || day == null || job == null || address == null) {
+            throw new IllegalArgumentException("Invalid arguments. Some argument is null");
+        }
         this.name = name;
         this.dateOfBirth = LocalDate.of(year, month, day);
         this.job = job;
@@ -24,13 +27,14 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users, Integer age) {
-        List<User> userSameDate = new ArrayList<>();
+        List<User> usersWithTargetAge = new ArrayList<>();
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        groupedUsers.put(age, userSameDate);
+        groupedUsers.put(age, usersWithTargetAge);
         LocalDate today = LocalDate.now();
 
         for (User user : users) {
-            if (ChronoUnit.YEARS.between(user.dateOfBirth, today) == age) {
+            Period agePeriod = Period.between(user.dateOfBirth, today);
+            if (agePeriod.getYears() == age) {
                 groupedUsers.get(age).add(user);
             }
         }
@@ -39,6 +43,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Date: " + dateOfBirth.toString();
+        Period age = Period.between(dateOfBirth, LocalDate.now());
+        return String.format("Name: %s, age: %d, job: %s, address: %s",
+                name, age.getYears(), job, address);
     }
 }
