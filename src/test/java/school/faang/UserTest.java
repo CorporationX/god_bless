@@ -1,10 +1,20 @@
-package shcool.faang;
+package school.faang;
 
-import school.faang.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
 
@@ -72,5 +82,18 @@ class UserTest {
         );
 
         assertEquals("Duplicate user IDs detected: 1", exception.getMessage());
+    }
+
+    @Test
+    void testFindHobbyLovers_ParallelExecution() throws InterruptedException {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 10; i++) {
+            executor.submit(() -> {
+                Map<User, String> result = User.findHobbyLovers(users, activities);
+                assertNotNull(result);
+            });
+        }
+        executor.shutdown();
+        assertTrue(executor.awaitTermination(1, TimeUnit.MINUTES), "Parallel execution failed to complete.");
     }
 }
