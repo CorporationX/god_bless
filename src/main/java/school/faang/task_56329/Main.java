@@ -5,10 +5,12 @@ public class Main {
         Character warrior = new Warrior("Conan");
         Character archer = new Archer("Legolas");
 
+        System.out.println(archer.getName() + " health before attack: " + archer.getHealth());
         warrior.attack(archer);
-        System.out.println(archer.getName() + " health: " + archer.getHealth());
+        System.out.println(archer.getName() + " health after attack: " + archer.getHealth());
 
+        System.out.println(warrior.getName() + " health before attack: " + warrior.getHealth());
         archer.attack(warrior);
-        System.out.println(warrior.getName() + " health: " + warrior.getHealth());
+        System.out.println(warrior.getName() + " health after attack: " + warrior.getHealth());
     }
 }
