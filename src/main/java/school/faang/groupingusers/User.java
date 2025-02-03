@@ -13,10 +13,10 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 public class User {
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String workplace;
+    private final String address;
 
     /**
      * Группирует список пользователей по возрасту.
