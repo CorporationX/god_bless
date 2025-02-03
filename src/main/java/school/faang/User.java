@@ -10,7 +10,7 @@ public class User {
 
     private String name;
     private int age;
-    private String work;
+    private String workPlace;
     private String location;
 
     public static void groupUser(ArrayList<User> users) {
@@ -27,7 +27,7 @@ public class User {
             System.out.println(key + " Age: ");
             for (User user : userList) {
                 System.out.println("Name: " + user.name + " , age: " + user.age +
-                        " , work: " + user.work + " , location: " + user.location);
+                        " , work: " + user.workPlace + " , location: " + user.location);
             }
         }
     }
