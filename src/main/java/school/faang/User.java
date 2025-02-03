@@ -32,7 +32,7 @@ public class User {
                 map.get(user.getAge()).add(user);
             }
         }
-            return map;
+        return map;
 
-        }
+    }
 }
