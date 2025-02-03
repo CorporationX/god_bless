@@ -1,7 +1,8 @@
 package school.faang.sprint1.task_BJS2_56297;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -13,7 +14,9 @@ public class Main {
                 new User(2, "Kolya", 12, Set.of("coding", "smoking")),
                 new User(3, "Andrey", 42, Set.of("read", "anime", "smoking")));
 
-        Map<User, String> foundUsers = User.findHobbyLovers(users, hobbies);
-        System.out.println(foundUsers);
+        System.out.println(User.findHobbyLovers(users, hobbies));
+        System.out.println(User.findHobbyLovers(new ArrayList<>(), hobbies));
+        System.out.println(User.findHobbyLovers(users, new HashSet<>()));
+        System.out.println(User.findHobbyLovers(new ArrayList<>(), new HashSet<>()));
     }
 }
