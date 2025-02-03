@@ -22,7 +22,7 @@ public class Main {
         users.add(petya);
         users.add(irina);
         users.add(dima);
-
+        //выводим искомых пользователей по списку хобби.
         for (Map.Entry<User, String> value : User.findHobbyLovers(users, hobbies).entrySet())
             System.out.println(value.getKey().getName() + " " + value.getValue());
     }
