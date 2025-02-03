@@ -46,7 +46,8 @@ public class User {
 
     private String validateAddress(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("The address must be contained in the VALID_ADDRESSES set --> " + address);
+            throw new IllegalArgumentException("The address must be contained in the" +
+                    " VALID_ADDRESSES set --> " + address);
         }
         return address;
     }
