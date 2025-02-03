@@ -1,6 +1,10 @@
 package school.faang.usercollection;
 
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,8 +12,8 @@ public class Main {
             new User(1, "Andrey", 44, new HashSet<>(List.of("coding", "work"))),
             new User(2, "Timon", 24, new HashSet<>(List.of("coding", "work", "eat"))),
             new User(3, "Boris", 40, new HashSet<>(List.of("drink", "work"))),
-            new User(4, "Fedor", 34, new HashSet<>(List.of("wolk", "work", "travel"))));
-        Set<String> hobbies = new HashSet(List.of("eat", "travel"));
+            new User(4, "Fedor", 34, new HashSet<>(List.of("walk", "work", "travel"))));
+        Set<String> hobbies = new HashSet<>(List.of("eat", "travel"));
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.println(entry.getKey() + " :: " + entry.getValue());

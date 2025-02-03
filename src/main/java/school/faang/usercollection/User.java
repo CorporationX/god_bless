@@ -2,7 +2,6 @@ package school.faang.usercollection;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,9 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
+        if ((users == null) || (hobbies == null)) {
+            return hobbyLovers;
+        }
         for (User user : users) {
             for (String hobby : user.getHobbies()) {
                 if (hobbies.contains(hobby)) {
