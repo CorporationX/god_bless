@@ -1,7 +1,10 @@
 package task_BJS2_56332;
 
+import lombok.ToString;
+
 import java.util.Set;
 
+@ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -26,6 +29,7 @@ public class User {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("The location of work is not correct");
         }
+        this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
