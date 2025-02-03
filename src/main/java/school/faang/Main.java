@@ -7,6 +7,7 @@ public class Main {
             System.out.println(user1);
 
             User user2 = new User("", 17, "Yandex", "Moscow");
+            System.out.println(user2);
         } catch (IllegalArgumentException e) {
             System.out.println("Mistake: " + e.getMessage());
         }
