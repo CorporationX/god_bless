@@ -35,8 +35,8 @@ public abstract class Character {
     }
 
     private void validateName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name can't be null");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name can't be null or blank");
         }
     }
 }
