@@ -7,7 +7,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.health -= this.agility;
+        opponent.setHealth(opponent.getHealth() - this.getAgility());
         opponent.validateHealth();
     }
 }
