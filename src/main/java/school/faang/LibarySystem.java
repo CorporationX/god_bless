@@ -9,20 +9,25 @@ public class LibarySystem {
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
-        if (location !=null || location.isEmpty()  || locationOfTheBook.get(book) == null) {
-            locationOfTheBook.put(book, location);
+        if (location == null || location.isEmpty()) {
+            throw new IllegalArgumentException("Location не может быть пустым");
         }
-        else {
-        throw new IllegalArgumentException("Местоположение не может быть пустым");
+        if (locationOfTheBook.get(book) != null)  {
+            System.out.println("Такая книга уже есть в библиотеке");
+        } else {
+            locationOfTheBook.put(book, location);
         }
     }
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (locationOfTheBook.isEmpty() || locationOfTheBook.get(book) != null) {
-            locationOfTheBook.remove(book);
+        if (locationOfTheBook.isEmpty()) {
+            System.out.println("В библиотеке нет книг");
+        }
+        if (locationOfTheBook.get(book) == null) {
+            System.out.println("Такой книги нет");
         } else {
-            System.out.println(" Такой книги нет или в библиотеке нет книг");
+            locationOfTheBook.remove(book);
         }
     }
 
