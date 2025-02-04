@@ -4,15 +4,8 @@ import lombok.NonNull;
 
 public class Archer extends Character {
 
-    public Archer(@NonNull String name, int strength, int agility, int intelligence) {
-        super(name, strength, agility, intelligence);
-    }
-
     public Archer(@NonNull String name) {
-        super(name);
-        super.setStrength(3);
-        super.setAgility(10);
-        super.setIntelligence(5);
+        super(name, 3, 10, 5);
     }
 
     @Override

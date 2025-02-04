@@ -16,10 +16,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(@NonNull String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(@NonNull String name, int strength, int agility, int intelligence) {

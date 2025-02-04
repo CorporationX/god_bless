@@ -14,17 +14,5 @@ public class Main {
         warrior.attack(archer);
         System.out.println(archer);
 
-
-        Archer archer1 = new Archer("Sam", 10, 20, 30);
-        System.out.println(archer1);
-
-        Warrior warrior1 = new Warrior("Elis", 30, 7, 1);
-        System.out.println(warrior1);
-
-        archer1.attack(warrior1);
-        System.out.println(warrior1);
-
-        warrior1.attack(archer1);
-        System.out.println(archer1);
     }
 }
