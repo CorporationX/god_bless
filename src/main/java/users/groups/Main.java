@@ -1,17 +1,17 @@
 package users.groups;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-        users.add(new User("Lily", 25, "Google", "New York"));
-        users.add(new User("Tom", 30, "Facebook", "San Francisco"));
-        users.add(new User("Harry", 25, "Amazon", "Seattle"));
-        users.add(new User("David", 30, "Apple", "los Angeles"));
-        users.add(new User("John", 35, "Microsoft", "Portland"));
+        List<User> users = List.of(
+                new User("Lily", 25, "Google", "New York"),
+                new User("Tom", 30, "Facebook", "San Francisco"),
+                new User("Harry", 25, "Amazon", "Seattle"),
+                new User("David", 30, "Apple", "Los Angeles"),
+                new User("John", 35, "Microsoft", "Portland")
+        );
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
