@@ -1,6 +1,5 @@
 package school.faang.task_56357;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : userGroups.entrySet()) {
             System.out.printf("Age: %d\n", entry.getKey());
             for (User user : entry.getValue()) {
-                System.out.printf("\tName- %s, Workplace- %s, Address- %s.  \n",
+                System.out.printf("\tName: %s, Workplace: %s, Address: %s.  \n",
                         user.getUsername(), user.getWorkplace(), user.getAddress());
             }
         }
