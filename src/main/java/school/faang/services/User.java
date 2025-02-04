@@ -9,7 +9,6 @@ public class User {
     private int age;
     private String job;
     private String address;
-
     private final Set<String> VALID_JOBS = new HashSet<>(List.of("Google", "Uber", "Amazon"));
     private final Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
 

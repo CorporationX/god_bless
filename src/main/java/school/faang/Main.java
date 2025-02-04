@@ -1,5 +1,4 @@
 package school.faang;
-
 import school.faang.services.User;
 
 public class Main {
