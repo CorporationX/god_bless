@@ -18,14 +18,16 @@ public class User {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.hobbies = (hobbies != null) ? hobbies : new HashSet<>();
+        this.hobbies = (hobbies != null)
+                ? Set.copyOf(hobbies)
+                : Collections.emptySet();
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
 
         for (User user : users) {
-            if (user.getHobbies() == null || user.getHobbies().isEmpty()) {
+            if (user.getHobbies().isEmpty()) {
                 continue;
             }
 
