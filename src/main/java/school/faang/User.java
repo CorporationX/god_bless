@@ -12,6 +12,7 @@ import java.util.Map;
 public class User {
     private String name;
     private int age;
+
     private String workPlace;
     private String address;
     /**
