@@ -1,6 +1,5 @@
 package school.faang.task_56357;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +25,9 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
+
         for (User user : users) {
-            userGroups.putIfAbsent(user.getAge(), new ArrayList<User>());
+            userGroups.putIfAbsent(user.getAge(), new ArrayList<>());
             userGroups.get(user.getAge()).add(user);
         }
         return userGroups;
