@@ -12,18 +12,17 @@ public class Main {
         User mike = new User("Mike", 21, "office", "Moscow");
         User jack = new User("Jack", 32, "house", "Tula");
         User sam = new User("Sam", 21, "workshop", "Sochi");
-        User jon = new User("Jon", 43, "factory", "SP");
+        User john = new User("John", 43, "factory", "SP");
 
-        List<User> users = new ArrayList<>();
-        users.add(mike);
-        users.add(jack);
-        users.add(sam);
-        users.add(jon);
+        List<User> users = List.of(mike, jack, sam, john);
 
         Map<Integer, List<User>> userGroups = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : userGroups.entrySet()) {
-
-            System.out.printf("Возраст : %d Пользователи %s\n",  entry.getKey(),  entry.getValue());
+            System.out.printf("Age: %d\n", entry.getKey());
+            for (User user : entry.getValue()) {
+                System.out.printf("\tName- %s, Workplace- %s, Address- %s.  \n",
+                        user.getUsername(), user.getWorkplace(), user.getAddress());
+            }
         }
     }
 
