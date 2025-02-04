@@ -1,5 +1,8 @@
 package school.faang.catchevents;
 
+import lombok.Getter;
+
+@Getter
 public class SpellEvent {
     private int id;
     private String eventType;
@@ -11,4 +14,8 @@ public class SpellEvent {
         this.action = action;
     }
 
+    @Override
+    public String toString() {
+        return String.format("SpellEvent{id=%d, eventType=%s, action=%s}", id, eventType, action);
+    }
 }
