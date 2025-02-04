@@ -14,21 +14,21 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> activites;
+    private Set<String> activities;
 
     public User(int id, String name, int age, Set<String> activites) {
         this.id = validateId(id);
         this.name = validateName(name);
         this.age = validateAge(age);
-        this.activites = validateActivities(activites);
+        this.activities = validateActivities(activites);
     }
 
-    public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
-            for (String activite : user.getActivites()) {
-                if (hobbies.contains(activite)) {
-                    result.put(user, activite);
+            for (String activity : user.getActivities()) {
+                if (hobbies.contains(activity)) {
+                    result.put(user, activity);
                 }
             }
         }
@@ -51,9 +51,9 @@ public class User {
 
     private int validateAge(int age) {
         if (age < 0) {
-            throw new IllegalArgumentException("Age cant be negative" + age);
+            throw new IllegalArgumentException("Age cant be negative --> " + age);
         }
-        return id;
+        return age;
     }
 
     private Set<String> validateActivities(Set<String> activities) {
