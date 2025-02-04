@@ -37,21 +37,21 @@ public class User {
 
     private int validateId(int id) {
         if (id < 0) {
-            throw new IllegalArgumentException("Id cant be negative");
+            throw new IllegalArgumentException("Id cant be negative --> " + id);
         }
         return id;
     }
 
     private String validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name cant be empty or null");
+            throw new IllegalArgumentException("Name cant be empty or null ");
         }
         return name;
     }
 
     private int validateAge(int age) {
         if (age < 0) {
-            throw new IllegalArgumentException("Age cant be negative");
+            throw new IllegalArgumentException("Age cant be negative" + age);
         }
         return id;
     }

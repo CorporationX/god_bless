@@ -16,6 +16,10 @@ public class Main {
             User user4 = new User(4, "Alah", 44, new HashSet<>(Arrays.asList(
                     "singing", "reading")));
             users = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
+
+            if (users == null || users.isEmpty()) {
+                throw new IllegalArgumentException("User list cannot be null or empty");
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Mistake" + e.getMessage());
         }
