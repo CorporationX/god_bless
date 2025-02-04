@@ -1,7 +1,9 @@
 package school.faang.task_56372;
 
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
