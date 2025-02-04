@@ -31,5 +31,4 @@ public class SpellEvent {
             throw new IllegalArgumentException("eventType cannot be null or blank");
         }
     }
-
 }

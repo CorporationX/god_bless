@@ -26,6 +26,5 @@ public class Main {
         hogwartsSpells.deleteSpellEventById(1);
         System.out.println("Deleting a spell with ID 1:");
         hogwartsSpells.printAllSpellEvents();
-
     }
 }
