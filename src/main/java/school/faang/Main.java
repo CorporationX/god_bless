@@ -4,6 +4,7 @@ import school.faang.service.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +14,9 @@ public class Main {
         User sveta = new User("Светлана", 33, "Аэрофлот", "Самолетная 4");
 
         List<User> users = new ArrayList<>(List.of(vasya, petya, dima, sveta));
-        System.out.println(User.groupUsers(users));
+        for (Map.Entry<Integer, List<User>> value : User.groupUsers(users).entrySet())
+            for (int i = 0; i < value.getValue().size(); i++) {
+                System.out.println(value.getKey() + " " + value.getValue().get(i).getName());
+            }
     }
 }
