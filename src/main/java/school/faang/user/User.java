@@ -29,6 +29,10 @@ public class User {
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        if (users == null || activities == null) {
+            throw new IllegalArgumentException("Users and activities must not be null");
+        }
+
         Map<User, String> result = new HashMap<>();
 
         for (User user : users) {
@@ -45,5 +49,4 @@ public class User {
         }
         return result;
     }
-
 }
