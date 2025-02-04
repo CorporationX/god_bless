@@ -8,9 +8,12 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        Archer ramil = new Archer("Ramil");
-        Warrior albert = new Warrior("Albert");
-        Random random = new Random();
+        Archer ramil;
+        ramil = new Archer("Ramil");
+        Warrior albert;
+        albert = new Warrior("Albert");
+        Random random;
+        random = new Random();
 
         System.out.println("Начальное здоровье:");
         System.out.printf("%s: %d HP%n", ramil.getName(), ramil.getHealth());
