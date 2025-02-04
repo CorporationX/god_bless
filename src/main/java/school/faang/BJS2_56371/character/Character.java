@@ -1,4 +1,4 @@
-package school.faang.character;
+package school.faang.BJS2_56371.character;
 
 import lombok.Getter;
 

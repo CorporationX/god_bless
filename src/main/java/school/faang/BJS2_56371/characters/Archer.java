@@ -1,6 +1,6 @@
-package school.faang.characters;
+package school.faang.BJS2_56371.characters;
 
-import school.faang.character.Character;
+import school.faang.BJS2_56371.character.Character;
 
 public class Archer extends Character {
     public Archer(String name) {
