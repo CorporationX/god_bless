@@ -10,6 +10,6 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) {
         System.out.printf("%s attacks %s with strength %d%n", getName(), opponent.getName(), getStrength());
-        opponent.setHealth(getStrength());
+        opponent.takeDamage(getStrength());
     }
 }

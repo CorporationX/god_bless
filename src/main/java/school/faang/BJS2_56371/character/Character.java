@@ -21,7 +21,7 @@ public abstract class Character {
         this(name, 5, 5, 5);
     }
 
-    public void setHealth(int damage) {
+    public void takeDamage(int damage) {
         this.health = Math.max(0, this.health - damage);
     }
 
