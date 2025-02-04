@@ -9,7 +9,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        System.out.println(getName() + " атакует " + opponent.getName() + " с силой " + getStrength());
+        System.out.printf("%s attacks %s with strength %d%n", getName(), opponent.getName(), getStrength());
         opponent.setHealth(getStrength());
     }
 }
