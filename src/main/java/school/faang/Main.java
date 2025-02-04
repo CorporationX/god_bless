@@ -1,7 +1,6 @@
 package school.faang;
 
 import school.faang.service.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
