@@ -2,6 +2,7 @@ package school.faang.usergrouping;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,26 +12,21 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class User {
+    @NonNull
     private final String name;
     private final int age;
+    @NonNull
     private final String workplace;
+    @NonNull
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        List<User> usersByAge;
-        for (User user : users) {
-            if (groupedUsers.containsKey(user.getAge())) {
-                usersByAge = groupedUsers.get(user.getAge());
-                if (!usersByAge.contains(user)) {
-                    usersByAge.add(user);
-                }
-            } else {
-                usersByAge = new ArrayList<>();
-                usersByAge.add(user);
-                groupedUsers.put(user.getAge(), usersByAge);
-            }
+        if (users.isEmpty()) {
+            return new HashMap<>();
         }
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
+        users.forEach(user -> groupedUsers
+                .computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user));
         return groupedUsers;
     }
 }
