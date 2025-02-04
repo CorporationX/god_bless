@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
@@ -17,10 +17,16 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (!spellById.containsKey(id)) {
+            throw new IllegalArgumentException("Spell with id " + id + " not found");
+        }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (!spellsByType.containsKey(eventType)) {
+            throw new IllegalArgumentException("Spell with eventType " + eventType + " not found");
+        }
         return spellsByType.get(eventType);
     }
 

@@ -7,7 +7,7 @@ public class Main {
         hogwartsSpells.addSpellEvent("type1", "action2");
         hogwartsSpells.addSpellEvent("type2", "action3");
 
-        hogwartsSpells.deleteSpellEvent(2);
+        System.out.println(hogwartsSpells.getSpellEventById(2));
         hogwartsSpells.printAllSpellEvents();
     }
 }

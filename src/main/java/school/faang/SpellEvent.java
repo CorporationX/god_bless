@@ -12,14 +12,14 @@ public class SpellEvent {
     private final String action;
 
     private void validateAction(String action) {
-        if (action == null) {
-            throw new IllegalArgumentException("action can't be null");
+        if (action == null || action.isBlank()) {
+            throw new IllegalArgumentException("action can't be null or blank");
         }
     }
 
     private void validateEventType(String eventType) {
-        if (eventType == null) {
-            throw new IllegalArgumentException("eventType can't be null");
+        if (eventType == null || eventType.isBlank()) {
+            throw new IllegalArgumentException("eventType can't be null or blank");
         }
     }
 
