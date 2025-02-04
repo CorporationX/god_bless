@@ -12,7 +12,6 @@ import java.util.Map;
 public class User {
     private String name;
     private int age;
-
     private String workPlace;
     private String address;
     /**
@@ -48,7 +47,6 @@ public class User {
     }
 
     public static void main(String[] args) {
-
         ArrayList<User> users = new ArrayList<>();
         User andrew = new User("Andrew", 45, "Service", "Novosibirsk");
         User artur = new User("Artur", 35, "Five Group", "Tomsk");
