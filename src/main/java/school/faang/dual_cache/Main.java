@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final int maxStudentsNumber = 100;
+        final int maxStudentsNumber = 3;
 
         Random random = new Random();
 
@@ -51,11 +51,13 @@ public class Main {
             lstMaps.add(grades);
         }
 
-
         for (int i = 0; i < lstStudents.size(); i++) {
 
             studentDatabase.addNewStudentWithGrades(lstStudents.get(i), lstMaps.get(i));
+            studentDatabase.updateSubjectStudentsFromStudentSubjects();
         }
+
+        studentDatabase.printAllStudentsWithSubjectsAndGrades();
 
         int m = 0;
     }
