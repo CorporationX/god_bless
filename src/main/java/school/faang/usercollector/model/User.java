@@ -1,4 +1,4 @@
-package school.faang.model;
+package school.faang.usercollector.model;
 
 import lombok.Data;
 
@@ -8,6 +8,8 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MINIMUM_AGE = 18;
+
     private String name;
     private String job;
     private String address;
@@ -23,7 +25,7 @@ public class User {
         if (!(VALID_ADDRESSES.contains(address))) {
             throw new IllegalArgumentException("Адрес должен содержаться в наборе VALID_ADDRESSES.");
         }
-        if (age < 18) {
+        if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18.");
         }
 
