@@ -15,8 +15,6 @@ public abstract class Character {
     private int intelligence;
     private int health = 100;
 
-    abstract void attack(Character opponent);
-
     public Character(@NonNull String name) {
         this.name = name;
         this.strength = 5;
@@ -30,4 +28,6 @@ public abstract class Character {
         this.agility = agility;
         this.intelligence = intelligence;
     }
+
+    abstract void attack(Character opponent);
 }
