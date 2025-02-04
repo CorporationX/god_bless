@@ -7,17 +7,25 @@ import java.util.Map;
 
 
 public class LibrarySystem {
-    private Map<Book, String> library = new HashMap<>();
+    private static final Map<Book, String> library = new HashMap<>();
 
-    private void addBook(@NonNull String title, @NonNull String author, int year, @NonNull String location) {
-        Book book = new Book(title, author, year);
+    public static void addBook(Book book, @NonNull String location) {
         library.put(book, location);
-        System.out.printf("Книгу: %s , разместили на %s", book, location);
+        System.out.printf("Книгу \"%s\" - разместили %s\n", book.getTitle(), location);
     }
 
-    private boolean removeBook(@NonNull String title, @NonNull String author, int year) {
-        Book book = new Book(title, author, year);
+    public static boolean removeBook(Book book) {
         return library.remove(book) != null;
+    }
+
+    public static String findBook(Book book) {
+        return library.getOrDefault(book, "Книга не найдена");
+    }
+
+    public static void printAllBooks() {
+        for (var entry : library.entrySet()) {
+            System.out.printf("Книга \"%s\" размещена %s\n", entry.getKey().getTitle(), entry.getValue());
+        }
     }
 
 
