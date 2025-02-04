@@ -1,35 +1,50 @@
 package school.faang;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 @AllArgsConstructor
 public class User {
-
     private String name;
     private int age;
-    private String work;
-    private String location;
+
+    private String workPlace;
+    private String address;
+    /**
+     * Метод принимает список пользователей, создает и заполняет мапу значениями, где
+     * ключ-age, значение - пользователь с этим возрастом
+     * в циклах итерируемся по map и строим строку с помощью StringBuilder.
+     *
+     * @param users список пользователей
+     */
 
     public static void groupUser(ArrayList<User> users) {
         Map<Integer, ArrayList<User>> userMap = new HashMap<>();
+        StringBuilder result = new StringBuilder();
         for (User user : users) {
-            if (!userMap.containsKey(user.age)) {
-                userMap.put(user.age, new ArrayList<>());
+            if (!userMap.containsKey(user.getAge())) {
+                userMap.put(user.getAge(), new ArrayList<>());
             }
-            userMap.get(user.age).add(user);
+            userMap.get(user.getAge()).add(user);
         }
         for (Map.Entry<Integer, ArrayList<User>> entry : userMap.entrySet()) {
             Integer key = entry.getKey();
             ArrayList<User> userList = entry.getValue();
-            System.out.println(key + " Age: ");
             for (User user : userList) {
-                System.out.println("Name: " + user.name + " , age: " + user.age +
-                        " , work: " + user.work + " , location: " + user.location);
+                result.append("| Key: ").append(key)
+                        .append("| Name: ").append(user.getName())
+                        .append("| Age: ").append(user.getAge())
+                        .append("| Work Place: ").append(user.getWorkPlace())
+                        .append("| Address: ").append(user.getAddress())
+                .append("\n");
             }
         }
+        System.out.println(result);
     }
 
     public static void main(String[] args) {
