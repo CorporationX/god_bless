@@ -22,13 +22,13 @@ public class SpellEvent {
 
     public void validateAction(String action) {
         if (action == null || action.isEmpty()) {
-            throw new IllegalArgumentException("action cannot be null or blank");
+            throw new IllegalArgumentException("Action cannot be null or blank!");
         }
     }
 
     public void validateEventType(String eventType) {
         if (eventType == null || eventType.isBlank()) {
-            throw new IllegalArgumentException("eventType cannot be null or blank");
+            throw new IllegalArgumentException("EventType cannot be null or blank!");
         }
     }
 }

@@ -42,9 +42,10 @@ public class HogwartsSpells {
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             SpellEvent spellEvent = entry.getValue();
-            System.out.println("ID" + spellEvent.getId() +
-                    ", Type: " + spellEvent.getEventType() +
-                    ", Action: " + spellEvent.getAction());
+            System.out.printf("ID: %d, Type: %s, Action: %s%n",
+                    spellEvent.getId(),
+                    spellEvent.getEventType(),
+                    spellEvent.getAction());
         }
     }
 }
