@@ -3,7 +3,12 @@ package school.faang.user;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Collections;
+
 
 @Getter
 @EqualsAndHashCode
