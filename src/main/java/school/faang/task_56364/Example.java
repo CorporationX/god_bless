@@ -21,7 +21,7 @@ public class Example {
         return array;
     }
 
-    static void printArray(int[] array){
+    static void printArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.printf("[%d] ", array[i]);
         }
