@@ -9,11 +9,12 @@ public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
+    public int addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(spellEvent);
+        return spellEvent.getId();
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -30,13 +31,15 @@ public class HogwartsSpells {
         return spellsByType.get(eventType);
     }
 
-    public void deleteSpellEvent(int id) {
+    public boolean deleteSpellEvent(int id) {
         SpellEvent removedSpellEvent = spellById.remove(id);
         if (removedSpellEvent != null) {
             if (spellsByType.containsKey(removedSpellEvent.getEventType())) {
                 spellsByType.get(removedSpellEvent.getEventType()).remove(removedSpellEvent);
             }
+            return true;
         }
+        return false;
     }
 
     public void printAllSpellEvents() {
