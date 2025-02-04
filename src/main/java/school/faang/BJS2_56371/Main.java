@@ -11,7 +11,7 @@ public class Main {
         final Archer ramil = new Archer("Ramil");
         final Warrior albert = new Warrior("Albert");
 
-        System.out.println("Начальное здоровье:");
+        System.out.println("Initial health:");
         System.out.printf("%s: %d HP%n", ramil.getName(), ramil.getHealth());
         System.out.printf("%s: %d HP%n", albert.getName(), albert.getHealth());
         System.out.println("--------------------------------");
@@ -31,9 +31,9 @@ public class Main {
 
         // Определяем победителя
         if (ramil.isAlive()) {
-            System.out.println(ramil.getName() + " победил!");
+            System.out.println(ramil.getName() + " won!");
         } else {
-            System.out.println(albert.getName() + " победил!");
+            System.out.println(albert.getName() + " won!");
         }
 
     }
