@@ -1,5 +1,11 @@
 package task_BJS2_56366;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
     private String name;
     private int strength;
@@ -9,14 +15,14 @@ public abstract class Character {
 
     abstract void attack(Character opponent);
 
-    public Character(String name) {
+    public Character(@NonNull String name) {
         this.name = name;
         this.strength = 5;
         this.agility = 5;
         this.intelligence = 5;
     }
 
-    public Character(String name, int strength, int agility, int intelligence) {
+    public Character(@NonNull String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
