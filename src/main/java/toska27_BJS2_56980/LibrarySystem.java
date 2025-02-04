@@ -9,16 +9,19 @@ import java.util.Map;
 public class LibrarySystem {
     private static final Map<Book, String> library = new HashMap<>();
 
-    public static void addBook(Book book, @NonNull String location) {
+    public static void addBook(@NonNull String title, @NonNull String author, int year, @NonNull String location) {
+        Book book = new Book(title, author, year);
         library.put(book, location);
         System.out.printf("Книгу \"%s\" - разместили %s\n", book.getTitle(), location);
     }
 
-    public static boolean removeBook(Book book) {
+    public static boolean removeBook(String title, String author, int year) {
+        Book book = new Book(title, author, year);
         return library.remove(book) != null;
     }
 
-    public static String findBook(Book book) {
+    public static String findBook(String title, String author, int year) {
+        Book book = new Book(title, author, year);
         return library.getOrDefault(book, "Книга не найдена");
     }
 
