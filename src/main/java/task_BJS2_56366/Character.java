@@ -3,9 +3,11 @@ package task_BJS2_56366;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public abstract class Character {
     private String name;
     private int strength;
