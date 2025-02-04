@@ -34,7 +34,11 @@ public class Main {
             gorkyLibrary.printAllBooks();
 
             gorkyLibrary.findBook("My tested book", "Maxim Goloviznin", 2007);
+
             gorkyLibrary.findBook("Another Harry Potter", "Joan Rowling", 2007);
+            gorkyLibrary.removeBook("Another Harry Potter", "Joan Rowling", 2007);
+            gorkyLibrary.addBook(
+                    "My tested book", "Maxim Goloviznin", 2007, "1c");
         } catch (Exception error) {
             System.out.println(error.getMessage());
         }
