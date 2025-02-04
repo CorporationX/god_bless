@@ -1,7 +1,6 @@
 package school.faang;
 
 import school.faang.service.Example;
-
 import java.util.Arrays;
 
 public class Main {
