@@ -1,24 +1,22 @@
 package school.faang;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
+@Getter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = 100;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
