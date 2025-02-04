@@ -2,6 +2,7 @@ package school.faang.task_56357;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Setter
 public class User {
     private String username;
     private int age;
