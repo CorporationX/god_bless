@@ -15,13 +15,13 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> many_activities;
+    private Set<String> manyActivities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobbyLovers = new HashMap<User, String>();
         for (User user : users) {
             for (String hobby : activities) {
-                if (user.getMany_activities().contains(hobby)) {
+                if (user.getManyActivities().contains(hobby)) {
                     hobbyLovers.put(user, hobby);
                     break;
                 }
