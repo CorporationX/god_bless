@@ -1,7 +1,6 @@
-package Validation;
+package validation;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -9,17 +8,17 @@ public class User {
     private int age;
     private String job;
     private String address;
+    private static final int MINIMUM_AGE = 18;
     private static final Set<String> VALID_JOBS = new HashSet<>(
-            List.of("Google", "Uber", "Amazon"));
+            Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VAlID_ADDRESSES = new HashSet<>(
-            List.of("London", "New York", "Amsterdam")
-    );
+            Set.of("London", "New York", "Amsterdam"));
 
     public User(String name, int age, String job, String address) {
         try {
             if (name.isBlank()) {
                 throw new IllegalArgumentException("Error! Name cannot be empty");
-            } else if (age < 18) {
+            } else if (age < MINIMUM_AGE) {
                 throw new IllegalArgumentException("Error! Age cannot be less than 18");
             } else if (!VALID_JOBS.contains(job)) {
                 throw new IllegalArgumentException("Error! Job is not valid");
