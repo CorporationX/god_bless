@@ -12,9 +12,15 @@ public class Product {
     private final Category category;
 
     public Product(String name, Category category) {
+        validateName(name);
         this.id = nextId++;
         this.name = name;
         this.category = category;
     }
 
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name can't be null or blank!");
+        }
+    }
 }

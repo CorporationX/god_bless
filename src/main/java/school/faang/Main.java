@@ -6,15 +6,15 @@ public class Main {
     public static void main(String[] args) {
         ProductManager manager = new ProductManager();
 
-        manager.addProduct(Category.FOOD, "Apple");
-        manager.addProduct(Category.FOOD, "Banana");
+        manager.addProduct(Category.FOOD, "Sausage");
+        manager.addProduct(Category.FOOD, "Meat");
         manager.addProduct(Category.ELECTRONICS, "Laptop");
-        manager.addProduct(Category.CLOTHING, "T-Shirt");
+        manager.addProduct(Category.CLOTHING, "Dress");
 
         System.out.println("All products:");
         manager.printAllProducts();
 
-        manager.removeProduct(Category.FOOD, "Apple");
+        manager.removeProduct(Category.FOOD, "Sausage");
 
         System.out.println("\nProducts after removal:");
         manager.printAllProducts();
