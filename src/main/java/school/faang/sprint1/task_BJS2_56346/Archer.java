@@ -1,5 +1,10 @@
 package school.faang.sprint1.task_BJS2_56346;
 
+/**
+ * Класс для тестов:
+ * school/faang/sprint1/task_BJS2_56346/ArcherTest
+ */
+
 public class Archer extends Character {
     public Archer(String name) {
         super(3, 10, 5);
