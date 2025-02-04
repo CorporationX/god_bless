@@ -26,7 +26,7 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected boolean reduceHealth() {
-        if (health > 0) {
+        if (health >= 0) {
             return true;
         }
         return false;

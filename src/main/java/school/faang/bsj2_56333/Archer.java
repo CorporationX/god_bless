@@ -8,13 +8,14 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
+        opponent.setHealth(opponent.getHealth() - getAgility());
         if (opponent.reduceHealth()) {
-            opponent.setHealth(opponent.getHealth() - getAgility());
-            System.out.println("The " + getName() + " attacks the " + opponent.getName() +
-                    " and deals " + getAgility() + " damage.");
-            System.out.println(opponent.getName() + "'s health is " + opponent.getHealth() + " health points.");
+            System.out.printf("The %s attacks the %s and deals %d damage.%n",
+                    getName(), opponent.getName(), getAgility());
+            System.out.printf("%s's health is %d health points.%n",
+                    opponent.getName(), opponent.getHealth());
         } else {
-            System.out.println(opponent.getName() + " is dead.");
+            System.out.printf("%s is dead.%n", opponent.getName());
         }
     }
 }

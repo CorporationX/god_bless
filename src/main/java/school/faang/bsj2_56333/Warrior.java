@@ -1,6 +1,5 @@
 package school.faang.bsj2_56333;
 
-
 public class Warrior extends Character {
 
     public Warrior(String name) {
@@ -9,13 +8,14 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
+        opponent.setHealth(opponent.getHealth() - getStrength());
         if (opponent.reduceHealth()) {
-            opponent.setHealth(opponent.getHealth() - getStrength());
-            System.out.println("The " + getName() + " attacks the " + opponent.getName() +
-                    " and deals " + getStrength() + " damage.");
-            System.out.println(opponent.getName() + "'s health is " + opponent.getHealth() + " health points.");
+            System.out.printf("The %s attacks the %s and deals %d damage.%n",
+                    getName(), opponent.getName(), getStrength());
+            System.out.printf("%s's health is %d health points.%n",
+                    opponent.getName(), opponent.getHealth());
         } else {
-            System.out.println(opponent.getName() + " is dead.");
+            System.out.printf("%s is dead.%n", opponent.getName());
         }
     }
 }
