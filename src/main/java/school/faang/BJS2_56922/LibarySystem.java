@@ -1,8 +1,7 @@
-package school.faang;
+package school.faang.BJS2_56922;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class LibarySystem {
     private Map<Book, String> locationOfTheBook = new HashMap<>();
