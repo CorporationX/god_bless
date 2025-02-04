@@ -1,16 +1,22 @@
 package school.faang.abstraction;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Archer extends Character {
-    private int strength;
-    private int intelligence;
-    private int agility;
-    private int health = 100;
+    private static final int DEFAULT_ARCHER_STRENGTH = 3;
+    private static final int DEFAULT_ARCHER_AGILITY = 10;
+    private static final int DEFAULT_ARCHER_INTELLIGENCE = 5;
 
     public Archer(String name) {
         super(name);
-        strength = 3;
-        agility = 10;
-        intelligence = 5;
+        strength = DEFAULT_ARCHER_STRENGTH;
+        agility = DEFAULT_ARCHER_AGILITY;
+        intelligence = DEFAULT_ARCHER_INTELLIGENCE;
     }
 
     public Archer(String name, int strength, int agility, int intelligence) {
@@ -19,6 +25,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - this.agility);
+        if (canAttack(this.health)) {
+            opponent.setHealth(opponent.getHealth() - this.agility);
+            equateToZeroIfNegative(opponent);
+        }
     }
 }
