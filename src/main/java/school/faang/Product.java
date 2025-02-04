@@ -1,20 +1,15 @@
 package school.faang;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Objects;
-
+@Getter
+@EqualsAndHashCode
 public class Product {
     private final int id;
-    @Getter
     private final String name;
-    @Getter
     private final Category category;
     private static int uniqueId = 1;
-
-    public enum Category {
-        FOOD, ELECTRONICS, CLOTHING, OTHER
-    }
 
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
@@ -27,20 +22,5 @@ public class Product {
         this.name = name;
         this.category = category;
         this.id = uniqueId++;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name)
-                && Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, category);
     }
 }

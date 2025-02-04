@@ -10,42 +10,48 @@ import java.util.Set;
 
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
-    private final Map<Product.Category, List<Product>> categoryMap = new HashMap<>();
+    private Map<Category, List<Product>> categoryMap = new HashMap<>();
 
-    public void addProduct(Product.Category category, String name) {
+    public boolean addProduct(Category category, String name) {
         Product product = new Product(category, name);
+        if (products.contains(product)) {
+            return false;
+        }
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
+        return true;
     }
 
-    public boolean removeProduct(Product.Category category, String name) {
-        if (categoryMap.containsKey(category)) {
-            List<Product> productList = categoryMap.get(category);
-            Iterator<Product> iterator = productList.iterator();
-            while (iterator.hasNext()) {
-                Product product = iterator.next();
-                if (product.getName().equals(name)) {
-                    iterator.remove();
-                    products.remove(product);
-                    return true;
+    public boolean removeProduct(Category category, String name) {
+        Iterator<Product> iterator = products.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getCategory().equals(category) && product.getName().equals(name)) {
+                if (categoryMap.containsKey(category)) {
+                    categoryMap.get(category).remove(product);
                 }
+                iterator.remove();
+                return true;
             }
         }
         return false;
     }
 
-    List<Product> findProductsByCategory(Product.Category category) {
+    public List<Product> findProductsByCategory(Category category) {
+        if (!categoryMap.containsKey(category)) {
+            return new ArrayList<>();
+        }
         return categoryMap.get(category);
     }
 
-    public static Map<Product.Category, List<Product>> groupProductsByCategory(Set<Product> products) {
-        Map<Product.Category, List<Product>> productCategories = new HashMap<>();
-        for (Product product : products) {
-            productCategories.putIfAbsent(product.getCategory(), new ArrayList<>());
-            productCategories.get(product.getCategory()).add(product);
+    public void groupProductsByCategory() {
+        Map<Category, List<Product>> productsByCategories = new HashMap<>();
+        for(Product product : products) {
+            productsByCategories.putIfAbsent(product.getCategory(), new ArrayList<>());
+            productsByCategories.get(product.getCategory()).add(product);
         }
-        return productCategories;
+        categoryMap = productsByCategories;
     }
 
     public void printAllProducts() {
