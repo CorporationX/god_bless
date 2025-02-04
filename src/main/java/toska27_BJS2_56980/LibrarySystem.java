@@ -15,12 +15,12 @@ public class LibrarySystem {
         System.out.printf("Книгу \"%s\" - разместили %s\n", book.getTitle(), location);
     }
 
-    public static boolean removeBook(String title, String author, int year) {
+    public static boolean removeBook(@NonNull String title, @NonNull String author, int year) {
         Book book = new Book(title, author, year);
         return library.remove(book) != null;
     }
 
-    public static String findBook(String title, String author, int year) {
+    public static String findBook(@NonNull String title, @NonNull String author, int year) {
         Book book = new Book(title, author, year);
         return library.getOrDefault(book, "Книга не найдена");
     }
