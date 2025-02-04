@@ -1,4 +1,5 @@
 package school.faang.westeroslibrary;
+
 import java.util.Objects;
 
 public class Book {

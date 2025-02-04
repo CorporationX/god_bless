@@ -13,8 +13,8 @@ public class LibrarySystem {
 
         removeBook("Little Prince", "Antuan", 3000);
 
-        findBook("Sherlock Holmes", "Arthur",4000);
-        findBook("Sherlock Holmes2", "Arthur",4000);
+        findBook("Sherlock Holmes", "Arthur", 4000);
+        findBook("Sherlock Holmes2", "Arthur", 4000);
 
         printAllBooks();
     }
