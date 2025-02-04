@@ -21,6 +21,8 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
+    public abstract int attack(Character opponent);
+
     public int getStrength() {
         return strength;
     }
@@ -46,6 +48,8 @@ public abstract class Character {
     }
 
     public int getHealth() {
+        if (health <= 0)
+            throw new IllegalArgumentException("Персонаж погиб.");
         return health;
     }
 
@@ -53,5 +57,7 @@ public abstract class Character {
         this.health = health;
     }
 
-    public abstract void attack(Character opponent);
+    public String getName() {
+        return name;
+    }
 }
