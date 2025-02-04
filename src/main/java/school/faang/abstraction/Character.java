@@ -2,17 +2,19 @@ package school.faang.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@ToString
 abstract class Character {
     private final String name;
-    private final Integer strength;
-    private final Integer agility;
-    private final Integer intelligence;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
     @Setter
-    private Integer health = 100;
+    private int health = 100;
 
-    Character(String name, Integer strength, Integer agility, Integer intelligence) {
+    public Character(String name, Integer strength, Integer agility, Integer intelligence) {
         checkName(name);
         this.name = name;
         this.strength = strength;
@@ -20,10 +22,8 @@ abstract class Character {
         this.intelligence = intelligence;
     }
 
-    Character(String name) {
-        checkName(name);
-        this.name = name;
-        strength = agility = intelligence = 5;
+    public Character(String name) {
+        this(name,  5, 5, 5);
     }
 
     abstract void attack(Character opponent);

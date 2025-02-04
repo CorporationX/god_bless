@@ -3,11 +3,11 @@ package school.faang.abstraction;
 
 import java.util.Random;
 
-public class Game {
+public class Battle {
     Character character1;
     Character character2;
 
-    public Game(Character character1, Character character2) {
+    public Battle(Character character1, Character character2) {
         this.character1 = character1;
         this.character2 = character2;
         printStateOfCharacters();

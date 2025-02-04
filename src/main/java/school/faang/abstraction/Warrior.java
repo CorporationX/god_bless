@@ -1,5 +1,9 @@
 package school.faang.abstraction;
 
+
+import lombok.ToString;
+
+@ToString(callSuper = true)
 public class Warrior extends Character {
 
     public Warrior(String name) {
@@ -11,13 +15,4 @@ public class Warrior extends Character {
         opponent.setHealth(opponent.getHealth() - this.getStrength());
     }
 
-    @Override
-    public String toString() {
-        return String.format("""
-                Type: %s
-                Name: %s
-                Health: %d
-                """,
-        getClass().getSimpleName(), getName(), getHealth());
-    }
 }
