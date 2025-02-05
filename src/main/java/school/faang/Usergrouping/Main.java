@@ -12,7 +12,7 @@ public class Main {
         User user2 = new User("Sergay", 18,"T-bank","Street2");
         User user3 = new User("Alex", 20,"ya","Street3");
         User user4 = new User("Zaur", 19,"ya","Street4");
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
         users.add(user3);
