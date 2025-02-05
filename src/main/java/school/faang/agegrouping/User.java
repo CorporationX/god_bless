@@ -17,11 +17,37 @@ public class User {
         this.address = address;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "name= " + getName() + '\''
+                + ", age= " + getAge()
+                + ", work place= " + getWorkPlace() + '\''
+                + ", address= " + getAddress() + '\''
+                + '}';
+    }
+
     public static HashMap<Integer, List<User>> groupingByAge(List<User> users) {
         HashMap<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
-            result.putIfAbsent(user.age, new ArrayList<>());
-            result.get(user.age).add(user);
+            result.putIfAbsent(user.getAge(), new ArrayList<>());
+            result.get(user.getAge()).add(user);
 
         }
         return result;
