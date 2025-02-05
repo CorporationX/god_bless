@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class User {
-    private String name;
-    private int age;
-    private String workPlace;
-    private String address;
+    String name;
+    int age;
+    String workPlace;
+    String address;
 
     public User(String name, int age, String workPlace, String address){
         this.name = name;
