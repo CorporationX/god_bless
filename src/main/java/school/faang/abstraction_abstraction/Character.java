@@ -19,17 +19,14 @@ public abstract class Character {
     private int health;
 
     public Character(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустое или null");
-        }
-        this.name = name;
-        this.power = BASE_VALUES;
-        this.agility = BASE_VALUES;
-        this.intelligence = BASE_VALUES;
-        this.health = MAX_HEALTH;
+        this(name, BASE_VALUES, BASE_VALUES, BASE_VALUES);
     }
 
     public Character(String name, int power, int agility, int intelligence) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Имя не может быть пустое или null");
+        }
+
         this.name = name;
         this.power = power;
         this.agility = agility;
@@ -39,7 +36,7 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    public void healthOpponent(Character opponent) {
+    public void printHealth(Character opponent) {
         System.out.printf("У противника осталось %d здоровья\n", opponent.getHealth());
     }
 
