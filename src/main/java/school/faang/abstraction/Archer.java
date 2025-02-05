@@ -14,19 +14,15 @@ public class Archer extends Character {
 
     public Archer(String name) {
         super(name);
-        strength = DEFAULT_ARCHER_STRENGTH;
-        agility = DEFAULT_ARCHER_AGILITY;
-        intelligence = DEFAULT_ARCHER_INTELLIGENCE;
-    }
-
-    public Archer(String name, int strength, int agility, int intelligence) {
-        super(name, strength, agility, intelligence);
+        super.setStrength(DEFAULT_ARCHER_STRENGTH);
+        super.setAgility(DEFAULT_ARCHER_AGILITY);
+        super.setIntelligence(DEFAULT_ARCHER_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character opponent) {
-        if (canAttack(this.health)) {
-            opponent.setHealth(opponent.getHealth() - this.agility);
+        if (canAttack(this.getHealth())) {
+            opponent.setHealth(opponent.getHealth() - this.getAgility());
             equateToZeroIfNegative(opponent);
         }
     }

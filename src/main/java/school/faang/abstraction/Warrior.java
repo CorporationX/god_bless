@@ -14,19 +14,15 @@ public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name);
-        strength = DEFAULT_WARRIOR_STRENGTH;
-        agility = DEFAULT_WARRIOR_AGILITY;
-        intelligence = DEFAULT_WARRIOR_INTELLIGENCE;
-    }
-
-    public Warrior(String name, int strength, int agility, int intelligence) {
-        super(name, strength, agility, intelligence);
+        super.setStrength(DEFAULT_WARRIOR_STRENGTH);
+        super.setAgility(DEFAULT_WARRIOR_AGILITY);
+        super.setIntelligence(DEFAULT_WARRIOR_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character opponent) {
-        if (canAttack(this.health)) {
-            opponent.setHealth(opponent.getHealth() - this.strength);
+        if (canAttack(this.getHealth())) {
+            opponent.setHealth(opponent.getHealth() - this.getStrength());
             equateToZeroIfNegative(opponent);
         }
     }

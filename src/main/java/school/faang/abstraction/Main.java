@@ -15,14 +15,14 @@ public class Main {
         List<Character> characters = new ArrayList<>();
 
         characters.add(new Warrior("Oleg"));
-        characters.add(new Archer("Alexey", 6, 23, 9));
-        characters.add(new Warrior("Evgeniy", 101, 13, 15));
-        characters.add(new Archer("Egor"));
+        characters.add(new Archer("Alexey"));
 
         printCharacters(characters);
         fightOneVsOne(characters.get(0), characters.get(1));
         printCharacters(characters);
-        fightOneVsOne(characters.get(2), characters.get(3));
+        for (int iteration = 0; iteration < 10; iteration++) {
+            fightOneVsOne(characters.get(0), characters.get(1));
+        }
         printCharacters(characters);
     }
 

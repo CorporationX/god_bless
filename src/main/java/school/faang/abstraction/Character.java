@@ -15,16 +15,13 @@ public abstract class Character {
     private static final int MIN_VALUE_HEALTH = 0;
 
     private String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = DEFAULT_VALUE_HEALTH;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = DEFAULT_VALUE_HEALTH;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = DEFAULT_CHARACTER_STRENGTH;
-        this.agility = DEFAULT_CHARACTER_AGILITY;
-        this.intelligence = DEFAULT_CHARACTER_INTELLIGENCE;
+        this(name, DEFAULT_CHARACTER_STRENGTH, DEFAULT_CHARACTER_AGILITY, DEFAULT_CHARACTER_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
