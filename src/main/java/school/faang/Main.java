@@ -1,5 +1,6 @@
 package school.faang;
 
+
 import school.faang.bjs2_56348.User;
 
 public class Main {
