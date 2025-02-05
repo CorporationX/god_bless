@@ -1,5 +1,6 @@
 package school.faang.doublecache;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,6 +9,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestStudentDatabase {
+
+    @BeforeEach
+    void setUp() {
+        StudentDatabase.STUDENT_SUBJECTS.clear();
+        StudentDatabase.SUBJECT_STUDENTS.clear();
+    }
 
     @Test
     public void testAddStudent() {
