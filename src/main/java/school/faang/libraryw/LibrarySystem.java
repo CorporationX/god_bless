@@ -9,7 +9,7 @@ public class LibrarySystem {
     public void addBook(String title, String author, int year, String location) {
         isNullArguments(title, author, year);
         if (location == null || location.isEmpty()) {
-            throw new NullPointerException("Местоположение книги не может быть пустым");
+            throw new NullPointerException("Местоположение книги не может быть пустым.");
         }
         LOCATION_BOOK.put(new Book(title, author, year), location);
     }

@@ -6,14 +6,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Book {
-    private final String TITLE;
-    private final String AUTHOR;
-    private final int YEAR;
+    private final String title;
+    private final String author;
+    private final int year;
 
     @Override
     public String toString() {
-        return "Название: \"" + TITLE + "\"" +
-                ", автор: \"" + AUTHOR + "\"" +
-                ", год издания: " + YEAR;
+        return "Название: \"" + title + "\"" +
+                ", автор: \"" + author + "\"" +
+                ", год издания: " + year;
     }
 }

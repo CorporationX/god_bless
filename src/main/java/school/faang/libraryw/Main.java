@@ -7,7 +7,6 @@ public class Main {
             librarySystem.addBook("1984", "Джордж Оруэлл", 1949, "A1");
             librarySystem.addBook("Война и мир", "Лев Толстой", 1869, "B2");
             librarySystem.addBook("Мастер и Маргарита", "Михаил Булгаков", 1967, "C4");
-            librarySystem.addBook("Убить пересмешника", "Харпер Ли", 1960, "B5");
             librarySystem.addBook("Гарри Поттер и философский камень", "Дж.К. Роулинг", 1997, "C1");
 
             librarySystem.removeBook("Мастер и Маргарита", "Михаил Булгаков", 1967);
