@@ -9,6 +9,7 @@ abstract class Character {
 
     /**
      * Constructor with default attributes.
+     *
      * @param name Character name
      */
     protected Character(String name) {
@@ -21,6 +22,7 @@ abstract class Character {
 
     /**
      * Constructor with custom attributes.
+     *
      * @param name Character name
      * @param strength Strength attribute
      * @param agility Agility attribute
@@ -38,6 +40,7 @@ abstract class Character {
 
     /**
      * Method to receive damage.
+     *
      * @param damage Amount of damage taken
      */
     protected void takeDamage(int damage) {
