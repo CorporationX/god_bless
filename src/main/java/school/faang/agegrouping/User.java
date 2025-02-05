@@ -22,6 +22,7 @@ public class User {
         for (User user : users) {
             result.putIfAbsent(user.age, new ArrayList<>());
             result.get(user.age).add(user);
+
         }
         return result;
     }
