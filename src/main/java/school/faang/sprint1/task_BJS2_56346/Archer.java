@@ -7,12 +7,11 @@ package school.faang.sprint1.task_BJS2_56346;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(3, 10, 5);
-        this.name = name;
+        super(name, 3, 10, 5);
     }
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - this.agility);
+        opponent.setHealth(opponent.getHealth() - this.getAgility());
     }
 }
