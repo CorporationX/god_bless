@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @Data
 public class User {
     public static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
@@ -47,7 +46,6 @@ public class User {
         setName(name);
         setAddress(address);
     }
-
     /**
      * Метод принимает список пользователей, создает и заполняет мапу значениями, где
      * ключ-age, значение - пользователь с этим возрастом
@@ -75,6 +73,7 @@ public class User {
                         .append("| Work Place: ").append(user.getJob())
                         .append("| Address: ").append(user.getAddress())
                         .append("\n");
+
             }
         }
         System.out.println(result);
