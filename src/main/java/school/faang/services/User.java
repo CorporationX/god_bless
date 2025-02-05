@@ -2,17 +2,16 @@ package school.faang.services;
 
 import lombok.Getter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 public class User {
-    private String name;
-    private int age;
-    private String job;
-    private String address;
-    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
+    private static final Set VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         if (name.isEmpty() || name == null) {
