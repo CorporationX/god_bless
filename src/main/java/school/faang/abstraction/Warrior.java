@@ -13,10 +13,7 @@ public class Warrior extends Character {
     private static final int DEFAULT_WARRIOR_INTELLIGENCE = 3;
 
     public Warrior(String name) {
-        super(name);
-        super.setStrength(DEFAULT_WARRIOR_STRENGTH);
-        super.setAgility(DEFAULT_WARRIOR_AGILITY);
-        super.setIntelligence(DEFAULT_WARRIOR_INTELLIGENCE);
+        super(name, DEFAULT_WARRIOR_STRENGTH, DEFAULT_WARRIOR_AGILITY, DEFAULT_WARRIOR_INTELLIGENCE);
     }
 
     @Override

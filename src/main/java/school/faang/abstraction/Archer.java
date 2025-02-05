@@ -13,10 +13,7 @@ public class Archer extends Character {
     private static final int DEFAULT_ARCHER_INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
-        super.setStrength(DEFAULT_ARCHER_STRENGTH);
-        super.setAgility(DEFAULT_ARCHER_AGILITY);
-        super.setIntelligence(DEFAULT_ARCHER_INTELLIGENCE);
+        super(name, DEFAULT_ARCHER_STRENGTH, DEFAULT_ARCHER_AGILITY, DEFAULT_ARCHER_INTELLIGENCE);
     }
 
     @Override
