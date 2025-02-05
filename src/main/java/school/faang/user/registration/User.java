@@ -27,5 +27,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
+    }//
 }
