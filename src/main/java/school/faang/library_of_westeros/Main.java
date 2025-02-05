@@ -1,13 +1,28 @@
 package school.faang.library_of_westeros;
 
+import lombok.ToString;
+
+@ToString
+
 public class Main {
     public static void main(String[] args) {
+        LibrarySystem library = new LibrarySystem();
 
-        LibrarySystem novay = new LibrarySystem();
-        novay.addBook("ew", "gff", 45, "N1");
-        novay.addBook("ew23", "gff", 45, "N3");
-        novay.removeBook("ew24545", "gff", 45);
+
+        library.addBook("1984", "George Orwell", 1949, "A1");
+        library.addBook("To Kill a Mockingbird", "Harper Lee", 1960, "B2");
+        library.addBook("1984", "George Orwell", 1949, "A2");
+
+        library.printAllBooks();
+
+        library.removeBook("1984", "George Orwell", 149);
+        library.removeBook("The Great Gatsby", "F. Scott Fitzgerald", 1925);
+
+        library.printAllBooks();
+
+        library.findBook("1984", "George Orwell", 1949);
 
 
     }
 }
+

@@ -2,7 +2,7 @@ package school.faang.library_of_westeros;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -10,12 +10,20 @@ import java.util.Map;
 
 @EqualsAndHashCode
 @Slf4j
-@ToString
 @Getter
+@NonNull
 
 public class LibrarySystem {
 
-    private final Map<Book, String> locationBook = new HashMap<>();
+    @Override
+    public String toString() {
+        return "LibrarySystem{" +
+                "locationBook=" + locationBook +
+                ", booksName=" + booksName +
+                '}';
+    }
+
+    static Map<Book, String> locationBook = new HashMap<>();
     private Map<String, Book> booksName = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
@@ -44,13 +52,11 @@ public class LibrarySystem {
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
 
-        // Проверка на пустоту коллекции
         if (locationBook.isEmpty()) {
             System.out.println("в библиотеке нет книг");
             return; // Выход из метода, если коллекция пуста
         }
 
-        // Проверка наличия книги
         if (!locationBook.containsKey(book)) {
             System.out.println("Такой книги нет");
         } else {
@@ -58,4 +64,18 @@ public class LibrarySystem {
             System.out.println("Книга удалена");
         }
     }
+
+    public String findBook(@NonNull String title, @NonNull String author, int year) {
+        Book book = new Book(title, author, year);
+        return locationBook.getOrDefault(book, "Книга не найдена");
+    }
+
+    public void printAllBooks() {
+        for (Map.Entry<Book, String> entry : locationBook.entrySet()) {
+            System.out.printf("Книга \"%s\" размещена %s\n",
+                    entry.getKey().getTitle(), entry.getValue());
+        }
+
+    }
 }
+
