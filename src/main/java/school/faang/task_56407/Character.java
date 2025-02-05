@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public abstract class Character {
     private String name;
-    private int strength;//сила
-    private int agility;//ловкость
-    private int intelligence;//интелект
-    private int health = 100;//здоровье
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
