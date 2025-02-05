@@ -1,25 +1,31 @@
 package school.faang.user_registration;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import java.util.Set;
 
+@Getter
+@Setter
 public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int MIN_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
-    public User(String name, int age, String job, String address) {
+    public User(@NonNull String name, int age, @NonNull String job, @NonNull String address) {
         if (name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым или null");
+            throw new IllegalArgumentException("Имя не может быть пустым");
         }
 
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException(String.format("Возраст должен быть больше %s", MIN_AGE));
+            throw new IllegalArgumentException("Переданный возраст %d меньше допустимого %d".formatted(age, MIN_AGE));
         }
 
         if (!VALID_JOBS.contains(job)) {
@@ -34,7 +40,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-
-
     }
 }
