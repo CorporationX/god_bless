@@ -1,0 +1,2 @@
+Created new branch adding-new-files in project rare-book-store:
+https://github.com/MamaevVladimir/rare-book-store
