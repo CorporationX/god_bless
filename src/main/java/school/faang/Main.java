@@ -15,8 +15,7 @@ public class Main {
 
         List<User> users = new ArrayList<>(List.of(vasya, petya, dima, sveta));
         for (Map.Entry<Integer, List<User>> value : User.groupUsers(users).entrySet())
-            for (int i = 0; i < value.getValue().size(); i++) {
+            for (int i = 0; i < value.getValue().size(); i++)
                 System.out.println(value.getKey() + " " + value.getValue().get(i).getName());
-            }
     }
 }
