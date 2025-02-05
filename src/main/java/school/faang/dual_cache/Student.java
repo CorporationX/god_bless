@@ -1,4 +1,4 @@
-package school.faang.task_56888;
+package school.faang.dual_cache;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

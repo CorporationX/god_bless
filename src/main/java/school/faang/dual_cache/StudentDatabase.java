@@ -1,12 +1,9 @@
 package school.faang.dual_cache;
 
-import lombok.AllArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class StudentDatabase {
 
@@ -65,19 +62,24 @@ public class StudentDatabase {
 
         if (studentSubjects.containsKey(student)) {
             System.out.println("This student already exists");
-        } else {
-            studentSubjects.put(student, grades);
-            System.out.println("New student is added");
+            return;
         }
 
+        studentSubjects.put(student, grades);
+
+        // Refresh subjectStudents
         for (Map.Entry<Subject, Integer> entry : grades.entrySet()) {
             Subject subject = entry.getKey();
 
             updateSubjectStudents(student, subject);
         }
+
+        System.out.println("New student is added");
     }
 
     // 4.2
+    // Добавляет новый предмет и оценку для существующего студента.
+    // Если студент отсутствует, создается новая запись
     void addSubjectForStudent(Student student, Subject subject, int grade) {
 
         if (studentSubjects.containsKey(student)) {
@@ -93,17 +95,25 @@ public class StudentDatabase {
             studentSubjects.put(student, mapSubjects);
 
         } else {
-            System.out.println("There is not such student in database");
+            studentSubjects.put(student, new HashMap<Subject, Integer>());
+            studentSubjects.get(student).put(subject, grade);
         }
 
+        // Refresh subjectStudents Map
         updateSubjectStudents(student, subject);
     }
 
     // 4.3
     void removeStudent(Student student) {
 
+        if (!studentSubjects.containsKey(student)) {
+            return;
+        }
+
+        // Remove from studentSubjects Map
         studentSubjects.remove(student);
 
+        // Remove from subjectStudents Map
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
 
             Subject subject = entry.getKey();
@@ -137,13 +147,29 @@ public class StudentDatabase {
         }
     }
 
+    //*******************************************************************************************
     // 5.1
-    void addSubjectWithStudents(Subject subject, List<Student> students) {
+    void addNewSubjectWithStudents(Subject subject, List<Student> students) {
 
+        // Map<Student, Map<Subject, Integer>> studentSubjects;
+
+        if (subjectStudents.containsKey(subject)) {
+            System.out.println("This subject already exists");
+            return;
+        }
+
+        subjectStudents.put(subject, new ArrayList<>(students)); // Можно ли просто студентов добавить, без new Array?
+
+        for (var student : students) {
+
+            studentSubjects.putIfAbsent(student, new HashMap<>());
+            studentSubjects.get(student).put(subject, null);
+        }
     }
 
     // 5.2
     void addStudentToSubject(Student student, Subject subject) {
+
 
     }
 
