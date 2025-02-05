@@ -6,42 +6,21 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        try {
-            User user = new User("Sergey", 21, "Google", "London");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user = new User("", 22, "Uber", "London");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user = new User("Anton", 17, "Amazon", "Amsterdam");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user = new User("Andrey", 24, "Yandex", "London");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user = new User("Denis", 25, "Google", "Spb");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            User user = new User("Viktor", 28, "Uber", "New York");
-            users.add(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        addUser("Sergey", 21, "Google", "London", users);
+        addUser("", 22, "Uber", "London", users);
+        addUser("Anton", 17, "Amazon", "Amsterdam", users);
+        addUser("Andrey", 24, "Yandex", "London", users);
+        addUser("Denis", 25, "Google", "Spb", users);
+        addUser("Viktor", 28, "Uber", "New York", users);
         users.forEach(System.out::println);
+    }
+
+    private static void addUser(String name, int age, String job, String address, List<User> users) {
+        try {
+            User user = new User(name, age, job, address);
+            users.add(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
