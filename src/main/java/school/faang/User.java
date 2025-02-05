@@ -30,8 +30,8 @@ public class User {
         return userHobby;
     }
 
-    @Override
     public String toString() {
         return "User " + name;
     }
 }
+
