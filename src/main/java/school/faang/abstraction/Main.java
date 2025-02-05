@@ -4,9 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Character war1 = new Warrior("War1");
-        Character war2 = new Warrior("War2");
-        Character war3 = new Warrior("War3", 10, 11, 12);
+        final Character war1 = new Warrior("War1");
+        final Character war2 = new Warrior("War2");
+        Character war3 = new Warrior("War3");
+        war3.setStrength(10);
+        war3.setAgility(11);
+        war3.setIntellect(12);
         System.out.printf("War3, strength = %d, agility = %d, intellect = %d\n", war3.getStrength(),
                                                                               war3.getAgility(),
                                                                               war3.getIntellect());
@@ -26,9 +29,12 @@ public class Main {
         System.out.printf("War1 health after attack: %d\n", war1.getHealth());
 
         //*********************************************************************
-        Character arch1 = new Archer("Arch1");
-        Character arch2 = new Archer("Arch2");
-        Character arch3 = new Archer("Arch3", 20, 21, 22);
+        final Character arch1 = new Archer("Arch1");
+        final Character arch2 = new Archer("Arch2");
+        Character arch3 = new Archer("Arch3");
+        arch3.setStrength(20);
+        arch3.setAgility(21);
+        arch3.setIntellect(22);
         System.out.printf("Arch3, strength = %d, agility = %d, intellect = %d\n", arch3.getStrength(),
                                                                                   arch3.getAgility(),
                                                                                   arch3.getIntellect());

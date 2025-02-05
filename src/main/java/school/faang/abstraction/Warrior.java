@@ -3,14 +3,7 @@ package school.faang.abstraction;
 public class Warrior extends Character {
 
     public Warrior(String name) {
-        super(name);
-        setStrength(10);
-        setAgility(5);
-        setIntellect(3);
-    }
-
-    public Warrior(String name, int willpower, int adroitness, int intellect) {
-        super(name, willpower, adroitness, intellect);
+        super(name, 10, 5, 3);
     }
 
     @Override

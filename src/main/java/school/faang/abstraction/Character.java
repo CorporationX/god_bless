@@ -14,22 +14,18 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        strength = agility = intellect = 5;
+        this(name, 5, 5, 5);
     }
 
-    public Character(String name, int willpower, int adroitness, int intellect) {
+    public Character(String name, int strength, int agility, int intellect) {
         this.name = name;
-        this.strength = willpower;
-        this.agility = adroitness;
+        this.strength = strength;
+        this.agility = agility;
         this.intellect = intellect;
     }
 
     public void checkOpponentHealth(Character opponent, int injury) {
-
         if (opponent.health - injury < 0) {
-
-            //System.out.println("Health can't be less 0");
             throw new IllegalArgumentException("Health can't be less 0");
         }
     }
