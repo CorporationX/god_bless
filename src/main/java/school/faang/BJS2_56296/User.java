@@ -1,4 +1,5 @@
 package school.faang.BJS2_56296;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,12 +17,12 @@ public class User {
     private final int age;
     private final Set<String> hobbies;
 
-    public static Map<User,String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbiesLovers = new HashMap<>();
-        for(User user: users) {
+        for (User user : users) {
             for (String hobby : user.getHobbies()) {
-                if(hobbies.contains(hobby)) {
-                    hobbiesLovers.put(user,hobby);
+                if (hobbies.contains(hobby)) {
+                    hobbiesLovers.put(user, hobby);
                     break;
                 }
             }
