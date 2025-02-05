@@ -20,9 +20,7 @@ public class User {
     public static HashMap<Integer, List<User>> groupingByAge(List<User> users) {
         HashMap<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
-            if (!result.containsKey(user.age)) {
-                result.put(user.age, new ArrayList<>());
-            }
+            result.putIfAbsent(user.age, new ArrayList<>());
             result.get(user.age).add(user);
         }
         return result;
