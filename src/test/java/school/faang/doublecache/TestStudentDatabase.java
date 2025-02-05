@@ -56,7 +56,8 @@ public class TestStudentDatabase {
         StudentDatabase.addSubjectStudents(subject, students);
 
         assertEquals(1, StudentDatabase.SUBJECT_STUDENTS.size(), "Should add subject to SUBJECT_STUDENTS");
-        assertEquals(2, StudentDatabase.SUBJECT_STUDENTS.get(subject).size(), "Should add students to SUBJECT_STUDENTS list");
+        assertEquals(2, StudentDatabase.SUBJECT_STUDENTS.get(subject).size(),
+                "Should add list of students to SUBJECT_STUDENTS");
         assertEquals(2, StudentDatabase.STUDENT_SUBJECTS.size(), "Should add subject to STUDENT_SUBJECTS");
     }
 
