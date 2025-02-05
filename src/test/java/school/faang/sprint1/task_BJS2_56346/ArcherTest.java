@@ -16,7 +16,7 @@ class ArcherTest {
         archer = new Archer("Леголас");
         opponentWarrior =  new Warrior("Ахилес сын Пелея");
         opponentHealth = opponentWarrior.getHealth();
-        archerAttack = archer.agility;
+        archerAttack = archer.getAgility();
     }
 
     @Test

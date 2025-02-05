@@ -16,7 +16,7 @@ class WarriorTest {
         warrior = new Warrior("Ахилес сын Пелея");
         opponentArcher =  new Archer("Леголас");
         opponentHealth = opponentArcher.getHealth();
-        warriorAttack = warrior.strength;
+        warriorAttack = warrior.getStrength();
     }
 
     @Test
