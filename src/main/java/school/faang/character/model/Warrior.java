@@ -10,8 +10,14 @@ public class Warrior extends Character {
         int opponentHealth = opponent.getHealth();
         int attackerPower = this.getPower();
 
-        if (opponentHealth >= attackerPower) {
-            opponent.setHealth(opponentHealth - attackerPower);
+        if (opponentHealth > 0) {
+            opponentHealth -= attackerPower;
+
+            if (opponentHealth < 0) {
+                opponentHealth = 0;
+            }
+
+            opponent.setHealth(opponentHealth);
         } else {
             System.out.println("Оппонент " + opponent.getName() + " повержен");
         }

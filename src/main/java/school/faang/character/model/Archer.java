@@ -10,8 +10,14 @@ public class Archer extends Character {
         int opponentHealth = opponent.getHealth();
         int attackerAgility = this.getAgility();
 
-        if (opponentHealth >= attackerAgility) {
-            opponent.setHealth(opponentHealth - attackerAgility);
+        if (opponentHealth > 0) {
+            opponentHealth -= attackerAgility;
+
+            if (opponentHealth < 0) {
+                opponentHealth = 0;
+            }
+
+            opponent.setHealth(opponentHealth);
         } else {
             System.out.println("Оппонент " + opponent.getName() + " повержен");
         }
