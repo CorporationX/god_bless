@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_56978;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,10 +10,10 @@ import java.util.UUID;
 @Getter
 public class SpellEvent {
     private UUID id;
-    private final String eventType;
+    private EvantType eventType;
     private final String action;
 
-    public SpellEvent(String eventType, String action) {
+    public SpellEvent(EvantType eventType, String action) {
         this.eventType = eventType;
         this.action = action;
     }

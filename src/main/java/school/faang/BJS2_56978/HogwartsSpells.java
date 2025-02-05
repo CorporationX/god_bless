@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_56978;
 
 import lombok.ToString;
 
@@ -9,9 +9,9 @@ public class HogwartsSpells {
 
     private List<SpellEvent> spellEventList = new ArrayList<>();
     private Map<UUID, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private Map<EvantType, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
+    public void addSpellEvent(EvantType eventType, String actionDescription) {
         SpellEvent newEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(newEvent.generatId(), newEvent);
         spellEventList.add(newEvent);
@@ -19,10 +19,16 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (!spellById.containsKey(id)) {
+            throw new IllegalArgumentException("Spell with id " + id + " not found");
+        }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (!spellsByType.containsKey(eventType)) {
+            throw new IllegalArgumentException("Spell with eventType " + eventType + " not found");
+        }
         return spellsByType.get(eventType);
     }
 
