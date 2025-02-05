@@ -30,7 +30,8 @@ public class HogwartsSpells {
         }
     }
 
-    public void deleteSpellEvent(int id, Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellByType) {
+    public void deleteSpellEvent(int id, Map<Integer, SpellEvent> spellById,
+                                 Map<String, List<SpellEvent>> spellByType) {
         SpellEvent spellEvent = spellById.get(id);
         if (spellEvent != null) {
             spellById.remove(id);
