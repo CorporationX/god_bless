@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
@@ -18,6 +19,7 @@ public class User {
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Objects.requireNonNull(users, "The users list cannot be null");
         Map<Integer, List<User>> result = new HashMap<>();
         users.forEach(user -> {
             result.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
