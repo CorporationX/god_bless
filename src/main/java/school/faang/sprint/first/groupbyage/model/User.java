@@ -1,4 +1,4 @@
-package school.faang.sprint.first.model;
+package school.faang.sprint.first.groupbyage.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
