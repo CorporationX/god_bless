@@ -24,11 +24,7 @@ public class LibrarySystem {
         } else {
             locationBook.put(book, location);
         }
-//
-//    public void removeBook(String title, String author, int year) (
-//            Book book = new Book(title, author, year) {
-//
-//            }
+
 
     }
 }
