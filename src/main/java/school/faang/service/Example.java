@@ -1,14 +1,30 @@
 package school.faang.service;
 
 public class Example {
+    /**
+     * Переворачивает порядок элементов в массиве.
+     *
+     * @param nums массив целых чисел для переворачивания
+     *             используем два указателя, которые смещаются от края к центру при каждой итерации.
+     * @return измененный массив {@code nums} с элементами в обратном порядке
+     */
     public static int[] reverse(int[] nums) {
-        int[] reverseNum = new int[nums.length];
-        int i = reverseNum.length - 1;
-        for (int value : nums) {
-            reverseNum[i] = value;
-            i--;
-            if (i < 0) break;
+        if (nums == null) {
+            return null;
         }
-        return reverseNum;
+        if (nums.length == 0) {
+            throw new IllegalArgumentException("Массив не должен быть пустым.");
+        }
+        int left = 0;
+        int right = nums.length;
+        int center = right / 2;
+        for (int i = 0; i < center; i++) {
+            int buffer = nums[left];
+            nums[i] = nums[right - 1];
+            nums[right - 1] = buffer;
+            right--;
+            left++;
+        }
+        return nums;
     }
 }
