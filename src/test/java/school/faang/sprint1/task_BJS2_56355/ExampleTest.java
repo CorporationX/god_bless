@@ -14,26 +14,36 @@ class ExampleTest {
     }
 
     @Test
-    public void reverse_PositiveTest() {
-        String[] array = {"one", "two", "", null, "three"};
-        String[] expected = {"three", null, "", "two", "one"};
+    public void reverse_oddNumberOfElements() {
+        int[] array = {Integer.MIN_VALUE, 0, 2, 42, 23462, -75, Integer.MAX_VALUE};
+        int[] expected = {Integer.MAX_VALUE, -75, 23462, 42, 2, 0, Integer.MIN_VALUE};
 
         example.reverse(array);
         assertArrayEquals(expected, array);
     }
 
     @Test
+    public void reverse_evenNumberOfElements() {
+        int[] array = {Integer.MIN_VALUE, 2, 42, 23462, -75, Integer.MAX_VALUE};
+        int[] expected = {Integer.MAX_VALUE, -75, 23462, 42, 2, Integer.MIN_VALUE};
+
+        example.reverse(array);
+        assertArrayEquals(expected, array);
+    }
+
+
+    @Test
     public void reverse_OneElementArray() {
-        String[] array = {"one"};
-        String[] expected = {"one"};
+        int[] array = {1};
+        int[] expected = {1};
         example.reverse(array);
         assertArrayEquals(expected, array);
     }
 
     @Test
     public void reverse_EmptyArray() {
-        String[] array = {};
-        String[] expected = {};
+        int[] array = {};
+        int[] expected = {};
         example.reverse(array);
         assertArrayEquals(expected, array);
     }
