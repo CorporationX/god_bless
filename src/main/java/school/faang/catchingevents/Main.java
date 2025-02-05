@@ -2,10 +2,26 @@ package school.faang.catchingevents;
 
 public class Main {
     public static void main(String[] args) {
-        try {
+        HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        } catch (Exception error) {
-            System.out.println(error.getMessage());
-        }
+        hogwartsSpells.addSpellEvent("Enchantment", "Accio");
+        hogwartsSpells.addSpellEvent("Transfiguration", "Reparo");
+        hogwartsSpells.addSpellEvent("Enchantment", "Alohomora");
+        hogwartsSpells.addSpellEvent("Transfiguration", "Glisseo");
+        hogwartsSpells.addSpellEvent("Transfiguration", "Aguamenti");
+        hogwartsSpells.addSpellEvent("Transfiguration", "Pullus");
+        hogwartsSpells.addSpellEvent("Defense", "Protego");
+
+        hogwartsSpells.printAllSpellEvents();
+
+        hogwartsSpells.getSpellEventById(101);
+        hogwartsSpells.deleteSpellEvent(101);
+        hogwartsSpells.printAllSpellEvents();
+        hogwartsSpells.getSpellEventById(101);
+
+        hogwartsSpells.addSpellEvent("Transfiguration", "Reparo");
+        hogwartsSpells.printAllSpellEvents();
+
+        hogwartsSpells.getSpellEventsByType("Transfiguration");
     }
 }

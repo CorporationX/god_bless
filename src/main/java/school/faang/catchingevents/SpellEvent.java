@@ -5,26 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 public class SpellEvent {
-    private static final Set<String> POSSIBLE_EVENTS = Set.of("Чар", "Трансфигурация", "Защита");
+    private static int currentId = 100;
 
-    private int id;
+    private final int id;
     private String eventType;
     private String action;
 
-    public SpellEvent(int id, String eventType, String action) {
-        this.id = id;
-        if (POSSIBLE_EVENTS.contains(eventType)) {
-            this.eventType = eventType;
-        } else {
-            throw new IllegalArgumentException("Invalid event type: " + eventType);
-        }
+    public SpellEvent(String eventType, String action) {
+        this.id = currentId++;
+        this.eventType = eventType;
         this.action = action;
     }
 }
