@@ -12,6 +12,9 @@ import java.util.Map;
 @ToString
 public class User {
 
+    private static final int MIN_AGE = 0;
+    private static final int MAX_AGE = 120;
+
     private String name;
     private int age;
     private String placeOfWork;
@@ -21,8 +24,9 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым или null");
         }
-        if (age < 0 || age > 120) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 0 или больше 120");
+        if (age < MIN_AGE || age > MAX_AGE) {
+            throw new IllegalArgumentException(String.format("Возраст не может быть меньше %d или больше %s",
+                    MIN_AGE, MAX_AGE));
         }
 
         this.name = name;
