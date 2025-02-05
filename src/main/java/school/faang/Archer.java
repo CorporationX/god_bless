@@ -2,13 +2,41 @@ package school.faang;
 
 public class Archer extends Character {
     public static final int DEFAULT_STRENGTH = 3;
-    public static final int DEFAULT_DEXTERITY = 10;
+    public static final int DEFAULT_AGILITY = 10;
     public static final int DEFAULT_INTELLIGENCE = 5;
 
-    public Archer(String name, int strength, int dexterity, int intelligence) {
-        super(name, strength, dexterity, intelligence);
+    private final StringBuilder hpProgress = new StringBuilder();
+
+    public Archer(String name) {
+        super(name);
         this.strength = DEFAULT_STRENGTH;
-        this.dexterity = DEFAULT_DEXTERITY;
+        this.agility = DEFAULT_AGILITY;
         this.intelligence = DEFAULT_INTELLIGENCE;
+    }
+
+    /**
+     * Метод наносит урон = ловкости
+     *
+     * @param opponent - экземпляр класса оппонента
+     */
+    @Override
+    public void attack(Character opponent) {
+        if (opponent.getHealth() > 0) {
+            do {
+                opponent.setHealth(opponent.getHealth() - this.agility);
+                hpProgress.append(opponent.getName())
+                        .append(" HP: ")
+                        .append(opponent.getHealth())
+                        .append("\n");
+                if (opponent.getHealth() < this.agility) {
+                    opponent.setHealth(0);
+                }
+            } while (opponent.getHealth() > 0);
+            hpProgress.append(opponent.getName())
+                    .append(" HP: ").append(opponent.getHealth())
+                    .append("\n");
+            System.out.println(hpProgress);
+        }
+        System.out.println(opponent.getName() + " <----- was attacked <------<--- " + this.getName() + "\n");
     }
 }
