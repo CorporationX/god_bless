@@ -6,7 +6,7 @@ public class Main {
 
         library.addBook("The Ingenious Gentleman Don Quixote of La Mancha", "Miguel de Cervantes", 1605, "F.1");
         library.addBook("Autumn of the Patriarch", "Gabriel Garcia Marquez", 1975, "B.1");
-        library.addBook("Flotsam", "Erich Maria Remarque", 1939, "L.2");
+        library.addBook("Flotsam", "Erich Maria Remarque", 1939, "L.4");
 
         library.findBook("Don Quixote", "Miguel de Cervantes", 1605);
         library.findBook("The Count of Monte Cristo", " Alexandre Dumas", 1844);
