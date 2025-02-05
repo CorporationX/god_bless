@@ -16,9 +16,9 @@ public class Main {
         users.add(new User("Robert", 28, "META", "Lisbon"));
 
         Map<Integer, List<User>> sortedUsers = User.groupUsers(users);
-        for(var entry : sortedUsers.entrySet()) {
+        for (var entry : sortedUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey());
-            for(User user : entry.getValue()) {
+            for (User user : entry.getValue()) {
                 System.out.println(" " + user);
             }
         }
