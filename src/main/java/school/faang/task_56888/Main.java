@@ -1,6 +1,7 @@
-package school.faang.task_56888;
+package school.faang.dual_cache;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final int maxStudentsNumber = 20;
+        final int maxStudentsNumber = 3;
 
         Random random = new Random();
 
@@ -50,18 +51,13 @@ public class Main {
             lstMaps.add(grades);
         }
 
-        /*int i = 0;
-        for (var st : lstStudents) {
-
-            System.out.println(i + ". " + st.hashCode() + ", " + st.toString());
-            i++;
-        }*/
-
-
         for (int i = 0; i < lstStudents.size(); i++) {
 
             studentDatabase.addNewStudentWithGrades(lstStudents.get(i), lstMaps.get(i));
+            studentDatabase.updateSubjectStudentsFromStudentSubjects();
         }
+
+        studentDatabase.printAllStudentsWithSubjectsAndGrades();
 
         int m = 0;
     }
