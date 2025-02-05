@@ -1,5 +1,10 @@
 package school.faang.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
     private String name;
     private int strength;
@@ -8,10 +13,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        strength = 5;
-        agility = 5;
-        intellect = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intellect) {
@@ -23,41 +25,11 @@ public abstract class Character {
 
     public abstract int attack(Character opponent);
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
-    public int getIntellect() {
-        return intellect;
-    }
-
-    public void setIntellect(int intellect) {
-        this.intellect = intellect;
-    }
 
     public int getHealth() {
-        if (health <= 0)
+        if (health <= 0) {
             throw new IllegalArgumentException("Персонаж погиб.");
+        }
         return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public String getName() {
-        return name;
     }
 }
