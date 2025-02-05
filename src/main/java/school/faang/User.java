@@ -10,6 +10,7 @@ import java.util.Map;
 public class User {
     public static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
     public static final String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
+    public static final int VALID_AGE = 18;
 
     private String name;
     private int age;
@@ -28,22 +29,22 @@ public class User {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        setName(name);
-        if (age < 18) {
+        if (age < VALID_AGE) {
             throw new IllegalArgumentException("Age less than 18");
         }
-        setAge(age);
         if (!job.equals(VALID_JOBS[0])
                 && !job.equals(VALID_JOBS[1])
                 && !job.equals(VALID_JOBS[2])) {
             throw new IllegalArgumentException("Job is not valid");
         }
-        setJob(job);
         if (!address.equals(VALID_ADDRESSES[0])
                 && !address.equals(VALID_ADDRESSES[1])
                 && !address.equals(VALID_ADDRESSES[2])) {
             throw new IllegalArgumentException("Address is not valid");
         }
+        setJob(job);
+        setAge(age);
+        setName(name);
         setAddress(address);
     }
 
