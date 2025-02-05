@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class LibrarySystem {
 
-    private Map<Book, String> locationBook = new HashMap<>();
+    private final Map<Book, String> locationBook = new HashMap<>();
     private Map<String, Book> booksName = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
@@ -46,7 +46,7 @@ public class LibrarySystem {
 
         // Проверка на пустоту коллекции
         if (locationBook.isEmpty()) {
-            System.out.println("В библиотеке нет книг");
+            System.out.println("в библиотеке нет книг");
             return; // Выход из метода, если коллекция пуста
         }
 
