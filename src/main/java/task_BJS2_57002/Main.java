@@ -5,18 +5,23 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        HogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет");
+        HogwartsSpells.addSpellEvent("Трансфигурация", "преобразует предмет");
+        HogwartsSpells.addSpellEvent("Трансфигурация", "преобразует 2 предмета за раз");
+        HogwartsSpells.addSpellEvent("Абракадабра", "что-то делает");
+
         Map<Integer, SpellEvent> spellById = HogwartsSpells.spellById;
         Map<String, List<SpellEvent>> spellsByType = HogwartsSpells.spellsByType;
+
         System.out.println(spellById);
         System.out.println(spellsByType);
         System.out.println();
 
-        HogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует 2 предмета");
-        Map<Integer, SpellEvent> spellById2 = HogwartsSpells.spellById;
-        Map<String, List<SpellEvent>> spellsByType2 = HogwartsSpells.spellsByType;
-        System.out.println(spellById2);
-        System.out.println(spellsByType2);
+        System.out.println(HogwartsSpells.getSpellEventById(2));
+        System.out.println(HogwartsSpells.getSpellEventsByType("Трансфигурация"));
+        System.out.println();
+
+        HogwartsSpells.deleteSpellEvent(0);
+        HogwartsSpells.printAllSpellEvents();
 
 
     }
