@@ -14,8 +14,10 @@ public class Main {
         User sveta = new User("Светлана", 33, "Аэрофлот", "Самолетная 4");
 
         List<User> users = new ArrayList<>(List.of(vasya, petya, dima, sveta));
-        for (Map.Entry<Integer, List<User>> value : User.groupUsers(users).entrySet())
-            for (int i = 0; i < value.getValue().size(); i++)
+        for (Map.Entry<Integer, List<User>> value : User.groupUsers(users).entrySet()) {
+            for (int i = 0; i < value.getValue().size(); i++) {
                 System.out.println(value.getKey() + " " + value.getValue().get(i).getName());
+            }
+        }
     }
 }
