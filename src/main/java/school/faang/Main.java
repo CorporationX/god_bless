@@ -9,7 +9,7 @@ public class Main {
         library.addBook("Flotsam", "Erich Maria Remarque", 1939, "L.2");
 
         library.findBook("Don Quixote", "Miguel de Cervantes", 1605);
-        library.findBook("The Count of Monte Cristo", " Alexandre Dumas", 1844);  // Книги нет в библиотеке
+        library.findBook("The Count of Monte Cristo", " Alexandre Dumas", 1844);
 
         library.removeBook("Flotsam", "Erich Maria Remarque", 1939);
 
