@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById  = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int nextId = 1;
 
@@ -20,7 +20,8 @@ public class HogwartsSpells {
         SpellEvent spellEvent = new SpellEvent(nextId, eventType, actionDescription);
         spellById.put(nextId, spellEvent);
 
-        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
+        spellsByType.get(eventType).add(spellEvent);
         nextId++;
     }
 
@@ -28,7 +29,7 @@ public class HogwartsSpells {
         return spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
@@ -40,12 +41,6 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            SpellEvent spellEvent = entry.getValue();
-            System.out.printf("ID: %d, Type: %s, Action: %s%n",
-                    spellEvent.getId(),
-                    spellEvent.getEventType(),
-                    spellEvent.getAction());
-        }
+        spellById.values().forEach(System.out::println);
     }
 }
