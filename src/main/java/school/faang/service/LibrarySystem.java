@@ -23,7 +23,8 @@ public class LibrarySystem {
         for (Map.Entry<Book, String> entry : placeBook.entrySet()) {
             System.out.print("название книги: \"" + entry.getKey().getTitle() +
                     "\" \nавтор: " + entry.getKey().getAuthor() +
-                    " \nгод: " + entry.getKey().getYear() + "\nместо: " + entry.getValue() + "\n===============================\n");
+                    " \nгод: " + entry.getKey().getYear() + "\nместо: " +
+                    entry.getValue() + "\n===============================\n");
         }
     }
 }
