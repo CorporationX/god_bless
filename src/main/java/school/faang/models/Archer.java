@@ -2,10 +2,6 @@ package school.faang.models;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-    }
-
-    public Archer(String name, int strength, int agility, int intellect) {
         super(name, 3, 10, 5);
     }
 
