@@ -4,10 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -20,11 +17,12 @@ public class User {
     private final Set<String> hobbies;
 
     public static Map<User,String> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        Map<User, String> hobbiesLovers = new TreeMap<>();
+        Map<User, String> hobbiesLovers = new HashMap<>();
         for(User user: users) {
-            for (String hobbi : user.getHobbies()) {
-                if(hobbies.contains(hobbi)) {
-                    hobbiesLovers.put(user,hobbi);
+            for (String hobby : user.getHobbies()) {
+                if(hobbies.contains(hobby)) {
+                    hobbiesLovers.put(user,hobby);
+                    break;
                 }
             }
         }
