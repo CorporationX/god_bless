@@ -24,7 +24,7 @@ public class LibrarySystem {
     }
 
     static Map<Book, String> locationBook = new HashMap<>();
-    private Map<String, Book> booksName = new HashMap<>();
+    private final Map<String, Book> booksName = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         if (title == null || author == null || location == null || title.isEmpty()
