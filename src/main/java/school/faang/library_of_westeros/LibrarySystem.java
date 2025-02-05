@@ -46,7 +46,7 @@ public class LibrarySystem {
 
         // Проверка на пустоту коллекции
         if (locationBook.isEmpty()) {
-            System.out.println("В библиотеке нет книг");
+            System.out.println("в библиотеке нет книг");
             return; // Выход из метода, если коллекция пуста
         }
 
