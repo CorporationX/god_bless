@@ -20,7 +20,7 @@ public class User {
 
     public User(String name, int age, String job, String address) {
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Age cannot be less than 18! Age " + age);
+            throw new IllegalArgumentException("Age cannot be less than " + MIN_AGE + "! Age " + age);
         }
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank!");
