@@ -7,7 +7,7 @@ public class Main {
         try {
             User testUser = new User("Вася", 25, "Uber", "Amsterdam");
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
+            System.out.println("Ошибка создания пользователя.");
         }
     }
 }
