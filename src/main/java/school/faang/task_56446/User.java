@@ -1,32 +1,35 @@
 package school.faang.task_56446;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int VALID_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age under 18");
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
-        if (VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Bad place to work");
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Место работы не валидное, его нет в коллекции VALID_JOBS");
         }
-        if (VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Incorrect address");
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес не валидный, его нет в коллекции VALID_ADDRESSES ");
         }
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
+
+        this.name = Objects.requireNonNull(name, "Name cannot be null");
+        this.age = Objects.requireNonNull(age, "Age cannot be null");
+        this.job = Objects.requireNonNull(job, "Job cannot be null");
+        this.address = Objects.requireNonNull(address, "Address cannot be null");
     }
 }
