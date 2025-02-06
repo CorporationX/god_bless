@@ -2,7 +2,6 @@ package school.faang.task_56431;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -31,12 +30,12 @@ public class User {
         if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         } else {
-            throw new IllegalArgumentException("Адрес должен содержаться в наборе: " + StringUtils.join(VALID_ADDRESSES, ", "));
+            throw new IllegalArgumentException("Адрес не удовлетворяет набору");
         }
         if (VALID_JOBS.contains(job)) {
             this.job = job;
         } else {
-            throw new IllegalArgumentException("Место работы должно содержаться в наборе: " + StringUtils.join(VALID_JOBS, ", "));
+            throw new IllegalArgumentException("Место работы не удовлетворяет набору");
         }
 
     }
