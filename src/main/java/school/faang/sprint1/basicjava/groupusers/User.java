@@ -29,7 +29,9 @@ public class User {
     }
 
     public static void main(String[] args) {
+
         List<User> userList = new ArrayList<>();
+
         userList.add(new User("Алексей", 23, "ТехноКорп", "ул. Ленина, 12"));
         userList.add(new User("Борис", 25, "ФинТех ООО", "пр. Советский, 45"));
         userList.add(new User("Виктор", 36, "РитейлМакс", "ул. Победы, 78"));
@@ -49,6 +51,7 @@ public class User {
         userList.add(new User("Рита", 36, "ЗдравПлюс", "ул. Вишнёвая, 678"));
         userList.add(new User("Станислав", 18, "МегаРитейл", "пер. Академический, 789"));
         userList.add(new User("Татьяна", 42, "СофтНет Солюшнс", "ул. Дубравная, 890"));
+
         System.out.println(groupUsers(userList));
     }
 }
