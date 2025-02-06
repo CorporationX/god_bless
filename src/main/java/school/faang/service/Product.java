@@ -7,7 +7,8 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @ToString
 public class Product {
