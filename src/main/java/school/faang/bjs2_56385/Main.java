@@ -1,9 +1,9 @@
-package school.faang.BJS2_56385;
+package school.faang.bjs2_56385;
 
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Horde");
-        Archer archer = new Archer("Alliance");
+        Character warrior = new Warrior("Horde");
+        Character archer = new Archer("Alliance");
 
         System.out.println(warrior);
         System.out.println(archer);
