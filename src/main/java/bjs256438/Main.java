@@ -5,22 +5,24 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-
-        users.add(User.builder().name("Vasiliy").age(31).workPlace("IT").address("Moscow").build());
-        users.add(User.builder().name("Fyodor").age(31).workPlace("IT").address("Moscow").build());
-        users.add(User.builder().name("Ivan").age(23).workPlace("Transport").address("Moscow").build());
-        users.add(User.builder().name("Alexander").age(55).workPlace("Production").address("Spb").build());
-        users.add(User.builder().name("Nikolay").age(31).workPlace("Medicine").address("Spb").build());
-        users.add(User.builder().name("Symon").age(23).workPlace("HR").address("Volgograd").build());
-        users.add(User.builder().name("Dmitriy").age(23).workPlace("Legal services").address("Tver").build());
-        users.add(User.builder().name("Alexey").age(55).workPlace("Cleaning").address("Novosibirsk").build());
-        users.add(User.builder().name("Grigoriy").age(19).workPlace("Hotel services").address("Kaliningrad")
-                .build());
-        users.add(User.builder().name("Eduard").age(66).workPlace("Development").address("Voronezh").build());
-        users.add(User.builder().name("Uriy").age(25).workPlace("Tourism").address("Smolensk").build());
-
+        List<User> users = generateTestData();
         User.groupUsers(users).forEach((age, ageGroup) -> System.out.println("Age: " + age
                 + " Age group: " + ageGroup));
+    }
+
+    private static List<User> generateTestData() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("Vasiliy", 31, "IT", "Moscow"));
+        users.add(new User("Fyodor", 31, "IT", "Moscow"));
+        users.add(new User("Ivan", 23, "Transport", "Moscow"));
+        users.add(new User("Alexander", 55, "Production", "Spb"));
+        users.add(new User("Nikolay", 31, "Medicine", "Spb"));
+        users.add(new User("Symon", 23, "HR", "Volgograd"));
+        users.add(new User("Dmitriy", 23, "Legal services", "Tver"));
+        users.add(new User("Alexey", 55, "Cleaning", "Novosibirsk"));
+        users.add(new User("Grigoriy", 19, "Hotel services", "Kaliningrad"));
+        users.add(new User("Eduard", 66, "Development", "Voronezh"));
+        users.add(new User("Uriy", 25, "Tourism", "Smolensk"));
+        return users;
     }
 }

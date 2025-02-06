@@ -1,6 +1,6 @@
 package bjs256438;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Builder
+@AllArgsConstructor
 @Getter
 @ToString
 public class User {
