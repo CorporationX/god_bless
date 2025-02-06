@@ -21,13 +21,26 @@ public class StudentDatabase {
     //Добавление нового студента и его предметов с оценками.
     public void addStudent(Student student, Subject subject, Integer grade) {
         studentSubjects.computeIfAbsent(student, value -> new HashMap<>()).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject,value -> new ArrayList<>()).add(student);
-
+        subjectStudents.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
     }
 
     //Добавление нового предмета для существующего студента с оценкой.
-    //
-    //Удаление студента и его предметов.
-    //
-    //Вывод списка всех студентов и их оценок по предметам.
+    public void addSubject(Student student, Subject subject, Integer grade) {
+        if (studentSubjects.containsKey(student)) {
+            System.out.println("Есть такой студент");
+            studentSubjects.get(student).put(subject, grade);
+        } else System.out.println("Нет такого студента");
+
+        subjectStudents.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
+    }
+
+    public void removeStudentSubject(Student student, Subject subject) {
+        studentSubjects.remove(student);
+        subjectStudents.remove(subject);
+    }
+
+    public void prinAllInfo() {
+        System.out.println(getStudentSubjects());
+        System.out.println(getSubjectStudents());
+    }
 }
