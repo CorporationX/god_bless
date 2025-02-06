@@ -11,17 +11,21 @@ public class Main {
         Student petr = new Student("Петр");
         Student eugen = new Student("Евгений");
         Student alisa = new Student("Алиса");
+        Student fantom = new Student("Студент который не ходит на занятия (тест)");
 
         Subject astronomia = new Subject("Астрономия");
         Subject mathematic = new Subject("Математика");
+        Subject fizika = new Subject("Физика");
 
         manageDatabase.addStudent(vasya,astronomia,4);
         manageDatabase.addStudent(petr,mathematic,2);
         manageDatabase.addStudent(eugen,astronomia,3);
         manageDatabase.addStudent(alisa,mathematic,5);
 
-        System.out.println(manageDatabase.getStudentSubjects());
-        System.out.println();
-        System.out.println(manageDatabase.getSubjectStudents());
+        manageDatabase.addSubject(eugen,fizika,5);
+        manageDatabase.addSubject(fantom,mathematic,5);
+
+        manageDatabase.removeStudentSubject(vasya,astronomia);
+        manageDatabase.prinAllInfo();
     }
 }
