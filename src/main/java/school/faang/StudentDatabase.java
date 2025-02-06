@@ -5,11 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+class StudentNotFoundException extends RuntimeException {
+    public StudentNotFoundException(String message) {
+        super(message);
+    }
+}
+
+class SubjectNotFoundException extends RuntimeException {
+    public SubjectNotFoundException(String message) {
+        super(message);
+    }
+}
+
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubject = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
+    private void validateStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student can't be null");
+        }
+    }
+
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
+        validateStudent(student);
         studentSubject.put(student, grades);
         for (var entry : grades.entrySet()) {
             subjectStudents.putIfAbsent(entry.getKey(), new ArrayList<>());
@@ -19,6 +38,7 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
+        validateStudent(student);
         studentSubject.putIfAbsent(student, new HashMap<>());
         studentSubject.get(student).put(subject, grade);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
@@ -29,8 +49,7 @@ public class StudentDatabase {
 
     public void removeStudentWithSubjects(Student student) {
         if (!studentSubject.containsKey(student)) {
-            System.out.printf("No student %s in DB\n", student);
-            return;
+            throw new StudentNotFoundException("No student " + student.getName() + " in DB");
         }
         Map<Subject, Integer> subjects = studentSubject.get(student);
         studentSubject.remove(student);
@@ -73,11 +92,9 @@ public class StudentDatabase {
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         if (!subjectStudents.containsKey(subject)) {
-            System.out.println("There's no such subject");
-            return;
+            throw new SubjectNotFoundException("No subject " + subject.getName() + " in DB");
         } else if (!studentSubject.containsKey(student)) {
-            System.out.println("There's no such student");
-            return;
+            throw new StudentNotFoundException("No student " + student.getName() + " in DB");
         }
         subjectStudents.get(subject).remove(student);
         studentSubject.get(student).remove(subject);
