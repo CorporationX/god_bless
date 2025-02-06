@@ -4,10 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
-    private static final long MAX_CACHE_TIME_ONE_DAY = 86400000;
-    private static final long MAX_CACHE_TIME_TWO_DAYS = 172800000;
-    private static final long MAX_CACHE_TIME_THREE_DAYS = 259200000;
-    private static final Map<String, WeatherData> WEATHER_INFO = new HashMap<>();
+    protected static final Map<String, WeatherData> WEATHER_INFO = new HashMap<>();
 
     protected final WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData weatherData = WEATHER_INFO.get(city);
