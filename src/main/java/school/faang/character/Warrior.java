@@ -1,6 +1,6 @@
 package school.faang.character;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         setStrength(10);
@@ -10,7 +10,7 @@ public class Warrior extends Character{
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth()-this.getStrength());
+        opponent.setHealth(opponent.getHealth() - this.getStrength());
         super.attack(opponent);
     }
 }

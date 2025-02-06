@@ -76,7 +76,7 @@ public abstract class Character {
         if (this.health == 0) {
             System.out.println(this.getName() + " is dead. The character cannot attack anymore");
         }
-        if (opponent.health < 0){
+        if (opponent.health < 0) {
             opponent.health = 0;
         }
     }
