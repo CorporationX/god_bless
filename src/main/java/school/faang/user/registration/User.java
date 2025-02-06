@@ -1,6 +1,5 @@
 package school.faang.user.registration;
 
-import java.util.Arrays;
 import java.util.Set;
 
 public class User {
@@ -34,5 +33,9 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }//
+    }
+
+    public static void main(String[] args) {
+        User user1 = new User("Misha", 19, "Uber", "London");
+    }
 }
