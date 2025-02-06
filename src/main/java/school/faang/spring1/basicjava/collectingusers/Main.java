@@ -7,8 +7,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Set<String> hobbies =Set.of(
-                "Чтение", "Футбол", "Шахматы", "Плавание", "Кулинария", "Горные лыжи", "Йога");
+        Set<String> hobbies =Set.of("Чтение", "Футбол", "Шахматы", "Плавание", "Кулинария", "Горные лыжи", "Йога");
 
         User user1 = new User(1, "Кирилл", 25, Set.of("Чтение", "Шахматы"));
         User user2 = new User(2, "Мария", 30, Set.of("Рисование", "Йога"));
