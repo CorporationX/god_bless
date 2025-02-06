@@ -9,12 +9,6 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubject = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    private void validateStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student can't be null");
-        }
-    }
-
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         validateStudent(student);
         studentSubject.put(student, grades);
@@ -102,6 +96,12 @@ public class StudentDatabase {
                 System.out.println(student.getName());
             }
             System.out.println();
+        }
+    }
+
+    private void validateStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student can't be null");
         }
     }
 }
