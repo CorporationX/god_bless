@@ -15,7 +15,7 @@ public class Subject {
         this.name = name;
     }
 
-    public void validateName(String name) {
+    private void validateName(String name) {
         if (name == null) {
             throw new NullPointerException("Значение названия предмета не может быть null");
         }

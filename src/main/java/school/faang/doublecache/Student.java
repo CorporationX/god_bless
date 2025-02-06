@@ -15,7 +15,7 @@ public class Student {
         this.name = name;
     }
 
-    public void validateName(String name) {
+    private void validateName(String name) {
         if (name == null) {
             throw new NullPointerException("Значение имени студента не может быть null");
         }

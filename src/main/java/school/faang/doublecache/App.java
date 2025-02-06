@@ -27,7 +27,7 @@ public class App {
         mashaSubjects.put(math, 85);
         mashaSubjects.put(history, 30);
         mashaSubjects.put(chemistry, 61);
-        db.addStudentWithGrates(masha, mashaSubjects);
+        db.addStudentWithGrades(masha, mashaSubjects);
         db.printAllStudentsWithSubjectsAndGrades();
         db.printAllSubjectsWithStudents();
 
@@ -43,9 +43,9 @@ public class App {
         vasyaSubjects.put(math, 46);
         vasyaSubjects.put(history, 96);
         vasyaSubjects.put(chemistry, 47);
-        db.addStudentWithGrates(david, davidSubjects);
-        db.addStudentWithGrates(stepan, stepanSubjects);
-        db.addStudentWithGrates(vasya, vasyaSubjects);
+        db.addStudentWithGrades(david, davidSubjects);
+        db.addStudentWithGrades(stepan, stepanSubjects);
+        db.addStudentWithGrades(vasya, vasyaSubjects);
         db.printAllStudentsWithSubjectsAndGrades();
         db.deleteStudentAndHisSubjects(stepan);
         db.printAllStudentsWithSubjectsAndGrades();

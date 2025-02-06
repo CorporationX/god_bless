@@ -10,7 +10,7 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudentWithGrates(Student student, Map<Subject, Integer> subjectsWithGrades) {
+    public void addStudentWithGrades(Student student, Map<Subject, Integer> subjectsWithGrades) {
         studentSubjects.put(student, subjectsWithGrades);
         for (Subject subject : subjectsWithGrades.keySet()) {
             subjectStudents.putIfAbsent(subject, new ArrayList<>());
@@ -18,7 +18,10 @@ public class StudentDatabase {
         }
     }
 
+
+
     public void addSubjectWithGrade(Subject subject, Student student, int grade) {
+        validateGrade(grade);
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
@@ -27,10 +30,12 @@ public class StudentDatabase {
 
     public void deleteStudentAndHisSubjects(Student student) {
         Map<Subject, Integer> subjectsMap = studentSubjects.remove(student);
-        for (Subject subject : subjectsMap.keySet()) {
-            List<Student> students = subjectStudents.get(subject);
-            if (student != null) {
-                students.remove(student);
+        if (subjectsMap != null) {
+            for (Subject subject : subjectsMap.keySet()) {
+                List<Student> students = subjectStudents.get(subject);
+                if (student != null) {
+                    students.remove(student);
+                }
             }
         }
     }
@@ -57,6 +62,10 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
+        if (!subjectStudents.containsKey(subject)) {
+            System.out.println("Такой предмет отсутствует: " + subject);
+        }
+
         if (subjectStudents.get(subject).contains(student)) {
             System.out.println("Студент уже числиться в этом предмете");
             return;
@@ -73,6 +82,12 @@ public class StudentDatabase {
             for (Student student : subjectStudents.get(subject)) {
                 System.out.println(" - " + student.getName());
             }
+        }
+    }
+
+    private void validateGrade(int grade) {
+        if (grade < 0 || grade > 100) {
+            throw new IllegalArgumentException("Недопустимое значение оценки");
         }
     }
 }
