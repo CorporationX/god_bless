@@ -6,22 +6,24 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
-        StudentDatabase db = new StudentDatabase();
+        final StudentDatabase db = new StudentDatabase();
+
         Subject math = new Subject("Math");
         Subject history = new Subject("History");
         Subject chemistry = new Subject("Chemistry");
-        Student masha = new Student("Masha");
-        Student david = new Student("David");
-        Student stepan = new Student("Stepan");
-        Student vasya = new Student("Vasiliy");
-        Student kolya = new Student("Nikolay");
-        Student misha = new Student("Michael");
-        Student petya = new Student("Petr");
-        Student nastya = new Student("Anastasiya");
-        Student tanya = new Student("Tatyana");
-        Student anton = new Student("Anton");
 
-        Map<Subject, Integer> mashaSubjects = new HashMap<>();
+        final Student masha = new Student("Masha");
+        final Student david = new Student("David");
+        final Student stepan = new Student("Stepan");
+        final Student vasya = new Student("Vasiliy");
+        final Student kolya = new Student("Nikolay");
+        final Student misha = new Student("Michael");
+        final Student petya = new Student("Petr");
+        final Student nastya = new Student("Anastasiya");
+        final Student tanya = new Student("Tatyana");
+        final Student anton = new Student("Anton");
+
+        final Map<Subject, Integer> mashaSubjects = new HashMap<>();
         mashaSubjects.put(math, 85);
         mashaSubjects.put(history, 30);
         mashaSubjects.put(chemistry, 61);
@@ -29,9 +31,9 @@ public class App {
         db.printAllStudentsWithSubjectsAndGrades();
         db.printAllSubjectsWithStudents();
 
-        Map<Subject, Integer> davidSubjects = new HashMap<>();
-        Map<Subject, Integer> stepanSubjects = new HashMap<>();
-        Map<Subject, Integer> vasyaSubjects = new HashMap<>();
+        final Map<Subject, Integer> davidSubjects = new HashMap<>();
+        final Map<Subject, Integer> stepanSubjects = new HashMap<>();
+        final Map<Subject, Integer> vasyaSubjects = new HashMap<>();
         davidSubjects.put(math, 64);
         davidSubjects.put(history, 82);
         davidSubjects.put(chemistry, 10);
