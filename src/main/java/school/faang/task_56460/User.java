@@ -23,10 +23,11 @@ public class User {
             throw new IllegalArgumentException("This place of work is missing");
         } else if (address == null || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("This address is not in the list.");
+        } else {
+            this.name = name;
+            this.age = age;
+            this.address = address;
+            this.job = job;
         }
-        this.name = name;
-        this.age = age;
-        this.address = address;
-        this.job = job;
     }
 }
