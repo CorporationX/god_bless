@@ -25,10 +25,10 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank!");
         }
-        if (!VALID_JOBS.contains(job)) {
+        if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job! Job " + job + " is not valid!");
         }
-        if (!VALID_ADDRESSES.contains(address)) {
+        if (address == null || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid address! Address " + address + " is not valid!");
         }
 
