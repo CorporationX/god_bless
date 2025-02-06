@@ -8,6 +8,10 @@ public class Main {
         warrior.attack(archer);
         System.out.println("Archer: " + archer + " attacked " + " Warrior: " + warrior);
         archer.attack(warrior);
+        System.out.println("Warrior: " + warrior + " attacked " + " Archer: " + archer);
+        warrior.attack(archer);
+        System.out.println("Warrior: " + warrior + " attacked " + " Archer: " + archer);
+        warrior.attack(archer);
 
     }
 }

@@ -22,16 +22,14 @@ public class Archer extends Character {
     @Override
     public void attack(Character opponent) {
         if (opponent.getHealth() > 0) {
-            do {
-                opponent.setHealth(opponent.getHealth() - this.agility);
+            opponent.setHealth(opponent.getHealth() - this.agility);
+            if (opponent.getHealth() < this.agility) {
                 hpProgress.append(opponent.getName())
                         .append(" HP: ")
                         .append(opponent.getHealth())
                         .append("\n");
-                if (opponent.getHealth() < this.agility) {
-                    opponent.setHealth(0);
-                }
-            } while (opponent.getHealth() > 0);
+                opponent.setHealth(0);
+            }
             hpProgress.append(opponent.getName())
                     .append(" HP: ").append(opponent.getHealth())
                     .append("\n");

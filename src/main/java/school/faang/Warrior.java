@@ -23,16 +23,14 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) {
         if (opponent.getHealth() > 0) {
-            do {
-                opponent.setHealth(opponent.getHealth() - this.strength);
+            opponent.setHealth(opponent.getHealth() - this.strength);
+            if (opponent.getHealth() < this.strength) {
                 hpProgress.append(opponent.getName())
                         .append(" HP: ")
                         .append(opponent.getHealth())
                         .append("\n");
-                if (opponent.getHealth() < this.strength) {
-                    opponent.setHealth(0);
-                }
-            } while (opponent.getHealth() > 0);
+                opponent.setHealth(0);
+            }
             hpProgress.append(opponent.getName())
                     .append(" HP: ").append(opponent.getHealth())
                     .append("\n");
