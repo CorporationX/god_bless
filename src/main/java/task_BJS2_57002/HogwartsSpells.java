@@ -25,11 +25,12 @@ public class HogwartsSpells {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
-            if (events.size() > 1) {
+            if (events != null) {
                 events.remove(spellEvent);
-            } else {
-                spellsByType.remove(spellEvent.getEventType());
-                System.out.print("В вашем арсенале больше нет заклинаний");
+                if (events.isEmpty()) {
+                    spellsByType.remove(spellEvent.getEventType());
+                    System.out.print("В вашем арсенале больше нет заклинаний");
+                }
             }
         }
     }
