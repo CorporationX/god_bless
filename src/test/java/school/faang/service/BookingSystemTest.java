@@ -69,7 +69,9 @@ class BookingSystemTest {
 
     @Test
     void testFindAvailableRoomsNoMatchingAmenities() {
-        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025-02-06", "10:00-11:00", Set.of("NonExistentAmenity"));
+        List<Room> availableRooms = bookingSystem.findAvailableRooms(
+                "2025-02-06", "10:00-11:00", Set.of("NonExistentAmenity")
+        );
         assertTrue(availableRooms.isEmpty());
     }
 
