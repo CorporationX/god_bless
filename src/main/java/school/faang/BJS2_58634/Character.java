@@ -1,7 +1,6 @@
 package school.faang.BJS2_58634;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public abstract class Character {
