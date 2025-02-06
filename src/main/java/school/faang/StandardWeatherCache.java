@@ -5,6 +5,8 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
 
     @Override
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
+        validateCity(city);
+        validateCacheAge(maxCacheAgeMillis);
         if (weatherInCity.containsKey(city)
                 && !isCacheExpired(weatherService.fetchWeatherData(city), maxCacheAgeMillis)) {
             System.out.printf("Weather for city %s taken from cache\n", city);
@@ -23,5 +25,17 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
     @Override
     public void updateWeatherData(String city) {
         weatherInCity.put(city, weatherService.fetchWeatherData(city));
+    }
+
+    private void validateCity(String city) {
+        if (city == null || city.isBlank()) {
+            throw new IllegalArgumentException("City can't be null or empty");
+        }
+    }
+
+    private void validateCacheAge(long maxCacheAgeMillis) {
+        if (maxCacheAgeMillis < 0) {
+            throw new IllegalArgumentException("Cache age can't be negative");
+        }
     }
 }

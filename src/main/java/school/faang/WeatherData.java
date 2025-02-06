@@ -7,7 +7,17 @@ public class WeatherData {
     private final String city;
     private final double temperature;
     private final double humidity;
-    private final double timestamp;
+    private final long timestamp;
+
+    public WeatherData(String city, long timestamp, double humidity, double temperature) {
+        validateCity(city);
+        validateHumidity(humidity);
+        validateTemperature(temperature);
+        this.city = city;
+        this.timestamp = timestamp;
+        this.humidity = humidity;
+        this.temperature = temperature;
+    }
 
     private void validateCity(String city) {
         if (city == null || city.isBlank()) {
@@ -25,15 +35,5 @@ public class WeatherData {
         if (temperature < -60 || temperature > 60) {
             throw new IllegalArgumentException("Temperature must be in range [60, 60]");
         }
-    }
-
-    public WeatherData(String city, double timestamp, double humidity, double temperature) {
-        validateCity(city);
-        validateHumidity(humidity);
-        validateTemperature(temperature);
-        this.city = city;
-        this.timestamp = timestamp;
-        this.humidity = humidity;
-        this.temperature = temperature;
     }
 }
