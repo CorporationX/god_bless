@@ -21,7 +21,11 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> resultMap = new HashMap<>();
 
-        for (var user : users) {
+        if (users == null || activities == null || users.isEmpty() || activities.isEmpty()) {
+            return resultMap;
+        }
+
+        for (User user : users) {
             Set<String> userActivities = user.getActivities();
             userActivities.retainAll(activities);
 
