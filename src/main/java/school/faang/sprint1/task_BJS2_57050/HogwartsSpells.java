@@ -18,7 +18,6 @@ public class HogwartsSpells {
     private final AtomicInteger idGenerator = new AtomicInteger();
     private final Map<Integer, SpellEvent> spellsOnId = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private final Map<String, Map<SpellEvent, Integer>> idsSpellInSpellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
         if (eventType == null || eventType.isEmpty()) {
@@ -28,17 +27,12 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("Не валидное заначение actionDescription : " + actionDescription);
         }
 
-        int idSpellInSpellsByType;
         int id = idGenerator.getAndIncrement();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>());
-        List<SpellEvent> spellEvents = spellsByType.get(eventType);
-        idSpellInSpellsByType = spellEvents.size();
-        spellEvents.add(spellEvent);
+        spellsByType.get(eventType).add(spellEvent);
 
-        idsSpellInSpellsByType.computeIfAbsent(eventType, k -> new HashMap<>());
-        idsSpellInSpellsByType.get(eventType).put(spellEvent, idSpellInSpellsByType);
 
         spellsOnId.put(id, spellEvent);
     }
@@ -54,34 +48,21 @@ public class HogwartsSpells {
         if (eventType == null || eventType.isEmpty()) {
             throw new IllegalArgumentException("Не валидное заначение eventType : " + eventType);
         }
-        return spellsByType.get(eventType);
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
         if (id < 0) {
             throw new IllegalArgumentException("id не должен быть меньше 0");
         }
-        int idSpellInSpellsByType;
-
         SpellEvent spellEvent = spellsOnId.get(id);
         spellsOnId.remove(id);
-
-        idSpellInSpellsByType = idsSpellInSpellsByType.get(spellEvent.eventType).get(spellEvent);
-        idsSpellInSpellsByType.get(spellEvent.eventType).remove(spellEvent);
-
-        spellsByType.get(spellEvent.eventType).remove(idSpellInSpellsByType);
+        spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
 
     }
 
     public void printAllSpellEvents() {
-        spellsOnId.forEach((id, spellEvent) -> System.out.println(spellEvent));
+        spellsOnId.values().forEach(System.out::println);
     }
 
-    @AllArgsConstructor
-    @ToString
-    private class SpellEvent {
-        private int id;
-        private String eventType;
-        private String action;
-    }
 }
