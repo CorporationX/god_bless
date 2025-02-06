@@ -18,7 +18,7 @@ public class LibrarySystem {
             library.remove(book);
             System.out.println(book + " successfully removed!");
         } else {
-            System.out.println(book + " doesn't exist!");
+            System.out.println(book + " doesn't exist");
         }
     }
 
