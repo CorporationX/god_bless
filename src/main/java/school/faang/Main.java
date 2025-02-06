@@ -40,5 +40,6 @@ public class Main {
         users.add(new User("Filipp", 31, "LinkedIn", "Athens"));
         users.add(new User("Victoria", 24, "Ubuntu", "Prague"));
         users.add(new User("Nikita", 29, "Zoom", "Lima"));
+
     }
 }
