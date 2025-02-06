@@ -74,9 +74,9 @@ public class HogwartsSpells {
             spellEvents.remove(spellEvent);
             SPELL_BY_ID.remove(id);
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     private static void printAllSpellEvents() {
