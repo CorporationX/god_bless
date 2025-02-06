@@ -1,7 +1,6 @@
 package school.faang.service;
 
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 public class WeatherService implements WeatherProvider {
     private static final Random random = new Random();
