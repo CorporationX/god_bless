@@ -5,24 +5,37 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        HogwartsSpells.addSpellEvent("Трансфигурация", "преобразует предмет");
-        HogwartsSpells.addSpellEvent("Трансфигурация", "преобразует 2 предмета за раз");
-        HogwartsSpells.addSpellEvent("Абракадабра", "что-то делает");
+        HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        Map<Integer, SpellEvent> spellById = HogwartsSpells.spellById;
-        Map<String, List<SpellEvent>> spellsByType = HogwartsSpells.spellsByType;
+        hogwartsSpells.addSpellEvent("Трансфигурация", "преобразует предмет");
+        hogwartsSpells.addSpellEvent("Трансфигурация", "преобразует 2 предмета за раз");
+        hogwartsSpells.addSpellEvent("Абракадабра", "что-то делает");
+
+        Map<Integer, SpellEvent> spellById = hogwartsSpells.spellById;
+        Map<String, List<SpellEvent>> spellsByType = hogwartsSpells.spellsByType;
 
         System.out.println(spellById);
         System.out.println(spellsByType);
         System.out.println();
 
-        System.out.println(HogwartsSpells.getSpellEventById(2));
-        System.out.println(HogwartsSpells.getSpellEventsByType("Трансфигурация"));
+        System.out.println(hogwartsSpells.getSpellEventById(2));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Трансфигурация"));
         System.out.println();
 
-        HogwartsSpells.deleteSpellEvent(0);
-        HogwartsSpells.printAllSpellEvents();
+        hogwartsSpells.deleteSpellEvent(0);
+        hogwartsSpells.printAllSpellEvents();
+        System.out.println();
 
+
+        HogwartsSpells hogwartsSpells2 = new HogwartsSpells();
+        hogwartsSpells2.addSpellEvent("Тест", "что-то делает");
+        Map<Integer, SpellEvent> spellById2 = hogwartsSpells2.spellById;
+        Map<String, List<SpellEvent>> spellsByType2 = hogwartsSpells2.spellsByType;
+        System.out.println(spellById2);
+        System.out.println(spellsByType2);
+        System.out.println();
+        hogwartsSpells2.deleteSpellEvent(0);
+        hogwartsSpells2.printAllSpellEvents();
 
     }
 }

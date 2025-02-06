@@ -9,51 +9,44 @@ import java.util.Map;
 
 @Data
 public class HogwartsSpells {
-    public static final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    public static final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private static int id = 0;
+    public final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    public final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private int id = 0;
 
-    public static SpellEvent getSpellEventById(int id) {
-        return spellById.getOrDefault(id, null);
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public static List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.getOrDefault(eventType, null);
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
-    public static void deleteSpellEvent(int id) {
+    public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             if (events != null) {
                 events.remove(spellEvent);
+                if (events.isEmpty()) {
+                    System.out.print("В вашем арсенале больше нет заклинаний");
+                }
             }
         }
     }
 
-    public static void printAllSpellEvents() {
-
+    public void printAllSpellEvents() {
         for (var entry : spellById.entrySet()) {
             System.out.printf("Заклинание \"%s\" по id \"%d\" %s\n", entry.getValue().getEventType(),
                     entry.getValue().getId(), entry.getValue().getAction());
         }
     }
 
-
-    public static void addSpellEvent(String eventType, String actionDescription) {
+    public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
 
-        List<SpellEvent> spellEventList = new ArrayList<>();
-        spellEventList.add(spellEvent);
-
-        for (SpellEvent event : spellEventList) {
-            if (!spellsByType.containsKey(eventType)) {
-                spellsByType.put(eventType, new ArrayList<>());
-            }
-            spellsByType.get(eventType).add(event);
-
-        }
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
+        spellsByType.get(eventType).add(spellEvent);
 
         id++;
     }
