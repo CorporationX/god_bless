@@ -1,7 +1,5 @@
 package task_BJS2_56972;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +19,7 @@ public class Main {
         manager.addProduct(phone.getCategory(), phone.getName());
 
         Set<Product> products = manager.getProducts();
-        Map<Category, List> categoryMap = manager.getCategoryMap();
+        Map<Category, List<Product>> categoryMap = manager.getCategoryMap();
 
         System.out.println(products);
         System.out.println();

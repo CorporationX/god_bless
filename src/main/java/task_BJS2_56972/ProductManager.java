@@ -13,17 +13,20 @@ import java.util.Set;
 @Data
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
-    private Map<Category, List> categoryMap = new HashMap<>();
+    private Map<Category, List<Product>> categoryMap = new HashMap<>();
     private static int id = 0;
 
-    public void addProduct(Category category, @NonNull String name) {
+    public void addProduct(@NonNull Category category, @NonNull String name) {
         Product product = new Product(id, name, category);
 
         products.add(product);
-
-        categoryMap.putIfAbsent(category, new ArrayList());
+        categoryMap.putIfAbsent(category, new ArrayList<Product>());
         categoryMap.get(category).add(product);
 
         id++;
+    }
+
+    public void removeProduct(Category category, String name) {
+        products.removeIf(product -> (products.contains(category) && products.contains(name)));
     }
 }
