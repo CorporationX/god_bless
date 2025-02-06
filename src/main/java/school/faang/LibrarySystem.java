@@ -3,7 +3,6 @@ package school.faang;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class LibrarySystem {
     private static final HashMap<Book, String> bookLocation = new HashMap<>();
 
@@ -43,7 +42,7 @@ public class LibrarySystem {
         if (location != null) {
             System.out.println("Found book: " + book + " at shelf: " + location);
         } else {
-            System.out.println("Book: " + book + " not found" );
+            System.out.println("Book: " + book + " not found");
         }
     }
 }
