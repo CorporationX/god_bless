@@ -12,7 +12,8 @@ public class Main {
         librarySystem.removeBook("Mesmerizing School of Magic", "Emma Storm", 2003);
         librarySystem.printAllBook();
         System.out.println("-------------------------------");
-        System.out.println("Book is in sector " + librarySystem.findBook("The Secret of the Enchanted Forest", "Lucia Storm", 2021));
+        System.out.println("Book is in sector " +
+                librarySystem.findBook("The Secret of the Enchanted Forest", "Lucia Storm", 2021));
     }
 
     private static void addMyBooks(LibrarySystem librarySystem) {
