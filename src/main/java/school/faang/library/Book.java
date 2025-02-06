@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.library;
 
 
 import lombok.ToString;
@@ -27,7 +27,10 @@ public class Book {
 
     public void validateYear(int year) {
         if (year > Year.now().getValue()) {
-            throw new IllegalArgumentException("The year can't be more than 2025.");
+            throw new IllegalArgumentException("The year can't be more than "  + Year.now().getValue());
+        }
+        if (year <= 0) {
+            throw new IllegalArgumentException("A year cannot be negative or equal to zero.");
         }
     }
 
