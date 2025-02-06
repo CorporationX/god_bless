@@ -13,6 +13,6 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         System.out.println("Warrior " + getName() + " attack: " + opponent.getName()
                 + " for " + getStrength() + " damage");
-        reduceHP(opponent, getStrength());
+        reduceHp(opponent, getStrength());
     }
 }

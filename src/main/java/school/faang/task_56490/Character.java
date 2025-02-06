@@ -32,7 +32,7 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    protected void reduceHP(Character character, int damage) {
+    protected void reduceHp(Character character, int damage) {
         if (hp > 0) {
             character.setHp(character.getHp() - damage);
             if (hp <= 0) {

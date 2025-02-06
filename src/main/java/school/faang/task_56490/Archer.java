@@ -13,6 +13,6 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         System.out.println("Archer " + getName() + " attack: " + opponent.getName()
                 + " for " + getDexterity() + " damage");
-        reduceHP(opponent, getDexterity());
+        reduceHp(opponent, getDexterity());
     }
 }
