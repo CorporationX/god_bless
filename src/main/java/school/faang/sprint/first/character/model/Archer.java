@@ -1,4 +1,4 @@
-package school.faang.character.model;
+package school.faang.sprint.first.character.model;
 
 public class Archer extends Character {
     public Archer(String name) {

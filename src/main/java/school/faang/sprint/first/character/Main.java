@@ -1,7 +1,7 @@
-package school.faang.character;
+package school.faang.sprint.first.character;
 
-import school.faang.character.model.Archer;
-import school.faang.character.model.Warrior;
+import school.faang.sprint.first.character.model.Archer;
+import school.faang.sprint.first.character.model.Warrior;
 
 public class Main {
     public static void main(String[] args) {
