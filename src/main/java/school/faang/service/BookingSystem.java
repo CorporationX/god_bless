@@ -41,8 +41,8 @@ public class BookingSystem {
      */
     public Booking bookRoom(int roomNumber, String date, String timeSlot) {
         for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber &&
-                    findAvailableRooms(date, timeSlot, room.getAmenities()).contains(room)) {
+            if (room.getRoomNumber() == roomNumber
+                    && findAvailableRooms(date, timeSlot, room.getAmenities()).contains(room)) {
 
                 Booking booking = new Booking(bookingIdCounter++, room, date, timeSlot);
                 bookings.add(booking);
@@ -80,9 +80,9 @@ public class BookingSystem {
         List<Room> availableRooms = new ArrayList<>();
         for (Room room : rooms) {
             boolean isAvailable = bookings.stream().noneMatch(booking ->
-                    booking.getRoom().equals(room) &&
-                            booking.getDate().equals(date) &&
-                            booking.getTimeSlot().equals(timeSlot));
+                    booking.getRoom().equals(room)
+                            && booking.getDate().equals(date)
+                            && booking.getTimeSlot().equals(timeSlot));
             boolean hasAmenities = room.getAmenities().containsAll(requiredAmenities);
 
             if (isAvailable && hasAmenities) {
