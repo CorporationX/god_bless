@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
-    private final AtomicInteger idGenerator = new AtomicInteger();
+    private int idGenerator;
     private final Map<Integer, SpellEvent> spellsOnId = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
@@ -27,7 +27,7 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("Не валидное заначение actionDescription : " + actionDescription);
         }
 
-        int id = idGenerator.getAndIncrement();
+        int id = idGenerator++;
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>());
