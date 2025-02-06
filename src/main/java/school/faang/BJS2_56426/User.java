@@ -13,6 +13,7 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int VALID_AGE = 18;
 
     public User(String name, int age, String workPlace, String address) {
         validate(name, age, workPlace, address);
@@ -30,7 +31,7 @@ public class User {
             errors.add("Имя не может быть пустым");
         }
 
-        if (age < 18) {
+        if (age < VALID_AGE) {
             errors.add("Возраст не может быть меньше 18");
         }
 
