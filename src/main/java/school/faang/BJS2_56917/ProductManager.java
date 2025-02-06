@@ -75,7 +75,6 @@ public class ProductManager {
 
     public static void main(String[] args) {
         // FOOD (2 продукта)
-        groupProductsByCategory();
         addProduct(Category.FOOD, "Hamburger");
         addProduct(Category.FOOD, "Pizza");
 
