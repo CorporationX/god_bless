@@ -34,8 +34,4 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
-    public static void main(String[] args) {
-        User user1 = new User("Misha", 19, "Uber", "London");
-    }
 }
