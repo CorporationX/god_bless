@@ -1,6 +1,7 @@
 package school.faang.BJS2_58634;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public abstract class Character {
@@ -24,7 +25,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void setHp(int hp);
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
     public abstract void attack(Character opponent);
 }

@@ -1,16 +1,9 @@
 package school.faang.BJS2_58634;
 
 public class Archer extends Character {
-    private String name;
 
     public Archer(String name) {
         super(name, 3, 10, 5);
-        this.name = name;
-    }
-
-    @Override
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     @Override

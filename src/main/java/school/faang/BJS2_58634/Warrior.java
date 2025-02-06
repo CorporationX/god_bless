@@ -1,18 +1,9 @@
 package school.faang.BJS2_58634;
 
 public class Warrior extends Character {
-    private String name;
 
     public Warrior(String name) {
         super(name, 10, 5, 3);
-        this.name = name;
-
-
-    }
-
-    @Override
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     @Override
