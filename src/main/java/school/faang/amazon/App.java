@@ -9,6 +9,7 @@ public class App {
         manager.addProduct(Category.FOOD, "Banana");
         manager.addProduct(Category.ELECTRONICS, "Laptop");
         manager.addProduct(Category.CLOTHING, "T-Shirt");
+        manager.addProduct(Category.CLOTHING, "Cap");
 
         System.out.println("All products:");
         manager.printAllProducts();
