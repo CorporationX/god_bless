@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 public class LibrarySystem {
 
-    private HashMap<Book, String> libraryWesteros = new HashMap<>();
+    private final Map<Book, String> bookLocations = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         if (location == null || location.isBlank()) {
@@ -14,34 +14,34 @@ public class LibrarySystem {
         }
 
         Book book = new Book(title, author, year);
-        if (libraryWesteros.containsKey(book)) {
+        if (bookLocations.containsKey(book)) {
             throw new IllegalArgumentException("Книга %s уже есть в библиотеке".formatted(book.getTitle()));
         }
-        libraryWesteros.put(book, location);
+        bookLocations.put(book, location);
     }
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         searchBook(book);
-        libraryWesteros.remove(book);
+        bookLocations.remove(book);
         System.out.println("Книга успешна удалена");
     }
 
-    public void findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         searchBook(book);
-        System.out.printf("Книга %s находится в %s", book.getTitle(), libraryWesteros.get(book));
+        return String.format("Книга %s находится в %s", book.getTitle(), bookLocations.get(book));
     }
 
-    public void printBook() {
-        for (Map.Entry<Book, String> entry : libraryWesteros.entrySet()) {
-            System.out.printf("Книга %s находится в %s", entry.getKey(), entry.getValue());
+    public void printAllBooks() {
+        for (Map.Entry<Book, String> entry : bookLocations.entrySet()) {
+            System.out.printf("Книга %s находится в %s\n", entry.getKey(), entry.getValue());
 
         }
     }
 
     private void searchBook(Book book) {
-        if (!libraryWesteros.containsKey(book)) {
+        if (!bookLocations.containsKey(book)) {
             throw new NoSuchElementException("Книги %s нет в библиотеке".formatted(book.getTitle()));
         }
     }

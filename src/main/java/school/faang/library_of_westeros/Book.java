@@ -1,16 +1,20 @@
 package school.faang.library_of_westeros;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@EqualsAndHashCode
+@ToString
 public class Book {
 
     private static final int MIN_YEAR = 0;
     private static final int MAX_YEAR = 2025;
 
-    private String title;
-    private String author;
-    private int year;
+    private final String title;
+    private final String author;
+    private final int year;
 
     public Book(String title, String author, int year) {
         if (title == null || title.isBlank()) {
