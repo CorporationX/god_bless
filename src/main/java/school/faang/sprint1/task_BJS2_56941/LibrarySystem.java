@@ -1,9 +1,11 @@
 package school.faang.sprint1.task_BJS2_56941;
 
-/*
-сделал тесты в Main
-тк не понятно как делать тесты на Junit5
-с методами которые ничего не возвращают
+/**
+ * Сделал тесты в Main
+ * тк не понятно как делать тесты на Junit5
+ * с методами которые ничего не возвращают.
+ * Создал прокси TestInvocationHandler в Main что бы не дублировать код в тестах
+ * так-же создал интерфейс Library что бы была возможность исползовать класс в прокси
  */
 
 import lombok.AllArgsConstructor;
@@ -16,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class LibrarySystem {
+public class LibrarySystem implements Library {
     private final Map<Book, String> booksOnShelf;
 
     public LibrarySystem() {
@@ -34,6 +36,10 @@ public class LibrarySystem {
         if (location.isEmpty()) {
             throw new IllegalArgumentException("location не может быть пустым");
         }
+        if (year < 0 || year > 2025) {
+            throw new IllegalArgumentException("Не валидный год книги : " + year);
+        }
+
         Book book = new Book(title, author, year);
         booksOnShelf.put(book, location);
     }
@@ -44,6 +50,9 @@ public class LibrarySystem {
         }
         if (author.isEmpty()) {
             throw new IllegalArgumentException("author не может быть пустым");
+        }
+        if (year < 0 || year > 2025) {
+            throw new IllegalArgumentException("Не валидный год книги : " + year);
         }
 
         Book book = new Book(title, author, year);
@@ -62,7 +71,7 @@ public class LibrarySystem {
         if (booksOnShelf.containsKey(book)) {
             System.out.printf("Книга %s находится на %s\n", book, booksOnShelf.get(book));
         } else {
-            System.out.println("Книги %s нет в библиотеке");
+            System.out.printf("Книги %s нет в библиотеке\n", book);
         }
     }
 
