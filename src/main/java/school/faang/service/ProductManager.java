@@ -22,7 +22,27 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        products.removeIf(value -> value.getName().equals(name) && value.getCategory()==category);
+        products.removeIf(k -> k.getName().equals(name) && k.getCategory() == category);
+
+        if (categoryMap.containsKey(category)) {
+            List<String> newList = categoryMap.get(category);
+            newList.remove(name);
+            if (newList.isEmpty()) {
+                categoryMap.remove(category);
+            }
+        }
+    }
+
+    //    findProductsByCategory(Category category): возвращает список
+//    всех продуктов в указанной категории. Если категория отсутствует, метод возвращает пустой список.
+    public Set<Product> findProductsByCategory(Category category) {
+        Set<Product> result = new HashSet<>();
+        for (Product value : products) {
+            if (value.getCategory() == category) {
+                result.add(value);
+            }
+        }
+        return result;
     }
 
     public void printAllProducts() {
@@ -31,5 +51,6 @@ public class ProductManager {
         }
         System.out.println("------------------");
         System.out.println(categoryMap);
+        System.out.println();
     }
 }

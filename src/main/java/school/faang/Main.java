@@ -16,7 +16,9 @@ public class Main {
 
         productManager.removeProduct(Category.FOOD, "Батон");
         productManager.removeProduct(Category.ELECTRONICS, "Наушники");
-
         productManager.printAllProducts();
+
+        System.out.println("Поиск "+Category.CLOTHING);
+        System.out.println(productManager.findProductsByCategory(Category.CLOTHING));
     }
 }
