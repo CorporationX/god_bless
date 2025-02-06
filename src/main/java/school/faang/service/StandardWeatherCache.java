@@ -1,13 +1,14 @@
 package school.faang.service;
 
-public class StandardWeatherCache extends WeatherCacheTemplate {
-    @Override
-    public void getWeatherData(String city, long maxCacheAgeMillis) {
 
+public class StandardWeatherCache extends WeatherCacheTemplate {
+    public StandardWeatherCache(WeatherProvider weatherProvider) {
+        super(weatherProvider);
     }
 
     @Override
-    public void isCacheExpired() {
-
+    protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
+        return System.currentTimeMillis() - data.getTimestamp() > maxCacheAgeMillis;
     }
 }
+

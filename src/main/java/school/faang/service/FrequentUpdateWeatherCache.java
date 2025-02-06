@@ -1,13 +1,12 @@
 package school.faang.service;
 
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
-    @Override
-    public void getWeatherData(String city, long maxCacheAgeMillis) {
-
+    public FrequentUpdateWeatherCache(WeatherProvider weatherProvider) {
+        super(weatherProvider);
     }
 
     @Override
-    public void isCacheExpired() {
-
+    protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
+        return true; // Всегда считаем кэш устаревшим
     }
 }
