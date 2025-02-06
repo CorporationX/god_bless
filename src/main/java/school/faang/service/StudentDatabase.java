@@ -29,7 +29,9 @@ public class StudentDatabase {
         if (studentSubjects.containsKey(student)) {
             System.out.println("Есть такой студент");
             studentSubjects.get(student).put(subject, grade);
-        } else System.out.println("Нет такого студента");
+        } else {
+            System.out.println("Нет такого студента");
+        }
 
         subjectStudents.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
     }

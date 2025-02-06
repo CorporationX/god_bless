@@ -17,15 +17,15 @@ public class Main {
         Subject mathematic = new Subject("Математика");
         Subject fizika = new Subject("Физика");
 
-        manageDatabase.addStudent(vasya,astronomia,4);
-        manageDatabase.addStudent(petr,mathematic,2);
-        manageDatabase.addStudent(eugen,astronomia,3);
-        manageDatabase.addStudent(alisa,mathematic,5);
+        manageDatabase.addStudent(vasya, astronomia, 4);
+        manageDatabase.addStudent(petr, mathematic, 2);
+        manageDatabase.addStudent(eugen, astronomia, 3);
+        manageDatabase.addStudent(alisa, mathematic, 5);
 
-        manageDatabase.addSubject(eugen,fizika,5);
-        manageDatabase.addSubject(fantom,mathematic,5);
+        manageDatabase.addSubject(eugen, fizika, 5);
+        manageDatabase.addSubject(fantom, mathematic, 5);
 
-        manageDatabase.removeStudentSubject(vasya,astronomia);
+        manageDatabase.removeStudentSubject(vasya, astronomia);
         manageDatabase.prinAllInfo();
     }
 }
