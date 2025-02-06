@@ -64,6 +64,7 @@ public class StudentDatabase {
     public void addStudentToSubject(Student student, Subject subject) {
         if (!subjectStudents.containsKey(subject)) {
             System.out.println("Такой предмет отсутствует: " + subject);
+            return;
         }
 
         if (subjectStudents.get(subject).contains(student)) {
