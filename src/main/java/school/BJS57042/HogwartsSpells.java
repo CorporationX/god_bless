@@ -4,43 +4,53 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 public class HogwartsSpells {
     HashMap<Integer, SpellEvent> spellById = new HashMap<>();
     HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    ArrayList<Integer> spellIds = new ArrayList<>();
 
+    /**
+     * @param eventType - тип события
+     *
+     * @param action - что делает это событие
+     * <p>
+     * метод addSpellEvent генерирует уникальный id путем поиска максимально значения ключей,
+     * после чего добавляет событие в 2 мары
+     */
     public void addSpellEvent(String eventType, String action) {
-        int id = 0;
+        // Генерация уникального идентификатора для нового события
+        int id = spellById.isEmpty() ? 1 : Collections.max(spellById.keySet()) + 1;
         SpellEvent spellEvent = new SpellEvent(id, eventType, action);
-
-        for (Integer usedId : spellById.keySet()) {
-            if (!spellIds.contains(usedId)) {
-                spellIds.add(usedId);
-            }
-            spellEvent.setId(spellIds.get(spellIds.size() - 1));
-            System.out.println("last used id: " + spellIds.get(spellIds.size() - 1));
-        }
+        // Добавление события в мапу по идентификатору
         spellById.put(id, spellEvent);
-        System.out.println("spellEvent add: " + spellEvent);
+        System.out.println("SpellEvent added: " + spellEvent + ", ID: " + id);
+        // Добавление события по типу
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
-        System.out.println(" type : " + eventType + " | | " + spellsByType);
-
     }
 
     public void getSpellEventById(int id) {
-        System.out.println("Your spell Event ----> " + spellById.get(id));
+        if (spellById.containsKey(id)) {
+            System.out.println("Your spell Event ----> " + spellById.get(id));
+        } else {
+            System.out.println("Your spell Event not found ");
+        }
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+    public void getSpellEventsByType(String eventType) {
+        System.out.println("Type: " + eventType + " || Events: " + spellsByType.get(eventType) + "\n");
     }
 
+    /**
+     *
+     * в методе deleteSpellEvent проверяем на наличие события по переданному id,
+     * полсе чего удаляем из мапы spellById и ищем событие в мапе spellsByType,
+     * если оно != null - удаляем
+     */
     public void deleteSpellEvent(int id) {
         System.out.println("Your spell Event ----> " + spellById.get(id));
         if (spellById.containsKey(id)) {
             SpellEvent spellEvent = spellById.remove(id);
-            spellIds.remove(id);
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             if (events != null) {
                 events.remove(spellEvent);
