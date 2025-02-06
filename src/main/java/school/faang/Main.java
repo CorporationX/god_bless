@@ -11,13 +11,13 @@ public class Main {
         printList(users);
     }
 
-    private static void printList (List<User> list){
-        for (User user : list){
+    private static void printList(List<User> list) {
+        for (User user : list) {
             System.out.println(user);
         }
     }
 
-    private static void addMyUsers (List<User> users){
+    private static void addMyUsers(List<User> users) {
         users.add(new User("Ivan", 28, "Google", "London"));
         users.add(new User("Maria", 15, "Apple", "New York"));
         users.add(new User("Alexey", 28, "Microsoft", "Amsterdam"));
