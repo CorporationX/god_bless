@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.hogwart;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ public class Main {
         log.info("All spells:");
         hogwartsSpells.printAllSpellEvents();
 
-        log.info("\nSpell with ID 2:");
+        log.info("Spell with ID {}:", 2);
         SpellEvent spellEventById = hogwartsSpells.getSpellEventById(2);
         log.info(spellEventById.toString());
 
@@ -27,7 +27,7 @@ public class Main {
         }
 
         hogwartsSpells.deleteSpellEventById(1);
-        log.info("Deleting a spell with ID 1:");
+        log.info("Deleting a spell with ID {}:", 1);
         hogwartsSpells.printAllSpellEvents();
     }
 }
