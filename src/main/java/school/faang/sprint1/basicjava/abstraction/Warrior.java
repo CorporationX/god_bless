@@ -1,6 +1,6 @@
 package school.faang.sprint1.basicjava.abstraction;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         setStrength(10);
