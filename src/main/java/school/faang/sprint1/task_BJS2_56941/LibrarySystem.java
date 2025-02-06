@@ -1,29 +1,16 @@
 package school.faang.sprint1.task_BJS2_56941;
 
-/**
- * Сделал тесты в Main
- * тк не понятно как делать тесты на Junit5
- * с методами которые ничего не возвращают.
- * Создал прокси TestInvocationHandler в Main что бы не дублировать код в тестах
- * так-же создал интерфейс Library что бы была возможность исползовать класс в прокси
- */
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class LibrarySystem implements Library {
-    private final Map<Book, String> booksOnShelf;
-
-    public LibrarySystem() {
-        booksOnShelf = new HashMap<>();
-    }
+public class LibrarySystem {
+    private final Map<Book, String> booksOnShelf = new HashMap<>();
+    private final int maxYear = 2025;
+    private final int minYear = 0;
 
     public void addBook(@NonNull String title, @NonNull String author,
                         int year, @NonNull String location) {
@@ -36,7 +23,7 @@ public class LibrarySystem implements Library {
         if (location.isEmpty()) {
             throw new IllegalArgumentException("location не может быть пустым");
         }
-        if (year < 0 || year > 2025) {
+        if (year < minYear || year > maxYear) {
             throw new IllegalArgumentException("Не валидный год книги : " + year);
         }
 
@@ -77,14 +64,5 @@ public class LibrarySystem implements Library {
 
     public void printAllBooks() {
         System.out.println(booksOnShelf);
-    }
-
-    @AllArgsConstructor
-    @EqualsAndHashCode
-    @ToString
-    private class Book {
-        private String title;
-        private String author;
-        private int year;
     }
 }
