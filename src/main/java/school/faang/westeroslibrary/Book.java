@@ -2,6 +2,7 @@ package school.faang.westeroslibrary;
 
 import lombok.Getter;
 
+import java.time.Year;
 import java.util.Objects;
 
 @Getter
@@ -19,6 +20,9 @@ public class Book {
             throw new NullPointerException("Автор книги не может быть равен null");
         }
 
+        title = title.trim();
+        author = author.trim();
+
         if (title.isEmpty()) {
             throw new IllegalArgumentException("Заголовок книги не может быть равен пустым");
         }
@@ -26,7 +30,7 @@ public class Book {
         if (author.isEmpty()) {
             throw new IllegalArgumentException("Автор книги не может быть равен пустым");
         }
-        if (year < 0) {
+        if (year < 1000 || year > Year.now().getValue()) {
             throw new IllegalArgumentException("Год выпуска книги не может быть отрицательным");
         }
 
@@ -37,6 +41,10 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
