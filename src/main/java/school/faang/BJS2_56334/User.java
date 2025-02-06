@@ -17,14 +17,14 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> hobbiess = new HashSet<>();
+    private Set<String> hobbies = new HashSet<>();
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> resultMap = new HashMap<>();
         for (User user : users) {
-            for (String hobbi : hobbies) {
-                if (user.hobbiess.contains(hobbi)) {
-                    resultMap.put(user, hobbi);
+            for (String hobby : hobbies) {
+                if (user.hobbies.contains(hobby)) {
+                    resultMap.put(user, hobby);
                     break;
                 }
             }

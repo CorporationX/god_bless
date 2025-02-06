@@ -13,9 +13,9 @@ public class Main {
 
     public static List<User> createUsers() {
 
-        User user1 = new User(1, "Hayotbek", 15, Set.of("runing", "swimming", "coding"));
-        User user2 = new User(2, "Artur", 18, Set.of("runing", "playing computer"));
-        User user3 = new User(3, "Fedya", 32, Set.of("Whatching Tv", "swimming"));
+        User user1 = new User(1, "Hayotbek", 15, Set.of("running", "swimming", "coding"));
+        User user2 = new User(2, "Artur", 18, Set.of("running", "playing computer"));
+        User user3 = new User(3, "Fedya", 32, Set.of("Watching Tv", "swimming"));
 
         List<User> users = List.of(user1, user2, user3);
 
@@ -24,7 +24,7 @@ public class Main {
 
     public static void printResult(Map<User, String> users) {
         for (Map.Entry<User, String> user : users.entrySet()) {
-            System.out.println(user.getKey().getName() + "Найден навык :" + user.getValue());
+            System.out.println(user.getKey().getName() + " Найден навык: " + user.getValue());
         }
     }
 }
