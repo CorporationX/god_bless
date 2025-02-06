@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +20,7 @@ public class User {
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        if (StringUtils.isBlank(name)) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         } else {
             this.name = name;
