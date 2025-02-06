@@ -47,7 +47,9 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return id == user.id && Objects.equals(hobby, user.hobby);
     }
@@ -63,7 +65,7 @@ public class User {
             for (String element : hobbySet) {
                 Integer key = user.getId();
                 if (!findHobby.containsKey(key) && user.hobby.contains(element)) {
-                    findHobby.put(key,element);
+                    findHobby.put(key, element);
                 }
             }
         }

@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Set<String> hobbySet = new LinkedHashSet<>(Set.of("reading", "painting", "gardening", "photography", "hiking", "cooking", "knitting", "playing guitar", "birdwatching", "writing"));
+        Set<String> hobbySet = new LinkedHashSet<>(Set.of("reading",
+                "painting", "gardening", "photography", "hiking", "cooking",
+                "knitting", "playing guitar", "birdwatching", "writing"));
         List<User> users = new ArrayList<>();
         addMyUser(users);
         Map<Integer, String> findHobby = User.findHobbyLovers(users, hobbySet);
