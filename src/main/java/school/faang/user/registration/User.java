@@ -12,20 +12,20 @@ public class User {
     public static final int MIN_AGE = 18;
 
     public User(String name, int age, String job, String address) {
-        if(name == null || job == null || address == null){
+        if (name == null || job == null || address == null) {
             throw new IllegalArgumentException("Заполните все поля");
         }
-        if(name.isBlank()){
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Введите ваше имя корректно");
         }
-        if(age < MIN_AGE){
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Регистрация доступна с 18 лет");
         }
-        if(!VALID_JOBS.contains(job)){
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Неверное значение в поле работы. " +
                     "Работа должна быть одна из следующих: Google, Uber, Amazon");
         }
-        if(!VALID_ADDRESSES.contains(address)){
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Неверное значение в поле адреса. " +
                     "Адрес должен быть один из следующих: London, New York, Amsterdam");
         }
