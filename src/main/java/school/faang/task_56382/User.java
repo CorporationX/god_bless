@@ -21,7 +21,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userByAge = new HashMap<>();
 
-        if(users.isEmpty()){
+        if (users.isEmpty()) {
             return userByAge;
         }
 
