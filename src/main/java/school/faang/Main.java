@@ -8,17 +8,17 @@ public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         addMyUsers(users);
-        Map<Integer,List<User>> groupedUsers = User.groupUsers(users);
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         printMap(groupedUsers);
     }
 
-    private static void printMap (Map<Integer,List<User>> map){
-        for (Map.Entry<Integer, List<User>> entry : map.entrySet()){
+    private static void printMap(Map<Integer, List<User>> map) {
+        for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
 
-    private static void addMyUsers (List<User> users){
+    private static void addMyUsers(List<User> users) {
         users.add(new User("Ivan", 28, "Google", "Tokyo"));
         users.add(new User("Maria", 29, "Apple", "Sydney"));
         users.add(new User("Alexey", 28, "Microsoft", "Rio de Janeiro"));
