@@ -3,9 +3,8 @@ package school.faang.BJS2_59303;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class LibrarySystem {
-    private static Map<Book, String> books = new HashMap<>();
+    private static final Map<Book, String> books = new HashMap<>();
 
     public static void addBook(String title, String author, int year, String location) {
 
@@ -32,7 +31,7 @@ public class LibrarySystem {
         if (!books.containsKey(book)) {
             System.out.println("Книга не найдена");
         } else {
-            System.out.println("Название книги " + book.getTitle() + " Найдена! Ее локация: " + books.get(book));
+            System.out.println("Название книги " + book.title() + " Найдена! Ее локация: " + books.get(book));
         }
     }
 
@@ -41,7 +40,7 @@ public class LibrarySystem {
             System.out.println("Библиотека пустая!");
         }
         for (Map.Entry<Book, String> entry : books.entrySet()) {
-            System.out.println("Книга: \"" + entry.getKey().getTitle() + "\" " + "Находится: " + entry.getValue());
+            System.out.println("Книга: \"" + entry.getKey().title() + "\" " + "Находится: " + entry.getValue());
         }
     }
 }
