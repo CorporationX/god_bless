@@ -1,6 +1,7 @@
 package school.faang.doublecache;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -13,6 +14,12 @@ public class App {
         Student david = new Student("David");
         Student stepan = new Student("Stepan");
         Student vasya = new Student("Vasiliy");
+        Student kolya = new Student("Nikolay");
+        Student misha = new Student("Michael");
+        Student petya = new Student("Petr");
+        Student nastya = new Student("Anastasiya");
+        Student tanya = new Student("Tatyana");
+        Student anton = new Student("Anton");
 
         Map<Subject, Integer> mashaSubjects = new HashMap<>();
         mashaSubjects.put(math, 85);
@@ -39,6 +46,20 @@ public class App {
         db.addStudentWithGrates(vasya, vasyaSubjects);
         db.printAllStudentsWithSubjectsAndGrades();
         db.deleteStudentAndHisSubjects(stepan);
+        db.printAllStudentsWithSubjectsAndGrades();
+
+        db.addSubjectWithGrade(math, kolya, 99);
+        db.printAllSubjectsWithStudents();
+        db.printAllStudentsWithSubjectsAndGrades();
+
+        db.addStudentToSubject(misha, history);
+        db.printAllSubjectsWithStudents();
+        db.printAllStudentsWithSubjectsAndGrades();
+
+        List<Student> students = List.of(petya, nastya, tanya, anton);
+        Subject biology = new Subject("Biology");
+        db.addSubjectWithStudents(biology, students);
+        db.printAllSubjectsWithStudents();
         db.printAllStudentsWithSubjectsAndGrades();
     }
 }
