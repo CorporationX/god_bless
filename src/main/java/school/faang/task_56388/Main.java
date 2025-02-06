@@ -16,6 +16,6 @@ public class Main {
 
         Map<Integer, List<User>> groupedUsersByAge = User.groupUsers(users);
         groupedUsersByAge.forEach((usersAge, usersList) -> System.out.println("Users Age: " + usersAge
-                + "\n" + "Users: " + usersList));
+                + "\n" + "Users: " + usersList + "\n"));
     }
 }
