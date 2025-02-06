@@ -12,7 +12,7 @@ public class Main {
                 System.out.println(unvalidUser.toString());
             }
 
-        } catch (IllegalAccessError e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
