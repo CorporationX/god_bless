@@ -72,7 +72,7 @@ public abstract class Character {
                 '.';
     }
 
-    public void attack (Character opponent){
+    public void attack(Character opponent) {
         if (this.health == 0) {
             System.out.println(this.getName() + " is dead. The character cannot attack anymore");
         }
