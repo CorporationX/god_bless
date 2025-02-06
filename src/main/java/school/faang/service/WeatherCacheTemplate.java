@@ -10,4 +10,6 @@ public abstract class WeatherCacheTemplate {
     private long maxCacheAgeMillis;
     private Map<String, WeatherData> weatherData = new HashMap<>();
 
+
+public abstract void isCacheExpired();
 }
