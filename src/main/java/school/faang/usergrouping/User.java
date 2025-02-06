@@ -1,4 +1,4 @@
-package school.faang.Usergrouping;
+package school.faang.usergrouping;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,20 +14,18 @@ public class User {
     private String name;
     private int age;
     private String workplace;
-    private String adress;
+    private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
         for (User user : users) {
             int userAge = user.getAge();
-            if (!userGroups.containsKey(userAge)) {
-                userGroups.put(userAge, new ArrayList<>());
-            }
+
+            userGroups.putIfAbsent(userAge, new ArrayList<>());
             userGroups.get(userAge).add(user);
 
         }
         return userGroups;
-
     }
 
 }
