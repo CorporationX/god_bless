@@ -19,7 +19,7 @@ public class Product {
         this.category = category;
     }
 
-    public void validateData(String name, Category category) {
+    private void validateData(String name, Category category) {
         if (name == null) {
             throw new NullPointerException("Значение имени товара не может быть null");
         }
