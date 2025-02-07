@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.service.Example;
+package school.faang.service;
 
 import java.util.Arrays;
 
