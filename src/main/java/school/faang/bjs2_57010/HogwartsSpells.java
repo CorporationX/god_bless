@@ -36,21 +36,12 @@ public class HogwartsSpells {
             return;
         }
 
-        // Получаю список по типу заклинаний
         List<SpellEvent> spells = spellByType.get(spellEvent.getEventType());
-
-        // Проверяю, есть ли список по такому типу
         if (spells != null) {
-            // Удаляю из списка все события, у которых getId() совпадает с id переданным в параметры
-            spells.removeIf(spell -> spell.getId() == id);
-
-            // Если после удаления spells пустой, то удаляю соответствующий
-            // ключ из spellByType, так как в нем больше нет заклинаний для данного типа
+            spells.remove(spellEvent);
             if (spells.isEmpty()) {
                 spellByType.remove(spellEvent.getEventType());
             }
-
-            // В итоге удаление происходит из обеих карт
         }
     }
 
