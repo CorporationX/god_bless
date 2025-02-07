@@ -72,10 +72,10 @@ public class LibrarySystem {
         try {
             if (bookLocation.containsKey(book)) {
                 removedBook.append("Removed Book: ")
-                        .append(book.getTitle() + ", ")
-                        .append(book.getAuthor() + ", ")
-                        .append(book.getYear() + ", ")
-                        .append(bookLocation.get(book) + "\n");
+                        .append(book.getTitle()).append(", ")
+                        .append(book.getAuthor()).append(", ")
+                        .append(book.getYear()).append(", ")
+                        .append(bookLocation.get(book)).append("\n");
                 System.out.println(removedBook);
 
                 bookLocation.remove(book);
