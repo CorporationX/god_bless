@@ -21,16 +21,19 @@ public class User {
         } else {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
+
         if (age >= 18) {
             this.age = age;
         } else {
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
+
         if (VALID_JOBS.contains(job)) {
             this.job = job;
         } else {
             throw new IllegalArgumentException("Место работы должно содержаться в наборе VALID_JOBS");
         }
+
         if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         } else {

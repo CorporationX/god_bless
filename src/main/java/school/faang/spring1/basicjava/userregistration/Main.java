@@ -10,8 +10,5 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка при создании пользователя: " + e.getMessage());
         }
-
-
-
     }
 }
