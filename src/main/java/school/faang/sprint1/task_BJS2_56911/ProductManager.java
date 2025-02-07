@@ -5,43 +5,39 @@ import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 // for test
 @Getter
 public class ProductManager {
     private final Map<Category, List<Product>> categoryMap = new EnumMap<>(Category.class);
-    private final Map<String, Product> productsOnKey = new HashMap<>();
-    private String productKey;
+    private final Set<Product> products = new HashSet<>();
     private Product product;
 
 
-    public void addProduct(Category category, @NonNull String name) {
+    public void addProduct(@NonNull Category category, @NonNull String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        productKey = createProductKey(category, name);
 
-        if (!productsOnKey.containsKey(productKey)) {
-            product = new Product(category, name);
-            categoryMap.computeIfAbsent(category, k -> new ArrayList<>());
-            categoryMap.get(category).add(product);
-            productsOnKey.put(productKey, product);
-        }
+        product = new Product(category, name);
+        categoryMap.computeIfAbsent(category, k -> new ArrayList<>());
+        categoryMap.get(category).add(product);
+        products.add(product);
     }
 
-    public void removeProduct(Category category, String name) {
+    public void removeProduct(@NonNull Category category, @NonNull String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        productKey = createProductKey(category, name);
+        product = new Product(category, name);
 
-        if (productsOnKey.containsKey(productKey)) {
-            product = productsOnKey.get(productKey);
-            categoryMap.get(category).remove(product);
-            productsOnKey.remove(productKey);
+        if (categoryMap.containsKey(category)) {
+            categoryMap.get(category).removeIf(productMap -> isEquals(productMap, product));
+            products.removeIf(productSet -> isEquals(productSet, product));
         }
     }
 
@@ -52,7 +48,7 @@ public class ProductManager {
     public void groupProductsByCategory() {
         categoryMap.clear();
 
-        productsOnKey.values().forEach(product -> {
+        products.forEach(product -> {
             categoryMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>());
             categoryMap.get(product.getCategory()).add(product);
         });
@@ -66,7 +62,10 @@ public class ProductManager {
         });
     }
 
-    private String createProductKey(Category category, String name) {
-        return String.format("%s_%s", category, name);
+    private boolean isEquals(Product product1, Product product2) {
+        if (!product1.getName().equals(product2.getName())) {
+            return false;
+        }
+        return product1.getCategory() == product2.getCategory();
     }
 }

@@ -6,17 +6,18 @@ public class Main {
 
         System.out.println("Пустые мапы");
         System.out.println(productManager.getCategoryMap());
-        System.out.println(productManager.getProductsOnKey());
+        System.out.println(productManager.getProducts());
 
         System.out.println();
 
         System.out.println("Добавлям продукты");
         productManager.addProduct(Category.FOOD, "Apple");
+        productManager.addProduct(Category.FOOD, "Apple");
         productManager.addProduct(Category.FOOD, "Bread");
         productManager.addProduct(Category.ELECTRONICS, "Laptop");
         productManager.addProduct(Category.ELECTRONICS, "Smartphone");
         System.out.println(productManager.getCategoryMap());
-        System.out.println(productManager.getProductsOnKey());
+        System.out.println(productManager.getProducts());
 
         System.out.println();
 
@@ -25,14 +26,14 @@ public class Main {
         productManager.removeProduct(Category.FOOD, "Apple");
         productManager.removeProduct(Category.CLOTHING, "Shirt");
         System.out.println(productManager.getCategoryMap());
-        System.out.println(productManager.getProductsOnKey());
+        System.out.println(productManager.getProducts());
 
         System.out.println();
 
         System.out.println("Групируем продкты по карегориям, хотя и так сгрупированны");
         productManager.groupProductsByCategory();
         System.out.println(productManager.getCategoryMap());
-        System.out.println(productManager.getProductsOnKey());
+        System.out.println(productManager.getProducts());
 
         System.out.println();
 
