@@ -1,4 +1,4 @@
-package school.faang.service;
+package school.faang.task56359.service;
 
 public class Example {
     /**
