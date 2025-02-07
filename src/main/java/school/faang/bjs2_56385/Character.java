@@ -8,10 +8,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Getter
 public abstract class Character {
-    private final String name;
-    private final int strenght;
-    private final int agility;
-    private final int intelligence;
+    protected final String name;
+    protected int strenght;
+    protected int agility;
+    protected int intelligence;
     private int health = 100;
 
     public Character(String name) {
