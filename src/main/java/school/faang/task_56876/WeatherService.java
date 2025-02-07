@@ -2,7 +2,7 @@ package school.faang.task_56876;
 
 import java.util.Random;
 
-public class WeatherService implements WeatherProvider{
+public class WeatherService implements WeatherProvider {
     private Random random = new Random();
 
     @Override
