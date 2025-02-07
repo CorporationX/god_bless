@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import school.faang.task_56460.User;
 
@@ -8,6 +9,7 @@ class UserTest {
     //PositiveTest
 
     @Test
+    @DisplayName("Все значения правильные")
     public void testUserConstructor_rightParams() {
         //arrange
         String name = "Joe";
@@ -23,6 +25,7 @@ class UserTest {
     //TestName
 
     @Test
+    @DisplayName("Пустое значение в имени")
     public void testUserConstructor_EmptyName() {
         //arrange
         String name = "";
@@ -34,6 +37,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("Null значение в имени")
     public void testUserConstructor_NullName() {
         //arrange
         String name = null;
@@ -47,6 +51,7 @@ class UserTest {
     //TestAge
 
     @Test
+    @DisplayName("Некоректное значение в возврасте")
     public void testUserConstructor_WrongAge() {
         //arrange
         String name = "Joe";
@@ -60,6 +65,7 @@ class UserTest {
     //TestJob
 
     @Test
+    @DisplayName("Пустое значение в работе")
     public void testUserConstructor_EmptyJob() {
         //arrange
         String name = "Joe";
@@ -71,6 +77,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("Null значение в работе")
     public void testUserConstructor_NullJob() {
         //arrange
         String name = "Joe";
@@ -82,6 +89,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("Некоректное значение в работе")
     public void testUserConstructor_WrongJob() {
         //arrange
         String name = "Joe";
@@ -95,6 +103,7 @@ class UserTest {
     //TestAddress
 
     @Test
+    @DisplayName("Пустое значение в адресе")
     public void testUserConstructor_EmptyAddress() {
         //arrange
         String name = "Joe";
@@ -106,6 +115,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("Null значение в адресе")
     public void testUserConstructor_NullAddress() {
         //arrange
         String name = "Joe";
@@ -117,6 +127,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("Некоректное значение в адресе")
     public void testUserConstructor_WrongAddress() {
         //arrange
         String name = "Joe";
@@ -126,5 +137,4 @@ class UserTest {
         //assert
         assertThrows(IllegalArgumentException.class, () -> new User(name, age, job, address));
     }
-
 }
