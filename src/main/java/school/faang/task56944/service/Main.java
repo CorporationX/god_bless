@@ -1,8 +1,4 @@
-package school.faang;
-
-import school.faang.service.Student;
-import school.faang.service.StudentDatabase;
-import school.faang.service.Subject;
+package school.faang.task56944.service;
 
 public class Main {
     public static void main(String[] args) {
