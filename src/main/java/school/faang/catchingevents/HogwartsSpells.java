@@ -7,21 +7,15 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(EventType eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
 
-        List<SpellEvent> spellEvents;
-        if (spellByType.containsKey(eventType)) {
-            spellEvents = spellByType.get(eventType);
-        } else {
-            spellEvents = new ArrayList<>();
-        }
-        spellEvents.add(spellEvent);
-        spellByType.put(eventType, spellEvents);
+        spellByType
+                .computeIfAbsent(eventType, spellEvents -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -34,11 +28,15 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.get(id);
-        List<SpellEvent> spellEvents;
-        if (spellByType.containsKey(spellEvent.getEventType())) {
-            spellEvents = spellByType.get(spellEvent.getEventType());
+        if (spellEvent == null) {
+            return;
+        }
+        List<SpellEvent> spellEvents = spellByType.get(spellEvent.getEventType());
+        if (spellEvent != null) {
             spellEvents.remove(spellEvent);
-            spellByType.put(spellEvent.getEventType(), spellEvents);
+            if (spellEvents.isEmpty()) {
+                spellByType.remove(spellEvent.getEventType());
+            }
         }
         spellById.remove(id);
     }
