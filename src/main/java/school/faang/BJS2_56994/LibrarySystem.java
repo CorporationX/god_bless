@@ -12,6 +12,18 @@ public class LibrarySystem {
     }
 
     public static void addBook(String title, String author, int year, String location) {
+        if (title == null || title.trim().isEmpty()
+                || author == null || author.trim().isEmpty()
+                || location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Параметры title, author и location не могут быть null или пустыми строками."
+            );
+        }
+
+        if (year < 1000 || year > 9999) {
+            throw new IllegalArgumentException("Год должен быть четырёхзначным числом.");
+        }
+
         Book newBook = new Book(title, author, year);
         bookShelfMap.put(newBook, location);
     }
