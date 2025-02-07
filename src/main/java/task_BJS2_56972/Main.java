@@ -54,6 +54,5 @@ public class Main {
 
         anotherManager.printAllProducts();
 
-
     }
 }

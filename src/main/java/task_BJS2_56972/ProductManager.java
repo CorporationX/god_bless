@@ -3,7 +3,6 @@ package task_BJS2_56972;
 import lombok.Data;
 import lombok.NonNull;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,7 @@ public class ProductManager {
 
     public void addProduct(@NonNull Category category, @NonNull String name) {
         Product product = new Product(currentId++, name, category);
-        currentId = product.getId() + 1;
+        //currentId = product.getId() + 1;
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
