@@ -13,6 +13,7 @@ import java.util.Map;
 public abstract class WeatherCacheTemplate {
     private static final WeatherProvider weatherProvider = new WeatherService();
     private final Map<String, WeatherData> citiesWeather = new HashMap<>();
+    private final long minValueOfMaxCache = 0L;
 
     public abstract WeatherData getWeatherData(String city, long maxCacheAgeMillis);
 
