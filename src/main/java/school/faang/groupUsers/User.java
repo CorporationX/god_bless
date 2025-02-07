@@ -20,14 +20,19 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
-            int key = user.age;
-            if (!map.containsKey(key)) {
-                map.put(key, new ArrayList<>(List.of(user)));
-            } else {
-                map.get(key).add(user);
-            }
+            int age = user.age;
+            map.putIfAbsent(age, new ArrayList<>());
+            map.get(age).add(user);
         }
         return map;
     }
 
+    @Override
+    public String toString() {
+        return "Пользователь: " +
+                "имя - " + '\'' + name + '\'' +
+                ", возраст - " + age +
+                ", место работы - " + '\'' + workplace + '\'' +
+                ", адрес - " + '\'' + address + '\'';
+    }
 }
