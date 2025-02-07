@@ -2,7 +2,11 @@ package school.faang.datacenter;
 
 public class DataCenterService {
 
-    OptimizationStrategy optimizationStrategy;
+    private final OptimizationStrategy optimizationStrategy;
+
+    public DataCenterService(OptimizationStrategy optimizationStrategy) {
+        this.optimizationStrategy = optimizationStrategy;
+    }
 
     private void optimize(DataCenter dataCenter) {
         optimizationStrategy.optimize(dataCenter);
