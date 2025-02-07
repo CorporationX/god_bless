@@ -6,10 +6,10 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
+@Getter
 public class SpellEvent {
     private final int id;
     private final String name;
-    @Getter
     private final String eventType;
     private final String action;
 

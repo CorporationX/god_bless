@@ -9,20 +9,18 @@ import java.util.Map;
 
 @Getter
 public class HogwartsSpells {
-    private static int count = 1;
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private int count = 1;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(String name,  String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(count, name, eventType, actionDescription);
         spellById.put(count, spellEvent);
         count++;
-        if (spellByType.containsKey(eventType)) {
+
+        if (spellByType.putIfAbsent(eventType,
+                new ArrayList<>(List.of(spellEvent))) != null) {
             spellByType.get(eventType).add(spellEvent);
-        } else {
-            List<SpellEvent> spellEvents = new ArrayList<>();
-            spellEvents.add(spellEvent);
-            spellByType.put(eventType, spellEvents);
         }
     }
 
@@ -30,11 +28,11 @@ public class HogwartsSpells {
         if (spellById.containsKey(id)) {
             return spellById.get(id);
         } else {
-            throw new IllegalArgumentException("There is no spell with this number.");
+            throw new IllegalArgumentException("There is no spell with this identifier.");
         }
     }
 
-    public List<SpellEvent> getSpellsByType(String eventType) {
+    public List<SpellEvent> getSpellEventByType(String eventType) {
         if (spellByType.containsKey(eventType)) {
             return spellByType.get(eventType);
         } else {
@@ -50,8 +48,6 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+        spellById.values().forEach(System.out::println);
     }
 }

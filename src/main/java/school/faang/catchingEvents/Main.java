@@ -2,7 +2,6 @@ package school.faang.catchingEvents;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,7 +26,7 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
         for (String spellType : spellTypes) {
             try {
-                System.out.println(spellType + " " + hogwartsSpells.getSpellsByType(spellType));
+                System.out.println(spellType + " " + hogwartsSpells.getSpellEventByType(spellType));
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
