@@ -1,13 +1,10 @@
 package school.faang;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DataCenterService implements OptimizationStrategy {
+public class DataCenterService {
     private final Timer timer = new Timer();
-    private static final double EPSILON = 1e-9;
 
     public void addServer(DataCenter dataCenter, Server server) {
         validateDataCenter(dataCenter);
@@ -63,87 +60,25 @@ public class DataCenterService implements OptimizationStrategy {
         }
     }
 
-    @Override
-    public void optimize(DataCenter dataCenter) {
+    public void optimize(OptimizationStrategy strategy, DataCenter dataCenter) {
         validateDataCenter(dataCenter);
+        validateStrategy(strategy);
         int interval = 30 * 60 * 1000;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.printf("Optimizing the load in the data center %s \n", dataCenter);
-                loadBalancingOptimizationStrategy(dataCenter);
+                System.out.printf("Optimizing the data center %s \n", dataCenter);
+                strategy.optimize(dataCenter);
             }
         }, 0, interval);
     }
 
-    public void loadBalancingOptimizationStrategy(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.servers;
-        double meanLoad = 0;
-        for (Server server : servers) {
-            meanLoad += server.getLoad();
-        }
-        double totalLoad = meanLoad;
-        double distributedLoad = 0;
-        meanLoad /= servers.size();
-
-        for (Server server : servers) {
-            double canDistribute = Math.min(meanLoad, server.getMaxLoad() - server.getLoad());
-            distributedLoad += canDistribute;
-            server.setLoad(canDistribute);
-        }
-        if (totalLoad - distributedLoad > EPSILON) {
-            servers.sort(Comparator.comparingDouble(Server::getMaxLoad));
-            for (Server server : servers) {
-                double canDistribute = Math.min(totalLoad - distributedLoad,
-                        server.getMaxLoad() - server.getLoad());
-                distributedLoad += canDistribute;
-                server.setLoad(canDistribute);
-                if (totalLoad - distributedLoad < EPSILON) {
-                    break;
-                }
-            }
+    private void validateStrategy(OptimizationStrategy strategy) {
+        if (strategy == null) {
+            throw new IllegalArgumentException("The strategy can't be null");
         }
     }
 
-    public void energyEfficiencyOptimizationStrategy(DataCenter dataCenter) {
-        validateDataCenter(dataCenter);
-        List<Server> servers = dataCenter.servers;
-        servers.sort(Comparator.comparingDouble(Server::getEnergyConsumption));
-        distributeLoad(dataCenter, servers);
-        servers.sort(Comparator.comparingDouble(Server::getEnergyConsumption).reversed());
-        distributeLoad(dataCenter, servers);
-
-        for (Server server : servers) {
-            if (server.getLoad() == 0) {
-                server.setEnergyConsumption(0.0);
-            }
-        }
-    }
-
-    private void distributeLoad(DataCenter dataCenter, List<Server> servers) {
-        for (int first = 0, last = servers.size() - 1; first < last; first++) {
-            Server firstServer = servers.get(first);
-            if (!canDistributeLoad(dataCenter, first, last)) {
-                break;
-            }
-            for (; firstServer.getLoad() > 0 && first < last; last--) {
-                Server lastServer = servers.get(last);
-                double take = Math.min(firstServer.getLoad(), lastServer.getMaxLoad() - lastServer.getLoad());
-                lastServer.setLoad(lastServer.getLoad() + take);
-                firstServer.setLoad(firstServer.getLoad() - take);
-            }
-        }
-    }
-
-    private boolean canDistributeLoad(DataCenter dataCenter, int first, int last) {
-        double distributedLoad = 0;
-        List<Server> servers = dataCenter.servers;
-        for (; first < last; --last) {
-            Server lastServer = servers.get(last);
-            distributedLoad += lastServer.getMaxLoad() - lastServer.getLoad();
-        }
-        return distributedLoad >= servers.get(first).getLoad();
-    }
 
     private void validateDataCenter(DataCenter dataCenter) {
         if (dataCenter == null) {
