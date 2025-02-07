@@ -2,16 +2,23 @@ package school.faang.BJS2_56481;
 
 public class Example {
     public static int[] reverse(int[] arr) {
-        int l = 0;
-        int r = arr.length - 1;
+        int leftIndex = 0;
+        int rightIndex = arr.length - 1;
 
-        while (l < r) {
-            int temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
-            l++;
-            r--;
+        if (arr == null) {
+            return arr;
+        } else if (arr.length <= 1) {
+            return arr;
+        } else {
+
+            while (leftIndex < rightIndex) {
+                int temp = arr[leftIndex];
+                arr[leftIndex] = arr[rightIndex];
+                arr[rightIndex] = temp;
+                leftIndex++;
+                rightIndex--;
+            }
+            return arr;
         }
-        return arr;
     }
 }
