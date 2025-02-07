@@ -1,4 +1,4 @@
-package school.faang.catch_event;
+package school.faang.bjs2_57067;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,34 +21,44 @@ public class HogwartsSpells {
         if (id < 0) {
             throw new IllegalArgumentException("id не может быть отрицательным");
         }
-        if (!spellById.containsKey(id)) {
-            throw new IllegalArgumentException("События с id %d не существует".formatted(id));
-        }
-        return spellById.get(id);
+
+        SpellEvent event = spellById.get(id);
+        String errorMessage = "События с id %d не существует".formatted(id);
+        nullCheck(event, errorMessage);
+        return event;
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         if (eventType == null || eventType.isBlank()) {
             throw new IllegalArgumentException("Тип заклинания не может быть пустым или null");
         }
-
         List<SpellEvent> events = spellsByType.get(eventType);
-        if (events == null) {
-            throw new IllegalArgumentException("По данному типу заклинаний нет");
-        }
+        String errorMessage = "По данному типу заклинаний нет";
+        nullCheck(events, errorMessage);
         return events;
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = getSpellEventById(id);
-        spellById.remove(id);
-        spellsByType.remove(spellEvent.getEventType());
+        SpellEvent spellEvent = spellById.remove(id);
+        String errorMessage = "События с id %d не существует".formatted(id);
+        nullCheck(spellEvent, errorMessage);
+        List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+        events.remove(spellEvent);
+        if (events.isEmpty()) {
+            spellsByType.remove(spellEvent.getEventType());
+        }
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.printf("id - %d, тип - %s, данные события - %s\n",
                     entry.getKey(), entry.getValue().getEventType(), entry.getValue());
+        }
+    }
+
+    private void nullCheck(Object obj, String errorMessage) {
+        if (obj == null) {
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }
