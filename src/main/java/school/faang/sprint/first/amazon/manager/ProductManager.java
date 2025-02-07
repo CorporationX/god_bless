@@ -1,5 +1,6 @@
 package school.faang.sprint.first.amazon.manager;
 
+import lombok.NonNull;
 import school.faang.sprint.first.amazon.model.Category;
 import school.faang.sprint.first.amazon.model.Product;
 
@@ -9,25 +10,33 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProductManager {
+    private static final AtomicInteger ID_COUNT = new AtomicInteger(1);
     private final Set<Product> allProducts = new HashSet<>();
     private Map<Category, List<Product>> categoryMap = new HashMap<>();
 
     public void addProduct(Category category, String name) {
-        Product productForAdd = new Product(name, category);
+        Product productForAdd = new Product(ID_COUNT.getAndIncrement(), name, category);
         allProducts.add(productForAdd);
-        categoryMap.computeIfAbsent(category, p -> new ArrayList<>()).add(productForAdd);
+        categoryMap.computeIfAbsent(category, products -> new ArrayList<>()).add(productForAdd);
     }
 
-    public void removeProduct(Category category, String name) {
-        Product productForRemove = new Product(name, category);
-        allProducts.remove(productForRemove);
-        categoryMap.get(category)
-                .removeIf(product -> product.equals(productForRemove));
+    public void removeProduct(@NonNull Category category, @NonNull String name) {
+        findProductsByCategory(category).stream()
+                .filter(product -> product.getName().equals(name))
+                .findAny().ifPresent(productForRemove -> {
+                    allProducts.remove(productForRemove);
+
+                    List<Product> productsForCategory = categoryMap.get(category);
+                    if (productsForCategory != null) {
+                        productsForCategory.remove(productForRemove);
+                    }
+                });
     }
 
-    public List<Product> findProductsByCategory(Category category) {
+    public List<Product> findProductsByCategory(@NonNull Category category) {
         List<Product> productList = categoryMap.getOrDefault(category, new ArrayList<>());
         productList.retainAll(allProducts);
 
@@ -37,7 +46,7 @@ public class ProductManager {
     public void groupProductsByCategory() {
         Map<Category, List<Product>> tempMap = new HashMap<>();
         for (var product : allProducts) {
-            tempMap.computeIfAbsent(product.getCategory(), p -> new ArrayList<>()).add(product);
+            tempMap.computeIfAbsent(product.getCategory(), products -> new ArrayList<>()).add(product);
         }
 
         categoryMap = tempMap;
@@ -47,7 +56,7 @@ public class ProductManager {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (categoryMap.isEmpty()) {
-            System.out.println("Пока туть пусто");
+            System.out.println("Пока тут пусто");
             return;
         }
 
