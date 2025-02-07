@@ -7,7 +7,11 @@ public class LibrarySystem {
     Map<Book, String> placeBook = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        placeBook.put(new Book(title, author, year), location);
+        if (placeBook.containsKey(new Book(title, author, year))) {
+            System.out.println("Такая книга уже есть\n");
+        } else {
+            placeBook.put(new Book(title, author, year), location);
+        }
     }
 
     public void removeBook(String title, String author, int year) {

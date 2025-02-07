@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+
 public class Book {
     private String title;
     private String author;
