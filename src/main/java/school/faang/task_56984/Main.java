@@ -11,7 +11,7 @@ public class Main {
         studentDatabase.printAllSubjectsWithStudents();
     }
 
-    public static Map<Subject, Integer> addAlexeyMap(){
+    public static Map<Subject, Integer> addAlexeyMap() {
         Map<Subject, Integer> map = new HashMap<>();
         map.put(new Subject("Math"), 3);
         map.put(new Subject("Russian"), 4);

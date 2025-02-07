@@ -36,7 +36,7 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllSubjectsWithStudents(){
+    public void printAllSubjectsWithStudents() {
         for (var entry : subjectStudents.entrySet()) {
             System.out.println("Subject: " + entry.getKey().getName());
             for (Student student : entry.getValue()) {
