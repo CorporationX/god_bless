@@ -1,11 +1,12 @@
 package school.faang.vesteros;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
 
-    Map<Book, String> library = new HashMap<>();
+    private Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -14,26 +15,31 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
+        if (!library.containsKey(book)) {
+            return;
+        }
         library.remove(book);
     }
 
-    public void findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         if (library.containsKey(book)) {
-            System.out.println("Данная книга находится: " + library.get(book));
+            return "Данная книга находится: " + library.get(book);
         } else {
-            System.out.println("Данной книги нет в библиотеке");
+            return "Данной книги нет в библиотеке";
         }
     }
 
     public void printAllBooks() {
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<Book, String> book : library.entrySet()) {
-            System.out.println("=".repeat(30));
-            System.out.println("Книга: " + book.getKey().getTitle() +
-                    "\nАвтор: " + book.getKey().getAuthor() +
-                    "\nГод издания: " + book.getKey().getYear() +
-                    "\nНаходится на полке: " + book.getValue());
+            sb.append("=".repeat(30)).append("\n");
+            sb.append("Книга: ").append(book.getKey().getTitle())
+                    .append("\nАвтор: ").append(book.getKey().getAuthor())
+                    .append("\nГод издания: ").append(book.getKey().getYear())
+                    .append("\nНаходится на полке: ").append(book.getValue());
         }
-        System.out.println("=".repeat(30));
+        sb.append("=".repeat(30));
+        System.out.println(sb);
     }
 }
