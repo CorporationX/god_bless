@@ -1,5 +1,7 @@
 package school.faang.task_56431;
 
+import static java.rmi.server.LogStream.log;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,7 +10,7 @@ public class Main {
             System.out.printf("Имя: %s\nВозраст: %d\nАдрес: %s\nМесто работы: %s\n.",
                     mike.getName(), mike.getAge(), mike.getAddress(), mike.getJob());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log(e.getMessage()).println();
         }
 
     }

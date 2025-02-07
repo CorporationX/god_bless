@@ -1,6 +1,7 @@
 package school.faang.task_56431;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;
@@ -18,25 +19,28 @@ public class User {
     private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
+    @NonNull
     public User(String name, int age, String job, String address) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
-        } else {
-            this.name = name;
         }
+        this.name = name;
+
         if (age < MIN_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18.");
         }
-        if (VALID_ADDRESSES.contains(address)) {
-            this.address = address;
-        } else {
-            throw new IllegalArgumentException("Адрес не удовлетворяет набору");
+        this.age = age;
+
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес не удовлетворяет набору: " + VALID_ADDRESSES);
         }
-        if (VALID_JOBS.contains(job)) {
-            this.job = job;
-        } else {
-            throw new IllegalArgumentException("Место работы не удовлетворяет набору");
+        this.address = address;
+
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Место работы не удовлетворяет набору: " + VALID_JOBS);
         }
+
+        this.job = job;
 
     }
 
