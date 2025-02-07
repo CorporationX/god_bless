@@ -1,4 +1,4 @@
-package school.faang.catch_the_event;
+package school.faang.catch_event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
@@ -18,7 +18,12 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        checkId(id);
+        if (id < 0) {
+            throw new IllegalArgumentException("id не может быть отрицательным");
+        }
+        if (!spellById.containsKey(id)) {
+            throw new IllegalArgumentException("События с id %d не существует".formatted(id));
+        }
         return spellById.get(id);
     }
 
@@ -26,32 +31,24 @@ public class HogwartsSpells {
         if (eventType == null || eventType.isBlank()) {
             throw new IllegalArgumentException("Тип заклинания не может быть пустым или null");
         }
-        if (!spellsByType.containsKey(eventType)) {
+
+        List<SpellEvent> events = spellsByType.get(eventType);
+        if (events == null) {
             throw new IllegalArgumentException("По данному типу заклинаний нет");
         }
-
-        return spellsByType.get(eventType);
+        return events;
     }
 
     public void deleteSpellEvent(int id) {
-        checkId(id);
-        spellsByType.remove(spellById.get(id).getEventType());
+        SpellEvent spellEvent = getSpellEventById(id);
         spellById.remove(id);
+        spellsByType.remove(spellEvent.getEventType());
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("id - %d, тип - %s, данные события - %s".formatted(
-                    entry.getKey(), entry.getValue().getEventType(), entry.getValue()));
-        }
-    }
-
-    private void checkId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("id не может быть отрицательным");
-        }
-        if (!spellById.containsKey(id)) {
-            throw new IllegalArgumentException("События с id %d не существует".formatted(id));
+            System.out.printf("id - %d, тип - %s, данные события - %s\n",
+                    entry.getKey(), entry.getValue().getEventType(), entry.getValue());
         }
     }
 }

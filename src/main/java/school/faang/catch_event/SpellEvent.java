@@ -1,13 +1,13 @@
-package school.faang.catch_the_event;
+package school.faang.catch_event;
 
 import lombok.Data;
 
 @Data
 public class SpellEvent {
 
-    private int id;
-    private String eventType;
-    private String action;
+    private final int id;
+    private final String eventType;
+    private final String action;
     private static int currentId = 1;
 
     public SpellEvent(String eventType, String action) {
