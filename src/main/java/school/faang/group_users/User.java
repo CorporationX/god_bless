@@ -2,7 +2,6 @@ package school.faang.group_users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,20 +17,14 @@ public class User {
     private String workplace;
     private String address;
 
-    Map<Integer, List<User>> groupUsers(List<User> users) {
-
-        // Integer - возраст
-        // List - список всех пользователей из исходного списка с этим возрастом
-
+    static Map<Integer, List<User>> groupUsers(List<User> users) {
         var mapUsers = new HashMap<Integer, List<User>>();
-        //var listUsers = new ArrayList<User>();
-
         for (User user : users) {
-
             mapUsers.putIfAbsent(user.getAge(), new ArrayList<>(List.of(user)));
-
-            //mapUsers.get(listUsers)
-            //mapUsers.put(user.getAge(), )
+            var list = mapUsers.get(user.getAge());
+            if (!list.contains(user)) {
+                list.add(user);
+            }
         }
 
         return mapUsers;
