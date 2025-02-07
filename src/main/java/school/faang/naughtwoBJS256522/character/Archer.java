@@ -1,11 +1,13 @@
-package school.faang.character;
+package school.faang.naughtwoBJS256522.character;
 
 public class Archer extends Character {
+    private final int DEFAULT_ARCHER_STRENGTH_VALUE = 3;
+    private final int DEFAULT_ARCHER_AGILITY_VALUE = 10;
+
     public Archer(String name) {
         super(name);
-        setStrength(3);
-        setAgility(10);
-        setIntelligence(5);
+        setStrength(DEFAULT_ARCHER_STRENGTH_VALUE);
+        setAgility(DEFAULT_ARCHER_AGILITY_VALUE);
     }
 
     @Override
