@@ -1,7 +1,6 @@
-package school.faang;
+package school.faang.task57058;
 
-import school.faang.service.HogwartsSpells;
-import school.faang.service.SpellEvent;
+import school.faang.task57058.service.HogwartsSpells;
 
 public class Main {
     public static void main(String[] args) {
