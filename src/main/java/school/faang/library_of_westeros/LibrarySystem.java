@@ -11,7 +11,6 @@ import java.util.Map;
 @EqualsAndHashCode
 @Slf4j
 @Getter
-@NonNull
 
 public class LibrarySystem {
 
@@ -23,18 +22,15 @@ public class LibrarySystem {
                 '}';
     }
 
-    static Map<Book, String> locationBook = new HashMap<>();
+    private Map<Book, String> locationBook = new HashMap<>();
     private final Map<String, Book> booksName = new HashMap<>();
 
-    public void addBook(String title, String author, int year, String location) {
-        if (title == null || author == null || location == null || title.isEmpty()
-                || author.isEmpty() || location.isEmpty()) {
+    public void addBook(@NonNull String title, @NonNull String author, int year, @NonNull String location) {
+        if (title.isBlank() || author.isBlank() || location.isBlank()) {
             throw new IllegalArgumentException("title, author или location " +
-                    " не могут быть null или пустыми");
+                    " не могут быть пустыми");
         }
-        if (booksName == null || locationBook == null) {
-            throw new IllegalStateException("booksName или locationBook не используются");
-        }
+
         Book book;
         String key = title + author + year;
         if (booksName.containsKey(key)) {
@@ -53,15 +49,15 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
 
         if (locationBook.isEmpty()) {
-            System.out.println("в библиотеке нет книг");
+            log.info("в библиотеке нет книг");
             return; // Выход из метода, если коллекция пуста
         }
 
         if (!locationBook.containsKey(book)) {
-            System.out.println("Такой книги нет");
+            log.info("Такой книги нет");
         } else {
             locationBook.remove(book); // Удаление книги
-            System.out.println("Книга удалена");
+            log.info("Книга удалена");
         }
     }
 
