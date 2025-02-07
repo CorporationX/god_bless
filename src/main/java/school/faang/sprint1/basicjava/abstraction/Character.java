@@ -1,10 +1,8 @@
 package school.faang.sprint1.basicjava.abstraction;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public abstract class Character {
     private String name;
     private int strength;
@@ -13,10 +11,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -26,9 +21,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character opponent);
+    protected abstract void attack(Character opponent);
 
-    public boolean checkHealth() {
-        return health < 0;
+    protected void reduceHealth(int damage) {
+        health = Math.max(0, health - damage);
     }
 }
