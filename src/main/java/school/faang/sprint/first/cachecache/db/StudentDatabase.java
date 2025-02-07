@@ -18,18 +18,37 @@ public class StudentDatabase {
     private final Map<Subject, Set<Student>> subjectStudents = new HashMap<>();
 
 
-    public void addStudentWithAttr(@NonNull String studentName, @NonNull String subjectName, @NonNull Integer score) {
+    public boolean addStudentWithAttr(@NonNull String studentName,
+                                      @NonNull String subjectName,
+                                      @NonNull Integer score
+    ) {
+        if (isDataInvalid(new Object[]{studentName, subjectName, score})) {
+            return false;
+        }
+
         workWithNewStudents(subjectName, Map.of(studentName, score));
+
+        return true;
     }
 
-    public void addSubjectForExistStudentWithScore(@NonNull String subjectName,
-                                                   @NonNull String studentName,
-                                                   @NonNull Integer score
+    public boolean addSubjectForExistStudentWithScore(@NonNull String subjectName,
+                                                      @NonNull String studentName,
+                                                      @NonNull Integer score
     ) {
+        if (isDataInvalid(new Object[]{studentName, subjectName, score})) {
+            return false;
+        }
+
         workWithNewStudents(subjectName, Map.of(studentName, score));
+
+        return true;
     }
 
     public boolean deleteStudent(@NonNull String studentName) {
+        if (studentName.isBlank()) {
+            return false;
+        }
+
         Student studentForDelete = new Student(studentName);
         Map<Subject, Integer> subjectScoresMap = studentSubjects.get(studentForDelete);
 
@@ -77,18 +96,34 @@ public class StudentDatabase {
         System.out.println(stringBuilder);
     }
 
-    public void addSubjectWithStudents(@NonNull String subjectName, @NonNull Set<String> studentsName) {
+    public boolean addSubjectWithStudents(@NonNull String subjectName, @NonNull Set<String> studentsName) {
+        if (subjectName.isBlank() || studentsName.isEmpty()) {
+            return false;
+        }
+
         Map<String, Integer> studentScoresMap = studentsName.stream()
                 .collect(Collectors.toMap(Function.identity(), s -> 0));
 
         workWithNewStudents(subjectName, studentScoresMap);
+
+        return true;
     }
 
-    public void addStudentToExistSubject(@NonNull String studentName, @NonNull String subjectName) {
+    public boolean addStudentToExistSubject(@NonNull String studentName, @NonNull String subjectName) {
+        if (isDataInvalid(new Object[]{studentName, subjectName})) {
+            return false;
+        }
+
         workWithNewStudents(subjectName, Map.of(studentName, 0));
+
+        return true;
     }
 
     public boolean removeStudentFromSubject(@NonNull String studentName, @NonNull String subjectName) {
+        if (isDataInvalid(new Object[]{studentName, subjectName})) {
+            return false;
+        }
+
         Student studentForDelete = new Student(studentName);
         Subject subjectForRemoveStudent = new Subject(subjectName);
 
@@ -150,5 +185,18 @@ public class StudentDatabase {
 
     private Student mapNameToStudent(@NonNull String studentName) {
         return new Student(studentName);
+    }
+
+    private boolean isDataInvalid(Object[] objects) {
+        boolean isInvalid = false;
+        for (Object o : objects) {
+            if (o instanceof String && ((String) o).isBlank()) {
+                isInvalid = true;
+            } else if (o instanceof Integer && (int) o < 0) {
+                isInvalid = true;
+            }
+        }
+
+        return isInvalid;
     }
 }
