@@ -10,12 +10,12 @@ public abstract class Character {
     private int intelligence;
     private int health;
 
+    private static final int DEFAULT_STRENGTH = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-        this.health = 100;
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
