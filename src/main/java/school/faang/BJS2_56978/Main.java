@@ -8,7 +8,9 @@ public class Main {
                 "основное заклинание, которое используется, чтобы произвести магический эффект или изменение.");
         spells.addSpellEvent(EvantType.RIDDIKULUS,
                 "заклинание, которое превращает страшных созданий в смешные или нелепые формы.");
-        spells.getSpellEventById(0);
+        spells.addSpellEvent(EvantType.RIDDIKULUS,
+                "заклинание.");
+        spells.printAllSpellEvents();
 
     }
 }
