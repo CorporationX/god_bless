@@ -12,13 +12,16 @@ public class ProductManager {
     private Map<Category, List> categoryMap = new HashMap<>();
 
 
-    public Product addProduct(Category category, String name) {
+    public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
-        if (products.contains(product)) {
-            throw new IllegalArgumentException("Продукт %s уже существует".formatted(product));
-        }
-
-        return null;
-
+        products.add(product);
+        System.out.println("Добавления товаров");
     }
+
+    public void removeProduct(Category category, String name) {
+        for (Category : products) {
+
+        }
+    }
+
 }
