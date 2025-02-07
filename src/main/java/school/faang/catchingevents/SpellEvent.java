@@ -1,8 +1,10 @@
 package school.faang.catchingevents;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class SpellEvent {
 
     private static int nextId = 1;

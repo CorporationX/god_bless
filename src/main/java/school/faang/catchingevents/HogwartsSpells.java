@@ -1,6 +1,7 @@
 package school.faang.catchingevents;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellByType(EventType eventType) {
-        return spellByType.get(eventType);
+        return spellByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
@@ -32,11 +33,9 @@ public class HogwartsSpells {
             return;
         }
         List<SpellEvent> spellEvents = spellByType.get(spellEvent.getEventType());
-        if (spellEvent != null) {
-            spellEvents.remove(spellEvent);
-            if (spellEvents.isEmpty()) {
-                spellByType.remove(spellEvent.getEventType());
-            }
+        spellEvents.remove(spellEvent);
+        if (spellEvents.isEmpty()) {
+            spellByType.remove(spellEvent.getEventType());
         }
         spellById.remove(id);
     }
