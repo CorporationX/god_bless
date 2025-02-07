@@ -1,5 +1,7 @@
 package school.faang.bjs2_57010;
 
+import java.util.NoSuchElementException;
+
 public class SpellMain {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
@@ -11,7 +13,7 @@ public class SpellMain {
 
         try {
             System.out.println(hogwartsSpells.getSpellEventById(1));
-        } catch (NullPointerException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
         separator();
@@ -25,7 +27,7 @@ public class SpellMain {
 
         try {
             hogwartsSpells.getSpellEventById(5);
-        } catch (NullPointerException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
         separator();

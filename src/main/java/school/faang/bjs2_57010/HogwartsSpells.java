@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class HogwartsSpells {
     Map<Integer, SpellEvent> spellById = new HashMap<>();
@@ -18,10 +19,11 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (!spellById.containsKey(id)) {
-            throw new NullPointerException("No spell event with id " + id);
+        SpellEvent spellEvent = spellById.get(id);
+        if (spellEvent != null) {
+            return spellEvent;
         }
-        return spellById.get(id);
+        throw new NoSuchElementException("No spell event with id " + id);
     }
 
     public List<SpellEvent> getSpellByType(String eventType) {
@@ -34,13 +36,19 @@ public class HogwartsSpells {
             System.out.println("Spell not found for ID: " + id);
             return;
         }
-
+//        Получаю список по типу заклинаний
         List<SpellEvent> spells = spellByType.get(spellEvent.getEventType());
+//        Проверяю есть ли список по такому типу
+//        Если список не null, продолжаю обработку.
         if (spells != null) {
+//            Удаляю из списка все события, у которых getId() совпадает с id переданным в параметры.
             spells.removeIf(spell -> spell.getId() == id);
+//            Если после удаления spells пустой, то удаляю соответствующий
+//            ключ из spellByType, так как в нем больше нет заклинаний для данного типа.
             if (spells.isEmpty()) {
                 spellByType.remove(spellEvent.getEventType());
             }
+//            В итоге удаление происходит из обеих карт.
         }
     }
 

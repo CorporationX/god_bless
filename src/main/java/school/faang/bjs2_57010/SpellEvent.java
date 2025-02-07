@@ -1,9 +1,11 @@
 package school.faang.bjs2_57010;
 
 import lombok.Getter;
+import lombok.ToString;
 
 
 @Getter
+@ToString
 public class SpellEvent {
     private final int id;
     private final String eventType;
@@ -16,8 +18,4 @@ public class SpellEvent {
         this.action = action;
     }
 
-    @Override
-    public String toString() {
-        return String.format("SpellEvent: {id=%d, eventType='%s', action='%s'}", id, eventType, action);
-    }
 }
