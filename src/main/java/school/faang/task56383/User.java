@@ -1,4 +1,4 @@
-package school.faang.services;
+package school.faang.task56383;
 
 import lombok.Getter;
 

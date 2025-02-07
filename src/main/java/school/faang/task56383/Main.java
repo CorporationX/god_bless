@@ -1,6 +1,6 @@
-package school.faang.services;
+package school.faang.task56383;
 
-public class Registation {
+public class Main {
     public static void main(String[] args) {
         try {
             User testUser = new User("Вася", 25, "Uber", "Amsterdam");
