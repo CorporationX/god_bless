@@ -2,8 +2,8 @@ package school.faang.abstraction;
 
 public class Main {
     public static void main(String[] args) {
-        Character warrior = new Character.Warrior("Lapyx");
-        Character archer = new Character.Archer("Keks");
+        Character warrior = new Warrior("Lapyx");
+        Character archer = new Archer("Keks");
 
         warrior.attack(archer);
         System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealth());
