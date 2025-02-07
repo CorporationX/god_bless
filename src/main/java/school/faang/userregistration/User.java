@@ -13,25 +13,34 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private static final int MIN_LEGAL_AGE = 18;
+    private static final int ADULT = 18;
 
-    @SuppressWarnings("checkstyle:Indentation")
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isBlank()) {
+
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
+        } else {
+            this.name = name;
         }
-        this.name = name;
-        if (age < MIN_LEGAL_AGE) {
+
+        if (age < ADULT) {
             throw new IllegalArgumentException("Age cannot be less than 18");
+        } else {
+            this.age = age;
         }
-        this.age = age;
-        if (job == null || !VALID_JOBS.contains(job)) {
+
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Job is not a valid job");
+        } else {
+            this.job = job;
         }
-        this.job = job;
-        if (address == null || !VALID_ADDRESSES.contains(address)) {
+
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address is not a valid address");
+        } else {
+            this.address = address;
         }
-        this.address = address;
+
     }
+
 }
