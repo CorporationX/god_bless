@@ -50,6 +50,9 @@ public class Main {
         anotherManager.groupProductsByCategory(productSet);
         Map<Category, List<Product>> anotherCategoryMap = anotherManager.getCategoryMap();
         System.out.println(anotherCategoryMap);
+        System.out.println();
+
+        anotherManager.printAllProducts();
 
 
     }

@@ -52,4 +52,13 @@ public class ProductManager {
         List<Product> listOfCategory = categoryMap.get(category);
         listOfCategory.removeIf(product -> product.getName().equals(name));
     }
+
+    public void printAllProducts() {
+        for (var entry : categoryMap.entrySet()) {
+            System.out.printf("\nКатегория: %s\nПродукты:\n", entry.getKey());
+            for (var product : entry.getValue()) {
+                System.out.printf("- %s\n", product.getName());
+            }
+        }
+    }
 }
