@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.usercollection.User;
+package school.faang.usercollection;
 
 import java.util.List;
 import java.util.Map;
