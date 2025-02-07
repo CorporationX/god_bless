@@ -17,17 +17,16 @@ public class Main {
         User user9 = new User("Kolya", 25, "V", "Lenina");
         User user10 = new User("Misha", 30, "Mac", "P");
 
-        List<User> userList = new ArrayList<>();
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-        userList.add(user4);
-        userList.add(user5);
-        userList.add(user6);
-        userList.add(user7);
-        userList.add(user8);
-        userList.add(user9);
-        userList.add(user10);
+        List<User> userList = new ArrayList<>(List.of(user1,
+                user2,
+                user3,
+                user4,
+                user5,
+                user6,
+                user7,
+                user8,
+                user9,
+                user10));
 
         System.out.println(User.groupUsers(userList));
     }

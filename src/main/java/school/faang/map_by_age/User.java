@@ -1,12 +1,16 @@
 package school.faang.map_by_age;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class User {
 
     private String name;
@@ -21,20 +25,12 @@ public class User {
         this.address = address;
     }
 
-    public static HashMap<Integer, List<User>> map = new HashMap<>();
-
     public static HashMap<Integer, List<User>> groupUsers(List<User> users) {
+        HashMap<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
-            List<User> list;
-            if (map.containsKey(user.age)) {
-                list = map.get(user.age);
-                list.add(user);
-                map.put(user.age, list);
-            } else {
-                list = new ArrayList<>();
-                list.add(user);
-                map.put(user.age, list);
-            }
+            int age = user.getAge();
+            List<User> list = map.get(age);
+            map.computeIfAbsent(age, k -> new ArrayList<>()).add(user);
         }
         return map;
     }
