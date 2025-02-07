@@ -1,7 +1,12 @@
-package school.faang;
+package school.faang.naudhtwoBJS256499;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
 public class User {
     private String name;
     private int age;
@@ -25,28 +30,9 @@ public class User {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getWorkplace() {
-        return workplace;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
     @Override
     public String toString() {
-        return "User: " +
-                "name - " + name +
-                ", age - " + age +
-                ", workplace - " + workplace +
-                ", address - " + address;
+        return String.format("User: name- %s, age- %d, workplace- %s, address- %s",
+                this.getName(), this.getAge(), this.getWorkplace(), this.getAddress());
     }
 }

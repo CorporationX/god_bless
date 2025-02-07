@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.naudhtwoBJS256499;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        //addMyUsers(users);
         users.add(new User("Ivan", 28, "Google", "London"));
         printList(users);
     }
@@ -17,7 +16,7 @@ public class Main {
         }
     }
 
-    private static void addMyUsers(List<User> users) {
+    private static void createUserList(List<User> users) {
         users.add(new User("Ivan", 28, "Google", "London"));
         users.add(new User("Maria", 15, "Apple", "New York"));
         users.add(new User("Alexey", 28, "Microsoft", "Amsterdam"));
