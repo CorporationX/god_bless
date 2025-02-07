@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
@@ -17,15 +18,12 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (id < 1) {
-            throw new IllegalArgumentException("Id не может быть меньше 1!");
+        SpellEvent event  = spellById.get(id);
+        if (event != null) {
+            return event;
         }
-        if (spellById.containsKey(id)) {
-            System.out.printf("Событие заклинаний c id %d успешно найдено.", id);
-            return spellById.get(id);
-        }
-        System.out.printf("Событие заклинаний c id %d не найдено.", id);
-        return null;
+        throw new NoSuchElementException("Не найдено событие заклинаний для ID: " + id);
+
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
@@ -37,15 +35,15 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        if (spellEvent != null) {
-            System.out.println("Событие заклинаний успешно удалено: " + spellEvent);
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
-            if (events != null) {
-                events.remove(spellEvent);
-            }
+        if (spellEvent == null) {
+            System.out.printf("Событие заклинаний c id %d не найдено.%n", id);
             return;
         }
-        System.out.printf("Событие заклинаний c id %d не найдено.", id);
+        List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+        if (events != null) {
+            events.remove(spellEvent);
+            System.out.println("Событие заклинаний успешно удалено: " + spellEvent);
+        }
     }
 
     public void printAllSpellEvents() {
