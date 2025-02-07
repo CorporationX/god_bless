@@ -46,7 +46,7 @@ class StandardWeatherCacheTest {
     public void getWeatherData_anotherData() throws InterruptedException {
         timestamp = Instant.now().toEpochMilli();
         WeatherData data = standardWeatherCache.getWeatherData(city, maxCacheAgeMillis);
-        Thread.sleep(maxCacheAgeMillis);
+        Thread.sleep(maxCacheAgeMillis + 1);
         WeatherData sameData = standardWeatherCache.getWeatherData(city, maxCacheAgeMillis);
         assertNotEquals(data, sameData);
     }
