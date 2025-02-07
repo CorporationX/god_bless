@@ -25,7 +25,8 @@ public class LibrarySystem {
     private static void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
         if (bookLocation.containsKey(book)) {
-            logger.log(Level.WARNING, "Book {0} already exist at location {1}.", new Object[]{book, bookLocation.get(book)});
+            logger.log(Level.WARNING, "Book {0} already exist at location {1}.",
+                    new Object[]{book, bookLocation.get(book)});
         } else {
             bookLocation.put(book, location);
             logger.log(Level.INFO, "Book added: {0} at location {1}.", new Object[]{book, location});
