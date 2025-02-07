@@ -1,6 +1,7 @@
 package school.faang.bjs2_57010;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,36 +17,37 @@ public class HogwartsSpells {
         spellByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
-    public void getSpellEventById(int id) {
-        SpellEvent spell = spellById.get(id);
-        if (spell != null) {
-            System.out.printf("Spell by %s%n", spell);
-        } else {
-            System.out.println("Spell not found for ID: " + id);
+    public SpellEvent getSpellEventById(int id) {
+        if (!spellById.containsKey(id)) {
+            throw new NullPointerException("No spell event with id " + id);
         }
+        return spellById.get(id);
     }
 
-    public void getSpellByType(String eventType) {
-        if (spellByType.get(eventType) != null) {
-            System.out.println(spellByType.get(eventType));
-        } else {
-            System.out.println("Spell not found for eventType: " + eventType);
-        }
+    public List<SpellEvent> getSpellByType(String eventType) {
+        return spellByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = spellById.get(id);
-        if (spellEvent != null) {
-            spellById.remove(id);
-            spellByType.remove(spellEvent.getEventType());
-        } else {
+        SpellEvent spellEvent = spellById.remove(id);
+        if (spellEvent == null) {
             System.out.println("Spell not found for ID: " + id);
+            return;
+        }
+
+        List<SpellEvent> spells = spellByType.get(spellEvent.getEventType());
+        if (spells != null) {
+            spells.removeIf(spell -> spell.getId() == id);
+            if (spells.isEmpty()) {
+                spellByType.remove(spellEvent.getEventType());
+            }
         }
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
+        for (SpellEvent spell : spellById.values()) {
+            System.out.println(String.format("ID: %d, Event Type: %s, Action: %s",
+                    spell.getId(), spell.getEventType(), spell.getAction()));
         }
     }
 }

@@ -1,8 +1,9 @@
 package school.faang.bjs2_57010;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+
+@Getter
 public class SpellEvent {
     private final int id;
     private final String eventType;
@@ -13,5 +14,10 @@ public class SpellEvent {
         this.id = count++;
         this.eventType = eventType;
         this.action = action;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("SpellEvent: {id=%d, eventType='%s', action='%s'}", id, eventType, action);
     }
 }
