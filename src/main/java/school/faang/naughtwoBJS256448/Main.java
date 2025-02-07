@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.naughtwoBJS256448;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        addMyUsers(users);
+        createUserList(users);
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
         printMap(groupedUsers);
     }
@@ -15,10 +15,11 @@ public class Main {
     private static void printMap(Map<Integer, List<User>> map) {
         for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
+            System.out.println();
         }
     }
 
-    private static void addMyUsers(List<User> users) {
+    private static void createUserList(List<User> users) {
         users.add(new User("Ivan", 28, "Google", "Tokyo"));
         users.add(new User("Maria", 29, "Apple", "Sydney"));
         users.add(new User("Alexey", 28, "Microsoft", "Rio de Janeiro"));
