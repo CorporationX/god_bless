@@ -1,11 +1,13 @@
 package school.faang.task_57076;
 
-import java.security.SecureRandom;
-import java.util.*;
+import java.util.UUID;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class HogwartsSpells {
-    private static SecureRandom random = new SecureRandom();
     private Map<UUID, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
