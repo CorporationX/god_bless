@@ -30,9 +30,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    abstract void attack(Character opponent);
+    public abstract void attack(Character opponent);
 
-    public void checkNegativeHealth() {
+    protected void checkNegativeHealth() {
         if (getHealth() < MINIMUM_HEALTH_VALUE) {
             setHealth(MINIMUM_HEALTH_VALUE);
         }
