@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestLoadBalancingOptimizationStrategy {
 
     @Test
-    public void TestSameLoad() throws Exception {
+    public void testSameLoad() throws Exception {
         List<Server> servers = List.of(
                 new Server(100, 500, 20),
                 new Server(200, 500, 40),
@@ -27,7 +27,7 @@ public class TestLoadBalancingOptimizationStrategy {
     }
 
     @Test
-    public void TestNotSameLoad() throws Exception {
+    public void testNotSameLoad() throws Exception {
         List<Server> servers = List.of(
                 new Server(100, 150, 20),
                 new Server(200, 500, 40),
@@ -40,8 +40,8 @@ public class TestLoadBalancingOptimizationStrategy {
 
         dataCenterService.optimize(dataCenter);
 
-        assertEquals(150, servers.get(0).getLoad(), "Loads must be equals");
-        assertEquals(225, servers.get(1).getLoad(), "Loads must be equals");
-        assertEquals(225, servers.get(2).getLoad(), "Loads must be equals");
+        assertEquals(150, servers.get(0).getLoad(), "Loads must be equal");
+        assertEquals(225, servers.get(1).getLoad(), "Loads must be equal");
+        assertEquals(225, servers.get(2).getLoad(), "Loads must be equal");
     }
 }

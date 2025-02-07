@@ -12,15 +12,15 @@ public class DataCenterService {
         optimizationStrategy.optimize(dataCenter);
     }
 
-    private void addServer(DataCenter dataCenter, Server server) {
+    public void addServer(DataCenter dataCenter, Server server) {
         dataCenter.servers().add(server);
     }
 
-    private void removeServer(DataCenter dataCenter, Server server) {
+    public void removeServer(DataCenter dataCenter, Server server) {
         dataCenter.servers().remove(server);
     }
 
-    private double getTotalEnergyConsumption(DataCenter dataCenter) {
+    public double getTotalEnergyConsumption(DataCenter dataCenter) {
         double totalEnergy = 0;
         for (Server server : dataCenter.servers()) {
             totalEnergy += server.getEnergyConsumption();
@@ -29,7 +29,7 @@ public class DataCenterService {
         return totalEnergy;
     }
 
-    private boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
+    public boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
         double allocatedLoad = request.load();
 
         for (Server server : dataCenter.servers()) {
@@ -41,9 +41,8 @@ public class DataCenterService {
                     allocatedLoad = 0;
                     break;
                 } else {
-                    double unitLoad = allocatedLoad - permissibleLoad;
-                    allocatedLoad -= unitLoad;
-                    server.setLoad(server.getLoad() + unitLoad);
+                    allocatedLoad -= permissibleLoad;
+                    server.setLoad(server.getLoad() + permissibleLoad);
                 }
             }
         }
@@ -56,15 +55,15 @@ public class DataCenterService {
         }
     }
 
-    private void releaseResources(DataCenter dataCenter, ResourceRequest request) {
+    public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         double allocatedLoad = request.load();
 
         while (allocatedLoad > 0) {
             for (Server server : dataCenter.servers()) {
                 if (server.getLoad() < allocatedLoad) {
-                    server.setLoad(0);
                     allocatedLoad -= server.getLoad();
-                } else if (server.getLoad() >= allocatedLoad) {
+                    server.setLoad(0);
+                } else {
                     server.setLoad(server.getLoad() - allocatedLoad);
                     allocatedLoad = 0;
                 }

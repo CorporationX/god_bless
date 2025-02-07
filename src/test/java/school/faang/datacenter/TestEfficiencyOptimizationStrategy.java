@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestEfficiencyOptimizationStrategy {
 
     @Test
-    public void TestOptimize() throws Exception {
+    public void testOptimize() {
         List<Server> servers = List.of(
                 new Server(100, 500, 20),
                 new Server(200, 500, 40),
@@ -23,8 +22,8 @@ public class TestEfficiencyOptimizationStrategy {
 
         dataCenterService.optimize(dataCenter);
 
-        assertEquals(500, servers.get(0).getLoad(), "Loads must be equals");
-        assertEquals(100, servers.get(1).getLoad(), "Loads must be equals");
-        assertEquals(0, servers.get(2).getLoad(), "Loads must be equals");
+        assertEquals(500, servers.get(0).getLoad(), "Loads must be equal");
+        assertEquals(100, servers.get(1).getLoad(), "Loads must be equal");
+        assertEquals(0, servers.get(2).getLoad(), "Loads must be equal");
     }
 }
