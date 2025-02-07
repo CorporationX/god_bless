@@ -33,10 +33,10 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected void reduceHp(Character character, int damage) {
-        if (hp > 0) {
+        if (character.getHp() > 0) {
             character.setHp(character.getHp() - damage);
-            if (hp <= 0) {
-                hp = 0;
+            if (character.getHp() <= 0) {
+                character.setHp(0);
             }
         }
         System.out.println(this.name + " : " + this.hp + " HP" + "\t"

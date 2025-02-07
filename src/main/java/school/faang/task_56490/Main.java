@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Character warrior = new Warrior("Oliver");
         Character archer = new Archer("Mark");
+        Random random = new Random();
         while (archer.getHp() != 0 && warrior.getHp() != 0) {
-            Random random = new Random();
             if (random.nextInt(2) == 1) {
                 warrior.attack(archer);
             } else {
