@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
+    private static final String EVENT_DOESNT_EXISTS_TEMPLATE = "События с id %d не существует";
+
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
@@ -23,8 +25,7 @@ public class HogwartsSpells {
         }
 
         SpellEvent event = spellById.get(id);
-        String errorMessage = "События с id %d не существует".formatted(id);
-        nullCheck(event, errorMessage);
+        nullCheck(event, EVENT_DOESNT_EXISTS_TEMPLATE.formatted(id));
         return event;
     }
 
@@ -40,8 +41,7 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        String errorMessage = "События с id %d не существует".formatted(id);
-        nullCheck(spellEvent, errorMessage);
+        nullCheck(spellEvent, EVENT_DOESNT_EXISTS_TEMPLATE.formatted(id));
         List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
         events.remove(spellEvent);
         if (events.isEmpty()) {
@@ -52,7 +52,7 @@ public class HogwartsSpells {
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.printf("id - %d, тип - %s, данные события - %s\n",
-                    entry.getKey(), entry.getValue().getEventType(), entry.getValue());
+                    entry.getKey(), entry.getValue().getEventType(), entry.getValue().getAction());
         }
     }
 

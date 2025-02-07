@@ -1,8 +1,14 @@
 package school.faang.bjs2_57067;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
-@Data
+@Getter
+@EqualsAndHashCode
+@RequiredArgsConstructor
+@ToString
 public class SpellEvent {
 
     private final int id;
