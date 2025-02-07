@@ -1,4 +1,4 @@
-package school.faang.sprint.first.catchevent.Model;
+package school.faang.sprint.first.catchevent.model;
 
 import lombok.Data;
 

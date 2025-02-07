@@ -1,36 +1,41 @@
 package school.faang.sprint.first.catchevent.service;
 
-import school.faang.sprint.first.catchevent.Model.SpellEvent;
+import lombok.NonNull;
+import school.faang.sprint.first.catchevent.model.SpellEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
-    private static int ID_COUNT = 0;
+    private static final AtomicInteger ID_COUNT = new AtomicInteger(1);
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-        int spellEventId = getNextId();
+    public void addSpellEvent(@NonNull String eventType, @NonNull String actionDescription) {
+        if (eventType.isBlank() || actionDescription.isBlank()) {
+            return;
+        }
+
+        int spellEventId = ID_COUNT.getAndIncrement();
         SpellEvent spellEventForAdd = new SpellEvent(spellEventId, eventType, actionDescription);
 
         spellById.put(spellEventId, spellEventForAdd);
-        spellsByType.computeIfAbsent(eventType, e -> new ArrayList<>()).add(spellEventForAdd);
+        spellsByType.computeIfAbsent(eventType, spellEvents -> new ArrayList<>()).add(spellEventForAdd);
     }
 
     public SpellEvent getSpellEventById(int id) {
         return spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(@NonNull String eventType) {
         return spellsByType.get(eventType);
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.get(id);
-
         if (spellEvent == null) {
             return;
         }
@@ -48,9 +53,5 @@ public class HogwartsSpells {
         }
 
         spellById.values().forEach(System.out::println);
-    }
-
-    private int getNextId() {
-        return ID_COUNT++;
     }
 }
