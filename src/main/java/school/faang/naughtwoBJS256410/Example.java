@@ -10,7 +10,7 @@ public class Example {
 
         int i = 0;
         int j = nums.length - 1;
-        while (i<j){
+        while (i < j) {
             int num = nums[i];
             nums[i] = nums[j];
             nums[j] = num;
