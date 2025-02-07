@@ -1,7 +1,7 @@
-package school.faang;
+package school.faang.task56900;
 
-import school.faang.service.Category;
-import school.faang.service.ProductManager;
+import school.faang.task56900.service.Category;
+import school.faang.task56900.service.ProductManager;
 
 public class Main {
     public static void main(String[] args) {
