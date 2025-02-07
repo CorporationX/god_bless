@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "year": 2008,
+    "shelf": "Shelf A1"
+  },
+  {
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "year": 2017,
+    "shelf": "Shelf B2"
+  },
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "year": 1999,
+    "shelf": "Shelf C3"
+  },
+  {
+    "title": "Refactoring",
+    "author": "Martin Fowler",
+    "year": 1999,
+    "shelf": "Shelf A1"
+  },
+  {
+    "title": "Head First Java",
+    "author": "Kathy Sierra",
+    "year": 2005,
+    "shelf": "Shelf D4"
+  },
+  {
+    "title": "Design Patterns",
+    "author": "Erich Gamma",
+    "year": 1994,
+    "shelf": "Shelf B2"
+  },
+  {
+    "title": "You Don't Know JS",
+    "author": "Kyle Simpson",
+    "year": 2014,
+    "shelf": "Shelf E5"
+  },
+  {
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "year": 2009,
+    "shelf": "Shelf F6"
+  },
+  {
+    "title": "The Art of Computer Programming",
+    "author": "Donald Knuth",
+    "year": 1968,
+    "shelf": "Shelf G7"
+  }
+]
