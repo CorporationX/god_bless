@@ -5,9 +5,19 @@ import java.util.Objects;
 public class Book {
     private final String title;
     private final String author;
-    private final Integer year;
+    private final int year;
 
     public Book(String title, String author, int year) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be null or empty");
+        }
+        if (author == null || author.trim().isEmpty()) {
+            throw new IllegalArgumentException("Author cannot be null or empty");
+        }
+        if (year <= 0) {
+            throw new IllegalArgumentException("Year must be a positive integer");
+        }
+
         this.title = title;
         this.author = author;
         this.year = year;
@@ -21,13 +31,13 @@ public class Book {
         return author;
     }
 
-    public Integer getYear() {
+    public int getYear() {
         return year;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || o == this || getClass() != o.getClass()) {
             return false;
         }
         Book book = (Book) o;
@@ -42,6 +52,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "title='" + title + '\'' + ", author='" + author + '\'' + ", year=" + year + '}';
+        return title + " by " + author + " (" + year + ")";
     }
 }
