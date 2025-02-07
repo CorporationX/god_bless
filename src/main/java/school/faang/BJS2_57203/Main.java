@@ -1,7 +1,7 @@
-package school.faang;
+package school.faang.BJS2_57203;
 
 
-import static school.faang.HogwartsSpells.printAllSpellEvents;
+import static school.faang.BJS2_57203.HogwartsSpells.printAllSpellEvents;
 
 public class Main {
     public static void main(String[] args) {
