@@ -3,7 +3,7 @@ package school.faang.usercollection;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
+public class MyMain {
     public static void main(String[] args) {
 
         User user1 = new User(0, "Alex", 18,
