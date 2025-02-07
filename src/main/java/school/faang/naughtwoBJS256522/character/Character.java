@@ -12,13 +12,13 @@ public abstract class Character {
     private int intelligence; //интеллект
     private int health = 100;
 
-    private int DEFAULT_SKILL_VALUE = 5;
+    private int defaultSkillValue = 5; //не могу дать название в верхнем регистре, ругается гит
 
     public Character(String name) {
         this.name = name;
-        this.strength = DEFAULT_SKILL_VALUE;
-        this.agility = DEFAULT_SKILL_VALUE;
-        this.intelligence = DEFAULT_SKILL_VALUE;
+        this.strength = defaultSkillValue;
+        this.agility = defaultSkillValue;
+        this.intelligence = defaultSkillValue;
     }
 
     public Character(String name, int strength, int dexterity, int intelligence) {
