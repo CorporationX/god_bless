@@ -1,4 +1,4 @@
-package school.faang.service;
+package school.faang.task56944.service;
 
 import lombok.Data;
 import lombok.NonNull;
