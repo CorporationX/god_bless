@@ -15,13 +15,15 @@ public class User {
     private final Set<String> activities;
 
     public User(int id, String name, int age, Set<String> activities) {
+        validateInputs(name, activities);
+
         this.id = id;
         this.name = name;
         this.age = age;
         this.activities = activities;
     }
 
-    protected static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> groupedUsers = new HashMap<>();
 
         for (User user : users) {
@@ -37,16 +39,25 @@ public class User {
         return groupedUsers;
     }
 
+    private void validateInputs(String name, Set<String> activities) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name is required");
+        }
+        if (activities == null) {
+            throw new IllegalArgumentException("Activities is required");
+        }
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
-        User user = (User) o;
+        User user = (User) obj;
         return id == user.id;
     }
 
@@ -57,6 +68,6 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User%d{name=%s, activities=%s}", id, name, activities);
+        return String.format("User%d{name=%s, age=%d, activities=%s}", id, name, age, activities);
     }
 }
