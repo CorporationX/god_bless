@@ -8,11 +8,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription
-    ) {
+    public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
         spellByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
@@ -36,26 +35,30 @@ public class HogwartsSpells {
             System.out.println("Spell not found for ID: " + id);
             return;
         }
-//        Получаю список по типу заклинаний
+
+        // Получаю список по типу заклинаний
         List<SpellEvent> spells = spellByType.get(spellEvent.getEventType());
-//        Проверяю есть ли список по такому типу
-//        Если список не null, продолжаю обработку.
+
+        // Проверяю, есть ли список по такому типу
         if (spells != null) {
-//            Удаляю из списка все события, у которых getId() совпадает с id переданным в параметры.
+            // Удаляю из списка все события, у которых getId() совпадает с id переданным в параметры
             spells.removeIf(spell -> spell.getId() == id);
-//            Если после удаления spells пустой, то удаляю соответствующий
-//            ключ из spellByType, так как в нем больше нет заклинаний для данного типа.
+
+            // Если после удаления spells пустой, то удаляю соответствующий
+            // ключ из spellByType, так как в нем больше нет заклинаний для данного типа
             if (spells.isEmpty()) {
                 spellByType.remove(spellEvent.getEventType());
             }
-//            В итоге удаление происходит из обеих карт.
+
+            // В итоге удаление происходит из обеих карт
         }
     }
 
     public void printAllSpellEvents() {
         for (SpellEvent spell : spellById.values()) {
-            System.out.println(String.format("ID: %d, Event Type: %s, Action: %s",
-                    spell.getId(), spell.getEventType(), spell.getAction()));
+            System.out.printf("ID: %d, Event Type: %s, Action: %s%n",
+                    spell.getId(), spell.getEventType(), spell.getAction());
         }
     }
 }
+
