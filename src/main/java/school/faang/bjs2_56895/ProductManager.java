@@ -1,6 +1,5 @@
 package school.faang.bjs2_56895;
 
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,16 +10,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Data
+
 public class ProductManager {
-    private Set<Product> products = new HashSet<>();
-    private Map<Category, List<Product>> categoryMap = new HashMap<>();
-    private AtomicInteger idGenerator = new AtomicInteger();
+    private final Set<Product> products = new HashSet<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private final AtomicInteger idGenerator = new AtomicInteger();
 
     public void addProduct(Category category, String name) {
         Product newProduct = new Product(idGenerator.incrementAndGet(), name, category);
         if (products.add(newProduct)) {
             categoryMap.computeIfAbsent(category, k -> new ArrayList<>()).add(newProduct);
+        } else {
+            System.out.println("A product with the name: \"" + newProduct.getName() + "\" already exists");
         }
     }
 
@@ -32,13 +33,9 @@ public class ProductManager {
 
         if (product != null) {
             products.remove(product);
-
             List<Product> categoryProducts = categoryMap.get(category);
             if (categoryProducts != null) {
                 categoryProducts.remove(product);
-                if (categoryProducts.isEmpty()) {
-                    categoryMap.remove(category);
-                }
             }
         } else {
             System.out.printf("Product %s not found", name);
@@ -62,13 +59,15 @@ public class ProductManager {
             return;
         }
 
+        StringBuilder sb = new StringBuilder();
         categoryMap.forEach((category, products) -> {
             if (!products.isEmpty()) {
-                System.out.println("Category: " + category);
-                System.out.println("Products:");
-                products.forEach(product -> System.out.println("- " + product.getName()));
-                System.out.println(); // Пустая строка для разделения категорий
+                sb.append("Category: ").append(category).append("\n")
+                        .append("Products:\n");
+                products.forEach(product -> sb.append("- ").append(product.getName()).append("\n"));
+                sb.append("\n");
             }
         });
+        System.out.print(sb);
     }
 }
