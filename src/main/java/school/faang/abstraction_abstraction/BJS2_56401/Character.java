@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Getter
 @Setter
+@ToString
 public abstract class Character {
     private static final Logger LOGGER = LoggerFactory.getLogger(Character.class);
 
@@ -21,6 +23,10 @@ public abstract class Character {
     private int health = 100;
 
     public Character(@NonNull String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Character name cannot be blank");
+        }
+
         this.name = name;
         this.strength = BASE_VALUE_OF_CHARACTERISTIC;
         this.agility = BASE_VALUE_OF_CHARACTERISTIC;
