@@ -10,13 +10,19 @@ import java.util.Set;
 
 public class ProductManager {
 
-    Set<Product> products = new HashSet<>();
-    Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private Set<Product> products = new HashSet<>();
+    private Map<Category, List<Product>> categoryMap = new HashMap<>();
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
+        if (products.contains(product)) {
+            return;
+        }
         products.add(product);
-        categoryMap.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
+        categoryMap.computeIfAbsent(category, productList -> new ArrayList<>());
+        if (!categoryMap.get(category).contains(product)) {
+            categoryMap.get(category).add(product);
+        }
     }
 
     public void removeProduct(Category category, String name) {
