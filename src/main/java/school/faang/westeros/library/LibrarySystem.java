@@ -1,16 +1,24 @@
 package school.faang.westeros.library;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
+    private static final String EMPTY_TITLE_ERROR = "Название книги не может быть пустым!";
+    private static final String EMPTY_AUTHOR_ERROR = "Имя автора должно быть заполнено!";
+    private static final String EMPTY_LOCATION_ERROR = "Название полки не может быть пустым!";
+    private static final String INVALID_YEAR_ERROR = "Указан некорректный год издания!";
+    private static final Logger logger = LoggerFactory.getLogger(LibrarySystem.class);
     private Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         checkArguments(title, author, year, location);
         Book book = new Book(title, author, year);
         library.put(book, location);
-        System.out.println("Книга " + book + " добавлена на полку " + location);
+        logger.info("Книга {} добавлена на полку {}", book, location);
     }
 
     public void removeBook(String title, String author, int year) {
@@ -18,10 +26,10 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
         String location = library.remove(book);
         if (location != null) {
-            System.out.println("Книга " + book + " удалена с полки " + location);
+            logger.info("Книга {} удалена с полки {}", book, location);
             return;
         }
-        System.out.println("Книга " + book + " для удаления не найдена.");
+        logger.info("Книга {} не найдена.", book);
     }
 
     public void findBook(String title, String author, int year) {
@@ -29,35 +37,35 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
         String location = library.get(book);
         if (location == null) {
-            System.out.println("Книга " + book + " не найдена.");
+            logger.info("Книга {} не найдена.", book);
             return;
         }
-        System.out.println("Книга " + book + " находится на полке " + location);
+        logger.info("Книга {} находится на полке {}", book, location);
     }
 
     public void printAllBooks() {
         System.out.println("\nСписок книг:");
-        for (Map.Entry entry : library.entrySet()) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
             System.out.println("Книга: " + entry.getKey() + "\tПолка: " + entry.getValue());
         }
     }
 
     private void checkArguments(String title, String author, int year) {
-        if (title.isBlank()) {
-            throw new IllegalArgumentException("Название книги не может быть пустым!");
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException(EMPTY_TITLE_ERROR);
         }
-        if (author.isBlank()) {
-            throw new IllegalArgumentException("Имя автора должно быть заполнено!");
+        if (author == null || author.isBlank()) {
+            throw new IllegalArgumentException(EMPTY_AUTHOR_ERROR);
         }
         if (year <= 0) {
-            throw new IllegalArgumentException("Указан некорректный год издания!");
+            throw new IllegalArgumentException(INVALID_YEAR_ERROR);
         }
     }
 
     private void checkArguments(String title, String author, int year, String location) {
         checkArguments(title, author, year);
-        if (location.isBlank()) {
-            throw new IllegalArgumentException("Название полки не может быть пустым!");
+        if (location == null || location.isBlank()) {
+            throw new IllegalArgumentException(EMPTY_LOCATION_ERROR);
         }
     }
 }
