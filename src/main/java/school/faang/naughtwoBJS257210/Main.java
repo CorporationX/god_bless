@@ -1,16 +1,16 @@
-package school.faang;
+package school.faang.naughtwoBJS257210;
 
 public class Main {
     public static void main(String[] args) {
         LibrarySystem librarySystem = new LibrarySystem();
         addMyBooks(librarySystem);
-        librarySystem.printAllBook();
+        librarySystem.printAllBooks();
         System.out.println("-------------------------------");
         librarySystem.addBook("The Secret of the Enchanted Forest", "Lucia Storm", 2021, "D4E5C3");
-        librarySystem.printAllBook();
+        librarySystem.printAllBooks();
         System.out.println("-------------------------------");
         librarySystem.removeBook("Mesmerizing School of Magic", "Emma Storm", 2003);
-        librarySystem.printAllBook();
+        librarySystem.printAllBooks();
         System.out.println("-------------------------------");
         System.out.println("Book is in sector " +
                 librarySystem.findBook("The Secret of the Enchanted Forest", "Lucia Storm", 2021));
