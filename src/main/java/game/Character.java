@@ -1,23 +1,19 @@
 package game;
 
-abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health;
+public abstract class Character {
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private  int health = 100;
 
     /**
      * Constructor with default attributes.
      *
      * @param name Character name
      */
-    protected Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-        this.health = 100;
+    public Character(String name) {
+        this(name, 5, 5, 5);
     }
 
     /**
@@ -28,12 +24,11 @@ abstract class Character {
      * @param agility Agility attribute
      * @param intelligence Intelligence attribute
      */
-    protected Character(String name, int strength, int agility, int intelligence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health = 100;
     }
 
     public abstract void attack(Character opponent);
@@ -43,9 +38,9 @@ abstract class Character {
      *
      * @param damage Amount of damage taken
      */
-    protected void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         this.health = Math.max(0, this.health - damage);
-        System.out.println(name + " takes " + damage + " damage. Remaining health: " + health);
+        System.out.printf("%s takes %d damage. Remaining health: %d%n", name, damage, health);
     }
 
     public String getName() {
