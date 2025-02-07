@@ -4,19 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
 public class User {
-    private int id;
-    private String name;
-    private int age;
-    private List<String> activities;
+    private final int id;
+    private final String name;
+    private final int age;
+    private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, List<String> activities) {
-        if (activities.isEmpty() || users.isEmpty()) {
+    public static Map<User, String> findHobbyLovers(Set<User> users, Set<String> activities) {
+        if (users == null || users.isEmpty()) {
+            return new HashMap<>();
+        }
+        if (activities == null || activities.isEmpty()) {
             return new HashMap<>();
         }
         Map<User, String> hobbyLovers = new HashMap<>();
