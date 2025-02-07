@@ -25,7 +25,7 @@ public class ProductManager {
         Iterator<Product> iterator = products.iterator();
         boolean productFound = false;
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Product product = iterator.next();
             if (product.getCategory() == category && product.getName().equals(name)) {
                 iterator.remove();
