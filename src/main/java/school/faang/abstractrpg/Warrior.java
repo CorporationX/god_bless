@@ -11,7 +11,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        System.out.printf("Warrior %s attack %s for %d damage!\n", getName(), opponent.getName(), getStrength());
-        reduceHealth(getStrength());
+        System.out.printf("Warrior %s attack %s for %d damage!\n", name, opponent.name, strength);
+        reduceHealth(opponent, strength);
     }
 }
