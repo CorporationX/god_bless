@@ -11,26 +11,23 @@ public class LibraryMain {
         LibrarySystem librarySystem = new LibrarySystem();
         Map<Book, String> library = new HashMap<>();
 
-        Book book1 = new Book("Book1", "Author1", 1897);
-        Book book2 = new Book("Book2", "Author2", 1890);
-        Book book3 = new Book("Book3", "Author3", 1997);
 
-        librarySystem.addBook(book1, "Box1", library);
-        librarySystem.addBook(book2, "Box2", library);
-        librarySystem.addBook(book3, "Box3", library);
+        librarySystem.addBook("Book1", "Author1", 1897, "Box1", library);
+        librarySystem.addBook("Book2", "Author2", 1890, "Box2", library);
+        librarySystem.addBook("Book3", "Author3", 1898, "Box3", library);
         librarySystem.printAllBooks(library);
         separator();
 
-        librarySystem.removeBook(book2, library);
-        librarySystem.findBook(book2, library);
+        librarySystem.removeBook("Book2", "Author2", 1890, library);
+        librarySystem.findBook("Book2", "Author2", 1890, library);
         separator();
 
-        librarySystem.findBook(book1, library);
+        librarySystem.findBook("Book1", "Author1", 1897, library);
         separator();
         librarySystem.printAllBooks(library);
     }
 
-    static void separator() {
+    private static void separator() {
         System.out.println("=====================================");
     }
 }

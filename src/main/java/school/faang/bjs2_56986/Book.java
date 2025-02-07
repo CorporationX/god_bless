@@ -2,11 +2,11 @@ package school.faang.bjs2_56986;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode
 public class Book {
     private String title;
     private String author;
