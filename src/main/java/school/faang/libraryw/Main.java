@@ -1,5 +1,8 @@
 package school.faang.libraryw;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         LibrarySystem librarySystem = new LibrarySystem();
@@ -10,10 +13,10 @@ public class Main {
             librarySystem.addBook("Гарри Поттер и философский камень", "Дж.К. Роулинг", 1997, "C1");
 
             librarySystem.removeBook("Мастер и Маргарита", "Михаил Булгаков", 1967);
-            librarySystem.findBook("1984", "Джордж Оруэлл", 1949);
-            librarySystem.findBook("Мастер и Маргарита", "Михаил Булгаков", 1967);
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
+            System.out.println(librarySystem.findBook("1984", "Джордж Оруэлл", 1949));
+            System.out.println(librarySystem.findBook("Мастер и Маргарита", "Михаил Булгаков", 1967));
+        } catch (IllegalArgumentException e) {
+            log.info(e.getMessage());
         }
         librarySystem.printAllBooks();
     }
