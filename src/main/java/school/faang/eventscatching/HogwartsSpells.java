@@ -1,4 +1,4 @@
-package school.faang.events.catching;
+package school.faang.eventscatching;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,27 +6,28 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    //HashMap для хранения событий заклинаний по их ID
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    //HashMap для хранения списка событий заклинаний по их типу
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private int currentId = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int id = currentId++;
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, spellEvent);
-        spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        spellsByType.get(eventType).add(spellEvent);
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        spellById.put(spellEvent.getId(), spellEvent);
+        spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvent);
         System.out.println("Событие заклинаний успешно добавлено: " + spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (id < 1) {
+            throw new IllegalArgumentException("Id не может быть меньше 1!");
+        }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+        if (eventType != null && !eventType.isBlank()) {
+            return spellsByType.getOrDefault(eventType, new ArrayList<>());
+        }
+        throw new IllegalArgumentException("Категория для поиска не может быть пустой!");
     }
 
     public void deleteSpellEvent(int id) {

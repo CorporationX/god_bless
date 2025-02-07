@@ -1,4 +1,4 @@
-package school.faang.events.catching;
+package school.faang.eventscatching;
 
 import java.util.List;
 
