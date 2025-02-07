@@ -56,3 +56,9 @@ out/
 .vscode/
 README
 README.md
+
+# Ignore logs directory
+logs/
+
+# Ignore all .log files
+*.log
