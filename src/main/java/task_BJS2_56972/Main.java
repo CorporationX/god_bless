@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static task_BJS2_56972.Category.CLOTHING;
 import static task_BJS2_56972.Category.ELECTRONICS;
 import static task_BJS2_56972.Category.FOOD;
 import static task_BJS2_56972.Category.OTHER;
@@ -29,8 +30,11 @@ public class Main {
         System.out.println(categoryMap);
 
         manager.removeProduct(ELECTRONICS, "phone");
+        System.out.println(products);
         System.out.println();
         System.out.println(categoryMap);
+
+        System.out.println(manager.findProductsByCategory(CLOTHING));
 
     }
 }

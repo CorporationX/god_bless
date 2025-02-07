@@ -21,8 +21,21 @@ public class ProductManager {
         Product product = new Product(currentId++, name, category);
         currentId = product.getId() + 1;
         products.add(product);
-        categoryMap.putIfAbsent(category, new ArrayList<Product>());
+        categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
+    }
+
+    public List<Product> findProductsByCategory(Category category) {
+        List<Product> listOfCategory = categoryMap.get(category);
+        try {
+            if (listOfCategory.isEmpty()) {
+                return new ArrayList<>();
+            }
+        } catch (NullPointerException exception) {
+            return new ArrayList<>();
+        }
+
+        return listOfCategory;
     }
 
     public void removeProduct(Category category, @NonNull String name) {
