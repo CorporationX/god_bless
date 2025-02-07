@@ -20,7 +20,12 @@ public class HogwartsSpells {
         if (id < 1) {
             throw new IllegalArgumentException("Id не может быть меньше 1!");
         }
-        return spellById.get(id);
+        if (spellById.containsKey(id)) {
+            System.out.printf("Событие заклинаний c id %d успешно найдено.", id);
+            return spellById.get(id);
+        }
+        System.out.printf("Событие заклинаний c id %d не найдено.", id);
+        return null;
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
@@ -46,7 +51,8 @@ public class HogwartsSpells {
     public void printAllSpellEvents() {
         System.out.println("Список заклинаний:");
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
+            SpellEvent spellEvent = entry.getValue();
+            System.out.printf("Тип - %s\t\tДействие - %s\n", spellEvent.getEventType(), spellEvent.getAction());
         }
     }
 }
