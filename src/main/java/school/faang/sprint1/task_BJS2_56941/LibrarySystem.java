@@ -38,7 +38,7 @@ public class LibrarySystem {
         if (author.isEmpty()) {
             throw new IllegalArgumentException("author не может быть пустым");
         }
-        if (year < 0 || year > 2025) {
+        if (year < minYear || year > maxYear) {
             throw new IllegalArgumentException("Не валидный год книги : " + year);
         }
 
