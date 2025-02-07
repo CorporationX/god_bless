@@ -1,6 +1,6 @@
 package school.faang.catching_events.BJS2_57034;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
 
 import org.slf4j.Logger;
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@Getter
+@Data
 public class HogwartsSpells {
     private static final Logger LOGGER = LoggerFactory.getLogger(HogwartsSpells.class);
 
-    private static int id = 0;
+    private int id = 0;
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -63,7 +63,7 @@ public class HogwartsSpells {
         SpellEvent spellEvent = spellById.get(id);
 
         if (spellEvent == null) {
-            LOGGER.warn("No spell event found for id {}", id);
+            LOGGER.info("No spell event found for id {}", id);
             return;
         }
         String eventType = spellEvent.eventType();
