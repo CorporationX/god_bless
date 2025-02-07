@@ -3,12 +3,19 @@ package school.faang.task_57076;
 import java.security.SecureRandom;
 import java.util.*;
 
+
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private static SecureRandom random = new SecureRandom();
+    private Map<UUID, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int id = generateId();
+        if (eventType == null || eventType.isBlank()) {
+            throw new IllegalArgumentException("Event type cant be empty or null");
+        } else if (actionDescription == null || actionDescription.isBlank()) {
+            throw new IllegalArgumentException("Action description type cant be empty or null");
+        }
+        UUID id = UUID.randomUUID();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, spellEvent);
@@ -16,7 +23,7 @@ public class HogwartsSpells {
         spellsByType.get(eventType).add(spellEvent);
     }
 
-    public SpellEvent getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(UUID id) {
         return spellById.get(id);
     }
 
@@ -24,7 +31,7 @@ public class HogwartsSpells {
         return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
-    public void deleteSpellEvent(int id) {
+    public void deleteSpellEvent(UUID id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
@@ -37,22 +44,8 @@ public class HogwartsSpells {
     public void printAllSpellEvents() {
         for (var entry : spellById.entrySet()) {
             var value = entry.getValue();
-            System.out.printf("Id: %d \nEvent Type: %s \nAction: %s\n\n",
-                    value.getId(), value.getEventType(), value.getAction());
+            System.out.printf("Id: " + value.getId() + "\nEvent Type: %s \nAction: %s\n\n",
+                    value.getEventType(), value.getAction());
         }
-    }
-
-    public int generateId() {
-        SecureRandom random = new SecureRandom();
-
-        int length = 6;
-        StringBuilder builder = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int digit = random.nextInt(10);
-            builder.append(digit);
-        }
-
-        return Integer.parseInt(builder.toString());
     }
 }
