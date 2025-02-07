@@ -18,7 +18,6 @@ public class ProductManager {
 
     public void addProduct(@NonNull Category category, @NonNull String name) {
         Product product = new Product(currentId++, name, category);
-        //currentId = product.getId() + 1;
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
