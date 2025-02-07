@@ -1,19 +1,22 @@
 package school.faang.bjs2_57010;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    public void addSpellEvent(String eventType, String actionDescription,
-                              Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellByType
+    Map<Integer, SpellEvent> spellById = new HashMap<>();
+    Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+
+    public void addSpellEvent(String eventType, String actionDescription
     ) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
         spellByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
-    public void getSpellEventById(int id, Map<Integer, SpellEvent> spellById) {
+    public void getSpellEventById(int id) {
         SpellEvent spell = spellById.get(id);
         if (spell != null) {
             System.out.printf("Spell by %s%n", spell);
@@ -22,7 +25,7 @@ public class HogwartsSpells {
         }
     }
 
-    public void getSpellByType(String eventType, Map<String, List<SpellEvent>> spellByType) {
+    public void getSpellByType(String eventType) {
         if (spellByType.get(eventType) != null) {
             System.out.println(spellByType.get(eventType));
         } else {
@@ -30,8 +33,7 @@ public class HogwartsSpells {
         }
     }
 
-    public void deleteSpellEvent(int id, Map<Integer, SpellEvent> spellById,
-                                 Map<String, List<SpellEvent>> spellByType) {
+    public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.get(id);
         if (spellEvent != null) {
             spellById.remove(id);
@@ -41,7 +43,7 @@ public class HogwartsSpells {
         }
     }
 
-    public void printAllSpellEvents(Map<Integer, SpellEvent> spellById) {
+    public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getValue());
         }
