@@ -1,14 +1,8 @@
 package school.faang.amazonstorage;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@EqualsAndHashCode
-@ToString
-@Getter
-@Setter
+@Data
 public class Product {
     private static int idCounter = 100;
 

@@ -1,9 +1,5 @@
 package school.faang.amazonstorage;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,16 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
-@Setter
-@ToString
 public class ProductManager {
     private static final String PRINT_SET_PRODUCTS_FORMAT = "Id: %d, category: %s, name: %s\n";
     private static final String PRINT_CATEGORY_FORMAT = "Category: %s\n";
     private static final String PRINT_PRODUCT_FORMAT = "- %s\n";
 
-    private Set<Product> products = new HashSet<>();
-    private Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private final Set<Product> products = new HashSet<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
