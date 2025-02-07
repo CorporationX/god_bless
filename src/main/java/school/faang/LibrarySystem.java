@@ -11,7 +11,7 @@ public class LibrarySystem {
     /**
      *
      * метод addBook пытается добавить книгу, проверяет на null,а также проверяет на пустоту отдельные поля
-     * после чего заполняется массив field значениями полей из книги, местоположение полей в массиве(индекс поля)
+     * заполняется массив field значениями полей из книги, местоположение полей в массиве(индекс поля)
      * соответствует местоположению параметрам в методе
      * если одно из полей пустое, то перебираем поля в массиве и получаем имя поля с помощью switch\case
      */
@@ -26,17 +26,7 @@ public class LibrarySystem {
         fields.add(location);
 
         if (book != null) {
-            if (!book.getAuthor().isEmpty() && !book.getTitle().isEmpty()
-                    && !String.valueOf(book.getYear()).isEmpty() && !location.isEmpty()) {
-                bookLocation.put(book, location);
-                StringBuilder addedBook = new StringBuilder();
-                addedBook.append("Added Book: ")
-                        .append(book.getTitle()).append(", ")
-                        .append(book.getAuthor()).append(", ")
-                        .append(book.getYear()).append(", ")
-                        .append(location).append("\n");
-                System.out.println(addedBook);
-            } else {
+            if (book.getAuthor().isEmpty() || book.getTitle().isEmpty() || location.isEmpty()) {
                 for (String field : fields) {
                     if (field.isEmpty()) {
                         switch (fields.indexOf(field)) {
@@ -58,6 +48,15 @@ public class LibrarySystem {
                         }
                     }
                 }
+            } else {
+                bookLocation.put(book, location);
+                StringBuilder addedBook = new StringBuilder();
+                addedBook.append("Added Book: ")
+                        .append(book.getTitle()).append(", ")
+                        .append(book.getAuthor()).append(", ")
+                        .append(book.getYear()).append(", ")
+                        .append(location).append("\n");
+                System.out.println(addedBook);
             }
         }
     }

@@ -2,7 +2,6 @@ package school.faang;
 
 import lombok.*;
 
-import java.util.Objects;
 
 @Getter
 @Setter
