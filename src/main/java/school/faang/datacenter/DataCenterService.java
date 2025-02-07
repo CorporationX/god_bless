@@ -8,21 +8,21 @@ public class DataCenterService {
         this.optimizationStrategy = optimizationStrategy;
     }
 
-    private void optimize(DataCenter dataCenter) {
+    public void optimize(DataCenter dataCenter) {
         optimizationStrategy.optimize(dataCenter);
     }
 
     private void addServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().add(server);
+        dataCenter.servers().add(server);
     }
 
     private void removeServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().remove(server);
+        dataCenter.servers().remove(server);
     }
 
     private double getTotalEnergyConsumption(DataCenter dataCenter) {
         double totalEnergy = 0;
-        for (Server server : dataCenter.getServers()) {
+        for (Server server : dataCenter.servers()) {
             totalEnergy += server.getEnergyConsumption();
         }
 
@@ -30,17 +30,17 @@ public class DataCenterService {
     }
 
     private boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
-        double allocatedLoad = request.getLoad();
+        double allocatedLoad = request.load();
 
-        while (allocatedLoad > 0) {
-            for (Server server : dataCenter.getServers()) {
-                double permissibleLoad = server.getMaxLoad() - server.getLoad();
+        for (Server server : dataCenter.servers()) {
+            double permissibleLoad = server.getMaxLoad() - server.getLoad();
 
+            if (permissibleLoad > 0) {
                 if (permissibleLoad > allocatedLoad) {
                     server.setLoad(server.getLoad() + allocatedLoad);
                     allocatedLoad = 0;
                     break;
-                } else if (permissibleLoad < allocatedLoad) {
+                } else {
                     double unitLoad = allocatedLoad - permissibleLoad;
                     allocatedLoad -= unitLoad;
                     server.setLoad(server.getLoad() + unitLoad);
@@ -48,14 +48,19 @@ public class DataCenterService {
             }
         }
 
-        return allocatedLoad < 0;
+        if (allocatedLoad > 0) {
+            System.out.println("All servers are loaded");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void releaseResources(DataCenter dataCenter, ResourceRequest request) {
-        double allocatedLoad = request.getLoad();
+        double allocatedLoad = request.load();
 
         while (allocatedLoad > 0) {
-            for (Server server : dataCenter.getServers()) {
+            for (Server server : dataCenter.servers()) {
                 if (server.getLoad() < allocatedLoad) {
                     server.setLoad(0);
                     allocatedLoad -= server.getLoad();

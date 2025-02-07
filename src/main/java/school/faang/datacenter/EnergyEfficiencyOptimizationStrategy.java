@@ -7,19 +7,22 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getServers();
+        List<Server> servers = dataCenter.servers();
         double totalLoad = servers.stream().mapToDouble(Server::getLoad).sum();
 
-        servers.sort(Comparator.comparingDouble(Server::getLoad));
+        servers.forEach(server -> server.setLoad(0));
 
         for (Server server : servers) {
-            double permissibleLoad = server.getMaxLoad() - server.getLoad();
-
-            if (totalLoad > permissibleLoad) {
-                server.setLoad(server.getLoad() + permissibleLoad);
-                totalLoad -= permissibleLoad;
+            if (totalLoad > server.getMaxLoad()) {
+                server.setLoad(server.getMaxLoad());
+                totalLoad -= server.getMaxLoad();
             } else {
-                server.setLoad(server.getLoad() + (permissibleLoad - totalLoad));
+                server.setLoad(totalLoad);
+                totalLoad = 0;
+            }
+            server.setEnergyConsumption(server.getLoad(), server.getMaxLoad());
+
+            if (totalLoad == 0) {
                 break;
             }
         }
