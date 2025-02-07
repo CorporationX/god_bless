@@ -20,7 +20,7 @@ public class TestFrequentUpdateWeatherCache {
         WeatherData newData = frequentUpdateWeatherCache.getWeatherData("New York", 10_000);
 
         assertNotNull(newData, "Must get new data");
-        assertEquals("New York", newData.getCity(), "Сities must be equals");
+        assertEquals("New York", newData.city(), "Сities must be equals");
     }
 
     @Test

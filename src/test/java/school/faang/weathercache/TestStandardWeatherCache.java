@@ -22,7 +22,7 @@ public class TestStandardWeatherCache {
         WeatherData newData = standardWeatherCache.getWeatherData("New York", 10_000);
 
         assertNotNull(newData, "Must get new data");
-        assertEquals("New York", newData.getCity(), "Сities must be equals");
+        assertEquals("New York", newData.city(), "Сities must be equals");
     }
 
     @Test
@@ -42,6 +42,6 @@ public class TestStandardWeatherCache {
         WeatherData cachedData = standardWeatherCache.getWeatherData("London", 500);
 
         assertNotSame(initialData, cachedData, "Should receive updated data");
-        assertTrue(cachedData.getTimestamp() > initialData.getTimestamp());
+        assertTrue(cachedData.timestamp() > initialData.timestamp());
     }
 }

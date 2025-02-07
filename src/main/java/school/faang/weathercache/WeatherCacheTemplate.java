@@ -31,7 +31,7 @@ public abstract class WeatherCacheTemplate {
             var entry = iterator.next();
             WeatherData weatherData = entry.getValue();
 
-            if (currentTime - weatherData.getTimestamp() > maxCacheAgeMillis) {
+            if (currentTime - weatherData.timestamp() > maxCacheAgeMillis) {
                 iterator.remove();
             }
         }
