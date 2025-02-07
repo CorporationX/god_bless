@@ -1,15 +1,14 @@
 package school.faang.BJS2_56994;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class LibrarySystem {
-    private static final Map<Book, String> bookShelfMap = new HashMap<>();
+    private static final Map<Book, String> bookShelfMap = new ConcurrentHashMap<>();
 
     private static Map<Book, String> getBookShelfMap() {
-        return Collections.unmodifiableMap(bookShelfMap);
+        return bookShelfMap;
     }
 
     public static void addBook(String title, String author, int year, String location) {
