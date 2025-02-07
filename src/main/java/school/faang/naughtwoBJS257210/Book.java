@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.time.Year;
-import java.util.Objects;
 
 @Getter
 @EqualsAndHashCode
