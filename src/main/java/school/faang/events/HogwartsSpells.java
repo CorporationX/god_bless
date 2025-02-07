@@ -8,7 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class HogwartsSpells {
-    private static final Set<String> VALID_EVENT_TYPE = new HashSet<>(List.of("Чары", "Стихия", "Защита", "Трансфигурация"));
+    private static final Set<String> VALID_EVENT_TYPE =
+            new HashSet<>(List.of("Чары", "Стихия", "Защита", "Трансфигурация"));
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -19,7 +20,8 @@ public class HogwartsSpells {
         checkAction(actionDescription);
 
         count++;
-        spellsByType.computeIfAbsent(eventType, newEvent -> new ArrayList<>()).add(new SpellEvent(count, eventType, actionDescription));
+        spellsByType.computeIfAbsent(eventType, newEvent -> new ArrayList<>())
+                .add(new SpellEvent(count, eventType, actionDescription));
         spellById.put(count, new SpellEvent(count, eventType, actionDescription));
     }
 
@@ -47,13 +49,13 @@ public class HogwartsSpells {
     }
 
     public String printAllSpellEvents() {
-        String allSpellEvents = "";
+        StringBuilder allSpellEvents = new StringBuilder();
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            allSpellEvents += String.format("%d: тип события %s, действие %s \n",
-                    entry.getKey(), entry.getValue().getEventType(), entry.getValue().getAction());
+            allSpellEvents.append(String.format("%d: тип события %s, действие %s \n",
+                    entry.getKey(), entry.getValue().getEventType(), entry.getValue().getAction()));
 
         }
-        return allSpellEvents;
+        return allSpellEvents.toString();
     }
 
     private void checkEventSpell(String eventType) {

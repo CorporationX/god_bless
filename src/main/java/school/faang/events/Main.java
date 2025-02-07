@@ -11,7 +11,7 @@ public class Main {
             hogwartsSpells.addSpellEvent("Чары", "Заколдовывает врага - 1");
             hogwartsSpells.addSpellEvent("Чары", "Заколдовывает врага - 2");
             hogwartsSpells.addSpellEvent("Чары", "Заколдовывает врага - 3");
-            hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет");
+            hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предметы");
             hogwartsSpells.addSpellEvent("Защита", "Призывает силы природы");
 
             System.out.println(hogwartsSpells.deleteSpellEvent(3));
