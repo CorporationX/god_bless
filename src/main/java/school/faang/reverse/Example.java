@@ -1,6 +1,17 @@
 package school.faang.reverse;
 
 public class Example {
+    /**
+     * Реверсирует порядок элементов в указанном массиве.
+     *
+     * @param array Массив целых чисел, который необходимо реверсировать.
+     *              Если массив пуст, метод завершает выполнение без изменений.
+     * @throws IllegalArgumentException Если переданный массив равен {@code null}.
+     * @example <pre>
+     * int[] arr = {1, 2, 3, 4, 5};
+     * reverse(arr); // arr теперь равен {5, 4, 3, 2, 1}
+     * </pre>
+     */
     public static void reverse(int[] array) {
         if (array == null) {
             throw new IllegalArgumentException("Массив не должен быть null");
@@ -16,25 +27,6 @@ public class Example {
             temp = array[i];
             array[i] = array[length - i];
             array[length - i] = temp;
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] array = {1, 2, 3, 4, 5};
-        // Выводим исходный массив
-        System.out.println("Исходный массив:");
-        for (int i : array) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
-
-        // Вызываем метод reverse
-        reverse(array);
-
-        // Выводим измененный массив
-        System.out.println("Массив после reverse:");
-        for (int i : array) {
-            System.out.print(i + " ");
         }
     }
 }
