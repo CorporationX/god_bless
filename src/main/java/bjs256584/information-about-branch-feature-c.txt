@@ -1,0 +1,4 @@
+Project RareBooksShop.
+
+Branch feature-c overview after completing the task:
+https://github.com/MamaevVladimir/RareBooksShop/tree/feature-c
