@@ -33,8 +33,24 @@ public class Main {
         System.out.println(products);
         System.out.println();
         System.out.println(categoryMap);
+        System.out.println();
 
+        System.out.println(manager.findProductsByCategory(ELECTRONICS));
         System.out.println(manager.findProductsByCategory(CLOTHING));
+        System.out.println();
+
+        Product dvd = new Product(1, "dvd", ELECTRONICS);
+        Product jeans = new Product(2, "jeans", CLOTHING);
+        Product knife = new Product(3, "knife", OTHER);
+        Product spoon = new Product(4, "spoon", OTHER);
+
+        Set<Product> productSet = Set.of(dvd, jeans, knife, spoon);
+        System.out.println(productSet);
+        ProductManager anotherManager = new ProductManager();
+        anotherManager.groupProductsByCategory(productSet);
+        Map<Category, List<Product>> anotherCategoryMap = anotherManager.getCategoryMap();
+        System.out.println(anotherCategoryMap);
+
 
     }
 }

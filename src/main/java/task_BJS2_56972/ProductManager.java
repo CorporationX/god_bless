@@ -25,6 +25,14 @@ public class ProductManager {
         categoryMap.get(category).add(product);
     }
 
+    public void groupProductsByCategory(Set<Product> products) {
+        for (Product product : products) {
+            categoryMap.putIfAbsent(product.getCategory(), new ArrayList<>());
+            categoryMap.get(product.getCategory()).add(product);
+        }
+
+    }
+
     public List<Product> findProductsByCategory(Category category) {
         List<Product> listOfCategory = categoryMap.get(category);
         try {
