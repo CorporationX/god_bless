@@ -1,6 +1,5 @@
 package school.faang.task_56473;
 
-
 public class Main {
     public static void main(String[] args) {
 
@@ -11,7 +10,5 @@ public class Main {
         System.out.printf("Здоровье после обоюдной атаки составляет:\n%s: %d\n%s: %d ",
                 legolas.getName(), legolas.getHealth(), aragorn.getName(), aragorn.getHealth());
     }
-
-
 }
 

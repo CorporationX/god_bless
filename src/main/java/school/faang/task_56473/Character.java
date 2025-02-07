@@ -1,7 +1,6 @@
 package school.faang.task_56473;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -19,7 +18,6 @@ public abstract class Character {
     private static final int ZERO_HEALTH = 0;
 
     public Character(String name) {
-
         this.name = name;
         this.strength = DEFAULT_STRENGTH;
         this.agility = DEFAULT_AGILITY;
@@ -29,15 +27,12 @@ public abstract class Character {
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
-
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
         this.health = DEFAULT_HEALTH;
-
     }
-
 
     public abstract void attack(Character target);
 

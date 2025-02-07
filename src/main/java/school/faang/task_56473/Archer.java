@@ -11,14 +11,11 @@ public class Archer extends Character {
         super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
-
     @Override
     public void attack(Character opponent) {
         if (isAlive(this.getHealth())) {
             opponent.setHealth(opponent.getHealth() - this.getAgility());
             healthLevelCheck(opponent);
         }
-
     }
-
 }
