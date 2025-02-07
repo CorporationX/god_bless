@@ -1,14 +1,15 @@
 package school.faang.registration;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         try {
-            User user = new User("Alice", 23, "Google", "London");
+            User user = new User("Alex", 23, "Google", "London");
             System.out.println(user);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
     }
 }
-
-
