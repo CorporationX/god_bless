@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final int maxStudentsNumber = 3;
+        final int maxStudentsNumber = 10;
 
         Random random = new Random();
 
@@ -45,7 +45,7 @@ public class Main {
             for (int j = 0; j < random.nextInt(3, lstSubjects.size()); j++) {
 
                 grades.put(lstSubjects.get(random.nextInt(0, lstSubjects.size())),
-                        Integer.valueOf(random.nextInt(1, 10 + 1)));
+                        random.nextInt(1, 10 + 1));
             }
 
             lstMaps.add(grades);
@@ -54,17 +54,15 @@ public class Main {
         for (int i = 0; i < lstStudents.size(); i++) {
 
             studentDatabase.addNewStudentWithGrades(lstStudents.get(i), lstMaps.get(i));
-            studentDatabase.updateSubjectStudentsFromStudentSubjects();
         }
 
         studentDatabase.printAllStudentsWithSubjectsAndGrades();
-
-        int m = 0;
+        System.out.println("******************");
+        studentDatabase.printAllSubjectsWithStudents();
     }
 }
 
 /*
-
 public class Main {
     public static void main(String[] args) {
         String[] arrStudentNames = {"Alice", "Bob", "Charlie", "David", "Eve"};
@@ -80,3 +78,4 @@ public class Main {
     }
 }
 */
+
