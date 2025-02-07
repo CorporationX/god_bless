@@ -33,7 +33,7 @@ public class User {
 
     private void checkName() {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым.");
+            throw new IllegalArgumentException("Имя не может быть пустым");
         }
     }
 
