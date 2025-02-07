@@ -2,48 +2,43 @@ package school.faang.BJS2_56482;
 
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.NonNull;
 
-@AllArgsConstructor
-@Getter
-public class User {
+@NonNull
+public record User(String name, int age, String job, String address) {
+
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MINEMUM_AGE = 18;
 
-    private final String name;
-    private final int age;
-    private final String job;
-    private final String address;
+    public User {
+        validateName(name);
+        validateAge(age);
+        validateAddress(address);
+        validateJobs(job);
+    }
 
-    private void validName() {
-        if (this.getName().isEmpty()) {
+    private static void validateName(String name) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым!");
         }
     }
 
-    private void validAge() {
-        if (this.getAge() < 18) {
+    private static void validateAge(int age) {
+        if (age < MINEMUM_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18!");
         }
     }
 
-    private void validJobs() {
-        if (!VALID_JOBS.contains(this.getJob())) {
-            throw new IllegalArgumentException("Место работы должно содержаться в наборе VALID_JOBS");
+    private static void validateJobs(String job) {
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Место работы должно быть одним из этих компаний: (Google,Uber,Amazon");
         }
     }
 
-    private void validAddress() {
-        if (!VALID_ADDRESSES.contains(this.getAddress())) {
-            throw new IllegalArgumentException("Адрес должен содержаться в наборе VALID_ADDRESSES");
+    private static void validateAddress(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес должен быть одним из этих городов: London, New York, Amsterdam");
         }
-    }
-
-    public void validInformation() {
-        validName();
-        validAge();
-        validJobs();
-        validAddress();
     }
 }
