@@ -10,7 +10,9 @@ public record Product(int id, String name, Category category) {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Product product = (Product) o;
         return Objects.equals(name, product.name) && category == product.category;
     }
