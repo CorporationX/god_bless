@@ -11,26 +11,49 @@ public class LibrarySystem {
         bookBase = new HashMap<Book, String>();
     }
 
-    void addBook(String title, String author, int year, String location) {
+    public void addBook(String title, String author, int year, String location) {
+        if (title == null || author == null || year == 0 || location == null) {
+            System.out.println("Values must not be null or 0!");
+            return;
+        }
+        if (title == "" || author == "" || location == "") {
+            System.out.println("Text fields must not be empty");
+            return;
+        }
+
         Book book = new Book(title, author, year);
         bookBase.put(book, location);
     }
 
-    void removeBook(String title, String author, int year) {
+    public void removeBook(String title, String author, int year) {
+        if (title == null || author == null || year == 0) {
+            throw new IllegalArgumentException("Values must not be null or 0!");
+        }
+        if (title == "" || author == "") {
+            throw new IllegalArgumentException("Text fields must not be empty");
+        }
+
         Book book = new Book(title, author, year);
         bookBase.remove(book);
     }
 
-    String findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
+        if (title == null || author == null || year == 0) {
+            throw new IllegalArgumentException("Values must not be null or 0!");
+        }
+        if (title == "" || author == "") {
+            throw new IllegalArgumentException("Text fields must not be empty");
+        }
+
         Book book = new Book(title, author, year);
         String location = bookBase.get(book);
         if (location == null) {
-            System.out.println("This book have not found");
+            System.out.println("The book author: " + author + ", title: " + title + " not found");
         }
         return  location;
     }
 
-    void printAllBooks() {
+    public void printAllBooks() {
         int[] i = {1};
         bookBase.forEach((k, v) -> {
             System.out.println(i[0] + ". Book: " + k + "\n" + "Location: " + v);
@@ -53,6 +76,5 @@ public class LibrarySystem {
         System.out.println("****************************************");
         librarySystem.printAllBooks();
         System.out.println(librarySystem.findBook("Бродяги севера", "Джейс", 1911));
-
     }
 }
