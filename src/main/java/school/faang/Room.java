@@ -1,10 +1,14 @@
 package school.faang;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Room {
     private final int roomNumber;
     private final String type;
@@ -28,7 +32,7 @@ public class Room {
         if (amenities == null) {
             throw new IllegalArgumentException("The amenitiesSet can't be null");
         }
-        for(String amenity : amenities) {
+        for (String amenity : amenities) {
             if (amenity == null || amenity.isBlank()) {
                 throw new IllegalArgumentException("The amenity can't be null or blank");
             }
