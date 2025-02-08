@@ -1,7 +1,13 @@
 package school.faang.task_56945;
 
-import java.util.*;
-
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,13 +18,14 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
 
-    public void addProduct(Category category, String name) {
+    public Product addProduct(Category category, String name) {
         UUID uuid = UUID.randomUUID();
         Product product = new Product(uuid, name, category);
 
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
+        return product;
     }
 
     public void removeProduct(Category category, String name) {
@@ -59,10 +66,7 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productMap = new HashMap<>();
         for (Product product : products) {
-            if (!productMap.containsKey(product.getCategory())) {
-                productMap.put(product.getCategory(), new ArrayList<>());
-            }
-            productMap.get(product.getCategory()).add(product);
+            productMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
         return productMap;
     }
