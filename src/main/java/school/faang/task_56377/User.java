@@ -16,7 +16,7 @@ import java.util.Map;
 @ToString
 public class User {
     private String name;
-    private final int age;
+    private int age;
     private String workplace;
     private String address;
 
