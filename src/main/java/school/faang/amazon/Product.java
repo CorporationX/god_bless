@@ -16,16 +16,5 @@ public class Product {
         this.id = id;
         this.name = name;
         this.category = category;
-
-        checkArguments(name, category);
-    }
-
-    private void checkArguments(String name, Category category) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не должно быть пустым");
-        }
-        if (category == null) {
-            throw new IllegalArgumentException("Категория не должна быть null");
-        }
     }
 }
