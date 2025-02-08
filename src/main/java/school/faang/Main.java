@@ -29,6 +29,5 @@ public class Main {
         } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
     }
 }
