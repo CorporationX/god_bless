@@ -18,7 +18,14 @@ public class User {
     private String address;
 
     static Map<Integer, List<User>> groupUsers(List<User> users) {
+
+        if (users == null) {
+            System.out.println("Put in correct parameter");
+            return null;
+        }
+
         var mapUsers = new HashMap<Integer, List<User>>();
+
         for (User user : users) {
             mapUsers.putIfAbsent(user.getAge(), new ArrayList<>(List.of(user)));
             var list = mapUsers.get(user.getAge());
