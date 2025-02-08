@@ -16,7 +16,7 @@ public class Main {
             library.printAllBooks();
             library.findBook("War and Peace", "Leo Tolstoy", 1869);
             library.removeBook("War and Peace", "Leo Tolstoy", 1869);
-            System.out.println("\n.........");
+            System.out.println("\nCheck the list of books after removing 'War and Peace'");
             library.printAllBooks();
             library.removeBook("Brave New World", "Aldous Huxley", 1932);
         } catch (BookNotFoundException e) {

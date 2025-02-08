@@ -40,8 +40,8 @@ public class LibrarySystem {
         if (libraryMap.isEmpty()) {
             throw new BookNotFoundException("There are no books in the library");
         } else {
-            System.out.println("List of books in the library:");
-            for (Map.Entry<Book,String> entry : libraryMap.entrySet()) {
+            System.out.println("---List of books in the library---");
+            for (Map.Entry<Book, String> entry : libraryMap.entrySet()) {
                 System.out.println("Book title: '" + entry.getKey().getTitle() + "', location: " + entry.getValue());
             }
             System.out.println("..........\n");
