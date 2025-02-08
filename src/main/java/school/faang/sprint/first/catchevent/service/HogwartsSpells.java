@@ -16,7 +16,7 @@ public class HogwartsSpells {
 
     public void addSpellEvent(@NonNull String eventType, @NonNull String actionDescription) {
         if (eventType.isBlank() || actionDescription.isBlank()) {
-            return;
+            throw new IllegalArgumentException("eventType и actionDescription не могут быть пустыми");
         }
 
         int spellEventId = ID_COUNT.getAndIncrement();
@@ -31,13 +31,13 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(@NonNull String eventType) {
-        return spellsByType.get(eventType);
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.get(id);
         if (spellEvent == null) {
-            return;
+            throw new IllegalArgumentException("SpellEvent c ID: " + id + " не найден");
         }
 
         spellsByType.get(spellEvent.getEventType())
