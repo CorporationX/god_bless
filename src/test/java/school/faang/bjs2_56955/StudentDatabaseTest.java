@@ -3,8 +3,10 @@ package school.faang.bjs2_56955;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
 
 class StudentDatabaseTest {
     private StudentDatabase studentDatabase;
@@ -23,7 +25,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testAddStudent() {
+    void addStudentShouldStoreStudentWithGradeWhenNewStudentIsAdded() {
         studentDatabase.addStudent(student1, subject1, 90);
         assertTrue(studentDatabase.getStudentSubjects().containsKey(student1));
         assertTrue(studentDatabase.getStudentSubjects().get(student1).containsKey(subject1));
@@ -31,7 +33,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testAddSubjectForStudent() {
+    void addSubjectForStudentShouldAddNewSubjectToExistingStudent() {
         studentDatabase.addStudent(student1, subject1, 90);
         studentDatabase.addSubjectForStudent(student1, subject2, 85);
         assertTrue(studentDatabase.getStudentSubjects().get(student1).containsKey(subject2));
@@ -39,7 +41,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testRemoveStudentAndSubjects() {
+    void removeStudentAndSubjectsShouldRemoveStudentAndAllSubjects() {
         studentDatabase.addStudent(student1, subject1, 90);
         studentDatabase.addStudent(student1, subject2, 85);
         studentDatabase.removeStudentAndSubjectForStudent(student1);
@@ -47,7 +49,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testAddSubjectWithStudents() {
+    void addSubjectWithStudentsShouldAssociateStudentsWithSubject() {
         List<Student> students = Arrays.asList(student1, student2);
         studentDatabase.addSubjectWithStudents(subject1, students);
         assertTrue(studentDatabase.getSubjectStudents().containsKey(subject1));
@@ -55,16 +57,40 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testAddStudentToSubject() {
+    void addStudentToSubjectShouldAddStudentToExistingSubject() {
         studentDatabase.addStudentToSubject(student1, subject1);
         assertTrue(studentDatabase.getSubjectStudents().get(subject1).contains(student1));
     }
 
     @Test
-    void testRemoveStudentFromSubject() {
+    void removeStudentFromSubjectShouldRemoveSubjectFromStudent() {
         studentDatabase.addStudent(student1, subject1, 90);
         studentDatabase.removeStudentFromSubject(student1, subject1);
         assertFalse(studentDatabase.getStudentSubjects().get(student1).containsKey(subject1));
+    }
+
+    @Test
+    void addStudentShouldThrowExceptionWhenStudentOrSubjectIsNull() {
+        assertThrows(NullPointerException.class, () -> studentDatabase.addStudent(null, subject1, 90));
+        assertThrows(NullPointerException.class, () -> studentDatabase.addStudent(student1, null, 90));
+    }
+
+    @Test
+    void addSubjectForStudentShouldNotAddSubjectWhenStudentDoesNotExist() {
+        studentDatabase.addSubjectForStudent(student1, subject1, 85);
+        assertFalse(studentDatabase.getStudentSubjects().containsKey(student1));
+    }
+
+    @Test
+    void removeStudentAndSubjectsShouldDoNothingWhenStudentDoesNotExist() {
+        studentDatabase.removeStudentAndSubjectForStudent(student1);
+        assertFalse(studentDatabase.getStudentSubjects().containsKey(student1));
+    }
+
+    @Test
+    void removeStudentFromSubjectShouldNotFailWhenStudentOrSubjectDoesNotExist() {
+        studentDatabase.removeStudentFromSubject(student1, subject1);
+        assertFalse(studentDatabase.getStudentSubjects().containsKey(student1));
     }
 }
 

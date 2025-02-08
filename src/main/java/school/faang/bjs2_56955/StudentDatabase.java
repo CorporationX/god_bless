@@ -1,28 +1,34 @@
 package school.faang.bjs2_56955;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
 public class StudentDatabase {
+    private static final int DEFAULT_GRADE = 0;
     private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudent(Student student, Subject subject, int grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+    public void addStudent(@NonNull Student student,
+                           @NonNull Subject subject,
+                           @NonNull int grade) {
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, grade);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public void addSubjectForStudent(Student student, Subject subject, int grade) {
+    public void addSubjectForStudent(@NonNull Student student,
+                                     @NonNull Subject subject,
+                                     @NonNull int grade) {
         if (!studentSubjects.containsKey(student)) {
             System.out.println("Student " + student.getName() + " does not exist");
             return;
         }
-        studentSubjects.get(student).put(subject, grade);
+        studentSubjects.get(student).putIfAbsent(subject, grade);
         List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
@@ -35,15 +41,7 @@ public class StudentDatabase {
             return;
         }
         studentSubjects.remove(student);
-
-        subjectStudents.entrySet().removeIf(entry -> {
-            List<Student> students = entry.getValue();
-            if (students != null) {
-                entry.getValue().remove(student);
-                return students.isEmpty();
-            }
-            return false;
-        });
+        subjectStudents.values().forEach(students -> students.remove(student));
     }
 
     public void printAllStudentsAndRangeForStudent() {
@@ -51,14 +49,14 @@ public class StudentDatabase {
             System.out.println("Student not found.");
             return;
         }
+        StringBuilder sb = new StringBuilder();
         studentSubjects.forEach((student, subjects) -> {
-            System.out.println("Student: " + student.getName());
-            System.out.println("Subjects:");
-            subjects.forEach((subject, grade) -> {
-                System.out.println("\t" + subject.getName() + ": " + grade);
-            });
-            System.out.println();
+            sb.append("Student: ").append(student.getName()).append("\nSubjects:\n");
+            subjects.forEach((subject, grade) ->
+                    sb.append("\t").append(subject.getName()).append(": ").append(grade).append("\n"));
+            sb.append("\n");
         });
+        System.out.print(sb.toString());
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
@@ -66,23 +64,19 @@ public class StudentDatabase {
 
         for (Student student : students) {
             studentList.add(student);
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, DEFAULT_GRADE);
         }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, DEFAULT_GRADE);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         if (subjectStudents.containsKey(subject)) {
             subjectStudents.get(subject).remove(student);
-            if (subjectStudents.get(subject).isEmpty()) {
-                subjectStudents.remove(subject);
-            }
         }
-
         if (studentSubjects.containsKey(student)) {
             studentSubjects.get(student).remove(subject);
         }
@@ -93,12 +87,12 @@ public class StudentDatabase {
             System.out.println("No subjects found.");
             return;
         }
-
+        StringBuilder sb = new StringBuilder();
         subjectStudents.forEach((subject, students) -> {
-            System.out.println("Subject: " + subject.getName());
-            System.out.println("Students:");
-            students.forEach(student -> System.out.println("\t" + student.getName()));
-            System.out.println();
+            sb.append("Subject: ").append(subject.getName()).append("\nStudents:\n");
+            students.forEach(student -> sb.append("\t").append(student.getName()).append("\n"));
+            sb.append("\n");
         });
+        System.out.print(sb);
     }
 }
