@@ -1,13 +1,20 @@
 package bjs257097;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
-        generateTestData();
+        initializeLibraryWithTestBooks();
     }
 
-    private static void generateTestData() {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
+    private static void initializeLibraryWithTestBooks() {
         LibrarySystem librarySystem = new LibrarySystem();
         Map<Book, String> booksToPlaces = librarySystem.getBooksToPlaces();
         booksToPlaces.put(new Book("Modern Java in Action", "Raoul-Gabriel Urma", 2018), "floor1");
@@ -19,13 +26,13 @@ public class Main {
         booksToPlaces.put(new Book("Java Generics and Collections", "Philip Wadler", 2006), "floor7");
         booksToPlaces.put(new Book("Java Puzzlers", "Joshua Bloch", 2005), "floor8");
 
-        System.out.printf("Size booksToPlaces before adding book: %d %n", booksToPlaces.size());
+        logger.info("Size booksToPlaces before adding book: {}", booksToPlaces.size());
         librarySystem.addBook("SQL: The Ultimate Beginners Guide", "Steve Tale", 2016, "floor1");
-        System.out.printf("Size booksToPlaces after adding book: %d %n", booksToPlaces.size());
+        logger.info("Size booksToPlaces after adding book: {}", booksToPlaces.size());
 
-        System.out.printf("Size booksToPlaces before removing book: %d %n", booksToPlaces.size());
+        logger.info("Size booksToPlaces before removing book: {}", booksToPlaces.size());
         librarySystem.removeBook("SQL: The Ultimate Beginners Guide", "Steve Tale", 2016);
-        System.out.printf("Size booksToPlaces after removing book: %d %n", booksToPlaces.size());
+        logger.info("Size booksToPlaces after removing book: {}", booksToPlaces.size());
 
         librarySystem.findBook("Optimizing Java", "Ben Evans", 2018);
 

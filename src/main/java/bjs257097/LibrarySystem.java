@@ -1,33 +1,43 @@
 package bjs257097;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@Slf4j
 public class LibrarySystem {
-    Map<Book, String> booksToPlaces = new HashMap<>();
+    private final Map<Book, String> booksToPlaces = new HashMap<>();
+    private Logger logger = LoggerFactory.getLogger(LibrarySystem.class);
 
-    void addBook(String title, String author, int year, String location) {
-        booksToPlaces.put(new Book(title, author, year), location);
+    protected void addBook(String title, String author, int year, String location) {
+        if (!title.isBlank() && !author.isBlank() && year != 0 && !location.isBlank()) {
+            booksToPlaces.put(new Book(title, author, year), location);
+        }
     }
 
-    void removeBook(String title, String author, int year) {
-        booksToPlaces.remove(new Book(title, author, year));
+    protected void removeBook(String title, String author, int year) {
+        if (!title.isBlank() && !author.isBlank() && year != 0) {
+            booksToPlaces.remove(new Book(title, author, year));
+        }
     }
 
-    void findBook(String title, String author, int year) {
+    protected String findBook(String title, String author, int year) {
         String place = booksToPlaces.get(new Book(title, author, year));
         if (place != null) {
-            System.out.printf("Book found in the library in: %s %n", place);
+            logger.info("Book found in the library in: {}", place);
+            return place;
         } else {
-            System.out.println("Book not found");
+            logger.info("Book not found");
+            return null;
         }
-
     }
 
-    void printAllBooks() {
-        booksToPlaces.forEach((book, place) -> System.out.printf("Book: %s, place: %s %n", book, place));
+    protected void printAllBooks() {
+        booksToPlaces.forEach((book, place) -> logger.info("Book: {}, place: {}", book, place));
     }
 }
