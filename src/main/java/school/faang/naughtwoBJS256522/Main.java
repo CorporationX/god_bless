@@ -9,7 +9,7 @@ public class Main {
         Character vladislav = new Warrior("Vladislav");
         Character viago = new Archer("Viago");
         vladislav.attack(viago);
-        for (int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             viago.attack(vladislav);
         }
         vladislav.attack(viago);
