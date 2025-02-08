@@ -1,12 +1,10 @@
 package school.faang.task_57187;
 
-import lombok.NonNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 public class HogwartsSpells {
 
@@ -47,8 +45,10 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.printf("\nID события: %s\n\tID заклинания: %s\n\tТип заклинания: %s\n\tДействие заклинания: %s\n",
-                    entry.getKey(), entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction());
+            System.out.printf("\nID события: %s\n\tID заклинания: %s\n\tТип заклинания: %s\n\t" +
+                            "Действие заклинания: %s\n",
+                    entry.getKey(), entry.getValue().getId(), entry.getValue().getEventType(),
+                    entry.getValue().getAction());
         }
     }
 }
