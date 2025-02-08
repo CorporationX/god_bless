@@ -1,8 +1,6 @@
 package school.faang.catching_events.BJS2_57034;
 
-import lombok.Data;
 import lombok.NonNull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@Data
 public class HogwartsSpells {
     private static final Logger LOGGER = LoggerFactory.getLogger(HogwartsSpells.class);
 
@@ -48,6 +45,11 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(@NonNull String eventType) {
+        if (eventType.isBlank()) {
+            LOGGER.warn("{} is blank", eventType);
+            throw new IllegalArgumentException(eventType + " is blank");
+        }
+
         List<SpellEvent> spellEvents = spellsByType.get(eventType);
 
         if (spellEvents != null && !spellEvents.isEmpty()) {
