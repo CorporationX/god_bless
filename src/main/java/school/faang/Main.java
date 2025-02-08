@@ -14,5 +14,6 @@ public class Main {
         dataCenterService.allocateResources(dataCenter, new ResourceRequest(30));
         dataCenterService.releaseResources(dataCenter, new ResourceRequest(10));
         dataCenterService.optimize(new LoadBalancingOptimizationStrategy(), dataCenter);
+        dataCenterService.shutdown();
     }
 }

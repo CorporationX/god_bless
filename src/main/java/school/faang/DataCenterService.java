@@ -1,31 +1,36 @@
 package school.faang;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class DataCenterService {
+    private static final Logger logger = LoggerFactory.getLogger(DataCenterService.class);
     private final Timer timer = new Timer();
+    private static final long INTERVAL = 30 * 60 * 1000;
 
     public void addServer(DataCenter dataCenter, Server server) {
         validateDataCenter(dataCenter);
-        dataCenter.servers.add(server);
-        System.out.printf("Server %s added to the data center %s \n", server, dataCenter);
+        dataCenter.getServers().add(server);
+        logger.info("Server {} added to the data center {}", server, dataCenter);
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
         validateDataCenter(dataCenter);
-        if (!dataCenter.servers.contains(server)) {
-            System.out.printf("There's no server %s in the data center %s\n", server, dataCenter);
+        if (!dataCenter.getServers().contains(server)) {
+            logger.warn("There's no server {} in the data center {}", server, dataCenter);
             return;
         }
-        dataCenter.servers.remove(server);
-        System.out.printf("Server %s removed from data center %s\n", server, dataCenter);
+        dataCenter.getServers().remove(server);
+        logger.info("Server {} removed from data center {}", server, dataCenter);
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
         validateDataCenter(dataCenter);
         double energyConsumption = 0;
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             energyConsumption += server.getEnergyConsumption();
         }
         return energyConsumption;
@@ -34,7 +39,7 @@ public class DataCenterService {
     public boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
         validateDataCenter(dataCenter);
         double allocated = 0;
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             double availableLoad = Math.min(request.getLoad() - allocated, server.getMaxLoad() - server.getLoad());
             allocated += availableLoad;
             server.setLoad(server.getLoad() + availableLoad);
@@ -45,16 +50,16 @@ public class DataCenterService {
         return false;
     }
 
-    void releaseResources(DataCenter dataCenter, ResourceRequest request) {
+    public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         validateDataCenter(dataCenter);
         validateResourceRequest(request);
         double released = 0;
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             double loadReduction = Math.min(request.getLoad() - released, server.getLoad());
             released += loadReduction;
-            server.setLoad(server.getLoad() + loadReduction);
+            server.setLoad(server.getLoad() - loadReduction);
             if (released == request.getLoad()) {
-                System.out.printf("Load from request %s was completely removed\n", request);
+                logger.info("Load from request {} was completely removed", request);
                 return;
             }
         }
@@ -63,14 +68,18 @@ public class DataCenterService {
     public void optimize(OptimizationStrategy strategy, DataCenter dataCenter) {
         validateDataCenter(dataCenter);
         validateStrategy(strategy);
-        int interval = 30 * 60 * 1000;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.printf("Optimizing the data center %s \n", dataCenter);
+                logger.info("Optimizing the data center {}", dataCenter);
                 strategy.optimize(dataCenter);
             }
-        }, 0, interval);
+        }, 0, INTERVAL);
+    }
+
+    public void shutdown() {
+        timer.cancel();
+        timer.purge();
     }
 
     private void validateStrategy(OptimizationStrategy strategy) {
@@ -78,7 +87,6 @@ public class DataCenterService {
             throw new IllegalArgumentException("The strategy can't be null");
         }
     }
-
 
     private void validateDataCenter(DataCenter dataCenter) {
         if (dataCenter == null) {

@@ -6,7 +6,7 @@ import java.util.List;
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.servers;
+        List<Server> servers = dataCenter.getServers();
         servers.sort(Comparator.comparingDouble(Server::getEnergyConsumption));
         distributeLoad(servers);
         servers.sort(Comparator.comparingDouble(Server::getEnergyConsumption).reversed());
@@ -17,7 +17,6 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
                 server.setEnergyConsumption(0.0);
             }
         }
-        System.out.println(servers);
     }
 
     private void distributeLoad(List<Server> servers) {
