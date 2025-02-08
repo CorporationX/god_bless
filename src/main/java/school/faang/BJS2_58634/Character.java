@@ -27,6 +27,9 @@ public abstract class Character {
     }
 
     public void setHp(int hp) {
+        if (hp < 0) {
+            hp = 0;
+        }
         this.hp = hp;
     }
 
