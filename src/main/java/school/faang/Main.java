@@ -1,16 +1,4 @@
 package school.faang;
 
-
-public class Main {
-
-
-
-
-
-
-
-
-            }
-
-
-
+public interface Main {
+}

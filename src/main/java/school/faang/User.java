@@ -28,7 +28,6 @@ public final class User {
         User dima = new User("Dima", 35, "Omoda", "Beijing");
         User sergey = new User("Sergey", 35, "Kia", "Seul");
 
-
         List<User> users = new ArrayList<>();
 
         users.add(oleg);
@@ -41,29 +40,25 @@ public final class User {
         users.add(sergey);
 
         groupUsers(users);
+    }
 
-
-        Map<Integer, List<User>> groupuserHashMap = new HashMap<>();
+    public static void groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupUserByAge = new HashMap<>();
 
         for (User user : users) {
-            groupuserHashMap.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+            groupUserByAge.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
 
-        for (Map.Entry<Integer, List<User>> entry : groupuserHashMap.entrySet()) {
+        for (Map.Entry<Integer, List<User>> entry : groupUserByAge.entrySet()) {
 
             System.out.println("Age:" + entry.getKey() + " user " + entry.getValue());
         }
-
-    }
-
-    private static void groupUsers(List<User> users) {
     }
 
     @Override
     public String toString() {
-        return name + " (" + workplace + ", " + address + ")";
+        return name + " (age: " + age + ", workplace: " + workplace + ", address: " + address + ")";
     }
-
 
 }
 
