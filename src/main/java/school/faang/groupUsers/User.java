@@ -1,14 +1,14 @@
 package school.faang.groupUsers;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@EqualsAndHashCode
 @AllArgsConstructor
 public class User {
 
