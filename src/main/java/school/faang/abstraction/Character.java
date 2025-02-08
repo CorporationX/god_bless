@@ -1,62 +1,31 @@
 package school.faang.abstraction;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public abstract class Character {
     private String name;
     private int strength;
     private int agility;
     private int intelligence;
-    public static int HP = 100;
-
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
-    public void setIntelligence(int intellegence) {
-        this.intelligence = intellegence;
-    }
+    private int hp = 100;
+    private static int DEFAULT_SKILL_VALUE = 5;
 
     public Character(String name) {
         this.name = name;
-        setStrength(5);
-        setAgility(5);
-        setIntelligence(5);
-        if (HP <= 0) {
-            System.out.println("Character is dead");
-        }
+        setStrength(DEFAULT_SKILL_VALUE);
+        setAgility(DEFAULT_SKILL_VALUE);
+        setIntelligence(DEFAULT_SKILL_VALUE);
     }
 
-    public Character(String name, int strength, int agility, int intellegence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
-        this.intelligence = intellegence;
-        if (HP <= 0) {
-            System.out.println("Character is dead");
-        }
+        this.intelligence = intelligence;
     }
 
     abstract void attack(Character opponent);
