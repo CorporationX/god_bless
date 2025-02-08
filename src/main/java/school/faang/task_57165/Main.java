@@ -12,7 +12,7 @@ public class Main {
         LibrarySystem.printAllBooks();
 
         LibrarySystem.removeBook(effectiveJava2nd);
-        System.out.println(LibrarySystem.findBook(atomicHabits));
-        System.out.println(LibrarySystem.findBook(effectiveJava2nd));
+        LibrarySystem.findBook(atomicHabits);
+        LibrarySystem.findBook(effectiveJava2nd);
     }
 }
