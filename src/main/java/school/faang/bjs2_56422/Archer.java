@@ -1,4 +1,4 @@
-package school.faang.abstractrpg;
+package school.faang.bjs2_56422;
 
 public class Archer extends Character {
     private static final int DEFAULT_STRENGTH = 3;

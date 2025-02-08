@@ -1,4 +1,4 @@
-package school.faang.abstractrpg;
+package school.faang.bjs2_56422;
 
 import lombok.ToString;
 
