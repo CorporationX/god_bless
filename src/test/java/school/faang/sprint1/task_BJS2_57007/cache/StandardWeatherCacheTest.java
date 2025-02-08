@@ -8,6 +8,7 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тест класса StandardWeatherCache")
 class StandardWeatherCacheTest {
     private WeatherCacheTemplate standardWeatherCache = new StandardWeatherCache();
     private long timestamp;

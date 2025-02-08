@@ -1,10 +1,12 @@
 package school.faang.sprint1.task_BJS2_56346;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тест класса Warrior")
 class WarriorTest {
     private Character warrior;
     private Character opponentArcher;

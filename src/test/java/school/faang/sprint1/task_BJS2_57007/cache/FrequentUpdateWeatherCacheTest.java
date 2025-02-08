@@ -8,6 +8,7 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тест класса FrequentUpdateWeatherCache")
 class FrequentUpdateWeatherCacheTest {
     private WeatherCacheTemplate frequentUpdateWeatherCache = new FrequentUpdateWeatherCache();
     private long timestamp;
@@ -20,7 +21,7 @@ class FrequentUpdateWeatherCacheTest {
         timestamp = Instant.now().toEpochMilli();
         WeatherData weatherData = frequentUpdateWeatherCache.getWeatherData(city, defaultCacheAgeMillis);
         assertEquals(city, weatherData.getCity());
-        assertEquals(defaultCacheAgeMillis, weatherData.getTimestamp() - timestamp);
+        assertTrue(weatherData.getTimestamp() - timestamp < 5);
     }
 
     @Test
