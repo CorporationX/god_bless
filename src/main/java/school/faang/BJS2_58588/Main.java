@@ -4,10 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            System.out.println("Выполним проверку реализованной валидации пользователей на следующих примерах:");
             System.out.println(new User("Garry", 18, "Uber", "London"));
             System.out.println(new User("Dolgopups", 10, "Google", "London"));
         } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println("Ошибка: " + "\n" + e.getMessage());
         }
     }
 

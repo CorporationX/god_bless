@@ -17,7 +17,6 @@ public class User {
 
     private static final int MIN_AGE = 18;
 
-    @SuppressWarnings("checkstyle:Indentation")
     public User(String name, int age, String job, String address) {
         validateUser(name, age, job, address);
         this.name = name;
@@ -27,7 +26,7 @@ public class User {
     }
 
     private void validateUser(String name, int age, String job, String address) {
-        if (name == null && name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         if (age < MIN_AGE) {
@@ -38,7 +37,7 @@ public class User {
                     VALID_JOBS);
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Адресс должен совпадать с одним из списка: " +
+            throw new IllegalArgumentException("Адрес должен совпадать с одним из списка: " +
                     VALID_ADDRESSES);
         }
     }
