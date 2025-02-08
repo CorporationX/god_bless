@@ -7,12 +7,11 @@ public class Main {
         hogwartsSpells.addSpellEvent("Zashita", "Zashishyaet ot magii");
         hogwartsSpells.addSpellEvent("Ataka", "Atakuet opponenta");
         hogwartsSpells.addSpellEvent("Ataka", "Atakuet bossa");
-        hogwartsSpells.getSpellEventById(1);
-        hogwartsSpells.getSpellEventById(5);
-        hogwartsSpells.getSpellEventsByType("Ataka");
-        hogwartsSpells.getSpellEventsByType("Atakssa");
+        System.out.println(hogwartsSpells.getSpellEventById(1));
+        System.out.println(hogwartsSpells.getSpellEventById(5));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Ataka"));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Atakssa"));
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
-
     }
 }

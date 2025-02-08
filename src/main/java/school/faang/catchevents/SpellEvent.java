@@ -1,50 +1,23 @@
 package school.faang.catchevents;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@EqualsAndHashCode
 
 public class SpellEvent {
-    private static int UNIQUE_ID = 1;
+    private static int uniqueId = 1;
     private int id;
     private String eventType;
     private String action;
 
-    public static int getUniqueId() {
-        return UNIQUE_ID;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
     public SpellEvent(String eventType, String action) {
-        this.id = UNIQUE_ID++;
+        this.id = uniqueId++;
         this.eventType = eventType;
         this.action = action;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SpellEvent that = (SpellEvent) o;
-        return id == that.id && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, eventType, action);
     }
 
     @Override

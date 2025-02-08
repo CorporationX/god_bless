@@ -1,13 +1,15 @@
 package school.faang.catchevents;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
@@ -16,24 +18,26 @@ public class HogwartsSpells {
             spellsByType.put(eventType, new ArrayList<>());
         }
         spellsByType.get(eventType).add(spellEvent);
+        if (spellsByType.get(eventType).contains(spellEvent)) {
+            System.out.println("spell event was added successfully");
+        }
     }
 
-    public void getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(int id) {
         if (spellById.containsKey(id)) {
-            System.out.println(spellById.get(id));
+            return spellById.get(id);
         } else {
             System.out.println("There is no spell event with this id");
+            return null;
         }
     }
 
-    public void getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
         if (spellsByType.containsKey(eventType)) {
-            for (SpellEvent spellEvent : spellsByType.get(eventType)) {
-                System.out.println(spellEvent);
-            }
-        }
-        if (!spellsByType.containsKey(eventType) || spellsByType.get(eventType).isEmpty()) {
-            System.out.println("There is no spell event with this type");
+            return spellsByType.get(eventType);
+        } else {
+            System.out.println("There is no spell events with this type");
+            return null;
         }
     }
 
