@@ -20,11 +20,11 @@ public class App {
         subjectsForIvan.put(math, 5);
         subjectsForIvan.put(physics, 4);
         subjectsForIvan.put(chemistry, 5);
-        database.addStudent(ivan, subjectsForIvan);
+        database.addStudentWithGrades(ivan, subjectsForIvan);
 
         Map<Subject, Integer> subjectsForMary = new HashMap<>();
         subjectsForMary.put(math, 3);
-        database.addStudent(mary, subjectsForMary);
+        database.addStudentWithGrades(mary, subjectsForMary);
         database.addSubjectToStudent(mary, physics, 5);
 
         List<Student> students = List.of(john, james, mary);
@@ -32,7 +32,7 @@ public class App {
         database.addSubject(biology, students);
 
         database.printAllSubjects();
-        database.printAllStudents();
+        database.printAllStudentGrades();
 
         database.removeStudent(ivan);
     }

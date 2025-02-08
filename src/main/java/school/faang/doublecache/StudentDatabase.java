@@ -14,7 +14,7 @@ public class StudentDatabase {
         subjectStudents = new HashMap<>();
     }
 
-    public void addStudent(Student student, Map<Subject, Integer> subjects) {
+    public void addStudentWithGrades(Student student, Map<Subject, Integer> subjects) {
         studentSubjects.put(student, subjects);
         for (Subject subject : subjects.keySet()) {
             subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
@@ -38,11 +38,11 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllStudents() {
+    public void printAllStudentGrades() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            System.out.printf("Student: %s%n", entry.getKey());
+            System.out.printf("Student: %s%n", entry.getKey().getName());
             for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                System.out.printf("%s %s%n", subjectEntry.getKey(), subjectEntry.getValue());
+                System.out.printf("Subject: %s, Grade: %s%n", subjectEntry.getKey().getName(), subjectEntry.getValue());
             }
         }
     }
@@ -50,7 +50,7 @@ public class StudentDatabase {
     public void addSubject(Subject subject, List<Student> students) {
         subjectStudents.put(subject, students);
         for (Student student : students) {
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
         }
     }
 
@@ -72,9 +72,9 @@ public class StudentDatabase {
 
     public void printAllSubjects() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.printf("%s student:%n", entry.getKey());
+            System.out.printf("Subject: %s%n", entry.getKey().getName());
             for (Student student : entry.getValue()) {
-                System.out.printf("%s%n", student);
+                System.out.printf("Student: %s%n", student.getName());
             }
         }
     }
