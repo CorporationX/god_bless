@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_56414;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +19,11 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> allUsers) {
+        if (allUsers == null)
+            return null;
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : allUsers) {
-            if (!groupUsers.containsKey(user.getAge())) {
-                groupUsers.put(user.getAge(), new ArrayList<>());
-            }
+            groupUsers.putIfAbsent(user.getAge(), new ArrayList<>());
             groupUsers.get(user.getAge()).add(user);
         }
         return groupUsers;
