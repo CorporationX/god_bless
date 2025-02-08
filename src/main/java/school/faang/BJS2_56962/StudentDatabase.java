@@ -9,26 +9,17 @@ public class StudentDatabase {
 
     private static final int MIN_GRADE = 1;
     private static final int MAX_GRADE = 5;
+    private static final int DEFAULT_GRADE = 0;
 
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public Student addStudent(String name) {
-        Student student = new Student(name);
-        validateStudentNotExists(student);
-        return student;
-    }
-
-    public Subject addSubject(String name) {
-        Subject subject = new Subject(name);
-        validateSubjectNotExists(subject);
-        return subject;
-    }
-
-    public void addStudentSubjectsGrade(String studentName, String subjectName, int grade) {
+    public void addNewStudentAndHisSubjectWithGrades(String studentName, String subjectName, int grade) {
         checkGrade(grade);
-        Student student = addStudent(studentName);
-        Subject subject = addSubject(subjectName);
+        Student student = new Student(studentName);
+        validateStudentNotExists(student);
+        Subject subject = new Subject(subjectName);
+        validateSubjectNotExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
@@ -37,17 +28,17 @@ public class StudentDatabase {
         }
     }
 
-    public void addSubjectGrade(Student student, String subjectName, int grade) {
+    public void addNewSubjectWithGradeToExistingStudent(Student student, Subject subject, int grade) {
         checkGrade(grade);
         validateStudentNotExists(student);
-        Subject subject = new Subject(subjectName);
-        validateSubjectExists(subject);
+        validateSubjectNotExists(subject);
+        studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
-        subjectStudents.put(subject, new ArrayList<>());
+        subjectStudents.putIfAbsent(subject, new ArrayList<>());
         subjectStudents.get(subject).add(student);
     }
 
-    public void deleteStudentSubject(Student student) {
+    public void removeStudentAndHisSubjects(Student student) {
         validateStudentExists(student);
         studentSubjects.remove(student);
         for (List<Student> students : subjectStudents.values()) {
@@ -66,25 +57,25 @@ public class StudentDatabase {
         }
     }
 
-    public void addSubjectAndListStudents(String subjectName, List<Student> students) {
+    public void addNewSubjectAndListStudentsStudyingIt(String subjectName, List<Student> students) {
         if (students == null || students.isEmpty()) {
             throw new IllegalArgumentException("Список студентов не может быть пустым или null");
         }
-        Subject subject = addSubject(subjectName);
+        Subject subject = new Subject(subjectName);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         subjectStudents.get(subject).addAll(students);
 
         for (Student student : students) {
             studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, null);
+            studentSubjects.get(student).put(subject, DEFAULT_GRADE);
         }
     }
 
-    public void addStudentSubject(String studentName, Subject subject) {
-        Student student = addStudent(studentName);
+    public void addStudentExistingSubject(String studentName, Subject subject) {
+        Student student = new Student(studentName);
         validateSubjectExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, null);
+        studentSubjects.get(student).put(subject, DEFAULT_GRADE);
         subjectStudents.get(subject).add(student);
     }
 
@@ -106,14 +97,16 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllStudentGradeAndSubject() {
+    public String printListStudentAndTheirGradesBySubject() {
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<Student, Map<Subject, Integer>> studentEntry : studentSubjects.entrySet()) {
-            System.out.printf("Студент %s :\n", studentEntry.getKey().getName());
+            sb.append("Студент: ").append(studentEntry.getKey().getName()).append("\n");
             for (Map.Entry<Subject, Integer> subjectIntegerEntry : studentEntry.getValue().entrySet()) {
-                System.out.printf("Предмет - %s, оценка - %d\n",
-                        subjectIntegerEntry.getKey(), subjectIntegerEntry.getValue());
+                sb.append("\t").append("Предмет - ").append(subjectIntegerEntry.getKey().getName()).append("\n");
+                sb.append("Оценка - ").append(subjectIntegerEntry.getValue()).append("\n");
             }
         }
+        return sb.toString();
     }
 
     private void checkGrade(int grade) {
