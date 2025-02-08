@@ -33,7 +33,6 @@ public class User {
         return hobbyLovers;
     }
 
-
     public static void main(String[] args) {
         User bob = new User(1, "Bob", "18");
         User mike = new User(2, "Mike", "18");
