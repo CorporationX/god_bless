@@ -1,4 +1,4 @@
-package school.faang.dismantling_an_amazon_warehouse;
+package school.faang.BJS2_56934;
 
 public enum Category {
 
