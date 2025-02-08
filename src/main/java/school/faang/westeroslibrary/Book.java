@@ -25,13 +25,26 @@ public class Book {
         this.year = year;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
     @Override
     public String toString() {
-        return "Book{ " +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Book ");
+        sb.append("title='").append(title).append("', ");
+        sb.append("author='").append(author).append("', ");
+        sb.append("year=").append(year);
+        return sb.toString();
     }
 
     @Override
