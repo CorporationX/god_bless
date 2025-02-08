@@ -37,7 +37,7 @@ public class User {
                 }
                 map.get(user.getAge()).add(user);
             } else {
-                log.info( " is null {}", user);
+                log.info(" is null {}", user);
             }
         }
         return map;
