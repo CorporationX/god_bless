@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
-    private static final AtomicInteger ID_COUNT = new AtomicInteger(1);
+    private static final AtomicInteger idCount = new AtomicInteger(1);
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
@@ -19,7 +19,7 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("eventType и actionDescription не могут быть пустыми");
         }
 
-        int spellEventId = ID_COUNT.getAndIncrement();
+        int spellEventId = idCount.getAndIncrement();
         SpellEvent spellEventForAdd = new SpellEvent(spellEventId, eventType, actionDescription);
 
         spellById.put(spellEventId, spellEventForAdd);
