@@ -41,7 +41,6 @@ public class User {
         User john = new User(3, "John", "18");
         User sarah = new User(4, "Sarah", "18");
 
-
         bob.addActivities("Drunk", "Swim", "BeatBox");
         mike.addActivities("Ride", "Run", "Drunk");
         john.addActivities("Football", "Basketball", "WatchTV");
