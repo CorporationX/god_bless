@@ -27,5 +27,5 @@ public class Warrior extends Character {
         if (opponent.getHp() <= 0) {
             System.out.println("Opponent is dead");
         }
-    }
+    }//
 }
