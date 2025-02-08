@@ -18,6 +18,8 @@ public class StudentDatabase {
         }
     }
 
+
+
     public void addSubjectWithGrade(Subject subject, Student student, int grade) {
         validateGrade(grade);
         studentSubjects.putIfAbsent(student, new HashMap<>());
@@ -31,7 +33,7 @@ public class StudentDatabase {
         if (subjectsMap != null) {
             for (Subject subject : subjectsMap.keySet()) {
                 List<Student> students = subjectStudents.get(subject);
-                if (students != null) {
+                if (student != null) {
                     students.remove(student);
                 }
             }
