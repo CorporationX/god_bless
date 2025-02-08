@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
-    private final Map<String, WeatherData> cache = new HashMap<>();
+    protected final Map<String, WeatherData> cache = new HashMap<>();
 
-    protected WeatherData getWeatherData(String city, long maxCahceAgeMillis) {
+    protected WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData data = cache.get(city);
-        if (data != null && isCacheExpired(data, maxCahceAgeMillis)) {
+        if (data != null && !isCacheExpired(data, maxCacheAgeMillis)) {
             return data;
         } else {
             return updateWeatherData(city);
