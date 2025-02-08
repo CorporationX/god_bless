@@ -1,6 +1,13 @@
 package bjs256450;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Slf4j
 public class Main {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         generateTestData();
     }
@@ -10,13 +17,17 @@ public class Main {
         Character firstArcher = new Archer("FirstArcher");
         for (int i = 0; i < 10; i++) {
             warrior.attack(firstArcher);
-            System.out.println("Strike " + i + " FirstArcher`s health: " + firstArcher.getHealth());
+            if (firstArcher.getHealth() > 0) {
+                logger.info("Strike {} FirstArcher`s health: {}", i, firstArcher.getHealth());
+            }
         }
 
         Character secondArcher = new Archer("SecondArcher");
         for (int i = 0; i < 10; i++) {
             secondArcher.attack(warrior);
-            System.out.println("Strike " + i + " Warrior`s health: " + warrior.getHealth());
+            if (warrior.getHealth() > 0) {
+                logger.info("Strike {} Warrior`s health: {}", i, warrior.getHealth());
+            }
         }
     }
 }

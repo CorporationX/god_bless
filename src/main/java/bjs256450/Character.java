@@ -26,17 +26,13 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    abstract void attack(Character opponent);
+    protected abstract void attack(Character opponent);
 
     boolean isHealthNotLessThanZero(Character fighter) {
         boolean healthNotLessThanZero = true;
-        if (fighter.getHealth() < 0) {
+        if (fighter.getHealth() < 0 || fighter.getHealth() == 0) {
             fighter.setHealth(0);
             healthNotLessThanZero = false;
-            System.out.printf("Health of fighter %s was < 0, now set health = 0 %n", fighter);
-        } else if (fighter.getHealth() == 0) {
-            healthNotLessThanZero = false;
-            System.out.printf("Health of fighter %s = 0 %n", fighter);
         }
         return healthNotLessThanZero;
     }

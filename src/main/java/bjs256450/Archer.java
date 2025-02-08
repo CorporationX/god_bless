@@ -1,6 +1,13 @@
 package bjs256450;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Slf4j
 public class Archer extends Character {
+    private static final Logger logger = LoggerFactory.getLogger(Archer.class);
+
     public Archer(String name) {
         super(name);
         super.strength = 3;
@@ -9,15 +16,17 @@ public class Archer extends Character {
     }
 
     @Override
-    void attack(Character opponent) {
+    protected void attack(Character opponent) {
         if (!isHealthNotLessThanZero(this)) {
             throw new IllegalArgumentException("Fighter " + this.getName() + " always killed, cannot attack");
         }
         if (isHealthNotLessThanZero(opponent)) {
             int opponentHealthAfterAttack = opponent.getHealth() - this.getAgility();
-            opponent.setHealth(opponentHealthAfterAttack);
-            if (!isHealthNotLessThanZero(opponent)) {
-                System.out.printf("Fighter %s killed %n", opponent.getName());
+            if (isHealthNotLessThanZero(opponent)) {
+                opponent.setHealth(opponentHealthAfterAttack);
+                if (opponent.getHealth() == 0) {
+                    logger.info("Fighter {} killed", opponent.getName());
+                }
             }
         }
     }
