@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Класс StudentDatabase представляет базу данных студентов и их предметов.
@@ -42,17 +41,19 @@ public class StudentDatabase {
      */
     public void addStudent(String name, Map<Subject, Integer> subjects) {
         checkValidName(name);
-        
-        Map<Subject, Integer> validSubjects = getValidSubjects(subjects);
+        checkSubjects(subjects);
 
         Student student = new Student(name);
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
-        studentSubjects.get(student).putAll(validSubjects);
+        subjects.entrySet().stream()
+                .filter(entry -> entry.getKey() != null)
+                .filter(entry -> entry.getValue() == null || isValidRating(entry.getValue()))
+                .forEach(entry -> {
+                    studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
+                    studentSubjects.get(student).put(entry.getKey(), entry.getValue());
 
-        validSubjects.keySet().forEach(subject -> {
-            subjectStudents.computeIfAbsent(subject, s -> new HashSet<>());
-            subjectStudents.get(subject).add(student);
-        });
+                    subjectStudents.computeIfAbsent(entry.getKey(), s -> new HashSet<>());
+                    subjectStudents.get(entry.getKey()).add(student);
+                });
     }
 
     /**
@@ -112,11 +113,14 @@ public class StudentDatabase {
         checkValidSubject(subject);
         checkValidStudents(students);
 
-        subjectStudents.get(subject).addAll(getValidStudents(students));
-        students.forEach(student -> {
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
-            studentSubjects.get(student).put(subject, null);
-        });
+        subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
+        students.stream()
+                .filter(student -> student != null)
+                .forEach(student -> {
+                    subjectStudents.get(subject).add(student);
+                    studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
+                    studentSubjects.get(student).put(subject, null);
+                });
     }
 
     /**
@@ -172,21 +176,6 @@ public class StudentDatabase {
         });
     }
 
-    private Map<Subject, Integer> getValidSubjects(Map<Subject, Integer> subjectsWithRatings) {
-        if (subjectsWithRatings == null) {
-            throw new IllegalArgumentException("subjectsWithRatings не должен быть null");
-        }
-
-        return subjectsWithRatings.entrySet().stream()
-                //                .filter(entry -> entry.getKey() != null)
-                .filter(entry -> entry.getValue() == null || isValidRating(entry.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-
-    private Set<Student> getValidStudents(List<Student> students) {
-        return students.stream().filter(student -> student != null).collect(Collectors.toSet());
-    }
-
     private boolean isValidRating(int rating) {
         return rating > MIN_RATING && rating <= MAX_RATING;
     }
@@ -200,6 +189,12 @@ public class StudentDatabase {
     private void checkValidName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+    }
+
+    private void checkSubjects(Map<Subject, Integer> subjects) {
+        if (subjects == null) {
+            throw new IllegalArgumentException("subjects не должен быть null");
         }
     }
 
