@@ -9,21 +9,25 @@ public class Main {
         } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         try {
             User user2 = new User("", 20, "London", "Google");
         } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         try {
             User user3 = new User("Vlad", 17, "London", "Google");
         } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         try {
             User user4 = new User("Vlad", 20, "Ekaterinburg", "Google");
         } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         try {
             User user5 = new User("Vlad", 20, "London", "Monetka");
         } catch (IllegalStateException e) {

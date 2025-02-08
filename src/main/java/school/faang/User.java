@@ -12,7 +12,6 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String address, String job) {
-
         if (name.isEmpty()) {
             throw new IllegalStateException("name cannot be empty");
         }
