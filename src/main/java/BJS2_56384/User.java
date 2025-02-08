@@ -19,10 +19,15 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
 
+        if (users == null || hobbies == null || users.isEmpty() || hobbies.isEmpty()) {
+            return hobbyLovers;
+        }
+
         for (User user : users) {
             for (String hobby : user.hobbies) {
                 if (hobbies.contains(hobby)) {
                     hobbyLovers.put(user, hobby);
+                    break;
                 }
             }
         }
