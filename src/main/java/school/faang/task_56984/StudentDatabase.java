@@ -36,11 +36,26 @@ public class StudentDatabase {
         }
     }
 
+    public void printAllStudentsWithGrades() {
+        for (var entry : studentSubjects.entrySet()) {
+            Student student = entry.getKey();
+            Map<Subject, Integer> grades = entry.getValue();
+
+            System.out.println("Student: " + student.getName());
+            for (var gradeEntry : grades.entrySet()) {
+                Subject subject = gradeEntry.getKey();
+                Integer grade = gradeEntry.getValue();
+                System.out.println("\tSubject: " + subject.getName() + ", Grade: " + grade);
+            }
+            System.out.println();
+        }
+    }
+
     public void printAllSubjectsWithStudents() {
         for (var entry : subjectStudents.entrySet()) {
             System.out.println("Subject: " + entry.getKey().getName());
             for (Student student : entry.getValue()) {
-                System.out.println("\tSudent: " + student.getName());
+                System.out.println("\tStudent: " + student.getName());
             }
             System.out.println();
         }
