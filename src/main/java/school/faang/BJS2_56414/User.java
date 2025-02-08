@@ -19,8 +19,9 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> allUsers) {
-        if (allUsers == null)
+        if (allUsers == null) {
             return null;
+        }
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : allUsers) {
             groupUsers.putIfAbsent(user.getAge(), new ArrayList<>());
