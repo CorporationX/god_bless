@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class User {
     private final int id;
     private final String name;
-    private final String age;
+    private final int age;
     private final Set<String> activities = new HashSet<>();
 
-    public User(int id, String name, String age) {
+    public User(int id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -34,9 +35,9 @@ public class User {
     }
 
     public static void main(String[] args) {
-        User bob = new User(1, "Bob", "18");
-        User mike = new User(2, "Mike", "18");
-        User john = new User(3, "John", "18");
+        User bob = new User(1, "Bob", 18);
+        User mike = new User(2, "Mike", 18);
+        User john = new User(3, "John", 18);
 
         bob.addActivities("Drunk", "Swim", "BeatBox");
         mike.addActivities("Ride", "Run", "Drunk");
@@ -65,7 +66,7 @@ public class User {
         return name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -75,6 +76,19 @@ public class User {
 
     public void addActivities(String... activities) {
         Collections.addAll(this.activities, activities);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name) && Objects.equals(age, user.age)
+                && Objects.equals(activities, user.activities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, activities);
     }
 
     @Override
