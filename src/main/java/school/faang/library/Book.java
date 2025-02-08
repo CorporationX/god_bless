@@ -34,6 +34,9 @@ public class Book {
     }
 
     public Book(String title, String author, int year) {
+        if (title == null || author == null || title.isBlank() || author.isBlank()) {
+            throw new IllegalArgumentException("Set the title and the author of the book correctly");
+        }
         this.title = title;
         this.author = author;
         this.year = year;
@@ -58,22 +61,6 @@ public class Book {
 
     @Override
     public String toString() {
-        String formattedString = String.format("Title - %s, author - %s, year - %d", title, author, year);
-        return formattedString;
-    }
-
-    public static void main(String[] args) {
-        LibrarySystem librarySystem = new LibrarySystem();
-
-        librarySystem.addBook("New Harry Potter", "Amanzhol", 2025, "first place");
-        librarySystem.findBook("New Harry Potter", "Amanzhol", 2025);
-        librarySystem.findBook("Old Harry Potter", "Amanzhol", 2025);
-        librarySystem.removeBook("New Harry Potter", "Amanzhol", 2025);
-        librarySystem.findBook("New Harry Potter", "Amanzhol", 2025);
-        librarySystem.addBook("New Harry Potter", "Amanzhol", 2025, "first place");
-        librarySystem.addBook("The school", "Mikhail", 1980, "second place");
-        librarySystem.addBook("The University", "Oleg", 2020, "first place");
-        librarySystem.addBook("The University", "Oleg", 2020, "second place");
-        librarySystem.printAllBooks();
+        return String.format("Title - %s, author - %s, year - %d", title, author, year);
     }
 }
