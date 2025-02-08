@@ -10,8 +10,6 @@ public class Main {
         hogwartsSpells.addSpellEvent("магия", "Защищает от атак");
         printAllSpellEvents();
 
-        System.out.println("---------------------------");
-
         hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет");
         hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет2");
         hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет1");
@@ -21,15 +19,12 @@ public class Main {
 
         printAllSpellEvents();
 
-        System.out.println("---------------------------");
         hogwartsSpells.deleteSpellEvent(1);
         printAllSpellEvents();
 
-        System.out.println("---------------------------");
         hogwartsSpells.getSpellEventById(2);
         printAllSpellEvents();
 
-        System.out.println("---------------------------");
         System.out.println(hogwartsSpells.getSpellEventsByType("Трансфигурация"));
     }
 }
