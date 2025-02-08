@@ -23,23 +23,18 @@ public class ProductManager {
         categoryMap.get(category).add(product);
     }
 
-    public void groupProductsByCategory(Set<Product> products) {
+    public Map<Category, List<Product>> groupProductsByCategory() {
         for (Product product : products) {
             categoryMap.putIfAbsent(product.getCategory(), new ArrayList<>());
             categoryMap.get(product.getCategory()).add(product);
         }
 
+        return categoryMap;
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> listOfCategory = categoryMap.get(category);
-        try {
-            if (listOfCategory.isEmpty()) {
-                return new ArrayList<>();
-            }
-        } catch (NullPointerException exception) {
-            return new ArrayList<>();
-        }
+        List<Product> listOfCategory;
+        listOfCategory = categoryMap.getOrDefault(category, new ArrayList<>());
 
         return listOfCategory;
     }

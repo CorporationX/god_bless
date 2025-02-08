@@ -47,8 +47,9 @@ public class Main {
         Set<Product> productSet = Set.of(dvd, jeans, knife, spoon);
         System.out.println(productSet);
         ProductManager anotherManager = new ProductManager();
-        anotherManager.groupProductsByCategory(productSet);
-        Map<Category, List<Product>> anotherCategoryMap = anotherManager.getCategoryMap();
+        anotherManager.setProducts(productSet);
+        System.out.println();
+        Map<Category, List<Product>> anotherCategoryMap = anotherManager.groupProductsByCategory();
         System.out.println(anotherCategoryMap);
         System.out.println();
 
