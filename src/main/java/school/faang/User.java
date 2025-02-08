@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class User {
         User user1 = new User("Bob", 25, "Bum", "New York");
         User user2 = new User("Sarah", 13, "Bulder", "Paris");
         User user3 = new User("John", 48, "Engeener", "Moscow");
-        System.out.println(groupUsers(List.of(user1, user2, user3)));
+        List<User> list = new ArrayList(List.of(user1, user2, user3));
+        System.out.println(groupUsers(list));
     }
 }
