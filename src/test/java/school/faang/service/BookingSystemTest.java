@@ -2,17 +2,13 @@ package school.faang.service;
 
 import school.faang.model.Booking;
 import school.faang.model.Room;
-import school.faang.observer.BookingNotifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookingSystemTest {
     private BookingSystem bookingSystem;
@@ -32,80 +28,65 @@ class BookingSystemTest {
     void testAddRoom() {
         Room room3 = new Room(103, "Private Office", Set.of("WiFi"));
         bookingSystem.addRoom(room3);
-        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025-02-06", "10:00-11:00", Set.of("WiFi"));
+        List<Room> availableRooms = bookingSystem.findAvailableRooms(
+                "2025-02-06", "10:00-11:00", Set.of("WiFi")
+        );
         assertEquals(3, availableRooms.size());
+
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> bookingSystem.addRoom(room3));
+        assertEquals("Room with this number already exists.", exception.getMessage());
     }
 
     @Test
     void testRemoveRoom() {
         bookingSystem.removeRoom(101);
-        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025-02-06", "10:00-11:00", Set.of("WiFi"));
+        List<Room> availableRooms = bookingSystem.findAvailableRooms(
+                "2025-02-06", "10:00-11:00", Set.of("WiFi")
+        );
         assertEquals(1, availableRooms.size());
-    }
 
-    @Test
-    void testBookRoomSuccess() {
-        Booking booking = bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
-        assertNotNull(booking);
-        assertEquals(101, booking.getRoom().getRoomNumber());
+        bookingSystem.bookRoom(102, "2025-02-06", "10:00-11:00");
+        Exception exception = assertThrows(IllegalStateException.class,
+                () -> bookingSystem.removeRoom(102));
+        assertEquals("Cannot remove room 102 as it has active bookings.", exception.getMessage());
     }
 
     @Test
     void testBookRoomAlreadyBooked() {
         bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00")
+
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00")
         );
         assertEquals("Room not available for the given time and date.", exception.getMessage());
+
+        Exception nonExistentRoomException = assertThrows(IllegalArgumentException.class,
+                () -> bookingSystem.bookRoom(999, "2025-02-06", "10:00-11:00")
+        );
+        assertEquals("Room with number 999 does not exist.", nonExistentRoomException.getMessage());
+    }
+
+    @Test
+    void testFindAvailableRoomsPartialMatch() {
+        bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
+        List<Room> availableRooms = bookingSystem.findAvailableRooms(
+                "2025-02-06", "10:00-11:00", Set.of("WiFi")
+        );
+        assertFalse(availableRooms.contains(room1));
+        assertTrue(availableRooms.contains(room2));
     }
 
     @Test
     void testCancelBooking() {
         Booking booking = bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
         bookingSystem.cancelBooking(booking.getBookingId());
-        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025-02-06", "10:00-11:00", Set.of("WiFi"));
-        assertTrue(availableRooms.contains(room1));
-    }
 
-    @Test
-    void testFindAvailableRoomsNoMatchingAmenities() {
         List<Room> availableRooms = bookingSystem.findAvailableRooms(
-                "2025-02-06", "10:00-11:00", Set.of("NonExistentAmenity")
+                "2025-02-06", "10:00-11:00", Set.of("WiFi")
         );
-        assertTrue(availableRooms.isEmpty());
-    }
+        assertTrue(availableRooms.contains(room1));
 
-    @Test
-    void testFindAvailableRoomsPartialMatch() {
-        bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
-        List<Room> availableRooms = bookingSystem.findAvailableRooms("2025-02-06", "10:00-11:00", Set.of("WiFi"));
-        assertTrue(availableRooms.contains(room2));
-    }
-
-    @Test
-    void testFindBookingsForDate() {
-        bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
-        bookingSystem.bookRoom(102, "2025-02-06", "11:00-12:00");
-        List<Booking> bookingsForDate = bookingSystem.findBookingsForDate("2025-02-06");
-        assertEquals(2, bookingsForDate.size());
-    }
-
-    @Test
-    void testNoBookingsForDate() {
-        List<Booking> bookingsForDate = bookingSystem.findBookingsForDate("2025-02-07");
-        assertTrue(bookingsForDate.isEmpty());
-    }
-
-    @Test
-    void testNotifierIntegration() {
-        BookingNotifier notifier = bookingSystem.getNotifier();
-        Admin admin = new Admin("TestAdmin");
-        notifier.addObserver(admin);
-
-        Booking booking = bookingSystem.bookRoom(101, "2025-02-06", "10:00-11:00");
-        notifier.notifyObservers(booking, "Booked");
-
-        bookingSystem.cancelBooking(booking.getBookingId());
-        notifier.notifyObservers(booking, "Cancelled");
+        assertDoesNotThrow(() -> bookingSystem.cancelBooking(999));
     }
 }

@@ -7,7 +7,6 @@ import lombok.ToString;
 @Getter
 @RequiredArgsConstructor
 @ToString
-
 public class Booking {
     private final int bookingId;
     private final Room room;

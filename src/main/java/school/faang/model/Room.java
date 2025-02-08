@@ -8,7 +8,6 @@ import java.util.Set;
 @Getter
 @RequiredArgsConstructor
 @ToString
-
 public class Room {
     private final int roomNumber;
     private final String type;
