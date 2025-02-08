@@ -2,7 +2,9 @@ package school.faang.bjs2_56865;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.concurrent.TimeUnit;
 
 class WeatherCacheTest {
@@ -55,6 +57,7 @@ class WeatherCacheTest {
 
         assertNotEquals(firstCall, secondCall, "Часто обновляемый кэш должен всегда выдавать новые данные");
     }
+
     @Test
     void clearExpiredCacheShouldRemoveExpiredEntries() throws InterruptedException {
         String city = "Tokyo";

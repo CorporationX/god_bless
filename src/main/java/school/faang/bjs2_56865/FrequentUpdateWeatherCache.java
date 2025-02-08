@@ -1,6 +1,6 @@
 package school.faang.bjs2_56865;
 
-public class FrequentUpdateWeatherCache extends WeatherCacheTemplate{
+public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     private final WeatherProvider provider;
 
     public FrequentUpdateWeatherCache(WeatherProvider provider) {
