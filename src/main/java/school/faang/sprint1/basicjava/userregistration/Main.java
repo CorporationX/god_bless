@@ -1,4 +1,4 @@
-package school.faang.spring1.basicjava.userregistration;
+package school.faang.sprint1.basicjava.userregistration;
 
 public class Main {
     public static void main(String[] args) {

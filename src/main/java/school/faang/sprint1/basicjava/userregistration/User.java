@@ -1,8 +1,7 @@
-package school.faang.spring1.basicjava.userregistration;
+package school.faang.sprint1.basicjava.userregistration;
 
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
