@@ -112,7 +112,7 @@ public class StudentDatabase {
         checkValidSubject(subject);
         checkValidStudents(students);
 
-        subjectStudents.get(subject).addAll(students.stream().filter(student -> student != null).toList());
+        subjectStudents.get(subject).addAll(getValidStudents(students));
         students.forEach(student -> {
             studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
             studentSubjects.get(student).put(subject, null);
@@ -181,6 +181,10 @@ public class StudentDatabase {
                 //                .filter(entry -> entry.getKey() != null)
                 .filter(entry -> entry.getValue() == null || isValidRating(entry.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    private Set<Student> getValidStudents(List<Student> students) {
+        return students.stream().filter(student -> student != null).collect(Collectors.toSet());
     }
 
     private boolean isValidRating(int rating) {
