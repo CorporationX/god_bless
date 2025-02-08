@@ -55,4 +55,7 @@ out/
 ### VS Code ###
 .vscode/
 README
-README.md
+#README.md
+
+### Mac OS ###
+.DS_Store
