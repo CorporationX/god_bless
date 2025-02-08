@@ -1,6 +1,5 @@
 package school.faang.sprint1.task_BJS2_57007.cache;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import school.faang.sprint1.task_BJS2_57007.data.WeatherData;
@@ -10,16 +9,10 @@ import java.time.Instant;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FrequentUpdateWeatherCacheTest {
-    private WeatherCacheTemplate frequentUpdateWeatherCache;
+    private WeatherCacheTemplate frequentUpdateWeatherCache = new FrequentUpdateWeatherCache();
     private long timestamp;
-    private String city;
+    private String city = "Moskow";
     private final long defaultCacheAgeMillis = 0L;
-
-    @BeforeEach
-    public void setUp() {
-        frequentUpdateWeatherCache = new FrequentUpdateWeatherCache();
-        city = "Moskow";
-    }
 
     @Test
     @DisplayName("Проверка получения верных данных")
@@ -42,15 +35,15 @@ class FrequentUpdateWeatherCacheTest {
 
     @Test
     @DisplayName("Проверка получения исключения при пустом имени города")
-    public void getWeatherData_emptyString() {
+    public void getWeatherData_emptyCity() {
         assertThrows(IllegalArgumentException.class,
                 () -> frequentUpdateWeatherCache.getWeatherData(" ", defaultCacheAgeMillis));
     }
 
     @Test
     @DisplayName("Проверка получения исключения при null имени города")
-    public void getWeatherData_nullString() {
-        assertThrows(NullPointerException.class,
+    public void getWeatherData_nullCity() {
+        assertThrows(IllegalArgumentException.class,
                 () -> frequentUpdateWeatherCache.getWeatherData(null, defaultCacheAgeMillis));
     }
 }
