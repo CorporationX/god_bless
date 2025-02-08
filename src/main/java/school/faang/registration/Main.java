@@ -1,18 +1,33 @@
 package school.faang.registration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
+        List<User> users = new ArrayList<>();
 
-        User user1 = new User("Ira", 18, "Google", "Amsterdam");
+        String[][] userData = {
+                {"Ira", "18", "Google", "Tokio"},
+                {"Vadim", "17", "Gogle", "Amsterdam"},
+                {"Valera", "19", "Uber", "Amsterdam"},
+                {"Maksim", "18", "Jira", "Amsterdam"},
+                {"Vasiliy", "18", "Amazon", "Tokio"}
+        };
 
-        try {
-            //User user2 = new User("", 17, "Google", "Amsterdam");
-            //User user3 = new User("Ira", 19, "Google", "Amsterdam");
-            //User user4 = new User("Ira", 18, "Jira", "Amsterdam");
-            User user5 = new User("Ira", 18, "Google", "Tokio");
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
+        for (String[] data : userData) {
+            try {
+                String name = data[0];
+                int age = Integer.parseInt(data[1]);
+                String company = data[2];
+                String city = data[3];
+
+                User user = new User(name, age, company, city);
+                users.add(user); // Добавляем пользователя в список
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Fault by user creating: " + ex.getMessage());
+            }
         }
     }
 }
