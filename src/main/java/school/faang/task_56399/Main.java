@@ -8,7 +8,6 @@ import static school.faang.task_56399.User.findHobbyLovers;
 
 public class Main {
     public static void main(String[] args) {
-
         User testUser1 = new User(0, "Андрей", 25, Set.of("бег", "плавание", "ходьба"));
         User testUser2 = new User(1, "Александр", 45, Set.of("прыжки", "приседания"));
         User testUser3 = new User(2, "Сергей", 23, Set.of("плавание", "бег"));

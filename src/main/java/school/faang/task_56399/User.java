@@ -14,9 +14,9 @@ import java.util.Set;
 @ToString
 public class User {
     private final int id;
-    private String name;
-    private int age;
-    private Set<String> activities;
+    private final String name;
+    private final int age;
+    private final Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> inputActivities) {
         Map<User, String> resultMap = new HashMap<>();
@@ -30,5 +30,4 @@ public class User {
         }
         return resultMap;
     }
-
 }
