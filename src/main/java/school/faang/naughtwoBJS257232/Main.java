@@ -28,6 +28,8 @@ public class Main {
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
         System.out.println("-----------------------------------");
+        hogwartsSpells.printAllSpellEventsByType();
+        System.out.println("-----------------------------------");
     }
 
     private static void createSpellEventMaps(HogwartsSpells hogwartsSpells) {
