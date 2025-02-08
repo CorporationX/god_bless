@@ -15,6 +15,7 @@ public class Main {
         amazon.printAllProducts();
         System.out.println("\nПроверяем поиск по категории:");
         amazon.findProductsByCategory(Category.FOOD);
+        amazon.findProductsByCategory(Category.CLOTHING);
         System.out.println("\nПроверяем удаление:");
         amazon.removeProduct(Category.FOOD, "Apple");
         amazon.removeProduct(Category.FOOD, "Orange");

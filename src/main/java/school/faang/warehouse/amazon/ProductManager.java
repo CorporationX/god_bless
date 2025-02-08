@@ -3,10 +3,10 @@ package school.faang.warehouse.amazon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
@@ -14,9 +14,12 @@ public class ProductManager {
     private int currentId = 1;
 
     public void addProduct(Category category, String name) {
+        if (!isValidProductAttribute(category, name)) {
+            return;
+        }
         for (Product product : products) {
             if (product.getCategory().equals(category) && product.getName().equals(name)) {
-                System.out.println("Такой товар уже присутствует в базе!");
+                System.out.printf("Товар %s из категории %s уже присутствует в базе!\n", name, category);
                 return;
             }
         }
@@ -24,31 +27,32 @@ public class ProductManager {
         Product product = new Product(id, category, name);
         products.add(product);
         addProductInGroup(product, categoryMap);
-        System.out.println("Добавлен товар - " + product);
+        System.out.printf("Добавлен товар %s категории %s", name, category);
+    }
+
+    private boolean isValidProductAttribute(Category category, String name) {
+        if (category != null && name != null && !name.isBlank()) {
+            return true;
+        }
+        System.out.printf("Используются не допустимые параметры:\nКатегория - %s; Товар - %s\n", category, name);
+        return false;
     }
 
     public void removeProduct(Category category, String name) {
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getCategory().equals(category) && product.getName().equals(name)) {
-                iterator.remove();
-                categoryMap.get(category).remove(product);
-                System.out.println("Удален товар - " + product);
-                return;
-            }
+        if (!isValidProductAttribute(category, name)) {
+            return;
         }
-        System.out.println("Товар такой категории не найден.");
+        Predicate<Product> condition = product -> (product.getCategory().equals(category)
+                && product.getName().equals(name));
+        if (products.removeIf(condition)) {
+            System.out.printf("Товар %s из категории %s удален\n", name, category);
+            return;
+        }
+        System.out.printf("Не возможно удалить товар %s категории %s: отсутствует в базе.\n", name, category);
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        if (categoryMap.containsKey(category)) {
-            List<Product> list = categoryMap.get(category);
-            list.forEach(System.out::println);
-            return list;
-        }
-        System.out.println("Данной категории товаров не найдено.");
-        return new ArrayList<>();
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public void groupProductsByCategory() {
@@ -56,6 +60,7 @@ public class ProductManager {
         for (Product product : products) {
             addProductInGroup(product, map);
         }
+        categoryMap = map;
     }
 
     private void addProductInGroup(Product product, Map<Category, List<Product>> map) {
@@ -64,11 +69,13 @@ public class ProductManager {
     }
 
     public void printAllProducts() {
+        StringBuilder builder = new StringBuilder();
         for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
-            System.out.println("\nКатегория: " + entry.getKey().toString() + "\nПродукты:");
+            builder.append("\nКатегория: ").append(entry.getKey().toString()).append("\nПродукты:");
             for (Product product : entry.getValue()) {
-                System.out.println("- " + product.getName());
+                builder.append("\n- " + product.getName());
             }
         }
+        System.out.println(builder);
     }
 }
