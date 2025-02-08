@@ -1,0 +1,54 @@
+package school.faang.task_57187;
+
+import lombok.NonNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+public class HogwartsSpells {
+
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private int idCounter = 1;
+
+    public void addSpellEvent(String eventType, String actionDescription) {
+        int id = idCounter++;
+
+        SpellEvent newSpell = new SpellEvent(id, eventType, actionDescription);
+
+        spellById.put(id, newSpell);
+        spellsByType.computeIfAbsent(newSpell.getEventType(), k -> new ArrayList<>()).add(newSpell);
+        spellsByType.get(eventType).add(newSpell);
+        System.out.println("Добавлено заклинание: " + id + " " + newSpell.getEventType());
+    }
+
+
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        List<SpellEvent> events = spellsByType.get(eventType);
+        if (events != null && !events.isEmpty()) {
+            System.out.printf("Найдены события по типу %s\n\n", eventType);
+        } else {
+            System.out.printf("Не найдены события по типу %s\n\n", eventType);
+        }
+        return events;
+    }
+
+    public void deleteSpellEvent(int id) {
+        SpellEvent event = spellById.get(id);
+        if (event != null) {
+            spellsByType.remove(spellById.get(id).getEventType());
+            spellById.remove(id);
+            System.out.println("Удалено событие под номером " + id);
+        }
+    }
+
+    public void printAllSpellEvents() {
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            System.out.printf("\nID события: %s\n\tID заклинания: %s\n\tТип заклинания: %s\n\tДействие заклинания: %s\n",
+                    entry.getKey(), entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction());
+        }
+    }
+}
