@@ -72,7 +72,7 @@ public class ProductManager {
     public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
             System.out.printf("Категория: " + entry.getKey() + "\n" + "Продукты:" + "\n");
-            for(Product product: entry.getValue()) {
+            for (Product product : entry.getValue()) {
                 System.out.println(" - " + product.getName());
             }
             System.out.println();

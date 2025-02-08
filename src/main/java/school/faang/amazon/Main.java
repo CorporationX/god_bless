@@ -3,7 +3,7 @@ package school.faang.amazon;
 import java.util.List;
 import java.util.Map;
 
-public class Mai {
+public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
         productManager.addProduct(Category.FOOD, "Egg");
