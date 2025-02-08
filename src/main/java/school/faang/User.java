@@ -34,24 +34,19 @@ public class User {
     }
 
 
-
     public static void main(String[] args) {
         User bob = new User(1, "Bob", "18");
         User mike = new User(2, "Mike", "18");
         User john = new User(3, "John", "18");
-        User sarah = new User(4, "Sarah", "18");
 
         bob.addActivities("Drunk", "Swim", "BeatBox");
         mike.addActivities("Ride", "Run", "Drunk");
         john.addActivities("Football", "Basketball", "WatchTV");
-        sarah.addActivities("Fly", "Swim", "Eat");
-
 
         List<User> users = new ArrayList<>();
         users.add(bob);
         users.add(mike);
         users.add(john);
-        users.add(sarah);
 
         Set<String> hobbies = new HashSet<>();
         hobbies.add("Drunk");
