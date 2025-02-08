@@ -30,8 +30,8 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
-            if (user != null && !user.getName().isBlank() && !user.getAddress().isBlank()
-            && !user.getWork().isBlank()) {
+                if (user != null && !user.getName().isBlank() && !user.getAddress().isBlank()
+                && !user.getWork().isBlank()) {
                 if (!map.containsKey(user.getAge())) {
                     map.put(user.getAge(), new ArrayList<>());
                 }
