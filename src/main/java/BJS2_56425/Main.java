@@ -4,9 +4,19 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5};
-        int[] reversed = Example.reverse(nums);
+        int[] nums1 = {1, 2, 3, 4, 5};
+        int[] nums2 = {};
+        int[] nums3 = null;
+        int[] nums4 = {1};
 
-        System.out.println(Arrays.toString(reversed));
+        int[] reversed1 = Example.reverse(nums1);
+        int[] reversed2 = Example.reverse(nums2);
+        int[] reversed3 = Example.reverse(nums3);
+        int[] reversed4 = Example.reverse(nums4);
+
+        System.out.println(Arrays.toString(reversed1));
+        System.out.println(Arrays.toString(reversed2));
+        System.out.println(Arrays.toString(reversed3));
+        System.out.println(Arrays.toString(reversed4));
     }
 }
