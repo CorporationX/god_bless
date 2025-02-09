@@ -22,14 +22,8 @@ public class ProductManager {
         products.removeIf(k -> k.getName().equals(name) && k.getCategory() == category);
     }
 
-    public Set<Product> findProductsByCategory(Category category) {
-        Set<Product> result = new HashSet<>();
-        for (Product value : products) {
-            if (value.getCategory() == category) {
-                result.add(value);
-            }
-        }
-        return result;
+    public List<Product> findProductsByCategory(Category category) {
+        return new ArrayList<>(categoryMap.getOrDefault(category, new ArrayList<>()));
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
@@ -37,9 +31,8 @@ public class ProductManager {
 
         for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
             Category category = entry.getKey();
-            List<Product> productList = entry.getValue();
-
-            for (Product product : productList) {
+            List<Product> products = entry.getValue();
+            for (Product product : products) {
                 groupedMap.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
             }
         }
