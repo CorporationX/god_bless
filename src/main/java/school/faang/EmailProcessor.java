@@ -7,13 +7,13 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> predicate,
-                              Function<Email, String> function, Consumer<Email> action) {
+                              Function<Email, String> transformer, Consumer<Email> action) {
         validatePredicate(predicate);
-        validateFunction(function);
+        validateFunction(transformer);
         validateConsumer(action);
         for (Email email : emails) {
             if (predicate.test(email)) {
-                email.setBody(function.apply(email));
+                email.setBody(transformer.apply(email));
                 action.accept(email);
             }
         }
