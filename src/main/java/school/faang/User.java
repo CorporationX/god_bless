@@ -51,7 +51,12 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User: {name=%s, age='%d', job=%s, address=%s}", name, age, job, address);
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", job='" + job + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     public String getName() {
@@ -72,3 +77,4 @@ public class User {
 
 
 }
+
