@@ -1,50 +1,52 @@
 package school.faang.library;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    private static Map<Book, String> bookPlace = new HashMap<>();
+    private Map<Book, String> bookLocations = new HashMap<>();
 
-    public boolean addBook(String titlle, String author, int year, String location) {
-        if (titlle.isBlank() || author.isBlank() || location.isBlank() || year == 0) {
+    public boolean addBook(@NonNull String title, @NonNull String author, int year, @NonNull String location) {
+        if (title.isBlank() || author.isBlank() || location.isBlank() || year <= 0) {
             throw new IllegalArgumentException("Field is empty.");
         }
 
-        Book book = new Book(titlle, author, year);
+        Book book = new Book(title, author, year);
 
-        if (!bookPlace.containsKey(book)) {
-            bookPlace.put(book, location);
+        if (!bookLocations.containsKey(book)) {
+            bookLocations.put(book, location);
             return true;
         }
 
         return false;
     }
 
-    public boolean removeBook(String titlle, String author, int year) {
-        if (titlle.isBlank() || author.isBlank() || year == 0) {
+    public boolean removeBook(@NonNull String title, @NonNull String author, int year) {
+        if (title.isBlank() || author.isBlank() || year <= 0) {
             throw new IllegalArgumentException("Field is empty.");
         }
 
-        Book book = new Book(titlle, author, year);
+        Book book = new Book(title, author, year);
 
-        if (bookPlace.containsKey(book)) {
-            bookPlace.remove(book);
+        if (bookLocations.containsKey(book)) {
+            bookLocations.remove(book);
             return true;
         }
 
         return false;
     }
 
-    public boolean findBook(String titlle, String author, int year) {
-        if (titlle.isBlank() || author.isBlank() || year == 0) {
+    public boolean findBook(@NonNull String title, @NonNull String author, int year) {
+        if (title.isBlank() || author.isBlank() || year <= 0) {
             throw new IllegalArgumentException("Field is empty.");
         }
 
-        Book book = new Book(titlle, author, year);
+        Book book = new Book(title, author, year);
 
-        if (bookPlace.containsKey(book)) {
-            System.out.println("Your book is here: " + bookPlace.get(book));
+        if (bookLocations.containsKey(book)) {
+            System.out.println(String.format("Your book is here: %s", bookLocations.get(book)));
             return true;
         }
 
@@ -52,7 +54,6 @@ public class LibrarySystem {
     }
 
     public void printAllBooks() {
-        bookPlace.forEach((book, location)
-                -> System.out.println("Book found: " + book + " , location: " + location));
+        bookLocations.forEach((book, location) -> System.out.println(String.format("Book found: %s, location: %s", book, location)));
     }
 }
