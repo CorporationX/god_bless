@@ -8,7 +8,7 @@ public class LibrarySystem {
 
     public boolean addBook(String title, String author, int year, String location) {
         if (title == null || author == null || location == null) {
-            System.out.println("Title, author, and location must not be null!");
+            System.out.println("Title, author or location must not be null!");
             return false;
         }
         Book book = new Book(title, author, year);
@@ -23,7 +23,7 @@ public class LibrarySystem {
 
     public boolean removeBook(String title, String author, int year) {
         if (title == null || author == null) {
-            System.out.println("Title and author must not be null!");
+            System.out.println("Title or author must not be null!");
             return false;
         }
         Book book = new Book(title, author, year);
@@ -39,7 +39,7 @@ public class LibrarySystem {
 
     public void findBook(String title, String author, int year) {
         if (title == null || author == null) {
-            System.out.println("Title and author must not be null!");
+            System.out.println("Title or author must not be null!");
             return;
         }
         Book book = new Book(title, author, year);
