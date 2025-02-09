@@ -13,14 +13,14 @@ public class Example {
             return null;
         }
         if (nums.length == 0) {
-            throw new IllegalArgumentException("Массив не должен быть пустым.");
+            System.out.println("Массив не должен быть пустым.");
         }
         int left = 0;
         int right = nums.length;
         int center = right / 2;
         for (int i = 0; i < center; i++) {
             int buffer = nums[left];
-            nums[i] = nums[right - 1];
+            nums[left] = nums[right - 1];
             nums[right - 1] = buffer;
             right--;
             left++;
