@@ -8,9 +8,9 @@ import school.faang.BJS2_56962.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StudentDatabaseTest {
@@ -24,10 +24,23 @@ public class StudentDatabaseTest {
 
     @Test
     public void testAddStudentSubjectsGrade() {
-        database.addNewStudentAndHisSubjectWithGrades("Alice", "Math", 4);
+        Student student = new Student("Alice");
+        Subject subject = new Subject("Math");
+        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
 
         assertThrows(IllegalArgumentException.class, () ->
-                database.addNewStudentAndHisSubjectWithGrades("Alice", "Math", 6));
+                database.addNewStudentAndHisSubjectWithGrades(student, subject, 6));
+    }
+
+    @Test
+    public void testAddStudentSubjectsGrade_InvalidGrade() {
+        Student student = new Student("Alice");
+        Subject subject = new Subject("Math");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                database.addNewStudentAndHisSubjectWithGrades(student, subject, 6));
+
+        assertEquals("Оценка 6 некорректна, она должна быть в диапазоне от 1 до 5", exception.getMessage());
     }
 
     @Test
@@ -35,7 +48,7 @@ public class StudentDatabaseTest {
         Student student = new Student("Alice");
         Subject subject = new Subject("Math");
 
-        database.addNewStudentAndHisSubjectWithGrades("Alice", "Math", 4);
+        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
         database.removeStudentAndHisSubjects(student);
 
         assertThrows(IllegalArgumentException.class, () ->
@@ -44,8 +57,12 @@ public class StudentDatabaseTest {
 
     @Test
     public void testPrintAllSubjectAndStudent() {
-        database.addNewStudentAndHisSubjectWithGrades("Alice", "Math", 4);
-        database.addNewStudentAndHisSubjectWithGrades("Bob", "Physics", 3);
+        Student student = new Student("Alice");
+        Student student1 = new Student("Bob");
+        Subject subject = new Subject("Math");
+        Subject subject1 = new Subject("Physics");
+        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
+        database.addNewStudentAndHisSubjectWithGrades(student1, subject1, 3);
 
         assertDoesNotThrow(database::printAllSubjectAndStudent);
     }
@@ -55,10 +72,11 @@ public class StudentDatabaseTest {
         List<Student> students = new ArrayList<>();
         students.add(new Student("Alice"));
         students.add(new Student("Bob"));
+        Subject subject = new Subject("Math");
 
-        database.addNewSubjectAndListStudentsStudyingIt("Math", students);
+        database.addNewSubjectAndListStudentsStudyingIt(subject, students);
         assertThrows(IllegalArgumentException.class, () ->
-                database.addNewSubjectAndListStudentsStudyingIt("Math", new ArrayList<>()));
+                database.addNewSubjectAndListStudentsStudyingIt(subject, new ArrayList<>()));
     }
 
     @Test

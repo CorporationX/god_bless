@@ -14,11 +14,9 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addNewStudentAndHisSubjectWithGrades(String studentName, String subjectName, int grade) {
+    public void addNewStudentAndHisSubjectWithGrades(Student student, Subject subject, int grade) {
         checkGrade(grade);
-        Student student = new Student(studentName);
         validateStudentNotExists(student);
-        Subject subject = new Subject(subjectName);
         validateSubjectNotExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
@@ -57,11 +55,10 @@ public class StudentDatabase {
         }
     }
 
-    public void addNewSubjectAndListStudentsStudyingIt(String subjectName, List<Student> students) {
+    public void addNewSubjectAndListStudentsStudyingIt(Subject subject, List<Student> students) {
         if (students == null || students.isEmpty()) {
             throw new IllegalArgumentException("Список студентов не может быть пустым или null");
         }
-        Subject subject = new Subject(subjectName);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         subjectStudents.get(subject).addAll(students);
 
@@ -71,8 +68,7 @@ public class StudentDatabase {
         }
     }
 
-    public void addStudentExistingSubject(String studentName, Subject subject) {
-        Student student = new Student(studentName);
+    public void addStudentExistingSubject(Student student, Subject subject) {
         validateSubjectExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, DEFAULT_GRADE);
