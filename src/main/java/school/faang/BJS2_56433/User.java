@@ -63,6 +63,7 @@ public class User {
         Map<Integer, List<User>> usersByAge = users.stream().collect(Collectors.groupingBy(User::getAge));
 
         return usersByAge;
+
     }
 
 }
