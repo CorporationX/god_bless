@@ -9,10 +9,7 @@ import java.util.Map;
 
 @Getter
 public class StudentDatabase {
-
-    // Хранит информацию о студентах, их предметах и оценках
     private final Map<Student, Map<Subject, Integer>> studentSubjects;
-    // Хранит информацию о предметах и списке студентов, изучающих каждый предмет
     private final Map<Subject, List<Student>> subjectStudents;
 
     public StudentDatabase() {
@@ -20,96 +17,85 @@ public class StudentDatabase {
         subjectStudents = new HashMap<Subject, List<Student>>();
     }
 
-    // 4.1
-    // Добавление нового студента в studentSubjects и записывает для него оценки
-    // по каждому предмету, добовление студента к каждому предмету в subjectStudents
-    void addNewStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        studentSubjects.put(student, grades);           // Добавляем оценки для студента
+    public void addNewStudentWithGrades(Student student, Map<Subject, Integer> grades) {
+        if (student == null || grades == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+        studentSubjects.put(student, grades);
         for (Subject subject : grades.keySet()) {
             subjectStudents.putIfAbsent(subject, new ArrayList<>());
-            subjectStudents.get(subject).add(student);  // Добавляем студента к предмету
-        }
-    }
-
-    // 4.2
-    // Добавляет новый предмет и оценку для существующего студента.
-    // Если студент отсутствует, создается новая запись
-    void addSubjectForStudent(Student student, Subject subject, int grade) {
-        studentSubjects.putIfAbsent(student, new HashMap<>() {
-            {
-                put(subject, grade);
+            if (!subjectStudents.get(subject).contains(student)) {
+                subjectStudents.get(subject).add(student);
             }
-        });
-        studentSubjects.get(student).put(subject, grade);
-
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
         }
     }
 
-    // 4.3
-    // Удаляет студента и все его предметы из studentSubjects,
-    // а также удаляет его из списков студентов для всех соответствующих предметов в subjectStudents
-    void removeStudent(Student student) {
-        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            Subject subject = entry.getKey();
-            var list = subjectStudents.get(subject);
+    public void addSubjectForStudent(Student student, Subject subject, int grade) {
+        if (subject == null || student == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+        studentSubjects.putIfAbsent(student, new HashMap<>());
+        studentSubjects.get(student).put(subject, grade);
+        subjectStudents.putIfAbsent(subject, new ArrayList<>());
+        subjectStudents.get(subject).add(student);
+    }
+
+    public void removeStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+        for (List<Student> list : subjectStudents.values()) {
             if (list != null) {
                 list.remove(student);
             }
-            subjectStudents.put(subject, list);
         }
         studentSubjects.remove(student);
     }
 
-    // 4.4
-    // Выводит список всех предметов и всех студентов, изучающих каждый предмет
-    void printAllStudentsWithSubjectsAndGrades() {
+    public void printAllStudentsWithSubjectsAndGrades() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
             Student student = entry.getKey();
             var value = entry.getValue();
             System.out.println(student.getName());
             for (Map.Entry<Subject, Integer> entry1 : value.entrySet()) {
                 Subject subject = entry1.getKey();
-                System.out.println("--- " + subject.getName() + ": " + entry1.getValue());
+                StringBuilder stringBuilder = new StringBuilder("--- ").append(subject.getName()).append(": ")
+                                .append(entry1.getValue());
+                System.out.println(stringBuilder);
             }
         }
     }
 
-    // 5.1
-    // Добавляет новый предмет в subjectStudents и присваивает ему список студентов.
-    // Также добавляет предмет в studentSubjects каждого студента.
-    void addSubjectWithStudents(Subject subject, List<Student> students) {
-        subjectStudents.put(subject, new ArrayList<>(students)); // Можно ли просто студентов добавить, без new Array?
+    public void addSubjectWithStudents(Subject subject, List<Student> students) {
+        if (subject == null || students == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+        subjectStudents.putIfAbsent(subject, new ArrayList<>(students));
         for (var student : students) {
             studentSubjects.putIfAbsent(student, new HashMap<>());
             studentSubjects.get(student).put(subject, null);
         }
     }
 
-    // 5.2
-    // Добавляет студента к существующему предмету.
-    // Если предмет или студент отсутствуют, создаются соответствующие записи.
-    void addStudentToSubject(Student student, Subject subject) {
+    public void addStudentToSubject(Student student, Subject subject) {
+        if (subject == null || subject == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         if (!subjectStudents.get(subject).contains(student)) {
             subjectStudents.get(subject).add(student);
         }
 
-        /*studentSubjects.putIfAbsent(student, new HashMap<>()); // Было в задании, так затирает прошлую оценку
-        studentSubjects.get(student).put(subject, null);*/
-
         studentSubjects.putIfAbsent(student, new HashMap<>());
-        if (!studentSubjects.get(student).containsKey(subject)) {
-            studentSubjects.get(student).put(subject, null);
-        }
+        studentSubjects.get(student).putIfAbsent(subject, null);
     }
 
-    // 5.3
-    // Удаляет студента из предмета в subjectStudents и очищает запись
-    // предмета у студента в studentSubjects.
-    void removeStudentFromSubject(Student student, Subject subject) {
+    public void removeStudentFromSubject(Student student, Subject subject) {
+        if (subject == null || student == null) {
+            throw new IllegalArgumentException("Input data must not be null");
+        }
+
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
             students.remove(student);
@@ -120,20 +106,11 @@ public class StudentDatabase {
         }
     }
 
-    // 5.4
-    // Выводит список предметов и всех студентом изучающих этот предмет
-    void printAllSubjectsWithStudents() {
+    public void printAllSubjectsWithStudents() {
         subjectStudents.forEach((k, v) -> {
             System.out.println(k.getName());
-            v.forEach(s -> System.out.println("----" + s.getName()));
+            v.forEach(s ->
+                    System.out.println(new StringBuilder("----").append(s.getName())));
         });
-
-        // Чтобы было, реализация на более низком уровне
-        /*for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            Subject subject = entry.getKey();
-            var value = entry.getValue();
-            System.out.println(subject.getName());
-            value.forEach(s -> System.out.println("----" + s.getName()));
-        }*/
     }
 }

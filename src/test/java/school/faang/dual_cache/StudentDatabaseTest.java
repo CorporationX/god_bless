@@ -30,7 +30,6 @@ class StudentDatabaseTest {
         studentDatabase.addNewStudentWithGrades(student, grades);
         studentDatabase.addNewStudentWithGrades(student1, grades);
 
-        // Проветка studentDatabase
         var actual = studentDatabase.getStudentSubjects().size();
         assertEquals(2, actual, "Student Database size needs to be 2");
 
@@ -44,7 +43,6 @@ class StudentDatabaseTest {
         actual = studentDatabase.getStudentSubjects().get(new Student("Igor")).get(new Subject("Science"));
         assertEquals(85, actual, "For Math mark must be equals 85");
 
-        // Проветка studentDatabase
         var actual1 = studentDatabase.getSubjectStudents().containsKey(new Subject("Math"))
                 & studentDatabase.getSubjectStudents().containsKey(new Subject("Science"));
         assertTrue(actual1, "mapSubjects need contains Math and Science");
@@ -52,7 +50,6 @@ class StudentDatabaseTest {
 
     @Test
     void testAddSubjectForStudent() {
-        // Check studentSubjects
         studentDatabase.addSubjectForStudent(new Student("Ivan"), new Subject("AI"), 25);
         assertTrue(studentDatabase.getStudentSubjects().containsKey(new Student("Ivan")));
         assertTrue(studentDatabase.getStudentSubjects().get(new Student("Ivan"))
@@ -81,7 +78,6 @@ class StudentDatabaseTest {
         studentDatabase.addSubjectForStudent(new Student("Marina"), new Subject("Politics"), 44);
         assertEquals(2, studentDatabase.getStudentSubjects().size());
 
-        // Check subjectStudents
         assertTrue(studentDatabase.getSubjectStudents().containsKey(new Subject("Math")));
         assertTrue(studentDatabase.getSubjectStudents().containsKey(new Subject("AI")));
         assertTrue(studentDatabase.getSubjectStudents().containsKey(new Subject("Politics")));
@@ -115,6 +111,8 @@ class StudentDatabaseTest {
 
     @Test
     void testAddSubjectWithStudents() {
+        // Можно, что будет если students = null(проверь в обоих случаях)?
+        // Что произойдет если в списке студентов будут повторы?
         studentDatabase.addSubjectForStudent(new Student("Abram"), new Subject("AI"), 25);
         studentDatabase.addSubjectForStudent(new Student("Abram"), new Subject("AI"), 55);
         studentDatabase.addSubjectForStudent(new Student("Abram"), new Subject("AI"), 99);
@@ -143,19 +141,17 @@ class StudentDatabaseTest {
         studentDatabase.addSubjectForStudent(new Student("Valera"), new Subject("AI"), 48);
         studentDatabase.addSubjectForStudent(new Student("Ira"), new Subject("Architecture"), 99);
 
-        // Студент отсутствует для studentDatabase
         studentDatabase.addStudentToSubject(new Student("Misha"), new Subject("AI"));
         assertEquals(null, studentDatabase.getStudentSubjects().get(new Student("Misha")).get(new Subject("AI")));
-        // Предмет отсутствует для studentDatabase
+
         studentDatabase.addStudentToSubject(new Student("Misha"), new Subject("Chemistry"));
         assertEquals(null, studentDatabase.getStudentSubjects().get(new Student("Misha")).get(new Subject("AI")));
-        // Студент присутствует, предмет присутствует для studentDatabase
+
         studentDatabase.addStudentToSubject(new Student("Abram"), new Subject("Chemistry"));
         System.out.println(studentDatabase.getStudentSubjects().get(new Student("Abram"))
                 .get(new Subject("Chemistry")));
         assertEquals(25, studentDatabase.getStudentSubjects().get(new Student("Abram")).get(new Subject("Chemistry")));
 
-        // Проверка subjectDatabase
         var actual = studentDatabase.getSubjectStudents().get(new Subject("Chemistry")).contains(new Student("Abram"))
                 & studentDatabase.getSubjectStudents().get(new Subject("Chemistry")).contains(new Student("Misha"))
                 & studentDatabase.getSubjectStudents().get(new Subject("Chemistry")).contains(new Student("Misha"))
@@ -178,14 +174,12 @@ class StudentDatabaseTest {
         studentDatabase.addSubjectForStudent(new Student("Valera"), new Subject("AI"), 48);
         studentDatabase.addSubjectForStudent(new Student("Ira"), new Subject("Architecture"), 99);
 
-        // Before
         assertTrue(studentDatabase.getStudentSubjects().get(new Student("Abram"))
                 .containsKey(new Subject("Chemistry")));
         assertEquals(1, studentDatabase.getSubjectStudents().get(new Subject("Chemistry")).size());
 
         studentDatabase.removeStudentFromSubject(new Student("Abram"), new Subject("Chemistry"));
 
-        // After
         assertFalse(studentDatabase.getStudentSubjects().get(new Student("Abram"))
                 .containsKey(new Subject("Chemistry")));
         assertEquals(0, studentDatabase.getSubjectStudents().get(new Subject("Chemistry")).size());

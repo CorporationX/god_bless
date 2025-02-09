@@ -3,6 +3,7 @@ package school.faang.dual_cache;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Main {
@@ -36,7 +37,7 @@ public class Main {
         StudentDatabase studentDatabase = new StudentDatabase();
 
         // Наборы предметов с оценками для каждого студента
-        var lstMaps = new ArrayList<HashMap<Subject, Integer>>();
+        /*var lstMaps = new ArrayList<HashMap<Subject, Integer>>();
 
         for (int i = 0; i < lstStudents.size(); i++) {
 
@@ -58,6 +59,39 @@ public class Main {
 
         studentDatabase.printAllStudentsWithSubjectsAndGrades();
         System.out.println("******************");
+        studentDatabase.printAllSubjectsWithStudents();*/
+
+        // Что произойдет если добавить 2х одинаковых студентов с одинаковыми предметами?
+        // А если student или grades будет null?
+        Student student = new Student("Kiril");
+        var grades = new HashMap<Subject, Integer>(Map.of(
+                new Subject("Mathematics"), 50,
+                new Subject("Science"), 70
+        ));
+
+        grades.put(new Subject("Science"), 80);
+        studentDatabase.addNewStudentWithGrades(student, grades);
+        studentDatabase.addNewStudentWithGrades(student, grades);
+
+        studentDatabase.printAllStudentsWithSubjectsAndGrades();
+        System.out.println("********************");
+        studentDatabase.printAllSubjectsWithStudents();
+
+        // Добавляет новый предмет в subjectStudents и присваивает ему список студентов.
+        // Также добавляет предмет в studentSubjects каждого студента.
+
+        var listStudents = new ArrayList<Student>() {{
+                add(student);
+                add(student);
+            }};
+
+        // Можно, что будет если students = null(проверь в обоих случаях)?
+        // Что произойдет если в списке студентов будут повторы?
+        studentDatabase.addSubjectWithStudents(new Subject("Science"), listStudents);
+
+        System.out.println("********************");
+        studentDatabase.printAllStudentsWithSubjectsAndGrades();
+        System.out.println("********************");
         studentDatabase.printAllSubjectsWithStudents();
     }
 }
