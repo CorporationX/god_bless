@@ -5,3 +5,4 @@ class Warrior extends Character {
         super(name, 10, 5, 3);
     }
 }
+.
