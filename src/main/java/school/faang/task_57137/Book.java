@@ -2,8 +2,6 @@ package school.faang.task_57137;
 
 import lombok.*;
 
-import java.util.Objects;
-
 @Data
 public class Book {
     private String title;
