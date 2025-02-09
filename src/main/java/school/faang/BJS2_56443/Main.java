@@ -4,9 +4,20 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Example example = new Example();
-        int[] nums = {1, 2, 3, 4, 5};
-        example.reverse(nums);
-        System.out.println(Arrays.toString(nums));
+        int[] nums1 = {1, 2, 3, 4, 5};
+        int[] nums2 = {6};
+        int[] nums3 = {7, 8, 9, 10, 11, 12};
+        int[] nums4 = {};
+        Example.reverse(nums1);
+        System.out.println(Arrays.toString(nums1));
+
+        Example.reverse(nums2);
+        System.out.println(Arrays.toString(nums2));
+
+        Example.reverse(nums3);
+        System.out.println(Arrays.toString(nums3));
+
+        Example.reverse(nums4);
+        System.out.println(Arrays.toString(nums4));
     }
 }
