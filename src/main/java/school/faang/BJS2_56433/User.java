@@ -55,8 +55,8 @@ public class User {
         return String.format("User{name='%s', age=%d, workplace='%s', address='%s'}", name, age, workplace, address);
     }
 
-    static Map<Integer, List<User>> groupUsers(List<User> users){
-        if (users == null){
+    static Map<Integer, List<User>> groupUsers(List<User> users) {
+        if (users == null) {
             return new HashMap<>();
         }
 
