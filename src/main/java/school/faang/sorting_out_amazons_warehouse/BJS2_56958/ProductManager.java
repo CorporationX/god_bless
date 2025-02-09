@@ -1,6 +1,5 @@
 package school.faang.sorting_out_amazons_warehouse.BJS2_56958;
 
-import lombok.Data;
 import lombok.NonNull;
 
 import org.slf4j.Logger;
@@ -13,39 +12,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Data
 public class ProductManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductManager.class);
 
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
-    private int id = 0;
 
     public void addProduct(@NonNull Category category, @NonNull String name) {
         validateName(name);
 
-        int uniqueId = id + 1;
-        Product product = new Product(uniqueId, name, category);
+        Product product = new Product(name, category);
         products.add(product);
         categoryMap.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
 
-        LOGGER.info("Added product {} to category {}", uniqueId, category);
+        LOGGER.info("Added product category {}", category);
     }
 
     public void removeProduct(@NonNull Category category, @NonNull String name) {
         validateName(name);
-        validateCategory(category);
 
-        Product product = new Product(name, category);
-        if (!products.contains(product)) {
-            LOGGER.error("Product {} does not exist", product);
-            throw new IllegalArgumentException("Product " + product + " does not exist");
+        Product productToRemove = null;
+        for (Product p : products) {
+            if (p.getName().equals(name) && p.getCategory().equals(category)) {
+                productToRemove = p;
+            }
         }
 
-        products.remove(product);
-        categoryMap.get(category).remove(product);
+        if (productToRemove == null) {
+            LOGGER.info("Removed product category {}", category);
+            throw new IllegalArgumentException("Product " + name + " does not exist");
+        }
+        products.remove(productToRemove);
 
-        LOGGER.info("Removed product {} from category {}", name, category);
+        if (categoryMap.containsKey(category)) {
+            List<Product> productList = categoryMap.get(category);
+            productList.remove(productToRemove);
+
+            LOGGER.info("Removed product");
+
+            if (productList.isEmpty()) {
+                categoryMap.remove(category);
+            }
+
+            LOGGER.info("Removed product category {}", category);
+        }
+
     }
 
     public List<Product> findProductsByCategory(@NonNull Category category) {
@@ -59,7 +70,7 @@ public class ProductManager {
     public void groupProductsByCategory() {
         categoryMap.clear();
         for (var product : products) {
-            addProduct(product.category(), product.name());
+            categoryMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
 
         LOGGER.info("Update {}", categoryMap);
@@ -69,7 +80,7 @@ public class ProductManager {
         for (var category : categoryMap.keySet()) {
             System.out.println("Категория: " + category + "\nПродукты: ");
             for (var product : categoryMap.get(category)) {
-                System.out.println("- " + product.name());
+                System.out.println("- " + product.getName());
             }
             System.out.println();
         }
