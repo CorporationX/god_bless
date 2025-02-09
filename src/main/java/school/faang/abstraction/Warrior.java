@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.abstraction;
 
 public class Warrior extends Character {
     private static final int WARRIOR_STRENGTH = 10;
@@ -11,6 +11,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.takeDamage(WARRIOR_STRENGTH);
+        opponent.takeDamage(getStrength());
     }
 }

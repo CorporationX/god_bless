@@ -1,11 +1,14 @@
-package school.faang;
+package school.faang.abstraction;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = 100;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -24,9 +27,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
-        }
+        health = Math.max(0, this.health - damage);
     }
 }
