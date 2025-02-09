@@ -58,12 +58,9 @@ public class User {
     static Map<Integer, List<User>> groupUsers(List<User> users) {
         if (users == null) {
             return new HashMap<>();
+        } else {
+            Map<Integer, List<User>> usersByAge = users.stream().collect(Collectors.groupingBy(User::getAge));
+            return usersByAge;
         }
-
-        Map<Integer, List<User>> usersByAge = users.stream().collect(Collectors.groupingBy(User::getAge));
-
-        return usersByAge;
-
     }
-
 }
