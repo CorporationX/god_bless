@@ -14,11 +14,10 @@ public class HogwartsSpells {
     private int currentId = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int id = currentId++;
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, spellEvent);
-
+        SpellEvent spellEvent = new SpellEvent(currentId, eventType, actionDescription);
+        spellById.put(currentId, spellEvent);
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        currentId++;
     }
 
     public SpellEvent getSpellEventById(int id) {
