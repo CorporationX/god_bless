@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
+
         try {
             User firstUser = new User("Mike", 28, "Google", "London");
             System.out.println(firstUser);
