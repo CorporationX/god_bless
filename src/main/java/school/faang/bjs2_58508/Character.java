@@ -1,4 +1,4 @@
-package school.faang.BJS2_58508;
+package school.faang.bjs2_58508;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +16,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -29,9 +26,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character opponent);
+    protected abstract void attack(Character opponent);
 
-    public void checkHealth(Character opponent) {
+    protected void getHealthBellowZero(Character opponent) {
         if (opponent.getHealth() <= 0) {
             System.out.println(opponent.getName() + " don't have enough health! He's lose!");
         }
