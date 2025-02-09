@@ -20,7 +20,7 @@ public class StudentDatabase {
         List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
-        };
+        }
     }
 
     public void addSubjectForStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
