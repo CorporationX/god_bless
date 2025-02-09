@@ -9,6 +9,8 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
+    public static final int DEFAULT_VALUE = 5;
+
     private final String name;
     private int strength;
     private int agility;
@@ -17,9 +19,9 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this.strength = DEFAULT_VALUE;
+        this.agility = DEFAULT_VALUE;
+        this.intelligence = DEFAULT_VALUE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -31,11 +33,11 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    protected boolean isCharacterDead(Character opponent) {
-        if (opponent.getHealth() <= 0) {
-            System.out.println("Opponent " + opponent.getName() + " is dead!");
-            return true;
+    public void setHealth(int health) {
+        if (health >= 0) {
+            this.health = health;
+            return;
         }
-        return false;
+        System.out.println("Character " + this.getName() + " is dead!");
     }
 }
