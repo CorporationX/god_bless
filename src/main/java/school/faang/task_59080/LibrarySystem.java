@@ -1,12 +1,15 @@
 package school.faang.task_59080;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    public static final Map<Book, String> map = new HashMap<>();
+    private static final Map<Book, String> map = new HashMap<>();
 
-    public static void addBook(String title, String author, int year, String location) {
+    public static void addBook(@NonNull String title, @NonNull String author, int year,
+                               @NonNull String location) {
         Book book = new Book(title, author, year);
         map.put(book, location);
         System.out.println(book.title() + " added in " + location);
@@ -14,17 +17,17 @@ public class LibrarySystem {
 
     public static boolean removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        System.out.println(book.title() + " removed!");
-        return map.remove(book) != null;
+        boolean removed = map.remove(book) != null;
+        if (removed) {
+            System.out.println(book.title() + " removed!");
+        }
+        return removed;
     }
 
     public static void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (map.containsKey(book)) {
-            System.out.println("The book is found in " + map.get(book));
-        } else {
-            System.out.println("The book wasn't found.");
-        }
+        System.out.println(map.containsKey(book)
+                ? ("The book is found in " + map.get(book)) : "The book wasn't found.");
     }
 
     public static void printAllBooks() {
