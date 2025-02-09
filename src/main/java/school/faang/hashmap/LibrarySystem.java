@@ -26,13 +26,7 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        if (title == null || title.trim().isEmpty()) {
-            return;
-        }
-        if (author == null || author.trim().isEmpty()) {
-            return;
-        }
-        if (year <= 0) {
+        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty() || year <= 0) {
             return;
         }
 
@@ -60,7 +54,8 @@ public class LibrarySystem {
         if (library.containsKey(book)) {
             System.out.println("Book found at location: " + library.get(book));
         } else {
-            System.out.println("Book not found: " + book + ". Perhaps the book is not in the library or the search criteria are set incorrectly.");
+            System.out.println("Book not found: " + book +
+                    ". Perhaps the book is not in the library or the search criteria are set incorrectly.");
         }
     }
 
