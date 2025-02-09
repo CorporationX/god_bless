@@ -26,6 +26,7 @@ public class Main {
             System.out.printf("- %s%n", product.getName());
         }
     }
+
     private static void addProductsToStore(ProductManager productManager) {
         productManager.addProduct(Category.valueOf("FOOD"), "banana");
         productManager.addProduct(Category.valueOf("FOOD"), "cheese");

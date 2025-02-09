@@ -19,8 +19,7 @@ public class ProductManager {
     public void addProduct(Category category, String name) {
         if (foundProductInSet(category, name)) {
             System.out.println("The product is already in store, no need to add.");
-        }
-        else {
+        } else {
             Product product = new Product(lastId, name, category);
             products.add(product);
             if (!categoryMap.containsKey(category)) {
@@ -31,14 +30,12 @@ public class ProductManager {
             }
             lastId++;
         }
-
     }
 
     public void removeProduct(Category category, String name) {
         if (!foundProductInSet(category, name)) {
             System.out.println("This product is not available in the store");
-        }
-        else {
+        } else {
             products.removeIf(product -> product.getName().equals(name));
             categoryMap.get(category).removeIf(product -> (product.getName().equals(name)));
             System.out.println("The product removed.");
@@ -64,7 +61,7 @@ public class ProductManager {
     public void printAllProducts() {
         for (Category category : categoryMap.keySet()) {
             System.out.printf("%nCategory: %s%nProducts:%n", category);
-            for (Product product : categoryMap.get(category).stream().toList()){
+            for (Product product : categoryMap.get(category).stream().toList()) {
                 System.out.printf("- %s%n", product.getName());
             }
         }
