@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-
-    private String name;
+    private final String name;
     private int strength;
     private int agility;
     private int intelligence;
@@ -31,6 +30,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character opponent);
+    public void setHealth(int health) {
+        this.health = Math.max(health, 0);
+    }
 
+    public abstract void attack(Character opponent);
 }
