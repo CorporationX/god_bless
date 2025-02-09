@@ -1,5 +1,7 @@
 package school.faang.sprint1.task_BJS2_57004;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Set;
  * Класс StudentDatabase представляет базу данных студентов и их предметов.
  * Он позволяет добавлять, удалять и просматривать информацию о студентах и их оценках.
  */
+@Getter // for tests
 public class StudentDatabase {
     private static final int MIN_RATING = 0;
     private static final int MAX_RATING = 5;
@@ -31,24 +34,29 @@ public class StudentDatabase {
      * Если студент уже существует, то добавляет ему предметы и их оценки,
      *              если у студента уже есть такие предметы, то оценки обновятся на новые.
      *
-     * @param name Имя студента, не может быть null или пустым
-     * @param subjects Предметы с оценками, не может быть null
+     * @param name Имя студента, не может быть null или пустым.
+     * @param subjects Предметы с оценками.
+     *           Если карта со студентами пуста, студент добавится с пустой картой.
+     *           Если предмет равен null он не добавится базу.
      *           Оценка студента по предмету. Должна быть в диапазоне от {@link #MIN_RATING} до {@link #MAX_RATING}.
-     *           Если оценка у предмета не валидная, то предмет не добавится.
+     *           Если оценка у предмета не валидная, то предмет не добавится в базу.
      *
-     * @throws IllegalArgumentException если subjects равен null
      * @throws IllegalArgumentException если name равен null или пустой
      */
     public void addStudent(String name, Map<Subject, Integer> subjects) {
         checkValidName(name);
-        checkSubjects(subjects);
 
         Student student = new Student(name);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
+
+        if (subjects == null) {
+            return;
+        }
+
         subjects.entrySet().stream()
                 .filter(entry -> entry.getKey() != null)
                 .filter(entry -> entry.getValue() == null || isValidRating(entry.getValue()))
                 .forEach(entry -> {
-                    studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
                     studentSubjects.get(student).put(entry.getKey(), entry.getValue());
 
                     subjectStudents.computeIfAbsent(entry.getKey(), s -> new HashSet<>());
@@ -57,7 +65,8 @@ public class StudentDatabase {
     }
 
     /**
-     * Добавляет предмет и оценку для указанного студента.
+     * Добавляет предмет и оценку для указанного студента,
+     * если предмет уже существует у студента, тогда обновляет его оценку.
      *
      * @param subject Предмет, который нужно добавить. Не может быть null.
      * @param student Студент, для которого добавляется предмет. Не может быть null.
@@ -79,11 +88,12 @@ public class StudentDatabase {
     /**
      * Удаляет студента из базы данных.
      *
-     * @param student Студент, которого нужно удалить. Не может быть null.
-     * @throws IllegalArgumentException Если student равен null.
+     * @param student Студент, которого нужно удалить.
      */
     public void removeStudent(Student student) {
-        checkValidStudent(student);
+        if (student == null || !studentSubjects.containsKey(student)) {
+            return;
+        }
 
         studentSubjects.get(student).keySet()
                 .forEach(subject -> subjectStudents.get(subject).remove(student));
@@ -105,15 +115,19 @@ public class StudentDatabase {
      * Добавляет новый предмет и связывает его с указанными студентами.
      *
      * @param subject Предмет, который нужно добавить. Не может быть null.
-     * @param students Список студентов, которые будут изучать предмет. Не может быть null.
-     *                 Если студент равен null, он не добавится в базу данных.
-     * @throws IllegalArgumentException Если subject или students равны null.
+     * @param students Список студентов, которые будут изучать предмет,
+     *                 если список равен null, создастся предмет с пустым множеством студентов,
+     *                 если студент в списке равен null, он не добавится.
+     * @throws IllegalArgumentException Если subject равен null.
      */
     public void addNewSubject(Subject subject, List<Student> students) {
         checkValidSubject(subject);
-        checkValidStudents(students);
-
         subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
+
+        if (students == null) {
+            return;
+        }
+
         students.stream()
                 .filter(student -> student != null)
                 .forEach(student -> {
@@ -177,7 +191,7 @@ public class StudentDatabase {
     }
 
     private boolean isValidRating(int rating) {
-        return rating > MIN_RATING && rating <= MAX_RATING;
+        return rating >= MIN_RATING && rating <= MAX_RATING;
     }
 
     private void checkValidRating(int rating) {
@@ -189,18 +203,6 @@ public class StudentDatabase {
     private void checkValidName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
-        }
-    }
-
-    private void checkSubjects(Map<Subject, Integer> subjects) {
-        if (subjects == null) {
-            throw new IllegalArgumentException("subjects не должен быть null");
-        }
-    }
-
-    private void checkValidStudents(List<Student> students) {
-        if (students == null) {
-            throw new IllegalArgumentException("Список студентов не может быть пустым");
         }
     }
 
