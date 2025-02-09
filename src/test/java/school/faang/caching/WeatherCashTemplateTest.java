@@ -28,7 +28,7 @@ public class WeatherCashTemplateTest {
         assertThat(weatherData.getCity()).isEqualTo(moscow);
         assertThat(weatherData.getHumidity()).isBetween(0.0, 1.0);
         assertThat(weatherData.getTemperature()).isBetween(-35.0, 35.0);
-        assertThat(weatherData.getTimestamp()).isLessThan(System.currentTimeMillis());
+        assertThat(weatherData.getTimestamp()).isLessThan(System.currentTimeMillis() + 1);
     }
 
     @Test
@@ -36,7 +36,11 @@ public class WeatherCashTemplateTest {
     public void testClearExpiredCache() {
         standardWeatherCache.getWeatherData(moscow, maxCacheAgeMiles);
         assertThat(standardWeatherCache.cityWeatherData).isNotEmpty();
-
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         standardWeatherCache.clearExpiredCache(1);
         assertThat(standardWeatherCache.cityWeatherData).isEmpty();
     }

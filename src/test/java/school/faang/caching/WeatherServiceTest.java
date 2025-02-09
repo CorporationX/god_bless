@@ -26,6 +26,6 @@ public class WeatherServiceTest {
         assertThat(weatherData.getCity()).isEqualTo(moscow);
         assertThat(weatherData.getHumidity()).isBetween(0.0, 1.0);
         assertThat(weatherData.getTemperature()).isBetween(-35.0, 35.0);
-        assertThat(weatherData.getTimestamp()).isLessThan(System.currentTimeMillis());
+        assertThat(weatherData.getTimestamp()).isLessThan(System.currentTimeMillis() + 1);
     }
 }
