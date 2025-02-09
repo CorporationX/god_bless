@@ -15,8 +15,7 @@ public class Notification {
                 || doesMessageContainObscene(message)
                 || isTypeInNotification(type)) {
             new IllegalArgumentException("Incorrect data entered");
-        }
-        else {
+        } else {
             this.type = type;
             this.message = message;
         }

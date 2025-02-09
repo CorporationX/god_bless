@@ -14,8 +14,7 @@ public class NotificationManager {
         if (!handlersMap.containsKey(type)) {
             handlersMap.put(type, handler);
             System.out.printf("Handler for type '%s' exists.%n", type);
-        }
-        else {
+        } else {
             System.out.printf("Handler for type '%s' already exists.%n", type);
         }
     }
@@ -26,8 +25,7 @@ public class NotificationManager {
         //пожалуйста помогите т_т
         if (!handlersMap.containsKey(type)) {
             System.out.printf("Handler for type '%s' not exist.%n", type);
-        }
-        else {
+        } else {
             Consumer<Notification> handler = handlersMap.get(type);
             handler.accept(notification);
         }
