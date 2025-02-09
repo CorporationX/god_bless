@@ -11,10 +11,10 @@ public class HogwartsSpells {
 
     public void addSpellEvent(String eventType, String actionDescription) {
         if (eventType == null) {
-            throw new IllegalArgumentException("EventType is required");
+            throw new IllegalArgumentException("EventType is required!");
         }
         if (actionDescription == null) {
-            throw new IllegalArgumentException("ActionDescription is required");
+            throw new IllegalArgumentException("ActionDescription is required!");
         }
 
         SpellEvent spellEvent = new SpellEvent(spellById.size() + 1, eventType, actionDescription);
