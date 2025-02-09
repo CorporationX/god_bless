@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums1 = {1, 2, 3, 4, 5};
-        int[] nums2 = {6};
-        int[] nums3 = {7, 8, 9, 10, 11, 12};
-        int[] nums4 = {};
+        final int[] nums1 = {1, 2, 3, 4, 5};
+        final int[] nums2 = {6};
+        final int[] nums3 = {7, 8, 9, 10, 11, 12};
+        final int[] nums4 = {};
         Example.reverse(nums1);
         System.out.println(Arrays.toString(nums1));
 
