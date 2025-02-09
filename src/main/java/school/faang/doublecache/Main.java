@@ -7,13 +7,13 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        Subject math = new Subject("Math");
-        Subject english = new Subject("English");
-        Subject history = new Subject("History");
 
-        Student john = new Student("John");
-        Student jane = new Student("Jane");
-        Student mike = new Student("Mike");
+        final Subject math = new Subject("Math");
+        final Subject english = new Subject("English");
+
+        final Student john = new Student("John");
+        final Student jane = new Student("Jane");
+        final Student mike = new Student("Mike");
 
         StudentDatabase studentDatabase = new StudentDatabase();
 
@@ -24,30 +24,31 @@ public class Main {
 
         Map<Subject, Integer> janeGrades = new HashMap<>();
         janeGrades.put(english, 4);
-        janeGrades.put(history, 3);
+        janeGrades.put(new Subject("History"), 3);  // Создание предмета прямо при необходимости
         studentDatabase.addStudentWithGrades(jane, janeGrades);
 
-        System.out.println("All students with grades:");
+        System.out.println("Все студенты с оценками:");
         studentDatabase.printAllStudentsWithGrades();
 
         studentDatabase.addSubjectForStudent(mike, math, 4);
 
         studentDatabase.addStudentToSubject(mike, english);
 
+        final Subject history = new Subject("History");
         List<Student> studentsForHistory = List.of(john, jane);
         studentDatabase.addSubjectWithStudents(history, studentsForHistory);
 
-        System.out.println("All subjects with students:");
+        System.out.println("Все предметы с их студентами:");
         studentDatabase.printAllSubjectsWithStudents();
 
         studentDatabase.removeStudentFromSubject(john, english);
 
-        System.out.println("All subjects with students after removal:");
+        System.out.println("Все предметы с их студентами после удаления:");
         studentDatabase.printAllSubjectsWithStudents();
 
         studentDatabase.removeStudent(john);
 
-        System.out.println("All students with grades after removal:");
+        System.out.println("Все студенты с оценками после удаления:");
         studentDatabase.printAllStudentsWithGrades();
     }
 }
