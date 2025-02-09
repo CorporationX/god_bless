@@ -5,15 +5,15 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Student student1 = new Student("Bob");
-        Student student2 = new Student("Alice");
-        Student student3 = new Student("Eva");
+        final Student student1 = new Student("Bob");
+        final Student student2 = new Student("Alice");
+        final Student student3 = new Student("Eva");
 
-        Subject math = new Subject("Math");
-        Subject history = new Subject("History");
-        Subject english = new Subject("English");
+        final Subject math = new Subject("Math");
+        final Subject history = new Subject("History");
+        final Subject english = new Subject("English");
 
-        StudentDatabase database = new StudentDatabase();
+        final StudentDatabase database = new StudentDatabase();
 
         Map<Subject, Integer> student1Subjects = new HashMap<>();
         student1Subjects.put(math, 4);
@@ -35,13 +35,13 @@ public class Main {
 
         database.printAllStudentWithGrades();
 
-        Student student4 = new Student("David");
+        final Student student4 = new Student("David");
         Map<Subject, Integer> student4Subjects = new HashMap<>();
         student4Subjects.put(math, 2);
         student4Subjects.put(english, 3);
         database.addStudent(student4, student4Subjects);
 
-        Student student5 = new Student("Charlie");
+        final Student student5 = new Student("Charlie");
         Map<Subject, Integer> student5Subjects = new HashMap<>();
         student5Subjects.put(history, 2);
         database.addStudent(student5, student5Subjects);
