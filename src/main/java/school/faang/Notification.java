@@ -16,13 +16,14 @@ public class Notification {
 
     private void validateNotificationType(NotificationType type) {
         if (type == null) {
-            throw new IllegalArgumentException("The NotificationType can't be null");
+            throw new IllegalArgumentException("The NotificationType can't be null.");
         }
     }
 
     private void validateMessage(String message) {
         if (message == null || message.isBlank()) {
-            throw new IllegalArgumentException("The message can't be null or blank");
+            throw new IllegalArgumentException("The message can't be null or blank. " +
+                    "Provided value: '" + message + "'");
         }
     }
 }

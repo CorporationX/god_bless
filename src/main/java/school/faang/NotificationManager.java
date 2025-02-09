@@ -12,8 +12,10 @@ public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> notificationMap = new HashMap<>();
 
     public boolean registerHandler(NotificationType type, Consumer<Notification> handler) {
+        validateNotificationType(type);
+        validateHandler(handler);
         if (notificationMap.containsKey(type)) {
-            logger.info("Handler for notification type {} is already registered.", type);
+            logger.error("Handler for notification type {} is already registered.", type);
             return false;
         }
         notificationMap.put(type, handler);
@@ -22,12 +24,31 @@ public class NotificationManager {
     }
 
     public boolean sendNotification(Notification notification) {
+        validateNotification(notification);
         if (!notificationMap.containsKey(notification.getType())) {
-            logger.info("Handler for notification type {} isn't registered.", notification.getType());
+            logger.error("Handler for notification type {} isn't registered.", notification.getType());
             return false;
         }
         Consumer<Notification> notificationConsumer = notificationMap.get(notification.getType());
         notificationConsumer.accept(notification);
         return true;
+    }
+
+    private void validateNotification(Notification type) {
+        if (type == null) {
+            throw new IllegalArgumentException("The Notification can't be null.");
+        }
+    }
+
+    private void validateNotificationType(NotificationType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("The NotificationType can't be null.");
+        }
+    }
+
+    private void validateHandler(Consumer<Notification> handler) {
+        if (handler == null) {
+            throw new IllegalArgumentException("The handler can't be null.");
+        }
     }
 }
