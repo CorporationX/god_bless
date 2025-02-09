@@ -18,7 +18,7 @@ public class LibrarySystem {
     public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         if (libraryMap.containsKey(book)) {
-            System.out.println("Книга " + title + " находится " + libraryMap.get(book));
+            System.out.println("Книга " + title + " находится: " + libraryMap.get(book));
             return;
         }
         System.out.println("Книги " + title + " нет в библиотеке Вестеросса");
