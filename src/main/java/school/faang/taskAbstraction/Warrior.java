@@ -1,4 +1,4 @@
-package taskAbstraction;
+package school.faang.taskAbstraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +16,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - DEFAULT_STRENGTH);
+        opponent.setHealth(opponent.getHealth() - getStrength());
     }
 }

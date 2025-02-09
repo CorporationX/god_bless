@@ -1,4 +1,4 @@
-package taskAbstraction;
+package school.faang.taskAbstraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +16,7 @@ public abstract class Character {
     private int health;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = DEFAULT_STAT;
-        this.agility = DEFAULT_STAT;
-        this.intelligence = DEFAULT_STAT;
-        this.health = DEFAULT_HEALTH;
+        this(name, DEFAULT_STAT, DEFAULT_STAT, DEFAULT_STAT);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -40,5 +36,4 @@ public abstract class Character {
             System.out.println("Current health " + character.getName() + ": " + character.getHealth() + " HP");
         }
     }
-
 }
