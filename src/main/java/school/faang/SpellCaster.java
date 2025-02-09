@@ -1,8 +1,8 @@
 package school.faang;
 
 public class SpellCaster {
-    public void cast(String spellName, SpellAction action) {
-        String result = action.castSpell(spellName);
+    public void cast(String spellName, SpellAction make) {
+        String result = make.castSpell(spellName);
         System.out.println("You make a spell: " + result);
     }
 
