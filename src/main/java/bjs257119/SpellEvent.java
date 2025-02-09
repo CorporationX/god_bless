@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SpellEvent {
-    private int id;
-    private String eventType;
-    private String action;
+    private final int id;
+    private final String eventType;
+    private final String action;
 }
