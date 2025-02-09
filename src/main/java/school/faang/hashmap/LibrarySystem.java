@@ -41,13 +41,7 @@ public class LibrarySystem {
 
     public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (title == null || title.trim().isEmpty()) {
-            return;
-        }
-        if (author == null || author.trim().isEmpty()) {
-            return;
-        }
-        if (year <= 0) {
+        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty() || year <= 0) {
             return;
         }
 
