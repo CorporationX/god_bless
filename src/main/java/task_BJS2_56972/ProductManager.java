@@ -33,10 +33,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> listOfCategory;
-        listOfCategory = categoryMap.getOrDefault(category, new ArrayList<>());
-
-        return listOfCategory;
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public void removeProduct(Category category, @NonNull String name) {
