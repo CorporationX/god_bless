@@ -16,10 +16,12 @@ public class Main {
         archer.attack(warrior);
         archer.attack(warrior);
         archer.attack(warrior);
-        System.out.println(warrior.getName() + " health after  " + archer.getName() + " attacked: " + warrior.getHealth());
+        System.out.println(warrior.getName() + " health after  " + archer.getName()
+                + " attacked: " + warrior.getHealth());
 
         warrior.attack(archer);
-        System.out.println(archer.getName() + " health after " + warrior.getName() + " attacked: " + archer.getHealth());
+        System.out.println(archer.getName() + " health after " + warrior.getName()
+                + " attacked: " + archer.getHealth());
 
     }
 }
