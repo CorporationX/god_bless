@@ -3,7 +3,7 @@ package school.faang;
 public class Example {
     public static int[] reverse(int[] nums) {
         if (nums == null || nums.length == 0) {
-            System.out.print("Error: The input array is null or empty! ");
+            System.out.print("Error! The input array is null or empty! ");
             return nums;
         }
 
