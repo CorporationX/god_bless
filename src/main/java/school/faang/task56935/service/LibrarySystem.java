@@ -1,10 +1,13 @@
 package school.faang.task56935.service;
 
+import lombok.Data;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class LibrarySystem {
-    Map<Book, String> placeBook = new HashMap<>();
+    private final Map<Book, String> placeBook = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         if (placeBook.containsKey(new Book(title, author, year))) {
@@ -15,7 +18,11 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        placeBook.remove(new Book(title, author, year));
+        if (placeBook.containsKey(new Book(title, author, year))) {
+            placeBook.remove(new Book(title, author, year));
+        } else {
+            System.out.println("Такой книги нет\n");
+        }
     }
 
     public String findBook(String title, String author, int year) {
