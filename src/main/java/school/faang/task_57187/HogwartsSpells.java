@@ -18,8 +18,7 @@ public class HogwartsSpells {
         SpellEvent newSpell = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, newSpell);
-        spellsByType.computeIfAbsent(newSpell.getEventType(), k -> new ArrayList<>()).add(newSpell);
-        spellsByType.get(eventType).add(newSpell);
+        spellsByType.computeIfAbsent(newSpell.getEventType(), spellType -> new ArrayList<>()).add(newSpell);
         System.out.println("Добавлено заклинание: " + id + " " + newSpell.getEventType());
     }
 
@@ -37,8 +36,7 @@ public class HogwartsSpells {
     public void deleteSpellEvent(int id) {
         SpellEvent event = spellById.get(id);
         if (event != null) {
-            spellsByType.remove(spellById.get(id).getEventType());
-            spellById.remove(id);
+            spellsByType.get(event.getEventType()).remove(event);
             System.out.println("Удалено событие под номером " + id);
         }
     }

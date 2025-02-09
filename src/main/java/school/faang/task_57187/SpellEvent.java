@@ -2,11 +2,7 @@ package school.faang.task_57187;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,7 +10,6 @@ public class SpellEvent {
     private int id;
     private String eventType;
     private String action;
-
 
     public SpellEvent(int id, String eventType, String action) {
 
