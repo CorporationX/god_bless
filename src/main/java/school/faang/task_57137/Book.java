@@ -4,8 +4,7 @@ import lombok.*;
 
 import java.util.Objects;
 
-@Getter
-@Setter
+@Data
 public class Book {
     private String title;
     private String author;
@@ -15,20 +14,5 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Book book = (Book) obj;
-        return Objects.equals(year, book.year) && Objects.equals(title, book.title)
-                && Objects.equals(author, book.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return java.util.Objects.hash(title, author, year);
     }
 }
