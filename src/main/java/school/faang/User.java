@@ -19,6 +19,11 @@ public class User {
     }
 
     public User(String name, int age, String job, String address) {
+        this.age = age;
+        this.job = job;
+        this.address = address;
+        this.name = name;
+
         if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age cannot be less than " + MIN_AGE + "! Age " + age);
         }
@@ -32,10 +37,6 @@ public class User {
             throw new IllegalArgumentException("Invalid address! Address " + address + " is not valid!");
         }
 
-        this.age = age;
-        this.job = job;
-        this.address = address;
-        this.name = name;
     }
 
     public String getName() {
