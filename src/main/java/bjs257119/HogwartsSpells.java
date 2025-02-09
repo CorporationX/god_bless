@@ -20,10 +20,9 @@ public class HogwartsSpells {
 
         Optional.ofNullable(spellsByType.get(eventType))
                 .ifPresentOrElse(events -> events.add(spellEvent), () -> {
-                            List<SpellEvent> spellEvents = new ArrayList<>();
-                            spellsByType.put(eventType, spellEvents);
-                        }
-                );
+                    List<SpellEvent> spellEvents = new ArrayList<>();
+                    spellsByType.put(eventType, spellEvents);
+                });
     }
 
     SpellEvent getSpellEventById(int id) {
