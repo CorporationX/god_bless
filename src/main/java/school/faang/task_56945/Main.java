@@ -9,5 +9,9 @@ public class Main {
         productManager.addProduct(Category.FOOD, "CHEETOS");
         productManager.addProduct(Category.ELECTRONICS, "IPHONE");
         productManager.addProduct(Category.ELECTRONICS, "ANDROID");
+        productManager.removeProduct(Category.ELECTRONICS, "IPHONE");
+        productManager.findProductsByCategory(Category.FOOD);
+        productManager.groupProductsByCategory();
+        productManager.printAllProducts();
     }
 }
