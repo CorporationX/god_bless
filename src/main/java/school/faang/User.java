@@ -71,7 +71,7 @@ public class User {
     }
 
     public Set<String> getActivities() {
-        return activities;
+        return Collections.unmodifiableSet(activities);
     }
 
     public void addActivities(String... activities) {
@@ -80,7 +80,9 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return id == user.id && Objects.equals(name, user.name) && Objects.equals(age, user.age)
                 && Objects.equals(activities, user.activities);
@@ -93,7 +95,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User:{" + "id=" + id + ", name=" + name +
-                ", age=" + age + ", activities=" + activities + '}';
+        return String.format("User{id=%d, name='%s', age=%d}", id, name, age);
     }
 }
