@@ -16,12 +16,10 @@ public class App {
 
         EmailProcessor emailProcessor = new EmailProcessor();
 
-        // Лямбда-выражения для фильтрации, преобразования и обработки
         Predicate<Email> isImportant = Email::isImportant;
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         Consumer<Email> printEmail = email -> System.out.println("Processed Email: " + email);
 
-        // Обработка писем
         emailProcessor.processEmails(emails, isImportant, toUpperCase, printEmail);
     }
 }
