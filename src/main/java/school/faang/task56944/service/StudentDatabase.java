@@ -1,48 +1,69 @@
 package school.faang.task56944.service;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
 public class StudentDatabase {
-    /**
-     * хранит информацию о студентах, их предметах и оценках.
-     */
     private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    /**
-     * хранит информацию о предметах и списке студентов, изучающих каждый предмет.
-     */
     private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    //Добавление нового студента и его предметов с оценками.
-    public void addStudent(Student student, Subject subject, Integer grade) {
-        studentSubjects.computeIfAbsent(student, value -> new HashMap<>()).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
+    public void addStudent(Student student, Subject subject, int grade) {
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    //Добавление нового предмета для существующего студента с оценкой.
-    public void addSubject(Student student, Subject subject, Integer grade) {
+    public void addSubjectToStudent(Student student, Subject subject, int grade) {
         if (studentSubjects.containsKey(student)) {
-            System.out.println("Есть такой студент");
             studentSubjects.get(student).put(subject, grade);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         } else {
-            System.out.println("Нет такого студента");
+            throw new IllegalArgumentException("Студент не найден");
         }
-
-        subjectStudents.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
     }
 
-    public void removeStudentSubject(Student student, Subject subject) {
-        studentSubjects.remove(student);
-        subjectStudents.remove(subject);
+    public void removeStudent(Student student) {
+        Map<Subject, Integer> removedSubjects = studentSubjects.remove(student);
+        if (removedSubjects != null) {
+            for (Subject subject : removedSubjects.keySet()) {
+                subjectStudents.get(subject).remove(student);
+            }
+        }
     }
 
-    public void prinAllInfo() {
-        System.out.println(getStudentSubjects());
-        System.out.println(getSubjectStudents());
+    public void addSubject(Subject subject, List<Student> students) {
+        subjectStudents.put(subject, new ArrayList<>(students));
+        for (Student student : students) {
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
+        }
+    }
+
+    public void addStudentToSubject(Subject subject, Student student) {
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
+    }
+
+    public void removeStudentFromSubject(Subject subject, Student student) {
+        subjectStudents.getOrDefault(subject, new ArrayList<>()).remove(student);
+        studentSubjects.getOrDefault(student, new HashMap<>()).remove(subject);
+    }
+
+    public void printAllStudentsAndGrades() {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
+            System.out.println("Студент: " + entry.getKey().getName());
+            for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
+                System.out.println("  Предмет: " + subjectEntry.getKey().getName() + ", Оценка: " + subjectEntry.getValue());
+            }
+        }
+    }
+
+    public void printAllSubjectsAndStudents() {
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
+            System.out.println("Предмет: " + entry.getKey().getName());
+            for (Student student : entry.getValue()) {
+                System.out.println("  Студент: " + student.getName());
+            }
+        }
     }
 }
