@@ -24,13 +24,11 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, author, year);
+        return Objects.hash(title);
     }
 
     @Override
     public String toString() {
-        return "Book " +
-                "\"" + title + "\"" +
-                " written by " + author;
+        return String.format("Book \"%s\" written by %s (%d)", title, author, year);
     }
 }
