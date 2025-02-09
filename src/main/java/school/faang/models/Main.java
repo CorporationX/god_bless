@@ -1,4 +1,8 @@
-package school.faang;
+package school.faang.models;
+
+import school.faang.notifiers.AdminNotifier;
+import school.faang.notifiers.BookingNotifier;
+import school.faang.notifiers.GuestNotifier;
 
 import java.util.HashMap;
 import java.util.HashSet;

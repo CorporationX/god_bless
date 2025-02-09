@@ -1,4 +1,9 @@
-package school.faang;
+package school.faang.notifiers;
+
+import school.faang.exceptions.BookingValidationError;
+import school.faang.exceptions.ObserverValidationError;
+import school.faang.models.Booking;
+import school.faang.interfaces.BookingObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +39,13 @@ public class BookingNotifier {
 
     private void validateObserver(BookingObserver observer) {
         if (observer == null) {
-            throw new IllegalArgumentException("The observer can't be null");
+            throw new ObserverValidationError("The observer can't be null");
         }
     }
 
     private void validateBooking(Booking booking) {
         if (booking == null) {
-            throw new IllegalArgumentException("The booking can't be null");
+            throw new BookingValidationError("The booking can't be");
         }
     }
 

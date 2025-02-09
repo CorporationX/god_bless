@@ -1,21 +1,26 @@
-package school.faang;
+package school.faang.models;
 
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import school.faang.exceptions.BookingNotFoundException;
+import school.faang.exceptions.BookingValidationError;
+import school.faang.exceptions.RoomNotFoundException;
+import school.faang.exceptions.RoomValidationException;
+import school.faang.notifiers.BookingNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
 public class BookingSystem {
     private static final Logger logger = LoggerFactory.getLogger(BookingSystem.class);
 
     private final Map<Integer, Room> roomMap;
     private final Map<Integer, Booking> bookingMap;
     private int bookingCnt = 1;
+    @Getter
     private final BookingNotifier bookingNotifier = new BookingNotifier();
 
     public BookingSystem(Map<Integer, Room> roomMap, Map<Integer, Booking> bookingMap) {
@@ -28,26 +33,29 @@ public class BookingSystem {
     public boolean addRoom(Room room) {
         validateRoom(room);
         if (roomMap.containsKey(room.getRoomNumber())) {
+            logger.info("Room with ID {} is already in system", room.getRoomNumber());
             return false;
         }
-        logger.info("The room {} added", room);
         roomMap.put(room.getRoomNumber(), room);
+        logger.info("Room with ID {} was not added", room.getRoomNumber());
         return true;
     }
 
     public boolean removeRoom(Room room) {
         validateRoom(room);
         if (!roomMap.containsKey(room.getRoomNumber())) {
-            return false;
+            logger.info("Room with ID {} was not found", room.getRoomNumber());
+            throw new RoomNotFoundException(room.getRoomNumber());
         }
-        logger.info("The room {} removed", room);
         roomMap.remove(room.getRoomNumber());
+        logger.info("Room with ID {} was removed", room.getRoomNumber());
         return true;
     }
 
     public boolean bookRoom(int roomNumber, String date, String timeSlot) {
         if (!roomMap.containsKey(roomNumber)) {
-            throw new RoomNotFoundException("No room with room number " + roomNumber + " in booking system");
+            logger.info("Room with ID {} was not found", roomNumber);
+            throw new RoomNotFoundException(roomNumber);
         }
         Room room = roomMap.get(roomNumber);
         for (Booking booking : bookingMap.values()) {
@@ -57,19 +65,20 @@ public class BookingSystem {
             }
         }
         Booking booking = new Booking(bookingCnt++, room, date, timeSlot);
-        logger.info("The room {} booked for {}, {}", room, date, timeSlot);
         bookingMap.put(booking.getBookingId(), booking);
         bookingNotifier.notifyObservers(booking, "Created");
+        logger.info("The room {} booked for {}, {}", room, date, timeSlot);
         return true;
     }
 
     public void cancelBooking(int bookingId) {
         if (!bookingMap.containsKey(bookingId)) {
-            throw new BookingNotFoundException("No booking with id " + bookingId + " in booking system");
+            logger.info("Booking with ID {} was not found", bookingId);
+            throw new BookingNotFoundException(bookingId);
         }
         Booking booking = bookingMap.remove(bookingId);
-        logger.info("The booking {} was cancelled", booking);
         bookingNotifier.notifyObservers(booking, "Cancelled");
+        logger.info("The booking {} was cancelled", booking);
     }
 
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
@@ -97,7 +106,7 @@ public class BookingSystem {
 
     private void validateRoom(Room room) {
         if (room == null) {
-            throw new IllegalArgumentException("The room can't be null");
+            throw new RoomValidationException("The room can't be null");
         }
     }
 
@@ -115,7 +124,7 @@ public class BookingSystem {
 
     private void validateBooking(Booking booking) {
         if (booking == null) {
-            throw new IllegalArgumentException("The booking can't be");
+            throw new BookingValidationError("The booking can't be");
         }
     }
 

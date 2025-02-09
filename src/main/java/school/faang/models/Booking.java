@@ -1,8 +1,9 @@
-package school.faang;
+package school.faang.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import school.faang.exceptions.RoomValidationException;
 
 @Getter
 @EqualsAndHashCode
@@ -25,13 +26,13 @@ public class Booking {
 
     private void validateRoom(Room room) {
         if (room == null) {
-            throw new IllegalArgumentException("The room can't be null");
+            throw new RoomValidationException("The room can't be null");
         }
     }
 
     private void validateDate(String date) {
         if (date == null || date.isBlank()) {
-            throw new IllegalArgumentException("The type can't be null or blank");
+            throw new IllegalArgumentException("The date can't be null or blank");
         }
     }
 
