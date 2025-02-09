@@ -15,6 +15,13 @@ public class HogwartsSpells {
     }
 
     public void addSpellEvent(String eventType, String actionDescription) {
+        if (eventType == null || eventType.trim().isEmpty()) {
+            throw new IllegalArgumentException("eventType cannot be null or empty");
+        }
+        if (actionDescription == null || actionDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException("actionDescription cannot be null or empty");
+        }
+
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
         spellsById.put(spellEvent.getId(), spellEvent);
 
@@ -26,17 +33,17 @@ public class HogwartsSpells {
         return spellsById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String evenType) {
-        return spellsByType.getOrDefault(evenType, new ArrayList<>());
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellsById.remove(id);
         if (spellEvent != null) {
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEvenType());
+            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             events.removeIf(e -> e.getId() == id);
             if (events.isEmpty()) {
-                spellsByType.remove(spellEvent.getEvenType());
+                spellsByType.remove(spellEvent.getEventType());
             }
         }
     }

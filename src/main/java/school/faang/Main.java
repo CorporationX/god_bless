@@ -1,10 +1,10 @@
 package school.faang;
 
 public class Main {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         hogwartsSpells.addSpellEvent("Expeliarmus", "Disarms an opponent");
-        hogwartsSpells.addSpellEvent("Lumos", "Creates light" );
+        hogwartsSpells.addSpellEvent("Lumos", "Creates light");
         hogwartsSpells.addSpellEvent("Wingardium Leviosa", "Lifts objects");
         hogwartsSpells.addSpellEvent("Petrificus Totalus", "Paralyzes the target");
         hogwartsSpells.addSpellEvent("Alohomora", "Unlocks doors");
@@ -15,7 +15,7 @@ public class Main {
         System.out.println(hogwartsSpells.getSpellEventById(2));
 
         System.out.println("\n Spells of type 'Charm': ");
-        System.out.println("hogwartsSpells.getSpellEventsByType(\"Charm\")");
+        System.out.println(hogwartsSpells.getSpellEventsByType("Charm"));
 
         System.out.println("\n Deleting spell with ID 3...");
         hogwartsSpells.deleteSpellEvent(3);
@@ -24,3 +24,4 @@ public class Main {
         hogwartsSpells.printAllSpellEvents();
     }
 }
+
