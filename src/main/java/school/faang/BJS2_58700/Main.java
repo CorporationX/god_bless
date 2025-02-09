@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             User userOne = new User("Uber", 8, "Google", "Amsterdam");
-        }catch (Exception e){
+        }catch (IllegalArgumentException e){
             System.out.println(e);
         }
 
