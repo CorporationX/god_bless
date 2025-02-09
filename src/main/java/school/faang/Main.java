@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
-
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
