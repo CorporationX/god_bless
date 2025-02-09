@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 public class ProductManager {
 
     private static Set<Product> products = new HashSet<>();
@@ -16,14 +17,49 @@ public class ProductManager {
         Product product = new Product(name, category);
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
+        categoryMap.get(category).add(product);
     }
 
     public void removeProduct(Category category, String name) {
-        for (Product product : products) {
-
+        Product newProduct = new Product(name, category);
+        Product.validateName(name);
+        Product.validateCategory(category);
+        if (!products.contains(newProduct)) {
+            throw new IllegalArgumentException("Продукт " + newProduct + " отсутствует");
+        } else if (!categoryMap.containsKey(category)) {
+            throw new IllegalArgumentException("Категория " + category + " отсутствует");
         }
+        products.remove(newProduct);
+        categoryMap.get(category).remove(newProduct);
+    }
 
+    public List<Product> findProductsByCategory(Category category) {
+        Product.validateCategory(category);
+        if (!categoryMap.containsKey(category)) {
+            return new ArrayList<>();
+        }
+        return categoryMap.get(category);
+    }
 
+    public Map<Category, List<Product>> groupProductsByCategory(Set<Product> products) {
+        if (products.isEmpty()) {
+            return categoryMap;
+        }
+        for (Product product : products) {
+            categoryMap.putIfAbsent(product.getCategory(), new ArrayList<>());
+            categoryMap.get(product.getCategory()).add(product);
+        }
+        return categoryMap;
+    }
+
+    public static void printAllProducts() {
+        for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
+            System.out.println("--------");
+            System.out.println("Категория :" + entry.getKey());
+            for (Product product : entry.getValue()) {
+                System.out.println("Продукты :" + product.getName());
+            }
+        }
     }
 }
 
