@@ -32,6 +32,6 @@ public class SpellEvent {
 
     @Override
     public String toString() {
-        return String.format("SpellEvent: id = %d, eventType = %s, action = %s}", id, eventType, action);
+        return String.format("SpellEvent: id = %d, eventType = %s, action = %s", id, eventType, action);
     }
 }
