@@ -2,8 +2,8 @@ package school.faang.task_56876;
 
 public class Main {
     public static void main(String[] args) {
-        StandartWeatherCache standartCache = new StandartWeatherCache();
-        FrequentUpdateWeatherCache frequentCache = new FrequentUpdateWeatherCache();
+        final StandartWeatherCache standartCache = new StandartWeatherCache();
+        final FrequentUpdateWeatherCache frequentCache = new FrequentUpdateWeatherCache();
 
         long maxCacheAgeMillis = 10000;
         String city = "Moscow";
