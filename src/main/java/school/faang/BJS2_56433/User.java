@@ -1,5 +1,6 @@
 package school.faang.BJS2_56433;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,9 +10,6 @@ public class User {
     private int age;
     private String workplace;
     private String address;
-
-    public User() {
-    }
 
     public User(String name, int age, String workplace, String address) {
         this.name = name;
@@ -54,18 +52,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return String.format("User{name='%s', age=%d, workplace='%s', address='%s'}", name, age, workplace, address);
     }
 
-    static Map<Integer, List<User>> groupUsers(List<User> users){
-        Map<Integer, List<User>> usersByAge = users.stream()
-                .collect(Collectors.groupingBy(User::getAge));
-
-        return usersByAge;
+    static Map<Integer, List<User>> groupUsers(List<User> users) {
+        if (users == null) {
+            return new HashMap<>();
+        } else {
+            Map<Integer, List<User>> usersByAge = users.stream().collect(Collectors.groupingBy(User::getAge));
+            return usersByAge;
+        }
     }
 }
