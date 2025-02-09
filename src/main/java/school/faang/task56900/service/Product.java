@@ -1,20 +1,17 @@
 package school.faang.task56900.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Objects;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
     private static int uniqueId = 1;
     private int id;
+
+    @EqualsAndHashCode.Include
     private String name;
+    @EqualsAndHashCode.Include
     private Category category;
 
     public Product(String name, Category category) {
@@ -22,22 +19,4 @@ public class Product {
         this.name = name;
         this.category = category;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Product product = (Product) o;
-        return Objects.equals(name, product.name) && category == product.category;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, category);
-    }
 }
-
