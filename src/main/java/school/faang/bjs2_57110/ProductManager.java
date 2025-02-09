@@ -31,8 +31,8 @@ public class ProductManager {
         Product product = new Product(currentId++, name, category);
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
-        categoryMap.get(category).remove(product);
-        log.info("Добавлен товар: " + product);
+        categoryMap.get(category).add(product);
+        log.debug("Добавлен товар: {}", product);
     }
 
     /**
@@ -51,9 +51,9 @@ public class ProductManager {
         if (productForDelete != null) {
             products.remove(productForDelete);
             categoryMap.get(category).remove(productForDelete);
-            log.info("Удален товар: " + productForDelete);
+            log.debug("Удален товар: {}", productForDelete);
         } else {
-            log.info("Отсутсвует товар: " + name);
+            log.debug("Отсутсвует товар: {}", name);
         }
     }
 
@@ -64,12 +64,9 @@ public class ProductManager {
      * @see ProductManager#addProduct(Category, String)
      */
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> productList = new ArrayList<>();
-        if (categoryMap.containsKey(category)) {
-            productList = categoryMap.get(category);
-        }
-        log.info("Список товаров, соответствующий категории: " + category.name() + "\n" + productList);
-        return productList;
+        List<Product> products = categoryMap.getOrDefault(category, new ArrayList<>());
+        log.debug("Список товаров, соответствующий категории: {} \n {}", category.name(), products);
+        return products;
     }
 
     /**
@@ -81,10 +78,9 @@ public class ProductManager {
         Map<Category, List<Product>> newCategoryMap = new HashMap<>();
         for (Product product : products) {
             Category category = product.getCategory();
-            newCategoryMap.putIfAbsent(category, new ArrayList<>());
-            newCategoryMap.get(category).add(product);
+            newCategoryMap.putIfAbsent(category, new ArrayList<>()).add(product);
         }
-        log.info("Товары сгруппированы по категориям:\n" + newCategoryMap);
+        log.debug("Товары сгруппированы по категориям:\n {}", newCategoryMap);
         return newCategoryMap;
     }
 
