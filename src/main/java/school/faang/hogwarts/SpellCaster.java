@@ -9,13 +9,13 @@ public class SpellCaster {
 
     public void checkSpell(String spell) {
         if (spell == null || spell.isBlank()) {
-            throw new IllegalArgumentException("Название заклинания не должно быть пустым");
+            throw new IllegalArgumentException("Название заклинания не должно быть пустым.");
         }
     }
 
     public void checkSpellAction(SpellAction spellAction) {
         if (spellAction == null) {
-            throw new IllegalArgumentException("Действие заклинания не может быть null");
+            throw new IllegalArgumentException("Действие заклинания не может быть null.");
         }
     }
 }
