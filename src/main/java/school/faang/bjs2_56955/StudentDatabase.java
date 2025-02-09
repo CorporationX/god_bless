@@ -17,7 +17,10 @@ public class StudentDatabase {
 
     public void addStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, grade);
-        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
+        if (!students.contains(student)) {
+            students.add(student);
+        };
     }
 
     public void addSubjectForStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
