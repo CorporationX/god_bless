@@ -1,58 +1,60 @@
 package school.faang.task_56988;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static school.faang.task_56988.ProductManager.addProduct;
-import static school.faang.task_56988.ProductManager.findProductsByCategory;
-import static school.faang.task_56988.ProductManager.groupProductsByCategory;
-import static school.faang.task_56988.ProductManager.printAllProducts;
-import static school.faang.task_56988.ProductManager.products;
-import static school.faang.task_56988.ProductManager.removeProduct;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Adding of products");
+        ProductManager productManager = new ProductManager(new HashSet<>(), new HashMap<>());
 
-        addProduct(Category.FOOD, "Apple");
-        addProduct(Category.FOOD, "Bread");
-        addProduct(Category.ELECTRONICS, "Laptop");
-        addProduct(Category.ELECTRONICS, "Smartphone");
+        productManager.addProduct(Category.FOOD, "Apple");
+        productManager.addProduct(Category.FOOD, "Bread");
+        productManager.addProduct(Category.ELECTRONICS, "Laptop");
+        productManager.addProduct(Category.ELECTRONICS, "Smartphone");
 
-        printAllProducts();
+        productManager.printAllProducts();
         System.out.println("""
                 ---------------------------------------------------------------------------
                 """);
         System.out.println("Removal of products");
 
-        removeProduct(Category.ELECTRONICS, "Smartphone");
-        removeProduct(Category.ELECTRONICS, "Laptop");
+        productManager.removeProduct(Category.ELECTRONICS, "Smartphone");
+        productManager.removeProduct(Category.ELECTRONICS, "Laptop");
 
-        printAllProducts();
+        productManager.printAllProducts();
         System.out.println("""
                 ---------------------------------------------------------------------------
                 """);
         System.out.println("Adding multiple products");
 
-        Set<Product> productsToAdd = Set.of(
-                new Product("Banana", Category.FOOD),
-                new Product("Smartphone", Category.ELECTRONICS),
-                new Product("Laptop", Category.ELECTRONICS),
-                new Product("T-Shirt", Category.CLOTHING),
-                new Product("Jeans", Category.CLOTHING),
-                new Product("Book", Category.OTHER),
-                new Product("Notebook", Category.OTHER),
-                new Product("Headphones", Category.ELECTRONICS)
+        List<Product> productsToAdd = Arrays.asList(
+                new Product(productManager.getNextId(), "Apple", Category.FOOD),
+                new Product(productManager.getNextId(), "Bread", Category.FOOD),
+                new Product(productManager.getNextId(), "Laptop", Category.ELECTRONICS),
+                new Product(productManager.getNextId(), "Smartphone", Category.ELECTRONICS),
+                new Product(productManager.getNextId(), "Banana", Category.FOOD),
+                new Product(productManager.getNextId(), "Smartphone", Category.ELECTRONICS),
+                new Product(productManager.getNextId(), "Laptop", Category.ELECTRONICS),
+                new Product(productManager.getNextId(), "T-Shirt", Category.CLOTHING),
+                new Product(productManager.getNextId(), "Jeans", Category.CLOTHING),
+                new Product(productManager.getNextId(), "Book", Category.OTHER),
+                new Product(productManager.getNextId(), "Notebook", Category.OTHER),
+                new Product(productManager.getNextId(), "Headphones", Category.ELECTRONICS)
         );
-        products.addAll(productsToAdd);
-        printAllProducts();
+        for (Product product : productsToAdd) {
+            productManager.addProduct(product.getCategory(), product.getName());
+        }
+        productManager.printAllProducts();
 
         System.out.println("""
                 ---------------------------------------------------------------------------
                 """);
         System.out.println("Find products by category");
 
-        List<Product> foodProducts = findProductsByCategory(Category.FOOD);
+        List<Product> foodProducts = productManager.findProductsByCategory(Category.FOOD);
         System.out.println(foodProducts);
 
         System.out.println("""
@@ -60,7 +62,7 @@ public class Main {
                 """);
         System.out.println("Group products by category");
 
-        groupProductsByCategory();
-        printAllProducts();
+        productManager.groupProductsByCategory();
+        productManager.printAllProducts();
     }
 }

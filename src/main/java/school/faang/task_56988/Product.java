@@ -1,25 +1,18 @@
 package school.faang.task_56988;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
-@Setter
+@AllArgsConstructor
 @ToString
 public class Product {
     private final int id;
     private final String name;
     private final Category category;
-    private static int counter = 1;
-
-    public Product(String name, Category category) {
-        this.id = counter++;
-        this.name = name;
-        this.category = category;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,5 +27,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(name, category);
     }
-
 }
