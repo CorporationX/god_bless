@@ -9,12 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Notification {
     public enum NotificationType {
-            EMAIL, SMS, PUSH
+        EMAIL, SMS, PUSH
     }
 
     private final NotificationType type;
     private final String message;
-
-
-
 }
