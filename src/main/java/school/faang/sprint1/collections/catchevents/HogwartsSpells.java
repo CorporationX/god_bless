@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
+    private final String SPELL_TYPE_ERROR_MESSAGE = "Заклинание типа '%s' не обнаружено";
+    private final String SPELL_ID_ERROR_MESSAGE = "Заклинание с id = %d не обнаружено";
     private static int countId = 0;
+
     private Map<Integer, SpellEvent> spellById = new HashMap<Integer, SpellEvent>();
     private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
@@ -26,40 +29,47 @@ public class HogwartsSpells {
         if (spellById.containsKey(id)) {
             return spellById.get(id);
         } else {
-            throw new NotFoundSpellEventIdException("Spell event with id = %d not found", id);
+            throw new NotFoundSpellEventIdException(SPELL_ID_ERROR_MESSAGE, id);
         }
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         if (eventType != null && !eventType.isBlank()) {
-            return spellByType.get(eventType);
+            if (spellByType.containsKey(eventType)) {
+                return spellByType.get(eventType);
+            } else {
+                throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, eventType);
+            }
         } else {
-            throw new NotFoundSpellEventTypeException("Spell event with type %s not found!", eventType);
+            throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, eventType);
         }
-
     }
 
     public void deleteSpellEvent(int id) {
         if (spellById.containsKey(id)) {
             SpellEvent spellEvent = spellById.get(id);
-            if (spellByType.containsKey(spellEvent.getEventType())) {
+            String eventType = spellEvent.getEventType();
+            if (spellByType.containsKey(eventType)) {
                 spellById.remove(id);
-                //spellByType.remove(spellEvent.getEventType());
-                spellByType.get(spellEvent.getEventType()).remove(spellEvent);
+                List<SpellEvent> spellEvents = spellByType.get(eventType);
+                spellEvents.remove(spellEvent);
+                if (spellEvents.size() == 0) {
+                    spellByType.remove(eventType);
+                }
             } else {
-                throw new NotFoundSpellEventTypeException("Spell event with type %s not found!", spellEvent.getEventType());
+                throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, spellEvent.getEventType());
             }
         } else {
-            String message = "SpellEvent with id = " + id + " does not exist";
-            throw new NotFoundSpellEventIdException("Spell event with id = %d not found", id);
+            throw new NotFoundSpellEventIdException(SPELL_ID_ERROR_MESSAGE, id);
         }
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            SpellEvent spellEvent = spellById.get(entry.getKey());
-            System.out.println("id = " + spellEvent.getId() + ", event type = " + spellEvent.getEventType()
-            + ", spell action = " + spellEvent.getAction());
+            SpellEvent spellEvent = entry.getValue();
+            System.out.print("id = " + spellEvent.getId()) ;
+            System.out.print(", event type = " + spellEvent.getEventType());
+            System.out.println(", spell action = " + spellEvent.getAction());
         }
     }
 }
