@@ -23,7 +23,8 @@ public class User {
             throw new IllegalArgumentException("Поле 'имя' не может быть пустым");
         }
         if (age < MIN_AGE || age > MAX_AGE) {
-            throw new IllegalArgumentException(String.format("Возраст не может быть больше %d или меньше %d", MAX_AGE, MIN_AGE));
+            throw new IllegalArgumentException(String.format("Возраст не может быть больше %d или меньше %d",
+                    MAX_AGE, MIN_AGE));
         }
         if (placeOfWork == null || placeOfWork.isBlank()) {
             throw new IllegalArgumentException("Поле 'место работы' не может быть пустым ");

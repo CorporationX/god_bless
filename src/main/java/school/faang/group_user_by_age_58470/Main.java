@@ -14,7 +14,8 @@ public class Main {
         );
 
         for (Map.Entry<Integer, List<User>> entry : User.groupUser(users).entrySet()) {
-            System.out.println(String.format("Возврастная категория %d:\n\tСписок пользователей (%s)", entry.getKey(), entry.getValue()));
+            System.out.println(String.format("Возврастная категория %d:\n\tСписок пользователей (%s)",
+                    entry.getKey(), entry.getValue()));
         }
     }
 }
