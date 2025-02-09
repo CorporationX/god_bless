@@ -1,4 +1,4 @@
-package UserGrouping;
+package school.faang.userGrouping;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,7 @@ public class Main {
                 new User("Nora", 35, "Tesla", "202 Pine St")
         );
         Map<Integer, List<User>> groupedByAge = User.groupUsers(userList);
-        groupedByAge.forEach((key, value) -> System.out.println(key + " " + value.toString()));
+        groupedByAge.forEach((key, value)
+                -> System.out.println(String.format("Возраст: %d, Пользователи: %s", key, value.toString())));
     }
 }

@@ -1,4 +1,4 @@
-package UserGrouping;
+package school.faang.userGrouping;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,6 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 public class User {
-    public static final Map<Integer, List<User>> USERS = new HashMap<>();
 
     private String name;
     private int age;
@@ -21,10 +20,11 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
+        Map<Integer, List<User>> users = new HashMap<>();
         for (User user : userList) {
-            USERS.computeIfAbsent(user.getAge(),
+            users.computeIfAbsent(user.getAge(),
                     value -> new ArrayList<>()).add(user);
         }
-        return USERS;
+        return users;
     }
 }
