@@ -1,6 +1,9 @@
-package school.faang;
+package school.faang.models;
 
 import lombok.Setter;
+import school.faang.exceptions.EmployeeNotFoundException;
+import school.faang.exceptions.ProjectNotFoundException;
+import school.faang.strategies.TeamAssignmentStrategy;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,7 +30,7 @@ public class ProjectManager {
 
     public void assignTeamToProject(int projectId) {
         if (!projectMap.containsKey(projectId)) {
-            throw new ProjectNotFoundException("No project with id " + projectId + " in project manager");
+            throw new ProjectNotFoundException(projectId);
         }
         List<Employee> employees = new ArrayList<>(employeeMap.values());
         teamAssignmentStrategy.assignTeam(projectMap.get(projectId), employees);
@@ -37,7 +40,7 @@ public class ProjectManager {
 
     public List<Employee> getTeamForProject(int projectId) {
         if (!projectMap.containsKey(projectId)) {
-            throw new ProjectNotFoundException("No project with id " + projectId + " in project manager");
+            throw new ProjectNotFoundException(projectId);
         }
         return projectMap.get(projectId).getTeamMembers().stream().toList();
     }
@@ -66,7 +69,7 @@ public class ProjectManager {
         validateEmployee(employee);
         Project project = projectMap.get(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException("No project with id " + projectId + " in project manager");
+            throw new ProjectNotFoundException(projectId);
         }
         if (employee.getSkills().containsAll(project.getRequiredSkills())) {
             employeeMap.put(employee.getId(), employee);
@@ -81,11 +84,11 @@ public class ProjectManager {
     public boolean removeEmployeeFromProject(int projectId, int employeeId) {
         Project project = projectMap.get(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException("No project with id " + projectId + " in project manager");
+            throw new ProjectNotFoundException(projectId);
         }
         Employee employee = employeeMap.get(employeeId);
         if (employee == null) {
-            throw new EmployeeNotFoundException("No employee with id " + employeeId + " in project manager");
+            throw new EmployeeNotFoundException(employeeId);
         }
         if (project.getTeamMembers().contains(employee)) {
             project.getTeamMembers().remove(employee);
@@ -98,7 +101,7 @@ public class ProjectManager {
     public List<Employee> getTeamMembers(int projectId) {
         Project project = projectMap.get(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException("No project with id " + projectId + " in project manager");
+            throw new ProjectNotFoundException(projectId);
         }
         return project.getTeamMembers().stream().toList();
     }

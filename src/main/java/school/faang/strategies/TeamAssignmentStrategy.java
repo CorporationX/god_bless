@@ -1,4 +1,7 @@
-package school.faang;
+package school.faang.strategies;
+
+import school.faang.models.Employee;
+import school.faang.models.Project;
 
 import java.util.List;
 

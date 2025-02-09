@@ -1,4 +1,6 @@
-package school.faang;
+package school.faang.models;
+
+import school.faang.strategies.BalancedTeamAssignmentStrategy;
 
 import java.util.HashMap;
 import java.util.HashSet;
