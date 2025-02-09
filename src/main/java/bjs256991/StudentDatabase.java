@@ -106,7 +106,8 @@ public class StudentDatabase {
         if (Objects.nonNull(student) && Objects.nonNull(subject)) {
             Map<Subject, Integer> subjectsToEstimates = studentSubjects.get(student);
             if (subjectsToEstimates != null) {
-                Iterator<Map.Entry<Subject, Integer>> subjectsToEstimatesIterator = subjectsToEstimates.entrySet().iterator();
+                Iterator<Map.Entry<Subject, Integer>> subjectsToEstimatesIterator = subjectsToEstimates
+                        .entrySet().iterator();
                 if (subjectsToEstimatesIterator.hasNext()) {
                     Map.Entry<Subject, Integer> subjectToEstimate = subjectsToEstimatesIterator.next();
                     if (subjectToEstimate.getKey().equals(subject)) {

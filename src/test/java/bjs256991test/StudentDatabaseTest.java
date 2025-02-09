@@ -65,12 +65,17 @@ public class StudentDatabaseTest {
     @Test
     void addSubjectStudents() {
         fillStudentsSubjectsEstimates();
-        studentDatabase.addSubjectStudents(new Subject("Biology"), actualSubjectStudents.get(new Subject("Mathematics")));
-        Assertions.assertTrue(actualStudentSubjects.get(new Student("Dmitry")).containsKey(new Subject("Biology")));
-        Assertions.assertTrue(actualStudentSubjects.get(new Student("Alexey")).containsKey(new Subject("Biology")));
+        studentDatabase.addSubjectStudents(new Subject("Biology"),
+                actualSubjectStudents.get(new Subject("Mathematics")));
+        Assertions.assertTrue(actualStudentSubjects.get(new Student("Dmitry"))
+                .containsKey(new Subject("Biology")));
+        Assertions.assertTrue(actualStudentSubjects.get(new Student("Alexey"))
+                .containsKey(new Subject("Biology")));
         Assertions.assertTrue(actualSubjectStudents.containsKey(new Subject("Biology")));
-        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Biology")).contains(new Student("Dmitry")));
-        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Biology")).contains(new Student("Alexey")));
+        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Biology"))
+                .contains(new Student("Dmitry")));
+        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Biology"))
+                .contains(new Student("Alexey")));
     }
 
     @Test
@@ -78,7 +83,8 @@ public class StudentDatabaseTest {
         fillStudentsSubjectsEstimates();
         studentDatabase.addStudentSubject(new Student("Michail"), new Subject("Mathematics"));
         Assertions.assertTrue(actualStudentSubjects.containsKey(new Student("Michail")));
-        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Mathematics")).contains(new Student("Michail")));
+        Assertions.assertTrue(actualSubjectStudents.get(new Subject("Mathematics"))
+                .contains(new Student("Michail")));
     }
 
     @Test
@@ -87,12 +93,15 @@ public class StudentDatabaseTest {
         studentDatabase.removeStudentFromSubject(new Student("Dmitry"), new Subject("Mathematics"));
         Assertions.assertTrue(actualStudentSubjects.containsKey(new Student("Dmitry")));
         Assertions.assertTrue(actualSubjectStudents.containsKey(new Subject("Mathematics")));
-        Assertions.assertFalse(actualStudentSubjects.get(new Student("Dmitry")).containsKey(new Subject("Mathematics")));
+        Assertions.assertFalse(actualStudentSubjects.get(new Student("Dmitry"))
+                .containsKey(new Subject("Mathematics")));
     }
 
     private void fillStudentsSubjectsEstimates() {
-        studentDatabase.addStudentSubjectsEstimates(new Student("Dmitry"), new Subject("Mathematics"), 4);
-        studentDatabase.addStudentSubjectsEstimates(new Student("Alexey"), new Subject("Mathematics"), 5);
+        studentDatabase.addStudentSubjectsEstimates(new Student("Dmitry"),
+                new Subject("Mathematics"), 4);
+        studentDatabase.addStudentSubjectsEstimates(new Student("Alexey"),
+                new Subject("Mathematics"), 5);
         Assertions.assertEquals(2, actualStudentSubjects.size());
         Assertions.assertEquals(1, actualSubjectStudents.size());
     }
