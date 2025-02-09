@@ -7,11 +7,11 @@ public class Main {
 
         long maxCacheAgeMillis = 5 * 60 * 1000;
 
-        WeatherData saintPWeather = weatherCache.getWeatherData("Saint-Petersburg", maxCacheAgeMillis);
-        System.out.println("City: " + saintPWeather.getCity());
-        System.out.println("Temperature: " + saintPWeather.getTemperature());
-        System.out.println("Humidity: " + saintPWeather.getHumidity());
-        System.out.println("Time to receipt: " + saintPWeather.getTimestamp());
+        WeatherData saintPetersburgWeather = weatherCache.getWeatherData("Saint-Petersburg", maxCacheAgeMillis);
+        System.out.println("City: " + saintPetersburgWeather.getCity());
+        System.out.println("Temperature: " + saintPetersburgWeather.getTemperature());
+        System.out.println("Humidity: " + saintPetersburgWeather.getHumidity());
+        System.out.println("Time to receipt: " + saintPetersburgWeather.getTimestamp());
 
         WeatherData moscowWeather = weatherCache.getWeatherData("Moscow", maxCacheAgeMillis);
         System.out.println("City: " + moscowWeather.getCity());
