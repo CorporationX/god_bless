@@ -1,4 +1,4 @@
-package userRegistration;
+package school.faang.userRegistration;
 
 public class Main {
     public static void main(String[] args) {
