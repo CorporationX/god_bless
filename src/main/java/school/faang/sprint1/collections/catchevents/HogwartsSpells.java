@@ -26,28 +26,32 @@ public class HogwartsSpells {
         if (spellById.containsKey(id)) {
             return spellById.get(id);
         } else {
-            throw new NotFoundSpellEventTypeException("SpellEvent with such event type does not exist");
+            throw new NotFoundSpellEventIdException("Spell event with id = %d not found", id);
         }
-
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellByType.get(eventType);
+        if (eventType != null && !eventType.isBlank()) {
+            return spellByType.get(eventType);
+        } else {
+            throw new NotFoundSpellEventTypeException("Spell event with type %s not found!", eventType);
+        }
+
     }
 
     public void deleteSpellEvent(int id) {
         if (spellById.containsKey(id)) {
             SpellEvent spellEvent = spellById.get(id);
             if (spellByType.containsKey(spellEvent.getEventType())) {
-                spellByType.remove(spellEvent.getEventType());
                 spellById.remove(id);
+                //spellByType.remove(spellEvent.getEventType());
+                spellByType.get(spellEvent.getEventType()).remove(spellEvent);
             } else {
-                throw new NotFoundSpellEventTypeException("SpellEvent with event type '" + spellEvent.getEventType() +
-                        "' does not exist");
+                throw new NotFoundSpellEventTypeException("Spell event with type %s not found!", spellEvent.getEventType());
             }
         } else {
             String message = "SpellEvent with id = " + id + " does not exist";
-            throw new NotFoundSpellEventIdException(message);
+            throw new NotFoundSpellEventIdException("Spell event with id = %d not found", id);
         }
     }
 
