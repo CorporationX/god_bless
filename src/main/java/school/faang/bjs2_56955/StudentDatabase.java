@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,19 +12,15 @@ import java.util.Map;
 @Getter
 public class StudentDatabase {
     private static final int DEFAULT_GRADE = 0;
-    private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudent(@NonNull Student student,
-                           @NonNull Subject subject,
-                           @NonNull int grade) {
+    public void addStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, grade);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public void addSubjectForStudent(@NonNull Student student,
-                                     @NonNull Subject subject,
-                                     @NonNull int grade) {
+    public void addSubjectForStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
         if (!studentSubjects.containsKey(student)) {
             System.out.println("Student " + student.getName() + " does not exist");
             return;
@@ -94,5 +91,13 @@ public class StudentDatabase {
             sb.append("\n");
         });
         System.out.print(sb);
+    }
+
+    public Map<Student, Map<Subject, Integer>> getSubjectsAndGradesByStudent() {
+        return Collections.unmodifiableMap(studentSubjects);
+    }
+
+    public Map<Subject, List<Student>> getStudentsBySubject() {
+        return Collections.unmodifiableMap(subjectStudents);
     }
 }
