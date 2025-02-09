@@ -3,13 +3,16 @@ package school.faang.task_56380;
 
 public class Example {
     public static int[] reverse(int[] nums) {
-        int startNum = 0;
-        int endNum = nums.length - 1;
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+        int leftPointer = 0;
+        int rightPointer = nums.length - 1;
         for (int i = 0; i < nums.length / 2; i++) {
-            startNum = nums[i];
-            nums[i] = nums[endNum];
-            nums[endNum] = startNum;
-            endNum--;
+            leftPointer = nums[i];
+            nums[i] = nums[rightPointer];
+            nums[rightPointer] = leftPointer;
+            rightPointer--;
         }
         return nums;
     }
