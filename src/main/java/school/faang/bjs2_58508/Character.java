@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
+    protected String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this(name, 5, 5, 5);
@@ -28,8 +28,8 @@ public abstract class Character {
 
     protected abstract void attack(Character opponent);
 
-    protected void getHealthBellowZero(Character opponent) {
-        if (opponent.getHealth() <= 0) {
+    protected void isHealthOpponentBellowZero(Character opponent) {
+        if (Math.max(opponent.getHealth(), 0) == 0) {
             System.out.println(opponent.getName() + " don't have enough health! He's lose!");
         }
     }
