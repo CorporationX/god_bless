@@ -12,9 +12,9 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (opponent.hasHealth()){
+        if (opponent.hasHealth()) {
             opponent.setHealth(opponent.getHealth() - getPower());
-        }else {
+        } else {
             System.out.println("Противник " + opponent.getName() + " повержен!");
         }
     }

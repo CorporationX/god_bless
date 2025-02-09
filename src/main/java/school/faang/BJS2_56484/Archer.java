@@ -11,9 +11,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (opponent.hasHealth()){
+        if (opponent.hasHealth()) {
             opponent.setHealth(opponent.getHealth() - getAgility());
-        }else {
+        } else {
             System.out.println("Противник " + opponent.getName() + " повержен!");
         }
     }
