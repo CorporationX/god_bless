@@ -49,6 +49,3 @@ public class Product {
     }
 }
 
-enum Category {
-    FOOD, ELECTRONICS, CLOTHING, OTHER
-}
