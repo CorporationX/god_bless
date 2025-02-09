@@ -1,7 +1,7 @@
 package school.faang;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         hogwartsSpells.addSpellEvent("Expeliarmus", "Disarms an opponent");
         hogwartsSpells.addSpellEvent("Lumos", "Creates light");
