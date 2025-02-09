@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Getter
 @ToString
-
 public class Product {
     private static int idCounter = 1;
 
@@ -37,22 +36,16 @@ public class Product {
     }
 
     public static void validateName(String name) {
-        try {
-            if (name.isBlank()) {
-                throw new IllegalArgumentException("Ошибка! Имя не может быть пустым");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Ошибка! Имя не может быть пустым");
         }
     }
 
     public static void validateCategory(Category category) {
-        try {
-            if (category == null) {
-                throw new IllegalArgumentException("Ошибка котигория не должна быть null!");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+
+        if (category == null) {
+            throw new IllegalArgumentException("Ошибка котигория не должна быть null!");
         }
     }
 }

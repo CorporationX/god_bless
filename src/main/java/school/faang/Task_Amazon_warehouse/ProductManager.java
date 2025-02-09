@@ -1,7 +1,5 @@
 package school.faang.Task_Amazon_warehouse;
 
-import lombok.EqualsAndHashCode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@EqualsAndHashCode
 public class ProductManager {
     private static Set<Product> products = new HashSet<>();
     private static Map<Category, List<Product>> categoryMap = new HashMap<>();
@@ -28,15 +25,12 @@ public class ProductManager {
         Product.validateCategory(category);
 
         Product product = new Product(name, category);
-        try {
-            if (!categoryMap.containsKey(category)) {
-                throw new IllegalArgumentException("Ошибка! Выбран не существующая категория");
-            } else if (!categoryMap.get(category).contains(product)) {
-                throw new IllegalArgumentException("Ошибка! товар не найден!");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return;
+
+        if (!categoryMap.containsKey(category)) {
+            throw new IllegalArgumentException("Ошибка! Выбран не существующая категория");
+        } else if (!categoryMap.get(category).contains(product)) {
+            throw new IllegalArgumentException("Ошибка! товар не найден!");
+
         }
 
         products.remove(product);
