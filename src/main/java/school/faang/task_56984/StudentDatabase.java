@@ -88,4 +88,21 @@ public class StudentDatabase {
             grades.remove(subject); // Удаляем предмет из записей студента
         }
     }
+
+    public Integer getGradeForStudentInSubject(Student student, Subject subject) {
+        Map<Subject, Integer> grades = studentSubjects.get(student);
+        if (grades != null) {
+            return grades.get(subject);
+        } else {
+            return null;
+        }
+    }
+
+    public Map<Student, Map<Subject, Integer>> getStudentSubjects() {
+        return studentSubjects;
+    }
+
+    public Map<Subject, List<Student>> getSubjectStudents() {
+        return subjectStudents;
+    }
 }
