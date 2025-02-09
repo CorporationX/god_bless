@@ -1,4 +1,4 @@
-package school.faang.BJS2_57222;
+package school.faang.bjs2_57222;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,5 +18,7 @@ public class Main {
 
         System.out.println("\n" + "Удалим заклинание по его id:");
         hogwartsSpells.deleteSpellEvent(1);
+
+        hogwartsSpells.printAllSpellEvents();
     }
 }

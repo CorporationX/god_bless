@@ -1,4 +1,4 @@
-package school.faang.BJS2_57222;
+package school.faang.bjs2_57222;
 
 import lombok.NoArgsConstructor;
 
@@ -32,12 +32,10 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = getSpellEventById(id);
+        SpellEvent spellEvent = spellById.remove(id);
         String eventType = spellEvent.getEventType();
-        spellById.remove(id);
         List<SpellEvent> spellEventList = getSpellEventsByType(eventType);
         spellEventList.remove(spellEvent);
-        spellsByType.put(eventType, spellEventList);
         System.out.println("Deleted spellEvent where id: " + id);
     }
 
