@@ -6,7 +6,7 @@ public class Archer extends Character {
     }
 
     @Override
-    protected void attack(Character opponent) {
+    public void attack(Character opponent) {
         if (opponent.isAlive()) {
             opponent.setHealth(opponent.getHealth() - getAgility());
         }
