@@ -4,5 +4,5 @@ public enum Category {
     FOOD,
     ELECTRONICS,
     CLOTHING,
-    OTHER;
+    OTHER
 }
