@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private final String SPELL_TYPE_ERROR_MESSAGE = "Заклинание типа '%s' не обнаружено";
-    private final String SPELL_ID_ERROR_MESSAGE = "Заклинание с id = %d не обнаружено";
+    private final String spellTypeErrorMessage = "Заклинание типа '%s' не обнаружено";
+    private final String spellIdErrorMessage = "Заклинание с id = %d не обнаружено";
     private static int countId = 0;
 
     private Map<Integer, SpellEvent> spellById = new HashMap<Integer, SpellEvent>();
@@ -29,7 +29,7 @@ public class HogwartsSpells {
         if (spellById.containsKey(id)) {
             return spellById.get(id);
         } else {
-            throw new NotFoundSpellEventIdException(SPELL_ID_ERROR_MESSAGE, id);
+            throw new NotFoundSpellEventIdException(spellIdErrorMessage, id);
         }
     }
 
@@ -38,10 +38,10 @@ public class HogwartsSpells {
             if (spellByType.containsKey(eventType)) {
                 return spellByType.get(eventType);
             } else {
-                throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, eventType);
+                throw new NotFoundSpellEventTypeException(spellTypeErrorMessage, eventType);
             }
         } else {
-            throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, eventType);
+            throw new NotFoundSpellEventTypeException(spellTypeErrorMessage, eventType);
         }
     }
 
@@ -57,10 +57,10 @@ public class HogwartsSpells {
                     spellByType.remove(eventType);
                 }
             } else {
-                throw new NotFoundSpellEventTypeException(SPELL_TYPE_ERROR_MESSAGE, spellEvent.getEventType());
+                throw new NotFoundSpellEventTypeException(spellTypeErrorMessage, spellEvent.getEventType());
             }
         } else {
-            throw new NotFoundSpellEventIdException(SPELL_ID_ERROR_MESSAGE, id);
+            throw new NotFoundSpellEventIdException(spellIdErrorMessage, id);
         }
     }
 
