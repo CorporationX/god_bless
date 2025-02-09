@@ -54,6 +54,7 @@ public class LibrarySystem {
     }
 
     public void printAllBooks() {
-        bookLocations.forEach((book, location) -> System.out.println(String.format("Book found: %s, location: %s", book, location)));
+        bookLocations.forEach((book, location)
+                -> System.out.println(String.format("Book found: %s, location: %s", book, location)));
     }
 }
