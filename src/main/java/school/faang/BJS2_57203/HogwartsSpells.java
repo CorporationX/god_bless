@@ -11,10 +11,10 @@ public class HogwartsSpells {
     private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String eventDescription) {
-        if (eventType.isBlank() || eventType == null) {
+        if (eventType == null || eventType.isBlank()) {
             throw new IllegalArgumentException("Ошибка! Тип события не может быть пустым!");
         }
-        if (eventDescription.isBlank()) {
+        if (eventDescription == null || eventDescription.isBlank()) {
             throw new IllegalArgumentException("Ошибка! Описание события не может быть пустым!");
         }
 
@@ -44,12 +44,8 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
 
-        try {
-            if (!SPELL_BY_ID.containsKey(id)) {
-                throw new IllegalArgumentException("Ошибка! Вы вели не существующий ID!!!");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        if (!SPELL_BY_ID.containsKey(id)) {
+            throw new IllegalArgumentException("Ошибка! Вы вели не существующий ID!!!");
         }
 
         String key = SPELL_BY_ID.get(id).getEventType();
@@ -71,8 +67,7 @@ public class HogwartsSpells {
 
     public static void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : SPELL_BY_ID.entrySet()) {
-            System.out.printf("ID события: %d.  Тип закленания: %s   Описание события: %s \n" +
-                            "",
+            System.out.printf("ID события: %d.  Тип закленания: %s   Описание события: %s \n",
                     entry.getKey(), entry.getValue().getEventType(), entry.getValue().getAction());
         }
     }
