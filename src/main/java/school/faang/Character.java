@@ -22,4 +22,4 @@ abstract class Character {
         this.intelligence = intelligence;
         this.heathl = 100;
     }
-}.
+}
