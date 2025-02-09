@@ -60,8 +60,7 @@ public class User {
             return new HashMap<>();
         }
 
-        Map<Integer, List<User>> usersByAge = users.stream()
-                .collect(Collectors.groupingBy(User::getAge));
+        Map<Integer, List<User>> usersByAge = users.stream().collect(Collectors.groupingBy(User::getAge));
 
         return usersByAge;
     }
