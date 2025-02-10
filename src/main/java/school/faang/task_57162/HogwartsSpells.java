@@ -8,19 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private static final Map<Integer, SpellEvent> SPELL_BY_ID;
-    private static final Map<String, List<SpellEvent>> SPELL_BY_TYPE;
-    private static final String MESSAGE_OF_ADD;
-    private static final String MESSAGE_OF_DELETE;
-    private static final String NOT_FOUND_MESSAGE;
-
-    static {
-        SPELL_BY_ID = new HashMap<>();
-        SPELL_BY_TYPE = new HashMap<>();
-        MESSAGE_OF_ADD = "ADDING: %s has been added.\n";
-        MESSAGE_OF_DELETE = "DELETING: %s has been deleted.\n";
-        NOT_FOUND_MESSAGE = "DELETING: spell event was not found by %d id.\n";
-    }
+    private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
+    private static final Map<String, List<SpellEvent>> SPELL_BY_TYPE = new HashMap<>();
+    private static final String MESSAGE_OF_ADD = "ADDING: %s has been added.\n";
+    private static final String MESSAGE_OF_DELETE = "DELETING: %s has been deleted.\n";
+    private static final String NOT_FOUND_MESSAGE = "DELETING: spell event was not found by %d id.\n";
 
     public static void addSpellEvent(@NonNull String eventType, @NonNull String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
