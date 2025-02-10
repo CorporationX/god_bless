@@ -12,6 +12,9 @@ public class LibrarySystem {
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
+        if (bookPlace.get(book) != null) {
+            logger.info("Данная книга (или ее копия) уже хранится в библиотеке на месте: {}", bookPlace.get(book));
+        }
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Название книги не должно быть пустым");
         }
@@ -23,9 +26,6 @@ public class LibrarySystem {
         }
         if (location == null || location.isBlank()) {
             throw new IllegalArgumentException("Информация о местоположении книги не должна быть пустой");
-        }
-        if (bookPlace.get(book) != null) {
-            logger.info("Данная книга (или ее копия) уже хранится в библиотеке на месте: {}", bookPlace.get(book));
         } else {
             bookPlace.put(book, location);
         }
