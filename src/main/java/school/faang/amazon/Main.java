@@ -20,7 +20,7 @@ public class Main {
         Set<Product> products = Set.of(new Product("Лук", Category.FOOD),
                 new Product("Штаны", Category.CLOTHING),
                 new Product("Смартфон", Category.ELECTRONICS),
-                new Product("Вилка", Category.OTHER));
+                new Product("Ложка", Category.OTHER));
 
         manager.groupProductsByCategory(products);
 
