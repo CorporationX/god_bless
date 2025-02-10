@@ -8,7 +8,6 @@ public class Main {
         List<SpellEvent> spellEvents;
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         hogwartsSpells.addSpellEvent("Чар", "защита от атак");
-        hogwartsSpells.addSpellEvent("Чар", "защита от fireball");
         hogwartsSpells.addSpellEvent("Трансформация", "Преобразует предмет");
         hogwartsSpells.addSpellEvent("Защита", "Защищает доспехи");
         hogwartsSpells.printAllSpellEvents();
