@@ -6,17 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ProductManager {
-    public static final Set<Product> products = new HashSet<>();
-    private static final Map<Category, List<Product>> categoryMap = new HashMap<>();
-    private int intCounter = 1;
+
+    public static Set<Product> products = new HashSet<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private int productIdCounter = 1;
 
     public void addProduct(Category category, String name) {
-
-        Product product = new Product(intCounter++, name, category);
+        if (category == null || name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("category or name is null");
+        }
+        Product product = new Product(productIdCounter++, name, category);
         if (products.contains(product)) {
             log.info("Данный продукт уже существует: {}", product.getName());
             return;
@@ -28,6 +32,9 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
+        if (category == null || name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("category or name is null");
+        }
         List<Product> productsInCategory = categoryMap.get(category);
         if (productsInCategory != null) {
             productsInCategory.removeIf(product -> product.getName().equals(name));

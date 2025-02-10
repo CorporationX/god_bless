@@ -13,7 +13,6 @@ public class Product {
     private String name;
     private Category category;
 
-
     public Product(int id, String name, Category category) {
         this.id = id;
         this.name = name;
