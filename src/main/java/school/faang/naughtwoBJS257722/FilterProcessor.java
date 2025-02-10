@@ -20,9 +20,9 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> filter_1, Function<Image, Image> filter_2) {
-        checkFunction(filter_1);
-        checkFunction(filter_2);
-        return filter_1.andThen(filter_2);
+    public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {
+        checkFunction(filter1);
+        checkFunction(filter2);
+        return filter1.andThen(filter2);
     }
 }
