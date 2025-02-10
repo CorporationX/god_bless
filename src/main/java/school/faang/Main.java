@@ -21,7 +21,7 @@ public class Main {
             output.append("Age: ").append(entry.getKey()).append("\n");
 
             for (User user : entry.getValue()) {
-                output.append("  ").append(user).append("\n");
+                output.append(" ").append(user).append("\n");
             }
         }
         System.out.print(output);
