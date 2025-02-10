@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public class ProductManager {
 
     private static Set<Product> products = new HashSet<>();
@@ -15,6 +14,12 @@ public class ProductManager {
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
+        for (Product newProduct : products) {
+            if (product.getName().equals(name) && product.getCategory().equals(category)) {
+                System.out.println("Продукт с именем " + name + " и категорией " + category + " уже существует.");
+                return;
+            }
+        }
         products.add(product);
         categoryMap.putIfAbsent(category, new ArrayList<>());
         categoryMap.get(category).add(product);
@@ -22,8 +27,6 @@ public class ProductManager {
 
     public void removeProduct(Category category, String name) {
         Product newProduct = new Product(name, category);
-        Product.validateName(name);
-        Product.validateCategory(category);
         if (!products.contains(newProduct)) {
             throw new IllegalArgumentException("Продукт " + newProduct + " отсутствует");
         } else if (!categoryMap.containsKey(category)) {
@@ -35,10 +38,7 @@ public class ProductManager {
 
     public List<Product> findProductsByCategory(Category category) {
         Product.validateCategory(category);
-        if (!categoryMap.containsKey(category)) {
-            return new ArrayList<>();
-        }
-        return categoryMap.get(category);
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory(Set<Product> products) {

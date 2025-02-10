@@ -1,6 +1,5 @@
 package school.faang.amazon;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +10,6 @@ import java.util.Objects;
 @Setter
 @ToString
 
-
 public class Product {
     private static int idGenerator = 1;
     private long id;
@@ -19,11 +17,11 @@ public class Product {
     private Category category;
 
     public Product(String name, Category category) {
+        validateName(name);
+        validateCategory(category);
         this.id = idGenerator++; //при создании Product, будет считать счетчик
         this.name = name;
         this.category = category;
-        validateName(name);
-        validateCategory(category);
     }
 
     @Override
