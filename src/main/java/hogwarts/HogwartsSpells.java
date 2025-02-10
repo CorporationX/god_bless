@@ -17,20 +17,20 @@ public class HogwartsSpells {
         id = 1;
     }
 
+    private void validateInput(String value, String errorMessage) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
     public void addSpellEvent(String eventType, String actionDescription) {
-        if (eventType == null || eventType.isBlank()) {
-            System.out.println("Error: Event type cannot be null or empty.");
-            return;
-        }
-        if (actionDescription == null || actionDescription.isBlank()) {
-            System.out.println("Error: Action description cannot be null or empty.");
-            return;
-        }
+        validateInput(eventType, "Error: Event type cannot be null or empty.");
+        validateInput(actionDescription, "Error: Action description cannot be null or empty.");
 
         int spellId = id++;
         SpellEvent spellEvent = new SpellEvent(spellId, eventType, actionDescription);
         spellsById.put(spellId, spellEvent);
-        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        spellsByType.computeIfAbsent(eventType, eventTypeKey -> new ArrayList<>()).add(spellEvent);
         System.out.println("Added spell event: " + spellEvent);
     }
 
@@ -40,7 +40,6 @@ public class HogwartsSpells {
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
-
     }
 
     public void deleteSpellEvent(int id) {
