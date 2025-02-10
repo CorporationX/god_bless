@@ -27,8 +27,11 @@ public class Main {
             Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
             System.out.println(combinedImage.getDescription());
         } catch (IllegalArgumentException e) {
-            log.error("Ошибка: Параметр имеет значение null или передано пустое значение. \n" +
-                            "Класс: {}, \nМетод: {}, \nСтрока: {}. ",
+            log.error("""
+                            Ошибка: Параметр имеет значение null или передано пустое значение.
+                            Класс: {},
+                            Метод: {},
+                            Строка: {}""",
                     e.getStackTrace()[1].getClassName(),
                     e.getStackTrace()[1].getMethodName(),
                     e.getStackTrace()[1].getLineNumber());
