@@ -14,7 +14,6 @@ public class Main {
         manager.addProduct(Category.CLOTHING, "underpants");
         manager.addProduct(Category.OTHER, "plane");
         System.out.println("_________________");
-
         manager.printAllProducts();
         System.out.println("_________________");
         System.out.println("Find in category FOOD:");
@@ -27,6 +26,7 @@ public class Main {
         System.out.println("_________________");
         System.out.println("Group products");
         Map<Category, List<Product>> groupingProducts = manager.groupProductsByCategory();
+        System.out.println(groupingProducts);
 
 
     }

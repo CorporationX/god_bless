@@ -1,62 +1,46 @@
 package school.faang.amazonestorage;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private static int idCounter = 1;
 
     public void addProduct(Category category, String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be blank.");
-        }
-        Product product = new Product(getRandomId(), name, category);
-        for (Product p : products) {
-            if (p.getName().equals(name) && p.getCategory().equals(category)) {
+        validationName(name);
+        Product newProduct = new Product(idCounter++, name, category);
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 throw new IllegalArgumentException("Duplicate product name: " + name);
             }
         }
-        products.add(product);
+        products.add(newProduct);
         categoryMap.putIfAbsent(category, new ArrayList<>());
-        categoryMap.get(category).add(product);
+        categoryMap.get(category).add(newProduct);
     }
 
     public void removeProduct(Category category, String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be blank.");
-        }
-        boolean isRemoved = false;
-        for (Product p : products) {
-            if (p.getName().equals(name) && p.getCategory().equals(category)) {
-                products.remove(p);
-                isRemoved = true;
-                break;
+        validationName(name);
+        boolean isRemoved = products.removeIf(product -> isEqualProduct(name, category, product));
+        if (isRemoved) {
+            List<Product> productList = categoryMap.get(category);
+            productList.removeIf(product -> isEqualProduct(name, category, product));
+            if (productList.isEmpty()) {
+                categoryMap.remove(category);
             }
-        }
-        for (Product p : categoryMap.get(category)) {
-            if (p.getName().equals(name) && p.getCategory().equals(category)) {
-                categoryMap.get(category).remove(p);
-                if (categoryMap.get(category).isEmpty()) {
-                    categoryMap.remove(category);
-                }
-                isRemoved = true;
-                break;
-            }
-        }
-        if (!isRemoved) {
-            throw new IllegalArgumentException("Product " + name + " was not found.");
         }
     }
 
     public List<Product> findProductsByCategory(Category category) {
         if (!categoryMap.containsKey(category)) {
-            return null;
+            return new ArrayList<>();
         }
         return categoryMap.get(category);
     }
@@ -72,7 +56,7 @@ public class ProductManager {
 
     public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
-            System.out.println("Категория: " + entry.getKey() + "\n Продукты:");
+            System.out.println(MessageFormat.format("Категория: {0} \nПродукты:", entry.getKey()));
             for (Product p : entry.getValue()) {
                 System.out.println(" - " + p.getName());
             }
@@ -81,11 +65,14 @@ public class ProductManager {
 
     }
 
-    private int getRandomId() {
-        Random rand = new Random();
-        return rand.nextInt(1, 100);
-
+    private void validationName(String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be blank.");
+        }
     }
 
-
+    private boolean isEqualProduct(String name, Category category, Product product) {
+        return product.getName().equals(name)
+                && product.getCategory().equals(category);
+    }
 }
