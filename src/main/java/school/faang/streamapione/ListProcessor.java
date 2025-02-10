@@ -1,5 +1,6 @@
 package school.faang.streamapione;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
@@ -40,8 +41,8 @@ public class ListProcessor {
 
     public static List<String> sortStringsByLength(List<String> strings) {
         return strings.stream()
-                .sorted((s1, s2) -> Integer.compare(s1.length(), s2.length()))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static boolean allElementsMatch(List<Integer> numbers, Predicate<Integer> predicate) {
