@@ -2,26 +2,26 @@ package school.faang;
 
 public class Main {
     public static void main(String[] args) {
-        ProductManager manager = new ProductManager();
+        HogwartsSpells hogwartsSpells = new HogwartsSpells();
+        hogwartsSpells.addSpellEvent("Expeliarmus", "Disarms an opponent");
+        hogwartsSpells.addSpellEvent("Lumos", "Creates light");
+        hogwartsSpells.addSpellEvent("Wingardium Leviosa", "Lifts objects");
+        hogwartsSpells.addSpellEvent("Petrificus Totalus", "Paralyzes the target");
+        hogwartsSpells.addSpellEvent("Alohomora", "Unlocks doors");
 
-        manager.addProduct(Category.CLOTHING, "Jeans");
-        manager.addProduct(Category.CLOTHING, "T-Shirt");
-        manager.addProduct(Category.ELECTRONICS, "Laptop");
-        manager.addProduct(Category.ELECTRONICS, "AirPods");
-        manager.addProduct(Category.FOOD, "Apple");
-        manager.addProduct(Category.FOOD, "Burger");
-        manager.addProduct(Category.OTHER, "Table");
-        manager.addProduct(Category.OTHER, "Soap");
+        System.out.println("All spells: ");
 
-        manager.groupProductsByCategory();
+        System.out.println("\n Retrieving spell by ID 2: ");
+        System.out.println(hogwartsSpells.getSpellEventById(2));
 
-        System.out.println("All products:");
-        manager.printAllProducts();
+        System.out.println("\n Spells of type 'Charm': ");
+        System.out.println(hogwartsSpells.getSpellEventsByType("Charm"));
 
-        manager.removeProduct(Category.ELECTRONICS, "Laptop");
-        manager.groupProductsByCategory();
+        System.out.println("\n Deleting spell with ID 3...");
+        hogwartsSpells.deleteSpellEvent(3);
 
-        System.out.println("All products after Laptop removal");
-        manager.printAllProducts();
+        System.out.println("\n Updated list of spells:");
+        hogwartsSpells.printAllSpellEvents();
     }
 }
+
