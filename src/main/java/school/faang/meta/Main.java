@@ -1,7 +1,5 @@
 package school.faang.meta;
 
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
