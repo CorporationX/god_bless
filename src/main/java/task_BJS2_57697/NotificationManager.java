@@ -1,8 +1,6 @@
 package task_BJS2_57697;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,5 +27,9 @@ public class NotificationManager {
             }
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
+    }
+
+    public void sendNotification(Notification notification) {
+        registerHandler(notification.getType(), handler -> System.out.printf("%s\n", notification.getMessage()));
     }
 }
