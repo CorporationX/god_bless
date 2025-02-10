@@ -47,6 +47,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{name='" + name + "' , age=" + age + ", workplace='" + workplace + "' , address='" + address + "'}";
+        return new StringBuilder("User{")
+                .append("name='").append(name).append('\'')
+                .append(", age=").append(age)
+                .append(", workplace='").append(workplace).append('\'')
+                .append(", address='").append(address).append('\'')
+                .append('}')
+                .toString();
     }
 }
