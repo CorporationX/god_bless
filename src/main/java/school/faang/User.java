@@ -30,25 +30,31 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
-            if (user != null && !user.getName().isBlank() && !user.getAddress().isBlank()
-                    && !user.getWork().isBlank()) {
+            if (isValidUser(user)) {
                 if (!map.containsKey(user.getAge())) {
                     map.put(user.getAge(), new ArrayList<>());
                 }
                 map.get(user.getAge()).add(user);
             } else {
-                log.info(" is null {}", user);
+                log.info(" Invalid user skipped {}", user);
             }
         }
         return map;
     }
 
+    public static boolean isValidUser(User user) {
+        return user != null && !user.getName().isBlank() && !user.getAddress().isBlank()
+                && !user.getWork().isBlank() && user.getAge() >= 0;
+
+
+    }
+
     public static void main(String[] args) {
         User user1 = new User("Tom", 25, "Bum", "New York");
-        User user2 = new User("Sarah", 13, "Bulder", "");
-        User user3 = new User("John", 48, "Engeener", "Moscow");
+        User user2 = new User("Sarah", 13, "Builder", "");
+        User user3 = new User("John", 48, "Engineer", "Moscow");
         User user4 = new User("Kukan", 25, "Bum", "New York");
-        User user5 = new User("Lena", 13, "Bulder", "Paris");
+        User user5 = new User("Lena", 13, "Builder", "Paris");
         List<User> list = new ArrayList(List.of(user1, user2, user3, user4, user5));
         System.out.println(groupUsers(list));
     }
