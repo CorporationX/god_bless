@@ -43,12 +43,7 @@ public class ProductManager {
             return new ArrayList<>();
         }
 
-        if (!categoryMap.containsKey(category)) {
-            System.out.printf("Такой категория продуктов нет %s%n", category);
-            return new ArrayList<>();
-        }
-
-        return categoryMap.get(category);
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public void groupProductsByCategory() {
