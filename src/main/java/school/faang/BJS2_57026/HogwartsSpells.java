@@ -4,24 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
 
-    public  void addSpellEvent(String eventType, String actionDescription) {
+    public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
 
         this.spellById.put(spellEvent.getId(), spellEvent);
-        this.spellsByType.merge(eventType, new ArrayList<>(List.of(spellEvent)), (existingList, newList) -> {
-            existingList.add(spellEvent);
-            return existingList;
-        });
+        this.spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
-    public  void getSpellEventById(int id) {
+    public void getSpellEventById(int id) {
         SpellEvent spell = this.spellById.get(id);
 
         if (spell != null) {
@@ -32,7 +28,7 @@ public class HogwartsSpells {
         }
     }
 
-    public  void getSpellEventsByType(String eventType) {
+    public void getSpellEventsByType(String eventType) {
         List<SpellEvent> spells = this.spellsByType.get(eventType);
 
         if (spells == null || spells.isEmpty()) {
@@ -46,7 +42,7 @@ public class HogwartsSpells {
         );
     }
 
-    public  void deleteSpellEvent(int id) {
+    public void deleteSpellEvent(int id) {
         SpellEvent spell = this.spellById.get(id);
 
         if (spell == null) {
@@ -68,7 +64,7 @@ public class HogwartsSpells {
         }
     }
 
-    public  void printAllSpellEvents() {
+    public void printAllSpellEvents() {
         if (this.spellById.isEmpty()) {
             System.out.println("❌ No spells in the system.");
             return;
