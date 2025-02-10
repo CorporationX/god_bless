@@ -2,7 +2,6 @@ package school.faang;
 
 public class Main {
     public static void main(String[] args) {
-who1s1tt-BJS2-56551
         try {
             User user = new User("David", 19, "Google", "New York");
             System.out.println("User created: " + user.getName() + ", " + user.getAge() + ", " + user.getJob() + ", " +
