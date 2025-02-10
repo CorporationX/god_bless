@@ -1,22 +1,18 @@
 package school.faang.amazon;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
+@AllArgsConstructor
+@ToString
 public class Product {
-    private static int count = 1;
     private int id;
     private String name;
     private Category category;
-
-    public Product(String name, Category category) {
-        this.name = name;
-        this.category = category;
-        id = count++;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -35,8 +31,4 @@ public class Product {
         return Objects.hash(name, category);
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
 }

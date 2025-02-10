@@ -8,32 +8,27 @@ import java.util.Map;
 import java.util.Set;
 
 public class ProductManager {
+    private int count = 1;
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
 
-    @SuppressWarnings("checkstyle:CommentsIndentation")
     public void addProduct(Category category, String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
-        Product product = new Product(name, category);
+        Product product = new Product(count, name, category);
         if (!products.add(product)) {
             System.out.println("The product already exists");
             return;
         }
-//        addProductToCategory(category, product);
+        count++;
+        addProductToCategory(category, product);
     }
 
-    private void addProductToCategory(Category category, Product product) {
-        if (categoryMap.containsKey(category)) {
-            categoryMap.get(category).add(product);
-        } else {
-            categoryMap.put(category, new ArrayList<>(List.of(product)));
-        }
-    }
+
 
     public void removeProduct(Category category, String name) {
-        Product product = new Product(name, category);
+        Product product = new Product(0, name, category);
         if (!products.remove(product)) {
             System.out.printf("This product %s in category %s does not exist\n", name, category);
             return;
@@ -59,8 +54,20 @@ public class ProductManager {
     }
 
     public void groupProductsByCategory() {
+        categoryMap.clear();
         for (Product product : products) {
             addProductToCategory(product.getCategory(), product);
         }
+    }
+
+    public List<Product> findProductsByCategory(Category category) {
+        if (categoryMap.containsKey(category)) {
+            return categoryMap.get(category);
+        }
+        return new ArrayList<>();
+    }
+
+    private void addProductToCategory(Category category, Product product) {
+        categoryMap.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
     }
 }
