@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductManager {
 
-    public static Set<Product> products = new HashSet<>();
+    private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
     private int productIdCounter = 1;
 
