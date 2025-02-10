@@ -1,24 +1,33 @@
 package school.faang.meta;
 
-import lombok.Data;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
-@Data
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notificationTypeConsumerMap = new HashMap<>();
+    private final List<String> badwordsList = List.of("badword1", "badword2", "badword3");
+    private final Map<NotificationType, Consumer<Notification>> handler = new HashMap<>();
+    private final Predicate<Notification> predicate = notification -> badwordsList.stream().anyMatch(
+                    badword -> notification.getMessage().contains(badword));
+    private final Function<Notification, Notification> notificationChanger = notification
+            -> new Notification(notification.getType(), notification.getMessage() + " (c) Company name");
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationTypeConsumerMap.put(type, handler);
+        this.handler.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        if (!notificationTypeConsumerMap.containsKey(notification.getType())) {
+        notification = notificationChanger.apply(notification);
+        if (!handler.containsKey(notification.getType())) {
             throw new IllegalArgumentException("There is no such type of notification");
         }
-        notificationTypeConsumerMap.get(notification.getType()).accept(notification);
+
+        if (predicate.test(notification)) {
+            throw new IllegalArgumentException("This message contains bad words");
+        }
+        handler.get(notification.getType()).accept(notification);
     }
 }

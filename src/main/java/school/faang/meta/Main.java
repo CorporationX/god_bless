@@ -22,10 +22,12 @@ public class Main {
         Notification smsNotification = new Notification(NotificationType.SMS, "Your password was changed");
         Notification pushNotification = new Notification(NotificationType.PUSH, "You have new notification!");
         Notification callNotification = new Notification(NotificationType.CALL, "You are active user");
+        Notification emailNotification1 = new Notification(NotificationType.EMAIL, "badword2");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
         //notificationManager.sendNotification(callNotification);
+        //notificationManager.sendNotification(emailNotification1);
     }
 }
