@@ -7,26 +7,27 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public  void addStudentAndSubjectWithInteger(String studentName, String subjectName, int grade) {
+    public void addStudentAndSubjectWithInteger(String studentName, String subjectName, int grade) {
         Student key = new Student(studentName);
         Map<Subject, Integer> value = new HashMap<>(Map.of(new Subject(subjectName), grade));
 
         this.studentSubjects.put(key, value);
     }
 
-    public  Student findStudent(String studentName) {
-        Student student = new Student(studentName);
+    private Student findStudentByName(String studentName) {
+        for (Student student : studentSubjects.keySet()) {
+            if (student.getName().equals(studentName)) {
+                return student;
 
-        if (!getStudentSubjects().containsKey(student)) {
-            System.out.printf("Студента с именем %s нету в списке студентов", studentName);
-            return null;
+            }
         }
 
-        return student;
+        System.out.printf("Студента с именем %s нету в списке студентов", studentName);
+        return null;
     }
 
-    public  void addNewSubjectWithInteger(String studentName, String subjectName, int integer) {
-        Student student = findStudent(studentName);
+    public void addNewSubjectWithInteger(String studentName, String subjectName, int integer) {
+        Student student = findStudentByName(studentName);
 
         if (student == null) {
             return;
@@ -36,8 +37,8 @@ public class StudentDatabase {
         mapSubject.put(new Subject(subjectName), integer);
     }
 
-    public  void deleteStudent(String studentName) {
-        Student student = findStudent(studentName);
+    public void deleteStudent(String studentName) {
+        Student student = findStudentByName(studentName);
 
         if (student == null) {
             return;
@@ -46,7 +47,7 @@ public class StudentDatabase {
         studentSubjects.remove(student);
     }
 
-    public  void showStudentWithSubject() {
+    public void showStudentWithSubject() {
         getStudentSubjects().forEach((student, subjectMap) -> {
             System.out.printf("%nИмя студенда %s%n", student.getName());
             System.out.printf("Предметы:%n");
@@ -57,7 +58,7 @@ public class StudentDatabase {
         });
     }
 
-    public  void addNewSubjectWithStudents(Set<String> students, String subjectName) {
+    public void addNewSubjectWithStudents(Set<String> students, String subjectName) {
         Subject subject = new Subject(subjectName);
         List<Student> value = new ArrayList<>();
 
@@ -65,7 +66,7 @@ public class StudentDatabase {
         subjectStudents.put(subject, value);
     }
 
-    public  Subject findSubject(String subjectName) {
+    public Subject findSubject(String subjectName) {
         Subject subject = new Subject(subjectName);
 
         if (!subjectStudents.containsKey(subject)) {
@@ -76,7 +77,7 @@ public class StudentDatabase {
         return subject;
     }
 
-    public  void addNewStudentForSubject(String studentName, String subjectName) {
+    public void addNewStudentForSubject(String studentName, String subjectName) {
         Subject subject = findSubject(subjectName);
 
         if (subject == null) {
@@ -86,7 +87,7 @@ public class StudentDatabase {
         subjectStudents.get(subject).add(new Student(studentName));
     }
 
-    public  void deleteStudentFromSubject(String studentName, String subjectName) {
+    public void deleteStudentFromSubject(String studentName, String subjectName) {
         Subject subject = findSubject(subjectName);
 
         if (subject == null) {
@@ -96,7 +97,7 @@ public class StudentDatabase {
         subjectStudents.get(subject).remove(new Student(studentName));
     }
 
-    public  void showSubjectWithStudent() {
+    public void showSubjectWithStudent() {
         subjectStudents.forEach((subject, studentList) -> {
             System.out.printf("%nПредмет: %s%n", subject.getName());
             System.out.printf("Студенты изучающий предмет:%n");
@@ -107,11 +108,11 @@ public class StudentDatabase {
         });
     }
 
-    public  Map<Student, Map<Subject, Integer>> getStudentSubjects() {
+    public Map<Student, Map<Subject, Integer>> getStudentSubjects() {
         return Collections.unmodifiableMap(studentSubjects);
     }
 
-    public  Map<Subject, List<Student>> getSubjectStudents() {
+    public Map<Subject, List<Student>> getSubjectStudents() {
         return Collections.unmodifiableMap(subjectStudents);
     }
 }

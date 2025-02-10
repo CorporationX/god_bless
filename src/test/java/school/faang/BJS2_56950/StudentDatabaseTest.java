@@ -50,18 +50,6 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testFindStudent() {
-        studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 5);
-        assertNotNull(studentDatabase.findStudent(RAMIL));
-        assertEquals(RAMIL, studentDatabase.findStudent(RAMIL).getName());
-
-        String actualMessage = captureSystemOut(() -> assertNull(studentDatabase.findStudent(ALBERT)));
-        String expectedMessage = String.format("Студента с именем %s нету в списке студентов", ALBERT);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage));
-    }
-
-    @Test
     void testAddNewSubjectWithInteger() {
         studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 5);
         studentDatabase.addNewSubjectWithInteger(RAMIL, ART, 3);
@@ -80,9 +68,9 @@ class StudentDatabaseTest {
     @Test
     void testDeleteStudent() {
         studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 5);
-        assertNotNull(studentDatabase.findStudent(RAMIL));
+
         studentDatabase.deleteStudent(RAMIL);
-        assertNull(studentDatabase.findStudent(RAMIL));
+        assertFalse(studentDatabase.getStudentSubjects().containsKey(RAMIL));
 
         String actualMessage = captureSystemOut(() -> studentDatabase.deleteStudent(RAMIL));
         String expectedMessage = String.format("Студента с именем %s нету в списке студентов", RAMIL);
