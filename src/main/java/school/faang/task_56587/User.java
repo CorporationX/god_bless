@@ -19,11 +19,14 @@ public class User {
     public User(@NonNull String name, int age, String job, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name is empty!");
-        } else if (age < correctAge) {
+        }
+        if (age < correctAge) {
             throw new IllegalArgumentException("Age less than 18");
-        } else if (!VALID_ADDRESSES.contains(address)) {
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Incorrect address");
-        } else if (!VALID_JOBS.contains(job)) {
+        }
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Incorrect job");
         }
         this.name = name;
