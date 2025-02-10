@@ -22,6 +22,5 @@ public class Main {
         productManager.removeProduct(Category.OTHER, "Car");
         System.out.println("After remove: ");
         productManager.printAllProducts();
-        Map<Category, List<Product>> categoryMap = productManager.groupProductsByCategory();
     }
 }
