@@ -7,23 +7,23 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
-    private static final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private static final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private static final AtomicInteger counter = new AtomicInteger(1);
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final AtomicInteger counter = new AtomicInteger(1);
 
-    public static void addSpellEvent(String eventType, String actionDescription) {
-        int id = counter.getAndIncrement();
+    public  void addSpellEvent(String eventType, String actionDescription) {
+        int id = this.counter.getAndIncrement();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
-        spellById.put(id, spellEvent);
-        spellsByType.merge(eventType, new ArrayList<>(List.of(spellEvent)), (existingList, newList) -> {
+        this.spellById.put(id, spellEvent);
+        this.spellsByType.merge(eventType, new ArrayList<>(List.of(spellEvent)), (existingList, newList) -> {
             existingList.add(spellEvent);
             return existingList;
         });
     }
 
-    public static void getSpellEventById(int id) {
-        SpellEvent spell = spellById.get(id);
+    public  void getSpellEventById(int id) {
+        SpellEvent spell = this.spellById.get(id);
 
         if (spell != null) {
             System.out.printf("🪄 Id: %d | EventType: %s | Action: %s%n",
@@ -33,8 +33,8 @@ public class HogwartsSpells {
         }
     }
 
-    public static void getSpellEventsByType(String eventType) {
-        List<SpellEvent> spells = spellsByType.get(eventType);
+    public  void getSpellEventsByType(String eventType) {
+        List<SpellEvent> spells = this.spellsByType.get(eventType);
 
         if (spells == null || spells.isEmpty()) {
             System.out.printf("❌ No spells found for type \"%s\".%n", eventType);
@@ -47,16 +47,16 @@ public class HogwartsSpells {
         );
     }
 
-    public static void deleteSpellEvent(int id) {
-        SpellEvent spell = spellById.get(id);
+    public  void deleteSpellEvent(int id) {
+        SpellEvent spell = this.spellById.get(id);
 
         if (spell == null) {
             System.out.println("❌ No spell found with this ID.");
             return;
         }
 
-        spellById.remove(id);
-        List<SpellEvent> spellList = spellsByType.get(spell.getEventType());
+        this.spellById.remove(id);
+        List<SpellEvent> spellList = this.spellsByType.get(spell.getEventType());
 
         if (spellList == null) {
             return;
@@ -65,12 +65,12 @@ public class HogwartsSpells {
         spellList.remove(spell);
 
         if (spellList.isEmpty()) {
-            spellsByType.remove(spell.getEventType());
+            this.spellsByType.remove(spell.getEventType());
         }
     }
 
-    public static void printAllSpellEvents() {
-        if (spellById.isEmpty()) {
+    public  void printAllSpellEvents() {
+        if (this.spellById.isEmpty()) {
             System.out.println("❌ No spells in the system.");
             return;
         }
@@ -78,14 +78,14 @@ public class HogwartsSpells {
         System.out.println("\n📜 All spells in the system:");
         System.out.println("-------------------------------------------------");
 
-        for (Map.Entry<Integer, SpellEvent> spell : spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> spell : this.spellById.entrySet()) {
             System.out.printf("🪄 Id: %d | EventType: %s | Action: %s%n",
                     spell.getValue().getId(), spell.getValue().getEventType(), spell.getValue().getAction());
         }
 
         System.out.println("-------------------------------------------------");
 
-        if (spellsByType.isEmpty()) {
+        if (this.spellsByType.isEmpty()) {
             System.out.println("❌ No spell types in the system.");
             return;
         }
@@ -93,7 +93,7 @@ public class HogwartsSpells {
         System.out.println("\n📜 All spell types in the system:");
         System.out.println("-------------------------------------------------");
 
-        for (Map.Entry<String, List<SpellEvent>> typeSpell : spellsByType.entrySet()) {
+        for (Map.Entry<String, List<SpellEvent>> typeSpell : this.spellsByType.entrySet()) {
             System.out.printf("\n📜 Spell Type: %s%n", typeSpell.getKey());
             typeSpell.getValue().forEach(item -> {
                 System.out.printf("🪄 Id: %d | Action: %s%n",
