@@ -66,19 +66,19 @@ public class StudentDatabase {
         subjectStudents.put(subject, value);
     }
 
-    public Subject findSubject(String subjectName) {
-        Subject subject = new Subject(subjectName);
-
-        if (!subjectStudents.containsKey(subject)) {
-            System.out.printf("Предмета с названием %s нету в subjectStudents", subjectName);
-            return null;
+    private Subject findSubjectByName(String subjectName) {
+        for (Subject subject : subjectStudents.keySet()) {
+            if (subject.getName().equals(subjectName)) {
+                return subject;
+            }
         }
 
-        return subject;
+        System.out.printf("Предмета с названием %s нету в subjectStudents", subjectName);
+        return null;
     }
 
     public void addNewStudentForSubject(String studentName, String subjectName) {
-        Subject subject = findSubject(subjectName);
+        Subject subject = findSubjectByName(subjectName);
 
         if (subject == null) {
             return;
@@ -88,7 +88,7 @@ public class StudentDatabase {
     }
 
     public void deleteStudentFromSubject(String studentName, String subjectName) {
-        Subject subject = findSubject(subjectName);
+        Subject subject = findSubjectByName(subjectName);
 
         if (subject == null) {
             return;

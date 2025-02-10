@@ -1,6 +1,5 @@
 package school.faang.BJS2_56950;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
-
 
 class StudentDatabaseTest {
     private StudentDatabase studentDatabase;
@@ -86,17 +84,6 @@ class StudentDatabaseTest {
         assertTrue(subjectStudents.containsKey(SUBJECT_MATH));
         assertTrue(subjectStudents.get(SUBJECT_MATH).contains(STUDENT_RAM));
         assertTrue(subjectStudents.get(SUBJECT_MATH).contains(STUDENT_ALB));
-    }
-
-    @Test
-    void testFindSubject() {
-        studentDatabase.addNewSubjectWithStudents(Set.of(RAMIL, ALBERT), MATH);
-        assertNotNull(studentDatabase.findSubject(MATH));
-
-        String actualMessage = captureSystemOut(() -> studentDatabase.findSubject(ART));
-        String expectedMessage = String.format("Предмета с названием %s нету в subjectStudents", ART);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage));
     }
 
     @Test
