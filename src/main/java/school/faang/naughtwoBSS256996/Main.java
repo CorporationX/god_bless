@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
         addProductsToStore(productManager);
-        productManager.addProduct(Category.FOOD, "cheese");
+        productManager.addProduct(Category.FOOD, "");
 
         Optional<Set<Product>> optionalProductSet = productManager.findProductsByCategory(Category.FOOD);
         if (optionalProductSet.isPresent()) {

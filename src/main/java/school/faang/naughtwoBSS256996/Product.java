@@ -11,11 +11,15 @@ public class Product {
     private final Category category;
 
     public Product(int id, String name, Category category) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Incorrect data entered");
-        }
+        checkName(name);
         this.id = id;
         this.name = name;
         this.category = category;
+    }
+
+    private void checkName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be empty or null.");
+        }
     }
 }
