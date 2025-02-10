@@ -1,4 +1,5 @@
 package translator;
+
 import java.util.function.BiConsumer;
 import lombok.extern.slf4j.Slf4j;
 
