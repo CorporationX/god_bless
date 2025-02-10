@@ -24,8 +24,6 @@ public class Main {
         productManager.removeProduct(Category.CLOTHING, "Fok");
         productManager.groupProductsByCategory();
         productManager.printAllProducts();
-        for (Product product : productManager.findProductsByCategory(Category.FOOD)) {
-            System.out.println(product);
-        }
+        productManager.findProductsByCategory(Category.CLOTHING).forEach(System.out::println);
     }
 }
