@@ -9,8 +9,10 @@ public class Main {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = image -> new Image(image.name(), image.description() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = image -> new Image(image.name(), image.description() + " | Фильтр: сепия");
+        Function<Image, Image> grayscaleFilter = image ->
+                new Image(image.name(), image.description() + " | Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = image ->
+                new Image(image.name(), image.description() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.description());

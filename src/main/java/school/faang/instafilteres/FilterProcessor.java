@@ -15,7 +15,10 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter, Function<Image, Image> secondFilter) {
+    public Function<Image, Image> combineFilters(
+            Function<Image, Image> firstFilter,
+            Function<Image, Image> secondFilter
+    ) {
         if (firstFilter == null || secondFilter == null) {
             throw new IllegalArgumentException("Both filters are required");
         }
