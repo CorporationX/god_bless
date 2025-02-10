@@ -49,7 +49,6 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-
         if (spellsById.isEmpty()) {
             System.out.println("The spell library is empty");
         } else {
