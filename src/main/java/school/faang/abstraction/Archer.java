@@ -2,16 +2,16 @@ package school.faang.abstraction;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        setStrength(5);
-        setAgility(5);
-        setIntelligence(3);
+        super(name, 5, 5, 5);
+    }
+
+    public Archer(String name, int strength, int agility, int intelligence) {
+        super(name, strength, agility, intelligence);
     }
 
     @Override
-    void attack(Character opponent) {
+    public void attack(Character opponent) {
         int archersAgility = getAgility();
-        int opponentsHealth = opponent.getHealth();
-        opponent.setHealth(opponentsHealth - archersAgility);
+        opponent.reduceHealth(archersAgility);
     }
 }

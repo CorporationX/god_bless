@@ -1,11 +1,22 @@
 package school.faang.abstraction;
 
 public abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
     private int health = 100;
+
+    public Character(String name) {
+        this(name, 5, 5, 5);
+    }
+
+    public Character(String name, int strength, int agility, int intelligence) {
+        this.name = name;
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
+    }
 
     public String getName() {
         return name;
@@ -27,41 +38,9 @@ public abstract class Character {
         return health;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
+    public abstract void attack(Character opponent);
+
+    protected void reduceHealth(int damage) {
+        health = Math.max(0, getHealth() - damage);
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public void setHealth(int health) {
-        this.health = Math.max(health, 0);
-    }
-
-    public Character(String name) {
-        this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
-    }
-
-    public Character(String name, int strength, int agility, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
-    }
-
-    abstract void attack(Character opponent);
-
-
 }
