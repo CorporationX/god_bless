@@ -42,7 +42,9 @@ public class StudentDatabase {
         if (keyStudentSubject.contains(subject)) {
             throw new IllegalArgumentException("Subject is already in the database");
         }
-        studentSubject.get(student).put(subject, grade);
+
+        Map<Subject, Integer> subjects = studentSubject.get(student);
+        subjects.put(subject, grade);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         subjectStudents.get(subject).add(student);
     }
@@ -55,16 +57,20 @@ public class StudentDatabase {
         Set<Subject> subjects = studentSubject.get(student).keySet();
         studentSubject.remove(student);
         for (Subject subject : subjects) {
-            subjectStudents.get(subject).remove(student);
+            List<Student> students = subjectStudents.get(subject);
+            students.remove(student);
         }
     }
 
     public void printAllStudentWithSubject() {
         StringBuilder allStudents = new StringBuilder();
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubject.entrySet()) {
-            allStudents.append(entry.getKey().getName()).append("\n");
-            for (Map.Entry<Subject, Integer> entry1 : entry.getValue().entrySet()) {
-                allStudents.append(entry1.getKey().getName()).append(":").append(entry1.getValue()).append("\n");
+        for (var subjects : studentSubject.entrySet()) {
+            String name = subjects.getKey().getName();
+            allStudents.append(name).append("\n");
+            for (var grades : subjects.getValue().entrySet()) {
+                String subject = grades.getKey().getName();
+                Integer grade = grades.getValue();
+                allStudents.append(subject).append(":").append(grade).append("\n");
             }
             allStudents.append("\n");
         }
@@ -82,7 +88,8 @@ public class StudentDatabase {
         subjectStudents.put(subject, students);
         for (Student student : students) {
             studentSubject.putIfAbsent(student, new HashMap<>());
-            studentSubject.get(student).put(subject, DEFAULT_GRADE);
+            Map<Subject, Integer> subjects = studentSubject.get(student);
+            subjects.put(subject, DEFAULT_GRADE);
         }
     }
 
@@ -93,8 +100,10 @@ public class StudentDatabase {
             throw new IllegalArgumentException(String.format("Subject %s has not been added", subject.getName()));
         }
         studentSubject.putIfAbsent(newStudent, new HashMap<>());
-        studentSubject.get(newStudent).put(subject, DEFAULT_GRADE);
-        subjectStudents.get(subject).add(newStudent);
+        Map<Subject, Integer> subjects = studentSubject.get(newStudent);
+        subjects.put(subject, DEFAULT_GRADE);
+        List<Student> students = subjectStudents.get(subject);
+        students.add(newStudent);
     }
 
     public void removeStudentForSubject(Student student, Subject subject) {
@@ -107,17 +116,21 @@ public class StudentDatabase {
         if (!keyStudentSubject.contains(subject)) {
             throw new IllegalArgumentException(String.format("Student %s has not been added", student.getName()));
         }
-        studentSubject.get(student).remove(subject);
-        subjectStudents.get(subject).remove(student);
+        Map<Subject, Integer> subjects = studentSubject.get(student);
+        subjects.remove(subject);
+        List<Student> students = subjectStudents.get(subject);
+        students.remove(student);
     }
 
     public void printAllSubjectWithStudents() {
         StringBuilder allSubjects = new StringBuilder();
-        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            allSubjects.append(entry.getKey().getName()).append(":").append("\n");
-            List<Student> students = entry.getValue();
+        for (Map.Entry<Subject, List<Student>> subjects : subjectStudents.entrySet()) {
+            String subjectName = subjects.getKey().getName();
+            allSubjects.append(subjectName).append(":").append("\n");
+            List<Student> students = subjects.getValue();
             for (Student student : students) {
-                allSubjects.append(student.getName()).append("\n");
+                String studentName = student.getName();
+                allSubjects.append(studentName).append("\n");
             }
             allSubjects.append("\n");
         }
