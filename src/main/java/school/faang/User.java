@@ -1,100 +1,61 @@
 package school.faang;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
+@Slf4j
+@ToString
+@Getter
+@EqualsAndHashCode
 public class User {
-    private final int id;
     private final String name;
     private final int age;
-    private final Set<String> activities = new HashSet<>();
+    private final String work;
+    private final String address;
 
-    public User(int id, String name, int age) {
-        this.id = id;
+    public User(String name, int age, String work, String address) {
         this.name = name;
         this.age = age;
+        this.work = work;
+        this.address = address;
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        Map<User, String> hobbyLovers = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
-            for (String hobby : hobbies) {
-                if (user.getActivities().contains(hobby)) {
-                    hobbyLovers.put(user, hobby);
-                    break;
+            if (isValidUser(user)) {
+                if (!map.containsKey(user.getAge())) {
+                    map.put(user.getAge(), new ArrayList<>());
                 }
+                map.get(user.getAge()).add(user);
+            } else {
+                log.info(" Invalid user skipped {}", user);
             }
         }
-        return hobbyLovers;
+        return map;
+    }
+
+    public static boolean isValidUser(User user) {
+        return user != null && !user.getName().isBlank() && !user.getAddress().isBlank()
+                && !user.getWork().isBlank() && user.getAge() >= 0;
+
+
     }
 
     public static void main(String[] args) {
-        User bob = new User(1, "Bob", 18);
-        User mike = new User(2, "Mike", 18);
-        User john = new User(3, "John", 18);
-
-        bob.addActivities("Drunk", "Swim", "BeatBox");
-        mike.addActivities("Ride", "Run", "Drunk");
-        john.addActivities("Football", "Basketball", "WatchTV");
-
-        List<User> users = new ArrayList<>();
-        users.add(bob);
-        users.add(mike);
-        users.add(john);
-
-        Set<String> hobbies = new HashSet<>();
-        hobbies.add("Drunk");
-        hobbies.add("Football");
-
-        Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
-        for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println(entry.getKey() + " loves: " + entry.getValue());
-        }
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public Set<String> getActivities() {
-        return Collections.unmodifiableSet(activities);
-    }
-
-    public void addActivities(String... activities) {
-        Collections.addAll(this.activities, activities);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(age, user.age)
-                && Objects.equals(activities, user.activities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, activities);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("User{id=%d, name='%s', age=%d}", id, name, age);
+        User user1 = new User("Tom", 25, "Bum", "New York");
+        User user2 = new User("Sarah", 13, "Builder", "");
+        User user3 = new User("John", 48, "Engineer", "Moscow");
+        User user4 = new User("Kukan", 25, "Bum", "New York");
+        User user5 = new User("Lena", 13, "Builder", "Paris");
+        List<User> list = new ArrayList<>(List.of(user1, user2, user3, user4, user5));
+        System.out.println(groupUsers(list));
     }
 }
