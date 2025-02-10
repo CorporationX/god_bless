@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Проверка класса InventoryManager")
 class InventoryManagerTest {
     private final InventoryManager manager = new InventoryManager();
     private final Character frodo = new Character("Frodo");
@@ -25,6 +26,7 @@ class InventoryManagerTest {
     }
 
     @Test
+    @DisplayName("Проверка удаления предмета")
     public void removeItem() {
         assertTrue(frodo.getInventory().contains(ring));
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
@@ -32,6 +34,7 @@ class InventoryManagerTest {
     }
 
     @Test
+    @DisplayName("Проверка изменения предмета")
     public void updateItem() {
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
                 (item) -> item.setValue(item.getValue() * 2));
