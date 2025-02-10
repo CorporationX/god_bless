@@ -26,7 +26,6 @@ public class ProductManager {
     }
 
 
-
     public void removeProduct(Category category, String name) {
         Product product = new Product(0, name, category);
         if (!products.remove(product)) {
@@ -61,10 +60,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        if (categoryMap.containsKey(category)) {
-            return categoryMap.get(category);
-        }
-        return new ArrayList<>();
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     private void addProductToCategory(Category category, Product product) {
