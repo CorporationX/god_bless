@@ -6,18 +6,13 @@ import java.util.Objects;
 
 @Getter
 public class SpellEvent {
-    private static final String SPELL_EVENT_INFORMATION;
+    private static final String SPELL_EVENT_INFORMATION = "{id: %d, event type: %s, action: %s}";
 
     private final Integer id;
     private final String eventType;
     private final String action;
 
-    private static int counter;
-
-    static {
-        SPELL_EVENT_INFORMATION = "{id: %d, event type: %s, action: %s}";
-        counter = 1;
-    }
+    private static int counter = 1;
 
     public SpellEvent(String eventType, String action) {
         this.eventType = eventType;
