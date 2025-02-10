@@ -1,17 +1,26 @@
 package school.faang.task57706.service;
 
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@NoArgsConstructor
 public class NotificationManager {
-    Map<NotificationType, Consumer<Notification>> notificationTypeConsumer = new HashMap<>();
+    private Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
-    void registerHandler(NotificationType type, Consumer<Notification> handler){
-
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+        handlers.put(type, handler);
     }
 
-    void sendNotification(Notification notification){
+    public void sendNotification(Notification notification) {
+        Consumer<Notification> handler = handlers.get(notification.getType());
+        if (handler != null) {
+            handler.accept(notification);
+        } else {
+            System.out.println("Ни один обработчик не зарегистрирован " + notification.getMessage());
+        }
 
     }
 }
