@@ -3,7 +3,9 @@ package school.faang.horwarts;
 public class SpellCaster {
 
     public void cast(String spellName, SpellAction spellAction) {
-        String result = spellAction.actTheSpell(spellName);
-        System.out.println("Spell result: " + result);
+        if (spellName == null || spellAction == null) {
+            return;
+        }
+        System.out.println("Spell result: " + spellAction.actTheSpell(spellName));
     }
 }
