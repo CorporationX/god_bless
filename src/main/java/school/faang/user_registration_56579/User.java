@@ -15,19 +15,20 @@ public class User {
     private final String job;
     private final String address;
 
-    public User(@NonNull String name, int age, @NonNull String job, @NonNull String address) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+    public User(@NonNull String name, @NonNull int age, @NonNull String job, @NonNull String address) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(String.format("Имя не может быть пустым " +
+                    "или состоять из пробелов " + name));
         }
         if (age < MIN_LEGAL_AGE) {
-            throw new IllegalArgumentException(String.format("Возвраст не может быть меньше %d", MIN_LEGAL_AGE));
+            throw new IllegalArgumentException(String.format("Возраст не может быть меньше %d", MIN_LEGAL_AGE));
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException(String.format("Место работы %s не содержится " +
                     "в списке допустимых значений: %s", job, VALID_JOBS));
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException(String.format("Адресс %s не содержится " +
+            throw new IllegalArgumentException(String.format("Адрес %s не содержится " +
                     "в списке допустимых значений: %s", address, VALID_ADDRESSES));
         }
 
