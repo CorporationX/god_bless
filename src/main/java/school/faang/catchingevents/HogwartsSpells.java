@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class HogwartsSpells {
@@ -15,20 +15,6 @@ public class HogwartsSpells {
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int currentId = 1;
     private static final Logger logger = LoggerFactory.getLogger(HogwartsSpells.class);
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        HogwartsSpells that = (HogwartsSpells) o;
-        return Objects.equals(spellById, that.spellById) && Objects.equals(spellsByType, that.spellsByType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(spellById, spellsByType);
-    }
 
     public void addSpellEvent(String eventType, String actionDescription) {
         int id = currentId++;
@@ -47,10 +33,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (spellsByType.containsKey(eventType) && spellsByType.get(eventType) != null) {
-            return spellsByType.get(eventType);
-        }
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
@@ -66,7 +49,6 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
             logger.info("{}", entry.getValue());
         }
     }
