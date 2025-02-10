@@ -70,22 +70,22 @@ public class ProductManager {
     }
 
     /**
-     * Группировка товаров из множества "products" по категориям
+     * Группировка товаров "categoryMap" по категориям
      *
-     * @return возвращает сгруппированную по категориям товаров Map
      */
-    public Map<Category, List<Product>> groupProductsByCategory() {
-        Map<Category, List<Product>> newCategoryMap = new HashMap<>();
+    public void groupProductsByCategory() {
         for (Product product : products) {
             Category category = product.getCategory();
-            newCategoryMap.putIfAbsent(category, new ArrayList<>()).add(product);
+            List<Product> productList = categoryMap.putIfAbsent(category, new ArrayList<>());
+            if (productList != null && !productList.contains(product)) {
+                productList.add(product);
+            }
         }
-        log.debug("Товары сгруппированы по категориям:\n {}", newCategoryMap);
-        return newCategoryMap;
+        log.debug("Товары сгруппированы по категориям:\n {}", categoryMap);
     }
 
     public void printAllProducts() {
-        groupProductsByCategory().forEach((category, productList) -> {
+        categoryMap.forEach((category, productList) -> {
             System.out.println("Категория: " + category + "\n"
                     + "Продукты: ");
             productList.forEach(product -> System.out.println(" - " + product.getName()));

@@ -14,6 +14,7 @@ public class Main {
         pm.removeProduct(Category.CLOTHING, "Куртка");
 
         pm.findProductsByCategory(Category.ELECTRONICS);
+        pm.groupProductsByCategory();
 
         pm.printAllProducts();
     }
