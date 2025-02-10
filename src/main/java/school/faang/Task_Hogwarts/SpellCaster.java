@@ -1,4 +1,4 @@
-package school.faang.Task_Hogvorts_Horvorts_BJS2_59522;
+package school.faang.Task_Hogwarts;
 
 public class SpellCaster {
 
