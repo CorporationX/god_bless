@@ -49,22 +49,6 @@ public class User {
 
     }
 
-    private int getAge() {
-        return age;
-    }
-
-    private String getWork() {
-        return work;
-    }
-
-    private String getAddress() {
-        return address;
-    }
-
-    private String getName() {
-        return name;
-    }
-
     public static void main(String[] args) {
         User user1 = new User("Tom", 25, "Bum", "New York");
         User user2 = new User("Sarah", 13, "Builder", "");
