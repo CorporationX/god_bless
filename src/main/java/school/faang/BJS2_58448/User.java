@@ -15,7 +15,7 @@ public class User {
 
         for (int i = 0; i < users.size(); i++) {
             for (String j : this.hobbies) {
-                if (hobbies.contains(hobby)){
+                if (hobbies.contains(hobby)) {
                     results.put(users.get(i), j);
                     break;
                 }
