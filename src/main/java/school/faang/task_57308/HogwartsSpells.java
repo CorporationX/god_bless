@@ -1,13 +1,10 @@
 package school.faang.task_57308;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -21,12 +18,12 @@ public class HogwartsSpells {
         spellsByType.get(eventType).add(spellEvent);
     }
 
-    public void getSpellEventById(int id) {
-        System.out.println(spellById.get(id));
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public void getSpellEventsByType(String eventType) {
-        System.out.println(spellsByType.get(eventType));
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.get(eventType);
     }
 
     public void deleteSpellEvent(int id) {
