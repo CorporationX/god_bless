@@ -28,9 +28,12 @@ public abstract class Character {
 
     protected abstract void attack(Character opponent);
 
-    protected void isHealthOpponentBellowZero(Character opponent) {
-        if (Math.max(opponent.getHealth(), 0) == 0) {
+    protected void reduceHealth(Character opponent, int damage) {
+        opponent.setHealth(Math.max(opponent.getHealth() - damage, 0));
+        if (opponent.getHealth() == 0) {
             System.out.println(opponent.getName() + " don't have enough health! He's lose!");
         }
     }
+
+
 }
