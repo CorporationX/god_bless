@@ -8,15 +8,15 @@ public class Main {
         Image first = new Image("first", "Some");
         Image second = new Image("Second", "SomeOne");
 
-        Image sepiaImage = filterProcessor.applyFilter(first,
-                (image -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый")));
-        System.out.println(sepiaImage);
+        Image grayscaleImage = filterProcessor.applyFilter(first,
+                (image -> new Image(image.name(), image.description() + " | Фильтр: черно-белый")));
+        System.out.println(grayscaleImage);
 
         Function<Image, Image> sepiaFilter =
-                image -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+                image -> new Image(image.name(), image.description() + " | Фильтр: сепия");
 
         Function<Image, Image> grayscaleFilter =
-                image -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
+                image -> new Image(image.name(), image.description() + " | Фильтр: черно-белый");
 
         Image sepiaGrayscaleImage = filterProcessor.applyFilter(second,
                 filterProcessor.combineFilters(sepiaFilter, grayscaleFilter));
