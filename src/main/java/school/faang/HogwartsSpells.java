@@ -12,21 +12,16 @@ public class HogwartsSpells {
     private static int currentId = 1;
 
     public static void main(String[] args) {
+        addSpellEvent("Skeleton Archer", "Struggle on your side");
+        addSpellEvent("Fire Ball", "You throw fire from your hands");
+        addSpellEvent("Freeze", "You make your enemies slowly");
+        addSpellEvent("Poison", "Your enemies get damage over time");
 
-        addSpellEvent(currentId, "Skeleton Archer", "Struggle on your side");
-        addSpellEvent(currentId, "Fire Ball", "You throw fire from your hands");
-        addSpellEvent(currentId, "Freeze", "You make your enemies slowly");
-        addSpellEvent(currentId, "Poison", "Your enemies get damage over time");
-
-        System.out.println(spellById);
-        System.out.println(spellsByType);
-        System.out.println(getSpellEventById(6));
-        System.out.println(getSpellEventsByType("Poison"));
         printAllSpellEvents();
 
     }
 
-    public static void addSpellEvent(int currentId, String eventType, String actionDescription) {
+    public static void addSpellEvent(String eventType, String actionDescription) {
         int id = currentId++;
         SpellEvent spellEvent = new SpellEvent(id, eventType,actionDescription);
         spellById.put(id, spellEvent);
@@ -48,8 +43,6 @@ public class HogwartsSpells {
         return spellsByType.getOrDefault(eventType, new ArrayList<>());
             }
 
-    }
-
     public static void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
@@ -59,11 +52,14 @@ public class HogwartsSpells {
             }
         }
 
+    }
     public static void printAllSpellEvents() {
-                for (SpellEvent event : spellById.values()) {
-                    System.out.println(event));
-                }
-            }
+        for (SpellEvent event : spellById.values()) {
+            System.out.println(event);
+        }
+    }
+
+    }
 
 
-}
+
