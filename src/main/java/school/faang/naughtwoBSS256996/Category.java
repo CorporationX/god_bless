@@ -10,15 +10,6 @@ public enum Category {
     BOOKS,
     BEAUTY,
     SPORTS,
-    AUTOMOTIVE;
-
-    public static boolean isCategoryInEnum(Category category) {
-        for (Category constant : Category.values()) {
-            if (constant.name().equals(category)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    AUTOMOTIVE
 }
 

@@ -14,13 +14,13 @@ import java.util.Set;
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
-    private int lastId = 1;
+    private int lastId = 0;
 
     public void addProduct(Category category, String name) {
         if (foundProductInSet(category, name)) {
             System.out.println("The product is already in store, no need to add.");
         } else {
-            Product product = new Product(lastId, name, category);
+            Product product = new Product(lastId++, name, category);
             products.add(product);
             if (!categoryMap.containsKey(category)) {
                 categoryMap.put(category, new ArrayList<>());
@@ -36,8 +36,10 @@ public class ProductManager {
         if (!foundProductInSet(category, name)) {
             System.out.println("This product is not available in the store");
         } else {
-            products.removeIf(product -> product.getName().equals(name));
-            categoryMap.get(category).removeIf(product -> (product.getName().equals(name)));
+            products.removeIf(product -> product.getName().equals(name)
+                    && product.getCategory().equals(category));
+            categoryMap.get(category).removeIf(product -> product.getName().equals(name)
+                    && product.getCategory().equals(category));
             System.out.println("The product removed.");
         }
     }
