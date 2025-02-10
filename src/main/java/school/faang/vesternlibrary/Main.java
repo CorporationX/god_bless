@@ -2,31 +2,31 @@ package school.faang.vesternlibrary;
 
 public class Main {
     public static void main(String[] args) {
+        LibrarySystem librarySystem = new LibrarySystem();
 
-        LibrarySystem.addBook("Prestyplenie & Nakazanie", "Dostaevski", 1866, "first shelf");
-        LibrarySystem.addBook("Voina & Mir", "Tolstoy", 1867, "second shelf");
-        LibrarySystem.addBook("Mertvie Dyshi", "Gogol", 1842, "third shelf");
+        librarySystem.addBook("Prestuplenie & Nakazanie", "Dostoevsky", 1866, "first shelf");
+        librarySystem.addBook("Voina & Mir", "Tolstoy", 1867, "second shelf");
+        librarySystem.addBook("Mertvie Dushi", "Gogol", 1842, "third shelf");
         try {
-            LibrarySystem.addBook("", "", 0, "");
+            librarySystem.addBook("", "", 0, "");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         System.out.println("_________________________________");
-        LibrarySystem.printAllBooks();
+        librarySystem.printAllBooks();
         System.out.println("_________________________________");
 
-        LibrarySystem.removeBook("Prestyplenie & Nakazanie", "Dostaevski", 1866);
+        librarySystem.removeBook("Prestyplenie & Nakazanie", "Dostaevski", 1866);
         try {
-            LibrarySystem.removeBook("", "", 0);
+            librarySystem.removeBook("", "", 0);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         System.out.println("_________________________________");
-        LibrarySystem.printAllBooks();
+        librarySystem.printAllBooks();
         System.out.println("_________________________________");
 
-        LibrarySystem.findBook("Voina & Mir", "Tolstoy", 1867);
-
+        librarySystem.findBook("Voina & Mir", "Tolstoy", 1867);
 
 
     }
