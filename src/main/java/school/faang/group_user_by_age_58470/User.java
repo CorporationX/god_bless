@@ -1,5 +1,7 @@
 package school.faang.group_user_by_age_58470;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -8,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 @ToString
+@Getter
 public class User {
 
-    private static final int MIN_AGE = 0;
-    private static final int MAX_AGE = 110;
+    private static final int AGE_MIN = 0;
+    private static final int AGE_MAX = 110;
 
     private String name;
     private int age;
@@ -22,9 +25,9 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Поле 'имя' не может быть пустым");
         }
-        if (age < MIN_AGE || age > MAX_AGE) {
+        if (age < AGE_MIN || age > AGE_MAX) {
             throw new IllegalArgumentException(String.format("Возраст не может быть больше %d или меньше %d",
-                    MAX_AGE, MIN_AGE));
+                    AGE_MAX, AGE_MIN));
         }
         if (placeOfWork == null || placeOfWork.isBlank()) {
             throw new IllegalArgumentException("Поле 'место работы' не может быть пустым ");
@@ -39,11 +42,12 @@ public class User {
         this.address = address;
     }
 
-    public static Map<Integer, List<User>> groupUser(List<User> userList) {
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> users = new HashMap<>();
-        for (User user : userList) {
-            users.putIfAbsent(user.age, new ArrayList<>());
-            users.get(user.age).add(user);
+        if (userList != null) {
+            for (User user : userList) {
+                users.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
+            }
         }
         return users;
     }
