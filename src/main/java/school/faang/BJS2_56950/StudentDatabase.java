@@ -26,7 +26,7 @@ public class StudentDatabase {
         return null;
     }
 
-    public void addNewSubjectWithInteger(String studentName, String subjectName, int integer) {
+    public void addNewSubjectWithInteger(String studentName, String subjectName, int grade) {
         Student student = findStudentByName(studentName);
 
         if (student == null) {
@@ -34,7 +34,7 @@ public class StudentDatabase {
         }
 
         Map<Subject, Integer> mapSubject = studentSubjects.get(student);
-        mapSubject.put(new Subject(subjectName), integer);
+        mapSubject.put(new Subject(subjectName), grade);
     }
 
     public void deleteStudent(String studentName) {
