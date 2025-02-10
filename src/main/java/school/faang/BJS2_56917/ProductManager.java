@@ -48,13 +48,6 @@ public class ProductManager {
             return new ArrayList<>();
         }
 
-        System.out.printf("Категория: %s%n", category);
-        categoryMap.get(category).forEach(product -> {
-            System.out.printf("Продукт:%n"
-                            + "ID: %d%n"
-                            + "Name: %s%n",
-                    product.getId(), product.getName());
-        });
         return categoryMap.get(category);
     }
 
