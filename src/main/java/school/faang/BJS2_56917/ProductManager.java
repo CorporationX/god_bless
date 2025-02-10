@@ -10,6 +10,11 @@ public class ProductManager {
     private final AtomicInteger counter = new AtomicInteger(1);
 
     public void addProduct(Category category, String name) {
+        if (category == null) {
+            System.out.println("⚠️ Category cannot be null.");
+            return;
+        }
+
         Product newProduct = new Product(counter.getAndIncrement(), name, category);
         products.add(newProduct);
         categoryMap.computeIfAbsent(category, (k -> new ArrayList<>())).add(newProduct);
