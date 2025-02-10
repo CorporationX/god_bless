@@ -18,7 +18,6 @@ public class NotificationManager {
         if (notification == null) {
             throw new IllegalArgumentException("Уведомление не может быть NULL");
         }
-
         if (!notificationConsumers.containsKey(notification.getType())) {
             throw new IllegalArgumentException("Данный тип не создан: " + notification);
         }

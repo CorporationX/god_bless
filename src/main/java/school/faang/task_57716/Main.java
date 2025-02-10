@@ -27,5 +27,4 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
     }
-
 }
