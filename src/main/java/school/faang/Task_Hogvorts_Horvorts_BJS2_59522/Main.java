@@ -3,7 +3,7 @@ package school.faang.Task_Hogvorts_Horvorts_BJS2_59522;
 public class Main {
     public static void main(String[] args) {
 
-        SpellCaster spellCaster = new  SpellCaster();
+        SpellCaster spellCaster = new SpellCaster();
 
         String alohomora = "Alohomora";
         String lumos = "Lumos";

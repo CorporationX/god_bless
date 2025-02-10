@@ -4,4 +4,3 @@ package school.faang.Task_Hogvorts_Horvorts_BJS2_59522;
 public interface SpellAction {
     String castSpell(String spellName);
 }
-
