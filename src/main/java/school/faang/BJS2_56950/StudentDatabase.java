@@ -7,9 +7,9 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public  void addStudentAndSubjectWithInteger(String studentName, String subjectName, int integer) {
+    public  void addStudentAndSubjectWithInteger(String studentName, String subjectName, int grade) {
         Student key = new Student(studentName);
-        Map<Subject, Integer> value = new HashMap<>(Map.of(new Subject(subjectName), integer));
+        Map<Subject, Integer> value = new HashMap<>(Map.of(new Subject(subjectName), grade));
 
         this.studentSubjects.put(key, value);
     }
