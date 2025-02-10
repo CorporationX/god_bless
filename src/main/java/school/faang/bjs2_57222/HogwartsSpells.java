@@ -33,10 +33,12 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        String eventType = spellEvent.getEventType();
-        List<SpellEvent> spellEventList = getSpellEventsByType(eventType);
-        spellEventList.remove(spellEvent);
-        System.out.println("Deleted spellEvent where id: " + id);
+        if (spellEvent != null) {
+            List<SpellEvent> spellEventList = getSpellEventsByType(spellEvent.getEventType());
+            if (spellEventList != null) {
+                spellEventList.remove(spellEvent);
+            }
+        }
     }
 
     public void printAllSpellEvents() {
