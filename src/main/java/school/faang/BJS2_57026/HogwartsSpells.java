@@ -9,13 +9,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private final AtomicInteger counter = new AtomicInteger(1);
+
 
     public  void addSpellEvent(String eventType, String actionDescription) {
-        int id = this.counter.getAndIncrement();
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
 
-        this.spellById.put(id, spellEvent);
+        this.spellById.put(spellEvent.getId(), spellEvent);
         this.spellsByType.merge(eventType, new ArrayList<>(List.of(spellEvent)), (existingList, newList) -> {
             existingList.add(spellEvent);
             return existingList;
