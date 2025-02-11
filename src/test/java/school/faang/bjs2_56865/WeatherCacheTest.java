@@ -65,8 +65,8 @@ class WeatherCacheTest {
         String city = "UnknownCity";
         long cacheAgeMillis = TimeUnit.MINUTES.toMillis(5);
 
-        assertThrows(IllegalStateException.class, () ->
-                failingCache.getWeatherData(city, cacheAgeMillis), "Ожидается исключение, если провайдер возвращает null");
+        assertThrows(IllegalStateException.class, () -> failingCache.getWeatherData(city, cacheAgeMillis),
+                "Ожидается исключение, если провайдер возвращает null");
     }
 
 
