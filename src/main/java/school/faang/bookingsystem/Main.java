@@ -1,9 +1,12 @@
 package school.faang.bookingsystem;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
+@Slf4j
 public class Main {
     private static final Set<String> CONFERENCE_AMENITIES = Set.of("projector", "screen", "microphone");
     private static final Set<String> MEETING_AMENITIES = Set.of("table", "chair", "video conference");
@@ -29,24 +32,26 @@ public class Main {
     private static final String FOURTH_INTERVAL = TEN_AM_TIME + "-" + ONE_PM_TIME.toString();
 
     public static void main(String[] args) {
-        BookingSystem bookingSystem = getBooking();
+        try {
+            BookingSystem bookingSystem = getBooking();
 
-        bookingSystem.findBookingsForDate(FIFTEENTH_FEBRUARY);
-        bookingSystem.findBookingsForDate(SIXTEENTH_FEBRUARY);
-        bookingSystem.findBookingsForDate(NINETEENTH_FEBRUARY);
+            bookingSystem.findBookingsForDate(FIFTEENTH_FEBRUARY);
+            bookingSystem.findBookingsForDate(SIXTEENTH_FEBRUARY);
+            bookingSystem.findBookingsForDate(NINETEENTH_FEBRUARY);
 
-        getAvailableRoomsNegativeTest(bookingSystem);
-        getAvailableRoomsPositiveTests(bookingSystem);
+            getAvailableRoomsNegativeTest(bookingSystem);
+            getAvailableRoomsPositiveTests(bookingSystem);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
     }
 
     private static BookingSystem getBookingNotifier() {
         BookingNotifier notifier = new BookingNotifier();
         BookingObserver userObserver = (booking, status) ->
-                System.out.println("USER: The booking status " +
-                        booking.getBookingId() + " has been updated to " + status);
+                log.info("USER: The booking status {} has been updated to {}", booking.getBookingId(), status);
         BookingObserver adminObserver = (booking, status) ->
-                System.out.println("ADMIN: You have changed the booking status " +
-                        booking.getBookingId() + " to " + status);
+                log.info("ADMIN: You have changed the booking status {} to {}", booking.getBookingId(), status);
 
         notifier.addObserver(userObserver);
         notifier.addObserver(adminObserver);
@@ -97,7 +102,6 @@ public class Main {
         bookingSystem.cancelBooking(1008);
         bookingSystem.cancelBooking(1008);
         bookingSystem.bookRoom(202, NINETEENTH_FEBRUARY, THIRD_INTERVAL);
-        System.out.println();
 
         return bookingSystem;
     }

@@ -1,18 +1,16 @@
 package school.faang.bookingsystem;
 
-import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
+@Slf4j
 public class BookingSystem {
-    private static final String ROOM_NUMBER_FORMAT = "Room number: %d, ";
-    private static final String TYPE_FORMAT = "type: %s\n";
-    private static final String DATE_FORMAT = "Date: %s\n";
-    private static final String ID_FORMAT = "Id: %d - ";
-    private static final String TIME_FORMAT = "time: %s\n";
+    private static final String PRINT_ROOM_FORMAT = "Room number: {}, type: {}, amenities: {}";
+    private static final String PRINT_ROOM_AVAILABLE_FORMAT = "Available rooms in date: {} and time: {}:";
+    private static final String PRINT_FOR_DATE_FORMAT = "Date: {}, id: {}, time: {}";
     private static final int HOURS_TO_MINUTES = 60;
     private static final int[] START_HOUR_INTERVALS = {0, 2};
     private static final int[] END_HOUR_INTERVALS = {3, 5};
@@ -31,7 +29,7 @@ public class BookingSystem {
         if (!roomMap.containsKey(room.getRoomNumber())) {
             roomMap.put(room.getRoomNumber(), room);
         } else {
-            System.out.println("Room already exists\n");
+            log.info("{} already added to the list", room.getRoomNumber());
         }
     }
 
@@ -39,7 +37,7 @@ public class BookingSystem {
         if (roomMap.containsKey(roomNumber)) {
             roomMap.remove(roomNumber);
         } else {
-            System.out.println("Room does not exist\n");
+            log.info("{} does not exist in the list", roomNumber);
         }
     }
 
@@ -50,10 +48,10 @@ public class BookingSystem {
                 bookingMap.put(booking.getBookingId(), booking);
                 bookingNotifier.notifyObservers(booking, "Booked");
             } else {
-                System.out.println("Room has already been booked");
+                log.info("{} has already been booked", roomNumber);
             }
         } else {
-            System.out.println("Room number " + roomNumber + " does not exist\n");
+            log.info("Room number {} does not exist", roomNumber);
         }
     }
 
@@ -62,12 +60,12 @@ public class BookingSystem {
             bookingNotifier.notifyObservers(bookingMap.get(bookingId), "Cancelled");
             bookingMap.remove(bookingId);
         } else {
-            System.out.println("Booking does not exist");
+            log.info("Booking {} does not exist", bookingId);
         }
     }
 
     public void findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-        System.out.println("Available rooms in date: " + date + " and time: " + timeSlot + ":\n");
+        log.info(PRINT_ROOM_AVAILABLE_FORMAT, date, timeSlot);
         if (!requiredAmenities.isEmpty()) {
             roomMap.forEach((key, value) -> {
                 if (value.getAmenities().containsAll(requiredAmenities)) {
@@ -110,19 +108,13 @@ public class BookingSystem {
     }
 
     private void printRooms(Room room) {
-        System.out.printf(ROOM_NUMBER_FORMAT, room.getRoomNumber());
-        System.out.printf(TYPE_FORMAT, room.getType());
-        System.out.print("Amenities: ");
-        room.getAmenities().forEach(amenity -> System.out.print(amenity + " "));
-        System.out.println("\n");
+        log.info(PRINT_ROOM_FORMAT, room.getRoomNumber(), room.getType(), room.getAmenities());
     }
 
     public void findBookingsForDate(String date) {
         bookingMap.forEach((key, value) -> {
             if (value.getDate().equals(date)) {
-                System.out.printf(DATE_FORMAT, date);
-                System.out.printf(ID_FORMAT, key);
-                System.out.printf(TIME_FORMAT, value.getTimeSlot());
+                log.info(PRINT_FOR_DATE_FORMAT, date, key, value.getTimeSlot());
                 printRooms(value.getRoom());
             }
         });
