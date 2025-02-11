@@ -14,7 +14,7 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> filter = Email::getIsImportant;
+        Predicate<Email> filter = Email::isImportant;
         Function<Email, Email> convert = email -> {
             email.setBody(email.getBody().toUpperCase());
             return email;
