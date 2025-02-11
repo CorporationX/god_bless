@@ -6,13 +6,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public void addItem(Character character, Item item, Consumer<Item> inventoryItemAdditionAnnouncer) {
+    public void addItem(Character character, Item item, Consumer<Item> action) {
         character.getInventory().add(item);
-        inventoryItemAdditionAnnouncer.accept(item);
+        action.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> isItemExist) {
-        character.getInventory().removeIf(isItemExist);
+    public void removeItem(Character character, Predicate<Item> condition) {
+        character.getInventory().removeIf(condition);
     }
 
     public void updateItem(Character character, Predicate<Item> isItemExist, Function<Item, Item> updateItem) {
