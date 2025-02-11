@@ -1,5 +1,7 @@
 package BJS2_57087;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,17 +9,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class ProductManager {
     Set<Product> products = new HashSet<>();
     Map<Category, List<Product>> categoryMap = new HashMap<>();
     private int currentId = 1;
 
-    public void addProduct(Category category, String name) {
-        Product product = new Product(currentId, name, category);
+    public void addProduct(Category category, String productName) {
+        Product product = new Product(currentId, productName, category);
         if (products.add(product)) {
             categoryMap.computeIfAbsent(category, c -> new ArrayList<>()).add(product);
         } else {
-            System.out.println("A product with the name: \"" + product.getName() + "\" already exists");
+            log.info("Product {} already exists", productName);
         }
 
         currentId++;
@@ -36,7 +39,7 @@ public class ProductManager {
                 categoryProducts.remove(product);
             }
         } else {
-            System.out.printf("Product %s not found", name);
+            log.info("Product {} not found", name);
         }
     }
 
@@ -53,7 +56,7 @@ public class ProductManager {
 
     public void printAllProducts() {
         if (categoryMap.isEmpty()) {
-            System.out.println("No products found");
+            log.info("No products found");
             return;
         }
 
@@ -66,6 +69,6 @@ public class ProductManager {
                 sb.append("\n");
             }
         });
-        System.out.print(sb);
+        log.info(String.valueOf(sb));
     }
 }
