@@ -10,7 +10,8 @@ public class StudentDatabase {
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudent(Student student, Map<Subject, Integer> subjects) {
-        checkStudent(student);
+        checkStudentExistence(student);
+        checkStudentNull(student);
         studentSubjects.put(student, subjects);
         for (Map.Entry<Subject, Integer> entry : subjects.entrySet()) {
             subjectStudents.computeIfAbsent(entry.getKey(), studentNew -> new ArrayList<>()).add(student);
@@ -18,11 +19,14 @@ public class StudentDatabase {
     }
 
     public void addNewSubjectForStudent(Student student, Subject subject, int grade) {
+        checkStudentNull(student);
+        checkSubjectNull(subject);
         studentSubjects.computeIfAbsent(student, studentNew -> new HashMap<>()).put(subject, grade);
         subjectStudents.computeIfAbsent(subject, studentNew -> new ArrayList<>()).add(student);
     }
 
     public void removeStudentAndHisSubject(Student student) {
+        checkStudentNull(student);
         Map<Subject, Integer> subjects = studentSubjects.remove(student);
         if (subjects != null) {
             for (Subject subject : subjects.keySet()) {
@@ -42,9 +46,21 @@ public class StudentDatabase {
         System.out.println("\n");
     }
 
-    private void checkStudent(Student student) {
+    private void checkStudentExistence(Student student) {
         if (studentSubjects.containsKey(student)) {
-            throw new IllegalArgumentException("Студент отсутствует!");
+            throw new IllegalArgumentException("Студент уже существует!");
+        }
+    }
+
+    private void checkStudentNull(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Поле студент пустое");
+        }
+    }
+
+    private void checkSubjectNull(Subject subject) {
+        if (subject == null) {
+            throw new IllegalArgumentException("Поле оценка пустое");
         }
     }
 }
