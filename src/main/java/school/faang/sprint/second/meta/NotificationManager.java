@@ -1,12 +1,14 @@
 package school.faang.sprint.second.meta;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+@Slf4j
 public class NotificationManager {
     private static final String DEFAULT_MESSAGE = " С уважением, Мета";
     private static final Set<String> DENIED_WORDS = Set.of("Кола", "Виски");
@@ -29,7 +31,7 @@ public class NotificationManager {
 
         handlers.getOrDefault(
                         notificationType,
-                        (message) -> System.out.println("Для " + notificationType + " не найдено сообщение"))
+                        (message) -> log.error("Для {} не найдено сообщение", notificationType))
                 .accept(modifiedNotification);
     }
 
