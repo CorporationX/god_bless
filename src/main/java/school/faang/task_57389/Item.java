@@ -10,4 +10,9 @@ import lombok.Setter;
 public class Item {
     private String name;
     private int value;
+
+    @Override
+    public String toString() {
+        return String.format(name);
+    }
 }

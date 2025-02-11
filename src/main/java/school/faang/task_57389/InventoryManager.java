@@ -1,6 +1,9 @@
 package school.faang.task_57389;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -18,11 +21,26 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
         checkCharacter(character);
         checkPredicate(predicate);
-        character.getInventory().removeIf(predicate);
-        log.info("Удален предмет из инвентаря");
+        List<Item> inventory = character.getInventory();
+        List<Item> removedItems = new ArrayList<>();
+        inventory.removeIf(item -> {
+            if (predicate.test(item)) {
+                removedItems.add(item);
+                return true;
+            }
+            return false;
+        });
+        if (!removedItems.isEmpty()) {
+            log.info("Удалены предметы из инвентаря: {}", removedItems);
+        } else {
+            log.info("Нет предметов, соответствующих критериям удаления.");
+        }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Consumer<Item> consumer) {
+        checkCharacter(character);
+        checkPredicate(predicate);
+        checkConsumer(consumer);
         character.getInventory().stream().filter(predicate).forEach(consumer);
     }
 
