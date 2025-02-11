@@ -1,10 +1,8 @@
 package school.faang;
 
-import lombok.Getter;
+import lombok.Data;
 
-import java.util.Objects;
-
-@Getter
+@Data
 public class SpellEvent {
     private final int id;
     private final String eventType;
@@ -15,45 +13,4 @@ public class SpellEvent {
         this.eventType = eventType;
         this.action = action;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    @Override
-    public String toString() {
-        return "SpellEvent{" +
-                "id:" + id +
-                ", eventType:'" + eventType + '\'' +
-                ", action:'" + action + '\'' +
-                '}';
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SpellEvent that = (SpellEvent) o;
-        return id == that.id && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, eventType, action);
-    }
-
-
 }
