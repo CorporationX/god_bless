@@ -6,6 +6,8 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Random;
+
 @EqualsAndHashCode
 @Getter
 @Setter

@@ -9,17 +9,20 @@ public class WeatherService implements WeatherProvider {
     private static final double MIN_HUMIDITY = 0;
     private static final double MAX_HUMIDITY = 100;
 
-    private final long timestamp = System.currentTimeMillis();
-
     @Override
     public WeatherData fetchWeatherData(String city) {
-        WeatherData weatherData = new WeatherData(city);
+        WeatherData data = new WeatherData(city);
+        setWeatherData(data);
+        return data;
+    }
+
+    private void setWeatherData(WeatherData data) {
         Random random = new Random();
         double temperature = MIN_TEMP + (MAX_TEMP - MIN_TEMP) * random.nextDouble();
         double humidity = MIN_HUMIDITY + (MAX_HUMIDITY - MIN_HUMIDITY) * random.nextDouble();
-        weatherData.setTemperature(temperature);
-        weatherData.setHumidity(humidity);
-        weatherData.setTimestamp(timestamp);
-        return new WeatherData(city);
+        long timestamp = System.currentTimeMillis();
+        data.setTemperature(temperature);
+        data.setHumidity(humidity);
+        data.setTimestamp(timestamp);
     }
 }

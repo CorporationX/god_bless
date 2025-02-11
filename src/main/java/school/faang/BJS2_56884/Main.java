@@ -1,10 +1,16 @@
 package school.faang.BJS2_56884;
 
-import java.util.Random;
-
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        System.out.println(-30 + (50 - -30) * random.nextDouble());
+        WeatherProvider service = new WeatherService();
+
+        WeatherCacheTemplate standard = new StandardWeatherCache(service);
+        WeatherData data = standard.getWeatherData("Moscow", 300);
+        System.out.println(standard.cache);
+        System.out.println(standard.getWeatherData("Moscow", 300));
+
+        WeatherCacheTemplate frequent = new FrequentUpdateWeatherCache(service);
+        WeatherData data1 = frequent.getWeatherData("Moscow", 300);
+        System.out.println(frequent.cache);
     }
 }
