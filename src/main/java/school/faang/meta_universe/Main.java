@@ -22,13 +22,16 @@ public class Main {
 
         listNotifications.forEach(notificationManager::sendNotification);
 
-        System.out.println("*******************************");
-
+        System.out.println("**************WITH FILTERING*****************");
         notificationManager.setFilterWords(List.of("Sms", "Email"));
         listNotifications.forEach(notificationManager::sendFilteredNotification);
 
-        System.out.println("*******************************");
+        System.out.println("****************AFTER ADDED SIGN***************");
+        listNotifications.forEach(note -> notificationManager
+                .sendSignedNotification("Google", note));
 
-        notificationManager.sendSignedNotification("Google", listNotifications.get(0));
+        System.out.println("****************AFTER DELETED EMAIL HANDLER***************");
+        notificationManager.removeNotificationHandler(NotificationType.PUSH);
+        listNotifications.forEach(notificationManager::sendNotification);
     }
 }

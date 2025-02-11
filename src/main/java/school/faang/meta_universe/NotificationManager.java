@@ -1,7 +1,6 @@
 package school.faang.meta_universe;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,17 +12,20 @@ public class NotificationManager {
 
     private final Map<NotificationType, Consumer<Notification>> notificationBase;
     private Predicate<Notification> containsFilterWords;
-    private Function<Notification, Notification> addSign; // Добавить подпись компании к каждому сообщению
+    private Function<Notification, Notification> addSign;
 
     public NotificationManager() {
         this.notificationBase = new HashMap<>();
     }
 
+    public void removeNotificationHandler(NotificationType type) {
+        notificationBase.remove(type);
+    }
+
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        if (type == null || notificationBase == null) {
+        if (type == null) {
             throw new IllegalArgumentException("No type or handler given");
         }
-
         notificationBase.put(type, handler);
     }
 
@@ -32,29 +34,28 @@ public class NotificationManager {
             throw new IllegalArgumentException("No filterWords given");
         }
 
-        containsFilterWords = note ->
+        Predicate<Notification> filterPredicate = note ->
                 filterWords.stream().anyMatch(s -> note.getMessage().contains(s));
+        containsFilterWords = filterPredicate;
     }
 
     public void sendNotification(Notification notification) {
-
-        notificationBase.get(notification.getType()).accept(notification);
+        notificationBase.getOrDefault(notification.getType(),
+                notificationDefault -> System.out.println(String.format(
+                        "Notification handler not found for type: %s", notification.getType()))).accept(notification);
     }
 
     public void sendFilteredNotification(Notification notification) {
-
         if (containsFilterWords.test(notification)) {
-            System.out.println("Message could not be send");
+            System.out.println("Message could not be send because of censorship!");
             return;
         }
-
         notificationBase.get(notification.getType()).accept(notification);
     }
 
     public void sendSignedNotification(String sign, Notification notification) {
-
         addSign = note -> {
-            note.setMessage(new StringBuilder(note.getMessage()).append(" Company: ").append(sign).toString());
+            note.setMessage(MessageFormat.format("{0} Company: {1}", note.getMessage(), sign));
             return note;
         };
 
