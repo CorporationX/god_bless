@@ -1,11 +1,6 @@
 package school.faang.instagramfilters;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-public class Image {
-    private String name;
-    private String description;
-}
+public record Image(String name, String description) {}
