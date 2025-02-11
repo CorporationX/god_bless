@@ -2,9 +2,6 @@ package school.faang.droidssecret;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
-
-import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
