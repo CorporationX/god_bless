@@ -14,4 +14,16 @@ public class TestSpellCaster {
         spellCaster.cast("Alohomora", action);
         Mockito.verify(spellCaster, Mockito.times(1)).cast("Alohomora", action);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCastThrowWhenSpellNameBlank() {
+        SpellCaster spellCaster = new SpellCaster();
+        spellCaster.cast("", (s) -> "The door is unlocked by " + s);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCastThrowWhenSpellContainsDigitsOrSymbols() {
+        SpellCaster spellCaster = new SpellCaster();
+        spellCaster.cast("Avada K3davra", (s) -> "The door is unlocked by " + s);
+    }
 }
