@@ -1,12 +1,12 @@
 package school.faang.sprint2.lambda.metauniversal;
 
 public class Main {
-    private final static String emailMessage = "Похоже, кто-то пытался войти в вашу учётную запись Discord из нового "
+    private static final String emailMessage = "Похоже, кто-то пытался войти в вашу учётную запись Discord из нового "
             + "местоположения. Если это вы, перейдите по ссылке, чтобы разрешить вход.";
-    private final static String galaxyMessage = "Привет из Млечного Пути! Мы — разумные существа (но это не точно) с "
+    private static final String galaxyMessage = "Привет из Млечного Пути! Мы — разумные существа (но это не точно) с "
             + "планеты Земля, изучаем Вселенную и надеемся, что не одиноки. Если вы получаете это сообщение, "
             + "ответьте любым возможным способом. Мир и дружба!";
-    private final static String  pushMessage = "Пользователь Evan поставил like вашему сообщению";
+    private static final String  pushMessage = "Пользователь Evan поставил like вашему сообщению";
 
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -22,7 +22,7 @@ public class Main {
 
 
         Notification notification1 = new Notification(NotificationType.EMAIL, emailMessage);
-        Notification notification2 = new Notification(NotificationType.PUSH, pushMessage );
+        Notification notification2 = new Notification(NotificationType.PUSH, pushMessage);
 
         notificationManager.sendNotification(notification1);
         System.out.println();
