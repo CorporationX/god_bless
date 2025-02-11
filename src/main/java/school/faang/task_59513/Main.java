@@ -7,7 +7,6 @@ import java.util.function.BiConsumer;
 public class Main {
     public static void main(String[] args) {
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
-
         Map<String, String> dictionary = new HashMap<>();
 
         BiConsumer<String, String> addWordToDictionary =
@@ -16,7 +15,11 @@ public class Main {
         dictionaryProcessor.processWord("привет", "hello", addWordToDictionary);
         dictionaryProcessor.processWord("мир", "world", addWordToDictionary);
         dictionaryProcessor.processWord("программирование", "programming", addWordToDictionary);
+        dictionaryProcessor.processWord(null, "programming", addWordToDictionary);
+        dictionaryProcessor.processWord("программирование", null, addWordToDictionary);
+        dictionaryProcessor.processWord("       ", "programming", addWordToDictionary);
+        dictionaryProcessor.processWord("программирование", "       ", addWordToDictionary);
 
-        System.out.printf("Dictionary: %s", dictionary);
+        System.out.println("Dictionary: " + dictionary);
     }
 }
