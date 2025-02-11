@@ -43,24 +43,24 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spell = this.spellById.get(id);
-
-        if (spell == null) {
-            System.out.println("❌ No spell found with this ID.");
+        var removedSpell = spellById.remove(id);
+        if (removedSpell == null) {
             return;
         }
 
-        this.spellById.remove(id);
-        List<SpellEvent> spellList = this.spellsByType.get(spell.getEventType());
-
-        if (spellList == null) {
+        var eventType = removedSpell.getEventType();
+        if (eventType == null) {
             return;
         }
 
-        spellList.remove(spell);
+        var spellEvents = spellsByType.get(eventType);
+        if (spellEvents == null) {
+            return;
+        }
 
-        if (spellList.isEmpty()) {
-            this.spellsByType.remove(spell.getEventType());
+        spellEvents.remove(removedSpell);
+        if (spellEvents.isEmpty()) {
+            spellsByType.remove(eventType);
         }
     }
 
