@@ -1,65 +1,86 @@
 package school.faang;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.Scanner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static school.faang.Addresses.VALID_ADDRESSES;
+import static school.faang.Jobs.VALID_JOBS;
 
-@Getter
-@AllArgsConstructor
-
-public final class User {
-    private final String name;
-    private final int age;
-    private final String workplace;
-    private final String address;
+public class User {
+    public static final int MIN_AGE = 18;
+    static Scanner console = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        User oleg = new User("Oleg", 48, "Jaguar", "London");
-        User ivan = new User("Ivan", 45, "Lada", "Moscow");
-        User egor = new User("Egor", 26, "Audi", "Berlin");
-        User anton = new User("Anton", 31, "Nissan", "Tokyo");
-        User alexander = new User("Alexander", 32, "Maserati", "Rome");
-        User pavel = new User("Pavel", 35, "Jeep", "Boston");
-        User dima = new User("Dima", 35, "Omoda", "Beijing");
-        User sergey = new User("Sergey", 35, "Kia", "Seul");
-
-        List<User> users = new ArrayList<>();
-
-        users.add(oleg);
-        users.add(ivan);
-        users.add(egor);
-        users.add(anton);
-        users.add(alexander);
-        users.add(pavel);
-        users.add(dima);
-        users.add(sergey);
-
-        groupUsers(users);
-    }
-
-    public static void groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUserByAge = new HashMap<>();
-
-        for (User user : users) {
-            groupUserByAge.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+        if (enterName() || enterAge()) {
+            return;
         }
 
-        for (Map.Entry<Integer, List<User>> entry : groupUserByAge.entrySet()) {
+        console.nextLine();
 
-            System.out.println("Age:" + entry.getKey() + " user " + entry.getValue());
+        if (enterJob() || enterAddress()) {
+            return;
         }
+
+        console.close();
     }
 
-    @Override
-    public String toString() {
-        return name + " (age: " + age + ", workplace: " + workplace + ", address: " + address + ")";
+    private static boolean enterName() {
+        System.out.println("Enter your name");
+        String name = console.nextLine();
+        if (name == null || name.isEmpty()) {
+
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Try again");
+                return true;
+            }
+        }
+        return false;
     }
 
+    private static boolean enterAge() {
+        System.out.println("Enter your age");
+        int age = console.nextInt();
+
+        if (age < MIN_AGE) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Sorry, you are too young");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean enterJob() {
+        System.out.println("Enter your place of job");
+        String job = console.nextLine().trim();
+
+        if (!VALID_JOBS.contains(job)) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("This company is not suitable for us");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean enterAddress() {
+        System.out.println("Enter the location of the company");
+        String address = console.nextLine().trim();
+
+        if (!VALID_ADDRESSES.contains(address)) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("This city is not suitable for us");
+                return true;
+            }
+        }
+        return false;
+    }
 }
-
-
