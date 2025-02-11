@@ -7,9 +7,12 @@ public class Process {
 
     public static <T> T calculate(List<T> nums, Calculator<T> calculator)
             throws IllegalArgumentException, ArithmeticException {
+        if (nums == null || nums.isEmpty()) {
+            throw new NoSuchElementException("The list of numbers is empty");
+        }
         return nums.stream()
                 .reduce(calculator::operation)
-                .orElseThrow(() -> new NoSuchElementException("The list of numbers is empty"));
+                .get();
     }
 
     public static int product(List<Integer> nums) {
