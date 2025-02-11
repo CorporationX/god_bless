@@ -18,10 +18,10 @@ public class App {
         );
 
         // Фильтр, который пропускает только важные письма
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println(String.format("Обработано письмо: %s", email.getSubject()));
 
         // Преобразователь, который переводит текст письма в верхний регистр
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
@@ -30,7 +30,8 @@ public class App {
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject()
-                + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.println(
+                String.format("Тема: %s, Тело письма: %s", email.getSubject(), email.getBody())
+        ));
     }
 }
