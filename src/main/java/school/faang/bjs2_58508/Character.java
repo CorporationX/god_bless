@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
-    protected String name;
+    protected final String name;
     protected int strength;
     protected int agility;
     protected int intelligence;
