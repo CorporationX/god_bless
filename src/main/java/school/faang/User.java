@@ -70,6 +70,5 @@ public class User {
         return address;
     }
 
-
 }
 
