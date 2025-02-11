@@ -1,9 +1,9 @@
 package school.faang.hogwarts;
 
 public class SpellCaster {
-    void cast(String spell, SpellAction action) {
+    public void cast(String spell, SpellAction action) {
         if (spell == null || action == null) {
-            return;
+            throw new IllegalArgumentException("Введи название");
         }
         String result = action.cast(spell);
         System.out.println(result);
