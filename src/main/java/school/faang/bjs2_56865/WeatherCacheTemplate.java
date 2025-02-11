@@ -28,7 +28,7 @@ abstract class WeatherCacheTemplate {
         if (data != null) {
             weatherCache.put(city, data);
         } else {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Provided weather data does not exist: " + city);
         }
     }
 
