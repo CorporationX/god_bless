@@ -1,10 +1,17 @@
 package school.faang.BJS2_57678;
 
+import lombok.Setter;
+
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap();
     private final List<Predicate<Notification>> filters = new ArrayList<>();
+    @Setter
+    private Function<Notification, Notification> corrector = notification -> notification;
 
     private boolean checkMessage(Notification notification) {
         if (notification == null || notification.getMessage() == null || notification.getMessage().trim().isEmpty()) {
@@ -12,7 +19,7 @@ public class NotificationManager {
         }
 
         for (Predicate<Notification> filter : filters) {
-            if (filter.check(notification)) {
+            if (filter.test(notification)) {
                 return true;
             }
         }
@@ -24,14 +31,6 @@ public class NotificationManager {
             throw new IllegalArgumentException("Filter can't be null");
         }
         filters.add(filter);
-    }
-
-    public static void addSing(Function<Notification, String> sing, String companyName) {
-        if (sing == null) {
-            throw new IllegalArgumentException("sing can't be null");
-        }
-        Notification result = sing.apply(companyName);
-        result.setMessage(String.format("%s from company %s", sing.apply(companyName).getMessage(), companyName));
     }
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
@@ -56,7 +55,7 @@ public class NotificationManager {
             System.out.println("Собщение содержит незензурную лекцику");
             return;
         }
-        handler.accept(notification);
+        handler.accept(corrector.apply(notification));
     }
 
     public Map<NotificationType, Consumer<Notification>> getNotificationHandlers() {

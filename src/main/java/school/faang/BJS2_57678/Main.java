@@ -15,17 +15,17 @@ public class Main {
         notificationManager.registerHandler(NotificationType.PUSH,
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
+
+        notificationManager.setCorrector(notification ->
+                new Notification(notification.getType(), notification.getMessage() + " from company Google")
+        );
+
         notificationManager.addFilter(notification -> notification.getMessage().toLowerCase().contains("мир"));
         notificationManager.addFilter(notification -> notification.getMessage().toLowerCase().contains("война"));
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        NotificationManager.addSing((any) -> emailNotification, "Google");
-
         Notification smsNotification = new Notification(NotificationType.SMS, "Мир во всем мире");
-        NotificationManager.addSing((any) -> smsNotification, "Vk");
-
         Notification pushNotification = new Notification(NotificationType.PUSH, "Война это плохо!");
-        NotificationManager.addSing((any) -> pushNotification, "Meta");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
