@@ -1,10 +1,12 @@
 package school.faang.task_57308;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -27,19 +29,22 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = spellById.remove(id);
-        if (spellEvent != null) {
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
-            if (events != null) {
-                events.remove(spellEvent);
+        if (!(spellById.remove(id) == null)) {
+            SpellEvent spellEvent = spellById.remove(id);
+            if (spellEvent != null) {
+                List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+                if (events != null) {
+                    events.remove(spellEvent);
+                }
             }
+        } else {
+            log.info("You are trying to remove a non-existent spell.");
         }
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
+            log.info(String.valueOf(entry.getValue()));
         }
     }
-
 }
