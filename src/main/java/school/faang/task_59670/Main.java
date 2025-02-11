@@ -1,4 +1,6 @@
-package school.faang.task_46080;
+package school.faang.task_59670;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,6 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -21,7 +24,7 @@ public class Main {
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         emails.forEach(email -> {
-            System.out.println("Theme: " + email.getSubject() + ", Email body: " + email.getBody());
+            log.info("Theme: {}, Email body: {}", email.getSubject(), email.getBody());
         });
     }
 }
