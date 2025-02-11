@@ -1,9 +1,11 @@
 package school.faang.gmailfilters;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class Email {
     private String subject;

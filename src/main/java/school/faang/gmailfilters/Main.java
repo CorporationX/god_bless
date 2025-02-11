@@ -1,11 +1,14 @@
 package school.faang.gmailfilters;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         try {
@@ -25,8 +28,8 @@ public class Main {
 
             Predicate<Email> importantFilter = Email::isImportant;
             Function<Email, String> toUpperCaseBody = email -> email.getBody().toUpperCase();
-            Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: "
-                    + email.getSubject());
+            Consumer<Email> printEmail = email ->
+                    log.info("Обработано письмо: {}", email.getSubject());
 
             emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCaseBody);
 
@@ -34,14 +37,14 @@ public class Main {
             Function<Email, String> replaceBody = email -> email.getBody()
                     .replace(email.getBody(), "DON'T READ");
             Consumer<Email> printEmailWithoutSpam = email ->
-                    System.out.println("Письмо спам: " + email.getSubject());
+                    log.info("Письмо спам: {}", email.getSubject());
 
             emailProcessor.processEmails(emails, spamFilter, printEmailWithoutSpam, replaceBody);
 
             emails.forEach(email ->
-                    System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+                    log.info("Тема: {}, тело письма: {}", email.getSubject(), email.getBody()));
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            log.error(exception.getMessage());
         }
     }
 }
