@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class SpellEvent {
-    private final AtomicInteger counter = new AtomicInteger(1);
+    private static final AtomicInteger counter = new AtomicInteger(1);
 
     private final int id;
     private final String eventType;
