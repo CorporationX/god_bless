@@ -1,17 +1,15 @@
 package CatchingEvents;
-import lombok.EqualsAndHashCode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-@EqualsAndHashCode
 public class HogwartsSpells {
 
     private final HashMap<Integer, SpellEvent> spellById = new HashMap<>();
     private final HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int id = 1;
-
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
@@ -42,6 +40,17 @@ public class HogwartsSpells {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        HogwartsSpells that = (HogwartsSpells) o;
+        return Objects.equals(spellById, that.spellById) && Objects.equals(spellsByType, that.spellsByType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(spellById, spellsByType);
     }
 }
 
