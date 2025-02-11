@@ -5,10 +5,20 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class NotificationManager {
     private static final Logger logger = LoggerFactory.getLogger(NotificationManager.class);
-    private Map<NotificationType, Consumer<Notification>> notificationManagerMap = new HashMap<>();
+    private static final String SUBSCRIPTION = " With care for you, our Meta";
+    private final Map<NotificationType, Consumer<Notification>> notificationManagerMap = new HashMap<>();
+    private final Set<String> forbiddenWords = Set.of("badword", "forbidden", "curse");
+    private final Predicate<Notification> predicate = notification -> forbiddenWords.stream()
+            .anyMatch(word -> notification.getMessage().toLowerCase().contains(word.toLowerCase()));
+    private final Function<Notification, Notification> notificationChanger = notification ->
+            new Notification(notification.getType(), notification.getMessage() + SUBSCRIPTION);
 
     public boolean registerHandler(NotificationType type, Consumer<Notification> handler) {
         checkValidArgument(type, "notification type");
@@ -24,13 +34,14 @@ public class NotificationManager {
     public boolean sendNotification(Notification notification) {
         checkValidArgument(notification, "notification");
         Consumer<Notification> notificationConsumer = notificationManagerMap.get(notification.getType());
-        if (notificationConsumer != null) {
-            notificationConsumer.send(notification);
+        if (notificationConsumer != null && !predicate.test(notification)) {
+            notificationChanger.apply(notification);
+            notificationConsumer.accept(notification);
             logger.info("The notification was sent successfully: type - {}, message - {}",
                     notification.getType(), notification.getMessage());
             return true;
         }
-        logger.error("The handler for this notification typy '{}' was not found.", notification.getType());
+        logger.error("The handler for this notification type '{}' was not found.", notification.getType());
         return false;
     }
 
