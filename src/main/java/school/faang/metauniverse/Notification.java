@@ -1,9 +1,11 @@
 package school.faang.metauniverse;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @AllArgsConstructor
 public class Notification {
     private NotificationType type;
