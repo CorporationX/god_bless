@@ -14,7 +14,6 @@ public class Item {
         this.value = value;
     }
 
-
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("The name can't be null or empty. Provided value" + name);

@@ -17,7 +17,7 @@ public class Character {
 
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("The name can't be null or empty. Provided value" + name);
+            throw new IllegalArgumentException("The name can't be null or empty. Provided value " + name);
         }
     }
 }
