@@ -1,16 +1,10 @@
 package school.faang.task_57062;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Student {
-    private String name;
-    char sex;
-    int age;
-    int course;
-
-
-    public Student(String name) {
-        this.name = name;
-    }
+    private String nameStudent;
 }
