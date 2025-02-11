@@ -9,7 +9,7 @@ public abstract class WeatherCacheTemplate {
 
     @Getter
     protected final Map<String, WeatherData> cache = new HashMap<>();
-    WeatherProvider weatherProvider;
+    private final WeatherProvider weatherProvider;
 
     public WeatherCacheTemplate(WeatherProvider weatherProvider) {
         this.weatherProvider = weatherProvider;
