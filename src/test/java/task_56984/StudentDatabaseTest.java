@@ -1,8 +1,8 @@
 package task_56984;
 
-import school.faang.task_56984.Student;
-import school.faang.task_56984.Subject;
-import school.faang.task_56984.StudentDatabase;
+import school.faang.sprint1.task_56984.Student;
+import school.faang.sprint1.task_56984.Subject;
+import school.faang.sprint1.task_56984.StudentDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
