@@ -1,11 +1,13 @@
 package school.faang.amazon_store;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 public class ProductManager {
@@ -18,41 +20,29 @@ public class ProductManager {
         categoryMap = new HashMap<>();
     }
 
-    public void addProduct(Category category, String name) {
+    public void addProduct(@NonNull Category category, @NonNull String name) {
         var product = new Product(currentId++, name, category);
         products.add(product);
-        categoryMap.putIfAbsent(category, new ArrayList<>());
-        var listProducts = categoryMap.get(category);
-        if (!listProducts.contains(product)) {
-            listProducts.add(product);
-        }
+        categoryMap.computeIfAbsent(category, v -> new ArrayList<>()).add(product);
     }
 
-    public void removeProduct(Category category, String name) {
-        categoryMap.values().forEach(productList ->
-                Optional.ofNullable(productList).ifPresent(list ->
-                        list.removeIf(product -> product.getName().equals(name))
-                )
-        );
-        products.removeIf(product -> product.getCategory().equals(category)
-                && product.getName().equals(name));
+    public void removeProduct(@NonNull Category category, @NonNull String name) {
+        categoryMap.values().forEach(list -> list.removeIf(
+                product -> product.getName().equals(name) && product.getCategory().equals(category)));
+        products.removeIf(
+                product -> product.getName().equals(name) && product.getCategory().equals(category));
     }
 
-    public List findProductsByCategory(Category category) {
-        return categoryMap.getOrDefault(category, null);
+    public List<Product> findProductsByCategory(@NonNull Category category) {
+        return Collections.unmodifiableList(categoryMap.getOrDefault(category, List.of()));
     }
 
     public void groupProductsByCategory() {
-        var newMap = new HashMap<Category, List<Product>>();
-        for (Product product : products) {
-            newMap.putIfAbsent(product.getCategory(), new ArrayList<>());
-            var listProducts = newMap.get(product.getCategory());
-            if (listProducts != null) {
-                listProducts.add(product);
-            }
-        }
         categoryMap.clear();
-        categoryMap.putAll(newMap);
+        for (var product : products) {
+            categoryMap.computeIfAbsent(product.getCategory(), v -> new ArrayList<>())
+                    .add(product);
+        }
     }
 
     public void printAllProducts() {
