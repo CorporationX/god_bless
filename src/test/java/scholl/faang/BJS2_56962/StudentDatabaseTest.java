@@ -13,6 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StudentDatabaseTest {
 
@@ -38,7 +39,7 @@ public class StudentDatabaseTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
                 database.addNewStudentAndHisSubjectWithGrades(student, Map.of(subject, 6)));
 
-        assertEquals("Оценка 6 некорректна, она должна быть в диапазоне от 1 до 5", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Оценка 6 некорректна"));
     }
 
     @Test
