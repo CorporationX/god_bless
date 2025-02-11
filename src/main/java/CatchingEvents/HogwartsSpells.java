@@ -45,7 +45,9 @@ public class HogwartsSpells {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if  (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         HogwartsSpells that = (HogwartsSpells) o;
         return Objects.equals(spellById, that.spellById) && Objects.equals(spellsByType, that.spellsByType);
     }
