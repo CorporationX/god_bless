@@ -20,8 +20,29 @@ public class NotificationManager {
         notifications.get(notification.getType()).accept(notification);
     }
 
-    public void notificationWithFunction(NotificationType type, Notification notification) {
+    public void notificationWithDescription(Notification userNotification) {
+        switch (userNotification.getType()) {
+            case SMS -> {
+                String description = " send by SMS";
+                sendNotification(userNotification);
+                System.out.println(description);
+            }
 
+            case EMAIL -> {
+                String description = " send by EMAIL";
+                sendNotification(userNotification);
+                System.out.println(description);
+            }
+            case PUSH -> {
+                String description = " send by PUSH";
+                sendNotification(userNotification);
+                System.out.println(description);
+            }
+            default -> {
+                String description = " unknown notification type: " + userNotification.getType();
+                System.out.println("Notification don`t send | " + description);
+            }
+        }
     }
 
 }

@@ -14,8 +14,6 @@ public class Main {
                 NotificationType.PUSH, " Notification for Push "
         );
 
-
-
         //регистрация обработчиков
         NotificationManager manager = new NotificationManager();
         manager.registerHandler(NotificationType.EMAIL, notification ->
@@ -28,5 +26,8 @@ public class Main {
         manager.sendNotification(emailNotification);
         manager.sendNotification(smsNotification);
         manager.sendNotification(pushNotification);
+        System.out.println("with function : \n");
+        manager.notificationWithDescription(emailNotification);
+        manager.notificationWithDescription(smsNotification);
     }
 }
