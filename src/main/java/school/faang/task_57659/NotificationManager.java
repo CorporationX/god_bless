@@ -24,7 +24,8 @@ public class NotificationManager {
             throw new IllegalArgumentException("Handler cant be null");
         }
 
-        Function<Notification, Notification> function = x -> new Notification(x.getType(), x.getMessage() + ". META COMPANY");
+        Function<Notification, Notification> function = x -> new Notification(
+                x.getType(), x.getMessage() + ". META COMPANY");
         Notification formatedNotification = function.apply(notification);
 
         consumer.accept(formatedNotification);
