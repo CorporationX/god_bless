@@ -8,8 +8,8 @@ public class Process {
     public static <T> T calculate(List<T> nums, Calculator<T> calculator)
             throws IllegalArgumentException, ArithmeticException {
         return nums.stream()
-                .reduce(calculator::operation).
-                orElseThrow(() -> new NoSuchElementException("The list of numbers is empty"));
+                .reduce(calculator::operation)
+                .orElseThrow(() -> new NoSuchElementException("The list of numbers is empty"));
     }
 
     public static int product(List<Integer> nums) {
