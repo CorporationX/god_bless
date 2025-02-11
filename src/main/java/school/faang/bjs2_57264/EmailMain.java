@@ -10,6 +10,7 @@ public class EmailMain {
     public static void main(String[] args) {
 
         EmailProcessor emailProcessor = new EmailProcessor();
+        StringBuilder sb = new StringBuilder();
 
         List<Email> emails = Arrays.asList(
                 new Email("Email 1", "Text of letter 1", false),
@@ -25,6 +26,11 @@ public class EmailMain {
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
-        emails.forEach(email -> System.out.println("Topic: " + email.getSubject() + ", Body of the letter: " + email.getBody()));
+        emails.forEach(email -> sb.append("Topic: ")
+                .append(email.getSubject())
+                .append(", Body of the letter: ")
+                .append(email.getBody())
+                .append(System.lineSeparator()));
+        System.out.println(sb);
     }
 }
