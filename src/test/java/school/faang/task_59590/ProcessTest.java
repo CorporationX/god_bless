@@ -1,4 +1,4 @@
-package school.faang.task_46037;
+package school.faang.task_59590;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +26,7 @@ public class ProcessTest {
     void testSumEmptyList() {
         List<Integer> numbers = List.of();
         assertThrows(NoSuchElementException.class, () -> Process.sum(numbers));
+
     }
 
     @Test
