@@ -21,10 +21,12 @@ public class App {
         Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println(String.format("Обработано письмо: %s", email.getSubject()));
+        Consumer<Email> printEmail = email ->
+                System.out.println(String.format("Обработано письмо: %s", email.getSubject()));
 
         // Преобразователь, который переводит текст письма в верхний регистр
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Email, String> toUpperCase = email ->
+                email.getBody().toUpperCase();
 
         // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
