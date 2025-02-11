@@ -13,10 +13,18 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            throw new NullPointerException("Notification is null");
+        }
         notifications.get(notification.getType()).accept(notification);
     }
 
     public void updateNotification(Notification notification, Function<Notification, Notification> function) {
+        if (notification == null) {
+            throw new NullPointerException("Notification is null");
+        } else if (function == null) {
+            throw new NullPointerException("Function is null");
+        }
         notifications.get(notification.getType()).accept(function.apply(notification));
     }
 }
