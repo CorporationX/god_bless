@@ -19,7 +19,7 @@ public class Main {
             email.setBody(email.getBody().toUpperCase());
             return email;
         };
-        Consumer<Email> process = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> process = email -> System.out.printf("Обработано письмо: %s\n", email.getSubject());
 
         emailProcessor.processEmails(emails, filter, convert, process);
 
