@@ -2,6 +2,7 @@ package school.faang.BJS2_56962;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -14,21 +15,21 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addNewStudentAndHisSubjectWithGrades(Student student, Subject subject, int grade) {
-        checkGrade(grade);
+    public void addNewStudentAndHisSubjectWithGrades(Student student, Map<Subject, Integer> subjectIntegerMap) {
+        for (Integer grade : subjectIntegerMap.values()) {
+            checkGrade(grade);
+        }
         validateStudentNotExists(student);
-        validateSubjectNotExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, grade);
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
+        studentSubjects.get(student).putAll(subjectIntegerMap);
+        for (Subject subject : subjectIntegerMap.keySet()) {
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
     public void addNewSubjectWithGradeToExistingStudent(Student student, Subject subject, int grade) {
         checkGrade(grade);
-        validateStudentNotExists(student);
+        validateStudentExists(student);
         validateSubjectNotExists(subject);
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
@@ -70,9 +71,8 @@ public class StudentDatabase {
 
     public void addStudentExistingSubject(Student student, Subject subject) {
         validateSubjectExists(subject);
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, DEFAULT_GRADE);
-        subjectStudents.get(subject).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, DEFAULT_GRADE);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void deleteStudentFromSubject(Student student, Subject subject) {

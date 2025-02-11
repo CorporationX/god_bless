@@ -8,6 +8,7 @@ import school.faang.BJS2_56962.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,10 +27,7 @@ public class StudentDatabaseTest {
     public void testAddStudentSubjectsGrade() {
         Student student = new Student("Alice");
         Subject subject = new Subject("Math");
-        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
-
-        assertThrows(IllegalArgumentException.class, () ->
-                database.addNewStudentAndHisSubjectWithGrades(student, subject, 6));
+        assertDoesNotThrow(() -> database.addNewStudentAndHisSubjectWithGrades(student, Map.of(subject, 4)));
     }
 
     @Test
@@ -38,7 +36,7 @@ public class StudentDatabaseTest {
         Subject subject = new Subject("Math");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-                database.addNewStudentAndHisSubjectWithGrades(student, subject, 6));
+                database.addNewStudentAndHisSubjectWithGrades(student, Map.of(subject, 6)));
 
         assertEquals("Оценка 6 некорректна, она должна быть в диапазоне от 1 до 5", exception.getMessage());
     }
@@ -48,7 +46,7 @@ public class StudentDatabaseTest {
         Student student = new Student("Alice");
         Subject subject = new Subject("Math");
 
-        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
+        database.addNewStudentAndHisSubjectWithGrades(student, Map.of(subject, 4));
         database.removeStudentAndHisSubjects(student);
 
         assertThrows(IllegalArgumentException.class, () ->
@@ -61,8 +59,8 @@ public class StudentDatabaseTest {
         Student student1 = new Student("Bob");
         Subject subject = new Subject("Math");
         Subject subject1 = new Subject("Physics");
-        database.addNewStudentAndHisSubjectWithGrades(student, subject, 4);
-        database.addNewStudentAndHisSubjectWithGrades(student1, subject1, 3);
+        database.addNewStudentAndHisSubjectWithGrades(student, Map.of(subject, 4));
+        database.addNewStudentAndHisSubjectWithGrades(student1, Map.of(subject1, 3));
 
         assertDoesNotThrow(database::printAllSubjectAndStudent);
     }
@@ -82,13 +80,15 @@ public class StudentDatabaseTest {
     @Test
     public void testAddNewSubjectWithGradeToExistingStudent() {
         Student student = new Student("Alice");
-        Subject subject = new Subject("Math");
+        Subject math = new Subject("Math");
+        Subject physics = new Subject("Physics");
+
+        Map<Subject, Integer> initialSubjects = Map.of(math, 5);
+        database.addNewStudentAndHisSubjectWithGrades(student, initialSubjects);
 
         int grade = 4;
-        database.addNewSubjectWithGradeToExistingStudent(student, subject, grade);
+        database.addNewSubjectWithGradeToExistingStudent(student, physics, grade);
 
         assertDoesNotThrow(database::printListStudentAndTheirGradesBySubject);
     }
-
 }
-
