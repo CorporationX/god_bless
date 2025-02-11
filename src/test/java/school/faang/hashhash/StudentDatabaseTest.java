@@ -36,15 +36,14 @@ class StudentDatabaseTest {
     @DisplayName("Позитивный тест добавления нового студента и его предметов")
     void testAddStudentWithSubject() {
         testGrade = 5;
-        Map<Subject, Integer> testSubject = new HashMap<>();
-        testSubject.put(subject, testGrade);
+        Map<Subject, Integer> testSubject = Map.of(subject, testGrade);
         studentDatabase.addStudentWithSubject(student, testSubject);
         assertThrows(IllegalArgumentException.class, () ->
                 studentDatabase.addStudentWithSubject(student, testSubject));
     }
 
     @Test
-    @DisplayName("Негативный тест добавления нового студента и его предметов")
+    @DisplayName("Тест с невалидными входными данными (null )")
     void negTestAddStudentWithSubject() {
         testGrade = 5;
         Map<Subject, Integer> testSubject = new HashMap<>();
@@ -54,7 +53,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    @DisplayName("Негативный тест добавления нового студента и его предметов")
+    @DisplayName("Тест с невалидными входными данными (null )")
     void testAddStudentWithSubjectToNull() {
 
         assertThrows(NullPointerException.class, () ->
@@ -152,7 +151,7 @@ class StudentDatabaseTest {
     }
 
     @Test
-    @DisplayName("Позитивный тест удаления студента из предмета")
+    @DisplayName("Тест с невалидными вхожными данными (null )")
     void negTestRemoveStudentForSubject() {
         assertThrows(NullPointerException.class, () ->
                 studentDatabase.removeStudentForSubject(nullStudent, subject2));
