@@ -1,4 +1,4 @@
-package school.faang.task_59670;
+package school.faang.task_46080;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("The letter is processed: " + email.getSubject());
+        Consumer<Email> printEmail = email -> log.info("The letter is processed: {}", email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
