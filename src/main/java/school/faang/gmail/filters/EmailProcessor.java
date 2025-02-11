@@ -25,7 +25,7 @@ public class EmailProcessor {
         }
     }
 
-    private <T> void checkValidArgument (T argument, String argumentName) {
+    private <T> void checkValidArgument(T argument, String argumentName) {
         if (argument == null) {
             logger.error("The argument {} cannot be null! Location {} : {}",
                     argumentName,
