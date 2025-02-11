@@ -1,4 +1,5 @@
 package CatchingEvents;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,7 @@ public class HogwartsSpells {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
