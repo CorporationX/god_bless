@@ -20,7 +20,10 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         if (checkObscene(notification)) {
-            notificationTypes.get(notification.notificationType()).accept(addCompanyName(notification));
+            notificationTypes.computeIfPresent(notification.notificationType(), (notificationType, consumer) -> {
+                consumer.accept(addCompanyName(notification));
+                return consumer;
+            });
         }
     }
 
