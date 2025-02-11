@@ -1,4 +1,4 @@
-package school.faang.sprint_2.task_46728;
+package school.faang.task_60208;
 
 import java.util.List;
 
