@@ -16,11 +16,9 @@ public class Image {
     }
 
     private void checkImage(String name, String description) {
-        try {
-            if (name == null || name.isBlank() || description == null) {
-                throw new IllegalArgumentException("Name or Description is 'null'.");
-            }
-        } catch (IllegalArgumentException e) {
+        if (name == null || name.isBlank()
+                || description == null || description.isBlank()) {
+            IllegalArgumentException e = new  IllegalArgumentException("Name or Description is 'null'.");
             System.out.println("Illegal Argument " + e.getMessage());
         }
     }
