@@ -1,12 +1,12 @@
 package school.faang.lordoftherings;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Main {
-
-    private static final String NEW_ITEM = " got a new item: ";
-
     public static void main(String[] args) {
         try {
             Character commonCharacter = new Character("Bob");
@@ -22,7 +22,7 @@ public class Main {
             InventoryManager inventoryManager = new InventoryManager();
 
             items.forEach(item -> inventoryManager.addItem(commonCharacter, item, currentItem ->
-                    System.out.println(commonCharacter.getName() + NEW_ITEM + currentItem.getName())));
+                    log.info("{} got a new item: {}", commonCharacter.getName(), currentItem.getName())));
             printInventory(commonCharacter);
 
             inventoryManager.removeItem(commonCharacter, item -> item.getRareness() == Rareness.TRASH);
@@ -32,13 +32,12 @@ public class Main {
                     item -> new Item(item.getName(), item.getValue() * 2, item.getRareness()));
             printInventory(commonCharacter);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            log.error(exception.getMessage());
         }
     }
 
     private static void printInventory(Character character) {
         character.getInventory().forEach(item ->
-                System.out.println(item.getName() + " - " + item.getValue() + " - " + item.getRareness()));
-        System.out.println();
+                log.info("{} - {} - {}", item.getName(), item.getValue(), item.getRareness()));
     }
 }
