@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -91,5 +91,29 @@ public class StudentDatabaseTest {
         database.addNewSubjectWithGradeToExistingStudent(student, physics, grade);
 
         assertDoesNotThrow(database::printListStudentAndTheirGradesBySubject);
+    }
+
+    @Test
+    public void testDeleteStudentFromSubject() {
+        Student student = new Student("Alice");
+        Subject subject = new Subject("Math");
+
+        database.addNewSubjectAndListStudentsStudyingIt(subject, List.of(student));
+
+        database.deleteStudentFromSubject(student, subject);
+
+        assertNull(database.getStudentSubjects().get(student));
+        assertNull(database.getSubjectStudents().get(subject));
+    }
+
+    @Test
+    public void testAddStudentExistingSubject() {
+        Student student = new Student("Alice");
+        Subject subject = new Subject("Math");
+
+        database.addStudentExistingSubject(student, subject);
+
+        assertTrue(database.getStudentSubjects().containsKey(student));
+        assertTrue(database.getSubjectStudents().containsKey(subject));
     }
 }

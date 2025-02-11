@@ -1,10 +1,13 @@
 package school.faang.BJS2_56962;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class StudentDatabase {
 
     private static final int MIN_GRADE = 1;
@@ -69,14 +72,13 @@ public class StudentDatabase {
     }
 
     public void addStudentExistingSubject(Student student, Subject subject) {
-        validateSubjectExists(subject);
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, DEFAULT_GRADE);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void deleteStudentFromSubject(Student student, Subject subject) {
         validateStudentExists(student);
-        validateSubjectNotExists(subject);
+        validateSubjectExists(subject);
 
         Map<Subject, Integer> subjects = studentSubjects.get(student);
         if (subjects != null) {
@@ -89,6 +91,9 @@ public class StudentDatabase {
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
             students.remove(student);
+            if (students.isEmpty()) {
+                subjectStudents.remove(subject);
+            }
         }
     }
 
