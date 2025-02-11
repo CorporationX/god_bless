@@ -9,9 +9,13 @@ public class Main {
         String bum = "Bum";
         String viu = "Viu";
 
-        spellCaster.cast(piu, (spellName) -> "piu piu piu " + spellName);
-        spellCaster.cast(bum, (spellName) -> "the shield activated " + spellName);
-        spellCaster.cast(viu, (spellName) -> "spell go back by " + spellName);
+        String piuEffect = "Bullet doing piu piu piu piu piu";
+        String bumEffect = "Explosion bum bum bum bum bum";
+        String viuEffect = "Going faster viu viu viu viu";
+
+        spellCaster.cast(piu, (spellName) -> spellName + " Action : piu piu piu ", (effect) ->  piuEffect);
+        spellCaster.cast(bum, (spellName) -> spellName + " Action : the shield activated ", (effect) ->  bumEffect);
+        spellCaster.cast(viu, (spellName) -> spellName + " Action : spell go back by ", (effect) ->  viuEffect);
 
     }
 }
