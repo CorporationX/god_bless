@@ -20,10 +20,17 @@ public class ProductManager {
 
     public void removeProduct(Category category, String name) {
         products.removeIf(k -> k.getName().equals(name) && k.getCategory() == category);
+        List<Product> categoryProducts = categoryMap.get(category);
+        if (categoryProducts != null) {
+            categoryProducts.removeIf(k -> k.getName().equals(name));
+            if (categoryProducts.isEmpty()) {
+                categoryMap.remove(category);
+            }
+        }
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        return new ArrayList<>(categoryMap.getOrDefault(category, new ArrayList<>()));
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
