@@ -20,7 +20,7 @@ public class Main {
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
+            System.out.printf("Message: %s | Missed: %s\n", message, isFiltered);
         }
     }
 }
