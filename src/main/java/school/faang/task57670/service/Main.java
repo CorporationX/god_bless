@@ -14,5 +14,9 @@ public class Main {
 
 
         Image grayScaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        System.out.println(grayScaleImage.getDescription());
+
+        Image sepiaImage = filterProcessor.applyFilter(originalImage,sepiaFilter);
+        System.out.println(sepiaImage.getDescription());
     }
 }
