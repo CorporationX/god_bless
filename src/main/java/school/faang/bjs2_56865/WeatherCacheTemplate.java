@@ -23,14 +23,14 @@ abstract class WeatherCacheTemplate {
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
-    protected void updateWeatherData(String city){
+    protected void updateWeatherData(String city) {
         WeatherData data = provider.fetchWeatherData(city);
         if (data != null) {
             weatherCache.put(city, data);
         } else {
             throw new IllegalStateException();
         }
-    };
+    }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         weatherCache.entrySet().removeIf(entry -> isCacheExpired(entry.getValue(), maxCacheAgeMillis));
