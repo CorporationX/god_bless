@@ -7,7 +7,6 @@ public class Main {
 
         warrior.attack(archer);
         System.out.println("Health of: " + archer.getName() + ":" + archer.getHealth());
-
         archer.attack(warrior);
         System.out.println("Health of: " + warrior.getName() + ":" + warrior.getHealth());
     }
