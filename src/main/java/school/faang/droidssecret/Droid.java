@@ -2,6 +2,9 @@ package school.faang.droidssecret;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
+
+import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
@@ -10,6 +13,9 @@ public class Droid {
     private final String name;
 
     public void sendMessage(Droid droid, String inputMessage, int key) {
+        if (droid == null || inputMessage == null) {
+            return;
+        }
         String outputMessage = encryptMessage(inputMessage, key);
         System.out.println("Дроид " + this.name + " отправил сообщение: " + outputMessage);
         receiveMessage(droid, outputMessage, key);
