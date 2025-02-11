@@ -11,7 +11,8 @@ public abstract class WeatherCacheTemplate {
 
         if (data == null || isCacheExpired(data, maxCacheAgeMillis)) {
             updateWeatherData(city);
-            data = weatherCache.get(city);
+            data = updateWeatherData(city);
+            weatherCache.put(city, data);
         }
         return data;
     }
@@ -21,10 +22,9 @@ public abstract class WeatherCacheTemplate {
         return (currentTime - data.getTimestamp()) > maxCacheAgeMillis;
     }
 
-    protected void updateWeatherData(String city) {
+    protected WeatherData updateWeatherData(String city) {
         WeatherProvider weatherProvider = new WeatherService();
-        WeatherData newData = weatherProvider.feachWeatherData(city);
-        weatherCache.put(city, newData);
+        return weatherProvider.fetchWeatherData(city);
     }
 
     public abstract boolean isCacheValid(WeatherData data, long maxCacheAgeMillis);
