@@ -13,6 +13,7 @@ import lombok.ToString;
 public class Image {
     @NonNull
     private final String name;
+
     @NonNull
     private final String description;
 }
