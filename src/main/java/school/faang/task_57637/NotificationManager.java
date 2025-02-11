@@ -27,7 +27,8 @@ public class NotificationManager {
         }
     }
 
-    public Notification notificationUpdateMessage(Notification notification, Function<Notification, Notification> function) {
+    public Notification notificationUpdateMessage(Notification notification,
+                                                  Function<Notification, Notification> function) {
         if (notification == null) {
             throw new IllegalArgumentException("notification не может быть null");
         }
