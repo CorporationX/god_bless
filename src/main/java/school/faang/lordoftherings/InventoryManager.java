@@ -26,11 +26,8 @@ public class InventoryManager {
         if (function == null || character == null || predicate == null) {
             throw new NullPointerException(EXCEPTION_MESSAGE);
         }
-        for (int index = 0; index < character.getInventory().size(); index++) {
-            Item currentItem = character.getInventory().get(index);
-            if (predicate.test(currentItem)) {
-                character.getInventory().set(index, function.apply(currentItem));
-            }
-        }
+        character.getInventory().replaceAll(item ->
+                predicate.test(item) ? function.apply(item) : item
+        );
     }
 }
