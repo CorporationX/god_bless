@@ -6,7 +6,7 @@ public class SpellCaster {
             throw new IllegalArgumentException("spellName or action can't be null");
         }
 
-        String result = action.perform((spellName));
+        String result = action.perform(spellName);
         System.out.println(result);
     }
 }
