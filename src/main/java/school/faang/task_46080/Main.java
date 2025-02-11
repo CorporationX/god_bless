@@ -1,11 +1,14 @@
 package school.faang.task_46080;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -16,12 +19,12 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("The letter is processed: " + email.getSubject());
+        Consumer<Email> printEmail = email -> log.info("The letter is processed: {}", email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         emails.forEach(email -> {
-            System.out.println("Theme: " + email.getSubject() + ", Email body: " + email.getBody());
+            log.info("Theme: {}, Email body: {}", email.getSubject(), email.getBody());
         });
     }
 }
