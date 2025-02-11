@@ -12,42 +12,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Droid {
     private static final String EMPTY_MESSAGE_WARN = "Сообщение не может быть пустым!";
+    private static final int ALPHABET_SIZE = 26;
 
     @NonNull
     private final String name;
 
     public String encryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor droidMessageEncryptor = (message1, encryptionKey1) -> {
-            StringBuilder encrypted = new StringBuilder();
-            for (int i = 0; i < message1.length(); i++) {
-                char ch = message1.charAt(i);
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    ch = (char) ((ch - base + encryptionKey1) % 26 + base);
-                }
-                encrypted.append(ch);
-            }
-            return encrypted.toString();
-        };
-        return droidMessageEncryptor.encrypt(message, encryptionKey);
+        return processMessage(message, encryptionKey, true);
     }
 
     public String decryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor droidMessageEncryptor = (message1, encryptionKey1) -> {
-            StringBuilder decoded = new StringBuilder();
-            for (int i = 0; i < message1.length(); i++) {
-                char ch = message1.charAt(i);
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    char newCh = (char) ((ch - base - encryptionKey1 + 26) % 26 + base);
-                    decoded.append(newCh);
-                } else {
-                    decoded.append(ch);
-                }
-            }
-            return decoded.toString();
-        };
-        return droidMessageEncryptor.encrypt(message, encryptionKey);
+        return processMessage(message, encryptionKey, false);
     }
 
     public void sendMessage(
@@ -82,5 +57,24 @@ public class Droid {
             return true;
         }
         return false;
+    }
+
+    private String processMessage(String message, int key, boolean isEncrypt) {
+        DroidMessageEncryptor droidMessageEncryptor = (message1, encryptionKey, isEncrypt1) -> {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < message1.length(); i++) {
+                char ch = message1.charAt(i);
+                if (Character.isLetter(ch)) {
+                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
+                    int offset = ch - base;
+                    int adjusted = (offset + (isEncrypt1 ? key : -key) + ALPHABET_SIZE) % ALPHABET_SIZE;
+                    result.append((char) (adjusted + base));
+                } else {
+                    result.append(ch);
+                }
+            }
+            return result.toString();
+        };
+        return droidMessageEncryptor.encrypt(message, key, isEncrypt);
     }
 }
