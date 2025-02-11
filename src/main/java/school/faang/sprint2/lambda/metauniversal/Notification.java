@@ -1,11 +1,12 @@
 package school.faang.sprint2.lambda.metauniversal;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+
 @AllArgsConstructor
+@Getter
 public class Notification {
-    private NotificationType notificationType;
-    private String message;
+    private final NotificationType notificationType;
+    private final String message;
 }
