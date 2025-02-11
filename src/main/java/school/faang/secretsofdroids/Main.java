@@ -1,5 +1,8 @@
 package school.faang.secretsofdroids;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     private static final String FIRST_MESSAGE = "Hello World!";
     private static final String SECOND_MESSAGE = "I ate the vaccine";
@@ -19,7 +22,7 @@ public class Main {
             bb8.sendMessage(FIRST_MESSAGE, THIRD_KEY, r2d2);
             r2d2.sendMessage(SECOND_MESSAGE, FIRST_KEY, c3po);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            log.error(exception.getMessage());
         }
     }
 }

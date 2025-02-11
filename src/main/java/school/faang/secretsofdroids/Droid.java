@@ -1,11 +1,13 @@
 package school.faang.secretsofdroids;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
 
-@Data
+@Slf4j
+@Getter
 @AllArgsConstructor
 public class Droid {
     private String name;
@@ -37,7 +39,7 @@ public class Droid {
         }
         String encryptionMessage = encryptMessage(message, key);
         Consumer<String> printMessage = sentMessage ->
-                System.out.println(this.getName() + " send message: " + sentMessage);
+                log.info("{} sent message: {}", this.getName(), sentMessage);
         printMessage.accept(encryptionMessage);
         receiveMessage(encryptionMessage, key, droidReceiver);
     }
@@ -45,7 +47,7 @@ public class Droid {
     private void receiveMessage(String message, int key, Droid droid) {
         String decryptionMessage = decryptMessage(message, key);
         Consumer<String> printMessage = receivedMessage ->
-                System.out.println(droid.getName() + " received message: " + receivedMessage);
+                log.info("{} received message: {}", droid.getName(), receivedMessage);
         printMessage.accept(decryptionMessage);
     }
 }
