@@ -1,4 +1,4 @@
-package school.faang.sprint_2.task_45683;
+package school.faang.task_59513;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +17,6 @@ public class Main {
         dictionaryProcessor.processWord("мир", "world", addWordToDictionary);
         dictionaryProcessor.processWord("программирование", "programming", addWordToDictionary);
 
-        System.out.println("Словарь: " + dictionary);
+        System.out.printf("Dictionary: %s", dictionary);
     }
 }

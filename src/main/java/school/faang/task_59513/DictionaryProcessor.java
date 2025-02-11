@@ -1,4 +1,4 @@
-package school.faang.sprint_2.task_45683;
+package school.faang.task_59513;
 
 import java.util.function.BiConsumer;
 
