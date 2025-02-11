@@ -66,8 +66,9 @@ public class StreamOperations2 {
             throw new IllegalArgumentException(ERR_ALLOWED_ALPHABET_EMPTY);
         }
         return strings.stream()
-                .filter(s -> s != null && !s.isEmpty() &&
-                        s.chars().allMatch(ch -> allowedAlphabet.indexOf(ch) != -1))
+                .filter(s -> s != null
+                        && !s.isEmpty()
+                        && s.chars().allMatch(ch -> allowedAlphabet.indexOf(ch) != -1))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
