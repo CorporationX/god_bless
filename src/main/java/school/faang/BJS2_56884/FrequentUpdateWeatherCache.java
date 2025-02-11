@@ -10,4 +10,9 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         return true;
     }
+
+    @Override
+    public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
+        return updateWeatherData(city);
+    }
 }
