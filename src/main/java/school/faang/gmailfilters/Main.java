@@ -8,35 +8,40 @@ import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        try {
+            EmailProcessor emailProcessor = new EmailProcessor();
 
-        List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Письмо 3", "Текст письма 3", true),
-                new Email("Письмо 4", "Текст письма 4", false),
-                new Email("Письмо 5", "Текст письма 5", true),
-                new Email("Спам 1", "Текст спама 1", false),
-                new Email("Спам 2", "Текст спама 2", false),
-                new Email("Спам 3", "Текст спама 3", false),
-                new Email("Спам 4", "Текст спама 4", false)
-        );
+            List<Email> emails = Arrays.asList(
+                    new Email("Письмо 1", "Текст письма 1", false),
+                    new Email("Письмо 2", "Текст письма 2", true),
+                    new Email("Письмо 3", "Текст письма 3", true),
+                    new Email("Письмо 4", "Текст письма 4", false),
+                    new Email("Письмо 5", "Текст письма 5", true),
+                    new Email("Спам 1", "Текст спама 1", false),
+                    new Email("Спам 2", "Текст спама 2", false),
+                    new Email("Спам 3", "Текст спама 3", false),
+                    new Email("Спам 4", "Текст спама 4", false)
+            );
 
-        Predicate<Email> importantFilter = Email::isImportant;
-        Function<Email, String> toUpperCaseBody = email -> email.getBody().toUpperCase();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+            Predicate<Email> importantFilter = Email::isImportant;
+            Function<Email, String> toUpperCaseBody = email -> email.getBody().toUpperCase();
+            Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: "
+                    + email.getSubject());
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCaseBody);
+            emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCaseBody);
 
-        Predicate<Email> spamFilter = email -> email.getSubject().contains("Спам");
-        Function<Email, String> replaceBody = email -> email.getBody()
-                .replace(email.getBody(), "DON'T READ");
-        Consumer<Email> printEmailWithoutSpam = email ->
-                System.out.println("Письмо спам: " + email.getSubject());
+            Predicate<Email> spamFilter = email -> email.getSubject().contains("Спам");
+            Function<Email, String> replaceBody = email -> email.getBody()
+                    .replace(email.getBody(), "DON'T READ");
+            Consumer<Email> printEmailWithoutSpam = email ->
+                    System.out.println("Письмо спам: " + email.getSubject());
 
-        emailProcessor.processEmails(emails, spamFilter, printEmailWithoutSpam, replaceBody);
+            emailProcessor.processEmails(emails, spamFilter, printEmailWithoutSpam, replaceBody);
 
-        emails.forEach(email ->
-                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+            emails.forEach(email ->
+                    System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }
