@@ -69,8 +69,8 @@ abstract class Character {
         Archer archer = new Archer("Ron");
         Warrior warrior = new Warrior("Hamlet");
         Random random = new Random();
-        int randomArcher = random.nextInt(10) +1;
-        int randomWarrior = random.nextInt(10) +1;
+        int randomArcher = random.nextInt(20);
+        int randomWarrior = random.nextInt(20);
         for (int i = 0; i < randomArcher; i++) {
             archer.attack(warrior);
             System.out.println(archer.getName() + " deals 10 damage. " + warrior.getName()
