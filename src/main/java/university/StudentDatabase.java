@@ -9,18 +9,34 @@ public class StudentDatabase {
     private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
+    private void validateInput(Object value, String errorMessage) {
+        if (value == null) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+        if (value instanceof Integer intValue && intValue < 0) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
     public void addStudent(Student student, Map<Subject, Integer> subjectsAndGrades) {
+        validateInput(student, "Student cannot be null");
+        validateInput(subjectsAndGrades, "Subjects and grades cannot be null");
+
         studentSubjects.put(student, subjectsAndGrades);
 
         for (Subject subject : subjectsAndGrades.keySet()) {
-            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+            subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>()).add(student);
         }
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        validateInput(student, "Student cannot be null");
+        validateInput(subject, "Subject cannot be null");
+        validateInput(grade, "Grade cannot be negative");
 
-        List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).put(subject, grade);
+
+        List<Student> students = subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
         }
@@ -54,17 +70,17 @@ public class StudentDatabase {
         subjectStudents.put(subject, students);
 
         for (Student student : students) {
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
+            studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).put(subject, null);
         }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
+        List<Student> students = subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
         }
 
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, null);
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).putIfAbsent(subject, null);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
