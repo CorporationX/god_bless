@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    Map<NotificationType, Consumer<Notification>> notificationConsumers = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationConsumers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         notificationConsumers.put(type, handler);
@@ -17,7 +17,7 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.printf("Обработчик не зарегистрирован для типа: %s", notification.getType());
+            String.format("Обработчик не зарегистрирован для типа: %s", notification.getType());
         }
     }
 }
