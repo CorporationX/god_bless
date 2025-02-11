@@ -1,10 +1,5 @@
 package school.faang;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-
 public class SpellCaster {
 
     public void cast(String spellName, SpellAction spellAction, SpellEffects spellEffects) {
