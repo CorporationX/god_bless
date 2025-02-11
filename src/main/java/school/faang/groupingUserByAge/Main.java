@@ -1,6 +1,5 @@
-package school.faang;
+package school.faang.groupingUserByAge;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,15 +14,16 @@ public class Main {
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
-        StringBuilder output = new StringBuilder();
-
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
-            output.append("Age: ").append(entry.getKey()).append("\n");
+            System.out.printf("Age group: %d%n", entry.getKey());
+            System.out.println("------");
 
             for (User user : entry.getValue()) {
-                output.append(" ").append(user).append("\n");
+                System.out.printf("Name: %-10s | Company:%-15s | Address: %-20s%n", user.getName(),
+                        user.getWorkplace(), user.getAddress());
             }
         }
-        System.out.print(output);
+
+        System.out.println();
     }
 }
