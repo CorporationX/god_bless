@@ -1,12 +1,8 @@
 package BJS2_57266;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
-@ToString
+@Data
 public class SpellEvent {
     private final int id;
     private final String eventType;
