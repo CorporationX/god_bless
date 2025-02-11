@@ -59,15 +59,15 @@ class WeatherCacheTest {
     }
 
     @Test
-    void clearExpiredCacheShouldRemoveExpiredEntries() throws InterruptedException {
-        String city = "Tokyo";
-        long cacheAgeMillis = 2000;
+    void getWeatherDataShouldThrowExceptionWhenProviderReturnsNull() {
+        WeatherProvider failingProvider = city -> null;
+        StandardWeatherCache failingCache = new StandardWeatherCache(failingProvider);
+        String city = "UnknownCity";
+        long cacheAgeMillis = TimeUnit.MINUTES.toMillis(5);
 
-        standardCache.getWeatherData(city, cacheAgeMillis);
-        Thread.sleep(2500);
-        standardCache.clearExpiredCache(cacheAgeMillis);
-
-        assertFalse(standardCache.weatherCache.containsKey(city), "Просроченные данные должны быть удалены из кэша");
+        assertThrows(IllegalStateException.class, () -> failingCache.getWeatherData(city, cacheAgeMillis), "Ожидается исключение, если провайдер возвращает null");
     }
+
+
 }
 
