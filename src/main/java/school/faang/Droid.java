@@ -4,9 +4,10 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Getter
 public class Droid {
-    Logger logger = LoggerFactory.getLogger(Droid.class);
-    @Getter
+    private static final Logger logger = LoggerFactory.getLogger(Droid.class);
+    private static final int ALPHABET_SIZE = 26;
     private final String name;
 
     public Droid(String name) {
@@ -20,7 +21,7 @@ public class Droid {
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    int shift = (ch - base + key) % 26;
+                    int shift = (ch - base + key) % ALPHABET_SIZE;
                     encryptedMessage.append((char) (shift + base));
                 } else {
                     encryptedMessage.append(ch);
@@ -37,7 +38,7 @@ public class Droid {
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    int shift = ((ch - base - key) % 26 + 26) % 26;
+                    int shift = ((ch - base - key) % ALPHABET_SIZE + ALPHABET_SIZE) % ALPHABET_SIZE;
                     decryptedMessage.append((char) (shift + base));
                 } else {
                     decryptedMessage.append(ch);
@@ -52,18 +53,18 @@ public class Droid {
         validateMessage(message);
         validateEncryptionKey(encryptionKey);
         String encryptedMessage = encryptMessage(message, encryptionKey);
-        droid.receiveMessage(encryptedMessage, encryptionKey, droid);
+        droid.receiveMessage(encryptedMessage, encryptionKey);
         logger.info("Droid {} sent encrypted message: {}.", droid.getName(), encryptedMessage);
     }
 
-    private void receiveMessage(String message, int encryptionKey, Droid droid) {
+    private void receiveMessage(String message, int encryptionKey) {
         String decryptedMessage = decryptMessage(message, encryptionKey);
-        logger.info("Droid {} got encrypted message: {}.", droid.getName(), decryptedMessage);
+        logger.info("Droid {} got decrypted message: {}.", this.getName(), decryptedMessage);
     }
 
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("The message can't be null or empty. Provided value: " + name);
+            throw new IllegalArgumentException("The name can't be null or blank. Provided value: " + name);
         }
     }
 
