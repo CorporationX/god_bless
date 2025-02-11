@@ -15,6 +15,9 @@ public class FilterProcessor {
 
     public Function<Image, Image> combineFilters(
             Function<Image, Image> function1, Function<Image, Image> function2) {
+        if (function1 == null || function2 == null) {
+            throw new IllegalArgumentException("Filter cannot be null");
+        }
         return function1.andThen(function2);
     }
 }
