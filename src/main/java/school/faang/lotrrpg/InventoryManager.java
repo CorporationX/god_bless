@@ -5,10 +5,8 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        if (!(item == null)) {
+        if (item != null) {
             character.getInventory().add(item);
-        }
-        if (character.getInventory().contains(item)) {
             consumer.accept(item);
         }
     }
