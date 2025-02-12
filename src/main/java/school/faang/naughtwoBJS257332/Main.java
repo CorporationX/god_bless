@@ -28,7 +28,11 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
 
-        emailProcessor.processEmails(emails, spamFilter, printEmail, toLowerCase);
+        emailProcessor.processEmails(emails, spamFilter, printBody, toLowerCase);
+        emails.forEach(email -> System.out.printf("%nSubject: %s%nBody:%n%s %n",
+                email.getSubject(), email.getBody()));
+
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         emails.forEach(email -> System.out.printf("%nSubject: %s%nBody:%n%s %n",
                 email.getSubject(), email.getBody()));
     }
