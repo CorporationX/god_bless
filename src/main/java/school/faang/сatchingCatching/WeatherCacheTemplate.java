@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.сatchingCatching;
 
 import java.util.HashMap;
 import java.util.Map;

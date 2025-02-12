@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.сatchingCatching;
 
 public class StandardWeatherCache extends WeatherCacheTemplate {
     @Override

@@ -1,8 +1,4 @@
-package school.faang.CachingCatching;
-
-import school.faang.StandardWeatherCache;
-import school.faang.WeatherCacheTemplate;
-import school.faang.WeatherData;
+package school.faang.сatchingCatching;
 
 public class Main {
     public static void main(String[] args) {
