@@ -9,6 +9,6 @@ public class Item {
 
     public Item(String name, int value) {
         this.name = name;
-        this.value = 1000;
+        this.value = value;
     }
 }
