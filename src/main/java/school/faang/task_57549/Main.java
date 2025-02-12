@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.task_57549;
 
 import java.util.function.Supplier;
 
