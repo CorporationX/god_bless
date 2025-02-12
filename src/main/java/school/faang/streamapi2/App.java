@@ -1,42 +1,46 @@
 package school.faang.streamapi2;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class App {
+    private static final Set<Integer> NUMBERS_SET = Set.of(1, 2, 3, 4, 5, 6);
+    private static final List<Integer> NUMBERS_LIST = List.of(1, 2, 3, 4);
+    private static final List<String> WORDS_LIST = List.of("apple", "banana", "avocado", "apricot");
+    private static final List<String> FRUITS_LIST = List.of("apple", "banana", "cherry", "date", "fig", "grape");
+    private static final Map<String, String> COUNTRIES = Map.of(
+            "Russia", "Moscow",
+            "USA", "Washington",
+            "Germany", "Berlin"
+    );
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    private static final char FILTER_CHAR = 'a';
+    private static final int TARGET_SUM_NUM = 6;
+
     public static void main(String[] args) {
-        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        int target = 6;
-        List<int[]> result = Solution.findUniquePairs(numbers, target);
+        // first task test
+        List<int[]> result = Solution.findUniquePairs(NUMBERS_SET, TARGET_SUM_NUM);
         String output = result.stream()
                 .map(pair -> "(" + pair[0] + ", " + pair[1] + ")")
                 .collect(Collectors.joining(", "));
-        System.out.println("Найденные пары: " + output);
+        System.out.printf("Найденные пары: %s%n", output);
 
-        Map<String, String> countries = new HashMap<>();
-        countries.put("Russia", "Moscow");
-        countries.put("USA", "Washington");
-        countries.put("Germany", "Berlin");
-        List<String> capitals = Solution.getSortedCapitals(countries);
-        System.out.println("Столицы, отсортированные по странам: " + capitals);
+        // second task test
+        List<String> capitals = Solution.getSortedCapitals(COUNTRIES);
+        System.out.printf("Столицы, отсортированные по странам: %s%n", capitals);
 
-        List<String> words = Arrays.asList("apple", "banana", "avocado", "apricot");
-        char filterChar = 'a';
-        List<String> filteredSorted = Solution.filterAndSortByChar(words, filterChar);
-        System.out.println("Строки, начинающиеся на '" + filterChar + "', отсортированные по длине: " + filteredSorted);
+        // third task test
+        List<String> filteredSorted = Solution.filterAndSortByChar(WORDS_LIST, FILTER_CHAR);
+        System.out.printf("Строки, начинающиеся на '%s', отсортированные по длине: %s%n", FILTER_CHAR, filteredSorted);
 
-        List<Integer> nums = Arrays.asList(1, 2, 3, 4);
-        List<String> binaryNumbers = Solution.convertNumbersToBinary(nums);
-        System.out.println("Числа в двоичном формате: " + binaryNumbers);
+        // fourth task test
+        List<String> binaryNumbers = Solution.convertNumbersToBinary(NUMBERS_LIST);
+        System.out.printf("Числа в двоичном формате: %s%n", binaryNumbers);
 
-        List<String> fruits = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
-        String allowedAlphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> filteredFruits = Solution.filterByAlphabetAndSort(fruits, allowedAlphabet);
-        System.out.println("Строки, содержащие символы только из алфавита, отсортированные по длине: " + filteredFruits);
+        // fifth task test
+        List<String> filteredFruits = Solution.filterByAlphabetAndSort(FRUITS_LIST, ALPHABET);
+        System.out.printf("Строки, содержащие символы только из алфавита, отсортированные по длине: %s%n", filteredFruits);
     }
 }

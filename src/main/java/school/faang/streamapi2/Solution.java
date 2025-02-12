@@ -1,6 +1,9 @@
 package school.faang.streamapi2;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class Solution {
-    public static List<int[]> findUniquePairs(Set<Integer> numbers, int targetSum) {
+    public static List<int[]> findUniquePairs(@NonNull Set<Integer> numbers, int targetSum) {
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("Множество не может быть пустым");
+        }
         List<int[]> pairs = new ArrayList<>();
         new HashSet<>(numbers)
                 .stream()
@@ -22,7 +28,11 @@ public class Solution {
         return pairs;
     }
 
-    public static List<String> getSortedCapitals(Map<String, String> countries) {
+    public static List<String> getSortedCapitals(@NonNull Map<String, String> countries) {
+        if (countries.isEmpty()) {
+            throw new IllegalArgumentException("Список не может быть пустым");
+        }
+
         return countries
                 .entrySet()
                 .stream()
@@ -31,7 +41,8 @@ public class Solution {
                 .toList();
     }
 
-    public static List<String> filterAndSortByChar(List<String> strings, char ch) {
+    public static List<String> filterAndSortByChar(@NonNull List<String> strings, char ch) {
+        validateData(strings);
         return strings
                 .stream()
                 .filter(s -> s.charAt(0) == ch)
@@ -39,14 +50,17 @@ public class Solution {
                 .toList();
     }
 
-    public static List<String> convertNumbersToBinary(List<Integer> numbers) {
+    public static List<String> convertNumbersToBinary(@NonNull List<Integer> numbers) {
+        validateData(numbers);
         return numbers
                 .stream()
                 .map(Solution::convertToBinary)
                 .toList();
     }
 
-    public static List<String> filterByAlphabetAndSort(List<String> words, String alphabet) {
+    public static List<String> filterByAlphabetAndSort(@NonNull List<String> words, @NonNull String alphabet) {
+        validateData(words);
+        validateString(alphabet);
         String allowedAlphabet = alphabet.toLowerCase();
         return words
                 .stream()
@@ -79,5 +93,17 @@ public class Solution {
         }
 
         return binary.toString();
+    }
+
+    private static <T> void validateData(Collection<T> s) {
+        if (s.isEmpty()) {
+            throw new IllegalArgumentException("Список не может быть пустым");
+        }
+    }
+
+    private static void validateString(String s) {
+        if (s.trim().isEmpty()) {
+            throw new IllegalArgumentException("Строка не может быть пустым");
+        }
     }
 }
