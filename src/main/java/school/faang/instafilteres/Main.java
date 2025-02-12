@@ -1,7 +1,10 @@
 package school.faang.instafilteres;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Function;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -15,13 +18,13 @@ public class Main {
                 new Image(image.name(), image.description() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.description());
+        log.info("Применение первого фильтра - {}", grayscaleImage.description());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.description());
+        log.info("Примененин второго фильтра - {}", sepiaImage.description());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.description());
+        log.info("Примененин комбинации фильтров - {}", combinedImage.description());
     }
 }
