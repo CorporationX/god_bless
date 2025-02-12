@@ -6,20 +6,23 @@ import org.slf4j.LoggerFactory;
 public class SpellCaster {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpellCaster.class);
 
+    private static final String SPELL_NAME_NULL_OR_EMPTY = "Spell name is null or empty";
+    private static final String SPELL_ACTION_NULL = "Spell action is null";
+
     public void cast(String spellName, SpellAction spellAction) {
         if (spellName == null || spellName.isBlank()) {
 
-            LOGGER.error("Spell name is null or empty");
-            throw new IllegalArgumentException("Spell name is null or empty");
+            LOGGER.error(SPELL_NAME_NULL_OR_EMPTY);
+            throw new IllegalArgumentException(SPELL_NAME_NULL_OR_EMPTY);
         }
 
         if (spellAction == null) {
-            LOGGER.error("Spell action is null");
-            throw new IllegalArgumentException("Spell action is null");
+            LOGGER.error(SPELL_ACTION_NULL);
+            throw new IllegalArgumentException(SPELL_ACTION_NULL);
         }
 
         String result = spellAction.spell(spellName);
-        System.out.println(result);
+        LOGGER.info(result);
 
         LOGGER.info("Cast accomplished");
     }
