@@ -8,17 +8,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> handler,
+    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> processor,
                               Function<Email, String> transformer) {
-        List<String> headersList = new ArrayList<>();
-        Iterator<Email> iterator = emails.iterator();
-        while (iterator.hasNext()) {
-            Email email = iterator.next();
-            if (!filter.test(email)) {
-                iterator.remove();
+        for (Email email : emails) {
+            if (filter.test(email)) {
+                processor.accept(email);
+                System.out.println(transformer.apply(email));
             }
-            transformer.apply(email);
-            handler.accept(email);
         }
     }
 }
