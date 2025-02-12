@@ -8,47 +8,48 @@ import java.util.Map;
 import java.util.Set;
 
 public class ProductManager {
-    private static final Set<Product> PRODUCTS = new HashSet<>();
-    private static final Map<Category, List<Product>> CATEGORY_MAP = new HashMap<>();
+    private final Set<Product> products = new HashSet<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
     private int currentId = 1;
 
     public void addProduct(Category category, String name) {
         Product product = new Product(currentId, name, category);
         currentId++;
-        PRODUCTS.add(product);
-        CATEGORY_MAP.putIfAbsent(category, new ArrayList<>());
-        CATEGORY_MAP.get(category).add(product);
+        products.add(product);
+        categoryMap.putIfAbsent(category, new ArrayList<>());
+        categoryMap.get(category).add(product);
     }
 
     public void removeProduct(Category category, String name) {
-        for (Product product : PRODUCTS) {
+        for (Product product : products) {
             if (product.getName().equals(name)) {
-                CATEGORY_MAP.get(category).remove(product);
-                PRODUCTS.remove(product);
+                categoryMap.get(category).remove(product);
+                if (categoryMap.get(category).isEmpty()) {
+                    categoryMap.remove(category);
+                }
+                products.remove(product);
                 return;
             }
         }
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        CATEGORY_MAP.putIfAbsent(category, new ArrayList<>());
-        return CATEGORY_MAP.get(category);
+        return categoryMap.getOrDefault(category, new ArrayList<>());
     }
 
     public void groupProductsByCategory() {
-        for (Product product : PRODUCTS) {
-            CATEGORY_MAP.putIfAbsent(product.getCategory(), new ArrayList<>());
-            CATEGORY_MAP.get(product.getCategory()).add(product);
+        categoryMap.clear();
+        for (Product product : products) {
+            categoryMap.putIfAbsent(product.getCategory(), new ArrayList<>());
+            categoryMap.get(product.getCategory()).add(product);
         }
     }
 
     public void printAllProducts() {
-        for (Map.Entry<Category, List<Product>> entry : CATEGORY_MAP.entrySet()) {
-            Category category = entry.getKey();
-            List<Product> productsByCategory = entry.getValue();
-            System.out.println("Категория: " + category);
+        for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
+            System.out.println("Категория: " + entry.getKey());
             System.out.println("Продукты:");
-            for (Product product : productsByCategory) {
+            for (Product product : entry.getValue()) {
                 System.out.println(" - " + product.getName());
             }
         }
