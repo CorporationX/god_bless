@@ -41,7 +41,7 @@ public class ListOperations {
 
     public static boolean checkListOfConcreteCondition(List<Integer> list, Predicate<Integer> predicate) {
         validateList(list);
-        Objects.requireNonNull(predicate, "Predicate cannot be null");
+        validatePredicate(predicate);
         if (list.isEmpty()) {
             return false;
         }
@@ -60,5 +60,9 @@ public class ListOperations {
 
     private static void validateList(List<?> list) {
         Objects.requireNonNull(list, "Invalid value for list");
+    }
+
+    private static void validatePredicate(Predicate<Integer> predicate) {
+        Objects.requireNonNull(predicate, "Predicate cannot be null");
     }
 }
