@@ -4,11 +4,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ErrorHandler {
-    public static String withErrorHandling(Supplier<String> action, Function<Exception, String> s) {
+    public static <T> T withErrorHandling(Supplier<T> action, Function<Exception, T> exceptionFunction) {
         try {
             return action.get();
         } catch (Exception e) {
-            return s.apply(e);
+            return exceptionFunction.apply(e);
         }
     }
 }
