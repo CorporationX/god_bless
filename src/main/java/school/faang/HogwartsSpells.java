@@ -28,21 +28,21 @@ public class HogwartsSpells {
     }
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        universeId++;
         SpellEvent spellEvent = new SpellEvent(universeId, eventType, actionDescription);
-
-
+        spellById.put(universeId, spellEvent);
+        universeId++;
     }
 
-    public void getSpellEventById(int id) {
-
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public void getSpellEventsByType(String eventType) {
-
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
+
 
     }
 
