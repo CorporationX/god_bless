@@ -9,6 +9,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 public class Character {
-    private String name;
+    private final String name;
     private final Set<Item> items = new HashSet<>();
 }
