@@ -3,7 +3,7 @@ package school.faang.AbstractionAbstraction;
 import lombok.Data;
 
 @Data
-abstract class Character {
+public abstract class Character {
     private final String name;
     private final int strength;
     private final int agility;
@@ -12,9 +12,13 @@ abstract class Character {
 
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
+    }
+
+    public Character(String name) {
+        this(name, 5, 5, 5);
     }
 
     public abstract void attack(Character opponent);

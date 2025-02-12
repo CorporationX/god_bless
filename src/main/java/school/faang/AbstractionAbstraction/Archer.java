@@ -1,8 +1,12 @@
 package school.faang.AbstractionAbstraction;
 
 public class Archer extends Character {
-    public Archer(String name, int strength, int agility, int intelligence) {
-        super(name, 3, 10, 5);
+    private static final int DEFAULT_STRENGTH = 3;
+    private static final int DEFAULT_AGILITY = 10;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+
+    public Archer(String name) {
+        super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
