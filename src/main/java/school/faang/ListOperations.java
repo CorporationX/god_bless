@@ -17,7 +17,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         validateList(numbers);
         return numbers.stream()
-                .max(Integer::compareTo)
+                .max(Comparator.naturalOrder())
                 .orElseThrow(() -> new NoSuchElementException("List is empty."));
     }
 
@@ -32,7 +32,7 @@ public class ListOperations {
     public static long countStringsStartingWith(List<String> strings, char start) {
         validateList(strings);
         return strings.stream()
-                .filter(str -> !str.isEmpty() && str.charAt(0) == start)
+                .filter(str -> str != null && str.startsWith(String.valueOf(start)))
                 .count();
     }
 
@@ -61,8 +61,8 @@ public class ListOperations {
         return numbers.stream()
                 .filter(num -> num > threshold)
                 .min(Integer::compareTo)
-                .orElseThrow(() ->
-                        new NoSuchElementException("There are no elements greater than " + threshold + " ."));
+                .orElseThrow(() -> new NoSuchElementException(
+                        String.format("There are no elements greater than %d.", threshold)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
@@ -73,8 +73,9 @@ public class ListOperations {
     }
 
     private static <T> void validateList(List<T> list) {
-        if (list == null) {
-            throw new IllegalArgumentException("List can't be null.");
+        if (list == null || list.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("List can't be null or empty. Provided value: %s%n", list));
         }
         for (T entry : list) {
             if (entry == null) {
