@@ -7,17 +7,13 @@ import lombok.Setter;
 @Setter
 public abstract class Character {
     private String name;
-    private int power;
-    private int agility;
-    private int intelligence;
-    private int health;
+    private int power = 5;
+    private int agility = 5;
+    private int intelligence = 5;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
-        power = 5;
-        agility = 5;
-        intelligence = 5;
-        health = 100;
     }
 
     public Character(String name, int power, int agility, int intelligence) {
@@ -25,7 +21,6 @@ public abstract class Character {
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
-        health = 100;
     }
 
     public abstract void attack(Character opponent);

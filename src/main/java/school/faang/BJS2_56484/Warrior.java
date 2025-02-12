@@ -1,12 +1,12 @@
 package school.faang.BJS2_56484;
 
 public class Warrior extends Character {
-    public Warrior(String name) {
-        super(name, 10, 5, 3);
-    }
+    private static final int WAR_POWER = 10;
+    private static final int WAR_AGILITY = 5;
+    private static final int WAR_INTELLIGENCE = 3;
 
-    public Warrior(String name, int power, int agility, int intelligence) {
-        super(name, 10, 5, 3);
+    public Warrior(String name) {
+        super(name, WAR_POWER, WAR_AGILITY, WAR_INTELLIGENCE);
     }
 
     @Override
