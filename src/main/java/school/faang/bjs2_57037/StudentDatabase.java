@@ -1,14 +1,15 @@
 package school.faang.bjs2_57037;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @NoArgsConstructor
+@Getter
 public class StudentDatabase {
 
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
@@ -24,7 +25,7 @@ public class StudentDatabase {
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         studentSubjects.put(student, grades);
         for (Subject subject : grades.keySet()) {
-            Objects.requireNonNull(subjectStudents.putIfAbsent(subject, new ArrayList<>())).add(student);
+            subjectStudents.computeIfAbsent(subject, s ->  new ArrayList<>()).add(student);
         }
     }
 
@@ -33,8 +34,8 @@ public class StudentDatabase {
      * Если студент отсутствует в studentSubjects, создаётся новая запись.
      */
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        Objects.requireNonNull(studentSubjects.putIfAbsent(student, new HashMap<>())).put(subject, grade);
-        Objects.requireNonNull(subjectStudents.putIfAbsent(subject, new ArrayList<>())).add(student);
+        studentSubjects.computeIfAbsent(student, s -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
     }
 
     /**
@@ -68,7 +69,7 @@ public class StudentDatabase {
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         subjectStudents.put(subject, students);
         for (Student student : students) {
-            Objects.requireNonNull(studentSubjects.putIfAbsent(student, new HashMap<>())).put(subject, null);
+            studentSubjects.computeIfAbsent(student, s -> new HashMap<>()).put(subject, null);
         }
     }
 
@@ -77,8 +78,8 @@ public class StudentDatabase {
      * Если предмет или студент отсутствуют, создаются соответствующие записи.
      */
     public void addStudentToSubject(Student student, Subject subject) {
-        Objects.requireNonNull(subjectStudents.putIfAbsent(subject, new ArrayList<>())).add(student);
-        Objects.requireNonNull(studentSubjects.putIfAbsent(student, new HashMap<>())).put(subject, null);
+        subjectStudents.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, s -> new HashMap<>()).put(subject, null);
     }
 
     /**
