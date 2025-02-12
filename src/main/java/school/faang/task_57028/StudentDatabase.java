@@ -11,7 +11,6 @@ public class StudentDatabase {
     public Map<Student, Map<Subject, Integer>> studentSubjects;
     public Map<Subject, List<Student>> subjectStudents;
 
-
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         studentSubjects.put(student, grades);
         for (Subject subject : grades.keySet()) {
@@ -77,5 +76,4 @@ public class StudentDatabase {
             grades.remove(subject); // Удаляем предмет из записей студента
         }
     }
-
 }
