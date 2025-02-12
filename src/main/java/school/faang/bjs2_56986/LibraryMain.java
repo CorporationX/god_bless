@@ -1,7 +1,4 @@
-package school.faang;
-
-import school.faang.bjs2_56986.Book;
-import school.faang.bjs2_56986.LibrarySystem;
+package school.faang.bjs2_56986;
 
 import java.util.HashMap;
 import java.util.Map;

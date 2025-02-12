@@ -1,8 +1,4 @@
-package school.faang;
-
-import school.faang.bsj2_56333.Archer;
-import school.faang.bsj2_56333.Character;
-import school.faang.bsj2_56333.Warrior;
+package school.faang.bsj2_56333;
 
 public class RpgGam {
     public static void main(String[] args) {

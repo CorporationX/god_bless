@@ -1,7 +1,4 @@
-package school.faang;
-
-import school.faang.bjs2_56895.Category;
-import school.faang.bjs2_56895.ProductManager;
+package school.faang.bjs2_56895;
 
 public class StoreMain {
     public static void main(String[] args) {
