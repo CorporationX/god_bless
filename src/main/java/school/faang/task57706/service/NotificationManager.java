@@ -11,7 +11,11 @@ public class NotificationManager {
     private Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        handlers.put(type, handler);
+        if (type == null || handler == null) {
+            throw new NullPointerException("Нельзя использовать пустые значения.");
+        } else {
+            handlers.put(type, handler);
+        }
     }
 
     public void sendNotification(Notification notification) {
