@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Getter
 public class Character {
-    String name;
+    private final String name;
     private final Set<Item> inventory;
 
     public Character(String name) {
