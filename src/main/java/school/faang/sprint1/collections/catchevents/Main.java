@@ -1,5 +1,10 @@
 package school.faang.sprint1.collections.catchevents;
 
+import lombok.extern.slf4j.Slf4j;
+import school.faang.sprint1.collections.catchevents.exceptions.NotFoundSpellEventIdException;
+import school.faang.sprint1.collections.catchevents.exceptions.NotFoundSpellEventTypeException;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
@@ -15,24 +20,24 @@ public class Main {
         System.out.println("Получение заклинания по ID = 1:");
         try {
             System.out.println(hogwartsSpells.getSpellEventById(1));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NotFoundSpellEventIdException e) {
+            log.warn(e.getMessage());
         }
         System.out.println();
 
         System.out.println("Заклинания типа 'Чары':");
         try {
             System.out.println(hogwartsSpells.getSpellEventsByType("Чары"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            log.warn(e.getMessage());
         }
         System.out.println();
 
         System.out.println("Удаление заклинания с ID = 2");
         try {
             hogwartsSpells.deleteSpellEvent(2);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NotFoundSpellEventTypeException | NotFoundSpellEventIdException e) {
+            log.warn(e.getMessage());
         }
         System.out.println();
 
@@ -43,16 +48,16 @@ public class Main {
         System.out.println("Попытка получить несуществующее заклинание:");
         try {
             System.out.println(hogwartsSpells.getSpellEventById(99));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NotFoundSpellEventIdException e) {
+            log.warn(e.getMessage());
         }
         System.out.println();
 
         System.out.println("Попытка получить заклинания несуществующего типа:");
         try {
             System.out.println(hogwartsSpells.getSpellEventsByType("Люмос"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            log.warn(e.getMessage());
         }
     }
 }

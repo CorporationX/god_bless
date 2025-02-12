@@ -4,6 +4,7 @@ import school.faang.sprint1.collections.catchevents.exceptions.NotFoundSpellEven
 import school.faang.sprint1.collections.catchevents.exceptions.NotFoundSpellEventTypeException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +35,10 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (eventType != null && !eventType.isBlank()) {
-            if (spellByType.containsKey(eventType)) {
-                return spellByType.get(eventType);
-            } else {
-                throw new NotFoundSpellEventTypeException(spellTypeErrorMessage, eventType);
-            }
-        } else {
-            throw new NotFoundSpellEventTypeException(spellTypeErrorMessage, eventType);
+        if (eventType == null || eventType.isBlank()) {
+            throw new IllegalArgumentException("Поле типа события не дожно быть null или пустым");
         }
+        return spellByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
@@ -66,10 +62,7 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            SpellEvent spellEvent = entry.getValue();
-            System.out.print("id = " + spellEvent.getId());
-            System.out.print(", event type = " + spellEvent.getEventType());
-            System.out.println(", spell action = " + spellEvent.getAction());
+            System.out.println(entry.getValue());
         }
     }
 }
