@@ -5,15 +5,9 @@ import java.util.function.Function;
 public class FilterProcessor {
 
     public Image applyFilter(Image image, Function<Image, Image> filter) {
-        try {
-            checkImage(image);
-            checkFunction(filter);
-            return filter.apply(image);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Illegal Argument " + e.getMessage());
-            return image; //если проверять на исключение здесь,
-            // то необходимо что-нибудь вернуть, а что возваращать вообще...
-        }
+        checkImage(image);
+        checkFunction(filter);
+        return filter.apply(image);
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {
