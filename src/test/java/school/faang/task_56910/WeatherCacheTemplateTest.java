@@ -43,10 +43,11 @@ class WeatherCacheTemplateTest {
         }
 
         @Test
-        void testFrequentUpdateCacheAlwaysFetchesNewData() {
+        void testFrequentUpdateCacheAlwaysFetchesNewData() throws InterruptedException {
             String city = "Moscow";
             long cacheDuration = 5000; // 5 секунд
             WeatherData firstFetch = frequentCache.getWeatherData(city, cacheDuration);
+            Thread.sleep(6000);
             WeatherData secondFetch = frequentCache.getWeatherData(city, cacheDuration);
             assertNotEquals(firstFetch.getTemperature(), secondFetch.getTemperature(), 0.01);
             assertNotEquals(firstFetch.getHumidity(), secondFetch.getHumidity(), 0.01);
