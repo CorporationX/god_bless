@@ -1,7 +1,6 @@
 package bjs257119;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,33 +10,24 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@Slf4j
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private static int globalId = 0;
+    private static final SpellEvent DEFAULT_SPELL_EVENT = new SpellEvent(0, null, null);
     private final Logger logger = LoggerFactory.getLogger(HogwartsSpells.class);
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(++globalId, eventType, actionDescription);
-        spellById.putIfAbsent(spellEvent.getId(), spellEvent);
-
-        spellsByType.computeIfPresent(eventType,
-                (eventTypeInMap, spellEventsInMap) -> {
-                    List<SpellEvent> spellEvents = spellsByType.get(eventTypeInMap);
-                    spellEvents.add(spellEvent);
-                    return spellEvents;
-                });
-        spellsByType.computeIfAbsent(eventType,
-                (eventTypeInMap) -> {
-                    ArrayList<SpellEvent> spellEvents = new ArrayList<>();
-                    spellEvents.add(spellEvent);
-                    return spellEvents;
-                });
+        spellById.put(spellEvent.getId(), spellEvent);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return spellById.getOrDefault(id, new SpellEvent(0, null, null));
+        if (spellById.get(id) == null) {
+            return DEFAULT_SPELL_EVENT;
+        }
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
