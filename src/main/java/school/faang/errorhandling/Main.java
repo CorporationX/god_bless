@@ -6,8 +6,10 @@ import java.util.function.Supplier;
 
 @Slf4j
 public class Main {
+    private static final String CONNECTION_CONDITION = "connection string";
+
     public static void main(String[] args) {
-        Supplier<String> connection = () -> RemoteService.call("connection string");
+        Supplier<String> connection = () -> RemoteService.call(CONNECTION_CONDITION);
         Supplier<String> error = () -> RemoteService.call("no connection");
         ExceptionHandler<String> withException = exception -> {
             log.info("Ошибка при вызове сервиса");
@@ -18,8 +20,8 @@ public class Main {
         log.info(ErrorHandler.withErrorHandling(error, withException));
     }
 
-    public static class ErrorHandler {
-        public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
+    private static class ErrorHandler {
+        private static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
             try {
                 return supplier.get();
             } catch (Exception exception) {
@@ -28,9 +30,9 @@ public class Main {
         }
     }
 
-    public static class RemoteService {
-        public static String call(String value) {
-            if (!value.equals("connection string")) {
+    private static class RemoteService {
+        private static String call(String value) {
+            if (!value.equals(CONNECTION_CONDITION)) {
                 throw new RuntimeException("Сервис недоступен");
             }
             return "Подключение к сервису успешно";
