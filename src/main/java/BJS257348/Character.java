@@ -1,6 +1,5 @@
 package BJS257348;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,11 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class Character {
-    private ArrayList<Item> inventory;
+    private String name;
+    private ArrayList<Item> inventory = new ArrayList<>();
+
+    public Character(String name) {
+        this.name = name;
+    }
 }
