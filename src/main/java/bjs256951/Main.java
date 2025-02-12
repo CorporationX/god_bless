@@ -38,6 +38,11 @@ public class Main {
         logger.info("Numbers of products in categoryMap before removing product: {}",
                 (long) categoryMap.values().size());
         productManager.removeProduct(Category.FOOD, "Meat");
+        boolean exists = products.stream()
+                .anyMatch(p -> Category.FOOD.equals(p.getCategory()) && "Meat".equals(p.getName()));
+        if (exists) {
+            logger.error("Product with category: {} and name: {} exists", Category.FOOD, "Meat");
+        }
         logger.info("Size of product`s list after removing product: {}", products.size());
         logger.info("Numbers of products in categoryMap after removing product: {}",
                 (long) categoryMap.values().size());

@@ -39,11 +39,12 @@ public class ProductManager {
 
     public void removeProduct(Category category, String name) {
         for (Iterator<Product> productIterator = products.iterator(); productIterator.hasNext(); ) {
-            if (productIterator.next().getName().equals(name)) {
-                productIterator.next();
-                if (Objects.nonNull(productIterator.next()) && findProductsByCategory(category) != null) {
-                    categoryMap.forEach((key, value) -> categoryMap.get(key)
-                            .removeIf(productInList -> productInList.getName().equals(name)));
+            Product product = productIterator.next();
+            if (Objects.nonNull(product) && findProductsByCategory(category) != null) {
+                if (product.getCategory().equals(category) && product.getName().equals(name)) {
+                    if (categoryMap.containsKey(category)) {
+                        categoryMap.get(category).remove(product);
+                    }
                     productIterator.remove();
                 }
             }
