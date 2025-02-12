@@ -34,8 +34,7 @@ public class Main {
             emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCaseBody);
 
             Predicate<Email> spamFilter = email -> email.getSubject().contains("Спам");
-            Function<Email, String> replaceBody = email -> email.getBody()
-                    .replace(email.getBody(), "DON'T READ");
+            Function<Email, String> replaceBody = email -> "DON'T READ";
             Consumer<Email> printEmailWithoutSpam = email ->
                     log.info("Письмо спам: {}", email.getSubject());
 
@@ -44,7 +43,7 @@ public class Main {
             emails.forEach(email ->
                     log.info("Тема: {}, тело письма: {}", email.getSubject(), email.getBody()));
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
         }
     }
 }
