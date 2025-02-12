@@ -20,11 +20,15 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            //log.info("{}", Functions.findUniquePairNumbers(UNIQUE_NUMBERS, NUMBER));
-            log.info("{}", Functions.sortCountriesByCapitals(COUNTRY_MAP));
-            log.info("{}", Functions.filterLinesWithSymbol(LIST_WORDS, SYMBOL));
-            //log.info("{}", Functions.transformIntegerToBinaryLine(LIST_NUMBERS));
-            //log.info("{}", Functions.filterLinesWithAlphabet(LIST_WORDS, ALPHABET));
+            log.info("Unique pairs which their sum equals - {}: {}", NUMBER,
+                    Functions.findUniquePairNumbers(UNIQUE_NUMBERS, NUMBER));
+            log.info("Sorted capitals of countries: {}", Functions.sortCountriesByCapitals(COUNTRY_MAP));
+            log.info("Words which start with symbol - {}: {}", SYMBOL,
+                    Functions.filterLinesWithSymbol(LIST_WORDS, SYMBOL));
+            log.info("List numbers in binary representation: {}",
+                    Functions.transformIntegerToBinaryLine(LIST_NUMBERS));
+            log.info("Words which contains english alphabet: {}",
+                    Functions.filterLinesWithAlphabet(LIST_WORDS, ALPHABET));
         } catch (Exception exception) {
             log.error(exception.getMessage(), exception);
         }
