@@ -7,10 +7,11 @@ import java.util.function.Supplier;
 @Slf4j
 public class Main {
     private static final String CONNECTION_CONDITION = "connection string";
+    private static final String MESSAGE_FAILED_CONNECTION = "no connection";
 
     public static void main(String[] args) {
         Supplier<String> connection = () -> RemoteService.call(CONNECTION_CONDITION);
-        Supplier<String> error = () -> RemoteService.call("no connection");
+        Supplier<String> error = () -> RemoteService.call(MESSAGE_FAILED_CONNECTION);
         ExceptionHandler<String> withException = exception -> {
             log.info("Ошибка при вызове сервиса");
             return "DEFAULT";
@@ -25,6 +26,7 @@ public class Main {
             try {
                 return supplier.get();
             } catch (Exception exception) {
+                log.error(exception.getMessage(), exception);
                 return exceptionHandler.handle(exception);
             }
         }
