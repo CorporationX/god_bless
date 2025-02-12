@@ -1,6 +1,8 @@
 package school.faang.metauniverse;
 
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import java.util.function.Predicate;
 
 public class NotificationManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationManager.class);
+
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
     @Setter
     private Function<Notification, Notification> corrector;
@@ -23,9 +27,13 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            logger.error("Notification is null {}", notification);
+            return;
+        }
         for (Predicate<Notification> filter : filters) {
             if (filter.test(notification)) {
-                System.out.println("Сообщение заблокировано!");
+                logger.warn("Сообщение заблокировано! {}", notification);
                 return;
             }
         }
@@ -34,7 +42,7 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.println("Такого типа отправки уведомлений не существует!");
+            logger.warn("Такого типа отправки уведомлений не существует! {}", notification);
         }
     }
 
