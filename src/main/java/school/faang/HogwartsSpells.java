@@ -13,6 +13,12 @@ public class HogwartsSpells {
         this.universeId = universeId;
     }
 
+    public HogwartsSpells() {
+        spellById = new HashMap<>();
+        spellsByType = new HashMap<>();
+        universeId = 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
@@ -42,14 +48,21 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-
-
+        SpellEvent spellEvent = spellById.remove(id);
+        if (spellEvent != null) {
+            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+            if (events != null) {
+                events.remove(spellEvent);
+                if (events.isEmpty()) {
+                    spellsByType.remove(spellEvent.getEventType());
+                }
+            }
+        }
     }
 
     public void printAllSpellEvents() {
-        HogwartsSpells hogwartsSpells = new HogwartsSpells();
-        for ()
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
-
-
 }

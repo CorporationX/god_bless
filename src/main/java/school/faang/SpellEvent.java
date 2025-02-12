@@ -22,4 +22,13 @@ public class SpellEvent {
     public String getAction() {
         return action;
     }
+
+    @Override
+    public String toString() {
+        return "SpellEvent{" +
+                "id=" + id +
+                ", eventType='" + eventType + '\'' +
+                ", action='" + action + '\'' +
+                '}';
+    }
 }
