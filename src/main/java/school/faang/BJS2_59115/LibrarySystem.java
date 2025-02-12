@@ -24,13 +24,6 @@ public class LibrarySystem {
             return books.get(new Book(title, author, year));
         }
 
-        /////////////////////// Вариант Номер 2 ////////////////////////
-//        for (Map.Entry<Book, String> entry : books.entrySet()){
-//            if (entry.getKey().getTitle().equals(title) &&  entry.getKey().getAuthor().equals(author) && entry.getKey().getYear() == year){
-//                return entry.getValue();
-//            }
-//        }
-
         return "Book not found";
     }
 
