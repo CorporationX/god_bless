@@ -1,7 +1,10 @@
 package BJS257594;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Function;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "| original image |");
@@ -13,21 +16,20 @@ public class Main {
                 new Image(image.getFileName(), image.getDescription() +  "| brightness filter |");
         Function<Image, Image> contrastFilter = (image) ->
                 new Image(image.getFileName(), image.getDescription() + "| contrast filter |");
-
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription());
+        log.info(grayscaleImage.getDescription());
         Image brightnessImage = filterProcessor.applyFilter(originalImage, brightnessFilter);
-        System.out.println(brightnessImage.getDescription());
+        log.info(brightnessImage.getDescription());
         Image contrastImage = filterProcessor.applyFilter(originalImage, contrastFilter);
-        System.out.println(contrastImage.getDescription());
+        log.info(contrastImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilter(grayscaleFilter, contrastFilter);
-        System.out.println("combined : ");
+        log.info("First combined : ");
         Image combinedImage = combinedFilter.apply(originalImage);
-        System.out.println(combinedImage.getDescription());
-
-        Function<Image, Image> combinedFilter2 = filterProcessor.combineFilter(brightnessFilter, contrastFilter);
-        Image combinedImage2 = combinedFilter2.apply(originalImage);
-        System.out.println(combinedImage2.getDescription());
+        log.info(combinedImage.getDescription());
+        log.info("Second combined : ");
+        Function<Image, Image> secondCombinedFilter = filterProcessor.combineFilter(brightnessFilter, contrastFilter);
+        Image secondCombinedImage = secondCombinedFilter.apply(originalImage);
+        log.info(secondCombinedImage.getDescription());
     }
 }
