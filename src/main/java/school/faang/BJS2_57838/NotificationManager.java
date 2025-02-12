@@ -1,16 +1,24 @@
 package school.faang.BJS2_57838;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notificationTypeConsumerMap = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
 
-    public  void registerHandler(NotificationType type, Consumer<Notification> handler) {
-
+    public  void registerHandler(@NonNull NotificationType type, @NonNull Consumer<Notification> handler) {
+        notifications.put(type, handler);
     }
-    public void sendNotification(Notification notification) {
+
+    public void sendNotification(@NonNull Notification notification) {
+        if (!notifications.containsKey(notification.getType())) {
+            throw new IllegalArgumentException("Данного типа нет");
+        }
+        notifications.get(notification.getType()).accept(notification);
+
 
     }
 }
