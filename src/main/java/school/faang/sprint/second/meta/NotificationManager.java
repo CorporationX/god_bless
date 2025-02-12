@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 @Slf4j
 public class NotificationManager {
-    private static final String DEFAULT_MESSAGE = " С уважением, Мета";
+    private static final String DEFAULT_SIGNATURE = " С уважением, Мета";
     private static final Set<String> DENIED_WORDS = Set.of("Кола", "Виски");
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
@@ -19,12 +19,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(@NonNull Notification notification) {
-        if (notification.getMessage().isBlank()) {
-            throw new IllegalArgumentException("Нельзя передавать пустое сообщение");
-        }
-        if (!isValidMessage(notification)) {
-            throw new IllegalArgumentException("Ваше сообщение содержит запрещенные слова");
-        }
+        validateNotification(notification);
 
         Notification modifiedNotification = updateNotification(notification);
         NotificationType notificationType = modifiedNotification.getType();
@@ -35,11 +30,23 @@ public class NotificationManager {
                 .accept(modifiedNotification);
     }
 
-    private boolean isValidMessage(@NonNull Notification notification) {
-        return DENIED_WORDS.stream().noneMatch(word -> notification.getMessage().contains(word));
+    private void validateNotification(@NonNull Notification notification) {
+        String message = notification.getMessage();
+        if (notification.getType() == null || message == null) {
+            throw new NullPointerException();
+        }
+        if (message.isBlank()) {
+            throw new EmptyMessageException();
+        }
+        boolean containsDeniedWords = DENIED_WORDS.stream()
+                .anyMatch(word -> notification.getMessage().contains(word));
+
+        if (containsDeniedWords) {
+            throw new ForbiddenWordException();
+        }
     }
 
     private Notification updateNotification(@NonNull Notification notification) {
-        return new Notification(notification.getType(), notification.getMessage() + DEFAULT_MESSAGE);
+        return new Notification(notification.getType(), notification.getMessage() + DEFAULT_SIGNATURE);
     }
 }
