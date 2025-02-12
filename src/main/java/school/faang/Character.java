@@ -1,7 +1,10 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Random;
 
+@Slf4j
 abstract class Character {
     public String name;
     public int strength;
@@ -25,46 +28,6 @@ abstract class Character {
 
     public abstract void attack(Character opponent) throws Exception;
 
-    static class Warrior extends Character {
-
-        public Warrior(String name) {
-            super(name);
-            this.strength = 10;
-            this.agility = 5;
-            this.intelligence = 3;
-        }
-
-        public Warrior(String name, int strength, int agility, int intelligence) {
-            super(name, strength, agility, intelligence);
-        }
-
-        @Override
-        public void attack(Character opponent) throws Exception {
-            int damage = this.strength;
-            opponent.health -= damage;
-        }
-    }
-
-    static class Archer extends Character {
-
-        public Archer(String name) {
-            super(name);
-            this.strength = 3;
-            this.agility = 10;
-            this.intelligence = 5;
-        }
-
-        public Archer(String name, int strength, int agility, int intelligence) {
-            super(name, strength, agility, intelligence);
-        }
-
-        @Override
-        public void attack(Character opponent) throws Exception {
-            int damage = this.agility;
-            opponent.health -= damage;
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         Archer archer = new Archer("Ron");
         Warrior warrior = new Warrior("Hamlet");
@@ -73,20 +36,20 @@ abstract class Character {
         int randomWarrior = random.nextInt(20);
         for (int i = 0; i < randomArcher; i++) {
             archer.attack(warrior);
-            System.out.println(archer.getName() + " deals 10 damage. " + warrior.getName()
+            log.info(archer.getName() + " deals 10 damage. " + warrior.getName()
                     + "'s health: " + warrior.getHealth());
             if (warrior.getHealth() <= 0) {
-                System.out.println(archer.getName() + " wins! " + warrior.getName() + " is dead!");
+                log.info(archer.getName() + " wins! " + warrior.getName() + " is dead!");
                 break;
             }
         }
 
         for (int i = 0; i < randomWarrior; i++) {
             warrior.attack(archer);
-            System.out.println(warrior.getName() + " deals 10 damage. " + archer.getName()
+            log.info(warrior.getName() + " deals 10 damage. " + archer.getName()
                     + "'s health: " + archer.getHealth());
             if (archer.getHealth() <= 0) {
-                System.out.println(warrior.getName() + " wins! " + archer.getName() + " is dead!");
+                log.info(warrior.getName() + " wins! " + archer.getName() + " is dead!");
                 break;
             }
         }
