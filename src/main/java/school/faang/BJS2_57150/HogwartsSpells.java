@@ -6,48 +6,41 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
-    private static final Map<String, List<SpellEvent>> SPELLS_BY_TYPE = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int currentSpellId = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(currentSpellId, eventType, actionDescription);
-        SPELL_BY_ID.put(currentSpellId, spellEvent);
-        SPELLS_BY_TYPE.putIfAbsent(eventType, new ArrayList<>());
-        SPELLS_BY_TYPE.get(eventType).add(spellEvent);
+        spellById.put(currentSpellId, spellEvent);
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
+        spellsByType.get(eventType).add(spellEvent);
         currentSpellId++;
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (id < currentSpellId) {
-            return SPELL_BY_ID.get(id);
-        } else {
-            return null;
-        }
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (SPELLS_BY_TYPE.containsKey(eventType)) {
-            return SPELLS_BY_TYPE.get(eventType);
-        } else {
-            return null;
-        }
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
         if (id < currentSpellId) {
-            SpellEvent spellEvent = SPELL_BY_ID.get(id);
-            SPELL_BY_ID.remove(id);
-            SPELLS_BY_TYPE.get(spellEvent.getEventType()).remove(spellEvent);
+            SpellEvent spellEvent = spellById.remove(id);
+            spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
+            if (spellsByType.get(spellEvent.getEventType()).isEmpty()) {
+                spellsByType.remove(spellEvent.getEventType());
+            }
         }
     }
 
     public void printAllSpellEvents() {
         System.out.println("Список заклинаний:");
-        for (Map.Entry<Integer, SpellEvent> entry : SPELL_BY_ID.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             SpellEvent spellEvent = entry.getValue();
-            System.out.println(spellEvent.getId() + ": " + spellEvent.getEventType() + " - "
-                    + spellEvent.getAction());
+            System.out.printf("%s: %s - %s \n", spellEvent.getId(), spellEvent.getEventType(), spellEvent.getAction());
         }
     }
 }
