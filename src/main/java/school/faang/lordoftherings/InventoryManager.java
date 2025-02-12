@@ -8,7 +8,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public void addItem(@NonNull Character character, @NonNull Item item, @NonNull Consumer<Item> actionWithItem) {
+    public void addItem(@NonNull Character character, @NonNull Item item,
+                        @NonNull Consumer<Item> actionWithItem) {
         Set<Item> inventory = character.getInventory();
         inventory.add(item);
         actionWithItem.accept(item);
@@ -19,7 +20,9 @@ public class InventoryManager {
         inventory.removeIf(item -> itemFilter.test(item));
     }
 
-    public void updateItem(@NonNull Character character, @NonNull Predicate<Item> itemFilter, @NonNull Function<Item, Item> actionWithItem) {
+    public void updateItem(@NonNull Character character,
+                           @NonNull Predicate<Item> itemFilter,
+                           @NonNull Function<Item, Item> actionWithItem) {
         Set<Item> inventory = character.getInventory();
         Item updateItem = null;
         for (Item item : inventory) {
@@ -38,7 +41,8 @@ public class InventoryManager {
 
     public void printInventory(Character character) {
         for (Item item : character.getInventory()) {
-            System.out.println(String.format("Название %s, стоимость %s", item.getName(), item.getValue()));
+            System.out.println(String.format("Название %s, стоимость %s",
+                                                item.getName(), item.getValue()));
         }
     }
 }
