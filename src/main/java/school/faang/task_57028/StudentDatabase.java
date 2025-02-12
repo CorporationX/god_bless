@@ -1,7 +1,6 @@
 package school.faang.task_57028;
 
 import lombok.AllArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +43,9 @@ public class StudentDatabase {
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             Subject subject = entry.getKey();
-            System.out.println("Предмет: " + subject.getName());
+            System.out.println("Предмет: " + subject.name());
             for (Student student : entry.getValue()) {
-                System.out.println("   Студент: " + student.getName());
+                System.out.println("   Студент: " + student.name());
             }
         }
     }
