@@ -7,7 +7,7 @@ public class Main {
         String result = withErrorHandling(
                 () -> RemoteService.call("someParam"),
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                    System.out.println("Error when calling the service, we return the default value");
                     return "DEFAULT";
                 }
         );
@@ -25,7 +25,7 @@ public class Main {
 
     public static class RemoteService {
         public static String call(String param) {
-            throw new RuntimeException("Сервис недоступен");
+            throw new RuntimeException("The service is unavailable");
         }
     }
 
