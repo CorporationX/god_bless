@@ -10,10 +10,7 @@ import java.util.stream.Stream;
 
 public class Functions {
     public static Set<List<Integer>> findUniquePairNumbers(Set<Integer> set, int concreteNumber) {
-        Objects.requireNonNull(set, "Invalid value for set");
-        if (set.isEmpty()) {
-            throw new IllegalArgumentException("Set is empty");
-        }
+        validateSet(set);
         return set.stream()
                 .filter(number -> number != concreteNumber - number && set.contains(concreteNumber - number))
                 .map(number -> Stream.of(number, concreteNumber - number).sorted().toList())
@@ -21,10 +18,7 @@ public class Functions {
     }
 
     public static List<String> sortCountriesByCapitals(Map<String, String> map) {
-        Objects.requireNonNull(map, "Invalid value for map");
-        if (map.isEmpty()) {
-            throw new IllegalArgumentException("Map is empty");
-        }
+        validateMap(map);
         return map.values().stream().sorted().toList();
     }
 
@@ -49,6 +43,20 @@ public class Functions {
         Objects.requireNonNull(list, "Invalid value for list");
         if (list.isEmpty()) {
             throw new IllegalArgumentException("List is empty");
+        }
+    }
+
+    private static void validateSet(Set<Integer> set) {
+        Objects.requireNonNull(set, "Invalid value for set");
+        if (set.isEmpty()) {
+            throw new IllegalArgumentException("Set is empty");
+        }
+    }
+
+    private static void validateMap(Map<String, String> map) {
+        Objects.requireNonNull(map, "Invalid value for map");
+        if (map.isEmpty()) {
+            throw new IllegalArgumentException("Map is empty");
         }
     }
 }
