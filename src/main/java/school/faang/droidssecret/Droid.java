@@ -2,24 +2,29 @@ package school.faang.droidssecret;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @AllArgsConstructor
 @Getter
 public class Droid {
 
+    private static final Logger logger = LoggerFactory.getLogger(Droid.class);
+    private static final int ALPHABET_SIZE = 26;
+
     private final String name;
 
     public void sendMessage(Droid droid, String inputMessage, int key) {
         if (droid == null || inputMessage == null) {
-            return;
+            throw new NullPointerException("Требуемое значение не передано!");
         }
         String outputMessage = encryptMessage(inputMessage, key);
-        System.out.println("Дроид " + this.name + " отправил сообщение: " + outputMessage);
+        logger.info("Дроид {} отправил сообщение: {}", this.name, outputMessage);
         receiveMessage(droid, outputMessage, key);
     }
 
     private void receiveMessage(Droid droid, String inputMessage, int key) {
-        System.out.println("Дроид " + droid.getName() + " получил сообщение: " + decryptMessage(inputMessage, key));
+        logger.info("Дроид {} получил сообщение: {}", droid.getName(), decryptMessage(inputMessage, key));
     }
 
     private String encryptMessage(String inputMessage, int key) {
@@ -29,7 +34,7 @@ public class Droid {
                 char inputSymbol = message.charAt(i);
                 if (Character.isLetter(inputSymbol)) {
                     char base = Character.isLowerCase(inputSymbol) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((inputSymbol - base + encryptionKey) % 26 + base));
+                    encryptedMessage.append((char) ((inputSymbol - base + encryptionKey) % ALPHABET_SIZE + base));
                 } else {
                     encryptedMessage.append(inputSymbol);
                 }
@@ -46,7 +51,8 @@ public class Droid {
                 char inputSymbol = message.charAt(i);
                 if (Character.isLetter(inputSymbol)) {
                     char base = Character.isLowerCase(inputSymbol) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((inputSymbol - base - decryptionKey + 26) % 26 + base));
+                    encryptedMessage.append((char) ((inputSymbol - base - decryptionKey + ALPHABET_SIZE)
+                            % ALPHABET_SIZE + base));
                 } else {
                     encryptedMessage.append(inputSymbol);
                 }
@@ -55,6 +61,4 @@ public class Droid {
         };
         return droidMessageEncryptor.encrypt(inputMessage, key);
     }
-
-
 }
