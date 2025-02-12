@@ -59,6 +59,6 @@ public class ListOperations {
     }
 
     private static void validateList(List<?> list) {
-        Objects.requireNonNull(list);
+        Objects.requireNonNull(list, "Invalid value for list");
     }
 }
