@@ -4,15 +4,14 @@ public class Archer extends Character {
 
     public Archer(String name) {
         super(name);
-        this.intelligence = 5;
-        this.strength = 3;
-        this.agility = 10;
+        this.setStrength(3);
+        this.setAgility(10);
     }
 
     @Override
     public void attack(Character opponent) {
         if (opponent.isAlive()) {
-            opponent.setHealth(Math.max(opponent.getHealth() - this.getAgility(), 0));
+            opponent.setHealth(opponent.getHealth() - this.getAgility());
         } else {
             System.out.println("Opponent is already dead");
         }
