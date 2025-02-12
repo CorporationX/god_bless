@@ -28,6 +28,7 @@ public class StudentDatabase {
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         subjectStudents.get(subject).add(student); // Добавляем студента к предмету
     }
+
     public void removeStudent(Student student) {
         Map<Subject, Integer> grades = studentSubjects.remove(student); // Удаляем записи студента
         if (grades != null) {
@@ -39,6 +40,7 @@ public class StudentDatabase {
             }
         }
     }
+
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             Subject subject = entry.getKey();
@@ -48,6 +50,7 @@ public class StudentDatabase {
             }
         }
     }
+
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         subjectStudents.put(subject, new ArrayList<>(students)); // Добавляем предмет и список студентов
         for (Student student : students) {
@@ -55,6 +58,7 @@ public class StudentDatabase {
             studentSubjects.get(student).put(subject, null); // Добавляем предмет в записи студента
         }
     }
+
     public void addStudentToSubject(Student student, Subject subject) {
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
         if (!subjectStudents.get(subject).contains(student)) {
@@ -63,6 +67,7 @@ public class StudentDatabase {
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).putIfAbsent(subject, null); // Добавляем предмет в записи студента
     }
+
     public void removeStudentFromSubject(Student student, Subject subject) {
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
