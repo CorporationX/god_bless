@@ -1,4 +1,4 @@
-package school.faang.DoubleCacheCache;
+package school.faang.doubleCacheCache;
 
 public class Student {
     private final String name;

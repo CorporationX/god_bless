@@ -1,4 +1,4 @@
-package school.faang.DoubleCacheCache;
+package school.faang.doubleCacheCache;
 
 import java.util.HashMap;
 import java.util.Map;
