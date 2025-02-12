@@ -16,7 +16,7 @@ public class Archer extends Character {
     }
 
     @Override
-    protected void attack(Character opponent) {
+    public void attack(Character opponent) {
         if (!isHealthNotLessThanZero(this)) {
             throw new IllegalArgumentException("Fighter " + this.getName() + " always killed, cannot attack");
         }

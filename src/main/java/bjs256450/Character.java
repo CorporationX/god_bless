@@ -26,14 +26,9 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    protected abstract void attack(Character opponent);
+    public abstract void attack(Character opponent);
 
-    boolean isHealthNotLessThanZero(Character fighter) {
-        boolean healthNotLessThanZero = true;
-        if (fighter.getHealth() < 0 || fighter.getHealth() == 0) {
-            fighter.setHealth(0);
-            healthNotLessThanZero = false;
-        }
-        return healthNotLessThanZero;
+    protected boolean isHealthNotLessThanZero(Character fighter) {
+        return Math.max(fighter.getHealth(), 0) != 0;
     }
 }
