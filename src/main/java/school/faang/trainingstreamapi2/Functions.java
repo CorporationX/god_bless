@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Functions {
     public static Set<List<Integer>> findUniquePairNumbers(Set<Integer> set, int concreteNumber) {
-        Objects.requireNonNull(set);
+        Objects.requireNonNull(set, "Invalid value for set");
         if (set.isEmpty()) {
             throw new IllegalArgumentException("Set is empty");
         }
@@ -21,7 +21,7 @@ public class Functions {
     }
 
     public static List<String> sortCountriesByCapitals(Map<String, String> map) {
-        Objects.requireNonNull(map);
+        Objects.requireNonNull(map, "Invalid value for map");
         if (map.isEmpty()) {
             throw new IllegalArgumentException("Map is empty");
         }
@@ -46,7 +46,7 @@ public class Functions {
     }
 
     private static void validateList(List<?> list) {
-        Objects.requireNonNull(list);
+        Objects.requireNonNull(list, "Invalid value for list");
         if (list.isEmpty()) {
             throw new IllegalArgumentException("List is empty");
         }
