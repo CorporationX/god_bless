@@ -60,14 +60,15 @@ public class Droid {
     }
 
     private String processMessage(String message, int key, boolean isEncrypt) {
-        DroidMessageEncryptor droidMessageEncryptor = (message1, encryptionKey, isEncrypt1) -> {
+
+        DroidMessageEncryptor droidMessageEncryptor = (originalMessage, encryptionKey, isEncryption) -> {
             StringBuilder result = new StringBuilder();
-            for (int i = 0; i < message1.length(); i++) {
-                char ch = message1.charAt(i);
+            for (int i = 0; i < originalMessage.length(); i++) {
+                char ch = originalMessage.charAt(i);
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
                     int offset = ch - base;
-                    int adjusted = (offset + (isEncrypt1 ? key : -key) + ALPHABET_SIZE) % ALPHABET_SIZE;
+                    int adjusted = (offset + (isEncryption ? key : -key) + ALPHABET_SIZE) % ALPHABET_SIZE;
                     result.append((char) (adjusted + base));
                 } else {
                     result.append(ch);
