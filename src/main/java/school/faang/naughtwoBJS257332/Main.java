@@ -7,26 +7,29 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Main {
-    public void main(String[] args) {
-
+    public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
-
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Granny", "Hello, little pie, how are you?", false),
+                new Email("Petrozavodsk State University",
+                        "Dear applicant, we are pleased to inform you " +
+                                "that you have successfully passed all entrance exams " +
+                                "and have been enrolled in our university.", true),
+                new Email("You've been hacked!", "TRANSFER ALL YOUR MONEY TO A SECURE ACCOUNT IMMEDIATELY!",
+                        false)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
+        Predicate<Email> spamFilter = email -> email.getBody().contains("TRANSFER ALL YOUR MONEY");
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("Letter processed: " + email.getSubject());
+        Consumer<Email> printBody = email -> System.out.println("Body: " + email.getBody());
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
-
-
+        emailProcessor.processEmails(emails, spamFilter, printEmail, toLowerCase);
+        emails.forEach(email -> System.out.printf("%nSubject: %s%nBody:%n%s %n",
+                email.getSubject(), email.getBody()));
     }
 }

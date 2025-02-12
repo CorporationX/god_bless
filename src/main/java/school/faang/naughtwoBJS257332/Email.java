@@ -19,11 +19,6 @@ public class Email {
         this.isImportant = isImportant;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Email: %s%n%n    %s%n", subject, body);
-    }
-
     private void checkEmail(String subject, String body) {
         if (subject == null || subject.isBlank()
                 || body == null || body.isBlank()) {

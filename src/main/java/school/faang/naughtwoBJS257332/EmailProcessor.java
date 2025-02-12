@@ -8,24 +8,40 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> filter,
                               Consumer<Email> action, Function<Email, String> transformer) {
-        checkObject(emails);
-        checkObject(filter);
-        checkObject(transformer);
-        checkObject(action);
+        checkEmailList(emails);
+        checkFilter(filter);
+        checkAction(action);
+        checkTransformer(transformer);
         for (Email email : emails) {
-            if (filter.test(email)){
+            if (filter.test(email)) {
                 String transformerBody = transformer.apply(email);
                 email.setBody(transformerBody);
                 action.accept(email);
             }
         }
-
     }
 
-    private void checkObject(Object o) { //я могу сделать так, вместо отдельных проверок на null?
-        // Мне же по сути ничего не надо возвращать, только взять какое то значение и проверить на null
-        if (o == null) {
-            throw new IllegalArgumentException("Value cannot be 'null'.");
+    private void checkEmailList(List<Email> emails) {
+        if (emails == null || emails.isEmpty()) {
+            throw new IllegalArgumentException("List of emails cannot be 'null' or empty.");
+        }
+    }
+
+    private void checkFilter(Predicate<Email> filter) {
+        if (filter == null) {
+            throw new IllegalArgumentException("Filter cannot be 'null'.");
+        }
+    }
+
+    private void checkAction(Consumer<Email> action) {
+        if (action == null) {
+            throw new IllegalArgumentException("Action cannot be 'null'.");
+        }
+    }
+
+    private void checkTransformer(Function<Email, String> transformer) {
+        if (transformer == null) {
+            throw new IllegalArgumentException("Transformer cannot be 'null'.");
         }
     }
 
