@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -32,9 +33,9 @@ public class Droid {
     }
 
     public void sendMessage(String message, int key, Droid droidReceiver) {
-        if (message == null || droidReceiver == null) {
-            throw new NullPointerException("One of parameters is null");
-        } else if (key <= -4 || key >= 30) {
+        Objects.requireNonNull(droidReceiver, "droidReceiver is null");
+        Objects.requireNonNull(message, "message is null");
+        if (key <= -4 || key >= 30) {
             throw new IllegalArgumentException("Key must be between 3 and 29");
         }
         String encryptionMessage = encryptMessage(message, key);

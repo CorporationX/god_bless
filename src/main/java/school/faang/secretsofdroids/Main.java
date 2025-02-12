@@ -22,7 +22,7 @@ public class Main {
             bb8.sendMessage(FIRST_MESSAGE, THIRD_KEY, r2d2);
             r2d2.sendMessage(SECOND_MESSAGE, FIRST_KEY, c3po);
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
         }
     }
 }
