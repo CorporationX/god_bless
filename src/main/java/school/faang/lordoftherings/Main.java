@@ -32,7 +32,7 @@ public class Main {
                     item -> new Item(item.getName(), item.getValue() * 2, item.getRareness()));
             printInventory(commonCharacter);
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
         }
     }
 
