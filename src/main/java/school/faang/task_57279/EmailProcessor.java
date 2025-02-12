@@ -1,6 +1,7 @@
 package school.faang.task_57279;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -22,15 +23,11 @@ public class EmailProcessor {
     }
 
     private void checkPredicate(Predicate<Email> filter) {
-        if (filter == null) {
-            throw new IllegalArgumentException("Фильтр не может быть null");
-        }
+        Objects.requireNonNull(filter, "Фильтр не может быть null");
     }
 
     private void checkConsumer(Consumer<Email> action) {
-        if (action == null) {
-            throw new IllegalArgumentException("Обработчик не может быть null");
-        }
+        Objects.requireNonNull(action, "Обработчик не может быть null");
     }
 
     private void checkFunction(Function<Email, String> transformLetter) {
