@@ -1,4 +1,4 @@
-package school.faang.AbstractionAbstraction;
+package school.faang.abstractionAbstractionFix;
 
 public class Main {
     public static void main(String[] args) {

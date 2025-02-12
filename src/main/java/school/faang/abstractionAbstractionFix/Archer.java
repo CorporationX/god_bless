@@ -1,4 +1,4 @@
-package school.faang.AbstractionAbstraction;
+package school.faang.abstractionAbstractionFix;
 
 public class Archer extends Character {
     private static final int DEFAULT_STRENGTH = 3;
