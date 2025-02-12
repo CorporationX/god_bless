@@ -11,17 +11,18 @@ import java.util.function.Predicate;
 
 @Setter
 public class NotificationManager {
+    private static final String BLOCK_MESSAGE = "Сообщение заблокировано!";
     private final Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
     private Predicate<Notification> filter;
     private Function<Notification, String> spotter;
 
-    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+    public void registerHandler(@NonNull NotificationType type, @NonNull Consumer<Notification> handler) {
         notifications.put(type, handler);
     }
 
     public void sendNotification(@NonNull Notification notification) {
         if (filter != null && filter.test(notification)) {
-            System.out.print("Сообщение заблокировано!");
+            System.out.print(BLOCK_MESSAGE);
         } else if (spotter != null) {
             System.out.printf("%s", spotter.apply(notification));
         } else {
