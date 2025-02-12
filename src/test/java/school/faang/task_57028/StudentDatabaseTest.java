@@ -7,9 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StudentDatabaseTest {
-    private final StudentDatabase studentDatabase = new StudentDatabase(new HashMap<>(), new HashMap<>());;
-    private final Student studentAlice = new Student("Alice");;
-    private final Student studentBob = new Student("Bob");;
+    private final StudentDatabase studentDatabase = new StudentDatabase(
+            new HashMap<>(),
+            new HashMap<>());
+    private final Student studentAlice = new Student("Alice");
+    private final Student studentBob = new Student("Bob");
     private final Subject subjectMath = new Subject("Math");
     private final Subject subjectScience = new Subject("Science");
 
