@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 @NoArgsConstructor
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         if (type == null || handler == null) {
@@ -19,12 +19,16 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            throw new NullPointerException("Уведомление не может быть пустым");
+        }
+
         Consumer<Notification> handler = handlers.get(notification.getType());
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.println("Ни один обработчик не зарегистрирован " + notification.getMessage());
+            System.out.println("Обработчик не зарегистрирован для типа уведомления: " +
+                    notification.getType() + ". Сообщение: " + notification.getMessage());
         }
-
     }
 }
