@@ -39,7 +39,7 @@ public class LibrarySystem {
             return "Title or author cannot be empty";
         }
         Book book = new Book(title, author, year);
-        return locationBook.getOrDefault(book, "Book: " + book + " not found." );
+        return locationBook.getOrDefault(book, "Book: " + book + " not found.");
     }
 
     public void printAllBooks() {
