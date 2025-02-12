@@ -10,12 +10,11 @@ import java.util.List;
 @Setter
 public class Character {
     private String name;
-    private int level;
+    private int level = 1;
     private final List<Item> inventory;
 
     public Character(String name) {
         this.name = name;
-        this.level = 1;
         this.inventory = new ArrayList<>();
     }
 }

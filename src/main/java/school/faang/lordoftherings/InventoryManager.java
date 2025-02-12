@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         validateCharacter(character);
-        Objects.requireNonNull(item, "Item is null");
-        Objects.requireNonNull(consumer, "Consumer is null");
+        validateItem(item);
+        validateConsumer(consumer);
         character.getInventory().add(item);
         consumer.accept(item);
     }
@@ -23,7 +23,7 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         validateCharacter(character);
         validatePredicate(predicate);
-        Objects.requireNonNull(function, "Function is null");
+        validateFunction(function);
         character.getInventory().replaceAll(item ->
                 predicate.test(item) ? function.apply(item) : item
         );
@@ -35,5 +35,17 @@ public class InventoryManager {
 
     private void validatePredicate(Predicate<Item> predicate) {
         Objects.requireNonNull(predicate, "Predicate is null");
+    }
+
+    private void validateFunction(Function<Item, Item> function) {
+        Objects.requireNonNull(function, "Function is null");
+    }
+
+    private void validateConsumer(Consumer<Item> consumer) {
+        Objects.requireNonNull(consumer, "Consumer is null");
+    }
+
+    private void validateItem(Item item) {
+        Objects.requireNonNull(item, "Item is null");
     }
 }
