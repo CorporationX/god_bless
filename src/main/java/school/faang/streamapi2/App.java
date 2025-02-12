@@ -25,22 +25,27 @@ public class App {
         String output = result.stream()
                 .map(pair -> "(" + pair[0] + ", " + pair[1] + ")")
                 .collect(Collectors.joining(", "));
-        System.out.printf("Найденные пары: %s%n", output);
+        System.out.printf("Найденные пары: %s%n",
+                output);
 
         // second task test
         List<String> capitals = Solution.getSortedCapitals(COUNTRIES);
-        System.out.printf("Столицы, отсортированные по странам: %s%n", capitals);
+        System.out.printf("Столицы, отсортированные по странам: %s%n",
+                capitals);
 
         // third task test
         List<String> filteredSorted = Solution.filterAndSortByChar(WORDS_LIST, FILTER_CHAR);
-        System.out.printf("Строки, начинающиеся на '%s', отсортированные по длине: %s%n", FILTER_CHAR, filteredSorted);
+        System.out.printf("Строки, начинающиеся на '%s', отсортированные по длине: %s%n",
+                FILTER_CHAR, filteredSorted);
 
         // fourth task test
         List<String> binaryNumbers = Solution.convertNumbersToBinary(NUMBERS_LIST);
-        System.out.printf("Числа в двоичном формате: %s%n", binaryNumbers);
+        System.out.printf("Числа в двоичном формате: %s%n",
+                binaryNumbers);
 
         // fifth task test
         List<String> filteredFruits = Solution.filterByAlphabetAndSort(FRUITS_LIST, ALPHABET);
-        System.out.printf("Строки, содержащие символы только из алфавита, отсортированные по длине: %s%n", filteredFruits);
+        System.out.printf("Строки, содержащие символы только из алфавита, отсортированные по длине: %s%n",
+                filteredFruits);
     }
 }
