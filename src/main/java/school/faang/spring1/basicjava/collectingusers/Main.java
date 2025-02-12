@@ -1,7 +1,5 @@
 package school.faang.spring1.basicjava.collectingusers;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +13,6 @@ public class Main {
         User user4 = new User(4, "Olivia", 22, Set.of("Cooking", "Aerobics", "Swimming"));
 
         List<User> users = List.of(user1, user2, user3, user4);
-        System.out.println(new User().findHobbyLovers(users, hobbies));
+        System.out.println(User.findHobbyLovers(users, hobbies));
     }
 }
