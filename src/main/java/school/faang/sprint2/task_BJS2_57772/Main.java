@@ -1,24 +1,26 @@
 package school.faang.sprint2.task_BJS2_57772;
 
 public class Main {
+    private static final NotificationManager NOTIFICATION_MANAGER = new NotificationManager();
+
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
+        registerNotificationType(NotificationType.EMAIL);
+        registerNotificationType(NotificationType.SMS);
+        registerNotificationType(NotificationType.PUSH);
 
-        notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("EMAIL " + notification.getMessage()));
-
-        notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS " + notification.getMessage()));
-
-        notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("PUSH " + notification.getMessage()));
-
-        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        createAndSendNotification(NotificationType.EMAIL, "Ваш аккаунт активирован");
+        createAndSendNotification(NotificationType.SMS, "Ваш пароль изменен");
+        createAndSendNotification(NotificationType.PUSH, "У вас новое сообщение!");
     }
+
+    private static void registerNotificationType(NotificationType type) {
+        NOTIFICATION_MANAGER.registerHandler(type,
+                notification -> System.out.printf("%s %s\n", notification.getType(), notification.getMessage()));
+    }
+
+    private static void createAndSendNotification(NotificationType type, String msg) {
+        Notification notification = new Notification(type, msg);
+        NOTIFICATION_MANAGER.sendNotification(notification);
+    }
+
 }
