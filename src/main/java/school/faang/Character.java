@@ -2,22 +2,21 @@ package school.faang;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public abstract class Character {
 
-    private int health = 100;
     private String name;
     private int strength;
     private int agility;
     private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -27,8 +26,8 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public boolean isAlive() {
-        return getHealth() > 0;
+    public void dealDamage(Character opponent, int damage) {
+        opponent.health = Math.max(opponent.health - damage, 0);
     }
 
     public abstract void attack(Character opponent);

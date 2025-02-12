@@ -8,10 +8,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (opponent.isAlive()) {
-            opponent.setHealth(Math.max(opponent.getHealth() - this.getStrength(), 0));
-        } else {
-            System.out.println("Opponent is already dead");
-        }
+        System.out.printf("%s attacks %s with %d damage \n", getName(), opponent.getName(), getStrength());
+        dealDamage(opponent, getStrength());
     }
 }
