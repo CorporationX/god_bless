@@ -21,8 +21,10 @@ public class Main {
 
         Predicate<Email> importantFilter = Email::isImportant;
         Predicate<Email> spamFilter = email -> email.getBody().contains("TRANSFER ALL YOUR MONEY");
+
         Consumer<Email> printEmail = email -> System.out.println("Letter processed: " + email.getSubject());
         Consumer<Email> printBody = email -> System.out.println("Body: " + email.getBody());
+
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
 
