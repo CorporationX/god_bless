@@ -2,7 +2,6 @@ package bjs256951;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,15 +15,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Slf4j
-@Getter(value = AccessLevel.PROTECTED)
+@Getter(value = AccessLevel.PACKAGE)
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
     private static int globalId = 0;
     private static final Logger logger = LoggerFactory.getLogger(ProductManager.class);
 
-    protected void addProduct(Category category, String name) {
+    public void addProduct(Category category, String name) {
         if (Objects.isNull(category) || Objects.isNull(name) || name.isBlank()) {
             throw new IllegalArgumentException("The fields are not filled in");
         }
@@ -39,7 +37,7 @@ public class ProductManager {
         categoryMap.put(category, productsInCategoryMap);
     }
 
-    protected void removeProduct(Category category, String name) {
+    public void removeProduct(Category category, String name) {
         for (Iterator<Product> productIterator = products.iterator(); productIterator.hasNext(); ) {
             if (productIterator.next().getName().equals(name)) {
                 productIterator.next();
@@ -52,15 +50,18 @@ public class ProductManager {
         }
     }
 
-    protected List<Product> findProductsByCategory(Category category) {
-        return categoryMap.get(category).stream().filter(Objects::nonNull).collect(Collectors.toList());
+    public List<Product> findProductsByCategory(Category category) {
+        if (Objects.nonNull(categoryMap.get(category))) {
+            return categoryMap.get(category).stream().filter(Objects::nonNull).collect(Collectors.toList());
+        }
+        throw new IllegalArgumentException("Category cannot be null;");
     }
 
-    protected Map<Category, List<Product>> groupProductsByCategory() {
+    public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productMap = new HashMap<>();
         for (Product product : products) {
-            productMap.merge(product.getCategory(), new ArrayList<>(),
-                    (categoryInMap, products) -> {
+            productMap.computeIfAbsent(product.getCategory(),
+                    (products) -> {
                         productMap.get(product.getCategory()).add(product);
                         return productMap.get(product.getCategory());
                     });
@@ -68,7 +69,7 @@ public class ProductManager {
         return productMap;
     }
 
-    protected void printAllProducts() {
+    public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> categoryToProducts : categoryMap.entrySet()) {
             Category category = categoryToProducts.getKey();
             List<Product> products = categoryToProducts.getValue();
