@@ -11,7 +11,7 @@ public class Main {
                 notification -> System.out.println("SMS: " + notification.getMessage()));
 
         manager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push : " + notification.getMessage()));
+                notification -> System.out.println("Push: " + notification.getMessage()));
 
         Notification email = new Notification(NotificationType.EMAIL, "Молодец");
         Notification sms = new Notification(NotificationType.SMS, "Пришла СМС");

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<NotificationType, Consumer<Notification>> actions = new HashMap<>();
+    final Map<NotificationType, Consumer<Notification>> actions = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         checkNotificationType(type);
@@ -14,8 +14,14 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> hander = actions.get(notification.getType());
-        hander.accept(notification);
+        if (notification == null) {
+            throw new NullPointerException("notification type is null");
+        }
+        Consumer<Notification> handler = actions.get(notification.getType());
+        if (handler == null) {
+            throw new NullPointerException("handler type is null");
+        }
+        handler.accept(notification);
     }
 
     private void checkNotificationType(NotificationType type) {
