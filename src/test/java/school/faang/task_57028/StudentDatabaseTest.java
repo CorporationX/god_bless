@@ -20,14 +20,18 @@ public class StudentDatabaseTest {
         studentDatabase.addStudentWithGrades(studentAlice, grades);
 
         assertTrue(studentDatabase.studentSubjects.containsKey(studentAlice));
+
         assertEquals(90, studentDatabase.studentSubjects.get(studentAlice).get(subjectMath));
+
         assertTrue(studentDatabase.subjectStudents.get(subjectMath).contains(studentAlice));
     }
 
     @Test
     public void testAddSubjectForStudent() {
         studentDatabase.addSubjectForStudent(studentAlice, subjectMath, 85);
+
         assertEquals(85, studentDatabase.studentSubjects.get(studentAlice).get(subjectMath));
+
         assertTrue(studentDatabase.subjectStudents.get(subjectMath).contains(studentAlice));
     }
 
@@ -35,7 +39,9 @@ public class StudentDatabaseTest {
     public void testRemoveStudent() {
         studentDatabase.addStudentWithGrades(studentAlice, Map.of(subjectMath, 90));
         studentDatabase.removeStudent(studentAlice);
+
         assertFalse(studentDatabase.studentSubjects.containsKey(studentAlice));
+
         assertFalse(studentDatabase.subjectStudents.get(subjectMath).contains(studentAlice));
     }
 
@@ -43,15 +49,15 @@ public class StudentDatabaseTest {
     public void testPrintAllSubjectsWithStudents() {
         studentDatabase.addStudentWithGrades(studentAlice, Map.of(subjectMath, 90));
         studentDatabase.addStudentWithGrades(studentBob, Map.of(subjectMath, 85, subjectScience, 80));
-
-        // Здесь вы можете использовать System.setOut для перехвата вывода, если хотите проверить вывод
         studentDatabase.printAllSubjectsWithStudents();
     }
 
     @Test
     public void testAddStudentToSubject() {
         studentDatabase.addStudentToSubject(studentAlice, subjectMath);
+
         assertTrue(studentDatabase.subjectStudents.get(subjectMath).contains(studentAlice));
+
         assertTrue(studentDatabase.studentSubjects.get(studentAlice).containsKey(subjectMath));
     }
 
@@ -59,7 +65,9 @@ public class StudentDatabaseTest {
     public void testRemoveStudentFromSubject() {
         studentDatabase.addStudentToSubject(studentAlice, subjectMath);
         studentDatabase.removeStudentFromSubject(studentAlice, subjectMath);
+
         assertFalse(studentDatabase.subjectStudents.get(subjectMath).contains(studentAlice));
+
         assertFalse(studentDatabase.studentSubjects.get(studentAlice).containsKey(subjectMath));
     }
 }
