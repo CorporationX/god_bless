@@ -1,9 +1,11 @@
 package school.faang.bjs2_57324;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class HogwartsSpells {
     Map<Integer, SpellEvent> spellBuild = new HashMap<>();
@@ -19,10 +21,8 @@ public class HogwartsSpells {
                     "или содержать одни пробелы. Вы указали: " + actionDescription);
         }
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
-        int id = SpellEvent.getId();
-        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>());
-        spellsByType.get(eventType).add(spellEvent);
-        spellBuild.put(id, spellEvent);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        spellBuild.put(spellEvent.getId(), spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -37,16 +37,19 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("Тип заклинания не должен быть пустым " +
                     "или содержать одни пробелы. Вы указали: " + eventType);
         }
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
         if (id < 0) {
             throw new IllegalArgumentException("id не должен быть меньше 0");
         }
-        SpellEvent spellEvent = spellBuild.get(id);
-        spellBuild.remove(id);
-        spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
+        SpellEvent spellEvent = spellBuild.remove(id);
+        List<SpellEvent> spells = spellsByType.get(spellEvent.getEventType());
+        if (spells == null) {
+            throw new NoSuchElementException("В списке нет заклинаний");
+        }
+        spells.remove(spellEvent);
     }
 
     public void printAllSpellEvents() {
