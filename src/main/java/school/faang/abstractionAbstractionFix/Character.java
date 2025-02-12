@@ -1,4 +1,4 @@
-package school.faang.AbstractionAbstraction;
+package school.faang.abstractionAbstractionFix;
 
 import lombok.Data;
 
