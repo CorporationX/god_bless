@@ -10,30 +10,20 @@ public class Notification {
     private String message;
 
     public Notification(NotificationType type, String message) {
-        if (message == null
+        if (message == null || type == null
                 || message.isBlank()
-                || doesMessageContainObscene(message)
-                || isTypeInNotification(type)) {
-            new IllegalArgumentException("Incorrect data entered");
+                || doesMessageContainObscene(message)) {
+            throw new IllegalArgumentException("Incorrect data entered");
         } else {
             this.type = type;
             this.message = message;
         }
     }
 
-    private static boolean isTypeInNotification(NotificationType type) {
-        for (NotificationType constant : NotificationType.values()) {
-            if (constant.equals(type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private static boolean doesMessageContainObscene(String message) {
-        String messageLoverCase = message.toLowerCase();
+        String messageLowerCase = message.toLowerCase();
         for (ObsceneExpressions word : ObsceneExpressions.values()) {
-            if (messageLoverCase.contains(word.name().toLowerCase())) {
+            if (messageLowerCase.contains(word.name().toLowerCase())) {
                 return true;
             }
         }

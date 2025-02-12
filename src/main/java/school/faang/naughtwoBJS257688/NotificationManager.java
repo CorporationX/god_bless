@@ -21,8 +21,6 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         NotificationType type = notification.getType();
-        //я не понимаю почему тут у меня передается null
-        //пожалуйста помогите т_т
         if (!handlersMap.containsKey(type)) {
             System.out.printf("Handler for type '%s' not exist.%n", type);
         } else {
