@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Character {
-    private List<String> inventory;
+    private List<Item> inventory;
 }
