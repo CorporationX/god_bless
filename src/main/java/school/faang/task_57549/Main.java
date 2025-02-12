@@ -4,8 +4,9 @@ import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
+        RemoteService remoteService = new RemoteService();
         String result = withErrorHandling(
-                () -> RemoteService.call("someParam"),
+                () -> remoteService.call("someParam"),
                 e -> {
                     System.out.println("Error when calling the service, we return the default value");
                     return "DEFAULT";
@@ -21,15 +22,5 @@ public class Main {
         } catch (Exception e) {
             return errorHandler.handle(e);
         }
-    }
-
-    public static class RemoteService {
-        public static String call(String param) {
-            throw new RuntimeException("The service is unavailable");
-        }
-    }
-
-    public interface ExceptionHandler<T> {
-        T handle(Exception e);
     }
 }
