@@ -1,10 +1,7 @@
 package school.faang.task_57215;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,18 +11,59 @@ import java.util.Map;
 import java.util.Set;
 
 @Getter
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class ProductManager {
-    private Set<Product> products = new HashSet<>();
-    private Map<Category, List<Product>> categotyMap = new HashMap<>();
-    private static int counterId = 0;
+    private final Set<Product> products = new HashSet<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
 
-    public void addProduct(Category category, @NonNull String name) {
-        Product newProduct = new Product(counterId++, name, category);
+    public void addProduct(@NonNull Category category, @NonNull String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getCategory().equals(category)) {
+                System.out.println("Товар с таким именем уже существует в категории " + category);
+                return;
+            }
+        }
+        Product product = new Product(name, category);
+        products.add(product);
+        System.out.println("Добавлен товар: " + product);
+        groupProductsByCategory();
+    }
 
-        products.add(newProduct);
+    public void removeProduct(Category category, String name) {
+        Product toRemove = null;
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getCategory().equals(category)) {
+                toRemove = product;
+                break;
+            }
+        }
+        if (toRemove != null) {
+            products.remove(toRemove);
+            System.out.println("Удален товар: " + toRemove);
+            groupProductsByCategory();
+        } else {
+            System.out.println("Товар не найден.");
+        }
+    }
 
+    public List<Product> findProductsByCategory(Category category) {
+        return categoryMap.getOrDefault(category, new ArrayList<>());
+    }
+
+    public void groupProductsByCategory() {
+        categoryMap.clear();
+        for (Product product : products) {
+            categoryMap
+                    .computeIfAbsent(product.getCategory(), k -> new ArrayList<>())
+                    .add(product);
+        }
+    }
+
+    public void printAllProducts() {
+        for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
+            System.out.println("Категория: " + entry.getKey());
+            for (Product product : entry.getValue()) {
+                System.out.println("  - " + product.getName());
+            }
+        }
     }
 }

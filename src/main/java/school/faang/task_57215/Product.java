@@ -1,12 +1,21 @@
 package school.faang.task_57215;
 
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Product {
-    private int id;
-    private String name;
-    private Category category;
+    private static int counter = 1;
+    private final int id;
+    private final String name;
+    private final Category category;
+
+    public Product(String name, Category category) {
+        this.id = counter++;
+        this.name = name;
+        this.category = category;
+    }
 }
