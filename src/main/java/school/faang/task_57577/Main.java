@@ -1,7 +1,9 @@
 package school.faang.task_57577;
 
-import java.util.function.Function;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.function.Function;
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         FilterProcessor filterProcessor = new FilterProcessor();
@@ -15,14 +17,14 @@ public class Main {
 
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription());
+        log.info(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription());
+        log.info(sepiaImage.getDescription());
 
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.getDescription());
+        log.info(combinedImage.getDescription());
     }
 }
