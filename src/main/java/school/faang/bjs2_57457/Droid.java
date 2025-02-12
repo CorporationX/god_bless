@@ -14,8 +14,8 @@ public class Droid {
     }
 
     public void receiveMessage(String message, int key) {
-        String dCrypt = decryptMessage(message, key);
-        System.out.println(this.name + " received a decrypted message: " + dCrypt);
+        String decryptedMessage = decryptMessage(message, key);
+        System.out.println(this.name + " received a decrypted message: " + decryptedMessage);
     }
 
     private String encryptMessage(String message, int key) {
