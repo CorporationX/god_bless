@@ -3,10 +3,9 @@ package school.faang.task_57028;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Getter
-public class Student {
-    private String name;
-}
+public record Student(String name) {}
+

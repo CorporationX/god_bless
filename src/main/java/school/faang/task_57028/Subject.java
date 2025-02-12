@@ -5,8 +5,5 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Subject {
-    private String name;
+public record Subject(String name) {
 }
