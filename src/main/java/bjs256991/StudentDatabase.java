@@ -1,42 +1,45 @@
 package bjs256991;
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-@Slf4j
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private static final int INIT_ESTIMATE = 0;
     private static final Logger logger = LoggerFactory.getLogger(StudentDatabase.class);
 
-    public void addStudentSubjectsEstimates(Student student, Subject subject, Integer estimate) {
-        if (Objects.nonNull(student) && Objects.nonNull(subject) && Objects.nonNull(estimate)) {
-            Map<Subject, Integer> subjectsToEstimates = new HashMap<>();
-            subjectsToEstimates.putIfAbsent(subject, estimate);
-            studentSubjects.putIfAbsent(student, subjectsToEstimates);
+    public void addStudentSubjectsEstimates(Student student, Map<Subject, Integer> subjectsToEstimates) {
+        if (Objects.nonNull(student) && Objects.nonNull(subjectsToEstimates) && !subjectsToEstimates.isEmpty()) {
+            studentSubjects.computeIfAbsent(student, v -> new HashMap<>()).putAll(subjectsToEstimates);
+            subjectsToEstimates.keySet().forEach(subject ->
+                    subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student)
+            );
         }
     }
 
-    public void addSubjectForStudentWithEstimate(Subject subject, Student student, Integer estimate) {
-        if (Objects.nonNull(subject) && Objects.nonNull(student) && Objects.nonNull(estimate)) {
-            Map<Subject, Integer> subjectsToEstimates = studentSubjects.get(student);
-            subjectsToEstimates.putIfAbsent(subject, estimate);
-            studentSubjects.put(student, subjectsToEstimates);
-
-            List<Student> students = subjectStudents.get(subject);
-            if (students == null) {
-                students = new ArrayList<>();
+    public void addSubjectForStudentWithEstimate(Student student, Map<Subject, Integer> subjectsToEstimates) {
+        if (Objects.nonNull(student) && Objects.nonNull(subjectsToEstimates) && !subjectsToEstimates.isEmpty()) {
+            if (Objects.nonNull(studentSubjects.get(student))) {
+                studentSubjects.compute(student, (subject, estimate) -> studentSubjects.get(student))
+                        .putAll(subjectsToEstimates);
             }
-            students.add(student);
-            subjectStudents.putIfAbsent(subject, students);
+            subjectsToEstimates.keySet()
+                    .forEach(subject -> {
+                        Objects.requireNonNull(subjectStudents
+                                        .computeIfPresent(subject, (subjectInMap, students)
+                                                -> subjectStudents.get(subject)))
+                                .add(student);
+                        subjectStudents.computeIfAbsent(subject, v -> new ArrayList<>()).add(student);
+                    });
         }
     }
 
@@ -48,20 +51,21 @@ public class StudentDatabase {
         studentSubjects.forEach((student, subjectsToEstimates) -> {
             logger.info("Student: {}", student);
             subjectsToEstimates.forEach((subject, estimate) ->
-                logger.info("Subject: {}, Estimate: {}", subject, estimate)
+                    logger.info("Subject: {}, Estimate: {}", subject, estimate)
             );
         });
     }
 
-    public void addSubjectStudents(Subject subject, Set<Student> students) {
+    public void addSubjectStudents(Subject subject, List<Student> students) {
         if (Objects.nonNull(subject) && Objects.nonNull(students)) {
-            Map<Subject, Integer> subjectToEstimate = new HashMap<>();
-            List<Student> studentsWithoutDuplicates = new ArrayList<>(students);
-            studentsWithoutDuplicates.forEach(studentWithoutDuplicate -> {
-                subjectToEstimate.put(subject, null);
-                studentSubjects.put(studentWithoutDuplicate, subjectToEstimate);
-            });
-            subjectStudents.put(subject, studentsWithoutDuplicates);
+            if (subjectStudents.containsKey(subject)) {
+                throw new IllegalArgumentException("Subject already exists");
+            }
+            Set<Student> uniqueStudents = new HashSet<>(students);
+            subjectStudents.put(subject, new ArrayList<>(uniqueStudents));
+
+            students.forEach(s -> studentSubjects.computeIfAbsent(s, v ->
+                    new HashMap<>()).put(subject, INIT_ESTIMATE));
         }
     }
 
@@ -92,7 +96,7 @@ public class StudentDatabase {
         subjectStudents.forEach((subject, students) -> {
             logger.info("Subject: {}", subject);
             students.forEach(student ->
-                logger.info("The student who studies the subject: {}", student));
+                    logger.info("The student who studies the subject: {}", student));
         });
     }
 }
