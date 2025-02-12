@@ -7,44 +7,44 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudentAndSubjectWithInteger(String studentName, String subjectName, int grade) {
-        Student key = new Student(studentName);
-        Map<Subject, Integer> value = new HashMap<>(Map.of(new Subject(subjectName), grade));
-
-        this.studentSubjects.put(key, value);
-    }
-
-    private Student findStudentByName(String studentName) {
-        for (Student student : studentSubjects.keySet()) {
-            if (student.getName().equals(studentName)) {
-                return student;
-
-            }
+    public void addStudentAndSubjectWithInteger(Student student, Subject subject, int grade) {
+        if (student == null || subject == null) {
+            throw new IllegalArgumentException("Student or Subject can't be null");
         }
 
-        System.out.printf("Студента с именем %s нету в списке студентов", studentName);
-        return null;
+        this.studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        this.subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public void addNewSubjectWithInteger(String studentName, String subjectName, int grade) {
-        Student student = findStudentByName(studentName);
-
+    private void findStudent(Student student) {
         if (student == null) {
-            return;
+            throw new IllegalArgumentException("Student can't be null");
         }
 
-        Map<Subject, Integer> mapSubject = studentSubjects.get(student);
-        mapSubject.put(new Subject(subjectName), grade);
+        if (!studentSubjects.containsKey(student)) {
+            throw new NoSuchElementException(
+                    String.format("Student with name %s not found in the database.", student.getName())
+            );
+        }
     }
 
-    public void deleteStudent(String studentName) {
-        Student student = findStudentByName(studentName);
+    public void addNewSubjectWithInteger(Student student, Subject subject, int grade) {
+        findStudent(student);
 
-        if (student == null) {
-            return;
+        if (studentSubjects.get(student).containsKey(subject)) {
+            throw new IllegalArgumentException("such an item already exists");
         }
 
+        addStudentAndSubjectWithInteger(student, subject, grade);
+    }
+
+    public void deleteStudent(Student student) {
+        findStudent(student);
         studentSubjects.remove(student);
+        subjectStudents.entrySet().removeIf(entry -> {
+            entry.getValue().remove(student);
+            return entry.getValue().isEmpty();
+        });
     }
 
     public void showStudentWithSubject() {
@@ -58,43 +58,44 @@ public class StudentDatabase {
         });
     }
 
-    public void addNewSubjectWithStudents(Set<String> students, String subjectName) {
-        Subject subject = new Subject(subjectName);
-        List<Student> value = new ArrayList<>();
-
-        students.forEach(studentName -> value.add(new Student(studentName)));
-        subjectStudents.put(subject, value);
-    }
-
-    private Subject findSubjectByName(String subjectName) {
-        for (Subject subject : subjectStudents.keySet()) {
-            if (subject.getName().equals(subjectName)) {
-                return subject;
-            }
+    public void addNewSubjectWithStudents(List<Student> students, Subject subject) {
+        if (subjectStudents.containsKey(subject)) {
+            throw new IllegalArgumentException("such an item already exists");
         }
 
-        System.out.printf("Предмета с названием %s нету в subjectStudents", subjectName);
-        return null;
+        students.forEach(student -> {
+            addNewSubjectWithInteger(student, subject, 0);
+        });
     }
 
-    public void addNewStudentForSubject(String studentName, String subjectName) {
-        Subject subject = findSubjectByName(subjectName);
-
+    private void findSubject(Subject subject) {
         if (subject == null) {
-            return;
+            throw new IllegalArgumentException("Subject can't be null");
         }
 
-        subjectStudents.get(subject).add(new Student(studentName));
+        if (!subjectStudents.containsKey(subject)) {
+            throw new NoSuchElementException(
+                    String.format("Subject with name %s not found in the database.", subject.getName())
+            );
+        }
     }
 
-    public void deleteStudentFromSubject(String studentName, String subjectName) {
-        Subject subject = findSubjectByName(subjectName);
+    public void addNewStudentForSubject(Student student, Subject subject, int grade) {
+        findSubject(subject);
+        findStudent(student);
 
-        if (subject == null) {
-            return;
+        if (studentSubjects.get(student).containsKey(subject)) {
+            throw new IllegalArgumentException("such an item already exists");
         }
 
-        subjectStudents.get(subject).remove(new Student(studentName));
+        addStudentAndSubjectWithInteger(student, subject, grade);
+    }
+
+    public void deleteStudentFromSubject(Student student, Subject subject) {
+        findSubject(subject);
+        findStudent(student);
+        studentSubjects.get(student).remove(subject);
+        subjectStudents.get(subject).remove(student);
     }
 
     public void showSubjectWithStudent() {

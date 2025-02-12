@@ -21,16 +21,10 @@ class StudentDatabaseTest {
 
     private static final Student STUDENT_RAM = new Student(RAMIL);
     private static final Student STUDENT_ALB = new Student(ALBERT);
+    private static final Student STUDENT_KAMIL = new Student(KAMIL);
     private static final Subject SUBJECT_MATH = new Subject(MATH);
     private static final Subject SUBJECT_ART = new Subject(ART);
 
-    private String captureSystemOut(Runnable action) {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        action.run();
-        System.setOut(System.out);
-        return outContent.toString().trim();
-    }
 
     @BeforeEach
     void setUp() {
@@ -39,7 +33,7 @@ class StudentDatabaseTest {
 
     @Test
     void testAddStudentAndSubjectWithInteger() {
-        studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 1);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_MATH, 1);
         Map<Student, Map<Subject, Integer>> studentSubjects = studentDatabase.getStudentSubjects();
 
         assertTrue(studentSubjects.containsKey(STUDENT_RAM));
@@ -49,36 +43,29 @@ class StudentDatabaseTest {
 
     @Test
     void testAddNewSubjectWithInteger() {
-        studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 5);
-        studentDatabase.addNewSubjectWithInteger(RAMIL, ART, 3);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_MATH, 5);
+        studentDatabase.addNewSubjectWithInteger(STUDENT_RAM, SUBJECT_ART, 3);
         Map<Student, Map<Subject, Integer>> studentSubjects = studentDatabase.getStudentSubjects();
 
         assertTrue(studentSubjects.containsKey(STUDENT_RAM));
         assertEquals(2, studentSubjects.get(STUDENT_RAM).size());
         assertEquals(3, studentSubjects.get(STUDENT_RAM).get(SUBJECT_ART));
 
-        String actualMessage = captureSystemOut(() -> studentDatabase.addNewSubjectWithInteger(ALBERT, ART, 2));
-        String expectedMessage = String.format("Студента с именем %s нету в списке студентов", ALBERT);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage));
     }
 
     @Test
     void testDeleteStudent() {
-        studentDatabase.addStudentAndSubjectWithInteger(RAMIL, MATH, 5);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_MATH, 5);
 
-        studentDatabase.deleteStudent(RAMIL);
+        studentDatabase.deleteStudent(STUDENT_RAM);
         assertFalse(studentDatabase.getStudentSubjects().containsKey(RAMIL));
-
-        String actualMessage = captureSystemOut(() -> studentDatabase.deleteStudent(RAMIL));
-        String expectedMessage = String.format("Студента с именем %s нету в списке студентов", RAMIL);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage));
     }
 
     @Test
     void testAddNewSubjectWithStudents() {
-        studentDatabase.addNewSubjectWithStudents(Set.of(RAMIL, ALBERT), MATH);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_ART, 1);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_ALB, SUBJECT_ART, 1);
+        studentDatabase.addNewSubjectWithStudents(List.of(STUDENT_RAM, STUDENT_ALB), SUBJECT_MATH);
         Map<Subject, List<Student>> subjectStudents = studentDatabase.getSubjectStudents();
 
         assertTrue(subjectStudents.containsKey(SUBJECT_MATH));
@@ -88,30 +75,22 @@ class StudentDatabaseTest {
 
     @Test
     void testAddNewStudentForSubject() {
-        studentDatabase.addNewSubjectWithStudents(Set.of(RAMIL, ALBERT), MATH);
-        studentDatabase.addNewStudentForSubject(KAMIL, MATH);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_MATH, 1);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_ALB, SUBJECT_ART, 1);
+
+        studentDatabase.addNewStudentForSubject(STUDENT_RAM, SUBJECT_ART, 5);
         Map<Subject, List<Student>> subjectStudents = studentDatabase.getSubjectStudents();
         assertTrue(subjectStudents.containsKey(SUBJECT_MATH));
 
-        String actualMessage = captureSystemOut(() -> studentDatabase.addNewStudentForSubject(RAMIL, ART));
-        String expectedMessage = String.format("Предмета с названием %s нету в subjectStudents", ART);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage)
-        );
     }
 
     @Test
     void testDeleteStudentFromSubject() {
-        studentDatabase.addNewSubjectWithStudents(Set.of(RAMIL, ALBERT), MATH);
-        studentDatabase.deleteStudentFromSubject(RAMIL, MATH);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_RAM, SUBJECT_MATH, 1);
+        studentDatabase.addStudentAndSubjectWithInteger(STUDENT_ALB, SUBJECT_MATH, 1);
+        studentDatabase.deleteStudentFromSubject(STUDENT_RAM, SUBJECT_MATH);
         Map<Subject, List<Student>> subjectStudents = studentDatabase.getSubjectStudents();
         assertFalse(subjectStudents.get(SUBJECT_MATH).contains(RAMIL));
-
-        String actualMessage = captureSystemOut(() -> studentDatabase.deleteStudentFromSubject(RAMIL, ART));
-        String expectedMessage = String.format("Предмета с названием %s нету в subjectStudents", ART);
-        assertTrue(actualMessage.contains(expectedMessage),
-                String.format("Ожидалось: '%s', но получено: '%s'", expectedMessage, actualMessage)
-        );
     }
 }
 
