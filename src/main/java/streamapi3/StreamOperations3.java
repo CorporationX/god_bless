@@ -34,6 +34,7 @@ public class StreamOperations3 {
         );
         return result;
     }
+
     public Map<String, Double> averageSalaryByDepartment(List<Employee> employees) {
         if (employees == null) {
             throw new IllegalArgumentException(ERR_NULL_EMPLOYEES_LIST);
