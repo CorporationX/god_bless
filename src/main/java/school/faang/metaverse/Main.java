@@ -1,4 +1,4 @@
-package school.faang.Meta_universe;
+package school.faang.metaverse;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,15 +6,15 @@ public class Main {
 
         // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage())
+                notification -> System.out.println("Email: " + notification.message())
         );
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage())
+                notification -> System.out.println("SMS: " + notification.message())
         );
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.getMessage())
+                notification -> System.out.println("Push Notification: " + notification.message())
         );
 
         // Отправка оповещений

@@ -1,4 +1,4 @@
-package school.faang.Meta_universe;
+package school.faang.metaverse;
 
 public enum NotificationType {
     EMAIL,

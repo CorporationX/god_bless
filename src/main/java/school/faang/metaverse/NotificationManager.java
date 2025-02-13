@@ -1,4 +1,4 @@
-package school.faang.Meta_universe;
+package school.faang.metaverse;
 
 import lombok.Getter;
 
@@ -11,22 +11,18 @@ public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> notificationActions = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationActions.putIfAbsent(type, handler);
+        notificationActions.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
 
-        validateType(notification.getType());
-
-        Consumer<Notification> handler = notificationActions.get(notification.getType());
-
+        validateType(notification.type());
+        Consumer<Notification> handler = notificationActions.get(notification.type());
         validateHandler(handler);
-
         handler.accept(notification);
-
     }
 
-    public void validateHandler(Consumer<Notification> handler) {
+    private void validateHandler(Consumer<Notification> handler) {
 
         if (handler == null) {
             throw new IllegalArgumentException("Обработчик не может быть пустым!");
@@ -38,7 +34,5 @@ public class NotificationManager {
         if (type == null) {
             throw new IllegalArgumentException("Ошибка! Type не может быть равен null!");
         }
-
-
     }
 }
