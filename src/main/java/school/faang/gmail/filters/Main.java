@@ -20,10 +20,12 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = emailProcessor::printEmail;
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        emails.forEach(email ->
-                logger.info("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> logger.info(email.toString()));
     }
+
+
+
 }

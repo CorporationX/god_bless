@@ -1,14 +1,17 @@
 package school.faang.gmail.filters;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Email {
     private final String subject;
     private String body;
-    private boolean isImportant;
+    private final boolean isImportant;
+
+    @Override
+    public String toString() {
+        return "Тема: " + subject + ", Тело письма: " + body;
+    }
 }
