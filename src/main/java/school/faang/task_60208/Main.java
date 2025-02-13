@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+    private static final String EMOJI = "😀";
+    private static final String SPAM = "spam";
+    private static final int MESSAGE_LENGTH = 10;
+
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("spam");
-        MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains(SPAM);
+        MessageFilter lengthFilter = message -> message.length() > MESSAGE_LENGTH;
+        MessageFilter emojiFilter = message -> !message.contains(EMOJI);
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
