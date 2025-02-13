@@ -20,8 +20,8 @@ class UserActionAnalyzerTest {
 
     @Test
     public void getTopMostActiveUsers() {
-        List<Integer> excepted = List.of(0, 2);
-        assertEquals(excepted, userActionAnalyzer.getTopMostActiveUsers(userActions, 2));
+        List<Integer> excepted = List.of(0, 2, 1);
+        assertEquals(excepted, userActionAnalyzer.getTopMostActiveUsers(userActions, 3));
     }
 
     @Test
