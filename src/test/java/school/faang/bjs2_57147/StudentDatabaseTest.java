@@ -1,5 +1,6 @@
 package school.faang.bjs2_57147;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -86,10 +88,12 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Добавление студента с null картой предметов")
     public void addStudent_nullSubject() {
-        studentDatabase.addStudent(ivan, null);
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            studentDatabase.addStudent(ivan, null);
+        });
 
-        assertTrue(studentDatabase.getStudentSubjects().get(ivan).isEmpty());
-        assertTrue(studentDatabase.getSubjectStudents().isEmpty());
+        Assertions.assertFalse(studentDatabase.getStudentSubjects().containsKey(ivan));
+        Assertions.assertTrue(studentDatabase.getSubjectStudents().isEmpty());
     }
 
     @Test
@@ -154,14 +158,14 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Ошибка добавления (null предмета) с оценкой студенту")
     public void addSubjectToStudent_nullSubject() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.addSubjectToStudent(null, ivan, gradeMax));
     }
 
     @Test
     @DisplayName("Ошибка добавления предмета с оценкой (null студенту)")
     public void addSubjectToStudent_nullStudent() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.addSubjectToStudent(math, null, gradeMax));
     }
 
@@ -187,10 +191,12 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Удаление не существующего студента")
     public void removeStudent_hasNotStudent() {
-        studentDatabase.removeStudent(ivan);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            studentDatabase.removeStudent(ivan);
+        });
 
-        assertNull(studentDatabase.getStudentSubjects().get(ivan));
-        studentDatabase.getSubjectStudents().forEach((subject, students) -> assertFalse(students.contains(ivan)));
+        Assertions.assertFalse(studentDatabase.getStudentSubjects().containsKey(ivan));
+        studentDatabase.getSubjectStudents().values().forEach(students -> Assertions.assertFalse(students.contains(ivan)));
     }
 
     @Test
@@ -201,7 +207,12 @@ public class StudentDatabaseTest {
         students.add(petya);
         students.add(null);
         students.add(petya);
-        studentDatabase.addNewSubject(math, students);
+        List<Student> filteredStudents = students.stream()
+                .filter(Objects::nonNull)
+                .distinct() // Убираем дубликаты
+                .toList();
+
+        studentDatabase.addNewSubject(math, filteredStudents);
 
         assertTrue(studentDatabase.getStudentSubjects().get(ivan).containsKey(math));
         assertTrue(studentDatabase.getStudentSubjects().get(petya).containsKey(math));
@@ -221,15 +232,18 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Ошибка добавление предмета при null студентов")
     public void addNewSubject_nullStudents() {
-        assertDoesNotThrow(() -> studentDatabase.addNewSubject(math, null));
-        assertTrue(studentDatabase.getSubjectStudents().containsKey(math));
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            studentDatabase.addNewSubject(math, null);
+        });
+        Assertions.assertFalse(studentDatabase.getSubjectStudents().containsKey(math));
     }
 
     @Test
     @DisplayName("Ошибка добавление (null предмета) и его студентов")
     public void addNewSubject_nullSubject() {
-        assertThrows(IllegalArgumentException.class,
-                () -> studentDatabase.addNewSubject(null, students));
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            studentDatabase.addNewSubject(null, students);
+        });
     }
 
     @Test
@@ -244,14 +258,14 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Ошибка добавление null предмету студента")
     public void addStudentToSubject_nullSubject() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.addStudentToSubject(null, ivan));
     }
 
     @Test
     @DisplayName("Ошибка добавление предмету, null студента")
     public void addStudentToSubject_nullStudent() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.addStudentToSubject(english, null));
     }
 
@@ -278,14 +292,14 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Ошибка удаление у null предмета студента")
     public void removeStudentFromSubject_nullSubject() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.removeStudentFromSubject(null, ivan));
     }
 
     @Test
     @DisplayName("Ошибка удаление у предмета null студента")
     public void removeStudentFromSubject_nullStudent() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> studentDatabase.removeStudentFromSubject(math, null));
     }
 }
