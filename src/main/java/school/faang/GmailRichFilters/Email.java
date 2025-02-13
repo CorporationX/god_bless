@@ -3,8 +3,6 @@ package school.faang.GmailRichFilters;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.sql.Struct;
-
 @AllArgsConstructor
 @Getter
 public class Email {
