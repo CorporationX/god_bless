@@ -15,21 +15,9 @@ public class NotificationManager {
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         try {
-            switch (type) {
-                case EMAIL -> {
-                    handler.accept(new Notification(type, "просим подтвердить вашу почту!"));
-                    notifications.put(type, handler);
-                }
-                case SMS -> {
-                    handler.accept(new Notification(type, "сообщение с кодом уже у вас в смс"));
-                    notifications.put(type, handler);
-                }
-                case PUSH -> {
-                    handler.accept(new Notification(type, "получено новое сообщение"));
-                    notifications.put(type, handler);
-                }
-                default -> throw new IllegalStateException("Unexpected value: " + type);
-            }
+            Notification notification = new Notification(type, "");
+            handler.accept(notification);
+            notifications.put(type, handler);
         } catch (NullPointerException exception) {
             log.error("Попытка передать null в параметры метода registerHandler: ", exception);
         }
@@ -37,6 +25,10 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         try {
+            if (!notifications.containsKey(notification.getType())) {
+                notifications.put(notification.getType(), handler -> System.out.printf("%s\n",
+                        notification.getMessage()));
+            }
             registerHandler(notification.getType(), handler -> System.out.printf("%s\n", notification.getMessage()));
         } catch (NullPointerException exception) {
             log.error("Попытка передать null в параметры метода sendNotification: ", exception);
@@ -49,5 +41,10 @@ public class NotificationManager {
         } catch (NullPointerException exception) {
             log.error("Попытка передать null в параметры метода sendNotification: ", exception);
         }
+    }
+
+    public Notification putSignature(Notification notification) {
+        notification.setMessage(notification.getMessage() + Notification.signature);
+        return notification;
     }
 }
