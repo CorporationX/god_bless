@@ -49,18 +49,21 @@ public class StudentDatabase {
             }
         }
     }
-    public void addSubjectWithStudents(@NonNull Subject subject,  List<Student> students){
+
+    public void addSubjectWithStudents(@NonNull Subject subject, List<Student> students) {
         subjectStudents.put(subject, students);
-        for (Student student : students){
+        for (Student student : students) {
             studentSubjects.computeIfAbsent(student,
                     event -> new HashMap<>()).put(subject, null);
         }
     }
-    public void addStudentToSubject(@NonNull Student student, @NonNull Subject subject){
+
+    public void addStudentToSubject(@NonNull Student student, @NonNull Subject subject) {
         subjectStudents.computeIfAbsent(subject, event -> new ArrayList<>()).add(student);
         studentSubjects.computeIfAbsent(student, event -> new HashMap<>()).put(subject, null);
     }
-    public void removeStudentFromSubject(@NonNull Student student,@NonNull Subject subject){
+
+    public void removeStudentFromSubject(@NonNull Student student, @NonNull Subject subject) {
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
             students.remove(student);

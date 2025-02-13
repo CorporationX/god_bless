@@ -47,7 +47,7 @@ public class Main {
         studentList.add(studentOlga);
         studentList.add(studentOleg);
 
-        studentDatabase.addSubjectWithStudents(it,studentList);
+        studentDatabase.addSubjectWithStudents(it, studentList);
 
         studentDatabase.removeStudentFromSubject(studentOlga, it);
 
