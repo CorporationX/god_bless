@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String WORD_SEPARATOR_REGEX = "\\\\s+";
+
     public static List<String> getTopActiveUsers(List<UserAction> actions, int topN) {
         validateActions(actions);
         return actions.stream()
@@ -25,10 +27,10 @@ public class UserActionAnalyzer {
                 .filter(action -> action.getContent() != null
                         && (action.getActionType().equals(ActionType.POST)
                         || action.getActionType().equals(ActionType.COMMENT)))
-                .flatMap(action -> Arrays.stream(action.getContent().split("\\\\s+")))
+                .flatMap(action -> Arrays.stream(action.getContent().split(WORD_SEPARATOR_REGEX)))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        System.out.println(hashtagsCount);
+
         return hashtagsCount.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topN)
