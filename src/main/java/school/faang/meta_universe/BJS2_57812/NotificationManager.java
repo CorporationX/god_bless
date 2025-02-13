@@ -48,8 +48,9 @@ public class NotificationManager {
 
     public boolean filtering(String message) {
         Predicate<String> containsForbidden = str ->
-                forbiddenWords != null && !forbiddenWords.isEmpty() &&
-                        forbiddenWords.stream().anyMatch(str::contains);
+                forbiddenWords != null
+                && !forbiddenWords.isEmpty()
+                && forbiddenWords.stream().anyMatch(str::contains);
 
         if (containsForbidden.test(message)) {
             LOGGER.info("{} contains forbidden words and cannot be used", message);
@@ -65,8 +66,7 @@ public class NotificationManager {
         validateStringIsBlank(sender);
         validateStringIsBlank(notification.message());
 
-        Function<Notification, String> messageFunction = n ->
-                n.message() + "\nSincerely, " + sender;
+        Function<Notification, String> messageFunction = n -> n.message() + "\nSincerely, " + sender;
         String updatedMessage = messageFunction.apply(notification);
         return new Notification(notification.type(), updatedMessage);
     }

@@ -8,13 +8,16 @@ class NotificationTest {
 
     @Test
     void type() {
-        assertThrows(NullPointerException.class, () -> {new Notification(null, "Yeyy!");});
+        assertThrows(NullPointerException.class, () -> new Notification(null, "Yeyy!"));
     }
 
     @Test
     void message() {
-        assertThrows(NullPointerException.class, () -> {new Notification(NotificationType.SMS, null);});
-        assertThrows(IllegalArgumentException.class, () -> {new Notification(NotificationType.EMAIL, "");});
-        assertThrows(IllegalArgumentException.class, () -> {new Notification(NotificationType.EMAIL, " ");});
+        assertThrows(NullPointerException.class, () ->
+                new Notification(NotificationType.SMS, null));
+        assertThrows(IllegalArgumentException.class, () ->
+                new Notification(NotificationType.EMAIL, ""));
+        assertThrows(IllegalArgumentException.class, () ->
+                new Notification(NotificationType.EMAIL, " "));
     }
 }
