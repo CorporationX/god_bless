@@ -1,4 +1,4 @@
-package toska27_BJS2_56980;
+package task_BJS2_56980;
 
 public class Main {
     public static void main(String[] args) {
