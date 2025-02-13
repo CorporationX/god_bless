@@ -45,7 +45,7 @@ public class ProductManager {
 
     public List<Product> findProductByCategory(@NonNull Category category) {
         logger.info("Поиск продуктов по категории {}", category);
-        if (!categoryMap.isEmpty() && categoryMap.get(category) != null) {
+        if (categoryMap.get(category) != null) {
             return categoryMap.get(category);
         } else {
             logger.warn("Категория {} внутри categoryMap не была найдена", category);
@@ -55,9 +55,7 @@ public class ProductManager {
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         logger.info("Группировка продуктов по категориям");
-        if (!categoryMap.isEmpty()) {
-            return categoryMap;
-        } else {
+        if (categoryMap.isEmpty()) {
             logger.warn("categoryMap пуст");
         }
         return categoryMap;
