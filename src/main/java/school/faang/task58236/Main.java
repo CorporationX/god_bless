@@ -27,14 +27,14 @@ public class Main {
         );
 
         System.out.println("Набор строк");
-        strings.stream()
-                .forEach(System.out::println);
+        strings.forEach(System.out::println);
 
         char startSymbol = 'В';
         System.out.println("Количество строк на букву " + startSymbol + " = " + listOperations.findStartChar(strings, startSymbol));
         String repeat = "ветер";
-        System.out.println("Повторение слова \"" + repeat + "\" в строках" +listOperations.findSubString(strings, "ветер"));
-
+        System.out.println("Повторение слова \"" + repeat + "\" в строках" + listOperations.findSubString(strings, "ветер"));
+        System.out.println("Сортировка по длине\n");
+        listOperations.sortToLength(strings).forEach(System.out::println);
 
     }
 }

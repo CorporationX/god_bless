@@ -1,5 +1,7 @@
 package school.faang.task58236.service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListOperations {
@@ -38,6 +40,20 @@ public class ListOperations {
                 .toList();
         return result;
     }
+
+    public List<String> sortToLength(List<String> strings) {
+        return strings.stream()
+                .sorted((Comparator.comparingInt(String::length)))
+                .toList();
+    }
+
+    //Проверить, все ли элементы списка удовлетворяют определённому условию.
+    //
+    //Метод должен принимать список чисел и предикат, возвращать true, если все элементы списка удовлетворяют условию.
+    //
+    //Вход: List<Integer>, Predicate<Integer>, выход: boolean.
+
+
 
 
 }
