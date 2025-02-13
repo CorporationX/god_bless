@@ -1,12 +1,8 @@
 package school.faang.uber;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.function.BiFunction;
 
 public class FareCalculator {
-    private static final Logger logger = LoggerFactory.getLogger(FareCalculator.class);
 
     public double calculateFare(double distance, double time, BiFunction<Double, Double, Double> total) {
         checkDistance(distance);
