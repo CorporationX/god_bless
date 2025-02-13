@@ -9,53 +9,47 @@ import java.util.Set;
 @Getter
 @ToString
 public class User {
-    private static final Set<String> VALID_JOB;
-    private static final Set<String> VALID_ADDRESSES;
+    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private static final int MINIMUM_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
-
-    static {
-        VALID_JOB = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-        VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
-    }
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
-        setName(name);
-        setAge(age);
-        setJob(job);
-        setAddress(address);
+        nameValidation(name);
+        ageValidation(age);
+        jobValidation(job);
+        addressValidation(address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
 
-    public void setName(String name) {
+    private void nameValidation(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank!");
         }
-        this.name = name;
     }
 
-    public void setAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less 18!");
-        }
-        this.age = age;
-    }
-
-    public void setJob(String job) {
-        if (VALID_JOB.contains(job)) {
-            this.job = job;
-        } else {
-            throw new IllegalArgumentException("Invalid value of job!");
+    public void ageValidation(int age) {
+        if (age < MINIMUM_AGE) {
+            throw new IllegalArgumentException("Age cannot be less than 18!");
         }
     }
 
-    public void setAddress(String address) {
-        if (VALID_ADDRESSES.contains(address)) {
-            this.address = address;
-        } else {
-            throw new IllegalArgumentException("Invalid value of address!");
+    public void jobValidation(String job) {
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Invalid job. Valid options are: Google, Uber, Amazon.");
+        }
+    }
+
+    public void addressValidation(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address. Valid option are: London, New York, Amsterdam");
         }
     }
 }
