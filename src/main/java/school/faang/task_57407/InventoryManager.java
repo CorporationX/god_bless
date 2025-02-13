@@ -1,6 +1,7 @@
 package school.faang.task_57407;
 
 import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -25,9 +26,8 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> predicate,
                            Function<Item, Item> function) {
         checkCharacter(character);
-        List<Item> items = character.getInventory();
-        items.stream().filter(predicate).map(Item->function.apply(Item)).toList();
-        }
+        character.getInventory().stream().filter(predicate).map(function).toList();
+    }
 
 
     private void checkCharacter(Character character) {
