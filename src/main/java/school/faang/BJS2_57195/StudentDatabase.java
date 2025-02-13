@@ -1,10 +1,13 @@
 package school.faang.BJS2_57195;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class StudentDatabase {
     private static Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private static Map<Subject, List<Student>> subjectStudents = new HashMap<>();
@@ -60,7 +63,6 @@ public class StudentDatabase {
     }
 
     public static boolean removeStudentFromSubject(Student student, Subject subject) {
-
         int a = studentSubjects.size();
         int b = subjectStudents.get(subject).size();
         subjectStudents.get(subject).remove(student);
