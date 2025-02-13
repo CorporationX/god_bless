@@ -12,7 +12,7 @@ public class Archer extends Character {
 
 
     @Override
-    public void attack(Character character) {
+    public void getDamage(Character character) {
         if (isHealthyLessZero(this.getHealth(), character.getAgility())) {
             this.setHealth(0);
         } else {

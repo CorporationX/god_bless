@@ -1,10 +1,9 @@
 package school.faang.task_BJS2_56411;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 public abstract class Character {
@@ -13,6 +12,9 @@ public abstract class Character {
     private int agility;
     private int intellect;
     private int health = 100;
+
+    public Character() {
+    }
 
     public Character(String name) {
         this.name = name;
@@ -28,10 +30,10 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    public abstract void attack(Character character);
+    public abstract void getDamage(Character character);
 
     public boolean isHealthyLessZero(int initialHealth, int adjustedValue) {
-        return (initialHealth - adjustedValue) < 0;
+        return Math.max(initialHealth - adjustedValue, 0) == 0;
     }
 
     @Override
