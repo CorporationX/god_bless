@@ -49,7 +49,7 @@ public class LibrarySystem {
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> books : locationBook.entrySet()) {
-            System.out.printf("\t %s to shelf: %s \n", books.getKey(), books.getValue());
+            System.out.printf("\t %s to shelf: s%s \n", books.getKey(), books.getValue());
         }
     }
 }
