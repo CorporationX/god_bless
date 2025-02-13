@@ -1,24 +1,29 @@
 package school.faang.task_57289;
 
-import lombok.Data;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+
+@Slf4j
 public class LibrarySystem {
-    Map<Book, String> locationBook = new HashMap<>();
+    private final Map<Book, String> locationBook;
+
+    public LibrarySystem() {
+        this.locationBook = new HashMap<>();
+    }
 
     public void addBook(@NonNull String title, @NonNull String author, int year,
                         @NonNull String location) {
         if (title.isBlank() || author.isBlank() || location.isBlank()) {
-            System.out.println("Title, author or location cannot be empty");
-            return;
+            throw new IllegalArgumentException("Title, author or location cannot be empty");
         }
         Book book = new Book(title, author, year);
         locationBook.put(book, location);
-        System.out.println("Book: " + book + " added to shelf: " + location);
+        log.info(String.format("Book: " + book + " added to shelf: " + location));
+
     }
 
     public void removeBook(@NonNull String title, @NonNull String author, int year) {
@@ -28,23 +33,23 @@ public class LibrarySystem {
         }
         Book book = new Book(title, author, year);
         if (locationBook.remove(book) != null) {
-            System.out.println(book + " delete.");
+            log.info(String.format("%s delete.", book));
         } else {
-            System.out.println("Book not found");
+            log.info("Book not found");
         }
     }
 
     public String findBook(@NonNull String title, @NonNull String author, int year) {
         if (title.isBlank() || author.isBlank()) {
-            return "Title or author cannot be empty";
+            throw new IllegalArgumentException("Title or author cannot be empty");
         }
         Book book = new Book(title, author, year);
-        return locationBook.getOrDefault(book, "Book: " + book + " not found.");
+        return locationBook.getOrDefault(book, String.format("%s  not found.", book));
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> books : locationBook.entrySet()) {
-            System.out.println("Book: " + books.getKey() + " to shelf: " + books.getValue());
+            System.out.printf("\t %s to shelf: %s \n", books.getKey(), books.getValue());
         }
     }
 }
