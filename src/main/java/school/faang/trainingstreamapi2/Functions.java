@@ -6,15 +6,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Functions {
-    public static Set<List<Integer>> findUniquePairNumbers(Set<Integer> set, int concreteNumber) {
+    public static Set<Set<Integer>> findUniquePairNumbers(Set<Integer> set, int concreteNumber) {
         validateSet(set);
         return set.stream()
                 .filter(number -> number != concreteNumber - number && set.contains(concreteNumber - number))
-                .map(number -> Stream.of(number, concreteNumber - number).sorted().toList())
-                .collect(Collectors.toSet());
+                .sorted().map(number -> Set.of(number, concreteNumber - number)).collect(Collectors.toSet());
     }
 
     public static List<String> sortCountriesByCapitals(Map<String, String> map) {
