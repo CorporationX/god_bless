@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 @AllArgsConstructor
 public class InventoryManager {
+
     public void addItem(Character character, Item item,
                         Consumer<Item> consumer) {
         checkCharacter(character);
@@ -25,13 +26,9 @@ public class InventoryManager {
                            Function<Item, Item> function) {
         checkCharacter(character);
         List<Item> items = character.getInventory();
-        for (int i = 0; i < items.size(); i++) {
-            if (predicate.test(items.get(i))) {
-                items.set(i, function.apply(items.get(i)));
-            }
+        items.stream().filter(predicate).map(Item->function.apply(Item)).toList();
         }
 
-    }
 
     private void checkCharacter(Character character) {
         if (character == null) {
@@ -44,6 +41,6 @@ public class InventoryManager {
             throw new IllegalArgumentException("item не можент быть null");
         }
     }
-
-
 }
+
+

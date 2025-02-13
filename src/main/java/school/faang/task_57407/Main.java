@@ -1,5 +1,8 @@
 package school.faang.task_57407;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
 
@@ -20,6 +23,6 @@ public class Main {
                 (item) -> new Item(item.getName(), item.getValue() * 2));
 
         frodo.getInventory().forEach(
-                item -> System.out.println(item.getName() + ": " + item.getValue()));
+                item -> log.info(item.getName() + ": " + item.getValue()));
     }
 }
