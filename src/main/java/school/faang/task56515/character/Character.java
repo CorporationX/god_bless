@@ -6,6 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
+    private static final int STRENGTH = 5;
+    private static final int INTELLIGENCE = 5;
+    private static final int DEXTERITY = 5;
+
     private String name;
     protected Integer strength;
     protected Integer dexterity;
@@ -14,9 +18,9 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.dexterity = 5;
-        this.intelligence = 5;
+        this.strength = STRENGTH;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
     }
 
     public Character(String name, Integer strength, Integer dexterity, Integer intelligence) {
@@ -26,5 +30,5 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack(Character opponent) {}
+    public abstract void attack(Character opponent);
 }
