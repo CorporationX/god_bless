@@ -72,9 +72,9 @@ class StudentDatabaseTest {
 
     @Test
     @DisplayName("Удаление студента из предмета")
-    void testRemoveStudentToSubject() {
+    void testRemoveStudentFromSubject() {
         database.addNewStudentWithGrades(student1, Map.of(math, 5));
-        database.removeStudentToSubject(student1, math);
-        assertThrows(IllegalArgumentException.class, () -> database.removeStudentToSubject(student1, math));
+        database.removeStudentFromSubject(student1, math);
+        assertThrows(IllegalArgumentException.class, () -> database.removeStudentFromSubject(student1, math));
     }
 }

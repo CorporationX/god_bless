@@ -15,19 +15,17 @@ public class StudentDatabase {
     private static final int MIN_GRADE = 1;
     private static final int MAX_GRADE = 5;
 
-    public void addNewStudentWithGrades(Student student, @NonNull Map<Subject, Integer> grades) {
+    public void addNewStudentWithGrades(Student student, @NonNull Map<Subject, Integer> subjects) {
         if (studentSubjects.containsKey(student)) {
             throw new IllegalArgumentException("Student " + student.getName() + " already exists.");
         }
 
-        studentSubjects.put(student, new HashMap<>(grades));
-        for (Map.Entry<Subject, Integer> entry : grades.entrySet()) {
-            Subject subject = entry.getKey();
-            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-        }
+        studentSubjects.put(student, new HashMap<>(subjects));
+        subjects.forEach((subject, grade) ->
+                subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student));
     }
 
-    public void addSubjectForStudent(Student student, Subject subject, @NonNull int grade) {
+    public void addSubjectForStudent(Student student, Subject subject, int grade) {
         validateStudentExists(student);
         validateGrade(grade);
 
@@ -56,9 +54,9 @@ public class StudentDatabase {
     }
 
     public void printAllStudentsWithGrades() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            Student student = entry.getKey();
-            Map<Subject, Integer> subjects = entry.getValue();
+        for (var studentSubject : studentSubjects.entrySet()) {
+            Student student = studentSubject.getKey();
+            Map<Subject, Integer> subjects = studentSubject.getValue();
             System.out.println("Student: " + student.getName());
 
             for (Map.Entry<Subject, Integer> subjectEntry : subjects.entrySet()) {
@@ -75,29 +73,28 @@ public class StudentDatabase {
             throw new IllegalArgumentException("Subject " + subject.getName() + " already exists.");
         }
 
-        subjectStudents.put(subject, students);
+        subjectStudents.put(subject, new ArrayList<>(students));
         for (Student student : students) {
             studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, DEFAULT_GRADE);
+            Map<Subject, Integer> subjects = studentSubjects.get(student);
+            subjects.put(subject, DEFAULT_GRADE);
         }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
         if (!subjectStudents.containsKey(subject)) {
-            throw new IllegalArgumentException(subject.getName() + "subject already exists");
+            throw new IllegalArgumentException("Subject " + subject.getName() + " does not exist.");
         }
 
         subjectStudents.get(subject).add(student);
         studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, DEFAULT_GRADE);
+        Map<Subject, Integer> subjects = studentSubjects.get(student);
+        subjects.put(subject, DEFAULT_GRADE);
     }
 
-    public void removeStudentToSubject(Student student, Subject subject) {
-        validateStudentExists(student);
-
-        if (!studentSubjects.get(student).containsKey(subject)) {
-            throw new IllegalArgumentException("Student " + student.getName()
-                    + " is not enrolled in " + subject.getName());
+    public void removeStudentFromSubject(Student student, Subject subject) {
+        if (!studentSubjects.containsKey(student)) {
+            throw new IllegalArgumentException("Student does not exist");
         }
 
         List<Student> students = subjectStudents.get(subject);
@@ -108,15 +105,17 @@ public class StudentDatabase {
         Map<Subject, Integer> grades = studentSubjects.get(student);
         if (grades != null) {
             grades.remove(subject);
+            if (grades.isEmpty()) {
+                studentSubjects.remove(student);
+            }
         }
     }
 
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.println("Subject: " + entry.getKey());
-            List<Student> students = entry.getValue();
+            System.out.println("Subject: " + entry.getKey().getName());
 
-            for (Student student : students) {
+            for (Student student : entry.getValue()) {
                 System.out.println("Student: " + student.getName());
             }
             System.out.println();
