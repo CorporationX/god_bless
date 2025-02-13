@@ -21,7 +21,8 @@ public class NotificationManager {
 
         Consumer<Notification> consumer = notificationHandlers.get(notification.getType());
         if (consumer == null) {
-            String exception = String.format("Handler for notification type %s is not registered", notification.getType());
+            String exception = String.format("Handler for notification type %s is not registered",
+                    notification.getType());
             throw new IllegalArgumentException(exception);
         }
 
