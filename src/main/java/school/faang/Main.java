@@ -13,6 +13,7 @@ public class Main {
         users.add(new User("Alex", 29, "Apple", "Apple Park Way"));
         users.add(new User("Dima", 27, "Amazon", "Berlin"));
         users.add(new User("Dima", 24, "Amazon", "Berlin"));
+        users.add(new User("Smith", 29, "Yandex", "Moscow"));
 
         Map<Integer, List<User>> usersMap  = groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : usersMap.entrySet()) {
