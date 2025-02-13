@@ -19,7 +19,7 @@ public class StudentDatabase {
         }
     }
 
-    public void addSubjectForStudent(Student student, Subject subject, int grade) {
+    public void addSubjectForStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
         Map<Subject, Integer> grades = studentGrades.get(student);
         if (grades != null) {
             grades.put(subject, grade);
