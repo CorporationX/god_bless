@@ -87,7 +87,7 @@ public class ListOperations {
 
     private static void validSubString(String subString) {
         if (subString == null || subString.isBlank()) {
-            throw new IllegalArgumentException("Подстрока не может быть null");
+            throw new IllegalArgumentException("Подстрока не может быть null или пустой");
         }
     }
 
