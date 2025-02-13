@@ -13,16 +13,16 @@ public class Product {
     private final String name;
     private final Category category;
 
-    private void checkNullName(@NonNull String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cant be blank.");
-        }
-    }
-
     public Product(int id, String name, Category category) {
         checkNullName(name);
         this.id = id;
         this.name = name;
         this.category = category;
+    }
+
+    private void checkNullName(@NonNull String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cant be blank.");
+        }
     }
 }

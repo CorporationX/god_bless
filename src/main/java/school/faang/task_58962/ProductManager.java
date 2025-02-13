@@ -32,6 +32,10 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
+        if(name == null || name.isBlank()) {
+            System.out.println("Name is null or blank");
+            return;
+        }
         Iterator<Product> iterator = products.iterator();
         while (iterator.hasNext()) {
             Product product = iterator.next();
@@ -44,7 +48,7 @@ public class ProductManager {
                 return;
             }
         }
-        System.out.println("Product not to found.");
+        System.out.println("Product not found.");
     }
 
 
