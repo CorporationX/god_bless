@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.razvernites;
 
 public class Example {
     public static int[] reverse(int[] nums) {

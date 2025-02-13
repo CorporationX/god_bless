@@ -2,26 +2,22 @@ package school.faang;
 
 public class Main {
     public static void main(String[] args) {
-        // Задача Абстракция Абстракция
-        Character warrior = new Warrior("Warrior");
-        Character archer = new Archer("Archer");
+        ProductManager productManager = new ProductManager();
 
-        System.out.printf("Параметры варвара: %s \n", warrior);
-        System.out.printf("Параметры лучника: %s \n", archer);
+        productManager.addProduct(Category.FOOD, "Burger");
+        productManager.addProduct(Category.FOOD, "Lasagna");
+        productManager.addProduct(Category.FOOD, "Oatmeal");
+        productManager.addProduct(Category.CLOTHING, "Jacket");
+        productManager.addProduct(Category.CLOTHING, "Shirt");
+        productManager.addProduct(Category.OTHER, "Dumbbell");
 
-        warrior.attack(archer);
-        archer.attack(warrior);
+        productManager.printAllProducts();
+        System.out.println(productManager.findProductsByCategory(Category.CLOTHING));
 
-        System.out.println(warrior);
-        System.out.println(archer);
-        
-        // Задача Развернитесь
-        User ivan = new User("Ivan", 22, "Uber", "London");
-        try {
-            User kid = new User("Matthew", 16, "Google", "London");
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.printf("Вывод данных пользователя: %s \n", ivan);
+        productManager.removeProduct(Category.FOOD, "Burger");
+        productManager.removeProduct(Category.CLOTHING, "Jacket");
+
+        productManager.groupProductsByCategory();
+        productManager.printAllProducts();
     }
 }
