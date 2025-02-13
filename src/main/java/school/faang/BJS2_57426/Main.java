@@ -1,8 +1,7 @@
 package school.faang.BJS2_57426;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,14 +13,17 @@ public class Main {
         manager.addItem(ring, inventoryFrodo, handler);
         System.out.println(inventoryFrodo.getInventory());
 
-        Predicate<Item> isInventory = item -> inventoryFrodo.getInventory().contains(item);
-        manager.removeItem(ring, inventoryFrodo, isInventory);
+        manager.removeItem(ring, inventoryFrodo);
         System.out.println(inventoryFrodo.getInventory());
 
-        Function<Item, Integer> doublePrice = item -> item.getValue() * 2;
+        UnaryOperator<Item> update = item -> {
+            item.setValue(item.getValue() * 2);
+            return item;
+        };
+
         manager.addItem(ring, inventoryFrodo, handler);
         System.out.println(inventoryFrodo.getInventory());
-        manager.updateItem(ring, inventoryFrodo, doublePrice);
+        manager.updateItem(ring, inventoryFrodo, update);
         System.out.println(inventoryFrodo.getInventory());
     }
 }
