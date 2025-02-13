@@ -14,8 +14,21 @@ public class Book {
     }
 
     public Book(String title, String author, int year) {
+        if (validateYear(year)) {
+            this.year = year;
+        }else {
+            throw new IllegalArgumentException("Некорректный год");
+        }
+
         this.title = title;
         this.author = author;
-        this.year = year;
+    }
+
+    private boolean validateYear(int year) {
+        if (!(year > 0 && year <= 2025)) {
+            return false;
+        }
+
+        return true;
     }
 }
