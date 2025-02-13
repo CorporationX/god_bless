@@ -14,5 +14,13 @@ public class Main {
                     return "DEFAULT";
                 });
         logger.info(result);
+        try {
+            result = ErrorHandler.withErrorHanding(null, null);
+            logger.info(result);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+
+
     }
 }
