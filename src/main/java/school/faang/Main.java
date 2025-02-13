@@ -10,6 +10,7 @@ public class Main {
 
         System.out.println(hogwartsSpells.getSpellEventById(1));
         System.out.println(hogwartsSpells.getSpellEventByType("Защита"));
+        System.out.println(hogwartsSpells.getSpellEventByType(""));
 
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.printAllSpellEvents();
