@@ -4,6 +4,7 @@ import school.faang.task58236.service.ListOperations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,5 +37,15 @@ public class Main {
         System.out.println("Сортировка по длине\n");
         listOperations.sortToLength(strings).forEach(System.out::println);
 
+        System.out.println("Вывод массива\n" + numbers + "\n");
+        System.out.println("Проверка на условие в массиве чисел");
+        Predicate<Integer> checkIf = integer -> integer > 0;
+        boolean checkNumb = listOperations.checkIf(numbers, checkIf);
+        System.out.println(checkNumb ? "Удовлетворяет" : "Не удовлетворяет");
+
+        int after = 500;
+        System.out.println("Сортировка после " + after);
+        int findNum = listOperations.findMinAfterValue(numbers, after);
+        System.out.println(findNum != 0 ? findNum : after + " - слишком большое число");
     }
 }

@@ -1,8 +1,9 @@
 package school.faang.task58236.service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ListOperations {
     public int summaChet(List<Integer> numb) {
@@ -47,13 +48,16 @@ public class ListOperations {
                 .toList();
     }
 
-    //Проверить, все ли элементы списка удовлетворяют определённому условию.
-    //
-    //Метод должен принимать список чисел и предикат, возвращать true, если все элементы списка удовлетворяют условию.
-    //
-    //Вход: List<Integer>, Predicate<Integer>, выход: boolean.
+    public boolean checkIf(List<Integer> numbers, Predicate<Integer> checkIf) {
+        return numbers.stream()
+                .allMatch(checkIf);
+    }
 
+    public int findMinAfterValue(List<Integer> numbs, int after) {
+        return numbs.stream()
+                .filter(integer -> integer > after)
+                .min(Integer::compare)
+                .orElse(0);
 
-
-
+    }
 }
