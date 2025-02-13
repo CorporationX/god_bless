@@ -11,10 +11,15 @@ public class HogwartsSpells {
     private int uniqueId = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
+        if (eventType == null || actionDescription == null) {
+            System.out.println("Входные параметры должны быть заполнены");
+            return;
+        }
         uniqueId += 1;
-        spellById.put(uniqueId, new SpellEvent(uniqueId, eventType, actionDescription));
+        SpellEvent spellEvent = new SpellEvent(uniqueId, eventType, actionDescription);
+        spellById.put(uniqueId, spellEvent);
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        spellsByType.get(eventType).add(new SpellEvent(uniqueId, eventType, actionDescription));
+        spellsByType.get(eventType).add(spellEvent);
     }
 
     public void getSpellEventById(int id) {
@@ -34,12 +39,12 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        spellById.remove(id);
         SpellEvent targetSpell = spellById.get(id);
         if (targetSpell != null) {
             List<SpellEvent> targetList = spellsByType.get(targetSpell.getEventType());
             if (targetList != null && !targetList.isEmpty()) {
                 targetList.remove(targetSpell);
+                spellById.remove(id);
             }
         }
     }
