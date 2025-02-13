@@ -44,8 +44,12 @@ public class Main {
         System.out.println(checkNumb ? "Удовлетворяет" : "Не удовлетворяет");
 
         int after = 500;
-        System.out.println("Сортировка после " + after);
+        System.out.println("\nСортировка после " + after);
         int findNum = listOperations.findMinAfterValue(numbers, after);
-        System.out.println(findNum != 0 ? findNum : after + " - слишком большое число");
+        System.out.println(findNum != 0 ? findNum + "\n" : after + " - слишком большое число");
+
+        strings.forEach(System.out::println);
+        System.out.println("\n\nПреобразование строк в длину");
+        System.out.println(listOperations.mapStrToInt(strings));
     }
 }

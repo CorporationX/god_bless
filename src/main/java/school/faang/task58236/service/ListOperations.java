@@ -2,8 +2,8 @@ package school.faang.task58236.service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ListOperations {
     public int summaChet(List<Integer> numb) {
@@ -59,5 +59,11 @@ public class ListOperations {
                 .min(Integer::compare)
                 .orElse(0);
 
+    }
+
+    public List<Integer> mapStrToInt(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
+                .collect(Collectors.toList());
     }
 }
