@@ -33,7 +33,7 @@ public class Droid {
         return encrypter.messangeCrypt(decryptMessage, -decryptKey);
     }
 
-    public void sendMessage(@NonNull Droid recepientDroid, @NonNull String message, @NonNull int key) {
+    public void sendMessage(@NonNull Droid recepientDroid, @NonNull String message, int key) {
         String encryptMessage = encryptMessage(message, key);
         System.out.println(String.format("Encript message: %s", encryptMessage));
         recepientDroid.receiveMessange(encryptMessage, key);
