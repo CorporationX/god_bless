@@ -26,6 +26,6 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         emails.forEach(email -> System.out.printf("Subject: %s , body of the letter: %s",
-                email.getSubject() , email.getBody()));
+                email.getSubject(), email.getBody()));
     }
 }
