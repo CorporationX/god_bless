@@ -3,8 +3,8 @@ package school.faang.droidsecrets;
 import lombok.NonNull;
 
 public class Droid {
-    private String name;
-    DroidMessageEncryptor encrypter = (message, key) -> {
+    private final String name;
+    private final DroidMessageEncryptor encrypter = (message, key) -> {
         StringBuilder result = new StringBuilder();
         char baseCharacter;
         for (char character : message.toCharArray()) {
