@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 public class ListProcessor {
 
     public static int sumOfEvenNumbers(List<Integer> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException("Список не может быть null!");
+        }
         return numbers.stream()
                 .filter(n -> n % 2 == 0)
                 .mapToInt(Integer::intValue)
@@ -34,6 +37,9 @@ public class ListProcessor {
     }
 
     public static List<String> filterBySubstring(List<String> str, String substring) {
+        if (str == null || substring == null) {
+            throw new IllegalArgumentException("Список или подстрока не могут быть null!");
+        }
         return str.stream()
                 .filter(s -> s.contains(substring))
                 .toList();
@@ -55,12 +61,12 @@ public class ListProcessor {
                 .filter(n -> n > threshold)
                 .mapToInt(Integer::intValue)
                 .min()
-                .orElseThrow(() -> new IllegalArgumentException("Нет элементов больше порога: " + threshold));
+                .orElseThrow(() -> new IllegalArgumentException("Нет элементов больше: " + threshold));
     }
 
     public static List<Integer> convertStringsToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

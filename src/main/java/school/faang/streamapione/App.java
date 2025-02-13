@@ -9,17 +9,17 @@ public class App {
         List<String> strings = Arrays.asList("Арбуз", "Банан", "Вишня", "Слон", "Ананас");
 
         // Примеры вызовов методов
-        System.out.println("Сумма четных чисел: " + ListProcessor.sumOfEvenNumbers(numbers));
-        System.out.println("Максимальный элемент: " + ListProcessor.findMaxElement(numbers));
-        System.out.println("Среднее значение: " + ListProcessor.findAverage(numbers));
-        System.out.println("Количество строк, начинающихся с 'А': "
-                + ListProcessor.countStringsStartingWith(strings, 'А'));
-        System.out.println("Строки, содержащие 'на': " + ListProcessor.filterBySubstring(strings, "на"));
-        System.out.println("Строки, отсортированные по длине: " + ListProcessor.sortStringsByLength(strings));
-        System.out.println("Все элементы больше 0: "
-                + ListProcessor.allElementsMatch(numbers, n -> n > 0));
-        System.out.println("Наименьший элемент больше 4: "
-                + ListProcessor.findSmallestElementGreaterThan(numbers, 4));
-        System.out.println("Длины строк: " + ListProcessor.convertStringsToLengths(strings));
+        System.out.printf("Сумма четных чисел: %s%n", ListProcessor.sumOfEvenNumbers(numbers));
+        System.out.printf("Максимальный элемент: %s%n", ListProcessor.findMaxElement(numbers));
+        System.out.printf("Среднее значение: %s%n", ListProcessor.findAverage(numbers));
+        System.out.printf("Количество строк, начинающихся с 'А': %s%n",
+                ListProcessor.countStringsStartingWith(strings, 'А'));
+        System.out.printf("Строки, содержащие 'на': %s%n ", ListProcessor.filterBySubstring(strings, "на"));
+        System.out.printf("Строки, отсортированные по длине: %s%n", ListProcessor.sortStringsByLength(strings));
+        System.out.printf("Все элементы больше 0: %s%n",
+                ListProcessor.allElementsMatch(numbers, n -> n > 0));
+        System.out.printf("Наименьший элемент больше 4: %s%n",
+                ListProcessor.findSmallestElementGreaterThan(numbers, 4));
+        System.out.printf("Длины строк: %s%n", ListProcessor.convertStringsToLengths(strings));
     }
 }
