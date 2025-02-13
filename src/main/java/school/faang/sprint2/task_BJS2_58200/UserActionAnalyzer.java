@@ -28,26 +28,26 @@ public class UserActionAnalyzer {
     };
 
     public List<Integer> getTopMostActiveUsers(List<UserAction> actions, int limit) {
-        Map<Integer, List<UserAction>> userActions = actions.stream()
+        Map<Integer, List<UserAction>> userWithActions = actions.stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(UserAction::getId));
-        return getKeysSortByValue(userActions, limit);
+        return getKeysSortByValue(userWithActions, limit);
     }
 
     public List<String> getTopMostPopularTopics(List<UserAction> actions, int limit) {
-        Map<String, List<UserAction>> topicActions = actions.stream()
+        Map<String, List<UserAction>> topicWithActions = actions.stream()
                 .filter(Objects::nonNull)
                 .filter(action -> action.getContent().contains("#"))
                 .collect(Collectors.groupingBy(actionTopic));
-        return getKeysSortByValue(topicActions, limit);
+        return getKeysSortByValue(topicWithActions, limit);
     }
 
     public List<Integer> getUsersByMostCommentsInMonth(List<UserAction> actions, int limit) {
-        Map<Integer, List<UserAction>> userActions = actions.stream()
+        Map<Integer, List<UserAction>> userWithActions = actions.stream()
                 .filter(Objects::nonNull)
                 .filter(action -> action.getActionDate().isAfter(LAST_MONTH))
                 .collect(Collectors.groupingBy(UserAction::getId));
-        return getKeysSortByValue(userActions, limit);
+        return getKeysSortByValue(userWithActions, limit);
     }
 
     public Map<ActionType, Double> getActionTypePercent(List<UserAction> actions) {
