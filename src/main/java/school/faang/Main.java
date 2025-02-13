@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        var characters = new Character[] {
+        var characters = new Character[]{
                 new Warrior("Alex"),
                 new Warrior("Ivan"),
                 new Archer("Masha"),
@@ -41,8 +41,7 @@ public class Main {
                     attacked.getHealth());
 
             winnerIndex = getWinnerIndex(characters);
-        }
-        while (winnerIndex == -1);
+        } while (winnerIndex == -1);
 
         System.out.printf("Winner: %s%n", characters[winnerIndex].getName());
     }

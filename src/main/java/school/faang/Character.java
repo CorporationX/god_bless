@@ -24,7 +24,7 @@ public abstract class Character {
         this.health = defaultHealth;
     }
 
-    protected Character(String name, int initialStrength, int initialAgility,int initialIntelligence) {
+    protected Character(String name, int initialStrength, int initialAgility, int initialIntelligence) {
         this.name = name;
         this.strength = initialStrength;
         this.agility = initialAgility;
