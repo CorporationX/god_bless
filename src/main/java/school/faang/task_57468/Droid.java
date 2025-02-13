@@ -31,29 +31,15 @@ public class Droid {
 
     public String encryptMessage(String message, int key) {
         validateMessage(message);
-        DroidMessageEncryptor encryptor = (decryptionMessage, decryptionKey) -> {
-            StringBuilder builder = new StringBuilder();
-            for (char c : decryptionMessage.toCharArray()) {
-                int index = alphabet.indexOf(c);
-                if (index == -1) {
-                    builder.append(c);
-                } else {
-                    int newIndex = (index + decryptionKey) % alphabet.size();
-                    char encryptedChar = alphabet.get(newIndex);
-                    if (Character.isLowerCase(c)) {
-                        builder.append(Character.toLowerCase(encryptedChar));
-                    } else {
-                        builder.append(encryptedChar);
-                    }
-                }
-            }
-            return builder.toString();
-        };
-        return encryptor.encrypt(message, key);
+        return processMessage(message, key, true);
     }
 
     public String decryptMessage(String message, int key) {
         validateMessage(message);
+        return processMessage(message, key, false);
+    }
+
+    private String processMessage(String message, int key, boolean isEncrypting) {
         DroidMessageEncryptor encryptor = (decryptionMessage, decryptionKey) -> {
             StringBuilder builder = new StringBuilder();
             for (char c : decryptionMessage.toCharArray()) {
@@ -61,12 +47,17 @@ public class Droid {
                 if (index == -1) {
                     builder.append(c);
                 } else {
-                    int newIndex = (index - decryptionKey + alphabet.size()) % alphabet.size();
-                    char decryptedChar = alphabet.get(newIndex);
-                    if (Character.isLowerCase(c)) {
-                        builder.append(Character.toLowerCase(decryptedChar));
+                    int newIndex;
+                    if (isEncrypting) {
+                        newIndex = (index + decryptionKey) % alphabet.size();
                     } else {
-                        builder.append(decryptedChar);
+                        newIndex = (index - decryptionKey + alphabet.size()) % alphabet.size();
+                    }
+                    char processedChar = alphabet.get(newIndex);
+                    if (Character.isLowerCase(c)) {
+                        builder.append(Character.toLowerCase(processedChar));
+                    } else {
+                        builder.append(processedChar);
                     }
                 }
             }
