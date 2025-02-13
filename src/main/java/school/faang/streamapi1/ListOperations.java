@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
-    public static final double DOUBLE_ZERO = 0.0;
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         validateList(numbers);
         return numbers
@@ -30,14 +29,14 @@ public class ListOperations {
                 .stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(DOUBLE_ZERO);
+                .orElse(0.0);
     }
 
     public static int countStringsStartingWith(List<String> strings, char ch) {
         validateList(strings);
         return (int) strings
                 .stream()
-                .filter(s -> s != null && !s.isEmpty() && s.charAt(0) == ch)
+                .filter(s -> s.charAt(0) == ch)
                 .count();
     }
 
