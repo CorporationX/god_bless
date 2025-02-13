@@ -10,19 +10,19 @@ public class FareCalculator {
 
     public double calculateFare(double distance, double time, BiFunction<Double, Double, Double> total) {
         checkDistance(distance);
-        checkTeme(time);
+        checkTime(time);
         return total.apply(distance, time);
     }
 
     public void checkDistance(double distance) {
-        if (distance == 0.0) {
-            logger.error("The distance should be more than 0.0");
+        if (!(distance >= 0.0)) {
+            throw new IllegalArgumentException("Пройденный путь (distance), должен быть больше 0");
         }
     }
 
-    public void checkTeme(double time) {
-        if (time == 0.0) {
-            logger.error("The time must be greater than 0.0");
+    public void checkTime(double time) {
+        if (!(time > 0.0)) {
+            throw new IllegalArgumentException("Время поездки должно быть болеше 0.0 секунд");
         }
     }
 }

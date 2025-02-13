@@ -12,7 +12,7 @@ public class Main {
         BiFunction<Double, Double, Double> premiumFare = (distance, time) -> 2.0 * distance + 1.5 * time;
 
         // Пример поездки
-        double distance = 10.0;  // километры
+        double distance = 1.0;  // километры
         double time = 15.0;      // минуты
 
         // Рассчитываем стоимость для каждого тарифа
