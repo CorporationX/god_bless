@@ -9,8 +9,8 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Random random = new Random();
-
         StudentDatabase studentDatabase = new StudentDatabase();
+
         Student studentAlex = new Student("Alex");
         Student studentOlga = new Student("Olga");
         Student studentOleg = new Student("Oleg");
@@ -36,23 +36,14 @@ public class Main {
         studentDatabase.addStudentWithGrades(studentAlex, subjectAlex);
         studentDatabase.addStudentWithGrades(studentAlex, subjectOlga);
         studentDatabase.addStudentWithGrades(studentAlex, subjectOleg);
-
         studentDatabase.addSubjectForStudent(english, studentOleg, random.nextInt(5));
-
         studentDatabase.printAllSubjectsWithStudentsAndGrade();
-
         studentDatabase.removeStudent(studentAlex);
-
         List<Student> studentList = new ArrayList<>();
         studentList.add(studentOlga);
         studentList.add(studentOleg);
-
         studentDatabase.addSubjectWithStudents(it, studentList);
-
         studentDatabase.removeStudentFromSubject(studentOlga, it);
-
         studentDatabase.printAllSubjectsWithStudents();
-
-
     }
 }
