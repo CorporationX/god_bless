@@ -3,7 +3,6 @@ package school.faang;
 import lombok.Getter;
 
 @Getter
-
 public abstract class Character {
 
     protected String name;
