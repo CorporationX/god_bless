@@ -9,12 +9,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Getter
 public class Product {
-    private static int id;
+    private static int idGenerator;
+    private final int id;
     private final String name;
     private final Category category;
 
     public Product(@NonNull String name, @NonNull Category category) {
-        id++;
+        id = ++idGenerator;
         this.name = name;
         this.category = category;
     }

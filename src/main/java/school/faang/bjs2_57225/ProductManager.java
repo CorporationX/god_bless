@@ -1,9 +1,6 @@
 package school.faang.bjs2_57225;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,13 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@EqualsAndHashCode
-@ToString
-@Getter
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
     private final Map<Category, List<Product>> categoryMap = new HashMap<>();
-    Product product;
 
     public void addProduct(@NonNull Category category, @NonNull String name) {
         if (name.isBlank()) {
@@ -27,16 +20,16 @@ public class ProductManager {
         }
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                System.out.println("Товар с таким именем уже существует в категории " + category);
-                return;
+                throw new IllegalArgumentException("Товар с таким именем уже существует " +
+                        "в категории " + category);
             }
         }
-        product = new Product(name, category);
+        Product product = new Product(name, category);
         products.add(product);
         categoryMap.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
     }
 
-    public void removeProduct(Category category, String name) {
+    public void removeProduct(@NonNull Category category, @NonNull String name) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым или состоять из пробелов");
         }
@@ -51,16 +44,16 @@ public class ProductManager {
         }
     }
 
-    private Product findProduct(Category category, String name) {
+    private Product findProduct(@NonNull Category category, @NonNull String name) {
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 return product;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Продукт не найден");
     }
 
-    public List<Product> findProductsByCategory(Category category) {
+    public List<Product> findProductsByCategory(@NonNull Category category) {
         if (categoryMap.containsKey(category)) {
             return Collections.unmodifiableList(categoryMap.get(category));
         } else {
