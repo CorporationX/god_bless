@@ -3,14 +3,13 @@ package streamapi3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 
 class StreamOperations3Test {
 
@@ -38,12 +37,12 @@ class StreamOperations3Test {
     class FindPeopleWithCommonFriendsTests {
         @Test
         void testFindPeopleWithCommonFriendsPositive() {
-            List<StreamOperations3.PeoplePair> pairs = StreamOperations3.findPeopleWithCommonFriends(friendsMap);
-            Set<StreamOperations3.PeoplePair> expected = Set.of(
-                    new StreamOperations3.PeoplePair("Alice", "David"),
-                    new StreamOperations3.PeoplePair("Bob", "Charlie")
+            Set<List<String>> pairs = StreamOperations3.findPeopleWithCommonFriends(friendsMap);
+            Set<List<String>> expected = Set.of(
+                    List.of("Alice", "David"),
+                    List.of("Bob", "Charlie")
             );
-            assertEquals(expected, new HashSet<>(pairs));
+            assertEquals(expected, pairs);
         }
 
         @Test
@@ -52,13 +51,13 @@ class StreamOperations3Test {
                     "Alice", List.of("Bob"),
                     "Bob", List.of("Alice")
             );
-            List<StreamOperations3.PeoplePair> pairs = StreamOperations3.findPeopleWithCommonFriends(map);
+            Set<List<String>> pairs = StreamOperations3.findPeopleWithCommonFriends(map);
             assertTrue(pairs.isEmpty());
         }
 
         @Test
         void testFindPeopleWithCommonFriendsNullMap() {
-            assertThrows(IllegalArgumentException.class, () ->
+            assertThrows(NullPointerException.class, () ->
                     StreamOperations3.findPeopleWithCommonFriends(null)
             );
         }
