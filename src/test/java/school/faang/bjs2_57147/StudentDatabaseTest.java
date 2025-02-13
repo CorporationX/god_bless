@@ -196,7 +196,8 @@ public class StudentDatabaseTest {
         });
 
         Assertions.assertFalse(studentDatabase.getStudentSubjects().containsKey(ivan));
-        studentDatabase.getSubjectStudents().values().forEach(students -> Assertions.assertFalse(students.contains(ivan)));
+        studentDatabase.getSubjectStudents().values().forEach(students -> Assertions
+                .assertFalse(students.contains(ivan)));
     }
 
     @Test
