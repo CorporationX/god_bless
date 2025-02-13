@@ -35,9 +35,8 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         // Вывод измененных писем
-        emails.forEach(email -> System.out.println("Subject: " + email.getSubject() +
-                ", message text: " + email.getBody()));
-
+        emails.forEach(email -> System.out.printf(" Subject: %s, message text: %s%n",
+                email.getSubject(), email.getBody()));
 
     }
 }
