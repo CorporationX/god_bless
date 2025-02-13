@@ -1,10 +1,10 @@
-package school.faang;
+package school.faang.RPG;
 
-public class Warrior extends Character {
+public class Warrior extends school.faang.RPG.Character {
 
-    private static final int WARRIOR_STRENGTH = 10;
-    private static final int WARRIOR_AGILITY = 5;
-    private static final int WARRIOR_INTELLIGENCE = 3;
+    public static final int WARRIOR_STRENGTH = 10;
+    public static final int WARRIOR_AGILITY = 5;
+    public static final int WARRIOR_INTELLIGENCE = 3;
 
     protected Warrior(String name) {
         super(name);
