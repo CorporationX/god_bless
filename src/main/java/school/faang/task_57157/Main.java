@@ -9,10 +9,13 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Random random = new Random();
+
         StudentDatabase studentDatabase = new StudentDatabase();
 
         Student studentAlex = new Student("Alex");
+
         Student studentOlga = new Student("Olga");
+
         Student studentOleg = new Student("Oleg");
 
         Subject math = new Subject("Math");
