@@ -8,9 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-@NonNull
 public class Email {
-    private String subject;
-    private String body;
+    @NonNull private String subject;
+    @NonNull private String body;
     private boolean isImportant;
 }
