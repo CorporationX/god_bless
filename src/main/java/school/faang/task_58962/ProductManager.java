@@ -13,7 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
-    private Map<Category, List<Product>> categoryMap = new HashMap<>();
+    private final Map<Category, List<Product>> categoryMap = new HashMap<>();
     private int currentId = 1;
 
     public boolean addProduct(Category category, String name) {
@@ -32,7 +32,7 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        if(name == null || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             System.out.println("Name is null or blank");
             return;
         }
@@ -57,11 +57,9 @@ public class ProductManager {
     }
 
     public void groupProductsByCategory() {
-        Map<Category, List<Product>> productsByCategories = new HashMap<>();
         for (Product product : products) {
-            productsByCategories.computeIfAbsent(product.getCategory(), event -> new ArrayList<>()).add(product);
+            categoryMap.computeIfAbsent(product.getCategory(), event -> new ArrayList<>()).add(product);
         }
-        categoryMap = productsByCategories;
         System.out.println(categoryMap);
     }
 
