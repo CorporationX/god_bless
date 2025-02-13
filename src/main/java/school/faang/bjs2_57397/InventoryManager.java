@@ -10,6 +10,7 @@ public class InventoryManager {
         validate(character, "character");
         validate(item, "item");
         validate(callback, "callback");
+        ensureItemListInitialized(character);
 
         character.getItems().add(item);
         callback.accept(item);
@@ -18,6 +19,7 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> filter) {
         validate(character, "character");
         validate(filter, "filter");
+        ensureItemListInitialized(character);
 
         character.getItems().removeIf(filter);
     }
@@ -28,7 +30,9 @@ public class InventoryManager {
         validate(update, "update");
         ensureItemListInitialized(character);
 
-        character.getItems().stream().filter(filter).forEach(update);
+        character.getItems().stream()
+                .filter(filter)
+                .forEach(update);
     }
 
     private void ensureItemListInitialized(Character character) {
@@ -38,8 +42,6 @@ public class InventoryManager {
     }
 
     private <T> void validate(T obj, String name) {
-        if (Objects.isNull(obj)) {
-            throw new IllegalArgumentException(name + " is null");
-        }
+        Objects.requireNonNull(obj, name + " is null");
     }
 }
