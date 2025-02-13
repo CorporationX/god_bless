@@ -14,6 +14,11 @@ public class NotificationManager {
     private Function<Notification, Notification> messageCorrector;
     private Predicate<Notification> filter;
 
+    public NotificationManager() {
+        this.filter = notification -> false;
+        this.messageCorrector = Function.identity();
+    }
+
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlers.put(type, handler);
     }
@@ -26,7 +31,11 @@ public class NotificationManager {
 
         Notification corrected = messageCorrector.apply(notification);
         Consumer<Notification> handler = handlers.get(notification.getType());
-        handler.accept(corrected);
+        if (handler != null) {
+            handler.accept(corrected);
+        } else {
+            System.out.println("No handler registered for notification type: " + notification.getType());
+        }
     }
 
     public void filterNotification(Predicate<Notification> filter) {
