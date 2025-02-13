@@ -1,17 +1,16 @@
 package instagram;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
+import lombok.NonNull;
 
 public class FilterProcessor {
 
-    public Image applyFilter(Image image, Function<Image, Image> filter) {
+    public Image applyFilter(Image image, @NonNull UnaryOperator<Image> filter) {
         return filter.apply(image);
-
-
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> filter1,
-                                                 Function<Image, Image> filter2) {
+    public UnaryOperator<Image> combineFilters(@NonNull UnaryOperator<Image> filter1,
+                                               @NonNull UnaryOperator<Image> filter2) {
         return image -> filter2.apply(filter1.apply(image));
     }
 }
