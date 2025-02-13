@@ -11,10 +11,9 @@ import java.util.List;
 public class Character {
     private String name;
     private int level = 1;
-    private final List<Item> inventory;
+    private final List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
-        this.inventory = new ArrayList<>();
     }
 }
