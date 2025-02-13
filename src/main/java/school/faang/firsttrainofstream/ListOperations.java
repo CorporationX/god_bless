@@ -14,20 +14,16 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return filterNonNull(numbers).stream().max(Comparator.comparingInt(n -> n)).orElse(0);
+        return filterNonNull(numbers).stream().max(Comparator.comparingInt(Integer::intValue)).orElse(0);
     }
 
     public static double findAverage(List<Integer> numbers) {
-        if (isNullOrEmpty(numbers)) {
-            return 0;
-        }
-        int sum = numbers.stream().mapToInt(number -> number).sum();
-        long count = numbers.size();
-        return (double) sum / count;
+        return filterNonNull(numbers).stream().mapToInt(Integer::intValue).average().orElse(0);
     }
 
     public static long countStringsStartingWith(List<String> strings, char letter) {
-        return filterNonNull(strings).stream().filter(string -> string.charAt(0) == letter).count();
+        return filterNonNull(strings).stream()
+                .filter(string -> string.startsWith(Character.toString(letter))).count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String filter) {
@@ -35,7 +31,7 @@ public class ListOperations {
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return filterNonNull(strings).stream().sorted().toList();
+        return filterNonNull(strings).stream().sorted(Comparator.comparing(String::length)).toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
@@ -49,10 +45,6 @@ public class ListOperations {
 
     public static List<Integer> convertToLengths(List<String> strings) {
         return filterNonNull(strings).stream().map(String::length).toList();
-    }
-
-    private static boolean isNullOrEmpty(List<?> list) {
-        return list == null || list.isEmpty();
     }
 
     private static <T> List<T> filterNonNull(List<T> list) {
