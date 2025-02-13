@@ -6,7 +6,7 @@ public class Droid {
     private final String name;
     private DroidMessageEncryptor encryptor;
 
-    public Droid(String name){
+    public Droid(String name) {
         this.name = name;
     }
 
