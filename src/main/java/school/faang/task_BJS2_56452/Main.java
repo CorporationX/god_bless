@@ -8,15 +8,13 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        Map<Integer, String> usersGroupedByAges = new HashMap<>();
-
+        Map<Integer, List<String>> usersGroupedByAges = new HashMap<>();
         users.add(new User("Vlad", 30, "Sber", "Moscow"));
         users.add(new User("Bob", 31, "VK", "Novosibirk"));
         users.add(new User("Andrew", 30, "Yandex", "SPB"));
         users.add(new User("Olga", 31, "Mail", "Ekat"));
-
         usersGroupedByAges = User.groupUsers(users);
-        for (Map.Entry<Integer, String> entry : usersGroupedByAges.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : usersGroupedByAges.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
     }
