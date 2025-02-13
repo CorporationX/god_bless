@@ -22,14 +22,13 @@ public class LibrarySystem {
         }
         Book book = new Book(title, author, year);
         locationBook.put(book, location);
-        log.info(String.format("Book: " + book + " added to shelf: " + location));
+        log.info(String.format("Book: %s added to shelf: %s ", book, location));
 
     }
 
     public void removeBook(@NonNull String title, @NonNull String author, int year) {
         if (title.isBlank() || author.isBlank()) {
-            System.out.println("Title or author cannot be empty");
-            return;
+            throw new IllegalArgumentException("Title or author cannot be empty");
         }
         Book book = new Book(title, author, year);
         if (locationBook.remove(book) != null) {
