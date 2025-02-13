@@ -1,10 +1,12 @@
 package school.faang;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
 @Slf4j
+@Data
 abstract class Character {
     public String name;
     public int strength;
@@ -53,25 +55,5 @@ abstract class Character {
                 break;
             }
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getHealth() {
-        return health;
     }
 }
