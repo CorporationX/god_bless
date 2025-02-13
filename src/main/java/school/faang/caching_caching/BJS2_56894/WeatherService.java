@@ -8,6 +8,9 @@ import java.util.Random;
 public class WeatherService implements WeatherProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
 
+    private static final double MIN_RECORDED_TEMPERATURE_ON_EARTH = -89.2;
+    private static final double MAX_RECORDED_TEMPERATURE_ON_EARTH = 56.8;
+
     @Override
     public WeatherData fetchWeatherData(String city) {
         if (city == null || city.isBlank()) {
@@ -15,8 +18,9 @@ public class WeatherService implements WeatherProvider {
             throw new IllegalArgumentException("City name cannot be null or blank");
         }
 
-        double temperature = new Random().nextDouble(-89.2, 170);
-        if (temperature < -89.2 || temperature > 170) {
+        double temperature = new Random().nextDouble(
+                MIN_RECORDED_TEMPERATURE_ON_EARTH, MAX_RECORDED_TEMPERATURE_ON_EARTH);
+        if (temperature < MIN_RECORDED_TEMPERATURE_ON_EARTH || temperature > MAX_RECORDED_TEMPERATURE_ON_EARTH) {
             LOGGER.error("{} is out of range", temperature);
             throw new IllegalStateException("Temperature is out of valid range: " + temperature);
         }

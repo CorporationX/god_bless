@@ -14,8 +14,8 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
     @Override
     protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         if (data == null) {
-            LOGGER.warn("Cache expired");
-            return false;
+            LOGGER.warn("Cache expired: data is null");
+            return true;
         }
         return (System.currentTimeMillis() - data.timestamp()) > maxCacheAgeMillis;
     }
