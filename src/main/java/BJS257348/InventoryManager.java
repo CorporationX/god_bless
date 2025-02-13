@@ -11,13 +11,13 @@ import java.util.function.Predicate;
 @Slf4j
 public class InventoryManager {
 
-    public void addItem(Character character, Item item, Consumer<Item> callback) {
+    public void addItem(Character character, Item item, Consumer<Item> itemCallback) {
         if (character != null && item != null) {
             ArrayList<Item> characterItems = character.getInventory();
             characterItems.add(item);
             character.setInventory(characterItems);
 
-            callback.accept(item);
+            itemCallback.accept(item);
         }
     }
 
@@ -39,10 +39,10 @@ public class InventoryManager {
     }
 
 
-    public void removeItem(Character character, Item item, Predicate<Item> callback) {
+    public void removeItem(Character character, Item item, Predicate<Item> nameFilterCallback) {
 
         if (character != null && item != null) {
-            if (callback.test(item)) {
+            if (nameFilterCallback.test(item)) {
                 ArrayList<Item> characterItems = character.getInventory();
                 characterItems.remove(item);
                 character.setInventory(characterItems);
