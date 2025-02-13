@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class Email {
-    private final String subject;
+    private String subject;
     private String body;
-    private final boolean isImportant;
+    private boolean isImportant;
 }
