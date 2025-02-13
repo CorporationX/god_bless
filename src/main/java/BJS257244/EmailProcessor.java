@@ -12,13 +12,17 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> importantFilter, Consumer<Email> printEmail,
                               Function<Email, String> toUpperCase) {
-        log.info("Processing emails");
-        emails.forEach(email -> {
-            importantFilter.test(email);
-            if (importantFilter.test(email)) {
-                toUpperCase.apply(email);
-                printEmail.accept(email);
-            }
-        });
+        if (emails != null && !emails.isEmpty())  {
+            log.info("Processing emails");
+            emails.forEach(email -> {
+                importantFilter.test(email);
+                if (importantFilter.test(email)) {
+                    toUpperCase.apply(email);
+                    printEmail.accept(email);
+                }
+            });
+            log.info(" Was processed : " + emails.size() + " emails");
+        }
+
     }
 }

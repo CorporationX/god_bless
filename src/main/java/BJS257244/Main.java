@@ -11,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
 
         EmailProcessor emailProcessor = new EmailProcessor();
-
         // Список входящих писем
         List<Email> emails = Arrays.asList(
                 new Email("First Message", "text for first message", false),
@@ -21,7 +20,7 @@ public class Main {
         );
 
         // фильтр на важные письма
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик писем
         Consumer<Email> printEmail = email -> System.out.println("Message : " + email.getSubject());
