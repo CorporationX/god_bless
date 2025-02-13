@@ -17,11 +17,15 @@ public class NotificationManager {
 
     //отправитель оповещений
     public void sendNotification(Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
+        if (notification != null) {
+            notifications.get(notification.getType()).accept(notification);
+        } else {
+            System.out.println("Nothing to notify");
+        }
     }
 
     public void notificationWithDescription(Notification userNotification) {
-        switch (userNotification.getType()) {
+        switch  (userNotification.getType()) {
             case SMS -> {
                 String description = " send by SMS";
                 sendNotification(userNotification);
