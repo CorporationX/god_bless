@@ -19,8 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StudentDatabaseTest {
     private final Random randomValidGrade = new Random();
-    private final String ivanName = "Ivan";
-    private final Student ivan = new Student(ivanName);
+    private final Student ivan = new Student("Ivan");
     private final Student petya = new Student("Petya");
     private final Subject math = new Subject("Math");
     private final Subject english = new Subject("English");
@@ -41,11 +40,27 @@ public class StudentDatabaseTest {
     }
 
     @Test
+    public void shouldPrintSubjectsWithStudentsWithoutExceptions() {
+        studentDatabase.addStudentToSubject(math, ivan);
+        studentDatabase.addStudentToSubject(english, ivan);
+
+        assertDoesNotThrow(() -> studentDatabase.printSubjectsWithStudents());
+    }
+
+    @Test
+    public void shouldPrintStudentInfoWithoutExceptions() {
+        studentDatabase.addStudentToSubject(math, ivan);
+        studentDatabase.addStudentToSubject(english, ivan);
+
+        assertDoesNotThrow(() -> studentDatabase.printStudentInfo());
+    }
+
+    @Test
     @DisplayName("Добавление студенту два разных предмета")
     public void addStudent_addDifferentSubjects() {
         subjects.put(math, gradeMax);
         subjects.put(english, gradeMin);
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
 
         assertEquals(gradeMax, studentDatabase.getStudentSubjects().get(ivan).get(math));
         assertEquals(gradeMin, studentDatabase.getStudentSubjects().get(ivan).get(english));
@@ -59,10 +74,10 @@ public class StudentDatabaseTest {
     @DisplayName("Добавление студенту два раза предмет с разными оценками")
     public void addStudent_addSameSubject() {
         subjects.put(math, gradeMax);
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
 
         subjects.put(math, grade);
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
 
         assertEquals(grade, studentDatabase.getStudentSubjects().get(ivan).get(math));
         assertTrue(studentDatabase.getSubjectStudents().get(math).contains(ivan));
@@ -71,7 +86,7 @@ public class StudentDatabaseTest {
     @Test
     @DisplayName("Добавление студента с null картой предметов")
     public void addStudent_nullSubject() {
-        studentDatabase.addStudent(ivanName, null);
+        studentDatabase.addStudent(ivan, null);
 
         assertTrue(studentDatabase.getStudentSubjects().get(ivan).isEmpty());
         assertTrue(studentDatabase.getSubjectStudents().isEmpty());
@@ -83,7 +98,7 @@ public class StudentDatabaseTest {
         subjects.put(math, grade);
         subjects.put(null, gradeMin);
 
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
 
         assertEquals(1, studentDatabase.getStudentSubjects().size());
         assertTrue(studentDatabase.getStudentSubjects().get(ivan).containsKey(math));
@@ -98,7 +113,7 @@ public class StudentDatabaseTest {
         subjects.put(math, gradeMax + 1);
         subjects.put(english, gradeMin - 1);
 
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
         assertFalse(studentDatabase.getStudentSubjects().get(ivan).containsKey(math));
         assertFalse(studentDatabase.getStudentSubjects().get(ivan).containsKey(english));
         assertTrue(studentDatabase.getSubjectStudents().isEmpty());
@@ -110,7 +125,7 @@ public class StudentDatabaseTest {
         subjects.put(math, gradeMax + 1);
         subjects.put(english, gradeMin);
 
-        studentDatabase.addStudent(ivanName, subjects);
+        studentDatabase.addStudent(ivan, subjects);
         assertTrue(studentDatabase.getStudentSubjects().get(ivan).containsKey(english));
         assertFalse(studentDatabase.getStudentSubjects().get(ivan).containsKey(math));
 

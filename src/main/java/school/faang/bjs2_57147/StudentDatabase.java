@@ -1,26 +1,25 @@
 package school.faang.bjs2_57147;
 
 import lombok.Getter;
+import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Getter
 public class StudentDatabase {
     private static final int GRADE_MIN = 0;
     private static final int GRADE_MAX = 5;
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    private final Map<Subject, Set<Student>> subjectStudents = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudent(String name, Map<Subject, Integer> subjects) {
-        checkValidName(name);
-        Student student = new Student(name);
+    public void addStudent(@NonNull Student student, @NonNull Map<Subject, Integer> subjects) {
+        checkValidStudent(student);
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
         if (subjects == null) {
-            return;
+            throw new IllegalArgumentException("Предметы должны быть указаны");
         }
 
         subjects.entrySet().stream()
@@ -28,26 +27,22 @@ public class StudentDatabase {
                 .filter(entry -> entry.getValue() == null || isValidGrade(entry.getValue()))
                 .forEach(entry -> {
                     studentSubjects.get(student).put(entry.getKey(), entry.getValue());
-                    subjectStudents.computeIfAbsent(entry.getKey(), s -> new HashSet<>());
-                    subjectStudents.get(entry.getKey()).add(student);
+                    subjectStudents.computeIfAbsent(entry.getKey(), s -> new ArrayList<>()).add(student);
                 });
     }
 
-    public void addSubjectToStudent(Subject subject, Student student, int grade) {
+    public void addSubjectToStudent(@NonNull Subject subject, @NonNull Student student, int grade) {
         checkValidSubject(subject);
         checkValidStudent(student);
         checkValidGrade(grade);
 
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
-        studentSubjects.get(student).put(subject, grade);
-
-        subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
-        subjectStudents.get(subject).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public void removeStudent(Student student) {
+    public void removeStudent(@NonNull Student student) {
         if (student == null || !studentSubjects.containsKey(student)) {
-            return;
+            throw new IllegalArgumentException("Список студентов не указан");
         }
 
         studentSubjects.get(student).keySet()
@@ -63,12 +58,12 @@ public class StudentDatabase {
         });
     }
 
-    public void addNewSubject(Subject subject, List<Student> students) {
+    public void addNewSubject(@NonNull Subject subject, @NonNull List<Student> students) {
         checkValidSubject(subject);
-        subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
 
         if (students == null) {
-            return;
+            throw new IllegalArgumentException("Список студентов не указан");
         }
 
         students.stream()
@@ -80,18 +75,15 @@ public class StudentDatabase {
                 });
     }
 
-    public void addStudentToSubject(Subject subject, Student student) {
+    public void addStudentToSubject(@NonNull Subject subject, @NonNull Student student) {
         checkValidSubject(subject);
         checkValidStudent(student);
 
-        subjectStudents.computeIfAbsent(subject, k -> new HashSet<>());
-        subjectStudents.get(subject).add(student);
-
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
-        studentSubjects.get(student).put(subject, null);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
     }
 
-    public void removeStudentFromSubject(Subject subject, Student student) {
+    public void removeStudentFromSubject(@NonNull Subject subject, @NonNull Student student) {
         checkValidSubject(subject);
         checkValidStudent(student);
 
@@ -107,10 +99,10 @@ public class StudentDatabase {
     }
 
     public void printSubjectsWithStudents() {
-        subjectStudents.forEach((subject, students) -> {
-            System.out.printf("Предмет %s изучают :\n", subject.getName());
-            System.out.println(String.join(", ", (CharSequence) students));
-            System.out.println();
+        subjectStudents.forEach((k, v) -> {
+            System.out.println(k.getName());
+            v.forEach(s ->
+                    System.out.println(new StringBuilder("----").append(s.getName())));
         });
     }
 
@@ -122,12 +114,6 @@ public class StudentDatabase {
         if (!isValidGrade(grade)) {
             throw new IllegalArgumentException("Вы ввели недопустимую оценку (" + grade + "), " +
                     "допустимое значение от " + GRADE_MIN + " до " + GRADE_MAX);
-        }
-    }
-
-    private void checkValidName(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
         }
     }
 
