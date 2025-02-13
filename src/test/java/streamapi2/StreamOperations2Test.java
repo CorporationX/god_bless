@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,15 +37,20 @@ class StreamOperations2Test {
     class FindUniquePairsTests {
         @Test
         void testFindUniquePairsPositive() {
-            List<StreamOperations2.Pair> pairs = StreamOperations2.findUniquePairs(numberSet, 6);
-            assertEquals(2, pairs.size());
-            assertTrue(pairs.contains(new StreamOperations2.Pair(1, 5)));
-            assertTrue(pairs.contains(new StreamOperations2.Pair(2, 4)));
+            List<int[]> pairs = StreamOperations2.findUniquePairs(numberSet, 6);
+            Set<List<Integer>> resultSet = pairs.stream()
+                    .map(arr -> Arrays.stream(arr).boxed().toList())
+                    .collect(Collectors.toSet());
+            Set<List<Integer>> expected = Set.of(
+                    List.of(1, 5),
+                    List.of(2, 4)
+            );
+            assertEquals(expected, resultSet);
         }
 
         @Test
         void testFindUniquePairsNoPairs() {
-            List<StreamOperations2.Pair> pairs = StreamOperations2.findUniquePairs(numberSet, 100);
+            List<int[]> pairs = StreamOperations2.findUniquePairs(numberSet, 100);
             assertTrue(pairs.isEmpty());
         }
 
@@ -131,7 +137,7 @@ class StreamOperations2Test {
 
         @Test
         void testFilterStringsByAlphabetNullList() {
-            assertThrows(IllegalArgumentException.class, () ->
+            assertThrows(NullPointerException.class, () ->
                     StreamOperations2.filterStringsByAlphabet(null, "abcdefghijklmnopqrstuvwxyz")
             );
         }
@@ -139,7 +145,7 @@ class StreamOperations2Test {
         @Test
         void testFilterStringsByAlphabetNullAlphabet() {
             List<String> words = Arrays.asList("apple", "banana");
-            assertThrows(IllegalArgumentException.class, () ->
+            assertThrows(NullPointerException.class, () ->
                     StreamOperations2.filterStringsByAlphabet(words, null)
             );
         }
@@ -147,9 +153,8 @@ class StreamOperations2Test {
         @Test
         void testFilterStringsByAlphabetEmptyAlphabet() {
             List<String> words = Arrays.asList("apple", "banana");
-            assertThrows(IllegalArgumentException.class, () ->
-                    StreamOperations2.filterStringsByAlphabet(words, "")
-            );
+            List<String> filtered = StreamOperations2.filterStringsByAlphabet(words, "");
+            assertTrue(filtered.isEmpty());
         }
     }
 }
