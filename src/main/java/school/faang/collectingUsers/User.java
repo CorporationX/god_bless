@@ -1,6 +1,5 @@
 package school.faang.collectingUsers;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,13 +10,19 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    public int id;
-    public String name;
-    public int age;
-    public Set<String> activities = new HashSet<>();
+    private int id;
+    private String name;
+    private int age;
+    private Set<String> activities;
+
+    public User(int id, String name, int age, Set<String> activities) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.activities = (activities != null) ? activities : new HashSet<>();
+    }
 
     public void addActivity(String activity) {
         activities.add(activity);
@@ -28,6 +33,10 @@ public class User {
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        if (users == null || users.isEmpty() || hobbies == null || hobbies.isEmpty()) {
+            return new HashMap<>();
+        }
+
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
             for (String hobby : hobbies) {

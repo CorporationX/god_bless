@@ -9,16 +9,13 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-        User user1 = new User(1, "Nick", 15, new HashSet<>(Arrays.asList("reading", "swimming")));
-        User user2 = new User(2, "Nina", 20, new HashSet<>(Arrays.asList("running")));
-        User user3 = new User(3, "Paul", 18, new HashSet<>(Arrays.asList("studying", "working")));
+        List<User> users = List.of(
+                new User(1, "Nick", 15, Set.of("reading", "swimming")),
+                new User(2, "Nina", 20, Set.of("running")),
+                new User(3, "Paul", 18, Set.of("studying", "working"))
+        );
 
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-
-        Set<String> hobbies = new HashSet<>(Arrays.asList("studying", "reading"));
+        Set<String> hobbies = Set.of("studying", "reading");
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
