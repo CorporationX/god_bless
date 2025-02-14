@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
+
         Droid r2d2 = new Droid("R2D2");
         Droid c3po = new Droid("C3PO");
         Droid enemyDroid = new Droid("!!!ENEMY!!!");

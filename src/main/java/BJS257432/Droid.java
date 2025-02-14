@@ -20,7 +20,6 @@ public class Droid {
     }
 
     public String receiveMessage(String encryptedMessage, int key) {
-
         return decryptMessage(encryptedMessage, key);
     }
 
