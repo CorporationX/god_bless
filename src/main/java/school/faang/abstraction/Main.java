@@ -3,7 +3,7 @@ package school.faang.abstraction;
 public class Main {
     public static void main(String[] args) {
         Archer archer = new Archer("Amanzhol");
-        Warrior warrior = new Warrior("Diana");
+        Warrior warrior = new Warrior("Mikhail");
         System.out.println(archer.getHp());
         System.out.println(warrior.getHp());
         archer.attack(warrior);
@@ -67,10 +67,5 @@ public class Main {
         System.out.println(warrior1.getAgility());
         System.out.println(warrior1.getIntelligence());
         System.out.println(warrior1.getStrength());
-
-
-
-
-
     }
 }
