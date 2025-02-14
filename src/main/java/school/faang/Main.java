@@ -6,23 +6,19 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         VectorJoiner<String> vectorJoiner = vector -> {
-            if (vector == null || vector.isEmpty()) {
-                throw new IllegalArgumentException("Vector can't be null or empty.");
-            }
+            validateVector(vector);
             return vector.stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(", "));
-
         };
 
         MatrixJoiner<String> matrixJoiner = vector -> {
-            if (vector == null || vector.isEmpty()) {
-                throw new IllegalArgumentException("Vector can't be null or empty.");
-            }
+            validateVector(vector);
             return vector.stream()
                     .map(vectorJoiner::join)
                     .collect(Collectors.joining("\n"));
         };
+
         List<List<String>> toCsv = (
                 List.of(
                         List.of("1", "2", "3", "4", "5"),
@@ -33,5 +29,11 @@ public class Main {
                 )
         );
         System.out.println(matrixJoiner.join(toCsv));
+    }
+
+    private static <T> void validateVector(List<T> vector) {
+        if (vector == null || vector.isEmpty()) {
+            throw new IllegalArgumentException("Vector can't be null or empty.");
+        }
     }
 }
