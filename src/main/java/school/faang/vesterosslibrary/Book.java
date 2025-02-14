@@ -15,6 +15,7 @@ public class Book {
         this.year = year;
     }
 
+    @SuppressWarnings("checkstyle:NeedBraces")
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
