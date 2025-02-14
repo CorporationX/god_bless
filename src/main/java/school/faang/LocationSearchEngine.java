@@ -33,7 +33,7 @@ public class LocationSearchEngine {
 
     private void validateLocations(List<Location> locations) {
         if (locations == null) {
-            throw new IllegalArgumentException("Locations list cannot be null");
+            throw new LocationValidationException("Locations list cannot be null");
         }
     }
 
