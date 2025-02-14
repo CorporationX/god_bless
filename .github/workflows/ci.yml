@@ -15,7 +15,5 @@ jobs:
         with:
           java-version: 17
 
-      - name: Compile and run tests
-        run: |
-          javac -d out src/**/*.java
-          java -cp out com.example.Main
+      - name: Build and test with Gradle
+        run: .\gradlew build testClasses -x test -x check -x checkstyleMain -x checkstyleTest --no-daemon
