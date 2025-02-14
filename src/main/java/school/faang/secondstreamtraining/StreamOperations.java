@@ -14,9 +14,10 @@ public class StreamOperations {
         if (numbers == null) {
             return Collections.emptySet();
         }
-        return numbers.stream().flatMap(firstNumber -> numbers.stream()
-                .filter(secondNumber -> secondNumber < firstNumber && secondNumber + firstNumber == sum)
-                .map(secondNumber -> List.of(secondNumber, firstNumber))).collect(Collectors.toSet());
+        return numbers.stream()
+                .filter(firstNumber -> numbers.contains(sum - firstNumber) && sum - firstNumber < firstNumber)
+                .map(firstNumber -> List.of(firstNumber, sum - firstNumber))
+                .collect(Collectors.toSet());
     }
 
     public List<String> sortCountriesAndPrintCapitals(Map<String, String> countriesCapitals) {
@@ -24,8 +25,7 @@ public class StreamOperations {
             return Collections.emptyList();
         }
         return countriesCapitals.entrySet().stream()
-                .sorted((firstCounty, secondCountry) -> firstCounty.getKey()
-                        .compareToIgnoreCase(secondCountry.getKey())).map(Map.Entry::getValue).toList();
+                .sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
     }
 
     public List<String> filterAndSortStrings(List<String> strings, char firstChar) {
