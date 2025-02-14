@@ -24,19 +24,19 @@ class InventoryManagerTest {
     }
 
     @Test
-    void TestAddItem() {
+    void testAddItem() {
         assertEquals(sword, conanTheBarbarian.getInventory().get(0));
     }
 
     @Test
-    void TestRemoveItem() {
+    void testRemoveItem() {
         inventoryManager.removeItem(conanTheBarbarian, (item) -> item.getName().equals("Sword"));
 
         assertTrue(conanTheBarbarian.getInventory().isEmpty());
     }
 
     @Test
-    void TestUpdateItem() {
+    void testUpdateItem() {
         inventoryManager.updateItem(
                 conanTheBarbarian,
                 (item) -> item.getName().equals("Sword"),
