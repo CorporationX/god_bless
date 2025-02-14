@@ -52,7 +52,7 @@ public class NotificationManager {
         }
 
         if (checkMessage(notification)) {
-            System.out.println("Собщение содержит незензурную лекцику");
+            System.out.println("Собщение содержит незензурную лексику");
             return;
         }
         handler.accept(corrector.apply(notification));
