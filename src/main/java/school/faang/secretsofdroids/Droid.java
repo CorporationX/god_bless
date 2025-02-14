@@ -18,7 +18,12 @@ public class Droid {
             StringBuilder encryptedText = new StringBuilder();
             for (char character : message.toCharArray()) {
                 if (Character.isLetter(character)) {
-                    char base = Character.isUpperCase(character) ? 'A' : 'a';
+                    char base;
+                    if (Character.isUpperCase(character)) {
+                        base = 'A';
+                    } else {
+                        base = 'a';
+                    }
                     character = (char) ((character - base + key) % 26 + base);
                 }
                 encryptedText.append(character);
