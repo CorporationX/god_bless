@@ -1,4 +1,4 @@
-package school.faang.task_57202;
+package school.faang.sprint2.task_57202;
 
 public class Main {
     public static void main(String[] args) {

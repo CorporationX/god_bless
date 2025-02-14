@@ -1,4 +1,4 @@
-package school.faang.task_57567;
+package school.faang.sprint2.task_57567;
 
 import javax.validation.constraints.NotNull;
 import java.util.function.Function;

@@ -1,4 +1,4 @@
-package school.faang.task_57549;
+package school.faang.sprint2.task_57549;
 
 @FunctionalInterface
 public interface ExceptionHandler<T> {

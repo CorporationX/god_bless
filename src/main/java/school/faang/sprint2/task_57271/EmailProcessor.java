@@ -1,4 +1,4 @@
-package school.faang.task_57271;
+package school.faang.sprint2.task_57271;
 
 import java.util.List;
 import java.util.function.Consumer;
