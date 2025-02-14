@@ -4,25 +4,24 @@ import lombok.NonNull;
 
 public class Droid {
     private final String name;
-    private DroidMessageEncryptor encryptor;
+    private DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
+        StringBuilder result = new StringBuilder();
+        for (char ch : msg.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                char baseCharacter = Character.isLowerCase(ch) ? 'a' : 'A';
+                result.append((char) ((ch - baseCharacter + encryptionKey) % 26 + baseCharacter));
+            } else {
+                result.append(ch);
+            }
+        }
+        return result.toString();
+    };
 
     public Droid(String name) {
         this.name = name;
     }
 
     public String encryptMessage(String message, int key) {
-        encryptor = (msg, encryptionKey) -> {
-            StringBuilder result = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char baseCharacter = Character.isLowerCase(ch) ? 'a' : 'A';
-                    result.append((char) ((ch - baseCharacter + encryptionKey) % 26 + baseCharacter));
-                } else {
-                    result.append(ch);
-                }
-            }
-            return result.toString();
-        };
         return encryptor.encrypt(message, key);
     }
 
