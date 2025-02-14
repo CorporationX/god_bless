@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.optimizing_data;
 
 import java.util.Comparator;
 import java.util.List;

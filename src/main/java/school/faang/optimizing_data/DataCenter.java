@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.optimizing_data;
 
 import lombok.Getter;
 

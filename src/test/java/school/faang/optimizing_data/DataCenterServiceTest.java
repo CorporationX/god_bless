@@ -2,12 +2,6 @@ package school.faang.optimizing_data;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.DataCenter;
-import school.faang.DataCenterService;
-import school.faang.EnergyEfficiencyOptimizationStrategy;
-import school.faang.LoadBalancingOptimizationStrategy;
-import school.faang.ResourceRequest;
-import school.faang.Server;
 
 import static org.junit.jupiter.api.Assertions.*;
 
