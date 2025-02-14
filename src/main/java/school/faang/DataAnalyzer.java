@@ -30,8 +30,15 @@ public class DataAnalyzer {
                 .toList();
     }
 
-    public static void groupBySalary(List<Job> jobs) {
+    public static Map<String, List<Job>> groupBySalary(List<Job> jobs) {
+        validateJobs(jobs);
+        return jobs.stream()
+                .collect(Collectors.groupingBy(job -> getSalaryRange(job.getSalary())));
+    }
 
+    private static String getSalaryRange(int salary) {
+        int lowerBound = (salary / 50000) * 50000;
+        return lowerBound + "-" + (lowerBound + 50000) + "k";
     }
 
     private static void validateJobs(List<Job> jobs) {

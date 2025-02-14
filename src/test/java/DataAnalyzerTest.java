@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,5 +111,39 @@ public class DataAnalyzerTest {
                 () -> DataAnalyzer.getTopFivePositions(null));
     }
 
+    @Test
+    void testGroupBySalary_basicCase() {
+        Job job1 = new Job("Developer", List.of("Java"), 30000, "New York", LocalDate.now());
+        Job job2 = new Job("Manager", List.of("Leadership"), 50000, "Los Angeles", LocalDate.now());
+        Job job3 = new Job("Designer", List.of("Creativity"), 52000, "San Francisco", LocalDate.now());
+        Job job4 = new Job("Director", List.of("Management"), 120000, "Chicago", LocalDate.now());
+        List<Job> jobs = List.of(job1, job2, job3, job4);
 
+        Map<String, List<Job>> grouped = DataAnalyzer.groupBySalary(jobs);
+        assertEquals(1, grouped.get("0-50000k").size());
+        assertEquals(2, grouped.get("50000-100000k").size());
+        assertEquals(1, grouped.get("100000-150000k").size());
+    }
+
+    @Test
+    void testGroupBySalary_singleGroup() {
+        Job job1 = new Job("Developer", List.of("Java", "Spring"), 30000, "New York", LocalDate.now());
+        Job job2 = new Job("Tester", List.of("Testing"), 45000, "Los Angeles", LocalDate.now());
+        List<Job> jobs = List.of(job1, job2);
+
+        Map<String, List<Job>> grouped = DataAnalyzer.groupBySalary(jobs);
+        assertEquals(1, grouped.size());
+        assertEquals(2, grouped.get("0-50000k").size());
+    }
+
+    @Test
+    void testGroupBySalary_emptyJobList() {
+        assertTrue(DataAnalyzer.groupBySalary(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    void testGroupBySalary_nullJobList() {
+        assertThrows(IllegalArgumentException.class,
+                () -> DataAnalyzer.groupBySalary(null));
+    }
 }
