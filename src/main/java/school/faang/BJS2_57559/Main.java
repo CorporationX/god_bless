@@ -2,10 +2,9 @@ package school.faang.BJS2_57559;
 
 public class Main {
     public static void main(String[] args) {
-        // Пример с вызовом удалённого сервиса
         String result = ErrorHandler.withErrorHandling(
-                () -> RemoteService.call("someParam"),  // Основное действие
-                e -> {  // Обработка ошибки
+                () -> RemoteService.call("someParam"),
+                e -> {
                     System.out.printf(
                             "Ошибка при вызове сервиса, возвращаем дефолтное значение, Тип ошибки: %s ",
                             e.getMessage());
@@ -13,13 +12,11 @@ public class Main {
                 }
         );
 
-        System.out.println(result);  // Выведет результат: "DEFAULT" при ошибке
+        System.out.println(result);
     }
 
-    // Пример метода для удалённого сервиса
     public static class RemoteService {
         public static String call(String param) {
-            // Здесь возникнет ошибка для демонстрации
             throw new RuntimeException("Сервис недоступен");
         }
     }
