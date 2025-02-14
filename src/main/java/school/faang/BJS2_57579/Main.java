@@ -5,7 +5,7 @@ public class Main {
     private static final String message = "Ошибка при вызове сервиса, возвращаем дефолтное значение\n";
 
     public static void main(String[] args) {
-        String s = ErrorHandling.withErrorHandling(
+        String s = ErrorHandler.withErrorHandling(
                 () -> RemoteService.call("someParam"),
                 e -> {
                     System.out.printf(message);
@@ -14,7 +14,7 @@ public class Main {
         );
         System.out.printf("%s\n", s);
         System.out.print("-----------------\n");
-        String s2 = ErrorHandling.withErrorHandling(
+        String s2 = ErrorHandler.withErrorHandling(
                 () -> RemoteService.call(null),
                 e -> {
                     System.out.printf(message);
@@ -22,15 +22,5 @@ public class Main {
                 }
         );
         System.out.printf("%s\n", s2);
-    }
-
-    public static class RemoteService {
-        public static String call(String param) {
-            if (param == null) {
-                throw new RuntimeException("Сервис недоступен");
-            } else {
-                return param;
-            }
-        }
     }
 }
