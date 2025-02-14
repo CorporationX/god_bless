@@ -27,7 +27,7 @@ public class StudentDatabase {
                         (int) Math.round(entry.getValue())));
     }
 
-    public String findMostHardestSubject(List<Student> students) {
+    public String findHardestSubject(List<Student> students) {
         validateList(students);
         Map<String, Double> averageGrades = findAverageGradesOnSubjects(students);
         return averageGrades.entrySet().stream()

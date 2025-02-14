@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class Main {
     private static final double TRANSFORMER_VALUE = 100.0;
     private static final StudentDatabase STUDENT_DATABASE = new StudentDatabase();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper();
         try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("students_data.json")) {
             if (inputStream == null) {
                 throw new FileNotFoundException("File not found!");
@@ -30,7 +30,7 @@ public class Main {
             log.info("\n{}", printPrettyDouble(STUDENT_DATABASE.findAverageGradesOnSubjects(students)));
             log.info("\n{}", printPrettyInteger(STUDENT_DATABASE.findAverageGradesStudent(
                     students, "Олег", "Сидоров")));
-            log.info("{}\n", STUDENT_DATABASE.findMostHardestSubject(students));
+            log.info("{}\n", STUDENT_DATABASE.findHardestSubject(students));
 
             printStudents(students);
         } catch (Exception exception) {
