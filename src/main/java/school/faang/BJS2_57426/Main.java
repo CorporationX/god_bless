@@ -1,6 +1,7 @@
 package school.faang.BJS2_57426;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 public class Main {
@@ -13,7 +14,8 @@ public class Main {
         manager.addItem(ring, inventoryFrodo, handler);
         System.out.println(inventoryFrodo.getInventory());
 
-        manager.removeItem(ring, inventoryFrodo);
+        Predicate<Item> isInInventory = item -> inventoryFrodo.getInventory().contains(item);
+        manager.removeItem(ring, inventoryFrodo, isInInventory);
         System.out.println(inventoryFrodo.getInventory());
 
         UnaryOperator<Item> update = item -> {

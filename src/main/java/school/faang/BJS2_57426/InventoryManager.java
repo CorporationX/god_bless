@@ -16,10 +16,10 @@ public class InventoryManager {
         handler.accept(item);
     }
 
-    public void removeItem(Item item, Character character) {
+    public void removeItem(Item item, Character character, Predicate<Item> isInInventory) {
         Objects.requireNonNull(item);
         Objects.requireNonNull(character);
-        Predicate<Item> isInInventory = inventoryItem -> character.getInventory().contains(item);
+        Objects.requireNonNull(isInInventory);
         character.getInventory().removeIf(isInInventory);
     }
 
