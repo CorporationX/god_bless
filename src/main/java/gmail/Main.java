@@ -16,16 +16,15 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> filter = email -> email.isImportant();
+        Predicate<Email> filter = Email::isImportant;
 
         Consumer<Email> printEmail = email ->
                 System.out.println("Обработано письмо: " + email.getSubject());
 
-        Function<Email, String> toUppercase = email -> email.getSubject().toUpperCase();
+        Function<Email, String> toUppercase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, filter, printEmail, toUppercase);
 
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема: %s, Тело письма: %s %n", email.getSubject(), email.getBody()));
     }
 }
