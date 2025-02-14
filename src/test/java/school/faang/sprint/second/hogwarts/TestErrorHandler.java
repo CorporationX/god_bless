@@ -1,4 +1,4 @@
-package scool.faang.sprint.second.hogwarts;
+package school.faang.sprint.second.hogwarts;
 
 import org.junit.Assert;
 import org.junit.Test;

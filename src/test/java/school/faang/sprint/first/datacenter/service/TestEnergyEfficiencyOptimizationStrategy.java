@@ -1,18 +1,17 @@
-package scool.faang.sprint.first.datacenter.service;
+package school.faang.sprint.first.datacenter.service;
 
 import org.junit.Test;
 import school.faang.sprint.first.datacenter.model.DataCenter;
 import school.faang.sprint.first.datacenter.model.Server;
-import school.faang.sprint.first.datacenter.service.DataCenterService;
-import school.faang.sprint.first.datacenter.service.impl.LoadBalancingOptimizationStrategy;
+import school.faang.sprint.first.datacenter.service.impl.EnergyEfficiencyOptimizationStrategy;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestLoadBalancingOptimizationStrategy {
+public class TestEnergyEfficiencyOptimizationStrategy {
     private final DataCenterService dataCenterService =
-            new DataCenterService(new LoadBalancingOptimizationStrategy());
+            new DataCenterService(new EnergyEfficiencyOptimizationStrategy());
 
     @Test
     public void testOptimize() {
@@ -26,7 +25,8 @@ public class TestLoadBalancingOptimizationStrategy {
 
         dataCenterService.optimize(dataCenter);
 
-        assertEquals((Double) 137.0, (Double) servers.get(0).getLoad());
-        assertEquals((Double) 163.0, (Double) servers.get(1).getLoad());
+        assertEquals((Double) 300.0, (Double) servers.get(0).getLoad());
+        assertEquals((Double) 0.0, (Double) servers.get(1).getLoad());
+
     }
 }
