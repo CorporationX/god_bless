@@ -7,7 +7,8 @@ public class HogwartsSpells {
     Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int universeId;
 
-    public HogwartsSpells(Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellsByType, int universeId) {
+    public HogwartsSpells(Map<Integer, SpellEvent> spellById, Map<String, List<SpellEvent>> spellsByType,
+                          int universeId) {
         this.spellById = spellById;
         this.spellsByType = spellsByType;
         this.universeId = universeId;
