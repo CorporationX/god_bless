@@ -4,22 +4,26 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
+    protected static String remoteMessage = "Remote service was called";
+
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
-                () -> RemoteService.call("primary Action"),
+                () -> RemoteService.call(remoteMessage),
                 e -> {
-                    System.out.println(" We have any problem ");
+                    log.info(ExceptionHandler.problemMessage);
                     return "Default";
                 }
         );
-        System.out.println(result);
+        log.info(result);
     }
 
-
     public static class RemoteService {
+
+        protected static String exceptionMessage = " Runtime Exception ";
+
         public static String call(String param) {
-            log.info("call RemoteService");
-            throw new RuntimeException("Service not working");
+            log.info(param);
+            throw new RuntimeException(exceptionMessage);
         }
     }
 }
