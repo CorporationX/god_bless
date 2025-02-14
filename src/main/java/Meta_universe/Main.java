@@ -46,7 +46,7 @@ public class Main {
 
     private static void testSetMessageCorrector(NotificationManager manager) {
         Function<Notification, Notification> signatureCorrector = notification -> {
-            String newMessage = notification.getMessage() + "\nBest regards, Meta Team!";
+            String newMessage = notification.getMessage() + "\nBest regards, Meta-Team!";
             return new Notification(notification.getType(), newMessage);
         };
         manager.setMessageCorrector(signatureCorrector);
