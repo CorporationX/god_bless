@@ -18,7 +18,7 @@ public class Item {
 
     private void checkItemName(String itemName) {
         if (itemName == null || itemName.isBlank()) {
-            throw new NullPointerException("Item name cannot be 'null' or empty.");
+            throw new IllegalArgumentException("Item name cannot be 'null' or empty.");
         }
     }
 

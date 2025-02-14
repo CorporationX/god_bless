@@ -2,7 +2,6 @@ package school.faang.naughtwoBJS257533;
 
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -13,11 +12,7 @@ public class InventoryManager {
         checkCharacter(character);
         checkItem(item);
         checkConsumer(consumer);
-        if (character.getInventory() == null) {
-            character.setInventory(new ArrayList<>());
-            character.getInventory().add(item);
-            consumer.accept(item);
-        } else if (character.getInventory().contains(item)) {
+        if (character.getInventory().contains(item)) {
             System.out.printf("%s is already in %s inventory.%n", item.getItemName(), character.getName());
         } else {
             character.getInventory().add(item);
@@ -47,31 +42,31 @@ public class InventoryManager {
 
     private void checkCharacter(Character character) {
         if (character == null) {
-            throw new NullPointerException("Character cannot be 'null'.");
+            throw new IllegalArgumentException("Character cannot be 'null'.");
         }
     }
 
     private void checkItem(Item item) {
         if (item == null) {
-            throw new NullPointerException("Character cannot be 'null'.");
+            throw new IllegalArgumentException("Item cannot be 'null'.");
         }
     }
 
     private void checkFunction(Function<Item, Item> function) {
         if (function == null) {
-            throw new NullPointerException("Function cannot be 'null'.");
+            throw new IllegalArgumentException("Function cannot be 'null'.");
         }
     }
 
     private void checkConsumer(Consumer<Item> consumer) {
         if (consumer == null) {
-            throw new NullPointerException("Consumer cannot be 'null'.");
+            throw new IllegalArgumentException("Consumer cannot be 'null'.");
         }
     }
 
     private void checkCondition(Predicate<Item> condition) {
         if (condition == null) {
-            throw new NullPointerException("Condition cannot be 'null'.");
+            throw new IllegalArgumentException("Condition cannot be 'null'.");
         }
     }
 }
