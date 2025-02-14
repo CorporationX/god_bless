@@ -1,13 +1,13 @@
 package school.faang;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-public record User(UUID id, String name, int age, HashSet<String> hobbies) {
-    public static HashMap<User, String> findHobbyLovers(ArrayList<User> users, HashSet<String> hobbiesToFind) {
-        var result = new HashMap<User, String>();
+public record User(UUID id, String name, int age, Set<String> hobbies) {
+    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbiesToFind) {
+        HashMap<User, String> result = new HashMap<>();
 
         for (User user : users) {
             for (String userHobby : user.hobbies()) {
