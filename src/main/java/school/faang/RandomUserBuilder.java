@@ -2,7 +2,6 @@ package school.faang;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
