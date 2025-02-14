@@ -70,8 +70,8 @@ public class DataCenterServiceTest {
 
     @Test
     public void testApplyLoadBalancingOptimizationStrategy() {
-        Server server2 = new Server(45, 100, 150);
-        Server server3 = new Server(85, 100, 180);
+        Server server2 = new Server(35, 100, 150);
+        Server server3 = new Server(95, 100, 180);
         dataCenter.addServer(server1);
         dataCenter.addServer(server2);
         dataCenter.addServer(server3);
