@@ -24,9 +24,12 @@ public class Main {
                 "Your password has been changed");
         Notification pushNotification = new Notification(NotificationType.PUSH,
                 "You have a new message!");
+        Notification telegrammNotification = new Notification(NotificationType.TELEGRAMM,
+                "You have a new message!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(telegrammNotification);
     }
 }
