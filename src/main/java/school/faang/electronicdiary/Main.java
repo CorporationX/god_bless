@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class Main {
     private static final double TRANSFORMER_VALUE = 100.0;
     private static final StudentDatabase STUDENT_DATABASE = new StudentDatabase();
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public static void main(String[] args) {
         try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("students_data.json")) {
@@ -24,7 +24,7 @@ public class Main {
                 throw new FileNotFoundException("File not found!");
             }
 
-            List<Student> students = mapper.readValue(inputStream, new TypeReference<>() {
+            List<Student> students = MAPPER.readValue(inputStream, new TypeReference<>() {
             });
 
             log.info("\n{}", printPrettyDouble(STUDENT_DATABASE.findAverageGradesOnSubjects(students)));
