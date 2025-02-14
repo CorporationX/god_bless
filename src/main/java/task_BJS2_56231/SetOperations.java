@@ -2,6 +2,7 @@ package task_BJS2_56231;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,4 +25,23 @@ public class SetOperations {
                 .toList();
     }
 
+    public static List<String> filterAndSortString(List<String> strings, char symbol) {
+        return strings.stream()
+                .filter(string -> string.startsWith(String.valueOf(symbol)))
+                .sorted()
+                .toList();
+    }
+
+    public static List<String> convertToBinary(List<Integer> numbers) {
+        return numbers.stream()
+                .map(Integer::toBinaryString)
+                .toList();
+    }
+
+    public static List<String> filterAndSortStringByLength(List<String> strings, String alphabet) {
+        return strings.stream()
+                .filter(string -> string.matches("[" + alphabet + "]+"))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
 }
