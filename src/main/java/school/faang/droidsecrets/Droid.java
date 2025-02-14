@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 public class Droid {
     private final String name;
+    private final int alphabetSize = 26;
     private final DroidMessageEncryptor encrypter = (message, key) -> {
         StringBuilder result = new StringBuilder();
         char baseCharacter;
@@ -14,7 +15,7 @@ public class Droid {
                 } else {
                     baseCharacter = 'a';
                 }
-                character = (char) ((character - baseCharacter + key + 26) % 26 + baseCharacter);
+                character = (char) ((character - baseCharacter + key + alphabetSize) % alphabetSize + baseCharacter);
             }
             result.append(character);
         }
