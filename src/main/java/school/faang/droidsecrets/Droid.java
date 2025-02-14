@@ -4,7 +4,7 @@ import lombok.NonNull;
 
 public class Droid {
     private final String name;
-    private final int alphabetSize = 26;
+    private static final int ALPHABET_SIZE = 26;
     private final DroidMessageEncryptor encrypter = (message, key) -> {
         StringBuilder result = new StringBuilder();
         char baseCharacter;
@@ -15,7 +15,7 @@ public class Droid {
                 } else {
                     baseCharacter = 'a';
                 }
-                character = (char) ((character - baseCharacter + key + alphabetSize) % alphabetSize + baseCharacter);
+                character = (char) ((character - baseCharacter + key + ALPHABET_SIZE) % ALPHABET_SIZE + baseCharacter);
             }
             result.append(character);
         }
@@ -27,23 +27,23 @@ public class Droid {
     }
 
     private String encryptMessage(String encriptMessage, int encriptKey) {
-        return encrypter.messangeCrypt(encriptMessage, encriptKey);
+        return encrypter.messageCrypt(encriptMessage, encriptKey);
     }
 
     private String decryptMessage(String decryptMessage, int decryptKey) {
-        return encrypter.messangeCrypt(decryptMessage, -decryptKey);
+        return encrypter.messageCrypt(decryptMessage, -decryptKey);
     }
 
     public void sendMessage(@NonNull Droid recepientDroid, @NonNull String message, int key) {
         String encryptMessage = encryptMessage(message, key);
-        System.out.println(String.format("Encript message: %s", encryptMessage));
+        System.out.printf("Encript message: %s%n", encryptMessage);
         recepientDroid.receiveMessange(encryptMessage, key);
 
     }
 
     private void receiveMessange(String message, int key) {
         String decryptMessage = decryptMessage(message, key);
-        System.out.println(String.format("Decript message: %s", decryptMessage));
+        System.out.printf("Decript message: %s%n", decryptMessage);
     }
 
 }
