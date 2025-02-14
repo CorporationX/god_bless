@@ -6,7 +6,6 @@ import java.util.Map;
 public class LibrarySystem {
     Map<Book, String> map = new HashMap<>();
 
-
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
         map.put(book, location);
@@ -22,7 +21,7 @@ public class LibrarySystem {
         Book book = new Book(title, author, year);
         String location = map.get(book);
         if (location != null) {
-            System.out.println("Book find" + " " + title + " " + "location"  + " " + location);
+            System.out.println("Book find" + " " + title + " " + "location" + " " + location);
             return location;
         } else {
             System.out.println("Book not fiend");
