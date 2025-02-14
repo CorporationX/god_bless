@@ -1,6 +1,11 @@
 plugins {
     id 'checkstyle'
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'school.faang.task57454.Main'
 }
 
 group = "faang.school"
