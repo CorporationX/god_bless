@@ -7,21 +7,21 @@ import lombok.NonNull;
 public class Droid {
     private static final int ALPHABET_SIZE = 26;
     private final String name;
+    private static final DroidMessageEncryptor ENCRYPTOR = (message, key) -> {
+        StringBuilder encryptedMessage = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            if (Character.isLetter(ch)) {
+                char base = Character.isUpperCase(ch) ? 'A' : 'a';
+                ch = (char) ((ch + key - base) % ALPHABET_SIZE + base);
+            }
+            encryptedMessage.append(ch);
+        }
+        return encryptedMessage.toString();
+    };
 
     private String encryptMessage(@NonNull String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, encryptorKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (int i = 0; i < msg.length(); i++) {
-                char ch = msg.charAt(i);
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    ch = (char) ((ch + key - base) % ALPHABET_SIZE + base);
-                }
-                encryptedMessage.append(ch);
-            }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(message, key);
+        return ENCRYPTOR.encrypt(message, key);
     }
 
     private String decryptMessage(@NonNull String message, int key) {
