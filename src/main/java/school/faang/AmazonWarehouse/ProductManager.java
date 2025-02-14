@@ -1,6 +1,7 @@
 package school.faang.AmazonWarehouse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,49 +14,47 @@ public class ProductManager {
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
-        products.add(product);
-
-        List<Product> productList = categoryMap.computeIfAbsent(category, c -> new ArrayList<>());
-        productList.add(product);
+        if (!products.add(product)) {
+            System.out.println("Product already exists: " + product);
+        } else {
+            categoryMap.computeIfAbsent(category, c -> new ArrayList<>()).add(product);
+        }
     }
 
     public void removeProduct(Category category, String name) {
-        Product productToRemove = null;
-        for (Product product : products) {
-            if (product.getCategory() == category && product.getName().equals(name)) {
-                productToRemove = product;
-                break;
+        validateName(name);
+        List<Product> byCategory = categoryMap.get(category);
+        if (byCategory != null) {
+            boolean removed = byCategory.removeIf(product -> product.getName().equals(name));
+            if (removed) {
+                products.removeIf(product
+                        -> product.getCategory() == category && product.getName().equals(name));
             }
         }
-        if (productToRemove != null) {
-            products.remove(productToRemove);
-            categoryMap.get(category).remove(productToRemove);
-        }
+
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        if (categoryMap.containsKey(category)) {
-            return categoryMap.get(category);
-        } else {
-            return new ArrayList<>();
-        }
+        return Collections.unmodifiableList(categoryMap.getOrDefault(category, new ArrayList<>()));
     }
 
     public void groupProductsByCategory() {
         categoryMap.clear();
-        for (Product product : products) {
-            List<Product> productList = categoryMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>());
-            productList.add(product);
-        }
+        products.forEach(p ->
+                categoryMap.computeIfAbsent(p.getCategory(), v -> new ArrayList<>()).add(p));
     }
 
     public void printAllProducts() {
-        for (Map.Entry<Category, List<Product>> entry : categoryMap.entrySet()) {
-            System.out.println("Category: " + entry.getKey());
-            for (Product product : entry.getValue()) {
-                System.out.println(product.getName());
-            }
+        categoryMap.forEach((category, productList) -> {
+            System.out.println("Category: " + category);
+            productList.forEach(product -> System.out.println(product.getName()));
             System.out.println();
+        });
+    }
+
+    private void validateName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be null or empty");
         }
     }
 }
