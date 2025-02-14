@@ -44,7 +44,6 @@ public class Main {
         } catch (IllegalArgumentException e) {
             log.info(e.getMessage());
         }
-
         studentDatabase.printAllStudents();
         studentDatabase.printAllSubjects();
     }

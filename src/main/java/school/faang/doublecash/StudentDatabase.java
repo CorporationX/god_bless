@@ -55,7 +55,7 @@ public class StudentDatabase {
 
     public void printAllStudents() {
         for (var entry : studentSubjects.entrySet()) {
-            System.out.println("Студент: " + entry.getKey().getName());
+            System.out.println("Студент: " + entry.getKey().name());
             printAllSubjectsForStudent(entry.getKey());
         }
 
@@ -64,7 +64,7 @@ public class StudentDatabase {
     public void printAllSubjectsForStudent(Student student) {
         checkStudent(student);
         for (var entry : studentSubjects.get(student).entrySet()) {
-            System.out.println(entry.getKey().getName() + " : " + entry.getValue());
+            System.out.println(entry.getKey().name() + " : " + entry.getValue());
         }
         System.out.println();
     }
@@ -108,9 +108,9 @@ public class StudentDatabase {
 
     public void printAllSubjects() {
         for (var entry : subjectStudents.entrySet()) {
-            System.out.println("Предмет: " + entry.getKey().getName());
+            System.out.println("Предмет: " + entry.getKey().name());
             for (Student student : entry.getValue()) {
-                System.out.println(student.getName());
+                System.out.println(student.name());
             }
         }
 
