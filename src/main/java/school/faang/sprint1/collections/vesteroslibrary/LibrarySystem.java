@@ -9,8 +9,8 @@ import java.util.Map;
 
 @Slf4j
 public class LibrarySystem {
-    private final String bookNotFoundMessage = "A book '%s' is not found in the library";
-    private final String bookExistMessage = "A book '%s' already exists in the library";
+    public static final  String BOOK_NOT_FOUND_MESSAGE = "A book '%s' is not found in the library";
+    public static final  String BOOK_EXIST_MESSAGE = "A book '%s' already exists in the library";
 
     private Map<Book, String> libraryMap = new HashMap<>();
 
@@ -19,7 +19,7 @@ public class LibrarySystem {
         if (!libraryMap.containsKey(book)) {
             libraryMap.put(book, location);
         } else {
-            log.info(String.format(bookExistMessage, book.getTitle()));
+            log.info(String.format(BOOK_EXIST_MESSAGE, book.getTitle()));
         }
     }
 
@@ -28,8 +28,8 @@ public class LibrarySystem {
         if (libraryMap.containsKey(book)) {
             libraryMap.remove(book);
         } else {
-            log.warn(String.format(bookNotFoundMessage, book.getTitle()));
-            throw new BookNotFoundException(bookNotFoundMessage, book.getTitle());
+            log.warn(String.format(BOOK_NOT_FOUND_MESSAGE, book.getTitle()));
+            throw new BookNotFoundException(BOOK_NOT_FOUND_MESSAGE, book.getTitle());
         }
     }
 
@@ -38,8 +38,8 @@ public class LibrarySystem {
         if (libraryMap.containsKey(book)) {
             return libraryMap.get(book);
         } else {
-            log.warn(String.format(bookNotFoundMessage, book.getTitle()));
-            throw new BookNotFoundException(bookNotFoundMessage, book.getTitle());
+            log.warn(String.format(BOOK_NOT_FOUND_MESSAGE, book.getTitle()));
+            throw new BookNotFoundException(BOOK_NOT_FOUND_MESSAGE, book.getTitle());
         }
     }
 

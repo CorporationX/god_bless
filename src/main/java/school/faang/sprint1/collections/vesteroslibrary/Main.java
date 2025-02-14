@@ -14,7 +14,8 @@ public class Main {
             library.addBook("Pride and Prejudice", "Jane Austen", 1813, "shelf 4");
 
             library.printAllBooks();
-            library.findBook("War and Peace", "Leo Tolstoy", 1869);
+            String shelf = library.findBook("War and Peace", "Leo Tolstoy", 1869);
+            System.out.println("Book 'War and Peace' is on " + shelf);
             library.removeBook("War and Peace", "Leo Tolstoy", 1869);
             System.out.println("\nCheck the list of books after removing 'War and Peace'");
             library.printAllBooks();
