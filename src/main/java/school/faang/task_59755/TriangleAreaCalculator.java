@@ -15,64 +15,62 @@ public class TriangleAreaCalculator {
     private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
     public static Double calculateTriangleArea(double a, double b, double c) {
-        try {
-            if (a <= 0 || b <= 0 || c <= 0) {
-                throw new IllegalArgumentException("The sides must be more than zero");
-            }
-            List<Double> listSides = List.of(a, b, c);
-            double max = a;
-            for (Double listSide : listSides) {
-                if (max < listSide) {
-                    max = listSide;
-                }
-            }
-            if (SUBTRACT.apply(ADD.apply(a).apply(ADD.apply(b).apply(c))).apply(max) > max) {
-                Double halfPerimeter = DIVIDE.apply(ADD.apply(ADD.apply(a).apply(b)).apply(c)).apply(2.0);
-                return SQUARE_ROOT.apply(
-                        MULTIPLY.apply(halfPerimeter).apply(
-                                MULTIPLY.apply(SUBTRACT.apply(halfPerimeter).apply(a)).apply(
-                                        MULTIPLY.apply(SUBTRACT.apply(halfPerimeter).apply(b)).apply(
-                                                SUBTRACT.apply(halfPerimeter).apply(c))
-                                )
-                        )
-                );
-            } else {
-                throw new IllegalArgumentException(String.format(
-                        "The sides a = %.1f, b = %.1f and c = %.1f are not triangle's sides", a, b, c));
-            }
-        } catch (IllegalArgumentException e) {
-            log.info(e.getMessage());
-            return null;
+        if (a <= 0 || b <= 0 || c <= 0) {
+            throw new IllegalArgumentException("The sides must be more than zero");
         }
+        List<Double> sides = List.of(a, b, c);
+        double max = a;
+        for (Double listSide : sides) {
+            if (max < listSide) {
+                max = listSide;
+            }
+        }
+        if (SUBTRACT.apply(ADD.apply(a).apply(ADD.apply(b).apply(c))).apply(max) <= max) {
+            throw new IllegalArgumentException(String.format(
+                    "The sides a = %.1f, b = %.1f and c = %.1f are not triangle's sides", a, b, c));
+        }
+        Double halfPerimeter = DIVIDE.apply(ADD.apply(ADD.apply(a).apply(b)).apply(c)).apply(2.0);
+        Double halfPerimeterMinusA = SUBTRACT.apply(halfPerimeter).apply(a);
+        Double halfPerimeterMinusB = SUBTRACT.apply(halfPerimeter).apply(b);
+        Double halfPerimeterMinusC = SUBTRACT.apply(halfPerimeter).apply(c);
+        return SQUARE_ROOT.apply(
+                MULTIPLY.apply(halfPerimeter).apply(
+                        MULTIPLY.apply(halfPerimeterMinusA).apply(
+                                MULTIPLY.apply(halfPerimeterMinusB).apply(halfPerimeterMinusC)
+                        )
+                )
+
+        );
+
     }
 
     public static void main(String[] args) {
         try {
-            double area = calculateTriangleArea(3, 4, 5);
-            System.out.println("Площадь треугольника: " + area);
-        } catch (NullPointerException e) {
-            System.out.println("Triangle with given sides does not exist");
+            Double area = calculateTriangleArea(3, 4, 5);
+            System.out.println("Area one: " + area);
+        } catch (IllegalArgumentException e) {
+            log.info(e.getMessage());
         }
 
         try {
-            double areaTwo = calculateTriangleArea(1, 4, 5);
+            Double areaTwo = calculateTriangleArea(1, 4, 5);
             System.out.println("Area two: " + areaTwo);
-        } catch (NullPointerException e) {
-            System.out.println("Triangle with given sides does not exist");
+        } catch (IllegalArgumentException e) {
+            log.info(e.getMessage());
         }
 
         try {
-            double areaThree = calculateTriangleArea(3, -4, 5);
+            Double areaThree = calculateTriangleArea(3, -4, 5);
             System.out.println("Area three: " + areaThree);
-        } catch (NullPointerException e) {
-            System.out.println("Triangle with given sides does not exist");
+        } catch (IllegalArgumentException e) {
+            log.info(e.getMessage());
         }
 
         try {
-            double areaFour = calculateTriangleArea(3, 4, 0);
+            Double areaFour = calculateTriangleArea(3, 4, 0);
             System.out.println("Area four: " + areaFour);
-        } catch (NullPointerException e) {
-            System.out.println("Triangle with given sides does not exist");
+        } catch (IllegalArgumentException e) {
+            log.info(e.getMessage());
         }
     }
 }
