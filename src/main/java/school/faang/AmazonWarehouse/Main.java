@@ -16,7 +16,7 @@ public class Main {
         System.out.println("Added products:");
         manager.printAllProducts();
 
-        manager.removeProduct(Category.FOOD, "Milk");
+        manager.removeProduct(Category.FOOD, "Tomato");
 
         System.out.println("Products after removing:");
         manager.printAllProducts();
