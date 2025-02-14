@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 public class ListOperations {
     public int summaChet(List<Integer> numb) {
-        int result = 0;
-        result = numb.stream()
-                .filter((num) -> num % 2 == 0)
+        if (numb == null || numb.isEmpty()) {
+            return 0;
+        }
+        return numb.stream()
+                .filter(num -> num % 2 == 0)
                 .reduce(0, Integer::sum);
-        return result;
     }
 
     public int maxElement(List<Integer> numb) {
@@ -29,17 +30,23 @@ public class ListOperations {
     }
 
     public long findStartChar(List<String> strings, char startSymbol) {
+        if (strings == null || strings.isEmpty()) {
+            return 0;
+        }
         return strings.stream()
-                .filter(startCh -> startCh.charAt(0) == startSymbol)
+                .filter(str -> str != null && !str.isEmpty() && str.charAt(0) == startSymbol)
                 .count();
     }
 
     public List<String> findSubString(List<String> strings, String subString) {
-        List<String> result = strings.stream()
-                .map(String::toLowerCase)
-                .filter(subStr -> subStr.contains(subString))
-                .toList();
-        return result;
+        if (strings == null || subString == null) {
+            return List.of();
+        }
+        String trimmedLowerSubString = subString.trim().toLowerCase();
+        return strings.stream()
+                .filter(str -> str != null)
+                .filter(str -> str.trim().toLowerCase().contains(trimmedLowerSubString))
+                .collect(Collectors.toList());
     }
 
     public List<String> sortToLength(List<String> strings) {
