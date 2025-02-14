@@ -15,7 +15,6 @@ public class Main {
     public static void main(String[] args) {
 
         UserActionAnalyzer userActionAnalyzer = new UserActionAnalyzer();
-
         List<UserAction> actions = Arrays.asList(
                 new UserAction(1, "Alice", ActionType.POST,
                         LocalDate.of(2024, 9, 1), "Check out this amazing #newfeature!"),
@@ -55,7 +54,7 @@ public class Main {
                 new UserAction(3, "Charlie", ActionType.LIKE,
                         LocalDate.of(2024, 9, 18), ""),
                 new UserAction(4, "Dave", ActionType.COMMENT,
-                        LocalDate.of(2024, 9, 19), "Really liking the new #feature."),
+                        LocalDate.of(2025, 2, 12), "Really liking the new #feature."),
                 new UserAction(2, "Bob", ActionType.SHARE,
                         LocalDate.of(2024, 9, 20), ""),
                 new UserAction(1, "Alice", ActionType.POST,
@@ -104,7 +103,7 @@ public class Main {
                 new UserAction(1, "Alice", ActionType.SHARE,
                         LocalDate.of(2024, 10, 10), ""),
                 new UserAction(3, "Charlie", ActionType.COMMENT,
-                        LocalDate.of(2024, 10, 11),
+                        LocalDate.of(2025, 2, 11),
                         "Sharing my thoughts on the #update."),
                 new UserAction(5, "Eve", ActionType.POST,
                         LocalDate.of(2024, 10, 12),
@@ -112,7 +111,7 @@ public class Main {
                 new UserAction(2, "Bob", ActionType.LIKE,
                         LocalDate.of(2024, 10, 13), ""),
                 new UserAction(4, "Dave", ActionType.COMMENT,
-                        LocalDate.of(2024, 10, 14), "#feature works really well."),
+                        LocalDate.of(2025, 1, 20), "#feature works really well."),
                 new UserAction(1, "Alice", ActionType.POST,
                         LocalDate.of(2024, 10, 15),
                         "The #feature saved me a lot of time."),
@@ -125,12 +124,10 @@ public class Main {
                 new UserAction(4, "Dave", ActionType.SHARE,
                         LocalDate.of(2024, 10, 19), "")
         );
-
         List<String> top4Users = userActionAnalyzer.topActiveUsers(actions, 4);
         List<String> top5Hashtags = userActionAnalyzer.topPopularHashtags(actions, 5);
         List<String> top3Commenters = userActionAnalyzer.topCommentersLastMonth(actions, 3);
         Map<String, Double> actionPercentages = userActionAnalyzer.actionTypePercentages(actions);
-
 
         logger.info("Топ-10 активных пользователей: {}", top4Users);
         logger.info("Топ-5 популярных хэштегов: {}", top5Hashtags);

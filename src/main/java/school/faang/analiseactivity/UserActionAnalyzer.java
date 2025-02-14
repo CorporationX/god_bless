@@ -1,5 +1,6 @@
 package school.faang.analiseactivity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserActionAnalyzer {
+
+    private static final String HASHTAG_REGEX = "#\\w+";
 
     public List<String> topActiveUsers(List<UserAction> actions, int limit) {
         Map<Integer, List<UserAction>> userActivity = new HashMap<>();
@@ -33,7 +36,9 @@ public class UserActionAnalyzer {
 
     public List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
         Map<String, Long> topCommenters = new HashMap<>();
-        filterNonNull(actions).stream().filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
+        filterNonNull(actions).stream()
+                .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT)
+                        && userAction.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
                 .forEach(userAction -> topCommenters.merge(userAction.getName(), 1L, Long::sum));
         return topCommenters.entrySet().stream().sorted((user1, user2) ->
                 (int) (user2.getValue() - user1.getValue())).map(Map.Entry::getKey).limit(limit).toList();
@@ -49,7 +54,7 @@ public class UserActionAnalyzer {
     }
 
     private String extractHashtags(String content) {
-        Matcher matcher = Pattern.compile("#\\w+").matcher(content);
+        Matcher matcher = Pattern.compile(HASHTAG_REGEX).matcher(content);
         return matcher.find() ? matcher.group() : null;
     }
 
