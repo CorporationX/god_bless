@@ -6,7 +6,6 @@ import java.util.Random;
  * Класс который реализует метод fetchWeatherData и имитирует получение данных о погоде
  */
 public class WeatherService implements WeatherProvider {
-    long timestamp = System.currentTimeMillis();
 
     /**
      * @param city город в котором нужно узнать погоду
@@ -18,7 +17,7 @@ public class WeatherService implements WeatherProvider {
         //заглушка, которая предпологает,что у нас зима
         double temperature = rand.nextDouble(-25.0, 0.0);
         double humidity = rand.nextDouble(50.0, 70.0);
-        long timestamp = this.timestamp;
+        long timestamp = System.currentTimeMillis();
         return new WeatherData(city, temperature, humidity, timestamp);
     }
 }
