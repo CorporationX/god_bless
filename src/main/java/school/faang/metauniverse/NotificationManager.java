@@ -18,8 +18,11 @@ public class NotificationManager {
     }
 
     public void sendNotification(@NonNull Notification notification) {
+        if (notification.getType() == null) {
+            throw new IllegalArgumentException("Notification type cannot be null");
+        }
         if (filter != null && filter.test(notification)) {
-            System.out.println(String.format("Notification blocked"));
+            System.out.println("Notification blocked");
             return;
         }
         if (modifier != null) {
