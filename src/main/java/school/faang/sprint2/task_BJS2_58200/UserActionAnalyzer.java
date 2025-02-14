@@ -19,7 +19,7 @@ public class UserActionAnalyzer {
     private static final LocalDate LAST_MONTH = LocalDate.now().minusMonths(1);
 
     private final Function<UserAction, String> actionTopic = action -> {
-        Matcher matcher = TOPIC_PATTERN.matcher(action.getContent());
+        Matcher matcher = TOPIC_PATTERN.matcher(action.content());
         if (matcher.find()) {
             return matcher.group();
         } else {
@@ -30,14 +30,14 @@ public class UserActionAnalyzer {
     public List<Integer> getTopMostActiveUsers(List<UserAction> actions, int limit) {
         Map<Integer, List<UserAction>> userWithActions = actions.stream()
                 .filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(UserAction::getId));
+                .collect(Collectors.groupingBy(UserAction::id));
         return getKeysSortByValue(userWithActions, limit);
     }
 
     public List<String> getTopMostPopularTopics(List<UserAction> actions, int limit) {
         Map<String, List<UserAction>> topicWithActions = actions.stream()
                 .filter(Objects::nonNull)
-                .filter(action -> action.getContent().contains("#"))
+                .filter(action -> action.content().contains("#"))
                 .collect(Collectors.groupingBy(actionTopic));
         return getKeysSortByValue(topicWithActions, limit);
     }
@@ -45,8 +45,8 @@ public class UserActionAnalyzer {
     public List<Integer> getUsersByMostCommentsInMonth(List<UserAction> actions, int limit) {
         Map<Integer, List<UserAction>> userWithActions = actions.stream()
                 .filter(Objects::nonNull)
-                .filter(action -> action.getActionDate().isAfter(LAST_MONTH))
-                .collect(Collectors.groupingBy(UserAction::getId));
+                .filter(action -> action.actionDate().isAfter(LAST_MONTH))
+                .collect(Collectors.groupingBy(UserAction::id));
         return getKeysSortByValue(userWithActions, limit);
     }
 
@@ -58,14 +58,12 @@ public class UserActionAnalyzer {
     }
 
     private void fillActionTypePercent(Map<ActionType, Double> types, List<UserAction> actions, ActionType type) {
-        double typePartOfActions =  (double) actions.size() / actions.stream()
+        double typePartOfActions = (double) actions.stream()
                 .filter(Objects::nonNull)
-                .map(UserAction::getActionType)
+                .map(UserAction::actionType)
                 .filter(actionType -> actionType == type)
-                .count();
-
-        double typePercent = typePartOfActions == Double.POSITIVE_INFINITY ? 0.0 : MAX_PERCENT / typePartOfActions;
-        types.put(type, typePercent);
+                .count() / actions.size();
+        types.put(type, typePartOfActions * MAX_PERCENT);
     }
 
     private <T> List<T> getKeysSortByValue(Map<T, List<UserAction>> actions, int limit) {
