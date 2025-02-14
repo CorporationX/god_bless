@@ -10,11 +10,12 @@ import java.util.List;
 @Getter
 public class Character {
     private String name;
-    private List<Item> inventory = new ArrayList<>();
+    private List<Item> inventory;
 
     public Character(String name) {
         checkName(name);
         this.name = name;
+        this.inventory = new ArrayList<>();
     }
 
     private void checkName(String name) {
