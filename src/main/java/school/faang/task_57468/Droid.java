@@ -1,14 +1,12 @@
 package school.faang.task_57468;
 
 import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class Droid {
-    @NonNull
     private final String name;
     private final List<Character> alphabet;
 
