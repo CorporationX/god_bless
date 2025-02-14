@@ -20,23 +20,23 @@ public class Main {
     private static Map<String, List<String>> getInitializedData() {
         Map<String, List<String>> nameToFriends = new HashMap<>();
         List<String> list1 = new ArrayList<>();
-        list1.add(new String("Bob"));
-        list1.add(new String("Charlie"));
+        list1.add("Bob");
+        list1.add("Charlie");
         nameToFriends.put("Alice", list1);
 
         List<String> list2 = new ArrayList<>();
-        list2.add(new String("Alice"));
-        list2.add(new String("David"));
+        list2.add("Alice");
+        list2.add("David");
         nameToFriends.put("Bob", list2);
 
         List<String> list3 = new ArrayList<>();
-        list3.add(new String("Alice"));
-        list3.add(new String("David"));
+        list3.add("Alice");
+        list3.add("David");
         nameToFriends.put("Charlie", list3);
 
         List<String> list4 = new ArrayList<>();
-        list4.add(new String("Bob"));
-        list4.add(new String("Charlie"));
+        list4.add("Bob");
+        list4.add("Charlie");
         nameToFriends.put("David", list4);
 
         return nameToFriends;
