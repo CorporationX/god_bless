@@ -1,4 +1,4 @@
 package school.faang;
 
-public class Main {
+public class main {
 }
