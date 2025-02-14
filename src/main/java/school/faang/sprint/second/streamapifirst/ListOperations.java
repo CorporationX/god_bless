@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -17,17 +18,19 @@ public abstract class ListOperations {
     public static int findMax(@NonNull List<Integer> numbers) {
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(@NonNull List<Integer> numbers) {
-        return (double) numbers.stream()
-                .reduce(0, Integer::sum) / numbers.size();
+        return  numbers.stream()
+                .mapToInt(number -> number / numbers.size())
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static long countStringsStartingWith(@NonNull List<String> strings, char letter) {
         return strings.stream()
-                .filter(string -> string.startsWith(String.valueOf(letter)))
+                .filter(string -> !string.isEmpty() && string.charAt(0) == letter)
                 .count();
     }
 
@@ -52,9 +55,8 @@ public abstract class ListOperations {
 
     public static int findMinGreaterThan(@NonNull List<Integer> numbers, @NonNull Integer min) {
         return numbers.stream()
-                .sorted(Comparator.naturalOrder())
                 .filter(number -> number > min)
-                .findFirst()
+                .min(Comparator.naturalOrder())
                 .orElseThrow();
     }
 
