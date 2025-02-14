@@ -1,8 +1,5 @@
 package school.faang.optimizing;
 
-import lombok.Data;
-
-@Data
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {

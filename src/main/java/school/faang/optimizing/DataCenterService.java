@@ -3,16 +3,15 @@ package school.faang.optimizing;
 import lombok.Data;
 
 @Data
-
 public class DataCenterService {
     private OptimizationStrategy optimizationStrategy;
 
     public void addServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().remove(server);
+        dataCenter.removeServer(server);
     }
 
     public static double getTotalEnergyConsumption(DataCenter dataCenter) {
@@ -31,7 +30,6 @@ public class DataCenterService {
             if (availableLoad > 0) {
                 double loadToAllocate = Math.min(availableLoad, remainingLoad);
                 server.setLoad(server.getLoad() + loadToAllocate);
-                server.setLoad(server.getLoad() * 0.2);
                 remainingLoad -= loadToAllocate;
             }
             if (remainingLoad <= 0) {
@@ -46,7 +44,6 @@ public class DataCenterService {
         for (Server server : dataCenter.getServers()) {
             double loadReduction = Math.min(server.getLoad(), loadToRelease);
             server.setLoad(server.getLoad() - loadReduction);
-            server.setLoad(server.getLoad() * 0.5);
             loadToRelease -= loadReduction;
             if (loadToRelease <= 0) {
                 break;

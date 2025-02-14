@@ -1,8 +1,5 @@
 package school.faang.optimizing;
 
-import lombok.Data;
-
-@Data
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
@@ -14,8 +11,11 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
         double averageLoad = totalLoad / dataCenter.getServers().size();
 
         for (Server server : dataCenter.getServers()) {
-            double newLoad = Math.min(averageLoad, server.getMaxLoad());
-            server.setLoad(averageLoad);
+            if (averageLoad > server.getMaxLoad()) {
+                server.setLoad(server.getMaxLoad());
+            } else {
+                server.setLoad(averageLoad);
+            }
             server.setEnergyConsumption(averageLoad * 0.5);
         }
     }
