@@ -1,6 +1,6 @@
-package school.faang.RPG;
+package school.faang.rpg;
 
-public class Warrior extends school.faang.RPG.Character {
+public class Warrior extends Character {
 
     public static final int WARRIOR_STRENGTH = 10;
     public static final int WARRIOR_AGILITY = 5;

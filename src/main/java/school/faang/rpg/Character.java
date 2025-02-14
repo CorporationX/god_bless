@@ -1,4 +1,4 @@
-package school.faang.RPG;
+package school.faang.rpg;
 
 import lombok.Getter;
 
@@ -6,9 +6,9 @@ import lombok.Getter;
 public abstract class Character {
 
     protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
+    protected final int strength;
+    protected final int agility;
+    protected final int intelligence;
     protected int health = 100;
 
     protected Character(String name) {

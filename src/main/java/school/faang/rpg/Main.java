@@ -1,4 +1,4 @@
-package school.faang.RPG;
+package school.faang.rpg;
 
 public class Main {
     public static void main(String[] args) {
