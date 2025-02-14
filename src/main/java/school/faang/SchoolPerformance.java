@@ -21,8 +21,8 @@ public class SchoolPerformance {
                                                                 String firstName, String lastName) {
         validateStudents(students);
         return students.stream()
-                .filter(student -> student.getFirstName().equals(firstName) &&
-                        student.getLastName().equals(lastName))
+                .filter(student -> student.getFirstName().equals(firstName)
+                        && student.getLastName().equals(lastName))
                 .flatMap(student -> student.getCourses().entrySet().stream())
                 .collect(Collectors.groupingBy(
                         Map.Entry::getKey,
