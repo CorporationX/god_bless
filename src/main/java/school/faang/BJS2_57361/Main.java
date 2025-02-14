@@ -10,8 +10,7 @@ public class Main {
         Email email2 = new Email("Письмо 2", "Текст письма 2", true);
         Email email3 = new Email("Спам", "Текст спама", false);
         List<Email> emails = Arrays.asList(email1, email2, email3);
-
-        processor.setFilter(email -> email.isImportant());
+        processor.setFilter(Email::isImportant);
         processor.setConverter(email -> email.getSubject().toUpperCase());
         processor.setHandler(email -> System.out.printf("%s - %s\n", email.getSubject(), email.getBody()));
         processor.processEmails(emails);

@@ -1,14 +1,13 @@
 package school.faang.BJS2_57361;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Email {
+    @NonNull
     private String subject;
+    @NonNull
     private String body;
-    private boolean isImportant;
+    private final boolean isImportant;
 }

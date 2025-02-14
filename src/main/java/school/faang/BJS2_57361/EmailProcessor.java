@@ -18,6 +18,9 @@ public class EmailProcessor {
     private Consumer<Email> handler;
 
     public void processEmails(List<Email> emailList) {
+        if (emailList == null || emailList.isEmpty()) {
+            throw new IllegalArgumentException("Email list is null or empty");
+        }
         for (Email email : emailList) {
             if (filter.test(email)) {
                 email.setSubject(converter.apply(email));
