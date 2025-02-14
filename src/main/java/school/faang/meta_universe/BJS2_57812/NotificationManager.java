@@ -34,6 +34,8 @@ public class NotificationManager {
         }
 
         handlerDatabase.put(type, handler);
+
+        LOGGER.info("handler for type {} is registered", type);
     }
 
     public void sendNotification(Notification notification) {
@@ -63,25 +65,26 @@ public class NotificationManager {
     public Notification addSender(Notification notification, String sender) {
         validateObjectNull(notification == null, "notification ");
         validateObjectNull(sender == null, "sender ");
-        validateStringIsBlank(sender);
-        validateStringIsBlank(notification.message());
+        validateStringIsBlank(sender, "sender");
+        validateStringIsBlank(notification.message(), "message");
 
         Function<Notification, String> messageFunction = n -> n.message() + "\nSincerely, " + sender;
         String updatedMessage = messageFunction.apply(notification);
         return new Notification(notification.type(), updatedMessage);
     }
 
-    private static void validateObjectNull(boolean type, String x) {
-        if (type) {
-            LOGGER.error("{}is null", x);
-            throw new NullPointerException(x + "is null");
+    public static void validateObjectNull(Object object, String errorMessage) {
+        if (object == null) {
+            LOGGER.error(errorMessage, (Object) null);
+            throw new NullPointerException(String.format(errorMessage, (Object) null));
         }
     }
 
-    private static void validateStringIsBlank(String sender) {
+    private static void validateStringIsBlank(String sender, String fieldName) {
         if (sender.isBlank()) {
-            LOGGER.error("sender is empty");
-            throw new IllegalArgumentException("sender is empty");
+            String errorMessage = fieldName + " cannot be blank";
+            LOGGER.error("{} cannot be blank", fieldName);
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }

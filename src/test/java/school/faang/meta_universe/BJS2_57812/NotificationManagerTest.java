@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NotificationManagerTest {
@@ -20,7 +21,6 @@ class NotificationManagerTest {
     List<String> forbiddenWords;
 
     @BeforeEach
-
     void setUp() {
         forbiddenWords = List.of("planet");
 
@@ -63,6 +63,13 @@ class NotificationManagerTest {
 
         String actualOutput = outputStream.toString().trim();
         assertThat(actualOutput).isEqualTo(email.message());
+    }
+
+    @Test
+    void testSendNotificationWithoutHandler() {
+        assertThrows(NullPointerException.class, () -> {
+            notificationManager.sendNotification(push);
+        });
     }
 
     @Test
