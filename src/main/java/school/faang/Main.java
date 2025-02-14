@@ -14,7 +14,6 @@ public class Main {
         System.out.println(event);
 
         List<SpellEvent> charm = hogwartsSpells.getSpellEventsByType("Люмус");
-
         hogwartsSpells.printAllSpellEvents();
 
         hogwartsSpells.deleteSpellEvent(1);
