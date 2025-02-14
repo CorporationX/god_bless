@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("checkstyle:TypeName")
 public class User {
-
-
     private String name;
     private int age;
     private String workplace;
