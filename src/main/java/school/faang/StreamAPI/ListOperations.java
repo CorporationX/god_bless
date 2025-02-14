@@ -34,13 +34,10 @@ public class ListOperations {
     }
 
     /*4*/
-    @SuppressWarnings("checkstyle:AvoidEscapedUnicodeCharacters")
-    public static long countStringsStartingWith(List<String> strings, char А) {
+    public static long countStringsStartingWith(List<String> strings, char c) {
         chekStrings(strings);
         return strings.stream()
-                .filter(s -> !s.isEmpty()
-                        && ((s.charAt(0) >= '\u0410' && s.charAt(0) <= '\u042F')
-                        || ((s.charAt(0) >= '\u0430' && s.charAt(0) <= '\u044F'))))
+                .filter(s -> !s.isEmpty() && s.charAt(0) == c)
                 .count();
     }
 
