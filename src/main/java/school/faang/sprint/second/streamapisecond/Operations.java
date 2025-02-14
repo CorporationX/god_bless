@@ -11,7 +11,9 @@ import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
-public abstract class Operations {
+public final class Operations {
+    private Operations() {}
+
     public static void unique(Set<Integer> numbers, int sum) {
         Map<Integer, Integer> resultMap = new HashMap<>();
         numbers.forEach(num -> numbers.stream()
@@ -35,8 +37,7 @@ public abstract class Operations {
     public static void sortList(List<String> list, char symbol) {
         List<String> sortedList = list.stream()
                 .filter(word -> word.startsWith(String.valueOf(symbol)))
-                .sorted(Comparator.naturalOrder())
-                .sorted(Comparator.comparingInt(String::length))
+                .sorted(Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder()))
                 .toList();
 
         log.info(sortedList.toString());
