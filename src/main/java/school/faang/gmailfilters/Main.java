@@ -21,22 +21,12 @@ public class Main {
 
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо:  " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
         try {
             emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
-        } catch (IllegalArgumentException e) {
-            log.error("""
-                    {},
-                    Класс: {},
-                    Метод: {},
-                    Номер строки: {}""",
-                    e,
-                    e.getStackTrace()[1].getClass(),
-                    e.getStackTrace()[1].getMethodName(),
-                    e.getStackTrace()[1].getLineNumber());
+        } catch (NullPointerException e) {
+            log.error(e.getMessage(), e);
         }
-
-        emails.forEach(email -> System.out.println("Тема письма: " + email.getSubject() + ", Текст: " +
-                email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема письма: %s , Текст: %s", email.getSubject(), email.getBody()));
     }
 }
