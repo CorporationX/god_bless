@@ -30,7 +30,10 @@ public class NotificationManager {
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         if (type == null || handler == null) {
-            throw new IllegalArgumentException("NotificationType or handler can't be null");
+            throw new IllegalArgumentException(
+                    String.format("NotificationType or handler can't be null ,NotificationType: %s, handler%s",
+                            type, handler)
+            );
         }
 
         notificationHandlers.put(type, handler);
