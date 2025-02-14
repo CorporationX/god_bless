@@ -63,13 +63,11 @@ public class Main {
                 new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2024, 10, 19), "")
         );
 
-        // Получение результатов
         List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
         List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
         List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
         Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
-        // Вывод результатов
         System.out.println("Топ-10 активных пользователей: " + top10Users);
         System.out.println("Топ-5 популярных хэштегов: " + top5Hashtags);
         System.out.println("Топ-3 комментаторов за последний месяц: " + top3Commenters);
