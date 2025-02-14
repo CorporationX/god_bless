@@ -16,7 +16,7 @@ public class StudentDatabase {
     public void addStudent(Student student, Map<Subject, Integer> subjects) {
         validateStudent(student);
         if (studentSubjects.containsKey(student)) {
-            System.out.println("Student " + student.getName() + " has already been added.");
+            System.out.printf(String.format("Student %s has already been added.", student.getName()));
             return;
         }
         studentSubjects.put(student, subjects);
@@ -31,7 +31,7 @@ public class StudentDatabase {
         validateStudent(student);
         validateGradle(grade);
         if (!studentSubjects.containsKey(student)) {
-            throw new IllegalArgumentException("Student " + student.getName() + " has not been added.");
+            throw new IllegalArgumentException(String.format("Student %s has not been added.", student.getName()));
         }
         studentSubjects.get(student).put(subject, grade);
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
@@ -80,10 +80,8 @@ public class StudentDatabase {
         validateStudent(student);
         validateSubject(subject);
         validateGradle(grade);
-        if (studentSubjects.containsKey(student)) {
-            if (studentSubjects.get(student).containsKey(subject)) {
-                throw new IllegalArgumentException("student has already been added");
-            }
+        if (studentSubjects.containsKey(student) && studentSubjects.get(student).containsKey(subject)) {
+            throw new IllegalArgumentException("student has already been added");
         }
         studentSubjects.putIfAbsent(student, new HashMap<>());
         studentSubjects.get(student).put(subject, grade);
