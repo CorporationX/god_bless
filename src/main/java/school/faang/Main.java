@@ -4,45 +4,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
         var users = new ArrayList<User>();
 
-        User user = new User(
-                UUID.randomUUID(),
-                "Alex",
-                10,
-                Set.of("Hockey", "Swimming", "Football"));
+        User user = new RandomUserBuilder(5, 10)
+                .addName("Alex")
+                .addHobbies("Hockey", "Swimming", "Football")
+                .build();
         users.add(user);
 
-        user = new User(
-                UUID.randomUUID(),
-                "Ivan",
-                10,
-                Set.of("Swimming", "Football"));
+        user = new RandomUserBuilder()
+                .addName("Ivan")
+                .addHobby("Swimming")
+                .addHobby("Football")
+                .build();
         users.add(user);
 
-        user = new User(
-                UUID.randomUUID(),
-                "Pavel",
-                10,
-                Set.of("Diving", "Skating"));
+        user = new RandomUserBuilder(34, 60)
+                .addName("Alex")
+                .addHobbies("Diving", "Skating")
+                .build();
         users.add(user);
 
-        user = new User(
-                UUID.randomUUID(),
-                "Alexey",
-                10,
-                Set.of());
+        user = new RandomUserBuilder()
+                .addName("Alexey")
+                .build();
         users.add(user);
 
-        user = new User(
-                UUID.randomUUID(),
-                "Masha",
-                10,
-                Set.of("Hockey", "Swimming", "Football", "Diving", "Skating"));
+        user = new RandomUserBuilder(34, 60)
+                .addName("Masha")
+                .addHobbies("Hockey", "Swimming", "Football", "Diving", "Skating")
+                .build();
         users.add(user);
 
         Set<String> hobbiesToFind = Set.of("Hockey", "Swimming", "Skiing");
