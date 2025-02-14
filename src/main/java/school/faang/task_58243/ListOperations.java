@@ -1,11 +1,8 @@
 package school.faang.task_58243;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
@@ -26,7 +23,7 @@ public class ListOperations {
                 string.startsWith(Character.toString(prefix))).count();
     }
 
-    private static  <T> List<T> filterNonNull(List<T> list) {
+    private static <T> List<T> filterNonNull(List<T> list) {
         if (list == null) {
             return Collections.emptyList();
         }
