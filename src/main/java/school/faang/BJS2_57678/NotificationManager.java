@@ -18,12 +18,7 @@ public class NotificationManager {
             throw new IllegalArgumentException("Notification or message cannot be null or empty");
         }
 
-        for (Predicate<Notification> filter : filters) {
-            if (filter.test(notification)) {
-                return true;
-            }
-        }
-        return false;
+        return filters.stream().anyMatch(filter -> filter.test(notification));
     }
 
     public void addFilter(Predicate<Notification> filter) {
