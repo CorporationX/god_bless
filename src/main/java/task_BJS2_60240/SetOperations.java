@@ -1,4 +1,4 @@
-package task_BJS2_56231;
+package task_BJS2_60240;
 
 import java.util.Arrays;
 import java.util.Collections;

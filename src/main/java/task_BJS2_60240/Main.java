@@ -1,4 +1,4 @@
-package task_BJS2_56231;
+package task_BJS2_60240;
 
 import java.util.List;
 import java.util.Map;
