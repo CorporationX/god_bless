@@ -3,7 +3,6 @@ package school.faang.analyzeactivity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -21,7 +20,7 @@ public class Main {
             List<String> top3Users = UserActionAnalyzer.topActiveUsers(ACTIONS, COUNT_USERS);
             List<String> top4Hashtags = UserActionAnalyzer.topPopularHashtags(ACTIONS, COUNT_HASHTAGS);
             List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(ACTIONS, COUNT_COMMENTERS);
-            Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(ACTIONS);
+            Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(ACTIONS, ACTIONS.size());
 
             log.info("Top 3 users on activity: {}", printPretty(top3Users));
             log.info("Top 4 popular hashtags: {}", printPretty(top4Hashtags));
@@ -33,7 +32,7 @@ public class Main {
     }
 
     private static List<UserAction> createAndFillingList() {
-        return Arrays.asList(
+        return List.of(
                 new UserAction(1, "Alice", ActionType.POST,
                         LocalDate.of(2025, 1, 1), "Check out this amazing #newfeature!"),
                 new UserAction(2, "Bob", ActionType.COMMENT,
