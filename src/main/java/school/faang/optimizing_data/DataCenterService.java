@@ -1,25 +1,27 @@
 package school.faang.optimizing_data;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class DataCenterService {
+    private static final Logger logger = Logger.getLogger(DataCenterService.class.getName());
 
     public void addServer(DataCenter dataCenter, Server server) {
         Objects.requireNonNull(dataCenter, "DataCenter cannot be null!");
         dataCenter.addServer(server);
-        System.out.println("Server added to the data center!");
+        logger.info("Server added to the data center!");
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
         Objects.requireNonNull(dataCenter, "DataCenter cannot be null!");
         dataCenter.removeServer(server);
-        System.out.println("Server removed from the data center!");
+        logger.info("Server removed from the data center!");
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
         Objects.requireNonNull(dataCenter, "DataCenter cannot be null!");
         double totalEnergy = dataCenter.getTotalEnergyConsumption();
-        System.out.println("Total energy consumption: " + totalEnergy);
+        logger.info("Total energy consumption: " + totalEnergy);
         return totalEnergy;
     }
 
@@ -35,9 +37,9 @@ public class DataCenterService {
                 .isPresent();
 
         if (resourceAllocated) {
-            System.out.println("Resources successfully allocated to a server!");
+            logger.info("Resources successfully allocated to a server!");
         } else {
-            System.out.println("Failed to allocate resources. Not enough space on servers!");
+            logger.warning("Failed to allocate resources. Not enough space on servers!");
         }
     }
 
@@ -51,7 +53,7 @@ public class DataCenterService {
                 .findFirst()
                 .ifPresent(server -> {
                     server.setLoad(server.getLoad() - loadToRelease);
-                    System.out.println("Resources successfully released from the server!");
+                    logger.info("Resources successfully released from the server!");
                 });
     }
 
@@ -60,6 +62,6 @@ public class DataCenterService {
         Objects.requireNonNull(strategy, "OptimizationStrategy cannot be null");
 
         strategy.optimize(dataCenter);
-        System.out.println("Optimization strategy applied.");
+        logger.info("Optimization strategy applied.");
     }
 }
