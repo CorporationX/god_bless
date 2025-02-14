@@ -7,17 +7,17 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage())
+                notification -> System.out.println("Email: " + notification.message())
+
         );
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage())
+                notification -> System.out.println("SMS: " + notification.message())
         );
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.getMessage())
+                notification -> System.out.println("Push Notification: " + notification.message())
         );
 
         // Отправка оповещений
@@ -34,7 +34,7 @@ public class Main {
 
             notificationManager.sendNotification(newNotification);
         } catch (IllegalArgumentException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage(), e);
         }
     }
 }
