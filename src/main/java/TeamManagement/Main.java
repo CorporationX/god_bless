@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
+package TeamManagement;
 
 public class Main {
+    public static void main(String[] args) {
+
+    }
 }
+

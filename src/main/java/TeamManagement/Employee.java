@@ -1,8 +1,8 @@
+package TeamManagement;
+
 import lombok.Getter;
 
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.logging.Logger;
 
 @Getter
@@ -16,8 +16,8 @@ public class Employee {
     public Employee(int id, String name, Set<String> skills) {
         this.id = id;
         this.name = name;
-        this.skills = new HashSet<>(skills);
-        logger.info("Created Employee: " + this);
+        this.skills = new HashSet<>(Objects.requireNonNull(skills, "Skills cannot be null"));
+        logger.info("Created TeamManagement.Employee: " + this);
     }
 
     public void incrementProjects() {
@@ -30,6 +30,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format(" Employee {id = %d, name = '%s', skills = %s}", id, name, skills);
+        return String.format("TeamManagement.Employee {id = %d, name = '%s', skills = %s}", id, name, skills);
     }
 }

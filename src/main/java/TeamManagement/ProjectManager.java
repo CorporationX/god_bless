@@ -1,9 +1,15 @@
+package TeamManagement;
+
+import lombok.Getter;
+
 import java.util.Collections;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 public class ProjectManager {
     private static final Logger logger = Logger.getLogger(ProjectManager.class.getName());
     private final List<Employee> employees = new ArrayList<>();
@@ -11,30 +17,28 @@ public class ProjectManager {
     private TeamAssignmentStrategy strategy;
 
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
-        this.strategy = strategy;
+        this.strategy = Objects.requireNonNull(strategy, "Assignment strategy cannot be null");
         logger.info("Set assignment strategy: " + strategy.getClass().getSimpleName());
     }
 
     public void addEmployee(Employee employee) {
-        employees.add(employee);
-        logger.info("Added Employee: " + employee);
+        employees.add(Objects.requireNonNull(employee, "Employee cannot be null"));
+        logger.info("Added TeamManagement.Employee: " + employee);
     }
 
     public void addProject(Project project) {
-        projects.add(project);
-        logger.info("Added Project: " + project);
+        projects.add(Objects.requireNonNull(project, "Project cannot be null"));
+        logger.info("Added TeamManagement.Project: " + project);
     }
 
     public void assignTeamToProject(int projectId) {
-        Project project = findProjectById(projectId).orElseThrow(()
-                -> new IllegalArgumentException("Project not found"));
+        Project project = findProjectById(projectId).orElseThrow(() ->
+                new IllegalArgumentException("TeamManagement.Project not found"));
+        Objects.requireNonNull(strategy, "Assignment strategy is not set");
 
-        if (strategy == null) {
-            throw new IllegalStateException("Assignment strategy is not set");
-        }
         List<Employee> team = strategy.assignTeam(project, employees);
         team.forEach(project::addEmployee);
-        logger.info("Assigned team to Project " + project.getName());
+        logger.info("Assigned team to TeamManagement.Project " + project.getName());
     }
 
     public List<Employee> getTeamForProject(int projectId) {

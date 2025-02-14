@@ -1,5 +1,8 @@
+package TeamManagement;
+
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +14,9 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
+        Objects.requireNonNull(project, "Project cannot be null");
+        Objects.requireNonNull(employees, "Employees list cannot be null");
+
         Set<String> requiredSkills = new HashSet<>(project.getRequiredSkills());
         List<Employee> assignedEmployees = employees.stream()
                 .filter(e -> !Collections.disjoint(e.getSkills(), requiredSkills))
