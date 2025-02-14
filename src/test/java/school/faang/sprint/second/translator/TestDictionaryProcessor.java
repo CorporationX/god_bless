@@ -1,10 +1,8 @@
-package scool.faang.sprint.second.translator;
+package school.faang.sprint.second.translator;
 
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import school.faang.sprint.second.translator.DictionaryProcessor;
-import school.faang.sprint.second.translator.WordBlankException;
 
 import java.util.HashMap;
 import java.util.Map;

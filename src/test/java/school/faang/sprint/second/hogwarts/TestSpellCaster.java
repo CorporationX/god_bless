@@ -1,9 +1,7 @@
-package scool.faang.sprint.second.hogwarts;
+package school.faang.sprint.second.hogwarts;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import school.faang.sprint.second.hogwarts.SpellAction;
-import school.faang.sprint.second.hogwarts.SpellCaster;
 
 public class TestSpellCaster {
     @Test

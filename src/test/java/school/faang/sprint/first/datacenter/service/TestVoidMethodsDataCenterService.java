@@ -1,4 +1,4 @@
-package scool.faang.sprint.first.datacenter.service;
+package school.faang.sprint.first.datacenter.service;
 
 
 import org.junit.Test;
@@ -8,7 +8,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import school.faang.sprint.first.datacenter.model.DataCenter;
 import school.faang.sprint.first.datacenter.model.ResourceRequest;
 import school.faang.sprint.first.datacenter.model.Server;
-import school.faang.sprint.first.datacenter.service.DataCenterService;
 import school.faang.sprint.first.datacenter.service.impl.EnergyEfficiencyOptimizationStrategy;
 
 import java.util.Arrays;
