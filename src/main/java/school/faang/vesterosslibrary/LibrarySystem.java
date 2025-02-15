@@ -2,13 +2,22 @@ package school.faang.vesterosslibrary;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class LibrarySystem {
-    private static final Map<Book, String> BOOK_MAP = new HashMap<>();
+    private final Map<Book, String> BOOK_MAP = new HashMap<>();
 
-    private static final Book first = new Book("Anna Karenina", "Tolstoy", 1873);
-    private static final Book second = new Book("Master and Margorita", "Bulgakov", 1940);
-    private static final Book thirt = new Book("Idiot", "Dostoevsky", 1869);
+    private static final Book BOOK1 = new Book("Anna Karenina", "Tolstoy", 1873);
+    private static final Book BOOK2 = new Book("Master and Margorita", "Bulgakov", 1940);
+    private static final Book BOOK3 = new Book("Idiot", "Dostoevsky", 1869);
+
+    private static final Logger log = Logger.getLogger(LibrarySystem.class.getName());
+
+    public LibrarySystem() {
+        BOOK_MAP.put(BOOK1, "Classic Russian literature");
+        BOOK_MAP.put(BOOK2, "Magical realism masterpiece");
+        BOOK_MAP.put(BOOK3, "Psychological novel");
+    }
 
     public static void main(String[] args) {
 
@@ -21,25 +30,41 @@ public class LibrarySystem {
         librarySystem.removeBook("Master and Margorita", "Bulgakov", 1940);
 
         String location = librarySystem.findBook("Idiot", "Dostoevsky", 1869);
-        System.out.println("Найдена книга на полке " + location);
+        log.info("Найдена книга на полке " + location);
 
         librarySystem.printAllBooks();
     }
 
     public void addBook(String title, String author, int year, String location) {
+        if (author == null && !author.isEmpty()) {
+            log.warning("Поле не может быть пустым");
+            return;
+        }
+
+        if (year <= 0) {
+            log.warning("Год публикации должен быть больше нуля");
+            return;
+        }
+
         Book book = new Book(title, author, year);
         BOOK_MAP.put(book, location);
-        System.out.println("Книга добавлена: " + book + " на полку: " + location);
+        log.info("Книга добавлена: " + book + " на полку: " + location);
     }
 
     public boolean removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        return BOOK_MAP.remove(book) != null;
+        boolean removed = BOOK_MAP.remove(book) != null;
+        if (removed) {
+            log.info("Книга удалена: " + book);
+        } else {
+            log.warning("Книга не найдена для удаления: " + book);
+        }
+        return removed;
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : BOOK_MAP.entrySet()) {
-            System.out.println(entry.getKey() + " находится на полке: " + entry.getValue());
+            log.info(entry.getKey() + " находится на полке: " + entry.getValue());
         }
     }
 
