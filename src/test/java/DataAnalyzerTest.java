@@ -34,7 +34,7 @@ public class DataAnalyzerTest {
 
             Stream<String> jobStream = vacancies.stream().map(job -> {
                 try {
-                    return objectMapper.writeValueAsString(job); // Serialize each job
+                    return objectMapper.writeValueAsString(job);
                 } catch (Exception e) {
                     throw new RuntimeException("Error serializing job: " + job, e);
                 }

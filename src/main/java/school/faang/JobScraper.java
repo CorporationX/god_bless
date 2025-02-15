@@ -13,7 +13,7 @@ public class JobScraper {
         try {
             return objectMapper.readValue(jsonString, Job.class);
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при парсинге JSON: " + e.getMessage(), e);
+            throw new RuntimeException("Error when parsing JSON: " + e.getMessage(), e);
         }
     }
 }

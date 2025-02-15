@@ -9,7 +9,7 @@ public class JobStreamProcessor {
     public List<Job> processJobs(Stream<String> jsonStream) {
         return jsonStream
                 .map(jobScraper::parseJob)
-                .peek(job -> System.out.println("Обработана вакансия: " + job.getPosition())) // Уведомление
+                .peek(job -> System.out.println("Parsed job: " + job.getPosition()))
                 .toList();
     }
 }
