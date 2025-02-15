@@ -12,6 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            System.out.println("Invalid notification");
+            return;
+        }
         notificationsHandler.get(notification.getType()).accept(notification);
     }
 }
