@@ -57,17 +57,12 @@ public class Main {
         MatrixTransformer transformer = switch (flipDirection) {
             case VERTICAL -> (x, y, rowCount, columnCount) -> new Coordinates(rowCount - 1 - x, y);
             case HORIZONTAL -> (x, y, rowCount, columnCount) -> new Coordinates(x, columnCount - 1 - y);
-            default -> throw new IllegalArgumentException(String.format(
-                    "Неизвестное значение flipDirection: %s",
-                    flipDirection));
         };
 
         return transformMatrix(matrix, transformer);
     }
 
     private static void showMatrix(int[][] matrix) {
-        int rowCount = matrix.length;
-
         for (int[] rowData : matrix) {
             System.out.println(Arrays.toString(rowData));
         }
