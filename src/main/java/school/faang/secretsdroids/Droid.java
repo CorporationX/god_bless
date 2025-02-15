@@ -28,8 +28,7 @@ public class Droid {
 
     private String encryptMessage(String message, int key) {
 
-        DroidMessageEncryptor encryptor = (messageForEncryptor, keyEncryptor) ->
-        {
+        DroidMessageEncryptor encryptor = (messageForEncryptor, keyEncryptor) -> {
             StringBuilder encryptorMessage = new StringBuilder();
             char[] messageChar = messageForEncryptor.toCharArray();
             for (int i = 0; i < messageForEncryptor.length(); i++) {

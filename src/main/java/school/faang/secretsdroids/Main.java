@@ -15,13 +15,10 @@ public class Main {
         int encryptionKey2 = 7;
 
         try {
-            // R2D2 отправляет сообщение C3PO
             r2d2.sendMessage(c3po, message1, encryptionKey1);
 
-            // C3PO отвечает R2D2
             c3po.sendMessage(r2d2, message2, encryptionKey2);
 
-            // BB-8 отправляет сообщение C3PO
             bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
