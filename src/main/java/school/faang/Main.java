@@ -19,7 +19,7 @@ public class Main {
         System.out.printf("product: %d%n", productResult);
     }
 
-    private static <T> T calculate(T initialValue, List<T> items, Calculator<T> calculator) {
+    public static <T> T calculate(T initialValue, List<T> items, Calculator<T> calculator) {
         T accumulator = initialValue;
 
         for (T item : items) {
