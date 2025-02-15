@@ -19,8 +19,7 @@ public class Droid {
     }
 
     public String decryptMessage(String message, int key) {
-        key = -key;
-        return processCipher(message, key);
+        return processCipher(message, -key);
     }
 
     public String processCipher(String message, int key) {
@@ -28,9 +27,13 @@ public class Droid {
             StringBuilder sb = new StringBuilder();
             for (char c : message.toCharArray()) {
                 if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    char encrypted = (char) ((c - base + key + 26) % 26 + base);
-                    sb.append(encrypted);
+                    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+                        char base = Character.isUpperCase(c) ? 'A' : 'a';
+                        char encrypted = (char) ((c - base + key + 26) % 26 + base);
+                        sb.append(encrypted);
+                    } else {
+                        throw new IllegalArgumentException("Сообщение поддерживает только латинские символы");
+                    }
                 } else {
                     sb.append(c);
                 }
@@ -42,13 +45,13 @@ public class Droid {
 
     public void sendMessage(Droid recipientDroid, String message, int key) {
         String encryptMessage = encryptMessage(message, key);
-        System.out.printf("%s отправил зашифрованное сообщение: %s\n", this.getName(), encryptMessage);
-        String original = receiveMessage(encryptMessage, key);
-        System.out.printf("%s получил расшифрованное сообщение: %s\n", recipientDroid.getName(), original);
+        System.out.printf("%s отправил зашифрованное сообщение %s: %s\n",
+                this.getName(), recipientDroid.getName(), encryptMessage);
+        recipientDroid.receiveMessage(encryptMessage, key);
     }
 
-    public String receiveMessage(String encryptMessage, int key) {
+    public void receiveMessage(String encryptMessage, int key) {
         String originalMessage = decryptMessage(encryptMessage, key);
-        return originalMessage;
+        System.out.printf("%s получил расшифрованное сообщение: %s\n", this.getName(), originalMessage);
     }
 }
