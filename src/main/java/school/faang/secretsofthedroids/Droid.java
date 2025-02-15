@@ -42,7 +42,6 @@ public class Droid {
         return encryptor.encrypt(message, key);  // Шифруем сообщение
     }
 
-
     public String decryptMessage(String encryptedMessage, int key) {
         DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
             StringBuilder decryptedMessage = new StringBuilder();
