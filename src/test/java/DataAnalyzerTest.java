@@ -26,8 +26,7 @@ public class DataAnalyzerTest {
         try {
             String jsonContent = Files.readString(Path.of("src/main/resources/vacancies.json"));
             jobs = jobStreamProcessor.processJobs(jsonContent);
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -173,7 +172,7 @@ public class DataAnalyzerTest {
 
     @Test
     void testGetTopFivePopularOffices_withEmptyList() {
-       assertTrue(DataAnalyzer.getTopFivePopularOffices(Collections.emptyList()).isEmpty());
+        assertTrue(DataAnalyzer.getTopFivePopularOffices(Collections.emptyList()).isEmpty());
     }
 
     @Test
