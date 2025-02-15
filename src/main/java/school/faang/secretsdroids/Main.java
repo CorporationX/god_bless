@@ -19,7 +19,7 @@ public class Main {
 
             c3po.sendMessage(r2d2, message2, encryptionKey2);
 
-            bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
+            bb8.sendMessage(c3po, "The mission is complete", encryptionKey1);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

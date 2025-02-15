@@ -87,8 +87,8 @@ public class Droid {
         String messageAfterEncryptor = encryptMessage(message, key);
         String receivedMessage = droid.receiveMessage(messageAfterEncryptor, key);
         droid.setReceivedMessage(receivedMessage);
-        log.info("{} отправил зашифрованное сообщение: {}", this.name, messageAfterEncryptor);
-        log.info("{} получил расшифрованное сообщение: {}", droid.name, receivedMessage);
+        log.info("{} отправил зашифрованное сообщение: {} ", this.name, messageAfterEncryptor);
+        log.info("{} получил расшифрованное сообщение: {} ", droid.name, receivedMessage);
 
     }
 
