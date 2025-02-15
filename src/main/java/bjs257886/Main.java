@@ -27,7 +27,7 @@ public class Main {
     }
 
     private static List<String> getStringsToSortByLength() {
-        return List.of("apple", "banana", "avocado", "apricot");
+        return List.of("apple", "banana", "avocado", "apricot", "aaaaaaaaaa");
     }
 
     private static List<Integer> getStringsToConvertInBinaryFormat() {
@@ -35,6 +35,7 @@ public class Main {
     }
 
     private static List<String> getStringsToSortByLengthAndOrder() {
-        return List.of("apple", "banana", "cherry", "date", "fig", "grape");
+        return List.of("apple", "banana", "cherry", "date", "fig", "grape", "буквы не из заданного алфавита", "",
+                "som;ethingW:ith(NoLe:tterSymbo=ls");
     }
 }
