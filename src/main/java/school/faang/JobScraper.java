@@ -1,17 +1,19 @@
 package school.faang;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.time.LocalDate;
+import java.io.IOException;
 
 public class JobScraper {
-    private final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .setPrettyPrinting()
-            .create();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     public Job parseJob(String jsonString) {
-        return gson.fromJson(jsonString, Job.class);
+        try {
+            return objectMapper.readValue(jsonString, Job.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка при парсинге JSON: " + e.getMessage(), e);
+        }
     }
 }
