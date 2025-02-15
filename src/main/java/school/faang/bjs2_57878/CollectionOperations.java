@@ -12,23 +12,17 @@ import java.util.stream.Collectors;
 public class CollectionOperations {
 
     public static Set<List<Integer>> findUniquePairs(Set<Integer> numbers, int target) {
-        CollectionOperations v = new CollectionOperations();
-        v.validate(numbers, "numbers");
-
+        validate(numbers, "numbers");
         Set<Integer> seen = new HashSet<>();
         return numbers.stream()
-                .filter(n -> {
-                    int complement = target - n;
-                    return !seen.contains(n) && numbers.contains(complement) && n != complement;
-                })
+                .filter(n -> !seen.contains(n) && numbers.contains(target - n) && n != target - n)
                 .peek(seen::add)
                 .map(n -> Arrays.asList(Math.min(n, target - n), Math.max(n, target - n)))
                 .collect(Collectors.toSet());
     }
 
     public static List<String> sortCountriesByName(Map<String, String> countries) {
-        CollectionOperations v = new CollectionOperations();
-        v.validate(countries, "countries");
+        validate(countries, "countries");
 
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -37,8 +31,7 @@ public class CollectionOperations {
     }
 
     public static List<String> filterAndSortStrings(List<String> strings, char prefix) {
-        CollectionOperations v = new CollectionOperations();
-        v.validate(strings, "strings");
+        validate(strings, "strings");
 
         return strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(prefix)))
@@ -47,8 +40,7 @@ public class CollectionOperations {
     }
 
     public static List<String> convertToBinary(List<Integer> numbers) {
-        CollectionOperations v = new CollectionOperations();
-        v.validate(numbers, "numbers");
+        validate(numbers, "numbers");
 
         return numbers.stream()
                 .map(Integer::toBinaryString)
@@ -56,8 +48,7 @@ public class CollectionOperations {
     }
 
     public static List<String> filterByAlphabetAndSort(List<String> strings, String alphabet) {
-        CollectionOperations v = new CollectionOperations();
-        v.validate(strings, "strings");
+        validate(strings, "strings");
 
         return strings.stream()
                 .filter(s -> s.chars().allMatch(c -> alphabet.indexOf(c) >= 0))
@@ -65,7 +56,7 @@ public class CollectionOperations {
                 .collect(Collectors.toList());
     }
 
-    private <T> void validate(T obj, String name) {
+    private static <T> void validate(T obj, String name) {
         Objects.requireNonNull(obj, name + " is null");
     }
 }
