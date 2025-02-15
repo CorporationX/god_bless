@@ -9,9 +9,12 @@ public class Main {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         // Фильтры
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.name(), image.description() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.name(), image.description() + " | Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.name(), image.description() + " | Фильтр: виньетка");
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: виньетка");
 
         // Применение фильтров
         Image grayscaleImage = applyFilter(filterProcessor, originalImage, grayscaleFilter);
