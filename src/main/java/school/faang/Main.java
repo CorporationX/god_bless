@@ -4,18 +4,18 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] evenNumOfNumsArray = {1, 2, 3, 4, 5, 6};
+        int[] evenNumOfNumbersArray = {1, 2, 3, 4, 5, 6};
         System.out.print("Source array with an even number of numbers: ");
-        System.out.println(Arrays.toString(evenNumOfNumsArray));
+        System.out.println(Arrays.toString(evenNumOfNumbersArray));
         System.out.print("Reversed array with an even number of numbers: ");
-        System.out.println(Arrays.toString(Example.reverse(evenNumOfNumsArray)));
+        System.out.println(Arrays.toString(Example.reverse(evenNumOfNumbersArray)));
         System.out.println();
 
-        int[] oddNumOFNumsArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] oddNumOfNumsArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         System.out.print("Source array with an odd number of numbers: ");
-        System.out.println(Arrays.toString(oddNumOFNumsArray));
+        System.out.println(Arrays.toString(oddNumOfNumsArray));
         System.out.print("Reversed array with an odd number of numbers: ");
-        System.out.println(Arrays.toString(Example.reverse(oddNumOFNumsArray)));
+        System.out.println(Arrays.toString(Example.reverse(oddNumOfNumsArray)));
         System.out.println();
 
         int[] oneElementArray = {1};

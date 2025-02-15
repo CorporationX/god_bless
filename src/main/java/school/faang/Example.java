@@ -1,22 +1,22 @@
 package school.faang;
 
 public class Example {
-    public static int[] reverse(int[] nums) {
-        if (nums == null || nums.length == 0) {
+    public static int[] reverse(int[] numbers) {
+        if (numbers == null || numbers.length == 0) {
             System.out.print("Error! The input array is null or empty! ");
-            return nums;
+            return numbers;
         }
 
         int leftIndex = 0;
-        int rightIndex = nums.length - 1;
+        int rightIndex = numbers.length - 1;
 
         while (leftIndex < rightIndex) {
-            int temp = nums[leftIndex];
-            nums[leftIndex] = nums[rightIndex];
-            nums[rightIndex] = temp;
+            int temp = numbers[leftIndex];
+            numbers[leftIndex] = numbers[rightIndex];
+            numbers[rightIndex] = temp;
             leftIndex++;
             rightIndex--;
         }
-        return nums;
+        return numbers;
     }
 }
