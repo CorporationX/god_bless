@@ -1,6 +1,6 @@
 package task_BJS2_58091;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +34,29 @@ public class UserActionAnalyzer {
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
+
+    public static List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
+        Map<String, Long> topCommentersName = actions.stream()
+                .filter(userAction -> ActionType.COMMENT.equals(userAction.getActionType())
+                        && userAction.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
+        return topCommentersName.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(limit)
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    public static Map<ActionType, Double> calculateActionPercentages(List<UserAction> actions) {
+        Map<ActionType, Long> actionTypeToCount = actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
+
+        return actionTypeToCount.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        entry -> (entry.getValue() * 100.0) / actions.size()));
+
     }
 }
 
