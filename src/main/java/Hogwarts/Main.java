@@ -6,9 +6,11 @@ public class Main {
         String akcio = "Akcio";
         String bombarda = "Bombarda";
         String ascendio = "Ascendio";
+        String lumos = "Lumos";
 
         spellCaster.cast(akcio, spellName -> "Притягивает к себе метлу " + spellName);
         spellCaster.cast(bombarda, spellName -> "Взрывает каменную перегородку " + spellName);
         spellCaster.cast(ascendio, spellName -> "Выталкивает себя из воды: " + spellName);
+        spellCaster.cast(lumos, spellName -> "Зажигает на палочке свет : " + spellName);
     }
 }

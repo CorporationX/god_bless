@@ -1,20 +1,14 @@
 package Hogwarts;
 
-@FunctionalInterface
-interface SpellAction {
-    String castSpellName (String nameSpell);
-}
-
-public class SpellCaster {
+public class SpellCaster implements  SpellActions{
     public void cast(String spellName, SpellAction spellAction) {
-        if (spellName == null) {
-            throw new IllegalArgumentException("Вы не использовали заклинание");
+        if (spellName == null || spellName.isEmpty()) {
+            throw new IllegalArgumentException("Вы не использовали заклинание" + spellName);
         }
 
         if (spellAction == null) {
-            throw new IllegalArgumentException("Вы забыли про действие");
+            throw new IllegalArgumentException("Вы забыли про действие" + spellAction);
         }
-        String result = spellAction.castSpellName(spellName);
-        System.out.println(result);
+        System.out.println(spellAction.castSpellName(spellName));
     }
 }
