@@ -17,6 +17,8 @@ public class JobStreamProcessor {
     private static final List<Job> JOBS = new ArrayList<>();
     private static final JsonFactory JSON_FACTORY = new JsonFactory();
     private static final JobScraper SCRAPER = new JobScraper();
+    private static final String PRINT_FORMAT =
+            "Processed job:\nPosition: {}, requirement skills: {}, salary: {}, location: {}, date posted: {}";
 
     public List<Job> processingVacancies(InputStream inputStream) throws IOException {
         if (inputStream == null) {
@@ -31,7 +33,9 @@ public class JobStreamProcessor {
         while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
             Job job = SCRAPER.parsingVacancy(jsonParser);
             JOBS.add(job);
-            log.info("Processed job: {}", job);
+            log.info(PRINT_FORMAT,
+                    job.getPosition(), String.join(", ", job.getRequirements()),
+                    job.getSalary(), job.getLocation(), job.getDatePosted());
         }
         return JOBS;
     }
