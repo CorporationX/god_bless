@@ -1,5 +1,8 @@
 package BJS2_57266;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
@@ -8,14 +11,14 @@ public class Main {
         hogwartsSpells.addSpellEvent("spell", "Expecto Patronum");
 
         hogwartsSpells.printAllSpellEvents();
-        System.out.println("------------------------------------");
-        System.out.println(hogwartsSpells.getSpellEventById(2));
-        System.out.println("------------------------------------");
+        log.info("------------------------------------");
+        log.info(hogwartsSpells.getSpellEventById(2).toString());
+        log.info("------------------------------------");
         hogwartsSpells.deleteSpellEvent(2);
         hogwartsSpells.printAllSpellEvents();
-        System.out.println("------------------------------------");
-        System.out.println(hogwartsSpells.getSpellEventsByType("spell"));
-        System.out.println("------------------------------------");
+        log.info("------------------------------------");
+        log.info(hogwartsSpells.getSpellEventsByType("spell").toString());
+        log.info("------------------------------------");
         hogwartsSpells.addSpellEvent("spell", "Stupefy");
         hogwartsSpells.printAllSpellEvents();
     }
