@@ -17,38 +17,26 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("ActionDescription is required!");
         }
 
-        SpellEvent spellEvent = new SpellEvent(spellById.size() + 1, eventType, actionDescription);
-        spellById.put(spellById.size() + 1, spellEvent);
-        if (spellsByType.containsKey(eventType)) {
-            spellsByType.get(eventType).add(spellEvent);
-        } else {
-            spellsByType.put(eventType, new ArrayList<>());
-        }
+        int newId = spellById.size() + 1;
+        SpellEvent spellEvent = new SpellEvent(newId, eventType, actionDescription);
+        spellById.put(newId, spellEvent);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
-        SpellEvent spellEvent = spellById.get(id);
-        if (spellEvent == null) {
-            System.out.println("SpellEvent with id = " + id + "was not found!");
-        }
-        return spellEvent;
+        return spellById.getOrDefault(id, null);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        List<SpellEvent> spellEvents = spellsByType.get(eventType);
-        if (spellEvents == null) {
-            System.out.println("SpellEvents with type = " + eventType + " + was not found!");
-        }
-        return spellEvents;
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = spellById.get(id);
+        SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             String eventType = spellEvent.getEventType();
             List<SpellEvent> spellEvents = spellsByType.get(eventType);
             spellEvents.remove(spellEvent);
-            spellById.remove(id);
         }
     }
 
