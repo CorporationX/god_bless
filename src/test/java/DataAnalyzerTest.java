@@ -119,7 +119,7 @@ public class DataAnalyzerTest {
         Job job4 = new Job("Director", List.of("Management"), 120000, "Chicago", LocalDate.now());
         List<Job> jobs = List.of(job1, job2, job3, job4);
 
-        Map<String, List<Job>> grouped = DataAnalyzer.groupBySalary(jobs);
+        Map<String, List<Job>> grouped = DataAnalyzer.groupJobsBySalary(jobs);
         assertEquals(1, grouped.get("0-50000k").size());
         assertEquals(2, grouped.get("50000-100000k").size());
         assertEquals(1, grouped.get("100000-150000k").size());
@@ -131,19 +131,54 @@ public class DataAnalyzerTest {
         Job job2 = new Job("Tester", List.of("Testing"), 45000, "Los Angeles", LocalDate.now());
         List<Job> jobs = List.of(job1, job2);
 
-        Map<String, List<Job>> grouped = DataAnalyzer.groupBySalary(jobs);
+        Map<String, List<Job>> grouped = DataAnalyzer.groupJobsBySalary(jobs);
         assertEquals(1, grouped.size());
         assertEquals(2, grouped.get("0-50000k").size());
     }
 
     @Test
     void testGroupBySalary_emptyJobList() {
-        assertTrue(DataAnalyzer.groupBySalary(Collections.emptyList()).isEmpty());
+        assertTrue(DataAnalyzer.groupJobsBySalary(Collections.emptyList()).isEmpty());
     }
 
     @Test
     void testGroupBySalary_nullJobList() {
         assertThrows(IllegalArgumentException.class,
-                () -> DataAnalyzer.groupBySalary(null));
+                () -> DataAnalyzer.groupJobsBySalary(null));
+    }
+
+    @Test
+    void testGetTopFivePopularOffices_basicCase() {
+        List<String> expected = List.of("UX/UI Designer", "Backend Developer", "Software Engineer",
+                "Frontend Developer", "Software Engineer");
+        assertEquals(expected, DataAnalyzer.getTopFivePopularOffices(jobs));
+    }
+
+    @Test
+    void testGetTopFivePopularOffices_invalidPosition() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new Job("", List.of("Java"), 100000, "San Francisco", LocalDate.now()));
+    }
+
+    @Test
+    void testGetTopFivePopularOffices_withLessThanFiveJobs() {
+        List<Job> jobs = List.of(
+                new Job("Software Engineer", List.of("Java", "Spring"), 120000, "New York",
+                        LocalDate.of(2024, 1, 1)),
+                new Job("Data Scientist", List.of("Python", "ML"), 110000, "San Francisco",
+                        LocalDate.of(2024, 2, 1))
+        );
+        assertEquals(2, DataAnalyzer.getTopFivePopularOffices(jobs).size());
+    }
+
+    @Test
+    void testGetTopFivePopularOffices_withEmptyList() {
+       assertTrue(DataAnalyzer.getTopFivePopularOffices(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    void testGetTopFivePopularOffices_withNullList() {
+        assertThrows(IllegalArgumentException.class,
+                () -> DataAnalyzer.getTopFivePopularOffices(null));
     }
 }
