@@ -37,4 +37,13 @@ class FinderTest {
         excepted.add(new Pair(alice, david));
         excepted.add(new Pair(bob, charlie));
     }
+
+
+    @Test
+    public void getPalindromesBetween() {
+        int start = 100;
+        int end = 200;
+        Set<Integer> excepted = Set.of(101, 111, 121, 131, 141, 151, 161, 171, 181, 191);
+        assertEquals(excepted, finder.getPalindromesBetween(start, end));
+    }
 }

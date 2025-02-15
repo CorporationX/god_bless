@@ -2,7 +2,7 @@ package school.faang.sprint2.task_BJS2_60200.palindrome;
 
 public class PalindromeGenerator {
     private final Figure val = new Figure();
-    private final Figure evenVal = new Figure();
+    private final Figure evenVal = new Figure(1);
     private int palindrome = 1;
     private int evenPalindrome = 11;
 
@@ -16,25 +16,22 @@ public class PalindromeGenerator {
     }
 
     private int getPalindrome() {
-        int evenRoot = val.getVal();
-        StringBuilder sequence = val.getSequence();
-
         val.increment();
-        return createPalindrome(evenRoot, sequence);
+        StringBuilder sequence = val.getSequence();
+        if (!sequence.isEmpty()) {
+            sequence.deleteCharAt(0);
+        }
+        return createPalindrome(String.valueOf(val.getVal()),  sequence);
     }
 
     private int getEvenPalindrome() {
-        String stringEvenRoot = String.valueOf(evenVal.getVal()).repeat(2);
-        int evenRoot = Integer.parseInt(stringEvenRoot);
-        StringBuilder sequence = evenVal.getSequence();
-
         evenVal.increment();
-        return createPalindrome(evenRoot, sequence);
+        return createPalindrome("", evenVal.getSequence());
     }
 
 
-    private int createPalindrome(int val, StringBuilder sequence) {
-        String palindrome = sequence.toString() + val + sequence.reverse();
+    private int createPalindrome(String val, StringBuilder sequence) {
+        String palindrome = sequence.reverse() + val + sequence.reverse();
         return Integer.parseInt(palindrome);
     }
 
