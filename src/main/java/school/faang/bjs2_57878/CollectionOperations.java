@@ -15,9 +15,8 @@ public class CollectionOperations {
         validate(numbers, "numbers");
         Set<Integer> seen = new HashSet<>();
         return numbers.stream()
-                .filter(n -> !seen.contains(n) && numbers.contains(target - n) && n != target - n)
-                .peek(seen::add)
-                .map(n -> Arrays.asList(Math.min(n, target - n), Math.max(n, target - n)))
+                .filter(n -> numbers.contains(target - n) && seen.add(n) && n < target - n)
+                .map(n -> List.of(n, target - n))
                 .collect(Collectors.toSet());
     }
 
