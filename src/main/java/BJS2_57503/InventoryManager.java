@@ -2,9 +2,11 @@ package BJS2_57503;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class InventoryManager {
@@ -20,9 +22,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        character.getInventory().stream()
+        List<Item> inventory = character.getInventory().stream()
                 .filter(predicate)
                 .map(function)
-                .forEach(item -> log.info("Item {} updated", item.getName()));
+                .collect(Collectors.toList());
+        character.setInventory(inventory);
     }
 }
