@@ -2,6 +2,7 @@
 **/build/
 !src/**/build/
 *.log
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -56,3 +57,4 @@ out/
 .vscode/
 README
 README.md
+/droid-logs.log
