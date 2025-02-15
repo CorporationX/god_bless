@@ -2,6 +2,7 @@ package school.faang.lordoftherings;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -17,25 +18,32 @@ public class InventoryManager {
 
     public void removeItem(Character character, Predicate<Item> predicate) {
         checkArguments(character, predicate);
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            if (predicate.test(character.getInventory().get(i))) {
-                character.getInventory().remove(character.getInventory().get(i));
-                log.info("Предмет успешно удалён из инвентаря игрока");
-            }
+        int sizeOriginal = character.getInventory().size();
+        character.getInventory().removeIf(predicate);
+        if (sizeOriginal > character.getInventory().size()) {
+            log.info("Предмет успешно удалён из инвентаря игрока");
+        } else {
+            log.info("Предмет не найден в инвентаре");
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         checkArguments(character, predicate);
         validArgument(function);
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            Item item = character.getInventory().get(i);
-            if (predicate.test(item)) {
-                Item updateItem = function.apply(item);
-                character.getInventory().add(updateItem);
-                character.getInventory().remove(item);
-            }
-        }
+        List<Item> inventory = character.getInventory();
+        List<Item> updateInventory =
+                inventory.stream()
+                        .map(item -> {
+                            if (predicate.test(item)) {
+                                log.info("Предмет {} обновлён", item.name());
+                                return function.apply(item);
+                            } else {
+                                return item;
+                            }
+                        })
+                        .toList();
+        inventory.clear();
+        inventory.addAll(updateInventory);
     }
 
     private void checkArguments(Object objectFirst, Object objectSecond) {

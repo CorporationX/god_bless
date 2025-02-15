@@ -10,7 +10,8 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
         try {
-            manager.addItem(frodo, ring, (item) -> System.out.println(item.name() + " был добавлен в инвентарь."));
+            manager.addItem(frodo, ring, (item) ->
+                    System.out.println(item.name() + " был добавлен в инвентарь."));
 
             manager.removeItem(frodo, (item) -> item.name().equals("The One Ring"));
 
@@ -21,15 +22,7 @@ public class Main {
             frodo.getInventory().forEach(item -> System.out.println(item.name() + ": " + item.value()));
 
         } catch (IllegalArgumentException e) {
-            log.error("""
-                            Сообщение {},
-                            Класс: {},
-                            Метод: {},
-                            Номер строки: {}""",
-                    e.getMessage(),
-                    e.getStackTrace()[1].getClassName(),
-                    e.getStackTrace()[1].getMethodName(),
-                    e.getStackTrace()[1].getLineNumber());
+            log.error(e.getMessage(), e);
         }
     }
 }
