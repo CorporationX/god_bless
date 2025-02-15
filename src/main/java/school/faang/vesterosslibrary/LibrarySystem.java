@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class LibrarySystem {
-    private final Map<Book, String> BOOK_MAP = new HashMap<>();
+    private final Map<Book, String> bookMap = new HashMap<>();
 
     private static final Book BOOK1 = new Book("Anna Karenina", "Tolstoy", 1873);
     private static final Book BOOK2 = new Book("Master and Margorita", "Bulgakov", 1940);
@@ -14,9 +14,9 @@ public class LibrarySystem {
     private static final Logger log = Logger.getLogger(LibrarySystem.class.getName());
 
     public LibrarySystem() {
-        BOOK_MAP.put(BOOK1, "Classic Russian literature");
-        BOOK_MAP.put(BOOK2, "Magical realism masterpiece");
-        BOOK_MAP.put(BOOK3, "Psychological novel");
+        bookMap.put(BOOK1, "Classic Russian literature");
+        bookMap.put(BOOK2, "Magical realism masterpiece");
+        bookMap.put(BOOK3, "Psychological novel");
     }
 
     public static void main(String[] args) {
@@ -47,13 +47,13 @@ public class LibrarySystem {
         }
 
         Book book = new Book(title, author, year);
-        BOOK_MAP.put(book, location);
+        bookMap.put(book, location);
         log.info("Книга добавлена: " + book + " на полку: " + location);
     }
 
     public boolean removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        boolean removed = BOOK_MAP.remove(book) != null;
+        boolean removed = bookMap.remove(book) != null;
         if (removed) {
             log.info("Книга удалена: " + book);
         } else {
@@ -63,13 +63,13 @@ public class LibrarySystem {
     }
 
     public void printAllBooks() {
-        for (Map.Entry<Book, String> entry : BOOK_MAP.entrySet()) {
+        for (Map.Entry<Book, String> entry : bookMap.entrySet()) {
             log.info(entry.getKey() + " находится на полке: " + entry.getValue());
         }
     }
 
     public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        return BOOK_MAP.getOrDefault(book, "Книга не найдена в библиотеке.");
+        return bookMap.getOrDefault(book, "Книга не найдена в библиотеке.");
     }
 }
