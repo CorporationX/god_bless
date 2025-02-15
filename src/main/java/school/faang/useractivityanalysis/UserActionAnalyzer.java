@@ -12,14 +12,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    private static final LocalDate ONE_MONTH_FROM_NOW = LocalDate.now().minusMonths(1);
     private static final double ONE_HUNDRED = 100.0;
     private static final String HASHTAG_SIGN = "#";
     private static final String WHITESPACES = "\\s+";
     private static final int ZERO = 0;
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> actions, int limit) {
-        if (validateData(actions, limit)) {
+        if (isNotValidData(actions, limit)) {
             return Collections.emptyList();
         }
 
@@ -38,7 +37,7 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(@NonNull List<UserAction> actions, int limit) {
-        if (validateData(actions, limit)) {
+        if (isNotValidData(actions, limit)) {
             return Collections.emptyList();
         }
 
@@ -61,14 +60,16 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> actions, int limit) {
-        if (validateData(actions, limit)) {
+        if (isNotValidData(actions, limit)) {
             return Collections.emptyList();
         }
+
+        LocalDate oneMonthFromNow = LocalDate.now().minusMonths(1);
 
         return actions
                 .stream()
                 .filter(action -> action.getActionType().equals(ActionType.COMMENT)
-                        && action.getActionDate().isAfter(ONE_MONTH_FROM_NOW))
+                        && action.getActionDate().isAfter(oneMonthFromNow))
                 .collect(Collectors.groupingBy(
                         UserAction::getName,
                         Collectors.counting()
@@ -112,7 +113,7 @@ public class UserActionAnalyzer {
                 .toArray(String[]::new);
     }
 
-    private static boolean validateData(List<UserAction> actions, int limit) {
+    private static boolean isNotValidData(List<UserAction> actions, int limit) {
         return actions.isEmpty() || limit < 0;
     }
 }
