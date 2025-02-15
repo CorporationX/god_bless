@@ -24,7 +24,7 @@ public class Main {
         Operations.convertToBinary(list2).forEach(System.out::println);
         System.out.println();
         System.out.println("Task 5:");
-        Operations.filterAndSortByLength(list3, "abcdefghijklmnopqrstuvwxyz")
+        Operations.filterAndSortByLength(list3)
                 .forEach(System.out::println);
     }
 }

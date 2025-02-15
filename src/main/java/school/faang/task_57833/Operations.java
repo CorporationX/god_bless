@@ -4,17 +4,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Operations {
+    private static final String REGEX = "[" + "abcdefghijklmnopqrstuvwxyz" + "]+";
+
     public static Set<List<Integer>> uniquePairs(Set<Integer> set, int sum) {
         return set.stream()
                 .filter(num -> num != sum - num && set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
 
     public static List<String> getCapitals(Map<String, String> countries) {
-        return countries.entrySet().stream()
-                .map(Map.Entry::getValue)
+        return countries.values().stream()
                 .sorted()
                 .toList();
     }
@@ -32,11 +32,9 @@ public class Operations {
                 .toList();
     }
 
-    public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        String regex = "[" + alphabet + "]+";
-
+    public static List<String> filterAndSortByLength(List<String> strings) {
         return strings.stream()
-                .filter(s -> s.matches(regex))
+                .filter(s -> s.matches(REGEX))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
