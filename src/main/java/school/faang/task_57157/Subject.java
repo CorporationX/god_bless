@@ -1,6 +1,7 @@
 package school.faang.task_57157;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NonNull
+@EqualsAndHashCode
 public class Subject {
     private String name;
 }
