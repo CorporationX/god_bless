@@ -18,7 +18,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("List is empty!"));
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
