@@ -6,49 +6,38 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class Droid {
-    private static final int ALPHABET_LETTERS_COUNT = 26;
+    private static final int ALPHABET_SIZE = 26;
     private final String name;
 
-    public String encryptMessage(String message, int encryptionKey) {
-        return caesarCipherAlgorithm(message, encryptionKey, getEncryptionKeyShift(encryptionKey));
+    public String processMessage(String message, int key, ShiftStrategy strategy) {
+        int shift = strategy.apply(key) % ALPHABET_SIZE;
+        return applyCaesarCipher(message, shift);
     }
 
-    public String decryptMessage(String message, int decryptionKey) {
-        return caesarCipherAlgorithm(message, decryptionKey, getDecryptionKeyShift(decryptionKey));
-    }
+    private String applyCaesarCipher(String message, int shift) {
+        shift = (shift % ALPHABET_SIZE + ALPHABET_SIZE) % ALPHABET_SIZE; // Нормализация сдвига
+        StringBuilder result = new StringBuilder();
 
-    public String caesarCipherAlgorithm(String message, int encryptionKey, int shift) {
-        DroidMessageEncryptor cryptoAlgorithm = (m, e) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : m.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    encryptedMessage.append((char) ((ch - base + shift) % 26 + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
+        for (char ch : message.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                char base = Character.isUpperCase(ch) ? 'A' : 'a';
+                int offset = (ch - base + shift) % ALPHABET_SIZE;
+                result.append((char) (base + offset));
+            } else {
+                result.append(ch);
             }
-            return encryptedMessage.toString();
-        };
-        return cryptoAlgorithm.messageCryptoAlgorithm(message, encryptionKey);
+        }
+        return result.toString();
     }
 
-    public void sendMessage(Droid droidRecepient, String message, int encryptionKey) {
-        String encrypted = encryptMessage(message, encryptionKey);
-        System.out.printf("%s sent encrypted message: %s\n", this.name, encrypted);
-        droidRecepient.receiveMessage(encrypted, encryptionKey);
+    public void sendMessage(Droid receiver, String message, int key) {
+        String encrypted = processMessage(message, key, cryptoKey -> cryptoKey);
+        System.out.printf("%s sent encrypted message: %s%n", this.name, encrypted);
+        receiver.receiveMessage(encrypted, key);
     }
 
-    public void receiveMessage(String encryptedMessage, int decryptionKey) {
-        String decrypted = decryptMessage(encryptedMessage, decryptionKey);
-        System.out.printf("%s get decrypted message: %s\n", this.name, decrypted);
-    }
-
-    private int getDecryptionKeyShift(int decryptionKey) {
-        return ALPHABET_LETTERS_COUNT - decryptionKey;
-    }
-
-    private int getEncryptionKeyShift(int encryptionKey) {
-        return encryptionKey;
+    public void receiveMessage(String encryptedMessage, int key) {
+        String decrypted = processMessage(encryptedMessage, key, cryptoKey -> ALPHABET_SIZE - cryptoKey);
+        System.out.printf("%s decrypted message: %s%n", this.name, decrypted);
     }
 }
