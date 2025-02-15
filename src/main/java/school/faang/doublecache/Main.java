@@ -24,7 +24,7 @@ public class Main {
 
         Map<Subject, Integer> janeGrades = new HashMap<>();
         janeGrades.put(english, 4);
-        janeGrades.put(new Subject("History"), 3);  // Создание предмета прямо при необходимости
+        janeGrades.put(new Subject("History"), 3);
         studentDatabase.addStudentWithGrades(jane, janeGrades);
 
         System.out.println("Все студенты с оценками:");

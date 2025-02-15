@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
+    private static final Integer DEFAULT_GRADE = 0;
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
@@ -14,10 +15,13 @@ public class StudentDatabase {
             throw new IllegalArgumentException("Student or grades cannot be null or empty!");
         }
 
+        if (studentSubjects.containsKey(student)) {
+            throw new IllegalArgumentException("Student already exists in the database!");
+        }
+
         studentSubjects.put(student, grades);
         for (Subject subject : grades.keySet()) {
-            subjectStudents.putIfAbsent(subject, new ArrayList<>());
-            subjectStudents.get(subject).add(student);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
@@ -26,24 +30,24 @@ public class StudentDatabase {
             throw new IllegalArgumentException("Student or subject cannot be null!");
         }
 
-        if (grade <= 1 || grade > 5) {
+        if (grade < 2 || grade > 5) {
             throw new IllegalArgumentException("Grade must be between 2 and 5!");
         }
 
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, grade);
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
-        }
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null!");
+        }
+
         Map<Subject, Integer> grades = studentSubjects.remove(student);
         if (grades != null) {
             for (Subject subject : grades.keySet()) {
                 List<Student> students = subjectStudents.get(subject);
-                if (student != null) {
+                if (students != null) {
                     students.remove(student);
                 }
             }
@@ -64,7 +68,7 @@ public class StudentDatabase {
         subjectStudents.put(subject, new ArrayList<>(students));
         for (Student student : students) {
             studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, null);
+            studentSubjects.get(student).put(subject, DEFAULT_GRADE);
         }
     }
 
@@ -73,14 +77,8 @@ public class StudentDatabase {
             throw new IllegalArgumentException("Student or subject cannot be null!");
         }
 
-        List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
-
-        if (!students.contains(student)) {
-            students.add(student);
-        }
-
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).putIfAbsent(subject, null);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, DEFAULT_GRADE);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
