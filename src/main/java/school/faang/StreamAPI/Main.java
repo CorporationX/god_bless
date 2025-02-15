@@ -20,7 +20,7 @@ public class Main {
         // проверка на список строк по длине от меньшей к большей
         System.out.println(ListOperations.sortByLength(fruits));
         // проверка на список строк по длине от большей к меньшей
-        System.out.println(ListOperations.sortByLength1(fruits));
+        System.out.println(ListOperations.sortByLengthReversed(fruits));
         //проверка на условие
         System.out.println(ListOperations.allMatchConditionList(list, n -> n % 2 == 0));
         //проверка на наименьший элемент в списке, который больше заданного числа.
