@@ -22,21 +22,21 @@ public class Main {
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема:  %s Тело письма:  %s%n",
+                email.getSubject(), email.getBody()));
 
         Predicate<Email> noImportantFilter = email -> !email.isImportant();
         printEmail = email -> System.out.println("Можно не отвечать: " + email.getSubject());
         Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
         emailProcessor.processEmails(emails, noImportantFilter, toLowerCase, printEmail);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема:  %s Тело письма:  %s%n",
+                email.getSubject(), email.getBody()));
 
-        Predicate<Email> spam = email -> email.getSubject() == "Спам";
+        Predicate<Email> spam = email -> Email.getSpam().contains(email.getSubject());
         printEmail = email -> System.out.println("Удалить: " + email.getSubject());
         Function<Email, String> erase = email -> "--------------------------";
         emailProcessor.processEmails(emails, spam, erase, printEmail);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема:  %s Тело письма:  %s%n",
+                email.getSubject(), email.getBody()));
     }
 }
