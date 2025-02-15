@@ -21,7 +21,8 @@ class FilterProcessorTest {
     @Test
     void applyFilter() {
         // Arrange
-        Function<Image, Image> filter = (image) -> new Image(image.name(), image.description() + " | Фильтр: черно-белый");
+        Function<Image, Image> filter = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: черно-белый");
         String expectedName = testImage.name();
         String expectedDescription = "Оригинальное изображение | Фильтр: черно-белый";
 
@@ -36,8 +37,10 @@ class FilterProcessorTest {
     @Test
     void combineFilters() {
         // Arrange
-        Function<Image, Image> filter1 = (image) -> new Image(image.name(), image.description() + " | Фильтр: черно-белый");
-        Function<Image, Image> filter2 = (image) -> new Image(image.name(), image.description() + " | Фильтр: сепия");
+        Function<Image, Image> filter1 = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: черно-белый");
+        Function<Image, Image> filter2 = (image) ->
+                new Image(image.name(), image.description() + " | Фильтр: сепия");
         String expectedName = testImage.name();
         String expectedDescription = "Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия";
 
