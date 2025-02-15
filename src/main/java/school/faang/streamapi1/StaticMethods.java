@@ -8,7 +8,7 @@ public class StaticMethods {
     public static int sumEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .filter(number -> number % 2 == 0)
-                .reduce(0, (num1, num2) -> num1 + num2);
+                .reduce(0, Integer::sum);
     }
 
     public static int maxValue(List<Integer> numbers) {
@@ -24,7 +24,7 @@ public class StaticMethods {
     }
 
     public static long stringsNumber(List<String> strings, char character) {
-        return (long) strings.stream()
+        return strings.stream()
                 .filter(list -> list.startsWith(String.valueOf(character)))
                 .count();
     }
