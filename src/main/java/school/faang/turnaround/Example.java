@@ -2,12 +2,21 @@ package school.faang.turnaround;
 
 public class Example {
     public static int[] reverse(int[] numbers) {
-        int[] reversed = new int[numbers.length];
-        int end = numbers.length - 1;
-        for (int number : numbers) {
-            reversed[end] = number;
-            end--;
+        if (numbers == null) {
+            throw new IllegalArgumentException("The array is null");
         }
-        return reversed;
+        if (numbers.length == 0) {
+            throw new IllegalArgumentException("The array is empty");
+
+        }
+        int rightIndex = numbers.length - 1;
+        int temporary;
+        for (int i = 0; i < numbers.length / 2; i++) {
+            temporary = numbers[i];
+            numbers[i] = numbers[rightIndex];
+            numbers[rightIndex] = temporary;
+            rightIndex--;
+        }
+        return numbers;
     }
 }
