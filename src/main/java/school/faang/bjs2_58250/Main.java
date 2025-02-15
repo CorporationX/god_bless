@@ -8,14 +8,14 @@ public class Main {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
-        System.out.println("Sum of even numbers : " + ListOperations.sumOfEvenNumbers(numbers));
-        System.out.println("Maximum: " + ListOperations.findMax(numbers));
-        System.out.println("Average: " + ListOperations.findAverage(numbers));
-        System.out.println("Number of 'a'-starting lines: " + ListOperations.countStringsStartingWith(strings, 'a'));
-        System.out.println("Lines containing 'an': " + ListOperations.filterStringsContainingSubstring(strings, "an"));
-        System.out.println("Sorted by string length: " + ListOperations.sortByLength(strings));
-        System.out.println("Are all numbers even? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.println("The smallest number greater than 4: " + ListOperations.findMinGreaterThan(numbers, 4));
-        System.out.println("Line lengths: " + ListOperations.convertToLengths(strings));
+        System.out.printf("Sum of even numbers: %d%n", ListOperations.sumOfEvenNumbers(numbers));
+        System.out.printf("Maximum: %d%n", ListOperations.findMax(numbers));
+        System.out.printf("Average: %.2f%n", ListOperations.findAverage(numbers));
+        System.out.printf("Number of 'a'-starting lines: %d%n", ListOperations.countStringsStartingWith(strings, 'a'));
+        System.out.printf("Contains 'an': %s%n", ListOperations.filterStringsContainingSubstring(strings, "an"));
+        System.out.printf("Sorted by string length: %s%n", ListOperations.sortByLength(strings));
+        System.out.printf("Are all numbers even? %b%n", ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
+        System.out.printf("The smallest number greater than 4: %d%n", ListOperations.findMinGreaterThan(numbers, 4));
+        System.out.printf("Line lengths: %s%n", ListOperations.convertToLengths(strings));
     }
 }
