@@ -2,40 +2,31 @@ package school.faang;
 
 import lombok.Getter;
 
+@Getter
 public abstract class Character {
     private final int defaultHealth = 100;
 
-    @Getter
     private final String name;
-    @Getter
     private final int strength;
-    @Getter
     private final int agility;
-    @Getter
     private final int intelligence;
-    @Getter
-    private int health;
+    private int health = defaultHealth;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 10;
-        this.agility = 10;
-        this.intelligence = 10;
-        this.health = defaultHealth;
+        this(name, 10, 10, 10);
     }
 
-    protected Character(String name, int initialStrength, int initialAgility, int initialIntelligence) {
+    protected Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
-        this.strength = initialStrength;
-        this.agility = initialAgility;
-        this.intelligence = initialIntelligence;
-        this.health = defaultHealth;
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
     }
 
     public abstract void attack(Character character);
 
-    public void setHealth(int health) {
-        this.health = Math.max(health, 0);
+    public void reduceHealth(int damage) {
+        health = damage > health ? 0 : health - damage;
     }
 
     public boolean isDead() {
