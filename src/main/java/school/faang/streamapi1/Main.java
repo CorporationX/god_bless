@@ -15,8 +15,10 @@ public class Main {
             log.info("Сумма четных чисел: {}", ListOperations.sumOfEvenNumbers(numbers));
             log.info("Максимум: {}", ListOperations.findMax(numbers));
             log.info("Среднее: {}", ListOperations.findAverage(numbers));
-            log.info("Количество строк, начинающихся на 'a': {}", ListOperations.countStringsStartingWith(strings, 'a'));
-            log.info("Строки, содержащие 'an': {}", ListOperations.filterStringsContainingSubstring(strings, "an"));
+            log.info("Количество строк, начинающихся на 'a': {}",
+                    ListOperations.countStringsStartingWith(strings, 'a'));
+            log.info("Строки, содержащие 'an': {}",
+                    ListOperations.filterStringsContainingSubstring(strings, "an"));
             log.info("Отсортированные по длине строки: {}", ListOperations.sortByLength(strings));
             log.info("Все ли числа чётные? {}", ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
             log.info("Наименьшее число больше 4: {}", ListOperations.findMinGreaterThan(numbers, 4));
