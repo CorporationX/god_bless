@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         validate(numbers);
         return numbers.stream()
