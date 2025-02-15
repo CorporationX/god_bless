@@ -8,6 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Droid {
     private static final String REGEX = "[a-zA-z]+";
+    private static final char LOWERCASE_Z = 'z';
+    private static final char UPPERCASE_Z = 'Z';
+    private static final char LOWERCASE_A = 'a';
+    private static final char UPPERCASE_A = 'A';
     @NonNull
     private String name;
 
@@ -20,38 +24,23 @@ public class Droid {
         validateMessageNotBlank(message);
         validateEncryptKey(encryptionKey);
 
-        String encryptedMessage = encryptMessage(message, encryptionKey);
+        String encryptedMessage = encryptOrDecryptMessage(message, encryptionKey, true);
         log.info("{} отправил зашифрованное сообщение: {}", getName(), encryptedMessage);
         droid.receiveMessage(encryptedMessage, encryptionKey);
     }
 
-    private String encryptMessage(@NonNull String message, int encryptionKey) {
-        DroidMessageEncryptor droidMessageEncoder = (msg, key) -> {
-            String[] splitMessage = msg.split("");
-            StringBuilder encryptedMessage = new StringBuilder();
-
-            for (String letter : splitMessage) {
-                if (letter.matches(REGEX)) {
-                    encryptedMessage.append(encryptLetter(letter, key));
-                } else {
-                    encryptedMessage.append(letter);
-                }
-            }
-
-            return encryptedMessage.toString();
-        };
-
-        return droidMessageEncoder.encrypt(message, encryptionKey);
-    }
-
-    private String decryptMessage(@NonNull String message, int encryptionKey) {
+    private String encryptOrDecryptMessage(@NonNull String message, int encryptionKey, boolean encrypt) {
         DroidMessageEncryptor droidMessageDecoder = (msg, key) -> {
             String[] splitMessage = msg.split("");
             StringBuilder encryptedMessage = new StringBuilder();
 
             for (String letter : splitMessage) {
                 if (letter.matches(REGEX)) {
-                    encryptedMessage.append(decryptLetter(letter, key));
+                    if (encrypt) {
+                        encryptedMessage.append(encryptLetter(letter, key));
+                    } else {
+                        encryptedMessage.append(decryptLetter(letter, key));
+                    }
                 } else {
                     encryptedMessage.append(letter);
                 }
@@ -64,7 +53,7 @@ public class Droid {
     }
 
     private void receiveMessage(@NonNull String message, int encryptionKey) {
-        String decryptedMessage = decryptMessage(message, encryptionKey);
+        String decryptedMessage = encryptOrDecryptMessage(message, encryptionKey, false);
         log.info("{} получил расшифрованное сообщение: {}", getName(), decryptedMessage);
     }
 
@@ -72,9 +61,9 @@ public class Droid {
         char next = letter.charAt(0);
         for (int i = 0; i < nextIndex; i++) {
             if (next == 122) {
-                next = 'a';
+                next = LOWERCASE_A;
             } else if (next == 90) {
-                next = 'A';
+                next = UPPERCASE_A;
             } else {
                 ++next;
             }
@@ -86,9 +75,9 @@ public class Droid {
         char next = letter.charAt(0);
         for (int i = 0; i < previousIndex; i++) {
             if (next == 97) {
-                next = 'z';
+                next = LOWERCASE_Z;
             } else if (next == 65) {
-                next = 'Z';
+                next = UPPERCASE_Z;
             } else {
                 --next;
             }
