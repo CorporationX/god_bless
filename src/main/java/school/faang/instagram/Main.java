@@ -13,28 +13,21 @@ public class Main {
             FilterProcessor filterProcessor = new FilterProcessor();
 
             Function<Image, Image> grayscaleFilter = (image) ->
-                    new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
+                    new Image(image.name(), image.description() + " | Фильтр: черно-белый");
             Function<Image, Image> sepiaFilter = (image) ->
-                    new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+                    new Image(image.name(), image.description() + " | Фильтр: сепия");
 
             Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-            System.out.println(grayscaleImage.getDescription());
+            log.info(grayscaleImage.description());
 
             Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-            System.out.println(sepiaImage.getDescription());
+            log.info(sepiaImage.description());
 
             Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
             Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-            System.out.println(combinedImage.getDescription());
+            log.info(combinedImage.description());
         } catch (IllegalArgumentException e) {
-            log.error("""
-                            Ошибка: Параметр имеет значение null или передано пустое значение.
-                            Класс: {},
-                            Метод: {},
-                            Строка: {}""",
-                    e.getStackTrace()[1].getClassName(),
-                    e.getStackTrace()[1].getMethodName(),
-                    e.getStackTrace()[1].getLineNumber());
+            log.error(e.getMessage(), e);
         }
     }
 }
