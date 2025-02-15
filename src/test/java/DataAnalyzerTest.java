@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import school.faang.DataAnalyzer;
@@ -11,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +29,19 @@ public class DataAnalyzerTest {
         JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
         try {
             String jsonContent = Files.readString(Path.of("src/main/resources/vacancies.json"));
-            jobs = jobStreamProcessor.processJobs(jsonContent);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<JsonNode> vacancies = objectMapper.readValue(jsonContent, new TypeReference<>() {});
+
+            Stream<String> jobStream = vacancies.stream().map(job -> {
+                try {
+                    return objectMapper.writeValueAsString(job); // Serialize each job
+                } catch (Exception e) {
+                    throw new RuntimeException("Error serializing job: " + job, e);
+                }
+            });
+            jobs = jobStreamProcessor.processJobs(jobStream);
+            System.out.println(jobs);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
