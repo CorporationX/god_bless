@@ -6,28 +6,15 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> predicate,
-                              Function<Email, String> function, Consumer<Email> handler) {
-        List<Email> emailList = new ArrayList<>();
-
-        for (Email email : emails) {
-            if (Objects.nonNull(email) && predicate.test(email)) {
-                emailList.add(email);
-            }
-        }
-
-        for (Email email : emailList) {
-            email.setBody(function.apply(email));
-        }
-
-        for (Email email : emailList) {
-            handler.accept(email);
-        }
-
-        for (Email email : emailList) {
-            System.out.println(email);
-        }
+    public void processEmails(List<Email> emails) {
+        List<Email> emailList = emails.stream().filter(Objects::nonNull)
+                .filter(Email::isImportant)
+                .peek(email -> email.setBody(email.getBody().toUpperCase()))
+                .peek(email -> System.out.println(String.format("Message title: " + email.getSubject())))
+                .toList();
+        System.out.println(emailList);
     }
 }

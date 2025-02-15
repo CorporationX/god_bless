@@ -21,6 +21,6 @@ public class Main {
                 new Email("Spam", "Spam text", false)
         );
 
-        emailProcessor.processEmails(emails, isImportant, toUppercase, printEmail);
+        emailProcessor.processEmails(emails);
     }
 }
