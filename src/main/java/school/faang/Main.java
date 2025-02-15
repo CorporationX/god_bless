@@ -1,23 +1,31 @@
 package school.faang;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<User>();
-        users.add(new User("Alex", 20, "Facebook", "London"));
-        users.add(new User("Ivan", 25, "Amazon", "Berlin"));
-        users.add(new User("Pavel", 20, "Google", "Paris"));
-        users.add(new User("Kate", 10, "VKontakte", "Dubai"));
+        Calculator<Integer> product = (x, y) -> x * y;
+        Calculator<Integer> sum = Integer::sum;
+        Calculator<String> concat = (x, y) -> String.format("%s, %s", x, y);
 
-        Map<Integer, List<User>> map = User.groupUsers(users);
+        List<Integer> nums = List.of(3, 5, 8, 10);
 
-        for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
-            List<String> names = new ArrayList<>();
-            entry.getValue().stream().map(User::name).forEach(names::add);
-            System.out.printf("%d: %s%n", entry.getKey(), String.join(", ", names));
+        int sumResult = calculate(0, nums, sum);
+        int productResult = calculate(1, nums, product);
+        String concatResult = calculate("", nums.stream().map(Object::toString).toList(), concat);
+
+        System.out.printf("array: %s%n", concatResult.substring(2));
+        System.out.printf("sum: %d%n", sumResult);
+        System.out.printf("product: %d%n", productResult);
+    }
+
+    private static <T> T calculate(T initialValue, List<T> items, Calculator<T> calculator) {
+        T accumulator = initialValue;
+
+        for (T item : items) {
+            accumulator = calculator.calculate(accumulator, item);
         }
+
+        return accumulator;
     }
 }
