@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -17,20 +18,28 @@ public class ListOperations {
     public static int findMax(@NonNull List<Integer> numbers) {
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .orElse(0);
+                .orElseThrow(() -> new IllegalArgumentException("List couldn't be empty!"));
     }
 
     public static double findAverage(@NonNull List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseGet(() -> {
+                    System.out.println("List is empty, value by default: 0.0");
+                    return 0.0;
+                });
     }
 
-    public static long countStringsStartingWith(@NonNull List<String> strings, char a) {
-        return strings.stream()
-                .filter(s -> s.startsWith(String.valueOf(a)))
-                .count();
+    public static long countStringsStartingWith(List<String> strings, char a) {
+        return Optional.ofNullable(strings)
+                .map(list -> list.stream()
+                        .filter(s -> s.startsWith(String.valueOf(a)))
+                        .count())
+                .orElseGet(() -> {
+                    System.out.println("List is null, value by default: 0");
+                    return 0L;
+                });
     }
 
     public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, @NonNull String an) {
@@ -54,7 +63,10 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > i)
                 .min(Integer::compare)
-                .orElse(0);
+                .orElseGet(() -> {
+                    System.out.println("There is no such value, value by default: 0");
+                    return 0;
+                });
     }
 
     public static List<Integer> convertToLengths(@NonNull List<String> strings) {
