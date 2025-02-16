@@ -13,47 +13,38 @@ public record Droid(@NonNull String name) {
 
     private String encryptMessage(@NonNull String message, int key) {
 
-        DroidMessageEncryptor encryptor = (m, k) -> {
-
-            char[] charArray = m.toCharArray();
-            List<Character> charList = IntStream.range(0, charArray.length)
-                    .mapToObj(i -> charArray[i])
-                    .map(ch -> {
-                        if (isLetter(ch)) {
-                            char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                            return (char) ((ch - base + key) % 26 + base);
-                        }
-                        return ch;
-                    })
-                    .toList();
-
-            String outMessage = charList.stream().map(String::valueOf).collect(Collectors.joining());
-            return outMessage;
-        };
+        DroidMessageEncryptor encryptor = (m, k) -> getShiftedString(m, key, true);
 
         return encryptor.encrypt(message, key);
     }
 
+    private String getShiftedString(String message, int key, boolean typeEncoder) {
+        char[] charArray = message.toCharArray();
+        List<Character> charList = IntStream.range(0, charArray.length)
+                .mapToObj(i -> charArray[i])
+                .map(ch -> getShiftedCharacter(ch, key, typeEncoder))
+                .toList();
+
+        return charList.stream().map(String::valueOf).collect(Collectors.joining());
+    }
+
+    private Character getShiftedCharacter(Character inputCharacter, int key, boolean typeEncoder) {
+        key = typeEncoder ? key : -key;
+
+        if (isLetter(inputCharacter) && isLatinLetter(inputCharacter)) {
+            char base = Character.isLowerCase(inputCharacter) ? 'a' : 'A';
+            return (char) ((inputCharacter - base + key + 26) % 26 + base);
+        }
+        return inputCharacter;
+    }
+
+    public boolean isLatinLetter(char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+    }
+
     private String decryptMessage(@NonNull String message, int key) {
 
-        DroidMessageEncryptor decryptor = (m, k) -> {
-
-            char[] charArray = m.toCharArray();
-            List<Character> charList = IntStream.range(0, charArray.length)
-                    .mapToObj(i -> charArray[i])
-                    .map(ch -> {
-                        if (isLetter(ch)) {
-                            char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                            return (char) ((ch - base - key + 26) % 26 + base);
-                        } else {
-                            return ch;
-                        }
-                    })
-                    .toList();
-
-            String outMessage = charList.stream().map(String::valueOf).collect(Collectors.joining());
-            return outMessage;
-        };
+        DroidMessageEncryptor decryptor = (m, k) -> getShiftedString(m, key, false);
 
         return decryptor.encrypt(message, key);
     }
