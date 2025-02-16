@@ -1,23 +1,22 @@
 package school.faang;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<User>();
-        users.add(new User("Alex", 20, "Facebook", "London"));
-        users.add(new User("Ivan", 25, "Amazon", "Berlin"));
-        users.add(new User("Pavel", 20, "Google", "Paris"));
-        users.add(new User("Kate", 10, "VKontakte", "Dubai"));
+        int[] nums = new int[] { 1, 2, 3, 4, 5 };
+        int[] reversedArray = Example.reverse(Arrays.copyOf(nums, nums.length));
 
-        Map<Integer, List<User>> map = User.groupUsers(users);
+        System.out.printf("%s -> %s%n", Arrays.toString(nums), Arrays.toString(reversedArray));
 
-        for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
-            List<String> names = new ArrayList<>();
-            entry.getValue().stream().map(User::name).forEach(names::add);
-            System.out.printf("%d: %s%n", entry.getKey(), String.join(", ", names));
-        }
+        nums = new int[] { 1, 2, 3, 4 };
+        reversedArray = Example.reverse(Arrays.copyOf(nums, nums.length));
+
+        System.out.printf("%s -> %s%n", Arrays.toString(nums), Arrays.toString(reversedArray));
+
+        nums = new int[0];
+        reversedArray = Example.reverse(Arrays.copyOf(nums, nums.length));
+
+        System.out.printf("%s -> %s%n", Arrays.toString(nums), Arrays.toString(reversedArray));
     }
 }
