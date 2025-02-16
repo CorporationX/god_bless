@@ -39,9 +39,9 @@ public class Main {
                 .toList();
     }
 
-    @SuppressWarnings("checkstyle:LineLength")
     public static void main(String[] args) {
-        System.out.println(getFilteredWords(List.of("apple", "banana", "avocado", "apricote"), "abcdefghijklmnopqrstuvwxyz"));
+        System.out.println(getFilteredWords(List.of("apple", "banana", "avocado", "apricote"),
+                "abcdefghijklmnopqrstuvwxyz"));
         System.out.println(getIntegerToBinaryString(List.of("apple", "banana", "avocado", "apricote"), 'a'));
         System.out.println(getUniquePairs(Set.of(1, 2, 3, 4, 5, 6), 6));
         System.out.println(getCapitals(Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin")));
