@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 class DictionaryProcessorTest {
     private DictionaryProcessor sut;
     private Map<String, String> dictionaryForTest;
-    BiConsumer<String, String> addWordToDictionary;
+    private BiConsumer<String, String> addWordToDictionary;
 
     @BeforeEach
     void setUp() {
@@ -38,8 +38,8 @@ class DictionaryProcessorTest {
     @Test
     void processSomeWords() {
         // Arrange
-        String[] words = {"привет", "мир"};
-        String[] translations = {"hello", "world"};
+        String[] words = {"привет", "мир", ""};
+        String[] translations = {"hello", "world", ""};
 
         // Act
         for (int i = 0; i < words.length; i++) {
@@ -58,5 +58,18 @@ class DictionaryProcessorTest {
             Assertions.assertTrue(dictionaryForTest.containsKey(word));
             Assertions.assertEquals(translation, dictionaryForTest.get(word));
         }
+    }
+
+    @Test
+    void processWordFailedOnNullWord() {
+        // Arrange
+        String word = null;
+        String translation = "";
+
+        // Act + Assert
+        Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> sut.processWord(word, translation, addWordToDictionary),
+                "Аргумент 'word' не должен быть равен null");
     }
 }
