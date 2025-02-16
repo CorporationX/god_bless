@@ -1,4 +1,4 @@
-package school.faang;
+package bjs2_58443;
 
 import java.util.Random;
 
