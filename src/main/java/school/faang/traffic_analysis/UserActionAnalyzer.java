@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -26,10 +27,8 @@ public class UserActionAnalyzer {
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+"))
                         .filter(word -> word.startsWith("#"))
                         .map(word -> word.replaceAll("[^a-zA-Z0-9#]", ""))
-                        .filter(word -> !word.isEmpty())
-                )
-                .toList()
-                .stream().collect(Collectors.groupingBy(word -> word, Collectors.counting()))
+                        .filter(word -> !word.isEmpty()))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -58,7 +57,10 @@ public class UserActionAnalyzer {
 
         return typesMap.entrySet().stream().collect(Collectors.toMap(
                 Map.Entry::getKey,
-                entry -> (entry.getValue() * 100.0) / total
+                entry -> Optional.of(total)
+                        .filter(t -> t != 0)
+                        .map(t -> (entry.getValue() * 100.0) / t)
+                        .orElse(0.0)
         ));
     }
 }
