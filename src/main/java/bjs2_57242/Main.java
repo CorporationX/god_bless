@@ -25,16 +25,15 @@ public class Main {
     }
 
     private static void transformAndShow(int[][] matrix) {
-        int[][] verticalTransformation = flipMatrix(matrix, FlipDirection.VERTICAL);
-        int[][] horizontalTransformation = flipMatrix(matrix, FlipDirection.HORIZONTAL);
-
         System.out.println("Initial matrix");
         showMatrix(matrix);
 
         System.out.println("Vertical transformation");
+        int[][] verticalTransformation = flipMatrix(matrix, FlipDirection.VERTICAL);
         showMatrix(verticalTransformation);
 
         System.out.println("Horizontal transformation");
+        int[][] horizontalTransformation = flipMatrix(matrix, FlipDirection.HORIZONTAL);
         showMatrix(horizontalTransformation);
     }
 
