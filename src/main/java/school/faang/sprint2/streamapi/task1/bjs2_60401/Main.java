@@ -9,15 +9,14 @@ public class Main {
         List<String> words = List.of("apple", "banana", "cherry", "date", "fig", "mango");
         Predicate<Integer> isPositive = num -> num > 0;
 
-        System.out.println("Sum of even numbers: " + new StreamApi().findEvenNumbersSum(numbers));
-        System.out.println("Max number: " + StreamApi.findMaxNumber(numbers));
-        System.out.println("Average: " + StreamApi.findAverage(numbers));
-        System.out.println("Number of strings starting with 'b': "
-                + StreamApi.findNumberOfStringsStartWith(words, 'b'));
-        System.out.println("Words containing 'an': " + StreamApi.filterStringContainSubstring(words, "an"));
-        System.out.println("Sorted by length: " + StreamApi.sortByStringLength(words));
-        System.out.println("Are all numbers positive? " + StreamApi.checkCondition(numbers, isPositive));
-        System.out.println("Min number greater than 10: " + StreamApi.findMinAboveThreshold(numbers, 10));
-        System.out.println("Lengths of words: " + StreamApi.convertStringToLengths(words));
+        System.out.printf("\nMax number: %d", StreamApi.findMaxNumber(numbers));
+        System.out.printf("\nAverage: %.3f", StreamApi.findAverage(numbers));
+        System.out.printf("\nNumber of strings starting with 'b': %d",
+                StreamApi.findNumberOfStringsStartWith(words, 'b'));
+        System.out.printf("\nWords containing 'an': %s", StreamApi.filterStringContainSubstring(words, "an"));
+        System.out.printf("\nSorted by length: %s", StreamApi.sortByStringLength(words));
+        System.out.printf("\nAre all numbers positive? | %s", StreamApi.checkCondition(numbers, isPositive));
+        System.out.printf("\nMin number greater than 10: %d", StreamApi.findMinAboveThreshold(numbers, 10));
+        System.out.printf("\nLengths of words: %s", StreamApi.convertStringToLengths(words));
     }
 }

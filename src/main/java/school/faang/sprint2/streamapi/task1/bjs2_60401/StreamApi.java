@@ -12,7 +12,7 @@ public class StreamApi {
 
     public static int findMaxNumber(List<Integer> integers) {
         return integers.stream().mapToInt(Integer::intValue).max()
-                .orElseThrow(() -> new IllegalArgumentException(""));
+                .orElseThrow(() -> new IllegalArgumentException("The list of integers is empty"));
     }
 
     public static double findAverage(List<Integer> integers) {
@@ -21,7 +21,7 @@ public class StreamApi {
     }
 
     public static long findNumberOfStringsStartWith(List<String> strings, char character) {
-        return strings.stream().filter(s -> s.startsWith(String.valueOf(character))).count();
+        return strings.stream().filter(s -> s != null).filter(s -> s.startsWith(String.valueOf(character))).count();
     }
 
     public static List<String> filterStringContainSubstring(List<String> strings, String string) {
@@ -38,7 +38,7 @@ public class StreamApi {
 
     public static int findMinAboveThreshold(List<Integer> integers, int threshold) {
         return integers.stream().filter(num -> num > threshold).mapToInt(Integer::intValue).min()
-                .orElseThrow(() -> new NoSuchElementException("There is no element grater threshold"));
+                .orElseThrow(() -> new NoSuchElementException("There is no element greater threshold"));
     }
 
     public static List<Integer> convertStringToLengths(List<String> strings) {
