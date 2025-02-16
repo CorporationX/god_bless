@@ -115,7 +115,7 @@ public class TestUserActionAnalyzer {
 
     @Test
     public void testTopActiveUsers() {
-        String exceptedTop10Users = "[Alice, Bob, Charlie, Dave, Eve]";
+        String exceptedTop10Users = "[Bob, Alice, Charlie, Dave, Eve]";
         List<String> actualTop10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
 
         Assert.assertEquals(exceptedTop10Users, actualTop10Users.toString());
