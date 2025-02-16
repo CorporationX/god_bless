@@ -1,4 +1,4 @@
-package school.faang.sprint2.task_BJS2_60200.palindrome;
+package school.faang.sprint2.task_BJS2_60200.palindrome.number;
 
 public class PalindromeGenerator {
     private final Figure val = new Figure();
