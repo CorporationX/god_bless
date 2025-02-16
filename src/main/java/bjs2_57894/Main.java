@@ -1,6 +1,7 @@
 package bjs2_57894;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +29,13 @@ public class Main {
         System.out.printf("[%d, %d]%n", from, to);
         List<Integer> palindroms = getPalindroms(from, to);
         System.out.println(palindroms);
+        System.out.println();
+
+        System.out.println("Task 4");
+        String string = "abaca";
+        System.out.println(string);
+        List<String> substringsPalindroms = getSubstringsPalindroms(string);
+        System.out.println(substringsPalindroms);
         System.out.println();
     }
 
@@ -85,18 +93,7 @@ public class Main {
         }
 
         for (int i = from; i <= to; i++) {
-            int leftIndex = 0;
-            int rightIndex = invertedDigits.size() - 1;
-            while (leftIndex < rightIndex) {
-                if (invertedDigits.get(leftIndex) != invertedDigits.get(rightIndex)) {
-                    break;
-                }
-
-                leftIndex++;
-                rightIndex--;
-            }
-
-            if (leftIndex == rightIndex) {
+            if (checkPalindrom(invertedDigits)) {
                 result.add(i);
             }
 
@@ -117,5 +114,42 @@ public class Main {
         }
 
         return result;
+    }
+
+    private static List<String> getSubstringsPalindroms(String string) {
+        List<String> result = new ArrayList<>();
+        
+        int len = string.length();
+        for (int i = 0; i < len; i++) {
+            result.add(string.substring(i, i + 1));
+            
+            for (int j = i + 2; j <= len; j++) {
+                String substring = string.substring(i, j);
+                List<Character> charList = substring.chars()
+                        .mapToObj(c -> (char) c)
+                        .toList();
+
+                if (checkPalindrom(charList)) {
+                    result.add(substring);
+                }
+            }
+        }
+
+        return result.stream().distinct().toList();
+    }
+
+    private static <T> boolean checkPalindrom(List<T> list) {
+        int leftIndex = 0;
+        int rightIndex = list.size() - 1;
+        while (leftIndex < rightIndex) {
+            if (!list.get(leftIndex).equals(list.get(rightIndex))) {
+                break;
+            }
+
+            leftIndex++;
+            rightIndex--;
+        }
+
+        return leftIndex == rightIndex;
     }
 }
