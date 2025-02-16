@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -170,22 +171,20 @@ public class Main {
     }
 
     private static List<Integer> getPerfectDigits(int from, int to) {
-        List<Integer> result = new ArrayList<>();
+        return Stream.iterate(from, n -> n + 1)
+                .limit(to - from)
+                .filter(number ->
+                {
+                    List<Integer> dividers = new ArrayList<>();
+                    for (int divider = 1; divider <= number / 2; divider++) {
+                        if (number % divider == 0) {
+                            dividers.add(divider);
+                        }
+                    }
 
-        for (int number = from; number < to; number++) {
-            List<Integer> dividers = new ArrayList<>();
-            for (int divider = 1; divider <= number / 2; divider++) {
-                if (number % divider == 0) {
-                    dividers.add(divider);
-                }
-            }
-
-            if (dividers.stream().mapToInt(x -> x).sum() == number) {
-                result.add(number);
-            }
-        }
-
-        return result;
+                    return dividers.stream().mapToInt(x -> x).sum() == number;
+                })
+                .toList();
     }
 
     private static <T> boolean checkPalindrom(List<T> list) {
