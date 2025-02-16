@@ -10,21 +10,21 @@ public class StreamApi {
 
     public static Set<List<Integer>> uniquePairsOfNumbers(Set<Integer> numbers, int value) {
         return numbers.stream()
-                .flatMap(num -> numbers.stream()
-                        .filter(val -> num + val == value && num < val)
-                        .map(val -> List.of(num, val)))
+                .filter(num -> num < value - num && numbers.contains(value - num))
+                .map(num -> List.of(num, value - num))
                 .collect(Collectors.toSet());
     }
 
     public static List<String> sortCountryAndPrintCapital(Map<String, String> countries) {
-        return countries.values().stream()
-                .sorted()
+        return countries.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
     public static List<String> filterAndSortedString(List<String> strings, char ch) {
         return strings.stream()
-                .filter(str -> !str.isBlank() && str.startsWith(String.valueOf(ch)))
+                .filter(str -> str.startsWith(String.valueOf(ch)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
