@@ -12,8 +12,8 @@ public record NumberPair(Integer first, Integer second) {
             return false;
         }
         NumberPair that = (NumberPair) o;
-        return (Objects.equals(first, that.first) && Objects.equals(second, that.second)) ||
-                (Objects.equals(first, that.second) && Objects.equals(second, that.first));
+        return (Objects.equals(first, that.first) && Objects.equals(second, that.second))
+                || (Objects.equals(first, that.second) && Objects.equals(second, that.first));
     }
 
     @Override
