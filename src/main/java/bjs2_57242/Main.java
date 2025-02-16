@@ -1,4 +1,4 @@
-package school.faang;
+package bjs2_57242;
 
 import java.util.Arrays;
 
