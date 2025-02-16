@@ -16,7 +16,8 @@ public class Main {
         logger.info("The max of number = {}", StreamApiPractice.maxInList(intList));
         logger.info("The average of number = {}", StreamApiPractice.avgInList(intList));
         char symbol = 'A';
-        logger.info("The count strings begin at char '{}' = {}", symbol, StreamApiPractice.findCount(stringList, symbol));
+        logger.info("The count strings begin at char '{}' = {}",
+                symbol, StreamApiPractice.findCount(stringList, symbol));
         String substring = "Alex";
         logger.info("The list of strings that include a substring '{}': {}", substring,
                 StreamApiPractice.includeSubstring(stringList, substring));
@@ -25,6 +26,7 @@ public class Main {
                 intList, StreamApiPractice.isAllMatch(intList, i -> i > 5));
         logger.info("Min of numbers {} after filter: {}",
                 intList, StreamApiPractice.minOfFilterNumbers(intList, 6));
-        logger.info("The list of Strings {} to list of Length: {}", stringList, StreamApiPractice.mapStringList(stringList));
+        logger.info("The list of Strings {} to list of Length: {}",
+                stringList, StreamApiPractice.mapStringList(stringList));
     }
 }
