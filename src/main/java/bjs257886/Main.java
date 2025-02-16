@@ -15,7 +15,9 @@ public class Main {
         logger.info("{}", TaskStreamApi.sortCountriesAndGetCapitals(getCountryToCapital()));
         logger.info("{}", TaskStreamApi.findAndSortStrings(getStringsToSortByLength(), 'a'));
         logger.info("{}", TaskStreamApi.convertNumbersToBinaryFormat(getStringsToConvertInBinaryFormat()));
-        logger.info("{}", TaskStreamApi.filterStringsAndSortByLength(getStringsToSortByLengthAndOrder()));
+        logger.info("{}", TaskStreamApi
+                .filterStringsAndSortByLength(getStringsToSortByLengthAndOrder(),
+                        getAlphabetToSortByLengthAndOrder()));
     }
 
     private static Set<Integer> getSetUniqueNumbers() {
@@ -37,5 +39,9 @@ public class Main {
     private static List<String> getStringsToSortByLengthAndOrder() {
         return List.of("apple", "banana", "cherry", "date", "fig", "grape", "буквы не из заданного алфавита", "",
                 "som;ethingW:ith(NoLe:tterSymbo=ls");
+    }
+
+    private static String getAlphabetToSortByLengthAndOrder() {
+        return "abcdefghijklmnopqrstuvwxyz";
     }
 }
