@@ -53,7 +53,7 @@ public class Main {
         return result;
     }
 
-    private static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+    public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         MatrixTransformer transformer = switch (flipDirection) {
             case VERTICAL -> (x, y, rowCount, columnCount) -> new Coordinates(rowCount - 1 - x, y);
             case HORIZONTAL -> (x, y, rowCount, columnCount) -> new Coordinates(x, columnCount - 1 - y);
