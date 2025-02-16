@@ -54,6 +54,10 @@ public class Main {
     }
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+        if (matrix == null) {
+            throw new IllegalArgumentException("Аргумент 'matrix' не может быть равен null");
+        }
+
         MatrixTransformer transformer = switch (flipDirection) {
             case VERTICAL -> (x, y, rowCount, columnCount) -> new Coordinates(rowCount - 1 - x, y);
             case HORIZONTAL -> (x, y, rowCount, columnCount) -> new Coordinates(x, columnCount - 1 - y);
