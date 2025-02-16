@@ -6,15 +6,18 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    public static List<String> getUniquePairs(@NonNull Set<Integer> initialSet, int aimNumber) {
-        return initialSet.stream()
-                .flatMap(num1 -> initialSet.stream()
-                        .filter(num2 -> num1 + num2 == aimNumber && num1 < num2)
-                        .map(num2 -> String.format("(%d, %d)", num1, num2)))
-                .toList();
+    public static Set<List<Integer>> getUniquePairs(Set<Integer> set, int key) {
+        return set.stream()
+                .filter(firstNum -> {
+                    int secondNum = key - firstNum;
+                    return firstNum < secondNum && set.contains(secondNum);
+                })
+                .map(firstNum -> List.of(firstNum, key - firstNum))
+                .collect(Collectors.toSet());
     }
 
     public static List<String> getCapitals(@NonNull Map<String, String> inputMap) {
@@ -23,7 +26,7 @@ public class Main {
     }
 
     public static List<String> getIntegerToBinaryString(@NonNull List<String> listStrings, Character startCharacter) {
-        return listStrings.stream().filter(s -> s.startsWith("" + startCharacter))
+        return listStrings.stream().filter(s -> s.startsWith(startCharacter.toString()))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
