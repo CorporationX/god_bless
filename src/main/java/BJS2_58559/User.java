@@ -1,4 +1,4 @@
-package school.faang;
+package BJS2_58559;
 
 import java.util.Set;
 
