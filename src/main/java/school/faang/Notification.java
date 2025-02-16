@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Notification {
-    NotificationType type;
-    String message;
+    private NotificationType type;
+    private String message;
 
     public Notification(NotificationType type, String message) {
         this.type = type;

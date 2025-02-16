@@ -14,13 +14,17 @@ public class NotificationManager {
     private final Map<Notification.NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
     private final List<String> forbiddenWords = new ArrayList<>();
     private final List<Function<Notification, Notification>> messageCorrectors = new ArrayList<>();
+    private final String blocked = "Уведомление заблокировано: ";
+    private final String notFounded = "Обработчик для типа уведомления не найден: ";
 
     public NotificationManager(List<String> forbiddenWords) {
-        this.forbiddenWords.addAll(forbiddenWords);
+        for (String word : forbiddenWords) {
+            this.forbiddenWords.add(word.toLowerCase());
+        }
     }
 
     public static void main(String[] args) {
-        // Пример списка запрещенных слов
+
         List<String> forbiddenWords = List.of("ЪуЪ");
 
         NotificationManager notificationManager = new NotificationManager(forbiddenWords);
@@ -58,12 +62,18 @@ public class NotificationManager {
     }
 
     public void registerHandler(Notification.NotificationType type, Consumer<Notification> handler) {
+        if (type == null) {
+            throw new IllegalArgumentException("Notification type cannot be null");
+        }
+        if (handler == null) {
+            throw new IllegalArgumentException("Notification handler cannot be null");
+        }
         notificationHandlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
         if (isForbidden(notification)) {
-            log.info("Уведомление заблокировано: " + notification.getMessage());
+            log.info(blocked + notification.getMessage());
             return;
         }
         for (Function<Notification, Notification> corrector : messageCorrectors) {
@@ -74,21 +84,17 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(notification);
         } else {
-            log.info("Обработчик для типа уведомления не найден: " + notification.getType());
+            log.info(notFounded + notification.getType());
         }
     }
 
     private boolean isForbidden(Notification notification) {
         String message = notification.getMessage().toLowerCase();
         for (String word : forbiddenWords) {
-            if (message.contains(word.toLowerCase())) {
+            if (message.contains(word)) {
                 return true;
             }
         }
         return false;
     }
 }
-
-
-
-
