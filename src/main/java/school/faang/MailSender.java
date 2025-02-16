@@ -4,7 +4,7 @@ public class MailSender {
     private static final int MESSAGES = 11;
     private static final int THREADS = 3;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int batchSize = (MESSAGES + THREADS - 1) / THREADS;
         Thread[] threads = new Thread[THREADS];
         System.out.println(batchSize);
@@ -15,7 +15,11 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("All mails have been sent.");
     }
