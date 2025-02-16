@@ -15,10 +15,8 @@ public class NotificationManager {
 
     public void sendNotification(@NonNull Notification notification) {
         if (!notifications.containsKey(notification.getType())) {
-            throw new IllegalArgumentException("Данного типа нет");
+            throw new IllegalArgumentException(String.format("Тип %s не поддерживается", notification.getType()));
         }
         notifications.get(notification.getType()).accept(notification);
-
-
     }
 }
