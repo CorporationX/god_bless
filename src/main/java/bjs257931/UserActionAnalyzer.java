@@ -24,8 +24,8 @@ public class UserActionAnalyzer {
                 .filter(action ->
                         Objects.nonNull(action.getContent())
                                 && !action.getContent().isBlank()
-                                && action.getActionType().equals(ActionType.POST)
-                                || (action.getActionType().equals(ActionType.COMMENT)))
+                                && (action.getActionType().equals(ActionType.POST)
+                                || action.getActionType().equals(ActionType.COMMENT)))
                 .map(UserAction::getContent)
                 .flatMap(string -> Arrays.stream(string.split("\\s")))
                 .filter(string -> string.startsWith("#"))
