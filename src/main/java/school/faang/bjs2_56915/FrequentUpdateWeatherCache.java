@@ -12,6 +12,6 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
 
     @Override
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        return updateWeatherData(city);
+        return weatherProvider.fetchWeatherData(city);
     }
 }
