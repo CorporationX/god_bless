@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +21,19 @@ public class Main {
 
         List<Pair> friendOfFriends = getFriendOfFriends(data1);
         System.out.println(friendOfFriends);
+        System.out.println();
+
+        System.out.println("Task 2");
+        List<Employee> data2 = new ArrayList<>();
+        insertItemToTask2(data2, "Alice", 1, "Department 1");
+        insertItemToTask2(data2, "Bob", 2, "Department 2");
+        insertItemToTask2(data2, "Charlie", 3, "Department 1");
+        insertItemToTask2(data2, "David", 4, "Department 3");
+        insertItemToTask2(data2, "Ivan", 5, "Department 3");
+        insertItemToTask2(data2, "Sven", 58, "Department 2");
+
+        Map<String, Double> averageSalaryByDepartment = getAverageSalaryByDepartment(data2);
+        System.out.println(averageSalaryByDepartment);
         System.out.println();
 
         System.out.println("Task 3");
@@ -46,9 +60,14 @@ public class Main {
         System.out.println();
     }
 
-    private static void insertItemToTask1(Map<String, List<String>> data1, String name, List<String> friends) {
-        data1.put(name, friends);
+    private static void insertItemToTask1(Map<String, List<String>> data, String name, List<String> friends) {
+        data.put(name, friends);
         System.out.printf("%s: %s%n", name, friends);
+    }
+
+    private static void insertItemToTask2(List<Employee> data, String name, double salary, String department) {
+        data.add(new Employee(name, salary, department));
+        System.out.printf("%s %.2f %s%n", name, salary, department);
     }
 
     private static List<Pair> getFriendOfFriends(Map<String, List<String>> data) {
@@ -86,6 +105,11 @@ public class Main {
         }
 
         return result;
+    }
+
+    private static Map<String, Double> getAverageSalaryByDepartment(List<Employee> data) {
+        return data.stream()
+                .collect(Collectors.groupingBy(Employee::department, Collectors.averagingDouble(Employee::salary)));
     }
 
     private static List<Integer> getPalindroms(int from, int to) {
