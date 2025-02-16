@@ -12,12 +12,12 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("Top10 active users: {}",
-                UserActionAnalyzer.topActiveUsers(initializeUserActions(), 10));
+                UserActionAnalyzer.getTopActiveUsers(initializeUserActions(), 10));
         logger.info("Top5 hash tags: {}",
-                UserActionAnalyzer.topPopularHashtags(initializeUserActions(), 5));
+                UserActionAnalyzer.getTopPopularHashtags(initializeUserActions(), 5));
         logger.info("Top3 commenters last month: {}",
-                UserActionAnalyzer.topCommentersLastMonth(initializeUserActions(), 3));
-        UserActionAnalyzer.actionTypePercentages(initializeUserActions())
+                UserActionAnalyzer.getTopCommentersLastMonth(initializeUserActions(), 3));
+        UserActionAnalyzer.getActionTypePercentages(initializeUserActions())
                 .forEach((key, value) -> logger.info("Action type: {}, Percent: {}",
                         key, value));
     }

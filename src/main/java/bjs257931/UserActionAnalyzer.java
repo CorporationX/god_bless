@@ -10,16 +10,17 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
-    public static List<String> topActiveUsers(List<UserAction> actions, int numberActionTypes) {
-        Map<String, Long> nameToNumberNames = actions.stream()
+    public static List<String> getTopActiveUsers(List<UserAction> actions, int numberActionTypes) {
+        Map<String, Long> nameToNumberNames = Objects.requireNonNull(actions).stream()
+                .filter(action -> Objects.nonNull(action.getName()))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return nameToNumberNames.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(numberActionTypes)
                 .map(Map.Entry::getKey).toList();
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> actions, int numberActionTypes) {
-        Map<String, Long> tagsToNumberTags = actions.stream()
+    public static List<String> getTopPopularHashtags(List<UserAction> actions, int numberActionTypes) {
+        Map<String, Long> tagsToNumberTags = Objects.requireNonNull(actions).stream()
                 .filter(action ->
                         Objects.nonNull(action.getContent())
                                 && !action.getContent().isBlank()
@@ -40,20 +41,22 @@ public class UserActionAnalyzer {
                 .map(Map.Entry::getKey).limit(numberActionTypes).toList();
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> actions, int numberActionTypes) {
+    public static List<String> getTopCommentersLastMonth(List<UserAction> actions, int numberActionTypes) {
         Map<String, Long> userToNumberComments =
-                actions.stream()
-                        .filter(action -> Objects.nonNull(action.getActionType())
-                                && action.getActionType().equals(ActionType.COMMENT)
-                                && action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+                Objects.requireNonNull(actions).stream()
+                        .filter(action -> Objects.requireNonNull(action.getActionType()).equals(ActionType.COMMENT)
+                                && action.getActionDate().isAfter(LocalDate.now().minusMonths(1))
+                                && Objects.nonNull(action.getName()))
                         .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
         return userToNumberComments.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(numberActionTypes).map(Map.Entry::getKey).toList();
     }
 
-    public static Map<ActionType, Double> actionTypePercentages(List<UserAction> actions) {
-        long numberActionTypes = actions.stream().filter(action -> Objects.nonNull(action.getActionType())).count();
+    public static Map<ActionType, Double> getActionTypePercentages(List<UserAction> actions) {
+        long numberActionTypes = Objects.requireNonNull(actions).stream()
+                .filter(action -> Objects.nonNull(action.getActionType())).count();
         Map<ActionType, Long> typeToNumberTypes = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
         return typeToNumberTypes.entrySet()
