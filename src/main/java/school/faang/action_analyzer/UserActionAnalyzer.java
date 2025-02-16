@@ -18,8 +18,8 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions, int limit) {
         return actions.stream()
                 .filter(u -> u.getContent() != null
-                        && ActionType.COMMENT.equals(u.getActionType())
-                        || ActionType.POST.equals(u.getActionType()))
+                        && (ActionType.COMMENT.equals(u.getActionType())
+                        || ActionType.POST.equals(u.getActionType())))
                 .flatMap(u -> Arrays.stream(u.getContent().split("[\s.,!?]")))
                 .filter(i -> i.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
