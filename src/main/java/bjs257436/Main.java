@@ -3,7 +3,6 @@ package bjs257436;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -13,7 +12,7 @@ public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        List<Email> emails = Arrays.asList(
+        List<Email> emails = List.of(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
                 new Email("Спам", "Текст спама", false)
@@ -26,6 +25,13 @@ public class Main {
         EmailProcessor emailProcessor = new EmailProcessor();
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
+        LOGGER.atDebug().log("Number of emails: {}", emails.size());
+        emails.forEach(email
+                -> {
+            if (email.isImportant()) {
+                LOGGER.warn("Check email");
+            }
+        });
         emails.forEach(email
                 -> LOGGER.info("Topic: {}, Letter`s body: {}", email.getSubject(), email.getBody()));
     }
