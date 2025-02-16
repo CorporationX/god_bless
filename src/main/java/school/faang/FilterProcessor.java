@@ -1,7 +1,10 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Function;
 
+@Slf4j
 public class FilterProcessor {
 
     public static void main(String[] args) {
@@ -15,18 +18,19 @@ public class FilterProcessor {
                 image.getDescription() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(bonk, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription());
+        log.info(grayscaleImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedFilterImage = filterProcessor.applyFilter(pepe, combinedFilter);
-        System.out.println(combinedFilterImage.getDescription());
+        log.info(combinedFilterImage.getDescription());
     }
 
     public Image applyFilter(Image image, Function<Image, Image> filter) {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {
-        return filter1.andThen(filter2);
+    public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter,
+                                                 Function<Image, Image> secondFilter) {
+        return firstFilter.andThen(secondFilter);
     }
 }
