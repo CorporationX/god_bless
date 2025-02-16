@@ -21,7 +21,7 @@ public class BigBangTheory {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)){
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 System.out.println("Tasks haven't been completed in time.");
                 executor.shutdownNow();
             }
