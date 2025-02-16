@@ -1,16 +1,11 @@
-package school.faang;
+package bjs2_57133;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.function.Supplier;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
     List<Integer> testData = List.of(3, 5, 8, 10);
