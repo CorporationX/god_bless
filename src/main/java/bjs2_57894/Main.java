@@ -22,6 +22,13 @@ public class Main {
         System.out.println(friendOfFriends);
         System.out.println();
 
+        System.out.println("Task 3");
+        int from = 100;
+        int to = 200;
+        System.out.printf("[%d, %d]%n", from, to);
+        List<Integer> palindroms = getPalindroms(from, to);
+        System.out.println(palindroms);
+        System.out.println();
     }
 
     private static void insertItemToTask1(Map<String, List<String>> data1, String name, List<String> friends) {
@@ -61,6 +68,52 @@ public class Main {
 
             result.add(new Pair(name, friendPair.get().second()));
             processedNames.add(friendName);
+        }
+
+        return result;
+    }
+
+    private static List<Integer> getPalindroms(int from, int to) {
+        List<Integer> result = new ArrayList<>();
+
+        List<Integer> invertedDigits = new ArrayList<>();
+
+        int firstDigit = from;
+        while (firstDigit > 0) {
+            invertedDigits.add(firstDigit % 10);
+            firstDigit /= 10;
+        }
+
+        for (int i = from; i <= to; i++) {
+            int leftIndex = 0;
+            int rightIndex = invertedDigits.size() - 1;
+            while (leftIndex < rightIndex) {
+                if (invertedDigits.get(leftIndex) != invertedDigits.get(rightIndex)) {
+                    break;
+                }
+
+                leftIndex++;
+                rightIndex--;
+            }
+
+            if (leftIndex == rightIndex) {
+                result.add(i);
+            }
+
+            int j = 0;
+            for (; j < invertedDigits.size() - 1; j++) {
+                int digit = invertedDigits.get(j);
+                if (digit < 9) {
+                    invertedDigits.set(j, digit + 1);
+                    break;
+                } else {
+                    invertedDigits.set(j, 0);
+                }
+            }
+
+            if (j == invertedDigits.size() - 1 && invertedDigits.get(j) <= 9) {
+                invertedDigits.set(j, invertedDigits.get(j) + 1);
+            }
         }
 
         return result;
