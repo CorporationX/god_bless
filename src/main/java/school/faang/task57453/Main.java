@@ -21,19 +21,19 @@ public class Main {
         );
 
         // Фильтр, который пропускает только важные письма
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик, который выводит тему письма в консоль
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
         // Преобразователь, который переводит текст письма в верхний регистр
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Email, String> bodyTransformer = email -> email.getBody().toUpperCase();
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emailProcessor.processEmails(emails, importantFilter, printEmail, bodyTransformer);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println(
-                "Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf(
+                "Тема: %s, Тело письма: %s\n", email.getSubject(), email.getBody()));
     }
 }
