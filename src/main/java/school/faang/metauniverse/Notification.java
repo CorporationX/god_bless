@@ -1,4 +1,4 @@
-package metauniverse;
+package school.faang.metauniverse;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
