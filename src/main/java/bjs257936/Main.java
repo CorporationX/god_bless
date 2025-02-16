@@ -10,18 +10,21 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> LOGGER.info("Email: {}", notification.getMessage()));
+                notification -> LOGGER.info("Email: {}", notification.getMessage()),
+                notificationType -> notificationType.equals(NotificationType.EMAIL));
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> LOGGER.info("Sms: {}", notification.getMessage()));
+                notification -> LOGGER.info("Sms: {}", notification.getMessage()),
+                notificationType -> notificationType.equals(NotificationType.SMS));
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> LOGGER.info("Push: {}", notification.getMessage()));
+                notification -> LOGGER.info("Push: {}", notification.getMessage()),
+                notificationType -> notificationType.equals(NotificationType.PUSH));
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Подтверждение регистрации");
         Notification smsNotification = new Notification(NotificationType.SMS, "Уведомление о зачислении");
         Notification pushNotification = new Notification(NotificationType.PUSH, "Установлен новый тариф");
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(emailNotification, Notification::getMessage);
+        notificationManager.sendNotification(smsNotification, Notification::getMessage);
+        notificationManager.sendNotification(pushNotification, Notification::getMessage);
     }
 }
