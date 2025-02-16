@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         String currentDirectoryPath = new File("").getAbsolutePath()
-                .concat("\\src\\main\\java\\school\\faang\\");
+                .concat("\\src\\main\\java\\bjs2_58096\\");
         ObjectMapper mapper = new ObjectMapper();
 
         try {
