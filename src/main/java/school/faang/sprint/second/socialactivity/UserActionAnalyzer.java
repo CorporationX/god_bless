@@ -25,7 +25,7 @@ public final class UserActionAnalyzer {
                         UserAction::getName,
                         action -> 1,
                         Integer::sum,
-                        HashMap::new
+                        TreeMap::new
                 ));
 
         return mapToListWithSorting(topActiveUsersMap, top);
@@ -38,7 +38,7 @@ public final class UserActionAnalyzer {
                         userAction -> getHashTag(userAction).get(),
                         action -> 1,
                         Integer::sum,
-                        HashMap::new
+                        TreeMap::new
                 ));
 
         return mapToListWithSorting(topPopularHashtagsMap, top);
