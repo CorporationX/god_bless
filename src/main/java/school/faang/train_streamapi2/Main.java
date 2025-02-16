@@ -1,0 +1,53 @@
+package school.faang.train_streamapi2;
+
+import lombok.NonNull;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Main {
+
+    public static Set<List<Integer>> getUniquePairs(Set<Integer> set, int key) {
+        return set.stream()
+                .filter(firstNum -> {
+                    int secondNum = key - firstNum;
+                    return firstNum < secondNum && set.contains(secondNum);
+                })
+                .map(firstNum -> List.of(firstNum, key - firstNum))
+                .collect(Collectors.toSet());
+    }
+
+    public static List<String> getCapitals(@NonNull Map<String, String> inputMap) {
+        return inputMap.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).toList();
+    }
+
+    public static List<String> getIntegerToBinaryString(@NonNull List<String> listStrings, Character startCharacter) {
+        return listStrings.stream().filter(s -> s.startsWith(startCharacter.toString()))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static List<String> getIntegerToBinaryString(@NonNull List<Integer> listInteger) {
+        return listInteger.stream().map(Integer::toBinaryString).toList();
+    }
+
+    public static List<String> getFilteredWords(@NonNull List<String> listWords, @NonNull String alphabet) {
+        return listWords.stream().filter(s ->
+                        s.chars().allMatch(ch -> alphabet.indexOf(ch) != -1))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getFilteredWords(List.of("apple", "banana", "avocado", "apricote"),
+                "abcdefghijklmnopqrstuvwxyz"));
+        System.out.println(getIntegerToBinaryString(List.of("apple", "banana", "avocado", "apricote"), 'a'));
+        System.out.println(getUniquePairs(Set.of(1, 2, 3, 4, 5, 6), 6));
+        System.out.println(getCapitals(Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin")));
+        System.out.println(getIntegerToBinaryString(List.of(1, 2, 3, 4)));
+    }
+}
