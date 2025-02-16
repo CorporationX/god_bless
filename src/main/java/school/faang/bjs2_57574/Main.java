@@ -7,8 +7,8 @@ public class Main {
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.cast(alohomora,(spellName -> "The door is unlocked by " + spellName));
-        spellCaster.cast(lumos,(spellName -> "A beam of light is created by " + spellName));
-        spellCaster.cast(expelliarmus,(spellName -> "The opponent is disarmed by " + spellName));
+        spellCaster.cast(alohomora, (spellName -> "The door is unlocked by " + spellName));
+        spellCaster.cast(lumos, (spellName -> "A beam of light is created by " + spellName));
+        spellCaster.cast(expelliarmus, (spellName -> "The opponent is disarmed by " + spellName));
     }
 }
