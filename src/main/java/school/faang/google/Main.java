@@ -10,7 +10,7 @@ public class Main {
 
         Map<String, String> dictionary = new HashMap<>();
 
-        BiConsumer<String, String> addWordToDictionary = (word, transtation) -> dictionary.put(word, transtation);
+        BiConsumer<String, String> addWordToDictionary = (word, translation) -> dictionary.put(word, translation);
 
         dictionaryProcessor.processWord("Hat", "Шляпа", addWordToDictionary);
         dictionaryProcessor.processWord("Table", "Стол", addWordToDictionary);
