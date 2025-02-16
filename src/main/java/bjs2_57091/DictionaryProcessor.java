@@ -1,4 +1,4 @@
-package school.faang;
+package bjs2_57091;
 
 import java.util.function.BiConsumer;
 
