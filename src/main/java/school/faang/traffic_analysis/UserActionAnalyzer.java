@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -57,10 +56,13 @@ public class UserActionAnalyzer {
 
         return typesMap.entrySet().stream().collect(Collectors.toMap(
                 Map.Entry::getKey,
-                entry -> Optional.of(total)
-                        .filter(t -> t != 0)
-                        .map(t -> (entry.getValue() * 100.0) / t)
-                        .orElse(0.0)
+                entry -> {
+                    if (total != 0) {
+                        return (entry.getValue() * 100.0) / total;
+                    } else {
+                        return 0.0;
+                    }
+                }
         ));
     }
 }
