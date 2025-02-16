@@ -173,8 +173,7 @@ public class Main {
     private static List<Integer> getPerfectDigits(int from, int to) {
         return Stream.iterate(from, n -> n + 1)
                 .limit(to - from)
-                .filter(number ->
-                {
+                .filter(number -> {
                     List<Integer> dividers = new ArrayList<>();
                     for (int divider = 1; divider <= number / 2; divider++) {
                         if (number % divider == 0) {
