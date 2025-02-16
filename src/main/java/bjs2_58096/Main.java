@@ -1,4 +1,4 @@
-package school.faang;
+package bjs2_58096;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
