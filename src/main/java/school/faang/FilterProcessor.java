@@ -3,7 +3,6 @@ package school.faang;
 import java.util.function.Function;
 
 class FilterProcessor {
-
     public Image applyFilter(Image image, Function<Image, Image> filter) {
         Image filteredImage = filter.apply(image);
         return filteredImage;
