@@ -18,14 +18,18 @@ public class OperationsWithNumbersAndStrings {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElseThrow(OperationsWithNumbersAndStrings::exceptionListNumbersEmpty);
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Ошибка: список чисел пуст. Метод maxNumber не может вернуть " +
+                                "максимальное значение из пустого списка."));
     }
 
     public static double avrNumber(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow(OperationsWithNumbersAndStrings::exceptionListNumbersEmpty);
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Ошибка: список чисел пуст. Метод avrNumber не может вернуть " +
+                                "среднее значение из пустого списка."));
     }
 
     public static long countStringsStartingWith(List<String> strings, char ch) {
@@ -36,7 +40,7 @@ public class OperationsWithNumbersAndStrings {
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         return strings.stream()
-                .filter(str -> !str.isBlank() && str.contains(substring))
+                .filter(str -> !str.isEmpty() && str.contains(substring))
                 .toList();
     }
 
@@ -63,9 +67,5 @@ public class OperationsWithNumbersAndStrings {
         return strings.stream()
                 .map(String::length
                 ).toList();
-    }
-
-    private static IllegalArgumentException exceptionListNumbersEmpty() {
-        return new IllegalArgumentException("Список чисел пуст");
     }
 }
