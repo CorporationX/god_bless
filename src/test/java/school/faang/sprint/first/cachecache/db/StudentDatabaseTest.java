@@ -1,8 +1,7 @@
-package scool.faang.sprint.first.cachecache.db;
+package school.faang.sprint.first.cachecache.db;
 
 import org.junit.Assert;
 import org.junit.Test;
-import school.faang.sprint.first.cachecache.db.StudentDatabase;
 
 import java.util.HashSet;
 import java.util.Set;
