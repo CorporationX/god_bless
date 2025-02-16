@@ -19,7 +19,7 @@ public class GriffinsFoodDelivery {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)){
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
                 System.out.println("Processes haven't been completed in time.");
                 executorService.shutdownNow();
             }
