@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
         for (int i = 0; i < THREADS_AMOUNT; i++) {
             SenderRunnable senderRunnable = new SenderRunnable(
-                    EMAILS_AMOUNT_PER_THREAD * i + 1,
+                    EMAILS_AMOUNT_PER_THREAD * i,
                     EMAILS_AMOUNT_PER_THREAD * (i + 1) - 1
             );
 
