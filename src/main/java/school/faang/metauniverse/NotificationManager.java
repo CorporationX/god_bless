@@ -11,7 +11,11 @@ public class NotificationManager {
     private static final Logger logger = LoggerFactory.getLogger(NotificationManager.class);
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationMap.put(type, handler);
+        if (type != null || handler != null) {
+            notificationMap.put(type, handler);
+        } else {
+            logger.warn("Cannot register handler: type or handler is null.");
+        }
     }
 
     public void sendNotification(Notification notification) {
