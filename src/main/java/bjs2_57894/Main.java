@@ -1,7 +1,6 @@
 package bjs2_57894;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +35,14 @@ public class Main {
         System.out.println(string);
         List<String> substringsPalindroms = getSubstringsPalindroms(string);
         System.out.println(substringsPalindroms);
+        System.out.println();
+
+        System.out.println("Task 5");
+        from = 1;
+        to = 1000;
+        System.out.printf("[%d, %d]%n", from, to);
+        List<Integer> perfectDigits = getPerfectDigits(from, to);
+        System.out.println(perfectDigits);
         System.out.println();
     }
 
@@ -118,11 +125,11 @@ public class Main {
 
     private static List<String> getSubstringsPalindroms(String string) {
         List<String> result = new ArrayList<>();
-        
+
         int len = string.length();
         for (int i = 0; i < len; i++) {
             result.add(string.substring(i, i + 1));
-            
+
             for (int j = i + 2; j <= len; j++) {
                 String substring = string.substring(i, j);
                 List<Character> charList = substring.chars()
@@ -136,6 +143,25 @@ public class Main {
         }
 
         return result.stream().distinct().toList();
+    }
+
+    private static List<Integer> getPerfectDigits(int from, int to) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int number = from; number < to; number++) {
+            List<Integer> dividers = new ArrayList<>();
+            for (int divider = 1; divider <= number / 2; divider++) {
+                if (number % divider == 0) {
+                    dividers.add(divider);
+                }
+            }
+
+            if (dividers.stream().mapToInt(x -> x).sum() == number) {
+                result.add(number);
+            }
+        }
+
+        return result;
     }
 
     private static <T> boolean checkPalindrom(List<T> list) {
