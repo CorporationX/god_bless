@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +25,7 @@ public final class UserActionAnalyzer {
                         UserAction::getName,
                         action -> 1,
                         Integer::sum,
-                        TreeMap::new
+                        HashMap::new
                 ));
 
         return mapToListWithSorting(topActiveUsersMap, top);
@@ -32,12 +33,12 @@ public final class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(@NonNull List<UserAction> userActions, int top) {
         Map<String, Integer> topPopularHashtagsMap = userActions.stream()
-                .filter(userAction -> !getHashTag(userAction).isBlank())
+                .filter(userAction -> getHashTag(userAction).isPresent())
                 .collect(Collectors.toMap(
-                        UserActionAnalyzer::getHashTag,
+                        userAction -> getHashTag(userAction).get(),
                         action -> 1,
                         Integer::sum,
-                        TreeMap::new
+                        HashMap::new
                 ));
 
         return mapToListWithSorting(topPopularHashtagsMap, top);
@@ -83,14 +84,14 @@ public final class UserActionAnalyzer {
                 .toList();
     }
 
-    private static String getHashTag(@NonNull UserAction userAction) {
+    private static Optional<String> getHashTag(@NonNull UserAction userAction) {
         String userContent = userAction.getContent();
         Pattern pattern = Pattern.compile("#\\w+");
         Matcher matcher = pattern.matcher(userContent);
 
         if (matcher.find()) {
-            return matcher.group();
+            return Optional.of(matcher.group());
         }
-        return "";
+        return Optional.empty();
     }
 }
