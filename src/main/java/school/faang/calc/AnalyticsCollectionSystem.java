@@ -10,7 +10,7 @@ public class AnalyticsCollectionSystem {
 
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
-            result = calculator.calculator(result, nums.get(i));
+            result = calculator.calculate(result, nums.get(i));
         }
         return result;
     }
