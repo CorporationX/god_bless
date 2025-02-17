@@ -13,16 +13,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
     private final List<Squad> squads;
+    private final String armyName;
 
     public void calculateTotalPower() throws InterruptedException {
-
+        Objects.requireNonNull(squads, "List<Squad> can't be null");
         ExecutorService executor = Executors.newFixedThreadPool(squads.size());
         CountDownLatch latch = new CountDownLatch(squads.size());
         AtomicInteger totalPower = new AtomicInteger(0);
 
 
         squads.forEach(squad -> {
-            Objects.requireNonNull(squad, "Squad can't be null");
             executor.submit(() -> {
                 totalPower.addAndGet(squad.calculateSquadPower());
                 latch.countDown();
@@ -32,6 +32,6 @@ public class Army {
         latch.await();
         executor.shutdown();
 
-        System.out.printf("Обчие количество силы у армий :%d", totalPower.get());
+        System.out.printf("Обчие количество силы у %s армий : %d%n", this.armyName, totalPower.get());
     }
 }
