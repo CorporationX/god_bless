@@ -2,7 +2,6 @@ package school.faang.heroesofmightandmagic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -12,13 +11,10 @@ public class Army {
     private final List<Integer> sum = new CopyOnWriteArrayList<>();
 
     public int calculateTotalPower() throws InterruptedException {
+        Objects.requireNonNull(army, "Army is null");
         army.forEach(squad -> {
             threads.add(new Thread(() -> sum.add(squad.calculateSquadPower())));
-            if (threads.contains(threads.get(threads.size() - 1))) {
-                threads.get(threads.size() - 1).start();
-            } else {
-                throw new NoSuchElementException("Thread not found");
-            }
+            threads.get(threads.size() - 1).start();
         });
 
         for (Thread thread : threads) {

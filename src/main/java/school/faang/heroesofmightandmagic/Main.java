@@ -20,8 +20,8 @@ public class Main {
             ARMY.addSquad(mages);
 
             log.info("Army total power: {}", ARMY.calculateTotalPower());
-        } catch (Exception exception) {
-            log.error(exception.getMessage(), exception);
+        } catch (InterruptedException exception) {
+            log.error("Thread interrupted. {}\n{}", exception, Thread.currentThread().getName());
         }
 
     }
