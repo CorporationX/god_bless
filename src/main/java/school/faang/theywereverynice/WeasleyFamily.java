@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class WeasleyFamily {
-    private static final List<Chore> chores = List.of(
+    private static final List<Chore> CHORES = List.of(
             new Chore("task 1"), new Chore("task 2"), new Chore("task 3"),
             new Chore("task 4"), new Chore("task 5"), new Chore("task 6"),
             new Chore("task 7"), new Chore("task 8"), new Chore("task 9")
@@ -17,8 +17,8 @@ public class WeasleyFamily {
     public static void main(String[] args) {
         try {
             ExecutorService executorService = Executors.newCachedThreadPool();
-            if (!chores.isEmpty()) {
-                chores.forEach(executorService::submit);
+            if (!CHORES.isEmpty()) {
+                CHORES.forEach(executorService::submit);
             } else {
                 throw new IllegalArgumentException("No chores available");
             }
