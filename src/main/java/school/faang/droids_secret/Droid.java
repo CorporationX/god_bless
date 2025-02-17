@@ -51,7 +51,7 @@ public class Droid {
     }
 
     private String decryptMessage(String message, int key) {
-        return encryptMessage(message, ALPHABET_SIZE - key);
+        return encryptMessage(message, ALPHABET_SIZE - (key % ALPHABET_SIZE));
     }
 
     private void checkValidMsg(String msg) {
@@ -63,7 +63,7 @@ public class Droid {
     }
 
     private void checkValidKey(int key) {
-        if (key < 1 || key > ALPHABET_SIZE - 1) {
+        if (key < 0 || key % ALPHABET_SIZE == 0) {
             logger.error(KEY_ERROR);
             throw new IllegalArgumentException(KEY_ERROR);
         }

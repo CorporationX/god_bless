@@ -7,8 +7,8 @@ public class Main {
         Droid bb8 = new Droid("BB-8");
         String message1 = "Join the Rebellion!";
         String message2 = "The Death Star is operational!";
-        int encryptionKey1 = 3; // Ключ шифрования для первого сообщения
-        int encryptionKey2 = 7; // Ключ шифрования для второго сообщения
+        int encryptionKey1 = 38; // Ключ шифрования для первого сообщения
+        int encryptionKey2 = 17; // Ключ шифрования для второго сообщения
         r2d2.sendMessage(c3po, message1, encryptionKey1);
         c3po.sendMessage(r2d2, message2, encryptionKey2);
         bb8.sendMessage(c3po, "The mission is complete. Т.е. конец!", encryptionKey1);
