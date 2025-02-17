@@ -8,17 +8,22 @@ public class LibrarySystem {
     private static final String DEFAULT_SHELF = "1st shelf";
 
     public void addBook(String title, String author, int year) {
-        library.put(new Book(title, author, year), DEFAULT_SHELF);
-        System.out.println("Book " + title + " was added to the " + DEFAULT_SHELF);
+        if (title != null && author != null) {
+            library.put(new Book(title, author, year), DEFAULT_SHELF);
+            System.out.println("Book " + title + " was added to the " + DEFAULT_SHELF);
+        }
     }
 
     public void addBookToShelf(String title, String author, int year, String shelf) {
-        library.put(new Book(title, author, year), shelf);
-        System.out.println("Book " + title + " was added to the " + shelf);
+        if (title != null && author != null) {
+            library.put(new Book(title, author, year), shelf);
+            System.out.println("Book " + title + " was added to the " + shelf);
+        }
     }
 
     public void removeBook(String title, String author, int year) {
         library.remove(new Book(title, author, year));
+        System.out.println("Book " + title + " was removed");
     }
 
     public void findBook(String title, String author, int year) {
@@ -26,7 +31,7 @@ public class LibrarySystem {
         if (library.containsKey(book)) {
             System.out.println(library.get(book));
         } else {
-            System.out.println("No book\n");
+            System.out.println("Book " + title + " wasn't found");
         }
     }
 
