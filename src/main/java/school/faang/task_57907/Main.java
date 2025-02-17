@@ -1,7 +1,6 @@
 package school.faang.task_57907;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,9 +24,7 @@ public class Main {
 
         notificationManager.registerFilter(NotificationFilterType.OBSCENE,
                 notification -> {
-                    String pattern = "\\b(черт|блин|фак)\\b";
-                    Pattern regex = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = regex.matcher(notification.getMessage());
+                    Matcher matcher = Notification.OBSCENE_WORDS_PATTERN.matcher(notification.getMessage());
                     return (!matcher.find());
                 });
 
@@ -39,9 +36,7 @@ public class Main {
 
         notificationManager.registerCorrector(NotificationCorrectorType.SIGNATURE,
                 notification -> {
-                    String message = notification.getMessage();
-                    String signature = "\n\nС уважением,\nкоманда Corporation X.";
-                    notification.setMessage(message + signature);
+                    notification.setMessage(notification.getMessage() + notification.getSignature());
                     return notification;
                 });
         smsNotification = notificationManager.adjustNotification(smsNotification, NotificationCorrectorType.SIGNATURE);

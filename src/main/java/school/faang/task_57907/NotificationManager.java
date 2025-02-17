@@ -20,7 +20,9 @@ public class NotificationManager {
 
     public void sendNotification(@NonNull Notification notification) {
         Consumer<Notification> handler = notificationHandlers.get(notification.getType());
-        handler.accept(notification);
+        if (handler != null) {
+            handler.accept(notification);
+        }
     }
 
     public void registerFilter(@NonNull NotificationFilterType type, @NonNull Predicate<Notification> filter) {
