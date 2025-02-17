@@ -1,0 +1,13 @@
+package school.faang.models;
+
+public enum EmissionType {
+    AIR_POLLUTION,
+    WATER_POLLUTION,
+    SOIL_CONTAMINATION,
+    NOISE_POLLUTION,
+    LIGHT_POLLUTION,
+    THERMAL_POLLUTION,
+    RADIOACTIVE_CONTAMINATION,
+    PLASTIC_WASTE,
+    GAS_EMISSION
+}
