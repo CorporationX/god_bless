@@ -20,6 +20,7 @@ public class Chore implements Runnable {
             logger.info("{} have been completed.", title);
         } catch (InterruptedException e) {
             logger.info("{} haven't been completed.", title);
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
