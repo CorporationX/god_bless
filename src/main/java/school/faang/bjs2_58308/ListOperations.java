@@ -61,7 +61,7 @@ public class ListOperations {
                 .stream()
                 .filter(i -> i > threshold)
                 .min(Integer::compare)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Нет элементов больше, чем %d", threshold)));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Нет элементов больше,чем %d", threshold)));
     }
 
     public static List<Integer> convertToLengths(List<String> listString) {
