@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .filter(number -> number % 2 == 0)
+                .filter(ListOperations::isEven)
                 .reduce(0, Integer::sum);
     }
 
@@ -84,5 +84,9 @@ public class ListOperations {
         if (param == null) {
             throw new IllegalArgumentException("Input list cannot be null");
         }
+    }
+
+    private static boolean isEven(int number) {
+        return number % 2 == 0;
     }
 }
