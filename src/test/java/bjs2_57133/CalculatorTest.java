@@ -16,7 +16,7 @@ class CalculatorTest {
         int expectedResult = 0;
 
         // Act
-        Integer result = Main.calculate(
+        Integer result = CalculationRunner.calculate(
                 List.of(),
                 (x, y) -> -1);
 
@@ -83,7 +83,7 @@ class CalculatorTest {
         int expectedResult = expectedResultCalculator.get();
 
         // Act
-        Integer result = Main.calculate(testData, calculator);
+        Integer result = CalculationRunner.calculate(testData, calculator);
 
         // Assert
         Assertions.assertEquals(expectedResult, result);

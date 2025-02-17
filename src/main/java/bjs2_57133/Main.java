@@ -10,26 +10,11 @@ public class Main {
 
         List<Integer> nums = List.of(3, 5, 8, 10);
 
-        int sumResult = calculate(nums, sum);
-        int productResult = calculate(nums, product);
+        int sumResult = CalculationRunner.calculate(nums, sum);
+        int productResult = CalculationRunner.calculate(nums, product);
 
         System.out.printf("array: %s%n", nums);
         System.out.printf("sum: %d%n", sumResult);
         System.out.printf("product: %d%n", productResult);
-    }
-
-    public static int calculate(List<Integer> items, Calculator<Integer> calculator) {
-        if (items.isEmpty()) {
-            return 0;
-        }
-
-        int accumulator = items.get(0);
-
-        Iterator<Integer> iskipFirstIerator = items.stream().skip(1).iterator();
-        while (iskipFirstIerator.hasNext()) {
-            accumulator = calculator.calculate(accumulator, iskipFirstIerator.next());
-        }
-
-        return accumulator;
     }
 }
