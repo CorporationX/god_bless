@@ -1,15 +1,9 @@
 package bjs2_57242;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MainTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
+class MatrixUtilsTest {
     @Test
     void flipMatrixFailedOnNullMatrix() {
         // Arrange
@@ -18,7 +12,7 @@ class MainTest {
         // Act + Assert
         Assertions.assertThrows(
                 IllegalArgumentException.class,
-                () -> Main.flipMatrix(matrix, FlipDirection.HORIZONTAL));
+                () -> MatrixUtils.flipMatrix(matrix, FlipDirection.HORIZONTAL));
     }
 
     @Test
@@ -59,7 +53,7 @@ class MainTest {
 
     private static void runTest(int[][] matrix, int[][] expectedResult, FlipDirection flipDirection) {
         // Act
-        int[][] result = Main.flipMatrix(matrix, flipDirection);
+        int[][] result = MatrixUtils.flipMatrix(matrix, flipDirection);
 
         // Assert
         Assertions.assertArrayEquals(expectedResult, result);
