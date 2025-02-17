@@ -8,6 +8,9 @@ public class Army {
     private static final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
+        if (squad == null) {
+            throw new IllegalArgumentException("Squad cannot be null");
+        }
         squads.add(squad);
     }
 
