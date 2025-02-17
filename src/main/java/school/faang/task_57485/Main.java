@@ -31,7 +31,8 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
-
+        emails.forEach(email ->
+                System.out.println("Тема: " + email.getSubject() + ", " +
+                        "Тело письма: " + email.getBody()));
     }
 }
