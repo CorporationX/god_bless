@@ -8,7 +8,7 @@ import static school.faang.User.groupUsers;
 
 public class Main {
     public static void main(String[] argc) {
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         users.add(new User("Pave", 24, "Google", "London"));
         users.add(new User("Alex", 29, "Apple", "Apple Park Way"));
         users.add(new User("Dima", 27, "Amazon", "Berlin"));
@@ -17,11 +17,12 @@ public class Main {
 
         Map<Integer, List<User>> usersMap  = groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : usersMap.entrySet()) {
-            System.out.println( "Возраст: " +
+            System.out.println("Возраст: " +
                     entry.getKey());
             for (User user : entry.getValue()) {
                 System.out.println(user.getName());
             }
+            System.out.print('\n');
         }
     }
 }
