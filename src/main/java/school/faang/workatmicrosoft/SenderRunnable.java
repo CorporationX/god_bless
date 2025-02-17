@@ -12,7 +12,13 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int index = startIndex; index < endIndex; index++) {
-            log.info("Email {} has been sent", index + 1);
+            try {
+                Thread.sleep(100);
+                log.info("Email {} has been sent a {}", index + 1, Thread.currentThread().getName());
+            } catch (InterruptedException exception) {
+                log.error("Thread interrupted. {}\n{}", exception, Thread.currentThread().getName());
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }
