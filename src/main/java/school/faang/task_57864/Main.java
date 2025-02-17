@@ -31,6 +31,6 @@ public class Main {
         Function<Image, Image> combinedFilter =
                 filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.getDescription())
+        System.out.println(combinedImage.getDescription());
     }
 }
