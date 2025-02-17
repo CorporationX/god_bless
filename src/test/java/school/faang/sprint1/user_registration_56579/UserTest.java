@@ -1,7 +1,7 @@
 package school.faang.sprint1.user_registration_56579;
 
 import org.junit.jupiter.api.Test;
-import school.faang.user_registration_56579.User;
+import school.faang.sprint1.user_registration_56579.User;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
