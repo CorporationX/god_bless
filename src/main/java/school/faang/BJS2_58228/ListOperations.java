@@ -24,7 +24,7 @@ public class ListOperations {
     }
 
     public static long countStringsStartingWith(List<String> strings, char symbol) {
-        checkNull(strings);
+        checkNull(strings, "List<String>");
 
         return strings.stream()
                 .filter(string -> string.startsWith(String.valueOf(symbol)))
@@ -32,12 +32,8 @@ public class ListOperations {
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String subString) {
-        if (strings == null || subString == null) {
-            throw new IllegalArgumentException(
-                    String.format("Input list or subString cannot be null %n" +
-                            "Input list:%s subString%s ", strings, subString)
-            );
-        }
+        checkNull(strings, "List<String>");
+        checkNull(subString, "String subString");
 
         return strings.stream()
                 .filter(string -> string.contains(subString))
@@ -45,7 +41,7 @@ public class ListOperations {
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        checkNull(strings);
+        checkNull(strings, "List<String>");
 
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
@@ -53,18 +49,14 @@ public class ListOperations {
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> filter) {
-        if (numbers == null || filter == null) {
-            throw new IllegalArgumentException(
-                    String.format("Input list or filter cannot be null %n" +
-                            "Input list:%s filter%s ", numbers, filter)
-            );
-        }
+        checkNull(numbers, "List<Integer>");
+        checkNull(filter, "Predicate<Integer>");
 
         return numbers.stream().allMatch(filter);
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int min) {
-        checkNull(numbers);
+        checkNull(numbers, "List<Integer>");
 
         return numbers.stream()
                 .filter(number -> number > min)
@@ -73,16 +65,16 @@ public class ListOperations {
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
-        checkNull(strings);
+        checkNull(strings, "List<String>");
 
         return strings.stream()
                 .map(String::length)
                 .toList();
     }
 
-    private static <T> void checkNull(T param) {
+    private static <T> void checkNull(T param, String paramName) {
         if (param == null) {
-            throw new IllegalArgumentException("Input list cannot be null");
+            throw new IllegalArgumentException(String.format("%s cannot be null ", paramName));
         }
     }
 
