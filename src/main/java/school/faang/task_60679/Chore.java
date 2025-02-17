@@ -1,6 +1,6 @@
 package school.faang.task_60679;
 
-public class Chore implements Runnable{
+public class Chore implements Runnable {
     private final String title;
 
     public Chore(String title) {
