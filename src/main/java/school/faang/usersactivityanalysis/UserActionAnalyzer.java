@@ -10,19 +10,18 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    public List<String> findTopActiveUsers(@NonNull List<UserAction> actions, int topUsersN) {
+    public List<String> findTopActiveUsers(@NonNull List<UserAction> actions, int limit) {
         Map<String, Long> userActionCounter = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
 
-        List<String> topUsers = userActionCounter.entrySet().stream()
+        return userActionCounter.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topUsersN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
-        return topUsers;
     }
 
-    public List<String> findTopPopularContent(@NonNull List<UserAction> actions, int topContentN) {
+    public List<String> findTopPopularContent(@NonNull List<UserAction> actions, int limit) {
         Map<String, Long> contentCounter = actions.stream()
                 .filter(action -> action.getContent() != null
                         && ActionType.COMMENT.equals(action.getActionType())
@@ -32,15 +31,14 @@ public class UserActionAnalyzer {
                 .map(word -> word.replaceAll("[^#\\w]", ""))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        List<String> topContents = contentCounter.entrySet().stream()
+        return contentCounter.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topContentN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
-        return topContents;
     }
 
-    public List<String> findMaxUsersWithComment(@NonNull List<UserAction> actions, int topUsersN) {
+    public List<String> findMaxUsersWithComment(@NonNull List<UserAction> actions, int limit) {
         LocalDate oneMonth = LocalDate.now().minusMonths(1);
         Map<String, Long> userActionCounter = actions.stream()
                 .filter(action -> action.getActionType() != null
@@ -48,12 +46,11 @@ public class UserActionAnalyzer {
                         && action.getActionDate().isBefore(oneMonth))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
 
-        List<String> topUsers = userActionCounter.entrySet().stream()
+        return userActionCounter.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topUsersN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
-        return topUsers;
     }
 
     public Map<ActionType, Double> actionTypePercentages(@NonNull List<UserAction> actions) {
@@ -61,11 +58,10 @@ public class UserActionAnalyzer {
         Map<ActionType, Long> actionTypePercentages = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
 
-        Map<ActionType, Double> actionPercentages = actionTypePercentages.entrySet().stream()
+        return actionTypePercentages.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> (entry.getValue() * 100.0) / actionSize
                 ));
-        return actionPercentages;
     }
 
 }
