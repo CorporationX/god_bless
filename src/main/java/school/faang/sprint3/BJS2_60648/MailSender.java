@@ -30,5 +30,9 @@ public class MailSender {
             end = Math.min(i + COUNT_EMAILS, size);
             executor.submit(new SenderRunnable(EMAILS.subList(i, end)));
         }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {}
+        System.out.println("Обработаны все письма");
     }
 }
