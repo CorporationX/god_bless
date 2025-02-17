@@ -31,8 +31,12 @@ public class Main {
             notificationManager.sendNotification(smsNotification);
             notificationManager.sendNotification(pushNotification);
             notificationManager.sendNotification(testFilterPushNotification);
-        } catch (IllegalArgumentException e) {
-            System.out.println(testFilterPushNotification.getType() + " " + e.getMessage());
+        } catch (FilteredNotificationException e) {
+            System.out.println("Filtered Out: " + e.getMessage());
+        } catch (InvalidNotificationTypeException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (NotificationException e) {
+            System.out.println("Notification Error: " + e.getMessage());
         }
     }
 }

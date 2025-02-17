@@ -1,6 +1,7 @@
 package school.faang.task_57967;
 
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,14 +20,17 @@ public class NotificationManager {
     @Setter
     private Function<Notification, Notification> corrector;
 
-    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+    public void registerHandler(@NonNull NotificationType type,
+                                @NonNull Consumer<Notification> handler) {
         notificationMap.put(type, handler);
     }
 
-    public void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) throws NotificationException {
+        if (notification.getType() == null) {
+            throw new InvalidNotificationTypeException(notification.getType().toString());
+        }
         if (filter != null && !filter.test(notification)) {
-            throw new IllegalArgumentException("Notification blocked: "
-                    + notification.getMessage());
+            throw new FilteredNotificationException(notification.getMessage());
         }
 
         if (corrector != null) {
@@ -37,8 +41,7 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.println("No handler registered for notification type: "
-                    + notification.getType());
+            throw new InvalidNotificationTypeException(notification.getType().toString());
         }
     }
 }

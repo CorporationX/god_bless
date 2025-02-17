@@ -10,6 +10,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Notification {
-    NotificationType type;
-    String message;
+    private NotificationType type;
+    private String message;
 }
