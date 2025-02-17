@@ -1,7 +1,13 @@
-package school.faang.bjs2_56915;
+package school.faang.sprint1.bjs2_56915;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.bjs2_56915.FrequentUpdateWeatherCache;
+import school.faang.bjs2_56915.StandardWeatherCache;
+import school.faang.bjs2_56915.WeatherCacheTemplate;
+import school.faang.bjs2_56915.WeatherData;
+import school.faang.bjs2_56915.WeatherProvider;
+import school.faang.bjs2_56915.WeatherService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

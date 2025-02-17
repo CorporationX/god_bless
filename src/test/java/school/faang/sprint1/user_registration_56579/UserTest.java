@@ -1,4 +1,4 @@
-package school.faang.user_registration_56579;
+package school.faang.sprint1.user_registration_56579;
 
 import org.junit.jupiter.api.Test;
 import school.faang.sprint1.user_registration_56579.User;
