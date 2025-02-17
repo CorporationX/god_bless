@@ -17,7 +17,8 @@ public class Main {
 
 
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s\n", email.getSubject());
+        Consumer<Email> printEmail = email ->
+                System.out.println(String.format("Обработано письмо: %s", email.getSubject()));
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
