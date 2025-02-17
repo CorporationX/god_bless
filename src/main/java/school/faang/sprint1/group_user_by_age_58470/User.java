@@ -1,6 +1,5 @@
-package school.faang.group_user_by_age_58470;
+package school.faang.sprint1.group_user_by_age_58470;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 

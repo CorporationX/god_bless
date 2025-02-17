@@ -1,4 +1,4 @@
-package school.faang.group_user_by_age_58470;
+package school.faang.sprint1.group_user_by_age_58470;
 
 import java.util.List;
 import java.util.Map;

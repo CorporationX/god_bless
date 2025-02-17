@@ -1,4 +1,4 @@
-package school.faang.vesteros_library_57192;
+package school.faang.sprint1.vesteros_library_57192;
 
 public class Main {
     public static void main(String[] args) {

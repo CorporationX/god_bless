@@ -1,4 +1,4 @@
-package school.faang.abstr_abstr_58424;
+package school.faang.sprint1.abstr_abstr_58424;
 
 public class Main {
     public static void main(String[] args) {
