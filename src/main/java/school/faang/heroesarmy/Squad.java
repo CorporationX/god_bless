@@ -9,10 +9,6 @@ import java.util.List;
 public class Squad {
     private List<Hero> heroes;
 
-    public void addHero(Hero hero) {
-        heroes.add(hero);
-    }
-
     public int calculateSquadPower() {
         return heroes.stream()
                 .map(Hero::getPower)

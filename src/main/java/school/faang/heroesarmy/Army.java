@@ -11,10 +11,6 @@ import java.util.List;
 public class Army {
     private final List<Squad> squads = new ArrayList<>();
 
-    public void addSquad(Squad squad) {
-        squads.add(squad);
-    }
-
     public int calculateTotalPower(List<Squad> squads) throws InterruptedException {
         List<Integer> results = Collections.synchronizedList(new ArrayList<>());
         // без syncronizedList итог всегда выходил разный, то 55, то 90
