@@ -41,7 +41,7 @@ public class Main {
         Objects.requireNonNull(transformer);
         int[][] newMatrix = new int[matrix.length][matrix[0].length];
         for (int row = 0; row < matrix.length; row++) {
-            for (int column = 0; column < matrix.length; column++) {
+            for (int column = 0; column < matrix[row].length; column++) {
                 Coordinates newCoordinates = transformer.transform(row, column, matrix.length);
                 newMatrix[newCoordinates.getIndexRow()][newCoordinates.getIndexColumn()] = matrix[row][column];
             }
@@ -51,11 +51,9 @@ public class Main {
 
     private static int[][] flipMatrix(int[][] matrix, FlipDirection direction) {
         validateParameters(matrix, direction);
-        if (direction.equals(FlipDirection.HORIZONTAL)) {
-            return transformMatrix(matrix, horizontalTransformer);
-        } else {
-            return transformMatrix(matrix, verticalTransformer);
-        }
+        return direction.equals(FlipDirection.HORIZONTAL)
+                ? transformMatrix(matrix, horizontalTransformer)
+                : transformMatrix(matrix, verticalTransformer);
     }
 
     private static String printMatrix(int[][] matrix) {
