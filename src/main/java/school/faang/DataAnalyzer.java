@@ -15,7 +15,7 @@ public class DataAnalyzer {
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .sorted((v1, v2) -> Long.compare(v2.getValue(), v1.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -27,7 +27,7 @@ public class DataAnalyzer {
                 .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .sorted((v1, v2) -> Long.compare(v2.getValue(), v1.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -42,9 +42,12 @@ public class DataAnalyzer {
     public static List<String> getTopFivePopularOffices(List<Job> jobs) {
         validateJobs(jobs);
         return jobs.stream()
-                .sorted(Comparator.comparing(Job::getLocation))
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(5)
-                .map(Job::getPosition)
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
