@@ -14,6 +14,38 @@ public class User {
     private String workPlace;
     private String address;
 
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public User(int age, String name, String workPlace, String address) {
         this.age = age;
         this.name = name;
@@ -41,27 +73,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "name : " + name + ", age : " + age +   ", workplace : " + workPlace + ", address : " + address;
-    }
-
-    public static List<User> findUsersByAge(int age, List<User> users) {
-        List<User> usersOfaSpecificAge = new ArrayList<>();
-        for (User user : users) {
-            if (user.age == age) {
-                usersOfaSpecificAge.add(user);
-            }
-        }
-        return usersOfaSpecificAge;
+        return "name : " + name + ", age : " + age + ", workplace : " + workPlace + ", address : " + address;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Set<Integer> ageSet = new HashSet<>();
-        for (User user : users) {
-            ageSet.add(user.age);
-        }
         Map<Integer, List<User>> ageUsersMap = new HashMap<>();
-        for (int age : ageSet) {
-            ageUsersMap.put(age, findUsersByAge(age, users));
+        for (User user : users) {
+            ageUsersMap.computeIfAbsent(user.age, k -> new ArrayList<User>()).add(user);
         }
         return ageUsersMap;
     }

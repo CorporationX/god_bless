@@ -34,7 +34,7 @@ public class Main {
     }
 
     public static void remove(User user) {
-        users.remove((int) indexMap.get(user));
+        users.remove(user);
     }
 
     public static void printAllStudents() {
