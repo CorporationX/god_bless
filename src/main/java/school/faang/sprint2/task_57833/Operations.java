@@ -1,4 +1,4 @@
-package school.faang.task_57833;
+package school.faang.sprint2.task_57833;
 
 import java.util.*;
 import java.util.stream.Collectors;
