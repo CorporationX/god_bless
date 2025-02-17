@@ -9,16 +9,21 @@ public class Main {
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
         // Пример использования методов:
-        System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
-        System.out.println("Максимум: " + ListOperations.findMax(numbers));
-        System.out.println("Среднее: " + ListOperations.findAverage(numbers));
-        System.out.println("Количество строк, начинающихся на 'a': "
-                + ListOperations.countStringsStartingWith(strings, 'a'));
-        System.out.println("Строки, содержащие 'an': "
-                + ListOperations.filterStringsContainingSubstring(strings, "an"));
-        System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
-        System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 4));
-        System.out.println("Длины строк: " + ListOperations.convertToLengths(strings));
+        System.out.println(String.format("Сумма четных чисел: %d", ListOperations.sumOfEvenNumbers(numbers)));
+        System.out.println(String.format("Максимум: %d", ListOperations.findMax(numbers)));
+        System.out.println(String.format("Среднее: %.2f", ListOperations.findAverage(numbers)));
+        System.out.println(String.format("Количество строк, начинающихся на 'a': %d",
+                ListOperations.countStringsStartingWith(strings, 'a')));
+        System.out.println(String.format("Строки, содержащие 'an': %s",
+                ListOperations.filterStringsContainingSubstring(strings, "an")));
+        System.out.println(String.format("Отсортированные по длине строки: %s",
+                ListOperations.sortByLength(strings)));
+        System.out.println(String.format("Все ли числа чётные? %b",
+                ListOperations.allMatchCondition(numbers, n -> n % 2 == 0)));
+        System.out.println(String.format("Наименьшее число больше 4: %d",
+                ListOperations.findMinGreaterThan(numbers, 4)));
+        System.out.println(String.format("Длины строк: %s",
+                ListOperations.convertToLengths(strings)));
+
     }
 }

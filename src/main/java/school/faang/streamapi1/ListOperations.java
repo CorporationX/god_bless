@@ -9,7 +9,9 @@ public class ListOperations {
 
     public static int sumOfEvenNumbers(List<Integer> nums) {
 
-        return nums.stream().filter((x -> (x % 2 == 0)))
+        Predicate<Integer> isEvil = (x) -> (x % 2 == 0);
+
+        return nums.stream().filter(isEvil)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
@@ -30,7 +32,7 @@ public class ListOperations {
 
     public static long countStringsStartingWith(List<String> strings, char c) {
         return strings.stream()
-                .filter(s -> !s.isEmpty() && s.charAt(0) == c)
+                .filter(s -> s != null && !s.isEmpty() && s.charAt(0) == c)
                 .count();
     }
 
