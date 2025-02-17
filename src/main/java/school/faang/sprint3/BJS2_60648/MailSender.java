@@ -23,16 +23,18 @@ public class MailSender {
     }
 
     public static void main(String[] args) {
+        int threadNumber = 1;
         int size = EMAILS.size();
         int end;
 
         for (int i = 0; i < size; i += COUNT_EMAILS) {
             end = Math.min(i + COUNT_EMAILS, size);
-            executor.submit(new SenderRunnable(EMAILS.subList(i, end)));
+            executor.submit(new SenderRunnable(threadNumber++, EMAILS.subList(i, end)));
         }
 
         executor.shutdown();
         while (!executor.isTerminated()) {}
-        System.out.println("Обработаны все письма");
+        // почему-то не всегда 1000 из 1000, бывает 997-1000
+        System.out.printf("Обработано %d писем из %d\n", SenderRunnable.emailNumber - 1, EMAILS.size());
     }
 }
