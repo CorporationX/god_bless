@@ -21,7 +21,8 @@ public class Main {
         Predicate<Email> importantFilter = email -> email.isImportant();
 
         // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email ->
+                System.out.println("Обработано письмо: " + email.getSubject());
 
         // Преобразователь, который переводит текст письма в верхний регистр
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
