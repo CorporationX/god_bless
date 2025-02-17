@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Witcher {
@@ -40,18 +41,19 @@ public class Witcher {
 
         try {
             startTime = System.nanoTime();
-            if (!CITIES.isEmpty()) {
-                CITIES.forEach(city -> EXECUTOR_SERVICE.submit(new CityWorker(city, MONSTERS)));
-            } else {
-                throw new IllegalArgumentException("No cities found");
-            }
-            while (!EXECUTOR_SERVICE.isTerminated()) {
-                EXECUTOR_SERVICE.shutdown();
-            }
+            CITIES.forEach(city -> EXECUTOR_SERVICE.submit(new CityWorker(city, MONSTERS)));
+            EXECUTOR_SERVICE.shutdown();
+            EXECUTOR_SERVICE.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             endTime = System.nanoTime();
             log.info(PRINT_FORMAT_WITH_EXECUTOR, (endTime - startTime) / TRANSFORMER_TO_MILLISECONDS);
-        } catch (Exception exception) {
-            log.error(exception.getMessage(), exception);
+        } catch (InterruptedException exception) {
+            log.error("Thread has been interrupted. {}\n{}", exception, Thread.currentThread().getName());
+            Thread.currentThread().interrupt();
+        } finally {
+            if (!EXECUTOR_SERVICE.isTerminated()) {
+                EXECUTOR_SERVICE.shutdownNow();
+            }
         }
+
     }
 }
