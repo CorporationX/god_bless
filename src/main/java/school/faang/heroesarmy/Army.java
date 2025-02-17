@@ -26,6 +26,6 @@ public class Army {
             thread.join();
         }
 
-        return results.stream().reduce(0, (num1, num2) -> num1 + num2);
+        return results.stream().reduce(0, Integer::sum);
     }
 }
