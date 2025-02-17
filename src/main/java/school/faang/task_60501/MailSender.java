@@ -1,5 +1,8 @@
 package school.faang.task_60501;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREADS_COUNT = 5;
@@ -20,6 +23,6 @@ public class MailSender {
                 throw new RuntimeException("Поток был прерван");
             }
         }
-        System.out.println("Все письма отправлены");
+        log.info("Все письма отправлены");
     }
 }
