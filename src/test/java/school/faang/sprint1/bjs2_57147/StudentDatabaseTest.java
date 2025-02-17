@@ -1,9 +1,12 @@
-package school.faang.bjs2_57147;
+package school.faang.sprint1.bjs2_57147;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import school.faang.bjs2_57147.Student;
+import school.faang.bjs2_57147.StudentDatabase;
+import school.faang.bjs2_57147.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

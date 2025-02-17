@@ -10,7 +10,7 @@ import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherCacheTemplate.class);
-    protected final Map<String, WeatherData> cache = new HashMap<>();
+    public final Map<String, WeatherData> cache = new HashMap<>();
     protected final WeatherProvider weatherProvider;
 
     public WeatherCacheTemplate(WeatherProvider weatherProvider) {
