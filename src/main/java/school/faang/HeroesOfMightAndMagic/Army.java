@@ -1,8 +1,8 @@
 package school.faang.HeroesOfMightAndMagic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Army {
     private static final List<Squad> squads = new ArrayList<>();
@@ -14,21 +14,13 @@ public class Army {
         squads.add(squad);
     }
 
-    public static int calculateTotalPower() throws InterruptedException {
-        List<Thread> threads = new ArrayList<>();
-        List<Integer> results = Collections.synchronizedList(new ArrayList<>());
-
-        for (Squad squad : squads) {
-            Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
-            threads.add(thread);
-            thread.start();
+    public static int calculateTotalPower() {
+        if (squads.isEmpty()) {
+            return 0;
         }
-
-        for (Thread thread : threads) {
-            thread.join();
-        }
-
-        return results.stream().mapToInt(Integer::intValue).sum();
+        return squads.parallelStream()
+                .filter(Objects::nonNull) // Игнорируем null-элементы в списке
+                .mapToInt(Squad::calculateSquadPower)
+                .sum();
     }
 }
-
