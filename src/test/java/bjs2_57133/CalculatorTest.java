@@ -3,8 +3,8 @@ package bjs2_57133;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
 
 class CalculatorTest {
@@ -13,13 +13,10 @@ class CalculatorTest {
     @Test
     void calculateEmptyArray() {
         // Arrange
-        Random rnd = new Random();
-        int initialValue = rnd.nextInt();
-        int expectedResult = initialValue;
+        int expectedResult = 0;
 
         // Act
         Integer result = Main.calculate(
-                initialValue,
                 List.of(),
                 (x, y) -> -1);
 
@@ -30,7 +27,7 @@ class CalculatorTest {
     @Test
     void calculateSum() {
         // Arrange
-        Integer initialValue = 0;
+        int initialValue = 0;
         Supplier<Integer> expectedResultCalculator = () -> {
             int expectedResult = initialValue;
             for (Integer num : testData) {
@@ -41,13 +38,13 @@ class CalculatorTest {
         };
 
         // Act + Assert
-        runTest(initialValue, Integer::sum, expectedResultCalculator);
+        runTest(Integer::sum, expectedResultCalculator);
     }
 
     @Test
     void calculateProduct() {
         // Arrange
-        Integer initialValue = 1;
+        int initialValue = 1;
         Supplier<Integer> expectedResultCalculator = () -> {
             int expectedResult = initialValue;
             for (Integer num : testData) {
@@ -58,35 +55,35 @@ class CalculatorTest {
         };
 
         // Act + Assert
-        runTest(initialValue, (x, y) -> x * y, expectedResultCalculator);
+        runTest((x, y) -> x * y, expectedResultCalculator);
     }
 
     @Test
     void calculateMinus() {
         // Arrange
-        Integer initialValue = 0;
         Supplier<Integer> expectedResultCalculator = () -> {
-            int expectedResult = initialValue;
-            for (Integer num : testData) {
-                expectedResult -= num;
+            int expectedResult = testData.get(0);
+
+            Iterator<Integer> iskipFirstIerator = testData.stream().skip(1).iterator();
+            while (iskipFirstIerator.hasNext()) {
+                expectedResult -= iskipFirstIerator.next();
             }
 
             return expectedResult;
         };
 
         // Act + Assert
-        runTest(initialValue, (x, y) -> x - y, expectedResultCalculator);
+        runTest((x, y) -> x - y, expectedResultCalculator);
     }
 
     private void runTest(
-            Integer initialValue,
             Calculator<Integer> calculator,
             Supplier<Integer> expectedResultCalculator) {
         // Arrange
         int expectedResult = expectedResultCalculator.get();
 
         // Act
-        Integer result = Main.calculate(initialValue, testData, calculator);
+        Integer result = Main.calculate(testData, calculator);
 
         // Assert
         Assertions.assertEquals(expectedResult, result);
