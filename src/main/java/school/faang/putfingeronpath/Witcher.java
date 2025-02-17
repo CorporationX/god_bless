@@ -26,13 +26,13 @@ public class Witcher {
     );
     private static double TO_MILLISECONDS = 1_000_000.0;
     private static final int[] POOL_SIZES = {1, 2, 4, 8};
+    private static final long START_TIME = System.nanoTime();
 
     public static void main(String[] args) {
         // многопоточный режим
         for (int poolSize : POOL_SIZES) {
             log.info("Начало многопоточного выполнения с пулом потоков: {}", poolSize);
             ExecutorService executor = Executors.newFixedThreadPool(poolSize);
-            long startTime = System.nanoTime();
             for (City city : CITIES) {
                 CityWorker worker = new CityWorker(city, MONSTERS);
                 executor.execute(worker);
@@ -47,7 +47,7 @@ public class Witcher {
                 Thread.currentThread().interrupt();
             }
             long endTime = System.nanoTime();
-            long durationParallel = endTime - startTime;
+            long durationParallel = endTime - START_TIME;
             log.info("Время выполнения в многопоточном режиме с пулом {} потоков: {} мс",
                     poolSize, durationParallel / TO_MILLISECONDS);
         }
