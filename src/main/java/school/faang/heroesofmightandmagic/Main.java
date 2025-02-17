@@ -22,7 +22,7 @@ public class Main {
             log.info("Army total power: {}", ARMY.calculateTotalPower());
         } catch (InterruptedException exception) {
             log.error("Thread interrupted. {}\n{}", exception, Thread.currentThread().getName());
+            Thread.currentThread().interrupt();
         }
-
     }
 }
