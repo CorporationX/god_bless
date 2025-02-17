@@ -14,12 +14,11 @@ public class Main {
         int encryptionKey3 = 3;
 
         b00t.sendMessage(wh0, message1, encryptionKey1);
-        wh0.receivedMessage(message2, encryptionKey2);
-
         wh0.sendMessage(b00t, message2, encryptionKey2);
-        b00t.receivedMessage(message1, encryptionKey1);
-
         j4v4.sendMessage(b00t, message3, encryptionKey3);
+
+        wh0.receivedMessage(message2, encryptionKey2);
+        b00t.receivedMessage(message1, encryptionKey1);
         b00t.receivedMessage(message3, encryptionKey3);
     }
 }
