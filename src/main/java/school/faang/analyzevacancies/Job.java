@@ -1,15 +1,11 @@
 package school.faang.analyzevacancies;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Job {
     private String position;
     private List<String> requirements;
