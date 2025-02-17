@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class MailSender {
     private static final List<String> EMAILS = new ArrayList<>();
     private static final int COUNT_EMAILS = 200;
-    private static final ExecutorService executor = Executors.newFixedThreadPool(COUNT_EMAILS);
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(COUNT_EMAILS);
 
     static {
         String[] strings = {"one", "two", "three"};
@@ -19,7 +19,6 @@ public class MailSender {
         for (int i = 0; i < 1000; i++) {
             EMAILS.add(strings[random.nextInt(0, 3)]);
         }
-
     }
 
     public static void main(String[] args) {
@@ -29,11 +28,11 @@ public class MailSender {
 
         for (int i = 0; i < size; i += COUNT_EMAILS) {
             end = Math.min(i + COUNT_EMAILS, size);
-            executor.submit(new SenderRunnable(threadNumber++, EMAILS.subList(i, end)));
+            EXECUTOR.submit(new SenderRunnable(threadNumber++, EMAILS.subList(i, end)));
         }
 
-        executor.shutdown();
-        while (!executor.isTerminated()) {}
+        EXECUTOR.shutdown();
+        while (!EXECUTOR.isTerminated()) {}
         // почему-то не всегда 1000 из 1000, бывает 997-1000
         System.out.printf("Обработано %d писем из %d\n", SenderRunnable.emailNumber - 1, EMAILS.size());
     }
