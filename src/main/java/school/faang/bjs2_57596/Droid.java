@@ -15,37 +15,11 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : message.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    int shift = (ch - base + key) % ALPHABET_SIZE;
-                    encryptedMessage.append((char) (shift + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
-            }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(message, encryptionKey);
+        return processMessage(message, encryptionKey, true);
     }
 
     private String decryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor decoder = (msg, key) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : message.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    int shift = ((ch - base - key) % ALPHABET_SIZE + ALPHABET_SIZE) % ALPHABET_SIZE;
-                    decryptedMessage.append((char) (shift + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decoder.encrypt(message, encryptionKey);
+        return processMessage(message, encryptionKey, false);
     }
 
     public void sendMessage(String message, int encryptionKey, Droid droid) {
@@ -77,5 +51,22 @@ public class Droid {
         if (encryptionKey < 0) {
             throw new IllegalArgumentException("The encryptionKey can't be less than 0.");
         }
+    }
+
+    private String processMessage(String message, int encryptionKey, boolean isEncryption) {
+        DroidMessageEncryptor processor = (msg, key) -> {
+            StringBuilder result = new StringBuilder();
+            for (char ch : msg.toCharArray()) {
+                if (Character.isLetter(ch)) {
+                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
+                    int shift = (ch - base + (isEncryption ? key : -key)) % ALPHABET_SIZE;
+                    result.append((char) ((shift + ALPHABET_SIZE) % ALPHABET_SIZE + base));
+                } else {
+                    result.append(ch);
+                }
+            }
+            return result.toString();
+        };
+        return processor.encrypt(message, encryptionKey);
     }
 }
