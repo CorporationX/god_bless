@@ -11,6 +11,6 @@ public class Main {
         int encryptionKey2 = 7; // Ключ шифрования для второго сообщения
         r2d2.sendMessage(c3po, message1, encryptionKey1);
         c3po.sendMessage(r2d2, message2, encryptionKey2);
-        bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
+        bb8.sendMessage(c3po, "The mission is complete. Т.е. конец!", encryptionKey1);
     }
 }

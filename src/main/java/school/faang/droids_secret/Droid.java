@@ -1,17 +1,18 @@
 package school.faang.droids_secret;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Objects;
 
-@Data
+@AllArgsConstructor
 public class Droid {
     private static final Logger logger = LoggerFactory.getLogger(Droid.class);
     private static final String MSG_ERROR = "The message cannot be null or blank";
     private static final String DROID_ERROR = "The droid cannot be null";
     private static final String KEY_ERROR = "The key can be between 1 and 25";
+    private static final int ALPHABET_SIZE = 26;
+    private static final String ALPHABET_EN = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private final String name;
 
     public void sendMessage(Droid droid, String message, int key) {
@@ -37,9 +38,9 @@ public class Droid {
         DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
             StringBuilder encryptedMsg = new StringBuilder();
             for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
+                if (ALPHABET_EN.indexOf(ch) >= 0) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMsg.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    encryptedMsg.append((char) ((ch - base + encryptionKey) % ALPHABET_SIZE + base));
                 } else {
                     encryptedMsg.append(ch);
                 }
@@ -50,22 +51,7 @@ public class Droid {
     }
 
     private String decryptMessage(String message, int key) {
-        checkValidMsg(message);
-        checkValidKey(key);
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMsg = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMsg.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMsg.append(ch);
-                }
-            }
-            return decryptedMsg.toString();
-        };
-        return decryptor.encrypt(message, key);
-
+        return encryptMessage(message, ALPHABET_SIZE - key);
     }
 
     private void checkValidMsg(String msg) {
@@ -77,7 +63,7 @@ public class Droid {
     }
 
     private void checkValidKey(int key) {
-        if (key < 1 || key > 25) {
+        if (key < 1 || key > ALPHABET_SIZE - 1) {
             logger.error(KEY_ERROR);
             throw new IllegalArgumentException(KEY_ERROR);
         }
