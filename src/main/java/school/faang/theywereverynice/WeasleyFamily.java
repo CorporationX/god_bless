@@ -13,21 +13,13 @@ public class WeasleyFamily {
             new Chore("task 4"), new Chore("task 5"), new Chore("task 6"),
             new Chore("task 7"), new Chore("task 8"), new Chore("task 9")
     );
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        try {
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            if (!CHORES.isEmpty()) {
-                CHORES.forEach(executorService::submit);
-            } else {
-                throw new IllegalArgumentException("No chores available");
-            }
-            while (!executorService.isTerminated()) {
-                executorService.shutdown();
-            }
-            log.info("All done");
-        } catch (Exception exception) {
-            log.error(exception.getMessage(), exception);
+        CHORES.forEach(EXECUTOR_SERVICE::submit);
+        while (!EXECUTOR_SERVICE.isTerminated()) {
+            EXECUTOR_SERVICE.shutdown();
         }
+        log.info("All done");
     }
 }
