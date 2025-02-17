@@ -34,9 +34,8 @@ public class Main {
     private static Set<List<Integer>> findUniquePairs(Set<Integer> numbers, int sum) {
         Set<List<Integer>> result = new HashSet<>();
         numbers.stream()
-                .flatMap(num -> numbers.stream()
-                        .filter(secondNum -> num + secondNum == sum && num < secondNum)
-                        .map(secondNum -> List.of(num, secondNum)))
+                .filter(num -> (sum - num > num && numbers.contains(sum - num)))
+                .map(num -> List.of(num, sum - num))
                 .forEach(result::add);
         return result;
     }
@@ -49,10 +48,10 @@ public class Main {
         return result;
     }
 
-    private static List<String> strFilterAndSort(List<String> str, char character) {
+    private static List<String> strFilterAndSort(List<String> strings, char character) {
         List<String> result;
-        result = str.stream()
-                .filter(stroka -> stroka.indexOf(character) == 0)
+        result = strings.stream()
+                .filter(string -> string.startsWith(String.valueOf(character)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
         return result;
@@ -65,10 +64,10 @@ public class Main {
         return result;
     }
 
-    private static List<String> filterAndSortStr(List<String> str, String alphabet) {
-        List<String> result = str.stream()
-                .filter(stroka -> stroka.chars()
-                        .allMatch(character -> alphabet.indexOf(character) != -1))
+    private static List<String> filterAndSortStr(List<String> strings, String alphabet) {
+        String regex = "^[(" + alphabet + "]+$";
+        List<String> result = strings.stream()
+                .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
         return result;
