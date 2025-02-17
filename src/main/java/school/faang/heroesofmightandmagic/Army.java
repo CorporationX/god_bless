@@ -12,14 +12,14 @@ public class Army {
     private final List<Integer> sum = new CopyOnWriteArrayList<>();
 
     public int calculateTotalPower() throws InterruptedException {
-        for (Squad squad : army) {
+        army.forEach(squad -> {
             threads.add(new Thread(() -> sum.add(squad.calculateSquadPower())));
             if (threads.contains(threads.get(threads.size() - 1))) {
                 threads.get(threads.size() - 1).start();
             } else {
                 throw new NoSuchElementException("Thread not found");
             }
-        }
+        });
 
         for (Thread thread : threads) {
             thread.join();
