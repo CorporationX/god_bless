@@ -16,6 +16,11 @@ public class Main {
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
 
+        notificationManager.addFilter(n -> !n.getMessage().toLowerCase().contains("запрещено"));
+        notificationManager.addCorrector(n -> new Notification(n.getType(),
+                n.getMessage() + "\n-- ООО \"Игрек&Ко\"")
+        );
+
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
