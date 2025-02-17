@@ -22,12 +22,11 @@ public class MailSender {
                     try {
                         thread.join();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Поток был прерван во время ожидания завершения другого потока: "
+                                + e.getMessage(), e);
                     }
                 });
 
         System.out.println("Все письма отправлены!");
     }
 }
-
-

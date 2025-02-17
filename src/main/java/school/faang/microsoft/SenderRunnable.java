@@ -13,7 +13,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        logger.info("Новый Паток {} начал работу", Thread.currentThread().getName());
+        logger.info("Новый Поток {} начал работу", Thread.currentThread().getName());
 
         validateIndices(startIndex, endIndex);
         for (int i = startIndex; i < endIndex; i++) {
@@ -23,10 +23,9 @@ public class SenderRunnable implements Runnable {
 
     private void validateIndices(int startIndex, int endIndex) {
         if (startIndex < 0 || endIndex < 0) {
-            throw new IllegalArgumentException("Индекс не может быть 0.");
+            throw new IllegalArgumentException("Индекс не может быть отрицательным.");
         } else if (endIndex < startIndex) {
             throw new IllegalArgumentException("Начальный индекс не может быть больше конечного.");
         }
     }
 }
-
