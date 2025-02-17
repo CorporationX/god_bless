@@ -13,7 +13,10 @@ public class ListOperations {
         return set.stream()
                 .filter(num -> num != sum - num && set.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
+                .map(pair -> {
+                    Collections.sort(pair);
+                    return pair;
+                })
                 .collect(Collectors.toSet());
     }
 
