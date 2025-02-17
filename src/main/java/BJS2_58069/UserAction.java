@@ -1,11 +1,11 @@
 package BJS2_58069;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 public class UserAction {
     private final int id;
