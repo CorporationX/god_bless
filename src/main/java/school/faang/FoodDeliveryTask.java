@@ -27,6 +27,7 @@ public class FoodDeliveryTask implements Runnable {
             logger.info("{} eats {} {}.", character, foodAmount, foodType.name());
         } catch (InterruptedException e) {
             logger.info("{} couldn't eat {} {}.", character, foodAmount, foodType.name());
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
