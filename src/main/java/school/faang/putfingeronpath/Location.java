@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class Location {
-    private final double xCoordinate;
-    private final double yCoordinate;
+    private final double coordinateX;
+    private final double coordinateY;
 
     public double distanceTo(Location other) {
         return Math.hypot(
-                this.getXCoordinate() - other.getXCoordinate(),
-                this.getYCoordinate() - other.getYCoordinate()
+                this.getCoordinateX() - other.getCoordinateX(),
+                this.getCoordinateY() - other.getCoordinateY()
         );
     }
 }
