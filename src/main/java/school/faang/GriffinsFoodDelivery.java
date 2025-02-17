@@ -16,7 +16,6 @@ public class GriffinsFoodDelivery {
         for (String name : characterNames) {
             executorService.execute(new FoodDeliveryTask(name, random.nextInt(100) + 1));
         }
-
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {

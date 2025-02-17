@@ -21,14 +21,14 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType foodType = getRandomFoodType();
-        logger.info("{} gets {} {}.", character, foodAmount, foodType.name());
         try {
+            logger.info("{} gets {} {}.", character, foodAmount, foodType.name());
             Thread.sleep(random.nextInt(3000) + 1000);
+            logger.info("{} eats {} {}.", character, foodAmount, foodType.name());
         } catch (InterruptedException e) {
-            logger.info("{} couldn't get {} {}.", character, foodAmount, foodType.name());
+            logger.info("{} couldn't eat {} {}.", character, foodAmount, foodType.name());
             throw new RuntimeException(e);
         }
-        logger.info("{} eats {} {}.", character, foodAmount, foodType.name());
     }
 
     public FoodType getRandomFoodType() {
