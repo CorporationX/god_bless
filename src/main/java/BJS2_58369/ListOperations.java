@@ -1,6 +1,8 @@
 package BJS2_58369;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -15,18 +17,19 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .sum() / (double) numbers.size();
+                .average()
+                .orElse(0);
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
         return strings.stream()
-                .filter(s -> s.startsWith(String.valueOf(c)))
+                .filter(s -> s.charAt(0) == c)
                 .count();
     }
 
@@ -38,7 +41,7 @@ public class ListOperations {
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
@@ -51,7 +54,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(num -> num > n)
                 .min(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("Нет чисел больше " + n));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
