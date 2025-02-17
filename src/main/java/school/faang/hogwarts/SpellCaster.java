@@ -3,7 +3,6 @@ package school.faang.hogwarts;
 import java.util.logging.Logger;
 
 public class SpellCaster {
-
     private static final String ALOHOMORE = "Alohomora";
     private static final String LUMOS = "Lumos";
     private static final String EXPELLIARMUS = "Expelliarmus";
