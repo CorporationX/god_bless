@@ -5,15 +5,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ListOperations {
 
     public Integer sumEvenNumbers(List<Integer> numbersList) {
-        Integer sum = 0;
-        Stream<Integer> evenNumbers = numbersList.stream().filter(num -> num % 2 == 0);
-        sum = evenNumbers.reduce(sum, Integer::sum);
-        return sum;
+
+        return numbersList.stream()
+                .filter(num -> num % 2 == 0)
+                .mapToInt(Integer::intValue).sum();
+
+
     }
 
     public Integer getMaxNumber(List<Integer> numbersList) {
@@ -59,7 +60,7 @@ public class ListOperations {
         return numbersList.stream()
                 .filter(num -> num > number)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Ellement not found"));
+                .orElseThrow(() -> new NoSuchElementException("Element not found"));
     }
 
     public List<Integer> stringLength(List<String> stringList) {

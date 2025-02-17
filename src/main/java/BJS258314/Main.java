@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ListOperations operations = new ListOperations();
-        final List<Integer> listNumbers = Arrays.asList(1, 2, 3, 4, 7, 5, 6, 7, 8, 9, 10, 33);
+        final List<Integer> listNumbers = Arrays.asList(1, 2, 3, 4, 7, 5, 6, 7, 8, 9, 10, 33, 42);
         final List<String> listStrings = Arrays.asList("allow", "back", "cyan", "deep", "effect",
                 "fake", "bellow", "av", "aba");
         log.info("Summary even numbers: ");
