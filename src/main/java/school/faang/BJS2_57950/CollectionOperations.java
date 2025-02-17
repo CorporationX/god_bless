@@ -27,26 +27,23 @@ public class CollectionOperations {
 
     public static List<String> filterAndSortOfStrings(@NonNull List<String> strings,
                                                       char symbol) {
-        return strings.stream().filter(s -> s.charAt(0) == symbol)
+        return strings.stream()
+                .filter(s -> s.charAt(0) == symbol)
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
     public static List<String> convertToBinaryFormat(@NonNull List<Integer> numbers) {
-        return numbers.stream().map(num -> Integer.toString(num, 2))
+        return numbers.stream()
+                .map(num -> Integer.toString(num, 2))
                 .toList();
     }
 
     public static List<String> alphabetFilteringAndSorting(@NonNull List<String> strings,
                                                            @NonNull String alphabet) {
-        List<Character> characters = alphabet.chars()
-                .mapToObj(c -> (char) c)
-                .toList();
-
+        String regex = "[" + alphabet + "]+";
         return strings.stream()
-                .filter(string ->
-                        characters.containsAll(string.chars().mapToObj(c -> (char) c)
-                                .toList()))
+                .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
