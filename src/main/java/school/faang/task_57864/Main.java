@@ -19,18 +19,18 @@ public class Main {
 // Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage,
                 grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый
+        System.out.println(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(sepiaImage.getDescription());
 
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
-        System.out.println(vignetteImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: виньетка
+        System.out.println(vignetteImage.getDescription());
 
 // Комбинирование фильтров
         Function<Image, Image> combinedFilter =
                 filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.getDescription()); // Вывод: Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия
+        System.out.println(combinedImage.getDescription());
     }
 }
