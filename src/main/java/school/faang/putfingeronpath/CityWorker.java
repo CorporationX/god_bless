@@ -1,6 +1,7 @@
 package school.faang.putfingeronpath;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +11,9 @@ import java.util.List;
 @Getter
 @Slf4j
 public class CityWorker implements Runnable {
+    @NonNull
     private final City city;
+    @NonNull
     private final List<Monster> monsters;
 
     @Override
