@@ -12,14 +12,14 @@ public class Main {
 
     public static void main(String[] args) {
         User user1 = new User(17, "Lana", "school", "home1");
-        User user2 = new User(18, "Alan", "university", "home2");
-        User user3 = new User(19, "Nala", "university", "home3");
-        User user4 = new User(5, "Lee", "kindergarden", "home4");
-        User user5 = new User(5, "Jee", "kindergarden", "home4");
         add(user1);
+        User user2 = new User(18, "Alan", "university", "home2");
         add(user2);
+        User user3 = new User(19, "Nala", "university", "home3");
         add(user3);
+        User user4 = new User(5, "Lee", "kindergarden", "home4");
         add(user4);
+        User user5 = new User(5, "Jee", "kindergarden", "home4");
         add(user5);
         printAllStudents();
         remove(user1);
