@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
@@ -16,10 +17,18 @@ public class WeasleyFamily {
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        CHORES.forEach(EXECUTOR_SERVICE::submit);
-        while (!EXECUTOR_SERVICE.isTerminated()) {
+        try {
+            CHORES.forEach(EXECUTOR_SERVICE::submit);
             EXECUTOR_SERVICE.shutdown();
+            EXECUTOR_SERVICE.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            log.info("All done");
+        } catch (InterruptedException exception) {
+            log.error("Thread has been interrupted. {}\n{}", exception, Thread.currentThread().getName());
+            Thread.currentThread().interrupt();
+        } finally {
+            if (!EXECUTOR_SERVICE.isTerminated()) {
+                EXECUTOR_SERVICE.shutdownNow();
+            }
         }
-        log.info("All done");
     }
 }
