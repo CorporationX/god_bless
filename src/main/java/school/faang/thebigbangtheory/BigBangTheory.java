@@ -17,6 +17,8 @@ public class BigBangTheory {
             new Task("Howard", "tools developing"),
             new Task("Rajesh", "data analysing")
     );
+    private static final int TIME_EXECUTION = 1;
+    private static final TimeUnit TIME_EXECUTION_UNIT = TimeUnit.MINUTES;
 
     public static void main(String[] args) {
         try {
@@ -24,11 +26,11 @@ public class BigBangTheory {
             Objects.requireNonNull(TASK_LIST, "Task list is not initialized");
             TASK_LIST.forEach(EXECUTOR::submit);
             EXECUTOR.shutdown();
-            boolean isTerminated = EXECUTOR.awaitTermination(1, TimeUnit.MINUTES);
+            boolean isTerminated = EXECUTOR.awaitTermination(TIME_EXECUTION, TIME_EXECUTION_UNIT);
             if (isTerminated) {
                 log.info("All tasks completed");
             } else {
-                log.info("Tasks has not completed within 1 minute");
+                log.info("Tasks has not completed within {} {}", TIME_EXECUTION, TIME_EXECUTION_UNIT);
             }
         } catch (InterruptedException interruptedException) {
             log.error("Thread has been interrupted {}\n{}", interruptedException, Thread.currentThread().getName());
