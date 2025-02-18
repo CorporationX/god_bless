@@ -17,6 +17,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(ONE_SECOND);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.info("Задача {} была прервана.", title);
         }
         log.info("Задача {} выполнена.", title);
