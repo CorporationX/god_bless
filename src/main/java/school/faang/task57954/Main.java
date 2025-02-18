@@ -9,8 +9,13 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
-
         // Регистрация обработчиков оповещений
+        setupHandlers(notificationManager);
+        // Отправка оповещений
+        setupNotifications(notificationManager);
+    }
+
+    public static void setupHandlers(NotificationManager notificationManager) {
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Email: " + notification.getMessage())
         );
@@ -22,12 +27,14 @@ public class Main {
         notificationManager.registerHandler(NotificationType.PUSH,
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
+    }
 
-        // Отправка оповещений
+    public static void setupNotifications(NotificationManager notificationManager) {
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
         Notification smsBadNotification = new Notification(NotificationType.SMS, "Ты багет");
+
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
