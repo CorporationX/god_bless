@@ -1,5 +1,8 @@
 package school.faang;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -7,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final int THREAD_POOL_SIZE = 3;
 
     public static void main(String[] args) {
@@ -27,13 +31,13 @@ public class Main {
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
-                System.out.println("Not all tasks have been completed");
+                logger.info("Not all tasks have been completed");
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            logger.error("Shutdown interrupted.");
             throw new RuntimeException(e);
         }
-        System.out.println("All tasks have been completed");
+        logger.info("All tasks have been completed");
     }
 }
