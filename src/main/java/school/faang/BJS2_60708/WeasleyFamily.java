@@ -17,7 +17,9 @@ public class WeasleyFamily {
         Objects.requireNonNull(chores, "List<Chore> can't be null");
 
         CountDownLatch latch = new CountDownLatch(chores.size());
-        try (ExecutorService executor = newCachedThreadPool()) {
+        ExecutorService executor = newCachedThreadPool();
+
+        try {
             chores.forEach((chore -> {
                 Objects.requireNonNull(chore, "Chore can't be null");
                 executor.execute(() -> {
@@ -27,6 +29,8 @@ public class WeasleyFamily {
             }));
 
             latch.await();
+        } finally {
+            executor.shutdown();
         }
 
         System.out.println("Все домашние дела семьи Уизли выполнены");
