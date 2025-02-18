@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class WeasleyFamily {
     private static final List<Chore> CHORES = List.of(
-            new Chore("task 1"), new Chore("task 2"), new Chore("task 3"),
-            new Chore("task 4"), new Chore("task 5"), new Chore("task 6"),
-            new Chore("task 7"), new Chore("task 8"), new Chore("task 9")
+            new Chore("prepare food"), new Chore("wash the dishes"), new Chore("sweep the floor"),
+            new Chore("wipe of the dust"), new Chore("take out the trash"), new Chore("to wash clothes"),
+            new Chore("replace the bed clothes"), new Chore("water the plants"), new Chore("feed the rat")
     );
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
     private static final int TIME_EXECUTION = 1;
