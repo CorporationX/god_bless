@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
-
 public class UserAction {
     private int id;
     private String name;
