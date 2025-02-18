@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -17,15 +18,16 @@ public class ListOperations {
 
     public static int findMax(@NonNull List<Integer> numbers) {
         return numbers.stream()
-                .max(Comparator.comparingInt(n -> n))
-                .orElse(0);
+                .mapToInt(n -> n)
+                .max()
+                .orElseThrow(() -> new NoSuchElementException("List пуст."));
     }
 
     public static double findAverage(@NonNull List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
-                .orElse(0d);
+                .orElseThrow(() -> new NoSuchElementException("List пуст."));
     }
 
     public static long countStringsStartingWith(@NonNull List<String> strings, char a) {
@@ -36,14 +38,14 @@ public class ListOperations {
 
     public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, @NonNull String an) {
         return strings.stream()
-                .filter(s -> s.startsWith(an))
+                .filter(s -> s.contains(an))
                 .collect(Collectors.toList());
     }
 
 
     public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
-                .sorted()
+                .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
@@ -54,12 +56,11 @@ public class ListOperations {
 
 
     public static int findMinGreaterThan(@NonNull List<Integer> numbers, int i) {
-        List<Integer> list = numbers.stream()
+        return numbers.stream()
                 .filter(n -> n > i)
-                .sorted()
-                .limit(1)
-                .toList();
-        return list.get(0);
+                .mapToInt(n -> n)
+                .min()
+                .orElseThrow(() -> new NoSuchElementException("List пуст."));
     }
 
     public static List<Integer> convertToLengths(@NonNull List<String> strings) {
