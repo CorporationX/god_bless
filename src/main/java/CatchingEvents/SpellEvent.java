@@ -1,5 +1,8 @@
 package CatchingEvents;
 
+import lombok.Getter;
+
+@Getter
 public class SpellEvent {
     private final int id;
     private final String eventType;
@@ -9,18 +12,6 @@ public class SpellEvent {
         this.id = id;
         this.eventType = eventType;
         this.action = action;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public String getEventType() {
-        return eventType;
     }
 
     @Override

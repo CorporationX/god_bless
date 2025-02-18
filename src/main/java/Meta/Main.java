@@ -24,7 +24,8 @@ public class Main {
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-        Notification blockedNotification = new Notification(NotificationType.STOP, "Сообщение содержит слово Цензура");
+        Notification blockedNotification = new Notification(NotificationType.STOP,
+                "Сообщение содержит слово Цензура");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
