@@ -56,11 +56,13 @@ public class Witcher {
                 endTime = System.nanoTime();
                 log.info(PRINT_FORMAT_WITH_EXECUTOR, (endTime - startTime) / TRANSFORMER_TO_MILLISECONDS);
             } else {
-                log.info(PRINT_FORMAT_EXECUTED, TIME_EXECUTION, TIME_UNIT);
+                log.warn(PRINT_FORMAT_EXECUTED, TIME_EXECUTION, TIME_UNIT);
+                EXECUTOR_SERVICE.shutdownNow();
             }
         } catch (InterruptedException exception) {
             log.error("Thread has been interrupted. {}\n{}", exception, Thread.currentThread().getName());
             Thread.currentThread().interrupt();
+            EXECUTOR_SERVICE.shutdownNow();
         }
     }
 }
