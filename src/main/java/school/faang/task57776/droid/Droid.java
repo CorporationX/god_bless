@@ -10,6 +10,11 @@ import org.slf4j.LoggerFactory;
 @AllArgsConstructor
 public class Droid {
     private static final Logger LOGGER = LoggerFactory.getLogger(Droid.class);
+    private static final int UPPERCASE_START = 64;
+    private static final int UPPERCASE_END = 91;
+    private static final int LOWERCASE_START = 96;
+    private static final int LOWERCASE_END = 123;
+    private static final int FROM_END_TO_OTHER = 28;
     private String name;
 
     private void encryptMessage(String message, int encryptionKey, DroidMessageEncryptor droidMessageEncryptor) {
@@ -18,42 +23,43 @@ public class Droid {
     }
 
     private void decryptMessage(String message, int encryptionKey, DroidMessageEncryptor droidMessageEncryptor) {
-        System.out.println("Получено сообщение дройду: " + droidMessageEncryptor.encrypt(message, encryptionKey));
+        LOGGER.info("Получено сообщение дройду: {}", droidMessageEncryptor.encrypt(message, encryptionKey));
     }
 
     public void sendMessage(@NonNull Droid droid, @NonNull String message, int encryptionKey) {
         LOGGER.info("Отправка сообщения дройду {}", droid);
-        encryptMessage(message, encryptionKey, (str, key) -> {
-            int[] codes = message.codePoints().toArray();
-            for (int i = 0; i < codes.length; i++) {
-                if (codes[i] > 64 && codes[i] < 91 || codes[i] > 96 && codes[i] < 123) {
-                    if (codes[i] < 91 && codes[i] + encryptionKey >= 91
-                            || codes[i] < 123 && codes[i] + encryptionKey >= 123) {
-                        codes[i] += encryptionKey - 28;
+        encryptMessage(message, encryptionKey, (str, key) -> str.codePoints()
+                .map(code -> {
+                    if (code > UPPERCASE_START && code < UPPERCASE_END
+                            || code > LOWERCASE_START && code < LOWERCASE_END) {
+                        if (code < UPPERCASE_END && code + key >= UPPERCASE_END
+                                || code + encryptionKey >= LOWERCASE_END) {
+                            code += key - FROM_END_TO_OTHER;
+                        }
+                        code += key;
                     }
-                    codes[i] += encryptionKey;
-                }
-            }
-            return new String(codes, 0, codes.length);
-        });
+                    return code;
+                })
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString());
     }
 
     private void recieveMessage(String encryptMessage, int encryptionKey) {
         LOGGER.info("Получено зашифрованное сообщение: {} -> Требуется расшифровка", encryptMessage);
-        decryptMessage(encryptMessage, encryptionKey, (str, key) -> {
-            int[] codes = encryptMessage.codePoints().toArray();
-            for (int i = 0; i < codes.length; i++) {
-                if (codes[i] > 64 && codes[i] < 91 || codes[i] > 96 && codes[i] < 123) {
-                    if (codes[i] > 64 && codes[i] - encryptionKey <= 64
-                            || codes[i] > 96 && codes[i] - encryptionKey <= 96) {
-                        codes[i] += 28 - encryptionKey;
+        decryptMessage(encryptMessage, encryptionKey, (str, key) -> str.codePoints()
+                .map(code -> {
+                    if (code > UPPERCASE_START && code < UPPERCASE_END
+                            || code > LOWERCASE_START && code < LOWERCASE_END) {
+                        if (code - encryptionKey <= UPPERCASE_START
+                                || code > LOWERCASE_START && code - encryptionKey <= LOWERCASE_START) {
+                            code += FROM_END_TO_OTHER - encryptionKey;
+                        }
+                        code -= encryptionKey;
                     }
-                    codes[i] -= encryptionKey;
-                }
-
-            }
-            return new String(codes, 0, codes.length);
-        });
+                    return code;
+                })
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString());
     }
 
     @Override
