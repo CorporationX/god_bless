@@ -11,7 +11,8 @@ public class Main {
         System.out.println("Сумма четных чисел: " + ListOperation.sumNumbers(numbers));
         System.out.println("Максимум: " + ListOperation.maxNumbers(numbers));
         System.out.println("Среднее: " + ListOperation.averageNubmers(numbers));
-        System.out.println("Количество строк, начинающихся на 'a': " + ListOperation.startNumbersSpecificChar(strings, 'a'));
+        System.out.println("Количество строк, начинающихся на 'a': "
+                + ListOperation.startNumbersSpecificChar(strings, 'a'));
         System.out.println("Строки, содержащие 'an': " + ListOperation.listSpecificSubstring(strings, "an"));
         System.out.println("Отсортированные по длине строки: " + ListOperation.stringSize(strings));
         System.out.println("Все ли числа чётные? " + ListOperation.elementsList(numbers, n -> n % 2 == 0));
