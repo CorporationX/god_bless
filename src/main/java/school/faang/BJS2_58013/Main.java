@@ -57,9 +57,9 @@ public class Main {
                 new UserAction(5, "Eve", ActionType.SHARE, LocalDate.of(2024, 10, 17), ""),
                 new UserAction(2, "Bob", ActionType.POST, LocalDate.of(2024, 10, 18), "Can't wait for the next #update."),
                 new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2024, 10, 19), ""),
-                new UserAction(5, "Eve", ActionType.SHARE, LocalDate.of(2025, 2, 13), "The #feature saved me a lot of time."),
-                new UserAction(2, "Bob", ActionType.POST, LocalDate.of(2025, 2, 15), "Can't wait for the next #update."),
-                new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2025, 2, 16), "Sharing my thoughts on the #update.")
+                new UserAction(5, "Eve", ActionType.SHARE, LocalDate.of(2025, 1, 13), "The #feature saved me a lot of time."),
+                new UserAction(2, "Bob", ActionType.POST, LocalDate.of(2025, 1, 15), "Can't wait for the next #update."),
+                new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2025, 1, 16), "Sharing my thoughts on the #update.")
         );
 
 

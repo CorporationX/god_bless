@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toMap;
-
 public class UserService {
 
     public static List<String> topActiveUsers(List<UserAction> users, int topUsers) {
@@ -38,9 +36,10 @@ public class UserService {
     }
 
     public static List<String> topCommentsLastMonth(List<UserAction> users, int topUsers) {
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
         return users.stream()
-                .filter(user -> user.getActionDate().getMonth().equals(LocalDate.now().getMonth().minus(1))
-                        && user.getActionDate().getYear() == LocalDate.now().getYear())
+                .filter(user -> user.getActionDate().getMonth().equals(lastMonth.getMonth())
+                        && user.getActionDate().getYear() == lastMonth.getYear())
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
