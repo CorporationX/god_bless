@@ -1,14 +1,16 @@
 package school.faang.spamfilter;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 
 public class App {
+    private static final Integer LENGTH_FILTER = 10;
+
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
-        MessageFilter lengthFilter = message -> message.length() > 10;
+        MessageFilter lengthFilter = message -> message.length() > LENGTH_FILTER;
         MessageFilter emojiFilter = message -> !message.contains("😀");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
@@ -17,9 +19,7 @@ public class App {
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Сообщение: " + message + " | Прошло все фильтры: " + isFiltered);
+            System.out.printf(("Сообщение: %s | Прошло все фильтры: %s%n"), message, isFiltered);
         }
     }
 }
-
-
