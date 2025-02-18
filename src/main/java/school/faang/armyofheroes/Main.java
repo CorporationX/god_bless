@@ -1,8 +1,13 @@
 package school.faang.armyofheroes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public class Main {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
@@ -16,6 +21,8 @@ public class Main {
         army.addSquad(mages);
 
         int totalPower = army.calculateTotalPower();
-        System.out.println("Общая сила армии: " + totalPower);
+        LOGGER.info("Общая сила армии: {}", totalPower);
+
+        army.shutdown();
     }
 }
