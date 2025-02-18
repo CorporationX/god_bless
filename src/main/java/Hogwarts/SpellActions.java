@@ -3,6 +3,6 @@ package Hogwarts;
 public interface SpellActions {
     @FunctionalInterface
     interface SpellAction {
-        String castSpellName (String nameSpell);
+        String castSpellName(String nameSpell);
     }
 }
