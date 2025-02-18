@@ -12,7 +12,11 @@ public class PersonInfoPrinter implements Runnable {
     @Override
     public void run() {
         for (Person person : persons) {
-            System.out.printf("Name = %s, surname = %s, workplace = %s%n", person.name(), person.surname(), person.workplace());
+            System.out.printf(
+                    "Name = %s, surname = %s, workplace = %s%n",
+                    person.name(),
+                    person.surname(),
+                    person.workplace());
         }
     }
 }
