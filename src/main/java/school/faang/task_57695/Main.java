@@ -1,5 +1,8 @@
 package school.faang.task_57695;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
@@ -11,7 +14,7 @@ public class Main {
                     return "Ошибка"; // Возвращаем значение по умолчанию
                 }
         );
-        System.out.println("Результат: " + result);
+        log.info("Результат: " + result);
 
         // Пример с исключением
         String errorResult = ErrorHandler.withErrorHandling(
@@ -23,6 +26,6 @@ public class Main {
                     return "Ошибка";
                 }
         );
-        System.out.println("Результат: " + errorResult);
+        log.info("Результат: " + errorResult);
     }
 }
