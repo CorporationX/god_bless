@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
-        List<Thread> threads = new ArrayList<>(5);
+        Thread[] threads = new Thread[5];
 
         for (int i = 0; i < 5; i++) {
             int startIndex = 200 * i;
@@ -15,7 +15,7 @@ public class MailSender {
             Thread thread = new Thread(runner);
             thread.start();
 
-            threads.add(i, thread);
+            threads[i] = thread;
         }
 
         for (Thread thread : threads) {

@@ -1,7 +1,5 @@
 package bjs2_60493;
 
-import java.util.List;
-
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
