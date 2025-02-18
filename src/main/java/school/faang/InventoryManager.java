@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class InventoryManager {
 
@@ -33,22 +34,20 @@ public class InventoryManager {
     }
 
     public static void removeItem(Character character, Predicate<Item> condition, Consumer<Item> action) {
-        character.getInventory().removeIf(item -> {
-            if (condition.test(item)) {
-                action.accept(item);
-                return true;
-            }
-            return false;
+        List<Item> itemsToRemove = character.getInventory().stream()
+                .filter(condition)
+                .collect(Collectors.toList());
+        itemsToRemove.forEach(item -> {
+            character.getInventory().remove(item);
+            action.accept(item);
         });
     }
 
     public static void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
-        List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            Item item = inventory.get(i);
-            if (condition.test(item)) {
-                inventory.set(i, updater.apply(item));
-            }
-        }
+        List<Item> updateInventory = character.getInventory().stream()
+                .map(item -> condition.test(item) ? updater.apply(item) : item)
+                .collect(Collectors.toList());
+        character.setInventory(updateInventory);
     }
 }
+
