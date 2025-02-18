@@ -10,8 +10,9 @@ public class Squad {
     private final List<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit... units) {
-        for (Unit unit:units)
-        this.units.add(unit);
+        for (Unit unit : units) {
+            this.units.add(unit);
+        }
     }
 
     public int calculateSquadPower() {

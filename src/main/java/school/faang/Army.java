@@ -13,8 +13,9 @@ public class Army {
     private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad... squads) {
-        for (Squad squad:squads)
-        this.squads.add(squad);
+        for (Squad squad : squads) {
+            this.squads.add(squad);
+        }
     }
 
     public int calculateArmyPower() throws InterruptedException  {
