@@ -40,7 +40,7 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (ALPHABET_EN.indexOf(ch) >= 0) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMsg.append((char) ((ch - base + encryptionKey) % ALPHABET_SIZE + base));
+                    encryptedMsg.append((char) ((ch - base + encryptionKey + ALPHABET_SIZE) % ALPHABET_SIZE + base));
                 } else {
                     encryptedMsg.append(ch);
                 }
