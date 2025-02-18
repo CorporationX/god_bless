@@ -25,7 +25,7 @@ public class UserService {
     public static List<String> topPopularDiscussionTopics(List<UserAction> users, int topTopics) {
         return users.stream()
                 .filter(user -> user.getContent() != null
-                        && ActionType.POST.equals(user.getType()) || ActionType.COMMENT.equals(user.getType()))
+                        && (ActionType.POST.equals(user.getType()) || ActionType.COMMENT.equals(user.getType())))
                 .flatMap(content -> Arrays.stream(Objects.requireNonNull(content.getContent()).split("\\s+")))
                 .filter(word -> word.startsWith("#"))
                 .map(hashtag -> hashtag.replaceAll("\\p{Punct}$", ""))
@@ -39,7 +39,7 @@ public class UserService {
 
     public static List<String> topCommentsLastMonth(List<UserAction> users, int topUsers) {
         return users.stream()
-                .filter(user -> user.getActionDate().getMonth().equals(LocalDate.now().getMonth())
+                .filter(user -> user.getActionDate().getMonth().equals(LocalDate.now().getMonth().minus(1))
                         && user.getActionDate().getYear() == LocalDate.now().getYear())
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
