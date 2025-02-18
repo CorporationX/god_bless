@@ -8,14 +8,14 @@ public class LibrarySystem {
     private static final String DEFAULT_SHELF = "1st shelf";
 
     public void addBook(String title, String author, int year) {
-        if (title != null && author != null) {
+        if (title != null && !title.trim().isEmpty() && author != null && !author.trim().isEmpty()) {
             library.put(new Book(title, author, year), DEFAULT_SHELF);
             System.out.println("Book " + title + " was added to the " + DEFAULT_SHELF);
         }
     }
 
     public void addBookToShelf(String title, String author, int year, String shelf) {
-        if (title != null && author != null) {
+        if (title != null && !title.trim().isEmpty() && author != null && !author.trim().isEmpty()) {
             library.put(new Book(title, author, year), shelf);
             System.out.println("Book " + title + " was added to the " + shelf);
         }
