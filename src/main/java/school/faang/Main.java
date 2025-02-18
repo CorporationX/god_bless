@@ -2,6 +2,7 @@ package school.faang;
 
 import school.faang.units.Archer;
 import school.faang.units.Army;
+import school.faang.units.Squad;
 import school.faang.units.Swordsman;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class Main {
         try {
             System.out.println("Общая сила армии: " + army.calculateTotalPower());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("An interruption occurred while calculating the total army strength, ", e);
         }
     }
 }
