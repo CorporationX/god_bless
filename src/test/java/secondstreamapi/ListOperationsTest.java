@@ -1,6 +1,8 @@
-package secondstreamapi;
+package java.secondstreamapi;
 
 import org.junit.jupiter.api.Test;
+import secondstreamapi.ListOperations;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

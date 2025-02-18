@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     public static Set<List<Integer>> findPairs(Set<Integer> numbers, int value) {
-        if (numbers == null || numbers.isEmpty()) {
+        if (numbers == null) {
             return Set.of();
         }
 
