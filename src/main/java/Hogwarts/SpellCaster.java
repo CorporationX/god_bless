@@ -7,7 +7,7 @@ public class SpellCaster implements  SpellActions{
         }
 
         if (spellAction == null) {
-            throw new IllegalArgumentException("Вы забыли про действие" + spellAction);
+            throw new IllegalArgumentException("Вы забыли про действие" + null);
         }
         System.out.println(spellAction.castSpellName(spellName));
     }
