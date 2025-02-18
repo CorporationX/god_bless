@@ -10,7 +10,7 @@ public class Army {
         squads.add(squad);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() throws ArmyException {
         List<CalculationThread> threads = new ArrayList<>();
 
         for (Squad squad : squads) {
@@ -20,9 +20,15 @@ public class Army {
         }
 
         int totalPower = 0;
-        for (CalculationThread thread : threads) {
-            thread.join();
-            totalPower += thread.getSquadPower();
+
+        try {
+            for (CalculationThread thread : threads) {
+                thread.join();
+                totalPower += thread.getSquadPower();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ArmyException("Вычисление общей силы армии было прервано", e);
         }
 
         return totalPower;

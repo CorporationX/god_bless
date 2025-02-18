@@ -3,7 +3,7 @@ package school.faang.distributedarmy;
 import java.util.List;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ArmyException {
         try {
             Army army = new Army();
 
@@ -20,8 +20,8 @@ public class App {
             // Вычисляем общую силу армии
             int totalPower = army.calculateTotalPower();
             System.out.println("Общая сила армии: " + totalPower);
-        } catch (InterruptedException e) {
-            System.err.println("Выполнение прервано: " + e.getMessage());
+        } catch (ArmyException e) {
+            throw new ArmyException("Вычисление общей силы армии было прервано", e);
         }
     }
 }
