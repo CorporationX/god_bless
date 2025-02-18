@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Witcher {
     private static final List<City> CITIES = List.of(
-            new City("name", new Location(46, 568)),
-            new City("name", new Location(626, 1236)),
-            new City("name", new Location(446, 65)),
-            new City("name", new Location(843, 223)),
-            new City("name", new Location(1294, 757))
+            new City("Kaer Morhen", new Location(46, 568)),
+            new City("Novigrad", new Location(626, 1236)),
+            new City("Rivia", new Location(446, 65)),
+            new City("Vergenberg", new Location(843, 223)),
+            new City("Skellige island", new Location(1294, 757))
     );
     private static final List<Monster> MONSTERS = List.of(
             new Monster("Succubus", new Location(324, 235)),

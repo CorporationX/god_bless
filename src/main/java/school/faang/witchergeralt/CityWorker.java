@@ -10,6 +10,7 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 public class CityWorker implements Runnable {
+    private static final int COUNT_FOUND_MONSTERS = 1;
     private static final Map<Monster, Double> MONSTER_POSITIONS = new HashMap<>();
     private static final int COORDINATE_CASTLE_X = 0;
     private static final int COORDINATE_CASTLE_Y = 0;
@@ -31,7 +32,7 @@ public class CityWorker implements Runnable {
         monsters.forEach(monster -> MONSTER_POSITIONS.put(monster, calculateDistance(cityX,
                         cityY, monster.getLocation().getCoordinateX(),
                         monster.getLocation().getCoordinateY())));
-        MONSTER_POSITIONS.entrySet().stream().sorted(Map.Entry.comparingByValue()).limit(1)
+        MONSTER_POSITIONS.entrySet().stream().sorted(Map.Entry.comparingByValue()).limit(COUNT_FOUND_MONSTERS)
                 .forEach(entry -> log.info(PRINT_FORMAT, Math.round(distanceFromCastleToCity),
                         entry.getKey().getName(), entry.getKey().getLocation().getCoordinateX(),
                         entry.getKey().getLocation().getCoordinateY(), entry.getValue().intValue()));
