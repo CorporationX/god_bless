@@ -10,37 +10,37 @@ import java.util.stream.IntStream;
 public class Droid {
     private static final Logger LOGGER = LoggerFactory.getLogger(Droid.class);
 
+    private static final int ALPHABET_SIZE = 26;
+
+    private static final Map<Character, Integer> ALPHABET_LETTER_AND_ID = IntStream
+            .range(0, ALPHABET_SIZE)
+            .boxed()
+            .collect(Collectors.toMap(
+                    i -> (char) ('A' + i),
+                    i -> i + 1
+            ));
+    private static final Map<Integer, Character> ALPHABET_ID_AND_LETTER = IntStream
+            .range(0, ALPHABET_SIZE)
+            .boxed()
+            .collect(Collectors.toMap(
+                    i -> i + 1,
+                    i -> (char) ('A' + i)
+            ));
+
     private final String name;
-
-    private final Map<Character, Integer> alphabetLetterAndId;
-
-    private final Map<Integer, Character> alphabetIdAndLetter;
 
     public Droid(String name) {
         validateObjectNull(name == null, " name");
         validateStringIsBlank(name, "name");
 
         this.name = name;
-        this.alphabetLetterAndId = IntStream.range(0, 26)
-                .boxed()
-                .collect(Collectors.toMap(
-                        i -> (char) ('A' + i),
-                        i -> i + 1
-                ));
-        this.alphabetIdAndLetter = IntStream.range(0, 26)
-                .boxed()
-                .collect(Collectors.toMap(
-                        i -> i + 1,
-                        i -> (char) ('A' + i)
-                ));
-
         LOGGER.info("Created Droid {}", name);
     }
 
     public void sendMessage(String message, int key, Droid recipientDroid) {
-        validateStringIsBlank(message, "message");
         validateObjectNull(message, " message");
         validateObjectNull(recipientDroid, " recipientDroid");
+        validateStringIsBlank(message, "message");
         validateIntIsNegative(key);
 
         String encryptedMessage = encryptMessage(message, key);
@@ -66,8 +66,8 @@ public class Droid {
         validateObjectNull(message, " message");
         validateIntIsNegative(key);
 
-        if (key > 26) {
-            key = key % 26;
+        if (key > ALPHABET_SIZE) {
+            key = key % ALPHABET_SIZE;
         }
 
         DroidMessageEncryptor droidMessageEncryptor =
@@ -76,13 +76,15 @@ public class Droid {
                     for (char c : incomingMessage.toCharArray()) {
                         if (Character.isLetter(c)) {
                             if (Character.isLowerCase(c)) {
-                                int id = alphabetLetterAndId.get(Character.toUpperCase(c));
+                                int id = ALPHABET_LETTER_AND_ID.get(Character.toUpperCase(c));
                                 char cipherLetter = Character.toLowerCase(
-                                        alphabetIdAndLetter.get((id + incomingKey - 1) % 26 + 1));
+                                        ALPHABET_ID_AND_LETTER
+                                                .get((id + incomingKey - 1) % ALPHABET_SIZE + 1));
                                 result.append(cipherLetter);
                             } else if (Character.isUpperCase(c)) {
-                                int id = alphabetLetterAndId.get(c);
-                                char cipherLetter = alphabetIdAndLetter.get((id + incomingKey - 1) % 26 + 1);
+                                int id = ALPHABET_LETTER_AND_ID.get(c);
+                                char cipherLetter = ALPHABET_ID_AND_LETTER
+                                        .get((id + incomingKey - 1) % ALPHABET_SIZE + 1);
                                 result.append(cipherLetter);
                             } else {
                                 result.append(c);
@@ -103,23 +105,25 @@ public class Droid {
         validateObjectNull(message, " message");
         validateIntIsNegative(key);
 
-        if (key > 26) {
-            key = key % 26;
+        if (key > ALPHABET_SIZE) {
+            key = key % ALPHABET_SIZE;
         }
 
-        DroidMessageEncryptor droidMessageEncryptor =
+        DroidMessageDecoder droidMessageDecoder =
                 (incomingMessage, incomingKey) -> {
                     StringBuilder result = new StringBuilder();
                     for (char c : incomingMessage.toCharArray()) {
                         if (Character.isLetter(c)) {
                             if (Character.isLowerCase(c)) {
-                                int id = alphabetLetterAndId.get(Character.toUpperCase(c));
+                                int id = ALPHABET_LETTER_AND_ID.get(Character.toUpperCase(c));
                                 char cipherLetter = Character.toLowerCase(
-                                        alphabetIdAndLetter.get((id - incomingKey - 1 + 26) % 26 + 1));
+                                        ALPHABET_ID_AND_LETTER
+                                                .get((id - incomingKey - 1 + ALPHABET_SIZE) % ALPHABET_SIZE + 1));
                                 result.append(cipherLetter);
                             } else if (Character.isUpperCase(c)) {
-                                int id = alphabetLetterAndId.get(c);
-                                char cipherLetter = alphabetIdAndLetter.get((id - incomingKey - 1 + 26) % 26 + 1);
+                                int id = ALPHABET_LETTER_AND_ID.get(c);
+                                char cipherLetter = ALPHABET_ID_AND_LETTER
+                                        .get((id - incomingKey - 1 + ALPHABET_SIZE) % ALPHABET_SIZE + 1);
                                 result.append(cipherLetter);
                             } else {
                                 result.append(c);
@@ -133,7 +137,7 @@ public class Droid {
 
         LOGGER.info("Decrypted message");
 
-        return droidMessageEncryptor.encrypt(message, key);
+        return droidMessageDecoder.decipher(message, key);
     }
 
     public static void validateObjectNull(Object object, String errorMessage) {
