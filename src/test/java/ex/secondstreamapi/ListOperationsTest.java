@@ -1,4 +1,4 @@
-package java.secondstreamapi;
+package ex.secondstreamapi;
 
 import org.junit.jupiter.api.Test;
 import secondstreamapi.ListOperations;
