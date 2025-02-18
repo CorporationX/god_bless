@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Getter
 public class Droid {
@@ -14,36 +16,14 @@ public class Droid {
     private final String name;
 
     private String encryptMessage(@NonNull String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, encryptKey) -> {
-            StringBuilder encryptMessage = new StringBuilder();
-            for (char symbol : msg.toCharArray()) {
-                if (Character.isLetter(symbol)) {
-                    char base = Character.isLowerCase(symbol) ? FIRST_LOWERCASE_LETTER : FIRST_UPPERCASE_LETTER;
-                    encryptMessage.append((char) ((symbol - base + encryptKey) % LATIN_LETTERS_COUNT + base));
-                } else {
-                    encryptMessage.append(symbol);
-                }
-            }
-            return encryptMessage.toString();
-        };
+        DroidMessageEncryptor encryptor = (msg, encryptKey)
+                -> messageProcessing(msg, encryptKey, true);
         return encryptor.processing(message, key);
     }
 
     private String decryptMessage(@NonNull String encryptedMessage, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? FIRST_LOWERCASE_LETTER : FIRST_UPPERCASE_LETTER;
-                    decryptedMessage.append(
-                            (char) ((ch - base - decryptionKey + LATIN_LETTERS_COUNT) % LATIN_LETTERS_COUNT + base)
-                    );
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
+        DroidMessageEncryptor decryptor = (msg, decryptionKey)
+                -> messageProcessing(msg, decryptionKey, false);
         return decryptor.processing(encryptedMessage, key);
     }
 
@@ -54,7 +34,29 @@ public class Droid {
         droid.receiveMessage(encryptMessage, key);
     }
 
-    private void receiveMessage(@NonNull String encryptMessage, int key) {
+    public void receiveMessage(@NonNull String encryptMessage, int key) {
         System.out.printf("%s получил зашифрованное сообщение: %s%n", getName(), decryptMessage(encryptMessage, key));
+    }
+
+    private String messageProcessing(@NonNull String message, int key, boolean isEncryption) {
+        return message.chars()
+                .map(codePoint -> {
+                    if (Character.isLetter(codePoint)) {
+                        int base = Character.isLowerCase(codePoint) ? FIRST_LOWERCASE_LETTER : FIRST_UPPERCASE_LETTER;
+                        return isEncryption
+                                ? symbolEncryption(codePoint, base, key) : symbolDecryption(codePoint, base, key);
+                    }
+                    return codePoint;
+                })
+                .mapToObj(codePoint -> String.valueOf((char) codePoint))
+                .collect(Collectors.joining());
+    }
+
+    private int symbolEncryption(int symbol, int base, int key) {
+        return (symbol - base + key) % LATIN_LETTERS_COUNT + base;
+    }
+
+    private int symbolDecryption(int symbol, int base, int key) {
+        return (symbol - base - key + LATIN_LETTERS_COUNT) % LATIN_LETTERS_COUNT + base;
     }
 }
