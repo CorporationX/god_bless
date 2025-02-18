@@ -7,6 +7,12 @@ import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(FoodDeliveryTask.class);
+    private static final String LOG_EATING_START = "{} gets {} {}.";
+    private static final String LOG_EATING_DONE = "{} eats {} {}.";
+    private static final String LOG_EATING_FAILED = "{} couldn't eat {} {}.";
+    private static final int MIN_EATING_TIME = 1000;
+    private static final int MAX_EATING_TIME = 3000;
+
     private final String character;
     private final int foodAmount;
     private final Random random = new Random();
@@ -22,11 +28,11 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         FoodType foodType = getRandomFoodType();
         try {
-            logger.info("{} gets {} {}.", character, foodAmount, foodType.name());
-            Thread.sleep(random.nextInt(3000) + 1000);
-            logger.info("{} eats {} {}.", character, foodAmount, foodType.name());
+            logger.info(LOG_EATING_START, character, foodAmount, foodType.name());
+            Thread.sleep(random.nextInt(MAX_EATING_TIME) + MIN_EATING_TIME);
+            logger.info(LOG_EATING_DONE, character, foodAmount, foodType.name());
         } catch (InterruptedException e) {
-            logger.info("{} couldn't eat {} {}.", character, foodAmount, foodType.name());
+            logger.info(LOG_EATING_FAILED, character, foodAmount, foodType.name());
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
