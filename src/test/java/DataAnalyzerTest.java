@@ -40,8 +40,6 @@ public class DataAnalyzerTest {
                 }
             });
             jobs = jobStreamProcessor.processJobs(jobStream);
-            System.out.println(jobs);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -164,8 +162,7 @@ public class DataAnalyzerTest {
 
     @Test
     void testGetTopFivePopularOffices_basicCase() {
-        List<String> expected = List.of("UX/UI Designer", "Backend Developer", "Software Engineer",
-                "Frontend Developer", "Software Engineer");
+        List<String> expected = List.of("London", "San Francisco", "Beijing", "Paris", "Tokyo");
         assertEquals(expected, DataAnalyzer.getTopFivePopularOffices(jobs));
     }
 
