@@ -29,11 +29,13 @@ public class WeasleyFamily {
             if (isTerminated) {
                 log.info("All done");
             } else {
-                log.info("Chores has not finished within {} {}", TIME_EXECUTION, TIME_UNIT);
+                log.warn("Chores has not finished within {} {}", TIME_EXECUTION, TIME_UNIT);
+                EXECUTOR_SERVICE.shutdownNow();
             }
         } catch (InterruptedException exception) {
             log.error("Thread has been interrupted. {}\n{}", exception, Thread.currentThread().getName());
             Thread.currentThread().interrupt();
+            EXECUTOR_SERVICE.shutdownNow();
         }
     }
 }
