@@ -47,7 +47,8 @@ public class ListOfOperations {
                 .toList();
     }
 
-    public static boolean allElementsSatisfyCondition(@NonNull List<Integer> list, @NonNull Predicate<Integer> predicate) {
+    public static boolean allElementsSatisfyCondition(@NonNull List<Integer> list,
+                                                      @NonNull Predicate<Integer> predicate) {
         return list.stream().allMatch(predicate);
     }
 
