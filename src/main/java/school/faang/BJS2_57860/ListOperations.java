@@ -11,9 +11,12 @@ public class ListOperations {
         }
 
         return numbers.stream()
-                .flatMap(num -> numbers.contains(sum - num) && num < sum - num
-                        ? Stream.of((Arrays.asList(num, sum - num)))
-                        : Stream.empty())
+                .flatMap(num -> {
+                    int pairNumber = sum - num;
+                    return numbers.contains(pairNumber) && num < pairNumber
+                            ? Stream.of((Arrays.asList(num, pairNumber)))
+                            : Stream.empty();
+                })
                 .collect(Collectors.toSet());
     }
 
