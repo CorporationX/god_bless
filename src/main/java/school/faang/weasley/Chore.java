@@ -8,17 +8,19 @@ import org.slf4j.LoggerFactory;
 public class Chore implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Chore.class);
+    private static final int TASK_EXECUTION_TIME = 5000;
 
     private final String title;
 
     @Override
     public void run() {
-        LOGGER.info("Задача {} выполняется", Thread.currentThread().getName());
+        LOGGER.info("Задача {} выполняется", title);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(TASK_EXECUTION_TIME);
         } catch (InterruptedException e) {
-            LOGGER.error("The thread has been interrupted");
+            LOGGER.error("Поток был прерван: {}", e.getMessage());
+            Thread.currentThread().interrupt();
         }
-        LOGGER.info("Задача {} была завершена", Thread.currentThread().getName());
+        LOGGER.info("Задача {} была завершена", title);
     }
 }
