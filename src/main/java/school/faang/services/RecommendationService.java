@@ -1,15 +1,17 @@
 package school.faang.services;
 
+import school.faang.exceptions.ProductNotFoundException;
+import school.faang.exceptions.UserNotFoundException;
 import school.faang.models.Product;
 import school.faang.models.ProductOrder;
 import school.faang.models.UserProfile;
-import school.faang.exceptions.ProductNotFoundException;
-import school.faang.exceptions.UserNotFoundException;
+import school.faang.utils.ValidationUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class RecommendationService {
@@ -20,9 +22,9 @@ public class RecommendationService {
     private final List<ProductOrder> orders;
 
     public RecommendationService(List<UserProfile> users, List<Product> products, List<ProductOrder> orders) {
-        validateList(users, "user");
-        validateList(products, "product");
-        validateList(orders, "order");
+        ValidationUtils.isValidList(users, "user");
+        ValidationUtils.isValidList(products, "product");
+        ValidationUtils.isValidList(orders, "order");
         for (UserProfile userProfile : users) {
             userById.put(userProfile.getUserId(), userProfile);
         }
@@ -44,7 +46,7 @@ public class RecommendationService {
     public List<Product> getRecommendationsAmongSimilarUsers(int userId) {
         UserProfile user = getUserById(userId);
         List<UserProfile> similarUsers = users.stream()
-                .filter(user2 -> areUsersSimilar(user, user2))
+                .filter(user2 -> isTwoUsersSimilar(user, user2))
                 .toList();
 
         Map<Product, Long> productCount = orders.stream()
@@ -70,24 +72,15 @@ public class RecommendationService {
                 .stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("Unable to determine discounted product category " +
+                        "for user ID: " + userId));
     }
 
-    private boolean areUsersSimilar(UserProfile user1, UserProfile user2) {
+    private boolean isTwoUsersSimilar(UserProfile user1, UserProfile user2) {
         return user1.getAge() == user2.getAge() && user1.getGender().equals(user2.getGender())
                 && user1.getInterests().equals(user2.getInterests());
     }
 
-    private <T> void validateList(List<T> list, String message) {
-        if (list == null) {
-            throw new IllegalArgumentException("List of " + message + "s can't be null.");
-        }
-        for (var entry : list) {
-            if (entry == null) {
-                throw new IllegalArgumentException(message + " in list can't be null.");
-            }
-        }
-    }
 
     private Product getProductById(int productId) {
         Product product = productById.get(productId);
