@@ -9,8 +9,8 @@ import java.util.List;
 @Getter
 @ToString
 public class Character {
-    private String name;
-    private List<Item> inventory;
+    private final String name;
+    private final List<Item> inventory;
 
     public Character(String name) {
         this.name = name;
