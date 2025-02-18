@@ -4,7 +4,6 @@ import lombok.NonNull;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
@@ -19,13 +18,12 @@ public class InventoryManager {
 
     public void updateItem(@NonNull Character character,
                            @NonNull Predicate<Item> filter,
-                           @NonNull Function<Item, Item> updater) {
+                           @NonNull Consumer<Item> updater) {
         List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            Item item = inventory.get(i);
-            if (filter.test(item)) {
-                inventory.set(i, updater.apply(item));
-            }
+        if (inventory != null) {
+            inventory.stream()
+                    .filter(filter)
+                    .forEach(updater);
         }
     }
 }
