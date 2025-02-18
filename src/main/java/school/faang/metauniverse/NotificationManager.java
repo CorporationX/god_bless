@@ -1,4 +1,4 @@
-package metauniverse;
+package school.faang.metauniverse;
 
 import lombok.extern.slf4j.Slf4j;
 
