@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     private static final Logger logger = LoggerFactory.getLogger(WeasleyFamily.class);
-    private static final int TIMEOUT = 5;
+    private static final int TIMEOUT_SECONDS = 5;
     private final Chore[] chores;
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -24,18 +24,19 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                logger.info("Not all tasks had been completed in {} seconds.", TIMEOUT);
+            if (!executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                logger.info("Not all tasks had been completed in {} seconds.", TIMEOUT_SECONDS);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            logger.error("Thread was interrupted while waiting for termination", e);
         }
     }
 
     private void validateChores(Chore[] chores) {
-        if (chores == null) {
-            throw new IllegalArgumentException("Chores can't be null.");
+        if (chores == null || chores.length == 0) {
+            throw new IllegalArgumentException("Chores can't be null or empty.");
         }
     }
 }
