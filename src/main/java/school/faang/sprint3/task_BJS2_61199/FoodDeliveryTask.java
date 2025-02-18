@@ -13,8 +13,7 @@ public class FoodDeliveryTask implements Runnable {
 
     public FoodDeliveryTask(String character) {
         random = new Random();
-        FoodType[] foodFoodTypes = FoodType.values();
-        this.foodType = foodFoodTypes[random.nextInt(foodFoodTypes.length)];
+        this.foodType = getFoodType();
         this.character = character;
         foodAmount = random.nextInt(1, 50);
     }
@@ -32,5 +31,10 @@ public class FoodDeliveryTask implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private FoodType getFoodType() {
+        FoodType[] foodFoodTypes = FoodType.values();
+        return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
     }
 }
