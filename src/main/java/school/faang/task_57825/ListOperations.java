@@ -12,9 +12,8 @@ public class ListOperations {
 
     public static Set<List<Integer>> findPairs(Set<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(num -> num != sum - num && numbers.contains(sum - num))
+                .filter(num -> num < sum - num && numbers.contains(sum - num))
                 .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
 
