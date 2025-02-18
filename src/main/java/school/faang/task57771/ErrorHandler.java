@@ -11,7 +11,7 @@ public class ErrorHandler {
         try {
             return supplier.get();
         } catch (Exception e) {
-            return errorHandler.callException(e);
+            return errorHandler.handleException(e);
         }
     }
 }
