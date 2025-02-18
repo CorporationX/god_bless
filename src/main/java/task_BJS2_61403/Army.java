@@ -3,21 +3,30 @@ package task_BJS2_61403;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class Army {
-    private List<Squad> army;
+    private final List<Squad> squadsInArmy = new ArrayList<>();
 
     public void addSquad(@NonNull Squad squad) {
-        army.add(squad);
+        squadsInArmy.add(squad);
     }
 
-    public int calculateTotalPower() {
-        int threadAmount = army.size();
-        int batchSize = army.stream().mapToInt(squad -> squad.getCharacters().size()).sum();
+    public int calculateTotalPower() throws InterruptedException {
+        List<Thread> threadAmount = new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
 
-        return batchSize;
+        for (Squad squad : squadsInArmy) {
+            Thread thread = new Thread(() -> results.add(squad.CalculateSquadPower()));
+            threadAmount.add(thread);
+            thread.start();
+        }
+        for (Thread thread : threadAmount) {
+            thread.join();
+        }
 
+        return results.stream().mapToInt(Integer::intValue).sum();
     }
 }
