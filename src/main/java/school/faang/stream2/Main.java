@@ -3,7 +3,6 @@ package school.faang.stream2;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,20 +31,17 @@ public class Main {
     }
 
     private static Set<List<Integer>> findUniquePairs(Set<Integer> numbers, int sum) {
-        Set<List<Integer>> result = new HashSet<>();
-        numbers.stream()
+        return numbers.stream()
                 .filter(num -> (sum - num > num && numbers.contains(sum - num)))
                 .map(num -> List.of(num, sum - num))
-                .forEach(result::add);
-        return result;
+                .collect(Collectors.toSet());
     }
 
     private static Set<String> sortCountry(Map<String, String> countries) {
-        Set<String> result = countries.entrySet().stream()
+        return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toSet());
-        return result;
     }
 
     private static List<String> strFilterAndSort(List<String> strings, char character) {
@@ -58,19 +54,17 @@ public class Main {
     }
 
     private static List<String> convertToBinary(List<Integer> numbers) {
-        List<String> result = numbers.stream()
+        return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
-        return result;
     }
 
     private static List<String> filterAndSortStr(List<String> strings, String alphabet) {
-        String regex = "^[(" + alphabet + "]+$";
-        List<String> result = strings.stream()
+        String regex = "^[" + alphabet + "]+$";
+        return strings.stream()
                 .filter(string -> string.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
-        return result;
     }
 
 }
