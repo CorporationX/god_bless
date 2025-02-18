@@ -10,7 +10,7 @@ public class Notification {
         public static final String PUSH = "PUSH";
         public static final String SMS = "SMS";
 
-        NotificationType(){
+        NotificationType() {
         }
     }
 

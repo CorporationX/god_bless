@@ -14,7 +14,7 @@ public class NotificationManager {
     private static final Predicate<Notification> contentFilter;
     private static final Function<Notification, Notification> contentCorrector;
 
-    static  {
+    static {
         contentFilter = notification -> !notification.getMessage().contains("нецензурная лексика");
         contentCorrector = notification -> new Notification(
                 notification.getType(),
@@ -39,7 +39,8 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(correctedNotification);
         } else {
-            System.out.println("Не зарегистрирован обработчик для типа уведомления: " + correctedNotification.getType());
+            System.out.println("Не зарегистрирован обработчик для типа уведомления: "
+                    + correctedNotification.getType());
         }
     }
 
