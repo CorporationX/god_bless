@@ -18,15 +18,15 @@ public class App {
                         ""),
                 new UserAction(4, "Dave", ActionType.POST, LocalDate.of(2024, 9, 5),
                         "#Java is awesome!"),
-                new UserAction(2, "Bob", ActionType.LIKE, LocalDate.of(2024, 9, 6),
+                new UserAction(2, "Bob", ActionType.LIKE, LocalDate.of(2025, 2, 6),
                         ""),
                 new UserAction(3, "Charlie", ActionType.POST, LocalDate.of(2024, 9, 7),
                         "Check out this cool #project"),
-                new UserAction(1, "Alice", ActionType.COMMENT, LocalDate.of(2024, 9, 8),
+                new UserAction(1, "Alice", ActionType.COMMENT, LocalDate.of(2025, 2, 8),
                         "Thanks for sharing #project!"),
                 new UserAction(4, "Dave", ActionType.LIKE, LocalDate.of(2024, 9, 9),
                         ""),
-                new UserAction(2, "Bob", ActionType.COMMENT, LocalDate.of(2024, 9, 10),
+                new UserAction(2, "Bob", ActionType.COMMENT, LocalDate.of(2025, 2, 10),
                         "#Java is everywhere."),
                 new UserAction(5, "Eve", ActionType.POST, LocalDate.of(2024, 9, 11),
                         "Loving the new #feature release!"),
@@ -49,9 +49,9 @@ public class App {
         List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
         Map<ActionType, Double> actionPercentages = UserActionAnalyzer.calculateActionPercentages(actions);
 
-        System.out.println("Топ-10 активных пользователей: " + top10Users);
-        System.out.println("Топ-5 популярных хэштегов: " + top5Hashtags);
-        System.out.println("Топ-3 комментаторов за последний месяц: " + top3Commenters);
-        System.out.println("Процент действий по типам: " + actionPercentages);
+        System.out.printf("Топ-10 активных пользователей: %s%n", top10Users);
+        System.out.printf("Топ-5 популярных хэштегов: %s%n", top5Hashtags);
+        System.out.printf("Топ-3 комментаторов за последний месяц: %s%n", top3Commenters);
+        System.out.printf("Процент действий по типам: %s%n",  actionPercentages);
     }
 }
