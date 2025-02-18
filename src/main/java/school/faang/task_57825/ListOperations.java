@@ -28,7 +28,7 @@ public class ListOperations {
     public static List<String> filterAndSort(List<String> list, char simbol) {
         return list.stream()
                 .filter(str -> str.charAt(0) == simbol)
-                .sorted((str1, str2) -> str1.length() - str2.length())
+                .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
 
@@ -40,8 +40,9 @@ public class ListOperations {
     }
 
     public static List<String> filterAndSortByLength(List<String> list, String alphabet) {
+        String regex = "[" + alphabet + "]+";
         return list.stream()
-                .filter(str -> str.contains(alphabet))
+                .filter(str -> str.matches(regex))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
