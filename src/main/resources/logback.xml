@@ -1,0 +1,19 @@
+<configuration>
+
+<!-- Конфигурация консольного аппендера -->
+<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<!-- Уровни логирования для различных пакетов -->
+<logger name="com.example" level="debug" />
+<logger name="org.springframework" level="warn" />
+
+<!-- Устанавливаем корневой логгер -->
+<root level="info">
+    <appender-ref ref="CONSOLE" />
+</root>
+
+</configuration>
