@@ -7,14 +7,15 @@ public class Trial implements Runnable {
     private final String knightName;
     private final String trialName;
 
-
     @Override
     public void run() {
         try {
-            System.out.println(trialName + " началось");
-            Thread.sleep(5000); // Задержка в 1 секунду
+            System.out.println(knightName + " началось испытание " + trialName);
+            Thread.sleep(5000);
+            System.out.println(knightName + " завершил испытание " + trialName);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Поток был прерван", e);
         }
     }
 }
