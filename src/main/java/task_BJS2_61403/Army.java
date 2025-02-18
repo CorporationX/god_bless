@@ -19,7 +19,7 @@ public class Army {
         List<Integer> results = new ArrayList<>();
 
         for (Squad squad : squadsInArmy) {
-            Thread thread = new Thread(() -> results.add(squad.CalculateSquadPower()));
+            Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
             threadAmount.add(thread);
             thread.start();
         }
