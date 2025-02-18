@@ -20,13 +20,10 @@ public class InventoryManager {
 
     public void updateItem(@NonNull Character character, @NonNull Predicate<Item> condition,
                            @NonNull Function<Item, Item> update) {
-        List<Item> items = character.getInventory();
+        List<Item> updatedItems = character.getInventory().stream()
+                .map(item -> condition.test(item) ? update.apply(item) : item)
+                .toList();
 
-        for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
-            if (condition.test(item)) {
-                items.set(i, update.apply(item));
-            }
-        }
+        character.setInventory(updatedItems);
     }
 }
