@@ -19,6 +19,8 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(random.nextInt(1000, 5000));
         } catch (InterruptedException e) {
+            System.out.println(character + " не смог получить " + foodType + " из-за прерывания.");
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         System.out.printf("%s's eating %d %s\n", character, foodAmount, foodType);

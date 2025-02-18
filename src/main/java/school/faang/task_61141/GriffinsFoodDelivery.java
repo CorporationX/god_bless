@@ -11,10 +11,9 @@ public class GriffinsFoodDelivery {
     public static void main(String[] args) {
         Random random = new Random();
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
-        Arrays.stream(characterNames)
-                .forEach(name -> executor.execute(new FoodDeliveryTask(name, random.nextInt(0, 100))));
-        executor.close();
-
+        try (ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT)) {
+            Arrays.stream(characterNames)
+                    .forEach(name -> executor.execute(new FoodDeliveryTask(name, random.nextInt(0, 100))));
+        }
     }
 }
