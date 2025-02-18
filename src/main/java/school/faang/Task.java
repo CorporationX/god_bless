@@ -15,7 +15,7 @@ public class Task implements Runnable {
             Thread.sleep(2000);
             logger.info("{} finished {}.", name, task);
         } catch (InterruptedException e) {
-            logger.info("{} interrupted {}.", name, task);
+            logger.error("Task was interrupted,", e);
             throw new RuntimeException(e);
         }
 

@@ -1,31 +1,33 @@
 package school.faang;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     private static final int THREAD_POOL_SIZE = 4;
+    private static final int TERMINATION_TIMEOUT_SECONDS = 10;
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        Task sheldonTask = new Task("Шелдон", "подготовка теории");
-        Task leonardTask = new Task("Леонард", "моделирование эксперимента");
-        Task howardTask = new Task("Говард", "разработка инструментов");
-        Task rajeshTask = new Task("Раджеш", "анализ данных");
+        List<Task> tasks = List.of(
+                new Task("Sheldon", "preparing the theory"),
+                new Task("Leonard", "experiment modeling"),
+                new Task("Howard", "tool development"),
+                new Task("Rajesh", "data analysis")
+        );
 
-        executor.execute(sheldonTask);
-        executor.execute(leonardTask);
-        executor.execute(howardTask);
-        executor.execute(rajeshTask);
+        tasks.forEach(executor::execute);
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 System.out.println("Tasks haven't been completed in time.");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
