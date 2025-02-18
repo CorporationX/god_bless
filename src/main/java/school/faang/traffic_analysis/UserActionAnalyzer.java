@@ -22,9 +22,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(@NonNull List<UserAction> actionList, int amountTopHashes) {
         return actionList.stream()
-                .filter(action -> action.actionType().equals(ActionType.COMMENT)
-                        || action.actionType().equals(ActionType.POST)
-                        && !"".equals(action.content()))
+                .filter(action -> ActionType.COMMENT.equals(action.actionType())
+                        || ActionType.POST.equals(action.actionType())
+                        && action.content().isBlank())
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+"))
                         .filter(word -> word.startsWith("#"))
                         .map(word -> word.replaceAll("[^a-zA-Z0-9#]", ""))
@@ -40,7 +40,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> actionList, int userAmount) {
         return actionList.stream().filter(action ->
-                        action.actionType().equals(ActionType.COMMENT)
+                        ActionType.COMMENT.equals(action.actionType())
                                 && (action.actionDate().isAfter(LocalDate.now().minusMonths(1))
                                 && action.actionDate().isBefore(LocalDate.now())))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()))
