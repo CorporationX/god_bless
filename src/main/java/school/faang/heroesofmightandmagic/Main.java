@@ -7,13 +7,19 @@ import java.util.List;
 @Slf4j
 public class Main {
     private static final Army ARMY = new Army();
+    private static final int ARCHER_POWER = 25;
+    private static final int SWORDSMAN_POWER = 35;
+    private static final int MAGE_POWER = 45;
+    private static final int POWER_UP_BUFF = 5;
 
     public static void main(String[] args) {
         try {
-            Squad archers = new Squad("Archers", List.of(new Archer(25), new Archer(30)));
-            Squad swordsmen =
-                    new Squad("Swordsmen", List.of(new Swordsman(40), new Swordsman(35)));
-            Squad mages = new Squad("Mages", List.of(new Mage(50), new Mage(45)));
+            Squad archers = new Squad("Archers", List.of(new Archer(ARCHER_POWER),
+                    new Archer(ARCHER_POWER + POWER_UP_BUFF)));
+            Squad swordsmen = new Squad("Swordsmen", List.of(new Swordsman(SWORDSMAN_POWER),
+                    new Swordsman(SWORDSMAN_POWER + POWER_UP_BUFF)));
+            Squad mages = new Squad("Mages", List.of(new Mage(MAGE_POWER),
+                    new Mage(MAGE_POWER + POWER_UP_BUFF)));
 
             ARMY.addSquad(archers);
             ARMY.addSquad(swordsmen);
