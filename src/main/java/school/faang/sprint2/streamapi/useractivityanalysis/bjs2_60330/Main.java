@@ -79,7 +79,7 @@ public class Main {
         );
 
 
-        System.out.println("Top 5 active users: " + UserActionAnalyzer.findTopActiveUsers(actions, 5));
+        System.out.println("Top 4 active users: " + UserActionAnalyzer.findTopActiveUsers(actions, 4));
         System.out.println("Top 3 popular topics: " + UserActionAnalyzer.findTopPopularTopic(actions, 3));
         System.out.println("Top 2 users with max count of comments: "
                 + UserActionAnalyzer.findTopUsersWithMaxCountComments(actions, 2));

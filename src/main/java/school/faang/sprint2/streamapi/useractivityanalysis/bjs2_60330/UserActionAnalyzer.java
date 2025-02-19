@@ -3,7 +3,6 @@ package school.faang.sprint2.streamapi.useractivityanalysis.bjs2_60330;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,7 +13,6 @@ public class UserActionAnalyzer {
         Map<User, Long> userCountMap = userActions.stream()
                 .collect(Collectors.groupingBy(action -> new User(action.getId(), action.getName()),
                         Collectors.counting()));
-        System.out.println("\n--" + userCountMap);
         return userCountMap.entrySet().stream().sorted(Map.Entry.<User, Long>comparingByValue().reversed())
                 .limit(limit).map(Map.Entry::getKey).collect(Collectors.toList());
     }
