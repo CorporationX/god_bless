@@ -94,8 +94,6 @@ public class Main {
                         LocalDate.of(2024, 10, 12), "What a great #feature this update brings!"),
                 new UserAction(2, "Bob", ActionType.LIKE,
                         LocalDate.of(2024, 10, 13), ""),
-                new UserAction(4, "Dave", ActionType.COMMENT,
-                        LocalDate.of(2024, 10, 14), "#feature works really well."),
                 new UserAction(1, "Alice", ActionType.POST,
                         LocalDate.of(2024, 10, 15), "The #feature saved me a lot of time."),
                 new UserAction(3, "Charlie", ActionType.LIKE,
@@ -105,7 +103,9 @@ public class Main {
                 new UserAction(2, "Bob", ActionType.POST,
                         LocalDate.of(2024, 10, 18), "Can't wait for the next #update."),
                 new UserAction(4, "Dave", ActionType.SHARE,
-                        LocalDate.of(2024, 10, 19), "")
+                        LocalDate.of(2024, 10, 19), ""),
+                new UserAction(4, "Dave", ActionType.COMMENT,
+                        LocalDate.of(2025, 1, 20), "#feature works really well.")
         );
         List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
         List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
