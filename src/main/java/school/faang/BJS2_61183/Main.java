@@ -2,7 +2,6 @@ package school.faang.BJS2_61183;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.List;
 
 public class Main {

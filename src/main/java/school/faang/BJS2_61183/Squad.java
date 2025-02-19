@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +15,7 @@ public class Squad {
     private static final String NULL_ERROR = "This is argument cannot be null!";
     private static final String ADD_SUCCESSFULLY = "The warrior {} has been successfully added to the squad {}.";
     private static final String ADD_ALL_SUCCESSFULLY = "The all warriors has been successfully added to the squad {}.";
+    private static final String SQUAD_POWER = "Power of squad {} - {}";
     private final String name;
     private final List<Warrior> squad = new ArrayList<>();
 
@@ -32,6 +32,8 @@ public class Squad {
     }
 
     public int calculateSquadPower() {
-        return squad.stream().mapToInt(Warrior::getPower).sum();
+        int result = squad.stream().mapToInt(Warrior::getPower).sum();
+        logger.info(SQUAD_POWER, name, result);
+        return result;
     }
 }
