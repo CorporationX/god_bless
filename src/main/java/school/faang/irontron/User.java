@@ -16,7 +16,7 @@ public class User {
         this.name = name + Thread.currentThread().getName();
     }
 
-    public synchronized void joinHouse(House house, Role role) {
+    public void joinHouse(House house, Role role) {
         try {
             if (house.assignRole(this, role)) {
                 log.info("Пользователь {} успешно вступил в дом {}  на роль {}", name, house.getName(), role);
@@ -27,7 +27,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         if (house.releaseRole(this.role)) {
             log.info("{} вышел из дома {}", name, house.getName());
             house = null;
