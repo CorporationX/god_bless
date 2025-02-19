@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static school.faang.task_60258.ListOperations.convertToBinary;
 import static school.faang.task_60258.ListOperations.filterAndSortStrings;
-import static school.faang.task_60258.ListOperations.filterByAlphabetAndSortByLength;
+import static school.faang.task_60258.ListOperations.filterByAlphabetAndSortByLengthV2;
 import static school.faang.task_60258.ListOperations.findUniquePairs;
 import static school.faang.task_60258.ListOperations.sortCountriesAndGetCapitals;
 
@@ -42,6 +42,6 @@ public class Main {
 
         List<String> strings5 = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape", "dragon фрукт");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        System.out.println("Filtered by alphabet and sorted: " + filterByAlphabetAndSortByLength(strings5, alphabet));
+        System.out.println("Filtered by alphabet and sorted: " + filterByAlphabetAndSortByLengthV2(strings5, alphabet));
     }
 }

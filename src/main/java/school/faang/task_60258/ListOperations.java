@@ -40,10 +40,26 @@ public class ListOperations {
                 .toList();
     }
 
-    public static List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
+
+    public static List<String> filterByAlphabetAndSortByLengthV0(List<String> strings, String alphabet) {
+        StringBuilder matcher = new StringBuilder("[").append(alphabet).append("]+");
+        return strings.stream()
+                .filter(s -> s.matches(matcher.toString()))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static List<String> filterByAlphabetAndSortByLengthV1(List<String> strings, String alphabet) {
         String matcher = "[" + alphabet + "]+";
         return strings.stream()
                 .filter(s -> s.matches(matcher))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static List<String> filterByAlphabetAndSortByLengthV2(List<String> strings, String alphabet) {
+        return strings.stream()
+                .filter(s -> s.matches("[" + alphabet + "]+"))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
