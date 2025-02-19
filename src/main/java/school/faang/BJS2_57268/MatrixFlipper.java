@@ -28,9 +28,11 @@ public class MatrixFlipper {
         if (flipDirection == FlipDirection.HORIZONTAL) {
             MatrixTransformer horizontal = ((x, y) -> new Coordinates(x, (width - y - 1)));
             return transformMatrix(matrix, horizontal);
-        } else {
+        } else if (flipDirection == FlipDirection.VERTICAL) {
             MatrixTransformer vertical = ((x, y) -> new Coordinates((length - x - 1), y));
             return transformMatrix(matrix, vertical);
+        } else {
+            throw new IllegalArgumentException("Unsupported flip direction");
         }
     }
 }
