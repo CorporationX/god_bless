@@ -3,6 +3,8 @@ package school.faang.supercow;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 @AllArgsConstructor
 public class Player {
@@ -12,6 +14,7 @@ public class Player {
     private String name;
 
     public void doBattle(Boss boss) throws InterruptedException {
+        Objects.requireNonNull(boss, "Boss doesn't exist");
         boss.joinBattle(this);
         Thread.sleep((long) (Math.random() * MAX_TIME_BATTLE + MIN_TIME_BATTLE));
         boss.leaveBattle(this);
