@@ -14,7 +14,7 @@ public class Boss {
     private final List<Player> currentPlayers = new ArrayList<>();
     private final Object lock = new Object();
 
-    public void joinBattle(@NonNull Player player) throws InterruptedException {
+    public void joinBattle(@NonNull Player player) {
         synchronized (lock) {
             try {
                 if (currentPlayers.size() >= maxPlayers) {
