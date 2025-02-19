@@ -14,7 +14,7 @@ public class Main {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(COUNT_THREADS);
     private static final Game GAME = new Game();
     private static final Random RANDOM = new Random();
-    private static final int TIME_EXECUTION = 3;
+    private static final int TIME_EXECUTION = 1;
     private static final TimeUnit TIME_UNIT = TimeUnit.MINUTES;
 
     public static void main(String[] args) throws InterruptedException {

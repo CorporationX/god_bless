@@ -10,19 +10,28 @@ public class Game {
     private static final int MAX_VALUE_EXECUTION = 500;
     private static final int MIN_VALUE_EXECUTION = 300;
 
+    private final Object lockGame = new Object();
+
     private int score = DEFAULT_SCORE;
     private int lives = DEFAULT_LIVES;
 
-    public synchronized void update(boolean isLostLife) throws InterruptedException {
+    public void update(boolean isLostLife) throws InterruptedException {
         Thread.sleep((long) (Math.random() * MAX_VALUE_EXECUTION + MIN_VALUE_EXECUTION));
-        if (!isLostLife) {
-            score++;
-            printStatistics();
-        } else {
-            lives--;
-            printStatistics();
+
+        synchronized (lockGame) {
             if (lives == COUNT_GAME_OVER_LIVES) {
-                gameOver();
+                return;
+            }
+            if (!isLostLife) {
+                score++;
+                printStatistics();
+
+            } else {
+                lives--;
+                printStatistics();
+                if (lives == COUNT_GAME_OVER_LIVES) {
+                    gameOver();
+                }
             }
         }
     }
