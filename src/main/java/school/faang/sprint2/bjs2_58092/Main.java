@@ -14,12 +14,12 @@ public class Main {
         int target = 6;
         log.info("Уникальные пары чисел, где сумма 6: {}", findPairs(nums, target));
 
-        Map<String, String> country = Map.of(
+        Map<String, String> countries = Map.of(
                 "Russia", "Moscow",
                 "USA", "Washington",
                 "Germany", "Berlin"
         );
-        log.info("Результат сортировки и вывода столиц {}", sortAndFindCapital(country));
+        log.info("Результат сортировки и вывода столиц {}", sortAndFindCapital(countries));
 
         List<String> strings = List.of("apple", "banana", "avocado", "apricot");
         log.info("Результат фльтрации и сортировки строк {}", filterAndSort(strings,'a'));
