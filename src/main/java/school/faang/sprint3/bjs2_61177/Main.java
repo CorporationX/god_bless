@@ -2,7 +2,7 @@ package school.faang.sprint3.bjs2_61177;
 
 public class Main {
     public static void main(String[] args) {
-        Army army = new Army();
+        final Army army = new Army();
 
         Squad archers = new Squad();
         archers.addUnit(new Archer(25));
