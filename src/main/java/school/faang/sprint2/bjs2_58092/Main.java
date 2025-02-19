@@ -28,7 +28,8 @@ public class Main {
         log.info("Преобразование чисел в двоичный формат {}", convertToBinary(nums1));
 
         List<String> strings1 = List.of("apple", "banana", "cherry", "date", "fig", "grape");
-        log.info("Фильтрация строк по алфавиту и сортировка по длине {}", filterAndSortByLength(strings1, "abcdefghijklmnopqrstuvwxyz"));
+        log.info("Фильтрация строк по алфавиту и сортировка по длине {}",
+                filterAndSortByLength(strings1, "abcdefghijklmnopqrstuvwxyz"));
 
     }
 }
