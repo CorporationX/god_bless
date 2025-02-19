@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final int CHUNK_COUNT = 5;
         final int CHUNK_SIZE = 200;
 
@@ -22,7 +22,11 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Ожидание завершения потока завершилось ошибкой: " + e.getMessage());
+            }
         }
 
         System.out.println("Все письма отправлены");
