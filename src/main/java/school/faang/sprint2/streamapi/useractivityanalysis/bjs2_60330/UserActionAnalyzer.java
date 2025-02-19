@@ -1,8 +1,12 @@
 package school.faang.sprint2.streamapi.useractivityanalysis.bjs2_60330;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -10,14 +14,24 @@ public class UserActionAnalyzer {
         Map<User, Long> userCountMap = userActions.stream()
                 .collect(Collectors.groupingBy(action -> new User(action.getId(), action.getName()),
                         Collectors.counting()));
+        System.out.println("\n--" + userCountMap);
         return userCountMap.entrySet().stream().sorted(Map.Entry.<User, Long>comparingByValue().reversed())
                 .limit(limit).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     public static List<String> findTopPopularTopic(List<UserAction> userActions, long limit) {
-        return userActions.stream().filter(action -> action.getContent().startsWith("#"))
-                .map(action -> action.getContent().substring(1, action.getContent().indexOf(" ")))
-                .collect(Collectors.toList());
+        Map<String, Long> wordToCount = userActions.stream()
+                .filter(action -> action.getContent() != null
+                        && ActionType.POST.equals(action.getActionType())
+                        || ActionType.COMMENT.equals(action.getActionType()))
+                .flatMap(action -> Arrays.stream(action.getContent().split("\\\\s+")))
+                .filter(word -> word.startsWith("#"))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return wordToCount.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(limit)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public static List<User> findTopUsersWithMaxCountComments(List<UserAction> userActions, long limit) {
@@ -31,6 +45,7 @@ public class UserActionAnalyzer {
                 .groupingBy(UserAction::getActionType, Collectors.counting()));
         long totalUserActions = userActions.size();
         return tempMap.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey(),
-                entry -> entry.getValue().doubleValue() * 100 / totalUserActions));
+                entry -> BigDecimal.valueOf(entry.getValue() * 100.0 / totalUserActions)
+                        .setScale(2, RoundingMode.HALF_UP).doubleValue()));
     }
 }

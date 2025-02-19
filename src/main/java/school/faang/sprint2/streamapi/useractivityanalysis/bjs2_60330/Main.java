@@ -81,8 +81,8 @@ public class Main {
 
         System.out.println("Top 5 active users: " + UserActionAnalyzer.findTopActiveUsers(actions, 5));
         System.out.println("Top 3 popular topics: " + UserActionAnalyzer.findTopPopularTopic(actions, 3));
-        System.out.println("Top 6 users with max count of comments: "
-                + UserActionAnalyzer.findTopUsersWithMaxCountComments(actions, 6));
+        System.out.println("Top 2 users with max count of comments: "
+                + UserActionAnalyzer.findTopUsersWithMaxCountComments(actions, 2));
         System.out.println("User actions percent: " + UserActionAnalyzer.findActionTypePercent(actions));
     }
 }
