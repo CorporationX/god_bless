@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    private static final Object LOCK_SCORE = new Object();
-    private static final Object LOCK_LIVES = new Object();
     private static final int COUNT_GAME_OVER_LIVES = 0;
     private static final int DEFAULT_SCORE = 0;
     private static final int DEFAULT_LIVES = 3;
@@ -35,8 +33,6 @@ public class Game {
         score = DEFAULT_SCORE;
         lives = DEFAULT_LIVES;
         log.info("New game started with score: {}, and lives: {}", score, lives);
-        LOCK_SCORE.notify();
-        LOCK_LIVES.notify();
     }
 
     private void printStatistics() {
