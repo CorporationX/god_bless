@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ListOperations {
     private static final Logger LOGGER = LoggerFactory.getLogger(ListOperations.class);
@@ -22,7 +21,9 @@ public class ListOperations {
     public static int findMax(@NonNull List<Integer> list) {
         validateListIsEmpty(list);
 
-        return list.stream().max(Integer::compare).get();
+        return list.stream()
+                .max(Integer::compare)
+                .orElseThrow(() -> new RuntimeException("Max element is less than 0"));
     }
 
     public static double findAverage(@NonNull List<Integer> list) {
@@ -30,7 +31,7 @@ public class ListOperations {
 
         OptionalDouble average = list.stream().mapToInt(Integer::intValue).average();
         if (average.isEmpty()) {
-            throw new IllegalArgumentException(average + " is empty");
+            throw new IllegalArgumentException("Невозможно вычислить среднее значение: список пустой");
         }
         return average.getAsDouble();
     }
@@ -67,13 +68,16 @@ public class ListOperations {
     public static int findMinGreaterThan(@NonNull List<Integer> list, int value) {
         validateListIsEmpty(list);
 
-        return list.stream().filter(integer -> integer > value).min(Integer::compare).get();
+        return list.stream()
+                .filter(integer -> integer > value)
+                .min(Integer::compare)
+                .orElseThrow(() -> new RuntimeException("Min element is greater than 0"));
     }
 
     public static List<Integer> convertToLengths(@NonNull List<String> list) {
         validateListIsEmpty(list);
 
-        return list.stream().map(String::length).collect(Collectors.toList());
+        return list.stream().map(String::length).toList();
     }
 
     private static <T> void validateListIsEmpty(List<T> list) {
