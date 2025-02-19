@@ -18,7 +18,7 @@ public record Player(String name) {
 
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             boss.leaveBattle(this);
         }
     }
