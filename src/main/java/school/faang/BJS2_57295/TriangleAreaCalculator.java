@@ -11,6 +11,10 @@ public class TriangleAreaCalculator {
     private static final double HALF = 2.0;
 
     public static Double calculateTriangleArea(double a, double b, double c) {
+        if (ADD.apply(a).apply(b) < c || ADD.apply(b).apply(c) < a
+                || ADD.apply(c).apply(a) < b) {
+            throw new IllegalArgumentException("There is no such triangle.");
+        }
         double sum = ADD.apply(a).apply(ADD.apply(b).apply(c));
         double halfPerimeter = DIVIDE.apply(sum).apply(HALF);
 
