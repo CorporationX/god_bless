@@ -3,52 +3,46 @@ package school.faang.droid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
 public class Droid {
     private String name;
+    private static final int ALPHABET_LENGTH = 26;
+    private static final char LOWERCASE_A = 'a';
+    private static final char UPPERCASE_A = 'A';
+
+    private String processMessage(String message, int key, boolean encrypt) {
+        return message.chars().mapToObj(ch -> (char) ch).map(ch -> {
+                    if (Character.isLetter(ch)) {
+                        char base = Character.isLowerCase(ch) ? LOWERCASE_A : UPPERCASE_A;
+                        int shift = encrypt ? key : -key;
+                        return (char) ((ch - base + shift + ALPHABET_LENGTH) % ALPHABET_LENGTH + base);
+                    }
+                    return ch;
+                })
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+    }
 
     public String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = ((msg, encryptionKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
-            }
-            return encryptedMessage.toString();
-        });
-        return encryptor.encrypt(message, key);
+        return processMessage(message, key, true);
+
     }
 
     public String decryptMessage(String encryptedMessage, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base + decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encrypt(encryptedMessage, key);
+        return processMessage(encryptedMessage, key, false);
     }
 
     public void sendMessage(Droid recipient, String message, int key) {
         String encryptedMessage = encryptMessage(message, key);
-        System.out.println(String.format("%s sent an encrypted message: %s", name, encryptedMessage));
+        System.out.printf("%s sent an encrypted message: %s%n", name, encryptedMessage);
         recipient.receivedMessage(encryptedMessage, key);
     }
 
     public void receivedMessage(String encryptedMessage, int key) {
         String decryptedMessage = decryptMessage(encryptedMessage, key);
-        System.out.println(String.format("%s received a decrypted message: %s", name, decryptedMessage));
+        System.out.println(String.format("%s received a decrypted message: %s%n", name, decryptedMessage));
     }
 }
