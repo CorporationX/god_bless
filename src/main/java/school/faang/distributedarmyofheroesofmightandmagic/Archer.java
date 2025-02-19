@@ -1,4 +1,4 @@
-package school.faang.theywereverynicebutextremelypoor;
+package school.faang.distributedarmyofheroesofmightandmagic;
 
 public class Archer extends Unit {
     public Archer(int power) {

@@ -1,4 +1,4 @@
-package school.faang.theywereverynicebutextremelypoor;
+package school.faang.distributedarmyofheroesofmightandmagic;
 
 import lombok.extern.slf4j.Slf4j;
 

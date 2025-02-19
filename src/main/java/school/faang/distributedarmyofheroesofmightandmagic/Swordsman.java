@@ -1,4 +1,4 @@
-package school.faang.theywereverynicebutextremelypoor;
+package school.faang.distributedarmyofheroesofmightandmagic;
 
 public class Swordsman extends Unit {
     public Swordsman(int power) {

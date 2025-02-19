@@ -1,4 +1,4 @@
-package school.faang.theywereverynicebutextremelypoor;
+package school.faang.distributedarmyofheroesofmightandmagic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
