@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static school.faang.sprint2.bjs2_58092.ListOfOperations.*;
+
 @Slf4j
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class Main {
         log.info("Результат сортировки и вывода столиц {}", sortAndFindCapital(countries));
 
         List<String> strings = List.of("apple", "banana", "avocado", "apricot");
-        log.info("Результат фльтрации и сортировки строк {}", filterAndSort(strings,'a'));
+        log.info("Результат фльтрации и сортировки строк {}", filterAndSort(strings, 'a'));
 
         List<Integer> nums1 = List.of(1, 2, 3, 4, 5, 6);
         log.info("Преобразование чисел в двоичный формат {}", convertToBinary(nums1));
