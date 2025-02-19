@@ -41,8 +41,9 @@ public class ListOperations {
     }
 
     public static List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
+        String matcher = "[" + alphabet + "]+";
         return strings.stream()
-                .filter(s -> s.matches("[" + alphabet + "]+"))
+                .filter(s -> s.matches(matcher))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
