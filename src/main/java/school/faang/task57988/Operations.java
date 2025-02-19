@@ -4,10 +4,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Operations {
-
 
     public static Set<List<Integer>> uniqueNums(int target, Set<Integer> nums) {
         return nums.stream()
@@ -37,7 +37,7 @@ public class Operations {
 
     public static List<String> filterWordsAndSort(List<String> words, String alphabet) {
         return words.stream()
-                .filter(word -> word.matches("[" + alphabet + "]+"))
+                .filter(word -> alphabet != null && word.matches("[" + Pattern.quote(alphabet) + "]+"))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
