@@ -56,7 +56,7 @@ public class Operations {
                 .orElseThrow(() -> new NoSuchElementException("There are no elements more than: " + limit));
     }
 
-    public static List<Integer> convertAList(List<String> strings) {
+    public static List<Integer> convertList(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();

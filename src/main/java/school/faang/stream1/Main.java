@@ -16,6 +16,6 @@ public class Main {
         System.out.println("Strings sorted by length: " + Operations.sortTheList(strings));
         System.out.println("Are all the numbers even? " + Operations.verifyCompliance(numbers, n -> n % 2 == 0));
         System.out.println("The smallest number is greater than 7: " + Operations.findTheSmallestElement(numbers, 7));
-        System.out.println("String lengths: " + Operations.convertAList(strings));
+        System.out.println("String lengths: " + Operations.convertList(strings));
     }
 }
