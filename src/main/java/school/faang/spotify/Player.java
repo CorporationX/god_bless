@@ -1,45 +1,35 @@
 package school.faang.spotify;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Player {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Player.class);
-    private final Object lock = new Object();
     private boolean isPlaying;
 
-    public void play() {
-        synchronized (lock) {
-            if (!isPlaying) {
-                isPlaying = true;
-                LOGGER.info("Включил музыку! Танцуем!");
-            } else {
-                LOGGER.info("Музыка уже воспроизводится");
-            }
+    public synchronized void play() {
+        if (!isPlaying) {
+            isPlaying = true;
+            log.info("Включил музыку! Танцуем!");
+        } else {
+            log.info("Музыка уже воспроизводится");
         }
     }
 
-    public void pause() {
-        synchronized (lock) {
-            if (isPlaying) {
-                isPlaying = false;
-                LOGGER.info("Остановил воспроизведение");
-            } else {
-                LOGGER.info("Музыка уже на паузе");
-            }
+    public synchronized void pause() {
+        if (isPlaying) {
+            isPlaying = false;
+            log.info("Остановил воспроизведение");
+        } else {
+            log.info("Музыка уже на паузе");
         }
     }
 
-    public void skip() {
-        synchronized (lock) {
-            LOGGER.info("Запускаю следующий трек");
-        }
+    public synchronized void skip() {
+        log.info("Запускаю следующий трек");
     }
 
     public void previous() {
-        synchronized (lock) {
-            LOGGER.info("Запускаю предыдущий трек");
-        }
+        log.info("Запускаю предыдущий трек");
     }
 }

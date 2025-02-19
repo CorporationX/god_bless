@@ -1,13 +1,11 @@
 package school.faang.spotify;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 
+@Slf4j
 public class Music {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Music.class);
 
     public static void main(String[] args) {
 
@@ -21,7 +19,7 @@ public class Music {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                LOGGER.error("Caught exception: {}", e.getMessage());
+                log.error("Caught exception: {}", e.getMessage());
             }
         });
     }
