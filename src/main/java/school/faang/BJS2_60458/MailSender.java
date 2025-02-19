@@ -1,31 +1,35 @@
 package school.faang.BJS2_60458;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MailSender {
+    private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
+
     private static final int THREAD_MESSAGE = 1000;
     private static final int THREAD_COUNT = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int batchSize = THREAD_MESSAGE / THREAD_COUNT;
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
-        CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
+        Thread[] threads = new Thread[THREAD_COUNT];
 
         for (int i = 0; i < THREAD_COUNT; i++) {
             int start = i * batchSize;
             int end = (i + 1) * batchSize;
 
-            executor.submit(() -> {
-                new SenderRunnable(start, end).run();
-                latch.countDown();
-            });
+            threads[i] = new Thread(new SenderRunnable(start, end));
+            threads[i].start();
         }
 
-        latch.await();
-        executor.shutdown();
-        System.out.println("Все письма отправлены!");
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                logger.error("Главный поток был прерван во время ожидания завершения работы потоков", e);
+                Thread.currentThread().interrupt();
+            }
+        }
 
+        logger.info("Все письма отправлены!");
     }
 }
