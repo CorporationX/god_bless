@@ -40,9 +40,9 @@ public class Droid {
 
     public void sendMessage(Droid droid, String message, int key) {
         String encryptedMessage = encryptMessage(message, key);
-        System.out.println(this.name + " отправил зашифрованное сообщение: "+encryptedMessage);
+        System.out.println(this.name + " отправил зашифрованное сообщение: " + encryptedMessage);
         String decryptMessage = decryptMessage(encryptedMessage, key);
-        System.out.println(droid.name +" получил расшифрованное сообщение: "+decryptMessage);
+        System.out.println(droid.name + " получил расшифрованное сообщение: " + decryptMessage);
 
     }
 }
