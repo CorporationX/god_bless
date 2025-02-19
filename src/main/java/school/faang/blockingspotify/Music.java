@@ -13,7 +13,7 @@ public class Music {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(4);
     private static final int TIME_EXECUTION = 1;
     private static final TimeUnit TIME_EXECUTION_UNIT = TimeUnit.MINUTES;
-    private static final List<Runnable> playTask = List.of(
+    private static final List<Runnable> PLAY_TASKS = List.of(
             () -> executeTask(PLAYER::play),
             () -> executeTask(PLAYER::pause),
             () -> executeTask(PLAYER::skip),
@@ -21,7 +21,7 @@ public class Music {
     );
 
     public static void main(String[] args) throws InterruptedException {
-        playTask.forEach(EXECUTOR::submit);
+        PLAY_TASKS.forEach(EXECUTOR::submit);
         EXECUTOR.shutdown();
         boolean isTerminated = EXECUTOR.awaitTermination(TIME_EXECUTION, TIME_EXECUTION_UNIT);
         if (isTerminated) {
