@@ -21,14 +21,14 @@ public class Main {
                 new UserAction(3, "Charlie", ActionType.POST, LocalDate.of(2025, 2, 7),
                         "Check out this cool #project #Add"),
                 new UserAction(1, "Alice", ActionType.COMMENT, LocalDate.of(2025, 1, 8),
-                        "Thanks for sharing #newfeature!"),
+                        "Thanks for sharing #comment!"),
                 new UserAction(4, "Dave", ActionType.LIKE, LocalDate.of(2025, 2, 9), ""),
-                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2025, 1, 13), "#project! #Java"),
-                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2025, 2, 9), "#project!"),
+                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2025, 1, 13), "#comment! #Java"),
+                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2025, 2, 9), "#comment #project!"),
                 new UserAction(1, "Alice", ActionType.COMMENT, LocalDate.of(2025, 2, 8),
-                        "#newfeature Thanks for sharing #project!"),
+                        "#comment Thanks for sharing #project!"),
                 new UserAction(1, "Alice", ActionType.COMMENT, LocalDate.of(2025, 2, 8),
-                        "#newfeature Thanks for sharing #project!"));
+                        "#comment Thanks for sharing #project!"));
 
         List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
         List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);

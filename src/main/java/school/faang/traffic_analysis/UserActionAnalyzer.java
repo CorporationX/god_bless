@@ -22,9 +22,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(@NonNull List<UserAction> actionList, int amountTopHashes) {
         return actionList.stream()
-                .filter(action -> ActionType.COMMENT.equals(action.actionType())
-                        || ActionType.POST.equals(action.actionType())
-                        && action.content().isBlank())
+                .filter(action -> (ActionType.COMMENT.equals(action.actionType())
+                        || ActionType.POST.equals(action.actionType()))
+                        && !action.content().isBlank())
                 .flatMap(action -> Arrays.stream(action.content().split("\\s+"))
                         .filter(word -> word.startsWith("#"))
                         .map(word -> word.replaceAll("[^a-zA-Z0-9#]", ""))
