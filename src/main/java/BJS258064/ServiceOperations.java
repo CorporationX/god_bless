@@ -8,8 +8,11 @@ public class ServiceOperations {
     public Set<List<Integer>> getPairNumbers(Set<Integer> numbers, Integer number) {
         return numbers.stream().filter(numInSet ->
                         numInSet != number - numInSet && numbers.contains(number - numInSet))
-                .map(numInSet -> Arrays.asList(numInSet, number - numInSet))
-                .peek(Collections::sort)
+                .map(numInSet -> {
+                    List<Integer> pairs = Arrays.asList(numInSet, number - numInSet);
+                    Collections.sort(pairs);
+                    return pairs;
+                })
                 .collect(Collectors.toSet());
     }
 
