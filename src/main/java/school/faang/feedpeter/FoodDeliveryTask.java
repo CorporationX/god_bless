@@ -1,15 +1,13 @@
 package school.faang.feedpeter;
 
-import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
-@AllArgsConstructor
+@Slf4j
+@RequiredArgsConstructor
 public class FoodDeliveryTask implements Runnable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FoodDeliveryTask.class);
 
     private final String character;
     private final int foodAmount;
@@ -24,12 +22,12 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType foodType = getFoodType();
-        LOGGER.info("{} получает {} {}", character, foodAmount, foodType);
+        log.info("{} получает {} {}", character, foodAmount, foodType);
         try {
             Thread.sleep(random.nextInt(1000, 5000));
+            log.info("{} ест {} {}", character, foodAmount, foodType);
         } catch (InterruptedException e) {
-            LOGGER.error("Thread error: {}", e.getMessage());
+            log.error("Thread error: {}", e.getMessage());
         }
-        LOGGER.info("{} ест {} {}", character, foodAmount, foodType);
     }
 }
