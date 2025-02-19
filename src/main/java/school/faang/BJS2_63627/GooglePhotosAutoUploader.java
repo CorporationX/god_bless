@@ -10,7 +10,7 @@ public class GooglePhotosAutoUploader {
     final List<String> photosToUpload = new ArrayList<>();
 
     protected void startAutoUpload() {
-        log.info("Поток запустил Автоматическую загрузку Фотографий");
+        log.info("Поток запустил Автоматическую загрузку фотографий");
         synchronized (photosToUpload) {
             while (photosToUpload.isEmpty()) {
                 try {
