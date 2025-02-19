@@ -1,4 +1,4 @@
-package metauniverse;
+package school.faang.metauniverse;
 
 public class App {
     public static void main(String[] args) {
