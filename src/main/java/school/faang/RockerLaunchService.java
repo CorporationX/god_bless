@@ -29,6 +29,7 @@ public class RockerLaunchService {
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
+                logger.error("The wait for the rocket launch was interrupted.");
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
@@ -41,6 +42,7 @@ public class RockerLaunchService {
                 executorService.shutdown();
             }
         } catch (InterruptedException e) {
+            logger.error("Shutdown was interrupted.");
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }

@@ -28,7 +28,7 @@ public class RocketLaunch {
             Thread.sleep(ROCKET_START_LATENCY);
             logger.info("Rocket {} successfully launched at {}.", name, Instant.now());
         } catch (InterruptedException e) {
-            logger.error("Rocket {}. Launch was failed at {}.", name, Instant.now());
+            logger.error("Rocket {}. Launch was interrupted at {}.", name, Instant.now());
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
