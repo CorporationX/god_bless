@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 public class NotificationManager {
     //Карта для хранения обработчиков
     private final Map<NotificationType, Consumer<Notification>> notificationHandler = new HashMap<>();
+
     //Список фильтров
     private final List<Predicate<Notification>> filters = new ArrayList<>();
 
