@@ -14,23 +14,26 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    LOGGER.error("Поток был прерван во время ожидания с ошибкой: {}", e.getMessage());
-                    Thread.currentThread().interrupt();
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        LOGGER.error("Поток был прерван во время ожидания с ошибкой: {}", e.getMessage());
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
