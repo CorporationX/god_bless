@@ -14,7 +14,9 @@ public class Droid {
     private static final char UPPERCASE_A = 'A';
 
     private String processMessage(String message, int key, boolean encrypt) {
-        return message.chars().mapToObj(ch -> (char) ch).map(ch -> {
+        return message.chars()
+                .mapToObj(ch -> (char) ch)
+                .map(ch -> {
                     if (Character.isLetter(ch)) {
                         char base = Character.isLowerCase(ch) ? LOWERCASE_A : UPPERCASE_A;
                         int shift = encrypt ? key : -key;
