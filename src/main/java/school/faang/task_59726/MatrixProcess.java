@@ -17,9 +17,7 @@ public class MatrixProcess {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Coordinates newCoords = transformer.rotatedCoordinates(i, j);
-                if (newCoords.getRow() < rows && newCoords.getColumn() < cols) {
-                    newMatrix[newCoords.getRow()][newCoords.getColumn()] = matrix[i][j];
-                }
+                newMatrix[newCoords.getRow()][newCoords.getColumn()] = matrix[i][j];
             }
         }
         return newMatrix;
