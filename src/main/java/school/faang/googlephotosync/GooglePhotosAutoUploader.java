@@ -10,7 +10,6 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
     private final Object lock = new Object();
 
-
     public void startAutoUpload() {
         synchronized (lock) {
             while (photosToUpload.isEmpty()) {
