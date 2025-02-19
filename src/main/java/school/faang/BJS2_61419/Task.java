@@ -16,7 +16,6 @@ public class Task implements Runnable {
         } catch (InterruptedException e) {
             System.out.println(name + " был прерван во время выполнения задачи: " + task);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
     }
 }
