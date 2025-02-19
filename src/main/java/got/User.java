@@ -2,6 +2,7 @@ package got;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import static java.util.concurrent.ThreadLocalRandom.current;
 
 @Slf4j
 @Getter
@@ -47,7 +48,7 @@ public class User implements Runnable {
     public void run() {
         joinHouse();
         try {
-            Thread.sleep((long) (Math.random() * 1000));
+            Thread.sleep(current().nextLong(1000));
         } catch (InterruptedException e) {
             log.error("{} was interrupted while in the house", name, e);
             Thread.currentThread().interrupt();
