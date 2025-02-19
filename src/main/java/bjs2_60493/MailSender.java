@@ -5,11 +5,14 @@ import java.util.List;
 
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
-        Thread[] threads = new Thread[5];
+        final int CHUNK_COUNT = 5;
+        final int CHUNK_SIZE = 200;
+
+        Thread[] threads = new Thread[CHUNK_COUNT];
 
         for (int i = 0; i < 5; i++) {
-            int startIndex = 200 * i;
-            int endIndex = 200 * (i + 1);
+            int startIndex = CHUNK_SIZE * i;
+            int endIndex = CHUNK_SIZE * (i + 1);
 
             SenderRunnable runner = new SenderRunnable(startIndex, endIndex);
             Thread thread = new Thread(runner);
