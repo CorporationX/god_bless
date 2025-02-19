@@ -1,13 +1,11 @@
 package bjs2_60493;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
-
-    public SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
 
     @Override
     public void run() {
