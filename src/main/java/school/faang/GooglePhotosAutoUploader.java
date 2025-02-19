@@ -18,6 +18,7 @@ public class GooglePhotosAutoUploader {
                     lock.wait();
                 } catch (InterruptedException e) {
                     logger.error("Wait was interrupted.");
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
