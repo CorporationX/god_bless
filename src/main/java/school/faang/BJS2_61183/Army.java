@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @AllArgsConstructor
 @Getter
@@ -25,21 +29,24 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        List<Thread> threads = new ArrayList<>();
-        List<Integer> result = new ArrayList<>();
+        ExecutorService executor = Executors.newFixedThreadPool(army.size());
+        List<Future<Integer>> futures = new ArrayList<>();
 
         for (Squad squad : army) {
-            Thread thread = new Thread(() -> result.add(squad.calculateSquadPower()));
-            threads.add(thread);
-            thread.start();
+            Future<Integer> future = executor.submit(squad::calculateSquadPower);
+            futures.add(future);
         }
-        for (Thread thread : threads) {
+
+        int totalPower = 0;
+        for (Future<Integer> future : futures) {
             try {
-                thread.join();
-            } catch (InterruptedException e) {
+                totalPower += future.get();
+            } catch (InterruptedException | ExecutionException e) {
                 logger.error(THREAD_ERROR, e.toString());
             }
         }
-        return result.stream().mapToInt(Integer::intValue).sum();
+
+        executor.shutdown();
+        return totalPower;
     }
 }
