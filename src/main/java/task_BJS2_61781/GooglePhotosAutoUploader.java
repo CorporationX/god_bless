@@ -25,7 +25,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-        photosToUpload.forEach(photo -> System.out.printf("Фото: \"%s\" - загружено на сервер", photo));
+        photosToUpload.forEach(photo -> System.out.printf("Фото: \"%s\" - загружено на сервер\n", photo));
         photosToUpload.clear();
     }
 
