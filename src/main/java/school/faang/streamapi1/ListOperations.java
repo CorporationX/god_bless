@@ -2,6 +2,7 @@ package school.faang.streamapi1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -15,8 +16,8 @@ public class ListOperations {
 
     public static int findMax(List<Integer> nums) {
         return nums.stream()
-                .max(Comparator.comparingInt(num -> num))
-                .orElse(0);
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("Максимумальное значение не найдено"));
     }
 
     public static double findAverage(List<Integer> nums) {
@@ -27,8 +28,9 @@ public class ListOperations {
     }
 
     public static long countStringsStartingWith(List<String> words, char symbol) {
+        String prefix = String.valueOf(symbol);
         return words.stream()
-                .filter(word -> word.startsWith(String.valueOf(symbol)))
+                .filter(word -> word.startsWith(prefix))
                 .count();
     }
 
@@ -51,8 +53,8 @@ public class ListOperations {
 
     public static int findMinGreaterThan(List<Integer> numbers, int minValue) {
         return numbers.stream()
-                .sorted()
                 .filter(num -> num > minValue)
+                .sorted()
                 .findFirst()
                 .orElse(0);
     }
