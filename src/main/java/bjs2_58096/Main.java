@@ -47,7 +47,7 @@ public class Main {
             System.out.println();
 
             System.out.println("Метод для определения категории со скидкой");
-            String productWithDiscount = service.getProductsWithDiscount(1);
+            String productWithDiscount = service.getProductsWithDiscount(5);
             System.out.println(productWithDiscount);
         } catch (Exception e) {
             throw new IllegalArgumentException(

@@ -1,10 +1,12 @@
 package bjs2_58096;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public record RecommendationService(
@@ -70,15 +72,17 @@ public record RecommendationService(
         }
 
         UserProfile requestedUser = userOrEmpty.get();
+        Set<String> userInterests = new HashSet<>(requestedUser.interests());
 
-        Map<Integer, ProductOrder> orderedProductIds = productOrders.stream()
+        Map<Integer, ProductOrder> userOrders = productOrders.stream()
                 .filter(x -> x.userId() == userId)
                 .collect(Collectors.toMap(ProductOrder::productId, x -> x));
 
         var mostPopularTag = products.stream()
-                .filter(x -> orderedProductIds.containsKey(x.productId()))
+                .filter(x -> userOrders.containsKey(x.productId()))
                 .flatMap(x -> x.tags().stream())
                 .distinct()
+                .filter(userInterests::contains)
                 .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
                 .entrySet()
                 .stream()
