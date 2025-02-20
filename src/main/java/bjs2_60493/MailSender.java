@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender {
+    static final int CHUNK_COUNT = 5;
+    static final int CHUNK_SIZE = 200;
+    
     public static void main(String[] args) {
-        final int CHUNK_COUNT = 5;
-        final int CHUNK_SIZE = 200;
-
         Thread[] threads = new Thread[CHUNK_COUNT];
 
         for (int i = 0; i < 5; i++) {
