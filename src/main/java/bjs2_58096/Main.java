@@ -1,33 +1,36 @@
 package bjs2_58096;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         String currentDirectoryPath = new File("").getAbsolutePath()
-                .concat("\\src\\main\\java\\bjs2_58096\\");
+                .concat("\\src\\main\\resources\\");
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             String json = Files.readString(Paths.get(currentDirectoryPath.concat("user_profiles.json")));
-            UserProfile[] userProfiles = mapper.readValue(json, UserProfile[].class);
+            List<UserProfile> userProfiles = mapper.readValue(json, new TypeReference<>() {
+            });
 
             json = Files.readString(Paths.get(currentDirectoryPath.concat("products.json")));
-            Product[] products = mapper.readValue(json, Product[].class);
+            List<Product> products = mapper.readValue(json, new TypeReference<>() {
+            });
 
             json = Files.readString(Paths.get(currentDirectoryPath.concat("product_orders.json")));
-            ProductOrder[] productOrders = mapper.readValue(json, ProductOrder[].class);
+            List<ProductOrder> productOrders = mapper.readValue(json, new TypeReference<>() {
+            });
 
             RecommendationService service = new RecommendationService(
-                    Arrays.stream(userProfiles).toList(),
-                    Arrays.stream(products).toList(),
-                    Arrays.stream(productOrders).toList());
+                    userProfiles,
+                    products,
+                    productOrders);
 
             List<Product> userProducts = service.getProductByUserInterests(4);
             for (Product product : userProducts) {
