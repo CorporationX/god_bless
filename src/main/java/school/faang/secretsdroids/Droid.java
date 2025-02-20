@@ -13,11 +13,11 @@ public class Droid {
     private final String name;
     private String receivedMessage;
 
-    private static final int MIN_VALUE_LOWER_ALPHABET = 65;
-    private static final int MAX_VALUE_LOWER_ALPHABET = 90;
+    private static final int MIN_VALUE_UPPER_ALPHABET = 65;
+    private static final int MAX_VALUE_UPPER_ALPHABET = 90;
 
-    private static final int MIN_VALUE_UPPER_ALPHABET = 97;
-    private static final int MAX_VALUE_UPPER_ALPHABET = 122;
+    private static final int MIN_VALUE_LOWER_ALPHABET = 97;
+    private static final int MAX_VALUE_LOWER_ALPHABET = 122;
 
     private static final int SIZE_ALPHABET = 26;
 
@@ -33,14 +33,14 @@ public class Droid {
             char[] messageChar = messageForEncryptor.toCharArray();
             for (int i = 0; i < messageForEncryptor.length(); i++) {
                 char character = messageChar[i];
-                if (character == ' ') {
-                    encryptorMessage.append(' ');
+                if (!Character.isLetter(character)) {
+                    encryptorMessage.append(character);
                 } else {
-                    if (character >= MIN_VALUE_LOWER_ALPHABET && character <= MAX_VALUE_LOWER_ALPHABET
+                    if (Character.isLowerCase(character)
                             && character + keyEncryptor > MAX_VALUE_LOWER_ALPHABET) {
                         int different = character + keyEncryptor - MAX_VALUE_LOWER_ALPHABET;
                         messageChar[i] = (char) (MIN_VALUE_LOWER_ALPHABET + different - 1);
-                    } else if (character >= MIN_VALUE_UPPER_ALPHABET && character <= MAX_VALUE_UPPER_ALPHABET
+                    } else if (Character.isUpperCase(character)
                             && character + keyEncryptor > MAX_VALUE_UPPER_ALPHABET) {
                         int different = character + keyEncryptor - MAX_VALUE_UPPER_ALPHABET;
                         messageChar[i] = (char) (MIN_VALUE_UPPER_ALPHABET + different - 1);
@@ -62,14 +62,12 @@ public class Droid {
         char[] messageChar = encryptMessage.toCharArray();
         for (int i = 0; i < encryptMessage.length(); i++) {
             char character = messageChar[i];
-            if (character == ' ') {
-                messageAfterDecrypt.append(' ');
+            if (!Character.isLetter(character)) {
+                messageAfterDecrypt.append(character);
             } else {
-                if (character >= MIN_VALUE_LOWER_ALPHABET && character <= MAX_VALUE_LOWER_ALPHABET
-                        && character - key < MIN_VALUE_LOWER_ALPHABET) {
+                if (Character.isLowerCase(character) && character - key < MIN_VALUE_LOWER_ALPHABET) {
                     messageChar[i] = (char) (character - key + SIZE_ALPHABET);
-                } else if (character >= MIN_VALUE_UPPER_ALPHABET && character <= MAX_VALUE_UPPER_ALPHABET
-                        && character - key < MIN_VALUE_UPPER_ALPHABET) {
+                } else if (Character.isUpperCase(character) && character - key < MIN_VALUE_UPPER_ALPHABET) {
                     messageChar[i] = (char) (character - key + SIZE_ALPHABET);
                 } else {
                     char tmp = messageChar[i];
@@ -82,10 +80,11 @@ public class Droid {
     }
 
     void sendMessage(Droid droid, String message, int key) {
+        int newKey = key % SIZE_ALPHABET;
         validMessage(message);
         validDroid(droid);
-        String messageAfterEncryptor = encryptMessage(message, key);
-        String receivedMessage = droid.receiveMessage(messageAfterEncryptor, key);
+        String messageAfterEncryptor = encryptMessage(message, newKey);
+        String receivedMessage = droid.receiveMessage(messageAfterEncryptor, newKey);
         droid.setReceivedMessage(receivedMessage);
         log.info("{} отправил зашифрованное сообщение: {}", this.name, messageAfterEncryptor);
         log.info("{} получил расшифрованное сообщение: {}", droid.name, receivedMessage);
