@@ -1,6 +1,7 @@
 package school.faang.task_60679;
 
 public class Chore implements Runnable {
+    private final static int TASK_DURATION_MS = 1000;
     private final String title;
 
     public Chore(String title) {
@@ -12,12 +13,11 @@ public class Chore implements Runnable {
     public void run() {
         try {
             System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + title);
-            Thread.sleep(1000);
+            Thread.sleep(TASK_DURATION_MS);
             System.out.println(title + " выполнена!");
         } catch (InterruptedException e) {
-            System.out.println("Задача " + title + " была прервана.");
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Задача " + title + " была прервана.");
         }
     }
 
