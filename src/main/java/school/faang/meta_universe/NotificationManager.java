@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    Map<NotificationType, Consumer<Notification>> notificationMap = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationMap = new HashMap<>();
 
     public static final String MESSAGE_WAS_SENT = "Сообщение \"%s\" отправлено с помощью %s";
 
@@ -15,6 +15,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        notificationMap.get(notification.getType()).accept(notification);
         System.out.println(String.format(MESSAGE_WAS_SENT, notification.getMessage(), notification.getType()));
     }
 }
