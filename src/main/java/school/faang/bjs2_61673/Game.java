@@ -13,18 +13,22 @@ public class Game {
 
     public void update(ActionType action) {
         synchronized (livesLock) {
-            if (isGameOver) return;
+            if (isGameOver) {
+                return;
+            }
 
             switch (action) {
-                case SCORE_POINT:
+                case SCORE_POINT: {
                     synchronized (scoreLock) {
-                        if (isGameOver) return;
+                        if (isGameOver) {
+                            return;
+                        }
                         score += 5;
                         log.info("Points added! New score: {}", score);
                     }
                     break;
-
-                case LOSE_LIVE:
+                }
+                case LOSE_LIVE: {
                     lives--;
                     log.info("Life lost! Remaining lives: {}", lives);
                     if (lives == 0) {
@@ -32,14 +36,20 @@ public class Game {
                         return;
                     }
                     break;
-
-                case KILL_ENEMY:
+                }
+                case KILL_ENEMY: {
                     synchronized (scoreLock) {
-                        if (isGameOver) return;
+                        if (isGameOver) {
+                            return;
+                        }
                         score += 20;
                         log.info("Enemy killed! New score: {}", score);
                     }
                     break;
+                }
+                default: {
+                    log.warn("Unknown action received: {}", action);
+                }
             }
         }
     }
