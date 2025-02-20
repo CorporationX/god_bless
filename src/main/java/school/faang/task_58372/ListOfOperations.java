@@ -23,7 +23,7 @@ public class ListOfOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new IllegalStateException("Список пуст"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char c) {

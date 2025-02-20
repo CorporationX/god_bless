@@ -9,18 +9,20 @@ public class Main {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "pear");
 
-        System.out.println("Сумма четных чисел: " + ListOfOperations.sumOfEvenNumbers(numbers));
-        System.out.println("Максимум: " + ListOfOperations.findMax(numbers));
-        System.out.println("Среднее: " + ListOfOperations.findAverage(numbers));
-        System.out.println("Количество строк, начинающихся на 'a': "
-                + ListOfOperations.countStringsStartingWith(strings, 'a'));
-        System.out.println("Строки, содержащие 'an': "
-                + ListOfOperations.filterStringsContainingSubstring(strings, "an"));
-        System.out.println("Отсортированные по длине строки: " + ListOfOperations.sortByLength(strings));
-        System.out.println("Все ли числа чётные? "
-                + ListOfOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.println("Наименьшее число больше 4: " + ListOfOperations.findMinGreaterThan(numbers, 4));
-        System.out.println("Длины строк: " + ListOfOperations.convertToLengths(strings));
-
+        System.out.printf("Сумма четных чисел: %d%n", ListOfOperations.sumOfEvenNumbers(numbers));
+        System.out.printf("Максимум: %d%n", ListOfOperations.findMax(numbers));
+        System.out.printf("Среднее: %.2f%n", ListOfOperations.findAverage(numbers));
+        System.out.printf("Количество строк, начинающихся на 'a': %d%n",
+                ListOfOperations.countStringsStartingWith(strings, 'a'));
+        System.out.printf("Строки, содержащие 'an': %s%n",
+                ListOfOperations.filterStringsContainingSubstring(strings, "an"));
+        System.out.printf("Отсортированные по длине строки: %s%n",
+                ListOfOperations.sortByLength(strings));
+        System.out.printf("Все ли числа чётные? %b%n",
+                ListOfOperations.allMatchCondition(numbers, n -> n % 2 == 0));
+        System.out.printf("Наименьшее число больше 4: %d%n",
+                ListOfOperations.findMinGreaterThan(numbers, 4));
+        System.out.printf("Длины строк: %s%n",
+                ListOfOperations.convertToLengths(strings));
     }
 }
