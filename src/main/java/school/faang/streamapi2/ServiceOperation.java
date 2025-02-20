@@ -46,6 +46,7 @@ public class ServiceOperation {
     }
 
     private static <T> void validateList(List<T> list) {
+
         Objects.requireNonNull(list, "Список не может быть пустым");
     }
 
