@@ -3,7 +3,6 @@ package school.faang.task_58140;
 import lombok.NonNull;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
     private static final Pattern PATTERN = Pattern.compile("#\\w+");
-    private static final LocalDate REQUIRED_DATE = LocalDate.now().minusMonths(1);
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> actions, int top) {
         Map<String, Long> numberOfUserActions = actions.stream()
@@ -32,8 +30,9 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> actions, int top) {
+        LocalDate requiredDate = LocalDate.now().minusMonths(1);
         Map<String, Long> numberOfUserComments = actions.stream()
-                .filter(userAction -> userAction.getActionDate().isAfter(REQUIRED_DATE)
+                .filter(userAction -> userAction.getActionDate().isAfter(requiredDate)
                         && ActionType.COMMENT.equals(userAction.getActionType()))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return reversSort(numberOfUserComments, top);
@@ -60,12 +59,12 @@ public class UserActionAnalyzer {
     }
 
     private static Stream<String> getSubstrings(@NonNull String string) {
-        List<String> substrings = new ArrayList<>();
+        Stream.Builder<String> substrings = Stream.builder();
         Matcher matcher = PATTERN.matcher(string);
         while (matcher.find()) {
             substrings.add(matcher.group());
         }
-        return substrings.stream();
+        return substrings.build();
     }
 
     private static double calculateActionTypePercent(double value, double total) {
