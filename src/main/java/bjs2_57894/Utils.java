@@ -1,13 +1,16 @@
 package bjs2_57894;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Utils {
@@ -36,38 +39,18 @@ public class Utils {
     }
 
     public static List<Integer> getPalindroms(int from, int to) {
-        List<Integer> result = new ArrayList<>();
-
-        List<Integer> invertedDigits = new ArrayList<>();
-
-        int firstDigit = from;
-        while (firstDigit > 0) {
-            invertedDigits.add(firstDigit % 10);
-            firstDigit /= 10;
-        }
-
-        for (int i = from; i <= to; i++) {
-            if (checkPalindrom(invertedDigits)) {
-                result.add(i);
-            }
-
-            int j = 0;
-            for (; j < invertedDigits.size() - 1; j++) {
-                int digit = invertedDigits.get(j);
-                if (digit < 9) {
-                    invertedDigits.set(j, digit + 1);
-                    break;
-                } else {
-                    invertedDigits.set(j, 0);
-                }
-            }
-
-            if (j == invertedDigits.size() - 1 && invertedDigits.get(j) <= 9) {
-                invertedDigits.set(j, invertedDigits.get(j) + 1);
-            }
-        }
-
-        return result;
+        return IntStream.range(from, to + 1)
+                .boxed()
+                .map(n -> new Tupple<>(
+                        n,
+                        n.toString().chars().boxed().collect(Collectors.toList())))
+                .filter(info -> {
+                    List<Integer> digits = info.item2();
+                    return IntStream.range(0, digits.size())
+                            .allMatch(i -> digits.get(i) == digits.get(digits.size() - i - 1));
+                })
+                .map(Tupple::item1)
+                .toList();
     }
 
     public static List<String> getSubstringsPalindroms(String string) {
