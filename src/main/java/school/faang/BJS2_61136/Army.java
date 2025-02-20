@@ -18,7 +18,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ExecutorService service = Executors.newFixedThreadPool(squadList.size());
+        ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         try {
             return squadList.stream()
@@ -26,7 +26,10 @@ public class Army {
                     .mapToInt(future -> {
                         try {
                             return future.get();
-                        } catch (InterruptedException | ExecutionException e) {
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            throw new RuntimeException(e);
+                        } catch (ExecutionException e) {
                             throw new RuntimeException(e);
                         }
                     })

@@ -16,7 +16,7 @@ public class Squad<T extends Warrior> {
 
     public int calculateSquadPower() {
         return warriors.stream()
-                .map(Warrior::getPower)
-                .reduce(0, Integer::sum);
+                .mapToInt(Warrior::getPower)
+                .sum();
     }
 }
