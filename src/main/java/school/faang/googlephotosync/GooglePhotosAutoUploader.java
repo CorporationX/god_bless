@@ -2,14 +2,14 @@ package school.faang.googlephotosync;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
+@Slf4j
 @Getter
 public class GooglePhotosAutoUploader {
-    private static final Logger LOGGER = Logger.getLogger(GooglePhotosAutoUploader.class.getName());
     private final Object lock = new Object();
     private final List<String> photosToUpload;
 
@@ -18,30 +18,32 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() {
-        synchronized (lock) {
-
-            try {
-                if (photosToUpload.isEmpty()) {
-                    lock.wait();
+        while (true) {
+            synchronized (lock) {
+                try {
+                    if (photosToUpload.isEmpty()) {
+                        lock.wait();
+                    }
+                    uploadPhotos();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.warn(e.getMessage());
+                    break;
                 }
-                uploadPhotos();
-
-            } catch (InterruptedException e) {
-                LOGGER.info(e.getMessage());
             }
         }
     }
 
     public void onNewPhotoAdded(@NonNull String photoPath) {
         synchronized (lock) {
-            LOGGER.info("New photo added: " + photoPath);
+            log.info("New photo added: {}", photoPath);
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
     private void uploadPhotos() {
-        LOGGER.info("Search " + photosToUpload.size() + " photos\nDeleting " + photosToUpload.get(0) + " photo");
-        photosToUpload.remove(0);
+        log.info("Search photo is upload");
+        photosToUpload.clear();
     }
 }
