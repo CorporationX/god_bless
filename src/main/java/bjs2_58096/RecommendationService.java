@@ -74,25 +74,21 @@ public record RecommendationService(
         UserProfile requestedUser = userOrEmpty.get();
         Set<String> userInterests = new HashSet<>(requestedUser.interests());
 
-        Map<Integer, ProductOrder> userOrders = productOrders.stream()
-                .filter(x -> x.userId() == userId)
-                .collect(Collectors.toMap(ProductOrder::productId, x -> x));
+        var categories = productOrders.stream()
+                .filter(order -> order.userId() == userId)
+                .map(order -> products.stream()
+                        .filter(product -> product.productId() == order.productId()
+                                && product.tags().stream().anyMatch(userInterests::contains))
+                        .findFirst()
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(Product::category, Collectors.counting()));
 
-        var mostPopularTag = products.stream()
-                .filter(x -> userOrders.containsKey(x.productId()))
-                .flatMap(x -> x.tags().stream())
-                .distinct()
-                .filter(userInterests::contains)
-                .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
-                .entrySet()
+        return categories.entrySet()
                 .stream()
-                .max(Comparator.comparingLong(Map.Entry::getValue));
-
-        if (mostPopularTag.isEmpty()) {
-            return "";
-        }
-
-        return mostPopularTag.get().getKey();
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("Нет подходящей категории");
     }
 
     private Optional<UserProfile> getUserProfileOrEmpty(int userId) {
