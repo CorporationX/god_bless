@@ -1,16 +1,14 @@
 package school.faang.BJS2_57661;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Location> locations = new ArrayList<>(Arrays.asList(
+        List<Location> locations = List.of(
                 new Location("Eiffel Tower", 48.8584, 2.2945),
                 new Location("Statue of Liberty", 40.6892, -74.0445),
                 new Location("Great Wall of China", 40.4319, 116.5704)
-        ));
+        );
         LocationSearchEngine searchEngine = new LocationSearchEngine();
         List<Location> filteredLocations = searchEngine
                 .filterLocations(locations, (location) -> location.getLongitude() > 0);

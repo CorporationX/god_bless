@@ -10,6 +10,9 @@ import java.util.function.Predicate;
 public class LocationSearchEngine {
     public List<Location> filterLocations(@NonNull List<Location> locations,
                                           @NonNull Predicate<Location> filter) {
+        if (locations.isEmpty()) {
+            throw new IllegalArgumentException("No locations found");
+        }
         return locations.stream()
                 .filter(filter)
                 .toList();
@@ -24,6 +27,9 @@ public class LocationSearchEngine {
 
     public List<Double> calculateDistances(@NonNull List<Location> locations,
                                            @NonNull Function<Location, Double> function) {
+        if (locations.isEmpty()) {
+            throw new IllegalArgumentException("No locations found");
+        }
         return locations.stream()
                 .map(function)
                 .toList();
