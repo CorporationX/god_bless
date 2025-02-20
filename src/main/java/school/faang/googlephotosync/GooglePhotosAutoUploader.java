@@ -11,15 +11,18 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        log.error(e.getMessage());
+                        return;
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
@@ -27,7 +30,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             log.info("Появилась новая фотография");
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
