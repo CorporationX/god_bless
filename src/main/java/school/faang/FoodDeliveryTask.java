@@ -12,9 +12,6 @@ public class FoodDeliveryTask implements Runnable {
     private final Random random = new Random();
     private final int foodAmount = random.nextInt(100) + 1;
 
-
-
-
     private FoodType getFoodType() {
         FoodType[] foodFoodTypes = FoodType.values();
         return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
@@ -33,8 +30,7 @@ public class FoodDeliveryTask implements Runnable {
             log.info(character + " получает " + foodAmount + " " + foodType);
             Thread.sleep(1000 + random.nextInt(4000));
             log.info(character + " ест " + foodAmount + " " + foodType);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             log.info("Доставка " + foodAmount + foodType + " для " + character + " была прервана");
             Thread.currentThread().interrupt();
         }
