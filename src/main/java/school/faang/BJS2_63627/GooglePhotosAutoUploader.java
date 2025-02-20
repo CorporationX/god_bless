@@ -7,21 +7,24 @@ import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    final List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     protected void startAutoUpload() {
         log.info("Поток запустил Автоматическую загрузку фотографий");
-        synchronized (photosToUpload) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    photosToUpload.wait();
-                } catch (InterruptedException e) {
-                    log.error("Поток был прерван во время ожидания загрузки фотографий");
-                    Thread.currentThread().interrupt();
-                    return;
+        while (true) {
+            synchronized (photosToUpload) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        photosToUpload.wait();
+                    } catch (InterruptedException e) {
+                        log.error("Поток был прерван во время ожидания загрузки фотографий");
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
+                uploadPhotos();
+                log.info("Ждем добавления новых фотографий....");
             }
-            uploadPhotos();
         }
     }
 

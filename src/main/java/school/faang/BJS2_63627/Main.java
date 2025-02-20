@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         GooglePhotosAutoUploader autoLoader = new GooglePhotosAutoUploader();
 
-        Thread autoLoading = new Thread(() -> autoLoader.startAutoUpload());
+        Thread autoLoading = new Thread(autoLoader::startAutoUpload);
 
         Thread photoAdder = new Thread(() -> {
             autoLoader.onNewPhotoAdded("Фотография 1 ");
