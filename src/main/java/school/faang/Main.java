@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int THREADS_COUNT = 3;
     private static final int VIDEOS_COUNT = 3;
-    private static final int TIMEOUT_SECONDS = 5;
+    private static final int TIMEOUT_SECONDS = 1;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_COUNT);
