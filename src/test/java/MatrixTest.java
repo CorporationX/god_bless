@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import school.faang.FlipDirection;
-import school.faang.Matrix;
+import school.faang.matrix.FlipDirection;
+import school.faang.matrix.Matrix;
 
 class MatrixTest {
     @Test

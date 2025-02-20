@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.exceptions;
 
 import java.util.function.Supplier;
 
