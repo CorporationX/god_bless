@@ -24,13 +24,12 @@ public class Game {
         }
         if (life) {
             synchronized (livesLock) {
-                if (lives > 0) {
-                    lives--;
-                    log.info("{}: потерял 1 жизнь. Количество жизней: {}", Thread.currentThread().getName(), lives);
-                }
-                if (lives == 0) {
+                lives--;
+                log.info("{}: потерял 1 жизнь. Количество жизней: {}", Thread.currentThread().getName(), lives);
+                if (lives <= 0) {
                     gameOver();
                 }
+
             }
         }
 
