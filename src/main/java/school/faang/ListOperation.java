@@ -25,7 +25,7 @@ public class ListOperation {
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
-                .orElseThrow(() -> new IllegalArgumentException("List isEmpty"));
+                .orElseThrow(() ->  new IllegalArgumentException("List isEmpty"));
     }
 
     public static long startNumbersSpecificChar(List<String> strings, char startChar) {
