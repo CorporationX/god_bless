@@ -13,7 +13,6 @@ public class Main {
                 new Location("Statue of Liberty", 40.6892, -74.0445),
                 new Location("Great Wall of China", 40.4319, 116.5704)
         ));
-
         List<Location> filteredLocations = engine.filterLocation(locations,
                 (location) -> location.getLongitude() > 0);
         engine.processLocations(filteredLocations,
@@ -28,6 +27,6 @@ public class Main {
         });
 
         engine.processDistances(distances,
-                (distance) -> System.out.printf("Distance: %s\n", distance));
+                (distance) -> System.out.printf("Distance: %.2f\n", distance));
     }
 }

@@ -10,6 +10,9 @@ import java.util.function.Predicate;
 
 public class LocationSearchEngine {
     public List<Location> filterLocation(@NonNull List<Location> locations, Predicate<Location> predicate) {
+        if (locations.isEmpty()) {
+            throw new IllegalArgumentException("locations List cannot be empty");
+        }
         List<Location> filteredLocations = new ArrayList<>();
         for (Location location : locations) {
             if (predicate.test(location)) {
