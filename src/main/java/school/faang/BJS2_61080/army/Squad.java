@@ -9,29 +9,10 @@ import java.util.Objects;
 public class Squad {
     private final List<Fighter> fighters;
 
-    public Squad(FighterType type, List<Integer> powers) {
-        List<Fighter> tempFighters = new ArrayList<>();
-        switch (type) {
-            case MAGE -> {
-                powers.forEach(power -> {
-                    tempFighters.add(new Mage(power));
-                });
-                fighters = tempFighters;
-            }
-            case ARCHER -> {
-                powers.forEach(power -> {
-                    tempFighters.add(new Archer(power));
-                });
-                fighters = tempFighters;
-            }
+    public Squad(Fighter fighter, int count) {
+        Objects.requireNonNull(fighter, "List<Fighter> can't be null");
 
-            default -> {
-                powers.forEach(power -> {
-                    tempFighters.add(new SwordsMan(power));
-                });
-                fighters = tempFighters;
-            }
-        }
+        this.fighters = createSquad(fighter, count);
     }
 
     public int calculateSquadPower() {
@@ -40,5 +21,13 @@ public class Squad {
         return fighters.stream()
                 .mapToInt(Fighter::getPower)
                 .sum();
+    }
+
+    private List<Fighter> createSquad(Fighter fighter, int count) {
+        List<Fighter> tempFighters = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            tempFighters.add(fighter);
+        }
+        return tempFighters;
     }
 }

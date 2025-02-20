@@ -3,30 +3,26 @@ package school.faang.BJS2_61080;
 import school.faang.BJS2_61080.army.Army;
 import school.faang.BJS2_61080.army.ArmyThread;
 import school.faang.BJS2_61080.army.Squad;
-import school.faang.BJS2_61080.units.FighterType;
+import school.faang.BJS2_61080.units.Archer;
+import school.faang.BJS2_61080.units.Mage;
+import school.faang.BJS2_61080.units.SwordsMan;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Squad squadArcher = new Squad(
-                FighterType.ARCHER,
-                new ArrayList<>(List.of(10, 10, 10))
-        );
+        Random random = new Random();
 
-        Squad squadMage = new Squad(
-                FighterType.MAGE,
-                new ArrayList<>(List.of(20, 20, 20))
-        );
+        Squad redSquadArcher = new Squad(new Archer(), random.nextInt(4));
+        Squad redSquadMage = new Squad(new Mage(), random.nextInt(4));
+        Squad redSquadSwordMan = new Squad(new SwordsMan(), random.nextInt(4));
+        Army redArmy = new Army(List.of(redSquadArcher, redSquadMage, redSquadSwordMan), "Red");
 
-        Squad squadSwordMan = new Squad(
-                FighterType.SWORDSMAN,
-                new ArrayList<>(List.of(30, 30, 30))
-        );
-
-        Army blueArmy = new Army(List.of(squadArcher, squadMage, squadSwordMan), "Blue");
-        Army redArmy = new Army(List.of(squadArcher, squadMage, squadSwordMan, squadArcher), "Red");
+        Squad blueSquadArcher = new Squad(new Archer(), random.nextInt(4));
+        Squad blueSquadMage = new Squad(new Mage(), random.nextInt(4));
+        Squad blueSquadSwordMan = new Squad(new SwordsMan(), random.nextInt(4));
+        Army blueArmy = new Army(List.of(blueSquadArcher, blueSquadMage, blueSquadSwordMan), "Blue");
 
         ArmyThread armyThread = new ArmyThread(List.of(blueArmy, redArmy));
         armyThread.totalArmiesCount();

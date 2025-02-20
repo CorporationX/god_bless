@@ -4,4 +4,8 @@ public class SwordsMan extends Fighter {
     public SwordsMan(int power) {
         super(power);
     }
+
+    public SwordsMan() {
+        super(10);
+    }
 }
