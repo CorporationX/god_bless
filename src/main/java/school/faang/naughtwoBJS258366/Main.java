@@ -11,11 +11,14 @@ public class Main {
         System.out.println("Sum of even numbers: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Maximum: " + ListOperations.findMaxNumber(numbers));
         System.out.println("Average: " + ListOperations.averageOfNumbers(numbers));
-        System.out.println("Number of lines starting with 'a': " + ListOperations.countStringsStartWith(strings, 'a'));
+        System.out.println("Number of lines starting with 'a': "
+                + ListOperations.countStringsStartWith(strings, 'a'));
         System.out.println("Lines containing 'an': " + ListOperations.filterContainsSubstring(strings, "an"));
         System.out.println("Sorted by string length: " + ListOperations.sortStringsByLength(strings));
-        System.out.println("Are all numbers even? " + ListOperations.allNumbersCondition(numbers, n -> n % 2 == 0));
-        System.out.println("The smallest number greater than 4: " + ListOperations.findMinNumberGreaterThan(numbers, 4));
+        System.out.println("Are all numbers even? "
+                + ListOperations.allNumbersCondition(numbers, n -> n % 2 == 0));
+        System.out.println("The smallest number greater than 4: "
+                + ListOperations.findMinNumberGreaterThan(numbers, 4));
         System.out.println("Line lengths: " + ListOperations.convertStringsToLengths(strings));
     }
 }
