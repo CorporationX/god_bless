@@ -1,7 +1,6 @@
 package school.faang.armyheroes;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
+@Slf4j
 public class Army {
     List<Squad<? extends Heroes>> army;
 
@@ -27,7 +26,7 @@ public class Army {
         ExecutorService executorService = Executors.newFixedThreadPool(army.size());
         List<Callable<Integer>> tasks = new ArrayList<>();
 
-        for (Squad<? extends Heroes> squad : army) {
+        for (var squad : army) {
             tasks.add(squad::calculateSquadPower);
         }
 
@@ -43,7 +42,8 @@ public class Army {
             }
 
         } catch (InterruptedException | ExecutionException exception) {
-            exception.getMessage();
+            log.error(exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
         } finally {
             executorService.shutdown();
         }
