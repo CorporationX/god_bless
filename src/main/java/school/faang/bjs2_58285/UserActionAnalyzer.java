@@ -3,7 +3,6 @@ package school.faang.bjs2_58285;
 import lombok.NonNull;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,8 @@ public class UserActionAnalyzer {
         LocalDate oneMonth = LocalDate.now().minusMonths(1);
         Map<String, Long> comment = actions
                 .stream()
-                .filter(action -> ActionType.COMMENT.equals(action.getActionType()) && action.getActionDate().isAfter(oneMonth))
+                .filter(action -> ActionType.COMMENT.equals(action.getActionType())
+                        && action.getActionDate().isAfter(oneMonth))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return comment
                 .entrySet()
@@ -53,7 +53,14 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public void actionTypePercentages() {
-
+    public Map<ActionType, Double> actionTypePercentages(List<UserAction> actions) {
+        long quantityAction = actions.size();
+        Map<ActionType, Long> actionTypeCount = actions
+                .stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
+        return actionTypeCount.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (entry.getValue() * 100.0) / quantityAction));
     }
 }
