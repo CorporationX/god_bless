@@ -4,9 +4,9 @@ public class Main {
     private static final NotificationManager NOTIFICATION_MANAGER = new NotificationManager();
 
     public static void main(String[] args) {
-        registerNotification(NotificationType.EMAIL);
-        registerNotification(NotificationType.SMS);
-        registerNotification(NotificationType.PUSH);
+        for (NotificationType type : NotificationType.values()) {
+            registerNotification((type));
+        }
 
         sendNotification(NotificationType.SMS, "Код доступа 7765");
         sendNotification(NotificationType.EMAIL, "Скидки до 23%");
