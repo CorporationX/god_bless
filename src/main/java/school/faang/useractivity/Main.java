@@ -11,7 +11,7 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        List<UserAction> actions = Arrays.asList(
+        List<UserAction> actions = List.of(
                 new UserAction(1, "Alice",
                         ActionType.POST, LocalDate.of(2024, 9, 1), "Check out this amazing #newfeature!"),
                 new UserAction(2, "Bob",
@@ -112,16 +112,16 @@ public class Main {
                         ActionType.SHARE, LocalDate.of(2024, 10, 19), "")
         );
 
-        List<String> topUsers = UserActionAnalyzer.topActiveUsers(actions, 10);
+        List<String> topUsers = UserActionAnalyzer.findTopActiveUsers(actions, 10);
         log.info("Топ-10 активных пользователей: {}", topUsers);
 
-        List<String> topHashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
+        List<String> topHashtags = UserActionAnalyzer.findPopularHashtags(actions, 5);
         log.info("Топ-5 популярных хэштегов: {}", topHashtags);
 
-        List<String> topCommenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
+        List<String> topCommenters = UserActionAnalyzer.findTopCommentersLastMonth(actions, 3);
         log.info("Топ-3 комментаторов за последний месяц: {}", topCommenters);
 
-        Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
+        Map<String, Double> actionPercentages = UserActionAnalyzer.calculateActionTypePercentages(actions);
         log.info("Процент действий по типам: {}", actionPercentages);
     }
 }

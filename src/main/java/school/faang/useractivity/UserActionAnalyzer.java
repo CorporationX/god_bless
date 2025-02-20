@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
-    public static List<String> topActiveUsers(List<UserAction> userActions, int countActivities) {
+    public static List<String> findTopActiveUsers(List<UserAction> userActions, int countActivities) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName))
                 .entrySet().stream()
@@ -19,7 +19,7 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> userActions, int countHashtags) {
+    public static List<String> findPopularHashtags(List<UserAction> userActions, int countHashtags) {
         return userActions.stream()
                 .filter(userAction -> userAction.getActionType() == ActionType.POST
                         || userAction.getActionType() == ActionType.COMMENT)
@@ -32,7 +32,7 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> userActions, int countComments) {
+    public static List<String> findTopCommentersLastMonth(List<UserAction> userActions, int countComments) {
         return userActions.stream()
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
                 .collect(Collectors.groupingBy(UserAction::getName))
@@ -45,7 +45,7 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static Map<String, Double> actionTypePercentages(List<UserAction> userActions) {
+    public static Map<String, Double> calculateActionTypePercentages(List<UserAction> userActions) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType))
                 .entrySet().stream()
