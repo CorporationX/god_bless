@@ -18,7 +18,10 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    protected Function<Image, Image> combineFilters(Function<Image, Image> grayscaleFilter, Function<Image, Image> sepiaFilter) {
+    protected Function<Image, Image>
+    combineFilters(Function<Image, Image> grayscaleFilter,
+                   Function<Image, Image> sepiaFilter) {
+
         this.grayscaleFilter = grayscaleFilter;
         this.sepiaFilter = sepiaFilter;
 
