@@ -3,6 +3,7 @@ package bjs261069;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -13,13 +14,15 @@ public class Army {
         if (squads == null) {
             throw new IllegalArgumentException("Squads cannot be null");
         }
+        List<List<Integer>> allPowerSums = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
         for (Squad squad : squads) {
-            PowerCalculator powerCalculator = new PowerCalculator();
+            PowerCalculator powerCalculator = new PowerCalculator(new ArrayList<>());
             powerCalculator.setSquad(squad);
             Thread thread = new Thread(powerCalculator);
             threads.add(thread);
             thread.start();
+            allPowerSums.add(powerCalculator.getPowerSum());
         }
         threads.forEach(thread -> {
             try {
@@ -28,7 +31,7 @@ public class Army {
                 throw new RuntimeException("Thread " + Thread.currentThread().getName() + "has interrupted", e);
             }
         });
-        return PowerCalculator.powerSum.stream().mapToInt(Integer::intValue).sum();
+        return allPowerSums.stream().flatMap(Collection::stream).mapToInt(Integer::intValue).sum();
     }
 
     public void addSquad(Squad squad) {

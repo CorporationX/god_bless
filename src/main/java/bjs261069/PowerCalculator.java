@@ -1,14 +1,19 @@
 package bjs261069;
 
+import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Setter
 public class PowerCalculator implements Runnable {
-    public static volatile List<Integer> powerSum = new ArrayList<>();
+    public volatile List<Integer> powerSum;
     private Squad squad;
+
+    public PowerCalculator(List<Integer> powerSum) {
+        this.powerSum = powerSum;
+    }
 
     @Override
     public void run() {

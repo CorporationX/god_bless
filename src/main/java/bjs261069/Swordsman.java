@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class Swordsman extends Fighter {
-    private final int power;
+    private static final int POWER = 40;
 
     public Swordsman(int power) {
         super();
-        this.power = power != 0 ? power : 40;
+        this.power = power != 0 ? power : POWER;
     }
 }
