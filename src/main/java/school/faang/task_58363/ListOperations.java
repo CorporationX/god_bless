@@ -35,7 +35,8 @@ public class ListOperations {
                 .count();
     }
 
-    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, @NonNull String substring) {
+    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings,
+                                                                @NonNull String substring) {
         return strings.stream()
                 .filter(s -> s.contains(substring))
                 .toList();
