@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 @Slf4j
@@ -20,7 +20,7 @@ public class House {
     public House(String name, Set<Role> roles) {
         this.name = name;
         this.roles = new HashSet<>(roles);
-        assignedRoles = new ConcurrentHashMap<>();
+        assignedRoles = new HashMap<>();
     }
 
     public synchronized Boolean assignRole(@NonNull User user, @NonNull Role role) throws InterruptedException {
