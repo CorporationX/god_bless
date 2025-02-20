@@ -1,8 +1,10 @@
 package school.faang.sprint3.multithreading.task60912;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+@Slf4j
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
@@ -10,7 +12,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.printf("\nThe letter № %d was sent.", i);
+            log.info("\nThe letter № {} was sent.", i);
         }
     }
 }
