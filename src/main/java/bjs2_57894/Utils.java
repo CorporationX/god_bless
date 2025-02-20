@@ -44,35 +44,25 @@ public class Utils {
                 .map(n -> new Tupple<>(
                         n,
                         n.toString().chars().boxed().collect(Collectors.toList())))
-                .filter(info -> {
-                    List<Integer> digits = info.item2();
-                    return IntStream.range(0, digits.size())
-                            .allMatch(i -> digits.get(i) == digits.get(digits.size() - i - 1));
-                })
+                .filter(info -> checkPalindrom(info.item2()))
                 .map(Tupple::item1)
                 .toList();
     }
 
     public static List<String> getSubstringsPalindroms(String string) {
-        List<String> result = new ArrayList<>();
-
         int len = string.length();
-        for (int i = 0; i < len; i++) {
-            result.add(string.substring(i, i + 1));
 
-            for (int j = i + 2; j <= len; j++) {
-                String substring = string.substring(i, j);
-                List<Character> charList = substring.chars()
-                        .mapToObj(c -> (char) c)
-                        .toList();
-
-                if (checkPalindrom(charList)) {
-                    result.add(substring);
-                }
-            }
-        }
-
-        return result.stream().distinct().toList();
+        return IntStream.range(0, len)
+                .mapToObj(left -> IntStream.range(left, len)
+                        .mapToObj(right -> string.substring(left, right + 1)))
+                .flatMap(strings -> strings.map(
+                        s -> new Tupple<>(
+                                s,
+                                s.chars().boxed().collect(Collectors.toList()))))
+                .filter(info -> checkPalindrom(info.item2()))
+                .map(Tupple::item1)
+                .distinct()
+                .toList();
     }
 
     public static List<Integer> getPerfectDigits(int from, int to) {
@@ -91,17 +81,6 @@ public class Utils {
     }
 
     private static <T> boolean checkPalindrom(List<T> list) {
-        int leftIndex = 0;
-        int rightIndex = list.size() - 1;
-        while (leftIndex < rightIndex) {
-            if (!list.get(leftIndex).equals(list.get(rightIndex))) {
-                break;
-            }
-
-            leftIndex++;
-            rightIndex--;
-        }
-
-        return leftIndex == rightIndex;
+        return IntStream.range(0, list.size()).allMatch(i -> list.get(i).equals(list.get(list.size() - i - 1)));
     }
 }
