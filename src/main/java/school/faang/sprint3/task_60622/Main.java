@@ -1,4 +1,4 @@
-package school.faang.task_60622;
+package school.faang.sprint3.task_60622;
 
 import java.util.Random;
 

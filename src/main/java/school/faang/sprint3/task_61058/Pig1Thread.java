@@ -1,4 +1,4 @@
-package school.faang.task_61058;
+package school.faang.sprint3.task_61058;
 
 public class Pig1Thread extends PigThread {
     public Pig1Thread() {

@@ -1,4 +1,4 @@
-package school.faang.task_60679;
+package school.faang.sprint3.task_60679;
 
 public class Chore implements Runnable {
     private static final int TASK_DURATION_MS = 1000;
