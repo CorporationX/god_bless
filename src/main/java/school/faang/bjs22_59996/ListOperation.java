@@ -10,8 +10,12 @@ public class ListOperation {
         return manyIntegers
                 .stream()
                 .filter(i -> sum - i != i && manyIntegers.contains(sum - i))
+                .distinct()
                 .map(i -> Arrays.asList(i, sum - i))
-                .peek(Collections::sort)
+                .map(s -> {
+                    Collections.sort(s);
+                    return s;
+                })
                 .collect(Collectors.toSet());
     }
 
@@ -33,7 +37,7 @@ public class ListOperation {
                 .toList();
     }
 
-    public static List<String> convertDoubleFormat(List<Integer> listNumbers) {
+    public static List<String> convertBinaryFormat(List<Integer> listNumbers) {
         return listNumbers
                 .stream()
                 .map(Integer::toBinaryString)

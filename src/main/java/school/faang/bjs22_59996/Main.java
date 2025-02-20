@@ -16,7 +16,7 @@ public class Main {
         System.out.println(ListOperation.findUniquePairsOfNumbers(set, 6));
         System.out.println(ListOperation.sortedCapital(capitals));
         System.out.println(ListOperation.sortingLines(List.of("apple", "banana", "avocado", "apricot"), 'a'));
-        System.out.println(ListOperation.convertDoubleFormat((List.of(1, 2, 3, 4))));
+        System.out.println(ListOperation.convertBinaryFormat((List.of(1, 2, 3, 4))));
         System.out.println(ListOperation.filterLines(
                 List.of("apple", "banana", "cherry", "date", "fig", "grape"), "abcdefghijklmnopqrstuvwxyz"));
     }
