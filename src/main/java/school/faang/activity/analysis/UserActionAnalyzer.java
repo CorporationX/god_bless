@@ -21,8 +21,8 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions, int topN) {
         Pattern hashtagPattern = Pattern.compile("#\\w+");
         return actions.stream()
-                .filter(action -> action.getContent() != null && (action.getActionType() == ActionType.POST ||
-                        action.getActionType() == ActionType.COMMENT))
+                .filter(action -> action.getContent() != null && (action.getActionType() == ActionType.POST
+                        || action.getActionType() == ActionType.COMMENT))
                 .flatMap(action -> hashtagPattern.matcher(action.getContent())
                         .results().map(matchResult -> matchResult.group()))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
