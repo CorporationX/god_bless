@@ -13,6 +13,7 @@ public class WeasleyFamily {
     private static final String ABORTING_TASKS_MESSAGE = "Long task completion. Forced termination";
     private static final String ERROR_TASKS_MESSAGE = "Task completion error: \n{}";
     private static final String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
+    public static final int MAX_TERMINATION_SECONDS = 50;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -22,14 +23,14 @@ public class WeasleyFamily {
         }
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(50, TimeUnit.SECONDS)) {
+            if (executorService.awaitTermination(MAX_TERMINATION_SECONDS, TimeUnit.SECONDS)) {
                 logger.info(COMPLETED_TASKS_MESSAGE);
             } else {
                 logger.info(ABORTING_TASKS_MESSAGE);
                 executorService.shutdownNow(); // Принудительное завершение, если задачи не завершились
             }
         } catch (InterruptedException e) {
-            logger.info(ERROR_TASKS_MESSAGE, e.getMessage());
+            logger.info(ERROR_TASKS_MESSAGE, e);
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
         }

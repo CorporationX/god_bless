@@ -10,6 +10,7 @@ public class Chore implements Runnable {
     private static final String EXECUTED_MESSAGE = "The task '{}' is executed by a thread {}";
     private static final String THREAD_ERROR = "Execution error in the thread {} with task '{}'";
     private static final String COMPLETED_MESSAGE = "The task '{}' is completed";
+    public static final int TASK_EXECUTE_TIME = 5000;
     private final String name;
 
     @Override
@@ -17,11 +18,12 @@ public class Chore implements Runnable {
         Thread thread = Thread.currentThread();
         logger.info(EXECUTED_MESSAGE, name, thread.getName());
         try {
-            Thread.sleep(5000);
+            Thread.sleep(TASK_EXECUTE_TIME);
             logger.info(COMPLETED_MESSAGE, name);
 
         } catch (InterruptedException e) {
             logger.error(THREAD_ERROR, thread, name);
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
