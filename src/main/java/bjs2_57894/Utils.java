@@ -12,40 +12,22 @@ import java.util.stream.Stream;
 
 public class Utils {
     public static List<Pair> getFriendOfFriends(Map<String, List<String>> data) {
-        List<Pair> sortedUniquePairs = data.entrySet()
+        return data.entrySet()
                 .stream()
-                .map(kvp -> kvp.getValue()
-                        .stream()
-                        .map(friend -> new Pair(kvp.getKey(), friend))
-                        .toList())
-                .flatMap(List::stream)
+                .flatMap(kvp -> {
+                    String name = kvp.getKey();
+                    List<String> friends = kvp.getValue();
+
+                    // Выбираем друзей друга, которые не равны самому себе
+                    return friends.stream()
+                            .map(data::get)    // Получаем список друзей друга
+                            .flatMap(List::stream)
+                            .filter(friend -> !friend.equals(name)) // Пропускаем себя
+                            .map(friend -> new Pair(name, friend));
+                })
                 .distinct()    // Удаляем повторяющиеся пары
                 .sorted(Comparator.comparing(Pair::first))
                 .toList();
-
-        Set<String> processedNames = new HashSet<>();
-        List<Pair> result = new ArrayList<>();
-
-        for (Pair pair : sortedUniquePairs) {
-            String name = pair.first();
-            String friendName = pair.second();
-
-            if (processedNames.contains(name) || processedNames.contains(friendName)) {
-                continue;
-            }
-
-            Optional<Pair> friendPair = sortedUniquePairs.stream()
-                    .filter(p -> p.first().equals(friendName))
-                    .findFirst();
-            if (friendPair.isEmpty()) {
-                continue;
-            }
-
-            result.add(new Pair(name, friendPair.get().second()));
-            processedNames.add(friendName);
-        }
-
-        return result;
     }
 
     public static Map<String, Double> getAverageSalaryByDepartment(List<Employee> data) {
