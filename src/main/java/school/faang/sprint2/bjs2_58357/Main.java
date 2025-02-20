@@ -16,15 +16,14 @@ public class Main {
         List<Integer> listNull = new ArrayList<>();
         List<String> strings = List.of("apple", "banana", "cherry", "juice", "apple");
 
-        log.info("Сумма четных чисел: {}", sumOfEvenNumbers(numbers));
-        log.info("Максимум: {}", maxNumber(numbers));
-        log.info("Среднее: {}", averageValue(numbers));
-        log.info("Количество строк, начинающихся на 'a': {}", stringCounter(strings, 'a'));
-        log.info("Строки, содержащие 'an': {}", filterBySubstring(strings, "ap"));
-        log.info("Отсортированные по длине строки: {}", sortByLength(strings));
-        log.info("Все ли числа чётные?: {}", allElementsSatisfyCondition(numbers, predicate));
-        log.info("Наименьшее число больше 4: {}", findMinGreaterThan(numbers, 4));
-        log.info("Длины строк: {}", convertToLengths(strings));
-
+        log.info(String.format("Сумма четных чисел: %d", sumOfEvenNumbers(numbers)));
+        log.info(String.format("Максимум: %d", maxNumber(numbers)));
+        log.info(String.format("Среднее: %.2f", averageValue(numbers)));
+        log.info(String.format("Количество строк, начинающихся на 'a': %d", stringCounter(strings, 'a')));
+        log.info(String.format("Строки, содержащие 'ap': %s", filterBySubstring(strings, "ap")));
+        log.info(String.format("Отсортированные по длине строки: %s", sortByLength(strings)));
+        log.info(String.format("Все ли числа чётные?: %b", allElementsSatisfyCondition(numbers, predicate)));
+        log.info(String.format("Наименьшее число больше 4: %d", findMinGreaterThan(numbers, 4)));
+        log.info(String.format("Длины строк: %s", convertToLengths(strings)));
     }
 }

@@ -13,7 +13,8 @@ public class ListOfOperations {
     public static int sumOfEvenNumbers(@NonNull List<Integer> list) {
         return list.stream()
                 .filter(x -> x % 2 == 0)
-                .reduce(0, Integer::sum);
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int maxNumber(@NonNull List<Integer> list) {
