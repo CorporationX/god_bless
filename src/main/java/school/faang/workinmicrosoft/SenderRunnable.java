@@ -1,9 +1,12 @@
 package school.faang.workinmicrosoft;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
+    private static final Integer MILLISECONDS = 10;
     private final Integer startIndex;
     private final Integer endIndex;
 
@@ -15,11 +18,11 @@ public class SenderRunnable implements Runnable {
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
             try {
-                System.out.printf("letter %s is send \n", i);
-                Thread.sleep(10);
+                log.info("letter {} is send \n", i);
+                Thread.sleep(MILLISECONDS);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.print("Thread interrupted");
+                log.info("Thread interrupted");
             }
         }
     }

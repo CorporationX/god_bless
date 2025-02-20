@@ -1,12 +1,17 @@
 package school.faang.workinmicrosoft;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
+    private static final Integer MAILS = 1000;
+    private static final Integer THREAD_COUNTER = 5;
+
     public static void main(String[] args) {
-        int mails = 1000;
-        int threadCounter = 5;
-        int mailsToThread = mails / threadCounter;
-        Thread[] threads = new Thread[threadCounter];
-        for (int i = 0; i < threadCounter; i++) {
+
+        int mailsToThread = MAILS / THREAD_COUNTER;
+        Thread[] threads = new Thread[THREAD_COUNTER];
+        for (int i = 0; i < THREAD_COUNTER; i++) {
             int start = i * mailsToThread;
             threads[i] = new Thread(new SenderRunnable(start, start + mailsToThread));
             threads[i].start();
@@ -15,14 +20,12 @@ public class MailSender {
         for (Thread thread : threads) {
             try {
                 thread.join();
-                System.out.printf("thread finished");
+                log.info("thread finished");
             } catch (InterruptedException e) {
-                System.out.printf("Exception on thread");
+                log.info("Exception on thread");
             }
         }
-        System.out.printf("Main thread is finished");
+        log.info("Main thread is finished");
     }
-
-
 }
 
