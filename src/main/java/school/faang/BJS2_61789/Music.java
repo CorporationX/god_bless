@@ -2,6 +2,7 @@ package school.faang.BJS2_61789;
 
 public class Music {
 
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         Player player = new Player();
 
