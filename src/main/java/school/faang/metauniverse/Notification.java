@@ -5,19 +5,14 @@ import lombok.Getter;
 @Getter
 public class Notification {
 
-    public static class NotificationType {
-        public static final String EMAIL = "EMAIL";
-        public static final String PUSH = "PUSH";
-        public static final String SMS = "SMS";
-
-        NotificationType() {
-        }
+    enum NotificationType {
+        EMAIL, PUSH, SMS
     }
 
-    private final String type;
+    private final NotificationType type;
     private final String message;
 
-    public Notification(String type, String message) {
+    public Notification(NotificationType type, String message) {
         this.type = type;
         this.message = message;
     }

@@ -2,31 +2,27 @@ package school.faang.metauniverse;
 
 import school.faang.metauniverse.Notification.NotificationType;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class NotificationManager {
 
-    private static final Map<String, Consumer<Notification>> handlers = new HashMap<>();
-    private static final Predicate<Notification> contentFilter;
-    private static final Function<Notification, Notification> contentCorrector;
+    private final Map<NotificationType, Consumer<Notification>> handlers = new EnumMap<>(NotificationType.class);
+    private final Predicate<Notification> contentFilter = notification ->
+            !notification.getMessage().contains("нецензурная лексика");
+    private final Function<Notification, Notification> contentCorrector = notification ->
+            new Notification(notification.getType(), notification.getMessage() + " Meta inc.");
 
-    static {
-        contentFilter = notification -> !notification.getMessage().contains("нецензурная лексика");
-        contentCorrector = notification -> new Notification(
-                notification.getType(),
-                notification.getMessage() + " Meta inc."
-        );
-    }
-
-    static void registerHandler(String type, Consumer<Notification> handler) {
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlers.put(type, handler);
     }
 
-    static void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) {
+        Objects.requireNonNull(notification);
 
         if (!contentFilter.test(notification)) {
             System.out.println("Сообщение заблокировано из-за недопустимого содержания: " + notification.getMessage());
@@ -45,26 +41,29 @@ public class NotificationManager {
     }
 
     public static void main(String[] args) {
+        NotificationManager notificationManager = new NotificationManager();
 
-        registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage())
-        );
+        NotificationType[] notificationTypes = {
+                NotificationType.EMAIL,
+                NotificationType.SMS,
+                NotificationType.PUSH
+        };
 
-        registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage())
-        );
+        String[] message = {
+                "Ваш аккаунт активирован!",
+                "Ваш пароль изменен!",
+                "У вас новое сообщение!"
+        };
 
-        registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.getMessage())
-        );
+        for (NotificationType type : notificationTypes) {
+            notificationManager.registerHandler(type, notification ->
+                    System.out.println(type.name() + ": " + notification.getMessage())
+            );
+        }
 
-        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-
-        sendNotification(emailNotification);
-        sendNotification(smsNotification);
-        sendNotification(pushNotification);
-
+        for (int i = 0; i < notificationTypes.length; i++) {
+            Notification notification = new Notification(notificationTypes[i], message[i]);
+            notificationManager.sendNotification(notification);
+        }
     }
 }
