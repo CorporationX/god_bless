@@ -2,7 +2,7 @@ package BJS261220;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Army army = new Army();
+        final Army army = new Army();
         Squad archers = new Squad();
         archers.addUnit(new Archer(30));
         archers.addUnit(new Archer(25));

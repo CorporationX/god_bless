@@ -1,8 +1,8 @@
 package BJS261220;
 
-import java.util.*;
 
-import static java.lang.Integer.sum;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Squad {
     private final List<Unit> units = new ArrayList<>();
