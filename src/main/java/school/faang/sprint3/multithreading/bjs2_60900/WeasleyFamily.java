@@ -1,10 +1,12 @@
 package school.faang.sprint3.multithreading.bjs2_60900;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class WeasleyFamily {
-    private Chore[] chores;
+    private final Chore[] chores;
 }
