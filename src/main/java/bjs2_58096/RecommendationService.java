@@ -43,10 +43,11 @@ public record RecommendationService(
                         && user.location().equals(requestedUser.location()))
                 .collect(Collectors.toMap(UserProfile::userId, x -> x));
 
-        var productIds = productOrders.stream()
+        var ordersCountByProductId = productOrders.stream()
                 .filter(order -> usersWithSameParameters.containsKey(order.userId()))
-                .collect(Collectors.groupingBy(ProductOrder::productId, Collectors.counting()))
-                .entrySet()
+                .collect(Collectors.groupingBy(ProductOrder::productId, Collectors.counting()));
+
+        List<Integer> productIds = ordersCountByProductId.entrySet()
                 .stream()
                 .sorted(Comparator.comparingLong(Map.Entry::getValue))
                 .map(Map.Entry::getKey)
