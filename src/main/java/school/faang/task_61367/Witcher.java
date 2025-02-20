@@ -36,6 +36,7 @@ public class Witcher {
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("All tasks are completed.");

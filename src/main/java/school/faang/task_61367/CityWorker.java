@@ -32,11 +32,9 @@ public class CityWorker implements Runnable {
 
         double distance = minDistance + cityDistance;
 
-        System.out.printf("The monster is not far from the city: %s - %s\n",
-                city.getName(), closestMonster.getName());
-        System.out.println();
-        System.out.printf("The distance to the monster %s: %.2f, city: %s\n",
-                closestMonster.getName(), distance, city.getName());
+        System.out.printf("The monster is not far from the city: %s - %s." +
+                        " The distance to the monster %s: %.2f, city: %s\n",
+                city.getName(), closestMonster.getName(), closestMonster.getName(), distance, city.getName());
     }
 
     private double calculateDistance(Location loc1, Location loc2) {
