@@ -79,14 +79,13 @@ public class Utils {
         return Stream.iterate(from, n -> n + 1)
                 .limit(to - from)
                 .filter(number -> {
-                    List<Integer> dividers = new ArrayList<>();
-                    for (int divider = 1; divider <= number / 2; divider++) {
-                        if (number % divider == 0) {
-                            dividers.add(divider);
-                        }
-                    }
+                    int dividersSum = Stream.iterate(1, n -> n + 1)
+                            .limit(number / 2)
+                            .filter(divider -> number % divider == 0)
+                            .mapToInt(x -> x)
+                            .sum();
 
-                    return dividers.stream().mapToInt(x -> x).sum() == number;
+                    return dividersSum == number;
                 })
                 .toList();
     }
