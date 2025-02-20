@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ListOperation {
 
@@ -22,7 +21,7 @@ public class ListOperation {
                 .orElseThrow(() -> new IllegalArgumentException("List isEmpty"));
     }
 
-    public static double averageNubmers(List<Integer> numbers) {
+    public static double averageNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
@@ -38,7 +37,7 @@ public class ListOperation {
     public static List<String> listSpecificSubstring(List<String> strings, String substrings) {
         return strings.stream()
                 .filter(s -> s.contains(substrings))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> stringSize(List<String> strings) {
@@ -56,10 +55,10 @@ public class ListOperation {
         Optional<Integer> minNubmer = numbers.stream()
                 .filter(n -> n > number)
                 .min(Integer::compareTo);
-        return minNubmer.orElse(-1);
+        return minNubmer.orElseThrow(() -> new IllegalArgumentException("Элементы отсутсвуют" + number));
     }
 
-    public static List<Integer> convertToLenght(List<String> strings) {
+    public static List<Integer> convertToLength(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();
