@@ -12,6 +12,8 @@ public record RecommendationService(
         List<Product> products,
         List<ProductOrder> productOrders
 ) {
+    private static final int TOP_ORDERS_COUNT = 5;
+
     public List<Product> getProductByUserInterests(int userId) {
         Optional<UserProfile> userOrEmpty = getUserProfileOrEmpty(userId);
 
@@ -43,26 +45,20 @@ public record RecommendationService(
                         && user.location().equals(requestedUser.location()))
                 .collect(Collectors.toMap(UserProfile::userId, x -> x));
 
-        var ordersCountByProductId = productOrders.stream()
-                .filter(order -> usersWithSameParameters.containsKey(order.userId()))
-                .collect(Collectors.groupingBy(ProductOrder::productId, Collectors.counting()));
+        Map<Integer, Product> productsById = products.stream()
+                .collect(Collectors.toMap(Product::productId, x -> x));
 
-        List<Integer> productIds = ordersCountByProductId.entrySet()
+        var ordersCountByProduct = productOrders.stream()
+                .filter(order -> usersWithSameParameters.containsKey(order.userId()))
+                .map(order -> productsById.getOrDefault(order.productId(), null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+
+        return ordersCountByProduct.entrySet()
                 .stream()
                 .sorted(Comparator.comparingLong(Map.Entry::getValue))
+                .limit(TOP_ORDERS_COUNT)
                 .map(Map.Entry::getKey)
-                .limit(5)
-                .toList();
-
-        Map<Integer, Product> requiredProducts = productIds.stream()
-                .map(productId -> products.stream().filter(p -> p.productId() == productId).findFirst())
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toMap(Product::productId, p -> p));
-
-        return productIds.stream()
-                .map(requiredProducts::get)
-                .filter(Objects::nonNull)
                 .toList();
     }
 

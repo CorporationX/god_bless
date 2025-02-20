@@ -32,18 +32,21 @@ public class Main {
                     products,
                     productOrders);
 
+            System.out.println("Метод для рекомендаций на основе интересов");
             List<Product> userProducts = service.getProductByUserInterests(4);
             for (Product product : userProducts) {
                 System.out.println(product);
             }
             System.out.println();
 
+            System.out.println("Метод для рекомендаций популярных товаров среди схожих пользователей");
             List<Product> favoriteProducts = service.getTopTheSameFavorites(1);
             for (Product product : favoriteProducts) {
                 System.out.println(product);
             }
             System.out.println();
 
+            System.out.println("Метод для определения категории со скидкой");
             String productWithDiscount = service.getProductsWithDiscount(1);
             System.out.println(productWithDiscount);
         } catch (Exception e) {
