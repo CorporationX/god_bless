@@ -11,7 +11,7 @@ public class MailSender {
         for (int i = 0; i < threads.length; i++) {
             int startIndex = batchSize * i;
             int endIndex = (i == threads.length - 1) ? MESSAGE_COUNT : batchSize * (i + 1);
-            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex, MESSAGE_COUNT));
             threads[i].start();
         }
 
@@ -19,7 +19,7 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Thread interrupted " + thread.getName(), e);
             }
         }
 
