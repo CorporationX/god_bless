@@ -1,5 +1,8 @@
 package Meta;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -21,16 +24,16 @@ public class Main {
             return !message.contains("Цензура");
         });
 
-        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-        Notification blockedNotification = new Notification(NotificationType.STOP,
-                "Сообщение содержит слово Цензура");
+        List<Notification> notifications = Arrays.asList(
+                new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован"),
+                new Notification(NotificationType.SMS, "Ваш пароль изменен"),
+                new Notification(NotificationType.PUSH, "У вас новое сообщение!"),
+                new Notification(NotificationType.STOP, "Сообщение содержит слово Цензура")
+        );
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
-        notificationManager.sendNotification(blockedNotification);
+        for (Notification notification : notifications) {
+            notificationManager.sendNotification(notification);
+        }
     }
 }
 
