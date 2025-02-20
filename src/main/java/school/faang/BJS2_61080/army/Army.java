@@ -32,6 +32,6 @@ public class Army {
         latch.await();
         executor.shutdown();
 
-        System.out.printf("Обчие количество силы у %s армий : %d%n", this.armyName, totalPower.get());
+        System.out.printf("Общее количество силы у %s армий : %d%n", this.armyName, totalPower.get());
     }
 }

@@ -17,13 +17,15 @@ public class ArmyThread {
         ExecutorService executor = Executors.newFixedThreadPool(armies.size());
         CountDownLatch latch = new CountDownLatch(armies.size());
 
+
         armies.forEach(army -> {
             executor.submit(() -> {
                 try {
                     army.calculateTotalPower();
                     latch.countDown();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("Ошибка при подсчете силы армии.", e);
                 }
             });
         });
