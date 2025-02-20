@@ -18,7 +18,7 @@ public class MailSender {
 
             SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
             threads[i] = new Thread(senderRunnable);
-            log.info("Поток писем {} начался отправляться", i + 1);
+            log.debug("Поток писем {} начался отправляться", i + 1);
             threads[i].start();
         }
 
@@ -27,9 +27,9 @@ public class MailSender {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            log.error("Поток был прерван!");
         }
-
         log.info("Все письма успешно отправлены!");
     }
 }
