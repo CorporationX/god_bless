@@ -16,13 +16,13 @@ public class UserActionAnalyzer {
                         UserAction::getId,
                         userAction -> new Pair<>(1L, userAction.getName()),
                         (existing, replacement) -> {
-                            existing.setT(existing.getT() + replacement.getT());
+                            existing.setFirst(existing.getFirst() + replacement.getFirst());
                             return existing;
                         })).entrySet()
                 .stream()
                 .map(Map.Entry::getValue)
-                .sorted(Comparator.comparingLong((Pair<Long, String> pair) -> pair.getT()).reversed())
-                .map((Pair::getU))
+                .sorted(Comparator.comparingLong((Pair<Long, String> pair) -> pair.getFirst()).reversed())
+                .map((Pair::getSecond))
                 .limit(topSize)
                 .collect(Collectors.toList());
     }
@@ -52,13 +52,13 @@ public class UserActionAnalyzer {
                         UserAction::getId,
                         userAction -> new Pair<>(1L, userAction.getName()),
                         (existing, replacement) -> {
-                            existing.setT(existing.getT() + replacement.getT());
+                            existing.setFirst(existing.getFirst() + replacement.getFirst());
                             return existing;
                         })).entrySet()
                 .stream()
                 .map(Map.Entry::getValue)
-                .sorted(Comparator.comparingLong((Pair<Long, String> pair) -> pair.getT()).reversed())
-                .map((Pair::getU))
+                .sorted(Comparator.comparingLong((Pair<Long, String> pair) -> pair.getFirst()).reversed())
+                .map((Pair::getSecond))
                 .limit(topSize)
                 .collect(Collectors.toList());
     }
