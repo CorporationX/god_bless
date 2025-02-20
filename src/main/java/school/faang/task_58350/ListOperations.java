@@ -4,11 +4,12 @@ import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 public class ListOperations {
-    private static final int DEFAULT_NUMBER = 0;
+    private static final NoSuchElementException EXCEPTION = new NoSuchElementException("No value present");
 
     public static int sumOfEvenNumbers(@NonNull List<Integer> numbers) {
         return numbers.stream()
@@ -21,7 +22,7 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElse(DEFAULT_NUMBER);
+                .orElseThrow();
     }
 
     public static double findAverage(@NonNull List<Integer> numbers) {
@@ -31,7 +32,7 @@ public class ListOperations {
         if (average.isPresent()) {
             return average.getAsDouble();
         }
-        return DEFAULT_NUMBER;
+        throw EXCEPTION;
     }
 
     public static long countStringsStartingWith(@NonNull List<String> strings, char startSymbol) {
@@ -64,7 +65,7 @@ public class ListOperations {
                 .mapToInt(Integer::intValue)
                 .filter(number -> number > threshold)
                 .min()
-                .orElse(DEFAULT_NUMBER);
+                .orElseThrow();
     }
 
     public static List<Integer> convertToLengths(@NonNull List<String> strings) {
