@@ -14,11 +14,8 @@ public class ListOperations {
         }
 
         return numbers.stream()
-                .flatMap(num ->
-                        numbers.stream()
-                                .filter(delta -> delta > num && num + delta == value)
-                                .map(delta -> List.of(num, delta))
-                )
+                .filter(num -> numbers.contains(value - num) && num < value - num)
+                .map(num -> List.of(num, value - num))
                 .collect(Collectors.toSet());
     }
 
