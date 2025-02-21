@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) {
-        Army army = new Army();
         Squad archers = new Squad();
         archers.addHero(new Archer(25));
         archers.addHero(new Archer(30));
@@ -17,6 +16,7 @@ public class Main {
         mages.addHero(new Mage(40));
         mages.addHero(new Mage(35));
 
+        Army army = new Army();
         army.addSquad(archers);
         army.addSquad(swordsmen);
         army.addSquad(mages);
