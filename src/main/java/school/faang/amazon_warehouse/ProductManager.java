@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.amazon_warehouse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
