@@ -3,6 +3,7 @@ package school.faang.sprint3.BJS2_61144;
 import school.faang.sprint3.BJS2_61144.fighters.Fighter;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Squad<T extends  Fighter> {
     private final List<T> fighters;
@@ -12,6 +13,9 @@ public class Squad<T extends  Fighter> {
     }
 
     public long calculateSquadPower() {
-        return fighters.stream().mapToLong(T::getPower).sum();
+        return fighters.stream()
+                .filter(Objects::nonNull)
+                .mapToLong(T::getPower)
+                .sum();
     }
 }
