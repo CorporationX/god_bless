@@ -9,15 +9,19 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private final static Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        People people = new People();
-        Map<String, List<String>> initializedData = getInitializedData();
-        logger.info("{}", people.findPeopleWithMutualFriends(initializedData));
+        Calculations calculations = new Calculations();
+        Map<String, List<String>> initializedData = getInitializedPeopleData();
+        logger.info("{}", calculations.getFriendlyPeople(initializedData));
+        logger.info("{}", calculations.getAverageSalary(getInitializedAverageSalaryData()));
+        logger.info("{}", calculations.getNumbersPalindromes(
+                getInitializedNumbersPalindromesData().get(0), getInitializedNumbersPalindromesData().get(1)));
+        logger.info("{}", calculations.getSubstringsPalindromes(getInitializedSubstringsPalindromesData()));
     }
 
-    private static Map<String, List<String>> getInitializedData() {
+    private static Map<String, List<String>> getInitializedPeopleData() {
         Map<String, List<String>> nameToFriends = new HashMap<>();
         List<String> list1 = new ArrayList<>();
         list1.add("Bob");
@@ -40,5 +44,19 @@ public class Main {
         nameToFriends.put("David", list4);
 
         return nameToFriends;
+    }
+
+    private static List<Employee> getInitializedAverageSalaryData() {
+        return List.of(new Employee("Emloyee1", 200000L, "Test department"),
+                new Employee("Emloyee2", 300000L, "Test department"),
+                new Employee("Emloyee3", 500000L, "Test department"));
+    }
+
+    private static List<Integer> getInitializedNumbersPalindromesData() {
+        return List.of(100, 200);
+    }
+
+    private static String getInitializedSubstringsPalindromesData() {
+        return "abac";
     }
 }
