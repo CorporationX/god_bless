@@ -8,17 +8,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    public static List<String> topActiveUsers(List<UserAction> actions, int topN) {
+    public static List<String> topActiveUsers(List<UserAction> actions, int limit) {
         Map<String, Long> usersToActions = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return usersToActions.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> actions, int topN) {
+    public static List<String> topPopularHashtags(List<UserAction> actions, int limit) {
         Map<String, Long> wordToCount = actions.stream()
                 .filter(action -> action.getContent() != null
                         && ActionType.POST.equals(action.getActionType())
@@ -28,12 +28,12 @@ public class UserActionAnalyzer {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return wordToCount.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> actions, int topN) {
+    public static List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         Map<String, Long> userToComment = actions.stream()
                 .filter(action -> ActionType.COMMENT.equals(action.getActionType())
@@ -41,7 +41,7 @@ public class UserActionAnalyzer {
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return userToComment.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(topN)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
