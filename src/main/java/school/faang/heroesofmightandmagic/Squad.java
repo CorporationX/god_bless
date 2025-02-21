@@ -1,11 +1,8 @@
-package school.faang.HeroesOfMightAndMagic;
-
-import lombok.AllArgsConstructor;
+package school.faang.heroesofmightandmagic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class Squad {
     private final List<Unit> units = new ArrayList<>();
 

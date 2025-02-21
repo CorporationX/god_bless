@@ -1,4 +1,4 @@
-package school.faang.HeroesOfMightAndMagic;
+package school.faang.heroesofmightandmagic;
 
 public class Mage extends Unit {
     public Mage(int power) {

@@ -1,4 +1,4 @@
-package school.faang.HeroesOfMightAndMagic;
+package school.faang.heroesofmightandmagic;
 
 public class Swordsman extends Unit {
     public Swordsman(int power) {

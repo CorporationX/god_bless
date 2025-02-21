@@ -1,10 +1,10 @@
-package school.faang.HeroesOfMightAndMagic;
+package school.faang.heroesofmightandmagic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Unit {
+public abstract class Unit {
     private int power;
 }

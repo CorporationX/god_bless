@@ -1,11 +1,11 @@
-package school.faang.HeroesOfMightAndMagic;
+package school.faang.heroesofmightandmagic;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Army {
-    private static final List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
         if (squad == null) {
@@ -14,7 +14,7 @@ public class Army {
         squads.add(squad);
     }
 
-    public static int calculateTotalPower() {
+    public int calculateTotalPower() {
         if (squads.isEmpty()) {
             return 0;
         }
