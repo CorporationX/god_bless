@@ -1,11 +1,15 @@
 package bjs2_56245;
 
-import java.time.LocalDateTime;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         OffsetDateTime now = OffsetDateTime.now();
 
@@ -21,6 +25,6 @@ public class Main {
         LaunchScheduler.planRocketLaunches(launches);
 
         long endTime = System.currentTimeMillis();
-        System.out.printf("Время работы planRocketLaunches: %d мс%n", endTime - startTime);
+        logger.info("Время работы planRocketLaunches: {} мс", endTime - startTime);
     }
 }

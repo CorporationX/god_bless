@@ -1,5 +1,8 @@
 package bjs2_56245;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class LaunchScheduler {
+    private static final Logger logger = LoggerFactory.getLogger(LaunchScheduler.class);
+
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         Iterator<RocketLaunch> launchesIterator = launches.stream()
                 .sorted(Comparator.comparing(RocketLaunch::launchTime))
@@ -32,7 +37,7 @@ public class LaunchScheduler {
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.out.println("Planning interrupted");
+            logger.error("Planning interrupted", e);
         } finally {
             executor.shutdown();
             try {
