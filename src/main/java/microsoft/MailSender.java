@@ -1,14 +1,17 @@
 package microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
-        int totalEmails = 1000;
-        int threadsCount = 5;
-        int batchSize = totalEmails / threadsCount;
+    private static final int TOTAL_EMAILS = 1000;
+    private static final int THREADS_COUNT = 5;
 
-        Thread[] threads = new Thread[threadsCount];
+    public static void main(String[] args) {
+        int batchSize = TOTAL_EMAILS / THREADS_COUNT;
+        Thread[] threads = new Thread[THREADS_COUNT];
 
-        for (int i = 0; i < threadsCount; i++) {
+        for (int i = 0; i < THREADS_COUNT; i++) {
             int startIndex = i * batchSize;
             int endIndex = (i + 1) * batchSize;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex), "Поток-" + (i + 1));
@@ -16,9 +19,14 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Ошибка при ожидании завершения потока", e);
+                Thread.currentThread().interrupt();
+            }
         }
 
-        System.out.println("Все письма отправлены.");
+        log.info("Все письма отправлены.");
     }
 }

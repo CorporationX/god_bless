@@ -1,18 +1,18 @@
 package microsoft;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
 
-    public SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
-
     @Override
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
-            System.out.printf("Письмо %d отправлено потоком %s%n", i, Thread.currentThread().getName());
+            log.info("Письмо {} отправлено потоком {}", i, Thread.currentThread().getName());
         }
     }
 }

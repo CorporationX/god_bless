@@ -1,0 +1,15 @@
+<configuration>
+
+    <!-- Конфигурация консольного логирования -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Уровень логирования и добавление аппендера -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
