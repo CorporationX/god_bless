@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class WeasleyFamily {
     private static final List<String> CHORES = List.of("помыть посуду", "подмести пол", "приготовить ужин");
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(3);
+    private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
         CHORES.forEach(chore -> EXECUTOR.submit(new Chore(chore)));
