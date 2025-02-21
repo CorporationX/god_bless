@@ -1,4 +1,4 @@
-package school.faang.lotr;
+package school.faang.second_sprint.googlemaps.lotr;
 
 import lombok.NonNull;
 

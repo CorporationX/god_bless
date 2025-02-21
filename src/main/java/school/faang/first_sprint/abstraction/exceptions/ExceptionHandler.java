@@ -1,4 +1,4 @@
-package school.faang.exceptions;
+package school.faang.first_sprint.abstraction.exceptions;
 
 import java.util.function.Supplier;
 

@@ -1,4 +1,4 @@
-package school.faang.validation;
+package school.faang.first_sprint.abstraction.validation;
 
 import java.util.Set;
 

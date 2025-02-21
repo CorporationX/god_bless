@@ -1,4 +1,4 @@
-package school.faang.razvernites;
+package school.faang.first_sprint.abstraction.razvernites;
 
 public class Example {
     public static int[] reverse(int[] nums) {

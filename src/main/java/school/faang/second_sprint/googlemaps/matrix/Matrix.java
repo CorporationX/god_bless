@@ -1,4 +1,4 @@
-package school.faang.matrix;
+package school.faang.second_sprint.googlemaps.matrix;
 
 import lombok.NonNull;
 

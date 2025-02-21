@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.first_sprint.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
