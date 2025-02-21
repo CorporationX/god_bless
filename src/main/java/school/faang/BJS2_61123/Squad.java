@@ -8,9 +8,9 @@ import java.util.List;
 public class Squad {
 
     private String typeName;
-    private List<Fighter> listFighters;
+    private List<Fighter> fighters;
 
     public int calculateSquadPower() {
-        return listFighters.stream().mapToInt(Fighter::getPower).sum();
+        return fighters.stream().mapToInt(Fighter::getPower).sum();
     }
 }

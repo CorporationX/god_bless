@@ -5,28 +5,25 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
-    private final List<Squad> listSquads;
+    private final List<Squad> squads;
 
     public Army() {
-        this.listSquads = new ArrayList<>();
+        this.squads = new ArrayList<>();
     }
 
     public void addSquad(Squad squad) {
-        listSquads.add(squad);
+        squads.add(squad);
     }
 
     public int calculateTotalPower() {
         AtomicInteger result = new AtomicInteger(0);
-        Object lock = new Object();
-        Thread[] threads = new Thread[listSquads.size()];
+        Thread[] threads = new Thread[squads.size()];
 
         for (int i = 0; i < threads.length; i++) {
-            final Squad squad = listSquads.get(i);
+            final Squad squad = squads.get(i);
             threads[i] = new Thread(() -> {
                 int squadPower = squad.calculateSquadPower();
-                synchronized (lock) {
-                    result.addAndGet(squadPower);
-                }
+                result.addAndGet(squadPower);
             });
             threads[i].start();
         }
@@ -37,6 +34,7 @@ public class Army {
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.err.println("Thread was interrupted: " + ex.getMessage());
+                throw new RuntimeException("Thread join was interrupted", ex);
             }
         }
 
