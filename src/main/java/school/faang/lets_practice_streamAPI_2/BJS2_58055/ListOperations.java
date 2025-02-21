@@ -7,21 +7,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ListOperations {
 
     public static Set<NumberPair> findPairsWithSum(@NonNull Set<Integer> numbers, int sum) {
         Set<NumberPair> numberPairs = new HashSet<>();
+        Set<Integer> seenNumbers = new HashSet<>();
+
         numbers.forEach(num -> {
-            numbers.stream()
-                    .filter(integer -> integer + num == sum)
-                    .filter(integer -> !integer.equals(num))
-                    .findFirst()
-                    .ifPresent(pair -> {
-                        numberPairs.add(new NumberPair(pair, num));
-                    });
+            int complement = sum - num;
+            if (seenNumbers.contains(complement)) {
+                numberPairs.add(new NumberPair(complement, num));
+            }
+            seenNumbers.add(num);
         });
+
         return numberPairs;
     }
 
@@ -37,27 +37,16 @@ public class ListOperations {
     }
 
     public static List<String> convertingNumbersToBinary(@NonNull List<Integer> numbers) {
-        return numbers.stream().map(Integer::toBinaryString).collect(Collectors.toList());
+        return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
     public static List<String> filteringStringsAlphabeticallyAndSortingByLength(
             @NonNull List<String> words, @NonNull String alphabet) {
 
-        Set<String> letters = stringToSetConversion(alphabet);
-
         return words.stream()
-                .filter(word -> {
-                    Set<String> wordLetters = stringToSetConversion(word);
-                    return letters.containsAll(wordLetters);
-                })
+                .filter(word -> word.chars()
+                        .allMatch(ch -> alphabet.indexOf(ch) >= 0))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
-    }
-
-    private static Set<String> stringToSetConversion(String string) {
-        return string
-                .chars()
-                .mapToObj(c -> String.valueOf((char) c))
-                .collect(Collectors.toSet());
     }
 }
