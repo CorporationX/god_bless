@@ -23,7 +23,7 @@ public class House {
         assignedRoles = new HashMap<>();
     }
 
-    public synchronized Boolean assignRole(@NonNull User user, @NonNull Role role) throws InterruptedException {
+    public synchronized boolean assignRole(@NonNull User user, @NonNull Role role) throws InterruptedException {
         if (!checkRoles(role)) {
             return false;
         }
