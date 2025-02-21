@@ -20,6 +20,7 @@ public class GooglePhotosAutoUploader {
                     } catch (InterruptedException e) {
                         log.error("Interrupted while waiting for photos to upload");
                         Thread.currentThread().interrupt();
+                        break;
                     }
                 }
                 uploadPhotos();
