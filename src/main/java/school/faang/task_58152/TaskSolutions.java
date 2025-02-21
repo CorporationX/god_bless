@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TaskSolutions {
@@ -21,12 +21,8 @@ public class TaskSolutions {
     public static List<String> getSortedCapitals(@NonNull Map<String, String> countries) {
         return countries.entrySet()
                 .stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (v1, v2) -> v1,
-                        TreeMap::new
-                )).values().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
@@ -44,8 +40,9 @@ public class TaskSolutions {
     }
 
     public List<String> filterAndSortByLength(@NonNull List<String> strings, String alphabet) {
+        Pattern pattern = Pattern.compile("[" + alphabet + "]+");
         return strings.stream()
-                .filter(s -> s.matches("[" + alphabet + "]+"))
+                .filter(s -> pattern.matcher(s).matches())
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
