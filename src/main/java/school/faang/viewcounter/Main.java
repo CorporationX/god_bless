@@ -1,7 +1,6 @@
 package school.faang.viewcounter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -9,12 +8,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
 
     private static final int NUM_THREADS = 5;
     private static final int NUM_VIDEOS = 10;
     private static final int AWAIT_TERMINATION = 5;
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
 
@@ -32,17 +31,17 @@ public class Main {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(AWAIT_TERMINATION, TimeUnit.SECONDS)) {
-                LOGGER.warn("Потоки не завешились за {} секунд. Завершаю принудительно...", AWAIT_TERMINATION);
+                log.warn("Потоки не завешились за {} секунд. Завершаю принудительно...", AWAIT_TERMINATION);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            LOGGER.error("Поток прерван во время завершения работы ", e);
+            log.error("Поток прерван во время завершения работы ", e);
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
 
         Arrays.stream(videoIds)
                 .forEach(videoId ->
-                        LOGGER.info("Видео {} набрало {} просмотров", videoId, videoManager.getViewCount(videoId)));
+                        log.info("Видео {} набрало {} просмотров", videoId, videoManager.getViewCount(videoId)));
     }
 }
