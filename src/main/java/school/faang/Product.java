@@ -1,4 +1,4 @@
-package school.faang.amazon_warehouse;
+package school.faang;
 
 import java.util.Objects;
 
