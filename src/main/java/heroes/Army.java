@@ -1,8 +1,14 @@
 package heroes;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Army {
     private final List<Squad> squads = new ArrayList<>();
     private int totalPower = 0;
@@ -16,20 +22,27 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        List<Thread> threads = new ArrayList<>();
+        ExecutorService executorService = Executors.newFixedThreadPool(squads.size());
 
         for (Squad squad : squads) {
-            Thread thread = new Thread(() -> {
-                int squadPower = squad.calculateSquadPower();
-                addPower(squadPower);
+            executorService.submit(() -> {
+                try {
+                    int squadPower = squad.calculateSquadPower();
+                    addPower(squadPower);
+                } catch (Exception e) {
+                    log.error("Error calculating power for squad: {}", squad, e);
+                    throw new RuntimeException("Failed to calculate squad power for squad: " + squad, e);
+                }
             });
-
-            threads.add(thread);
-            thread.start();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        executorService.shutdown();
+
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            log.error("Waiting for threads to finish was interrupted", e);
+            Thread.currentThread().interrupt();
         }
 
         return totalPower;
