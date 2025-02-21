@@ -4,32 +4,26 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    private static Object scoreLock = new Object();
-    private static Object livesLock = new Object();
+    private static final Object scoreLock = new Object();
+    private static final Object livesLock = new Object();
     private int score = 0;
     private int lives = 100;
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
         if (isPointsEarned) {
-            scoreLock.lock();
-            try {
+            synchronized (scoreLock) {
                 score++;
                 log.info("Очки увеличены, текущий счёт: {}", score);
-            } finally {
-                scoreLock.unlock();
             }
         }
 
         if (isLifeLost) {
-            livesLock.lock();
-            try {
+            synchronized (livesLock) {
                 lives--;
                 log.info("Жизни уменьшены, оставшиеся жизни: {}", lives);
                 if (lives <= 0) {
                     gameOver();
                 }
-            } finally {
-                livesLock.unlock();
             }
         }
     }
