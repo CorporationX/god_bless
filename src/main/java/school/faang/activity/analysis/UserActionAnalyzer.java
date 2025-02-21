@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final Pattern HASHTAG_PATTERN = Pattern.compile("#\\w+");
+
     public static List<String> topActiveUser(List<UserAction> actions, int topN) {
         Map<String, Long> usersToActionsCount = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
@@ -19,11 +21,10 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int topN) {
-        Pattern hashtagPattern = Pattern.compile("#\\w+");
         return actions.stream()
                 .filter(action -> action.getContent() != null && (action.getActionType() == ActionType.POST
                         || action.getActionType() == ActionType.COMMENT))
-                .flatMap(action -> hashtagPattern.matcher(action.getContent())
+                .flatMap(action -> HASHTAG_PATTERN.matcher(action.getContent())
                         .results().map(matchResult -> matchResult.group()))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
