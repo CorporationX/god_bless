@@ -1,8 +1,6 @@
 package BJS260779;
 
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
