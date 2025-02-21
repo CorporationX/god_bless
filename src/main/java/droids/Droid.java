@@ -6,37 +6,29 @@ import java.util.Objects;
 
 @AllArgsConstructor
 public class Droid {
+    private static final int ALPHABET_LENGTH = 26;
     private final String name;
 
-    public String encryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
-            StringBuilder result = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    result.append((char) ((c - base + key + 26) % 26 + base));
-                } else {
-                    result.append(c);
-                }
+    private String processMessage(String message, int key) {
+        StringBuilder result = new StringBuilder();
+        for (char c : message.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isUpperCase(c) ? 'A' : 'a';
+                result.append((char) ((c - base + key + ALPHABET_LENGTH) % ALPHABET_LENGTH + base));
+            } else {
+                result.append(c);
             }
-            return result.toString();
-        };
+        }
+        return result.toString();
+    }
+
+    public String encryptMessage(String message, int encryptionKey) {
+        DroidMessageEncryptor encryptor = (msg, key) -> processMessage(msg, key);
         return encryptor.encrypt(message, encryptionKey);
     }
 
     public String decryptMessage(String message, int decryptionKey) {
-        DroidMessageEncryptor decryptor = (msg, key) -> {
-            StringBuilder result = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    result.append((char) ((c - base - key + 26) % 26 + base));
-                } else {
-                    result.append(c);
-                }
-            }
-            return result.toString();
-        };
+        DroidMessageEncryptor decryptor = (msg, key) -> processMessage(msg, -key);
         return decryptor.encrypt(message, decryptionKey);
     }
 
