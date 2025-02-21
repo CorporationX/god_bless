@@ -12,7 +12,7 @@ public class SquadPowerCalculator extends Thread {
         int squadPower = squad.calculateSquadPower();
         army.addPower(squadPower);
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(50);
         sb.append(squad.getName())
                 .append(" power: ")
                 .append(squadPower);
