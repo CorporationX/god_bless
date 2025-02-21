@@ -3,6 +3,9 @@ package school.faang.armyOfHeroes;
 import java.util.Random;
 
 public class Main {
+    private static final int MIN_POWER = 25;
+    private static final int MAX_DIFF_POWER = 31;
+
     public static void main(String[] args) {
         Squad archers = new Squad("Archers");
         Squad swordsmen = new Squad("Swordsmen");
@@ -11,9 +14,9 @@ public class Main {
         Random random = new Random();
 
         for (int i = 1; i <= 100; i++) {
-            archers.addHero(new Archer(25 + random.nextInt(31)));
-            swordsmen.addHero(new Swordsman(25 + random.nextInt(31)));
-            mages.addHero(new Mage(25 + random.nextInt(31)));
+            archers.addHero(new Archer(MIN_POWER + random.nextInt(MAX_DIFF_POWER)));
+            swordsmen.addHero(new Swordsman(MIN_POWER + random.nextInt(MAX_DIFF_POWER)));
+            mages.addHero(new Mage(MIN_POWER + random.nextInt(MAX_DIFF_POWER)));
         }
 
         army.addSquad(archers);
@@ -23,7 +26,7 @@ public class Main {
         try {
             int totalPowerArmy = army.calculateTotalPower();
             System.out.println("Total power army: " + totalPowerArmy);
-        } catch (Exception  e) {
+        } catch (InterruptedException  e) {
             e.printStackTrace();
         }
 
