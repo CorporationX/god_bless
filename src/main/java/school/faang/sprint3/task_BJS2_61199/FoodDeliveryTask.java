@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
     private static final int MIN_SECOND = 1;
-    private static final int MAX_SECOND = 5;
+    public static final int MAX_SECOND = 5;
 
     private final Random random;
     private final String character;
@@ -21,20 +21,21 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         System.out.printf("%s получает %d %s\n", character, foodAmount, foodType);
-        sleepRandomSeconds(MIN_SECOND, MAX_SECOND);
+        sleepRandomSeconds();
         System.out.printf("%s ест %d %s\n", character, foodAmount, foodType);
     }
 
-    private void sleepRandomSeconds(int start, int end) {
+    private void sleepRandomSeconds() {
         try {
-            Thread.sleep(random.nextInt(start, end + 1) * 1000L);
+            Thread.sleep(random.nextInt(MIN_SECOND, MAX_SECOND + 1) * 1000L);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
 
     private FoodType getFoodType() {
-        FoodType[] foodFoodTypes = FoodType.values();
-        return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
+        FoodType[] foodTypes = FoodType.values();
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 }
