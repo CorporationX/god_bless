@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Character {
+public class Warrior {
     private final int power;
 
 }

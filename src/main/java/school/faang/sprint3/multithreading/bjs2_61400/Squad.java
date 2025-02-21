@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Squad<T extends Character> implements Runnable {
+public class Squad<T extends Warrior> implements Runnable {
     private final List<T> warriors;
     private int totalSquadPower;
 
@@ -23,7 +23,7 @@ public class Squad<T extends Character> implements Runnable {
     }
 
     public int calculateSquadPower() {
-        return warriors.stream().mapToInt(Character::getPower).sum();
+        return warriors.stream().mapToInt(Warrior::getPower).sum();
     }
 
     public void add(T warrior) {

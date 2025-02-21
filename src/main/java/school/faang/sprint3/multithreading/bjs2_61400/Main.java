@@ -7,6 +7,7 @@ import java.util.List;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
+
         Squad<Archer> archerSquad = new Squad<>();
         archerSquad.add(new Archer(15));
         archerSquad.add(new Archer(20));
