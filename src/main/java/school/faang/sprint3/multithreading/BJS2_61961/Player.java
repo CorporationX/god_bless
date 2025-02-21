@@ -1,7 +1,7 @@
 package school.faang.sprint3.multithreading.BJS2_61961;
 
 public class Player {
-    private Object lock = new Object();
+    private final Object lock = new Object();
     private boolean isPlaying = false;
 
     public void play() {
