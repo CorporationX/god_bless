@@ -11,8 +11,8 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            do {
+        while (true) {
+            synchronized (lock) {
                 while (photosToUpload.isEmpty()) {
                     try {
                         lock.wait();
@@ -22,7 +22,7 @@ public class GooglePhotosAutoUploader {
                     }
                 }
                 uploadPhotos();
-            } while (System.currentTimeMillis() < 100_000);
+            }
         }
     }
 
