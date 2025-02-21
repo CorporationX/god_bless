@@ -17,12 +17,12 @@ public class GooglePhotosAutoUploader {
             while (photosToUpload.isEmpty()) {
                 try {
                     log.info("Новых фотографий нет, ожидаем...");
-                    photosToUpload.wait();
-                    uploadPhotos();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            uploadPhotos();
         }
     }
 
@@ -35,7 +35,7 @@ public class GooglePhotosAutoUploader {
             }
             photosToUpload.add(photoPath);
             log.info("Фотографии добавлены в библиотеку и готовы для загрузки на сервер");
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 
