@@ -19,7 +19,7 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)){
+            if (!executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)){
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
