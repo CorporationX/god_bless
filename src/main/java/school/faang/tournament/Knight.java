@@ -17,8 +17,6 @@ public class Knight {
     }
 
     public void startTrials(ExecutorService executor) {
-        for (Trial trial : trials) {
-            executor.submit(trial);
-        }
+        trials.forEach(executor::submit);
     }
 }

@@ -33,7 +33,7 @@ public class King {
                 log.info("The trials finished successfully");
             }
         } catch (InterruptedException e) {
-            log.warn("The thread was interrupted");
+            log.error("The thread was interrupted", e);
             executor.shutdownNow();
         }
     }
