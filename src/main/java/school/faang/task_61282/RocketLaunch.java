@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class RocketLaunch {
+    private static final int SLEEP_TIMEOUT = 1000;
     private final String name;
     private final LocalDateTime launchTime;
 
@@ -16,7 +17,7 @@ public class RocketLaunch {
 
     public void launch() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIMEOUT);
             System.out.println(name + " was launched");
         } catch (InterruptedException e) {
             System.out.println("Launch was interrupted");
