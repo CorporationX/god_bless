@@ -26,7 +26,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Interrupting the flow when calculating the strength of the squad", e);
             }
         }
 
