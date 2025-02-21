@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.double_cache_system;
 
 import java.util.ArrayList;
 import java.util.Arrays;
