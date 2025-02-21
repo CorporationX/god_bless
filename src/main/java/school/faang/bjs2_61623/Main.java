@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) {
-        final int NUM_THREADS = 10;
-        final int NUM_VIDEOS = 5;
+    private static final int NUM_THREADS = 10;
+    private static final int NUM_VIDEOS = 5;
 
+    public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
