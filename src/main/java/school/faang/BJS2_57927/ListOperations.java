@@ -1,5 +1,7 @@
 package school.faang.BJS2_57927;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,7 +12,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ListOperations {
-    public static Map<String, String> findPeopleWithMutualFriends(Map<String, List<String>> friendshipData) {
+    public static Map<String, String> findPeopleWithMutualFriends(
+            @NonNull Map<String, @NonNull List<String>> friendshipData) {
+        if (friendshipData.isEmpty()) {
+            throw new IllegalArgumentException("No friends found");
+        }
         List<String> allPersons = new ArrayList<>(friendshipData.keySet());
         return IntStream.range(0, allPersons.size())
                 .boxed()
@@ -28,7 +34,10 @@ public class ListOperations {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public static Map<String, Double> findAverageSalaryForEachDepartment(List<Employee> employees) {
+    public static Map<String, Double> findAverageSalaryForEachDepartment(@NonNull List<Employee> employees) {
+        if (employees.isEmpty()) {
+            throw new IllegalArgumentException("No employee found");
+        }
         Map<String, List<Employee>> groupByDepartment = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
         return groupByDepartment.entrySet().stream()
@@ -55,7 +64,7 @@ public class ListOperations {
                 .toList();
     }
 
-    public static List<String> findPalindromeSubstrings(String str) {
+    public static List<String> findPalindromeSubstrings(@NonNull String str) {
         Set<String> palindromes = new HashSet<>();
         IntStream.range(0, str.length())
                 .forEach(start ->
