@@ -6,13 +6,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions, int count) {
+        validateList(actions);
+        validateCount(count);
         Map<String, List<UserAction>> groupByUsers = actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getName));
+                .collect(Collectors.groupingBy(UserAction::name));
         return groupByUsers.entrySet().stream()
                 .sorted(Comparator.comparingInt(entry -> -entry.getValue().size()))
                 .limit(count)
@@ -21,8 +24,10 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int count) {
+        validateList(actions);
+        validateCount(count);
         List<String> hashtags = actions.stream()
-                .map(UserAction::getContent)
+                .map(UserAction::content)
                 .filter(content -> content.contains("#"))
                 .map(content -> {
                     int startIndex = content.indexOf('#');
@@ -40,10 +45,12 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int count) {
+        validateList(actions);
+        validateCount(count);
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
-        Map<String, List<UserAction>> groupingUsers = actions.stream().filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
-                .filter(userAction -> (userAction.getActionDate().isAfter(oneMonthAgo)))
-                .collect(Collectors.groupingBy(UserAction::getName));
+        Map<String, List<UserAction>> groupingUsers = actions.stream().filter(userAction -> userAction.actionType().equals(ActionType.COMMENT))
+                .filter(userAction -> (userAction.actionDate().isAfter(oneMonthAgo)))
+                .collect(Collectors.groupingBy(UserAction::name));
 
         return groupingUsers.entrySet().stream()
                 .sorted(Comparator.comparingInt(entry -> -entry.getValue().size()))
@@ -53,13 +60,24 @@ public class UserActionAnalyzer {
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        validateList(actions);
         int sizeActions = actions.size();
 
         Map<ActionType, List<UserAction>> groupingActionType = actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getActionType));
+                .collect(Collectors.groupingBy(UserAction::actionType));
 
         return groupingActionType.entrySet().stream()
                 .collect(Collectors.toMap(entry -> entry.getKey().toString(),
                         entry -> (entry.getValue().size() * 100.0) / sizeActions));
+    }
+
+    private static <T> void validateList(List<T> list) {
+        Objects.requireNonNull(list, "Список не может быть null");
+    }
+
+    private static void validateCount(int count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException("Значение должно быть больше нуля");
+        }
     }
 }
