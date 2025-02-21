@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.task_58525;
 
 public class Archer extends Character {
     public Archer(String name) {
