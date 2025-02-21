@@ -40,15 +40,26 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int count) {
-        LocalDate date = LocalDate.of(2024, 10, 1);
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         Map<String, List<UserAction>> groupingUsers = actions.stream().filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
-                //.filter(userAction -> (userAction.getActionDate().getMonth())
+                .filter(userAction -> (userAction.getActionDate().isAfter(oneMonthAgo)))
                 .collect(Collectors.groupingBy(UserAction::getName));
-        //List<String> topUsersCommentators =
+
         return groupingUsers.entrySet().stream()
                 .sorted(Comparator.comparingInt(entry -> -entry.getValue().size()))
                 .limit(count)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
+
+    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        int sizeActions = actions.size();
+
+        Map<ActionType, List<UserAction>> groupingActionType = actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType));
+
+        return groupingActionType.entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().toString(),
+                        entry -> (entry.getValue().size() * 100.0) / sizeActions));
     }
 }
