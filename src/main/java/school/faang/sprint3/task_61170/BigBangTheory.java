@@ -1,4 +1,4 @@
-package school.faang.task_61170;
+package school.faang.sprint3.task_61170;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

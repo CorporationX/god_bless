@@ -1,4 +1,4 @@
-package school.faang.task_61141;
+package school.faang.sprint3.task_61141;
 
 public enum FoodType {
     PIZZA,

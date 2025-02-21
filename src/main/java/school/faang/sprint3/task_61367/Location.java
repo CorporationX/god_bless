@@ -1,4 +1,4 @@
-package school.faang.task_61367;
+package school.faang.sprint3.task_61367;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

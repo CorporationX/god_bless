@@ -1,4 +1,4 @@
-package school.faang.task_61101;
+package school.faang.sprint3.task_61101;
 
 public class Archer extends Unit {
     public Archer(int power) {
