@@ -15,7 +15,7 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
-    public void update(Boolean point, Boolean life) {
+    public void update(boolean point, boolean life) {
         if (point) {
             synchronized (scoreLock) {
                 score++;
