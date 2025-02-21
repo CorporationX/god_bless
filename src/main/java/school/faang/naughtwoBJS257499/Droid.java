@@ -1,7 +1,6 @@
 package school.faang.naughtwoBJS257499;
 
 import lombok.Getter;
-
 import java.util.function.BiFunction;
 
 
