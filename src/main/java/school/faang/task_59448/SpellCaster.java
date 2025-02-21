@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.task_59448;
 
 public class SpellCaster {
 
