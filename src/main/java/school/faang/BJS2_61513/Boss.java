@@ -13,8 +13,8 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) throws InterruptedException {
         while (currentPlayers == maxPlayers) {
-            this.wait();
             log.info("{} ожидает сражения ", player.name());
+            this.wait();
         }
         currentPlayers++;
     }
@@ -25,7 +25,7 @@ public class Boss {
             log.info("{} покинул сражение.", player.name());
             this.notifyAll();
         } else {
-            System.out.println("Ошибка: Нет игроков для выхода из сражения.");
+            log.warn("Ошибка: Нет игроков для выхода из сражения.");
         }
     }
 }
