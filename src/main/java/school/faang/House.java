@@ -3,29 +3,36 @@ package school.faang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class House {
     private static final Logger logger = LoggerFactory.getLogger(House.class);
-    private final List<String> roles = new ArrayList<>();
+    private final List<String> roles;
+    private final Object lock = new Object();
 
-    public synchronized String assignRole() {
-        while(roles.isEmpty()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                logger.error("Wait was interrupted.");
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
-            }
-        }
-        return roles.remove(0);
+    public House(List<String> roles) {
+        this.roles = roles;
     }
 
-    public synchronized void addRole(String role) {
-        roles.add(role);
-        logger.info("{} added.", role);
-        notifyAll();
+    public String assignRole() {
+        synchronized (lock) {
+            while (roles.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    logger.error("Wait was interrupted.");
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
+            }
+            return roles.remove(roles.size() - 1);
+        }
+    }
+
+    public void releaseRole(String role) {
+        synchronized (lock) {
+            roles.add(role);
+            lock.notify();
+        }
     }
 }
