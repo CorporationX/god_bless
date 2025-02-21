@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     private static final int THREAD_NUM = 5;
-    private static final int TIME_IN_THE_HOUSE = 2000;
+    private static final int TIME_IN_THE_HOUSE_MS = 2000;
     private static final int AWAIT_TERMINATION = 5;
 
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Main {
         Arrays.stream(users).forEach(user -> executor.submit(() -> {
             user.joinHouse(house);
             try {
-                Thread.sleep(TIME_IN_THE_HOUSE);
+                Thread.sleep(TIME_IN_THE_HOUSE_MS);
             } catch (InterruptedException e) {
                 log.error("Поток прерван во время сна ", e);
                 Thread.currentThread().interrupt();

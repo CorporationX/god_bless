@@ -9,9 +9,9 @@ import java.util.List;
 @Slf4j
 public class House {
 
-    private final List<String> roles = new ArrayList<>(List.of("Knight", "Mage", "Lord"));
+    private final List<RoleType> roles = new ArrayList<>(List.of(RoleType.KNIGHT, RoleType.MAGE, RoleType.LORD));
 
-    public synchronized String assignRole() {
+    public synchronized RoleType assignRole() {
         while (roles.isEmpty()) {
             try {
                 wait();
@@ -23,7 +23,7 @@ public class House {
         return roles.remove(0);
     }
 
-    public synchronized void releaseRole(@NonNull String role) {
+    public synchronized void releaseRole(@NonNull RoleType role) {
         roles.add(role);
         notifyAll();
         log.info("Роль {} возвращена в лист доступных ролей", role);

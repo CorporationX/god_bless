@@ -8,11 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 public class User {
 
     private final String name;
-    private String assignedRole;
+    private RoleType assignedRole;
 
     public User(String name) {
         this.name = name;
-        this.assignedRole = "";
+        this.assignedRole = null;
     }
 
     public void joinHouse(House house) {
@@ -23,6 +23,6 @@ public class User {
     public void leaveHouse(House house) {
         log.info("{} освобожден от роли {}", name, assignedRole);
         house.releaseRole(assignedRole);
-        assignedRole = "";
+        assignedRole = null;
     }
 }
