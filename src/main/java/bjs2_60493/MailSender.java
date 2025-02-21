@@ -1,12 +1,14 @@
 package bjs2_60493;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class MailSender {
     static final int CHUNK_COUNT = 5;
     static final int CHUNK_SIZE = 200;
-    
+
+    private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
+
     public static void main(String[] args) {
         Thread[] threads = new Thread[CHUNK_COUNT];
 
@@ -25,10 +27,10 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println("Ожидание завершения потока завершилось ошибкой: " + e.getMessage());
+                logger.error("Ожидание завершения потока завершилось ошибкой: {}", e.getMessage());
             }
         }
 
-        System.out.println("Все письма отправлены");
+        logger.debug("Все письма отправлены");
     }
 }
