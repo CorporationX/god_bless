@@ -1,12 +1,15 @@
 package school.faang.naughtwoBJS257499;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
+import java.util.function.BiFunction;
+
+
 @Getter
 public class Droid {
     private final String name;
+
+    private static final int LENGTH_OF_ALPHABET = 26;
 
     public Droid(String name) {
         checkName(name);
@@ -27,35 +30,27 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (droidMessage, droidKey) -> {
-            StringBuilder processedMessage = new StringBuilder();
-            for (char symbol : droidMessage.toCharArray()) {
-                if (Character.isLetter(symbol)) {
-                    char base = Character.isLowerCase(symbol) ? 'a' : 'A';
-                    processedMessage.append((char) ((symbol - base + droidKey) % 26 + base));
-                } else {
-                    processedMessage.append(symbol);
-                }
-            }
-            return processedMessage.toString();
-        };
-        return encryptor.encrypt(message, key);
+        return processingMessage(message, (symbol, base) ->
+                (char) ((symbol - base + key) % LENGTH_OF_ALPHABET + base));
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (droidMessage, droidKey) -> {
-            StringBuilder processedMessage = new StringBuilder();
-            for (char symbol : droidMessage.toCharArray()) {
-                if (Character.isLetter(symbol)) {
-                    char base = Character.isLowerCase(symbol) ? 'a' : 'A';
-                    processedMessage.append((char) ((symbol - base - droidKey + 26) % 26 + base));
-                } else {
-                    processedMessage.append(symbol);
-                }
+        return processingMessage(message, (symbol, base) ->
+                (char) ((symbol - base - key + LENGTH_OF_ALPHABET) % LENGTH_OF_ALPHABET + base));
+    }
+
+    private String processingMessage(String message,
+                                     BiFunction<Character, Character, Character> processingRule) {
+        StringBuilder processedMessage = new StringBuilder();
+        for (char symbol : message.toCharArray()) {
+            if (Character.isLetter(symbol)) {
+                char base = Character.isLowerCase(symbol) ? 'a' : 'A';
+                processedMessage.append(processingRule.apply(symbol, base));
+            } else {
+                processedMessage.append(symbol);
             }
-            return processedMessage.toString();
-        };
-        return decryptor.encrypt(message, key);
+        }
+        return processedMessage.toString();
     }
 
     private void checkName(String name) {
