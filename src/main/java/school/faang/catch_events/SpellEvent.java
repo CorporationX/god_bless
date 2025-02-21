@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.catch_events;
 
 public class SpellEvent {
     private int id;
