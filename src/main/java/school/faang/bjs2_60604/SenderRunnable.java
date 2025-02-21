@@ -1,13 +1,18 @@
 package school.faang.bjs2_60604;
 
-public class SenderRunnable  implements Runnable{
+import lombok.AllArgsConstructor;
+
+import java.util.stream.IntStream;
+
+@AllArgsConstructor
+public class SenderRunnable  implements Runnable {
     private int startIndex;
     private int endIndex;
 
     @Override
     public void run() {
-        for (int i = startIndex; i <endIndex; i++){
-            System.out.println("Письмо отправлено");
-        }
+        IntStream.range(startIndex, endIndex)
+                .mapToObj(i -> "Письмо отправлено")
+                .forEach(System.out::println);
     }
 }
