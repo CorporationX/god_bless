@@ -18,23 +18,16 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (battle) {
-            if (getCurrentPlayers() == getMaxPlayers()) {
+            while (getCurrentPlayers() == getMaxPlayers()) {
                 log.info("Игрок {} не может войти в сражение, так как не осталось мест!", player.getName());
                 try {
                     battle.wait();
-                    log.info("Осталось {} место", getMaxPlayers() - getBattle().size());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                addPlayerBattle(player);
-            } else {
-                addPlayerBattle(player);
             }
+            log.info("Осталось {} место", getMaxPlayers() - getBattle().size());
+            addPlayerBattle(player);
         }
     }
 
@@ -51,11 +44,9 @@ public class Boss {
         }
     }
 
-    public void addPlayerBattle(Player player) {
-        if (getCurrentPlayers() < getMaxPlayers()) {
-            currentPlayers++;
-            battle.add(player);
-            log.info("Игрок с именем {} добавлен в сражение", player.getName());
-        }
+    private void addPlayerBattle(Player player) {
+        currentPlayers++;
+        battle.add(player);
+        log.info("Игрок с именем {} добавлен в сражение", player.getName());
     }
 }
