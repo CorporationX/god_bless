@@ -13,7 +13,7 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
@@ -28,8 +28,8 @@ public class GooglePhotosAutoUploader {
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
-            logger.info("{} has been uploaded to photos", photoPath);
             photosToUpload.add(photoPath);
+            logger.info("{} has been uploaded to photos", photoPath);
             lock.notify();
         }
     }
