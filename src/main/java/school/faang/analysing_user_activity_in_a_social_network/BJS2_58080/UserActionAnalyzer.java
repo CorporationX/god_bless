@@ -2,6 +2,7 @@ package school.faang.analysing_user_activity_in_a_social_network.BJS2_58080;
 
 import lombok.NonNull;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -48,6 +49,8 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> actions, int topSize) {
         return actions.stream()
                 .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
+                .filter(userAction -> userAction.getLocalDate()
+                        .isAfter(LocalDate.now().minusMonths(1)))
                 .collect(Collectors.toMap(
                         UserAction::getId,
                         userAction -> new Pair<>(1L, userAction.getName()),

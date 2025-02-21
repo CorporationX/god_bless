@@ -6,13 +6,13 @@ import java.time.LocalDate;
 
 @Data
 public class UserAction {
-    private final int id;
+    private final Long id;
     private final String name;
     private ActionType actionType;
     private LocalDate localDate;
     private String content;
 
-    public UserAction(int id, String name, ActionType actionType, LocalDate localDate, String content) {
+    public UserAction(Long id, String name, ActionType actionType, LocalDate localDate, String content) {
         this.id = id;
         this.name = name;
         this.actionType = actionType;
