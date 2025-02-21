@@ -48,8 +48,8 @@ public class UserActionAnalyzer {
         validateList(actions);
         validateCount(count);
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
-        Map<String, List<UserAction>> groupingUsers = actions.stream().
-                filter(userAction -> userAction.actionType().equals(ActionType.COMMENT))
+        Map<String, List<UserAction>> groupingUsers = actions.stream()
+                .filter(userAction -> userAction.actionType().equals(ActionType.COMMENT))
                 .filter(userAction -> (userAction.actionDate().isAfter(oneMonthAgo)))
                 .collect(Collectors.groupingBy(UserAction::name));
 
