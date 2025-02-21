@@ -10,18 +10,21 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (photosToUpload) {
-            log.info("Starting auto upload...");
-            if (photosToUpload.isEmpty()) {
-                log.info("No photos to upload");
-                try {
-                    photosToUpload.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        while (true) {
+            synchronized (photosToUpload) {
+                log.info("Starting auto upload...");
+                if (photosToUpload.isEmpty()) {
+                    log.info("No photos to upload");
+                    try {
+                        photosToUpload.wait();
+                    } catch (InterruptedException e) {
+                        log.error("Interrupted while waiting for photos to upload");
+                        Thread.currentThread().interrupt();
+                    }
                 }
+                uploadPhotos();
+                log.info("Auto upload complete.");
             }
-            uploadPhotos();
-            log.info("Auto upload complete.");
         }
     }
 
