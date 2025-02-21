@@ -9,6 +9,10 @@ import lombok.ToString;
 @ToString
 @Getter
 public class Droid {
+    private static final char LOWERCASE_A = 'a';
+    private static final char UPPERCASE_A = 'A';
+    private static final int ALPHABET_LENGTH = 26;
+
     private String name;
 
     public void sendMessage(@NonNull Droid droid, String message, int key) {
@@ -25,34 +29,23 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
-            }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(message, key);
+        return processMessage(message, key);
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decrypted = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
+        return processMessage(message, -key);
+    }
+
+    private String processMessage(String message, int key) {
+        StringBuilder result = new StringBuilder();
+        for (char ch : message.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                char base = Character.isLowerCase(ch) ? LOWERCASE_A : UPPERCASE_A;
+                result.append((char) ((ch - base + key + ALPHABET_LENGTH) % ALPHABET_LENGTH + base));
+            } else {
+                result.append(ch);
             }
-            return decryptedMessage.toString();
-        };
-        return decrypted.encrypt(message, key);
+        }
+        return result.toString();
     }
 }
