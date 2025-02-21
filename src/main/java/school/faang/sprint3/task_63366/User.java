@@ -16,7 +16,9 @@ public record User(String name, Role role) {
         try {
             Thread.sleep(TIME_ON_DUTY);
         } catch (InterruptedException e) {
+            log.error("Принудительно закрываем спящий поток", e);
             Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
         leaveHouse(house);
 

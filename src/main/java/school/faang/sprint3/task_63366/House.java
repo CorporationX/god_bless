@@ -26,7 +26,8 @@ public class House {
                 try {
                     locks.get(user.role()).wait();
                 } catch (InterruptedException e) {
-                    log.debug("Принудительно закрываем спящий поток", e);
+                    log.error("Принудительно закрываем спящий поток", e);
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
