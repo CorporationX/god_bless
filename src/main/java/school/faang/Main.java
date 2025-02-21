@@ -31,6 +31,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             System.out.println("awaitTermination was interrupted");
+            executorService.shutdownNow();
             throw new RuntimeException(e);
         }
     }
