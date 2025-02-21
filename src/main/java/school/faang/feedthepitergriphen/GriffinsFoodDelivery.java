@@ -1,11 +1,15 @@
 package school.faang.feedthepitergriphen;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class GriffinsFoodDelivery {
+    private static final Integer TERMINATION_TIMEOUT_SECONDS = 10;
 
     public static void main(String[] args) {
         int threadCount = 3;
@@ -18,15 +22,13 @@ public class GriffinsFoodDelivery {
         }
         executor.shutdown();
         try {
-            int second = 10;
-            if (!executor.awaitTermination(second, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            log.error(e.getMessage());
 
         }
-
-
     }
 }
