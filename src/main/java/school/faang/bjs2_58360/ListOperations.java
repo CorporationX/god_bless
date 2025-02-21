@@ -25,7 +25,7 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Список элементов пуст"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char character) {
@@ -53,9 +53,8 @@ public class ListOperations {
 
     public static int findMinGreaterThan(List<Integer> numbers, int number) {
         return numbers.stream()
-                .sorted(Comparator.naturalOrder())
                 .filter(num -> num > number)
-                .findFirst()
+                .min(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("В списке нет элементов больше числа: " + number));
     }
 
