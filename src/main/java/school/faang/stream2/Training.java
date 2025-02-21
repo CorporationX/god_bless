@@ -1,6 +1,5 @@
 package school.faang.stream2;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,11 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Training {
+    private static final String ALPHABET_REGEX = "[%s]+";
+
     public static Set<List<Integer>> findUniquePairsOfNumbers(Set<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(num -> num != sum - num && numbers.contains(sum - sum))
-                .map(num -> Arrays.asList(num, sum - num))
-                .peek(Collections::sort)
+                .filter(num -> num != sum - num && numbers.contains(sum - num))
+                .map(num -> List.of(num, sum - num))
+                .map(pair -> pair.stream().sorted().toList())
                 .collect(Collectors.toSet());
     }
 
@@ -38,7 +39,7 @@ public class Training {
     }
 
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
-        String regex = "[" + alphabet + "]+";
+        String regex = String.format(ALPHABET_REGEX, alphabet);
 
         return strings.stream()
                 .filter(s -> s.matches(regex))
