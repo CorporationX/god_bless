@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class LaunchScheduler {
+    private static final int WAIT_TERMINATION_TIMEOUT_SECONDS = 5;
+
     private static final Logger logger = LoggerFactory.getLogger(LaunchScheduler.class);
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
@@ -31,17 +33,18 @@ public class LaunchScheduler {
                     try {
                         rocket.launch();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        logger.error("Запуск ракеты {} прерван", rocket.name(), e);
+                        Thread.currentThread().interrupt();
                     }
                 });
             }
         } catch (InterruptedException e) {
+            logger.error("Запуск ракет прерван", e);
             Thread.currentThread().interrupt();
-            logger.error("Planning interrupted", e);
         } finally {
             executor.shutdown();
             try {
-                if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                if (!executor.awaitTermination(WAIT_TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                     executor.shutdownNow();
                 }
             } catch (InterruptedException e) {
