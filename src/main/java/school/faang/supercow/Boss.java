@@ -17,7 +17,7 @@ public class Boss {
     public void joinBattle(@NonNull Player player) {
         synchronized (lock) {
             try {
-                if (currentPlayers.size() >= maxPlayers) {
+                while (currentPlayers.size() >= maxPlayers) {
                     log.info("Игрок {} ожидает, так как слоты заняты",
                             player.getName());
                     lock.wait();
