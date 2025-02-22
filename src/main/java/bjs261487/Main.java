@@ -10,7 +10,7 @@ public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        Boss boss = new Boss();
+        Boss boss = new Boss(0);
         List<Player> players = List.of(new Player("First player"), new Player("Second player"),
                 new Player("Third player"), new Player("Fourth player"), new Player("Fifth player"),
                 new Player("Sixth player"), new Player("Seventh player"),

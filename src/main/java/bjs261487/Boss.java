@@ -13,8 +13,8 @@ import java.util.Map;
 public class Boss {
     private static final Logger LOGGER = LoggerFactory.getLogger(Boss.class);
     private final int maxPlayers = 6;
-    private static int currentPlayers = 0;
-    private static final Map<String, Player> NAME_TO_PLAYER = new HashMap<>();
+    private int currentPlayers;
+    private final Map<String, Player> nameToPlayer = new HashMap<>();
     private final Object lock = new Object();
 
     public void joinBattle(Player player) throws InterruptedException {
@@ -24,16 +24,16 @@ public class Boss {
                 lock.wait();
             }
             currentPlayers++;
-            NAME_TO_PLAYER.put(player.getName(), player);
-            LOGGER.info("Player {} has joined battle", NAME_TO_PLAYER.get(player.getName()));
+            nameToPlayer.put(player.getName(), player);
+            LOGGER.info("Player {} has joined battle", nameToPlayer.get(player.getName()));
         }
     }
 
     public void leaveBattle(Player player) {
         synchronized (lock) {
             currentPlayers--;
-            LOGGER.info("Player {} has left battle", NAME_TO_PLAYER.get(player.getName()));
-            NAME_TO_PLAYER.remove(player.getName());
+            LOGGER.info("Player {} has left battle", nameToPlayer.get(player.getName()));
+            nameToPlayer.remove(player.getName());
             lock.notify();
         }
     }
