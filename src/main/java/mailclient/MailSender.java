@@ -5,10 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailSender {
 
+    private static final int TOTAL_EMAILS = 1000;
+    private static final int THREADS_COUNT = 5;
+
     public static void main(String[] args) {
-        int totalEmails = 1000;
-        int threadsCount = 5;
-        sendEmails(totalEmails, threadsCount);
+        sendEmails(TOTAL_EMAILS, THREADS_COUNT);
     }
 
     public static void sendEmails(int totalEmails, int threadsCount) {
