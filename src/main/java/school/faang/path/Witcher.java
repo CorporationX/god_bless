@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     public static void main(String[] args) {
@@ -38,11 +39,20 @@ public class Witcher {
 
         int numThreads = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
-        long startTime = System.currentTimeMillis();
+        final long startTime = System.currentTimeMillis();
         for (CityWorker cityWorker : cityWorkers) {
             executorService.submit(cityWorker);
         }
         executorService.shutdown();
+        try {
+            if (executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("All paths are calculated");
+            } else {
+                System.out.println("Timeout expired");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("Total time taken: " + (endTime - startTime) + "ms");
     }
