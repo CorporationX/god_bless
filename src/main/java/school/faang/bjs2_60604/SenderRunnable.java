@@ -12,7 +12,7 @@ public class SenderRunnable  implements Runnable {
     @Override
     public void run() {
         IntStream.range(startIndex, endIndex)
-                .mapToObj(i -> "Письмо отправлено")
+                .mapToObj(i -> "Письмо %dd отправлено")
                 .forEach(System.out::println);
     }
 }
