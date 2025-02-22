@@ -10,16 +10,16 @@ public class MailSender {
 
     public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
-        int threadCount = 5, mailCount = 1000, sendCount = mailCount / threadCount;
-        int startIndex = 1;
-        int endIndex = sendCount;
+        int threadCount = 5;
+        int mailCount = 1000;
+        int sendCount = mailCount / threadCount;
+
         for (int i = 0; i < threadCount; i++) {
+            int startIndex = i * sendCount + 1;
+            int endIndex = (i == threadCount - 1) ? mailCount : (startIndex + sendCount - 1);
             Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
             threads.add(thread);
             thread.start();
-
-            startIndex += sendCount;
-            endIndex += sendCount;
         }
 
         for (Thread thread : threads) {
