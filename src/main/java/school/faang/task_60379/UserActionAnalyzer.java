@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions, int topN) {
+        Objects.requireNonNull(actions, "This object cant be null");
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName,
                         Collectors.counting()))
@@ -22,6 +23,7 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int topN) {
+        Objects.requireNonNull(actions, "This object cant be null");
         Pattern hashtagPattern = Pattern.compile("#\\w+");
 
         return actions.stream()
@@ -39,6 +41,7 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int topN) {
+        Objects.requireNonNull(actions, "This object cant be null");
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
                 .filter(action ->
