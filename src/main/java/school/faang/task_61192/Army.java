@@ -15,16 +15,21 @@ public class Army {
         squads.add(squad);
     }
 
-    public int calculateTotalPower() throws ExecutionException, InterruptedException {
+    public int calculateTotalPower(){
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<Integer>> futures = new ArrayList<>();
         for (Squad squad : squads) {
             Future<Integer> future = executor.submit(squad::calculateSquadPower);
             futures.add(future);
         }
+        executor.shutdown();
         int total = 0;
         for (Future<Integer> future : futures) {
-            total += future.get();
+            try {
+                total += future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException("Error calculating squad power: " + e.getMessage());
+            }
         }
         return total;
     }

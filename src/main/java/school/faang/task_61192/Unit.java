@@ -1,6 +1,9 @@
 package school.faang.task_61192;
 
-public class Unit {
+import lombok.Getter;
+
+@Getter
+public abstract class Unit {
 
     protected int power;
 
