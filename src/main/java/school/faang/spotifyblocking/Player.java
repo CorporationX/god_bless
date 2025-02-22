@@ -5,13 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
-    private boolean isPlay;
+    private boolean isPlaying;
     private final Object lock = new Object();
 
     public void play() {
         synchronized (lock) {
-            if (!isPlay) {
-                isPlay = true;
+            if (!isPlaying) {
+                isPlaying = true;
                 log.info("Музыка воспроизводится!");
             } else {
                 log.info("Музыка уже играет!");
@@ -20,11 +20,14 @@ public class Player {
     }
 
     public void pause() {
-        if (isPlay) {
-            isPlay = false;
-            log.info("Музыка остановлена");
-        } else {
-            log.info("Музыка уже на паузе");
+
+        synchronized (lock) {
+            if (isPlaying) {
+                isPlaying = false;
+                log.info("Музыка остановлена");
+            } else {
+                log.info("Музыка уже на паузе");
+            }
         }
     }
 
@@ -36,7 +39,7 @@ public class Player {
 
     public void previous() {
         synchronized (lock) {
-            log.info("Вернулись к передедущему треку");
+            log.info("Вернулись к передыдущему треку");
         }
     }
 }
