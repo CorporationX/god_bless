@@ -1,4 +1,4 @@
-package school.faang.task_56236;
+package school.faang.task_60588;
 
 import java.util.Comparator;
 import java.util.List;
