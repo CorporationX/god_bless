@@ -44,7 +44,7 @@ public class ListOperations {
 
     public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
-                .sorted(Comparator.comparingInt(String::length))
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
@@ -56,7 +56,7 @@ public class ListOperations {
     public static int findMinGreaterThan(@NonNull List<Integer> numbers, int threshold) {
         return numbers.stream()
                 .filter(x -> x > threshold)
-                .min(Integer::compareTo)
+                .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No elements greater than "
                         + threshold));
     }
