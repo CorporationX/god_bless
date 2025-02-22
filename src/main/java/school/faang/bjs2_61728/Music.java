@@ -1,27 +1,30 @@
 package school.faang.bjs2_61728;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
         List<Thread> threads = new ArrayList<>();
 
-        threads.add(new Thread(() -> player.play()));
-        threads.add(new Thread(() -> player.pause()));
+        threads.add(new Thread(player::play));
+        threads.add(new Thread(player::pause));
         threads.add(new Thread(() -> {
             try {
                 player.skip();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("Error skipping track", e);
             }
         }));
         threads.add(new Thread(() -> {
             try {
                 player.previous();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("Error going to previous track", e);
             }
         }));
 
@@ -32,9 +35,9 @@ public class Music {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("Thread interrupted", e);
             }
         }
-        System.out.println("All actions are completed.");
+        log.info("All actions are completed.");
     }
 }
