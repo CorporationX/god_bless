@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
-    private final static long TIMEOUT_MILLIS = 5000;
+    private static final long TIMEOUT_MILLIS = 5000;
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final List<Chore> chores;
 
