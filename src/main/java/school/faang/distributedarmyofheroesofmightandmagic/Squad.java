@@ -1,0 +1,22 @@
+package school.faang.distributedarmyofheroesofmightandmagic;
+
+import java.util.List;
+
+public class Squad {
+
+    private final String name;
+    private List<Unit> units;
+
+    public Squad(String name, List<Unit> units) {
+        this.name = name;
+        this.units = units;
+    }
+
+    public void addUnit(Unit unit) {
+        units.add(unit);
+    }
+
+    public int calculateSquadPower() {
+        return units.stream().mapToInt(Unit::getPower).sum();
+    }
+}
