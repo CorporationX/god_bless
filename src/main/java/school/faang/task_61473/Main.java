@@ -14,27 +14,33 @@ public class Main {
     private static final int THREAD_SLEEP_TIMEOUT = 2;
 
     public static void main(String[] args) {
+        House house = new House();
         List<User> users = List.of(
-                new User("Tirion", "lord"),
-                new User("Jon", "knight"),
-                new User("Mellisandra", "magician"),
-                new User("Dayneris", "lord"),
-                new User("Jorah", "knight")
+                new User("Tirion", "lord", house),
+                new User("Jon", "knight", house),
+                new User("Mellisandra", "magician", house),
+                new User("Dayneris", "lord", house),
+                new User("Jorah", "knight", house)
         );
 
-        ExecutorService pool = Executors.newFixedThreadPool(THREADS_COUNT);
-        users.forEach(user -> pool.submit(user::joinHouse));
+        ExecutorService poolJoin = Executors.newFixedThreadPool(THREADS_COUNT);
+        ExecutorService poolLeave = Executors.newFixedThreadPool(THREADS_COUNT);
+        users.forEach(user -> poolJoin.submit(user::joinHouse));
+        users.forEach(user -> poolJoin.submit(user::leaveHouse));
+        poolJoin.shutdown();
+        poolLeave.shutdown();
 
-        pool.shutdown();
         try {
-            if (!pool.awaitTermination(THREAD_SLEEP_TIMEOUT, TimeUnit.MINUTES)) {
-                pool.shutdown();
+            if (!poolJoin.awaitTermination(THREAD_SLEEP_TIMEOUT, TimeUnit.MINUTES)
+                    || !poolLeave.awaitTermination(THREAD_SLEEP_TIMEOUT, TimeUnit.MINUTES)) {
+                poolJoin.shutdownNow();
+                poolLeave.shutdownNow();
             }
         } catch (InterruptedException e) {
-            pool.shutdown();
-            LOG.info("Thread was interrupted while waiting");
+            LOG.error("Thread was interrupted");
+            poolJoin.shutdownNow();
+            poolLeave.shutdownNow();
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
     }
 }

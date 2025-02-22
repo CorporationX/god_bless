@@ -12,28 +12,26 @@ public class User {
     private final Random random = new Random();
     private final String name;
     private final String role;
+    private final House house;
 
-    public User(String name, String role) {
+    public User(String name, String role, House house) {
         this.name = name;
         this.role = role;
+        this.house = house;
     }
 
-    public void joinHouse() {
-        House house = new House();
+    public synchronized void joinHouse() {
         house.assignRole(getRole());
         LOG.info("{} got the role: {}", getName(), getRole());
         try {
-            Thread.sleep(random.nextInt(1000, 5000));
+            Thread.sleep(random.nextInt(5000, 7000));
         } catch (InterruptedException e) {
             LOG.error("Thread was interrupted");
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
-        house.releaseRole(getName(), getRole());
-        leaveHouse();
     }
 
-    public void leaveHouse() {
-        LOG.info("{} has left the house", getName());
+    public synchronized void leaveHouse() {
+        house.releaseRole(getName(), getRole());
     }
 }

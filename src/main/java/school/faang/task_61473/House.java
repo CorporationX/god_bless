@@ -3,12 +3,13 @@ package school.faang.task_61473;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class House {
     private static final Logger LOG = LoggerFactory.getLogger(House.class);
     private static final List<String> ROLES = List.of("lord", "knight", "magician");
-    private final List<String> rolesToChoose = List.of("lord", "knight", "magician");
+    private final List<String> rolesToChoose = new ArrayList<>(List.of("lord", "knight", "magician"));
     private final Object lock = new Object();
 
     public void assignRole(String role) {
@@ -31,7 +32,7 @@ public class House {
 
     public void releaseRole(String name, String role) {
         synchronized (lock) {
-            LOG.info("{} has vacated role: {}", name, role);
+            LOG.info("{} has vacated role: {}. {} has left the house", name, role, name);
             rolesToChoose.add(role);
             lock.notify();
         }
