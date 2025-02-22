@@ -3,17 +3,27 @@ package school.faang;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        final int MAX_THREADS = 3;
+        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        Random random = new Random();
 
         for (String character : characterNames) {
             executor.submit(new FoodDeliveryTask(character));
         }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 }
+
+

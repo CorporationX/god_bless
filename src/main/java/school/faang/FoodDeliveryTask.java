@@ -13,14 +13,8 @@ public class FoodDeliveryTask implements Runnable {
     private final int foodAmount = random.nextInt(100) + 1;
 
     private FoodType getFoodType() {
-        FoodType[] foodFoodTypes = FoodType.values();
-        return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
-    }
-
-    public enum FoodType {
-        PIZZA,
-        BURGER,
-        TACO
+        FoodType[] foodTypes = FoodType.values();
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 
     @Override
