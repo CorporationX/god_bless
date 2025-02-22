@@ -55,8 +55,8 @@ public class Game {
     }
 
     private void gameOver() {
-            isGameOver = true;
-            log.warn("☠️ GAME OVER! Final score: {}", score);
+        isGameOver = true;
+        log.warn("☠️ GAME OVER! Final score: {}", score);
 
     }
 
