@@ -12,27 +12,27 @@ public class GooglePhotosAutoUploader {
     private final List<String> urls = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            try {
-                if (urls.isEmpty()) {
-                    log.info("Фотографии для выгрузки отсутствуют, ожидаем...");
-                    lock.wait();
+        while (true) {
+            synchronized (lock) {
+                try {
+                    if (urls.isEmpty()) {
+                        log.info("Фотографии для выгрузки отсутствуют, ожидаем...");
+                        lock.wait();
+                    }
+                } catch (InterruptedException e) {
+                    log.error("Поток был прерван", e);
+                    Thread.currentThread().interrupt();
                 }
-            } catch (InterruptedException e) {
-                log.error("Поток был прерван", e);
-                Thread.currentThread().interrupt();
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        for (int i = 0; i < 3; i++) {
-            synchronized (lock) {
-                urls.add(photoPath);
-                log.info(String.format("Фотография добавлена: %s", photoPath));
-                lock.notify();
-            }
+        synchronized (lock) {
+            urls.add(photoPath);
+            log.info(String.format("Фотография добавлена: %s", photoPath));
+            lock.notify();
         }
     }
 
