@@ -11,10 +11,10 @@ public class Main {
         Player player4 = new Player("Игрок 4");
 
         // Создаем потоки для каждого игрока
-        Thread thread1 = new Thread(() -> player1.doBattle(boss));
-        Thread thread2 = new Thread(() -> player2.doBattle(boss));
-        Thread thread3 = new Thread(() -> player3.doBattle(boss));
-        Thread thread4 = new Thread(() -> player4.doBattle(boss));
+        final Thread thread1 = new Thread(() -> player1.doBattle(boss));
+        final Thread thread2 = new Thread(() -> player2.doBattle(boss));
+        final Thread thread3 = new Thread(() -> player3.doBattle(boss));
+        final Thread thread4 = new Thread(() -> player4.doBattle(boss));
 
         // Запускаем потоки
         thread1.start();
