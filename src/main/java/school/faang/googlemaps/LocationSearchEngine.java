@@ -2,7 +2,6 @@ package school.faang.googlemaps;
 
 import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -18,17 +17,13 @@ public class LocationSearchEngine {
     }
 
     public void processLocations(@NonNull List<Location> locations, Consumer<Location> consumer) {
-        for (Location location : locations) {
-            consumer.accept(location);
-        }
+        locations.forEach(consumer);
     }
 
-    public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> function) {
-        List<Double> distances = new ArrayList<>();
-        for (Location location : locations) {
-            distances.add(function.apply(location));
-        }
-        return distances;
-    }
+    public List<Double> calculateDistances(@NonNull List<Location> locations, Function<Location, Double> function) {
 
+        return locations.stream()
+                .map(function)
+                .toList();
+    }
 }
