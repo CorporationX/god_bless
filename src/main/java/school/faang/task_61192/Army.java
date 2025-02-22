@@ -15,7 +15,7 @@ public class Army {
         squads.add(squad);
     }
 
-    public int calculateTotalPower(){
+    public int calculateTotalPower() {
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<Integer>> futures = new ArrayList<>();
         for (Squad squad : squads) {
