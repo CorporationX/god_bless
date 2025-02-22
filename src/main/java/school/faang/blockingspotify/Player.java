@@ -1,9 +1,7 @@
 package school.faang.blockingspotify;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-@Getter
 @Slf4j
 public class Player {
     private final Object lock = new Object();
@@ -11,7 +9,7 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            if (isPlaying) {
+            if (!isPlaying) {
                 isPlaying = true;
                 log.info("{} запускает воспроизведение",
                         Thread.currentThread().getName());
