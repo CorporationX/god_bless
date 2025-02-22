@@ -3,6 +3,7 @@ package school.faang.task_60379;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
@@ -40,7 +41,9 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int topN) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         return actions.stream()
-                .filter(action -> ActionType.COMMENT.equals(action.getActionType()) && action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action ->
+                        ActionType.COMMENT.equals(action.getActionType())
+                                && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName,
                         Collectors.counting()))
                 .entrySet().stream()
@@ -51,6 +54,7 @@ public class UserActionAnalyzer {
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        Objects.requireNonNull(actions, "This object cant be null");
         long total = actions.size();
 
         return actions.stream()
