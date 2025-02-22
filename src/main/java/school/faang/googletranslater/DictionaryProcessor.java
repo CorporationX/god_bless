@@ -9,20 +9,16 @@ import java.util.function.BiConsumer;
 public class DictionaryProcessor {
 
     public void processWord(@NonNull String word, @NonNull String translateWord,
-                            BiConsumer<String, String> addToDictionary) {
+                            BiConsumer<String, String> dictionaryConsumer) {
         checkWord(word);
         checkWord(translateWord);
-        addToDictionary.accept(word, translateWord);
-        log.info("Word added at dictionary: {}", word);
+        dictionaryConsumer.accept(word, translateWord);
+        log.info("Word {} with translation {} added to dictionary", word, translateWord);
 
     }
 
     private void checkWord(@NonNull String word) {
-        if (word == null) {
-            log.warn("Word is null");
-            throw new IllegalArgumentException("Word is null");
-        }
-        if (word.isEmpty()) {
+        if (word.isBlank()) {
             log.warn("Word is empty");
             throw new IllegalArgumentException("Word is empty");
         }

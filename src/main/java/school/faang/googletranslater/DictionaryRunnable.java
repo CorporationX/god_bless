@@ -8,13 +8,14 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 public class DictionaryRunnable {
+    private static final String WORD = "word";
+    private static final String TRANSLATION = "слово";
+
     public static void main(String[] args) {
         DictionaryProcessor processor = new DictionaryProcessor();
         Map<String, String> dictionary = new HashMap<>();
         BiConsumer<String, String> putWordAtDictionary = dictionary::put;
-        String word = "word";
-        String translation = "слово";
-        processor.processWord(word, translation, putWordAtDictionary);
+        processor.processWord(WORD, TRANSLATION, putWordAtDictionary);
 
         log.info("Словарь: {}", dictionary);
     }
