@@ -6,8 +6,7 @@ public class PositionModifier implements PlayerModifier {
         player.validatePlayer(player);
         if (player.getScore() > 20) {
             player.setPosition(Position.AVERAGE);
-        }
-        if (player.getScore() > 50) {
+        } else if (player.getScore() > 50) {
             player.setPosition(Position.ADVANCED);
         }
     }

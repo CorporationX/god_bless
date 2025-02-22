@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
+        Game game = new Game(0, 6);
         List<Player> players = List.of(
                 new Player("First player", 100, Position.BEGINNER, 0, 20),
                 new Player("Second player", 100, Position.BEGINNER, 0, 20),

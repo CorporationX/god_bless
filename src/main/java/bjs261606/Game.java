@@ -2,15 +2,17 @@ package bjs261606;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @AllArgsConstructor
 @Getter
+@Slf4j
 public class Game implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
-    private static int score = 0;
-    private static int lives = 6;
+    private int score;
+    private int lives;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
@@ -18,13 +20,15 @@ public class Game implements Runnable {
         synchronized (scoreLock) {
             if (strikerPlayer.isScoreIncrement(attackedPlayer)) {
                 score++;
+                LOGGER.info("Common score: {}", score);
             }
-            synchronized (livesLock) {
-                if (strikerPlayer.isPlayerKilled(strikerPlayer, attackedPlayer)) {
-                    lives--;
-                    if (lives == 0) {
-                        gameOver();
-                    }
+        }
+        synchronized (livesLock) {
+            if (strikerPlayer.isPlayerKilled(attackedPlayer)) {
+                lives--;
+                LOGGER.info("Common lives: {}", lives);
+                if (lives == 0) {
+                    gameOver();
                 }
             }
         }

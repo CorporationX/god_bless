@@ -8,8 +8,6 @@ import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,14 +30,13 @@ public class Player {
         setScoreAndUpgradePlayer(attackedPlayer);
         LOGGER.info("Thread {}: {} has upgraded", Thread.currentThread().getName(),
                 this);
-        return healthPlayerBeforeAttack < healthPlayerAfterAttack;
+        return healthPlayerAfterAttack < healthPlayerBeforeAttack;
     }
 
-    public boolean isPlayerKilled(Player strikerPlayer, Player attackedPlayer) {
+    public boolean isPlayerKilled(Player attackedPlayer) {
         validatePlayer(attackedPlayer);
-        int healthPlayerAfterAttack = attackedPlayer.getHealth() - this.getForce();
-        if (healthPlayerAfterAttack <= 0) {
-            LOGGER.info("Thread {}: {} has killed {}", Thread.currentThread().getName(), strikerPlayer.getName(),
+        if (attackedPlayer.getHealth() <= this.getForce()) {
+            LOGGER.info("Thread {}: {} has killed {}", Thread.currentThread().getName(), this.getName(),
                     attackedPlayer.getName());
             return true;
         }
@@ -47,14 +44,10 @@ public class Player {
     }
 
     private void setScoreAndUpgradePlayer(Player attackedPlayer) {
-        validatePlayer(attackedPlayer);
         setIncrementScore(this.getForce());
-        PlayerModifier forceModifier = new ForceModifier();
-        PlayerModifier positionModifier = new PositionModifier();
-        upgradePlayer(this, (strikerPlayer) -> positionModifier.modifyPlayer(this));
-        upgradePlayer(this, (strikerPlayer) -> forceModifier.modifyPlayer(this));
+        upgradePlayer(this);
         int healthPlayerAfterAttack = attackedPlayer.getHealth() - this.getForce();
-        Objects.requireNonNull(attackedPlayer).setHealth(healthPlayerAfterAttack);
+        attackedPlayer.setHealth(healthPlayerAfterAttack);
     }
 
     public void validatePlayer(Player player) {
@@ -70,7 +63,10 @@ public class Player {
         this.setScore(this.getScore() + scoreIncrement);
     }
 
-    private void upgradePlayer(Player player, PlayerModifier modifier) {
-        modifier.modifyPlayer(player);
+    private void upgradePlayer(Player player) {
+        PlayerModifier forceModifier = new ForceModifier();
+        PlayerModifier positionModifier = new PositionModifier();
+        forceModifier.modifyPlayer(player);
+        positionModifier.modifyPlayer(player);
     }
 }
