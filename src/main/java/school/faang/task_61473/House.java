@@ -1,0 +1,46 @@
+package school.faang.task_61473;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+public class House {
+    private static final Logger LOG = LoggerFactory.getLogger(House.class);
+    private static final List<String> ROLES = List.of("lord", "knight", "magician");
+    private final List<String> rolesToChoose = List.of("lord", "knight", "magician");
+    private final Object lock = new Object();
+
+    public void assignRole(String role) {
+        validateRole(role);
+        synchronized (lock) {
+            while (!rolesToChoose.contains(role)) {
+                try {
+                    LOG.info("Role : {} - are taken. Waiting...", role);
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    LOG.info("Thread was interrupted while waiting");
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Thread interrupted", e);
+                }
+            }
+
+            rolesToChoose.remove(role);
+        }
+    }
+
+    public void releaseRole(String name, String role) {
+        synchronized (lock) {
+            LOG.info("{} has vacated role: {}", name, role);
+            rolesToChoose.add(role);
+            lock.notify();
+        }
+    }
+
+    private void validateRole(String role) {
+        if (!ROLES.contains(role)) {
+            LOG.error("There are no such roles in the list");
+            throw new RuntimeException();
+        }
+    }
+}
