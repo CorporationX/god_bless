@@ -36,7 +36,7 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            thread.join(2500);
         }
 
         return results.stream().mapToInt(Integer::intValue).sum();
