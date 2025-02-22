@@ -1,10 +1,9 @@
 package school.faang.BJS2_61698;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Player {
-    private static final Logger logger = LoggerFactory.getLogger(Player.class);
     private final Object lock = new Object();
     private boolean isPlaying;
 
@@ -16,23 +15,23 @@ public class Player {
 
     public void play() {
         executeSynchronized(() -> {
-            logger.info(!isPlaying ? "Музыка воспроизводится" : "Музыка уже играет");
+            log.info(!isPlaying ? "Музыка воспроизводится" : "Музыка уже играет");
             isPlaying = true;
         });
     }
 
     public void pause() {
         executeSynchronized(() -> {
-            logger.info(isPlaying ? "Музыка поставлена на паузу" : "Музыка уже на паузе");
+            log.info(isPlaying ? "Музыка поставлена на паузу" : "Музыка уже на паузе");
             isPlaying = false;
         });
     }
 
     public void skip() {
-        executeSynchronized(() -> logger.info("Трек пропущен"));
+        executeSynchronized(() -> log.info("Трек пропущен"));
     }
 
     public void previous() {
-        executeSynchronized(() -> logger.info("К предыдущему треку."));
+        executeSynchronized(() -> log.info("К предыдущему треку."));
     }
 }
