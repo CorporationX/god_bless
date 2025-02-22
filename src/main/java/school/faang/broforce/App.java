@@ -1,6 +1,8 @@
 package school.faang.broforce;
 
 public class App {
+    private static final int ONE_SECOND = 1000;
+
     public static void main(String[] args) {
         final Game game = new Game();
 
@@ -13,7 +15,7 @@ public class App {
                     game.update(earnPoint, loseLife);
 
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(ONE_SECOND);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
