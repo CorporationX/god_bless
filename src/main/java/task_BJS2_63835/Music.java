@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Music {
-    private static final List<Thread> threads = new ArrayList<>();
+    private static final List<Thread> THREADS = new ArrayList<>();
 
     public static void main(String[] args) {
         Player player = new Player(false);
@@ -13,12 +13,11 @@ public class Music {
         Thread thirdThread = new Thread(player::skip);
         Thread fourthThread = new Thread(player::previous);
 
-        threads.add(firstThread);
-        threads.add(secondThread);
-        threads.add(thirdThread);
-        threads.add(fourthThread);
+        THREADS.add(firstThread);
+        THREADS.add(secondThread);
+        THREADS.add(thirdThread);
+        THREADS.add(fourthThread);
 
-        threads.stream().forEach(Thread::start);
-
+        THREADS.forEach(Thread::start);
     }
 }

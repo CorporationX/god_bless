@@ -1,17 +1,12 @@
 package task_BJS2_63835;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Synchronized;
 
-
-@Data
 @AllArgsConstructor
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying;
 
-    @Synchronized
     public void play() {
         synchronized (lock) {
             if (isPlaying) {
@@ -23,8 +18,7 @@ public class Player {
         }
     }
 
-    @Synchronized
-    public synchronized void pause() {
+    public void pause() {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
@@ -35,14 +29,12 @@ public class Player {
         }
     }
 
-    @Synchronized
     public void skip() {
         synchronized (lock) {
             System.out.println("следующий трек включен");
         }
     }
 
-    @Synchronized
     public void previous() {
         synchronized (lock) {
             System.out.println("предыдущий трек включен");
