@@ -8,17 +8,20 @@ import java.util.Random;
 @Data
 @Slf4j
 public class Player {
-    private Random rand = new Random();
-    public boolean isPlaying;
+    private static final int MAX_TIMEOUT = 7000;
+    private final Random rand = new Random();
+    private final Object lock = new Object();
+    private boolean isPlaying;
 
     public void play() {
-        synchronized (this) {
+        synchronized (lock) {
             isPlaying = true;
             log.info("Player is playing");
             try {
-                Thread.sleep(rand.nextInt(7000));
+                Thread.sleep(rand.nextInt(MAX_TIMEOUT));
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error("Thread interrupted {}", e.getMessage());
+                Thread.currentThread().interrupt();
             }
             isPlaying = false;
             this.notifyAll();
@@ -26,7 +29,7 @@ public class Player {
     }
 
     public void pause() {
-        synchronized (this) {
+        synchronized (lock) {
             isPlaying = false;
             this.notifyAll();
             log.info("Play is paused");
@@ -38,9 +41,12 @@ public class Player {
         synchronized (this) {
             if (isPlaying) {
                 try {
-                    this.wait();
+                    while (isPlaying) {
+                        this.wait();
+                    }
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.error("Thread interrupted {}", e.getMessage());
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -48,11 +54,16 @@ public class Player {
     }
 
     public void previous() {
-        synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        synchronized (lock) {
+            if (isPlaying) {
+                try {
+                    while (isPlaying) {
+                        this.wait();
+                    }
+                } catch (InterruptedException e) {
+                    log.error("Thread interrupted {}", e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         log.info("Playing previous track");
