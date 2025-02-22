@@ -1,9 +1,11 @@
 package school.faang.sprint.third.microsoft;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @RequiredArgsConstructor
+@Slf4j
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
@@ -12,7 +14,7 @@ public class SenderRunnable implements Runnable {
     public void run() {
         validateIndexes();
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Current thread: " + Thread.currentThread().getId() + ". Sending " + i + " email");
+            log.info("Current thread: {}. Sending {} email", Thread.currentThread().getId(), i);
         }
     }
 

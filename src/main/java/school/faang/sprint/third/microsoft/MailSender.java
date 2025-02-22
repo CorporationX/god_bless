@@ -1,13 +1,16 @@
 package school.faang.sprint.third.microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class MailSender {
     private static final int TOTAL_EMAILS = 100;
     private static final int THREADS_AMOUNT = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < THREADS_AMOUNT; i++) {
@@ -19,9 +22,14 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+                Thread.currentThread().interrupt();
+            }
         }
 
-        System.out.println("All messages delivered");
+        log.info("All messages delivered");
     }
 }
