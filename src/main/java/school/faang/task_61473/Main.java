@@ -23,8 +23,8 @@ public class Main {
                 new User("Jorah", "knight", house)
         );
 
-        ExecutorService poolJoin = Executors.newFixedThreadPool(THREADS_COUNT);
-        ExecutorService poolLeave = Executors.newFixedThreadPool(THREADS_COUNT);
+        final ExecutorService poolJoin = Executors.newFixedThreadPool(THREADS_COUNT);
+        final ExecutorService poolLeave = Executors.newFixedThreadPool(THREADS_COUNT);
         users.forEach(user -> poolJoin.submit(user::joinHouse));
         users.forEach(user -> poolJoin.submit(user::leaveHouse));
         poolJoin.shutdown();
