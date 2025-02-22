@@ -24,6 +24,7 @@ public class MailSender {
             } catch (InterruptedException e) {
                 log.error("Ошибка при ожидании завершения потока", e);
                 Thread.currentThread().interrupt();
+                return;
             }
         }
 
