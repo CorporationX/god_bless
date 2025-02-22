@@ -1,5 +1,6 @@
-package school.faang.task_48173;
+package school.faang.task_60825;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -8,14 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Getter
+@AllArgsConstructor
 public class Knight {
     private final String name;
-    private final List<Trial> trials;
-
-    public Knight(String name) {
-        this.name = name;
-        this.trials = new ArrayList<>();
-    }
+    private final List<Trial> trials = new ArrayList<>();
 
     public void addTrial(Trial trial) {
         trials.add(trial);
