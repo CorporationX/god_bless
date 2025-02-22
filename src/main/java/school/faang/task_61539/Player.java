@@ -2,7 +2,10 @@ package school.faang.task_61539;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 @Getter
 public class Player {
@@ -11,10 +14,10 @@ public class Player {
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            System.out.println(name + " сражается с боссом...");
-            Thread.sleep(5000); // Имитируем время боя
+            log.info(name + " сражается с боссом...");
+            Thread.sleep(500); // Имитируем время боя
         } catch (InterruptedException e) {
-            System.out.println(name + " был прерван во время сражения.");
+            log.info(name + " был прерван во время сражения.");
             Thread.currentThread().interrupt(); // Восстанавливаем флаг прерывания
             throw new RuntimeException(e);
         } finally {
