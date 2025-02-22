@@ -11,8 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FoodDeliveryTask implements Runnable {
     private final Random random = new Random();
 
-    private String character;
-    private int foodAmount;
+    private final String character;
+    private final int foodAmount;
 
     @Override
     public void run() {
@@ -24,12 +24,13 @@ public class FoodDeliveryTask implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Поток прерван {}", e.getMessage(), e);
+            return;
         }
         log.info("{} ест {} {}", character, foodAmount, foodType.name());
     }
 
     private FoodType getFoodType() {
-        FoodType[] foodFoodTypes = FoodType.values();
-        return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
+        FoodType[] foodTypes = FoodType.values();
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 }
