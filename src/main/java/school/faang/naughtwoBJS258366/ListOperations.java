@@ -40,8 +40,9 @@ public class ListOperations {
 
 
     public static long countStringsStartWith(List<String> strings, char ch) {
+        checkStrings(strings);
         return strings.stream()
-                .filter(s -> !s.isEmpty() && (s.charAt(0) == ch))
+                .filter(s -> (s !=null || !s.isBlank()) && (s.charAt(0) == ch))
                 .count();
     }
 
@@ -61,5 +62,11 @@ public class ListOperations {
         return strings.stream()
                 .map(String::length)
                 .toList();
+    }
+
+    private static void checkStrings(List<String> strings) {
+        if (strings == null) {
+            throw new IllegalArgumentException("Strings cannot be 'null'");
+        }
     }
 }
