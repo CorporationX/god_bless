@@ -25,8 +25,8 @@ public class Army {
             thread.join();
         }
 
-        return squads.stream()
-                .mapToInt(Squad::calculateSquadPower)
+        return threads.stream()
+                .mapToInt(SquadThread::getSquadPower)
                 .sum();
     }
 }
