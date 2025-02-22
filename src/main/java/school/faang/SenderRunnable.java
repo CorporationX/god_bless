@@ -11,7 +11,7 @@ public class SenderRunnable implements Runnable {
 
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            log.info("Письмо отправленно " + i);
+            log.info("Письмо отправлено {}" + i);
         }
     }
 
