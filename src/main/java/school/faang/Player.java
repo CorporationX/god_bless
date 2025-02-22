@@ -30,7 +30,6 @@ public class Player {
         bobBattle.start();
 
 
-
     }
 
     public void doBattle(Boss boss) {
@@ -41,9 +40,9 @@ public class Player {
             e.printStackTrace();
             log.info("Поток был прерван");
         } finally {
-                boss.leaveBattle(this);
-            }
+            boss.leaveBattle(this);
         }
-
     }
+
+}
 
