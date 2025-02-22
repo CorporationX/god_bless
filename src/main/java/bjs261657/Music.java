@@ -1,9 +1,17 @@
 package bjs261657;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+@Slf4j
 public class Music {
+    private static final int JOIN_DELAY_MS = 5000;
+
     public static void main(String[] args) {
         Player player = new Player();
         List<String> compositions = player.getCompositions();
@@ -11,85 +19,65 @@ public class Music {
         compositions.add("Composition2");
         compositions.add("Composition3");
         compositions.add("Composition4");
-
-        List<Thread> threads = new ArrayList<>();
-
-        Thread playThread1 = new Thread(() -> {
-            try {
-                player.play();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(playThread1);
-        Thread playThread2 = new Thread(() -> {
-            try {
-                player.play();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(playThread2);
-
-        Thread pauseThread1 = new Thread(() -> {
-            try {
-                player.pause();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(pauseThread1);
-        Thread pauseThread2 = new Thread(() -> {
-            try {
-                player.pause();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(pauseThread2);
-
-        Thread skipThread1 = new Thread(() -> {
-            try {
-                player.skip();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(skipThread1);
-        Thread skipThread2 = new Thread(() -> {
-            try {
-                player.skip();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(skipThread2);
-
-        Thread previousThread1 = new Thread(() -> {
-            try {
-                player.previous();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(previousThread1);
-        Thread previousThread2 = new Thread(() -> {
-            try {
-                player.previous();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        threads.add(previousThread2);
+        List<Thread> threads =
+                Stream.of(getThreads(() -> {
+                    try {
+                        player.play();
+                    } catch (InterruptedException e) {
+                        log.error("Thread {} started, but not finished due to InterruptedException",
+                                Thread.currentThread().getName(), new MusicException("InterruptedException", e));
+                    }
+                }, 2),
+                getThreads(() -> {
+                    try {
+                        player.pause();
+                    } catch (InterruptedException e) {
+                        log.error("Thread {} started, but not finished due to InterruptedException",
+                                Thread.currentThread().getName(), new MusicException("InterruptedException", e));
+                    }
+                }, 2),
+                getThreads(() -> {
+                    try {
+                        player.skip();
+                    } catch (InterruptedException e) {
+                        log.error("Thread {} started, but not finished due to InterruptedException",
+                                Thread.currentThread().getName(), new MusicException("InterruptedException", e));
+                    }
+                }, 2),
+                getThreads(() -> {
+                    try {
+                        player.previous();
+                    } catch (InterruptedException e) {
+                        log.error("Thread {} started, but not finished due to InterruptedException",
+                                Thread.currentThread().getName(), new MusicException("InterruptedException", e));
+                    }
+                }, 2)
+        ).flatMap(Collection::stream).toList();
 
         threads.forEach(Thread::start);
-
         threads.forEach(thread -> {
             try {
-                thread.join(5000);
+                thread.join(JOIN_DELAY_MS);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error("Thread {} started, but not finished due to InterruptedException",
+                        Thread.currentThread().getName(), new MusicException("InterruptedException", e));
             }
         });
+    }
+
+    private static List<Thread> getThreads(Runnable task, int threadsNumber) {
+        return IntStream.rangeClosed(1, threadsNumber).boxed()
+                .map(i -> new Thread(task))
+                .toList();
+    }
+
+    private static <T, R> Function<T, R> wrapException(Function<T, R> functionWithException) {
+        return arg -> {
+            try {
+                return functionWithException.apply(arg);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 }

@@ -10,10 +10,11 @@ import java.util.List;
 @Getter
 public class Player implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Player.class);
+    private static final int TASK_DELAY_MS = 1000;
     private final List<String> compositions = new ArrayList<>();
-    private static int compositionNumber = 0;
+    private int compositionNumber = 0;
     private String currentComposition;
-    final Object lock = new Object();
+    private final Object lock = new Object();
     boolean isPlaying = false;
 
     public void play() throws InterruptedException {
@@ -22,17 +23,17 @@ public class Player implements Runnable {
             validateCompositionNumber(compositionNumber);
             LOGGER.info("User {} has turned on the music ", Thread.currentThread().getName());
             LOGGER.info("Listening {} ", compositions.get(compositionNumber));
-            Thread.sleep(1000);
+            Thread.sleep(TASK_DELAY_MS);
             pause();
-            LOGGER.info("User {} has turned off the music", Thread.currentThread().getName());
-            lock.wait();
         }
     }
 
     public void pause() throws InterruptedException {
         synchronized (lock) {
             isPlaying = false;
+            LOGGER.info("User {} has turned off the music", Thread.currentThread().getName());
             lock.notify();
+            lock.wait();
         }
     }
 
@@ -56,16 +57,18 @@ public class Player implements Runnable {
 
     @Override
     public void run() {
-
+        try {
+            Thread.sleep(TASK_DELAY_MS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void validateCompositionNumber(int compositionNumber) {
         if (compositionNumber >= compositions.size()) {
-            compositionNumber = (compositions.size()) % compositionNumber;
+            this.compositionNumber = (compositions.size()) % compositionNumber;
+        } else if (compositionNumber < 0) {
+            this.compositionNumber = (compositionNumber + compositions.size()) % compositions.size();
         }
-        if (compositionNumber < 0) {
-            compositionNumber = (compositionNumber + compositions.size()) % 26;
-        }
-        Player.compositionNumber = compositionNumber;
     }
 }
