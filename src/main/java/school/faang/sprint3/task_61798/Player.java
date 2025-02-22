@@ -1,4 +1,4 @@
-package school.faang.task_61798;
+package school.faang.sprint3.task_61798;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

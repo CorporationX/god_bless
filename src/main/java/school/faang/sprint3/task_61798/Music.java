@@ -1,4 +1,4 @@
-package school.faang.task_61798;
+package school.faang.sprint3.task_61798;
 
 public class Music {
     public static void main(String[] args) {
