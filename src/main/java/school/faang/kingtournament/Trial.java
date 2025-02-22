@@ -16,7 +16,7 @@ public class Trial implements Runnable {
         try {
             log.info("{} начал испытание {} ", knightName, trialName);
             Thread.sleep(SECOND_TIMER);
-            log.info("{} закончил испытание {} закончилось", knightName, trialName);
+            log.info("{} закончил испытание {} ", knightName, trialName);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage(), e);
