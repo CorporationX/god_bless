@@ -8,6 +8,7 @@ import java.util.Random;
 
 @Slf4j
 public class Chore implements Runnable {
+    private static final int MAX_TIME_OUT = 10000;
     private final Random random = new Random();
     @NonNull
     private final String chore;
@@ -21,8 +22,9 @@ public class Chore implements Runnable {
     public void run() {
         log.info("Do {} in thread {} at: {}", chore, Thread.currentThread().getName(), new Date());
         try {
-            Thread.sleep(random.nextInt(10000));
+            Thread.sleep(random.nextInt(MAX_TIME_OUT));
         } catch (InterruptedException e) {
+            log.error("Thread sleep interrupted: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         log.info("Do {} in thread {} is over at: {}", chore, Thread.currentThread().getName(), new Date());
