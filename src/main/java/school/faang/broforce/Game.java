@@ -11,14 +11,20 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
-        if (isPointsEarned) {
-            synchronized (scoreLock) {
 
-                score++;
-                log.info("Очки увеличены! текущий счет : {}", score);
+        synchronized (scoreLock) {
+            if (lives >= 0) {
+                if (isPointsEarned) {
 
+                    score++;
+                    log.info("Очки увеличены! текущий счет : {}", score);
+
+                }
+            } else {
+                log.error("Не удалось зачислить очки! Так как у вас нет жизний!");
             }
         }
+
         if (isLifeLost) {
             synchronized (livesLock) {
                 lives--;
