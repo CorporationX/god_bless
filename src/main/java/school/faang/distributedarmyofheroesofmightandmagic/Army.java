@@ -8,7 +8,7 @@ import java.util.List;
 
 @Slf4j
 public class Army {
-    List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
         squads.add(squad);
