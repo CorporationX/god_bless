@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StudentGradeService {
@@ -14,26 +13,13 @@ public class StudentGradeService {
         if (students.isEmpty()) {
             throw new IllegalArgumentException("There is no student in this list");
         }
-        Map<String, List<Double>> subjectGradesPerStudent =
-                students.stream()
-                        .map(student -> student.getCourses().entrySet().stream()
-                                .collect(Collectors.toMap(Map.Entry::getKey,
-                                        entry -> entry.getValue().stream()
-                                                .mapToInt(Integer::intValue)
-                                                .average().orElse(0.0))))
-                        .flatMap(entry -> entry.entrySet().stream())
-                        .collect(Collectors.groupingBy(
-                                Map.Entry::getKey,
-                                Collectors.mapping(Map.Entry::getValue, Collectors.toList())
-                        ));
-
-        return subjectGradesPerStudent.entrySet().stream()
-                .map(subjectGrade -> {
-                    double averageGrade = subjectGrade.getValue().stream()
-                            .mapToDouble(Double::intValue).average().orElse(0.0);
-                    return Map.entry(subjectGrade.getKey(), averageGrade);
-                })
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return students.stream()
+                .flatMap(student -> student.getCourses().entrySet().stream())
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.flatMapping(entry -> entry.getValue().stream(),
+                                Collectors.averagingDouble(Integer::doubleValue))
+                ));
     }
 
     public static Map<String, Double> getFinalGradesBySubject(@NonNull List<Student> students,
@@ -42,14 +28,12 @@ public class StudentGradeService {
         if (students.isEmpty() || firstName.isBlank() || lastName.isBlank()) {
             throw new IllegalArgumentException("Students cannot be empty");
         }
-        Optional<Student> foundStudent = students.stream()
+        Map<String, List<Integer>> coursesWithGrades = students.stream()
                 .filter(s -> s.getFirstName().equals(firstName)
                         && s.getLastName().equals(lastName))
-                .findFirst();
-        if (!foundStudent.isPresent()) {
-            throw new IllegalArgumentException("Студент с такими именем и фамилией не найден.");
-        }
-        Map<String, List<Integer>> coursesWithGrades = foundStudent.get().getCourses();
+                .findFirst()
+                .map(Student::getCourses)
+                .orElseThrow(() -> new RuntimeException("Студент не найден"));
         return coursesWithGrades.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         e ->
