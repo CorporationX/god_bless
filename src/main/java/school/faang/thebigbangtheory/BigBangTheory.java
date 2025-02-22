@@ -1,13 +1,15 @@
 package school.faang.thebigbangtheory;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
+@Slf4j
 public class BigBangTheory {
-    private static final Logger LOGGER = Logger.getLogger(Task.class.getName());
+    private static final int TASK_TIMEOUT_SECONDS = 5;
 
     public static void main(String[] args) {
         int threadCount = 4;
@@ -15,7 +17,7 @@ public class BigBangTheory {
         Map<String, Goal> tasks = Map.of("Sheldon", Goal.THEORY,
                 "Leonard", Goal.MODELING,
                 "Howard", Goal.DEVELOPMENT,
-                "Rasher", Goal.ANALYTICS);
+                "Rajesh", Goal.ANALYTICS);
         for (var task : tasks.entrySet()) {
             String name = task.getKey();
             Goal goal = task.getValue();
@@ -24,15 +26,14 @@ public class BigBangTheory {
         executor.shutdown();
 
         try {
-            int second = 5;
-            if (!executor.awaitTermination(second, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TASK_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-                LOGGER.info("Не все потоки успели завершиться за " + second + " секунд");
+                log.info("Не все потоки успели завершиться за " + TASK_TIMEOUT_SECONDS + " секунд");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            LOGGER.severe("Ожидание завершения потоков было прервано: " + e.getMessage());
+            log.error("Ожидание завершения потоков было прервано: {}", e.getMessage());
         }
-        LOGGER.info("Программа успешно завершилась");
+        log.info("Программа успешно завершилась");
     }
 }

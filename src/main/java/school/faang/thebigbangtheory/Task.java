@@ -1,25 +1,24 @@
 package school.faang.thebigbangtheory;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.logging.Logger;
-
+@Slf4j
 @AllArgsConstructor
 public class Task implements Runnable {
-    private static final Logger LOGGER = Logger.getLogger(Task.class.getName());
+    private static final int TASK_TIMER = 2000;
     private final String name;
-    private final Goal task;
+    private final Goal goal;
 
     @Override
     public void run() {
-        LOGGER.info(name + " начал выполнять задачу:" + task);
-        int taskTimer = 2000;
+        log.info("{} начал выполнять задачу: {}", name, goal);
         try {
-            Thread.sleep(taskTimer);
+            Thread.sleep(TASK_TIMER);
         } catch (InterruptedException e) {
-            LOGGER.severe(e.getMessage());
+            log.error(e.getMessage(), e);
             Thread.currentThread().interrupt();
         }
-        LOGGER.info(name + " закончил выполнение задачи" + task);
+        log.info("{} закончил выполнение задачи{}", name, goal);
     }
 }
