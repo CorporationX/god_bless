@@ -10,12 +10,16 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions, int n) {
+        checkActions(actions);
+        checkN(n);
         Map<String, Long> activeUsers = actions.stream()
                 .collect(userActionToMap());
         return sortedList(activeUsers, n);
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int n) {
+        checkActions(actions);
+        checkN(n);
         Map<String, Long> hashtags = actions.stream()
                 .filter(action ->
                         action.content() != null
@@ -28,6 +32,8 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int n) {
+        checkActions(actions);
+        checkN(n);
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         Map<String, Long> activeUsers = actions.stream()
                 .filter(action ->
@@ -38,11 +44,12 @@ public class UserActionAnalyzer {
         return sortedList(activeUsers, n);
     }
 
-    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+    public static Map<ActionType, Double> actionTypePercentages(List<UserAction> actions) {
+        checkActions(actions);
         Map<ActionType, Long> actionType = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()));
         return actionType.entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getValue().toString(),
+                .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> entry.getValue() * 100.0 / actions.size()));
     }
 
@@ -53,12 +60,24 @@ public class UserActionAnalyzer {
                 Long::sum
         );
     }
-
+    
     private static List<String> sortedList(Map<String, Long> map, int n) {
         return map.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
+
+    private static void checkActions(List<UserAction> actions) {
+        if (actions == null) {
+            throw new IllegalArgumentException("Actions cannot be 'null'");
+        }
+    }
+
+    private static void checkN(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("N cannot be less than zero");
+        }
     }
 }

@@ -8,10 +8,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<UserAction> actions = createListUserAction();
+
         List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
         List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
         List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
-        Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
+        Map<ActionType, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
         System.out.println("Top 10 Active Users: " + top10Users);
         System.out.println("Top 5 Popular Hashtags: " + top5Hashtags);
