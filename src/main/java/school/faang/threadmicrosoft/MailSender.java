@@ -5,10 +5,10 @@ public class MailSender {
     static final int AMOUNT_OF_TASKS = 1000;
 
     public static void main(String[] args) throws InterruptedException {
-        final int tasksPerThread = AMOUNT_OF_TASKS / AMOUNT_OF_THREADS;
+        final int emailsPerThread = AMOUNT_OF_TASKS / AMOUNT_OF_THREADS;
         Thread[] threads = new Thread[AMOUNT_OF_THREADS];
         for (int i = 0; i < AMOUNT_OF_THREADS; i++) {
-            threads[i] = new Thread(new SenderRunnable(i * tasksPerThread, (i * tasksPerThread) + 200));
+            threads[i] = new Thread(new SenderRunnable(i * emailsPerThread, (i * emailsPerThread) + emailsPerThread));
             threads[i].start();
         }
 
