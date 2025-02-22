@@ -1,23 +1,38 @@
 package school.faang.sprint3.multithreading.bjs2_61970;
 
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
     private final Object lock = new Object();
 
-    @SneakyThrows
+
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                System.out.print("\nThe photo list is empty.");
-                lock.wait();
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    System.out.print("\nThe photo list is empty.");
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        log.warn("Thread {} was interrupted while waiting for new photo.",
+                                Thread.currentThread().getName(), e);
+                    }
+                }
+                uploadPhotos();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    log.warn("Thread {} was interrupted during sleep.", Thread.currentThread().getName());
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
-            uploadPhotos();
         }
     }
 
