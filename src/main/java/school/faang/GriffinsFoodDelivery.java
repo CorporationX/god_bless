@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 public class GriffinsFoodDelivery {
 
     public static void main(String[] args) {
-        final int MAX_THREADS = 3;
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
+        final int maxThreads = 3;
+        ExecutorService executor = Executors.newFixedThreadPool(maxThreads);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         for (String character : characterNames) {
