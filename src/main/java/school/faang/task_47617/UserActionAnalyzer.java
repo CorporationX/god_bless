@@ -17,7 +17,7 @@ public class UserActionAnalyzer {
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int limit) {

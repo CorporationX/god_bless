@@ -113,9 +113,9 @@ public class Main {
         List<String> topCommenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
         Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
-        System.out.println("Топ-10 активных пользователей: " + topUsers);
-        System.out.println("Топ-5 популярных хэштегов: " + topHashtags);
-        System.out.println("Топ-3 комментаторов за последний месяц: " + topCommenters);
-        System.out.println("Процент действий по типам: " + actionPercentages);
+        System.out.println("Top 10 active users: " + topUsers);
+        System.out.println("Top 5 popular hashtags: " + topHashtags);
+        System.out.println("Top 3 commenters in the last month: " + topCommenters);
+        System.out.println("Percentage of actions by type: " + actionPercentages);
     }
 }
