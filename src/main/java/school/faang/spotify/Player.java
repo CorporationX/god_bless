@@ -2,19 +2,23 @@ package school.faang.spotify;
 
 public class Player {
     private boolean isPlaying = false;
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            System.out.println("Music is playing");
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music is playing");
+            }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Music is paused");
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("Music is paused");
+            }
         }
     }
 
