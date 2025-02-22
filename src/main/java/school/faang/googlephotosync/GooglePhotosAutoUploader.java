@@ -5,18 +5,23 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    new RuntimeException(e);
+        while (true) {
+            synchronized (lock) {
+                if (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("Поток прерван");
+                    }
+                }
+                if (!photosToUpload.isEmpty()) {
+                    uploadPhotos();
                 }
             }
-            uploadPhotos();
         }
     }
 
