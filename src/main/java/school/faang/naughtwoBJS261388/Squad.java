@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Squad {
 
-    private final String Name;
+    private final String name;
     private List<Fighter> fighters;
 
     public int calculateSquadPower() {
