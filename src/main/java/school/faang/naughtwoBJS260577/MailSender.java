@@ -13,7 +13,7 @@ public class MailSender {
         ExecutorService executor = Executors.newFixedThreadPool(ALL_THREADS);
 
         for (int i = 0; i < ALL_THREADS; i++) {
-            int startIndex = i * letterGroup +1;
+            int startIndex = i * letterGroup + 1;
             int endIndex = startIndex + letterGroup;
             executor.submit(new SenderRunnable(startIndex, endIndex));
         }

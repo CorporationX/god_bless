@@ -3,10 +3,9 @@ package school.faang.naughtwoBJS260577;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class SenderRunnable implements Runnable{
+public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
-
 
     @Override
     public void run() {
