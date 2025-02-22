@@ -42,7 +42,7 @@ public class ListOperations {
     public static long countStringsStartWith(List<String> strings, char ch) {
         checkStrings(strings);
         return strings.stream()
-                .filter(s -> (s !=null || !s.isBlank()) && (s.charAt(0) == ch))
+                .filter(s -> (s != null || !s.isBlank()) && (s.charAt(0) == ch))
                 .count();
     }
 
