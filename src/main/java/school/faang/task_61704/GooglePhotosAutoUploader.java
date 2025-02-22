@@ -6,29 +6,28 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GooglePhotosAutoUploader implements Runnable {
+public class GooglePhotosAutoUploader{
     private static final Logger LOG = LoggerFactory.getLogger(GooglePhotosAutoUploader.class);
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
-    @Override
-    public void run() {
-
-    }
-
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    LOG.info("List is empty. Waiting...");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    LOG.error("Thread was interrupted while waiting for photos to upload: ", e);
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        LOG.info("List is empty. Waiting...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        LOG.error("Thread was interrupted while waiting for photos to upload: ", e);
+                        return;
+                    }
                 }
+
+                LOG.info("{} new photos have been added to the list. Starting upload photos.", photosToUpload.size());
+                uploadPhotos();
             }
-            LOG.info("{} new photos has been added to the list. Starting upload photos.", photosToUpload.size());
-            uploadPhotos();
         }
     }
 
@@ -41,11 +40,17 @@ public class GooglePhotosAutoUploader implements Runnable {
         }
     }
 
-    public void uploadPhotos() {
-        photosToUpload.forEach(photo -> LOG.info("Uploading photo {} to the server.", photo));
-        LOG.info("{} photos has been successfully added to the server.", photosToUpload.size());
-        photosToUpload.clear();
-        LOG.info("The list has benn cleared.");
-
+    private void uploadPhotos() {
+        while (!photosToUpload.isEmpty()) {
+            String photo = photosToUpload.remove(0);
+            LOG.info("Uploading photo: {}", photo);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                LOG.error("Upload interrupted: ", e);
+                return;
+            }
+        }
     }
 }
