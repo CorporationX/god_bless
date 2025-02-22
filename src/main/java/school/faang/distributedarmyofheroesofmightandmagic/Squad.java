@@ -1,12 +1,11 @@
 package school.faang.distributedarmyofheroesofmightandmagic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Squad {
 
     private final String name;
-    private List<Unit> units = new ArrayList<>();
+    private List<Unit> units;
 
     public Squad(String name, List<Unit> units) {
         this.name = name;
