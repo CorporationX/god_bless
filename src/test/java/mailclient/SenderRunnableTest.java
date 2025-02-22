@@ -14,6 +14,24 @@ public class SenderRunnableTest {
             SenderRunnable sender = new SenderRunnable(0, 10);
             assertDoesNotThrow(sender::run);
         }
+
+        @Test
+        void testSenderRunnableWhenStartEqualsEnd() {
+            SenderRunnable sender = new SenderRunnable(5, 5);
+            assertDoesNotThrow(sender::run);
+        }
+
+        @Test
+        void testSenderRunnableWithNegativeValues() {
+            SenderRunnable sender = new SenderRunnable(-5, 5);
+            assertDoesNotThrow(sender::run);
+        }
+
+        @Test
+        void testSenderRunnableWithBothNegative() {
+            SenderRunnable sender = new SenderRunnable(-10, -5);
+            assertDoesNotThrow(sender::run);
+        }
     }
 
     @Nested
