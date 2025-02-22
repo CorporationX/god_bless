@@ -31,8 +31,8 @@ public class Main {
                 executorService.submit(() -> videoManager.addView(videoId), videoId);
             }
         }
-        executorService.shutdown();
         try {
+            executorService.shutdown();
             if (!executorService.awaitTermination(TASKS_COMPLETED_DURATION_MS, TimeUnit.MILLISECONDS)) {
                 executorService.shutdownNow();
             }
