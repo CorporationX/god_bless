@@ -16,6 +16,7 @@ public class GooglePhotosAutoUploader {
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         System.out.println("Поток прерван");
+                        return;
                     }
                 }
                 if (!photosToUpload.isEmpty()) {
