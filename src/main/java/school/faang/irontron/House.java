@@ -41,7 +41,7 @@ public class House {
         return true;
     }
 
-    public synchronized Boolean releaseRole(@NonNull Role role) {
+    public synchronized boolean releaseRole(@NonNull Role role) {
         if (!checkRoles(role)) {
             return false;
         }
@@ -56,7 +56,7 @@ public class House {
         return false;
     }
 
-    private Boolean checkRoles(Role role) {
+    private boolean checkRoles(Role role) {
         if (roles.contains(role)) {
             return true;
         }
