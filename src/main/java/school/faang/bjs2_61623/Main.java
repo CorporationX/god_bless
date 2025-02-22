@@ -1,6 +1,5 @@
 package school.faang.bjs2_61623;
 
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -16,15 +15,15 @@ public class Main {
         VideoManager videoManager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int i = 1; i <= NUM_VIDEOS; i++) {
-            String videoId = "Video_" + i;
-            for (int j = 0; j < NUM_THREADS; j++) {
+        for (int videoIndex = 1; videoIndex <= NUM_VIDEOS; videoIndex++) {
+            String videoId = "Video_" + videoIndex;
+            for (int threadIndex = 0; threadIndex < NUM_THREADS; threadIndex++) {
                 executor.submit(() -> videoManager.addView(videoId));
             }
         }
 
-        executor.shutdown();
         try {
+            executor.shutdown();
             if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
@@ -33,8 +32,8 @@ public class Main {
             Thread.currentThread().interrupt();
         }
 
-        for (int i = 1; i <= NUM_VIDEOS; i++) {
-            String videoId = "Video_" + i;
+        for (int videoIndex = 1; videoIndex <= NUM_VIDEOS; videoIndex++) {
+            String videoId = "Video_" + videoIndex;
             log.info("Final view count for {}: {}", videoId, videoManager.getViewCount(videoId));
         }
     }
