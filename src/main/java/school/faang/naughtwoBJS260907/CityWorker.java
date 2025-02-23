@@ -10,7 +10,7 @@ public class CityWorker implements Runnable {
     private final City city;
     private List<Monster> monsters;
 
-    private final static Location WITCHER_CASTLE = new Location(0, 0);
+    private static final Location WITCHER_CASTLE = new Location(0, 0);
 
     @Override
     public void run() {
@@ -40,8 +40,8 @@ public class CityWorker implements Runnable {
 
     private Monster findNearestMonster() {
         return monsters.stream()
-                .min(Comparator.comparingDouble
-                        (monster -> calculateDistance(city.location(), monster.getLocation())))
+                .min(Comparator.comparingDouble(monster ->
+                        calculateDistance(city.location(), monster.getLocation())))
                 .orElse(null);
     }
 }
