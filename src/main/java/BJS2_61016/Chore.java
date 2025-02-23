@@ -15,7 +15,7 @@ public class Chore implements Runnable {
             Thread.sleep(1000);
             log.info("{} is done", title);
         } catch (InterruptedException e) {
-            log.error("{} was interrupted", title);
+            log.error("Task {} was interrupted because: {}", title, e.getMessage());
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }

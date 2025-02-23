@@ -20,8 +20,8 @@ public class WeasleyFamily {
 
         EXECUTOR.shutdown();
         try {
-            if (!EXECUTOR.awaitTermination(5, TimeUnit.MINUTES)) {
-                log.info("Some chores were not done at 5 minutes, shutdown now");
+            if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
+                log.info("Some chores were not done at 30 seconds, shutdown now");
                 EXECUTOR.shutdownNow();
             }
         } catch (InterruptedException e) {
