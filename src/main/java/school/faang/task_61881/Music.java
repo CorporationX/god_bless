@@ -15,5 +15,15 @@ public class Music {
         List<Thread> threads = new ArrayList<>(List.of(firstUser, secondUser, thirdUser, fourthUser));
 
         threads.forEach(Thread::start);
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.printf("Ожидание завершения потока %s прервано", thread.getName());
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
