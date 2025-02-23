@@ -9,6 +9,7 @@ public class User {
     private static final String DEFAULT_ROLE = "None";
     private static final int MAX_TIME_EXECUTION = 500;
     private static final int MIN_TIME_EXECUTION = 300;
+    private static final int MESSAGE_DELAY = 1;
 
     private final String name;
 
@@ -21,7 +22,7 @@ public class User {
     public void joinHouse(House house, String role) throws InterruptedException {
         imitateDelay();
         house.assignRole(role);
-        Thread.sleep(1);
+        Thread.sleep(MESSAGE_DELAY);
         log.info("User {} joined house with role {}", name, role);
         this.role = role;
     }
