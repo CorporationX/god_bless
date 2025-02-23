@@ -7,9 +7,7 @@ public class Tournament {
         CompletableFuture<School> futureSchool = CompletableFuture.supplyAsync(() -> {
             try {
                 school.getStudents()
-                        .forEach(student ->
-                                student.setPoints(student.getPoints() + task.getReward())
-                        );
+                        .forEach(student -> student.setPoints(student.getPoints() + task.getReward()));
                 Thread.sleep(15L * task.getDifficulty());
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
