@@ -18,7 +18,7 @@ public class Player {
         this.name = name;
     }
 
-    public void doBattle(@NonNull Boss boss){
+    public void doBattle(@NonNull Boss boss) {
         boss.joinBattle(this);
         try {
             Thread.sleep(rand.nextInt(5000));

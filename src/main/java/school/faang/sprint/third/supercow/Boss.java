@@ -9,17 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
-    private final Object objectForLock = new Object();
+    private final Object lock = new Object();
 
     public void joinBattle(@NonNull Player player) {
-        synchronized (objectForLock) {
-            if (currentPlayers == maxPlayers) {
+        synchronized (lock) {
+            while (currentPlayers >= maxPlayers) {
                 try {
                     log.info("Player {} waiting for battle to join...", player.getName());
-                    objectForLock.wait();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                     Thread.currentThread().interrupt();
+                    return;
                 }
             }
             log.info("Player {} joined the battle!", player.getName());
@@ -28,14 +29,14 @@ public class Boss {
     }
 
     public void leaveBattle(@NonNull Player player) {
-        synchronized (objectForLock) {
+        synchronized (lock) {
             if (currentPlayers == 0) {
                 log.info("Hasn't players stop battle");
                 return;
             }
             log.info("Player {} left the battle!", player.getName());
             currentPlayers--;
-            objectForLock.notifyAll();
+            lock.notifyAll();
         }
     }
 }
