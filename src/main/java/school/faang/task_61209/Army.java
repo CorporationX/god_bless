@@ -12,7 +12,7 @@ public class Army {
     @NonNull
     private final List<Squad> squads;
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() throws ThreadCompletionWaitingException {
         List<Thread> threads = new ArrayList<>();
         List<Integer> totalPower = Collections.synchronizedList(new ArrayList<>());
 
@@ -23,7 +23,12 @@ public class Army {
         });
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new ThreadCompletionWaitingException(e.getMessage());
+            }
         }
 
         return totalPower.stream()

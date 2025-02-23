@@ -9,15 +9,12 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class Squad {
-    private static final int DEFAULT_SQUAD_POWER = 0;
-
     @NonNull
     private final List<Soldier> soldiers;
 
     public int calculateSquadPower() {
         return soldiers.stream()
-                .reduce(DEFAULT_SQUAD_POWER,
-                        (powerSum, soldier) -> powerSum + soldier.getPower(),
-                        Integer::sum);
+                .mapToInt(Soldier::getPower)
+                .sum();
     }
 }
