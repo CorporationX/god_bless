@@ -171,7 +171,7 @@ public class UserActionAnalyzer {
 
     public static Map<ActionType, Double> calculateActionPercentages(List<UserAction> actions) {
         long totalActions = actions.size();  // Общее количество действий
-                // Группировка по типу действия
+        // Группировка по типу действия
         Map<ActionType, Long> actionTypeToCount = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
         return actionTypeToCount.entrySet().stream()
