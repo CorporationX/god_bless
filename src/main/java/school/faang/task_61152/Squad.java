@@ -5,10 +5,10 @@ import java.util.List;
 
 @AllArgsConstructor
 public class Squad {
-    private String nameSquad;
-    private List<Unit> unit;
+    private String name;
+    private List<Unit> units;
 
     public int calculateSquadPower() {
-        return unit.stream().mapToInt(Unit::getPower).sum();
+        return units.stream().mapToInt(Unit::getPower).sum();
     }
 }
