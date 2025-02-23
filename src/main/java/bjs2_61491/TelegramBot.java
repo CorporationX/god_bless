@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TelegramBot {
-    private final int MS_PER_SECOND = 1000;
-    private final int REQUEST_LIMIT = 5;
+    private static final int MS_PER_SECOND = 1000;
+    private static final int REQUEST_LIMIT = 5;
 
     private int requestCounter = 0;
     private long lastRequestTime = System.currentTimeMillis();
