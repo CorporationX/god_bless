@@ -19,7 +19,6 @@ public class Main {
             String videoId = "video" + i;
             for (int j = 0; j < NUM_THREADS; j++) {
                 EXECUTOR.submit(() -> videoManager.addView(videoId));
-                sleep(); //без этого не программа работала некоректно!
                 log.info("Видео {} набрало {} просмотров!", videoId, videoManager.getViewCount(videoId));
             }
         }
@@ -34,14 +33,4 @@ public class Main {
             EXECUTOR.shutdownNow();
         }
     }
-
-    public static void sleep() {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            log.error("поток был прирван!");
-            throw new RuntimeException(e);
-        }
-    }
-
 }
