@@ -7,8 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class House {
-    private static final boolean AVAILABLE_ROLE = false;
-    private static final boolean BUSY_ROLE = true;
+    private static final boolean IS_BUSY_ROLE = false;
 
     private final Object lockRole = new Object();
     private final Map<String, Boolean> roles = new HashMap<>();
@@ -16,18 +15,18 @@ public class House {
     public void assignRole(String role) throws InterruptedException {
         validateRole(role);
         synchronized (lockRole) {
-            while (roles.get(role) == BUSY_ROLE) {
+            while (roles.get(role) != IS_BUSY_ROLE) {
                 lockRole.wait();
             }
-            roles.put(role, BUSY_ROLE);
+            roles.put(role, !IS_BUSY_ROLE);
         }
     }
 
     public void releaseRole(String role) {
         validateRole(role);
         synchronized (lockRole) {
-            if (roles.get(role) == BUSY_ROLE) {
-                roles.put(role, AVAILABLE_ROLE);
+            if (roles.get(role) != IS_BUSY_ROLE) {
+                roles.put(role, IS_BUSY_ROLE);
                 lockRole.notifyAll();
             }
         }
@@ -36,7 +35,7 @@ public class House {
     public void addPackageRoles(List<String> listRoles) {
         validateListRoles(listRoles);
         roles.putAll(
-                listRoles.stream().collect(Collectors.toMap(role -> role, role -> AVAILABLE_ROLE)));
+                listRoles.stream().collect(Collectors.toMap(role -> role, role -> IS_BUSY_ROLE)));
     }
 
     private void validateRole(String role) {
