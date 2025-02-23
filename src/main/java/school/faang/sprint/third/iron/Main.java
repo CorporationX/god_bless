@@ -32,7 +32,7 @@ public class Main {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(10000, TimeUnit.MILLISECONDS)){
+            if (!executor.awaitTermination(10000, TimeUnit.MILLISECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

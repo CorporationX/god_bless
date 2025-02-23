@@ -11,7 +11,7 @@ public class House {
 
     public void assignRole(Role role, User user) {
 
-        synchronized (lock){
+        synchronized (lock) {
             if (roles.contains(role)) {
                 try {
                     log.info("Role {} already assigned to", role);
@@ -28,7 +28,7 @@ public class House {
     }
 
     public void releaseRole(Role role) {
-        synchronized (lock){
+        synchronized (lock) {
             log.info("Role {} released", role);
             roles.remove(role);
             lock.notify();
