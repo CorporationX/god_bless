@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -20,6 +21,15 @@ public class Main {
                 service.submit(() -> videoManager.addView(str));
                 log.info("Video " + str + " просмотров: " + videoManager.getViewCount(str));
             }
+
+        }
+        service.shutdown();
+        try {
+            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
+                service.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            service.shutdownNow();
         }
     }
 }
