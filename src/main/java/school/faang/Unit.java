@@ -1,12 +1,17 @@
 package school.faang;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
-public class Unit {
-    protected int power;
+public abstract class Unit {
+    private int power;
+
+    public int getPower() {
+        return power;
+    }
+
+    public Unit(int power) {
+        this.power = power;
+    }
 }
 
