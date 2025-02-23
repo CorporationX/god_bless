@@ -142,7 +142,8 @@ public class UserActionAnalyzer {
 
     public static List<String> topHashtags(List<UserAction> actions, int topN) {
         Map<String, Long> wordToCount = actions.stream()
-                .filter(action -> (ActionType.POST.equals(action.getActionType()) || ActionType.COMMENT.equals(action.getActionType()))
+                .filter(action -> (ActionType.POST.equals(action.getActionType())
+                        || ActionType.COMMENT.equals(action.getActionType()))
                         && action.getContent() != null)
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
                 .filter(word -> word.startsWith("#"))
