@@ -14,6 +14,7 @@ public class Music {
     private static final Map<Command, Runnable> commands = new HashMap<>();
     private static final Random random = new Random();
     private static final List<Thread> threads = new ArrayList<>();
+    private static final int COMMAND_COUNT = 20;
 
 
     public static void main(String[] args) {
@@ -23,7 +24,7 @@ public class Music {
         commands.put(Command.SKIP, player::skip);
         commands.put(Command.PREVIOUS, player::previous);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < COMMAND_COUNT; i++) {
             Thread thread = new Thread(commands.get(getCommand()));
             threads.add(thread);
         }
@@ -35,6 +36,7 @@ public class Music {
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage());
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         log.info("Command processing is completed.");
