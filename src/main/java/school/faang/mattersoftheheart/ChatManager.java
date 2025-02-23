@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
@@ -28,6 +29,7 @@ public class ChatManager {
     }
 
     public void findChat(User user) throws InterruptedException {
+        Objects.requireNonNull(user, "invalid user value");
         synchronized (lockUser) {
             imitateDelay(FIND_CHAT_DELAY);
             if (waitingUsers.isEmpty()) {

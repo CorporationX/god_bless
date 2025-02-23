@@ -45,12 +45,16 @@ public class Main {
     private static boolean isRunning = true;
 
     public static void main(String[] args) throws InterruptedException {
-        USERS.forEach(USER_LIST::addUser);
-        USER_LIST.removeUser(USERS.get(RANDOM.nextInt(USERS.size())));
-        setStatusesRandomUsers();
-        USER_LIST.printAllUsers();
+        try {
+            USERS.forEach(USER_LIST::addUser);
+            USER_LIST.removeUser(USERS.get(RANDOM.nextInt(USERS.size())));
+            setStatusesRandomUsers();
+            USER_LIST.printAllUsers();
 
-        testChatManager();
+            testChatManager();
+        } catch (IllegalArgumentException exception) {
+            log.error(exception.getMessage(), exception);
+        }
     }
 
     private static void testChatManager() throws InterruptedException {
