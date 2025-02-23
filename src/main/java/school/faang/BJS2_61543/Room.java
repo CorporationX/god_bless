@@ -13,22 +13,31 @@ public class Room {
     @Getter
     private int roomNumer;
     private final List<Food> foodList = new ArrayList<>();
+    private final Object lock = new Object();
 
     public List<Food> clearFood() {
-        List<Food> collectedFood = new ArrayList<>(foodList);
-        foodList.clear();
-        return collectedFood;
+        synchronized (lock) {
+            List<Food> collectedFood = new ArrayList<>(foodList);
+            foodList.clear();
+            return collectedFood;
+        }
     }
 
     public boolean hasFood() {
-        return !foodList.isEmpty();
+        synchronized (lock) {
+            return !foodList.isEmpty();
+        }
     }
 
     public void addFood(@NonNull Food food) {
-        foodList.add(food);
+        synchronized (lock) {
+            foodList.add(food);
+        }
     }
 
     public void printAllFood() {
-        foodList.forEach(System.out::println);
+        synchronized (lock) {
+            foodList.forEach(System.out::println);
+        }
     }
 }

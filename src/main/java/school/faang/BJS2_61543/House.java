@@ -3,21 +3,28 @@ package school.faang.BJS2_61543;
 import lombok.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class House {
 
-    private static final int MAX_ROOM_AMOUNT = 20;
+    private static final int MAX_ROOM_AMOUNT = 15;
     private static final int ROOMS_TO_COLLECT_FOOD_COUNT = 2;
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
     private final Random random = new Random();
 
     public synchronized void collectFood() {
+        Set<Room> visitedRooms = new HashSet<>();
         for (int i = 0; i < ROOMS_TO_COLLECT_FOOD_COUNT; i++) {
-            Room room = getRandomRoom();
+            Room room;
+            do {
+                room = getRandomRoom();
+            } while (visitedRooms.contains(room) && visitedRooms.size() < rooms.size());
+            visitedRooms.add(room);
             System.out.println("Collecting food from room №%d".formatted(room.getRoomNumer()));
             collectedFood.addAll(room.clearFood());
         }
