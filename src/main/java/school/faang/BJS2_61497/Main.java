@@ -5,6 +5,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+
+    private static final int TIME_AWAIT_TERMINATION = 10;
+
     public static void main(String[] args) {
 
         int numTreads = 4;
@@ -28,10 +31,10 @@ public class Main {
         executorService.shutdown();
 
         try {
-            if (executorService.awaitTermination(1, TimeUnit.SECONDS)) {
-                System.out.println("All tasks finished withing 1 second");
+            if (executorService.awaitTermination(TIME_AWAIT_TERMINATION, TimeUnit.SECONDS)) {
+                System.out.println("All tasks finished");
             } else {
-                System.out.println("Not all tasks finished within 1 second");
+                System.out.println("Not all tasks finished");
             }
         } catch (InterruptedException e) {
             System.out.println("Waiting for all tasks to complete was interrupted");

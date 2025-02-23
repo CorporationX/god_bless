@@ -7,27 +7,23 @@ import java.util.List;
 
 public class House {
 
-    private final List<String> roles = new ArrayList<>(List.of("Lord", "Knight", "Wizard"));
+    private final List<Role> roles = new ArrayList<>(List.of(Role.LORD, Role.KNIGHT, Role.WIZARD));
 
-    public String assignRole() {
-        String str;
-        synchronized (roles) {
-            if (roles.isEmpty()) {
-                try {
-                    roles.wait();
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
+    public synchronized Role assignRole() {
+        Role role;
+        while (roles.isEmpty()) {
+            try {
+                this.wait();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
             }
-            str = roles.remove(0);
         }
-        return str;
+        role = roles.remove(0);
+        return role;
     }
 
-    public void releaseRole(@NonNull String role) {
-        synchronized (roles) {
-            roles.add(role);
-            roles.notify();
-        }
+    public synchronized void releaseRole(@NonNull Role role) {
+        roles.add(role);
+        this.notify();
     }
 }
