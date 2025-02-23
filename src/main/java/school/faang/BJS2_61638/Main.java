@@ -2,6 +2,7 @@ package school.faang.BJS2_61638;
 
 public class Main {
     public static void main(String[] args) {
+
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
         Thread uploadThread = new Thread(() -> {
             System.out.println("Start uploading photos");

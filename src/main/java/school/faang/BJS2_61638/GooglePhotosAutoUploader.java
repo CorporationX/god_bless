@@ -5,15 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
+    public final Object lock = new Object();
     private final List<String> photosToUpload = new LinkedList<>();
 
     public void startAutoUpload() {
         while (true) {
-            synchronized (photosToUpload) {
-                if (photosToUpload.isEmpty()) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
                     System.out.println("List of paths is empty!");
                     try {
-                        photosToUpload.wait();
+                        lock.wait();
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -24,18 +25,14 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Photo path added");
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 
     public void uploadPhotos() {
-        if (photosToUpload.isEmpty()) {
-            System.out.println("List for uploading is empty");
-            return;
-        }
         Iterator<String> iterator = photosToUpload.iterator();
         while (iterator.hasNext()) {
             String s = iterator.next();
