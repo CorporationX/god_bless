@@ -1,7 +1,9 @@
 package BJS2_61969;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 public class Player {
     private final Object lock = new Object();
@@ -10,10 +12,10 @@ public class Player {
     public void play() {
         synchronized (lock) {
             if (isPlaying) {
-                System.out.println("Already playing");
+                log.info("Already playing");
             } else {
                 isPlaying = true;
-                System.out.println("Playing");
+                log.info("Playing");
             }
         }
     }
@@ -22,22 +24,22 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                System.out.println("Paused");
+                log.info("Paused");
             } else {
-                System.out.println("Already paused");
+                log.info("Already paused");
             }
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("Skipped");
+            log.info("Skipped");
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            System.out.println("Previous");
+            log.info("Previous");
         }
     }
 }

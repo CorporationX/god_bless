@@ -1,18 +1,28 @@
 package BJS2_61969;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
+@Slf4j
 public class Music {
-    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(player::play);
-        Thread pauseThread = new Thread(player::pause);
-        Thread skipThread = new Thread(player::skip);
-        Thread previousThread = new Thread(player::previous);
+        List<Thread> threads = List.of(
+                new Thread(player::play),
+                new Thread(player::pause),
+                new Thread(player::skip),
+                new Thread(player::previous)
+        );
 
-        playThread.start();
-        pauseThread.start();
-        skipThread.start();
-        previousThread.start();
+        threads.forEach(Thread::start);
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            log.error("Task was interrupted because: {}", e.getMessage());
+        }
     }
 }
