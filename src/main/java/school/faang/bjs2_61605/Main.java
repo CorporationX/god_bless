@@ -10,7 +10,8 @@ public class Main {
         List<Player> players = Arrays.asList(
             new Player("Garry"),
             new Player("John"),
-            new Player("Jane")
+            new Player("Jane"),
+            new Player("Mike")
         );
 
         for (Player player : players) {

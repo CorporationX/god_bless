@@ -14,10 +14,9 @@ public class Boss {
 
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (lock) {
-            if (currentPlayers >= maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
                 System.out.println("Все слоты заняты, необходимо подождать...");
                 lock.wait();
-
             }
             currentPlayers++;
             System.out.printf("Игрок %s присоединился к битве с боссом %n", player.getName());
