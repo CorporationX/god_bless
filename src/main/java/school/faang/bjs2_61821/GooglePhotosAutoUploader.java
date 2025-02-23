@@ -4,19 +4,16 @@ import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @AllArgsConstructor
 public class GooglePhotosAutoUploader {
 
-    private final Lock lock = new ReentrantLock();
-
-    private List<String> photosToUpload;
+    private final Object lock = new Object();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            if (photosToUpload == null || photosToUpload.isEmpty()) {
+            if (photosToUpload.isEmpty()) {
                 System.out.println("Фото для загрузки нет. Ожидаем");
                 lock.wait(3000);
             }
@@ -34,7 +31,7 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         photosToUpload.forEach(photo -> System.out.println(photo + " - загружено."));
-        photosToUpload = new ArrayList<>();
+        photosToUpload.clear();
         System.out.println("Фото загружены. Список фотографий очищен!");
     }
 
