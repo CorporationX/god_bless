@@ -5,17 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Game {
     private int score = 0;
-    private int lives = 300;
+    private int lives = 20;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
-    public void update(int earnedScores, int loseLives) {
+    public void update(boolean isEarnScore, boolean isLoseLive) {
         synchronized (scoreLock) {
-            if (lives == 0) {
-                log.info("Game over, scores not earned");
-                return;
+            if (isEarnScore) {
+                score++;
             }
-            score += earnedScores;
         }
 
         synchronized (livesLock) {
@@ -24,7 +22,10 @@ public class Game {
                 return;
             }
 
-            lives -= loseLives;
+            if (isLoseLive) {
+                lives--;
+            }
+
             if (lives <= 0) {
                 lives = 0;
                 gameOver();
