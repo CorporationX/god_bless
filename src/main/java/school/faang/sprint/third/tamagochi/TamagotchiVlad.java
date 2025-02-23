@@ -6,18 +6,22 @@ import lombok.extern.slf4j.Slf4j;
 public class TamagotchiVlad {
 
     public synchronized void feed() {
-        log.info("feed");
+        logState(State.FEED);
     }
 
     public synchronized void play() {
-        log.info("play");
+        logState(State.PLAY);
     }
 
     public synchronized void clean() {
-        log.info("clean");
+        logState(State.CLEAN);
     }
 
     public synchronized void sleep() {
-        log.info("sleep");
+        logState(State.SLEEP);
+    }
+
+    private void logState(State state) {
+        log.info("TamagotchiVlad now is: {}", state);
     }
 }

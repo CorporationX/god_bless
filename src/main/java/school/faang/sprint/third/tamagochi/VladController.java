@@ -4,49 +4,42 @@ import java.util.List;
 import java.util.Random;
 
 public class VladController {
+    private static final int THREAD_SLEEP_TIME = 10000;
     private static final Random RANDOM = new Random();
 
     public void feedAll(List<TamagotchiVlad> tamagotchiVlads) {
         tamagotchiVlads.forEach(tamagotchiVlad -> {
             tamagotchiVlad.feed();
-            try {
-                Thread.sleep(RANDOM.nextInt(1000));
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            threadSleep();
         });
     }
 
     public void playAll(List<TamagotchiVlad> tamagotchiVlads) {
         tamagotchiVlads.forEach(tamagotchiVlad -> {
             tamagotchiVlad.play();
-            try {
-                Thread.sleep(RANDOM.nextInt(1000));
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            threadSleep();
         });
     }
 
     public void cleanAll(List<TamagotchiVlad> tamagotchiVlads) {
         tamagotchiVlads.forEach(tamagotchiVlad -> {
             tamagotchiVlad.clean();
-            try {
-                Thread.sleep(RANDOM.nextInt(1000));
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            threadSleep();
         });
     }
 
     public void sleepAll(List<TamagotchiVlad> tamagotchiVlads) {
         tamagotchiVlads.forEach(tamagotchiVlad -> {
             tamagotchiVlad.sleep();
-            try {
-                Thread.sleep(RANDOM.nextInt(1000));
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            threadSleep();
         });
+    }
+
+    private void threadSleep() {
+        try {
+            Thread.sleep(RANDOM.nextInt(THREAD_SLEEP_TIME));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
