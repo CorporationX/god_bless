@@ -26,29 +26,33 @@ public class Main {
 
         try {
             Thread.sleep(1000);
+            executorService.shutdown();
         } catch (InterruptedException e) {
+            System.out.println("Interrupted Exception is thrown: %s".formatted(e.getMessage()));
             throw new RuntimeException(e);
         }
 
-        executorService.shutdown();
-
         try {
             if (executorService.awaitTermination(1, TimeUnit.SECONDS)) {
-                System.out.println("All tasks finished withing 1 second");
+                System.out.println("All tasks finished within 1 second");
             } else {
                 System.out.println("Not all tasks finished within 1 second");
             }
         } catch (InterruptedException e) {
             System.out.println("Waiting for all tasks to complete was interrupted");
+            Thread.currentThread().interrupt();
         }
 
         if (!executorService.isTerminated()) {
             System.out.println("Force quit remaining tasks");
-            executorService.shutdownNow();
+            try {
+                executorService.shutdownNow();
+            } catch (SecurityException e) {
+                System.err.println("Failed to force quit tasks due to security restriction: " + e.getMessage());
+            }
         }
 
-        videoManager.getViewsMap().forEach((k, v) -> {
-            System.out.println("%s has been %d times viewed".formatted(k, v));
-        });
+        videoManager.getViewsMap().forEach((k, v) ->
+                System.out.println("%s has been %d times viewed".formatted(k, v)));
     }
 }
