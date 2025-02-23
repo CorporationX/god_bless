@@ -1,7 +1,10 @@
 package school.faang.wow;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class App {
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
@@ -22,7 +25,11 @@ public class App {
         player2Quest.join();
 
         // Обработка результатов заданий
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        player1Quest.thenAccept(player ->
+                log.info("{} has completed the quest and now has {} experience points.",
+                        player.getName(), player.getExperience()));
+        player2Quest.thenAccept(player ->
+                log.info("{} has completed the quest and now has {} experience points.",
+                        player.getName(), player.getExperience()));
     }
 }
