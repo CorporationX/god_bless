@@ -13,7 +13,7 @@ public class Witcher {
     public static void main(String[] args) {
         List<CityWorker> cityWorkers = cityWorkerList();
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        for (CityWorker cityWorker:cityWorkers) {
+        for (CityWorker cityWorker : cityWorkers) {
             executor.submit(cityWorker);
         }
         executor.shutdown();
@@ -26,6 +26,7 @@ public class Witcher {
         }
         log.debug("Program is completed");
     }
+
     private static List<CityWorker> cityWorkerList() {
         List<Monster> monsters = new ArrayList<>();
         monsters.add(new Monster("Drowners", new Location(4, 5)));
