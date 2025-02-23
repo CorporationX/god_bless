@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Warrior {
+public abstract class Warrior {
     protected String name;
     protected int power;
 }

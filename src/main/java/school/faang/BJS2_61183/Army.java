@@ -43,6 +43,7 @@ public class Army {
                 totalPower += future.get();
             } catch (InterruptedException | ExecutionException e) {
                 logger.error(THREAD_ERROR, e.toString());
+                Thread.currentThread().interrupt();
             }
         }
 
