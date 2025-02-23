@@ -17,7 +17,8 @@ public class VideoManager {
     private final Object viewLock = new Object();
 
     public void addView(String viewName) throws InterruptedException {
-        validateNameAndImitationDelay(viewName);
+        validateName(viewName);
+        imitationDelay();
         synchronized (viewLock) {
             viewsMap.put(viewName, viewsMap.getOrDefault(viewName, DEFAULT_VIEW_NEW_VIDEO) + ADD_VIEW_NUMBER);
             log.info("Changing view {} on video {}", viewsMap.get(viewName), viewName);
@@ -26,7 +27,8 @@ public class VideoManager {
     }
 
     public void getViewCount(String viewName) throws InterruptedException {
-        validateNameAndImitationDelay(viewName);
+        validateName(viewName);
+        imitationDelay();
         synchronized (viewLock) {
             if (!viewsMap.containsKey(viewName)) {
                 viewLock.wait();
@@ -35,8 +37,12 @@ public class VideoManager {
         }
     }
 
-    private void validateNameAndImitationDelay(String viewName) throws InterruptedException {
+    private void imitationDelay() throws InterruptedException {
         Thread.sleep((long) (Math.random() * MAX_EXECUTION_TIME + MIN_EXECUTION_TIME));
+
+    }
+
+    private void validateName(String viewName) {
         Objects.requireNonNull(viewName, "Invalid view name");
     }
 }
