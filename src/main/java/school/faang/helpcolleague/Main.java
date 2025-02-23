@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int THREADS_COUNT = 4;
 
     public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
@@ -17,15 +18,14 @@ public class Main {
             persons.add(new Person("name" + i, "surname" + i, i, "workplace" + i));
         }
 
-        int threadsCount = 4;
-        int portion = persons.size() / threadsCount;
-        ExecutorService executor = Executors.newFixedThreadPool(threadsCount);
+        int portion = persons.size() / THREADS_COUNT;
+        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
 
-        for (int i = 0; i < threadsCount; i++) {
+        for (int i = 0; i < THREADS_COUNT; i++) {
             int startIndex = i * portion;
-            int endIndex = (i == threadsCount - 1) ? persons.size() : startIndex + portion;
+            int endIndex = (i == THREADS_COUNT - 1) ? persons.size() : startIndex + portion;
 
-            List<Person> subPersons = List.copyOf(persons.subList(startIndex, endIndex));
+            List<Person> subPersons = persons.subList(startIndex, endIndex);
             executor.execute(new PersonInfoPrinter(subPersons));
         }
 
