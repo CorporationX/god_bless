@@ -8,7 +8,7 @@ import java.util.List;
 
 @Slf4j
 public class Army {
-    ArrayList<Squad> squads = new ArrayList<>();
+    private final ArrayList<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
         if (squad == null) {
@@ -19,7 +19,7 @@ public class Army {
 
     public int calculateTotalPower() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
-        List<Integer> results = Collections.synchronizedList(new ArrayList<>());
+        List<Integer> results = Collections.synchronizedList(new ArrayList<>(squads.size()));
         for (Squad squad : squads) {
             Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
             threads.add(thread);

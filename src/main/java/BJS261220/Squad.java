@@ -15,6 +15,6 @@ public class Squad {
     }
 
     public int calculateSquadPower() {
-        return units.stream().mapToInt(Unit::getPower).sum();
+        return  units.stream().parallel().mapToInt(Unit::getPower).sum();
     }
 }
