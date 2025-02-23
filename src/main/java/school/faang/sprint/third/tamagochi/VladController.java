@@ -6,7 +6,6 @@ import java.util.Random;
 public class VladController {
     private static final Random RANDOM = new Random();
 
-
     public void feedAll(List<TamagotchiVlad> tamagotchiVlads) {
         tamagotchiVlads.forEach(tamagotchiVlad -> {
             tamagotchiVlad.feed();
