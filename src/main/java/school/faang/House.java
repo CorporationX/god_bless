@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class House {
     private static final Logger logger = LoggerFactory.getLogger(House.class);
@@ -16,9 +17,14 @@ public class House {
 
     public String assignRole() {
         synchronized (lock) {
+            if (!roles.isEmpty()) {
+                return roles.remove(roles.size() - 1);
+            }
+        }
+        synchronized (lock) {
             while (roles.isEmpty()) {
                 try {
-                    lock.wait();
+                    lock.wait(TimeUnit.SECONDS.toMillis(30));
                 } catch (InterruptedException e) {
                     logger.error("Wait was interrupted.");
                     Thread.currentThread().interrupt();
