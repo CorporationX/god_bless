@@ -51,7 +51,7 @@ public class Game {
         }
     }
 
-    public boolean gameOver() {
+    public void gameOver() {
         if (!isGameOver) {
             isGameOver = true;
             try {
@@ -61,6 +61,5 @@ public class Game {
             }
             System.out.printf("\nThe game is over! You have got %d points", score);
         }
-        return isGameOver;
     }
 }
