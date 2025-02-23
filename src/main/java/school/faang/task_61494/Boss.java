@@ -21,6 +21,7 @@ public class Boss {
                     LOG.info("The slots for the boss are all occupied ({}/{}).", currentPlayers, maxPlayers);
                     lock.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException("Thread was interrupted while waiting", e);
                 }
             }

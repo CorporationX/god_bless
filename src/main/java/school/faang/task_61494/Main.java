@@ -10,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Player.class);
+    private static final int MAX_PLAYERS = 2;
+    private static final int THREAD_COUNT = 2;
     private static final int THREAD_TIMEOUT = 2;
 
     public static void main(String[] args) {
-        Boss boss = new Boss(2);
-        ExecutorService pool = Executors.newFixedThreadPool(4);
+        Boss boss = new Boss(MAX_PLAYERS);
+        ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);
         List<Player> players = List.of(
                 new Player("Игрок 1"),
                 new Player("Игрок 2"),
