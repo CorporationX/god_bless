@@ -7,15 +7,9 @@ import java.util.Objects;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    public static final String SOMETHING_WENT_WRONG = "Something went wrong.";
-    public static final String NEW_PHOTO_TO_UPLOAD = "There is a new photo to upload.";
-    public static final String UPLOAD_IS_OVER = "The photo upload is over.";
-    public static final String UPLOADING_PHOTO = "Uploading photo: {}";
-    public static final String EXECUTING_UPLOAD_PHOTOS = "Executing upload photos.";
-    public static final String FILE_NAME_CANNOT_BE_NULL = "File name cannot be null";
-    public static final int UPLOAD_TIME = 500;
+    private static final int UPLOAD_TIME = 500;
     private final Object lock = new Object();
-    private static final List<Photo> photosToUpload = new ArrayList<>();
+    private final List<Photo> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         while (photosToUpload.isEmpty()) {
@@ -23,8 +17,7 @@ public class GooglePhotosAutoUploader {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    log.error(SOMETHING_WENT_WRONG);
-                    throw new RuntimeException(e);
+                    interruptedExceptionHandler(e);
                 }
             }
             uploadPhotos();
@@ -33,28 +26,33 @@ public class GooglePhotosAutoUploader {
 
     private void uploadPhotos() {
         synchronized (lock) {
-            log.info(EXECUTING_UPLOAD_PHOTOS);
+            log.info(AutoUploaderMasseges.EXECUTING_UPLOAD_PHOTOS);
             for (Photo photo : photosToUpload) {
-                log.info(UPLOADING_PHOTO, photo.getName());
+                log.info(AutoUploaderMasseges.UPLOADING_PHOTO, photo.getName());
                 try {
                     Thread.sleep(UPLOAD_TIME);
                 } catch (InterruptedException e) {
-                    log.error(SOMETHING_WENT_WRONG);
-                    throw new RuntimeException(e);
+                    interruptedExceptionHandler(e);
                 }
             }
             photosToUpload.clear();
-            log.info(UPLOAD_IS_OVER);
-            lock.notify();
+            log.info(AutoUploaderMasseges.UPLOAD_IS_OVER);
+            lock.notifyAll();
         }
     }
 
+    private static void interruptedExceptionHandler(InterruptedException e) {
+        log.error(AutoUploaderMasseges.SOMETHING_WENT_WRONG);
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
+    }
+
     public void onNewPhotoAdded(String photoPath) {
-        Objects.requireNonNull(photoPath, FILE_NAME_CANNOT_BE_NULL);
+        Objects.requireNonNull(photoPath, AutoUploaderMasseges.FILE_NAME_CANNOT_BE_NULL);
         if (!photoPath.isBlank()) {
             synchronized (lock) {
                 photosToUpload.add(new Photo(photoPath));
-                log.info(NEW_PHOTO_TO_UPLOAD);
+                log.info(AutoUploaderMasseges.NEW_PHOTO_TO_UPLOAD);
                 lock.notify();
             }
         }
