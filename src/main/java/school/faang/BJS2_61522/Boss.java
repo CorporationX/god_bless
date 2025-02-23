@@ -1,44 +1,50 @@
 package school.faang.BJS2_61522;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
-@RequiredArgsConstructor
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
-    private final Set<Player> players = new HashSet<>();
+    private final Object lock = new Object();
+    private final Set<Player> players;
 
-    public void joinBattle(Player player) {
-        synchronized (players) {
+    public Boss(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+        this.players = new HashSet<>();
+    }
+
+    public void joinBattle(@NonNull Player player) {
+        synchronized (lock) {
             if (currentPlayers >= maxPlayers) {
                 try {
-                    log.info("Для игрока {} нет свободного места в битве.", player.getName());
-                    players.wait();
+                    log.info(SupercowMessages.NO_FREE_SPACE, player.getName());
+                    lock.wait();
                 } catch (InterruptedException e) {
-                    log.error("Что-то пошло не так в потоке: \n{}", e);
+                    log.error(SupercowMessages.SOMETHING_WENT_WRONG, e);
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
             players.add(player);
             currentPlayers++;
+            log.info(SupercowMessages.PLAYER_JOINED, player.getName());
         }
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (players) {
+    public void leaveBattle(@NonNull Player player) {
+        synchronized (lock) {
             if (players.contains(player)) {
                 players.remove(player);
                 currentPlayers--;
-                log.info("Игрок вышел из битвы.");
-                players.notify();
+                log.info(SupercowMessages.PLAYER_EXITED, player.getName());
+                lock.notifyAll();
+            } else {
+                log.info(SupercowMessages.PLAYER_IS_NOT_PARTICIPATING, player.getName());
             }
-            log.info("Игрок итак не участвует в битве.");
         }
     }
 
