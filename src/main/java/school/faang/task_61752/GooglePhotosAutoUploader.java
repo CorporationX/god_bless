@@ -10,15 +10,14 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            } else {
-                uploadPhotos();
             }
+            uploadPhotos();
         }
     }
 
