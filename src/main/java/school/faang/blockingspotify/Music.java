@@ -13,22 +13,26 @@ public class Music {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(4);
     private static final int TIME_EXECUTION = 1;
     private static final TimeUnit TIME_EXECUTION_UNIT = TimeUnit.MINUTES;
-    private static final List<Runnable> PLAY_TASKS = List.of(
-            () -> executeTask(PLAYER::play),
-            () -> executeTask(PLAYER::pause),
-            () -> executeTask(PLAYER::skip),
-            () -> executeTask(PLAYER::previous)
-    );
 
-    public static void main(String[] args) throws InterruptedException {
-        PLAY_TASKS.forEach(EXECUTOR::submit);
-        EXECUTOR.shutdown();
-        boolean isTerminated = EXECUTOR.awaitTermination(TIME_EXECUTION, TIME_EXECUTION_UNIT);
-        if (isTerminated) {
-            log.info("All done");
-        } else {
-            log.warn("Execution timed out: {} {}", TIME_EXECUTION, TIME_EXECUTION_UNIT);
-            EXECUTOR.shutdownNow();
+    public static void main(String[] args) {
+        try {
+            List<Runnable> playTasks = List.of(
+                    () -> executeTask(PLAYER::play),
+                    () -> executeTask(PLAYER::pause),
+                    () -> executeTask(PLAYER::skip),
+                    () -> executeTask(PLAYER::previous)
+            );
+            playTasks.forEach(EXECUTOR::submit);
+            EXECUTOR.shutdown();
+            boolean isTerminated = EXECUTOR.awaitTermination(TIME_EXECUTION, TIME_EXECUTION_UNIT);
+            if (isTerminated) {
+                log.info("All done");
+            } else {
+                log.warn("Execution timed out: {} {}", TIME_EXECUTION, TIME_EXECUTION_UNIT);
+                EXECUTOR.shutdownNow();
+            }
+        } catch (InterruptedException exception) {
+            handleInterruptedException(exception);
         }
     }
 
@@ -36,10 +40,14 @@ public class Music {
         try {
             task.run();
         } catch (InterruptedException exception) {
-            log.error("Thread interrupted. Thread name: {}\nException: {}\nStack trace: {}",
-                    Thread.currentThread().getName(), exception, exception.getStackTrace());
-            Thread.currentThread().interrupt();
-            EXECUTOR.shutdownNow();
+            handleInterruptedException(exception);
         }
+    }
+
+    private static void handleInterruptedException(InterruptedException exception) {
+        log.error("Thread interrupted. Thread name: {}\nException: {}\nStack trace: {}",
+                Thread.currentThread().getName(), exception, exception.getStackTrace());
+        Thread.currentThread().interrupt();
+        EXECUTOR.shutdownNow();
     }
 }

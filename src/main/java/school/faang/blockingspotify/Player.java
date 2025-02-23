@@ -12,7 +12,7 @@ public class Player {
 
     public void play() throws InterruptedException {
         synchronized (LOCK) {
-            if (isPlaying) {
+            while (isPlaying) {
                 LOCK.wait();
             }
             simulateDelay();
@@ -24,7 +24,7 @@ public class Player {
 
     public void pause() throws InterruptedException {
         synchronized (LOCK) {
-            if (!isPlaying) {
+            while (!isPlaying) {
                 LOCK.wait();
             }
             simulateDelay();
