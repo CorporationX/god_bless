@@ -9,20 +9,23 @@ public class MailSender {
     private static final int BATCH_SIZE = NUMBER_OF_EMAILS_IN_QUEUE / NUMBER_OF_THREADS;
     private static final List<Thread> THREADS = new ArrayList<>();
 
-    private static int startIndex = 0;
-    private static int endIndex = startIndex + BATCH_SIZE;
-
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+            int startIndex = i * BATCH_SIZE;
+            int endIndex = (i + 1) * BATCH_SIZE;
             THREADS.add(new Thread(new SenderRunnable(startIndex, endIndex)));
-            startIndex += BATCH_SIZE;
-            endIndex += BATCH_SIZE;
         }
 
         THREADS.forEach(Thread::start);
 
         for (Thread thread : THREADS) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.printf("%s: ожидание завершения прервано%n", thread.getName());
+                thread.interrupt();
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("Все письма отправлены!");
