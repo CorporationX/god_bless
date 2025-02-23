@@ -6,19 +6,22 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class Main {
+    private static final int TIME_AWAIT_TERMINATION = 10;
+    private static final int THREADS_AMOUNT = 30;
+
     public static void main(String[] args) {
         final int threadsAmount = 5;
         final TelegramBot telegramBot = new TelegramBot();
         final ExecutorService executorService = Executors.newFixedThreadPool(threadsAmount);
 
-        IntStream.range(0, 30)
+        IntStream.range(0, THREADS_AMOUNT)
                 .mapToObj(i -> executorService.submit(() -> telegramBot.sendMessage("New message " + i)))
                 .toList();
 
         executorService.shutdown();
 
         try {
-            if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (executorService.awaitTermination(TIME_AWAIT_TERMINATION, TimeUnit.SECONDS)) {
                 System.out.println("All tasks finished withing 10 second");
             } else {
                 System.out.println("Not all tasks finished within 10 second");

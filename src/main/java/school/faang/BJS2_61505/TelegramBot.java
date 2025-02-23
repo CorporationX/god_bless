@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TelegramBot {
 
+    private static final int TIME_AFTER_LAST_REQUEST_MIL_SEC = 1000;
     private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
     private LocalTime lastRequestTime;
@@ -17,18 +18,17 @@ public class TelegramBot {
         this.lastRequestTime = LocalTime.now();
     }
 
-    public void sendMessage(@NonNull String message) {
+    public synchronized void sendMessage(@NonNull String message) {
         LocalTime timeNow = LocalTime.now();
         long ms = Duration.between(lastRequestTime, timeNow).toMillis();
 
-        if (ms < 1000) {
+        if (ms < TIME_AFTER_LAST_REQUEST_MIL_SEC) {
             if (requestCounter > REQUEST_LIMIT) {
-                long delay = 1000 - timeNow.getNano() / 1_000_000;
+                long delay = TIME_AFTER_LAST_REQUEST_MIL_SEC - timeNow.getNano() / 1_000_000;
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    e.printStackTrace();
                     System.out.println("Interrupt exception is released: %s".formatted(e.getMessage()));
                 }
                 requestCounter = 0;
