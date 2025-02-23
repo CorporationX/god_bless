@@ -26,11 +26,15 @@ public class Player {
         }
     }
 
-    public synchronized void skip() {
-        System.out.println("Skip music is acted");
+    public void skip() {
+        synchronized (lock) {
+            System.out.println("Skip music is acted");
+        }
     }
 
-    public synchronized void previous() {
-        System.out.println("Previous music is acted");
+    public void previous() {
+        synchronized (lock) {
+            System.out.println("Previous music is acted");
+        }
     }
 }

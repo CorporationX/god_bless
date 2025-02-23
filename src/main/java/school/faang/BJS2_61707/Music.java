@@ -1,21 +1,17 @@
 package school.faang.BJS2_61707;
 
+import lombok.NonNull;
+
 public class Music {
     private final Thread[] threads;
 
-    public Music() {
-        Player player = new Player();
-
-        Runnable playRun = player::play;
-        Runnable pauseRun = player::pause;
-        Runnable skipRun = player::skip;
-        Runnable previousRun = player::previous;
+    public Music(@NonNull Player player) {
 
         threads = new Thread[]{
-                new Thread(playRun),
-                new Thread(pauseRun),
-                new Thread(skipRun),
-                new Thread(previousRun)
+                new Thread(player::play),
+                new Thread(player::pause),
+                new Thread(player::skip),
+                new Thread(player::previous)
         };
     }
 
@@ -26,7 +22,7 @@ public class Music {
     }
 
     public static void main(String[] args) {
-        Music music = new Music();
+        Music music = new Music(new Player());
         music.start();
     }
 }
