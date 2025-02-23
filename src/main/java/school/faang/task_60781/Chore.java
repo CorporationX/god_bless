@@ -6,6 +6,9 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private static final int LEAD_TIME = 5000;
+    private static final String TASK_COMPLETION = "%s: выполнение задачи \"%s\"%n";
+    private static final String TASK_COMPLETED = "%s: задача \"%s\" выполнена%n";
+    private static final String TASK_INTERRUPTED = "%s: задача \"%s\" прервана%n";
 
     @NonNull
     private final String title;
@@ -13,13 +16,13 @@ public class Chore implements Runnable {
     @Override
     public void run() {
         String threadName = Thread.currentThread().getName();
-        System.out.printf("%s: выполнение задачи \"%s\"%n", threadName, title);
+        System.out.printf(TASK_COMPLETION, threadName, title);
         try {
             Thread.sleep(LEAD_TIME);
-            System.out.printf("%s: задача \"%s\" выполнена%n", threadName, title);
+            System.out.printf(TASK_COMPLETED, threadName, title);
         } catch (InterruptedException e) {
-            System.out.printf("%s: задача \"%s\" прервана%n", threadName, title);
             Thread.currentThread().interrupt();
+            System.out.printf(TASK_INTERRUPTED, threadName, title);
             throw new RuntimeException(e);
         }
     }
