@@ -33,8 +33,8 @@ public class CityWorker implements Runnable {
     }
 
     private double calculateDistance(Location loc1, Location loc2) {
-        int deltaX = loc1.getX() - loc2.getX();
-        int deltaY = loc1.getY() - loc2.getY();
+        int deltaX = loc1.getIndexX() - loc2.getIndexX();
+        int deltaY = loc1.getIndexY() - loc2.getIndexY();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 

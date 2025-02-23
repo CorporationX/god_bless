@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Location {
-    private int x;
-    private int y;
+    private int indexX;
+    private int indexY;
 }
