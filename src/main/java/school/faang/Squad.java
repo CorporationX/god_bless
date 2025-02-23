@@ -1,8 +1,19 @@
 package school.faang;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Squad {
+    private final List<Unit> units = new ArrayList<>();
 
-    public calculateTotalPower(int power) {
 
+    public void addUnit(Unit unit) {
+        units.add(unit);
+    }
+
+    public int calculateTotalPower() {
+        return units.stream()
+                .mapToInt(Unit::getPower)
+                .sum();
     }
 }
