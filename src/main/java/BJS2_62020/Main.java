@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
+        Game game = new Game(0, 25);
 
         while (game.getLives() > 0) {
             boolean isScore = Math.random() < 0.5;

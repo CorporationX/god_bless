@@ -1,13 +1,15 @@
 package BJS2_62020;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
+@AllArgsConstructor
 public class Game {
-    private int score = 0;
-    private int lives = 25;
+    private int score;
+    private int lives;
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
@@ -30,9 +32,6 @@ public class Game {
                 }
             }
         }
-
-
-
     }
 
     private void gameOver() {
