@@ -16,13 +16,13 @@ public class VladController {
 
     public synchronized void feedAll() {
         for (TamagotchiVlad vlad : vlads) {
-            vlad.play();
+            vlad.feed();
         }
     }
 
     public synchronized void playAll() {
         for (TamagotchiVlad vlad : vlads) {
-            vlad.feed();
+            vlad.play();
         }
     }
 

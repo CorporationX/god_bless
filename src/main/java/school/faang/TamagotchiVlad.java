@@ -1,36 +1,35 @@
 package school.faang;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class TamagotchiVlad {
-    private static final Logger logger = LoggerFactory.getLogger(TamagotchiVlad.class);
     private final String name;
-    private String state = "neutral";
+    private TamagotchiState state = TamagotchiState.NEUTRAL;
 
     public synchronized void feed() {
-        state = "well-fed";
+        state = TamagotchiState.WELL_FED;
         printVladInfo("eating");
     }
 
     public synchronized void play() {
-        state = "cheerful";
+        state = TamagotchiState.CHEERFUL;
         printVladInfo("playing");
     }
 
     public synchronized void clean() {
-        state = "pure";
+        state = TamagotchiState.PURE;
         printVladInfo("cleaning");
     }
 
     public synchronized void sleep() {
-        state = "sleeping";
+        state = TamagotchiState.SLEEPING;
         printVladInfo("sleeping");
     }
 
     private void printVladInfo(String info) {
-        logger.info("{} is {}. His condition is {}.", name, info, state);
+        log.info("{} is {}. His condition is {}.", name, info, state.name());
     }
 }
