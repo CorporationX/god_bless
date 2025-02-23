@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    private enum ActionType {POST, COMMENT, LIKE, SHARE}
+    private enum ActionType { POST, COMMENT, LIKE, SHARE }
 
     @Getter
     private static class UserAction {
@@ -171,9 +171,9 @@ public class UserActionAnalyzer {
 
     public static Map<ActionType, Double> calculateActionPercentages(List<UserAction> actions) {
         long totalActions = actions.size();  // Общее количество действий
-
+                // Группировка по типу действия
         Map<ActionType, Long> actionTypeToCount = actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));  // Группировка по типу действия
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
         return actionTypeToCount.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,  // Тип действия (post, comment, like, share)
