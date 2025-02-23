@@ -6,16 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Witcher {
     public static void main(String[] args) {
         List<CityWorker> cityWorkers = cityWorkerList();
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(1);
         for (CityWorker cityWorker:cityWorkers) {
             executor.submit(cityWorker);
         }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
         log.debug("Program is completed");
     }
     private static List<CityWorker> cityWorkerList() {
