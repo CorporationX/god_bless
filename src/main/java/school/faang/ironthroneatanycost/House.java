@@ -3,16 +3,14 @@ package school.faang.ironthroneatanycost;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 public class House {
-    private final List<String> availableRoles = new ArrayList<>(Arrays.asList("Воин", "Мастер", "Стратег"));
+    private final List<Role> availableRoles;
 
-    public synchronized String assignRole() {
+    public synchronized Role assignRole() {
         while (availableRoles.isEmpty()) {
             try {
                 log.info("Нет свободных ролей. Ожидайте.");
@@ -25,7 +23,7 @@ public class House {
         return availableRoles.remove(0);
     }
 
-    public void releaseRole(String role) {
+    public void releaseRole(Role role) {
         synchronized (availableRoles) {
             availableRoles.add(role);
             availableRoles.notifyAll();

@@ -17,7 +17,7 @@ public class App {
     ));
 
     public static void main(String[] args) {
-        House house = new House();
+        House house = new House(List.of(Role.WARRIOR, Role.MASTER, Role.STRATEGIST));
         List<Thread> threads = new ArrayList<>();
 
         for (User user : USERS) {
