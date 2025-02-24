@@ -10,6 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class LaunchPlanner {
+
+    private static final long TERMINATION_TIMEOUT_SECONDS = 60;
+
     public void planRocketLaunches(List<RocketLaunch> launches) {
 
         launches.sort(Comparator.comparingLong(RocketLaunch::getLaunchTime));
@@ -27,6 +30,7 @@ public class LaunchPlanner {
                         Thread.sleep(delay);
                     }
                 } catch (InterruptedException e) {
+                    log.error("Thread was interrupted during sleep. Interrupting thread again.", e);
                     Thread.currentThread().interrupt();
                 }
                 launch.launch();
@@ -36,7 +40,7 @@ public class LaunchPlanner {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 log.warn("Not all rocket launches finished in the expected time.");
                 executor.shutdownNow();
             }

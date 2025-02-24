@@ -10,12 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class RocketLaunch {
+    private static final long LAUNCH_DELAY_MS = 1000;
+
     private final String name;
     private final long launchTime;
 
     public void launch() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(LAUNCH_DELAY_MS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Launch of {} was interrupted.", name, e);
