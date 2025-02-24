@@ -11,7 +11,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.printf("Обработано письмо с индексом: %d%n", i);
+            System.out.printf("[Поток %S] Обработано письмо с индексом: %d%n", Thread.currentThread().getName(), i);
         }
     }
 }
