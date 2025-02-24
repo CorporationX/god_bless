@@ -5,12 +5,12 @@ public class Music {
         Player player = new Player(false);
 
         Thread userOne = new Thread(player::skip);
-        Thread userTwo = new Thread(player::play);
-        Thread userThree = new Thread(player::pause);
-        Thread userFour = new Thread(player::previous);
         userOne.start();
+        Thread userTwo = new Thread(player::play);
         userTwo.start();
+        Thread userThree = new Thread(player::pause);
         userThree.start();
+        Thread userFour = new Thread(player::previous);
         userFour.start();
     }
 }
