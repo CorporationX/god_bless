@@ -3,37 +3,32 @@ package school.faang.BJS2_63887;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 @EqualsAndHashCode
 @Getter
 public class Player {
+    private final Lock lock = new ReentrantLock();
     private boolean isPlaying;
-    private final Object lock = new Object();
 
     public void play() {
-        synchronized (lock) {
-            isPlaying = true;
-            System.out.println("▶ Музыка запущена");
-        }
+        isPlaying = true;
+        System.out.println("▶ Музыка запущена");
     }
 
     public void pause() {
-        synchronized (lock) {
-            isPlaying = false;
-            System.out.println("⏸ Музыка на паузе");
-        }
+        isPlaying = false;
+        System.out.println("⏸ Музыка на паузе");
     }
 
     public void skip() {
-        synchronized (lock) {
-            isPlaying = true;
-            System.out.println("⏭ Пропуск трека");
-        }
+        isPlaying = true;
+        System.out.println("⏭ Пропуск трека");
     }
 
     public void previous() {
-        synchronized (lock) {
-            isPlaying = true;
-            System.out.println("⏮ Возвращение к предыдущему треку");
-        }
+        isPlaying = true;
+        System.out.println("⏮ Возвращение к предыдущему треку");
     }
 }
