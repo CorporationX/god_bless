@@ -8,7 +8,6 @@ public class Music {
         Thread userTwo = new Thread(player::play);
         Thread userThree = new Thread(player::pause);
         Thread userFour = new Thread(player::previous);
-
         userOne.start();
         userTwo.start();
         userThree.start();
