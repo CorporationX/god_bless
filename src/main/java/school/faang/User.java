@@ -10,15 +10,19 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @AllArgsConstructor
 public class User {
-    private final String name;
+    private String name;
     private String assignedRole;
     private House house;
+
+    public User(String name) {
+        this.name = name;
+    }
 
     public void joinHouse(House house) {
         synchronized (house) {
             assignedRole = house.assignRole();
             this.house = house;
-            System.out.println(name + " выбрал роль " + assignedRole);
+            log.info(name + " выбрал роль " + assignedRole);
         }
 
     }
@@ -26,7 +30,7 @@ public class User {
     public void leaveHouse() {
         synchronized (house) {
             if (house != null && assignedRole != null) {
-                System.out.println(name + " покидает дом и освобождает роль: " + assignedRole);
+                log.info(name + " покидает дом и освобождает роль: " + assignedRole);
                 house.releaseRole(assignedRole);
                 assignedRole = null;
                 house = null;
@@ -40,7 +44,7 @@ public class User {
         Thread thread = new Thread(() -> {
             try {
                 this.joinHouse(house);
-                Thread.sleep(1000); // Имитация времени, проведенного в доме
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 log.error("Ошибка в потоке: " + e.getMessage());
                 Thread.currentThread().interrupt();

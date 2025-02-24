@@ -11,19 +11,19 @@ public class House {
                 add("Warrior");
                 add("Mage");
                 add("Rouge");
-        }};
+            }};
 
 
     public static void main(String[] args) {
         House lannistersHouse = new House();
 
-        User theora = new User("Theora", null, null);
+        User theora = new User("Theora");
         Thread theoraThread = theora.startUserThread(lannistersHouse);
-        User titos = new User("Titos", null, null);
+        User titos = new User("Titos");
         Thread titosThread = titos.startUserThread(lannistersHouse);
-        User tyrion = new User("Tyrion", null, null);
+        User tyrion = new User("Tyrion");
         Thread tyrionThread = tyrion.startUserThread(lannistersHouse);
-        User damon = new User("Damon", null, null);
+        User damon = new User("Damon");
         Thread damonThread = damon.startUserThread(lannistersHouse);
 
         try {
