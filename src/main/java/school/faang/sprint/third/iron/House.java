@@ -12,7 +12,7 @@ public class House {
     public void assignRole(Role role, User user) {
 
         synchronized (lock) {
-            if (roles.contains(role)) {
+            while (roles.contains(role)) {
                 try {
                     log.info("Role {} already assigned to", role);
                     lock.wait();
@@ -31,7 +31,7 @@ public class House {
         synchronized (lock) {
             log.info("Role {} released", role);
             roles.remove(role);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
