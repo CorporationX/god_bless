@@ -1,14 +1,24 @@
 package school.faang.sprint3.task_63366;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+
+@RequiredArgsConstructor
 @Slf4j
-public record User(String name, Role role) {
+@Getter
+public class User {
     public static final int TIME_ON_DUTY = 1000;
     private static final AtomicInteger add = new AtomicInteger();
     private static final AtomicInteger remove = new AtomicInteger();
+
+    private final String name;
+    @Setter
+    private Role role;
 
     public void joinHouse(House house) {
         house.assignRole(this);
