@@ -1,4 +1,4 @@
-package school.faang.heroes_of_might_and_magic;
+package school.faang.heroes_of_might_and_magic.warriors;
 
 import lombok.Getter;
 import lombok.Setter;
