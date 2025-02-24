@@ -8,12 +8,11 @@ public class Player {
     private final Object lock = new Object();
 
     public void play() {
-        synchronized(lock) {
-            if(!isPlaying){
+        synchronized (lock) {
+            if (!isPlaying) {
                 isPlaying = true;
                 System.out.println("Music is playing.");
-            }
-            else {
+            } else {
                 System.out.println("Music is already playing.");
             }
 
@@ -21,25 +20,24 @@ public class Player {
     }
 
     public void pause() {
-        synchronized(lock) {
-            if(isPlaying){
+        synchronized (lock) {
+            if (isPlaying) {
                 isPlaying = false;
                 System.out.println("Music is paused.");
-            }
-            else {
+            } else {
                 System.out.println("Music is already paused.");
             }
         }
     }
 
     public void skip() {
-        synchronized(lock) {
+        synchronized (lock) {
             System.out.println("Track skipped.");
         }
     }
 
     public void previous() {
-        synchronized(lock) {
+        synchronized (lock) {
             System.out.println("Returned to the previous track.");
         }
     }
