@@ -1,11 +1,14 @@
 package school.faang.BJS2_63887;
 
-import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.Executors.newCachedThreadPool;
 
+@Slf4j
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
@@ -19,7 +22,20 @@ public class Music {
         try {
             users.forEach(executor::execute);
         } finally {
-            executor.shutdown();
+            shutdownExecutor(executor);
+        }
+    }
+
+    private static void shutdownExecutor(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                log.error("Не все потоки завершились вовремя, принудительно завершаем...");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Ошибка ожидания завершения потоков", e);
         }
     }
 }
