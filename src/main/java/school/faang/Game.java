@@ -3,10 +3,12 @@ package school.faang;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@Slf4j
 public class Game {
     private int score;
     private int lives;
@@ -19,7 +21,7 @@ public class Game {
         if (isScoreUpdated) {
             synchronized (lockScore) {
                 score++;
-                System.out.println("Очки заработаны. Общий счет " + score);
+                log.info("Очки заработаны. Общий счет " + score);
 
             }
         }
@@ -27,9 +29,9 @@ public class Game {
         if (isLifeLost) {
             synchronized (lockLives) {
                 lives--;
-                System.out.println("Вы потеряли жизнь. Оставшиеся жизни: " + lives);
+                log.info("Вы потеряли жизнь. Оставшиеся жизни: " + lives);
                 if (lives <= 0) {
-                    gameOver();
+                    log.info("Игра окончена, вы мертвы. Счет: " + score);
                 }
 
             }
@@ -37,9 +39,4 @@ public class Game {
 
     }
 
-    public void gameOver() {
-        System.out.println("Игра окончена, вы мертвы. Счет: " + score);
-    }
-
 }
-
