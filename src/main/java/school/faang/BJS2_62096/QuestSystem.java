@@ -13,7 +13,7 @@ public class QuestSystem {
         }
         return CompletableFuture.supplyAsync(() -> {
             try {
-                log.info("{} начал {} квест", player.getName(), quest.getName());
+                log.info("{} Начал {} квест", player.getName(), quest.getName());
                 Thread.sleep((long) quest.getDifficulty() * MILLISECONDS_IN_SECOND);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
