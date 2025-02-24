@@ -14,9 +14,6 @@ public class Food {
     }
 
     private void validateFoodName(@NonNull String name) {
-        if (name == null) {
-            throw new NullPointerException("name is null");
-        }
         if (name.isBlank()) {
             throw new IllegalArgumentException("name is blank");
         }
