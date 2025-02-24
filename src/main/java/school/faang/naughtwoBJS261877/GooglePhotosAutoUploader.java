@@ -19,8 +19,7 @@ public class GooglePhotosAutoUploader {
             while (photosToUpload.isEmpty()) {
                 try {
                     lock.wait();
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
