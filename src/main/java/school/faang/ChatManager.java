@@ -16,6 +16,10 @@ public class ChatManager {
     public void startChat(User user) {
         synchronized (lock) {
             while (users.getOnlineUsers(user).isEmpty() && chats.contains(user.getChat())) {
+                if (Thread.currentThread().isInterrupted()) {
+                    log.error("{}'s chat initiation was interrupted.", user.getName());
+                    return;
+                }
                 waitForChat();
             }
             User secondUser = users.getOnlineUsers(user).get(0);
@@ -38,7 +42,8 @@ public class ChatManager {
                 lock.wait();
             } catch (InterruptedException e) {
                 log.error("Wait was interrupted.");
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
             }
         }
     }
