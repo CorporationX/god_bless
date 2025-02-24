@@ -12,12 +12,14 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class SpaceX {
+    private static final String LOG_FORM = "Остановили принудительно Пул потоков {}";
     private static final Random RANDOM = new Random();
     private static final int MIN_LAUNCHES = 0;
     private static final int COUNT_LAUNCHES = 20;
+    private static final int MAX_LAUNCH_TIME = 1000;
 
     private static final List<RocketLaunch> launches = IntStream.range(MIN_LAUNCHES, MIN_LAUNCHES + COUNT_LAUNCHES)
-            .mapToObj(num -> new RocketLaunch("launch " + num, RANDOM.nextLong(0, 1000)))
+            .mapToObj(num -> new RocketLaunch("launch " + num, RANDOM.nextLong(0, MAX_LAUNCH_TIME)))
             .toList();
 
     public static void main(String[] args) {
@@ -37,10 +39,11 @@ public class SpaceX {
         try {
             if (!executor.awaitTermination(COUNT_LAUNCHES + 1, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-                log.info("Остановили принудительно Пул потоков {}", executor);
+                log.info(LOG_FORM, executor);
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+            log.error("{} c исключением", LOG_FORM, e);
         }
 
         long resultTime = System.currentTimeMillis() - startTime;

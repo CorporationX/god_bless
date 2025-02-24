@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public record RocketLaunch(String name, long launchTime) {
-    private static final int LAUNCH_DELAY = 1000;
+    private static final int LAUNCH_DELAY_MS = 1000;
 
     public void launch() {
         try {
-            Thread.sleep(LAUNCH_DELAY);
+            Thread.sleep(LAUNCH_DELAY_MS);
             log.debug("Запущена ракета {}, время запуска {}", name, launchTime);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
