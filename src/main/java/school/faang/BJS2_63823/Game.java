@@ -40,7 +40,7 @@ public class Game {
         try {
             Thread.sleep(1000);
         }  catch (InterruptedException e) {
-            log.error(String.format("Игра не завершена."), e);
+            log.error("Игра не завершена.", e);
             Thread.currentThread().interrupt();
         }
     }
