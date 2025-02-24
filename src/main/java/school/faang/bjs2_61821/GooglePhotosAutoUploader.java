@@ -13,7 +13,7 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 System.out.println("Фото для загрузки нет. Ожидаем");
                 lock.wait(3000);
             }
