@@ -18,6 +18,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.5")
     implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("org.projectlombok:lombok:1.18.26")
+    implementation("org.jetbrains:annotations:24.0.0")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
