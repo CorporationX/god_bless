@@ -30,6 +30,7 @@ public class MailSender {
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
+            Thread.currentThread().interrupt();
         }
 
         log.info("Выполнено успешно!");

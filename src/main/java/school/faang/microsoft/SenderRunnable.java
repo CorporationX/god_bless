@@ -8,7 +8,7 @@ public record SenderRunnable(int startIndex, int endIndex) implements Runnable {
     public void run() {
         validateIndex(startIndex, endIndex);
         for (int i = startIndex; i < endIndex; i++) {
-            log.info("Письмо {} отправлено потоком {} ", i, Thread.currentThread().getName());
+            log.debug("Письмо {} отправлено потоком {} ", i, Thread.currentThread().getName());
         }
     }
 
