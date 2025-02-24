@@ -17,7 +17,7 @@ public class Boss {
 
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (lock) {
-            if (currentPlayers.size() >= maxPlayers) {
+            while (currentPlayers.size() >= maxPlayers) {
                 log.info(String.format(
                         "⏳ %s ждёт свободного слота для боя с боссом...%n",
                         player.getName()));
@@ -35,7 +35,7 @@ public class Boss {
             currentPlayers.remove(player);
             log.info(String.format("🏃 %s покинул битву. (%d/%d)%n",
                     player.getName(), currentPlayers.size(), maxPlayers));
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
