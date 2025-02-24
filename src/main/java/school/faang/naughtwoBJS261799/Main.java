@@ -10,11 +10,10 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 100; i++) {
             executor.submit(() -> {
-                        boolean earnedPoints = Math.random() > 0.5; // 50% шанс заработать очки
-                        boolean lostLife = Math.random() > 0.7;     // 30% шанс потерять жизнь
-                        game.update(earnedPoints, lostLife);
-                    }
-            );
+                boolean earnedPoints = Math.random() > 0.5; // 50% шанс заработать очки
+                boolean lostLife = Math.random() > 0.7;     // 30% шанс потерять жизнь
+                game.update(earnedPoints, lostLife);
+            });
         }
         executor.shutdown();
     }
