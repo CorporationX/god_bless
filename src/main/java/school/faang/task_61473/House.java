@@ -8,11 +8,11 @@ import java.util.List;
 
 public class House {
     private static final Logger LOG = LoggerFactory.getLogger(House.class);
-    private static final List<String> ROLES = List.of("lord", "knight", "magician");
-    private final List<String> rolesToChoose = new ArrayList<>(List.of("lord", "knight", "magician"));
+    private static final List<Role> ROLES = List.of(Role.LORD, Role.KNIGHT, Role.MAGICIAN);
+    private final List<Role> rolesToChoose = new ArrayList<>(List.of(Role.LORD, Role.KNIGHT, Role.MAGICIAN));
     private final Object lock = new Object();
 
-    public void assignRole(String role) {
+    public void assignRole(Role role) {
         validateRole(role);
         synchronized (lock) {
             while (!rolesToChoose.contains(role)) {
@@ -30,15 +30,15 @@ public class House {
         }
     }
 
-    public void releaseRole(String name, String role) {
+    public void releaseRole(String name, Role role) {
         synchronized (lock) {
             LOG.info("{} has vacated role: {}. {} has left the house", name, role, name);
             rolesToChoose.add(role);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
-    private void validateRole(String role) {
+    private void validateRole(Role role) {
         if (!ROLES.contains(role)) {
             LOG.error("There are no such roles in the list");
             throw new RuntimeException();

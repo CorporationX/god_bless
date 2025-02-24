@@ -11,10 +11,10 @@ public class User {
     private static final Logger LOG = LoggerFactory.getLogger(User.class);
     private final Random random = new Random();
     private final String name;
-    private final String role;
+    private final Role role;
     private final House house;
 
-    public User(String name, String role, House house) {
+    public User(String name, Role role, House house) {
         this.name = name;
         this.role = role;
         this.house = house;
