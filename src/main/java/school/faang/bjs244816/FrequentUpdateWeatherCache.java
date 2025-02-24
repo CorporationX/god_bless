@@ -9,7 +9,7 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     @Override
     void clearExpiredCache() {
         long currentTime = System.currentTimeMillis();
-        weatherDataLog.entrySet()
+        getWeatherDataLog().entrySet()
                 .removeIf(entry -> currentTime - entry.getValue().getTimestamp() > Constants.FREQUENT_UPDATE_TTL);
     }
 }
