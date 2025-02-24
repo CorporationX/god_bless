@@ -8,6 +8,8 @@ import java.util.Random;
 public class User implements Runnable {
     private final String name;
     private final Player player;
+    private static final int MIN_ACTION = 1;
+    private static final int MAX_ACTION = 4;
 
     private void play() {
         synchronized (player.getLock()) {
@@ -50,7 +52,7 @@ public class User implements Runnable {
     @Override
     public void run() {
         Random random = new Random();
-        int actionNumber = random.nextInt(1, 4);
+        int actionNumber = random.nextInt(MIN_ACTION, MAX_ACTION);
 
         switch (actionNumber) {
             case 1 -> playAndPause();

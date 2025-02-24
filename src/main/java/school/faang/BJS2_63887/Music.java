@@ -10,6 +10,8 @@ import static java.util.concurrent.Executors.newCachedThreadPool;
 
 @Slf4j
 public class Music {
+    private static final long terminationTimeout = 10;
+
     public static void main(String[] args) {
         Player player = new Player();
         List<User> users = List.of(
@@ -28,8 +30,9 @@ public class Music {
 
     private static void shutdownExecutor(ExecutorService executor) {
         executor.shutdown();
+
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(terminationTimeout, TimeUnit.SECONDS)) {
                 log.error("Не все потоки завершились вовремя, принудительно завершаем...");
                 executor.shutdownNow();
             }
