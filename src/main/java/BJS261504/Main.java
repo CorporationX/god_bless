@@ -9,14 +9,15 @@ public class Main {
         Player player3 = new Player("Игрок 3");
         Player player4 = new Player("Игрок 4");
 
-        Thread thread1 = new Thread(() -> player1.doBattle(boss));
-        Thread thread2 = new Thread(() -> player2.doBattle(boss));
-        Thread thread3 = new Thread(() -> player3.doBattle(boss));
-        Thread thread4 = new Thread(() -> player4.doBattle(boss));
+        final Thread thread1 = new Thread(() -> player1.doBattle(boss));
+        final Thread thread2 = new Thread(() -> player2.doBattle(boss));
+        final Thread thread3 = new Thread(() -> player3.doBattle(boss));
+        final Thread thread4 = new Thread(() -> player4.doBattle(boss));
 
         thread1.start();
         thread2.start();
-        thread3.start();
         thread4.start();
+        thread3.start();
+
     }
 }
