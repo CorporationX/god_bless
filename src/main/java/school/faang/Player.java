@@ -3,16 +3,19 @@ package school.faang;
 public class Player {
 
     private final Object lock = new Object();
-    private boolean playing = false;
+    private boolean isPlaying = false;
 
     public boolean isPlaying() {
-        return playing;
+        return isPlaying;
     }
 
     public void play() {
+        if (lock == null) {
+            throw new IllegalStateException("Lock object is null");
+        }
         synchronized (lock) {
             if (!isPlaying()) {
-                playing = true;
+                isPlaying = true;
                 System.out.println("Музыка воспроизводится");
             } else {
                 System.out.println("Музыка уже воспроизвоится");
@@ -20,11 +23,13 @@ public class Player {
         }
     }
 
-
     public void pause() {
+        if (lock == null) {
+            throw new IllegalStateException("Lock object is null");
+        }
         synchronized (lock) {
             if (isPlaying()) {
-                playing = false;
+                isPlaying = false;
                 System.out.println("Воспроизведение приостановлено");
             } else {
                 System.out.println("Воспроизведение уже приостановлено");
@@ -33,12 +38,18 @@ public class Player {
     }
 
     public void skip() {
+        if (lock == null) {
+            throw new IllegalStateException("Lock object is null");
+        }
         synchronized (lock) {
             System.out.println("Трек пропущен");
         }
     }
 
     public void previous() {
+        if (lock == null) {
+            throw new IllegalStateException("Lock object is null");
+        }
         synchronized (lock) {
             System.out.println("Возвращение к предыдущему треку");
         }
