@@ -12,7 +12,7 @@ public class QuestSystem {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(TWO_SECONDS);
-                log.info("Player {} is passed quest {}", player, quest);
+                log.info("Player {} is passed quest {}", player.getName(), quest.getName());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Thread is interrupted", e);
