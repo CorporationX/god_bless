@@ -14,6 +14,7 @@ public class House {
     private final List<Room> rooms;
     private final List<Food> collectedFood = new ArrayList<>();
     private int notEmptyRooms;
+    private static final int NUMBER_OF_ROOMS = 2;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -21,9 +22,8 @@ public class House {
     }
 
     public synchronized void collectFood() {
-        int numberOfRooms = 2;
         Set<Room> roomSet = new HashSet<>();
-        while (roomSet.size() < Math.min(numberOfRooms, notEmptyRooms)) {
+        while (roomSet.size() < Math.min(NUMBER_OF_ROOMS, notEmptyRooms)) {
             int index = random.nextInt(rooms.size());
             if (!rooms.get(index).getFoodList().isEmpty()) {
                 roomSet.add(rooms.get(index));

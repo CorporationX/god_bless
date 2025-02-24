@@ -12,8 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    // private static final Logger logger = LoggerFactory.getLogger(Main.class);
-    private static final int THREADS_POOL_SIZE = 4;
+    private static final int THREAD_POOL_SIZE = 5;
     private static final int NUMBER_OF_ROOMS = 20;
     private static final int COLLECT_INTERVAL = 10;
     private static final int TIMEOUT_SECONDS = 5;
@@ -30,9 +29,9 @@ public class Main {
         }
         CountDownLatch latch = new CountDownLatch(1);
         House house = new House(rooms);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREADS_POOL_SIZE);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
-        for (int i = 0; i < THREADS_POOL_SIZE; ++i) {
+        for (int i = 0; i < THREAD_POOL_SIZE; ++i) {
             executor.scheduleAtFixedRate(() -> {
                 house.collectFood();
                 if (house.isAllFoodCollected()) {
