@@ -29,5 +29,7 @@ public class Counter extends Thread {
         }
         System.out.println("Сила отряда с индексом " + squadNumber + ": " + powerCounter);
         setArmyPower(powerCounter);
+        int armyPower1 = getArmyPower();
+
     }
 }
