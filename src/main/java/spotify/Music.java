@@ -1,7 +1,10 @@
 package spotify;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
+@Slf4j
 public class Music {
     public static void main(String[] args) {
         List<String> playlist = List.of(
@@ -14,14 +17,22 @@ public class Music {
 
         Player player = new Player(playlist);
 
-        final Thread thread1 = new Thread(() -> player.play());
-        final Thread thread2 = new Thread(() -> player.pause());
-        final Thread thread3 = new Thread(() -> player.previous());
-        final Thread thread4 = new Thread(() -> player.skip());
+        List<Thread> threads = List.of(
+                new Thread(player::play),
+                new Thread(player::pause),
+                new Thread(player::previous),
+                new Thread(player::skip)
+        );
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
+        threads.forEach(Thread::start);
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted: {}", e.getMessage());
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

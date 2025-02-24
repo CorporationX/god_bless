@@ -12,7 +12,7 @@ public class Player {
         this.playlist = playlist;
     }
 
-    public void play() {
+    public final void play() {
         synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
@@ -23,7 +23,7 @@ public class Player {
         }
     }
 
-    public void pause() {
+    public final void pause() {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
@@ -34,7 +34,7 @@ public class Player {
         }
     }
 
-    public void skip() {
+    public final void skip() {
         synchronized (lock) {
             if (currentTrack < playlist.size() - 1) {
                 currentTrack++;
@@ -46,7 +46,7 @@ public class Player {
         }
     }
 
-    public void previous() {
+    public final void previous() {
         synchronized (lock) {
             if (currentTrack > 0) {
                 currentTrack--;
