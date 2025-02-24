@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 public class Music {
 
     public static void main(String[] args) {
-        final int MAX_THREADS = 4;
+        final int maxThreads = 4;
         Player player = new Player();
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
+        ExecutorService executor = Executors.newFixedThreadPool(maxThreads);
 
         try {
             executor.submit(() -> player.play());
