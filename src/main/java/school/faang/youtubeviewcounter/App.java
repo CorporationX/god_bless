@@ -18,7 +18,7 @@ public class App {
         for (int i = 0; i < NUM_VIDEOS; i++) {
             String videoId = "video" + i;
 
-            for (int j = 0; j < NUM_VIDEOS; j++) {
+            for (int j = 0; j < NUM_THREADS; j++) {
                 executor.submit(() -> {
                     manager.addView(videoId);
                     log.info("Video: {}, view count: {}",
