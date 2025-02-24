@@ -18,13 +18,13 @@ public class SpaceX {
     private static final int COUNT_LAUNCHES = 20;
     private static final int MAX_LAUNCH_TIME = 1000;
 
-    private static final List<RocketLaunch> launches = IntStream.range(MIN_LAUNCHES, MIN_LAUNCHES + COUNT_LAUNCHES)
+    private static final List<RocketLaunch> LAUNCHES = IntStream.range(MIN_LAUNCHES, MIN_LAUNCHES + COUNT_LAUNCHES)
             .mapToObj(num -> new RocketLaunch("launch " + num, RANDOM.nextLong(0, MAX_LAUNCH_TIME)))
             .toList();
 
     public static void main(String[] args) {
         SpaceX spaceX = new SpaceX();
-        spaceX.planRocketLaunches(launches);
+        spaceX.planRocketLaunches(LAUNCHES);
     }
 
     private void planRocketLaunches(List<RocketLaunch> launches) {
