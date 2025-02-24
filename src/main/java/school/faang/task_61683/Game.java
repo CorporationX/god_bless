@@ -34,10 +34,9 @@ public class Game {
         }
     }
 
-    private void gameOver() {
+    private synchronized void gameOver() {
         System.out.println("Игра закончена! Все жизни потеряны.");
         isGameOver = true;
-        score = 0;
         lives = 10;
     }
 }
