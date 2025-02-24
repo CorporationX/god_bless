@@ -29,7 +29,7 @@ public class MasterCardService {
 
     private int collectPayment() {
         try {
-            Thread.sleep(TEN_SECONDS_IN_MS);
+            Thread.sleep(ONE_SECOND_IN_MS);
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -39,7 +39,7 @@ public class MasterCardService {
 
     private int sendAnalytics() {
         try {
-            Thread.sleep(ONE_SECOND_IN_MS);
+            Thread.sleep(TEN_SECONDS_IN_MS);
             return 17_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -50,7 +50,8 @@ public class MasterCardService {
 
     public void doAll() {
         CompletableFuture.supplyAsync(this::sendAnalytics, EXECUTOR)
-                .thenAccept(analytics -> System.out.println("Аналитика отправлена: " + analytics));
+                .thenAccept(analytics -> System.out.println("Аналитика отправлена: " + analytics))
+                .join();
         Future<Integer> i = EXECUTOR.submit(this::collectPayment);
         try {
             System.out.println("Платеж выполнен: " + i.get());
