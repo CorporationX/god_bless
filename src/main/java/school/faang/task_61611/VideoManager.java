@@ -8,8 +8,7 @@ public class VideoManager {
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
-        int currentViews = viewsMap.getOrDefault(videoId, 0);
-        viewsMap.put(videoId, currentViews + 1);
+        viewsMap.merge(videoId, 1, Integer::sum);
     }
 
     public int getViewCount(String videoId) {
