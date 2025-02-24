@@ -5,7 +5,7 @@ public class Player {
     private final Object lock = new Object();
     private boolean isPlaying = false;
 
-    public boolean isPlaying() {
+    private boolean isPlaying() {
         return isPlaying;
     }
 
