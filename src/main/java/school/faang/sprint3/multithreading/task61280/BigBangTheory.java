@@ -2,7 +2,6 @@ package school.faang.sprint3.multithreading.task61280;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +18,6 @@ public class BigBangTheory {
                 new Task("Howard", "tool development"),
                 new Task("Rajesh", "data analysis")
         );
-        List<Thread> threads = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_THREADS);
         for (Task task : taskList) {
             executorService.execute(task);
@@ -31,7 +29,9 @@ public class BigBangTheory {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            log.warn("There was an attempt to interrupt the thread {}", Thread.currentThread().getName());
+            log.warn("There was an attempt to interrupt the thread {} at [{}]",
+                    System.currentTimeMillis(),
+                    Thread.currentThread().getName());
             executorService.shutdownNow();
         }
     }
