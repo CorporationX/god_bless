@@ -23,7 +23,7 @@ public class Tournament {
                         new TournamentException("Interrupted exception", e));
             }
             for (Student student : school.getTeam()) {
-                student.addPoints( task.getDifficulty());
+                student.addPoints(task.getDifficulty());
             }
             return school;
         }, EXECUTOR_SERVICE).handle((result, exception) -> {
