@@ -13,9 +13,9 @@ public class VideoManager {
         }
     }
 
-    public Optional<Integer> getViewCount(String videoId) {
+    public int getViewCount(String videoId) {
         synchronized (viewsMap) {
-            return Optional.ofNullable(viewsMap.get(videoId));
+            return viewsMap.getOrDefault(videoId, 0);
         }
     }
 }

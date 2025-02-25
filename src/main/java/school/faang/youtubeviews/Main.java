@@ -37,8 +37,6 @@ public class Main {
         NUM_VIDEOS.stream()
                 .distinct()
                 .forEach(video ->
-                        videoManager.getViewCount(video)
-                                .ifPresent(integer ->
-                                        log.info("Количество просмотров для видео {} == {}", video, integer)));
+                        log.info("Количество просмотров для видео {} == {}", video, videoManager.getViewCount(video)));
     }
 }
