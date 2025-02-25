@@ -1,8 +1,10 @@
 package school.faang.task61254.service;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public class Archer {
-    @Getter
-    private final int POWER = 25;
+    private int power;
 }

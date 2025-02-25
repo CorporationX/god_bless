@@ -1,38 +1,28 @@
 package school.faang.task61254.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 
-public class Squad {
-    private List<Archer> archers = List.of(
-            new Archer(),
-            new Archer(),
-            new Archer()
-    );
-
-    private List<Archer> archers = List.of(
-            new Archer(),
-            new Archer(),
-            new Archer()
-    );
-    private List<Mage> mages;
-    private List<Swordsman> swordsmen;
+@AllArgsConstructor
+@Getter
+public class Squad<T> {
+    private String name;
+    private List<T> warriors;
 
     public int calculateSquadPower() {
-        int powerArchers = 0;
-        int powerMages = 0;
-        int powerSwordsmen = 0;
-        int squadPower = 0;
-        for (Archer archer : archers) {
-            powerArchers += archer.getPOWER();
-        }
-        for (Mage mage : mages) {
-            powerMages += mage.getPOWER();
-        }
-        for (Swordsman swordsman : swordsmen) {
-            powerSwordsmen += swordsman.getPOWER();
-        }
-
-        squadPower = powerArchers + powerMages + powerSwordsmen;
-        return squadPower;
+        return warriors.stream()
+                .mapToInt(warrior -> {
+                    if (warrior instanceof Archer) {
+                        return ((Archer) warrior).getPower();
+                    } else if (warrior instanceof Swordsman) {
+                        return ((Swordsman) warrior).getPower();
+                    } else if (warrior instanceof Mage) {
+                        return ((Mage) warrior).getPower();
+                    }
+                    return 0;
+                })
+                .sum();
     }
 }
