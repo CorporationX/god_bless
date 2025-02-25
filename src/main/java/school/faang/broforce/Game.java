@@ -12,19 +12,19 @@ public class Game {
     private int score;
     private int lives;
 
-    public void update(boolean setPoints, boolean loseLife) {
-        if (setPoints) {
+    public void update(boolean isSettingPoints, boolean isLosingLife) {
+        if (isSettingPoints) {
             synchronized (scoreLock) {
                 score++;
                 log.info("Увеличивается счетчик очков == {}", score);
             }
         }
-        if (loseLife) {
+        if (isLosingLife) {
             synchronized (livesLock) {
                 synchronized (livesLock) {
                     lives--;
                     log.info("Уменьшается количество жизней == {}", lives);
-                    if (Math.max(0, lives) == 0) {
+                    if (lives <= 0) {
                         gameOver();
                     }
                 }
