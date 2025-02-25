@@ -8,6 +8,4 @@ import lombok.Getter;
 public class Potion {
     private String name;
     private int requiredIngredients;
-
-
 }
