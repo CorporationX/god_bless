@@ -16,8 +16,8 @@ public class Chore implements Runnable {
             Thread.sleep(TASK_DURATION_MS);
             System.out.println(title + " выполнена!");
         } catch (InterruptedException e) {
-            System.out.println("Задача " + title + " была остановлена.");
             Thread.currentThread().interrupt();
+            System.err.println("Задача была прервана: " + title);
             throw new RuntimeException(e);
         }
     }
