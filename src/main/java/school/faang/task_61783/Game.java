@@ -7,8 +7,8 @@ public class Game {
     private static final int DEFAULT_LIVES = 5;
     private static final int LIVES_LIMIT = 0;
 
-    private Integer score = DEFAULT_SCORE;
-    private Integer lives = DEFAULT_LIVES;
+    private int score = DEFAULT_SCORE;
+    private int lives = DEFAULT_LIVES;
 
     public void update(boolean isScoresIncrease, boolean isLivesDecrease) {
         if (isScoresIncrease) {
