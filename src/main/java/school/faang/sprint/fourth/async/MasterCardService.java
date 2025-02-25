@@ -13,12 +13,17 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int ANALYTICS_VALUE = 17_000;
+    private static final int PAYMENT_VALUE = 5_000;
+    private static final int THREAD_COUNT = 2;
+    private static final int AWAIT_TERMINATION_TIMEOUT = 25;
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_VALUE;
         } catch (InterruptedException e) {
+            log.error("Thread interrupted {}", e.getMessage());
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
@@ -27,7 +32,7 @@ public class MasterCardService {
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -35,35 +40,47 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Integer> payemntFuture = executor.submit(MasterCardService::collectPayment);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
+        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analyticsFuture =
                 CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
 
-        while (!analyticsFuture.isDone()) {
-            log.info("Waiting collect analytic");
+        try {
+            if (analyticsFuture.get() == null) {
+                log.info("Waiting collect analytic");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Thread interrupted {}", e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
 
-        if (analyticsFuture.isDone()) {
-            while (!payemntFuture.isDone()) {
+        try {
+            if (paymentFuture.get() == null) {
                 log.info("Waiting payment");
             }
-            if (payemntFuture.isDone()) {
-                try {
-                    log.info("Аналитика отправлена: {}", analyticsFuture.get());
-                    log.info("Платеж выполнен: {}", payemntFuture.get());
-                } catch (InterruptedException | ExecutionException e) {
-                    executor.shutdownNow();
-                    throw new RuntimeException(e);
-                }
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Thread interrupted {}", e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+
+        if (paymentFuture.isDone()) {
+            try {
+                log.info("Аналитика отправлена: {}", analyticsFuture.get());
+                log.info("Платеж выполнен: {}", paymentFuture.get());
+            } catch (InterruptedException | ExecutionException e) {
+                executor.shutdownNow();
+                throw new RuntimeException(e);
             }
         }
 
         try {
-            if (!executor.awaitTermination(25, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            log.info("Thread interrupted {}", e.getMessage());
             executor.shutdownNow();
         }
 
