@@ -5,19 +5,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @RequiredArgsConstructor
 @Getter
 @ToString
 public class Player {
+    @Setter
+    private final AtomicInteger experience = new AtomicInteger();
     private final String name;
     private int level;
-    @Setter
-    private int experience;
 
     public Player joinQuest(Quest quest) {
-        synchronized (this) {
-            experience += quest.startQuest();
-            return this;
-        }
+        experience.addAndGet(quest.startQuest());
+        return this;
     }
 }

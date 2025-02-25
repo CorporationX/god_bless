@@ -9,7 +9,7 @@ public record Quest(String name, int difficulty, int reward) {
         try {
             Thread.sleep(QUEST_TIME_MS * difficulty / 2);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         return difficulty * DIFFICULTY_TO_EXPERIENCE_CONVERTER;
     }
