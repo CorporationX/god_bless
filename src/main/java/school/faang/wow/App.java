@@ -2,6 +2,7 @@ package school.faang.wow;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -21,8 +22,8 @@ public class App {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.join();
-        player2Quest.join();
+        List<CompletableFuture<Player>> playerQuestList = List.of(player1Quest, player2Quest);
+        CompletableFuture.allOf(playerQuestList.toArray(new CompletableFuture[0]));
 
         // Обработка результатов заданий
         player1Quest.thenAccept(player ->
