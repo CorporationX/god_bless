@@ -17,7 +17,6 @@ public class Main {
             executor.submit(task);
         }
         executor.shutdown();
-
         System.out.println("Все задачи выполнены!");
     }
 }
