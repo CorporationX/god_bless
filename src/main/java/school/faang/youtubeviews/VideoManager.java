@@ -11,15 +11,23 @@ public class VideoManager {
     private final Object lock = new Object();
 
     public void addView(String videoId) {
-        synchronized (lock){
+        validateArgument(videoId);
+        synchronized (lock) {
             int countViewsNow = viewsMap.getOrDefault(videoId, 0) + 1;
             viewsMap.put(videoId, countViewsNow);
         }
     }
 
     public int getViewCount(String videoId) {
-        synchronized (lock){
+        validateArgument(videoId);
+        synchronized (lock) {
             return viewsMap.get(videoId);
+        }
+    }
+
+    private void validateArgument(String argument) {
+        if (argument == null || argument.isBlank()) {
+            throw new IllegalArgumentException("Переданная строка не может быть пустой");
         }
     }
 }

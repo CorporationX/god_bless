@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -20,13 +21,26 @@ public class Main {
             for (int k = 0; k < NUM_THREADS; k++) {
                 String videoId = String.valueOf(i);
                 executor.execute(() -> {
-                    videoManager.addView(videoId);
-                    log.info("Video {} has {} view(s)",
-                            videoId, videoManager.getViewCount(videoId));
+                    try {
+                        videoManager.addView(videoId);
+                        log.info("Video {} has {} view(s)",
+                                videoId, videoManager.getViewCount(videoId));
+                    } catch (IllegalArgumentException e) {
+                        log.debug(e.getMessage(), e);
+                    }
+
                 });
             }
         }
 
         executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.debug("Во время ожидание поток прервался", e);
+        }
     }
 }
