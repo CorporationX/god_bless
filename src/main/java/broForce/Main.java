@@ -11,13 +11,13 @@ public class Main {
         Player player2 = new Player("2");
 
         Thread thread1 = new Thread(() -> {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 7; i++) {
                 player1.doBattle(game, true, false);
             }
         });
 
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 7; i++) {
                 player2.doBattle(game, false, true);
             }
         });
@@ -33,6 +33,6 @@ public class Main {
             Thread.currentThread().interrupt();
         }
 
-        System.out.printf("Game is finished! Final score: %d\n", game.score);
+        System.out.printf("Game is finished! Final score: %d\n", game.getScore());
     }
 }
