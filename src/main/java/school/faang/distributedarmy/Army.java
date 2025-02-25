@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class Army {
+    private static final int THREAD_POOL_SIZE = 3;
     private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
@@ -19,7 +20,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ExecutorService executor = Executors.newFixedThreadPool(squads.size());
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         List<Callable<Integer>> tasks = new ArrayList<>();
 
         for (Squad squad : squads) {
@@ -34,9 +35,12 @@ public class Army {
                 totalPower += task.get();
             }
         } catch (InterruptedException e) {
-            log.info(e.getMessage());
+            Thread.currentThread().interrupt();
+            log.error("Task execution was interrupted. Message: {}", e.getMessage(), e);
+            throw new RuntimeException("Task execution was interrupted", e);
         } catch (ExecutionException e) {
-            log.info(e.getMessage());
+            log.error("Execution failed while calculating total power. Message: {}", e.getMessage(), e);
+            throw new RuntimeException("Execution failed while calculating total power", e);
         } finally {
             executor.shutdown();
         }

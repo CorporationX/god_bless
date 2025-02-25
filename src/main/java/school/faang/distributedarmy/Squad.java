@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Squad {
-    protected final List<Hero> heroes = new ArrayList<>();
+    private final List<Hero> heroes = new ArrayList<>();
 
     public void addHero(Hero hero) {
         heroes.add(hero);
