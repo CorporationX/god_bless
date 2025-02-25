@@ -11,7 +11,10 @@ public class UserList {
     private final List<User> users = new ArrayList<>();
 
     public List<User> getOnlineUsers() {
-        return users.stream().filter(User::isOnline).filter(User::isLookingForChat).toList();
+        return users.stream()
+                .filter(User::isOnline)
+                .filter(User::isLookingForChat)
+                .toList();
     }
 
     public void addUser(User user) {

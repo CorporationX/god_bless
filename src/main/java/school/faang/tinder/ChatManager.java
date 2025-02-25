@@ -50,8 +50,8 @@ public class ChatManager {
 
     private void waitForChat() {
         try {
-            wait();
             log.info("Поток ожидает свободных пользователей");
+            wait();
         } catch (InterruptedException e) {
             log.error("Поток прерван во время ожидания появления свободных пользователей, ", e);
             Thread.currentThread().interrupt();
