@@ -12,7 +12,7 @@ public class Battle {
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
         if (robot1 == null || robot2 == null) {
-            throw new IllegalArgumentException("Robots cannot be null");
+            throw new IllegalArgumentException("Robots не должны быть null");
         }
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
