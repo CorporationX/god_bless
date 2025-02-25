@@ -1,18 +1,18 @@
 package school.faang.bigbang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class BigBangTheory {
     private static final int THREAD_NUMBER = 4;
-    private static final Logger LOGGER = Logger.getLogger(BigBangTheory.class.getName());
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMBER);
-        LOGGER.setLevel(Level.INFO);
 
         List<Task> tasks = List.of(new Task("Sheldon", "Theory preparation"),
                 new Task("Leonard", "Experiment modelling"),
@@ -22,13 +22,13 @@ public class BigBangTheory {
         for (Task task : tasks) {
             executor.submit(task);
         }
-
-        try {
-            Thread.sleep(3500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         executor.shutdown();
-        LOGGER.info("All tasks were done");
+        try {
+            executor.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            log.error("The running was interrupted", e);
+        }
+        log.info("All tasks have been finished");
     }
 }

@@ -1,29 +1,24 @@
 package school.faang.bigbang;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+@Slf4j
 @AllArgsConstructor
-@Getter
 public class Task implements Runnable {
     private String name;
     private String task;
-    private static final Logger LOGGER = Logger.getLogger(Task.class.getName());
 
     @Override
     public void run() {
-        LOGGER.setLevel(Level.INFO);
-        LOGGER.info(task + " is started by " + name);
+        log.info("{} is started by {}", task, name);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            LOGGER.info("The task was interrupted");
+            log.error("The task was interrupted");
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
-        LOGGER.info("The task " + getTask() + " was done by " + getName());
+        log.info("The task {} was done by {}", task, name);
     }
 }
