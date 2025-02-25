@@ -1,47 +1,49 @@
 package school.faang;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @AllArgsConstructor
-@Getter
-public class Player {
-    private String name;
+public class Boss {
+    private final int maxPlayers = 3;
+    private final Set<Player> currentPlayers = new HashSet<>();
 
-    public static void main(String[] args) {
-        Boss cow = new Boss();
-
-        Player ron = new Player("Ron");
-        Thread ronBattle = new Thread(() -> ron.doBattle(cow));
-        ronBattle.start();
-
-        Player ben = new Player("Ben");
-        Thread benBattle = new Thread(() -> ben.doBattle(cow));
-        benBattle.start();
-
-        Player dan = new Player("Dan");
-        Thread danBattle = new Thread(() -> dan.doBattle(cow));
-        danBattle.start();
-
-        Player bob = new Player("Bob");
-        Thread bobBattle = new Thread(() -> bob.doBattle(cow));
-        bobBattle.start();
+    private final Object lock = new Object();
 
 
+    public void joinBattle(Player player) {
+        synchronized (lock) {
+            if (currentPlayers.size() < maxPlayers) {
+                currentPlayers.add(player);
+                log.info(player.getName() + " вступает в бой. " +
+                        " Текущее количетсво игроков " + currentPlayers + "/" + maxPlayers);
+            } else {
+                try {
+                    System.out.println("Слоты сейчас заполнены, подождите... ");
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.warn("Поток был прерван");
+                }
+            }
+        }
     }
 
-    public void doBattle(Boss boss) {
-        try {
-            boss.joinBattle(this);
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            log.info("Поток был прерван");
-        } finally {
-            boss.leaveBattle(this);
+    public void leaveBattle(Player player) {
+        synchronized (lock) {
+            if (currentPlayers.remove(player)) {
+                log.info(player.getName() + " покинул бой." +
+                        " Текущее количество игроков " + currentPlayers.size() + "/" + maxPlayers);
+                lock.notify();
+            } else {
+                log.info(player.getName() + " не находится в бою.");
+            }
         }
+
     }
 
 }
