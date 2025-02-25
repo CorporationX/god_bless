@@ -41,7 +41,9 @@ public class ListOperations {
     public static List<Integer> findPalindromeNumbersV2(int start, int end) {
         return IntStream.rangeClosed(start, end)
                 .filter(number -> {
-                    if (number < 0) return false;
+                    if (number < 0) {
+                        return false;
+                    }
                     int reversed = 0;
                     int original = number;
                     while (original != 0) {
