@@ -26,8 +26,7 @@ public class Main {
         try {
             System.out.println("The smallest number greater than 4 in the second list: "
                     + ListOperations.findMinGreaterThan(numbersSecondList, 4));
-        } catch (
-                NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             log.info("Error: {}", e.getMessage());
         }
         System.out.println("String lengths: " + ListOperations.convertToLengths(strings));
