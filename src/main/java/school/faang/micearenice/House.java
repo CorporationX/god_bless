@@ -3,8 +3,10 @@ package school.faang.micearenice;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +18,7 @@ public class House {
     private static final int DELAY_TIME = 0;
     private static final int PERIOD_TO_REPEAT = 30;
     private static final int TIME_OUT = 30;
+    private static final int ROOMS_TO_COLLECT = 2;
     private final List<Room> rooms;
     private final List<Food> collectedFood = new ArrayList<>();
     private final Random random = new Random();
@@ -31,29 +34,19 @@ public class House {
     }
 
     private synchronized void collectFood() {
-        if (rooms.isEmpty()) {
-            return;
-        }
-        Room firstRoom = rooms.get(random.nextInt(rooms.size()));
-        Room secondRoom;
-        do {
-            secondRoom = rooms.get(random.nextInt(rooms.size()));
-        } while (firstRoom == secondRoom);
-        if (firstRoom.getFoods().isEmpty() && secondRoom.getFoods().isEmpty()) {
-            return;
-        }
-        collectedFood.addAll(firstRoom.getFoods());
-        log.info("В комнате: {} собрано еды (шт): {}", firstRoom.getName(), firstRoom.getFoods().size());
-        collectedFood.addAll(secondRoom.getFoods());
-        log.info("В комнате: {} собрано еды (шт): {}", secondRoom.getName(), secondRoom.getFoods().size());
-        firstRoom.clearFood();
-        secondRoom.clearFood();
-        log.info("В комнатах {} и {} собрана еда", firstRoom.getName(), secondRoom.getName());
-        rooms.remove(firstRoom);
-        rooms.remove(secondRoom);
-        if (rooms.isEmpty()) {
+        List<Room> roomsWithFood = rooms.stream().filter(Room::hasFood).toList();
+        if (roomsWithFood.isEmpty()) {
+            log.info("Комнат с едой не осталось");
             shutdownExecutor();
+            return;
         }
+        List<Room> selectedRooms = getRandomRooms(roomsWithFood);
+        for (Room room : selectedRooms) {
+            List<Food> food = room.collectFood();
+            collectedFood.addAll(food);
+            log.info("В комнате: {} собрано {} единиц еды", room.getName(), food.size());
+        }
+        log.info("Всего собрано {} единиц еды", collectedFood.size());
     }
 
     private void startCollecting() {
@@ -72,6 +65,22 @@ public class House {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
+    }
+
+    private List<Room> getRandomRooms(List<Room> availableRooms) {
+        if (availableRooms.size() < ROOMS_TO_COLLECT) {
+            log.warn("Недостаточно комнат для уборки. Требуется {}, а в наличии {}",
+                    ROOMS_TO_COLLECT, availableRooms.size());
+            return availableRooms;
+        }
+        Set<Room> selectedRooms = new HashSet<>();
+        while (selectedRooms.size() < ROOMS_TO_COLLECT) {
+            Room room = availableRooms.get(random.nextInt(availableRooms.size()));
+            selectedRooms.add(room);
+            log.info("Уборка будет выполнена в комнате: {}", room.getName());
+            selectedRooms.add(room);
+        }
+        return selectedRooms.stream().toList();
     }
 
     private List<Room> initialise() {

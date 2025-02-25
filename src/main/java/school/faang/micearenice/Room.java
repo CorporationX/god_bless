@@ -19,7 +19,13 @@ public class Room {
         }
     }
 
-    public void clearFood() {
+    public boolean hasFood() {
+        return !foods.isEmpty();
+    }
+
+    public List<Food> collectFood() {
+        List<Food> collected = new ArrayList<>(foods);
         foods.clear();
+        return collected;
     }
 }
