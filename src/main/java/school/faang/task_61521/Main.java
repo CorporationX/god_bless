@@ -1,11 +1,15 @@
 package school.faang.task_61521;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         final House starkHouse = new House(Arrays.asList("Лорд", "Рыцарь", "Маг"));
@@ -26,7 +30,7 @@ public class Main {
                     user.joinHouse(starkHouse);
                     Thread.sleep(5000); // Имитация времени в доме (2 секунды)
                 } catch (InterruptedException e) {
-                    System.err.println("Ошибка в потоке: " + e.getMessage());
+                    log.error("Ошибка в потоке: " + e.getMessage());
                     Thread.currentThread().interrupt(); // Восстанавливаем флаг
                 } finally {
                     user.leaveHouse(); // Убедимся, что освобождение роли выполнится
@@ -45,6 +49,6 @@ public class Main {
             Thread.currentThread().interrupt(); // Восстанавливаем флаг
         }
 
-        System.out.println("Все пользователи освободили свои роли.");
+        log.info("Все пользователи освободили свои роли.");
     }
 }
