@@ -12,8 +12,9 @@ public class Chore implements Runnable {
     @SneakyThrows
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName());
-        System.out.println("Что-то происходит");
-        Thread.sleep(1000);
+        System.out.println(Thread.currentThread().getName() + " начинает задачу: " + title);
+        System.out.println("Работа работается");
+        Thread.sleep(10000);
+        System.out.println("Задача " + title + " выполнена");
     }
 }
