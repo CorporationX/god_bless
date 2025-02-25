@@ -15,8 +15,6 @@ public class Music {
             new ArrayList<>(List.of(threadPlay, threadPause, threadSkip, threadPrevious));
 
     public static void main(String[] args) {
-        for (Thread thread : threads) {
-            thread.start();
-        }
+        threads.forEach(Thread::start);
     }
 }
