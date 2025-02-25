@@ -1,10 +1,13 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+@Slf4j
 public class Main {
     private static final int THREAD_POOL_SIZE = 3;
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -25,5 +28,16 @@ public class Main {
             throw new RuntimeException(e);
         }
         executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(60, java.util.concurrent.TimeUnit.SECONDS)) {
+                log.error("Not all tasks have been completed on time.");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            log.error("awaitTermination was interrupted.");
+        }
     }
+
 }
