@@ -23,15 +23,12 @@ public class Main {
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
 
         allTasks.thenRun(() -> {
-            int hogwartsPoints = hogwarts.getTotalPoints();
-            int beauxbatonsPoints = beauxbatons.getTotalPoints();
-
             System.out.println("Hogwarts total points: " + hogwarts.getTotalPoints());
             System.out.println("Beauxbatons total points: " + beauxbatons.getTotalPoints());
 
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
                 System.out.println("Hogwarts wins!");
-            } else if (beauxbatonsPoints > hogwartsPoints) {
+            } else if (beauxbatons.getTotalPoints() > hogwarts.getTotalPoints()) {
                 System.out.println("Beauxbatons wins!");
             } else {
                 System.out.println("It's a tie!");
