@@ -13,8 +13,6 @@ public class PotionGathering {
                 new Potion("Mana Potion", 3),
                 new Potion("Stamina Potion", 4)
         );
-
-        // Асинхронный сбор ингредиентов
         gatherAllIngredients(potions);
     }
 
@@ -39,7 +37,5 @@ public class PotionGathering {
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenRun(() -> log.info("Общее количество собранных ингредиентов: " + atomicInteger.get()));
-
     }
-
 }
