@@ -11,10 +11,11 @@ public class Main {
 
     private static final int TIME_OUT = 20;
     private static final int NUMBER_OF_MESSAGES = 100;
+    private static final int THREAD_NUM = 6;
 
     public static void main(String[] args) {
 
-        ExecutorService executor = Executors.newFixedThreadPool(6);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUM);
         TelegramBot telegramBot = new TelegramBot();
 
         for (int i = 0; i < NUMBER_OF_MESSAGES; i++) {

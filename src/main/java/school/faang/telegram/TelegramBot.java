@@ -24,7 +24,6 @@ public class TelegramBot {
                 try {
                     wait(TIME_LIMIT_MS - timeDifference);
                     requestCounter = 0;
-                    lastRequestTime = System.currentTimeMillis();
                 } catch (InterruptedException e) {
                     log.error("Поток был перван во время ожидания окончания лимита отправки сообщений: ", e);
                     throw new RuntimeException(e);
