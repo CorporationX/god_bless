@@ -1,40 +1,36 @@
 package school.faang;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    private static final int NUMS_OF_CASHIERS = 7;
+    private static final Random RANDOM = new Random();
 
-        Set<Integer> set = Set.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-        int sum = 7;
-        Set<List<Integer>> result1 = StreamOperations.findPairs(set, sum);
-        System.out.printf("Список элементов: %s\nСумма пар: %s\nПары элементов: %s\n\n", set, sum, result1);
+    public static void main(String[] args) throws InterruptedException {
+        List<List<String>> customers = Arrays.asList(
+                Arrays.asList("Колбаса", "Мороженое"),
+                Arrays.asList("Раки", "Пиво", "Кальмар"),
+                Arrays.asList("Йогурт", "Гранола", "Протеиновый батончик", "Курица")
+        );
 
-        Map<String, String> countriesWithCapitals = Map.of(
-                "Russia", "Moscow",
-                "USA", "Washington",
-                "Germany", "Berlin",
-                "Italy", "Rome");
-        List<String> result2 = StreamOperations.filtrateCapitals(countriesWithCapitals);
-        System.out.printf("Страны со столицами: %s\nСтолицы: %s\n\n", countriesWithCapitals, result2);
+        CashierThread[] cashiers = new CashierThread[customers.size()];
 
-        List<String> strings = List.of("apple", "banana", "avocado", "apricot", "coconut", "mango");
-        char character = 'a';
-        List<String> result3 = StreamOperations.filtrateByLengthStartsWithCharacter(strings, character);
-        System.out.printf("Изначальный список строк: %s\nПервая буква: %s\nОтсортированные строки: %s\n\n",
-                strings, character, result3);
+        int i = 0;
+        for (List<String> customer : customers) {
+            int cashierId = RANDOM.nextInt(NUMS_OF_CASHIERS) + 1;
+            cashiers[i++] = new CashierThread(cashierId, customer);
+        }
 
-        List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        List<String> result4 = StreamOperations.turn10to2(nums);
-        System.out.printf("Список десятичных элементов: %s\nСписок двоичных элементов: %s\n\n", nums, result4);
+        for (CashierThread cashier : cashiers) {
+            cashier.start();
+        }
 
-        List<String> strings1 = List.of("apple", "banana", "avocado", "apricot", "coconut", "mango",
-                "яблоко", "виноград", "апельсин");
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> result5 = StreamOperations.filtrateByLengthContainingAlphabet(strings1, alphabet);
-        System.out.printf("Изначальный список: %s\nИспользующийся алфавит: %s\nПолученный список: %s\n\n",
-                strings1, alphabet, result5);
+        for (CashierThread cashier : cashiers) {
+            cashier.join();
+        }
+
+        System.out.println("Все кассиры завершили работу!");
     }
 }
