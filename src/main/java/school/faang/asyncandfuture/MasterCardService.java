@@ -7,48 +7,56 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int PAYMENT = 5_000;
+    private static final int ANALYSIS = 17_000;
 
-    static int collectPayment() {
+    public int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT;
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            threadExceptionHandler(e);
         }
+        return 0;
     }
 
-    static int sendAnalytics() {
+    public int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYSIS;
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            threadExceptionHandler(e);
         }
+        return 0;
     }
 
     public void doAll() {
         try {
             ExecutorService executor = Executors.newSingleThreadExecutor();
-            Future<Integer> payment = executor.submit(MasterCardService::collectPayment);
-            CompletableFuture<Integer> analysis = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+            Future<Integer> payment = executor.submit(this::collectPayment);
+            CompletableFuture<Integer> analysis = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
             Integer analyticsResult = analysis.join();
-            System.out.println("Аналитика отправлена: " + analyticsResult);
+            log.info("Аналитика отправлена: {}", analyticsResult);
             Integer paymentResult = payment.get();
-            System.out.println("Платеж выполнен: " + paymentResult);
+            log.info("Платеж выполнен: {}", paymentResult);
             executor.shutdown();
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
         } catch (Exception e) {
-            Thread.currentThread().interrupt();
+            threadExceptionHandler(e);
             log.info("Произошла ошибка: {}", e.getMessage());
-            throw new RuntimeException(e);
         }
+    }
 
-
+    private void threadExceptionHandler(Exception e) {
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
     }
 }
