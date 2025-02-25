@@ -1,16 +1,17 @@
 package school.faang.griffins;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class GriffinsFoodDelivery {
-    private static final Logger LOGGER = Logger.getLogger(GriffinsFoodDelivery.class.getName());
-    private static final int THREAD_POOLS = 3;
+    private static final int THREAD_NUMS = 3;
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOLS);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMS);
         String[] characterNames = {"Peter", "Louis", "Meg", "Chris", "Stewie"};
 
         for (String string : characterNames) {
@@ -20,11 +21,11 @@ public class GriffinsFoodDelivery {
 
         executor.shutdown();
         try {
-            Thread.sleep(10000);
+            executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("The running was interrupted", e);
+            executor.shutdownNow();
         }
-        LOGGER.setLevel(Level.INFO);
-        LOGGER.info("All characters got random food");
+        log.info("All characters got random food");
     }
 }
