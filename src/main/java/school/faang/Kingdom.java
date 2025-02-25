@@ -11,7 +11,7 @@ public class Kingdom {
     private final String name;
     private static final double PROBABILITY_OF_ERROR = 0.4;
 
-    public String sendMassage(Kingdom otherKingdom) {
+    public String sendMessage(Kingdom otherKingdom) {
         if (Math.random() < PROBABILITY_OF_ERROR) {
             throw new RuntimeException("Raven could not deliver message from " +
                     name + " to " + otherKingdom.name);
