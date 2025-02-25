@@ -21,7 +21,6 @@ public class Army {
         List<SquadPowerCalculator> threads = squads.stream()
                 .map(SquadPowerCalculator::new)
                 .toList();
-
         threads.forEach(Thread::start);
 
         int totalPower = 0;
@@ -34,7 +33,6 @@ public class Army {
                 System.err.println("Прерывание во время ожидания завершения потока: " + e.getMessage());
             }
         }
-
         return totalPower;
     }
 
@@ -51,6 +49,5 @@ public class Army {
         public void run() {
             squadPower = squad.calculateSquadPower();
         }
-
     }
 }
