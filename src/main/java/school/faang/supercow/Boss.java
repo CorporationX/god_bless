@@ -17,7 +17,7 @@ public class Boss {
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (this) {
             validateArgument(player);
-            if ((currentPlayers + 1) > maxPlayers) {
+            while ((currentPlayers + 1) > maxPlayers) {
                 log.info("Нет свободного места, подождите");
                 this.wait();
             }
