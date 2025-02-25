@@ -2,7 +2,7 @@ package school.faang.spotify;
 
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlaying = true;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
@@ -28,13 +28,21 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("Пропустить трек");
+            if (isPlaying) {
+                System.out.println("Пропуск трека... Воспроизведение следующего трека.");
+            } else {
+                System.out.println("Пропуск трека. Воспроизведение приостановлено.");
+            }
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            System.out.println("Вернуться к предыдущему треку");
+            if (isPlaying) {
+                System.out.println("Возврат к предыдущему треку... Воспроизведение продолжается.");
+            } else {
+                System.out.println("Возврат к предыдущему треку. Воспроизведение приостановлено.");
+            }
         }
     }
 }
