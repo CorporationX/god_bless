@@ -20,6 +20,7 @@ import java.util.stream.IntStream;
 public class Person {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(5);
     private static final int FIND_INGREDIENT_SEC = 2;
+    private static final int FOUND_QUANTITY = 1;
 
     private final String name;
     private final Map<Potion, Recipe> recipes = new HashMap<>();
@@ -27,7 +28,6 @@ public class Person {
     private final List<Potion> potions = new ArrayList<>();
     private final List<CompletableFuture<Void>> futures = new ArrayList<>();
     private Map<Ingredient, Integer> missingIngredients;
-
 
     @Synchronized
     public void brew(Potion potion) {
@@ -46,6 +46,7 @@ public class Person {
                     EXECUTOR.shutdownNow();
                     futures.clear();
                 }).join();
+
         potions.add(potion.createPotion(ingredients));
         log.debug("Adding potion {}", potion);
         log.debug("All potions now {}", potions);
@@ -60,7 +61,7 @@ public class Person {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
-            ingredients.merge(ingredient, 1, Integer::sum);
+            ingredients.merge(ingredient, FOUND_QUANTITY, Integer::sum);
         });
     }
 }

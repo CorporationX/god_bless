@@ -31,10 +31,10 @@ public class Recipe {
         this.ingredients = ingredients;
         return recipe.entrySet().stream()
                 .filter(this::isMissingIngredient)
-                .collect(Collectors.toMap(Map.Entry::getKey, this::mapValue));
+                .collect(Collectors.toMap(Map.Entry::getKey, this::getMissingCount));
     }
 
-    private Integer mapValue(Map.Entry<Ingredient, Integer> entry) {
+    private Integer getMissingCount(Map.Entry<Ingredient, Integer> entry) {
         int hasCount = ingredients.getOrDefault(entry.getKey(), 0);
         return entry.getValue() - hasCount;
     }
