@@ -24,7 +24,7 @@ public class Game {
         }
         synchronized (lockLives) {
             if (isLostLife) {
-                if (lives - 1 == 0) {
+                if (lives <= 1) {
                     gameOver();
                 } else {
                     lives--;
