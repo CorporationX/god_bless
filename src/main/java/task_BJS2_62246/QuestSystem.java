@@ -8,23 +8,18 @@ import java.util.concurrent.CompletableFuture;
 public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        CompletableFuture<Player> futureQuest = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(quest.getDifficulty() * 1_000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.printf("Игрок %s проходит квест %s\n", player.getName(), quest.getName());
-            return null; //player.setExperience(player.getExperience() + quest.getReward()) - вызывает ошибку!
+
+        try {
+            Thread.sleep(quest.getDifficulty() * 1000L);
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            log.info("Thread: {} was interrupted", Thread.currentThread().getName());
+        }
+
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.printf("Игрок \"%s\" проходит квест \"%s\"\n", player.getName(), quest.getName());
+            player.addExperience(quest.getReward());
+            return player;
         });
-
-        futureQuest.thenAccept(playerAfterQuest -> {
-            System.out.printf("Игрок %s прошёл квест %s и теперь его опыт равен %d\n",
-                    player.getName(), quest.getName(), player.getExperience());
-        });
-
-        return futureQuest;
-
     }
-
 }
