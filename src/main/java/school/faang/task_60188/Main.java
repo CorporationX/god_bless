@@ -71,21 +71,29 @@ public class Main {
                 new Employee("Sophia Martinez", 52000, "Marketing")
         );
 
-        Map<String, Double> avgDepartmentFee = ListOperations.avgDepartmentFee(employees);
+        Map<String, Double> avgDepartmentFee = ListOperations.calculateAvgDepartmentFee(employees);
         System.out.println("Average fee per department:");
         avgDepartmentFee.forEach((department, avgFee) ->
                 System.out.printf("\t%s: %.1f\n", department, avgFee));
 
-        Map<Integer, Integer> range = Map.of(100, 200);
-        List<Integer> palindromesNumbers = ListOperations.palindromesNumbers(range);
-        System.out.printf("Palindromes within a given range: \n\t%s\n", palindromesNumbers);
+        int start = 100;
+        int end = 200;
+        List<Integer> palindromesNumbersV1 = ListOperations.findPalindromeNumbersV1(start, end);
+        System.out.printf("Palindromes within a given range v1: \n\t%s\n", palindromesNumbersV1);
+
+        List<Integer> palindromesNumbersV2 = ListOperations.findPalindromeNumbersV2(start, end);
+        System.out.printf("Palindromes within a given range v2: \n\t%s\n", palindromesNumbersV2);
 
         String inputWord = "abac";
-        Set<String> palindromesSubStrings = ListOperations.searchPalindromesSubString(inputWord);
-        System.out.printf("Palindromes sub strings in input word: \n\t%s\n", palindromesSubStrings);
+        Set<String> palindromesSubStringsV1 = ListOperations.findPalindromeSubstringV1(inputWord);
+        System.out.printf("Palindromes sub strings in input word v1: \n\t%s\n", palindromesSubStringsV1);
 
-        Map<Integer, Integer> rangeNumbers = Map.of(1, 1000);
-        List<Integer> perfectNumbers = ListOperations.searchPerfectNumbers(rangeNumbers);
+        Set<String> palindromesSubStringsV2 = ListOperations.findPalindromeSubstringV2(inputWord);
+        System.out.printf("Palindromes sub strings in input word v2: \n\t%s\n", palindromesSubStringsV2);
+
+        int startNumber = 1;
+        int endNumber = 1000;
+        List<Integer> perfectNumbers = ListOperations.findPerfectNumbers(startNumber, endNumber);
         System.out.printf("Perfect numbers within a given range: \n\t%s\n", perfectNumbers);
     }
 }
