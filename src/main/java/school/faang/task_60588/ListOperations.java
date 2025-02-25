@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ListOperations {
 
@@ -53,12 +52,12 @@ public class ListOperations {
                 .filter(n -> n > i)
                 .mapToInt(Integer::intValue)
                 .min()
-                .orElseThrow(null);
+                .orElseThrow(() -> new NoSuchElementException("There is now elements more than " + i));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
