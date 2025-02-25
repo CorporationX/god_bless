@@ -3,7 +3,6 @@ package school.faang;
 public class Upload {
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
-
         Thread uploadThread = new Thread(() -> uploader.startAutoUpload());
 
         Thread photoAdderThread = new Thread(() -> {
