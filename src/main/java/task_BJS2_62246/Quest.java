@@ -1,7 +1,9 @@
 package task_BJS2_62246;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
 public class Quest {
     private String name;
