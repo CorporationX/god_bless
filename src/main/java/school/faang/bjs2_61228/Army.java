@@ -10,7 +10,7 @@ public class Army {
 
     private final List<Squad> squads = new ArrayList<>();
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         List<Thread> threads = new ArrayList<>();
         List<Integer> sumPowers = new ArrayList<>();
 
@@ -25,11 +25,15 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
         return sumPowers.stream()
-                .mapToInt(i -> i)
+                .mapToInt(power -> power)
                 .sum();
     }
 
