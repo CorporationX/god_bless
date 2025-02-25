@@ -8,36 +8,44 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class MasterCardService {
-    private static final int TEN_SECONDS_IN_MS = 10_000;
-    private static final int ONE_SECOND_IN_MS = 1_000;
-    private static final int THREADS_COUNT = 2;
 
     private static int collectPayment() {
-        try {
-            Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+        return universalMethod(ConstOfMasterCard.TEN_SECONDS_IN_MS, 5_000);
     }
 
     private static int sendAnalytics() {
+        return universalMethod(ConstOfMasterCard.ONE_SECOND_IN_MS, 17_000);
+    }
+
+    private static int universalMethod(int oneSecondInMs, int x) {
         try {
-            Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            Thread.sleep(oneSecondInMs);
+            return x;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            log.error(ConstOfMasterCard.INTERRUPTED_EXCEPTION, e);
+            return ConstOfMasterCard.ERROR_VALUE;
         }
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
+        ExecutorService executor = Executors.newFixedThreadPool(ConstOfMasterCard.THREADS_COUNT);
         CompletableFuture.supplyAsync(MasterCardService::collectPayment, executor)
-                .thenAccept(s -> log.info("Payment completed: {}", s));
+                .thenAccept(s -> {
+                    if (s == ConstOfMasterCard.ERROR_VALUE) {
+                        log.info(ConstOfMasterCard.EXCEPTION_MESSAGE);
+                    } else {
+                        log.info(ConstOfMasterCard.PAYMENT_COMPLETED, s);
+                    }
+                });
         CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
-                .thenAccept(s -> log.info("The analysis has been sent: {}", s));
+                .thenAccept(s -> {
+                    if (s == ConstOfMasterCard.ERROR_VALUE) {
+                        log.info(ConstOfMasterCard.EXCEPTION_MESSAGE);
+                    } else {
+                        log.info(ConstOfMasterCard.ANALYSIS_SEND, s);
+                    }
+                });
         executor.shutdown();
     }
 
