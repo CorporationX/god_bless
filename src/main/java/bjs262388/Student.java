@@ -12,7 +12,7 @@ public class Student {
     private int year;
     private int points;
 
-    public void addPoints(Student student, int points) {
-        student.setPoints(student.getPoints() + points);
+    public void addPoints(int points) {
+        this.setPoints(this.getPoints() + points);
     }
 }
