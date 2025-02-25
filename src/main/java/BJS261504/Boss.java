@@ -14,7 +14,7 @@ public class Boss {
     private final Integer maxPlayers;
     private Integer currentPlayers;
     private final Object lock = new Object();
-    private final List<Player> playersInBattle = Collections.synchronizedList(new ArrayList<>());
+    private final List<Player> playersInBattle = new ArrayList<>();
 
     public Boss(Integer maxPlayers) {
         this.maxPlayers = maxPlayers;
