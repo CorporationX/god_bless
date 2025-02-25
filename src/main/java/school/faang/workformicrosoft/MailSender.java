@@ -1,24 +1,35 @@
 package school.faang.workformicrosoft;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) {
         int batchSize = TOTAL_MESSAGES / THREADS_COUNT;
+        int remainingMessages = TOTAL_MESSAGES % THREADS_COUNT;
 
-        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
+        Thread[] threads = new Thread[THREADS_COUNT];
 
         for (int i = 0; i < THREADS_COUNT; i++) {
             int start = i * batchSize;
-            int end = (i + 1) * batchSize;
+            int end = start + batchSize;
 
-            executor.submit(new SenderRunnable(start, end));
+            if (i == THREADS_COUNT - 1) {
+                end += remainingMessages;
+            }
+
+            threads[i] = new Thread(new SenderRunnable(start, end));
+            threads[i].start();
         }
 
-        executor.shutdown();
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                thread.interrupt();
+            }
+        }
+
+        System.out.println("Все сообщения успешно отправлены!");
     }
 }
