@@ -14,9 +14,10 @@ public class OrderProcessor {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
+                order.setStatus(OrderStatus.FAILED);
                 Thread.currentThread().interrupt();
             }
-            order.setStatus("Обработано");
+            order.setStatus(OrderStatus.DONE);
             totalProcessedOrders.incrementAndGet();
         });
     }
