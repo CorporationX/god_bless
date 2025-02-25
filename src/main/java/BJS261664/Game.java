@@ -12,22 +12,22 @@ public class Game {
     private final Lock scoreLock = new ReentrantLock();
     private final Lock livesLock = new ReentrantLock();
 
-    public void update(boolean havePoint, boolean haveLives) {
-        if (havePoint) {
+    public void update(boolean isHavePoint, boolean isHaveLives) {
+        if (isHavePoint) {
             scoreLock.lock();
             try {
                 score++;
-                System.out.println("Score: " + score);
+                log.info("Score: " + score);
             } finally {
                 scoreLock.unlock();
             }
         }
-        if (haveLives) {
+        if (isHaveLives) {
             synchronized (livesLock) {
                 livesLock.lock();
                 try {
                     lives--;
-                    System.out.println("Lives: " + lives);
+                    log.info("Lives: " + lives);
                     if (lives <= 0) {
                         gameOver();
                     }
@@ -39,7 +39,7 @@ public class Game {
     }
 
     public void gameOver() {
-        System.out.println("Game Over");
+        log.info("Game Over");
     }
 }
 
