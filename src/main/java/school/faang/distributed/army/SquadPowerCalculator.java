@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SquadPowerCalculator extends Thread {
     private final Squad squad;
-    private int result = 0;
+    private int result;
 
     @Override
     public void run() {
