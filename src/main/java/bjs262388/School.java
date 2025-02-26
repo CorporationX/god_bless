@@ -18,7 +18,7 @@ public class School {
 
     public int getTotalPoints(List<Student> team) {
         if (Objects.isNull(team) || team.isEmpty()) {
-            log.error("Team could not be null or empty",
+            log.error("Team {} could not be null or empty", team,
                     new TournamentException("IllegalArgumentException"));
         }
         return team.stream().mapToInt(Student::getPoints).sum();

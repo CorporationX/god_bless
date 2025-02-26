@@ -20,11 +20,12 @@ public class Main {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
-        allTasks.thenRun(() -> {
-            if (hogwarts.getTotalPoints(hogwartsTeam) > beauxbatons.getTotalPoints(beauxbatonsTeam)) {
-                System.out.println(hogwarts.getName() + " wins the tournament!");
-            }
-        });
+        CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+                .thenRun(() -> {
+                    if (hogwarts.getTotalPoints(hogwartsTeam) > beauxbatons.getTotalPoints(beauxbatonsTeam)) {
+                        System.out.println(hogwarts.getName() + " wins the tournament!");
+                    }
+                });
+        tournament.shutDownExecutorService(tournament.getExecutorService());
     }
 }
