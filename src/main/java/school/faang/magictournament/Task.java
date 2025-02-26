@@ -1,12 +1,3 @@
 package school.faang.magictournament;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Task {
-    private String name;
-    private int difficulty;
-    private int reward;
-}
+public record Task(String name, int difficulty, int reward) {}

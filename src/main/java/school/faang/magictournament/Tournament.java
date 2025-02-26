@@ -9,12 +9,12 @@ public class Tournament {
     public CompletableFuture<School> startTask(School school, Task task) throws InterruptedException {
         validateParams(school, task);
         imitateDelay(task);
-        school.getTeam().forEach(student -> student.addPoints(task.getReward()));
+        school.team().forEach(student -> student.addPoints(task.reward()));
         return CompletableFuture.completedFuture(school);
     }
 
     private void imitateDelay(Task task) throws InterruptedException {
-        Thread.sleep((long) DELAY_PER_DIFFICULT * task.getDifficulty());
+        Thread.sleep((long) DELAY_PER_DIFFICULT * task.difficulty());
     }
 
     private void validateParams(School school, Task task) {
