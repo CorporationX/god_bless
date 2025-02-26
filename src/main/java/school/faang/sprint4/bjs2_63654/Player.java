@@ -2,7 +2,6 @@ package school.faang.sprint4.bjs2_63654;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,7 +22,7 @@ public class Player {
         this.experience = 0;
     }
 
-    public void addExperience(int experience) {
+    public synchronized void addExperience(int experience) {
         this.experience += experience;
     }
 }
