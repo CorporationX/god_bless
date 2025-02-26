@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
@@ -12,7 +13,7 @@ public class OrderProcessor {
     public CompletableFuture<Void> processOrder(@NonNull Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(2000);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 order.setStatus(OrderStatus.FAILED);
                 Thread.currentThread().interrupt();
