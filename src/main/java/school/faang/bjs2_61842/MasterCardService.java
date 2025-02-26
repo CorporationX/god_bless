@@ -12,6 +12,8 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int PAYMENT_RESULT = 5_000;
+    private static final int ANALYTICS_RESULT = 17_000;
 
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -26,19 +28,18 @@ public class MasterCardService {
             log.info("Payment sent successfully: {}", paymentResult);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            log.warn("Operation was interrupted", e);
+            log.warn("Thread was interrupted while waiting for tasks to complete.", e);
         } catch (ExecutionException e) {
-            log.warn("Asynchronous task execution failed", e);
+            log.warn("An error occurred during asynchronous task execution. Cause: {}", e.getCause(), e);
         } finally {
-            executor.shutdown();
+            executor.shutdownNow();
         }
-
     }
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -48,7 +49,7 @@ public class MasterCardService {
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
