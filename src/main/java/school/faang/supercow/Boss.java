@@ -18,7 +18,7 @@ public class Boss {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.error("The thread was interrupted", e);
                 }
             }
             currentPlayers++;
