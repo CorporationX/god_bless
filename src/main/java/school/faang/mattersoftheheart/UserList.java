@@ -11,7 +11,9 @@ public class UserList {
     private final List<User> users = new ArrayList<>();
 
     public List<User> getReadyToChattingUsers() {
-        return users.stream().filter(user -> user.isOnline() && user.isLookingForChat()).toList();
+        return users.stream()
+                .filter(user -> user.isOnline() && user.isLookingForChat())
+                .toList();
     }
 
     public void addUser(User user) {

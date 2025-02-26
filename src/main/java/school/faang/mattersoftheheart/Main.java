@@ -44,7 +44,7 @@ public class Main {
 
     private static boolean isRunning = true;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         try {
             USERS.forEach(USER_LIST::addUser);
             USER_LIST.removeUser(USERS.get(RANDOM.nextInt(USERS.size())));
@@ -52,8 +52,8 @@ public class Main {
             USER_LIST.printAllUsers();
 
             testChatManager();
-        } catch (IllegalArgumentException exception) {
-            log.error(exception.getMessage(), exception);
+        } catch (IllegalArgumentException | InterruptedException e) {
+            catchingExceptions(e);
         }
     }
 
@@ -84,12 +84,8 @@ public class Main {
     private static void executeWithException(RunnableWithException task) {
         try {
             task.run();
-        } catch (InterruptedException exception) {
-            log.error("Thread has been interrupted. Name thread: {}\nException: {}\nStack trace: {}",
-                    Thread.currentThread().getName(), exception, exception.getStackTrace());
-            Thread.currentThread().interrupt();
-            EXECUTOR.shutdownNow();
-            REMOVING_EXECUTOR.shutdownNow();
+        } catch (InterruptedException e) {
+            catchingExceptions(e);
         }
     }
 
@@ -98,5 +94,13 @@ public class Main {
             int onlineUsers = USER_LIST.getReadyToChattingUsers().size();
             USER_LIST.getReadyToChattingUsers().get(RANDOM.nextInt(onlineUsers)).setOnline(IS_USER_ONLINE);
         }
+    }
+
+    private static void catchingExceptions(Exception e) {
+        log.error("Thread has been interrupted. Name thread: {}\nException: {}\nStack trace: {}",
+                Thread.currentThread().getName(), e, e.getStackTrace());
+        Thread.currentThread().interrupt();
+        EXECUTOR.shutdownNow();
+        REMOVING_EXECUTOR.shutdownNow();
     }
 }

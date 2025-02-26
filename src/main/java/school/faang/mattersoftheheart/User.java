@@ -8,7 +8,7 @@ import java.util.Objects;
 public class User {
     private static final int MIN_NAME_LENGTH = 3;
 
-    private String name;
+    private final String name;
     private boolean isOnline = true;
     private boolean isLookingForChat = true;
 
