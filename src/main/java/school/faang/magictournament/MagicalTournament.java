@@ -25,22 +25,21 @@ public class MagicalTournament {
         try {
             CompletableFuture<School> hogwartsTask = TOURNAMENT.startTask(HOGWARTS, TRIWIZARD);
             CompletableFuture<School> beauxbatonsTask = TOURNAMENT.startTask(BEAUXBATONS, YULE_BALL);
-            CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+            CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+                    .thenRun(() -> {
+                        int hogwartsPoints = HOGWARTS.getTotalPoint();
+                        int beauxbatonsPoints = BEAUXBATONS.getTotalPoint();
+                        log.info("Hogwarts total points: {}", hogwartsPoints);
+                        log.info("Beauxbatons total points: {}", beauxbatonsPoints);
 
-            allTasks.thenRun(() -> {
-                int hogwartsPoints = HOGWARTS.getTotalPoint();
-                int beauxbatonsPoints = BEAUXBATONS.getTotalPoint();
-                log.info("Hogwarts total points: {}", hogwartsPoints);
-                log.info("Beauxbatons total points: {}", beauxbatonsPoints);
-
-                if (hogwartsPoints > beauxbatonsPoints) {
-                    log.info("Hogwarts wins!");
-                } else if (beauxbatonsPoints > hogwartsPoints) {
-                    log.info("Beauxbatons wins!");
-                } else {
-                    log.info("Draw");
-                }
-            }).join();
+                        if (hogwartsPoints > beauxbatonsPoints) {
+                            log.info("Hogwarts wins!");
+                        } else if (beauxbatonsPoints > hogwartsPoints) {
+                            log.info("Beauxbatons wins!");
+                        } else {
+                            log.info("Draw");
+                        }
+                    }).join();
         } catch (InterruptedException e) {
             log.error("Execution tasks failed. Exception {}\nStack trace: {}", e, e.getStackTrace());
         }
