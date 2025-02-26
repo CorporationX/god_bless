@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    private static final List<String> CHORES = List.of("wash the dishes", "sweep the floor", "cook dinner", "clean the room");
+    private static final List<String> CHORES = List.of("wash the dishes", "sweep the floor", "cook dinner",
+            "clean the room");
     private static final int SHUTDOWN_TIMEOUT_MINUTES = 5;
 
     public static void main(String[] args) {
