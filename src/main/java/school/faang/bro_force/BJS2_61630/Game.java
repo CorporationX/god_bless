@@ -14,7 +14,7 @@ public class Game {
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
-    private final Object GameOverLock = new Object();
+    private final Object gameOverLock = new Object();
 
     private final List<Bro> bros = new ArrayList<>();
     private int score;
