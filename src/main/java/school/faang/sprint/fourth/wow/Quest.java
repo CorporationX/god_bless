@@ -19,7 +19,7 @@ public class Quest {
         this.reward = reward;
     }
 
-    private void validateData(@NonNull String name, int difficulty, int reward) {
+    private void validateData(String name, int difficulty, int reward) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank.");
         }

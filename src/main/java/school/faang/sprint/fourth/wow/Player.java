@@ -19,7 +19,11 @@ public class Player {
         this.experience = experience;
     }
 
-    private void validateData(@NonNull String name, int level, int experience) {
+    public synchronized void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    private void validateData(String name, int level, int experience) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank.");
         }

@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class QuestSystem {
     private static final int THREAD_SLEEP_TIME = 1000;
+    private static final int AWAIT_TERMINATION_TIME = 2000;
     private final Random random = new Random();
     private final ExecutorService executor;
 
@@ -41,12 +42,13 @@ public class QuestSystem {
     public void stopQuests() {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIME, TimeUnit.MILLISECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("Thread interrupted: {}", e.getMessage());
             executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
