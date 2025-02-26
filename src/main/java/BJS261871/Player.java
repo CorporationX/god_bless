@@ -25,7 +25,9 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            isPlaying = false;
+            if (isPlaying) {
+                isPlaying = false;
+            }
             log.info("Thread from skip ");
             log.info(isPlaying ? "Playing" : "Stopped");
         }
@@ -33,7 +35,9 @@ public class Player {
 
     public void previous() {
         synchronized (lock) {
-            isPlaying = false;
+            if (isPlaying) {
+                isPlaying = false;
+            }
             log.info("Thread from previous ");
             log.info(isPlaying ? "Playing" : "Stopped");
         }
