@@ -24,11 +24,12 @@ public class BigBangTheory {
         }
         executor.shutdown();
         try {
-            executor.awaitTermination(5, TimeUnit.SECONDS);
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
             executor.shutdownNow();
             log.error("The running was interrupted", e);
         }
-        log.info("All tasks have been finished");
     }
 }
