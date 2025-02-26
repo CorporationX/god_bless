@@ -21,11 +21,12 @@ public class GriffinsFoodDelivery {
 
         executor.shutdown();
         try {
-            executor.awaitTermination(10, TimeUnit.SECONDS);
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
             log.error("The running was interrupted", e);
             executor.shutdownNow();
         }
-        log.info("All characters got random food");
     }
 }
