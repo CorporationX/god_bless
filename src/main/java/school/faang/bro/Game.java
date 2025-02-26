@@ -4,11 +4,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Game {
-    private int score;
-    private int lives;
+    private int score = 0;
+    private int lives = 5;
 
-    private Lock scoreLock = new ReentrantLock();
-    private Lock livesLock = new ReentrantLock();
+    private final Lock scoreLock = new ReentrantLock();
+    private final Lock livesLock = new ReentrantLock();
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
         if (isPointsEarned) {
