@@ -10,14 +10,15 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
-    private static final int TEN_SECONDS_IN_MS = 10_000;
-    private static final int ONE_SECOND_IN_MS = 1_000;
-    private static final int FIVE_SECONDS_IN_MS = 5_000;
+    private static final int TIMEOUT_ONE_SECOND_IN_MS = 1_000;
+    private static final int TIMEOUT_FIVE_SECONDS_IN_MS = 5_000;
+    private static final int COLLECT_PAYMENT_NUMBER = 5_000;
+    private static final int SEND_ANALYTICS_NUMBER = 17_000;
 
     static int collectPayment() {
         try {
-            Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            Thread.sleep(TIMEOUT_FIVE_SECONDS_IN_MS);
+            return COLLECT_PAYMENT_NUMBER;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage(), e);
@@ -27,8 +28,8 @@ public class MasterCardService {
 
     static int sendAnalytics() {
         try {
-            Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            Thread.sleep(TIMEOUT_ONE_SECOND_IN_MS);
+            return SEND_ANALYTICS_NUMBER;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage(), e);
@@ -48,22 +49,17 @@ public class MasterCardService {
 
             int paymentResult = paymentFuture.get();
             log.info("Payment is send: {}", paymentResult);
-        } catch (InterruptedException | ExecutionException e) {
-            Thread.currentThread().interrupt();
-            log.error(e.getMessage(), e);
-        } finally {
-            executor.shutdown();
-        }
 
-        try {
-            if (!executor.awaitTermination(FIVE_SECONDS_IN_MS, TimeUnit.SECONDS)) {
+            executor.shutdown();
+
+            if (!executor.awaitTermination(TIMEOUT_FIVE_SECONDS_IN_MS, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
                 log.error("Thread shutdown now");
             }
-        } catch (InterruptedException e) {
+
+        } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage(), e);
         }
-
     }
 }
