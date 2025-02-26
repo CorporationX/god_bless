@@ -7,9 +7,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private static final int THREAD_POOL_SEIZE = 20;
+    private static final int THREAD_POOL_SIZE = 20;
     public static final int REQUEST_COUNT = 1000;
-    private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SEIZE);
+    private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
     private static void fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         List<CompletableFuture<Void>> futures = requests.stream()
