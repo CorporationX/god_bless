@@ -2,7 +2,6 @@ package school.faang.asynchronyandfuture;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -11,13 +10,17 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class MasterCardService {
+
+    //константа для 10ти и 1-ой секунды
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int DEFAULT_PAYMENT = 5_000;
+    private static final int ANALYTICS_VALUE = 17_000;
 
     public static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return DEFAULT_PAYMENT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -27,7 +30,7 @@ public class MasterCardService {
     public static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
