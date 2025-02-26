@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private static final int THREAD_SLEEP_IN_MS = 3000;
     private static final int AWAIT_TERMINATION_IN_MS = 3000;
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(2);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public CompletableFuture<Order> processOrder(Order order) {
@@ -33,7 +33,7 @@ public class OrderProcessor {
                         Thread.currentThread().interrupt();
                     }
                     return order;
-                }, EXECUTOR_SERVICE)
+                }, executorService)
                 .handle((result, exception) -> {
                     if (!result.getStatus().equals(Status.PROCESSED)) {
                         throw new OrderException("Status.PROCESSED has not installed");
@@ -49,13 +49,13 @@ public class OrderProcessor {
     }
 
     public void shutDownExecutorService() {
-        EXECUTOR_SERVICE.shutdown();
+        executorService.shutdown();
         try {
-            if (!EXECUTOR_SERVICE.awaitTermination(AWAIT_TERMINATION_IN_MS, TimeUnit.MILLISECONDS)) {
-                EXECUTOR_SERVICE.shutdownNow();
+            if (!executorService.awaitTermination(AWAIT_TERMINATION_IN_MS, TimeUnit.MILLISECONDS)) {
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            EXECUTOR_SERVICE.shutdownNow();
+            executorService.shutdownNow();
         }
     }
 }
