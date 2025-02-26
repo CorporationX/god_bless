@@ -17,7 +17,7 @@ public class FoodDeliveryTask implements Runnable {
 
     @Override
     public void run() {
-        String eda = FogetFoodType().toString();
+        String eda = fogetFoodType().toString();
         System.out.println(character + " получает " + foodAmount + " " + eda);
         try {
             Thread.sleep(1000);
@@ -28,7 +28,7 @@ public class FoodDeliveryTask implements Runnable {
 
     }
 
-    private FoodType FogetFoodType() {
+    private FoodType fogetFoodType() {
         FoodType[] foodTypes = FoodType.values();
         return foodTypes[random.nextInt(foodTypes.length)];
     }
