@@ -25,13 +25,11 @@ public class MasterCardService {
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-
         Future<Integer> futureAnalytics = EXECUTOR.submit(this::sendAnalytics);
         CompletableFuture<Integer> futurePayment = CompletableFuture.supplyAsync(() -> {
             try {
                 return collectPayment();
             } catch (InterruptedException exception) {
-                Thread.currentThread().interrupt();
                 throw new RuntimeException("Payment task interrupted", exception);
             }
         });
