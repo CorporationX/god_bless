@@ -14,40 +14,44 @@ public class Game {
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
+    private final Object GameOverLock = new Object();
 
     private final List<Bro> bros = new ArrayList<>();
     private int score;
     private int lives;
+    private boolean isTheGameOver = false;
 
     public void addBro(Bro bro) {
         bros.add(bro);
     }
 
-    public boolean update() {
+    public void update() {
         int broIndex = new Random().nextInt(bros.size());
         Bro bro = bros.get(broIndex);
-        boolean isAlive = bro.isAlive();
 
-        if (isAlive) {
+        synchronized (scoreLock) {
+            bro.setScore(bro.getScore() + 1);
+            score++;
+        }
+
+        if (bro.isAlive()) {
             synchronized (livesLock) {
+                if (isTheGameOver) {
+                    return;
+                }
+
                 bro.setLives(bro.getLives() - 1);
                 lives++;
                 LOGGER.info("{} lives left: {}", bro.getName(), bro.getLives());
                 if (bro.getLives() == 0) {
-                    return gameOver();
+                    gameOver();
                 }
             }
-        } else {
-            synchronized (scoreLock) {
-                bro.setScore(bro.getScore() + 1);
-                score++;
-            }
         }
-        return false;
     }
 
-    private boolean gameOver() {
+    private void gameOver() {
         LOGGER.info("Game over");
-        return true;
+        isTheGameOver = true;
     }
 }
