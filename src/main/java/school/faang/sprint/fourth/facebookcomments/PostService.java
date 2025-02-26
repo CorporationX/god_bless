@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class PostService {
-    private volatile List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
     private final Lock lock = new ReentrantLock();
 
     public void addPost(@NonNull Post post) {
