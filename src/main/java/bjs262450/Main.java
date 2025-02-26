@@ -4,16 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
     public static void main(String[] args) {
         List<Potion> potions = new ArrayList<>(initializePotionList());
         Potion potion = new Potion();
-        AtomicInteger ingredientsAtomicNumber = potion.calculateIngredients(potions);
-        int result = ingredientsAtomicNumber.get();
-        log.info("Общее количество собранных ингредиентов: {}", result);
+        List<CompletableFuture<Integer>> ingredientsNumberCf = potion.gatherAllIngredients(potions);
+        CompletableFuture.allOf(ingredientsNumberCf.toArray(new CompletableFuture[0])).join();
+        log.info("Общее количество собранных ингредиентов: {}", potion.getIngredientsNumber().get());
+        potion.shutDownExecutorService();
     }
 
     private static List<Potion> initializePotionList() {

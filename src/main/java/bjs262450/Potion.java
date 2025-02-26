@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
@@ -19,10 +20,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class Potion {
     private static final long THREAD_SLEEP_MULTIPLIER_IN_MS = 1000;
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(2);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
     private String name;
     private int requiredIngredients;
     private final List<Potion> potions = new ArrayList<>();
+    private final AtomicInteger ingredientsNumber = new AtomicInteger(0);
 
     public CompletableFuture<Integer> gatherIngredients(@NonNull Potion potion) throws InterruptedException {
         validatePotion(potion);
@@ -35,7 +37,7 @@ public class Potion {
                 Thread.currentThread().interrupt();
             }
             return potion.getRequiredIngredients();
-        }, EXECUTOR_SERVICE).handle((result, exception) -> {
+        }, executorService).handle((result, exception) -> {
             if (result == 0) {
                 log.error("{}", Thread.currentThread().getId(),
                         new AlchemyException("Result can not contains 0 ingredients"));
@@ -51,6 +53,7 @@ public class Potion {
                     CompletableFuture<Integer> ingredientsNumberCf = null;
                     try {
                         ingredientsNumberCf = potion.gatherIngredients(potion);
+                        ingredientsNumber.getAndAdd(potion.getRequiredIngredients());
                     } catch (InterruptedException e) {
                         log.error("{} interrupted", Thread.currentThread().getId(),
                                 new AlchemyException("Interrupted exception", e));
@@ -58,14 +61,6 @@ public class Potion {
                     }
                     return ingredientsNumberCf;
                 }).toList();
-    }
-
-    public AtomicInteger calculateIngredients(@NonNull List<Potion> potions) {
-        List<CompletableFuture<Integer>> ingredientsNumberCf = gatherAllIngredients(potions);
-        validateIngredientsCompletableFuture(ingredientsNumberCf);
-        AtomicInteger ingredientsNumber = new AtomicInteger(0);
-        ingredientsNumberCf.forEach(ingredientNumberCF -> ingredientNumberCF.thenApply(ingredientsNumber::addAndGet));
-        return ingredientsNumber;
     }
 
     private void validatePotion(Potion potion) {
@@ -83,10 +78,14 @@ public class Potion {
         }
     }
 
-    private void validateIngredientsCompletableFuture(List<CompletableFuture<Integer>> ingredientsNumberCf) {
-        if (ingredientsNumberCf.isEmpty()) {
-            throw new AlchemyException("Potions completable future can not be empty",
-                    new IllegalArgumentException());
+    public void shutDownExecutorService() {
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(3000, TimeUnit.MILLISECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
         }
     }
 }
