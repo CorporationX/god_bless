@@ -12,11 +12,13 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int PAYMENT_RESULT = 5_000;
+    private static final int ANALYTIC_RESULT = 17_000;
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_RESULT;
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(exception);
@@ -26,7 +28,7 @@ public class MasterCardService {
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTIC_RESULT;
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(exception);
@@ -50,6 +52,7 @@ public class MasterCardService {
             Thread.currentThread().interrupt();
             log.info("Thread: {} was interrupted", Thread.currentThread().getName());
         }
+        executor.shutdown();
     }
 
 }
