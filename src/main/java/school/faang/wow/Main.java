@@ -27,18 +27,20 @@ public class Main {
     private static final Random RANDOM = new Random();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        CompletableFuture<?>[] futures = PLAYERS.stream()
-                .map(player -> CompletableFuture.runAsync(() -> {
-                    try {
-                        QUEST_SYSTEM.startQuest(player, QUESTS.get(RANDOM.nextInt(QUESTS.size())));
-                    } catch (InterruptedException exception) {
-                        log.error("Execution tasks is failed. Name thread: {}\nException: {}\nStack trace: {}",
-                                Thread.currentThread().getName(), exception, exception.getStackTrace());
-                        Thread.currentThread().interrupt();
-                    }
-                }).thenRun(() -> log.info("Name: {}, score: {}", player.getName(), player.getScore())))
-                .toArray(CompletableFuture[]::new);
+        List<CompletableFuture<Void>> futures = PLAYERS.stream()
+                .map(player -> CompletableFuture
+                        .runAsync(() -> {
+                            try {
+                                QUEST_SYSTEM.startQuest(player, QUESTS.get(RANDOM.nextInt(QUESTS.size())));
+                            } catch (InterruptedException exception) {
+                                log.error("Execution tasks is failed. Name thread: {}\nException: {}\nStack trace: {}",
+                                        Thread.currentThread().getName(), exception, exception.getStackTrace());
+                                Thread.currentThread().interrupt();
+                            }
+                        })
+                        .thenRun(() -> log.info("Name: {}, score: {}", player.getName(), player.getScore())))
+                .toList();
 
-        CompletableFuture.allOf(futures).get();
+        CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
     }
 }
