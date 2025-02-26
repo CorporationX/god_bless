@@ -15,7 +15,6 @@ public class Main {
                 new Player("Freeman")
         );
         Boss boss = new Boss(3);
-        List<Thread> threads = new ArrayList<>();
         for (Player player : players) {
             Thread thread = new Thread(() -> player.doBattle(boss));
             thread.start();

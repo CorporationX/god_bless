@@ -17,7 +17,8 @@ public class Player {
             Thread.sleep(BATTLE_TIME);
         } catch (InterruptedException e) {
             log.warn("\nThread {} was interrupted", Thread.currentThread().getName());
+        } finally {
+            boss.leaveBattle(this);
         }
-        boss.leaveBattle(this);
     }
 }
