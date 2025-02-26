@@ -9,7 +9,6 @@ public class Upload {
             uploader.onNewPhotoAdded("photo1.jpg");
             uploader.onNewPhotoAdded("photo2.jpg");
         });
-
         uploadThread.start();
         photoAdderThread.start();
     }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-
     private final Object lock = new Object();
     private final List<String> photosToUploader = new ArrayList<>();
 
