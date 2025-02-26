@@ -42,7 +42,8 @@ public class Quest {
 
     private int validateReward(int reward) {
         if (reward < MIN_REWARD || reward > MAX_REWARD) {
-            String errorMessage = "Опыт выдаваемый за выполнение задания должен быть от " + MIN_REWARD + " до " + MAX_REWARD;
+            String errorMessage = "Опыт выдаваемый за выполнение задания должен быть от " + MIN_REWARD +
+                    " до " + MAX_REWARD;
             log.error(errorMessage);
             throw new IllegalArgumentException(errorMessage);
         }
