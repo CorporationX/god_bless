@@ -25,7 +25,7 @@ public class WeasleyFamily {
         try {
             if (!executor.awaitTermination(1000, TimeUnit.SECONDS)) {
                 log.info("Не удалось выполнить все задачи за отведенное время.");
-                executor.shutdown();
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
