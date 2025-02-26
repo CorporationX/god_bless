@@ -1,9 +1,11 @@
 package school.faang.blocking_spotify.BJS2_61770;
 
-import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Getter
 public class Player {
+    private static final Logger log = LoggerFactory.getLogger(Player.class);
+
     private final Object lock = new Object();
 
     private boolean isPlaying;
@@ -12,9 +14,9 @@ public class Player {
         synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
-                System.out.println("Playing");
+                log.info("Playing");
             } else {
-                System.out.println("the music's already playing");
+                log.info("the music's already playing");
             }
         }
     }
@@ -23,22 +25,22 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                System.out.println("Paused");
+                log.info("Paused");
             } else {
-                System.out.println("the music is already on pause");
+                log.info("the music is already on pause");
             }
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("skip track");
+            log.info("skip track");
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            System.out.println("previous track");
+            log.info("previous track");
         }
     }
 }
