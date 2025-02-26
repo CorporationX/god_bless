@@ -5,25 +5,28 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int ANALYTICS_RESULT = 17_000;
+    private static final int PAYMENT_RESULT = 5_000;
 
     private int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
 
-    private int sentAnalytics() {
+    private int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -32,7 +35,7 @@ public class MasterCardService {
 
     public void doAll() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        FutureTask<Integer> futureTask = new FutureTask<>(this::sentAnalytics);
+        FutureTask<Integer> futureTask = new FutureTask<>(this::sendAnalytics);
         executorService.submit(futureTask);
 
         int analyticsResult;
@@ -44,17 +47,30 @@ public class MasterCardService {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Analytics send: %d".formatted(analyticsResult));
+        System.out.println(String.format("Analytics send: %d", analyticsResult));
 
         try {
             executorService.shutdown();
         } catch (SecurityException e) {
-            throw new RuntimeException(e);
+            System.err.println("Failed to shutdown executor due to security restrictions: " + e.getMessage());
+            return;
         }
+
+        try {
+            if (!executorService.awaitTermination(20, TimeUnit.SECONDS)) {
+                System.err.println("Executor did not terminate in 20 seconds, forcing shutdown...");
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Await termination interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            executorService.shutdownNow();
+        }
+
 
         CompletableFuture<Integer> paymentResult = CompletableFuture.supplyAsync(this::collectPayment);
         paymentResult
-                .thenAccept((result) -> System.out.println("Payment completed: %d".formatted(result)))
+                .thenAccept((result) -> System.out.println(String.format("Payment completed: %d", result)))
                 .exceptionally(throwable -> {
                     System.err.println("Error: " + throwable.getCause().getMessage());
                     return null;
