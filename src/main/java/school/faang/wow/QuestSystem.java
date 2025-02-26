@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class QuestSystem {
     private static final int TWO_SECONDS = 2000;
 
-    CompletableFuture<Player> startQuest(Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(TWO_SECONDS);
