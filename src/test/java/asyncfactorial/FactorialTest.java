@@ -93,7 +93,8 @@ class FactorialTest {
             List<CompletableFuture<BigInteger>> futures = Factorial.factorials(List.of(-1));
             CompletableFuture<BigInteger> future = futures.get(0);
             CompletionException exception = assertThrows(CompletionException.class, future::join);
-            assertTrue(exception.getCause() instanceof IllegalArgumentException);
+            assertTrue(exception.getCause() instanceof FactorialComputationException);
+            assertTrue(exception.getCause().getCause() instanceof IllegalArgumentException);
         }
     }
 
@@ -122,10 +123,10 @@ class FactorialTest {
         void factorialsListShouldFailForNegativeNumber() {
             List<Integer> numbers = List.of(5, -3, 10);
             List<CompletableFuture<BigInteger>> futures = Factorial.factorials(numbers);
-
             CompletableFuture<BigInteger> negativeFuture = futures.get(1);
-            Exception exception = assertThrows(Exception.class, negativeFuture::join);
-            assertTrue(exception.getCause() instanceof IllegalArgumentException);
+            CompletionException exception = assertThrows(CompletionException.class, negativeFuture::join);
+            assertTrue(exception.getCause() instanceof FactorialComputationException);
+            assertTrue(exception.getCause().getCause() instanceof IllegalArgumentException);
         }
     }
 }

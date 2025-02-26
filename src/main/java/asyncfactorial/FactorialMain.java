@@ -21,5 +21,7 @@ public class FactorialMain {
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         log.info("All factorials computed.");
+
+        Factorial.shutdownExecutor();
     }
 }
