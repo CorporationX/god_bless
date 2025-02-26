@@ -10,7 +10,7 @@ import java.util.Objects;
 @Slf4j
 public class GooglePhotosAutoUploader implements Runnable {
     private final Object lock = new Object();
-    public List<String> photosToUpload = new ArrayList<>();
+    public final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
@@ -38,11 +38,11 @@ public class GooglePhotosAutoUploader implements Runnable {
 
     public void uploadPhotos() {
         synchronized (lock) {
-            if (Objects.nonNull(photosToUpload) && !photosToUpload.isEmpty()) {
+            if (!photosToUpload.isEmpty()) {
                 photosToUpload
                         .forEach(photo -> LoggerFactory.getLogger(GooglePhotosAutoUploader.class)
                                 .info("Photo {} are uploading on server", photo));
-                photosToUpload = new ArrayList<>();
+                photosToUpload.clear();
             }
         }
     }

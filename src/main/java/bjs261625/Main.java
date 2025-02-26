@@ -1,13 +1,12 @@
 package bjs261625;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Main {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws InterruptedException {
         List<String> newPhotos = List.of("C://Photos//1.jpg", "C://Photos//2.jpg");
@@ -18,7 +17,7 @@ public class Main {
             try {
                 uploader.startAutoUpload();
             } catch (InterruptedException e) {
-                LOGGER.error("Thread {} started, but not completed due to InterruptedException",
+                log.error("Thread {} started, but not completed due to InterruptedException",
                         Thread.currentThread().getName());
                 throw new RuntimeException(e);
             }
