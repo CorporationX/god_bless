@@ -27,7 +27,7 @@ public class PotionGathering {
                 .toList();
 
         CompletableFuture.allOf(futurePotions.toArray(new CompletableFuture[0])).join();
-        log.info("Total ingredients: {}", totalIngredients);
+        log.info("Total ingredients: {}", totalIngredients.get());
     }
 
     private static int gatherAllIngredients(Potion potion) {
