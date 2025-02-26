@@ -29,9 +29,10 @@ public class OrderProcessor {
     public void processAllOrders(List<Order> orders) {
         Objects.requireNonNull(orders, "Invalid list value");
         List<CompletableFuture<Void>> futureOrders = orders.stream()
-                .map(order -> CompletableFuture.runAsync(() -> processOrder(order)))
+                .map(order -> CompletableFuture
+                        .runAsync(() -> processOrder(order)))
                 .toList();
-        CompletableFuture.allOf(futureOrders.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(futureOrders.toArray(CompletableFuture[]::new)).join();
         log.info("Total processed orders: {}", totalProcessedOrders.get());
     }
 }
