@@ -3,19 +3,18 @@ package school.faang.bjs2_61890;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 @AllArgsConstructor
 @Getter
 public class Player {
 
     private boolean isPlaying;
-    private final Lock lock = new ReentrantLock();
+    private final Object lock = new Object();
+    private static final int TIME_SLEEP = 1000;
 
     public void play() {
         if (!isPlaying) {
             synchronized (lock) {
+                doAction();
                 isPlaying = true;
                 System.out.println("Музыка играет!");
             }
@@ -25,6 +24,7 @@ public class Player {
     }
 
     public void pause() {
+        doAction();
         if (isPlaying) {
             synchronized (lock) {
                 isPlaying = false;
@@ -36,6 +36,7 @@ public class Player {
     }
 
     public void skip() {
+        doAction();
         if (isPlaying) {
             synchronized (lock) {
                 System.out.println("Плеер переключен на следующий трек");
@@ -46,12 +47,21 @@ public class Player {
     }
 
     public void previous() {
+        doAction();
         if (isPlaying) {
             synchronized (lock) {
                 System.out.println("Плеер переключен на предыдущий трек");
             }
         } else {
             System.out.println("Метод previous не выполнен. Плеер не запущен");
+        }
+    }
+
+    private void doAction() {
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 

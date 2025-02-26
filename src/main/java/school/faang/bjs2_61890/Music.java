@@ -9,14 +9,20 @@ public class Music {
         Player player = new Player(false);
 
         List<Thread> threads = Arrays.asList(
-            new Thread(player::play),
-            new Thread(player::skip),
-            new Thread(player::pause),
-            new Thread(player::previous)
+                new Thread(player::play),
+                new Thread(player::skip),
+                new Thread(player::pause),
+                new Thread(player::previous)
         );
 
+        threads.forEach(Thread::start);
+
         for (Thread thread : threads) {
-            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
