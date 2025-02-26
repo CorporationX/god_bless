@@ -16,7 +16,7 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 LOGGER.info("В ожидании");
                 lock.wait();
             }
