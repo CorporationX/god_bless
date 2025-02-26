@@ -28,16 +28,7 @@ public class Main {
 
     private static void gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> completableFutureList = potions.parallelStream()
-                .map(potion ->
-                        CompletableFuture.supplyAsync(() -> {
-                            log.info("Gathering ingredients for {}", potion.getName());
-                            try {
-                                Thread.sleep(THREAD_SLEEP_TIME);
-                            } catch (InterruptedException e) {
-                                log.error("Thread interrupted: {}", e.getMessage());
-                            }
-                            return potion.getRequiredIngredients();
-                        }, EXECUTOR)).toList();
+                .map(Main::getRequiredIngredients).toList();
 
         CompletableFuture<Void> allOfCompletableFuture =
                 CompletableFuture.allOf(completableFutureList.toArray(new CompletableFuture[0]));
@@ -49,6 +40,18 @@ public class Main {
         }).join();
 
         shutdown();
+    }
+
+    private static CompletableFuture<Integer> getRequiredIngredients(Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
+            log.info("Gathering ingredients for {}", potion.getName());
+            try {
+                Thread.sleep(THREAD_SLEEP_TIME);
+            } catch (InterruptedException e) {
+                log.error("Thread interrupted: {}", e.getMessage());
+            }
+            return potion.getRequiredIngredients();
+        }, EXECUTOR);
     }
 
     private static void shutdown() {
