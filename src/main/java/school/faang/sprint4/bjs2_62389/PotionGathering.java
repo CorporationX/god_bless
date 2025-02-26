@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PotionGathering {
@@ -11,7 +12,7 @@ public class PotionGathering {
     public static CompletableFuture<Integer> gatherIngredients(@NonNull Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(potion.getRequiredIngredients() * 1000L);
+                TimeUnit.SECONDS.sleep(potion.getRequiredIngredients());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
