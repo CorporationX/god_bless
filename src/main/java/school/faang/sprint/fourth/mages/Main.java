@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        Tournament tournament = new Tournament(2);
+        Tournament tournament = new Tournament();
 
         // Создание школ
         List<Student> hogwartsTeam = List.of(
@@ -39,7 +39,5 @@ public class Main {
                 log.info("BeauxbatonsTask win: {}", beauxbatons.getTotalPoints());
             }
         });
-
-        tournament.stopTask();
     }
 }

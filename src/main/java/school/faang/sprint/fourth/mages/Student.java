@@ -19,7 +19,7 @@ public class Student {
         this.points = points;
     }
 
-    private void validateData(@NonNull String name, int year, int points) {
+    private void validateData(String name, int year, int points) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }

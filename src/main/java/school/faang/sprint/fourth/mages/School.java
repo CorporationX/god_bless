@@ -24,7 +24,7 @@ public class School {
         return team.stream().mapToInt(Student::getPoints).sum();
     }
 
-    private void validateData(@NonNull String name, @NonNull List<Student> team) {
+    private void validateData(String name, List<Student> team) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }

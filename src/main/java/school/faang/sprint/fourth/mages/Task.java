@@ -19,7 +19,7 @@ public class Task {
         this.reward = reward;
     }
 
-    private void validateData(@NonNull String name, int year, int points) {
+    private void validateData(String name, int year, int points) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
