@@ -20,10 +20,7 @@ public class Shop {
 
     public static void main(String[] args) {
         IntStream.range(0, COUNT_ORDER)
-                .forEach(Shop::createOrders);
-//                .mapToObj(num -> new Order())
-//                .peek(order -> log.debug("Create order {}", order))
-//                .forEach(order -> futures.add(orderProcessor.processOrder(order)));
+                .forEach(Shop::createAndProcessOrders);
 
         CompletableFuture.allOf(FUTURES.toArray(CompletableFuture[]::new))
                 .thenAccept(non -> {
@@ -34,9 +31,7 @@ public class Shop {
                 }).join();
     }
 
-
-
-    private static void createOrders(int num) {
+    private static void createAndProcessOrders(int num) {
         FUTURES.add(CompletableFuture.runAsync(() -> {
             Order order = new Order();
             log.debug("Create order {}", order);
