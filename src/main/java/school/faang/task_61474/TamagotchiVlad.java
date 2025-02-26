@@ -7,25 +7,25 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TamagotchiVlad {
     private final String name;
-    private String state = "нейтральное";
+    private State state = State.NEUTRAL;
 
     public synchronized void feed() {
-        state = "сыт";
+        state = State.FULL;
         log.info("{} ест. Его состояние: {}", name, state);
     }
 
     public synchronized void play() {
-        state = "весел";
+        state = State.EXCELLENT;
         log.info("{} играет. Его состояние: {}", name, state);
     }
 
     public synchronized void clean() {
-        state = "чист";
+        state = State.CLEAN;
         log.info("{} чистится. Его состояние: {}", name, state);
     }
 
     public synchronized void sleep() {
-        state = "спит";
+        state = State.SLEEPING;
         log.info("{} спит. Его состояние: {}", name, state);
     }
 }

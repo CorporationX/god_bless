@@ -2,6 +2,8 @@ package school.faang.task_61474;
 
 import lombok.SneakyThrows;
 
+import java.util.List;
+
 public class TamagotchiSimulation {
     @SneakyThrows
     public static void main(String[] args) {
@@ -13,19 +15,17 @@ public class TamagotchiSimulation {
         controller.addVlad(vlad1);
         controller.addVlad(vlad2);
 
-        Thread feedThread = new Thread(controller::feedAll);
-        Thread playThread = new Thread(controller::playAll);
-        Thread cleanThread = new Thread(controller::cleanAll);
-        final Thread sleepThread = new Thread(controller::sleepAll);
+        List<Thread> threads = List.of(
+                new Thread(controller::feedAll),
+                new Thread(controller::playAll),
+                new Thread(controller::cleanAll),
+                new Thread(controller::sleepAll)
+        );
 
-        feedThread.start();
-        playThread.start();
-        cleanThread.start();
-        sleepThread.start();
+        threads.forEach(Thread::start);
 
-        feedThread.join();
-        playThread.join();
-        cleanThread.join();
-        sleepThread.join();
+        for (Thread thread : threads) {
+            thread.join();
+        }
     }
 }
