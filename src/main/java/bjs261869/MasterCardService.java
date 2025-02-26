@@ -11,32 +11,34 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
-    private static final int TEN_SECONDS_IN_MS = 10_000;
-    private static final int ONE_SECOND_IN_MS = 1_000;
-    private static final int AWAIT_TERMINATION_IN_MS = 1_000;
+    private static final int COLLECT_PAYMENT_THREAD_SLEEP_IN_MS = 10000;
+    private static final int COLLECT_ANALYTICS_THREAD_SLEEP_IN_MS = 1000;
+    private static final int AWAIT_TERMINATION_IN_MS = 1000;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static int collectPayment() {
         try {
-            Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            Thread.sleep(COLLECT_PAYMENT_THREAD_SLEEP_IN_MS);
         } catch (InterruptedException e) {
+            log.error("Thread {} interrupted", Thread.currentThread().getId(),
+                    new StripeException("Interrupted exception"));
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
+        return 5000;
     }
 
     public static int sendAnalytics() {
         try {
-            Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            Thread.sleep(COLLECT_ANALYTICS_THREAD_SLEEP_IN_MS);
         } catch (InterruptedException e) {
+            log.error("Thread {} interrupted", Thread.currentThread().getId(),
+                    new StripeException("Interrupted exception"));
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
+        return 17000;
     }
 
     public void doAll() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
@@ -44,11 +46,13 @@ public class MasterCardService {
         try {
             log.info("Платёж выполнен: {}", paymentFuture.get());
         } catch (InterruptedException | ExecutionException e) {
-            log.error("Exception in thread: {}", Thread.currentThread().getId(),
-                    new StripeException("The process of receiving the payment result has been interrupted",
-                            e.getCause()));
-            throw new RuntimeException(e);
+            log.error("Exception {} in thread: {}", e, Thread.currentThread().getId(),
+                    new StripeException("The process of receiving the payment result has been interrupted"));
+            Thread.currentThread().interrupt();
         }
+    }
+
+    public void shutDownExecutorService() {
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(AWAIT_TERMINATION_IN_MS, TimeUnit.MILLISECONDS)) {
@@ -56,9 +60,6 @@ public class MasterCardService {
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
-            log.error("Exception in thread: {}", Thread.currentThread().getId(),
-                    new StripeException("The process of receiving the payment result has been interrupted",
-                            e.getCause()));
         }
     }
 }
