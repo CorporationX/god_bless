@@ -2,17 +2,19 @@ package school.faang.task61886.service;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    List<String> photosToUpload = List.of(
-            "C:\\Users\\drogulkin\\Pictures1",
-            "C:\\Users\\drogulkin\\Pictures2",
-            "C:\\Users\\drogulkin\\Pictures3",
-            "C:\\Users\\drogulkin\\Pictures4"
-    );
+    List<String> photosToUpload = new ArrayList<>(Arrays.asList(
+            "C:\\Users\\Pictures1",
+            "C:\\Users\\Pictures2",
+            "C:\\Users\\Pictures3",
+            "C:\\Users\\Pictures4"
+    ));
 
     public void startAutoUpload() {
         synchronized (lock) {
@@ -20,7 +22,7 @@ public class GooglePhotosAutoUploader {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    System.out.println("Какая то ошибка: " + e);
+                    System.out.println("Какая-то ошибка при загрузке: " + e);
                 }
             }
             uploadPhotos();
@@ -32,5 +34,12 @@ public class GooglePhotosAutoUploader {
             System.out.println("Загружаем фотографию: " + photo);
         }
         photosToUpload.clear();
+    }
+
+    public void onNewPhotoAdded(String photoPath) {
+        synchronized (lock) {
+            photosToUpload.add(photoPath);
+            lock.notify();
+        }
     }
 }
