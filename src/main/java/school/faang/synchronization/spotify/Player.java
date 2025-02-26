@@ -14,8 +14,11 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            log.info("Player is playing");
-            setPlaying(true);
+            log.info("Is the player playing? - {}", isPlaying);
+            if (!isPlaying) {
+                log.info("Player is playing");
+                setPlaying(true);
+            }
         }
     }
 
@@ -30,15 +33,15 @@ public class Player {
         synchronized (lock) {
             log.info("Player skipped");
             setPlaying(false);
+            play();
         }
-        play();
     }
 
     public void previous() {
         synchronized (lock) {
             log.info("Player plays previous song");
             setPlaying(false);
+            play();
         }
-        play();
     }
 }

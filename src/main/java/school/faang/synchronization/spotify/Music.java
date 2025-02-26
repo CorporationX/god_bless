@@ -1,20 +1,28 @@
 package school.faang.synchronization.spotify;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Music {
+    private static final int THREADS_COUNT = 4;
 
     public static void main(String[] args) {
         Player player = new Player();
+        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
 
-        Thread play = new Thread(player::play);
-        play.start();
+        executor.execute(player::play);
+        executor.execute(player::pause);
+        executor.execute(player::skip);
+        executor.execute(player::previous);
 
-        Thread pause = new Thread(player::pause);
-
-        pause.start();
-        Thread skip = new Thread(player::skip);
-        skip.start();
-
-        Thread previous = new Thread(player::previous);
-        previous.start();
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 }
