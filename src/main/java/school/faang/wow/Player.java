@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Player {
-    private String name;
-    private int level;
+    private final String name;
+    private final int level;
     private int score;
 }
