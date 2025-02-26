@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class Order {
     private final int id;
-    private String status;
+    private OrderStatus status;
 }
