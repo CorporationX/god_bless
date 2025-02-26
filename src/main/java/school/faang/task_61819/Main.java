@@ -22,10 +22,10 @@ public class Main {
             }
         };
 
-        Thread gameThread1 = new Thread(gameUpdateTask);
-        Thread gameThread2 = new Thread(gameUpdateTask);
-        Thread gameThread3 = new Thread(gameUpdateTask);
-        Thread gameThread4 = new Thread(gameUpdateTask);
+        final Thread gameThread1 = new Thread(gameUpdateTask);
+        final Thread gameThread2 = new Thread(gameUpdateTask);
+        final Thread gameThread3 = new Thread(gameUpdateTask);
+        final Thread gameThread4 = new Thread(gameUpdateTask);
 
         gameThread1.start();
         gameThread2.start();
