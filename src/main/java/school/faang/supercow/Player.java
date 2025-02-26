@@ -11,8 +11,7 @@ public class Player {
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            System.out.printf("%s battle", name);
-            System.out.println();
+            System.out.printf("%s battle%n", name);
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
