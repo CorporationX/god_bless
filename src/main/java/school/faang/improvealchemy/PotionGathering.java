@@ -15,19 +15,19 @@ public class PotionGathering {
             new Potion("Stamina Potion", 4)
     );
     private static final int COLLECTING_TIME_PER_ONE_INGREDIENT = 1000;
+    private static final AtomicInteger TOTAL_INGREDIENTS = new AtomicInteger(0);
 
     public static void main(String[] args) {
-        AtomicInteger totalIngredients = new AtomicInteger(0);
-
         List<CompletableFuture<Void>> futurePotions = POTIONS.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherAllIngredients(potion))
-                        .thenAccept(totalIngredients::addAndGet)
+                .map(potion -> CompletableFuture
+                        .supplyAsync(() -> gatherAllIngredients(potion))
+                        .thenAccept(TOTAL_INGREDIENTS::addAndGet)
                         .thenRun(() -> log.info("{} ingredients for potion {} collected",
                                 potion.requiredIngredients(), potion.name())))
                 .toList();
 
-        CompletableFuture.allOf(futurePotions.toArray(new CompletableFuture[0])).join();
-        log.info("Total ingredients: {}", totalIngredients.get());
+        CompletableFuture.allOf(futurePotions.toArray(CompletableFuture[]::new)).join();
+        log.info("Total ingredients: {}", TOTAL_INGREDIENTS.get());
     }
 
     private static int gatherAllIngredients(Potion potion) {
