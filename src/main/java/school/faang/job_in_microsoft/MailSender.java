@@ -18,5 +18,6 @@ public class MailSender {
             startIndex += MAILS_PER_THREAD;
             endIndex += MAILS_PER_THREAD;
         }
+        System.out.println("Программа завершила свою работу");
     }
 }
