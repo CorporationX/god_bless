@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @EqualsAndHashCode
-public final class Account {
+public class Account {
     private static int currentId = 1;
 
     private final int id = currentId++;
