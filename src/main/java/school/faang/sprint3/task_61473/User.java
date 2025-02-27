@@ -1,4 +1,4 @@
-package school.faang.task_61473;
+package school.faang.sprint3.task_61473;
 
 import lombok.Getter;
 import org.slf4j.Logger;

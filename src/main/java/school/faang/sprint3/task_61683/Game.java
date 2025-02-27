@@ -1,4 +1,4 @@
-package school.faang.task_61683;
+package school.faang.sprint3.task_61683;
 
 import java.util.concurrent.locks.ReentrantLock;
 
