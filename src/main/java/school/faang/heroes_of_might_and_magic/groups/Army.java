@@ -1,24 +1,27 @@
 package school.faang.heroes_of_might_and_magic.groups;
 
+import lombok.Getter;
+import lombok.Setter;
 import school.faang.heroes_of_might_and_magic.main.Counter;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 public class Army {
 
-    public static Map<Integer, Squad> army = new HashMap<>();
+    private Map<Integer, Squad> army = new HashMap<>();
     private int id = 1;
+    private int armyPower;
 
-    public int calculateTotalPower() {
-        int totalPower = 0;
+    public int calculateTotalPower() throws InterruptedException {
         for (Integer key : army.keySet()) {
-            Counter counter = new Counter(key);
-            counter.run(); //вот здесь момент не очень понятен, если использую start(), то armyPower = 0,
-            // объясните, пожалуйста
-            totalPower += counter.getArmyPower();
+            Counter counter = new Counter(key, this);
+            counter.start();
+            counter.join();
         }
-        return totalPower;
+        return armyPower;
     }
 
     public void addSquad(Squad squad) {

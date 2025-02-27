@@ -5,12 +5,13 @@ import school.faang.heroes_of_might_and_magic.groups.Squad;
 import school.faang.heroes_of_might_and_magic.warriors.Archer;
 import school.faang.heroes_of_might_and_magic.warriors.Mage;
 import school.faang.heroes_of_might_and_magic.warriors.Swordsman;
+import school.faang.heroes_of_might_and_magic.warriors.Warrior;
 
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
 
         // Создаём отряды

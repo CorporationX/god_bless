@@ -13,23 +13,18 @@ import java.util.List;
 public class Counter extends Thread {
 
     private int squadNumber;
-    private int armyPower;
+    private Army army;
 
-    public Counter(int squadNumber) {
+    public Counter(int squadNumber, Army army) {
         this.squadNumber = squadNumber;
+        this.army = army;
     }
 
     @Override
     public void run() {
-        Squad armySquad = Army.army.get(squadNumber);
-        List<Warrior> squad = armySquad.getWarriors();
-        int powerCounter = 0;
-        for (Warrior warrior : squad) {
-            powerCounter += warrior.getPower();
-        }
-        System.out.println("Сила отряда с индексом " + squadNumber + ": " + powerCounter);
-        setArmyPower(powerCounter);
-        int armyPower1 = getArmyPower();
-
+        Squad armySquad = army.getArmy().get(squadNumber);
+        int squadPower = armySquad.calculateSquadPower();
+        System.out.println("Сила отряда с индексом " + squadNumber + ": " + squadPower);
+        army.setArmyPower(squadPower + army.getArmyPower());
     }
 }

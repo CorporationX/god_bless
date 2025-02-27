@@ -25,8 +25,4 @@ public class Squad {
         return squadPower;
     }
 
-    public void addMage(Warrior warrior) {
-        warriors.add(warrior);
-    }
-
 }
