@@ -1,13 +1,9 @@
 package school.faang.helpanimal;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Getter
-public final class Donation {
+public record Donation(int id, int amount) {
     private static int currentId = 1;
 
-    private final int id = currentId++;
-    private final int amount;
+    public Donation(int amount) {
+        this(currentId++, amount);
+    }
 }

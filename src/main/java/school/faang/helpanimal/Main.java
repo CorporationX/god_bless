@@ -32,7 +32,7 @@ public class Main {
                     .runAsync(() -> ORGANIZATION.addDonation(donation), EXECUTOR)
                     .orTimeout(TIME_EXECUTION, TIME_UNIT)));
             CompletableFuture.allOf(FUTURES.toArray(CompletableFuture[]::new)).join();
-            log.info("Total sum organization: {}", ORGANIZATION.getTotalSum().get());
+            log.info("Total sum organization: {}", ORGANIZATION.totalSum().get());
             EXECUTOR.shutdown();
         } catch (CompletionException e) {
             log.error("Timed out {} {}", TIME_EXECUTION, TIME_UNIT);

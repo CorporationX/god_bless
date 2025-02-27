@@ -1,19 +1,17 @@
 package school.faang.helpanimal;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
-@Getter
-public class Organization {
-    private final AtomicInteger totalSum = new AtomicInteger(0);
+public record Organization(AtomicInteger totalSum) {
+    public Organization() {
+        this(new AtomicInteger());
+    }
 
     public void addDonation(Donation donation) {
-        Objects.requireNonNull(donation, "Invalid donation value");
-        totalSum.addAndGet(donation.getAmount());
-        log.info("(id : {}) New donation on sum: {}", donation.getId(), donation.getAmount());
+        totalSum.addAndGet(donation.amount());
+        log.info("(id : {}) New donation on sum: {}", donation.id(), donation.amount());
     }
 }
