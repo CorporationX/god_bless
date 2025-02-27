@@ -13,13 +13,9 @@ public class DesignDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (marketingResources) {
-            log.info("Дизайн читает ресуры Маркетинга.");
-            List<String> marketingFiles = marketingResources.readFiles();
-            synchronized (designResources) {
-                log.info("Дизайн записывает файлы в свои ресурсы.");
-                designResources.writeFile("Дизайн_файл");
-            }
-        }
+        log.info("Дизайн читает ресуры Маркетинга.");
+        List<String> marketingFiles = marketingResources.readFiles();
+        log.info("Дизайн записывает файлы в свои ресурсы.");
+        designResources.writeFile("Дизайн_файл");
     }
 }
