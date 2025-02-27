@@ -34,21 +34,20 @@ public class Main {
     private static final int COUNT_OPERATIONS = 5;
     private static final int TIME_EXECUTION = 1;
     private static final TimeUnit TIME_UNIT = TimeUnit.MINUTES;
+    private static final List<CompletableFuture<Void>> FUTURES = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
-            List<CompletableFuture<Void>> futures = new ArrayList<>();
-
             for (int i = 0; i < COUNT_OPERATIONS; i++) {
                 CompletableFuture<Item> futureChestItem =
                         INVENTORY.getItemOnChest(CHEST.get(RANDOM.nextInt(CHEST.size())), EXECUTOR);
                 CompletableFuture<Item> futureShopItem =
                         INVENTORY.getItemOnShop(SHOP.get(RANDOM.nextInt(SHOP.size())), EXECUTOR);
-                futures.add(futureChestItem
+                FUTURES.add(futureChestItem
                         .thenCombineAsync(futureShopItem, INVENTORY::combineItems, EXECUTOR)
                         .thenAcceptAsync(INVENTORY::addItem, EXECUTOR));
             }
-            CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
+            CompletableFuture.allOf(FUTURES.toArray(CompletableFuture[]::new))
                     .orTimeout(TIME_EXECUTION, TIME_UNIT)
                     .join();
             INVENTORY.printInventory();
