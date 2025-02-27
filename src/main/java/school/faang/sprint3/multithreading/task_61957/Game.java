@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Game {
     public static final int SLEEP_TIMEOUT = 25;
-    private final Object lockScore;
-    private final Object lockLives;
+    private final Object lockScore = new Object();
+    private final Object lockLives = new Object();
     private int score;
     private int lives;
     private volatile boolean isGameOver;
@@ -18,8 +18,6 @@ public class Game {
     public Game() {
         score = 0;
         lives = 10;
-        lockScore = new Object();
-        lockLives = new Object();
         isGameOver = false;
     }
 
@@ -34,7 +32,7 @@ public class Game {
         synchronized (lockScore) {
             if (!isGameOver && isPointsEarned) {
                 score++;
-                System.out.printf("\nThe score was earned to %d", score);
+                log.info("\nThe score was earned to {}", score);
             }
         }
         synchronized (lockLives) {
@@ -43,7 +41,7 @@ public class Game {
             }
             if (isLifeLost) {
                 lives--;
-                System.out.printf("\nYou have lost one life. Now you have %d lives", lives);
+                log.info("\nYou have lost one life. Now you have {} lives", lives);
                 if (lives <= 0) {
                     gameOver();
                 }

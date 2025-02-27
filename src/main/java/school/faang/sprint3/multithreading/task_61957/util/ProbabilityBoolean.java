@@ -8,7 +8,7 @@ public class ProbabilityBoolean {
     private static final Random RANDOM = new Random();
 
     public static boolean getRandomLifeLost() {
-        return RANDOM.nextDouble() < PROBABILITY_LIFE_LOST; // 20% - true, 8 0% - false
+        return RANDOM.nextDouble() < PROBABILITY_LIFE_LOST; // 20% - true, 80% - false
     }
 
     public static boolean getRandomPointEarn() {
