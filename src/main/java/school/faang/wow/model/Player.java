@@ -1,14 +1,16 @@
 package school.faang.wow.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Player {
     private final String name;
-    private int level;
-    private int experience;
+    private final AtomicInteger level;
+    private final AtomicInteger experience;
 
     public Player(String name, int level, int experience) {
         this.name = name;
-        this.level = level;
-        this.experience = experience;
+        this.level = new AtomicInteger(level);
+        this.experience = new AtomicInteger(experience);
     }
 
     public String getName() {
@@ -16,18 +18,18 @@ public class Player {
     }
 
     public int getLevel() {
-        return level;
+        return level.get();
     }
 
     public int getExperience() {
-        return experience;
+        return experience.get();
     }
 
     public void addLevel(int level) {
-        this.level += level;
+        this.level.addAndGet(level);
     }
 
     public void addExperience(int experience) {
-        this.experience += experience;
+        this.experience.addAndGet(experience);
     }
 }
