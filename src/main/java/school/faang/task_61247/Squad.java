@@ -1,7 +1,7 @@
 package school.faang.task_61247;
 
 import lombok.RequiredArgsConstructor;
-import school.faang.task_61247.character.Unit;
+import school.faang.task_61247.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

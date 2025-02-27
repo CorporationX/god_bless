@@ -1,4 +1,4 @@
-package school.faang.task_61247.character;
+package school.faang.task_61247.unit;
 
 public class Mage extends Unit {
     private static final int MAGE_POWER = 50;

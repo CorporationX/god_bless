@@ -1,9 +1,9 @@
 package school.faang.task_61247;
 
 import lombok.extern.slf4j.Slf4j;
-import school.faang.task_61247.character.Archer;
-import school.faang.task_61247.character.Mage;
-import school.faang.task_61247.character.Swordsman;
+import school.faang.task_61247.unit.Archer;
+import school.faang.task_61247.unit.Mage;
+import school.faang.task_61247.unit.Swordsman;
 
 @Slf4j
 public class Main {
