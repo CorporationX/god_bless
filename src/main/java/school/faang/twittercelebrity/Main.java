@@ -18,8 +18,8 @@ public class Main {
     private static final List<CompletableFuture<Void>> FUTURES = new ArrayList<>();
     private static final TwitterAccount MY_ACCOUNT = new TwitterAccount("Yom");
     private static final int TOTAL_FOLLOWERS = 1000000;
-    private static final int TIME_EXECUTION = 3;
-    private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
+    private static final int TIME_EXECUTION = 1;
+    private static final TimeUnit TIME_UNIT = TimeUnit.MINUTES;
 
     public static void main(String[] args) {
         try {
