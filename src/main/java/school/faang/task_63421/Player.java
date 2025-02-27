@@ -11,7 +11,7 @@ public class Player {
     private static final int DELAY = 5000;
     private final String name;
 
-    public synchronized void doBattle(Boss boss) {
+    public void doBattle(Boss boss) {
         try {
             log.info("{} пытается присоединиться к бою", name);
             boss.joinBattle(this);
