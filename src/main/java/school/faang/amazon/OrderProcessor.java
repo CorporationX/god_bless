@@ -22,6 +22,7 @@ public class OrderProcessor {
                 Thread.sleep(ORDER_PROCEED_TIME_IN_MS);
             } catch (InterruptedException e) {
                 log.error("Поток прерван во время обработки заказа", e);
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             order.updateStatus(StatusType.DONE);
