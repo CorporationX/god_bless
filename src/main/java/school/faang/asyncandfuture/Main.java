@@ -13,14 +13,15 @@ public class Main {
             CARD_SERVICE.doAll();
         } catch (InterruptedException interruptedException) {
             log.error("Thread has been interrupted");
-            handlingException(interruptedException);
+            handleException(interruptedException);
         } catch (ExecutionException executionException) {
             log.error("Execution tasks is failed");
-            handlingException(executionException);
+            handleException(executionException);
         }
     }
 
-    private static void handlingException(Exception exception) {
+    @SuppressWarnings("unused")
+    private static void handleException(Exception exception) {
         log.error("Thread name: {}\nException: {}\nStack trace: {}",
                 Thread.currentThread().getName(), exception, exception.getStackTrace());
         Thread.currentThread().interrupt();
