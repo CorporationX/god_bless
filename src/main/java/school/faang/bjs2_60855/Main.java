@@ -16,7 +16,7 @@ public class Main {
 
         pool.shutdown();
         try {
-            pool.awaitTermination(5, TimeUnit.SECONDS);
+            boolean isTermination = pool.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
