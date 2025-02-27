@@ -71,11 +71,7 @@ public class Player {
 
     public void previous() {
         synchronized (locker) {
-            if (trackNumber > 0) {
-                trackNumber--;
-            } else {
-                trackNumber = trackCount - 1;
-            }
+            trackNumber = (trackNumber - 1 + trackCount) % trackCount;
 
             log.info("Трек #{}: переход на него", trackNumber);
         }
