@@ -31,6 +31,7 @@ public class Main {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error("Принудительное завершение...");
             executor.shutdownNow();
         }
