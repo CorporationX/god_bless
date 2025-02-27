@@ -17,6 +17,7 @@ public class Tournament {
                 Thread.sleep(task.getDifficulty() * DIFFICULTY_COEFFICIENT);
             } catch (InterruptedException e) {
                 log.error("Поток прерван во время выполнения задания {}", task.getName(), e);
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             List<Student> students = school.getTeam();
