@@ -9,10 +9,11 @@ public class Main {
 
         Game game = new Game();
         ExecutorService pool = Executors.newFixedThreadPool(5);
+        Random rand = new Random();
 
         while (!game.isGameOver()) {
             pool.submit(() -> {
-                game.update(new Random().nextBoolean(), new Random().nextBoolean());
+                game.update(rand.nextBoolean(), rand.nextBoolean());
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

@@ -6,23 +6,26 @@ import lombok.NoArgsConstructor;
 public class Game {
     private int score = 0;
     private int lives = 10;
-    private boolean isGameOver;
+    private volatile boolean isGameOver;
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
     public void update(boolean isScoreUp, boolean isLivesLost) {
-        if (isGameOver) {
-            return;
-        }
         if (isScoreUp) {
             synchronized (scoreLock) {
+                if (isGameOver) {
+                    return;
+                }
                 score++;
                 System.out.printf("Очки увеличены, общий счет очков: %d\n", score);
             }
         }
         if (isLivesLost) {
             synchronized (livesLock) {
+                if (isGameOver) {
+                    return;
+                }
                 lives--;
                 System.out.printf("Жизни уменьшены, общий показатель жизней: %d\n", lives);
                 if (lives == 0) {
