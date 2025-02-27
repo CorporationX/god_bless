@@ -25,6 +25,7 @@ public class House {
                     log.info("Свободных ролей нет, ожидание...");
                     lock.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     log.error("Ошибка при ожидании потоков: {}", e.getMessage());
                     throw new RuntimeException(e);
                 }

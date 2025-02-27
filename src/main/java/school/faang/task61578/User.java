@@ -21,6 +21,7 @@ public class User {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         log.info("Освобождение роли: {}", assignedRole);

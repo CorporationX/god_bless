@@ -33,6 +33,7 @@ public class Main {
                 thread.join();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error("Ошибка при ожидании завершения потоков: {}", e.getMessage());
             throw new RuntimeException(e);
         }
