@@ -14,21 +14,28 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean isScoreUpdated, boolean isLivesLost) {
-        synchronized (scoreLock) {
-            score++;
+        if (isScoreUpdated) {
+            synchronized (scoreLock) {
+                score++;
+            }
         }
-
-        synchronized (livesLock) {
-            lives--;
-            if (lives <= 0) {
-                gameOver();
+        if (isLivesLost) {
+            synchronized (livesLock) {
+                lives--;
+                if (lives <= 0) {
+                    gameOver();
+                }
             }
         }
     }
 
     private void gameOver() {
-        log.info("Игра окончена, всего очков: {}", score);
-        score = DEFAULT_SCORE;
-        lives = DEFAULT_LIVES;
+        synchronized (scoreLock) {
+            synchronized (livesLock) {
+                log.info("Игра окончена, всего очков: {}", score);
+                score = DEFAULT_SCORE;
+                lives = DEFAULT_LIVES;
+            }
+        }
     }
 }
