@@ -20,12 +20,12 @@ public class MagicalTournamen {
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
         // Создание заданий
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task triwizardTournament = new Task("Triwizard Tournament", 10, 100);
+        Task yuleBallPreparations = new Task("Yule Ball Preparations", 5, 50);
 
         // Запуск заданий для школ
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, triwizardTournament);
+        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, yuleBallPreparations);
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
 
