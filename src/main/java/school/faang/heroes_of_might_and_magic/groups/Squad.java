@@ -4,12 +4,11 @@ import lombok.Getter;
 import school.faang.heroes_of_might_and_magic.warriors.Warrior;
 
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 public class Squad {
 
-    private String name;
+    private final String name;
     private List<Warrior> warriors;
 
     public Squad(String name, List<Warrior> warriors) {
