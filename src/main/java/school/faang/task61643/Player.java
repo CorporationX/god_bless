@@ -15,6 +15,7 @@ public class Player {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException("Error thread sleeping", e);
         }
         boss.leaveBattle(player);

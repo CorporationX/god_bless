@@ -13,10 +13,11 @@ public class Boss {
     public void joinBattle(Player player) {
         synchronized (lock) {
             currentPlayers++;
-            if (currentPlayers > maxPlayers) {
+            while (currentPlayers > maxPlayers) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException("Error lock waiting", e);
                 }
             }
