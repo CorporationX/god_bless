@@ -19,7 +19,7 @@ public class Main {
                 System.out.println(num.get());
             } catch (InterruptedException | ExecutionException e) {
                 log.error("Error while getting CompletableFuture result.");
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         });
     }
