@@ -13,17 +13,20 @@ public class PiCalculator {
 
     public double calculatePi(int n) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        long inside = IntStream.range(0, n)
-                .parallel()
-                .mapToObj(i -> CompletableFuture.supplyAsync(() -> {
-                    double x = ThreadLocalRandom.current().nextDouble(MIN_COORDINATE_VALUE, MAX_COORDINATE_VALUE);
-                    double y = ThreadLocalRandom.current().nextDouble(MIN_COORDINATE_VALUE, MAX_COORDINATE_VALUE);
-                    return new Point(x, y).isInsideCircle();
-                }, executor)).map(CompletableFuture::join)
-                .filter(isInside -> isInside)
-                .count();
+        try {
+            long inside = IntStream.range(0, n)
+                    .parallel()
+                    .mapToObj(i -> CompletableFuture.supplyAsync(() -> {
+                        double x = ThreadLocalRandom.current().nextDouble(MIN_COORDINATE_VALUE, MAX_COORDINATE_VALUE);
+                        double y = ThreadLocalRandom.current().nextDouble(MIN_COORDINATE_VALUE, MAX_COORDINATE_VALUE);
+                        return new Point(x, y).isInsideCircle();
+                    }, executor)).map(CompletableFuture::join)
+                    .filter(isInside -> isInside)
+                    .count();
 
-        executor.shutdown();
-        return 4.0 * inside / n;
+            return 4.0 * inside / n;
+        } finally {
+            executor.shutdown();
+        }
     }
 }
