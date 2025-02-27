@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.List;
 
 public class StudentDatabase {
-    private static final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    private static final Map<Subject, List<Student>> subjectsStudents = new HashMap<>();
+    public static final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    public static final Map<Subject, List<Student>> subjectsStudents = new HashMap<>();
     private static final int NO_MARKS_YET_CASE = 0;
 
     public static void addNewStudentWithHisSubjectsWithMarks(Student student, Map<Subject, Integer> subjectsWithMarks) {
