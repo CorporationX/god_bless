@@ -3,7 +3,7 @@ package school.faang.google.photo.sync;
 import java.util.LinkedList;
 import java.util.List;
 
-class GooglePhotosAutoUploader {
+public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new LinkedList<>();
     private final Object lock = new Object();
 

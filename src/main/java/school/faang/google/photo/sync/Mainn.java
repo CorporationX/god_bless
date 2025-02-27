@@ -1,6 +1,11 @@
 package school.faang.google.photo.sync;
 
-public class Main {
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Mainn {
+    private static final Logger logger = Logger.getLogger(Mainn.class.getName());
+
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
@@ -14,6 +19,7 @@ public class Main {
                 Thread.sleep(1000);
                 uploader.onNewPhotoAdded("photo3.jpg");
             } catch (InterruptedException e) {
+                logger.log(Level.WARNING, "Поток был прерван");
                 Thread.currentThread().interrupt();
             }
         });
