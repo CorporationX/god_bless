@@ -9,15 +9,16 @@ import java.util.List;
 @Slf4j
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     log.info("Фотографий нет, ожидание..");
                     lock.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException("Error lock waiting", e);
                 }
             }
@@ -34,7 +35,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         synchronized (lock) {
             log.info("Фото загружены");
             photosToUpload.clear();
