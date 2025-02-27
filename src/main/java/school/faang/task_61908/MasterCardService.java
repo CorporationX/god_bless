@@ -40,16 +40,14 @@ public class MasterCardService {
         CompletableFuture<Integer> futureSendAnalytics = CompletableFuture
                 .supplyAsync(MasterCardService::sendAnalytics);
         Integer sendAnalytics = futureSendAnalytics.join();
+        executorService.shutdown();
+        log.info("Аналитика отправлена: " + sendAnalytics);
         try {
-            Integer collectPayment = futureCollectPayment.get();
+            log.info("Платеж выполнен: " + futureCollectPayment.get());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-        executorService.shutdown();
-        log.info("Аналитика отправлена: " + sendAnalytics);
-
-        log.info("Платеж выполнен: " + collectPayment());
     }
 }
