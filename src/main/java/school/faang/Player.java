@@ -38,7 +38,7 @@ public class Player {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            log.info("Поток был прерван");
+            log.warn("Поток был прерван");
         } finally {
             boss.leaveBattle(this);
         }

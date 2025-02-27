@@ -19,17 +19,20 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            if (currentPlayers.size() < maxPlayers) {
-                currentPlayers.add(player);
-                log.info(player.getName() + " вступает в бой. " +
-                        " Текущее количетсво игроков " + currentPlayers + "/" + maxPlayers);
-            } else {
-                try {
-                    System.out.println("Слоты сейчас заполнены, подождите... ");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.warn("Поток был прерван");
+            while (true) {
+                if (currentPlayers.size() < maxPlayers) {
+                    currentPlayers.add(player);
+                    log.info(String.format("%s вступает в бой. " +
+                            "Текущее количетсво игроков %d/%d", player.getName(), currentPlayers.size(), maxPlayers));
+                    break;
+                } else {
+                    try {
+                        log.info("Слоты сейчас заполнены, подождите... ");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.warn("Поток был прерван");
+                    }
                 }
             }
         }
@@ -38,11 +41,11 @@ public class Boss {
     public void leaveBattle(Player player) {
         synchronized (lock) {
             if (currentPlayers.remove(player)) {
-                log.info(player.getName() + " покинул бой." +
-                        " Текущее количество игроков " + currentPlayers.size() + "/" + maxPlayers);
+                log.info(String.format(" %s покинул бой. " +
+                        "Текущее количество игроков %d/%d", player.getName(), currentPlayers.size(), maxPlayers));
                 lock.notify();
             } else {
-                log.info(player.getName() + " не находится в бою.");
+                log.info(String.format("%s не находится в бою.", player.getName()));
             }
         }
     }
