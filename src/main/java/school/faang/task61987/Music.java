@@ -19,6 +19,7 @@ public class Music {
                 thread.join();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException("Error threads join", e);
         }
     }
