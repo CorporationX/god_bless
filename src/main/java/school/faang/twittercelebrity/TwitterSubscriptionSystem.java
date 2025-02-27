@@ -2,8 +2,6 @@ package school.faang.twittercelebrity;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
-
 @Slf4j
 public class TwitterSubscriptionSystem {
     private void addFollower(TwitterAccount account) {
@@ -12,7 +10,6 @@ public class TwitterSubscriptionSystem {
     }
 
     public void followAccount(TwitterAccount account) {
-        Objects.requireNonNull(account, "Invalid account value");
         addFollower(account);
     }
 }
