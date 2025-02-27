@@ -1,11 +1,15 @@
 package Spotify;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Player {
+    private final Lock player = new ReentrantLock();
     private boolean isPlaying = true;
 
     public void play() {
         try {
-            synchronized (this) {
+            synchronized (player) {
                 if (!isPlaying) {
                     isPlaying = true;
                     System.out.println("Воспроизведение музыки");
@@ -21,7 +25,7 @@ public class Player {
 
     public void pause() {
         try {
-            synchronized (this) {
+            synchronized (player) {
                 if (isPlaying) {
                     isPlaying = false;
                     System.out.println("Музыка поставлена на паузу");
@@ -37,7 +41,7 @@ public class Player {
 
     public void skip() {
         try {
-            synchronized (this) {
+            synchronized (player) {
                 System.out.println("Песня пропущена");
             }
         } catch (Exception e) {
@@ -48,7 +52,7 @@ public class Player {
 
     public void previous() {
         try {
-            synchronized (this) {
+            synchronized (player) {
                 System.out.println("Вернули предыдуший трек");
             }
         } catch (Exception e) {
