@@ -7,8 +7,8 @@ import java.util.Objects;
 @Slf4j
 public class TwitterSubscriptionSystem {
     private void addFollower(TwitterAccount account) {
-        account.getFollowers().incrementAndGet();
-        log.info("Account {} has a new follower.", account.getUsername());
+        account.followers().incrementAndGet();
+        log.info("Account {} has a new follower.", account.username());
     }
 
     public void followAccount(TwitterAccount account) {

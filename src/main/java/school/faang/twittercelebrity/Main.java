@@ -30,7 +30,7 @@ public class Main {
             }
 
             CompletableFuture.allOf(FUTURES.toArray(CompletableFuture[]::new)).join();
-            log.info("Total account {} followers: {}", MY_ACCOUNT.getUsername(), MY_ACCOUNT.getFollowers());
+            log.info("Total account {} followers: {}", MY_ACCOUNT.username(), MY_ACCOUNT.followers());
             EXECUTOR.shutdown();
         } catch (CompletionException e) {
             log.error("Execution timed out {} {}", TIME_EXECUTION, TIME_UNIT);
