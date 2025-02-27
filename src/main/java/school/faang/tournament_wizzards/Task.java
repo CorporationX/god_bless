@@ -10,9 +10,4 @@ public class Task {
     private Difficulty difficulty;
     private int reward;
 
-    enum Difficulty {
-        EASY,
-        MEDIUM,
-        HARD;
-    }
 }

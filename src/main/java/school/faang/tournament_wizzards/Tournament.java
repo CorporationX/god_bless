@@ -1,5 +1,6 @@
 package school.faang.tournament_wizzards;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class Tournament {
         School griffindor = new School("Griffindor", griffindorTeam);
         School slytherin = new School("Slytherin", slytherinTeam);
 
-        Task task1 = new Task("Triwizard Tournament", Task.Difficulty.MEDIUM, 100);
-        Task task2 = new Task("Yule Ball Preparations", Task.Difficulty.HARD, 150);
+        Task task1 = new Task("Triwizard Tournament", Difficulty.MEDIUM, 100);
+        Task task2 = new Task("Yule Ball Preparations", Difficulty.HARD, 150);
 
         CompletableFuture<School> griffindorTask = Tournament.startTask(griffindor, task1);
         CompletableFuture<School> slytherinTask = Tournament.startTask(slytherin, task2);
@@ -27,9 +28,9 @@ public class Tournament {
 
         allTasks.thenRun(() -> {
             if (griffindor.getTotalPoints() > slytherin.getTotalPoints()) {
-                log.info(griffindor.getName() + " одерживает победу!");
+                log.info(griffindor.name() + " одерживает победу!");
             } else if (griffindor.getTotalPoints() < slytherin.getTotalPoints()) {
-                log.info(slytherin.getName() + " одерживает победу!");
+                log.info(slytherin.name() + " одерживает победу!");
             } else {
                 log.info("Ничья!");
             }
@@ -47,12 +48,12 @@ public class Tournament {
                 throw new RuntimeException(e);
             }
 
-            for (Student student : school.getTeam()) {
+            for (Student student : school.team()) {
                 student.setPoints(student.getPoints() + task.getReward());
                 log.info("Ученик:" + student.getName() + " зарабатывает : " + task.getReward() + " очков.");
             }
 
-            log.info("Школа: " + school.getName() + " получила: " + school.getTotalPoints() + " очков.");
+            log.info("Школа: " + school.name() + " получила: " + school.getTotalPoints() + " очков.");
             return school;
         });
     }
