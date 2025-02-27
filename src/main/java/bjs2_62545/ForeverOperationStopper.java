@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ForeverOperationStopper implements Runnable{
+public class ForeverOperationStopper implements Runnable {
     private final int waitingTerminationTimeoutMs;
     private final ScheduledExecutorService scheduledExecutor;
     private final String finishMessage;
@@ -28,6 +28,7 @@ public class ForeverOperationStopper implements Runnable{
         } catch (Exception e) {
             log.error("Ошибка при ожидании остановки потока: {}", e.getMessage(), e);
         }
+        
         log.info(finishMessage);
     }
 }
