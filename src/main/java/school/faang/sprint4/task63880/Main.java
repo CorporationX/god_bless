@@ -17,10 +17,8 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
         System.out.print("\n----------------------------");
-        player1Quest.thenAccept(player -> System.out.printf(MESSAGE, player.getName(), player.getExperience()));
-        player2Quest.thenAccept(player -> System.out.printf(MESSAGE, player.getName(), player.getExperience()));
-        player1Quest.join();
-        player2Quest.join();
+        player1Quest.thenAccept(player -> System.out.printf(MESSAGE, player.getName(), player.getExperience())).join();
+        player2Quest.thenAccept(player -> System.out.printf(MESSAGE, player.getName(), player.getExperience())).join();
         System.out.println("\n-----------------------------");
     }
 }
