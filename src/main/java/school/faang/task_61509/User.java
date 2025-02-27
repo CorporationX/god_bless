@@ -23,7 +23,6 @@ public class User {
         this.isOnline = isOnline;
         this.isLookingForChat = isLookingForChat;
         this.isChatting = isChatting;
-        chat = null;
     }
 
     public boolean isEligible() {

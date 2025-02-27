@@ -17,7 +17,7 @@ public class UserList {
 
     public List<User> getOnlineUsers() {
         return users.stream()
-                .filter(user -> user.isOnline() && user.isLookingForChat() && !user.isChatting())
+                .filter(User::isEligible)
                 .toList();
     }
 
