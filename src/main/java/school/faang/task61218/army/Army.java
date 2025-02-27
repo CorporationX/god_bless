@@ -3,6 +3,7 @@ package school.faang.task61218.army;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Slf4j
 public class Army {
     private List<Squad> allSquads = new ArrayList<>();
     private List<Thread> threadList = new ArrayList<>();
@@ -30,9 +32,9 @@ public class Army {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException("Error threads join", e);
+            log.error("Произошла ошибка при ожидании завершения потока: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
-
 
         return totalPower.stream()
                 .mapToInt(power -> power).sum();
