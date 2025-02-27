@@ -14,6 +14,7 @@ public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
     private static final int MAX_THREADS = 3;
+    private static final int SLEEP_TIME = 2000;
 
     public static void main(String[] args) {
 
@@ -26,6 +27,7 @@ public class MasterCardService {
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            log.warn("Ошибка при выполнении операции");
             throw new RuntimeException(e);
         }
     }
@@ -42,16 +44,16 @@ public class MasterCardService {
 
     public static void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
-        Future<Integer> paymentFuture = executor.submit(() -> collectPayment());
+        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(() -> sendAnalytics(), executor);
         new Thread(() -> {
             try {
                 while (!paymentFuture.isDone()) {
                     log.info("Выполняю операцию");
-                    Thread.sleep(2000);
+                    Thread.sleep(SLEEP_TIME);
                 }
                 int payment = paymentFuture.get();
-                log.info("Оплата получена: " + payment);
+                log.info("Оплата получена: {}" + payment);
             } catch (InterruptedException | ExecutionException e) {
                 log.error("Ошибка при выполнении операции: " + e);
             }
