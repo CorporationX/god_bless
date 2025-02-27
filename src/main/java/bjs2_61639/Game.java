@@ -5,16 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    public static final int MAX_LIVES = 35;
-
     private int score = 0;
-    private int lives = MAX_LIVES;
+    private int lives;
 
     private final Object scoreLocker = new Object();
     private final Object livesLocker = new Object();
 
     @Getter
     private boolean isGameOver = false;
+
+    public Game(int lives) {
+        this.lives = lives;
+    }
 
     public boolean update(boolean isScoreIncremented, boolean isLiveLost) {
         if (isScoreIncremented) {
