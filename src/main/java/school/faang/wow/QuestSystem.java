@@ -6,10 +6,14 @@ public class QuestSystem {
     private static final int TIME_EXECUTION_PER_DIFFICULTY = 1000;
     private static final int TIME_REDUCING_PER_LEVEL = 100;
 
+    private final Object lockScore = new Object();
+
     public void startQuest(Player player, Quest quest) throws InterruptedException {
         validateParams(player, quest);
         imitateExecutionQuest(player, quest);
-        player.setScore(player.getScore() + quest.reward());
+        synchronized (lockScore) {
+            player.setScore(player.getScore() + quest.reward());
+        }
     }
 
     private void imitateExecutionQuest(Player player, Quest quest) throws InterruptedException {
