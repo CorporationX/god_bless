@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
@@ -15,12 +14,14 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                LOGGER.info("В ожидании");
-                lock.wait();
+        while (true) {
+            synchronized (photosToUpload) {
+                while (photosToUpload.isEmpty()) {
+                    LOGGER.info("В ожидании новых фотографий...");
+                    photosToUpload.wait(); // Поток засыпает, пока нет фотографий
+                }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
@@ -33,10 +34,9 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        for (Iterator<String> iterator = photosToUpload.iterator(); iterator.hasNext(); ) {
-            String photo = iterator.next();
+        for (String photo : photosToUpload) {
             LOGGER.info("Uploading photo: {}", photo);
-            iterator.remove();
         }
+        photosToUpload.clear();
     }
 }
