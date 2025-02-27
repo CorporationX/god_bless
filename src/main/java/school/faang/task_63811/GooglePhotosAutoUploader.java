@@ -10,10 +10,11 @@ public class GooglePhotosAutoUploader {
 
     private final List<String> photosToUpload = new ArrayList<>();
     private final Object lock = new Object();
-    private boolean isRunning = true;
+    private volatile boolean isRunning = true;
 
     public void startAutoUpload() {
         while (true) {
+            List<String> batch;
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
                     if (!isRunning) {
@@ -27,8 +28,10 @@ public class GooglePhotosAutoUploader {
                         return;
                     }
                 }
-                uploadPhotos();
+                batch = new ArrayList<>(photosToUpload);
+                photosToUpload.clear();
             }
+            uploadPhotos(batch);
         }
         log.info("Загрузка завершена.");
     }
@@ -47,8 +50,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    private void uploadPhotos() {
-        photosToUpload.forEach(photo -> log.info("Загружается: {}", photo));
-        photosToUpload.clear();
+    private void uploadPhotos(List<String> photos) {
+        photos.forEach(photo -> log.info("Загружается: {}", photo));
     }
 }
