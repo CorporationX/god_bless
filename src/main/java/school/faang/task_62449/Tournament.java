@@ -1,6 +1,7 @@
 package school.faang.task_62449;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,31 +26,25 @@ public class Tournament {
         });
     }
 
-    public void determineWinner(List<CompletableFuture<School>> futures, School hogwarts, School beauxbatons) {
+    public void determineWinner(List<CompletableFuture<School>> futures, School schoolA, School schoolB) {
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 
         allTasks.thenRun(() -> {
-            int hogwartsPoints = hogwarts.getTotalPoints();
-            int beauxbatonsPoints = beauxbatons.getTotalPoints();
-            String winner = "";
+            int pointsA = schoolA.getTotalPoints();
+            int pointsB = schoolB.getTotalPoints();
 
-            log.info("'{}': {} points, '{}' : {} points", hogwarts.name(), hogwartsPoints,
-                    beauxbatons.name(), beauxbatonsPoints);
+            log.info("'{}': {} points, '{}' : {} points", schoolA.name(), pointsA, schoolB.name(), pointsB);
 
-            if (hogwartsPoints > beauxbatonsPoints) {
-                winner = hogwarts.name();
-            } else if (hogwartsPoints < beauxbatonsPoints) {
-                winner = beauxbatons.name();
-            } else {
-                log.info("It's a tie!");
-            }
-
-            if (!winner.isEmpty()) {
-                log.info("'{}' wins!", winner);
-            } else {
-                log.info("No winner, it's a tie!");
-            }
-
+            getWinner(schoolA, schoolB)
+                    .ifPresentOrElse(
+                            winner -> log.info("'{}' wins!", winner),
+                            () -> log.info("No winner, it's a tie!"));
         }).join();
+    }
+
+    private Optional<String> getWinner(School schoolA, School schoolB) {
+        return (schoolA.getTotalPoints() > schoolB.getTotalPoints())
+                ? Optional.of(schoolA.name()) : (schoolA.getTotalPoints() < schoolB.getTotalPoints())
+                ? Optional.of(schoolB.name()) : Optional.empty();
     }
 }
