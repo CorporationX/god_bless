@@ -1,59 +1,47 @@
 package school.faang;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@AllArgsConstructor
+@Getter
 public class Player {
+    private String name;
 
-    private final Object lock = new Object();
-    private boolean isPlaying = false;
+    public static void main(String[] args) {
+        Boss cow = new Boss();
 
-    private boolean isPlaying() {
-        return isPlaying;
+        Player ron = new Player("Ron");
+        Thread ronBattle = new Thread(() -> ron.doBattle(cow));
+        ronBattle.start();
+
+        Player ben = new Player("Ben");
+        Thread benBattle = new Thread(() -> ben.doBattle(cow));
+        benBattle.start();
+
+        Player dan = new Player("Dan");
+        Thread danBattle = new Thread(() -> dan.doBattle(cow));
+        danBattle.start();
+
+        Player bob = new Player("Bob");
+        Thread bobBattle = new Thread(() -> bob.doBattle(cow));
+        bobBattle.start();
+
+
     }
 
-    public void play() {
-        if (lock == null) {
-            throw new IllegalStateException("Lock object is null");
-        }
-        synchronized (lock) {
-            if (!isPlaying()) {
-                isPlaying = true;
-                System.out.println("Музыка воспроизводится");
-            } else {
-                System.out.println("Музыка уже воспроизвоится");
-            }
-        }
-    }
-
-    public void pause() {
-        if (lock == null) {
-            throw new IllegalStateException("Lock object is null");
-        }
-        synchronized (lock) {
-            if (isPlaying()) {
-                isPlaying = false;
-                System.out.println("Воспроизведение приостановлено");
-            } else {
-                System.out.println("Воспроизведение уже приостановлено");
-            }
-        }
-    }
-
-    public void skip() {
-        if (lock == null) {
-            throw new IllegalStateException("Lock object is null");
-        }
-        synchronized (lock) {
-            System.out.println("Трек пропущен");
-        }
-    }
-
-    public void previous() {
-        if (lock == null) {
-            throw new IllegalStateException("Lock object is null");
-        }
-        synchronized (lock) {
-            System.out.println("Возвращение к предыдущему треку");
+    public void doBattle(Boss boss) {
+        try {
+            boss.joinBattle(this);
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            log.warn("Поток был прерван");
+        } finally {
+            boss.leaveBattle(this);
         }
     }
 
 }
-
