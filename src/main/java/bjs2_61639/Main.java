@@ -23,8 +23,8 @@ public class Main {
         executor.shutdown();
 
         try {
-            if (executor.awaitTermination(WAITING_FOR_TERMINATION_SECONDS, TimeUnit.SECONDS)) {
-                log.error("Операция завершилась, менее чем за {} секунды", WAITING_FOR_TERMINATION_SECONDS);
+            if (!executor.awaitTermination(WAITING_FOR_TERMINATION_SECONDS, TimeUnit.SECONDS)) {
+                log.error("Операция не завершилась за {} секунды", WAITING_FOR_TERMINATION_SECONDS);
             }
         } catch (InterruptedException e) {
             log.error("Ошибка ожидания завершения потоков: {}", e.getMessage(), e);
