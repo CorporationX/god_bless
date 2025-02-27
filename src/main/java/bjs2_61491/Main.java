@@ -2,31 +2,35 @@ package bjs2_61491;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class Main {
     private static final int THREAD_COUNT = 7;
     private static final int MESSAGE_COUNT_BY_THREAD = 10;
+    private static final int WAITING_TERMINATION_TIMEOUT_SECONDS = 6;
 
     public static void main(String[] args) {
         TelegramBot bot = new TelegramBot();
 
-        Thread[] senderThreads = new Thread[THREAD_COUNT];
-        for (int i = 0; i < senderThreads.length; i++) {
-            int senderNumber = i;
-            senderThreads[i] = new Thread(() -> {
-                senderThreadProc(senderNumber, bot);
-            });
-
-            senderThreads[i].start();
+        var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            var senderNumber = i;
+            executor.submit(() -> senderThreadProc(senderNumber, bot));
         }
 
-        for (Thread senderThread : senderThreads) {
-            try {
-                senderThread.join();
-            } catch (InterruptedException e) {
-                log.error("Ожидание Потока отправителя прервано: {}", e.getMessage(), e);
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(WAITING_TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                log.error("Операция не завершилась за {} секунд", WAITING_TERMINATION_TIMEOUT_SECONDS);
             }
+        } catch (InterruptedException e) {
+            log.error("Ошибка ожидания завершения потоков: {}", e.getMessage(), e);
         }
+
+        executor.shutdownNow();
 
         log.info("Все сообщения отправлены");
     }
