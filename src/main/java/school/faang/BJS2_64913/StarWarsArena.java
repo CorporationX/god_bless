@@ -11,7 +11,7 @@ public class StarWarsArena {
         Battle battle = new Battle();
 
         // Создание роботов
-        Robot r2d2 = new Robot("R2-D2", 5, 2);
+        Robot r2d2 = new Robot("R2-D2", 4, 3);
         Robot c3po = new Robot("C-3PO", 4, 3);
 
         // Запуск битвы

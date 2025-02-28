@@ -5,17 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Battle {
+    ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
         if (robot1 == null || robot2 == null) {
             throw new IllegalArgumentException("Robots не должны быть null");
         }
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
         Future<Robot> future = executor.submit(() -> {
             int sumPowerRobot1 = robot1.getAttackPower() + robot1.getDefensePower();
             int sumPowerRobot2 = robot2.getAttackPower() + robot2.getDefensePower();
@@ -25,8 +25,7 @@ public class Battle {
             } else if (sumPowerRobot1 < sumPowerRobot2) {
                 return robot2;
             } else {
-                log.info("Ничия");
-                throw new IllegalStateException("Ничия");
+                return ThreadLocalRandom.current().nextBoolean() ? robot1 : robot2;
             }
         });
 
