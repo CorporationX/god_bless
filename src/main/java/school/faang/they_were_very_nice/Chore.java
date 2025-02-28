@@ -2,7 +2,9 @@ package school.faang.they_were_very_nice;
 
 public class Chore implements Runnable {
 
-    private String chore;
+    public static final int SLEEP_TIME = 1000;
+
+    private final String chore;
 
     public Chore(String chore) {
         this.chore = chore;
@@ -10,13 +12,12 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        String name = Thread.currentThread().getName();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Работа потока была прервана");
         }
-        System.out.println(name + " chore: " + chore);
+        System.out.println("chore: " + chore);
     }
 
 }
