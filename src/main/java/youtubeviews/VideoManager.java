@@ -1,6 +1,5 @@
 package youtubeviews;
 
-import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -18,7 +17,6 @@ public class VideoManager {
 
     private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
-    @Synchronized
     public void addView(String videoId) {
         viewsMap.compute(videoId, (key, value) -> {
             int newCount = (value == null) ? 1 : value + 1;
@@ -34,7 +32,6 @@ public class VideoManager {
         }
     }
 
-    @Synchronized
     public int getViewCount(String videoId) {
         return viewsMap.getOrDefault(videoId, 0);
     }
