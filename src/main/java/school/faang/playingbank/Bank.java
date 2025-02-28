@@ -5,15 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Slf4j
 public class Bank {
-    private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
+    private final Map<UUID, Account> accounts = new ConcurrentHashMap<>();
 
-    public void transfer(int fromAccountId, int toAccountId, int amount) {
+    public void transfer(UUID fromAccountId, UUID toAccountId, int amount) {
         if (isAccountContainsId(fromAccountId, toAccountId) || isAmountNegative(amount)) {
             return;
         }
@@ -23,9 +24,9 @@ public class Bank {
         if (fromAccount.getBalance() >= amount) {
             fromAccount.withdraw(amount);
             toAccount.deposit(amount);
-            log.info("Transfer from {} to {} was successful", fromAccountId, toAccountId);
+            log.info("Transfer from {} to {} was successful", fromAccount.getName(), toAccount.getName());
         } else {
-            log.warn("The account {} has insufficient funds", fromAccountId);
+            log.warn("The account {} has insufficient funds", fromAccount.getName());
         }
     }
 
@@ -47,7 +48,7 @@ public class Bank {
         Objects.requireNonNull(account, "Invalid account value");
     }
 
-    private boolean isAccountContainsId(int fromAccountId, int toAccountId) {
+    private boolean isAccountContainsId(UUID fromAccountId, UUID toAccountId) {
         if (!accounts.containsKey(fromAccountId)) {
             printNotFoundMessage(fromAccountId);
             return true;
@@ -58,7 +59,7 @@ public class Bank {
         return false;
     }
 
-    private void printNotFoundMessage(int id) {
+    private void printNotFoundMessage(UUID id) {
         log.warn("Account {} is not found", id);
     }
 
