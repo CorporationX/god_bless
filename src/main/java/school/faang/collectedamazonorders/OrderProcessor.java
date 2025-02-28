@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class OrderProcessor {
-    private static final AtomicInteger TOTAL_PROCESSED_ORDERS = new AtomicInteger(0);
+    private static final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private static final int TIMEOUT_ONE_SECOND = 1_000;
 
     private CompletableFuture<Void> processOrder(Order order) {
@@ -17,7 +17,7 @@ public class OrderProcessor {
                 Thread.sleep(TIMEOUT_ONE_SECOND);
                 String status = "Обработано";
                 order.setStatus(status);
-                TOTAL_PROCESSED_ORDERS.addAndGet(1);
+                totalProcessedOrders.addAndGet(1);
                 log.info("Статус заказа изменен на '{}'", status);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -32,7 +32,7 @@ public class OrderProcessor {
                 .toList();
 
         CompletableFuture.allOf(result.toArray(new CompletableFuture[0])).join();
-        log.info("Обработано заказов: {}", TOTAL_PROCESSED_ORDERS.get());
+        log.info("Обработано заказов: {}", totalProcessedOrders.get());
     }
 }
 
