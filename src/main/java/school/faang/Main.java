@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int AWAIT_TERMINATION_IN_MS = 1000;
+
     public static void main(String[] args) {
         Bank bank = new Bank();
         Account acc1 = new Account(1, 1000.0);
@@ -44,7 +46,7 @@ public class Main {
     private static void shutDownExecutorService(ExecutorService executorService) {
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+            if (!executorService.awaitTermination(AWAIT_TERMINATION_IN_MS, TimeUnit.MILLISECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {

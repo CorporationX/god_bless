@@ -5,15 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @Slf4j
-public class Bank implements Runnable {
-    private static final int THREAD_SLEEP_IN_MS = 1000;
+public class Bank {
     private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
-    private final Lock lock = new ReentrantLock();
 
     public void addAccount(Account account) {
         accounts.put(account.getId(), account);
@@ -48,22 +44,6 @@ public class Bank implements Runnable {
     }
 
     public double getTotalBalance() {
-        try {
-            lock.lock();
-            return accounts.values().stream().mapToDouble(Account::getBalance).sum();
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(THREAD_SLEEP_IN_MS);
-        } catch (InterruptedException e) {
-            log.info("Transfer has interrupted in {}", Thread.currentThread().getName());
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+        return accounts.values().stream().mapToDouble(Account::getBalance).sum();
     }
 }

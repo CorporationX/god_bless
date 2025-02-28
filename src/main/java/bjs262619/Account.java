@@ -30,14 +30,14 @@ public class Account {
     public boolean withdraw(double amount) {
         try {
             lock.lock();
-            if (this.getBalance() < amount) {
+            if (this.getBalance() >= amount) {
+                this.setBalance(this.getBalance() - amount);
+                log.info("Funds {} have been transferred from the account {}", amount, this);
+                return true;
+            } else {
                 log.info("Insufficient funds to transfer from the account {}", this);
-                Thread.currentThread().interrupt();
-                throw new RuntimeException();
+                return false;
             }
-            this.setBalance(this.getBalance() - amount);
-            log.info("Funds {} have been transferred from the account {}", amount, this);
-            return true;
         } finally {
             lock.unlock();
         }
