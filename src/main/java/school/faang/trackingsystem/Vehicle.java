@@ -7,9 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Objects;
 import java.util.UUID;
 
-import static school.faang.trackingsystem.BaseLocation.BORDER_BASE_COORDINATE_NORTH;
-import static school.faang.trackingsystem.BaseLocation.BORDER_BASE_COORDINATE_SOUTH;
-
 @Slf4j
 @Getter
 @RequiredArgsConstructor
@@ -40,18 +37,10 @@ public class Vehicle {
     }
 
     private void checkIfVehicleOnBase() {
-        if (getLocation().latitude() <= BORDER_BASE_COORDINATE_NORTH.latitude()
-                && getLocation().latitude() >= BORDER_BASE_COORDINATE_SOUTH.latitude()
-                && getLocation().longitude() <= BORDER_BASE_COORDINATE_NORTH.longitude()
-                && getLocation().longitude() >= BORDER_BASE_COORDINATE_SOUTH.longitude()
-                && getStatus().equals(Statuses.BUSY)) {
+        if (getLocation().isWithinBase() && getStatus().equals(Statuses.BUSY)) {
             updateStatus(Statuses.FREE);
             log.info("Vehicle {} is arrived on base", getName());
-        } else if ((getLocation().latitude() > BORDER_BASE_COORDINATE_NORTH.latitude()
-                || getLocation().latitude() < BORDER_BASE_COORDINATE_SOUTH.latitude()
-                || getLocation().longitude() > BORDER_BASE_COORDINATE_NORTH.longitude()
-                || getLocation().longitude() < BORDER_BASE_COORDINATE_SOUTH.longitude())
-                && getStatus().equals(Statuses.FREE)) {
+        } else if (getLocation().isOutsideBase() && getStatus().equals(Statuses.FREE)) {
             updateStatus(Statuses.BUSY);
             log.info("Vehicle {} is leaved from base", getName());
         }
