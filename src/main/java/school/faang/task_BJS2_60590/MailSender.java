@@ -6,6 +6,7 @@ public class MailSender {
 
     public static void main(String[] args) throws InterruptedException {
         Thread[] threads = new Thread[amountOfThreads];
+
         for (int i = 0; i < amountOfThreads; i++) {
             int startIndex = (i * (amountOfMessage / amountOfThreads)) + 1;
             int endIndex = (i + 1) * (amountOfMessage / amountOfThreads) + 1;
