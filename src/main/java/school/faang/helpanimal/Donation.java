@@ -1,9 +1,9 @@
 package school.faang.helpanimal;
 
-public record Donation(int id, int amount) {
-    private static int currentId = 1;
+import java.util.UUID;
 
+public record Donation(UUID id, int amount) {
     public Donation(int amount) {
-        this(currentId++, amount);
+        this(UUID.randomUUID(), amount);
     }
 }
