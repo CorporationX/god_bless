@@ -7,11 +7,17 @@ import java.util.concurrent.ExecutionException;
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Squad<Archer> archers = new Squad<>(SquadType.ARCHERS_SQUAD.getSquadType(),
-                List.of(new Archer(25), new Archer(25), new Archer(25)));
+                List.of(new Archer(Archer.ARCHER_STRENGTH),
+                        new Archer(Archer.ARCHER_STRENGTH),
+                        new Archer(Archer.ARCHER_STRENGTH)));
         Squad<Swordsman> swordsmen = new Squad<>(SquadType.SWORDSMEN_SQUAD.getSquadType(),
-                List.of(new Swordsman(40), new Swordsman(40)));
+                List.of(new Swordsman(Swordsman.SWORDSMAN_STRENGTH),
+                        new Swordsman(Swordsman.SWORDSMAN_STRENGTH)));
         Squad<Mage> mages = new Squad<>(SquadType.MAGES_SQUAD.getSquadType(),
-                List.of(new Mage(50), new Mage(50), new Mage(50), new Mage(50)));
+                List.of(new Mage(Mage.MAGE_STRENGTH),
+                        new Mage(Mage.MAGE_STRENGTH),
+                        new Mage(Mage.MAGE_STRENGTH),
+                        new Mage(Mage.MAGE_STRENGTH)));
 
         List<Squad<? extends Warrior>> squads = new ArrayList<>();
         squads.add(archers);

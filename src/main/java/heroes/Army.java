@@ -24,7 +24,13 @@ public class Army {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                logger.severe("Thread " + thread.getName() + " was interrupted during join.");
+                Thread.currentThread().interrupt();
+                throw new InterruptedException("Army power calculation was interrupted.");
+            }
         }
 
         int totalPower = results.stream().mapToInt(Integer::intValue).sum();
