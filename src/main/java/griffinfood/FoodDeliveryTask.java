@@ -18,8 +18,8 @@ public class FoodDeliveryTask implements Runnable {
     }
 
     public FoodType getFoodType() {
-        FoodType[] foodFoodTypes = FoodType.values();
-        return foodFoodTypes[random.nextInt(foodFoodTypes.length)];
+        FoodType[] availableFoodTypes = FoodType.values();
+        return availableFoodTypes[random.nextInt(availableFoodTypes.length)];
     }
 
     @Override
