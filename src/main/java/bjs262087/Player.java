@@ -12,7 +12,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void upgradePlayer(Quest quest) {
+    public synchronized void upgradePlayer(Quest quest) {
         this.setExperience(this.getExperience() + quest.getReward());
     }
 }
