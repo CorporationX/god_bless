@@ -15,7 +15,6 @@ public class School {
 
     private final String name;
     private final List<Student> team;
-    private int totalPoints;
 
     public int getTotalPoints() {
         return team.stream()
