@@ -20,9 +20,7 @@ public class Tournament {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException("Task execution interrupted", e);
             }
-            school.getTeam().forEach(team -> {
-                team.setPoints(team.getPoints() + task.getReward());
-            });
+            school.getTeam().forEach(team -> team.setPoints(team.getPoints() + task.getReward()));
             return school;
         }).thenApply(updatedSchool -> {
             log.info("School: {} had: {} points | after task have: {} points",
