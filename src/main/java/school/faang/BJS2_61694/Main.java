@@ -12,11 +12,17 @@ public class Main {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 10; i++) {
             game.addPlayer(new Bro("Bro#" + i));
         }
         while (game.getPlayers().size() > 1) {
             executorService.submit(game::update);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
         }
         executorService.shutdown();
         log.info(WINNER_OF_GAME, game.getPlayers().get(0).getName());

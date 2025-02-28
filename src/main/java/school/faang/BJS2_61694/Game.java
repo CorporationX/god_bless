@@ -20,15 +20,20 @@ public class Game {
     private final Random random = new Random();
 
     public void addPlayer(@NonNull Bro bro) {
-        players.add(bro);
-        log.info("A new player {} has been added to the game", bro.getName());
+        synchronized (players) {
+            players.add(bro);
+            log.info("A new player {} has been added to the game", bro.getName());
+        }
     }
 
     public void update() {
-        if (players.size() <= 1) {
-            return;
+        Bro bro;
+        synchronized (players) {
+            if (players.size() <= 1) {
+                return;
+            }
+            bro = players.get(random.nextInt(players.size()));
         }
-        Bro bro = players.get(random.nextInt(players.size()));
         boolean isWinnerAttack = bro.isWinnenAttack();
         if (isWinnerAttack) {
             synchronized (scoreLock) {
@@ -51,7 +56,9 @@ public class Game {
     }
 
     private void gameOver(Bro bro) {
-        players.remove(bro);
-        log.info("The game is over for the player {}", bro.getName());
+        synchronized (players) {
+            players.remove(bro);
+            log.info("The game is over for the player {}", bro.getName());
+        }
     }
 }
