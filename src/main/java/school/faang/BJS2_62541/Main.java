@@ -6,6 +6,8 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
 
     public static void main(String[] args) {
+        IngredientGatherer ig = new IngredientGatherer();
+
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
                 new Potion("Mana Potion", 3),
@@ -13,7 +15,7 @@ public class Main {
         );
 
         List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> potion.gatherIngredients(potion)))
+                .map(potion -> CompletableFuture.supplyAsync(() -> ig.gatherIngredients(potion)))
                 .toList();
 
         int result = CompletableFuture
