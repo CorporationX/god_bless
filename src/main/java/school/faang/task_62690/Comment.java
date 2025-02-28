@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class Comment {
-    private String author;
-    private String text;
-    private LocalDateTime timestamp;
+    private final String author;
+    private final String text;
+    private final LocalDateTime timestamp;
 }

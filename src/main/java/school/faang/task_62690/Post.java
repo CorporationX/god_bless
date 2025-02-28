@@ -7,26 +7,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Post {
-    private int id;
-    private String title;
-    private String content;
-    private String author;
-    private List<Comment> comments;
+    private final int id;
+    private final String title;
+    private final String content;
+    private final String author;
+    private final List<Comment> comments;
 
-
-
-
-
-
-    // Создайте класс Post, который представляет пост с полями:
-    //
-    //id — уникальный идентификатор поста,
-    //
-    //title — заголовок поста,
-    //
-    //content — текст поста,
-    //
-    //author — автор поста,
-    //
-    //comments — список комментариев (List<Comment>).
 }
