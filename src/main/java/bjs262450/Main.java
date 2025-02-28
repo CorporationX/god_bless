@@ -10,11 +10,11 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
     public static void main(String[] args) {
         List<Potion> potions = new ArrayList<>(initializePotionList());
-        Potion potion = new Potion();
-        List<CompletableFuture<Integer>> ingredientsNumberCf = potion.gatherAllIngredients(potions);
+        PotionService potionService = new PotionService();
+        List<CompletableFuture<Integer>> ingredientsNumberCf = potionService.gatherAllIngredients(potions);
         CompletableFuture.allOf(ingredientsNumberCf.toArray(new CompletableFuture[0])).join();
-        log.info("Общее количество собранных ингредиентов: {}", potion.getIngredientsNumber().get());
-        potion.shutDownExecutorService();
+        log.info("Общее количество собранных ингредиентов: {}", potionService.getIngredientsNumber().get());
+        potionService.shutDownExecutorService();
     }
 
     private static List<Potion> initializePotionList() {
