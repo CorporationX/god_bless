@@ -14,7 +14,7 @@ public class School {
 
     public int getTotalPoints() {
         return students.stream()
-                .flatMapToInt(student -> IntStream.of(student.getPoint()))
+                .mapToInt(Student::getPoint)
                 .sum();
     }
 }
