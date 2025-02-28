@@ -27,6 +27,8 @@ public class PotionGathering {
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+        futures.forEach(future -> future.thenApply(totalIngredients::addAndGet));
         System.out.println("Общее количество собранных ингредиентов: " + totalIngredients.get());
     }
 
