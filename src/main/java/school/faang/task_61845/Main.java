@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
-
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
         for (int videoId = 1; videoId <= NUM_VIDEOS; videoId++) {
@@ -33,6 +32,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             System.out.println("Задачи были прерваны.");
+            Thread.currentThread().interrupt();
             executorService.shutdownNow();
         }
 
