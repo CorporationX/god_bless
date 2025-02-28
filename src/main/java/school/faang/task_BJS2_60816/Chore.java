@@ -10,12 +10,17 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
+        final int MIN_DURATION = 500; // Минимальное время выполнения (в миллисекундах)
+        int MAX_DURATION = 2000; // Максимальное время выполнения (в миллисекундах)
+        final int TASK_DURATION_MS  = (int) (Math.random() * (MAX_DURATION - MIN_DURATION + 1)) + MIN_DURATION;
+
         System.out.println("\"" + Thread.currentThread().getName() + "\"" +
                 " has just started the chore " + "\"" + title + "\"");
         try {
-            Thread.sleep(1000); //имитация выполнения задачи
+            Thread.sleep(TASK_DURATION_MS); //имитация выполнения задачи
         } catch (InterruptedException e) {
             System.out.println("The chore " + title + " is interrupted");
+            Thread.currentThread().interrupt();
         }
         System.out.println("\"" + Thread.currentThread().getName() + "\"" +
                 " has just performed " + "\"" + title + "\"");
