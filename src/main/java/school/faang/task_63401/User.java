@@ -16,19 +16,15 @@ public class User {
     }
 
     public void joinHouse() {
-        synchronized (house) {
-            assignedRole = house.assignRole();
-            log.info("{} выбрал роль: {}", name, assignedRole);
-        }
+        assignedRole = house.assignRole();
+        log.info("{} выбрал роль: {}", name, assignedRole);
     }
 
     public void leaveHouse() {
-        synchronized (house) {
-            if (assignedRole != null) {
-                log.info("{} покидает дом и освобождает роль: {}", name, assignedRole);
-                house.releaseRole(assignedRole);
-                assignedRole = null;
-            }
+        if (assignedRole != null) {
+            log.info("{} покидает дом и освобождает роль: {}", name, assignedRole);
+            house.releaseRole(assignedRole);
+            assignedRole = null;
         }
     }
 }
