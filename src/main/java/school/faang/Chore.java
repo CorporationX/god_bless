@@ -1,22 +1,26 @@
 package school.faang;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Random;
+
+@Slf4j
 @AllArgsConstructor
 public class Chore implements Runnable {
     private final String title;
+    private final Random random = new Random();
 
     @Override
     public void run() {
-        System.out.printf("Началось выполнение задачи: %s\nПотоком: %s\n",
+        log.info("Началось выполнение задачи: {}\nПотоком: {}",
                 title, Thread.currentThread().getName());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(random.nextInt(5000));
         } catch (InterruptedException e) {
-            System.out.printf("Задача: %s была прервана\n", title);
+            log.error("Задача {} была прервана", title);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
-        System.out.printf("Выполнение задачи: %s успешно завершилось!\n", title);
+        log.info("Выполнение задачи: {} успешно завершилось!", title);
     }
 }
