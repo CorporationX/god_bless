@@ -31,22 +31,18 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(ConstOfMasterCard.THREADS_COUNT);
         CompletableFuture.supplyAsync(MasterCardService::collectPayment, executor)
-                .thenAccept(s -> {
-                    if (s == ConstOfMasterCard.ERROR_VALUE) {
-                        log.info(ConstOfMasterCard.EXCEPTION_MESSAGE);
-                    } else {
-                        log.info(ConstOfMasterCard.PAYMENT_COMPLETED, s);
-                    }
-                });
+                .thenAccept(s -> applyLogic(s, ConstOfMasterCard.PAYMENT_COMPLETED));
         CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
-                .thenAccept(s -> {
-                    if (s == ConstOfMasterCard.ERROR_VALUE) {
-                        log.info(ConstOfMasterCard.EXCEPTION_MESSAGE);
-                    } else {
-                        log.info(ConstOfMasterCard.ANALYSIS_SEND, s);
-                    }
-                });
+                .thenAccept(s -> applyLogic(s, ConstOfMasterCard.ANALYSIS_SEND));
         executor.shutdown();
+    }
+
+    private static void applyLogic(Integer s, String appliedLogic) {
+        if (s == ConstOfMasterCard.ERROR_VALUE) {
+            log.info(ConstOfMasterCard.EXCEPTION_MESSAGE);
+        } else {
+            log.info(appliedLogic, s);
+        }
     }
 
 }
