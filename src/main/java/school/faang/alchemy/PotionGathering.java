@@ -4,12 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
-    private static final AtomicInteger INGREDIENTS = new AtomicInteger(0);
+    private static final AtomicInteger ingredients = new AtomicInteger(0);
     private static final int TIMEOUT_ONE_SECOND = 1_000;
+    private static final int TIMEOUT_TEN_SECOND = 10_000;
+    private static final int THREADS_COUNTER = 4;
+    private static final ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNTER);
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -19,7 +25,16 @@ public class PotionGathering {
         );
 
         PotionGathering.gatherAllIngredients(potions);
-
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(TIMEOUT_TEN_SECOND, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+                log.error("Pool did not terminate");
+            }
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+            Thread.currentThread().interrupt();
+        }
 
     }
 
@@ -32,9 +47,9 @@ public class PotionGathering {
                 log.error(e.getMessage(), e);
             }
             log.info("{} ingredients  collected {}", potion.getName(), potion.getRequiredIngredients());
-            return INGREDIENTS.addAndGet(potion.getRequiredIngredients());
+            return ingredients.addAndGet(potion.getRequiredIngredients());
 
-        });
+        }, executor);
     }
 
     private static void gatherAllIngredients(List<Potion> potions) {
@@ -42,7 +57,7 @@ public class PotionGathering {
                 .map(PotionGathering::gatherIngredients)
                 .toList();
         CompletableFuture.allOf(allIngredients.toArray(new CompletableFuture[0])).join();
-        log.info("{} ingredients collected", INGREDIENTS.get());
+        log.info("{} ingredients collected", ingredients.get());
 
     }
 }
