@@ -11,7 +11,7 @@ public class Player {
         synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
-                log.info("The music started playing");
+                log.info("The music started playing by {}", Thread.currentThread().getName());
             } else {
                 log.info("The music is already playing");
             }
@@ -22,7 +22,7 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                log.info("The music is stopped");
+                log.info("The music is stopped by {}", Thread.currentThread().getName());
             } else {
                 log.info("The music is not playing now");
             }
@@ -31,13 +31,21 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            log.info("The music is skipped");
+            if (isPlaying) {
+                log.info("The music is skipped by {}", Thread.currentThread().getName());
+            } else {
+                log.info("Now music is not playing");
+            }
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            log.info("Previous music is started");
+            if (isPlaying) {
+                log.info("Returning to the previous track by {}", Thread.currentThread().getName());
+            } else {
+                log.info("Now music is not playing");
+            }
         }
     }
 }
