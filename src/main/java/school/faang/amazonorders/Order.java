@@ -1,13 +1,11 @@
 package school.faang.amazonorders;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.util.UUID;
+
+@Data
 public class Order {
-    private static int currentId = 1;
-
-    private final int id = currentId++;
+    private final UUID id = UUID.randomUUID();
     private String status = "In progress";
 }
