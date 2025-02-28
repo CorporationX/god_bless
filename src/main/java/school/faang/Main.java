@@ -1,6 +1,9 @@
 package school.faang;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Army army;
@@ -18,9 +21,8 @@ public class Main {
         mages.addUnit(new Mage(35));
         mages.addUnit(new Mage(20));
 
-        army.addSquad(archers);
-        army.addSquad(swordsmen);
-        army.addSquad(mages);
+        List<Squad> squadsToAdd = Arrays.asList(archers, swordsmen, mages);
+        army.addSquads(squadsToAdd);
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Общая сила армии: " + totalPower);

@@ -6,7 +6,6 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
 public class Squad {
     private final List<Unit> units = new ArrayList<>();

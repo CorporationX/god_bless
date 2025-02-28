@@ -1,6 +1,7 @@
 package school.faang;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,12 @@ public class Army {
 
     public void addSquad(Squad squad) {
         squads.add(squad);
+    }
+
+    public void addSquads(Collection<Squad> squads) {
+        for (Squad squad : squads) {
+            this.addSquad(squad);
+        }
     }
 
     public int calculateTotalPower() throws InterruptedException {
@@ -30,4 +37,5 @@ public class Army {
                 .mapToInt(Integer::intValue)
                 .sum();
     }
+
 }
