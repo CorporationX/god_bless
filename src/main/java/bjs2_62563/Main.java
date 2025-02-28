@@ -29,13 +29,10 @@ public class Main {
         try {
             if (!executor.awaitTermination(TIMEOUT_SECOND, TimeUnit.SECONDS)) {
                 processTimeout(executor);
-
-                return;
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             executor.shutdownNow();
-
-            return;
         }
 
         executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
@@ -47,6 +44,7 @@ public class Main {
                 processTimeout(executor);
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             executor.shutdownNow();
         }
     }
