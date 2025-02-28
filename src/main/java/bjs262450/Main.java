@@ -2,16 +2,15 @@ package bjs262450;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        List<Potion> potions = new ArrayList<>(initializePotionList());
         PotionService potionService = new PotionService();
-        List<CompletableFuture<Integer>> ingredientsNumberCf = potionService.gatherAllIngredients(potions);
+        List<CompletableFuture<Integer>> ingredientsNumberCf
+                = potionService.gatherAllIngredients(initializePotionList());
         CompletableFuture.allOf(ingredientsNumberCf.toArray(new CompletableFuture[0])).join();
         log.info("Общее количество собранных ингредиентов: {}", potionService.getIngredientsNumber().get());
         potionService.shutDownExecutorService();
