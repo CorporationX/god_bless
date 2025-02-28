@@ -14,8 +14,7 @@ public class RocketLaunch {
     private static final Logger logger = Logger.getLogger(RocketLaunch.class.getName());
     private final String name;
     private final long launchTime;
-    public static long startTime;
-    public static long endTime;
+    private static final long startTime = System.currentTimeMillis();
 
     public RocketLaunch(String name, long launchTime) {
         this.name = name;
@@ -29,13 +28,12 @@ public class RocketLaunch {
             logger.info(String.format("Rocket %s launched successfully!", name));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.severe("Launch interrupted! There people on the launch site!");
+            logger.severe("Launch interrupted! There are people on the launch site!");
         }
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        startTime = System.currentTimeMillis();
 
         launches.stream()
                 .sorted(Comparator.comparingLong(RocketLaunch::getLaunchTime))
@@ -52,7 +50,7 @@ public class RocketLaunch {
             executorService.shutdownNow();
         }
 
-        endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
         logger.info("Total time to plan and execute rocket launches: " + (endTime - startTime) + " ms");
     }
 }
