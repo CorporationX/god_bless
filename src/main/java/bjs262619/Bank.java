@@ -43,7 +43,7 @@ public class Bank {
         }
     }
 
-    public double getTotalBalance() {
+    public synchronized double getTotalBalance() {
         return accounts.values().stream().mapToDouble(Account::getBalance).sum();
     }
 }
