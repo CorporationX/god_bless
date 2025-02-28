@@ -16,7 +16,7 @@ public class PotionGathering {
                 return potion.getRequiredIngredients();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException("Поток прерван во время сбора ингридиентов ", e);
+                return 0;
             }
         });
     }
