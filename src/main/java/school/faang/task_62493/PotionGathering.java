@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
+    private static final int TIME_MILISECONDS = 1000;
+
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
@@ -19,10 +21,11 @@ public class PotionGathering {
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(TIME_MILISECONDS);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                log.error("Поток был прерван: {}", e.getMessage(), e);
+                throw new RuntimeException("Поток был прерван: " + e.getMessage(), e);
             }
             return potion.getRequiredIngredients();
         });
