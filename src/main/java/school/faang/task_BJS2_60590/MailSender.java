@@ -1,23 +1,29 @@
 package school.faang.task_BJS2_60590;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class MailSender {
-    public static void main(String[] args) {
-        final int amoutOfMessage = 1000;
-        final int amoutOfThreads = 5;
+    private static final int amountOfMessage = 1000;
+    private static final int amoutOfThreads = 5;
 
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+    public static void main(String[] args) throws InterruptedException {
+        Thread[] threads = new Thread[amoutOfThreads];
         for (int i = 0; i < amoutOfThreads; i++) {
-            int startIndex = (i * (amoutOfMessage / amoutOfThreads)) + 1;
-            int endIndex = (i + 1) * (amoutOfMessage / amoutOfThreads) + 1;
+            int startIndex = (i * (amountOfMessage / amoutOfThreads)) + 1;
+            int endIndex = (i + 1) * (amountOfMessage / amoutOfThreads) + 1;
             SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
-            executor.submit(senderRunnable);
+            Thread thread = new Thread(senderRunnable);
+            threads[i] = thread;
+            thread.start();
         }
 
-        executor.shutdown();
+        //ждем завершения всех потоков
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Thread " + thread + " was interrupted " + e.getMessage());
+            }
+        }
 
-        System.out.println("All messages are sended");
+        System.out.println("All messages are sent");
     }
 }
