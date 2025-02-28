@@ -27,7 +27,7 @@ public class Tournament {
                 Thread.currentThread().interrupt();
             }
             for (Student student : school.getTeam()) {
-                student.addPoints(task.getDifficulty());
+                student.addPoints(task.getReward());
             }
             return school;
         }, executorService).handle((result, exception) -> {

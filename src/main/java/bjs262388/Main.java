@@ -1,8 +1,11 @@
 package bjs262388;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
@@ -23,7 +26,7 @@ public class Main {
         CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
                 .thenRun(() -> {
                     if (hogwarts.getTotalPoints(hogwartsTeam) > beauxbatons.getTotalPoints(beauxbatonsTeam)) {
-                        System.out.println(hogwarts.getName() + " wins the tournament!");
+                        log.info("{} wins the tournament!", hogwarts.getName());
                     }
                 });
         tournament.shutDownExecutorService(tournament.getExecutorService());
