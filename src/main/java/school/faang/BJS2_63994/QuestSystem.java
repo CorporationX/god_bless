@@ -18,7 +18,10 @@ public class QuestSystem {
                 return player;
             }
 
-            player.setExperience(player.getExperience() + quest.getReward());
+            synchronized (player) {
+                player.setExperience(player.getExperience() + quest.getReward());
+            }
+
             log.info("{} завершил квест и получил {} опыта.", player.getName(), quest.getReward());
             return player;
         });

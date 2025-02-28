@@ -21,12 +21,12 @@ public class Main {
         CompletableFuture.allOf(ramilQuest, albertQuest).join();
 
         ramilQuest.thenAccept(player ->
-                log.info("%n%{} has completed the quest and now has %{} experience points.",
+                log.info("{} has completed the quest and now has {} experience points.",
                         player.getName(), player.getExperience())
         );
 
         albertQuest.thenAccept(player ->
-                log.info("%n%{} has completed the quest and now has %{} experience points.",
+                log.info("{} has completed the quest and now has {} experience points.",
                         player.getName(), player.getExperience())
         );
 
