@@ -14,12 +14,12 @@ public class OrderProcessor {
         return CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(2);
+                order.setStatus(OrderStatus.DONE);
+                totalProcessedOrders.incrementAndGet();
             } catch (InterruptedException e) {
                 order.setStatus(OrderStatus.FAILED);
                 Thread.currentThread().interrupt();
             }
-            order.setStatus(OrderStatus.DONE);
-            totalProcessedOrders.incrementAndGet();
         });
     }
 
