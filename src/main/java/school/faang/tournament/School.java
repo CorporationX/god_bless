@@ -16,5 +16,4 @@ public class School {
                 .mapToInt(Student::getPoints)
                 .sum();
     }
-
 }
