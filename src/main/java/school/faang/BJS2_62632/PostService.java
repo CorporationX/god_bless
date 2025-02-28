@@ -2,14 +2,12 @@ package school.faang.BJS2_62632;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.*;
 
 @Getter
 @Slf4j
 public class PostService {
     private final ConcurrentHashMap<Integer, Post> posts = new ConcurrentHashMap<>();
-
 
     // Добавление поста
     public void addPost(Post post) {

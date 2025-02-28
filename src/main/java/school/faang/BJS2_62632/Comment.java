@@ -14,4 +14,3 @@ public class Comment {
     private String author;
     private final LocalDateTime timestamp = LocalDateTime.now();
 }
-

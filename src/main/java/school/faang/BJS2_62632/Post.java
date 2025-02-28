@@ -2,10 +2,8 @@ package school.faang.BJS2_62632;
 
 import lombok.Getter;
 import lombok.ToString;
-
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 @ToString
 @Getter
