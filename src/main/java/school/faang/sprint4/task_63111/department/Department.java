@@ -17,22 +17,24 @@ public class Department implements Runnable {
 
     @Override
     public void run() {
+        String file;
+
         synchronized (inputResources) {
             log.debug("{} captured {}", this, inputResources);
-            String file = inputResources.read();
+            file = inputResources.read();
 
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-
-            synchronized (outputResources) {
-                log.debug("{} captured {}", this, outputResources);
-                outputResources.write(file);
-            }
-            log.debug("{} released the {}", this, outputResources);
         }
         log.debug("{} released the {}", this, inputResources);
+
+        synchronized (outputResources) {
+            log.debug("{} captured {}", this, outputResources);
+            outputResources.write(file);
+        }
+        log.debug("{} released the {}", this, outputResources);
     }
 }
