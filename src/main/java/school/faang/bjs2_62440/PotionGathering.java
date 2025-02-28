@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
@@ -19,14 +20,15 @@ public class PotionGathering {
 
     public static void gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> Potion.gatherIngredients(potion)))
+                .map(potion -> CompletableFuture.supplyAsync(
+                        () -> IngredientGatheringService.gatherIngredients(potion)))
                 .toList();
 
-        int totalIngredients = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> futures.stream()
-                        .map(CompletableFuture::join)
-                        .reduce(0, Integer::sum)
-                ).join();
-        log.info("Total ingredients gathered: {}", totalIngredients);
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenRun(() -> futures.forEach(f -> totalIngredients.addAndGet(f.join())))
+                .join();
+        log.info("Total ingredients gathered: {}", totalIngredients.get());
     }
 }
