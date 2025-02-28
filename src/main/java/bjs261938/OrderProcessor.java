@@ -33,13 +33,7 @@ public class OrderProcessor {
                         Thread.currentThread().interrupt();
                     }
                     return order;
-                }, executorService)
-                .handle((result, exception) -> {
-                    if (!result.getStatus().equals(Status.PROCESSED)) {
-                        throw new OrderException("Status.PROCESSED has not installed");
-                    }
-                    return result;
-                });
+                }, executorService);
     }
 
     public List<CompletableFuture<Order>> processAllOrders(List<Order> orders) {
