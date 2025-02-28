@@ -23,6 +23,7 @@ public class NotificationManager {
             try {
                 Thread.sleep(FETCH_WORK_TIME_MS);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 log.error("Ошибка в fetchNotification: {}", e.getMessage(), e);
 
                 return;
