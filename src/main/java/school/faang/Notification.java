@@ -1,11 +1,9 @@
 package school.faang;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@RequiredArgsConstructor
-@Getter
+@Value
 public class Notification {
-    private final int id;
-    private final String message;
+    int id;
+    String message;
 }
