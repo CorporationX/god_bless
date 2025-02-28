@@ -1,22 +1,14 @@
 package school.faang.task61578;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Slf4j
 public class House {
     private final Object lock = new Object();
-    private List<String> roles = new ArrayList<>() {{
-            add("Lord");
-            add("Mage");
-            add("Knight");
-        }};
+    private final List<String> roles = new ArrayList<>(List.of("Lord", "Mage", "Knight"));
 
     public String assignRole() {
         synchronized (lock) {

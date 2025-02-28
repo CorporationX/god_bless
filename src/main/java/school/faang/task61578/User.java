@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public class User {
+    private static final int ROLE_USAGE_TIME_MS = 1000;
     private String name;
     private String assignedRole;
 
@@ -19,7 +20,7 @@ public class User {
         assignedRole = house.assignRole();
         log.info("Роль найдена: {}", assignedRole);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(ROLE_USAGE_TIME_MS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
