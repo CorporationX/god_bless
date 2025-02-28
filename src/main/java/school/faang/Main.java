@@ -1,34 +1,34 @@
 package school.faang;
 
-import java.util.Random;
+import lombok.extern.slf4j.Slf4j;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
-    private static final int NUMS_OF_CASHIERS = 7;
-    private static final Random RANDOM = new Random();
+    private static final int NUMS_THREAD = 7;
+    private static final int NUMBER_OF_MESSAGES = 40;
 
-    public static void main(String[] args) throws InterruptedException {
-        String[][] customers = {
-                {"Колбаса", "Мороженое"},
-                {"Раки", "Пиво", "Кальмар"},
-                {"Йогурт", "Гранола", "Протеиновый батончик", "Курица"}
-        };
+    public static void main(String[] args) {
+        TelegramBot telegramBot = new TelegramBot();
+        ExecutorService executor = Executors.newFixedThreadPool(NUMS_THREAD);
 
-        CashierThread[] cashiers = new CashierThread[customers.length];
-
-        int i = 0;
-        for (String[] customer : customers) {
-            int cashierId = RANDOM.nextInt(NUMS_OF_CASHIERS) + 1;
-            cashiers[i++] = new CashierThread(cashierId, customer);
+        for (int i = 0; i < NUMBER_OF_MESSAGES; i++) {
+            final int a = i;
+            executor.submit(() -> telegramBot.sendMessage("message" + a));
         }
+        executor.shutdown();
 
-        for (CashierThread cashier : cashiers) {
-            cashier.start();
+        try {
+            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                log.error("Not all tasks have been completed on time.");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("awaitTermination was interrupted.");
+            executor.shutdownNow();
         }
-
-        for (CashierThread cashier : cashiers) {
-            cashier.join();
-        }
-
-        System.out.println("Все кассиры завершили работу!");
+        log.info("All messages have been sent");
     }
 }
