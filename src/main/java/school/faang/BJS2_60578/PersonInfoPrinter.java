@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class PersonInfoPrinter implements Runnable{
+public class PersonInfoPrinter implements Runnable {
     List<Person> people;
+
     @Override
     public void run() {
         for (Person person : people) {
