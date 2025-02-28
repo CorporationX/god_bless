@@ -22,7 +22,7 @@ public class Tournament {
                 .thenApply(result -> {
                     school.getTeam()
                             .forEach(stud -> stud.setPoints(stud.getPoints() + task.getReward()));
-                    school.setTotalPoints(school.getTotalPoints() + task.getReward());
+                    school.getTotalPoints();
                     return school;
                 });
     }
