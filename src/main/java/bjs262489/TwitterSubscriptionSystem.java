@@ -1,5 +1,6 @@
 package bjs262489;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,10 +13,11 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Slf4j
+@Getter
 public class TwitterSubscriptionSystem {
     private static final int AWAIT_TERMINATION_IN_MS = 2000;
     private static final int THREAD_SLEEP_IN_MS = 1000;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(4);
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private final Lock writeLock = lock.writeLock();
 
@@ -25,21 +27,21 @@ public class TwitterSubscriptionSystem {
             validateAccountName(account);
             log.info("Inside addFollower. Account: {}, followers number: {}, Thread: {}",
                     account, account.getFollowers(), Thread.currentThread().getName());
-            account.setFollowers(account.getFollowers() + 1);
-            log.info("Inside addFollower. Followers number after increment: {}", account.getFollowers());
+            account.getFollowers().incrementAndGet();
+            log.info("Inside addFollower. Followers number after increment: {}", account.getFollowers().get());
         } finally {
             writeLock.unlock();
         }
     }
 
-    public CompletableFuture<Void> followAccount(TwitterAccount account) {
-        return CompletableFuture.runAsync(() -> {
+    public void followAccount(TwitterAccount account) {
+        CompletableFuture.runAsync(() -> {
             try {
                 log.info("Inside followAccount. Account: {}, followers number: {}, Thread: {}",
-                        account, account.getFollowers(), Thread.currentThread().getName());
+                        account, account.getFollowers().get(), Thread.currentThread().getName());
                 Thread.sleep(THREAD_SLEEP_IN_MS);
                 addFollower(account);
-                log.info("Inside followAccount. Followers number after increment: {}", account.getFollowers());
+                log.info("Inside followAccount. Followers number after increment: {}", account.getFollowers().get());
             } catch (InterruptedException e) {
                 log.error("Thread {} interrupted", Thread.currentThread().getId(),
                         new TwitterException("Interrupted exception"));
