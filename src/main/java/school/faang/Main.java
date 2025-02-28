@@ -18,7 +18,6 @@ public class Main {
             final int a = i;
             executor.submit(() -> telegramBot.sendMessage("message" + a));
         }
-
         executor.shutdown();
 
         try {
