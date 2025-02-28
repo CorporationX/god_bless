@@ -11,12 +11,12 @@ public class Main {
         Player bob = new Player("Bob");
 
         Quest quest1 = new Quest("Квест №1", Difficulty.HARD, 150);
-        Quest quest3 = new Quest("Квест №2", Difficulty.EASY, 50);
+        Quest quest2 = new Quest("Квест №2", Difficulty.EASY, 50);
 
         QuestSystem qs = new QuestSystem();
 
         CompletableFuture<Player> resultAlexQuest1 = qs.startQuest(alex, quest1);
-        CompletableFuture<Player> resultBobQuest2 = qs.startQuest(bob, quest3);
+        CompletableFuture<Player> resultBobQuest2 = qs.startQuest(bob, quest2);
 
         List<CompletableFuture<Player>> futureList = new ArrayList<>();
         futureList.add(resultAlexQuest1);

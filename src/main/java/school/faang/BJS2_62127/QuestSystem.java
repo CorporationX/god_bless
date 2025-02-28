@@ -16,14 +16,17 @@ public class QuestSystem {
         return CompletableFuture
                 .supplyAsync(() -> {
                     try {
+                        log.info("Начинаем выполнение квеста для игрока: {}", player.getName());
                         Thread.sleep(sleepTime(quest));
                     } catch (InterruptedException e) {
+                        log.error("Ошибка: Прерывание потока при выполнении квеста для игрока: {}",
+                                player.getName(), e);
                         Thread.currentThread().interrupt();
                         throw new RuntimeException(e);
                     }
                     return player;
                 })
-                .thenApply(p -> newLevel(p, quest));
+                .thenApply(p -> updatePlayerExperienceAndLevel(p, quest));
     }
 
     public long sleepTime(Quest quest) {
@@ -34,14 +37,17 @@ public class QuestSystem {
         };
     }
 
-    public Player newLevel(Player player, Quest quest) {
+    public synchronized Player updatePlayerExperienceAndLevel(Player player, Quest quest) {
         int currentExperience = player.getExperience() + quest.getReward();
         if (currentExperience >= NEXT_LEVEL) {
             int newExperience = currentExperience - NEXT_LEVEL;
             player.setLevel(player.getLevel() + 1);
             player.setExperience(newExperience);
+            log.info("Игрок {} повысил уровень до {} с новым опытом {}",
+                    player.getName(), player.getLevel(), newExperience);
         } else {
             player.setExperience(currentExperience);
+            log.info("Игрок {} обновил опыт, текущий опыт: {}", player.getName(), currentExperience);
         }
         return player;
     }
