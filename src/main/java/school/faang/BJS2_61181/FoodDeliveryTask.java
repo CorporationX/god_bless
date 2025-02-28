@@ -32,6 +32,7 @@ public class FoodDeliveryTask implements Runnable {
             Thread.sleep(random.nextInt(MIN_DELIVERY_TIME, MAX_DELIVERY_TIME));
         } catch (InterruptedException e) {
             log.error(e.getMessage());
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         log.info(END_TASK_MESSAGE, character, foodAmount, food);

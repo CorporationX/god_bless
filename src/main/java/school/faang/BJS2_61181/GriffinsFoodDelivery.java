@@ -15,11 +15,13 @@ public class GriffinsFoodDelivery {
     private static final String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
     private static final int MAX_AMOUNT_OF_FOOD = 10;
     private static final int AMOUNT_OF_THREAD = 3;
+    private static final Random random = new Random();
+    private static final int TOTAL_DELIVERIES = 20;
 
     public static void main(String[] args) {
-        Random random = new Random();
+
         ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_OF_THREAD);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < TOTAL_DELIVERIES; i++) {
             String character = characterNames[random.nextInt(characterNames.length)];
             int foodAmount = random.nextInt(MAX_AMOUNT_OF_FOOD);
             executorService.submit(new FoodDeliveryTask(character, foodAmount));
