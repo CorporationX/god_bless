@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TwitterAccount {
-    public String name;
-    public int followers;
+    private String name;
+    private int followers;
 }
