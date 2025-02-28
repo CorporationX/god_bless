@@ -11,5 +11,15 @@ public class Music {
         for (Thread thread : threads) {
             thread.start();
         }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println(thread.getName() + " поток был прерван! " + e);
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
     }
 }

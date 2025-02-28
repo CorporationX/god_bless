@@ -2,13 +2,13 @@ package school.faang.task_63764;
 
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlayed = false;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
-            if (!isPlayed) {
-                isPlayed = true;
-                System.out.println("Начинает играеть музыка");
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Начинает играть музыка");
             } else {
                 System.out.println("Музыка уже играет");
             }
@@ -17,8 +17,8 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            if (isPlayed) {
-                isPlayed = false;
+            if (isPlaying) {
+                isPlaying = false;
                 System.out.println("Музыка поставлена на паузу");
             } else {
                 System.out.println("Музыка уже стоит на паузе");
