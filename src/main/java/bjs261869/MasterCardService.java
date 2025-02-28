@@ -12,7 +12,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class MasterCardService {
     private static final int COLLECT_PAYMENT_THREAD_SLEEP_IN_MS = 10000;
+    private static final int STANDARD_PAYMENT_AMOUNT = 5000;
+    private static final int ANALYTICS_RESULT_CODE = 17000;
     private static final int COLLECT_ANALYTICS_THREAD_SLEEP_IN_MS = 1000;
+
     private static final int AWAIT_TERMINATION_IN_MS = 1000;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -24,7 +27,7 @@ public class MasterCardService {
                     new StripeException("Interrupted exception"));
             Thread.currentThread().interrupt();
         }
-        return 5000;
+        return STANDARD_PAYMENT_AMOUNT;
     }
 
     public static int sendAnalytics() {
@@ -35,7 +38,7 @@ public class MasterCardService {
                     new StripeException("Interrupted exception"));
             Thread.currentThread().interrupt();
         }
-        return 17000;
+        return ANALYTICS_RESULT_CODE;
     }
 
     public void doAll() {
