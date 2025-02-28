@@ -2,13 +2,13 @@ package school.faang.task_BJS2_60590;
 
 public class MailSender {
     private static final int amountOfMessage = 1000;
-    private static final int amoutOfThreads = 5;
+    private static final int amountOfThreads = 5;
 
     public static void main(String[] args) throws InterruptedException {
-        Thread[] threads = new Thread[amoutOfThreads];
-        for (int i = 0; i < amoutOfThreads; i++) {
-            int startIndex = (i * (amountOfMessage / amoutOfThreads)) + 1;
-            int endIndex = (i + 1) * (amountOfMessage / amoutOfThreads) + 1;
+        Thread[] threads = new Thread[amountOfThreads];
+        for (int i = 0; i < amountOfThreads; i++) {
+            int startIndex = (i * (amountOfMessage / amountOfThreads)) + 1;
+            int endIndex = (i + 1) * (amountOfMessage / amountOfThreads) + 1;
             SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
             Thread thread = new Thread(senderRunnable);
             threads[i] = thread;
