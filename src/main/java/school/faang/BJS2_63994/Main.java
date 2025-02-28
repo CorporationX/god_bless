@@ -1,7 +1,10 @@
 package school.faang.BJS2_63994;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         QuestSystem quest = new QuestSystem();
@@ -18,12 +21,12 @@ public class Main {
         CompletableFuture.allOf(ramilQuest, albertQuest).join();
 
         ramilQuest.thenAccept(player ->
-                System.out.printf("%n%s has completed the quest and now has %s experience points.",
+                log.info("%n%{} has completed the quest and now has %{} experience points.",
                         player.getName(), player.getExperience())
         );
 
         albertQuest.thenAccept(player ->
-                System.out.printf("%n%s has completed the quest and now has %s experience points.",
+                log.info("%n%{} has completed the quest and now has %{} experience points.",
                         player.getName(), player.getExperience())
         );
 
