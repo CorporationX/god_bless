@@ -13,5 +13,15 @@ public class Music {
         for (Thread thread : threads) {
             thread.start();
         }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка ожидания завершения потоков: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
