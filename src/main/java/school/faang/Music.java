@@ -1,8 +1,15 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Slf4j
 public class Music {
+
     public static void main(String[] args) {
         Player player = new Player();
+        final Logger log = LoggerFactory.getLogger(Music.class);
 
         Thread userFirst;
         userFirst = new Thread(() -> {
@@ -14,8 +21,8 @@ public class Music {
             player.skip();
         });
 
-        Thread userThirth;
-        userThirth = new Thread(() -> {
+        Thread userThird;
+        userThird = new Thread(() -> {
             player.pause();
         });
 
@@ -26,17 +33,17 @@ public class Music {
 
         userFirst.start();
         userSecond.start();
-        userThirth.start();
+        userThird.start();
         userFour.start();
 
         try {
             userFirst.join();
             userSecond.join();
-            userThirth.join();
+            userThird.join();
             userFour.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
-
+            Thread.currentThread().interrupt();
+            log.error("Произошла ошибка в потоках. Текущая операция: {}", Thread.currentThread().getName(), e);
         }
     }
 }

@@ -1,5 +1,8 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying = false;
@@ -28,7 +31,7 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("Track skiped");
+            System.out.println("Track skipped");
         }
     }
 
