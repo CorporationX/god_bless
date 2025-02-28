@@ -32,14 +32,16 @@ public class Game {
 
         if (gainedScore) {
             synchronized (scoreLock) {
-                score++;
-                logger.info(SCORES_INCREASED, score);
+                if (!gameOver) {
+                    score++;
+                    logger.info(SCORES_INCREASED, score);
+                }
             }
         }
 
         if (lostLife) {
             synchronized (livesLock) {
-                if (lives > 0) {
+                if (!gameOver && lives > 0) {
                     lives--;
                     logger.info(LIVES_REMAINING, lives);
                     if (lives == 0) {
@@ -51,10 +53,12 @@ public class Game {
     }
 
     private void gameOver() {
-        synchronized (livesLock) {
-            if (!gameOver) {
-                gameOver = true;
-                logger.warn(GAME_OVER);
+        synchronized (scoreLock) {
+            synchronized (livesLock) {
+                if (!gameOver) {
+                    gameOver = true;
+                    logger.warn(GAME_OVER);
+                }
             }
         }
     }
