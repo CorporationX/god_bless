@@ -1,13 +1,16 @@
 package school.faang.alchemy;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
+    AtomicInteger totalIngredients = new AtomicInteger(0);
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
