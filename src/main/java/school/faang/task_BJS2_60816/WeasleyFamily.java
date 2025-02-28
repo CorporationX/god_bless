@@ -13,7 +13,6 @@ public class WeasleyFamily {
     );
 
     public static void main(String[] args) {
-
         ExecutorService executorService = Executors.newCachedThreadPool();
         for (String choreTitle : choresList) {
             Chore chore = new Chore(choreTitle);
