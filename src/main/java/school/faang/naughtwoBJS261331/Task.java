@@ -1,22 +1,25 @@
 package school.faang.naughtwoBJS261331;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+@Slf4j
 public class Task implements Runnable {
     private String performerName;
     private String task;
 
+    private static final int SLEEP_TIME_MILLIS = 1000;
+
     @Override
     public void run() {
         try {
-            System.out.printf("%s started the task '%s'%n", performerName, task);
-            Thread.sleep(1000);
-            System.out.printf("%s completed the '%s'%n", performerName, task);
+            log.info("{} started the task {}", performerName, task);
+            Thread.sleep(SLEEP_TIME_MILLIS);
+            log.info("{} completed the {}", performerName, task);
         } catch (InterruptedException e) {
-            System.out.printf("Task '%s' execution interrupted, performer - %s%n", task, performerName);
+            log.debug("Task {} execution interrupted, performer - {}", task, performerName);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         }
     }
 }
