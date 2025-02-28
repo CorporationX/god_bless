@@ -13,10 +13,11 @@ public class PotionGathering {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(potion.getRequiredIngredients());
+                return potion.getRequiredIngredients();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                throw new RuntimeException("Поток прерван во время сбора ингридиентов ", e);
             }
-            return potion.getRequiredIngredients();
         });
     }
 
