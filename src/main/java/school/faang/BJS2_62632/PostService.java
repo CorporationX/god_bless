@@ -1,13 +1,15 @@
 package school.faang.BJS2_62632;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
+@Getter
 @Slf4j
 public class PostService {
     private final ConcurrentHashMap<Integer, Post> posts = new ConcurrentHashMap<>();
+
 
     // Добавление поста
     public void addPost(Post post) {
@@ -26,9 +28,7 @@ public class PostService {
 
     // Просмотр всех постов
     public void viewPosts() {
-        for (Post post : posts.values()) {
-            System.out.println(posts);
-        }
+        posts.values().forEach(System.out::println);
     }
 
     // Удаление поста (только автором)
