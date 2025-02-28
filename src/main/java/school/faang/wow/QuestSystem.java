@@ -6,8 +6,11 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class QuestSystem {
+    private final int questTime = 1000;
 
     public static void main(String[] args) {
+
+
         QuestSystem questSystem = new QuestSystem();
 
         Player firstPayer = new Player("Boby", 1, 0);
@@ -27,13 +30,16 @@ public class QuestSystem {
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(1000);
-                player.setExperience(player.getExperience() + quest.getReward());
-                log.info("Квест: " + quest.getName() +
-                        " успешно завершен. Игрок " + player.getName()
-                        + " получает " + quest.getReward() + " опыта. Опыт игрока: " + player.getExperience());
+                Thread.sleep(questTime);
+                synchronized (player) {
+                    player.setExperience(player.getExperience() + quest.getReward());
+                }
+                log.info(String.format("Квест: %s успешно завершен. Игрок %s получает %d опыта. Опыт игрока: %d.",
+                        quest.getName(), player.getName(), quest.getReward(), player.getExperience()));
             } catch (InterruptedException e) {
-                log.error("Ошибка при выполенении квеста ", e);
+                log.error(String.format(
+                        "Ошибка при выполенении квеста %s у игрока %s ", quest.getName(), player.getName(), e));
+                Thread.currentThread().interrupt();
             }
             return player;
         });
