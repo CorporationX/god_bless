@@ -20,9 +20,10 @@ public class OrderProcessor {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error("Order processing interrupted. Order ID: {}. Reason: {}", order.getId(), e.getMessage(), e);
+                return;
             }
             order.setStatus(STATUS_NAME);
-            log.info("Order id: {}, status: {}, ", order.getId(), order.getStatus());
+            log.info("Order id: {}, status: {}", order.getId(), order.getStatus());
             totalProcessedOrders.incrementAndGet();
         });
     }
