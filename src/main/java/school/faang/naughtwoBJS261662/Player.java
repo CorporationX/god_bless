@@ -6,16 +6,17 @@ import lombok.Getter;
 @Getter
 public class Player {
     private final String name;
+    private static final int SLEEP_TIME = 3000;
 
     public Player(String name) {
         checkName(name);
         this.name = name;
     }
 
-    public synchronized void doBattle(Boss boss) {
+    public void doBattle(Boss boss) {
         try {
             boss.joinBattle(this);
-            Thread.sleep(3000);
+            Thread.sleep(SLEEP_TIME);
             boss.leaveBattle(this);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
