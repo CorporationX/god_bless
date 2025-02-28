@@ -20,7 +20,7 @@ public class SenderRunnable implements Runnable {
         String threadName = Thread.currentThread().getName();
         logger.info(threadName + " started sending emails!");
         for (int i = startIndex; i < endIndex; i++) {
-            logger.info(threadName + ": The e-mail № " + (i + 1) + " has been sent.");
+            logger.fine(threadName + ": The e-mail № " + (i + 1) + " has been sent.");
         }
         logger.info(threadName + " finished sending emails!");
     }
