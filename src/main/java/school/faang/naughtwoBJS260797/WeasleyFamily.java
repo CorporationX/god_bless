@@ -35,7 +35,6 @@ public class WeasleyFamily {
                 new Chore("walk the dog"),
                 new Chore("start an expense record"),
                 new Chore("make breakfast"),
-                new Chore("do homework"),
                 new Chore("put things back"),
                 new Chore("check mail")};
     }
