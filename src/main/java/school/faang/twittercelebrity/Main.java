@@ -14,13 +14,13 @@ public class Main {
         TwitterAccount alex = new TwitterAccount("Alex");
         TwitterAccount elon = new TwitterAccount("Elon");
 
-        List<CompletableFuture<TwitterAccount>> features = new ArrayList<>();
-        features.add(twitterSubscriptionSystem.followAccount(alex));
-        features.add(twitterSubscriptionSystem.followAccount(alex));
-        features.add(twitterSubscriptionSystem.followAccount(alex));
-        features.add(twitterSubscriptionSystem.followAccount(elon));
-        features.add(twitterSubscriptionSystem.followAccount(elon));
-
+        List<CompletableFuture<TwitterAccount>> features = List.of(
+                twitterSubscriptionSystem.followAccount(alex),
+                twitterSubscriptionSystem.followAccount(alex),
+                twitterSubscriptionSystem.followAccount(alex),
+                twitterSubscriptionSystem.followAccount(elon),
+                twitterSubscriptionSystem.followAccount(elon)
+        );
 
         CompletableFuture.allOf(features.toArray(new CompletableFuture[0])).join();
         getFollowersCountInfo(alex);
