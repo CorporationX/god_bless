@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Data
 public class Army {
@@ -16,13 +17,12 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        List<Integer> results = new ArrayList<>();
+        List<Integer> results = new CopyOnWriteArrayList<>();
         List<Thread> threads = new ArrayList<>();
         for (Squad squad : squads) {
             Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
             thread.start();
             threads.add(thread);
-            Thread.sleep(100);
         }
 
         for (Thread thread : threads) {
