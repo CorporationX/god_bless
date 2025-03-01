@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class PotionGathering {
-    private static final int SLEEP_TIME = 1000;
+    private static final int SLEEP_TIME_MS = 1000;
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -36,12 +36,12 @@ public class PotionGathering {
     private static int gatherIngredient(Potion potion) {
         try {
             log.info("Сбор ингредиентов для зелья {}", potion.name());
-            Thread.sleep((long) SLEEP_TIME * potion.requiredIngredients());
+            Thread.sleep((long) SLEEP_TIME_MS * potion.requiredIngredients());
             log.info("Для зелья {} собраны все ингредиенты - {}", potion.name(), potion.requiredIngredients());
             return potion.requiredIngredients();
         } catch (InterruptedException e) {
             log.error("Поток прерван {}", e.getMessage(), e);
-            throw new RuntimeException();
+            throw new RuntimeException("Ошибка при сборе ингредиентов для зелья " + potion.requiredIngredients(), e);
         }
     }
 }
