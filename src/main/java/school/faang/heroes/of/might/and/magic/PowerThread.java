@@ -13,6 +13,12 @@ public class PowerThread extends Thread {
 
     @Override
     public void run() {
-        power = squad.calculateSquadPower();
+        try {
+            Thread.sleep(100);
+            power = squad.calculateSquadPower();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("PowerThread был прерван: " + e.getMessage());
+        }
     }
 }
