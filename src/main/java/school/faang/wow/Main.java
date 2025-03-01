@@ -27,6 +27,6 @@ public class Main {
 
     private static void showUpdatedExperience(CompletableFuture<Player> completableFuture) {
         completableFuture.thenAccept(player ->
-                log.info("Опыт инпрка {} теперь == {}", player.getName(), player.getExperience()));
+                log.info("Опыт игрока {} теперь == {}", player.getName(), player.getExperience()));
     }
 }
