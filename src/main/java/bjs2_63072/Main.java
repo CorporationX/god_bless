@@ -82,7 +82,10 @@ public class Main {
         deliveryService.showProcessedOrders();
     }
 
-    private static void createAndProcessOrder(ExecutorService executor, DeliveryService deliveryService, List<Product> products) {
+    private static void createAndProcessOrder(
+            ExecutorService executor,
+            DeliveryService deliveryService,
+            List<Product> products) {
         executor.execute(() -> {
             var order = new Order(products);
             deliveryService.processOrder(order, USER_PROMO_CODES);
