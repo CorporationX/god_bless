@@ -1,6 +1,13 @@
 package school.faang.spotify.blocking;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
+    private static final Logger logger = LoggerFactory.getLogger(Player.class);
     private final Object lock = new Object();
     private boolean isPlaying = false;
 
@@ -8,9 +15,9 @@ public class Player {
         synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
-                System.out.println("Музыка воспроизводится.");
+                logger.info("Музыка воспроизводится.");
             } else {
-                System.out.println("Музыка уже играет.");
+                logger.warn("Музыка уже играет.");
             }
         }
     }
@@ -19,38 +26,45 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                System.out.println("Музыка поставлена на паузу.");
+                logger.info("Музыка поставлена на паузу.");
             } else {
-                System.out.println("Музыка уже на паузе.");
+                logger.warn("Музыка уже на паузе.");
             }
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            System.out.println("Трек пропущен.");
+            logger.info("Трек пропущен.");
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            System.out.println("Вернуть к предыдущему треку.");
+            logger.info("Вернуть к предыдущему треку.");
         }
     }
 
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread playThread = new Thread(player::play);
-        playThread.start();
+        List<Thread> threads = new ArrayList<>();
+        threads.add(new Thread(player::play));
+        threads.add(new Thread(player::pause));
+        threads.add(new Thread(player::skip));
+        threads.add(new Thread(player::previous));
 
-        Thread pauseThread = new Thread(player::pause);
-        pauseThread.start();
+        for (Thread thread : threads) {
+            thread.start();
+        }
 
-        Thread skipThread = new Thread(player::skip);
-        skipThread.start();
-
-        Thread previousThread = new Thread(player::previous);
-        previousThread.start();
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                logger.error("Ошибка при ожидании завершения потока: {}", thread.getName(), e);
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
