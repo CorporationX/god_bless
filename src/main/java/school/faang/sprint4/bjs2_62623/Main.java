@@ -1,5 +1,7 @@
 package school.faang.sprint4.bjs2_62623;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +10,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Slf4j
 public class Main {
+    private static final int TIME_TO_AWAIT_TERMINATION_SEC = 20;
+
     public static void main(String[] args) {
         PostService postService = new PostService();
         AtomicInteger postIdCounter = new AtomicInteger(0);
@@ -45,12 +50,14 @@ public class Main {
         }
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIME_TO_AWAIT_TERMINATION_SEC, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
+                log.error("Потоки не были завершены после ожидания");
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
+            log.error("Поток {} был прерван", Thread.currentThread().getId());
         }
 
         System.out.println("\nОставшиеся посты:");
