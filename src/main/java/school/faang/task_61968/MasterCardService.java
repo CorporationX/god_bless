@@ -16,12 +16,12 @@ public class MasterCardService {
     private static final int PAYMENT_VALUE = 5_000;
     private static final int ANALYTICS_VALUE = 17_000;
     private static final int WAIT_TIME = 1;
-    private static final String COLLECT_PAYMENT = "\"Получение платежа\"";
-    private static final String SEND_ANALYTICS = "\"Отправка аналитики\"";
-    private static final String PROCESS_START_MESSAGE = "Процесс {} запущен";
-    private static final String INTERRUPT_SLEEP_MESSAGE = "Ожидание потока \"{}\" прервано";
-    private static final String ANALYTICS_RESULT_MESSAGE = "Аналитика отправлена: {}";
-    private static final String PAYMENT_RESULT_MESSAGE = "Платеж выполнен: {}";
+    private static final String COLLECT_PAYMENT = MasterCardMessage.COLLECT_PAYMENT.getMessage();
+    private static final String SEND_ANALYTICS = MasterCardMessage.SEND_ANALYTICS.getMessage();
+    private static final String PROCESS_START_MESSAGE = MasterCardMessage.PROCESS_START_MESSAGE.getMessage();
+    private static final String INTERRUPT_SLEEP_MESSAGE = MasterCardMessage.INTERRUPT_SLEEP_MESSAGE.getMessage();
+    private static final String ANALYTICS_RESULT_MESSAGE = MasterCardMessage.ANALYTICS_RESULT_MESSAGE.getMessage();
+    private static final String PAYMENT_RESULT_MESSAGE = MasterCardMessage.PAYMENT_RESULT_MESSAGE.getMessage();
 
     public static int collectPayment() {
         return processSimulation(COLLECT_PAYMENT, TEN_SECONDS_IN_MS, PAYMENT_VALUE);
