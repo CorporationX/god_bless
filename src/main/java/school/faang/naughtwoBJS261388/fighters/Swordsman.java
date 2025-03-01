@@ -1,8 +1,6 @@
 package school.faang.naughtwoBJS261388.fighters;
 
-
 import lombok.NonNull;
-
 
 public class Swordsman extends Fighter {
 
