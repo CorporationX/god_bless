@@ -12,9 +12,15 @@ public class House {
         this.roles = roles;
     }
 
-    public synchronized void assignRole(User user) throws InterruptedException {
+    public synchronized void assignRole(User user) {
         while (roles.isEmpty()) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                log.debug("Поток был прерван во время ожидания", e);
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
         }
         int countRole = (int) (Math.random() * roles.size());
         String role = roles.get(countRole);

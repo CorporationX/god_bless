@@ -26,14 +26,16 @@ public class Main {
 
         for (User user : users) {
             executorService.execute(() -> {
+                user.joinHouse(house);
                 try {
-                    user.joinHouse(house);
                     Thread.sleep(2000);
-                    user.leaveHouse(house);
                 } catch (InterruptedException e) {
-                    log.debug("Поток был прерван во время ожидания", e);
+                    log.debug("Поток был прерван", e);
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
+
+                user.leaveHouse(house);
             });
         }
         executorService.shutdown();

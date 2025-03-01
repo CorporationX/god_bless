@@ -11,7 +11,7 @@ public class User {
     @Setter
     private String assignedRole;
 
-    public void joinHouse(House house) throws InterruptedException {
+    public void joinHouse(House house) {
         house.assignRole(this);
     }
 
