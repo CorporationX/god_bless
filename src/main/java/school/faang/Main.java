@@ -2,6 +2,7 @@ package school.faang;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,16 +19,17 @@ public class Main {
 
     public static void main(String[] args) {
         Bank bank = new Bank();
-        bank.addAccount(new Account(0, 10000.90));
-        bank.addAccount(new Account(1, 70000.9352));
-        bank.addAccount(new Account(2, 15300.231));
-        bank.addAccount(new Account(3, 20000));
-        bank.addAccount(new Account(4, 130000.51));
+        bank.addAccount(new Account(0, BigDecimal.valueOf(10000.90)));
+        bank.addAccount(new Account(1, BigDecimal.valueOf(70000.9352)));
+        bank.addAccount(new Account(2, BigDecimal.valueOf(15300.231)));
+        bank.addAccount(new Account(3, BigDecimal.valueOf(20000)));
+        bank.addAccount(new Account(4, BigDecimal.valueOf(130000.51)));
 
         for (int i = 0; i < 100; ++i) {
             double amount = MIN_TRANSACTION_AMOUNT +
                     Math.random() * (MAX_TRANSACTION_AMOUNT - MIN_TRANSACTION_AMOUNT);
-            executor.submit(() -> bank.transfer(random.nextInt(5), random.nextInt(5), amount));
+            executor.submit(() -> bank.transfer(random.nextInt(5), random.nextInt(5),
+                    BigDecimal.valueOf(amount)));
         }
         executor.shutdown();
         try {

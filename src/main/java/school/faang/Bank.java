@@ -2,6 +2,7 @@ package school.faang;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,13 +16,13 @@ public class Bank {
         accounts.put(account.getId(), account);
     }
 
-    public synchronized double getTotalBalance() {
+    public synchronized BigDecimal getTotalBalance() {
         return accounts.values().stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
+                .map(Account::getBalance)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public boolean transfer(int fromAccountId, int toAccountId, double amount) {
+    public boolean transfer(int fromAccountId, int toAccountId, BigDecimal amount) {
         try {
             Thread.sleep(random.nextInt(3));
         } catch (InterruptedException e) {
@@ -32,9 +33,12 @@ public class Bank {
         if (fromAccount == null) {
             log.error("No account with id: {}", fromAccountId);
             return false;
-        } else  if (toAccount == null) {
+        } else if (toAccount == null) {
             log.error("No account with id: {}", toAccountId);
             return false;
+        } else if (fromAccount.equals(toAccount)) {
+            log.warn("Transaction between the same accounts.");
+            return true;
         }
 
         Account firstLock = fromAccountId < toAccountId ? fromAccount : toAccount;
@@ -42,7 +46,7 @@ public class Bank {
         firstLock.getLock().lock();
         secondLock.getLock().lock();
         try {
-            if (fromAccount.getBalance() < amount) {
+            if (fromAccount.getBalance().compareTo(amount) < 0) {
                 log.error("Couldn't perform a transaction. Insufficient funds.");
                 return false;
             }
