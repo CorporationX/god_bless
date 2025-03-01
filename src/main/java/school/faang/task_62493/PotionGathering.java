@@ -1,6 +1,7 @@
 package school.faang.task_62493;
 
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,14 +28,14 @@ public class PotionGathering {
                 log.error("Поток был прерван: {}", e.getMessage(), e);
                 throw new RuntimeException("Поток был прерван: " + e.getMessage(), e);
             }
-            return potion.getRequiredIngredients();
+            return potion.requiredIngredients();
         });
     }
 
     public static void gatherAllIngredients(List<Potion> potions) {
         AtomicInteger atomicInteger = new AtomicInteger(0);
         List<CompletableFuture<Void>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> potion.getRequiredIngredients())
+                .map(potion -> CompletableFuture.supplyAsync(() -> potion.requiredIngredients())
                         .thenAccept(x -> atomicInteger.addAndGet(x)))
                 .toList();
 
