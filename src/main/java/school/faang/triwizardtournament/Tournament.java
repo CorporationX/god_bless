@@ -19,7 +19,7 @@ public class Tournament {
                 return school;
             } catch (InterruptedException e) {
                 log.error("Поток прерван {}", e.getMessage(), e);
-                throw new RuntimeException();
+                throw new RuntimeException("Ошибка при обработке задачи - " + task.name(), e);
             }
         });
     }

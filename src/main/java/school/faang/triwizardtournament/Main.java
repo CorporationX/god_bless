@@ -20,11 +20,11 @@ public class Main {
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
         List<CompletableFuture<School>> features = new ArrayList<>();
 
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task firstTask = new Task("Triwizard Tournament", 10, 100);
+        Task secondTask = new Task("Yule Ball Preparations", 5, 50);
 
-        features.add(tournament.startTask(hogwarts, task1));
-        features.add(tournament.startTask(beauxbatons, task2));
+        features.add(tournament.startTask(hogwarts, firstTask));
+        features.add(tournament.startTask(beauxbatons, secondTask));
         CompletableFuture.allOf(features.toArray(new CompletableFuture[0])).join();
 
         calculateResults(features).ifPresent(school -> {
