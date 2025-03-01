@@ -5,7 +5,7 @@ import lombok.Getter;
 public class PowerCalculatorThread extends Thread {
     private final Squad squad;
     @Getter
-    private int result;
+    private volatile int result;
 
     public PowerCalculatorThread(Squad squad) {
         this.squad = squad;

@@ -26,7 +26,8 @@ public class Army {
                         thread.join();
                         return thread.getResult();
                     } catch (InterruptedException e) {
-                        System.out.println("Поток был прерван: " + e.getMessage());
+                        Thread.currentThread().interrupt();
+                        System.err.println("Thread was interrupted: " + e.getMessage());
                         return 0;
                     }
                 })

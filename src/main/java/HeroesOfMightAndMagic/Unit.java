@@ -3,7 +3,7 @@ package HeroesOfMightAndMagic;
 import lombok.Getter;
 
 @Getter
-public class Unit {
+public abstract class Unit {
     protected int power;
 
     public Unit(int power) {
