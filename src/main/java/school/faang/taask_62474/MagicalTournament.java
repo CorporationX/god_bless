@@ -32,8 +32,7 @@ public class MagicalTournament {
                         School beauxbatonsResult = beauxbatonsTask.join();
 
                         System.out.printf("%s wins the tournament!%n",
-                                hogwartsResult.getTotalPoints() >
-                                        beauxbatonsResult.getTotalPoints()
+                                hogwartsResult.getTotalPoints() > beauxbatonsResult.getTotalPoints()
                                         ? hogwartsResult.getName() : beauxbatonsResult.getName());
                     } catch (Exception e) {
                         System.err.println("Error occurred during the tournament: " + e);
