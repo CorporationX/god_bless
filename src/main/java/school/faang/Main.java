@@ -14,6 +14,7 @@ public class Main {
         managementSystem.addVehicle(vehicle2);
         VehicleTracker tracker1 = new VehicleTracker(managementSystem);
         VehicleTracker tracker2 = new VehicleTracker(managementSystem);
+
         tracker1.startTracking(1);
         tracker2.startTracking(2);
         try {

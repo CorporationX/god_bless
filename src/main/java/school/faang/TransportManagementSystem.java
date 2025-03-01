@@ -29,8 +29,4 @@ public class TransportManagementSystem {
         log.info("Location for vehicle with id {} updated. New location: {}",
                 id, newLocation.getCoordinates());
     }
-
-    public Status getVehicleInfo(int id) {
-        return vehicles.get(id).getStatus();
-    }
 }

@@ -16,8 +16,6 @@ public record Location(double latitude, double longitude) {
     }
 
     public String getCoordinates() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Latitude: ").append(latitude).append(", Longitude: ").append(longitude);
-        return sb.toString();
+        return "Latitude: " + latitude + ", Longitude: " + longitude;
     }
 }
