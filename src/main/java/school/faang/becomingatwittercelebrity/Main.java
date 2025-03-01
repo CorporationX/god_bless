@@ -18,7 +18,7 @@ public class Main {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
         for (int i = 0; i < NUMBER_OF_SUBSCRIPTIONS; i++) {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> system.followAccount(account));
+            CompletableFuture<Void> future = system.followAccount(account);
             futures.add(future);
         }
 

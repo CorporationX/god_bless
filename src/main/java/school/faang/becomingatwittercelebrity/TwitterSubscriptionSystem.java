@@ -15,7 +15,7 @@ public class TwitterSubscriptionSystem {
         }
     }
 
-    public void followAccount(TwitterAccount account) {
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> addFollower(account));
+    public CompletableFuture<Void> followAccount(TwitterAccount account) {
+        return CompletableFuture.runAsync(() -> addFollower(account));
     }
 }
