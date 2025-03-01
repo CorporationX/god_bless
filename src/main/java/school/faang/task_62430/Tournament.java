@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class Tournament {
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("School {} recieved a task: {}, difficulty: {}, reward: {}", school.getName(), task.getName(),
+            log.info("School {} received a task: {}, difficulty: {}, reward: {}", school.getName(), task.getName(),
                     task.getDifficulty(), task.getReward());
             try {
                 Thread.sleep(task.getDifficulty() * 1000L);
