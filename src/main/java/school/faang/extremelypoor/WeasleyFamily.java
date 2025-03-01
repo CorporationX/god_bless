@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
+    private static final int AWAIT_MIN = 1;
     private static final String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
 
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(AWAIT_MIN, TimeUnit.MINUTES)) {
                 log.info("Время ожидания по закрытию выполнения потоков превышено");
                 executor.shutdownNow();
             }
