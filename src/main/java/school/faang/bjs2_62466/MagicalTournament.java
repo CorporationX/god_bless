@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 public class MagicalTournament {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
+        String printInfoWinner = "Школа %s - победила в турнире";
 
         // Создание школ
         List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
@@ -21,7 +22,20 @@ public class MagicalTournament {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
+        hogwartsTask.join();
+        beauxbatonsTask.join();
+
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
-        // Обработка результатов всех заданий и определение победителя
+        allTasks.thenRun(() -> {
+            if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
+                System.out.printf(printInfoWinner, hogwarts.getName());
+            } else if (hogwarts.getTotalPoints() < beauxbatons.getTotalPoints()) {
+                System.out.printf(printInfoWinner, beauxbatons.getName());
+            } else {
+                System.out.printf("Школы: %s и %s имеют одинаковое количество очков!",
+                        hogwarts.getName(), beauxbatons.getName()
+                );
+            }
+        });
     }
 }

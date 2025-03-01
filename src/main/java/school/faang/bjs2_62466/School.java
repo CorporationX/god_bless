@@ -11,11 +11,12 @@ import java.util.List;
 public class School {
 
     private String name;
-    private List<Student> students = new ArrayList<Student>();
+    private List<Student> students = new ArrayList<>();
 
-    public int getTotalPoints(List<Student> studentsList) {
-        return studentsList.stream()
+    public int getTotalPoints() {
+        return students.stream()
                 .mapToInt(Student::getPoints)
                 .sum();
     }
+
 }
