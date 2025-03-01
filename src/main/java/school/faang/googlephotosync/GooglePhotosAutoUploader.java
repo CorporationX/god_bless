@@ -29,6 +29,9 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         synchronized (lock) {
+            for (String photo : photosToUpload) {
+                logger.info(photo + " uploaded");
+            }
             photosToUpload.clear();
             logger.info("All photos uploaded");
         }
