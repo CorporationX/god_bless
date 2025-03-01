@@ -12,5 +12,14 @@ public class Music {
         userThree.start();
         Thread userFour = new Thread(player::previous);
         userFour.start();
+
+        try {
+            userOne.join();
+            userTwo.join();
+            userThree.join();
+            userFour.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
