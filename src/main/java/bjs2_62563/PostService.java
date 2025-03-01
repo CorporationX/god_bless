@@ -1,5 +1,6 @@
 package bjs2_62563;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class PostService {
     private final List<Post> posts = new ArrayList<>();
     private final Lock locker = new ReentrantLock();
 
-    public void addPost(Post post) {
+    public void addPost(@NonNull Post post) {
         locker.lock();
 
         try {
@@ -23,13 +24,15 @@ public class PostService {
         }
     }
 
-    public boolean addComment(int postId, Comment comment) {
+    public boolean addComment(int postId, @NonNull Comment comment) {
         locker.lock();
 
         try {
             var post = posts.stream().filter(x -> x.getId() == postId).findFirst();
 
             if (post.isEmpty()) {
+                log.info("Пост #{} не найден", postId);
+
                 return false;
             }
 
@@ -51,7 +54,7 @@ public class PostService {
         }
     }
 
-    public boolean deleteComment(int postId, String author, LocalDateTime timestamp) {
+    public boolean deleteComment(int postId, @NonNull String author, LocalDateTime timestamp) {
         locker.lock();
 
         try {
@@ -68,17 +71,22 @@ public class PostService {
     public void showPosts() {
         locker.lock();
 
+        var stringBuilder = new StringBuilder();
         try {
             for (var post : posts) {
-                log.info("{}: {}", post.getAuthor(), post.getTitle());
-                log.info(post.getContent());
+                stringBuilder.append(String.format("%s: %s", post.getAuthor(), post.getTitle()))
+                        .append(System.lineSeparator());
+                stringBuilder.append(post.getContent()).append(System.lineSeparator());
 
                 for (var comment : post.getComments()) {
-                    log.info("     {}: {}", comment.author(), comment.text());
+                    stringBuilder.append(String.format("\t%s: %s", comment.author(), comment.text()))
+                            .append(System.lineSeparator());
                 }
             }
         } finally {
             locker.unlock();
         }
+
+        log.info(stringBuilder.toString());
     }
 }

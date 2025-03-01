@@ -1,5 +1,6 @@
 package bjs2_62563;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -49,21 +50,21 @@ public class Main {
         }
     }
 
-    private static void processTimeout(ExecutorService executor) {
+    private static void processTimeout(@NonNull ExecutorService executor) {
         log.error("Операция не завершилась за заданный таймаут");
         executor.shutdownNow();
     }
 
     private static void addPost(
             int authorIndex,
-            List<String> authors,
-            ConcurrentSkipListSet<Integer> postIds,
-            String author,
-            PostService postService) {
+            @NonNull List<String> authors,
+            @NonNull ConcurrentSkipListSet<Integer> postIds,
+            @NonNull String author,
+            @NonNull PostService postService) {
         postIds.add(authorIndex);
         var post = new Post(
                 authorIndex,
-                String.format("Заголок поста %d", authorIndex),
+                String.format("Заголовок поста %d", authorIndex),
                 String.format("Важное мнение автора %s", author),
                 author);
         postService.addPost(post);
@@ -81,10 +82,10 @@ public class Main {
     }
 
     private static void deletePosts(
-            ConcurrentSkipListSet<Integer> postIds,
-            List<String> authors,
-            ExecutorService executor,
-            PostService postService) {
+            @NonNull ConcurrentSkipListSet<Integer> postIds,
+            @NonNull List<String> authors,
+            @NonNull ExecutorService executor,
+            @NonNull PostService postService) {
         for (var postId : postIds) {
             for (var postAuthor : authors) {
                 executor.submit(() -> {
