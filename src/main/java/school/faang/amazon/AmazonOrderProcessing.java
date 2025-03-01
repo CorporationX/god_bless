@@ -8,7 +8,8 @@ public class AmazonOrderProcessing {
         try {
             OrderProcessor orderProcessor = new OrderProcessor();
 
-            List<Order> orders = new ArrayList<>(List.of(new Order(1, OrderStatus.NEW), new Order(2, OrderStatus.PROCESSED),
+            List<Order> orders = new ArrayList<>(List.of(new Order(1, OrderStatus.NEW),
+                    new Order(2, OrderStatus.PROCESSED),
                     new Order(3, OrderStatus.CANCELED)));
 
             orderProcessor.processAllOrders(orders);
