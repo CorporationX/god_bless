@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.third_sprint;
 
 public class PhotoUploader {
     private static final GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();

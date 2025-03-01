@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.third_sprint;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

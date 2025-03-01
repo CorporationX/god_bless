@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.third_sprint;
 
 public class SenderRunnable implements Runnable {
     private final int startIndex;

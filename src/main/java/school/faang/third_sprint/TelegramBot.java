@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.third_sprint;
 
 import lombok.extern.slf4j.Slf4j;
 
