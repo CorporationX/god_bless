@@ -28,9 +28,10 @@ public class QuestSystem {
         try {
             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-            } catch(InterruptedException e){
-                executor.shutdownNow();
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
+}
