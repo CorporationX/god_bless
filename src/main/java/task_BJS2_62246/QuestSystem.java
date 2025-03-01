@@ -6,18 +6,18 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class QuestSystem {
+    private static final long MILLIS = 1000L;
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
 
         try {
-            Thread.sleep(quest.getDifficulty() * 1000L);
+            Thread.sleep(quest.getDifficulty() * MILLIS);
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             log.info("Thread: {} was interrupted", Thread.currentThread().getName());
         }
-
         return CompletableFuture.supplyAsync(() -> {
-            System.out.printf("Игрок \"%s\" проходит квест \"%s\"\n", player.getName(), quest.getName());
+            log.info("Игрок \"{}\" проходит квест \"{}\"", player.getName(), quest.getName());
             player.addExperience(quest.getReward());
             return player;
         });

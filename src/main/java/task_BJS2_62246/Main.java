@@ -1,8 +1,12 @@
 package task_BJS2_62246;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
+    private static final String FINAL_TEXT = "Игрок \"%s\" прошёл квест и теперь его опыт равен %d";
 
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
@@ -16,13 +20,11 @@ public class Main {
         CompletableFuture<Player> player2Quest = questSystem.startQuest(playerSylvanas, questAzeroth);
 
         player1Quest.thenAccept(player -> {
-            System.out.printf("Игрок \"%s\" прошёл квест и теперь его опыт равен %d\n",
-                    player.getName(), player.getExperience());
+            System.out.println(String.format(FINAL_TEXT, player.getName(), player.getExperience()));
         });
 
         player2Quest.thenAccept(player -> {
-            System.out.printf("Игрок \"%s\" прошёл квест и теперь его опыт равен %d\n",
-                    player.getName(), player.getExperience());
+            System.out.println(String.format(FINAL_TEXT, player.getName(), player.getExperience()));
         });
     }
 }
