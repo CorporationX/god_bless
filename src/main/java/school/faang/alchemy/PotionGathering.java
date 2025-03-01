@@ -34,7 +34,7 @@ public class PotionGathering {
     private static void gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> futures = potions.stream()
                 .map(PotionGathering::gatherIngredients)
-                .collect(Collectors.toList());
+                .toList();
 
         int totalIngredients = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenApply(t -> futures.stream()
