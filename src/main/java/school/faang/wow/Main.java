@@ -27,5 +27,6 @@ public class Main {
                         player.getExperience())));
 
         futures.forEach(CompletableFuture::join);
+        questSystem.shutdown();
     }
 }
