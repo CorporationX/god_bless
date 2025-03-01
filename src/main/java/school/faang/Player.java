@@ -2,7 +2,7 @@ package school.faang;
 
 public class Player {
     private final Object lock = new Object();
-    private static boolean isPlaying = false;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
