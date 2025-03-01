@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 public class Comment {
-    private String text;
-    private String author;
-    private LocalDateTime timeStamp;
+    private final String text;
+    private final String author;
+    private final LocalDateTime timeStamp;
 }

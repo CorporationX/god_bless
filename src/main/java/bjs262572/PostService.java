@@ -14,12 +14,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Slf4j
 public class PostService {
-    private volatile List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private final Lock writePostLock = lock.writeLock();
     private final Lock readPostLock = lock.readLock();
-    private final Lock writeCommentLock = lock.writeLock();
-    private final Lock readCommentLock = lock.readLock();
 
     public void addPost(@NonNull Post post) {
         try {
@@ -55,7 +53,7 @@ public class PostService {
 
     public void addComment(int postId, @NonNull Comment comment) {
         try {
-            writeCommentLock.lock();
+            writePostLock.lock();
             log.info("Comments list size is {} before comment {} has added in the post {}",
                     getPost(postId).getComments().size(), comment, getPost(postId));
             log.info("Thread {} adding comment {}", Thread.currentThread().getName(), comment);
@@ -63,31 +61,31 @@ public class PostService {
             log.info("Comments list size is {} after comment {} has added in the post {}",
                     getPost(postId).getComments().size(), comment, getPost(postId));
         } finally {
-            writeCommentLock.unlock();
+            writePostLock.unlock();
         }
     }
 
     public Comment getComment(int postId, int commentId) {
         try {
-            readCommentLock.lock();
+            readPostLock.lock();
             return posts.stream()
                     .filter(post -> getPost(postId).getId() == postId && commentId != 0
                             && Objects.nonNull(post.getComments().get(commentId)))
                     .map(post -> post.getComments().get(commentId))
                     .toList().get(0);
         } finally {
-            readCommentLock.unlock();
+            readPostLock.unlock();
         }
     }
 
     public void removeComment(int postId, LocalDateTime timeStamp, String author) {
         try {
-            writeCommentLock.lock();
+            writePostLock.lock();
             getPost(postId).getComments().removeIf(comment -> getPost(postId).getId() == postId
                     && comment.getTimeStamp().equals(timeStamp)
                     && comment.getAuthor().equals(author));
         } finally {
-            writeCommentLock.unlock();
+            writePostLock.unlock();
         }
     }
 }

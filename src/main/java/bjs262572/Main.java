@@ -21,14 +21,11 @@ public class Main {
 
     public static void main(String[] args) {
         PostService postService = new PostService();
-        Post post1 = initializePosts().get(0);
-        Post post2 = initializePosts().get(1);
-        Post post3 = initializePosts().get(2);
-
+        Post post = initializePost();
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(THREAD_SLEEP_IN_MS);
-                postService.addPost(post3);
+                postService.addPost(post);
             } catch (InterruptedException e) {
                 log.error("Thread {} interrupted", Thread.currentThread().getId(),
                         new PostException("Interrupted exception"));
@@ -36,25 +33,15 @@ public class Main {
             }
         }, executorService);
 
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(THREAD_SLEEP_IN_MS);
-                postService.addPost(post2);
-            } catch (InterruptedException e) {
-                log.error("Thread {} interrupted", Thread.currentThread().getId(),
-                        new PostException("Interrupted exception"));
-                Thread.currentThread().interrupt();
-            }
-        }, executorService);
 
-        Comment comment8 = new Comment("Text8", "CommentAuthor8",
+        Comment firstComment = new Comment("Text4", "CommentAuthor4",
                 LocalDateTime.of(LocalDate.of(2024, 2, 26),
                         LocalTime.of(10, 51)));
 
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(THREAD_SLEEP_IN_MS);
-                postService.addComment(1, comment8);
+                postService.addComment(1, firstComment);
             } catch (InterruptedException e) {
                 log.error("Thread {} interrupted", Thread.currentThread().getId(),
                         new PostException("Interrupted exception"));
@@ -62,14 +49,14 @@ public class Main {
             }
         }, executorService);
 
-        Comment comment9 = new Comment("Text9", "CommentAuthor9",
+        Comment secondComment = new Comment("Text5", "CommentAuthor5",
                 LocalDateTime.of(LocalDate.of(2021, 2, 26),
                         LocalTime.of(10, 51)));
 
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(THREAD_SLEEP_IN_MS);
-                postService.addComment(2, comment9);
+                postService.addComment(2, secondComment);
             } catch (InterruptedException e) {
                 log.error("Thread {} interrupted", Thread.currentThread().getId(),
                         new PostException("Interrupted exception"));
@@ -86,9 +73,9 @@ public class Main {
         }
     }
 
-    private static List<Post> initializePosts() {
-        Post post1 = new Post(1, "Title1", "Content1", "PostAuthor1");
-        List<Comment> comments1 = new ArrayList<>(List.of(
+    private static Post initializePost() {
+        Post post = new Post(1, "Title1", "Content1", "PostAuthor1");
+        List<Comment> comments = new ArrayList<>(List.of(
                 new Comment("Text1", "CommentAuthor1",
                         LocalDateTime.of(LocalDate.of(2025, 2, 26),
                                 LocalTime.of(22, 34))),
@@ -99,30 +86,7 @@ public class Main {
                         LocalDateTime.of(LocalDate.of(2025, 1, 10),
                                 LocalTime.of(19, 25)))
         ));
-        post1.getComments().addAll(comments1);
-
-        Post post2 = new Post(2, "Title2", "Content2", "PostAuthor2");
-        List<Comment> comments2 = new ArrayList<>(List.of(
-                new Comment("Text4", "CommentAuthor4",
-                        LocalDateTime.of(LocalDate.of(2025, 2, 26),
-                                LocalTime.of(10, 51))),
-                new Comment("Text5", "CommentAuthor5",
-                        LocalDateTime.of(LocalDate.of(2025, 2, 26),
-                                LocalTime.of(10, 51)))
-        ));
-        post2.getComments().addAll(comments2);
-
-        Post post3 = new Post(3, "Title3", "Content3", "PostAuthor3");
-        List<Comment> comments3 = new ArrayList<>(List.of(
-                new Comment("Text6", "CommentAuthor6",
-                        LocalDateTime.of(LocalDate.of(2024, 2, 26),
-                                LocalTime.of(10, 51))),
-                new Comment("Text7", "CommentAuthor7",
-                        LocalDateTime.of(LocalDate.of(2024, 2, 26),
-                                LocalTime.of(10, 51)))
-        ));
-        post3.getComments().addAll(comments3);
-
-        return List.of(post1, post2, post3);
+        post.getComments().addAll(comments);
+        return post;
     }
 }
