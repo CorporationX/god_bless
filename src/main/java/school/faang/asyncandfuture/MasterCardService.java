@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
-    private static final int PAYMENT_TIME = 10000;
-    private static final int ANALYTICS_TIME = 1000;
+    private static final int PAYMENT_TIME_MS = 10000;
+    private static final int ANALYTICS_TIME_MS = 1000;
     private static final int PAYMENT_AMOUNT = 5000;
     private static final int ANALYTICS_RESULT = 17000;
     private static final int THREADS_COUNT = 2;
@@ -50,7 +50,7 @@ public class MasterCardService {
     private int collectPayment() {
         try {
             log.info("Payment process in progress");
-            Thread.sleep(PAYMENT_TIME);
+            Thread.sleep(PAYMENT_TIME_MS);
             return PAYMENT_AMOUNT;
         } catch (InterruptedException e) {
             log.error("Thread interrupted {}", e.getMessage(), e);
@@ -63,7 +63,7 @@ public class MasterCardService {
     private int sendAnalytics() {
         try {
             log.info("Analytics process in progress");
-            Thread.sleep(ANALYTICS_TIME);
+            Thread.sleep(ANALYTICS_TIME_MS);
             return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
             log.error("Thread interrupted {}", e.getMessage(), e);
