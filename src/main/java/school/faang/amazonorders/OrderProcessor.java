@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private static final AtomicInteger TOTAL_PROCESS_ORDERS = new AtomicInteger();
     private static final int ORDER_PROCESSING_TIME = 3000;
-    private static final String ORDER_PROCESSING_STATUS = "Обработано";
 
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Order>> features = orders.stream()
@@ -27,12 +26,12 @@ public class OrderProcessor {
             log.info("Обработка заказа номер {}", order.getId());
             Thread.sleep(ORDER_PROCESSING_TIME);
             log.info("Заказ номер {} обработан", order.getId());
-            order.setStatus(ORDER_PROCESSING_STATUS);
+            order.setStatus(Status.PROCESSED.getName());
             TOTAL_PROCESS_ORDERS.incrementAndGet();
             return order;
         } catch (InterruptedException e) {
-            log.error("Поток прерван {}", e.getMessage(), e);
-            throw new RuntimeException();
+            log.error("Поток прерван при обработке заказа {}: {}", order.getId(), e.getMessage(), e);
+            throw new RuntimeException("Ошибка при обработке заказа " + order.getId(), e);
         }
     }
 }
