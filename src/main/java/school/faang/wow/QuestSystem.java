@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
-    private static final int START_DIFFICULTY = 1000;
+    private static final int START_DIFFICULTY_MS = 1000;
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> completeQuest(player, quest))
@@ -20,7 +20,7 @@ public class QuestSystem {
     public Player completeQuest(Player player, Quest quest) {
         try {
             log.info("{} приступил к прохождению квеста - {}", player.getName(), quest.getName());
-            TimeUnit.SECONDS.sleep((long) START_DIFFICULTY * quest.getDifficulty());
+            TimeUnit.SECONDS.sleep((long) START_DIFFICULTY_MS * quest.getDifficulty());
             log.info("{} завершил квест", player.getName());
             return player;
         } catch (InterruptedException e) {
