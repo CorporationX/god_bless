@@ -12,22 +12,14 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
     private static final int TIMEOUT_SECONDS = 30;
+    private static final int NUMBER_OF_POSTS = 5;
+    private static final int NUMBER_OF_COMMENTS = 5;
+    private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
     public static void main(String[] args) {
         PostService postService = new PostService();
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-
-        for (int i = 1; i <= 5; i++) {
-            Post post = new Post(i, "Post Title " + i, "Content of post " + i,
-                    "Author" + i, new ArrayList<>());
-            executor.submit(() -> postService.addPost(post));
-        }
-
-        for (int i = 1; i <= 5; i++) {
-            Comment comment = new Comment("This is a comment", "Commenter" + i, LocalDateTime.now());
-            int finalI = i;
-            executor.submit(() -> postService.addComment(finalI, comment));
-        }
+        addPosts(postService);
+        addComments(postService);
         executor.shutdown();
         try {
             if (!executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
@@ -37,6 +29,22 @@ public class Main {
         } catch (InterruptedException e) {
             executor.shutdownNow();
             log.error("awaitTermination was interrupted");
+        }
+    }
+
+    private static void addComments(PostService postService) {
+        for (int i = 1; i <= NUMBER_OF_COMMENTS; i++) {
+            Comment comment = new Comment("This is a comment", "Commenter" + i, LocalDateTime.now());
+            int finalI = i;
+            executor.submit(() -> postService.addComment(finalI, comment));
+        }
+    }
+
+    private static void addPosts(PostService postService) {
+        for (int i = 1; i <= NUMBER_OF_POSTS; i++) {
+            Post post = new Post(i, "Post Title " + i, "Content of post " + i,
+                    "Author" + i, new ArrayList<>());
+            executor.submit(() -> postService.addPost(post));
         }
     }
 }

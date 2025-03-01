@@ -43,17 +43,20 @@ public class PostService {
     public void addComment(int postId, Comment comment) {
         lock.lock();
         try {
-            for (Post post : posts) {
-                if (post.id() == postId) {
-                    if (post.comments().contains(comment)) {
-                        log.warn("The post with id {} is already contains a comment by {} at {}.",
-                                postId, comment.author(), comment.timestamp());
-                    } else {
-                        post.comments().add(comment);
-                        log.info("A comment by {} at {} added to post service.", comment.author(), comment.timestamp());
-                    }
-                }
-            }
+            posts.stream()
+                    .filter(post -> post.id() == postId)
+                    .findFirst()
+                    .ifPresent(post -> {
+                        if (post.comments().contains(comment)) {
+                            log.warn("The post with id {} already contains a comment by {} at {}.",
+                                    postId, comment.author(), comment.timestamp());
+                        } else {
+                            post.comments().add(comment);
+                            log.info("A comment by {} at {} added to post service.",
+                                    comment.author(), comment.timestamp());
+                        }
+                    });
+
         } finally {
             lock.unlock();
         }
