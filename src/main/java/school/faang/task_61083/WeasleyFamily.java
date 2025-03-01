@@ -5,7 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    private final Chore[] chores = {
+    private static final int TIMEOUT = 1;
+    private static final Chore[] chores = {
             new Chore("Помыть посуду"),
             new Chore("Сделать домашние задание"),
             new Chore("Приготовить ужин"),
@@ -20,7 +21,7 @@ public class WeasleyFamily {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {

@@ -10,15 +10,18 @@ import java.util.Random;
 @Getter
 @ToString
 public class Chore implements Runnable {
+    private static final int MIN_SLEEP_TIME_MS = 1500;
+    private static final int MAX_SLEEP_TIME_MS = 5000;
+
+    private final Random random = new Random();
     private final String title;
 
     @Override
     public void run() {
-        Random random = new Random();
         try {
             System.out.printf("Сейчас выполняется задача '%s' в потоке %s%n",
                     title, Thread.currentThread().getName());
-            Thread.sleep(random.nextInt(1500, 5000));
+            Thread.sleep(random.nextInt(MIN_SLEEP_TIME_MS, MAX_SLEEP_TIME_MS));
             System.out.printf("Задача '%s' выполнена!%n", title);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
