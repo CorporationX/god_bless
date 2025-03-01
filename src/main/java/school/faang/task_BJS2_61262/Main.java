@@ -20,8 +20,12 @@ public class Main {
 
         try {
             System.out.println("Total army power: " + army.calculateTotalPower());
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("Error: the program was interrupted " + e.getMessage());
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            System.err.println("Error when total army power was calculated " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

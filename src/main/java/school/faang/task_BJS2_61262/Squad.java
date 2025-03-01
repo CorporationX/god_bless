@@ -6,7 +6,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class Squad<T extends Fighter> {
-    List<T> fighters;
+    private List<T> fighters;
 
     public int calculateSquadPower() {
         int powerOfSquad = 0;

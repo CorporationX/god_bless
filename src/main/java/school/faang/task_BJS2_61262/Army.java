@@ -13,10 +13,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class Army {
     private List<Squad<?>> army;
-
-    public void addSquad(Squad<?> squad) {
-        army.add(squad);
-    }
+    public static final int timeout_minutes = 1;
 
     public int calculateTotalPower() throws InterruptedException, ExecutionException {
         ExecutorService executorService = Executors.newFixedThreadPool(army.size());
@@ -29,7 +26,7 @@ public class Army {
             totalPower += future.get();
         }
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        executorService.awaitTermination(timeout_minutes, TimeUnit.MINUTES);
         return totalPower;
     }
 }
