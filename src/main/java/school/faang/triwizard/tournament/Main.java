@@ -1,5 +1,6 @@
 package school.faang.triwizard.tournament;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,16 +27,22 @@ public class Main {
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, durmstrangTask, beauxbatonsTask);
 
         allTasks.thenRun(() -> {
-            int hogwartsPoints = hogwarts.getTotalPoints();
-            int durmstrangPoints = durmstrang.getTotalPoints();
-            int beauxbatonsPoints = beauxbatons.getTotalPoints();
+            List<School> schools = Arrays.asList(hogwarts, durmstrang, beauxbatons);
 
-            if (hogwartsPoints > durmstrangPoints && hogwartsPoints > beauxbatonsPoints) {
-                System.out.printf("%s wins the tournament with %d points!", hogwarts.getName(), hogwartsPoints);
-            } else if (durmstrangPoints > hogwartsPoints && durmstrangPoints > beauxbatonsPoints) {
-                System.out.printf("%s wins the tournament with %d points!", durmstrang.getName(), durmstrangPoints);
-            } else if (beauxbatonsPoints > hogwartsPoints && beauxbatonsPoints > durmstrangPoints) {
-                System.out.printf("%s wins the tournament with %d points!", beauxbatons.getName(), beauxbatonsPoints);
+            int maxPoints = schools.stream()
+                    .mapToInt(School::getTotalPoints)
+                    .max()
+                    .orElse(0);
+
+            List<School> winners = schools.stream()
+                    .filter(school -> school.getTotalPoints() == maxPoints)
+                    .toList();
+
+            if (winners.size() == 1) {
+                System.out.printf("Winner: %s with %d points!%n", winners.get(0).getName(), maxPoints);
+            } else {
+                System.out.println("Draw between schools");
+                winners.forEach(winner -> System.out.printf("%s with %d points%n", winner.getName(), maxPoints));
             }
         }).join();
     }
