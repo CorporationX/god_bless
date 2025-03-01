@@ -19,15 +19,17 @@ public class Main {
                 .map(Main::gatherIngredients)
                 .toList();
 
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         AtomicInteger totalIngredients = new AtomicInteger(0);
-        futures.forEach(future -> future.thenApply(totalIngredients::addAndGet));
-        log.info("Total amount of collected ingredients: {}", totalIngredients.get());
+        allOf.thenRun(() -> {
+            futures.forEach(future -> future.thenAccept(totalIngredients::addAndGet));
+            log.info("Total amount of collected ingredients: {}", totalIngredients.get());
+        }).join();
     }
 
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("Starting process of gathering ingreients for {}", potion.getName());
+            log.info("Starting process of gathering ingredients for {}", potion.getName());
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
