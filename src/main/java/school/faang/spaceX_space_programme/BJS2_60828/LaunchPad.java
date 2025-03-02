@@ -10,7 +10,12 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class LaunchPad {
-    private final ExecutorService poolThread = Executors.newSingleThreadExecutor();
+    public static final int SHUTDOWN_TIMEOUT_MINUTES = 1;
+    private final ExecutorService poolThread;
+
+    public LaunchPad() {
+        this.poolThread = Executors.newSingleThreadExecutor();
+    }
 
     public void planRocketLaunches(@NonNull List<RocketLaunch> launches) {
         launches.forEach(rocketLaunch -> {
@@ -28,10 +33,12 @@ public class LaunchPad {
 
         poolThread.shutdown();
         try {
-            if (!poolThread.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!poolThread.awaitTermination(SHUTDOWN_TIMEOUT_MINUTES, TimeUnit.MINUTES)) {
+                log.warn("Не все задачи завершились за отведённое время (1 минута). Принудительное завершение...");
                 poolThread.shutdownNow();
             }
         } catch (InterruptedException e) {
+            log.warn("Процесс ожидания завершения пула был прерван. Принудительное завершение...");
             poolThread.shutdownNow();
         }
     }
