@@ -22,7 +22,7 @@ public class OrderProcessor {
                 log.error("Ошибка при работе потока");
                 Thread.currentThread().interrupt();
                 log.error("Произошла ошибка", e);
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage());
             }
         });
 
