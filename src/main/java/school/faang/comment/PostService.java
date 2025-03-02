@@ -13,19 +13,19 @@ public class PostService {
 
     private final List<Post> posts = new CopyOnWriteArrayList<>();
 
-    public synchronized void addPost(@NonNull Post post) {
+    public void addPost(@NonNull Post post) {
         posts.add(post);
         log.info("Добавлен новый пост с id: {}", post.getId());
     }
 
-    public synchronized void addComment(int postId, @NonNull Comment comment) {
+    public void addComment(int postId, @NonNull Comment comment) {
         posts.stream()
                 .filter(post -> post.getId() == postId)
                 .forEach(post -> post.addComment(comment));
         log.info("К посту №{} добавлен комментарий: {}", postId, comment.getText());
     }
 
-    public synchronized void removePost(int postId, @NonNull String user) {
+    public void removePost(int postId, @NonNull String user) {
         Post currentPost = getPostById(postId);
         if (!currentPost.getAuthor().equals(user)) {
             log.warn("Пользователь {} пытается удалить чужой пост!", user);

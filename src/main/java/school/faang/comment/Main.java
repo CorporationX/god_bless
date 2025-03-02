@@ -1,10 +1,13 @@
 package school.faang.comment;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
 
     private static final long PROCEED_TIME_IN_MS = 2000;
@@ -49,6 +52,7 @@ public class Main {
         try {
             Thread.sleep(PROCEED_TIME_IN_MS);
         } catch (InterruptedException e) {
+            log.error("Поток прерван во время ожидания выполнения задач", e);
             Thread.currentThread().interrupt();
         }
     }
