@@ -7,8 +7,8 @@ import java.util.List;
 @Slf4j
 @Data
 public class School {
-    private String name;
-    private List<Student> team;
+    private final String name;
+    private final List<Student> team;
     private Integer teamPoints;
 
     public School(List<Student> team, String name) {

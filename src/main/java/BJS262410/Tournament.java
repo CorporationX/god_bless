@@ -15,17 +15,17 @@ public class Tournament {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(task.getDifficulty() * 1000L);
+                Thread.sleep(task.difficulty() * 1000L);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException("Task execution interrupted", e);
             }
-            school.getTeam().forEach(team -> team.setPoints(team.getPoints() + task.getReward()));
+            school.getTeam().forEach(team -> team.setPoints(team.getPoints() + task.reward()));
             return school;
         }).thenApply(updatedSchool -> {
             log.info("School: {} had: {} points | after task have: {} points",
                     updatedSchool.getName(),
-                    school.getTotalPoints() - task.getReward() * school.getTeam().size(),
+                    school.getTotalPoints() - task.reward() * school.getTeam().size(),
                     updatedSchool.getTotalPoints());
             return updatedSchool;
         });

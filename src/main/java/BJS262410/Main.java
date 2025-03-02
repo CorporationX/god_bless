@@ -1,8 +1,11 @@
 package BJS262410;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
@@ -14,19 +17,19 @@ public class Main {
         School beauxbatons = new School(beauxbatonsTeam, "Beauxbatons");
 
         // Создание заданий
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task firstTask = new Task("Triwizard Tournament", 10, 100);
+        Task secondTask = new Task("Yule Ball Preparations", 5, 50);
 
         // Запуск заданий для школ
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, firstTask);
+        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, secondTask);
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
                 .thenRun(() -> {
                     if (hogwartsTask.join().getTotalPoints() > beauxbatonsTask.join().getTotalPoints()) {
-                        System.out.println("Hogwarts Winner!!");
+                        log.info("Hogwarts Winner!!");
                     } else {
-                        System.out.println("Beauxbatons Winner!!");
+                        log.info("Beauxbatons Winner!!");
                     }
                 });
         allTasks.join();
