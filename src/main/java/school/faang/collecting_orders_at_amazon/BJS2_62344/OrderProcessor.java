@@ -26,6 +26,7 @@ public class OrderProcessor {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.warn("Выполнение задачи прервано {}", e.getMessage());
+                throw new RuntimeException(e);
             }
 
             order.setStatus(Status.PROCESSED);

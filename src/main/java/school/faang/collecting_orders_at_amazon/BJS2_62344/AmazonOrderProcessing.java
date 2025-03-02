@@ -15,8 +15,6 @@ public class AmazonOrderProcessing {
                 new Order(Status.NEW),
                 new Order(Status.NEW)
         );
-
-
         List<CompletableFuture<Void>> resultFutures = processor.processAllOrders(orders);
         CompletableFuture<Void> future = CompletableFuture.allOf(resultFutures.toArray(new CompletableFuture[0]));
         future.join();
