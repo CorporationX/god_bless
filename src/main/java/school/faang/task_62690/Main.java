@@ -30,15 +30,15 @@ public class Main {
 
         // Проверка, что комментарии добавлены
         System.out.println("\nComments for Post 1:");
-        postService.getComments(firstPost).forEach(comment -> System.out.println(comment.getText()));
+        postService.getComments(firstPost.getId()).forEach(comment -> System.out.println(comment.getText()));
 
         System.out.println("\nComments for Post 2:");
-        postService.getComments(secondPost).forEach(comment -> System.out.println(comment.getText()));
+        postService.getComments(secondPost.getId()).forEach(comment -> System.out.println(comment.getText()));
 
         // Удаление комментария
         postService.deleteComment(1, "Author2", comment2.getTimestamp());
         System.out.println("\nComments for Post 2 after deletion:");
-        postService.getComments(secondPost).forEach(comment -> System.out.println(comment.getText()));
+        postService.getComments(secondPost.getId()).forEach(comment -> System.out.println(comment.getText()));
 
         // Удаление поста
         postService.deletePosts(1, "Author1");
