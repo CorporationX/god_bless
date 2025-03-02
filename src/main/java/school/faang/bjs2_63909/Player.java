@@ -11,7 +11,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void upgradeExperience(int experience) {
+    public synchronized void upgradeExperience(int experience) {
         this.experience += experience;
     }
 
