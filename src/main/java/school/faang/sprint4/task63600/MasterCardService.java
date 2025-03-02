@@ -17,11 +17,13 @@ public class MasterCardService {
     private static final int NUM_THREADS = 2;
     private static final int TIMEOUT_1 = 10;
     private static final int TIMEOUT_2 = 20;
+    private static final int PAYMENT = 5_000;
+    private static final int ANALYTICS = 17_000;
 
     public int collectPayment() {
         try {
             Thread.sleep(SLEEP_TIME_1);
-            return 5_000;
+            return PAYMENT;
         } catch (InterruptedException e) {
             long interruptedTime = System.currentTimeMillis();
             Thread.currentThread().interrupt();
@@ -33,7 +35,7 @@ public class MasterCardService {
     public int sendAnalytics() {
         try {
             Thread.sleep(SLEEP_TIME_2);
-            return 17_000;
+            return ANALYTICS;
         } catch (InterruptedException e) {
             long interruptedTime = System.currentTimeMillis();
             Thread.currentThread().interrupt();
@@ -42,7 +44,7 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
+    public void processPaymentAndAnalytics() {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         Future<Integer> payment = executorService.submit(this::collectPayment);
         CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
