@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class QuestSystem {
+    ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         Objects.requireNonNull(player, "Игрок не должен быть null");
@@ -26,6 +29,10 @@ public class QuestSystem {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
-        });
+        }, executor);
+    }
+
+    public void shutdown() {
+        executor.shutdown();
     }
 }

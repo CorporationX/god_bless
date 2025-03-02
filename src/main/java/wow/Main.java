@@ -25,5 +25,7 @@ public class Main {
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
         log.info("Все квесты завершены!");
+
+        questSystem.shutdown();
     }
 }
