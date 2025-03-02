@@ -20,8 +20,9 @@ public class TwitterSubscriptionSystem {
                 Thread.sleep(addingTime);
                 addFollower(account);
             } catch (InterruptedException e) {
-                log.warn("Ошибка в работе потока");
+                log.error("Ошибка в работе потока");
                 Thread.currentThread().interrupt();
+                log.error(e.getMessage());
                 throw new RuntimeException();
             }
         });
