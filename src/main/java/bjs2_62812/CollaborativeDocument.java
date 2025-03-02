@@ -1,5 +1,6 @@
 package bjs2_62812;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CollaborativeDocument {
@@ -10,13 +11,9 @@ public class CollaborativeDocument {
         sections.put(sectionId, data);
     }
 
-    public String getData(String sectionId) throws SectionNotFoundException {
+    public Optional<String> getData(String sectionId) {
         var data = sections.get(sectionId);
 
-        if (data == null) {
-            throw new SectionNotFoundException(String.format("Секция %s не найдена в документе", sectionId));
-        }
-
-        return data;
+        return data == null ? Optional.empty() : Optional.of(data);
     }
 }

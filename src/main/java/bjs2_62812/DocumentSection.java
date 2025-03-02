@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 public class DocumentSection {
@@ -11,7 +13,7 @@ public class DocumentSection {
     private final String id;
     private final CollaborativeDocument document;
 
-    public String read() throws SectionNotFoundException {
+    public Optional<String> read() {
         return document.getData(id);
     }
 

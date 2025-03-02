@@ -10,11 +10,12 @@ public class DocumentSectionProcessor implements Runnable {
 
     @Override
     public void run() {
-        try {
-            var data = section.read();
-            process(data);
-        } catch (SectionNotFoundException e) {
-            log.error("Не удалось прочитать данные секции: {}", e.getMessage(), e);
+        var sectionData = section.read();
+        if (sectionData.isPresent()) {
+            process(sectionData.get());
+            log.info("Секция {} обработана", section.getId());
+        } else {
+            log.info("Секция {} не найдена в документе", section.getId());
         }
     }
 
