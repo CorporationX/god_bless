@@ -26,8 +26,9 @@ public class Main {
     }
 
     private static void acceptResult(Player player) {
-        System.out.println(player.getName() +
-                " has completed the quest and now has " + player.getExperience()
-                + " experience points.");
+        StringBuilder sb = new StringBuilder();
+        sb.append(player.getName()).append(" has completed the quest and now has ")
+                .append(player.getExperience()).append(" experience points.");
+        System.out.println(sb);
     }
 }

@@ -9,4 +9,8 @@ public class Player {
     private String name;
     private int level;
     private int experience;
+
+    public synchronized void setExperience(int experience) {
+        this.experience = experience;
+    }
 }
