@@ -9,7 +9,4 @@ public class Order {
     private final int id;
     private OrderStatus status;
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
 }
