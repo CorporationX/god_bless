@@ -8,9 +8,9 @@ public final class ConstAndMessage {
             "{} has completed the quest and now has {} experience points.";
     public static final String WAITING_ALL_QUESTS_FINISH = "Waiting for all quests to finish...";
     public static final String ALL_QUESTS_FINISHED = "All quests have finished.";
+    public static final String ERROR_IN_THREAD = "Error in the thread.\n{}";
     public static final int SHUTTING_DOWN_TIMEOUT = 5;
     public static final int THREAD_COUNT = 2;
-    public static final long QUEST_TIMEOUT = 1000;
 
     private ConstAndMessage() {}
 }

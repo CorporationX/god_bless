@@ -13,17 +13,17 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class QuestSystem {
     private static final ExecutorService executor = Executors.newFixedThreadPool(ConstAndMessage.THREAD_COUNT);
+
     private final List<CompletableFuture<Void>> activeQuests = new CopyOnWriteArrayList<>();
 
     public void startQuest(@NonNull Player player, @NonNull Quest quest) {
-
-
         CompletableFuture<Void> questFuture = CompletableFuture.supplyAsync(() -> {
             log.info(ConstAndMessage.PLAYER_STARTED_QUEST, player.getName(), quest.getName());
             try {
-                Thread.sleep(ConstAndMessage.QUEST_TIMEOUT * quest.getDifficulty());
+                TimeUnit.SECONDS.sleep(quest.getDifficulty());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                log.error(ConstAndMessage.ERROR_IN_THREAD, e);
                 throw new RuntimeException(e);
             }
             log.info(ConstAndMessage.PLAYER_COMPLETED_QUEST, player.getName(), quest.getName());
