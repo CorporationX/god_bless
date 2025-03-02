@@ -1,8 +1,8 @@
-package school.faang.task_49040;
+package school.faang.task_61173;
 
 public class Chore implements Runnable {
 
-   private final String chore;
+    private final String chore;
 
     public Chore(String chore) {
         this.chore = chore;
