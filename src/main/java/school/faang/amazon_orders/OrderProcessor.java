@@ -19,8 +19,9 @@ public class OrderProcessor {
                 totalProcessedOrders.incrementAndGet();
                 log.info(String.format("Ордер %d успешно обработан.", order.getId()));
             } catch (InterruptedException e) {
-                log.warn("Ошибка при работе потока");
+                log.error("Ошибка при работе потока");
                 Thread.currentThread().interrupt();
+                log.error("Произошла ошибка", e);
                 throw new RuntimeException(e);
             }
         });
