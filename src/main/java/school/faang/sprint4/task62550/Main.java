@@ -28,7 +28,7 @@ public class Main {
             if (hogwartsPoints > beauxbatonsPoints) {
                 System.out.printf(WINNER_ANNOUNCEMENT, hogwartsResult.getName(), hogwartsPoints);
             } else if (hogwartsPoints < beauxbatonsPoints) {
-                System.out.printf(WINNER_ANNOUNCEMENT, beauxbatonsResult.getName(), hogwartsPoints);
+                System.out.printf(WINNER_ANNOUNCEMENT, beauxbatonsResult.getName(), beauxbatonsPoints);
             } else {
                 System.out.printf("Both schools have %d points.", hogwartsPoints);
             }
