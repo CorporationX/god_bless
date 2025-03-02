@@ -2,8 +2,12 @@ package school.faang;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         List<String> roles = new ArrayList<>();
         roles.add("Лорд");
@@ -25,10 +29,10 @@ public class Main {
             userSecond.join();
             userThirst.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Ошибка при ожидании завершения потоков", e);
         }
 
-        System.out.println("Все игроки завершили свои действия.");
+        logger.info("Все игроки завершили свои действия.");
     }
 }
 
