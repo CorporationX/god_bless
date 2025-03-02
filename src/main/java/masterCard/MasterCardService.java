@@ -12,26 +12,28 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int PAYMENT_AMOUNT = 5_000;
+    private static final int ANALYTICS_AMOUNT = 17_000;
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_AMOUNT;
         } catch (InterruptedException e) {
             log.error("Ошибка во время обработки платежа", e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Платеж был прерван во время обработки", e);
         }
     }
 
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_AMOUNT;
         } catch (InterruptedException e) {
             log.error("Ошибка во время отправки аналитики", e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Отправка аналитики была прервана", e);
         }
     }
 
