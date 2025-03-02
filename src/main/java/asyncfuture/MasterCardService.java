@@ -28,27 +28,18 @@ public class MasterCardService {
         }, CompletableFuture.delayedExecutor(SENDING_ANALYTICS_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
-    void doAll() {
+    public void doAll() {
         CompletableFuture<Integer> paymentFuture = collectPayment();
         CompletableFuture<Integer> analyticsFuture = sendAnalytics();
 
-        analyticsFuture
-                .thenAccept(analyticsResult ->
-                        log.info("Analytics sent: {}", analyticsResult)
-                )
-                .exceptionally(ex -> {
-                    log.error("Exception occurred during analytics processing", ex);
-                    return null;
-                }).join();
-
-        paymentFuture
-                .thenAccept(paymentResult ->
-                        log.info("Payment processed: {}", paymentResult)
-                )
-                .exceptionally(ex -> {
-                    log.error("Exception occurred during payment processing", ex);
-                    return null;
-                }).join();
+        paymentFuture.thenCombine(analyticsFuture, (paymentResult, analyticsResult) -> {
+            log.info("Payment processed: {}", paymentResult);
+            log.info("Analytics sent: {}", analyticsResult);
+            return null;
+        }).exceptionally(e -> {
+            log.error("Exception occurred during processing", e);
+            return null;
+        }).join();
     }
 
     public static void main(String[] args) {
