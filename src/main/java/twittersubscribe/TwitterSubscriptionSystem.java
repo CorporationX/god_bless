@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class TwitterSubscriptionSystem {
@@ -13,13 +14,16 @@ public class TwitterSubscriptionSystem {
     private static final int TERMINATION_TIMEOUT_SEC = 60;
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(AVAILABLE_PROCESSORS);
 
-    public CompletableFuture<Void> followAccount(TwitterAccount account, int followerNumber) {
-        return CompletableFuture.runAsync(() -> addFollower(account, followerNumber), EXECUTOR);
+    private final AtomicInteger followerCounter = new AtomicInteger(0);
+
+    public CompletableFuture<Void> followAccount(TwitterAccount account) {
+        return CompletableFuture.runAsync(() -> addFollower(account), EXECUTOR);
     }
 
-    public void addFollower(TwitterAccount account, int followerNumber) {
+    public void addFollower(TwitterAccount account) {
+        int currentFollower = followerCounter.incrementAndGet();
         account.increaseFollowers();
-        log.info("Added follower #{} to account: {}", followerNumber, account.getUsername());
+        log.info("Added follower #{} to account: {}", currentFollower, account.getUsername());
     }
 
     void shutdown() {

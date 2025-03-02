@@ -13,7 +13,7 @@ public class Main {
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
         CompletableFuture<?>[] futures = IntStream.rangeClosed(1, 1_000)
-                .mapToObj(followerNumber -> system.followAccount(account, followerNumber))
+                .mapToObj(followerNumber -> system.followAccount(account))
                 .toArray(CompletableFuture[]::new);
 
         CompletableFuture.allOf(futures).join();
