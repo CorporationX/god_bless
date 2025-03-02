@@ -18,6 +18,8 @@ public class OrderProcessor {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.warn("Обработка заказа {} была прервана", order.getId());
                 throw new RuntimeException(e);
             }
             order.setStatus("Обработано");
