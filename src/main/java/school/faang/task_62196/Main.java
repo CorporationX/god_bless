@@ -6,9 +6,6 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
-    private static final String COMPLETED_QUEST_MESSAGE
-            = "Игрок \"{}\" выполнил задание и теперь имеет {} очков опыта.";
-
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
@@ -20,13 +17,6 @@ public class Main {
 
         CompletableFuture<Player> player1Quest = questSystem.startQuest(thrall, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(sylvanas, quest2);
-
-        player1Quest.thenAccept(
-                player -> log.info(COMPLETED_QUEST_MESSAGE, player.getName(), player.getExperience())
-        );
-        player2Quest.thenAccept(
-                player -> log.info(COMPLETED_QUEST_MESSAGE, player.getName(), player.getExperience())
-        );
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
     }
