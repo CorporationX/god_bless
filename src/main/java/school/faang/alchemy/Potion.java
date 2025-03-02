@@ -27,6 +27,7 @@ public class Potion {
             } catch (InterruptedException e) {
                 log.error("Ошибка при сборе ингредиентов для зелья {}", name, e);
                 Thread.currentThread().interrupt();
+                log.error((e.getMessage()));
                 throw new RuntimeException(e.getMessage(), e);
             }
             return requiredIngredients;
