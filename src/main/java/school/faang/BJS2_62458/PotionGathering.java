@@ -1,7 +1,6 @@
 package school.faang.BJS2_62458;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -31,11 +30,11 @@ public class PotionGathering {
     private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(potion.getRequiredIngredients());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error(ERROR_IN_THE_THREAD, e);
-                throw new RuntimeException(e);
+                return 0;
             }
             int result = potion.getRequiredIngredients();
             log.info(GETTING_INGREDIENTS_FOR_POTION, potion.getName(), result);
