@@ -8,13 +8,20 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
+    private static final int FOLLOWERS_COUNT = 52;
+
     public static void main(String[] args) {
         TwitterSubscriptionSystem twitterSubscriptionSystem = new TwitterSubscriptionSystem();
         TwitterAccount roxi = new TwitterAccount("Roxi");
 
         List<CompletableFuture<Void>> roxySubscriptions = new ArrayList<>();
-        for (int i = 0; i < 52; i++) {
-            roxySubscriptions.add(twitterSubscriptionSystem.followAccount(roxi));
+        for (int i = 0; i < FOLLOWERS_COUNT; i++) {
+            CompletableFuture<Void> future = twitterSubscriptionSystem.followAccount(roxi)
+                    .exceptionally(e -> {
+                        log.error("Ошибка при подписке на аккаунт {}: {}", roxi.getUsername(), e.getMessage());
+                        return null;
+                    });
+            roxySubscriptions.add(future);
         }
         CompletableFuture.allOf(roxySubscriptions.toArray(new CompletableFuture[0])).join();
         log.info("Количество подписчиков {}: {}", roxi.getUsername(), roxi.getFollowers());
