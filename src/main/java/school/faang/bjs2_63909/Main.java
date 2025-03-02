@@ -3,7 +3,7 @@ package school.faang.bjs2_63909;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
-    public static final String MESSAGE_QUEST_FINISH = "Игрок - %s выполнил квест. Общее количество очков опыта у игрока: %d%n";
+    public static final String MESSAGE_QUEST_FINISH = "%s выполнил квест. Общее количество очков опыта у игрока: %d%n";
 
     public static void main(String[] args) {
 
