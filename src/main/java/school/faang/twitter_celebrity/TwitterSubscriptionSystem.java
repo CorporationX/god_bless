@@ -22,8 +22,8 @@ public class TwitterSubscriptionSystem {
             } catch (InterruptedException e) {
                 log.error("Ошибка в работе потока");
                 Thread.currentThread().interrupt();
-                log.error(e.getMessage());
-                throw new RuntimeException();
+                log.error("Ошибка " + e.getMessage());
+                throw new RuntimeException(e.getMessage());
             }
         });
 
