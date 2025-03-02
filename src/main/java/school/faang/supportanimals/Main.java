@@ -18,21 +18,9 @@ public class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUM);
 
-        Runnable firstTask = () -> {
-            for (int i = 0; i < ITERATION_NUM; i++) {
-                organization.addDonation(10.5);
-            }
-        };
-        Runnable secondTask = () -> {
-            for (int i = 0; i < ITERATION_NUM; i++) {
-                organization.addDonation(20.0);
-            }
-        };
-        Runnable thirdTask = () -> {
-            for (int i = 0; i < ITERATION_NUM; i++) {
-                organization.addDonation(15.75);
-            }
-        };
+        Runnable firstTask = createTask(organization, 10.5);
+        Runnable secondTask = createTask(organization, 20.0);
+        Runnable thirdTask = createTask(organization, 15.75);
 
         executorService.submit(firstTask);
         executorService.submit(secondTask);
@@ -51,5 +39,13 @@ public class Main {
         }
 
         log.info("Итоговый баланс организации: {}", organization.getBalance().get());
+    }
+
+    private static Runnable createTask(Organization organization, double donation) {
+        return () -> {
+            for (int i = 0; i < ITERATION_NUM; i++) {
+                organization.addDonation(donation);
+            }
+        };
     }
 }
