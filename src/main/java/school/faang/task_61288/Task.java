@@ -1,4 +1,4 @@
-package school.faang.task_49060;
+package school.faang.task_61288;
 
 import lombok.extern.slf4j.Slf4j;
 
