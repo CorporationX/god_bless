@@ -13,13 +13,18 @@ public class User {
     private String assignedRole;
     private House house;
 
-    public void joinHouse(@NonNull House house) {
-        assignedRole = house.assignRole();
-        this.house = house;
-        log.info(ConstAndMessages.USER_JOINED_HOUSE, name, house.getName(), assignedRole);
+    public synchronized void joinHouse(@NonNull House house) {
+        String result = house.assignRole();
+        if (result != null) {
+            assignedRole = result;
+            this.house = house;
+            log.info(ConstAndMessages.USER_JOINED_HOUSE, name, house.getName(), assignedRole);
+        } else {
+            log.error(ConstAndMessages.ERROR_JOINED_ROLE, house.getName());
+        }
     }
 
-    public void leaveHouse() {
+    public synchronized void leaveHouse() {
         if (assignedRole != null && house != null) {
             house.releaseRole(assignedRole);
             log.info(ConstAndMessages.USER_LEFT_HOUSE, name, house.getName(), assignedRole);

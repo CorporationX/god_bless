@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,7 +21,7 @@ public class House {
                 } catch (InterruptedException e) {
                     log.error(ConstAndMessages.ERROR_OF_WAITING_ROLE, e);
                     Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
+                    return null;
                 }
             }
             log.info(ConstAndMessages.ROLE_IS_OCCUPIED, name, roles.get(0));
