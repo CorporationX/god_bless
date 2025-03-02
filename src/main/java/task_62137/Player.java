@@ -12,7 +12,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void addExperience(int difficulty) {
+    public synchronized void addExperience(int difficulty) {
         int experienceToAdd = difficulty * 100;
         experience += experienceToAdd;
         log.info("{} + {} опыта", name, experienceToAdd);
