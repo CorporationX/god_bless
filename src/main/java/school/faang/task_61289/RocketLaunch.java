@@ -1,4 +1,4 @@
-package school.faang.task_48970;
+package school.faang.task_61289;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -7,12 +7,12 @@ import lombok.SneakyThrows;
 
 import java.time.LocalDateTime;
 
-import static school.faang.task_48970.LaunchManager.LAUNCH_PREPARE_TIME;
+import static school.faang.task_61289.LaunchManager.LAUNCH_PREPARE_TIME;
 
 @EqualsAndHashCode
 @AllArgsConstructor
 @Getter
-public class RocketLaunch  {
+public class RocketLaunch {
     private final String name;
     private final LocalDateTime launchTime;
 
