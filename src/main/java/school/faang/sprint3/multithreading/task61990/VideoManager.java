@@ -1,11 +1,9 @@
 package school.faang.sprint3.multithreading.task61990;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 @Getter
 public class VideoManager {
@@ -16,10 +14,10 @@ public class VideoManager {
     }
 
     public synchronized void addView(String videoId) {
-     viewsMap.merge(videoId, 1, Integer::sum);
+        viewsMap.merge(videoId, 1, Integer::sum);
     }
 
     public synchronized Integer getViewCount(String videoId) {
-            return viewsMap.getOrDefault(videoId, 0);
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
