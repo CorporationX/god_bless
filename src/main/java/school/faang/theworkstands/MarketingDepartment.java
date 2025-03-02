@@ -17,7 +17,7 @@ public class MarketingDepartment extends Department {
         List<String> designerFiles = designResources.getFileNames();
         synchronized (marketingResources) {
             log.info("Маркетологи добавляют файл в свои ресурсы");
-            designResources.addFile("Marketing Analysis");
+            marketingResources.addFile("Marketing Analysis");
         }
     }
 }

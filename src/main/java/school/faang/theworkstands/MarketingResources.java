@@ -1,4 +1,4 @@
 package school.faang.theworkstands;
 
-public class MarketingResources extends DesignResources{
+public class MarketingResources extends DepartmentResources{
 }

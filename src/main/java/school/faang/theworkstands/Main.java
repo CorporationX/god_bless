@@ -1,5 +1,8 @@
 package school.faang.theworkstands;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -19,7 +22,8 @@ public class Main {
             marketingThread.join();
             designThread.join();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Поток прерван во время выполнения задач отделов", e);
+            Thread.currentThread().interrupt();
         }
     }
 }
