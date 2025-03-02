@@ -1,9 +1,13 @@
 package school.faang.BJS2_62597;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
 
     public static void main(String[] args) {
         PostService postService = new PostService();
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
         Runnable postTask = () -> {
             Post post = new Post(1, "My first post", "This is the content", "User1");
@@ -19,20 +23,11 @@ public class Main {
             System.out.println("Comment added by " + comment.getAuthor());
         };
 
-        Thread postThread1 = new Thread(postTask);
-        Thread postThread2 = new Thread(postTask);
-        Thread commentThread1 = new Thread(commentTask);
-
-        postThread1.start();
-        postThread2.start();
-        commentThread1.start();
-
-        try {
-            postThread1.join();
-            postThread2.join();
-            commentThread1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 2; i++) {
+            executor.execute(postTask);
         }
+        executor.execute(commentTask);
+
+        executor.shutdown();
     }
 }

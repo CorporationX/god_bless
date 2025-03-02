@@ -41,9 +41,15 @@ public class PostService {
     }
 
     public Optional<Post> findPostById(int postId) {
-        return posts.stream()
+        Optional<Post> post = posts.stream()
                 .filter(p -> p.getId() == postId)
                 .findFirst();
+
+        if (post.isEmpty()) {
+            log.warn("Пост с id {} не найден", postId);
+        }
+
+        return post;
     }
 
     public void removePost(int postId, String author) {
@@ -64,16 +70,16 @@ public class PostService {
     public void removeComment(int postId, Comment comment, String author) {
         lock.lock();
         try {
-            Post post = findPostById(postId).orElse(null);
-            if (post == null) {
-                log.info("Пост с id {} не найден", postId);
-                return;
-            }
-            if (post.removeComment(comment, author)) {
-                log.info("Комментарий удален из поста {}", postId);
-            } else {
-                log.info("Комментарий не найден в посте {}", postId);
-            }
+            findPostById(postId).ifPresentOrElse(
+                    post -> {
+                        if (post.removeComment(comment, author)) {
+                            log.info("Комментарий удален из поста {}", postId);
+                        } else {
+                            log.warn("Комментарий не найден в посте {}", postId);
+                        }
+                    },
+                    () -> log.warn("Пост с id {} не найден", postId)
+            );
         } finally {
             lock.unlock();
         }
