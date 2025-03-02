@@ -20,7 +20,7 @@ public class Tournament {
         EXECUTOR.schedule(() -> {
             try {
                 school.getTeam().forEach(student -> {
-                    student.setPoints(student.getPoints() + task.getReward());
+                    student.addPoints(task.getReward());
                     log.info("Student {} from {} school completed task: {}. Points gained: {}",
                             student.getName(), school.getName(), task.getName(), task.getReward());
                 });
