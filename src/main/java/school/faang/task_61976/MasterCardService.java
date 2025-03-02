@@ -8,28 +8,30 @@ import java.util.concurrent.*;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int PAYMENT_AMOUNT = 5_000;
+    private static final int ANALYTICS_RESULT = 17_000;
 
     private int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_AMOUNT;
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            handleInterruptedException(e);
+            return 0;
         }
     }
 
     private int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            handleInterruptedException(e);
+            return 0;
         }
     }
 
-    public void doAll() {
+    public void processPaymentAndAnalytics() {
         ExecutorService pool = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = pool.submit(this::collectPayment);
         CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
@@ -41,8 +43,7 @@ public class MasterCardService {
         try {
             paymentResult = paymentFuture.get();
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            handleInterruptedException(e);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -55,8 +56,12 @@ public class MasterCardService {
             }
         } catch (InterruptedException e) {
             pool.shutdownNow();
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            handleInterruptedException(e);
         }
+    }
+
+    private void handleInterruptedException(InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
     }
 }
