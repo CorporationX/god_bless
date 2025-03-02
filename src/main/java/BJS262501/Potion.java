@@ -16,9 +16,8 @@ public class Potion {
             Thread.sleep(potion.getRequiredIngredients() * 500L);
         } catch (InterruptedException e) {
             log.error("Can`t collect ingredients!");
-            log.error(e.getMessage(), e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
         return potion.getRequiredIngredients();
     }
