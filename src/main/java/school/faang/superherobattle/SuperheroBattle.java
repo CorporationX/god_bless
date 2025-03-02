@@ -25,13 +25,13 @@ public class SuperheroBattle {
                 .toList();
     }
 
-    private Superhero compete(Superhero hero1, Superhero hero2) {
-        if (hero1.getPower() > hero2.getPower()) {
-            return hero1;
-        } else if (hero2.getPower() > hero1.getPower()) {
-            return hero2;
+    private Superhero compete(Superhero firstHero, Superhero secondHero) {
+        if (firstHero.getPower() > secondHero.getPower()) {
+            return firstHero;
+        } else if (secondHero.getPower() > firstHero.getPower()) {
+            return secondHero;
         } else {
-            return Math.random() > PROBABILITY_HERO_1_WINS ? hero1 : hero2;
+            return Math.random() > PROBABILITY_HERO_1_WINS ? firstHero : secondHero;
         }
     }
 
@@ -41,9 +41,7 @@ public class SuperheroBattle {
             if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 log.warn("Задача не завершилась в течении 5 секунд, завершаю работу.");
             }
-                {
-                executor.shutdownNow();
-                }
+            executor.shutdownNow();
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
