@@ -1,10 +1,12 @@
 package school.faang.bjs2_63909;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 @NoArgsConstructor
 public class QuestSystem {
 
@@ -17,6 +19,7 @@ public class QuestSystem {
                 Thread.sleep((long) quest.getDifficulty() * ONE_SECOND_IN_MS);
                 System.out.printf("Квест: %s - завершен!\n", quest.getName());
             } catch (InterruptedException e) {
+                log.info("Произошла ошибка {}", e.getMessage());
                 Thread.currentThread().interrupt();
             }
             player.upgradeExperience(quest.getReward());
