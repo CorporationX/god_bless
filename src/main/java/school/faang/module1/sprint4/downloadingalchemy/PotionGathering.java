@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -40,9 +42,9 @@ public class PotionGathering {
                 .thenApply(futureResult -> {
                     for (var future : resultsGatherIngredients) {
                         try {
-                            TOTAL_SUM.addAndGet((Integer) future.get());
-                        } catch (InterruptedException | ExecutionException e) {
-                            throw new RuntimeException(e);
+                            TOTAL_SUM.addAndGet((Integer) future.get(1, TimeUnit.MINUTES));
+                        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                            throw new RuntimeException("Ошибка при получении ингредиентов", e);
                         }
                     }
                     return TOTAL_SUM;
@@ -53,7 +55,7 @@ public class PotionGathering {
             log.info("Общее количество собранных ингредиентов: {}", sum);
         } catch (InterruptedException | ExecutionException e) {
             log.debug("Поток был прерван при получении общей суммы", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }
