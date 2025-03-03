@@ -18,11 +18,11 @@ public class MagicalTournament {
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        Task firstTask = new Task("Triwizard Tournament", 10, 100);
+        Task secondTask = new Task("Yule Ball Preparations", 5, 50);
 
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, firstTask);
+        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, secondTask);
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
@@ -37,7 +37,7 @@ public class MagicalTournament {
                 }
             } catch (ExecutionException | InterruptedException e) {
                 log.debug("Ошибка при получении результата выполнения задания", e);
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ошибка при получении результата выполнения задания", e);
             }
         });
 
