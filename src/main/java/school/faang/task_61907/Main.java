@@ -29,6 +29,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("Error waiting for executor to terminate", e);
+            Thread.currentThread().interrupt();
         }
     }
 
