@@ -12,16 +12,19 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    log.info("Waiting for photos...");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    log.error("Interrupted while waiting for photos to upload", e);
-                    Thread.currentThread().interrupt();
+            while (true) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        log.info("Waiting for photos...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        log.error("Interrupted while waiting for photos to upload", e);
+                        Thread.currentThread().interrupt();
+                        return; // Прерываем цикл в случае восстановления прерванного потока.
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
