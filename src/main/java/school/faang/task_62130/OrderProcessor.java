@@ -1,6 +1,7 @@
 package school.faang.task_62130;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class OrderProcessor {
 
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public CompletableFuture<Order> processOrder(Order order) {
+    public CompletableFuture<Order> processOrder(@NonNull Order order) {
         return CompletableFuture.supplyAsync(() -> {
             int orderId = order.getId();
             log.info(START_PROCESS_MESSAGE, orderId, order.getStatus());
@@ -28,9 +29,9 @@ public class OrderProcessor {
                 totalProcessedOrders.incrementAndGet();
                 log.info(END_PROCESS_MESSAGE, orderId, order.getStatus());
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 log.error(INTERRUPT_PROCESS_MESSAGE, orderId);
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Возникла ошибка при обработке заказа", e);
             }
             return order;
         });
