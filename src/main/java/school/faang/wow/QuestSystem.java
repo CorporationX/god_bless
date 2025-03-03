@@ -15,11 +15,12 @@ public class QuestSystem {
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                logger.info("{} начал выполнение квеста: {}", player.name, quest.name);
+                logger.info("{} начал выполнение квеста: {}", player.getName(), quest.name);
                 TimeUnit.SECONDS.sleep(quest.difficulty);
-                logger.info("{} завершил квест: {}", player.name, quest.name);
+                logger.info("{} завершил квест: {}", player.getName(), quest.name);
                 player.addExperience(quest.reward);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 logger.error("Ошибка выполнения квеста: {}", quest.name, e);
             }
             return player;
@@ -28,5 +29,12 @@ public class QuestSystem {
 
     public void shutdown() {
         executor.shutdown();
+        final boolean done;
+        try {
+            done = executor.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        logger.debug("Все квесты выполнены? {}", done);
     }
 }
