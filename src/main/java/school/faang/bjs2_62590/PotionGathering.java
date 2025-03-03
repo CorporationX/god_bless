@@ -17,7 +17,7 @@ public class PotionGathering {
                 System.out.printf("Сбор ингредиентов для зелья - %s завершен!\n", potion.getName());
             } catch (InterruptedException e) {
                 System.out.println("Ошибка: " + e.getMessage());
-                throw new RuntimeException(e);
+                return 0;
             }
             return potion.getRequiredIngredients();
         });
