@@ -20,6 +20,7 @@ public class MasterCardService {
             return PAYMENT_DELAY_MS;
         } catch (InterruptedException e) {
             log.error("Ошибка во время выполнения collectPayment", e);
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
@@ -30,6 +31,7 @@ public class MasterCardService {
             return ANALYTICS_DELAY_MS;
         } catch (InterruptedException e) {
             log.error("Ошибка во время выполнения sendAnalytics", e);
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
