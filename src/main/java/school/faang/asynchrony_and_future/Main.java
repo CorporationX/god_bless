@@ -9,9 +9,13 @@ public class Main {
         CompletableFuture<Integer> paymentFuture = service.collectPaymentAsync();
         CompletableFuture<Integer> analyticsFuture = service.sendAnalyticsAsync();
 
-        analyticsFuture.thenAccept(result ->
-                MasterCardService.logger.info("Аналитика отправлена: {}", result)
-        );
+        try {
+            analyticsFuture.thenAccept(result ->
+                    MasterCardService.logger.info("Аналитика отправлена: {}", result)
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         paymentFuture.thenAccept(result ->
                 MasterCardService.logger.info("Платеж выполнен: {}", result)

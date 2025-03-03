@@ -8,18 +8,22 @@ import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     public static final Logger logger = LoggerFactory.getLogger(MasterCardService.class);
+    private final int PAYMENT_DELAY_SECONDS = 1;
+    private final int ANALYTICS_DELAY_SECONDS = 10;
+    private final int PAYMENT_AMOUNT = 5_000;
+    private final int ANALYTICS_RESULT = 17_000;
 
     public CompletableFuture<Integer> collectPaymentAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            sleep(10);
-            return 5_000;
+            sleep(ANALYTICS_DELAY_SECONDS);
+            return PAYMENT_AMOUNT;
         });
     }
 
     public CompletableFuture<Integer> sendAnalyticsAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            sleep(1);
-            return 17_000;
+            sleep(PAYMENT_DELAY_SECONDS);
+            return ANALYTICS_RESULT;
         });
     }
 
@@ -28,6 +32,7 @@ public class MasterCardService {
             TimeUnit.SECONDS.sleep(time);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            MasterCardService.logger.info("Что-то пошло не так");
             throw new RuntimeException(e);
         }
     }
