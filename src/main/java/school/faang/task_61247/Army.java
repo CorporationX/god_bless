@@ -19,7 +19,7 @@ public class Army {
         final List<Integer> results = Collections.synchronizedList(new ArrayList<>());
 
         for (Squad<?> squad : squads) {
-            final Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
+            Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
             treads.add(thread);
             thread.start();
         }
@@ -28,8 +28,6 @@ public class Army {
             thread.join();
         }
 
-        return results.stream()
-                .mapToInt(Integer::intValue)
-                .sum();
+        return results.stream().mapToInt(Integer::intValue).sum();
     }
 }
