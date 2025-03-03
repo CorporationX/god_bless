@@ -31,5 +31,8 @@ public class Main {
         questSystem.processQuestResult(player2Quest);
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
+
+        questSystem.shutdown();
     }
+
 }
