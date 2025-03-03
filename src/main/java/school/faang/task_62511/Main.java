@@ -12,14 +12,16 @@ public class Main {
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
         TwitterAccount account = new TwitterAccount("Graccio");
 
-        CompletableFuture<TwitterAccount> firstFollower = system.followAccount(account);
-        CompletableFuture<TwitterAccount> secondFollower = system.followAccount(account);
-        CompletableFuture<TwitterAccount> thirdFollower = system.followAccount(account);
+        CompletableFuture<Void> firstFollower = system.followAccount(account);
+        CompletableFuture<Void> secondFollower = system.followAccount(account);
+        CompletableFuture<Void> thirdFollower = system.followAccount(account);
 
         CompletableFuture.allOf(firstFollower, secondFollower, thirdFollower)
                 .thenAccept(
                         future -> log.info(TOTAL_FOLLOWERS_MESSAGE, account.getUsername(), account.getFollowers())
                 )
                 .join();
+
+        system.shutdownExecutor();
     }
 }

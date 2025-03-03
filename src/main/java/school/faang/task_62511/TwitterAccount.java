@@ -8,9 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TwitterAccount {
-    private static final int DEFAULT_NUMBER_FOLLOWERS = 0;
 
     private final String username;
 
-    private int followers = DEFAULT_NUMBER_FOLLOWERS;
+    private int followers = 0;
 }
