@@ -9,7 +9,7 @@ public class QuestSystem {
                 Thread.sleep(quest.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException("Поток прерван: " + e);
+                throw new QuestExecutionException("Поток прерван!", e);
             }
             return new Player(player.getName(), player.getLevel(),
                     player.addExperience(quest.getReward()));
