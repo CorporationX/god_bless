@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     public static final Logger logger = LoggerFactory.getLogger(MasterCardService.class);
-    private final int PAYMENT_DELAY_SECONDS = 1;
-    private final int ANALYTICS_DELAY_SECONDS = 10;
-    private final int PAYMENT_AMOUNT = 5_000;
-    private final int ANALYTICS_RESULT = 17_000;
+    public static final int PAYMENT_DELAY_SECONDS = 1;
+    public static final int ANALYTICS_DELAY_SECONDS = 10;
+    public static final int PAYMENT_AMOUNT = 5_000;
+    public static final int ANALYTICS_RESULT = 17_000;
 
     public CompletableFuture<Integer> collectPaymentAsync() {
         return CompletableFuture.supplyAsync(() -> {
