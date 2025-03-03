@@ -2,12 +2,14 @@ package school.faang.helpanimal;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -18,10 +20,11 @@ public class Main {
     private static final List<Donation> DONATIONS = new ArrayList<>(COUNT_DONATIONS);
     private static final List<CompletableFuture<Void>> FUTURES = new ArrayList<>(COUNT_DONATIONS);
     private static final Organization ORGANIZATION = new Organization();
-    private static final int MAX_DONATION = 1000;
+    private static final int MAX_DONATION = 2000;
     private static final int MIN_DONATION = 500;
     private static final int TIME_EXECUTION = 1;
     private static final TimeUnit TIME_UNIT = TimeUnit.MINUTES;
+    private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 
     public static void main(String[] args) {
         try {
@@ -41,7 +44,8 @@ public class Main {
     }
 
     private static void createDonation() {
-        int sumDonation = MIN_DONATION + (int) (Math.random() * (MAX_DONATION - MIN_DONATION + 1));
+        BigDecimal sumDonation =
+                BigDecimal.valueOf(MIN_DONATION + (RANDOM.nextInt(MAX_DONATION - MIN_DONATION)));
         DONATIONS.add(new Donation(sumDonation));
     }
 }
