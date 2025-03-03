@@ -2,9 +2,6 @@ package school.faang.trackingsystem;
 
 import java.util.Random;
 
-import static school.faang.trackingsystem.BaseLocation.BORDER_BASE_COORDINATE_NORTH;
-import static school.faang.trackingsystem.BaseLocation.BORDER_BASE_COORDINATE_SOUTH;
-
 public record Location(double latitude, double longitude) {
     private static final Random RANDOM = new Random();
 
@@ -13,10 +10,10 @@ public record Location(double latitude, double longitude) {
     }
 
     public boolean isWithinBase() {
-        return latitude() <= BORDER_BASE_COORDINATE_NORTH.latitude()
-                && latitude() >= BORDER_BASE_COORDINATE_SOUTH.latitude()
-                && longitude() <= BORDER_BASE_COORDINATE_NORTH.longitude()
-                && longitude() >= BORDER_BASE_COORDINATE_SOUTH.longitude();
+        return latitude() <= BaseLocation.getBorderBaseCoordinateNorth().latitude()
+                && latitude() >= BaseLocation.getBorderBaseCoordinateSouth().latitude()
+                && longitude() <= BaseLocation.getBorderBaseCoordinateNorth().longitude()
+                && longitude() >= BaseLocation.getBorderBaseCoordinateSouth().longitude();
     }
 
     public boolean isOutsideBase() {

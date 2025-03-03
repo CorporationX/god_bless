@@ -32,7 +32,7 @@ public class VehicleTracker {
         Runnable task = () -> {
             UUID id = vehicle.getId();
             Location newLocation;
-            if (ThreadLocalRandom.current().nextBoolean()) {
+            if (RANDOM.nextBoolean()) {
                 newLocation = new Location(
                         vehicle.getLocation().latitude() - RANDOM.nextDouble(MAX_SPEED_VEHICLES),
                         vehicle.getLocation().longitude());
