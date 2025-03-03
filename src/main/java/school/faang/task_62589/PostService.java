@@ -1,56 +1,63 @@
 package school.faang.task_62589;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+@EqualsAndHashCode
+@Slf4j
 public class PostService {
-    private final List<Post> posts = new ArrayList<>();
-    private final Lock lock = new ReentrantLock();
+    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void addPost(Post post) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
-            posts.add(post);
+            posts.put(post.getId(), post);
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void addComment(int postId, Comment comment) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
-            posts.stream()
-                    .filter(post -> post.getId() == postId)
-                    .findFirst()
-                    .ifPresent(post -> post.addComment(comment));
+            Post post = posts.get(postId);
+            if (post != null) {
+                post.addComment(comment);
+            }
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void deletePost(int postId, String author) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
-            posts.removeIf(post ->
-                    post.getId() == postId && author.equals(post.getAuthor()));
+            posts.computeIfPresent(postId, (id, post) ->
+                    post.getAuthor().equals(author) ? null : post);
+            log.info(String.format("Post author: %s delete%n", author));
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void deleteComment(int postId, LocalDateTime localDateTime, String author) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
-            posts.stream()
-                    .filter(post -> post.getId() == postId)
-                    .forEach(post -> post.getComments()
-                            .removeIf(comment -> comment.getTimestamp().equals(localDateTime)
-                                    && comment.getAuthor().equals(author)));
+            Post post = posts.get(postId);
+            if (post != null) {
+                post.getComments().entrySet()
+                        .removeIf(entry ->
+                                entry.getKey().equals(localDateTime) && entry.getValue().getAuthor().equals(author));
+            }
+            log.info(String.format("Comment author: %s delete%n", author));
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 }

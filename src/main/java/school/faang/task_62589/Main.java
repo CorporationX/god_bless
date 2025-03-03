@@ -20,17 +20,22 @@ public class Main {
                 Comment comment = new Comment("Comment "
                         + finalI, "User" + finalI, LocalDateTime.now());
                 postService.addComment(1, comment);
+            }).exceptionally(e -> {
+                System.out.printf("Ошибка обнаружена: %s%n" +
+                                "Ошибка в комментарии: %d%n",
+                        e.getMessage(), finalI);
+                return null;
             });
         }
 
         CompletableFuture.allOf(tasks).join();
 
         System.out.println("Post Comments:");
-        post.getComments().forEach(comment ->
-                System.out.println(comment.getAuthor() + ": " + comment.getText()));
+        post.getComments().forEach(((localDateTime, comment) ->
+                System.out.println(comment.getAuthor() + ": " + comment.getText())));
 
         if (!post.getComments().isEmpty()) {
-            Comment commentToDelete = post.getComments().get(0);
+            Comment commentToDelete = post.getComments().values().iterator().next();
             postService.deleteComment(1, commentToDelete.getTimestamp(),
                     commentToDelete.getAuthor());
             System.out.println("Deleted comment: " + commentToDelete.getText());
