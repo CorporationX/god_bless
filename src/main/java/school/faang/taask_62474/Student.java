@@ -11,6 +11,6 @@ public class Student {
     private int points;
 
     public void addPoints(int points) {
-        this.points = points;
+        this.points += points;
     }
 }
