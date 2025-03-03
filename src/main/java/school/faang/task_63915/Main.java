@@ -18,10 +18,10 @@ public class Main {
         player1Quest.thenAccept(player ->
                 System.out.printf("%s has completed the quest " +
                                 "and now has experience points.%n",
-                        player.getName(),player.getExperience())).join();
+                        player.getName(), player.getExperience())).join();
         player2Quest.thenAccept(player ->
                 System.out.printf("%s has completed the quest " +
                                 "and now has experience points.%n",
-                        player.getName(),player.getExperience())).join();
+                        player.getName(), player.getExperience())).join();
     }
 }
