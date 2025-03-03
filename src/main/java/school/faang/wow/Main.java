@@ -25,8 +25,7 @@ public class Main {
             playerCompletableFuture.thenAccept(player -> logger.info("Результат: {}", player));
         }
 
-        future1.join();
-        future2.join();
+        CompletableFuture.allOf(future1, future2);
 
         questSystem.shutdown();
     }
