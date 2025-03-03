@@ -22,7 +22,7 @@ public class ListOperations {
                 .collect(Collectors.toSet());
     }
 
-    public static Map<String, Double> avgDepartmentFee(List<Employee> employees) {
+    public static Map<String, Double> calculateAvgDepartmentFee(List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy(
                         Employee::getDepartment,
@@ -30,16 +30,33 @@ public class ListOperations {
                 ));
     }
 
-    public static List<Integer> palindromesNumbers(Map<Integer, Integer> range) {
-        return range.keySet().stream()
-                .flatMap(num1 -> IntStream.range(num1, range.get(num1))
-                        .boxed())
+    public static List<Integer> findPalindromeNumbersV1(int start, int end) {
+        return IntStream.rangeClosed(start, end)
+                .boxed()
                 .filter(number -> number == Integer
                         .parseInt(new StringBuilder(Integer.toString(number)).reverse().toString()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public static Set<String> searchPalindromesSubString(String inputWord) {
+    public static List<Integer> findPalindromeNumbersV2(int start, int end) {
+        return IntStream.rangeClosed(start, end)
+                .filter(number -> {
+                    if (number < 0) {
+                        return false;
+                    }
+                    int reversed = 0;
+                    int original = number;
+                    while (original != 0) {
+                        reversed = reversed * 10 + original % 10;
+                        original /= 10;
+                    }
+                    return reversed == number;
+                })
+                .boxed()
+                .toList();
+    }
+
+    public static Set<String> findPalindromeSubstringV1(String inputWord) {
         return IntStream.range(0, inputWord.length())
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, inputWord.length() + 1)
@@ -48,14 +65,31 @@ public class ListOperations {
                 .collect(Collectors.toSet());
     }
 
-    public static List<Integer> searchPerfectNumbers(Map<Integer, Integer> rangeNumbers) {
-        return rangeNumbers.keySet().stream()
-                .flatMap(num1 -> IntStream.range(num1, rangeNumbers.get(num1))
-                        .boxed())
+    public static Set<String> findPalindromeSubstringV2(String inputWord) {
+        return IntStream.range(0, inputWord.length())
+                .boxed()
+                .flatMap(i -> IntStream.range(i + 1, inputWord.length() + 1)
+                        .mapToObj(j -> inputWord.substring(i, j)))
+                .filter(sub -> {
+                    int left = 0;
+                    int right = sub.length() - 1;
+                    while (left < right) {
+                        if (sub.charAt(left++) != sub.charAt(right--)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .collect(Collectors.toSet());
+    }
+
+    public static List<Integer> findPerfectNumbers(int start, int end) {
+        return IntStream.rangeClosed(start, end)
+                .boxed()
                 .filter(number -> number == IntStream.range(1, number)
                         .filter(n -> number % n == 0)
                         .sum())
-                .collect(Collectors.toList());
+                .toList();
     }
 }
 
