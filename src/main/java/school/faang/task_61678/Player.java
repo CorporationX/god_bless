@@ -13,16 +13,18 @@ public class Player {
 
     private final String name;
 
-    @SneakyThrows
     public void doBattle(Boss boss) {
-        boss.joinBattle(this);
+        try {
+            boss.joinBattle(this);
+            log.info("Player: {}, Status: Battle Started", name);
 
-        log.info("Player: {}, Status: Battle Started", name);
-
-        performBattle();
-        boss.leaveBattle(this);
+            performBattle();
+        } catch (Exception e) {
+            log.error("Player: {}, failed to join battle due to an error", name, e);
+        } finally {
+            boss.leaveBattle(this);
+        }
     }
-
     @SneakyThrows
     private static void performBattle() {
         Thread.sleep(BATTLE_DURATION_MILLIS);
