@@ -13,50 +13,54 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
-    private final ExecutorService executor = Executors.newFixedThreadPool(2);
+    private static final int TEN_SECONDS = 10;
+    private static final int TREAD_COUNTS = 2;
+    private final ExecutorService executor = Executors.newFixedThreadPool(TREAD_COUNTS);
 
-    private String collectPayment() {
+    private int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return "Оплата произведена успешно!";
+            return 1;
         } catch (InterruptedException e) {
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Thread was interrupted", e);
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
-    private String sendAnalytics() {
+    private int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return "Аналитика отправлена успешно!";
+            return 1;
         } catch (InterruptedException e) {
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Thread was interrupted", e);
+            Thread.currentThread().interrupt();
+            return 0;
         }
     }
 
     public void doAll() {
-        Future<String> payment = executor.submit(this::collectPayment);
-        CompletableFuture<String> sendAn = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
+        Future<Integer> payment = executor.submit(this::collectPayment);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
 
-        System.out.println(sendAn.join());
+        System.out.println("Аналитика: " + analyticsFuture.join());
 
         try {
-            System.out.println(payment.get());
+            System.out.println("Оплата: " + payment.get());
         } catch (InterruptedException | ExecutionException e) {
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        executor.shutdown();
-
-        try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
+            log.error("Thread execution was interrupted", e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Thread execution was interrupted", e);
+        } finally {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(TEN_SECONDS, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted", e);
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            log.info(e.getMessage());
-            throw new RuntimeException();
         }
     }
 }
