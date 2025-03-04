@@ -9,11 +9,10 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Slf4j
-@Getter
 public class Resources {
-    private List<String> resourceList = new CopyOnWriteArrayList<>();
+    @Getter private List<String> resourceList = new CopyOnWriteArrayList<>();
 
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void writeResource(String recourse) {
         resourceList.add(recourse);
