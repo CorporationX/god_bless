@@ -19,10 +19,10 @@ public class Main {
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
         // Обработка результатов заданий
-        player1Quest.thenAccept(player -> System.out.println(player.getName()
-                + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName()
-                + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        player1Quest.thenAccept(player -> System.out.printf("%s has completed the quest and now has " +
+                "%d experience points. \n", player.getName(), player.getExperience()));
+        player2Quest.thenAccept(player -> System.out.printf("%s has completed the quest and now has " +
+                "%d experience points. \n", player.getName(), player.getExperience()));
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
     }

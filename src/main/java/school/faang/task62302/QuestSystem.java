@@ -18,7 +18,7 @@ public class QuestSystem {
                 return quest.getReward();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.error("Forced termination: {}", e.getMessage());
+                log.error("Step start quest. Error thread sleep. Forced termination: {}", e.getMessage());
                 throw new RuntimeException(e);
             }
         })
