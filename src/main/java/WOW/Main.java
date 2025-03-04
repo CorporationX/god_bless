@@ -26,5 +26,6 @@ public class Main {
         });
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
+        questSystem.shutdown();
     }
 }
