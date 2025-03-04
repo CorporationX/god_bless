@@ -21,6 +21,7 @@ public class MasterCardService {
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            logger.error("Thread was interrupted while collecting payment", e);
             throw new RuntimeException(e);
         }
     }
@@ -36,13 +37,15 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
         try {
-            Future<Integer> paymentFuture = executor.submit(() -> MasterCardService.collectPayment());
+            Future<Integer> paymentFuture = CompletableFuture.supplyAsync(() -> {
+                return MasterCardService.collectPayment();
+            }, executor);
 
-            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(
-                    () -> MasterCardService.sendAnalytics()
-            );
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(() -> {
+                return MasterCardService.sendAnalytics();
+            }, executor);
             Integer analyticsResult = analyticsFuture.join();
             logger.info("Analytics sent: {}", analyticsResult);
 
