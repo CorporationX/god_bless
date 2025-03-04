@@ -16,15 +16,10 @@ public abstract class Department implements Runnable {
 
     @Override
     public void run() {
-        synchronized (resourcesOfAnother) {
-            log.info("Looking through the resources of another department, hehe");
-            List<String> resourceList = resourcesOfAnother.getResourceList();
-
-            synchronized (resourcesOfThis) {
-                log.info("Copying the resources of another department");
-                resourceList.forEach(resource -> resourcesOfThis.writeResource(resource));
-            }
-        }
+        log.info("Looking through the resources of another department, hehe");
+        List<String> resourceList = resourcesOfAnother.getResourceList();
+        log.info("Copying the resources of another department");
+        resourceList.forEach(resource -> resourcesOfThis.writeResource(resource));
     }
 }
 

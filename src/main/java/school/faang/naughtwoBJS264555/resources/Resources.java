@@ -5,11 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Slf4j
 @Getter
-public abstract class Resources {
+public class Resources {
     private List<String> resourceList = new CopyOnWriteArrayList<>();
+
+    private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void writeResource(String recourse) {
         resourceList.add(recourse);
@@ -17,6 +21,7 @@ public abstract class Resources {
     }
 
     public void readResources() {
+        lock.readLock().lock();
         log.info("List of files: ");
         resourceList.forEach(resource -> log.info("{}", resource));
     }

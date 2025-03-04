@@ -17,11 +17,11 @@ public class Main {
 
     public static void main(String[] args) {
         DesignResources designResources = new DesignResources();
-        designResources.writeResource("1");
-        designResources.writeResource("2");
+        designResources.writeResource("file1");
+        designResources.writeResource("file2");
         MarketingResources marketingResources = new MarketingResources();
-        marketingResources.writeResource("3");
-        marketingResources.writeResource("4");
+        marketingResources.writeResource("file3");
+        marketingResources.writeResource("file4");
 
         MarketingDepartment marketing = new MarketingDepartment(marketingResources, designResources);
         DesignDepartment design = new DesignDepartment(designResources, marketingResources);
