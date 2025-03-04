@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int WAIT_TERMINATION_SECOND = 3;
+    public static final int WAIT_TERMINATION_SECONDS = 3;
     public static final int STORE_COUNT = 5;
 
     public static void main(String[] args) {
@@ -18,21 +18,24 @@ public class Main {
         var executor = Executors.newFixedThreadPool(STORE_COUNT);
         List<SalesData> salesDataList = new ArrayList<>();
 
-        for (int i = 0; i < STORE_COUNT; i++) {
-            executor.submit(new DataCollector(i, latch, salesDataList));
-        }
-        executor.shutdown();
-
         try {
-            latch.await(WAIT_TERMINATION_SECOND, TimeUnit.SECONDS);
+            for (int i = 0; i < STORE_COUNT; i++) {
+                executor.submit(new DataCollector(i, latch, salesDataList));
+            }
+            executor.shutdown();
 
-            if (!executor.awaitTermination(WAIT_TERMINATION_SECOND, TimeUnit.SECONDS)) {
+            var completedInTime = latch.await(WAIT_TERMINATION_SECONDS, TimeUnit.SECONDS);
+            if (!completedInTime) {
                 log.error("Потоки не завершились за заданное время");
-                executor.shutdownNow();
+            }
+
+            if (!executor.awaitTermination(WAIT_TERMINATION_SECONDS, TimeUnit.SECONDS)) {
+                log.error("Потоки не завершились за заданное время");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Ошибка при ожидании завершения потоков {}", e.getMessage(), e);
+        } finally {
             executor.shutdownNow();
         }
 
