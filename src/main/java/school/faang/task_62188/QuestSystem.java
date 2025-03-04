@@ -23,4 +23,8 @@ public class QuestSystem {
             return player;
         });
     }
+
+    public void shutdown() {
+        log.info("QuestSystem завершил работу");
+    }
 }

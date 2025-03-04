@@ -24,5 +24,6 @@ public class Main {
                 " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest.thenAccept(player -> System.out.println(player.getName() +
                 " has completed the quest and now has " + player.getExperience() + " experience points."));
+        questSystem.shutdown();
     }
 }
