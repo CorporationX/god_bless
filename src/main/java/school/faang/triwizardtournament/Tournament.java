@@ -1,22 +1,18 @@
 package school.faang.triwizardtournament;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 public class Tournament {
     public CompletableFuture<School> startTask(School school, Task task) {
-        CompletableFuture<School> taskCompletableFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(task.getDifficulty() * 1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
-            }
+        Executor delayedExecutor = CompletableFuture.delayedExecutor(task.getDifficulty(), TimeUnit.SECONDS);
 
+        return CompletableFuture.supplyAsync(() -> {
             for (Student student : school.getTeam()) {
                 student.addPoints(task.getReward());
             }
             return school;
-        });
-        return taskCompletableFuture;
+        }, delayedExecutor);
     }
 }
