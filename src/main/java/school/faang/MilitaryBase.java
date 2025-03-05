@@ -3,15 +3,12 @@ package school.faang;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Queue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
 
 @Slf4j
 public class MilitaryBase implements Runnable {
     private final Queue<String> inbox = new LinkedBlockingQueue<>();
     private volatile boolean isRunning = true;
-    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     private static final int DECRYPTION_INTERVAL_MS = 2000;
 
     @Override
@@ -42,7 +39,6 @@ public class MilitaryBase implements Runnable {
 
     public void stop() {
         isRunning = false;
-        executor.shutdownNow();
         log.info("Message decryption stopped.");
     }
 }
