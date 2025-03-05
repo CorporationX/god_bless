@@ -16,9 +16,7 @@ public class MonitoringSystem {
     }
 
     public void printAllData() {
-        synchronized (substationData) {
-            substationData.forEach((id, value) ->
-                    log.info(LOG_STRING, id, String.format("%.2f", value)));
-        }
+        substationData.forEach((id, value) ->
+                log.info(LOG_STRING, id, String.format("%.2f", value)));
     }
 }
