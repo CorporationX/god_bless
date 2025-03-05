@@ -10,15 +10,14 @@ import java.util.stream.IntStream;
 @Slf4j
 public class Main {
     private static final Organization ORGANIZATION = new Organization();
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(3);
-    private static final int WAITING_DONATIONS = 1;
     private static final int DONATION_COUNT = 10;
-    private static final double DONATION_AMOUNT = 100D;
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(DONATION_COUNT / 10 + 1);
+    private static final int WAITING_DONATIONS = DONATION_COUNT / 10 + 1;
     private static final String CLOSE_POOL_FORM = "The thread pool was closed";
 
     public static void main(String[] args) {
         IntStream.range(0, DONATION_COUNT)
-                .mapToObj(num -> new Donation(DONATION_AMOUNT))
+                .mapToObj(num -> new Donation())
                 .forEach(donation ->
                         EXECUTOR.submit(() -> ORGANIZATION.addDonation(donation)));
 
