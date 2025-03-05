@@ -28,8 +28,13 @@ public class Main {
         POSTS.forEach(POST_SERVICE::addPost);
         COMMENTS.forEach(comment -> FUTURE_COMMENTS.add(POST_SERVICE.addComment(getRandomPostId(), comment)));
 
-        CompletableFuture.allOf(FUTURE_COMMENTS.toArray(CompletableFuture[]::new))
-                .thenRun(EXECUTOR::shutdownNow).join();
+        try {
+            CompletableFuture.allOf(FUTURE_COMMENTS.toArray(CompletableFuture[]::new))
+                    .thenRun(EXECUTOR::shutdownNow).join();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+
 
         POST_SERVICE.printPosts();
     }
