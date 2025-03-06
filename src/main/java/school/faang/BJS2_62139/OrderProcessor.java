@@ -6,11 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private static final int THREAD_SLEEP_TIME = 1000;
 
     private CompletableFuture<Integer> processOrder(Order order) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(THREAD_SLEEP_TIME);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
