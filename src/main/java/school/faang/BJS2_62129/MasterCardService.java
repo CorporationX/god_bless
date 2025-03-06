@@ -1,5 +1,8 @@
 package school.faang.BJS2_62129;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,6 +15,7 @@ public class MasterCardService {
     private static final int THREAD_POOL_SIZE = 2;
     private static final int COLLECTED_PAYMENT_AMOUNT = 5_000;
     private static final int ANALYTICS_RESULT_VALUE = 17_000;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MasterCardService.class);
 
     private static int collectPayment() {
         try {
@@ -19,6 +23,7 @@ public class MasterCardService {
             return COLLECTED_PAYMENT_AMOUNT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            LOGGER.error("Поток был прерван", e);
             throw new RuntimeException(e);
         }
     }
@@ -33,7 +38,7 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
+    public void processPaymentAndAnalytics() {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analyticsFuture =
@@ -46,7 +51,7 @@ public class MasterCardService {
             Integer paymentResult = paymentFuture.get();
             System.out.println("Платеж выполнен: " + paymentResult);
         } catch (Exception e) {
-            System.err.printf("Exception: %s\n", e.getMessage());
+            LOGGER.error("Exception: {}\n", e.getMessage());
         }
 
         executor.shutdown();
