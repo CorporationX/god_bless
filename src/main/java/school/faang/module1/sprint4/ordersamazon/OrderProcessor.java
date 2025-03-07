@@ -1,5 +1,6 @@
 package school.faang.module1.sprint4.ordersamazon;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -9,11 +10,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
+@Data
 public class OrderProcessor {
+    private OrderStatus status;
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private static final int ORDER_PROCESSING_TIME_MS = 5000;
 
     public CompletableFuture<AtomicInteger> processOrder(Order order) {
+        order.setStatus(OrderStatus.PROCESSING);
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(ORDER_PROCESSING_TIME_MS);
@@ -22,7 +26,7 @@ public class OrderProcessor {
                 throw new RuntimeException("Поток был прерван при обработке заказов", e);
             }
 
-            order.setStatus("Обработано");
+            order.setStatus(OrderStatus.SHIPPED);
             totalProcessedOrders.getAndIncrement();
             return new AtomicInteger(1);
         });

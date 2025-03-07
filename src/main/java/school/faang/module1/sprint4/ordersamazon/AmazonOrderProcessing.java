@@ -8,9 +8,9 @@ public class AmazonOrderProcessing {
 
         // Создание списка заказов
         List<Order> orders = List.of(
-                new Order(1, "Новый"),
-                new Order(2, "Новый"),
-                new Order(3, "Новый")
+                new Order(1),
+                new Order(2),
+                new Order(3)
         );
 
         processor.processAllOrders(orders);
