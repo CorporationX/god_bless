@@ -5,10 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
+    private static final ExecutorService executor = Executors.newFixedThreadPool(4);
+
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
@@ -17,6 +21,7 @@ public class PotionGathering {
         );
 
         gatherAllIngredients(potions);
+        executor.shutdown();
     }
 
     public static void gatherAllIngredients(List<Potion> potions) {
@@ -24,14 +29,13 @@ public class PotionGathering {
 
         AtomicInteger totalIngredients = new AtomicInteger(0);
 
-        List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(potion -> gatherIngredients(potion))
+        List<CompletableFuture<Void>> futures = potions.stream()
+                .map(potion -> gatherIngredients(potion)
+                        .thenAccept(totalIngredients::addAndGet))
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-        futures.forEach(future -> future.thenAccept(result -> totalIngredients.addAndGet(result)));
-        int total = totalIngredients.get();
-        log.info("Общее количество собранных ингредиентов: {}", total);
+        log.info("Общее количество собранных ингредиентов: {}", totalIngredients.get());
     }
 
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
@@ -46,7 +50,7 @@ public class PotionGathering {
                 throw new RuntimeException("Ошибка при сборе ингредиентов для зелья '" + potion.getName() + "'", e);
             }
             return potion.getRequiredIngredients();
-        });
+        }, executor);
     }
 }
 
