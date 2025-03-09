@@ -1,13 +1,15 @@
 package school.faang.BJS2_61948;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Getter
 public class Order {
     private static final AtomicInteger currentId = new AtomicInteger(0);
-    @Getter
     private final int id;
+    @Setter
     private StatusType status;
 
     public Order() {
@@ -15,11 +17,4 @@ public class Order {
         status = StatusType.NEW;
     }
 
-    public synchronized StatusType getStatus() {
-        return status;
-    }
-
-    public synchronized void setStatus(StatusType status) {
-        this.status = status;
-    }
 }
