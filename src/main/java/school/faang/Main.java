@@ -3,7 +3,7 @@ package school.faang;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
         // Создание игроков
