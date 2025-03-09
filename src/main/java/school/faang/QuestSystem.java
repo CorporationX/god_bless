@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class QuestSystem {
     public static CompletableFuture<Player> startQuest(Player player, Quest quest) throws Exception {
-        CompletableFuture <Player> playerFuture = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Player> playerFuture = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty());
             } catch (InterruptedException e) {
