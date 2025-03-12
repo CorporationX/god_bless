@@ -9,8 +9,12 @@ public class Droid {
         this.name = name;
     }
 
+    public String toPerformTheInterface(DroidMessageEncryptor toMessage, String message, int encryptKey) {
+        return toMessage.apply(message, encryptKey);
+    }
+
     public String encryptMessage(int encryptKey, String message) {
-        return toDefineTheInterface(
+        return toPerformTheInterface(
                 (msg, shift) -> {
                     StringBuilder result = new StringBuilder();
                     for (char character : msg.toCharArray()) {
@@ -27,12 +31,8 @@ public class Droid {
                 encryptKey);
     }
 
-    public String toDefineTheInterface(DroidMessageEncryptor toMessage, String message, int encryptKey) {
-        return toMessage.apply(message, encryptKey);
-    }
-
     public String decryptMessage(String message, int encryptKey) {
-        return toDefineTheInterface(
+        return toPerformTheInterface(
                 (msg, shift) -> {
                     StringBuilder result = new StringBuilder();
                     for (char character  : msg.toCharArray()) {
