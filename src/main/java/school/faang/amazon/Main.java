@@ -18,9 +18,9 @@ public class Main {
         ProductManager.printAllProducts();
 
         Set<Product> products = Set.of(new Product("Лук", Category.FOOD),
-                new Product("Шорты", Category.CLOTHING),
+                new Product("Штаны", Category.CLOTHING),
                 new Product("Смартфон", Category.ELECTRONICS),
-                new Product("Вилка", Category.OTHER));
+                new Product("Ложка", Category.OTHER));
 
         manager.groupProductsByCategory(products);
 
