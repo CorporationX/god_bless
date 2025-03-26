@@ -1,0 +1,8 @@
+Project RareBooksShop.
+Created pull requests.
+
+feature-a into master:
+https://github.com/MamaevVladimir/RareBooksShop/pull/1
+
+feature-b into master:
+https://github.com/MamaevVladimir/RareBooksShop/pull/2
