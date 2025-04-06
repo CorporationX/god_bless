@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.lib_of_westeros;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
