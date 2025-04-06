@@ -1,4 +1,5 @@
 package school.faang.BJS2_68100;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
