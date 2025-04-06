@@ -14,8 +14,6 @@ public class Main {
         users.add(new User("Perturabo", 25, "SBER", "Tralala str, 25"));
         users.add(new User("Fedya", 25, "VTB", "Tralala str, 26"));
         users.add(new User("Felix", 22, "Alpha", "Tralala str, 26"));
-
         System.out.println(User.groupUsers(users));
-
     }
 }
