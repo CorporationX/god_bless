@@ -35,10 +35,6 @@ checkstyle {
     ignoreFailures = false
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
-
 tasks.checkstyleMain {
     source = fileTree("${project.rootDir}/src/main/java")
     include("**/*.java")
