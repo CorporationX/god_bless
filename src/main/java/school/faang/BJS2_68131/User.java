@@ -17,6 +17,7 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int VALID_AGE = 18;
 
     private String name;
     private int age;
@@ -29,8 +30,18 @@ public class User {
         this.job = job;
         this.address = address;
 
-        if (!VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(job) || age < 18) {
-            throw new IllegalArgumentException("Incorrect user values");
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
         }
+        if (age <= VALID_AGE) {
+            throw new IllegalArgumentException("Age cannot be negative or zero");
+        }
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Invalid job: " + job);
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address: " + address);
+        }
+
     }
 }

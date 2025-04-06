@@ -5,7 +5,11 @@ public class Main {
         User correctUser = new User("Mike", 19, "Google", "London");
         System.out.println(correctUser);
 
-        User incorrectUser = new User("Mike", 5, "Roga&Kopyta", "Hell");
-        System.out.println(incorrectUser);
+        try {
+            User incorrectUser = new User("NN", 12, "Roga&Kopyta", "hell");
+            System.out.println(incorrectUser);
+        } catch (IllegalArgumentException e) {
+            System.out.println("An error occurred creating user: " + e.getMessage());
+        }
     }
 }
