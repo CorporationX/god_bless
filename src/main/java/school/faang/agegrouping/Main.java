@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.agegrouping.User.groupUsers;
+import static school.faang.agegrouping.User.groupedByAgeUsers;
 
 /*
  * Related to JIRA ticket: BJS2-68095
@@ -18,7 +18,7 @@ public class Main {
         userList.add(new User("David", 30, "Company D", "Address 4"));
         userList.add(new User("Eve", 35, "Company E", "Address 5"));
 
-        Map<Integer, List<User>> groupedUsers = groupUsers(userList);
+        Map<Integer, List<User>> groupedUsers = groupedByAgeUsers(userList);
 
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey());
