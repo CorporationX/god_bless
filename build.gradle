@@ -27,13 +27,19 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jvmArgs = ['-Dfile.encoding=UTF-8']
 }
 
 checkstyle {
+
     toolVersion = "10.17.0"
     configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
     checkstyle.enableExternalDtdLoad.set(true)
     ignoreFailures = false
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
 
 tasks.checkstyleMain {
@@ -50,3 +56,4 @@ tasks.checkstyleTest {
 
     classpath = files()
 }
+
