@@ -19,9 +19,9 @@ public class User {
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-//        Stream<User> userStream = users.stream();
-//        Collector<User, ?, Map<Integer, List<User>>> groupingCollector = Collectors.groupingBy(User::getAge);
-//        Map<Integer, List<User>> groupedUsers = userStream.collect(groupingCollector);
+        // Stream<User> userStream = users.stream();
+        // Collector<User, ?, Map<Integer, List<User>>> groupingCollector = Collectors.groupingBy(User::getAge);
+        // Map<Integer, List<User>> groupedUsers = userStream.collect(groupingCollector);
         return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
