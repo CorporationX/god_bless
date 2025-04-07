@@ -1,0 +1,5 @@
+package Grouping_by_age_BJS2_67955;
+
+public class Main {
+
+}
