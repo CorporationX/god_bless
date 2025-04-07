@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List <User> listUser = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
 
         User mikhaill = new User("Mikhaill", 32, "Enginer", "Moscow");
         User alina = new User("Alina", 28, "Doctor", "St. Peterburg");

@@ -26,9 +26,9 @@ public class User {
 
             int ageUser = user.getAge();
             if (!mapUserByAge.containsKey(ageUser)) {
-                List <User> innerListUser = new ArrayList<>();
+                List<User> innerListUser = new ArrayList<>();
                 innerListUser.add(user);
-                mapUserByAge.put(user.getAge(),innerListUser);
+                mapUserByAge.put(user.getAge(), innerListUser);
             } else {
                 mapUserByAge.get(ageUser).add(user);
             }
