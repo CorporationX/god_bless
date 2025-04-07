@@ -1,4 +1,4 @@
-package school.faang.BJS2_68126;
+package school.faang.validation;
 
 public class Main {
 

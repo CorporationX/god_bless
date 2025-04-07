@@ -1,4 +1,4 @@
-package school.faang.BJS2_68126;
+package school.faang.validation;
 
 import lombok.Getter;
 
@@ -8,6 +8,7 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int VALID_MIN_AGE = 18;
 
     private final String name;
     private final int age;
@@ -15,14 +16,18 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-        validateName(name);
-        validateAge(age);
-        validateJob(job);
-        validateAddress(address);
+        validateArguments(name, age, job, address);
         this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
+    }
+
+    private void validateArguments(String name, int age, String job, String address) {
+        validateName(name);
+        validateAge(age);
+        validateJob(job);
+        validateAddress(address);
     }
 
     private void validateName(String name) {
@@ -32,8 +37,8 @@ public class User {
     }
 
     private void validateAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        if (age < VALID_MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + VALID_MIN_AGE);
         }
     }
 
