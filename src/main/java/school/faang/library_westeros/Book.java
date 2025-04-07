@@ -21,9 +21,9 @@ class Book {
             return false;
         }
         Book book = (Book) o;
-        return year == book.year &&
-                title.equals(book.title) &&
-                author.equals(book.author);
+        return year == book.year
+                && title.equals(book.title)
+                && author.equals(book.author);
     }
 
     @Override
