@@ -15,21 +15,22 @@ public class ProductManager {
     public void addProduct(Category category, String name) {
         Product product = new Product(category, name);
         products.add(product);
-        log.info(String.format("Продукт '%s' добавлен в категорию %s%n", name, category));
+        log.info("Продукт '{}' добавлен в категорию {}", name, category);
     }
 
     public void removeProduct(Category category, String name) {
-        boolean removed = products.removeIf(p -> p.getCategory() == category && p.getName().equals(name));
-        if (removed) {
-            log.info(String.format("Продукт '%s' удален из категории %s%n", name, category));
+        boolean isRemoved = products.removeIf(product -> product.getCategory() == category
+                && product.getName().equals(name));
+        if (isRemoved) {
+            log.info("Продукт '{}' удален из категории {}", name, category);
         } else {
-            log.info(String.format("Продукт '%s' не найден в категории %s%n", name, category));
+            log.info("Продукт '{}' не найден в категории {}", name, category);
         }
     }
 
     public List<Product> findProductsByCategory(Category category) {
         return products.stream()
-                .filter(p -> p.getCategory() == category)
+                .filter(product -> product.getCategory() == category)
                 .collect(Collectors.toList());
     }
 
@@ -42,9 +43,9 @@ public class ProductManager {
         Map<Category, List<Product>> groupedProducts = groupProductsByCategory();
 
         groupedProducts.forEach((category, productList) -> {
-            System.out.println("\nКатегория: " + category);
+            System.out.printf("\nКатегория: %s\n", category);
             System.out.println("Продукты:");
-            productList.forEach(v -> System.out.printf("- %s\n", v.getName()));
+            productList.forEach(product -> System.out.printf("- %s\n", product.getName()));
         });
 
         if (groupedProducts.isEmpty()) {
