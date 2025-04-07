@@ -28,9 +28,9 @@ public class Book {
         }
 
         Book book = (Book) key;
-        return year == book.year &&
-                title.equals(book.title) &&
-                author.equals(book.author);
+        return year == book.year
+                && title.equals(book.title)
+                && author.equals(book.author);
     }
 
     @Override
