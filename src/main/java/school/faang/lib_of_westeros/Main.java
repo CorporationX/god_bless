@@ -12,8 +12,8 @@ public class Main {
 
 
 
-        addBook("Freezing Moon", "Øystein Aarseth", 1993,"Second shelf", books);
-        addBook("Freezing Moon", "Øystein Aarseth", 1999,"Second shelf", books);
+        addBook("Freezing Moon", "Øystein Aarseth", 1993, "Second shelf", books);
+        addBook("Freezing Moon", "Øystein Aarseth", 1999, "Second shelf", books);
 
         findBook("Lost Wisdom", "Varg Vikernes", 1991);
 
@@ -44,12 +44,12 @@ public class Main {
         String shelf = books.get(seeking);
 
         if (shelf == null
-                || shelf.isEmpty()){
+                || shelf.isEmpty()) {
             System.out.println("Book \"" + title + "\", by " + author + " (" + year + ") not found");
             return null;
         } else {
-            System.out.
-                    println("Book \"" + title + "\", by " + author + " (" + year + ") succesfully found on " + shelf);
+            System.out
+                    .println("Book \"" + title + "\", by " + author + " (" + year + ") succesfully found on " + shelf);
             return seeking;
         }
     }

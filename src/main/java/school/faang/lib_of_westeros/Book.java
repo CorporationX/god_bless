@@ -19,9 +19,14 @@ public class Book {
 
     @Override
     public boolean equals(Object key) {
-        if (this == key) return true;
+        if (this == key) {
+            return true;
+        }
         if (key == null
-                || getClass() != key.getClass()) {return false;}
+                || getClass() != key.getClass()) {
+            return false;
+        }
+
         Book book = (Book) key;
         return year == book.year &&
                 title.equals(book.title) &&
