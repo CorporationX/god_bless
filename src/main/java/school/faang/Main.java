@@ -8,16 +8,16 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<User> johns = new ArrayList<>();
-        johns.add(new User("John1",20));
-        johns.add(new User("John2",21));
-        johns.add(new User("John3",26));
-        johns.add(new User("John4",28));
-        johns.add(new User("John5",22));
-        johns.add(new User("John6",20));
-        johns.add(new User("John7",23));
-        johns.add(new User("John8",28));
-        johns.add(new User("John9",26));
-        johns.add(new User("John10",21));
+        johns.add(User.builder().name("John1").age(20).build());
+        johns.add(User.builder().name("John2").age(21).build());
+        johns.add(User.builder().name("John3").age(22).build());
+        johns.add(User.builder().name("John4").age(24).build());
+        johns.add(User.builder().name("John5").age(27).build());
+        johns.add(User.builder().name("John6").age(23).build());
+        johns.add(User.builder().name("John7").age(27).build());
+        johns.add(User.builder().name("John8").age(22).build());
+        johns.add(User.builder().name("John9").age(21).build());
+        johns.add(User.builder().name("John10").age(20).build());
 
         System.out.println(User.groupUsers(johns));
     }
