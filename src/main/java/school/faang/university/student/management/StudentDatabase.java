@@ -1,5 +1,6 @@
 package school.faang.university.student.management;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -9,13 +10,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
+@Getter
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
         if (studentSubjects.containsKey(student)) {
-            log.warn(String.format("Студент %s уже существует", student));
+            log.warn("Студент {} уже существует", student);
             return;
         }
         studentSubjects.put(student, new HashMap<>(subjects));
@@ -23,7 +25,7 @@ public class StudentDatabase {
             subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
 
-        log.info(String.format("Студент %s и его предметы добавлены", student.getName()));
+        log.info("Студент {} и его предметы добавлены", student.getName());
     }
 
     public void addSubjectToStudent(Student student, Subject subject, int mark) {
@@ -35,7 +37,7 @@ public class StudentDatabase {
         studentSubjects.get(student).put(subject, mark);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
 
-        log.info(String.format("Предмет %s добавлен студенту %s", subject.getName(), student.getName()));
+        log.info("Предмет {} добавлен студенту {}", subject.getName(), student.getName());
     }
 
     private Optional<Student> findStudent(Student student) {
@@ -57,10 +59,10 @@ public class StudentDatabase {
         }
         studentSubjects.remove(student);
 
-        log.info(String.format("Студент %s удален", student.getName()));
+        log.info("Студент {} удален", student.getName());
     }
 
-    public void printAllStudentsWithGrades() {
+    public void printAllStudentsWithMarks() {
         if (studentSubjects.isEmpty()) {
             System.out.println("В базе нет студентов");
             return;
@@ -78,7 +80,7 @@ public class StudentDatabase {
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         if (subjectStudents.containsKey(subject)) {
-            log.warn(String.format("Предмет %s уже существует", subject.getName()));
+            log.warn("Предмет {} уже существует", subject.getName());
             return;
         }
 
@@ -87,7 +89,7 @@ public class StudentDatabase {
             studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
         }
 
-        log.info(String.format("Предмет %s и студенты добавлены", subject.getName()));
+        log.info("Предмет {} и студенты добавлены", subject.getName());
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
@@ -99,12 +101,12 @@ public class StudentDatabase {
         subjectStudents.get(subject).add(student);
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
 
-        log.info(String.format("Студент %s добавлен к предмету %s", student.getName(), subject.getName()));
+        log.info("Студент {} добавлен к предмету {}", student.getName(), subject.getName());
     }
 
     private Optional<Subject> findSubject(Subject subject) {
         if (!subjectStudents.containsKey(subject)) {
-            log.warn(String.format("Предмет %s не найден", subject));
+            log.warn("Предмет {} не найден", subject);
             return Optional.empty();
         }
         return Optional.of(subject);
@@ -117,14 +119,14 @@ public class StudentDatabase {
         }
 
         if (!subjectStudents.get(subject).contains(student)) {
-            log.info(String.format("Студент %s не изучает предмет %s", student.getName(), subject.getName()));
+            log.info("Студент {} не изучает предмет {}", student.getName(), subject.getName());
             return;
         }
 
         subjectStudents.get(subject).remove(student);
         studentSubjects.get(student).remove(subject);
 
-        log.info(String.format("Студент %s удален из предмета %s", student.getName(), subject.getName()));
+        log.info("Студент {} удален из предмета {}", student.getName(), subject.getName());
     }
 
     public void printAllSubjectsWithStudents() {
@@ -135,8 +137,8 @@ public class StudentDatabase {
 
         System.out.println("\nСписок предметов и студентов");
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.printf("Предмет: %s", entry.getKey().getName());
-            System.out.printf("  Студенты: %s", entry.getValue());
+            System.out.printf("Предмет: %s\n", entry.getKey().getName());
+            System.out.printf("  Студенты: %s\n", entry.getValue());
         }
     }
 }
