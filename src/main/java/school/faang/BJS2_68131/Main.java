@@ -6,7 +6,7 @@ public class Main {
         System.out.println(correctUser);
 
         try {
-            User incorrectUser = new User("NN", 12, "Roga&Kopyta", "hell");
+            User incorrectUser = new User("NN", 12, "Google", "London");
             System.out.println(incorrectUser);
         } catch (IllegalArgumentException e) {
             System.out.println("An error occurred creating user: " + e.getMessage());

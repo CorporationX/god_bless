@@ -30,11 +30,11 @@ public class User {
         this.job = job;
         this.address = address;
 
-        if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be empty");
         }
         if (age <= VALID_AGE) {
-            throw new IllegalArgumentException("Age cannot be negative or zero");
+            throw new IllegalArgumentException("Age cannot be less than " + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job: " + job);
