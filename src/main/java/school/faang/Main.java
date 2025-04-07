@@ -5,8 +5,8 @@ import school.faang.Group_Users_By_Age.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main{
+    public static void main(String[] args){
         List<User> johns = new ArrayList<>();
         johns.add(User.builder().name("John1").age(20).build());
         johns.add(User.builder().name("John2").age(21).build());
