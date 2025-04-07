@@ -14,10 +14,10 @@ import java.util.Map;
 @ToString
 public class User {
 
-    private String name; //имя;
-    private int age; // возраст;
-    private String workPlace; // место работы;
-    private String address; // адрес.
+    private String name;
+    private int age;
+    private String workPlace;
+    private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> result = new HashMap<>();
@@ -40,9 +40,9 @@ public class User {
         );
 
         Map<Integer, List<User>> userGroups = User.groupUsers(users);
-        for (Map.Entry<Integer, List<User>> userList : userGroups.entrySet()) {
-            System.out.printf("Возраст: %d\n", userList.getKey());
-            System.out.println(userList.getValue());
+        for (Map.Entry<Integer, List<User>> entry : userGroups.entrySet()) {
+            System.out.printf("Возраст: %d\n", entry.getKey());
+            System.out.println(entry.getValue());
         }
     }
 }
