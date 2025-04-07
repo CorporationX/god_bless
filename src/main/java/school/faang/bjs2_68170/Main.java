@@ -15,11 +15,10 @@ public class Main {
                 ));
 
         for (var ageGroup : User.groupUsers(usersList).entrySet()) {
-            System.out.println(ageGroup.getKey());
+            System.out.println("Возраст: " + ageGroup.getKey());
             for (User user : ageGroup.getValue()) {
                 System.out.println(user.toString());
             }
-            System.out.println();
         }
     }
 }
