@@ -1,24 +1,38 @@
 package school.faang;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import java.util.*;
+import lombok.ToString;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 public class User {
+
+    @EqualsAndHashCode.Include
+    @ToString.Include
     private Integer id;
     private String name;
     private  Integer age;
 
     @Getter
-    private HashSet<String> activities;
+    private Set<String> activities;
 
-    public User(Integer id, String name, Integer age, HashSet<String> activities) {
+    public User(Integer id, String name, Integer age, Set<String> activities) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.activities = activities;
     }
 
-    public Map<User, String> findHobbyLovers(List<User> users, HashSet<String> targetActivities) {
+    public Map<User, String> findHobbyLovers(List<User> users, Set<String> targetActivities) {
         Map<User, String> usersWithActivities = new HashMap<>();
         for (User user : users) {
             Set<String> userActivities = user.getActivities();
@@ -30,24 +44,6 @@ public class User {
             }
         }
         return usersWithActivities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name)
-                && Objects.equals(age, user.age) && Objects.equals(activities, user.activities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, activities);
     }
 
     @Override
