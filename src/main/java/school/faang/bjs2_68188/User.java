@@ -16,7 +16,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
-        if(name.isBlank() || age < VALID_AGE || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
+        if (name.isBlank() || age < VALID_AGE || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Constructor parameters are not correct. Check the fields.");
         } else {
             this.name = name;
