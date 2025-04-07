@@ -6,7 +6,7 @@ public class Main {
             User user = new User("Max", 19, "Google", "London");
             System.out.println(user);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
