@@ -20,7 +20,7 @@ public class HogwartsSpells {
         spellById.put(spellEvent.getId(), spellEvent);
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
 
-        log.info(String.format("Добавлено новое заклинание: %s\n", spellEvent));
+        log.info("Добавлено новое заклинание: {}", spellEvent);
     }
 
     public Optional<SpellEvent> getSpellEventById(int id) {
@@ -31,7 +31,7 @@ public class HogwartsSpells {
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
-    public boolean deleteSpellEvent(int id) {
+    public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             List<SpellEvent> spellsOfType = spellsByType.get(spellEvent.getEventType());
@@ -41,11 +41,9 @@ public class HogwartsSpells {
                     spellsByType.remove(spellEvent.getEventType());
                 }
             }
-            log.info(String.format("Заклинание с ID %d удалено.\n", id));
-            return true;
+            log.info("Заклинание с ID {} удалено.", id);
         }
-        log.info(String.format("Заклинание с ID %d не найдено.\n", id));
-        return false;
+        log.info("Заклинание с ID {} не найдено.", id);
     }
 
     public void printAllSpellEvents() {
