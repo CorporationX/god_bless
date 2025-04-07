@@ -1,15 +1,14 @@
 package school.faang.reverse_example;
 
-import java.util.Collections;
-import java.util.List;
-
 public class Example {
-    public static void reverse(List<Integer> list) {
+    public static void reverse(int[] list) {
         int leftPointer = 0;
-        int rightPointer = list.size() - 1;
+        int rightPointer = list.length - 1;
 
         while (leftPointer <= rightPointer) {
-            Collections.swap(list, leftPointer, rightPointer);
+            int temp = list[leftPointer];
+            list[leftPointer] = list[rightPointer];
+            list[rightPointer] = temp;
 
             leftPointer += 1;
             rightPointer -= 1;
