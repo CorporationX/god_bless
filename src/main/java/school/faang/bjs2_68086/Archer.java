@@ -12,10 +12,7 @@ public class Archer extends Character {
     private static final int DEFAULT_INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
-        strength = DEFAULT_STRENGTH;
-        dexterity = DEFAULT_DEXTERITY;
-        intelligence = DEFAULT_INTELLIGENCE;
+        super(name, DEFAULT_STRENGTH, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
