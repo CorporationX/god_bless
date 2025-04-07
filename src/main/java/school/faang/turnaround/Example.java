@@ -1,4 +1,4 @@
-package turnaround;
+package school.faang.turnaround;
 
 public class Example {
 
