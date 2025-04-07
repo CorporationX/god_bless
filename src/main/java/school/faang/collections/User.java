@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.collections;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,18 +15,15 @@ import java.util.Map;
 public class User {
     private String name;
     private Integer age;
-    private String job;
+    private String workplace;
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> ageSorted = new HashMap<>();
 
         for (User user : userList) {
-            if (!ageSorted.containsKey(user.age)) {
-                ageSorted.computeIfAbsent(user.age, age -> new ArrayList<>()).add(user);
-            } else {
-                ageSorted.get(user.age).add(user);
-            }
+            ageSorted.putIfAbsent(user.age, new ArrayList<>());
+            ageSorted.get(user.age).add(user);
         }
 
         return ageSorted;
