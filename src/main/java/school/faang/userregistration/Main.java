@@ -1,4 +1,4 @@
-package school.faang.userRegistration;
+package school.faang.userregistration;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,6 +6,7 @@ public class Main {
         testInvalidJob();
         testInvalidAddress();
         testUnderageUser();
+        testUsernameIsNull();
     }
 
     // Тест с корректными данными
@@ -44,6 +45,16 @@ public class Main {
     private static void testUnderageUser() {
         try {
             User user = new User("Dave", 17, "Amazon", "Amsterdam");
+            System.err.println("testUnderageUser FAILED: исключение не было выброшено");
+        } catch (IllegalArgumentException e) {
+            System.out.println("testUnderageUser PASSED: " + e.getMessage());
+        }
+    }
+
+    // Тест с null в name
+    private static void testUsernameIsNull() {
+        try {
+            User user = new User(null, 20, "Amazon", "Amsterdam");
             System.err.println("testUnderageUser FAILED: исключение не было выброшено");
         } catch (IllegalArgumentException e) {
             System.out.println("testUnderageUser PASSED: " + e.getMessage());
