@@ -19,15 +19,23 @@ public class User {
     public User(String name, int age, String job, String address) {
         if (name != null) {
             this.name = name;
-        } else throw new IllegalArgumentException("Введите имя");
+        } else {
+            throw new IllegalArgumentException("Введите имя");
+        }
         if (age >= 18) {
             this.age = age;
-        } else throw new IllegalArgumentException("Недопустимый возраст для регистрации");
+        } else {
+            throw new IllegalArgumentException("Недопустимый возраст для регистрации");
+        }
         if (VALID_JOBS.contains(job.toLowerCase())) {
             this.job = job;
-        } else throw new IllegalArgumentException("Недопустимое место работы");
+        } else {
+            throw new IllegalArgumentException("Недопустимое место работы");
+        }
         if (VALID_ADDRESSES.contains(address.toLowerCase())) {
             this.address = address;
-        } else throw new IllegalArgumentException("Недопустимый адрес");
+        } else {
+            throw new IllegalArgumentException("Недопустимый адрес");
+        }
     }
 }
