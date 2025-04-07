@@ -1,4 +1,4 @@
-package school.faang.Collecting_Users;
+package school.faang.collecting_users;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static school.faang.Collecting_Users.User.findHobbyLovers;
+import static school.faang.collecting_users.User.findHobbyLovers;
 
 public class Main {
     public static void main(String[] args) {
 
-        Set<String> hobbies1 = new HashSet<>(Arrays.asList("reading", "swimming", "cycling"));
-        Set<String> hobbies2 = new HashSet<>(Arrays.asList("painting", "swimming"));
-        Set<String> hobbies3 = new HashSet<>(Arrays.asList("coding", "traveling"));
+        Set<String> hobbies1 = Set.of("reading", "swimming", "cycling");
+        Set<String> hobbies2 = Set.of("painting", "swimming");
+        Set<String> hobbies3 = Set.of("coding", "traveling");
 
         User user1 = new User(1, "Alice", 25, hobbies1);
         User user2 = new User(2, "Bob", 30, hobbies2);
@@ -30,4 +30,3 @@ public class Main {
         }
     }
 }
-
