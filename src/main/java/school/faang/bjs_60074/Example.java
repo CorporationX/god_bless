@@ -6,6 +6,9 @@ import java.util.Collections;
 public class Example {
 
     public static int[] reverse(int[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Array should not be null");
+        }
         return Arrays.stream(array).boxed()
                 .sorted(Collections.reverseOrder())
                 .mapToInt(Integer::intValue).toArray();
@@ -15,6 +18,9 @@ public class Example {
     На всякий случай прилагаю императивный вариант решения.
      */
     public static int[] imperativeReverse(int[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Array should not be null");
+        }
         int start = 0;
         int end = array.length - 1;
         while (start < end) {
