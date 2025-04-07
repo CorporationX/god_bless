@@ -18,12 +18,12 @@ public class User {
         this.activities = activities;
     }
 
-    public Map<User, String> findHobbyLovers(List<User>users, HashSet<String> targetActivities){
+    public Map<User, String> findHobbyLovers(List<User> users, HashSet<String> targetActivities) {
         Map<User, String> usersWithActivities = new HashMap<>();
-        for(User user: users){
+        for (User user : users) {
             Set<String> userActivities = user.getActivities();
-            for(String activity: userActivities){
-                if(targetActivities.contains(activity)){
+            for (String activity : userActivities) {
+                if (targetActivities.contains(activity)) {
                     usersWithActivities.put(user, activity);
                     break;
                 }
@@ -34,16 +34,22 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(age, user.age) && Objects.equals(activities, user.activities);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name)
+                && Objects.equals(age, user.age) && Objects.equals(activities, user.activities);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, age, activities);
     }
+
     @Override
     public String toString() {
         return name;
