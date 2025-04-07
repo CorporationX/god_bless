@@ -9,27 +9,27 @@ public class Main {
         log.info("testUserOne: {}", testUserOne);
 
         try {
-            User testUserTwo = new User("", 18, "Google", "New York");
+            User testUserTwo = new User(null, 18, "Google", "New York");
         } catch (IllegalArgumentException e) {
-            log.error("testUserTwo: {}", e.toString());
+            log.error("testUserTwo: {}", e.getMessage());
         }
 
         try {
             User testUserThree = new User("Alex", 17, "Google", "New York");
         } catch (IllegalArgumentException e) {
-            log.error("testUserThree: {}", e.toString());
+            log.error("testUserThree: {}", e.getMessage());
         }
 
         try {
             User testUserFour = new User("Petr", 23, "VTB", "New York");
         } catch (IllegalArgumentException e) {
-            log.error("testUserFour: {}", e.toString());
+            log.error("testUserFour: {}", e.getMessage());
         }
 
         try {
             User testUserFive = new User("Pavel", 23, "Uber", "Moscow");
         } catch (IllegalArgumentException e) {
-            log.error("testUserFive: {}", e.toString());
+            log.error("testUserFive: {}", e.getMessage());
         }
     }
 }
