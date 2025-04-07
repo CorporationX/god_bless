@@ -1,4 +1,4 @@
-package school.faang.BJS2_68104;
+package school.faang.collections;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +16,8 @@ public class Main {
         );
 
         User.groupUsers(users).forEach((age, userList) -> {
-            System.out.println("Возраст " + age + ":");
-            userList.forEach(user -> System.out.println("  - " + user.getName()));
+            System.out.printf("Возраст %d: \n", age);
+            userList.forEach(user -> System.out.printf("  - %s\n", user.getName()));
         });
     }
 }
