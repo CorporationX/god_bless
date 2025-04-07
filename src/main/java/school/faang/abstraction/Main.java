@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Warrior");
-        Archer archer = new Archer("Archer");
+        Character warrior = new Warrior("Warrior");
+        Character archer = new Archer("Archer");
 
         archer.attack(warrior);
         warrior.attack(archer);
