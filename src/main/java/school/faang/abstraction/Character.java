@@ -1,9 +1,13 @@
-package school.faang.BJS2_68082;
+package school.faang.abstraction;
 
 import lombok.Getter;
 
 @Getter
 public abstract class Character {
+    protected static final int STRENGTH_VALUE_DEFAULT = 5;
+    protected static final int AGILITY_VALUE_DEFAULT = 5;
+    protected static final int INTELLECT_VALUE_DEFAULT = 5;
+
     protected String name;
     protected int strength;
     protected int agility;
@@ -11,7 +15,7 @@ public abstract class Character {
     protected int health = 100;
 
     public Character(String name) {
-        this(name, 5, 5, 5);
+        this(name, STRENGTH_VALUE_DEFAULT, AGILITY_VALUE_DEFAULT, INTELLECT_VALUE_DEFAULT);
     }
 
     public Character(String name, int strength, int agility, int intellect) {

@@ -1,4 +1,4 @@
-package school.faang.BJS2_68082;
+package school.faang.abstraction;
 
 public class Main {
     public static void main(String[] args) {
