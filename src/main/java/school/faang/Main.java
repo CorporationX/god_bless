@@ -1,5 +1,8 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         checkUser("Alex", 20, "Google", "London");
@@ -14,10 +17,9 @@ public class Main {
     public static void checkUser(String name, int age, String job, String address) {
         try {
             User user = new User(name, age, job, address);
-            System.out.printf("Пользователь (%s, %d, %s, %s) был успешно создан\n",
-                    user.getName(), user.getAge(), user.getJob(), user.getAddress());
-        } catch (Exception e) {
-            System.out.printf("Ошибка при создании пользователя (%s, %d, %s, %s): %s\n",
+            log.info("Пользователь {} был успешно создан", user);
+        } catch (IllegalArgumentException e) {
+            log.info("Ошибка при создании пользователя User(name={}, age={}, job={}, address={}): {}",
                     name, age, job, address, e.getMessage());
         }
     }

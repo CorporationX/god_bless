@@ -1,9 +1,11 @@
 package school.faang;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
+@ToString
 @Getter
 public class User {
     private final String name;
@@ -24,11 +26,11 @@ public class User {
     }
 
     private void validateArguments(String name, int age, String job, String address) {
-        if (name == null || name.isBlank() || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Пустое имя пользователя");
         }
         if (age < VALID_AGE) {
-            throw new IllegalArgumentException("Возраст пользователя меньше 18 лет");
+            throw new IllegalArgumentException(String.format("Возраст пользователя меньше %d", VALID_AGE));
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Недопустимое место работы: " + job);
