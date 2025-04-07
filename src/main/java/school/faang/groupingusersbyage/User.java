@@ -1,6 +1,9 @@
 package school.faang.groupingusersbyage;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,19 +22,12 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> listUser) {
-
         Map<Integer, List<User>> mapUserByAge = new HashMap<>();
 
         for (User user : listUser) {
-
             int ageUser = user.getAge();
-            if (!mapUserByAge.containsKey(ageUser)) {
-                List<User> innerListUser = new ArrayList<>();
-                innerListUser.add(user);
-                mapUserByAge.put(user.getAge(), innerListUser);
-            } else {
-                mapUserByAge.get(ageUser).add(user);
-            }
+            mapUserByAge.putIfAbsent(ageUser, new ArrayList<>());
+            mapUserByAge.get(ageUser).add(user);
         }
         return mapUserByAge;
     }
