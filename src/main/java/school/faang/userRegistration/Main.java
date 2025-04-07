@@ -44,7 +44,7 @@ public class Main {
     private static void testUnderageUser() {
         try {
             User user = new User("Dave", 17, "Amazon", "Amsterdam");
-            System.err.println("testUnderageUser FAILED: исключение не выбрашено, @Min не проверяется автоматически.");
+            System.err.println("testUnderageUser FAILED: исключение не было выброшено");
         } catch (IllegalArgumentException e) {
             System.out.println("testUnderageUser PASSED: " + e.getMessage());
         }
