@@ -1,8 +1,8 @@
 package school.faang.bjs2_67957;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Setter
 @Getter
