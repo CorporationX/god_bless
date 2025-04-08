@@ -1,13 +1,15 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public record User(String name, int age, String workplace, String address) {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         return users.stream()
-                .sorted(Comparator.comparing(User::age))
                 .collect(Collectors.groupingBy(User::age, LinkedHashMap::new, Collectors.toList()));
     }
 
@@ -27,8 +29,8 @@ public record User(String name, int age, String workplace, String address) {
 
         System.out.println("Возраст и пользователи:");
         groupUsers.forEach((age, users) -> {
-            System.out.println("Возраст: " + age);
-            users.forEach(user -> System.out.println(" - - " + user.name()));
+            log.info("Возраст: {}", age);
+            users.forEach(user -> System.out.println(" - " + user.name()));
         });
     }
 }
