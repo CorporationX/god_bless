@@ -6,5 +6,7 @@ public class Main {
         System.out.println("Создание новой ветки ");
 
         System.out.println("Добавление первого коммита ");
+
+        System.out.println("Удалил строчки номер 6");
     }
 }
