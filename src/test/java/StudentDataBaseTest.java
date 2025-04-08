@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 Я использовал нейросеть для тестов. Честно попытался разобраться в том, как она их пишет, и думаю,
 что в следующий раз сумею написать сам.
  */
+
 public class StudentDataBaseTest {
     private StudentDataBase database;
     private Student student1;
@@ -29,7 +30,7 @@ public class StudentDataBaseTest {
 
         student1 = new Student("NN");
         student2 = new Student("Marina");
-        subject1 = new Subject ("Mathematics");
+        subject1 = new Subject("Mathematics");
         subject2 = new Subject("Black Magic");
     }
 
