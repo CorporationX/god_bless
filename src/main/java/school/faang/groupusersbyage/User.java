@@ -1,4 +1,4 @@
-package school.faang.GroupUsersByAge;
+package school.faang.groupusersbyage;
 
 import lombok.Builder;
 import lombok.Data;
