@@ -1,4 +1,4 @@
-package school.faang.bjs2_68211;
+package school.faang.bjs2_68204;
 
 import lombok.Getter;
 import lombok.Setter;
