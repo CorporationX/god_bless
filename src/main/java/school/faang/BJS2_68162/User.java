@@ -17,7 +17,7 @@ public class User {
 
     public User(String name, int age, String job, String address) {
         if (!isValid(name, age, job, address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid user values");
         }
 
         this.name = name;
