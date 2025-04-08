@@ -19,7 +19,7 @@ public class User {
     private final Set<String> hobbies;
     private static int counter = 0;
 
-    public User(String name, int age,  Set<String> hobbies){
+    public User(String name, int age, Set<String> hobbies) {
         if (name == null || name.isBlank()) {
             log.error("Name cannot be null or blank");
             throw new IllegalArgumentException("Name cannot be null or blank");
@@ -35,7 +35,7 @@ public class User {
             throw new IllegalArgumentException("Hobbies cannot be null or empty");
         }
         this.hobbies = hobbies;
-        this .id = ++counter;
+        this.id = ++counter;
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
