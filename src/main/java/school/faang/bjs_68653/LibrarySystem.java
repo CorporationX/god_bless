@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
@@ -37,7 +36,6 @@ public class LibrarySystem {
         books.forEach((book, location) -> {
             System.out.println("Book: " + book + " is located at: " + location + "\n");
         });
-
     }
 
     public Book getBook(String title, String author, int year) {

@@ -1,4 +1,4 @@
-package school.faang.bjs_68653;
+package school.faang.bjs2_68665;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,9 +13,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Book {
+public class SpellEvent {
 
-    private String title;
-    private String author;
-    private int year;
+    private int id;
+    private String eventType;
+    private String action;
+
+
 }
