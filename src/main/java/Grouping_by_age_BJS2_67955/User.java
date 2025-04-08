@@ -2,11 +2,6 @@ package Grouping_by_age_BJS2_67955;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Getter
 public class User {
     private String name;
