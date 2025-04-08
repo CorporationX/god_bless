@@ -32,7 +32,7 @@ public class Main {
         log.info("Список книг после удаления book3");
         library.printAllBooks();
 
-        log.info("Книга book1 находится в: {}"
-                , library.findBook("book1", "author1", 1999));
+        log.info("Книга book1 находится в: {}",
+                library.findBook("book1", "author1", 1999));
     }
 }
