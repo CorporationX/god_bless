@@ -10,16 +10,16 @@ import java.util.Map;
 
 @Data
 @Builder
-public class User{
+public class User {
     private String name;
     private int age;
     private String placeWork;
     private String address;
 
-    public static Map<Integer,List<User>> groupUsers(List<User> userList){
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> mapUser = new HashMap<>();
-        for (User user: userList){
-            mapUser.computeIfAbsent(user.getAge(), k->new ArrayList<>()).add(user);
+        for (User user : userList) {
+            mapUser.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return mapUser;
     }
