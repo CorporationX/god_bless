@@ -31,7 +31,7 @@ public class Main {
         }
     }
 
-    public static void testDeathHero () {
+    public static void testDeathHero() {
         Character oleg = new Warrior("Oleg");
         Character lord = new Archer("Lord");
 
