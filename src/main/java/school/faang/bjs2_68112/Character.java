@@ -1,28 +1,42 @@
 package school.faang.bjs2_68112;
 
-public abstract class Character {
-    private String name; //Имя;
-    private Integer power; // Сила;
-    private Integer agility; // Ловкость;
-    private Integer intellect; // Интеллект;
-    private Integer health = 100; // Здоровье. У всех персонажей по умолчанию 100.
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-    // Сделать в Character два конструктора:
-    // один принимает только имя (и присваивает базовые значения характеристикам:
-    //      5 для силы, ловкости и интеллекта, что делает его универсальным персонажем, подходящим
-    // для начальных этапов игры),
-    // а другой все доступные параметры, кроме здоровья — оно имеет значение по умолчанию.
+@ToString
+public abstract class Character {
+    private static final Integer DEFAULT_STRENGTH = 5;
+    private static final Integer DEFAULT_AGILITY = 5;
+    private static final Integer DEFAULT_INTELLECT = 5;
+
+    private String name;
+    @Getter
+    private Integer strength;
+    @Getter
+    private Integer agility;
+    private Integer intellect;
+    @Setter
+    @Getter
+    private Integer health = 100;
+
     public Character(String name) {
         this.name = name;
-        this.power = 5;
-        this.agility = 5;
-        this.intellect = 5;
+        this.strength = DEFAULT_STRENGTH;
+        this.agility = DEFAULT_AGILITY;
+        this.intellect = DEFAULT_INTELLECT;
     }
 
-    public Character(String name, Integer power, Integer agility, Integer intellect) {
+    public Character(String name, Integer strength, Integer agility, Integer intellect) {
         this.name = name;
-        this.power = power;
+        this.strength = strength;
         this.agility = agility;
         this.intellect = intellect;
+    }
+
+    public abstract void attack(Character opponent);
+
+    protected void diminishHealth(Integer amount) {
+        health = (amount > health) ? 0 : health - amount;
     }
 }
