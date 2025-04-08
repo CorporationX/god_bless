@@ -15,7 +15,7 @@ public class User {
     static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty() && age >= 18 && VALID_JOBS.contains(job) && VALID_ADDRESSES.contains(address)) {
+        if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(job) && VALID_ADDRESSES.contains(address)) {
             this.name = name;
             this.age = age;
             this.job = job;
