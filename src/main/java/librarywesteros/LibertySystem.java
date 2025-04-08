@@ -16,7 +16,7 @@ public class LibertySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-            liberty.remove(new Book(title, author, year));
+        liberty.remove(new Book(title, author, year));
     }
 
     public void findBook(String title, String author, int year) {
