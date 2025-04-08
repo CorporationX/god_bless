@@ -11,8 +11,8 @@ public class User {
     private String job;
     private String address;
 
-    static final Set<String> VALID_JOBS = Set.of("Google", "User", "Amazon");
-    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    final static Set<String> VALID_JOBS = Set.of("Google", "User", "Amazon");
+    final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         if (name.isEmpty() && age >= 18 && VALID_JOBS.contains(job) && VALID_ADDRESSES.contains(address)) {
@@ -20,9 +20,9 @@ public class User {
             this.age = age;
             this.job = job;
             this.address = address;
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("Exception: Illegal argument");
         }
     }
 }
-
