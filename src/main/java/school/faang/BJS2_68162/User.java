@@ -1,10 +1,12 @@
 package school.faang.BJS2_68162;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Arrays;
 
 @Getter
+@ToString
 public class User {
     private static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
     private static final String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
