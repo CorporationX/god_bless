@@ -2,8 +2,6 @@ package group.user.by.age;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,23 +11,17 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 public class User {
-
     private String name;
     private Integer age;
     private String workPlace;
     private String adress;
 
     protected static Map<Integer, List<User>> groupUsers(List<User> listWithUsers) {
-
         Map<Integer, List<User>> usersGroupedByAge = new HashMap<>();
 
         for (User user : listWithUsers) {
-            if (usersGroupedByAge.containsKey(user.getAge())) {
-                usersGroupedByAge.get(user.getAge()).add(user);
-            } else {
-                usersGroupedByAge.put(user.getAge(), new ArrayList<>());
-                usersGroupedByAge.get(user.getAge()).add(user);
-            }
+            usersGroupedByAge.putIfAbsent(user.getAge(), new ArrayList<>());
+            usersGroupedByAge.get(user.getAge()).add(user);
         }
 
         return usersGroupedByAge;

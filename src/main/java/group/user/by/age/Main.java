@@ -1,25 +1,24 @@
 package group.user.by.age;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        List<User> listWithUsers = new ArrayList<>();
-        listWithUsers.add(new User("Dan", 25, "Stefan cel Mare Street", "Chisinau MDA"));
-        listWithUsers.add(new User("John", 45, "Wall Street", "New York NY"));
-        listWithUsers.add(new User("Jane", 25, "Liberty Street", "Los Angeles CA"));
-        listWithUsers.add(new User("Mike", 45, "Umbrela Street", "London UK"));
+        List<User> listWithUsers = List.of(
+                new User("Dan", 25, "Stefan cel Mare Street", "Chisinau MDA"),
+                new User("John", 45, "Wall Street", "New York NY"),
+                new User("Jane", 25, "Liberty Street", "Los Angeles CA"),
+                new User("Mike", 45, "Umbrela Street", "London UK"));
 
         for (Map.Entry<Integer, List<User>> listWithUsersEntry : User.groupUsers(listWithUsers).entrySet()) {
-            Integer age = listWithUsersEntry.getKey();
             for (User user : listWithUsersEntry.getValue()) {
-                System.out.println("User with age " + age + " is " + user.getName()
-                        + " with working adress " + user.getWorkPlace()
-                        + " based in " + user.getAdress());
+                System.out.printf("User with age %d is %s with working address %s based in %s %n",
+                        user.getAge(),
+                        user.getName(),
+                        user.getAdress(),
+                        user.getWorkPlace());
             }
         }
     }
