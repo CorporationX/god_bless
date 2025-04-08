@@ -37,7 +37,7 @@ public class User {
     }
 
     private void validateName(String name) {
-        if (!Objects.isNull(name)) {
+        if (Objects.isNull(name) || name.isBlank()) {
             throw new IllegalArgumentException("Field 'name' is not valid!");
         }
     }
@@ -49,13 +49,13 @@ public class User {
     }
 
     private void validateJob(String job) {
-        if (!Objects.isNull(address) || !VALID_JOBS.contains(job)) {
+        if (Objects.isNull(address) || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Field 'job' is not valid!");
         }
     }
 
     private void validateAddress(String address) {
-        if (!Objects.isNull(address) || !VALID_ADDRESSES.contains(address)) {
+        if (Objects.isNull(address) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Field 'address' is not valid!");
         }
     }
