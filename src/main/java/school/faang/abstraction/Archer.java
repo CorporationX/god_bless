@@ -12,6 +12,6 @@ public class Archer extends school.faang.abstraction.Character {
     @Override
     public void attack(Character opponent) {
         System.out.println(getName() + " attacks " + opponent.getName());
-        opponent.setHealth(getAgility());
+        opponent.reduceHealth(getAgility());
     }
 }

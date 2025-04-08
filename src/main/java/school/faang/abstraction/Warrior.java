@@ -13,6 +13,6 @@ public class Warrior extends school.faang.abstraction.Character {
     @Override
     public void attack(Character opponent) {
         System.out.println(getName() + " attacks " + opponent.getName());
-        opponent.setHealth(getStrength());
+        opponent.reduceHealth(getStrength());
     }
 }

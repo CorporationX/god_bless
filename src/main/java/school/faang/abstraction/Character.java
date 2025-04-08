@@ -30,8 +30,8 @@ public abstract class Character {
     protected abstract void attack(school.faang.abstraction.Character opponent);
 
 
-    protected void setHealth(int attribute) {
-        health = Math.max(getHealth() - attribute, 0);
+    protected void reduceHealth(int value) {
+        health = Math.max(getHealth() - value, 0);
         System.out.println(health + " " + name + " health");
     }
 
