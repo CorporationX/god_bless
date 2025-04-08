@@ -19,13 +19,12 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupedUsersMap = new HashMap<>();
+        Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
         for (User user : users) {
-            List<User> groupedUsersList = groupedUsersMap.getOrDefault(user.getAge(), new ArrayList<>());
+            List<User> groupedUsersList = groupedUsersByAge.getOrDefault(user.getAge(), new ArrayList<>());
             groupedUsersList.add(user);
-            groupedUsersMap.put(user.getAge(), groupedUsersList);
+            groupedUsersByAge.put(user.getAge(), groupedUsersList);
         }
-        return groupedUsersMap;
+        return groupedUsersByAge;
     }
-
 }
