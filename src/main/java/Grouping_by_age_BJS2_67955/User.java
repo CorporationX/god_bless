@@ -15,5 +15,4 @@ public class User {
         this.workplace = workplace;
         this.address = address;
     }
-
 }

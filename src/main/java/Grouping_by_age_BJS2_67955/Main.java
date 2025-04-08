@@ -8,7 +8,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        //вносим пользователей в список
         users.add(new User("Alex", 20, "Theatre", "London"));
         users.add(new User("Sonya", 29, "Mosque", "Budapest"));
         users.add(new User("Margaret", 48, "Hospital", "Los Angeles"));
@@ -23,10 +22,7 @@ public class Main {
                 System.out.println("Место работы: " + user.getWorkplace());
                 System.out.println("Адрес: " + user.getAddress());
             }
-
         }
-
-
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
