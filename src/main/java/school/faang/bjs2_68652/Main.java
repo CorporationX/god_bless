@@ -34,5 +34,7 @@ public class Main {
 
         log.info("Книга book1 находится в: {}",
                 library.findBook("book1", "author1", 1999));
+
+        library.removeBook("book8", "author3", 2000);
     }
 }
