@@ -7,7 +7,7 @@ class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        System.out.println(name + " attacks " + opponent.getName() + " for " + agility + " damage!");
+        System.out.printf("%s attacks %s for %d damage!%n", name, opponent.getName(), agility);
         opponent.takeDamage(agility);
     }
 }
