@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 public class User {
-    private final int MINIMUM_AGE = 18;
+    private static final int MINIMUM_AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of(
             "Google",
             "Uber",
