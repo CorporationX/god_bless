@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,9 +13,9 @@ public class User {
     private long id;
     private String name;
     private int age;
-    private List<String> activities;
+    private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, List<String> enteredActivities) {
+    public static Map<User, String> findHobbyLovers(Set<User> users, Set<String> enteredActivities) {
         var resultMap = new HashMap<User, String>();
 
         for (User user : users) {
