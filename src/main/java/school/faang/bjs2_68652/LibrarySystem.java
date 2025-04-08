@@ -30,6 +30,8 @@ public class LibrarySystem {
         String place = this.catalogue.get(book);
         if (!place.isEmpty()) {
             return place;
-        } else throw new NoSuchElementException(MessageFormat.format("Книга {} не найдена", book));
+        } else {
+            throw new NoSuchElementException(MessageFormat.format("Книга {} не найдена", book));
+        }
     }
 }
