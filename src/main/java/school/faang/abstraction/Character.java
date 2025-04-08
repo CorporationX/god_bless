@@ -1,12 +1,13 @@
 package school.faang.abstraction;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter(AccessLevel.PROTECTED)
 @Getter
 public abstract class Character {
+    private static final int STRENGTH_VALUE = 5;
+    private static final int AGILITY_VALUE = 5;
+    private static final int INTELLIGENCE_VALUE = 5;
+
     private final String name;
     private int strength;
     private int agility;
@@ -15,14 +16,21 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this.strength = STRENGTH_VALUE;
+        this.agility = AGILITY_VALUE;
+        this.intelligence = INTELLIGENCE_VALUE;
+    }
+
+    public Character(String name, int strength, int agility, int intelligence) {
+        this.name = name;
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
     }
 
     public abstract void attack(Character opponent);
 
-    public void setHealth(int health) {
-        this.health = Math.max(health, 0);
+    protected void applyDamage(int damage) {
+        this.health = Math.max(this.health - damage, 0);
     }
 }
