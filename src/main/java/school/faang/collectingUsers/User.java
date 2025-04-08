@@ -15,8 +15,9 @@ import java.util.Set;
 public class User {
 
     @EqualsAndHashCode.Include
-    @ToString.Include
     private Integer id;
+
+    @ToString.Include
     private String name;
     private  Integer age;
 
@@ -42,10 +43,5 @@ public class User {
             }
         }
         return usersWithActivities;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }
