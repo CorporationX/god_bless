@@ -1,4 +1,4 @@
-package school.faang.bjs2_68079.entity;
+package school.faang.userhobbies.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

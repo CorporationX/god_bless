@@ -1,6 +1,6 @@
-package school.faang.bjs2_68079.main;
+package school.faang.userhobbies.main;
 
-import school.faang.bjs2_68079.entity.User;
+import school.faang.userhobbies.entity.User;
 
 import java.util.List;
 import java.util.Set;
@@ -19,7 +19,8 @@ public class Main {
                 "Cooking",
                 "Traveling",
                 "Playing football",
-                "Photography");
+                "Photography"
+        );
         System.out.println(User.findHobbyLovers(userList, allHobbies));
     }
 }
