@@ -29,7 +29,9 @@ public class Main {
         }
 
     }
+
     private static List<User> createTestUsers() {
+
         List<User> users = new ArrayList<>();
 
         User user1 = new User(1, "Андрей", 25);
@@ -69,6 +71,7 @@ public class Main {
 
         return result;
     }
+
     public static void main(String[] args) {
 
         List<User> users = createTestUsers();
