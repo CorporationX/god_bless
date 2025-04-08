@@ -10,8 +10,8 @@ public class Example {
             list[leftPointer] = list[rightPointer];
             list[rightPointer] = temp;
 
-            leftPointer += 1;
-            rightPointer -= 1;
+            leftPointer++;
+            rightPointer--;
         }
     }
 }
