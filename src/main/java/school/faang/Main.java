@@ -32,8 +32,6 @@ public class Main {
 
     private static List<User> createTestUsers() {
 
-        List<User> users = new ArrayList<>();
-
         User user1 = new User(1, "Андрей", 25);
         user1.addActivity("Плавание");
         user1.addActivity("Чтение");
@@ -47,6 +45,8 @@ public class Main {
         User user3 = new User(3, "Георгий", 28);
         user3.addActivity("Бег");
         user3.addActivity("Стрельба");
+
+        List<User> users = new ArrayList<>();
 
         users.add(user1);
         users.add(user2);
