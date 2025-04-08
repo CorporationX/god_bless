@@ -1,12 +1,10 @@
 package school.faang.bjs2_68208;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.*;
 
 @Data
-@Builder
 public class User {
     private String name;
     private int age;
