@@ -1,10 +1,10 @@
 package school.faang.eventhandler;
 
+import java.util.List;
+
 /*
  * Related to JIRA ticket: BJS2-68668
  */
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells spellsSystem = new HogwartsSpells();
