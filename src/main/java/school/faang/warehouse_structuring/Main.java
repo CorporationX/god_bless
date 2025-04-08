@@ -9,8 +9,13 @@ public class Main {
         productManager.addProduct(Category.FOOD, "Milk");
         productManager.addProduct(Category.OTHER, "Smth");
 
+        productManager.findProductsByCategory(Category.ELECTRONICS);
+
         productManager.groupProductsByCategory();
 
+        productManager.printAllProducts();
+
+        productManager.removeProduct(Category.CLOTHING, "Milk");
         productManager.printAllProducts();
     }
 }

@@ -1,7 +1,5 @@
 package school.faang.warehouse_structuring;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -12,11 +10,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductManager {
-    Set<Product> products = new HashSet<>();
-    int id = 0;
-    static final int CATEGORY_SIZE = Category.values().length;
+    private Set<Product> products = new HashSet<>();
+    private int id = 0;
+    private static final int CATEGORY_SIZE = Category.values().length;
 
     public void addProduct(Category category, String name) throws Exception {
         if (category == null
@@ -27,10 +24,12 @@ public class ProductManager {
         id++;
         products.add(new Product(id, name, category));
         log.info("products {} created", id);
-
     }
 
     public void removeProduct(Category category, String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name can't be null");
+        }
         products.removeIf(product -> product.getName().equals(name) && product.getCategory().equals(category));
     }
 
