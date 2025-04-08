@@ -26,6 +26,6 @@ public class User {
     }
 
     private boolean checkString(String str) {
-        return str.isBlank() || str == null;
+        return  str == null || str.isBlank();
     }
 }
