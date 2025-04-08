@@ -14,7 +14,7 @@ public class User {
     private String workplace;
     private String address;
 
-    public User(String name, int age, String workplace, String address) { //конструктор
+    public User(String name, int age, String workplace, String address) {
         this.name = name;
         this.age = age;
         this.workplace = workplace;
