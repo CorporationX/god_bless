@@ -14,7 +14,11 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        bookLocation.remove(new Book(title, author, year));
+        if (bookLocation.containsKey(new Book(title, author, year))) {
+            bookLocation.remove(new Book(title, author, year));
+        } else {
+            System.out.println("The book was not deleted because it is not in the library!");
+        }
     }
 
     public void findBook(String title, String author, int year) {

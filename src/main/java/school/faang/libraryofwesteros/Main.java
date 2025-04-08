@@ -33,5 +33,9 @@ public class Main {
         System.out.println("==== Поиск удаленной книги 'A Game of Thrones' ====");
         library.findBook("A Game of Thrones", "George R. R. Martin", 1996);
         System.out.println();
+
+        System.out.println("==== Удаление несуществующей книги ====");
+        library.removeBook("A Game of Thrones", "George R. R. Martin", 1996);
+        System.out.println();
     }
 }
