@@ -13,7 +13,7 @@ public class Example {
         }
     }
 
-    public void reverseUsingList (int[] array) {
+    public void reverseUsingList(int[] array) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int element : array) {
             list.add(element);

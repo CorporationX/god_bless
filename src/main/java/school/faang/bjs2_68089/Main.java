@@ -15,7 +15,7 @@ public class Main {
             System.out.println(element);
         }
         System.out.println("=====================");
-        example.reverseUsingList (array);
+        example.reverseUsingList(array);
         System.out.println("Reversed using list:");
         for (int element : array) {
             System.out.println(element);
