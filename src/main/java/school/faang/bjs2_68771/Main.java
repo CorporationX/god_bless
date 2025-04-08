@@ -11,10 +11,23 @@ public class Main {
         librarySystem.addBook("Княгиня Лиговская", "Лермонтов М.С.", 1836, "стеллаж 2");
         System.out.println(librarySystem.printAllBooks());
         System.out.println("-------");
-        System.out.println(librarySystem.findBook("Сказка о мёртвой царевне и о семи богатырях", "Пушкин А.С.", 1833));
-        System.out.println(librarySystem.findBook("Сказка о живой царевне и о семи богатырях", "Пушкин А.С.", 1833));
+        try {
+            System.out.println(
+                librarySystem.findBook("Сказка о мёртвой царевне и о семи богатырях", "Пушкин А.С.", 1833)
+            );
+        } catch (RuntimeException e) {
+            System.out.println(e);
+        }
+        try {
+            System.out.println(
+                librarySystem.findBook("Сказка о живой царевне и о семи богатырях", "Пушкин А.С.", 1833)
+            );
+        } catch (RuntimeException e) {
+            System.out.println(e);
+        }
         System.out.println("-------");
         librarySystem.removeBook("Сказка о мёртвой царевне и о семи богатырях", "Пушкин А.С.", 1833);
+        librarySystem.removeBook("Сказка о живой царевне и о семи богатырях", "Пушкин А.С.", 1833);
         System.out.println(librarySystem.printAllBooks());
     }
 }
