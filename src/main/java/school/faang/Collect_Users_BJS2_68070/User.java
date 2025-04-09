@@ -22,7 +22,7 @@ public class User {
         Map<String, String> retMap = new HashMap<>();
         for (User user : users) { // iterate through all given users
             for (String activity : activities) { // iterate through all given activities
-                if (user.isHobbyPresent(activity)){ // user has an activity as a hobby
+                if (user.isHobbyPresent(activity)) { // user has an activity as a hobby
                     retMap.put(user.name, activity); // add user and activity to the map
                     break; // head to next user
                 }
@@ -31,14 +31,16 @@ public class User {
         return retMap;
     }
 
-    public boolean isHobbyPresent(String hobby){
+    public boolean isHobbyPresent(String hobby) {
         for (String activity : activitiesList) {
-            if (hobby.equals(activity)) return true;
+            if (hobby.equals(activity)) {
+                return true;
+            }
         }
         return false;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Create several users with different hobbies
         User user1 = new User(1, "Alice", 30, new String[]{"Reading", "Hiking", "Photography"});
         User user2 = new User(2, "Bob", 25, new String[]{"Gaming", "Coding", "Reading"});
