@@ -5,7 +5,7 @@ import lombok.ToString;
 import java.util.Set;
 
 @ToString
-public class Users {
+public class User {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -15,7 +15,7 @@ public class Users {
     private final String job;
     private final String address;
 
-    public Users (String name, int age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым или не заданным");
         }
