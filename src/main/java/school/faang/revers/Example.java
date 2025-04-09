@@ -1,8 +1,5 @@
 package school.faang.revers;
 
-import lombok.ToString;
-
-@ToString
 public class Example {
     public static int[] reverse(int[] array) {
         int iterations = array.length / 2;
