@@ -1,4 +1,4 @@
-package school.faang.bjs2_68197;
+package school.faang.basic.grouping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
