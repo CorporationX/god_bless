@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @lombok.Getter
 @lombok.Setter
 public class Userr {
@@ -25,7 +26,7 @@ public class Userr {
 
         Map<Integer, List<Userr>> usersMap = new HashMap<>();
 
-        for(Userr user: users) {
+        for (Userr user : users) {
             usersMap.computeIfAbsent(user.getAge(), a -> new ArrayList<>()).add(user);
         }
         return usersMap;
