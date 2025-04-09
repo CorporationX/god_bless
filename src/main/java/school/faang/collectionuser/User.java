@@ -1,18 +1,14 @@
 package school.faang.collectionuser;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-@Getter
+@Data
 public class User {
 
     private int id;
