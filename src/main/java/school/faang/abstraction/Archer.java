@@ -2,20 +2,19 @@ package school.faang.abstraction;
 
 public class Archer extends Character {
 
-    public static final int STRENGTH_FOR_ARCHER = 3;
-    public static final int AGILITY_FOR_ARCHER = 10;
-    public static final int INTELLIGENCE_FOR_ARCHER = 5;
-
     public Archer(String name) {
-        super(name);
-        setStrength(STRENGTH_FOR_ARCHER);
-        setAgility(AGILITY_FOR_ARCHER);
-        setIntelligence(INTELLIGENCE_FOR_ARCHER);
+        super(name, HeroSettings.ARCHER_STRENGTH_DEFAULT,
+                HeroSettings.ARCHER_AGILITY_DEFAULT,
+                HeroSettings.ARCHER_INTELLIGENCE_DEFAULT);
     }
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - this.getAgility());
-        opponent.deathHero();
+        if (opponent.isAlive()) {
+            opponent.setHealth(opponent.getHealth() - this.getAgility());
+            opponent.processDeathHero();
+        } else {
+            System.out.println("Противник повержен, хвтит его колотить !!!");
+        }
     }
 }
