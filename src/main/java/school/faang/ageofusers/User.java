@@ -1,4 +1,4 @@
-package school.faang.Group_Users_By_Age;
+package school.faang.ageofusers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,29 +7,28 @@ import java.util.Map;
 
 @lombok.Getter
 @lombok.Setter
-public class Userr {
+public class User {
 
     private String name;
     private int age;
     private String workplace;
     private String adress;
 
-    public Userr(String name, int age, String workplace, String adress) {
+    public User(String name, int age, String workplace, String adress) {
+
         this.name = name;
         this.age = age;
         this.workplace = workplace;
         this.adress = adress;
     }
 
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-    public static Map<Integer, List<Userr>> groupUsers(List<Userr> users) {
+        Map<Integer, List<User>> usersMap = new HashMap<>();
 
-        Map<Integer, List<Userr>> usersMap = new HashMap<>();
-
-        for (Userr user : users) {
+        for (User user : users) {
             usersMap.computeIfAbsent(user.getAge(), a -> new ArrayList<>()).add(user);
         }
         return usersMap;
     }
-
 }
