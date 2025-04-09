@@ -1,17 +1,17 @@
-package school.faang.bjs2_68202;
+package school.faang.basic.registration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static school.faang.bjs2_68202.User.VALID_ADDRESSES;
-import static school.faang.bjs2_68202.User.VALID_JOBS;
+import static school.faang.basic.registration.User.VALID_ADDRESSES;
+import static school.faang.basic.registration.User.VALID_JOBS;
 
 @Slf4j
 public class UserValidationTests {
 
     private static final String VALID_NAME = "Jonny";
-    private static final Integer VALID_AGE = 18;
+    private static final Integer VALID_AGE = User.REQUIRED_AGE;
     private static final String VALID_JOB = VALID_JOBS.iterator().next();
     private static final String VALID_ADDRESS = VALID_ADDRESSES.iterator().next();
 

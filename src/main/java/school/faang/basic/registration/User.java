@@ -1,4 +1,4 @@
-package school.faang.bjs2_68202;
+package school.faang.basic.registration;
 
 import java.util.Set;
 
@@ -6,6 +6,7 @@ public record User(String name, Integer age, String job, String address) {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final Integer REQUIRED_AGE = 18;
 
     /**
      * @throws IllegalArgumentException имя пустое или отсутствует, возраст меньше 18, работа и адрес имеют
@@ -23,7 +24,6 @@ public record User(String name, Integer age, String job, String address) {
         StringBuilder errorMessage = new StringBuilder("Не удалось создать пользователя! Некорректные данные:")
                 .append("\n");
         boolean invalidUser = false;
-        // Валидация имени
         if (user.name == null) {
             invalidUser = true;
             errorMessage
@@ -36,7 +36,7 @@ public record User(String name, Integer age, String job, String address) {
                             .formatted(user.name))
                     .append("\n");
         }
-        if (user.age < 18) {
+        if (user.age < REQUIRED_AGE) {
             invalidUser = true;
             errorMessage
                     .append("Возраст пользователя: %d. Пользователь должен быть старше 18 лет!"
@@ -60,15 +60,5 @@ public record User(String name, Integer age, String job, String address) {
         if (invalidUser) {
             throw new IllegalArgumentException(errorMessage.toString());
         }
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
