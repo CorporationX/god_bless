@@ -1,8 +1,8 @@
 package school.faang.bjs2_68055;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class User {
     private int id;
     private String name;
