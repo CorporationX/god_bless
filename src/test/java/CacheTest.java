@@ -22,7 +22,7 @@ public class CacheTest {
         assertSame(first, second, "Должны возвращаться одинаковые объекты из кэша");
 
         Thread.sleep(2000);
-        second = standardCache.getWeatherData("НН", 2000);
+        second = standardCache.getWeatherData("НН", 1000);
         assertNotSame(first, second, "Должны возвращаться разные объекты из кэша");
     }
 
