@@ -1,14 +1,12 @@
 package school.faang.bjs2_68204;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
-@Getter
-@Setter
 @Slf4j
+@Data
 public class User {
     private String name;
     private int age;
@@ -42,19 +40,8 @@ public class User {
         Map<Integer, List<User>> usersMap = new HashMap<>();
         for (User user : userslist) {
             int age = user.getAge();
-            usersMap.putIfAbsent(age, new ArrayList<>());
-            usersMap.get(age).add(user);
+            usersMap.computeIfAbsent(age, key -> new ArrayList<>()).add(user);
         }
         return usersMap;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", location='" + location + '\'' +
-                '}';
     }
 }
