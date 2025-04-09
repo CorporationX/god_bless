@@ -31,3 +31,4 @@ public class User {
         return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }
+// jhcuzhcjakxjajx
