@@ -1,9 +1,9 @@
 package school.faang.basic.abstraction.characters;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.security.SecureRandom;
 import java.util.List;
 
 @Slf4j
@@ -11,48 +11,46 @@ import java.util.List;
 public abstract class Character {
 
     private static final List<String> DAMAGE_LINES = List.of("AAAY!", "AGH!", "UPHHH!", "KHEH!");
+    private static final int DEFAULT_HEALTH = 100;
 
+    @Setter
     protected int strength;
+    @Setter
     protected int agility;
+    @Setter
     protected int intelligence;
     private final String name;
-    private int health = 100;
-    private boolean isDead = false;
+    private int health;
+    private boolean isDead;
 
-    public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-    }
-
-    protected Character(String name, int strength, int agility, int intelligence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-    }
-
-    public abstract void attack(Character target);
-
-    public void hitOpponent(Character opponent) {
-        log.info(this.name.concat(" strikes ").concat(opponent.getName()));
-        attack(opponent);
+        this.health = DEFAULT_HEALTH;
+        this.isDead = false;
     }
 
     public void praise() {
-        log.info(name.concat(" screams: VICTORY!"));
+        log.info("{} screams: VICTORY!", name);
     }
 
-    protected void takeDamage(int damage) {
-        if (damage < health) {
-            health -= damage;
-            String damageLine = DAMAGE_LINES.get(new SecureRandom().nextInt(0, DAMAGE_LINES.size()));
-            log.info(name.concat(" screams: ").concat(damageLine));
-        } else {
+    public void hitOpponent(Character opponent) {
+        log.info("{} strikes {}", name, opponent.getName());
+        opponent.takeDamage(attack());
+    }
+
+    public void takeDamage(int damage) {
+        if (damage >= health) {
             isDead = true;
             health = 0;
-            log.info(name.concat(" - is dead!"));
+            log.info("{} - is dead!", name);
+            return;
         }
+        health -= damage;
+        log.info("{} screams {}", name, Randomizer.pickRandomMember(DAMAGE_LINES));
     }
+
+    protected abstract int attack();
 }
