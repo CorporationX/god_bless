@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Data
 public class User {
+    private static final int AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -16,11 +17,13 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        this.name = Optional.ofNullable(name)
-                .filter(n -> !n.trim().isEmpty())
-                .orElseThrow(() -> new IllegalArgumentException("name не может быть null или пустым!"));
 
-        if (age < 18) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("name не может быть null или пустым!");
+        }
+        this.name = name;
+
+        if (age < AGE) {
             throw new IllegalArgumentException("Возраст должен быть больше 18");
         }
         this.age = age;
