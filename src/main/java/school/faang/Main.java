@@ -1,5 +1,6 @@
 package school.faang;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,42 +16,57 @@ public class Main {
         private final int id;
         private final String name;
         private final int age;
-        private final Set<String> activities;
+        private Set<String> activities;
 
-        public User(int id, String name, int age) {
+        @Builder
+        public User(int id, String name, int age, Set<String> activities) {
             this.id = id;
             this.name = name;
             this.age = age;
-            this.activities = new HashSet<>();
+            this.activities = (activities != null) ? new HashSet<>(activities) : new HashSet<>();
         }
 
         public void addActivity(String activity) {
             activities.add(activity);
         }
 
+        private Set<String> getActivities() {
+            if (activities == null) {
+                synchronized (this) {
+                    if (activities == null) {
+                        activities = new HashSet<>();
+                    }
+                }
+            }
+            return activities;
+        }
     }
 
     private static List<User> createTestUsers() {
 
-        User user1 = new User(1, "Андрей", 25);
-        user1.addActivity("Плавание");
-        user1.addActivity("Чтение");
-        user1.addActivity("Хоккей");
+        User user1 = User.builder()
+                .id(1)
+                .name("Андрей")
+                .age(35)
+                .activities(Set.of("Плавание", "Музыка", "Хоккей"))
+                .build();
 
-        User user2 = new User(2, "Сергей", 30);
-        user2.addActivity("Рисование");
-        user2.addActivity("Музыка");
-        user2.addActivity("Хоккей");
+        User user2 = User.builder()
+                .id(2)
+                .name("Сергей")
+                .age(30)
+                .activities(Set.of("Рисование", "Музыка", "Хоккей"))
+                .build();
 
-        User user3 = new User(3, "Георгий", 28);
-        user3.addActivity("Бег");
-        user3.addActivity("Стрельба");
+        User user3 = User.builder()
+                .id(3)
+                .name("Георгий")
+                .age(22)
+                .activities(Set.of("Бег", "Музыка", "Стрельба"))
+                .build();
 
-        List<User> users = new ArrayList<>();
 
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
+        List<User> users = new ArrayList<>(List.of(user1, user2, user3));
 
         return users;
     }
@@ -60,9 +76,8 @@ public class Main {
 
         for (User user : users) {
 
-            Set<String> userHobbies = user.getActivities();
-            for (String hobby : hobbies) {
-                if (userHobbies.contains(hobby)) {
+            for (String hobby : user.getActivities()) {
+                if (user.getActivities().stream().anyMatch(hobbies::contains)) {
                     result.add(user);
                     break;
                 }
@@ -78,8 +93,6 @@ public class Main {
         Set<String> targetHobbies = Set.of("Хоккей");
 
         List<User> hobbyLovers = findHobbyLovers(users, targetHobbies);
-
-        System.out.println("Пользователи с указанными хобби в виде Хоккеея:");
         hobbyLovers.forEach(user -> System.out.println(user.getName()));
     }
 }
