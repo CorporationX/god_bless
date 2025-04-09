@@ -11,7 +11,7 @@ import java.util.Map;
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
-    int id = 0;
+    private int id = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent newSpellEvent = new SpellEvent(id, eventType, actionDescription);
