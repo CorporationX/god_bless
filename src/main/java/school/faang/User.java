@@ -2,7 +2,6 @@ package school.faang;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,7 +9,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class User {
@@ -33,7 +31,7 @@ public class User {
             throw new IllegalArgumentException("The name cannot be empty");
         }
         if (age <= VALID_AGE) {
-            throw new IllegalArgumentException("The age must not be less than 18" + VALID_AGE);
+            throw new IllegalArgumentException("The age must not be less than " + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job" + job);
