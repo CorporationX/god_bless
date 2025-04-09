@@ -15,16 +15,16 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if(name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Invalid user name");
         }
-        if (age < MIN_AGE ){
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Invalid age");
         }
-        if (!VALID_JOBS.contains(job)){
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job");
         }
-        if (!VALID_ADDRESS.contains(address)){
+        if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Invalid address");
         }
         this.name = name;
@@ -32,5 +32,4 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
 }
