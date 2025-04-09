@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
         List<User> users = new ArrayList<>();
         users.add(new User("DONAT", 23, "Uber", "Amsterdam"));
         users.add(new User("POLAND", 24, "Uber", "London"));
