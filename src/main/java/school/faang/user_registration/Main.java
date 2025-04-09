@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             User alice = new User("Alice", 25, "Google", "London");
-            System.out.println("Success: " + alice);
+            System.out.printf("User %s successfully created! %n", alice.getName());
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
