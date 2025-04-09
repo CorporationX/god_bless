@@ -34,17 +34,16 @@ public class HogwartsSpells {
         }
         String eventType = optionalEvent.get().getEventType();
         Optional<List<SpellEvent>> optionalEventList = getSpellEventsByType(eventType);
-        if (optionalEventList.isEmpty()) {
-            return Optional.of(spellById.remove(id));
+        if (optionalEventList.isPresent()) {
+            List<SpellEvent> eventList = optionalEventList.get();
+            eventList.removeIf(spellEvent -> spellEvent.getId() == id);
         }
-        List<SpellEvent> eventList = optionalEventList.get();
-        eventList.removeIf(spellEvent -> spellEvent.getId() == id);
         return Optional.of(spellById.remove(id));
     }
 
     public void printAllSpellEvents() {
         for (var spellEntry : spellById.entrySet()) {
-            System.out.printf("Заклинание: %s\n".formatted(spellEntry.getValue()));
+            System.out.printf("Spell: %s\n".formatted(spellEntry.getValue()));
         }
     }
 

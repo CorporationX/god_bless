@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
 @ToString
 @EqualsAndHashCode
 public class SpellEvent {
-    public static final String ID_IS_EMPTY = "Не указан идентификатор заклинания;";
-    public static final String EVENT_TYPE_IS_EMPTY = "Не указан тип заклинания;";
-    public static final String ACTION_IS_EMPTY = "Не указано описание действия заклинания;";
+    public static final String ID_IS_EMPTY = "Spell event id is empty;";
+    public static final String EVENT_TYPE_IS_EMPTY = "Spell event type is empty;";
+    public static final String ACTION_IS_EMPTY = "Spell action is empty;";
 
     private final Integer id;
     private final String eventType;
