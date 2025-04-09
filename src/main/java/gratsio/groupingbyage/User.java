@@ -1,4 +1,4 @@
-package grouping_by_age_BJS2_68142;
+package gratsio.groupingbyage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
