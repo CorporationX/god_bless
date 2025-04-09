@@ -1,6 +1,6 @@
 package school.faang.basic.abstraction.characters;
 
-public class Mage extends Character{
+public class Mage extends Character {
 
     public Mage(String name) {
         super(name, 2, 2, 12);

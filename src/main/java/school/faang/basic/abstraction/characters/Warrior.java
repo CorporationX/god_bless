@@ -1,6 +1,6 @@
 package school.faang.basic.abstraction.characters;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name, 10, 5, 3);

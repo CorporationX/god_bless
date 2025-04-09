@@ -35,7 +35,7 @@ public abstract class Character {
 
     public abstract void attack(Character target);
 
-    public void hitOpponent(Character opponent){
+    public void hitOpponent(Character opponent) {
         log.info(this.name.concat(" strikes ").concat(opponent.getName()));
         attack(opponent);
     }
@@ -45,9 +45,10 @@ public abstract class Character {
     }
 
     protected void takeDamage(int damage) {
-        if(damage < health) {
+        if (damage < health) {
             health -= damage;
-            log.info(name.concat(" screams: ").concat(DAMAGE_LINES.get(new SecureRandom().nextInt(0, DAMAGE_LINES.size()))));
+            String damageLine = DAMAGE_LINES.get(new SecureRandom().nextInt(0, DAMAGE_LINES.size()));
+            log.info(name.concat(" screams: ").concat(damageLine));
         } else {
             isDead = true;
             health = 0;

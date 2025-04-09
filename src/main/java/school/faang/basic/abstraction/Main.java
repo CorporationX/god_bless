@@ -27,7 +27,7 @@ public class Main {
 
         List<Character> enemiesLeft = fight(hero, enemies);
 
-        if(enemiesLeft.isEmpty()) {
+        if (enemiesLeft.isEmpty()) {
             hero.praise();
         } else {
             enemiesLeft.forEach(Character::praise);
@@ -42,13 +42,13 @@ public class Main {
 
         while (!hero.isDead() && !enemiesToFight.isEmpty()) {
             int diceRoll = secureRandom.nextInt(1, 21);
-            if(diceRoll < 3) {
+            if (diceRoll < 3) {
                 Character turnAttacker = enemiesToFight.get(secureRandom.nextInt(0, enemiesToFight.size()));
                 turnAttacker.hitOpponent(hero);
             } else {
                 Character turnOpponent = enemiesToFight.get(secureRandom.nextInt(0, enemiesToFight.size()));
                 hero.hitOpponent(turnOpponent);
-                if(turnOpponent.isDead()) {
+                if (turnOpponent.isDead()) {
                     enemiesToFight.remove(turnOpponent);
                 }
             }
