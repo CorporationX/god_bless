@@ -14,6 +14,10 @@ import java.util.List;
 @Slf4j
 public class Main {
 
+    private static final int HERO_GET_HIT_ROLL = 4;
+    private static final int MIN_ROLL = 1;
+    private static final int MAX_ROLL = 21;
+
     public static void main(String[] args) {
         Warrior hero = new Warrior("Aragorn");
         List<Character> enemies = List.of(
@@ -41,8 +45,8 @@ public class Main {
         List<Character> enemiesToFight = new ArrayList<>(enemies);
 
         while (!hero.isDead() && !enemiesToFight.isEmpty()) {
-            int diceRoll = secureRandom.nextInt(1, 21);
-            if (diceRoll < 3) {
+            int diceRoll = secureRandom.nextInt(MIN_ROLL, MAX_ROLL);
+            if (diceRoll < HERO_GET_HIT_ROLL) {
                 Character turnAttacker = enemiesToFight.get(secureRandom.nextInt(0, enemiesToFight.size()));
                 turnAttacker.hitOpponent(hero);
             } else {
