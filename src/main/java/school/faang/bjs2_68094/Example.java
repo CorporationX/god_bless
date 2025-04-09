@@ -9,10 +9,18 @@ public class Example {
     }
 
     public static int[] reverse(int[] nums) {
-        int[] reversedArray = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            reversedArray[i] = nums[nums.length - 1 - i];
+        int start = 0;
+        int end = nums.length - 1;
+
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+
+            start++;
+            end--;
         }
-        return reversedArray;
+
+        return nums;
     }
 }
