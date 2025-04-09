@@ -1,14 +1,14 @@
 package school.faang.bjs2_68055;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User u1 = new User(1, "Miras", 25, Set.of("reading", "running", "yoga"));
-        User u2 = new User(2, "Ivan", 30, Set.of("chess", "yoga"));
-        User u3 = new User(3, "Max", 22, Set.of("painting", "swimming"));
-
-        List<User> users = List.of(u1, u2, u3);
+        List<User> users = List.of(new User(1, "Miras", 25, Set.of("reading", "running", "yoga")),
+                new User(2, "Ivan", 30, Set.of("chess", "yoga")),
+                new User(3, "Max", 22, Set.of("painting", "swimming")));
         Set<String> hobbies = Set.of("yoga", "swimming");
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
