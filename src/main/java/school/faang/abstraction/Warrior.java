@@ -7,7 +7,7 @@ public class Warrior extends Character {
     }
 
     @Override
-    public int calculateDamage() {
+    public int getDamage() {
         return getStrength();
     }
 

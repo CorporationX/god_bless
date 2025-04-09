@@ -7,7 +7,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public int calculateDamage() {
+    public int getDamage() {
         return getAgility();
     }
 

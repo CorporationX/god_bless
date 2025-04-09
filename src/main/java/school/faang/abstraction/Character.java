@@ -21,19 +21,19 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
+        this.strength = 5;
+        this.agility = 5;
+        this.intelligence = 5;
     }
 
-    public abstract int calculateDamage();
+    public abstract int getDamage();
 
     public void attack(Character otherCharacter) {
         if (otherCharacter.getHealth() <= 0) {
             return;
         }
 
-        int damage = calculateDamage();
+        int damage = getDamage();
         otherCharacter.setHealth(otherCharacter.getHealth() - damage);
     }
 }
