@@ -7,6 +7,7 @@ import java.util.Map;
 
 @lombok.Getter
 @lombok.Setter
+
 public class User {
 
     private String name;
