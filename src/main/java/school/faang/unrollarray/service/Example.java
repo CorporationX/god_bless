@@ -1,8 +1,4 @@
-package school.faang.unrollArray.service;
-
-
-
-import java.util.Arrays;
+package school.faang.unrollarray.service;
 
 public class Example {
     public static void reverse(int[] arr) {

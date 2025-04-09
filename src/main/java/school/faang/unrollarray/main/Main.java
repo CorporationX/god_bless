@@ -1,6 +1,6 @@
-package school.faang.unrollArray.main;
+package school.faang.unrollarray.main;
 
-import school.faang.unrollArray.service.Example;
+import school.faang.unrollarray.service.Example;
 
 import java.util.Arrays;
 
