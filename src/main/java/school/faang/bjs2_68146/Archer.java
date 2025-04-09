@@ -13,6 +13,5 @@ public class Archer extends Character {
         int damage = getAgility();
         log.info("{} attacks {} for {} damage.", getName(), character.getName(), damage);
         character.takeDamage(damage);
-
     }
 }
