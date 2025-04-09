@@ -8,10 +8,7 @@ public abstract class Character {
     int health = 100;
 
     public Character(String name){
-        this.name = name;
-        strength = 5;
-        dexterity = 5;
-        intelligence = 5;
+        this(name, 5, 5, 5);
     }
     public Character(String name, int strength, int dexterity, int intelligence){
         this.name = name;
@@ -19,6 +16,7 @@ public abstract class Character {
         this.dexterity = dexterity;
         this.intelligence = intelligence;
     }
+
     public abstract void attack(Character character);
     protected void takeDamage(int damage){
         health = Math.max(health - damage, 0);
