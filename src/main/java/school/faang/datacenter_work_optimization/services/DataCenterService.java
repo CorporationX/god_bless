@@ -1,11 +1,12 @@
-package school.faang.datacenter_work_optimization;
+package school.faang.datacenter_work_optimization.services;
+
+import school.faang.datacenter_work_optimization.model.DataCenter;
+import school.faang.datacenter_work_optimization.model.ResourceRequest;
+import school.faang.datacenter_work_optimization.model.Server;
 
 import java.util.Comparator;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DataCenterService {
-
 
     private void addServer(DataCenter dataCenter, Server server) {
         dataCenter.getServers().add(server);
@@ -51,7 +52,9 @@ public class DataCenterService {
         } while (request.getLoad() > 0);
     }
 
+    public static void callOptimization(DataCenter dataCenter) {
+        LoadBalancingOptimizationStrategy loadBalancingOptimizationStrategy = new LoadBalancingOptimizationStrategy();
+        loadBalancingOptimizationStrategy.optimize(dataCenter);
 
-
-
+    }
 }

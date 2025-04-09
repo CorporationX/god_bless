@@ -1,4 +1,4 @@
-package school.faang.datacenter_work_optimization;
+package school.faang.datacenter_work_optimization.model;
 
 import lombok.Getter;
 import lombok.Setter;
