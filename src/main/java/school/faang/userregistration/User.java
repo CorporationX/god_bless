@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 public class User {
-    private static final int AGE = 18;
+    private static final int MIN_AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -23,8 +23,8 @@ public class User {
         }
         this.name = name;
 
-        if (age < AGE) {
-            throw new IllegalArgumentException("Возраст должен быть больше 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст должен быть больше %d".formatted(MIN_AGE));
         }
         this.age = age;
 

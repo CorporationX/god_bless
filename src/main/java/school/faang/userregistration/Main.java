@@ -35,6 +35,6 @@ public class Main {
     }
 
     public static void printError(IllegalArgumentException ex) {
-        System.err.printf("Ошибка при создании пользователя: " + ex.getMessage() + "\n");
+        System.err.printf("Ошибка при создании пользователя: %s\n", ex.getMessage());
     }
 }
