@@ -15,6 +15,7 @@ public class Main {
         liberty.findBook("Мастер и маргарита", "Булгаков", 1940);
 
         liberty.removeBook("Война и мир", "Толстой", 1896);
+        liberty.removeBook("Война и мир", "Толстой", 1896);
 
         liberty.printAllBooks();
     }

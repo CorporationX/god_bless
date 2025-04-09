@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 
 @ToString
 public class LibertySystem {
-
     private final Map<Book, String> liberty = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
@@ -16,7 +15,9 @@ public class LibertySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        liberty.remove(new Book(title, author, year));
+        if (liberty.remove(new Book(title, author, year)) == null) {
+            System.out.println("В библиотеке нет данной книги");
+        }
     }
 
     public void findBook(String title, String author, int year) {
