@@ -33,8 +33,12 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    protected void setHealth(Integer health) {
-        this.health = Math.max(0, health);
+    protected void receiveDamage(int damage) {
+        this.setHealth(this.getHealth() - damage);
+    }
+
+    protected boolean isDead() {
+        return this.health <= 0;
     }
 
     @Override

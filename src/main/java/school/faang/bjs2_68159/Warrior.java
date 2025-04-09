@@ -7,8 +7,12 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
+        if (opponent.isDead()) {
+            System.out.println(opponent.getName() + " has been defeated!");
+            return;
+        }
         Integer strength = this.getStrength();
-        opponent.setHealth(opponent.getHealth() - strength);
+        opponent.receiveDamage(strength);
         System.out.printf("%s attacks %s, left health %s %n", this.getName(), opponent.getName(), opponent.getHealth());
     }
 }
