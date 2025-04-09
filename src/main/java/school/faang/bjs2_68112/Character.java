@@ -21,10 +21,7 @@ public abstract class Character {
     private Integer health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = DEFAULT_STRENGTH;
-        this.agility = DEFAULT_AGILITY;
-        this.intellect = DEFAULT_INTELLECT;
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLECT);
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intellect) {
@@ -37,6 +34,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected void diminishHealth(Integer amount) {
-        health = (amount > health) ? 0 : health - amount;
+        health = Math.max(0, health - amount);
     }
 }
