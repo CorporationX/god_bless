@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    Map<Book, String> library = new HashMap<>();
+    private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -13,8 +13,12 @@ public class LibrarySystem {
     }
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        System.out.println("Book removed: " + book + " | from " + library.get(book));
-        library.remove(book);
+        if (library.containsKey(book)) {
+            System.out.println("Book removed: " + book + " | from " + library.get(book));
+            library.remove(book);
+        } else {
+            System.out.println("This book is not in the library!");
+        }
     }
     public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
@@ -29,6 +33,4 @@ public class LibrarySystem {
             System.out.println("Book " + entry.getKey() + " is located " + entry.getValue());
         }
     }
-
-
 }
