@@ -6,6 +6,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
+    private static final int DEFAULT_STRENGTH = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+
     private String name;
     private int strength;
     private int agility;
@@ -19,19 +23,15 @@ public abstract class Character {
         this.name = name;
     }
 
-    public void setHealth(int health) {
-        if (health < 0) {
-            throw new ArithmeticException(String.format("Значение здоровья персонажа %s " +
-                    "не может быть отрицательным", name));
-        }
-        this.health = health;
+    public void setHealthWhenHit(int hitpoint) {
+        this.health = Math.max(this.health - hitpoint, 0);
     }
 
     protected Character(String name) {
         this.setName(name);
-        this.setStrength(5);
-        this.setAgility(5);
-        this.setIntelligence(5);
+        this.setStrength(DEFAULT_STRENGTH);
+        this.setAgility(DEFAULT_AGILITY);
+        this.setIntelligence(DEFAULT_INTELLIGENCE);
     }
 
     protected Character(String name, int strength, int agility, int intelligence) {
