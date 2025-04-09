@@ -1,4 +1,4 @@
-package school.faang.group_by_age;
+package school.faang.groupByAge;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
