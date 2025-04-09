@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 public class Main {
 
     public static void main(String[] args) {
-
-        String validUserMessage = "Корректно созданный пользователь - %s".formatted( new User("Jonny", 18, "Google", "London"));
+        User validUser = new User("Jonny", 18, "Google", "London");
+        String validUserMessage = "Корректно созданный пользователь - %s".formatted(validUser);
         String invalidUserMessage = "";
         try {
             new User("  ", 17, "Yandex", "Moscow");

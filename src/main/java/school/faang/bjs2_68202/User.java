@@ -8,7 +8,8 @@ public record User(String name, Integer age, String job, String address) {
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     /**
-     * @throws IllegalArgumentException "имя пустое или отсутствует, возраст меньше 18, работа и адрес имеют недопустимые значения"
+     * @throws IllegalArgumentException имя пустое или отсутствует, возраст меньше 18, работа и адрес имеют
+     *                                  недопустимые значения
      */
     public User(String name, Integer age, String job, String address) {
         this.name = name;
@@ -19,7 +20,8 @@ public record User(String name, Integer age, String job, String address) {
     }
 
     private static void validateUser(User user) {
-        StringBuilder errorMessage = new StringBuilder("Не удалось создать пользователя! Некорректные данные:").append("\n");
+        StringBuilder errorMessage = new StringBuilder("Не удалось создать пользователя! Некорректные данные:")
+                .append("\n");
         boolean invalidUser = false;
         // Валидация имени
         if (user.name == null) {
@@ -31,28 +33,28 @@ public record User(String name, Integer age, String job, String address) {
             invalidUser = true;
             errorMessage
                     .append("Имя пользователя '%s'. Имя пользователя не может быть пустым!"
-                    .formatted(user.name))
+                            .formatted(user.name))
                     .append("\n");
         }
         if (user.age < 18) {
             invalidUser = true;
             errorMessage
                     .append("Возраст пользователя: %d. Пользователь должен быть старше 18 лет!"
-                    .formatted(user.age))
+                            .formatted(user.age))
                     .append("\n");
         }
         if (!VALID_JOBS.contains(user.job)) {
             invalidUser = true;
             errorMessage
                     .append("Пользователь работает в %s. Пользователь должен работать в одной из фирм %s!"
-                    .formatted(user.job, VALID_JOBS))
+                            .formatted(user.job, VALID_JOBS))
                     .append("\n");
         }
         if (!VALID_ADDRESSES.contains(user.address)) {
             invalidUser = true;
             errorMessage
                     .append("Пользователь проживает в %s. Пользователь должен проживать в одном из городов %s!"
-                    .formatted(user.address, VALID_ADDRESSES))
+                            .formatted(user.address, VALID_ADDRESSES))
                     .append("\n");
         }
         if (invalidUser) {
