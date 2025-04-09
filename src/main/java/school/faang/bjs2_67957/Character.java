@@ -4,18 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 import lombok.Setter;
 
+import static school.faang.bjs2_67957.GameProperties.CHARACTER_AGILITY;
+import static school.faang.bjs2_67957.GameProperties.CHARACTER_INTELLIGENCE;
+import static school.faang.bjs2_67957.GameProperties.CHARACTER_STRENGTH;
+
 @Setter
 @Getter
 @Slf4j
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
+    protected final String name;
+    protected final int strength;
+    protected final int agility;
+    protected final int intelligence;
     protected int health = 100;
 
     public Character(String name) {
-        this(name, 5, 5, 5);
+        this(name, CHARACTER_STRENGTH, CHARACTER_AGILITY, CHARACTER_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
