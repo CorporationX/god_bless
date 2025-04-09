@@ -7,14 +7,13 @@ import java.util.Set;
 @ToString
 public class User {
 
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int VALID_AGE = 18;
     private final String name;
     private final int age;
     private final String job;
     private final String address;
-
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    public static final int VALID_AGE = 18;
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
