@@ -15,7 +15,7 @@ public class User {
     private final String job;
     private final String address;
 
-    public User(String name, int age, String job, String address) {
+    public Users (String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым или не заданным");
         }
