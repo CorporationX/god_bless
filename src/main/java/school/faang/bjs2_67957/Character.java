@@ -31,8 +31,8 @@ public abstract class Character {
 
     protected abstract void attack(Character opponent);
 
-    protected void reduceHealth(int value) {
-        health = Math.max(getHealth() - value, 0);
+    protected void reduceHealth(int damage) {
+        health = Math.max(getHealth() - damage, 0);
         log.info("{} health {}", getName(), getHealth());
     }
 }
