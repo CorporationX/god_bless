@@ -17,23 +17,22 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("The wrong parameters!");
         }
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
-        List<SpellEvent> spellEvents;
-        if (spellByType.containsKey(eventType)) {
-            spellEvents = spellByType.get(eventType);
-            spellEvents.add(spellEvent);
-        } else {
-            spellEvents = new ArrayList<>();
-            spellEvents.add(spellEvent);
-        }
-        spellByType.put(eventType, spellEvents);
+        List<SpellEvent> spellEvents = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
+        spellEvents.add(spellEvent);
         spellById.put(spellEvent.getId(), spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (!spellById.containsKey(id)) {
+            throw new IllegalArgumentException("The ID is not valid!");
+        }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (!spellByType.containsKey(eventType)) {
+            throw new IllegalArgumentException("The event type is not valid!");
+        }
         return spellByType.get(eventType);
     }
 
@@ -42,7 +41,7 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("The ID is not valid!");
         }
         SpellEvent spellEvent = spellById.get(id);
-        String eventType = spellById.get(id).getEventType();
+        String eventType = spellEvent.getEventType();
 
         List<SpellEvent> spellEvents = spellByType.get(eventType);
         if (spellEvents != null) {
