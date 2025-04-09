@@ -1,10 +1,13 @@
-package school.faang.collectUsers;
+package school.faang.collectusers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
 
 @Setter
 @Getter
@@ -13,19 +16,19 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private String[] activitiesList;
+    private Set<String> activitiesList;
 
     public Map<String, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<String, String> hobbyLobersMap = new HashMap<>();
+        Map<String, String> hobbyLoversMap = new HashMap<>();
         for (User user : users) {
             for (String activity : activities) {
                 if (user.isHobbyPresent(activity)) {
-                    hobbyLobersMap.put(user.name, activity);
+                    hobbyLoversMap.put(user.name, activity);
                     break;
                 }
             }
         }
-        return hobbyLobersMap;
+        return hobbyLoversMap;
     }
 
     public boolean isHobbyPresent(String hobby) {
