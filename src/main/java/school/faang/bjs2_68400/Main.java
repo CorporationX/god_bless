@@ -11,25 +11,24 @@ public class Main {
         Character warrior = new Warrior("Warrior");
         Character archer = new Archer("Archer");
 
-        for (int i = 0; i < 11; i++) {
-            if (warrior.getHealth() > 0 && archer.getHealth() > 0) {
-                log.info("Воин атакует!");
-                warrior.attack(archer);
-                log.info("Здоровье лучника: {}", archer.getHealth());
-
-                log.info("Лучник атакует!");
-                archer.attack(warrior);
-                log.info("Здоровье воина: {}", warrior.getHealth());
-            } else {
-
-                if (warrior.getHealth() <= 0) {
-                    log.info("Воин убит!");
-                }
-
-                if (archer.getHealth() <= 0) {
-                    log.info("Лучник убит!");
-                }
+        while (true) {
+            if (warrior.getHealth() <= 0) {
+                log.info("Воин убит!");
+                break;
             }
+
+            if (archer.getHealth() <= 0) {
+                log.info("Лучник убит!");
+                break;
+            }
+
+            log.info("Воин атакует!");
+            warrior.attack(archer);
+            log.info("Здоровье лучника: {}", archer.getHealth());
+
+            log.info("Лучник атакует!");
+            archer.attack(warrior);
+            log.info("Здоровье воина: {}", warrior.getHealth());
         }
     }
 }

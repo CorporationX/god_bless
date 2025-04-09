@@ -18,7 +18,7 @@ public abstract class Character {
 
     public void setName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("Name can not be empty!");
         }
         this.name = name;
     }
@@ -27,14 +27,11 @@ public abstract class Character {
         this.health = Math.max(this.health - hitpoint, 0);
     }
 
-    protected Character(String name) {
-        this.setName(name);
-        this.setStrength(DEFAULT_STRENGTH);
-        this.setAgility(DEFAULT_AGILITY);
-        this.setIntelligence(DEFAULT_INTELLIGENCE);
+    public Character(String name) {
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
-    protected Character(String name, int strength, int agility, int intelligence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.setName(name);
         this.setStrength(strength);
         this.setAgility(agility);
