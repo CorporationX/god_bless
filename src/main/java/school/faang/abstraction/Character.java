@@ -1,25 +1,22 @@
 package school.faang.abstraction;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int dexterity;
-    protected int intellect;
+    protected final String name;
+    protected final int strength;
+    protected final int dexterity;
+    protected final int intellect;
     protected int health = 100;
-
-    protected static final int DEFAULT_STRENGTH = 5;
-    protected static final int DEFAULT_DEXTERITY = 5;
-    protected static final int DEFAULT_INTELLECT = 5;
-
 
     public Character(String name) {
         this.name = name;
-        this.strength = DEFAULT_STRENGTH;
-        this.dexterity = DEFAULT_DEXTERITY;
-        this.intellect = DEFAULT_INTELLECT;
+        this.strength = GameProperties.CHARACTER_DEFAULT_STRENGTH;
+        this.dexterity = GameProperties.CHARACTER_DEFAULT_DEXTERITY;
+        this.intellect = GameProperties.CHARACTER_DEFAULT_INTELLECT;
     }
 
     public Character(String name, int strength, int dexterity, int intelligence) {
@@ -31,8 +28,8 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    public void checkHealth(Character opponent) {
-        opponent.health = Math.max(opponent.health, 0);
+    protected void setHealthPositive(Character opponent) {
+        opponent.setHealth(Math.max(opponent.getHealth(), 0));
     }
 }
 
