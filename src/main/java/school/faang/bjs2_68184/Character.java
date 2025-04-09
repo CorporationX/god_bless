@@ -6,17 +6,19 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
+    public static final int DEFAULT_STRENGTH = 5;
+    public static final int DEFAULT_AGILITY = 5;
+    public static final int DEFAULT_INTELLIGENCE = 5;
+    public static final int DEFAULT_HEALTH = 100;
+
     private String name;
     private int strength;
     private int agility;
     private int intelligence;
-    private int health = 100;
+    private int health = DEFAULT_HEALTH;
 
     public Character(String name) {
-        this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -29,9 +31,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
-        }
+        this.health = Math.max(0, this.health - damage);
     }
 }
