@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class LibrarySystem {
-    private Map<Book, String> library = new HashMap<>();
+    private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         library.put(new Book(title, author, year), location);
@@ -16,7 +16,7 @@ public class LibrarySystem {
     }
 
     public String findBook(String title, String author, int year) {
-        return Optional.ofNullable(library.get(new Book(title, author, year))).orElseGet(() -> "Not found");
+        return Optional.ofNullable(library.get(new Book(title, author, year))).orElse("Not found");
     }
 
     public void printAllBooks() {
