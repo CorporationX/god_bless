@@ -9,12 +9,13 @@ public abstract class Character {
     private int dexterity;
     private int intellect;
     private int hp;
+    private static final int defaultCharacteristic = 5;
 
     public Character(String name) {
         this.name = name;
-        this.power = 5;
-        this.dexterity = 5;
-        this.intellect = 5;
+        this.power = defaultCharacteristic;
+        this.dexterity = defaultCharacteristic;
+        this.intellect = defaultCharacteristic;
         this.hp = 100;
     }
 
@@ -29,10 +30,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void setHp(int hp) {
-        if ((this.hp - hp) < 0) {
-            this.hp = 0;
-        } else {
-            this.hp -= hp;
-        }
+        this.hp = Math.max(this.hp - hp, 0);
     }
 }
