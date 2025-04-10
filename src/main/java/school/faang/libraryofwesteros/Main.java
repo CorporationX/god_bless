@@ -1,8 +1,5 @@
 package school.faang.libraryofwesteros;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
         LibrarySystem librarySystem = new LibrarySystem();
@@ -16,7 +13,7 @@ public class Main {
         System.out.println(librarySystem.findBook("Властелин колец", "Толкин", 1950));
         System.out.println(librarySystem.findBook("Библия", "Всевышний", 1));
 
-        librarySystem.removeBook("Щелкунчик", "Гофман", 1892);
+        System.out.println(librarySystem.removeBook("Щелкунчик", "Гофман", 1892));
         librarySystem.printAllBooks();
 
         librarySystem.removeBook("Азбука", "Краснов", 1990);

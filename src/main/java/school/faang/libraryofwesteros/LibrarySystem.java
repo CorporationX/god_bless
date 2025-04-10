@@ -10,8 +10,8 @@ public class LibrarySystem {
         this.mapBook.put(new Book(title, author, year), location);
     }
 
-    public void removeBook(String title, String author, int year) {
-        this.mapBook.remove(new Book(title, author, year));
+    public String removeBook(String title, String author, int year) {
+        return this.mapBook.remove(new Book(title, author, year));
     }
 
     public String findBook(String title, String author, int year) {
