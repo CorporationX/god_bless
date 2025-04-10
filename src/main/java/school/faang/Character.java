@@ -4,20 +4,22 @@ import lombok.Getter;
 
 public abstract class Character {
 
+    protected static final int DEFAULT_HEALTH = 100;
+    protected static final int DEFAULT_STRENGTH = 5;
+    protected static final int DEFAULT_AGILITY = 5;
+    protected static final int DEFAULT_INTELLIGENCE = 5;
+
     private final String name;
     @Getter
-    private final int strength;
+    private int strength = DEFAULT_STRENGTH;
     @Getter
-    private final int agility;
-    private final int intelligence;
-    protected int health = 100;
+    private int agility = DEFAULT_AGILITY;
+    @Getter
+    private int intelligence = DEFAULT_INTELLIGENCE;
+    protected int health = DEFAULT_HEALTH;
 
     public Character(String name) {
-
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
     }
 
     public Character(int strength, int agility, int intelligence, String name) {
@@ -30,9 +32,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
-        }
+        this.health = Math.max(0, this.health - damage);
     }
 }
