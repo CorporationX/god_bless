@@ -26,9 +26,7 @@ public class Main {
                 .activities(Set.of("Бег", "Музыка", "Стрельба"))
                 .build();
 
-        List<User> users = List.of(user1, user2, user3);
-
-        return users;
+        return List.of(user1, user2, user3);
     }
 
     public static void main(String[] args) {

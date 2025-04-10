@@ -30,7 +30,7 @@ public class User {
         for (User user : users) {
 
             for (String hobby : user.getActivities()) {
-                if (user.getActivities().stream().anyMatch(hobbies::contains)) {
+                if (hobbies.contains(hobby)) {
                     result.add(user);
                     break;
                 }
