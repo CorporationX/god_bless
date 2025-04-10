@@ -1,6 +1,7 @@
 package school.faang.userhobbies;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static school.faang.userhobbies.User.findHobbyLovers;
@@ -31,8 +32,8 @@ public class Main {
 
     public static void main(String[] args) {
         List<User> users = createTestUsers();
-        Set<String> targetHobbies = Set.of("Хоккей");
-        List<User> hobbyLovers = findHobbyLovers(users, targetHobbies);
-        hobbyLovers.forEach(user -> System.out.println(user.getName()));
+        Set<String> targetHobbies = Set.of("Музыка");
+        Map<User, String> hobbyLovers = findHobbyLovers(users, targetHobbies);
+        hobbyLovers.forEach((user, hobby) -> System.out.println(user.getName() + ": " + hobby));
     }
 }
