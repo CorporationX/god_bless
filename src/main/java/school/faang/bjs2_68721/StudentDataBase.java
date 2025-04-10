@@ -69,7 +69,6 @@ public class StudentDataBase {
     public void addStudentToSubject(Student student, Subject subject) {
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
-
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {

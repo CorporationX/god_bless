@@ -97,8 +97,8 @@ public class StudentDataBaseTest {
     void testAddStudentToSubjectWhenNotInMaps() {
         database.addStudentToSubject(student1, subject1);
 
-        Assertions.assertFalse(database.getStudentSubjects().containsKey(student1));
-        Assertions.assertFalse(database.getSubjectStudents().containsKey(subject1));
+        Assertions.assertTrue(database.getStudentSubjects().containsKey(student1));
+        Assertions.assertTrue(database.getSubjectStudents().containsKey(subject1));
     }
 
     @Test
