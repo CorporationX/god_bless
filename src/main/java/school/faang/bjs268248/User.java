@@ -1,22 +1,19 @@
-package school.faang.bjs2_68248;
+package school.faang.bjs268248;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@AllArgsConstructor
-@ToString
+@Data
 public class User {
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
+
+    private final String name;
+    private final int age;
+    private final String workplace;
+    private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> grouped = new HashMap<>();
