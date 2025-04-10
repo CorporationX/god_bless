@@ -14,6 +14,5 @@ public class Main {
         }catch (IllegalArgumentException exception){
             System.out.println("Неверные данные");
         }
-
     }
 }

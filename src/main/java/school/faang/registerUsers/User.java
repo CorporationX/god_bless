@@ -3,15 +3,20 @@ package school.faang.registerUsers;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class User {
-    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    private static final int AGE_FOR_REGISTER = 18;
 
     private String name;
     private int age;
@@ -40,7 +45,7 @@ public class User {
         }
 
         public Builder setAge(int age) {
-            if (age < 18) {
+            if (age < AGE_FOR_REGISTER) {
                 throw new IllegalArgumentException("возраст больше 18 лет");
             }
             this.age = age;
@@ -66,15 +71,5 @@ public class User {
         public User build() {
             return new User(this);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "UserRegister{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", work='" + work + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
