@@ -11,7 +11,7 @@ public class Main {
                     .setAddress("New York")
                     .build();
             System.out.println(userRegister);
-        }catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             System.out.println("Неверные данные");
         }
     }

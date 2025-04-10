@@ -10,12 +10,10 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
     private static final int AGE_FOR_REGISTER = 18;
 
     private String name;
@@ -46,7 +44,7 @@ public class User {
 
         public Builder setAge(int age) {
             if (age < AGE_FOR_REGISTER) {
-                throw new IllegalArgumentException("возраст больше 18 лет");
+                throw new IllegalArgumentException("возраст больше %d лет".formatted(AGE_FOR_REGISTER));
             }
             this.age = age;
             return this;
