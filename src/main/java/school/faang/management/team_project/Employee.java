@@ -11,7 +11,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 public class Employee {
-    private static int idCounter = 0;
+    private static int idCounter = 1;
 
     private final int id = idCounter++;
     private final String name;

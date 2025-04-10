@@ -87,4 +87,10 @@ public class ProjectManager {
         );
     }
 
+    public void clearProjectTeam(int projectId) {
+        Project project = findProjectById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Проект не найден"));
+        project.clearTeamMembers();
+    }
+
 }

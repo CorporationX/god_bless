@@ -15,22 +15,21 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @ToString
 public class Project {
-    private static int idCounter = 0;
+    private static int idCounter = 1;
 
     private final int id = idCounter++;
     private final String name;
     @Setter
     private Set<String> requiredSkills = new HashSet<>();
-    private List<Employee> teamMembers = new ArrayList<>();
+    private final List<Employee> teamMembers = new ArrayList<>();
 
     public Project(String name) {
         this.name = name;
     }
 
-    public Project(String name, Set<String> requiredSkills, List<Employee> teamMembers) {
+    public Project(String name, Set<String> requiredSkills) {
         this.name = name;
         this.requiredSkills = requiredSkills;
-        this.teamMembers = teamMembers;
     }
 
     public boolean addTeamMember(Employee employee) {
@@ -54,5 +53,10 @@ public class Project {
         return teamMembers.stream()
                 .flatMap(emp -> emp.getSkills().stream())
                 .collect(Collectors.toSet());
+    }
+
+    public void clearTeamMembers() {
+        teamMembers.forEach(Employee::decrementProjectCount);
+        teamMembers.clear();
     }
 }
