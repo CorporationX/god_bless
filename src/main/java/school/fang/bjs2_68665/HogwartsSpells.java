@@ -1,29 +1,22 @@
 package school.fang.bjs2_68665;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@NoArgsConstructor
 public class HogwartsSpells {
 
     private Map<Integer, SpellEvent> spellById;
     private Map<String, SpellEvent> spellsByType;
-    private static int id = 0;
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-        id++;
+
+    public void addSpellEvent(int id, String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
         spellsByType.put(eventType, spellEvent);

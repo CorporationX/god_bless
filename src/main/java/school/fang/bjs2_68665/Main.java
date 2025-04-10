@@ -9,10 +9,10 @@ public class Main {
         hogwartsSpells.setSpellsByType(new HashMap<>());
         hogwartsSpells.setSpellById(new HashMap<>());
 
-        hogwartsSpells.addSpellEvent("Defence", "Defence from attacks");
-        hogwartsSpells.addSpellEvent("Fire", "Hurls fireball at opponent");
-        hogwartsSpells.addSpellEvent("IceWall", "Builds a wall of ice");
-        hogwartsSpells.addSpellEvent("Metal", "Turns anything into gold");
+        hogwartsSpells.addSpellEvent(1, "Defence", "Defence from attacks");
+        hogwartsSpells.addSpellEvent(2, "Fire", "Hurls fireball at opponent");
+        hogwartsSpells.addSpellEvent(3, "IceWall", "Builds a wall of ice");
+        hogwartsSpells.addSpellEvent(4, "Metal", "Turns anything into gold");
 
         hogwartsSpells.printAllSpellEvents();
 
