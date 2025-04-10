@@ -25,8 +25,6 @@ public class StudentDataBaseTest {
     @BeforeEach
     void setUp() {
         database = new StudentDataBase();
-        database.setStudentSubjects(new HashMap<>());
-        database.setSubjectStudents(new HashMap<>());
 
         student1 = new Student("NN");
         student2 = new Student("Marina");

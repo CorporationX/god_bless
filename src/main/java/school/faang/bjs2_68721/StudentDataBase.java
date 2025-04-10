@@ -3,7 +3,6 @@ package school.faang.bjs2_68721;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,39 +14,36 @@ import java.util.NoSuchElementException;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class StudentDataBase {
-    Map<Student, Map<Subject, Integer>> studentSubjects;
-    Map<Subject, List<Student>> subjectStudents;
+
+    private Map<Student, Map<Subject, Integer>> studentSubjects;
+    private Map<Subject, List<Student>> subjectStudents;
+
+    public StudentDataBase() {
+        this.studentSubjects = new HashMap<>();
+        this.subjectStudents = new HashMap<>();
+    }
 
     public void addStudentWithSubject(Student student, Map<Subject, Integer> subjects) {
-        if (studentSubjects == null) {
-            studentSubjects = new HashMap<>();
-        }
-        if (subjectStudents == null) {
-            subjectStudents = new HashMap<>();
-        }
         studentSubjects.put(student, subjects);
         subjects.keySet().forEach(subject -> subjectStudents
                 .computeIfAbsent(subject, k -> new ArrayList<>()).add(student));
     }
 
     public void addSubjectForStudentWithGrade(Subject subject, Student student, Integer grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>());
-        studentSubjects.get(student).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
-        subjectStudents.get(subject).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudentsFromBothMaps(Student student) {
-        boolean removedFromSubjects = studentSubjects.remove(student) != null;
-        boolean removedFromAnyList = subjectStudents.values().stream()
+        boolean isRemovedFromSubjects = studentSubjects.remove(student) != null;
+        boolean isRemovedFromAnyList = subjectStudents.values().stream()
                 .anyMatch(list -> list.remove(student));
 
-        if (!removedFromSubjects && !removedFromAnyList) {
+        if (!isRemovedFromSubjects && !isRemovedFromAnyList) {
             throw new NoSuchElementException("Student was not found in any map");
         }
     }
@@ -64,38 +60,24 @@ public class StudentDataBase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        if (studentSubjects == null) {
-            studentSubjects = new HashMap<>();
-        }
-        if (subjectStudents == null) {
-            subjectStudents = new HashMap<>();
-        }
         subjectStudents.putIfAbsent(subject, students);
-
-        students.forEach(student -> {
-            studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).putIfAbsent(subject, null);
-
-        });
+        students.forEach(student ->
+                studentSubjects.computeIfAbsent(student, k -> new HashMap<>())
+                        .putIfAbsent(subject, null));
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        if (!(studentSubjects.get(student) == null) || !(subjectStudents.get(subject) == null)) {
-            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
-        }
-
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
 
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        if (studentSubjects != null && subjectStudents != null) {
-            if (studentSubjects.containsKey(student)) {
-                studentSubjects.get(student).remove(subject);
-            }
-            if (subjectStudents.containsKey(subject)) {
-                subjectStudents.get(subject).remove(student);
-            }
+        if (studentSubjects.containsKey(student)) {
+            studentSubjects.get(student).remove(subject);
+        }
+        if (subjectStudents.containsKey(subject)) {
+            subjectStudents.get(subject).remove(student);
         }
     }
 }
