@@ -10,8 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class User {
-    private static final List<String> VALID_JOBS = List.of( "Google", "Uber", "Amazon");
-    private static final List<String> VALID_ADDRESSES = List.of( "London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
@@ -25,14 +25,14 @@ public class User {
         this.address = builder.address;
     }
 
-    public static class Builder{
+    public static class Builder {
         private String name;
         private int age;
         private String work;
         private String address;
 
         public Builder setName(String name) {
-            if (name == null || name.isEmpty()){
+            if (name == null || name.isEmpty()) {
                 throw new IllegalArgumentException("имя не может быть пустым");
             }
             this.name = name;
@@ -40,7 +40,7 @@ public class User {
         }
 
         public Builder setAge(int age) {
-            if (age < 18){
+            if (age < 18) {
                 throw new IllegalArgumentException("возраст больше 18 лет");
             }
             this.age = age;
@@ -48,7 +48,7 @@ public class User {
         }
 
         public Builder setWork(String work) {
-            if (!VALID_JOBS.contains(work)){
+            if (!VALID_JOBS.contains(work)) {
                 throw new IllegalArgumentException("не подходящее место работы");
             }
             this.work = work;
@@ -56,7 +56,7 @@ public class User {
         }
 
         public Builder setAddress(String address) {
-            if(!VALID_ADDRESSES.contains(address)){
+            if (!VALID_ADDRESSES.contains(address)){
                 throw new IllegalArgumentException("не тот город");
             }
             this.address = address;
