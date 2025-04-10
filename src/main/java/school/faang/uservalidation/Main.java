@@ -1,8 +1,7 @@
-package school.faang.uservalidation.main;
-
-import school.faang.uservalidation.entity.User;
+package school.faang.uservalidation;
 
 public class Main {
+
     public static void main(String[] args) {
         try {
             User user = new User("Linda", 18, "Google", "London");
