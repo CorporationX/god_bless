@@ -1,4 +1,4 @@
-package school.faang.bjs2_68324;
+package school.faang.bjs268324;
 
 import lombok.ToString;
 
@@ -6,14 +6,15 @@ import java.util.Set;
 
 @ToString
 public class User {
-    private String name;
-    private int age;
-    private String work;
-    private String address;
 
     private static final int MIN_AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    private String name;
+    private int age;
+    private String work;
+    private String address;
 
     public User(String name, int age, String work, String address) {
         if (name.isEmpty()) {
