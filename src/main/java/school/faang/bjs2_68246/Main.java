@@ -7,9 +7,9 @@ public class Main {
         try {
             List<User> users = List.of(
                 new User("William Clark", 30, "Amazon", "London"),
-                new User("Isabella Lewis", 30, "Netflix", "Amsterdam"),
-                new User("James Walker", 39, "Apple", "New York"),
-                new User("Mia Young", 27, "Microsoft", "London"),
+                new User("Isabella Lewis", 30, "Amazon", "Amsterdam"),
+                new User("James Walker", 39, "Uber", "New York"),
+                new User("Mia Young", 27, "Google", "London"),
                 new User("Benjamin Hall", 39, "Google", "Amsterdam")
             );
 

@@ -1,10 +1,12 @@
 package school.faang.bjs2_68246;
 
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.util.Set;
 
 @RequiredArgsConstructor
+@ToString
 public class User {
     private String name;
     private Integer age;
@@ -13,39 +15,36 @@ public class User {
 
     public static final Set<String> COMPANY_NAMES = Set.of(
             "Google",
-            "Apple",
-            "Microsoft",
-            "Amazon",
-            "Netflix"
+            "Uber",
+            "Amazon"
     );
     public static final Set<String> VALID_ADDRESSES = Set.of(
             "London",
             "New York",
             "Amsterdam"
     );
+    public static final Integer VALID_AGE = 18;
 
     protected User(String name, Integer age, String job, String address) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Invalid name: " + name);
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Invalid user name: %s".formatted(name));
         }
 
-        if (age < 18) {
-            throw new IllegalArgumentException("Invalid age: " + age);
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Invalid user age: %d".formatted(age));
         }
 
         if (!COMPANY_NAMES.contains(job)) {
             throw new IllegalArgumentException(
-                "Invalid job: \"" + job + "\". " +
-                "The job must be one of the following: " +
-                String.join(", ", COMPANY_NAMES)
+                "Invalid job: \"%s\". The job must be one of the following: %s"
+                .formatted(job, String.join(", ", COMPANY_NAMES))
             );
         }
 
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException(
-                "Invalid address: \"" + address + "\". " +
-                "The address must be one of the following: " +
-                String.join(", ", VALID_ADDRESSES)
+                "Invalid address: \"%s\". The address must be one of the following: %s"
+                .formatted(address, String.join(", ", VALID_ADDRESSES))
             );
         }
 
@@ -53,11 +52,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("{name: '%s', age: %d, job: '%s', address: '%s'}",
-                name, age, job, address);
     }
 }
