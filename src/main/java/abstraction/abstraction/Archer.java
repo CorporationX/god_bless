@@ -11,9 +11,9 @@ public class Archer extends Character {
     private int health;
 
     public Archer(String name) {
-        super(name, CharacterConfiguration.ARCHER_POWER,
-                CharacterConfiguration.ARCHER_AGILITY,
-                CharacterConfiguration.ARCHER_INTELLECT);
+        super(name, CharacterConfiguration.getArcherPower(),
+                CharacterConfiguration.getArcherAgility(),
+                CharacterConfiguration.getArcherIntellect());
     }
 
     public Archer(String name, int power, int agility, int intellect) {
@@ -22,9 +22,9 @@ public class Archer extends Character {
 
     @Override
     protected void attack(Character opponent) {
-        while (checkOpponentHealth(opponent.getHealth(), this.agility)) {
-            opponent.setHealth(opponent.getHealth() - this.agility);
+        while (opponent.getHealth() != 0) {
+            opponent.setDamage(this.agility);
         }
-        log.info("Warrior {} is defeated!", opponent.getName());
+        log.info("Archer defeat opponent {} !", opponent.getName());
     }
 }

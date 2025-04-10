@@ -11,9 +11,9 @@ public class Warrior extends Character {
     private int health;
 
     public Warrior(String name) {
-        super(name, CharacterConfiguration.WARRIOR_POWER,
-                CharacterConfiguration.WARRIOR_AGILITY,
-                CharacterConfiguration.WARRIOR_INTELLECT);
+        super(name, CharacterConfiguration.getWarriorPower(),
+                CharacterConfiguration.getWarriorAgility(),
+                CharacterConfiguration.getWarriorIntellect());
     }
 
     public Warrior(String name, int power, int agility, int intellect) {
@@ -22,9 +22,9 @@ public class Warrior extends Character {
 
     @Override
     protected void attack(Character opponent) {
-        while (checkOpponentHealth(opponent.getHealth(), this.power)) {
-            opponent.setHealth(opponent.getHealth() - this.power);
+        while (opponent.getHealth() != 0) {
+            opponent.setDamage(this.power);
         }
-        log.info("Warrior {} is defeated!", opponent.getName());
+        log.info("Warrior defeat opponent {} !", opponent.getName());
     }
 }

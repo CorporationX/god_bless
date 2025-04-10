@@ -1,7 +1,6 @@
 package abstraction.abstraction;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public abstract class Character {
     @Getter
@@ -12,14 +11,12 @@ public abstract class Character {
     private int agility;
     private int intellect;
     @Getter
-    @Setter
-    private int health = CharacterConfiguration.DEFAULT_HEALTH;
+    private int health = CharacterConfiguration.getDefaultHealt();
 
     public Character(String name) {
-        this.name = name;
-        this.power = CharacterConfiguration.DEFAULT_CHARACTER_POWER;
-        this.agility = CharacterConfiguration.DEFAULT_CHARACTER_AGILITY;
-        this.intellect = CharacterConfiguration.DEFAULT_CHARACTER_INTELLECT;
+        this(name, CharacterConfiguration.getDefaultCharacterPower(),
+                CharacterConfiguration.getDefaultCharacterAgility(),
+                CharacterConfiguration.getDefaultCharacterIntellect());
     }
 
     public Character(String name, int power, int agility, int intellect) {
@@ -31,10 +28,17 @@ public abstract class Character {
 
     protected abstract void attack(Character opponent);
 
-    protected boolean checkOpponentHealth(int oponnentHealth, int entityAtack) {
-        if (oponnentHealth > 0 && oponnentHealth >= entityAtack) {
-            return true;
+    protected boolean checkOpponentHealth(int oponnentHealth, int damage) {
+        if (oponnentHealth < damage) {
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    protected void setDamage(int damage) {
+        if (checkOpponentHealth(this.health, damage)) {
+            this.health -= damage;
+        }
+        this.health = 0;
     }
 }
