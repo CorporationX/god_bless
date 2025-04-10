@@ -1,9 +1,11 @@
 package school.faang.bjs2_68286;
 
+import lombok.extern.slf4j.Slf4j;
 import school.faang.bjs2_68286.model.User;
 
 import java.util.List;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         List<User> users = List.of(
@@ -14,6 +16,6 @@ public class Main {
                 new User("Marina", 28, "OOO Moscow", "Moscow")
         );
 
-        System.out.println(User.groupUsers(users));
+        log.info("Grouped users - {}", User.groupUsers(users));
     }
 }
