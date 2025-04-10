@@ -7,37 +7,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class HogwartsSpells {
-    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private int idSpell;
+    private final Map<UUID, SpellEvent> spellById = new HashMap<>();
+    private final Map<EventType, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-        idSpell++;
-        SpellEvent spellEvent =
-                SpellEvent.builder()
-                        .id(idSpell)
-                        .eventType(eventType)
-                        .action(actionDescription).build();
-        spellById.put(idSpell, spellEvent);
+    public UUID addSpellEvent(EventType eventType, String actionDescription) {
+        UUID uuid = UUID.randomUUID();
+        SpellEvent spellEvent = SpellEvent.builder()
+                .id(uuid)
+                .eventType(eventType)
+                .action(actionDescription).build();
+        spellById.put(uuid, spellEvent);
         spellsByType.computeIfAbsent(eventType, e -> new ArrayList<>()).add(spellEvent);
+        return uuid;
     }
 
-    public SpellEvent getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(UUID id) {
         return spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(EventType eventType) {
         return spellsByType.get(eventType);
     }
 
-    public void deleteSpellEvent(int id) {
-        if (spellById.containsKey(id)) {
-            spellsByType.remove(spellById.get(id).getEventType());
-        }
+    public void deleteSpellEvent(UUID id) {
+        spellById.entrySet().stream().filter(entry -> entry.getKey().equals(id))
+                .map(entry -> entry.getValue().getEventType()).forEachOrdered(spellsByType::remove);
         spellById.remove(id);
     }
 

@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
 @ToString
 public class SpellEvent {
-    private long id;
-    private String eventType;
-    private String action;
+    private final UUID id;
+    private final EventType eventType;
+    private final String action;
 }
