@@ -1,8 +1,9 @@
 package school.faang.userhobbies;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static school.faang.userhobbies.User.findHobbyLovers;
 
 public class Main {
     private static List<User> createTestUsers() {
@@ -28,21 +29,6 @@ public class Main {
         List<User> users = List.of(user1, user2, user3);
 
         return users;
-    }
-
-    public static List<User> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        List<User> result = new ArrayList<>();
-
-        for (User user : users) {
-
-            for (String hobby : user.getActivities()) {
-                if (user.getActivities().stream().anyMatch(hobbies::contains)) {
-                    result.add(user);
-                    break;
-                }
-            }
-        }
-        return result;
     }
 
     public static void main(String[] args) {

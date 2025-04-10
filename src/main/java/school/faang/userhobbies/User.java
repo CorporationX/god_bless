@@ -3,7 +3,9 @@ package school.faang.userhobbies;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,5 +22,20 @@ public class User {
         this.name = name;
         this.age = age;
         this.activities = (activities != null) ? new HashSet<>(activities) : new HashSet<>();
+    }
+
+    public static List<User> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        List<User> result = new ArrayList<>();
+
+        for (User user : users) {
+
+            for (String hobby : user.getActivities()) {
+                if (user.getActivities().stream().anyMatch(hobbies::contains)) {
+                    result.add(user);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }
