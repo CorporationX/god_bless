@@ -1,9 +1,6 @@
 package gratsio_BJS2_68688;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
@@ -18,40 +15,32 @@ public class HogwartsSpells {
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(spell);
     }
-    public void getSpellEventById(int id) {
+
+    public SpellEvent getSpellEventById(int id) {
         if(spellById.containsKey(id)) {
-            System.out.println(spellById.get(id));
+            return spellById.get(id);
         } else {
-            System.out.println("There is no such spell event in our spell storage " +
-                    "and management system!");
+            return null;
         }
     }
-    public void getSpellEventByType(String eventType) {
+
+    public List<SpellEvent> getSpellEventByType(String eventType) {
         if(spellsByType.containsKey(eventType)) {
-            System.out.println(eventType + ":");
-            for(Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
-                if(entry.getKey().equals(eventType)) {
-                    System.out.println(entry.getValue());
-                }
-            }
+            return new ArrayList<>(spellsByType.get(eventType));
+        } else{
+            return null;
         }
     }
+
     public void deleteSpellEventsByType(int id) {
-        if(spellsByType.containsKey(spellById.get(id).getEventType())) {
-            System.out.println("The spell with id " + id + " has been removed" +
-                    " from the spell storage and management system!");
-            if(!spellsByType.get(spellById.get(id).getEventType()).isEmpty()) {
-                spellsByType.get(spellById.get(id).getEventType()).remove(spellById.get(id));
-                spellById.remove(id);
-            } else {
-                spellsByType.remove(spellById.get(id).getEventType());
-                spellById.remove(id);
-            }
+        if(spellsByType.get(spellById.get(id).getEventType()).isEmpty()) {
+            spellsByType.remove(spellById.get(id).getEventType());
         } else {
-            System.out.println("The event of such a spell cannot be deleted " +
-                    "as it is missing from our spell storage and management system!");
+            spellsByType.get(spellById.get(id).getEventType()).remove(spellById.get(id));
         }
+        spellById.remove(id);
     }
+
     public void printAllSpellEvents() {
         for(Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
