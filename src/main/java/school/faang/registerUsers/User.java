@@ -56,12 +56,13 @@ public class User {
         }
 
         public Builder setAddress(String address) {
-            if (!VALID_ADDRESSES.contains(address)){
+            if (!VALID_ADDRESSES.contains(address)) {
                 throw new IllegalArgumentException("не тот город");
             }
             this.address = address;
             return this;
         }
+
         public User build() {
             return new User(this);
         }
