@@ -15,14 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Product {
 
-    @Getter
-    private static int id = 0;
+    private int id;
     private String name;
-    Category category;
-
-    public Product(int id, String name, Category category) {
-        Product.id = id;
-        this.name = name;
-        this.category = category;
-    }
+    private Category category;
 }

@@ -23,16 +23,14 @@ public class ProductManager {
 
     private Set<Product> products;
 
-    public void addProduct(Category category, String name) {
-        int id = Product.getId();
-        id++;
+    public void addProduct(Category category, String name, int id) {
         products.add(new Product(id, name, category));
     }
 
     public void removeProduct(Category category, String name) {
-        boolean removed = products.removeIf(product -> product.getName().equals(name)
+        boolean isRemoved = products.removeIf(product -> product.getName().equals(name)
                                                        && product.getCategory().equals(category));
-        if (removed) {
+        if (isRemoved) {
             System.out.println("Removed product " + name + " from category " + category);
         } else {
             System.out.println("Failed to remove product " + name + " from category " + category);
@@ -44,7 +42,8 @@ public class ProductManager {
         if (products.stream().noneMatch(product -> product.getCategory().equals(category))) {
             return new HashSet<>();
         }
-        return products.stream().filter(product -> product.getCategory().equals(category)).collect(Collectors.toSet());
+        return products.stream().filter(product -> product.getCategory() == category)
+                .collect(Collectors.toSet());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
