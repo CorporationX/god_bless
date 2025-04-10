@@ -1,5 +1,8 @@
 package school.faang.bjs2_68375.user_registration;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         processUserCreationException(1, "Vasilii", 18, "Google", "London");
@@ -12,14 +15,15 @@ public class Main {
         processUserCreationException(8, "Vasilii", 22, "Google", null);
         processUserCreationException(9, null, 0, null, null);
         processUserCreationException(10, "Petr", 22, "Uber", "Amsterdam");
+        processUserCreationException(11, "     ", 22, "Uber", "Amsterdam");
     }
 
     private static void processUserCreationException(int index, String name, int age, String job, String address) {
         try {
             User user = new User(name, age, job, address);
-            System.out.println("user " + index + " is added: " + user);
+            log.info("user {} is added: {}", index, user);
         } catch (IllegalArgumentException e) {
-            System.out.println("user " + index + " has not valid data: " + e.getMessage());
+            log.error("user {}  has not valid data: {}", index, e.getMessage());
         }
     }
 }

@@ -20,16 +20,16 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(NULL_NAME);
         }
         if (age < 18) {
             throw new IllegalArgumentException(AGE_LESS_THAN_18);
         }
-        if (job == null || job.isEmpty() || !VALID_JOBS.contains(job)) {
+        if (job == null || job.isBlank() || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException(NOT_VALID_JOB);
         }
-        if (address == null || address.isEmpty() || !VALID_ADDRESSES.contains(address)) {
+        if (address == null || address.isBlank() || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException(NOT_VALID_ADDRESS);
         }
         this.name = name;
