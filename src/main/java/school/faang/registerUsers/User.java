@@ -32,7 +32,7 @@ public class User {
         private String address;
 
         public Builder setName(String name) {
-            if(name == null || name.isEmpty()){
+            if (name == null || name.isEmpty()){
                 throw new IllegalArgumentException("имя не может быть пустым");
             }
             this.name = name;
@@ -40,7 +40,7 @@ public class User {
         }
 
         public Builder setAge(int age) {
-            if(age < 18){
+            if (age < 18){
                 throw new IllegalArgumentException("возраст больше 18 лет");
             }
             this.age = age;
@@ -48,7 +48,7 @@ public class User {
         }
 
         public Builder setWork(String work) {
-            if(!VALID_JOBS.contains(work)){
+            if (!VALID_JOBS.contains(work)){
                 throw new IllegalArgumentException("не подходящее место работы");
             }
             this.work = work;
