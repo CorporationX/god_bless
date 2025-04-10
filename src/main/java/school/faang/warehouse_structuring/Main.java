@@ -15,7 +15,7 @@ public class Main {
 
         productManager.printAllProducts();
 
-        productManager.removeProduct(Category.CLOTHING, "Milk");
+        productManager.removeProduct(Category.CLOTHING, "Pants");
         productManager.printAllProducts();
     }
 }

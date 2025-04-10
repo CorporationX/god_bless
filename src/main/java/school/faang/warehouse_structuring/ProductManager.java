@@ -2,18 +2,17 @@ package school.faang.warehouse_structuring;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
     private int id = 0;
-    private static final int CATEGORY_SIZE = Category.values().length;
 
     public void addProduct(Category category, String name) throws Exception {
         if (category == null
@@ -30,24 +29,18 @@ public class ProductManager {
         if (name == null) {
             throw new IllegalArgumentException("Name can't be null");
         }
-        products.removeIf(product -> product.getName().equals(name) && product.getCategory().equals(category));
+        products.removeIf(
+                product -> Objects.equals(product.getName(), name)
+                        && Objects.equals(product.getCategory(), category));
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        return products.stream().filter(product -> product.getCategory().equals(category)).toList();
+        return products.stream().filter(
+                product -> Objects.equals(product.getCategory(), category)).toList();
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-        Map<Category, List<Product>> mapCategoriesWithProducts = new HashMap<>();
-
-        for (int i = 0; i < CATEGORY_SIZE; i++) {
-            List<Category> categories = Arrays.stream(Category.values()).toList();
-
-            List<Product> result =  findProductsByCategory(categories.get(i));
-            mapCategoriesWithProducts.put(categories.get(i), result);
-
-        }
-        return mapCategoriesWithProducts;
+        return products.stream().collect(Collectors.groupingBy(product -> product.getCategory()));
     }
 
     public void printAllProducts() {
@@ -67,7 +60,4 @@ public class ProductManager {
             System.out.println();
         }
     }
-
-
-
 }
