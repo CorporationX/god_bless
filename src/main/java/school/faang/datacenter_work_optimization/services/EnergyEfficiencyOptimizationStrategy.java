@@ -20,7 +20,9 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
                 .forEach(server -> {
                     double toAssign = Math.min(remainingLoad.get(), server.getMaxLoad());
                     server.setLoad(toAssign);
-                    remainingLoad.updateAndGet(v -> v - toAssign);
+                    remainingLoad.updateAndGet(load -> load - toAssign);
                 });
+        dataCenter.getServers().removeIf(server -> server.getLoad() == 0);
+
     }
 }

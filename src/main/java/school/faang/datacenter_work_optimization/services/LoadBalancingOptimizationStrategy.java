@@ -12,7 +12,7 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
         double totalOccupancy = dataCenter.calculateTotalLoad() / totalMaxLoad;
 
         dataCenter.getServers().forEach(server -> {
-            server.setLoad(totalOccupancy * dataCenter.calculateTotalLoad());
+            server.setLoad(totalOccupancy * server.getMaxLoad());
         });
     }
 }

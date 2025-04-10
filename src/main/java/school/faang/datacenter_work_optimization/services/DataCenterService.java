@@ -8,22 +8,22 @@ import java.util.Comparator;
 
 public class DataCenterService {
 
-    private void addServer(DataCenter dataCenter, Server server) {
+    public static void addServer(DataCenter dataCenter, Server server) {
         dataCenter.getServers().add(server);
     }
 
-    private void removeServer(DataCenter dataCenter, Server server) {
+    public static void removeServer(DataCenter dataCenter, Server server) {
         dataCenter.getServers().remove(server);
     }
 
-    private double getTotalEnergyConsumption(DataCenter dataCenter) {
+    public static double getTotalEnergyConsumption(DataCenter dataCenter) {
         return dataCenter.getServers()
                 .stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .sum();
     }
 
-    private boolean allocateResource(DataCenter dataCenter, ResourceRequest request) {
+    public static boolean allocateResource(DataCenter dataCenter, ResourceRequest request) {
         double freeResources = dataCenter.getServers()
                 .stream()
                 .mapToDouble(server -> server.getMaxLoad() - server.getLoad())
@@ -36,7 +36,7 @@ public class DataCenterService {
         }
     }
 
-    private void releaseResource(DataCenter dataCenter, ResourceRequest request) {
+    public static void releaseResource(DataCenter dataCenter, ResourceRequest request) {
 
         do {
             dataCenter.getServers()
@@ -56,5 +56,11 @@ public class DataCenterService {
         LoadBalancingOptimizationStrategy loadBalancingOptimizationStrategy = new LoadBalancingOptimizationStrategy();
         loadBalancingOptimizationStrategy.optimize(dataCenter);
 
+    }
+
+    public static void printServers(DataCenter dataCenter) {
+        dataCenter.getServers().forEach(server ->
+                System.out.printf("Server (maxLoad=%.0f, load=%.2f, energy=%.0f, efficiency=%.2f)%n",
+                        server.getMaxLoad(), server.getLoad(), server.getEnergyConsumption(), server.getEfficiency()));
     }
 }
