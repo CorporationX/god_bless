@@ -3,8 +3,7 @@ package school.faang.abstraction;
 public abstract class Character {
     private static final int BASE_VOLUME = 5;
 
-    public static int personHealth = 100;
-
+    protected int health = 100;
     protected String name;
     protected int strength;
     protected int agility;
@@ -22,5 +21,11 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+    }
+
+    abstract void attack(Character opponent);
+
+    protected void takeDamage(int damage) {
+        this.health = Math.max(0, this.health - damage);
     }
 }
