@@ -8,14 +8,11 @@ public class Main {
         hogwartsSpells.addSpellEvent(EventType.TRANSFIGURATION, "Превращение в кошку");
         UUID uuid = hogwartsSpells.addSpellEvent(EventType.MAGIC, "Магия огня");
         UUID uuid2 = hogwartsSpells.addSpellEvent(EventType.PROTECTION, "Защита от физических атак");
-        hogwartsSpells.printAllSpellEvents();
-
+        hogwartsSpells.deleteSpellEvent(uuid);
         System.out.println(hogwartsSpells.getSpellEventById(uuid2));
         System.out.println(hogwartsSpells.getSpellEventsByType(EventType.TRANSFIGURATION));
-
         hogwartsSpells.deleteSpellEvent(uuid);
         hogwartsSpells.printAllSpellEvents();
-
         System.out.println(hogwartsSpells.getSpellEventById(UUID.randomUUID()));
         hogwartsSpells.deleteSpellEvent(UUID.randomUUID());
         hogwartsSpells.printAllSpellEvents();
