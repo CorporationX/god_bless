@@ -1,18 +1,33 @@
 package school.faang;
 
-import java.util.Arrays;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static school.faang.User.groupUsers;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
-        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        List<User> usersList = new ArrayList<>();
+        usersList.add(new User("KOLYA", 34, "FBI", "London"));
+        usersList.add(new User("PAVEL", 55, "KGB", "MOSCOW"));
+        usersList.add(new User("SERGEY", 43, "MI-6", "London"));
+        usersList.add(new User("IGOR", 55, "FBI", "London"));
+        usersList.add(new User("JONNY", 31, "FBI", "PARIS"));
+        usersList.add(new User("QWERTY", 43, "FBI", "London"));
+        usersList.add(new User("LOBBY", 31, "FSB", "London"));
+        usersList.add(new User("SLAVA", 34, "FBI", "London"));
+        usersList.add(new User("VANYA", 34, "FBI", "London"));
 
-        try {
-            int[] reversed = Example.reverse(numbers);
-            System.out.println("Original: " + Arrays.toString(numbers));
-            System.out.println("Reversed: " + Arrays.toString(reversed));
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+        Map<Integer, List<User>> groupUsers = groupUsers(usersList);
+
+        System.out.println("Возраст и пользователи:");
+        groupUsers.forEach((age, users) -> {
+            log.info("Возраст: {}", age);
+            users.forEach(user -> System.out.println(" - " + user.name()));
+        });
     }
-
 }
