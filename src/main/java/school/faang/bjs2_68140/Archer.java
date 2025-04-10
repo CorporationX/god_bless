@@ -1,12 +1,12 @@
 package school.faang.bjs2_68140;
 
+import static school.faang.bjs2_68140.GameProperties.AGILITY_ARCHER;
+import static school.faang.bjs2_68140.GameProperties.INTELLIGENCE_ARCHER;
+import static school.faang.bjs2_68140.GameProperties.STRENGTH_ARCHER;
+
 public class Archer extends Character {
     public Archer(String name) {
-        super();
-        this.strength = 3;
-        this.agility = 10;
-        this.intelligence = 5;
-        this.name = name;
+        super(name, STRENGTH_ARCHER, AGILITY_ARCHER, INTELLIGENCE_ARCHER);
     }
 
     @Override
