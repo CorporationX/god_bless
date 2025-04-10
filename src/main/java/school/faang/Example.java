@@ -1,4 +1,5 @@
 package school.faang;
+
 import java.util.Arrays;
 
 public class Example {
