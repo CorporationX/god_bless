@@ -34,6 +34,6 @@ public class Main {
         List<User> users = createTestUsers();
         Set<String> targetHobbies = Set.of("Музыка");
         Map<User, String> hobbyLovers = findHobbyLovers(users, targetHobbies);
-        hobbyLovers.forEach((user, hobby) -> System.out.printf("%s : %s", user.getName(), hobby + "\n"));
+        hobbyLovers.forEach((user, hobby) -> System.out.printf("%s : %s\n", user.getName(), hobby));
     }
 }
