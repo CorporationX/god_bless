@@ -33,12 +33,12 @@ public abstract class Character {
     }
 
     public void praise() {
-        log.info("{} screams: VICTORY!", name);
+        log.info("{} screams: VICTORY!", this);
     }
 
     public void hitOpponent(Character opponent) {
-        log.info("{} strikes {}", name, opponent.getName());
-        opponent.takeDamage(attack());
+        log.info("{} strikes {}", this, opponent);
+        opponent.takeDamage(getAttackDamage());
     }
 
     public void takeDamage(int damage) {
@@ -49,8 +49,13 @@ public abstract class Character {
             return;
         }
         health -= damage;
-        log.info("{} screams {}", name, Randomizer.pickRandomMember(DAMAGE_LINES));
+        log.info("{} screams {}", this, Randomizer.pickRandomMember(DAMAGE_LINES));
     }
 
-    protected abstract int attack();
+    protected abstract int getAttackDamage();
+
+    @Override
+    public String toString() {
+        return "%s[%d]".formatted(name, health);
+    }
 }

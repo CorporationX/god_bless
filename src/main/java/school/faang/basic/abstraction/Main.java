@@ -24,6 +24,18 @@ public class Main {
                 new Archer("Grumpy ork"),
                 new Archer("Filthy ork-archer"),
                 new Mage("Snicky ork-shaman"),
+                new Trainee("Ork-intern"),
+                new Warrior("Ugly ork"),
+                new Warrior("Mighty ork"),
+                new Archer("Grumpy ork"),
+                new Archer("Filthy ork-archer"),
+                new Mage("Snicky ork-shaman"),
+                new Trainee("Ork-intern"),
+                new Warrior("Ugly ork"),
+                new Warrior("Mighty ork"),
+                new Archer("Grumpy ork"),
+                new Archer("Filthy ork-archer"),
+                new Mage("Snicky ork-shaman"),
                 new Trainee("Ork-intern")
         );
 

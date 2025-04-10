@@ -1,20 +1,23 @@
 package school.faang.basic.abstraction.characters.classes;
 
 import school.faang.basic.abstraction.characters.Character;
-import school.faang.basic.abstraction.characters.CharacterStats;
+
+import static school.faang.basic.abstraction.characters.CharacterStats.TraineeStats.DEFAULT_AGILITY;
+import static school.faang.basic.abstraction.characters.CharacterStats.TraineeStats.DEFAULT_INTELLIGENCE;
+import static school.faang.basic.abstraction.characters.CharacterStats.TraineeStats.DEFAULT_STRENGTH;
 
 public class Trainee extends Character {
 
     public Trainee(String name) {
         super(name,
-                CharacterStats.TraineeStats.DEFAULT_STRENGTH,
-                CharacterStats.TraineeStats.DEFAULT_AGILITY,
-                CharacterStats.TraineeStats.DEFAULT_INTELLIGENCE
+                DEFAULT_STRENGTH,
+                DEFAULT_AGILITY,
+                DEFAULT_INTELLIGENCE
         );
     }
 
     @Override
-    public int attack() {
+    public int getAttackDamage() {
         return Math.max(this.strength, this.agility);
     }
 }
