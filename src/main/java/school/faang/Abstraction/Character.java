@@ -9,14 +9,12 @@ public abstract class Character {
     private int dexterity;
     private int intellect;
     private int hp;
-    private static final int defaultCharacteristic = 5;
+    private static final int DEFAULT_CHARACTERISTIC = 5;
+    private static final int DEFAULT_HP = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.power = defaultCharacteristic;
-        this.dexterity = defaultCharacteristic;
-        this.intellect = defaultCharacteristic;
-        this.hp = 100;
+
+        this(name, DEFAULT_CHARACTERISTIC, DEFAULT_CHARACTERISTIC, DEFAULT_CHARACTERISTIC);
     }
 
     public Character(String name, int power, int dexterity, int intellect) {
@@ -24,7 +22,7 @@ public abstract class Character {
         this.power = power;
         this.dexterity = dexterity;
         this.intellect = intellect;
-        this.hp = 100;
+        this.hp = DEFAULT_HP;
     }
 
     public abstract void attack(Character opponent);

@@ -1,12 +1,12 @@
 package school.faang.Abstraction;
 
 public class Archer extends Character {
-    private static final int powerArcher = 3;
-    private static final int dexterityArcher = 10;
-    private static final int intellectArcher = 5;
+    private static final int POWER_ARCHER = 3;
+    private static final int DEXTERITY_ARCHER = 10;
+    private static final int INTELLECT_ARCHER = 5;
 
     public Archer(String name) {
-        super(name, powerArcher, dexterityArcher, intellectArcher);
+        super(name, POWER_ARCHER, DEXTERITY_ARCHER, INTELLECT_ARCHER);
     }
 
     @Override
