@@ -34,15 +34,11 @@ public class StudentDatabase {
     }
 
     private void addStudentToSubjects(Subject subject, Student student) {
-        // Map<Subject, List<Student>> subjectStudents; // хранит информацию о предметах и списке студентов, изучающих каждый предмет.
-
-        subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
-
-//        List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
-//        if (!students.contains(student)) {
-//            students.add(student);
-//            subjectStudents.put(subject, students);
-//        }
+        List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
+        if (!students.contains(student)) {
+            students.add(student);
+            subjectStudents.put(subject, students);
+        }
     }
 
     private void addSubjectToStudent(Student student, Subject subject, Integer grade) {
@@ -58,7 +54,9 @@ public class StudentDatabase {
         }
     }
 
-    public boolean removeStudent(String student) {
+    public boolean removeStudent(String studentName) {
+        Student student = new Student(studentName);
+        studentSubjects.remove(student);
         return false;
     }
 

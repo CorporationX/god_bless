@@ -12,5 +12,7 @@ public class Main {
         database.addStudentDatabaseInfo("Иван", "Алгебра", 5);
         database.printAllStudents();
         database.printAllSubjects();
+        database.removeStudent("Степан");
+        database.printAllStudents();
     }
 }
