@@ -17,8 +17,7 @@ public class HogwartsSpells {
             throw new IllegalArgumentException("The wrong parameters!");
         }
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
-        List<SpellEvent> spellEvents = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
-        spellEvents.add(spellEvent);
+        spellByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
         spellById.put(spellEvent.getId(), spellEvent);
     }
 
