@@ -7,6 +7,6 @@ public class Main {
         Archer archer = new Archer("Archer");
 
         warrior.attack(archer);
-
     }
+
 }
