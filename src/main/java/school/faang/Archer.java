@@ -13,7 +13,6 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        int damage = this.getAgility();
         opponent.takeDamage(this.getAgility());
     }
 }
