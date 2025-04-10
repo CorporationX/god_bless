@@ -36,4 +36,12 @@ public abstract class Character {
         int damage = getDamage();
         otherCharacter.setHealth(otherCharacter.getHealth() - damage);
     }
+
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+                "Strength: " + getStrength() + "\n" +
+                "Agility: " + getAgility() + "\n" +
+                "Intelligence: " + getIntelligence() + "\n" +
+                "Health: " + getHealth();
+    }
 }
