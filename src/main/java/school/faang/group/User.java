@@ -1,4 +1,4 @@
-package school.faang.groupByAge;
+package school.faang.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,16 +22,14 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUserByAge(int ageUser, List<User> userAgeList) {
-        Map<Integer, List<User>> sortedUserByAgeMap = new HashMap<>();
+        Map<Integer, List<User>> resultMap = new HashMap<>();
         List<User> ageList = new ArrayList<>();
-
         for (User userAge : userAgeList) {
             if (ageUser == userAge.getAge()) {
                 ageList.add(userAge);
-                sortedUserByAgeMap.put(ageUser, ageList);
+                resultMap.put(ageUser, ageList);
             }
         }
-
-        return sortedUserByAgeMap;
+        return resultMap;
     }
 }
