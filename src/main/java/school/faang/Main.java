@@ -1,22 +1,23 @@
 package school.faang;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 public class Main {
     public static void main(String[] args) {
+        LibrarySystem library = new LibrarySystem();
 
-        LibrarySystem librarySystem = new LibrarySystem();
-        LibrarySystem.Book book = new LibrarySystem.Book("Sophia","Pol Brosnan", 1990);
-        book.addBook("Sunny night", "Pol Brosnan", 1990, "Comedy");
-        book.addBook("Very cold night", "Pol Brosnan", 1990, "Comedy");
-        book.addBook("Summary", "Pol Brosnan", 1990, "Comedy");
-        book.addBook("Little night", "Pol Brosnan", 1990, "Comedy");
-        book.addBook("Funny night", "Pol Brosnan", 1990, "Comedy");
+        Book book1 = new Book("The Lord of the Rings", "J.R.R. Tolkien", 1954);
+        Book book2 = new Book("Sunny day", "Paul Anderson",1978);
+        Book book3 = new Book("Alan Wake", "J.R.R. Tolkien", 1954);
+        Book book4 = new Book("One Republic", "J.R.R. Tolkien", 1954);
+
+        library.addBook(book1, "A1");
+        library.addBook(book2, "B3");
+        library.addBook(book3, "A2");
+        library.addBook(book4, "B4");
 
 
-        librarySystem.printAllBooks();
+        library.removeBook("Sunny day", "Paul Anderson",1978);
 
-
+        System.out.println(library.getBookLocation(book2));
+        library.printAllBooks();
     }
 }
