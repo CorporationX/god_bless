@@ -8,8 +8,7 @@ public class LibrarySystem {
     private final HashMap<Book, String> records = new HashMap<>();
 
     public String addBook(String title, String author, int year, String location) {
-        Book book = new Book(title, author, year);
-        return records.put(book, location);
+        return records.put(new Book(title, author, year), location);
     }
 
     public String removeBook(String title, String author, int year) {
