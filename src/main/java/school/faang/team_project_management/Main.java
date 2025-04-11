@@ -6,73 +6,61 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        // === Шаг 1: создать сотрудников ===
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(0, "Alice", Set.of("Java", "SQL"), 2));
-        employees.add(new Employee(1, "Bob", Set.of("Python", "ML"), 1));
-        employees.add(new Employee(2, "Charlie", Set.of("React", "Java"), 0));
-        employees.add(new Employee(3, "Diana", Set.of("React", "Design"), 3));
+
+        ProjectManager projectManager = new ProjectManager();
+
+        projectManager.addEmployee("Alice", Set.of("Java", "SQL"));
+        projectManager.addEmployee("Bob", Set.of("Python", "ML"));
+        projectManager.addEmployee("Charlie", Set.of("React", "Java"));
+        projectManager.addEmployee("Diana", Set.of("React", "Design"));
 
         // === Шаг 2: создать проекты ===
-        Project backend = new Project(0, "Backend API", Set.of("Java", "SQL"), new ArrayList<>());
-        Project frontend = new Project(1, "Frontend UI", Set.of("React"), new ArrayList<>());
-        Project ai = new Project(2, "AI System", Set.of("Python"), new ArrayList<>());
+        projectManager.addProject("Backend API", Set.of("Java", "SQL"), new ArrayList<>());
+        projectManager.addProject("Frontend UI", Set.of("React"), new ArrayList<>());
+        projectManager.addProject("AI System", Set.of("Python"), new ArrayList<>());
 
-        List<Project> projects = List.of(backend, frontend, ai);
 
-        // === Шаг 3: создать ProjectManager со стандартной стратегией ===
-        ProjectManager manager = new ProjectManager(employees, projects, new StandartTeamAssignmentStrategy());
+        projectManager.setAssignmentStrategy(new StandartTeamAssignmentStrategy());
 
-        printHeader("Назначение по стандартной стратегии");
-        assignTeamsAndPrint(manager, projects, employees);
+        // === Назначаем команды ===
+        for (int i = 0; i < 3; i++) {
+            projectManager.setTeamForProject(i);
+        }
 
-        // === Шаг 4: переключиться на сбалансированную стратегию ===
-        printHeader("Переключение на BalancedStrategy");
-        manager.setAssignmentStrategy(new BalancedTeamAssignmentStrategy());
-        assignTeamsAndPrint(manager, projects, employees);
+        // === Выводим результат по каждому проекту ===
+        printProjects(projectManager.getProjects());
 
-        // === Шаг 5: найти проекты для Charlie ===
-        printHeader("Проекты, где Charlie может участвовать");
-        Employee charlie = employees.get(2);
-        manager.findProjectsForEmployee(charlie).forEach(
-                project -> System.out.println("- " + project.getName())
+        // === Поиск проектов для Charlie ===
+        System.out.println("\nПроекты, где Charlie может участвовать:");
+        Employee charlie = projectManager.getEmployees().get(2);
+        projectManager.findProjectsForEmployee(charlie).forEach(
+                p -> System.out.println(" - " + p.getName())
         );
 
-        // === Шаг 6: вручную добавить Alice в проект AI ===
-        printHeader("Добавляем Alice в AI System");
-        manager.assignEmployeeToProject(employees.get(0), 2);
-        printProjects(projects);
+        // === Добавим Alice в AI вручную ===
+        projectManager.assignEmployeeToProject(projectManager.getEmployees().get(0), 2);
 
-        // === Шаг 7: удалить Bob из проекта AI ===
-        printHeader("Удаляем Bob из AI System");
-        manager.removeEmployeeFromProject(1, 2);
-        printProjects(projects);
-        printEmployees(employees);
+        // === Удалим Bob из проекта AI ===
+        projectManager.removeEmployeeFromProject(1, 2);
 
-        // === Шаг 8: удалить неподходящих участников из проекта Frontend ===
-        printHeader("Удаляем неподходящих сотрудников из проекта Frontend UI");
-        manager.removeIneligibleEmployees(frontend);
-        printProjects(projects);
+        // === Удалим неподходящих из Frontend ===
+        Project frontend = projectManager.getProjects().get(1);
+        projectManager.removeIneligibleEmployees(frontend);
+
+        // === Финальный вывод ===
+        System.out.println("\n== Финальный список проектов ==");
+        printProjects(projectManager.getProjects());
     }
 
-    private static void assignTeamsAndPrint(ProjectManager manager, List<Project> projects, List<Employee> employees) {
-        for (int i = 0; i < projects.size(); i++) {
-            manager.assignTeamToProject(i);
-        }
-        printProjects(projects);
-        printEmployees(employees);
-    }
-
-    private static void printProjects(List<Project> projects) {
+    public static void printProjects(List<Project> projects) {
         for (Project project : projects) {
-            System.out.printf("Проект: %s | Скиллы: %s%n", project.getName(), project.getRequiredSkills());
+            System.out.println("Проект: " + project.getName());
+            for (Employee e : project.getTeamMembers()) {
+                System.out.println(" - " + e.getName() + " | Скиллы: " + e.getSkills());
+            }
             if (project.getTeamMembers().isEmpty()) {
-                System.out.println("  Команда: (пусто)");
-            } else {
-                for (Employee e : project.getTeamMembers()) {
-                    System.out.printf("  - %s (ID %d) | Скиллы: %s | Проектов: %d%n",
-                            e.getName(), e.getId(), e.getSkills(), e.getProjectsAmount());
-                }
+                System.out.println(" - Команда пуста");
             }
         }
+    }
 }

@@ -13,7 +13,7 @@ public class StrategyService {
                         -> employee.getSkills()
                         .stream()
                         .anyMatch(requiredSkills::remove))
-                .peek(employee -> employee.decrementProjectsAmount())
+                .peek(employee -> employee.incrementProjectsAmount())
                 .collect(Collectors.toList());
     }
 }
