@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.userregistr;
 
 public class IllegalArgumentException extends Throwable{
     public IllegalArgumentException(String message) {

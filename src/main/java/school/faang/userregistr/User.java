@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.userregistr;
 
 import lombok.Setter;
 import lombok.Getter;
