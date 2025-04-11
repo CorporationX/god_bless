@@ -31,21 +31,21 @@ public class Main {
         database.addStudentWithSubjects(ivan, ivanSubjects);
         database.addStudentWithSubjects(petr, petrSubjects);
         database.addSubjectToStudent(semen, russian, 5);
-        printAll(database);
+        printAll();
 
         Map<Subject, Integer> ivanSubjectsNew = new HashMap<>();
         ivanSubjectsNew.put(physics, 4);
         ivanSubjectsNew.put(russian, 4);
         database.addStudentWithSubjects(ivan, ivanSubjectsNew);
-        printAll(database);
+        printAll();
 
         database.removeStudent(ivan);
         database.removeStudent(fyedor);
         database.removeStudentFromSubject(fyedor, algebra);
-        printAll(database);
+        printAll();
     }
 
-    private static void printAll(StudentDatabase database) {
+    private static void printAll() {
         database.printAllStudents();
         System.out.println("----------------------");
         database.printAllSubject();

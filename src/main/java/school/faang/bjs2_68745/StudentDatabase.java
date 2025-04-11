@@ -7,9 +7,6 @@ import java.util.Map;
 
 
 public class StudentDatabase {
-    public static final String GRADE_CANNOT_BE_EMPTY = "Оценка не должна быть пустая";
-    public static final String GRADE_CANNOT_BE_NEGATIVE = "Оценка не должна быть отрицательная";
-
     private final Map<Student, Map<Subject, Integer>> studentSubjects; // хранит информацию о студентах, их предметах и оценках.
     private final Map<Subject, List<Student>> subjectStudents; // хранит информацию о предметах и списке студентов, изучающих каждый предмет.
 

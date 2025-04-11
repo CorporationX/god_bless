@@ -25,6 +25,6 @@ class SubjectTest {
     @DisplayName("Test create Subject with NULL name")
     public void CreateSubjectNameTest() {
         Subject subject = new Subject("Subjects name");
-        assertTrue("Subjects name".equals(subject.name()));
+        assertEquals("Subjects name", subject.name());
     }
 }
