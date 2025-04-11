@@ -10,18 +10,11 @@ public class Book {
     private int year;
     private final Map<LibrarySystem.Book, String> bookLocationMap = new HashMap<>();
 
-    // Конструктор, геттеры и сеттеры
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
-
         Book book = (Book) o;
-        return year == book.year &&
-                Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author);
+        return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(bookLocationMap, book.bookLocationMap);
     }
 
     @Override
@@ -29,33 +22,12 @@ public class Book {
         return Objects.hash(title, author, year);
     }
 
-    public void addBook(String title, String author, int year, String location) {
-        Objects.requireNonNull(title, "Название книги не может быть null");
-        Objects.requireNonNull(author, "Автор не может быть null");
-        Objects.requireNonNull(location, "Местоположение не может быть null");
 
-        if (year <= 0) {
-            throw new IllegalArgumentException("Год издания должен быть положительным числом");
-        }
+    public void findBook(String summary, String polBrosnan, int i) {
     }
-
-    public void findBook(String title, String author, int year) {
-        Objects.requireNonNull(title, "Название книги не может быть null");
-        Objects.requireNonNull(author, "Автор не может быть null");
-
-        if (year <= 0) {
-            throw new IllegalArgumentException("Год издания должен быть положительным числом");
-        }
-
-        LibrarySystem.Book searchKey = new LibrarySystem.Book(title, author, year);
-        String location = bookLocationMap.get(searchKey);
-
-        if (location != null) {
-            System.out.printf("Книга \"%s\" автора %s (%d год) находится на полке: %s%n",
-                    title, author, year, location);
-        } else {
-            System.out.printf("Книга \"%s\" автора %s (%d год) не найдена в библиотеке.%n",
-                    title, author, year);
-        }
+    public void printAllBooks() {
+        System.out.println("Каталог библиотеки:");
+        bookLocationMap.forEach((book, location) ->
+                System.out.printf("%-40s → Полка: %s%n", book, location));
     }
 }

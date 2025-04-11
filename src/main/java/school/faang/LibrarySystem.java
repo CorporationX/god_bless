@@ -1,6 +1,8 @@
 package school.faang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,6 +18,7 @@ public class LibrarySystem {
             this.title = Objects.requireNonNull(title, "Название книги не может быть null");
             this.author = Objects.requireNonNull(author, "Автор не может быть null");
             this.year = year;
+
         }
 
         @Override
@@ -28,6 +31,16 @@ public class LibrarySystem {
                     author.equals(book.author);
         }
 
+        public void addBook(String title, String author, int year, String location) {
+            if (title == null || title.isEmpty()) {
+                throw new IllegalArgumentException("Название книги не может быть пустым!");
+            }
+            if (year < 0) {
+                throw new IllegalArgumentException("Год издания не может быть отрицательным!");
+            }
+
+        }
+
         @Override
         public int hashCode() {
             return Objects.hash(title, author, year);
@@ -38,8 +51,6 @@ public class LibrarySystem {
             return String.format("\"%s\" by %s (%d)", title, author, year);
         }
     }
-
-
 
     public void findBook(String title, String author, int year) {
         Objects.requireNonNull(title, "Название книги не может быть null");
