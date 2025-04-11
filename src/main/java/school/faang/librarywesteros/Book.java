@@ -1,4 +1,4 @@
-package librarywesteros;
+package school.faang.librarywesteros;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

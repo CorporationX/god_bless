@@ -1,4 +1,4 @@
-package librarywesteros;
+package school.faang.librarywesteros;
 
 public class Main {
     public static void main(String[] args) {
