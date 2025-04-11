@@ -1,7 +1,8 @@
 package school.faang.bjs2_68745;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 public class Main {
     private static final StudentDatabase database = new StudentDatabase();
@@ -43,12 +44,15 @@ public class Main {
         database.removeStudent(fyedor);
         database.removeStudentFromSubject(fyedor, algebra);
         printAll();
+
+        database.addSubjectWithStudentList(geometry, new ArrayList<>(List.of(petr, semen, fyedor)));
+        printAll();
     }
 
     private static void printAll() {
+        System.out.println("==============================================");
         database.printAllStudents();
         System.out.println("----------------------");
         database.printAllSubject();
-        System.out.println("=======================\n=======================");
     }
 }

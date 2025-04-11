@@ -11,19 +11,19 @@ class SubjectTest {
 
     @Test
     @DisplayName("Test create Subject with empty name")
-    public void CreateSubjectWithEmptyNameTest() {
+    public void createSubjectWithEmptyNameTest() {
         assertThrows(NoSuchElementException.class, () -> new Subject(""));
     }
 
     @Test
     @DisplayName("Test create Subject with NULL name")
-    public void CreateSubjectWithNullNameTest() {
+    public void createSubjectWithNullNameTest() {
         assertThrows(NoSuchElementException.class, () -> new Subject(null));
     }
 
     @Test
-    @DisplayName("Test create Subject with NULL name")
-    public void CreateSubjectNameTest() {
+    @DisplayName("Test create Subject")
+    public void createSubjectNameTest() {
         Subject subject = new Subject("Subjects name");
         assertEquals("Subjects name", subject.name());
     }
