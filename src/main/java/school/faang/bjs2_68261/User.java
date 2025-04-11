@@ -18,16 +18,12 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         var map = new HashMap<Integer, List<User>>();
+
         for (var user : users) {
-
-            if (!map.containsKey(user.age)) {
-                map.put(user.age, new ArrayList<>());
-            }
-
+            map.putIfAbsent(user.age, new ArrayList<>());
             map.get(user.age).add(user);
         }
 
         return map;
     }
-
 }
