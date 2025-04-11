@@ -17,13 +17,13 @@ public class User {
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        var map = new HashMap<Integer, List<User>>();
+        var groupedUsersByAge = new HashMap<Integer, List<User>>();
 
         for (var user : users) {
-            map.putIfAbsent(user.age, new ArrayList<>());
-            map.get(user.age).add(user);
+            groupedUsersByAge.putIfAbsent(user.age, new ArrayList<>());
+            groupedUsersByAge.get(user.age).add(user);
         }
 
-        return map;
+        return groupedUsersByAge;
     }
 }
