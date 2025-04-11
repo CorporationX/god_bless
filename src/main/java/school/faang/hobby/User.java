@@ -15,15 +15,15 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @ToString
-public class Users {
+public class User {
     private int id;
     private String name;
     private int age;
     private Set<String> hobbyUsers;
 
-    public static Map<Users, String> findHobbyLovers(List<Users> usersList, Set<String> hobbies) {
-        Map<Users, String> resultMap = new HashMap<>();
-        for (Users user : usersList) {
+    public static Map<User, String> findHobbyLovers(List<User> usersList, Set<String> hobbies) {
+        Map<User, String> resultMap = new HashMap<>();
+        for (User user : usersList) {
             for (String hobby : hobbies) {
                 if (user.getHobbyUsers().contains(hobby)) {
                     resultMap.put(user, hobby);
