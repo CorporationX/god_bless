@@ -50,11 +50,15 @@ public class StandardWeatherCacheTest {
     @Test
     public void clearExpiredCacheTest() throws InterruptedException {
         WeatherData weatherData = standardWeatherCache.getWeatherData(City.MOSCOW, 1000);
+        System.out.println(weatherData);
         WeatherData weatherData2 = standardWeatherCache.getWeatherData(City.NY, 500);
+        System.out.println(weatherData2);
         Thread.sleep(1000);
         standardWeatherCache.clearExpiredCache(1800);
         WeatherData weatherData3 = standardWeatherCache.getWeatherData(City.MOSCOW, 1000);
+        System.out.println(weatherData3);
         WeatherData weatherData4 = standardWeatherCache.getWeatherData(City.NY, 500);
+        System.out.println(weatherData4);
         assertNotEquals(weatherData, weatherData3);
         assertNotEquals(weatherData2, weatherData4);
     }
