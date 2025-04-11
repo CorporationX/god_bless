@@ -7,13 +7,11 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    int currentId = 1;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<EventType, List<SpellEvent>> spellsByType = new HashMap<>();
 
-
-    public void addSpellEvent(String eventType, String actionDescription) {
-        int id = currentId++;
+    public void addSpellEvent(EventType eventType, String actionDescription) {
+        int id = AtomicInteger.getId();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, spellEvent);
@@ -22,25 +20,24 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (spellById.get(id) == null) {
-            System.out.println("Событие заклинания отсутствует");
+        SpellEvent events = spellById.get(id);
+        if (events == null) {
+            throw new NullPointerException("Событие заклинания отсутствует");
         }
-        return spellById.get(id);
+        return events;
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(EventType eventType) {
         return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        if (spellEvent != null) {
-            String eventType = spellEvent.getEventType();
-            List<SpellEvent> event = spellsByType.get(eventType);
-            if (event != null) {
-                event.remove(spellEvent);
-            }
+        List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+        if (events == null) {
+            throw new NullPointerException("Нет элементов");
         }
+        events.remove(spellEvent);
     }
 
     public void printAllSpellEvents() {

@@ -4,16 +4,16 @@ public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        hogwartsSpells.addSpellEvent("Защита", "Защищает");
-        hogwartsSpells.addSpellEvent("Атака", "Атакует в ближнем бою");
-        hogwartsSpells.addSpellEvent("Атака", "Атакует c воздуха");
+        hogwartsSpells.addSpellEvent(EventType.DEFENSE, "Защищает");
+        hogwartsSpells.addSpellEvent(EventType.ATTACK, "Атакует в ближнем бою");
+        hogwartsSpells.addSpellEvent(EventType.ATTACK, "Атакует c воздуха");
 
         hogwartsSpells.printAllSpellEvents();
 
         System.out.println(hogwartsSpells.getSpellEventById(1));
-        System.out.println(hogwartsSpells.getSpellEventsByType("Атака"));
+        System.out.println(hogwartsSpells.getSpellEventsByType(EventType.ATTACK));
         hogwartsSpells.getSpellEventById(5);
-        System.out.println(hogwartsSpells.getSpellEventsByType("Прыгает"));
+        System.out.println(hogwartsSpells.getSpellEventsByType(EventType.DEFENSE));
 
         hogwartsSpells.deleteSpellEvent(1);
 
