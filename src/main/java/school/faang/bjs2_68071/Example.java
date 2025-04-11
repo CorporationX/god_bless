@@ -6,10 +6,15 @@ class Example {
     }
 
     public static int[] reverse(int[] array) {
-        int[] reversedArray = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            reversedArray[i] = array[array.length - 1 - i];
+        int head = 0;
+        int tail = array.length - 1;
+        while (head < tail) {
+            int temp = array[head];
+            array[head] = array[tail];
+            array[tail] = temp;
+            head++;
+            tail--;
         }
-        return reversedArray;
+        return array;
     }
 }
