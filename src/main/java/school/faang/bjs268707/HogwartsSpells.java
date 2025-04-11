@@ -9,31 +9,26 @@ public class HogwartsSpells {
 
     private int id = 1;
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private final Map<String, SpellEvent> spellByType = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        spellByType.put(eventType, new SpellEvent(id, eventType, actionDescription));
+        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        List<SpellEvent> spellEvents = spellByType.get(eventType);
+        if (spellEvents == null) {
+            spellEvents = new ArrayList<>();
+            spellByType.put(eventType, spellEvents);
+        }
+        spellEvents.add(spellEvent);
         spellById.put(id, new SpellEvent(id, eventType, actionDescription));
         id++;
     }
 
     public SpellEvent getSpellEventById(int id) {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            if (entry.getKey().equals(id)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        List<SpellEvent> events = new ArrayList<>();
-        for (Map.Entry<String, SpellEvent> entry : spellByType.entrySet()) {
-            if (entry.getKey().equals(eventType)) {
-                events.add(entry.getValue());
-            }
-        }
-        return events;
+        return spellByType.get(eventType);
     }
 
     public void deleteSpellEvent(int id) {
