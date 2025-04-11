@@ -8,14 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Slf4j
 public class HogwartsSpells {
 
     private static final Map<Integer, SpellEvent> spellsById = new HashMap<>();
     private static final Map<SpellType, List<SpellEvent>> spellsByType = new HashMap<>();
-    private static final String ID_NOT_FOUND_MESSAGE = "Заклинание c id {} - не найдено!";
-
 
     public static void addSpellEvent(SpellType spellType, String actionDescription) {
         SpellEvent newEvent = new SpellEvent(spellType, actionDescription);
@@ -24,30 +23,25 @@ public class HogwartsSpells {
     }
 
     public static SpellEvent getSpellEventById(int id) {
-        if (spellsById.containsKey(id)) {
-            return spellsById.get(id);
+        SpellEvent spellEvent = spellsById.get(id);
+        if (spellEvent == null) {
+            throw new NoSuchElementException("No spell event with id - %d".formatted(id));
         }
-        log.info(ID_NOT_FOUND_MESSAGE, id);
-        return null;
+        return spellEvent;
     }
 
-    public static List<SpellEvent> getSpellEventsByType(SpellType spellType) {
-        if (spellsByType.containsKey(spellType)) {
-            return spellsByType.get(spellType);
+    public static List<SpellEvent> getSpellEventsByType(SpellType spellType) throws NoSuchElementException {
+        List<SpellEvent> spellEvents = spellsByType.get(spellType);
+        if (spellEvents == null) {
+            throw new NoSuchElementException("No spell events with type - %s".formatted(spellType));
         }
-        log.info("Заклинания типа {} - не найдены!", spellType);
-        return new ArrayList<>();
+        return spellEvents;
     }
 
     public static void deleteSpellEvent(int id) {
         SpellEvent eventToDelete = getSpellEventById(id);
-        if (eventToDelete != null) {
-            spellsById.remove(id);
-            spellsByType.get(eventToDelete.getSpellType()).remove(eventToDelete);
-            if (spellsByType.get(eventToDelete.getSpellType()).isEmpty()) {
-                spellsByType.remove(eventToDelete.getSpellType());
-            }
-        }
+        spellsById.remove(id);
+        getSpellEventsByType(eventToDelete.getSpellType()).remove(eventToDelete);
     }
 
     public static void printAllEvents() {

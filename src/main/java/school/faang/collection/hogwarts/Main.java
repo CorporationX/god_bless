@@ -3,6 +3,7 @@ package school.faang.collection.hogwarts;
 import lombok.extern.slf4j.Slf4j;
 import school.faang.collection.hogwarts.spell.SpellType;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Slf4j
@@ -30,9 +31,18 @@ public class Main {
 
         HogwartsSpells.printAllEvents();
 
-        HogwartsSpells.deleteSpellEvent(11);
-        HogwartsSpells.getSpellEventById(12);
+        try {
+            HogwartsSpells.deleteSpellEvent(11);
+        } catch (NoSuchElementException e) {
+            log.info("Cant delete spell event with id {}", 11);
+        }
 
-        HogwartsSpells.getSpellEventsByType(SpellType.CURSE);
+        try {
+            HogwartsSpells.getSpellEventById(12);
+        } catch (NoSuchElementException e) {
+            log.info("Event with id {} not found", 12);
+        }
+
+        log.info(HogwartsSpells.getSpellEventsByType(SpellType.ATTACK).toString());
     }
 }
