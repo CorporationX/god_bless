@@ -1,10 +1,8 @@
 package school.faang.library;
 
-import java.util.HashMap;
-
 public class Main {
     public static void main(String[] args) {
-        LibrarySystem librarySystem = new LibrarySystem(new HashMap<>());
+        LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addBook("History", "Old one", 1990, "Номер 1");
         librarySystem.addBook("Math", "Smart one", 90, "Номер 2");
         librarySystem.addBook("Physics", "Newton", 1700, "Номер 1");
@@ -20,7 +18,7 @@ public class Main {
 
         librarySystem.printAllBooks();
 
-        librarySystem.findBook("English", "English one", 2010);
+        librarySystem.findBook("War and piece", "Tolstoy", 1867);
         librarySystem.findBook("History", "Old one", 1990);
     }
 }
