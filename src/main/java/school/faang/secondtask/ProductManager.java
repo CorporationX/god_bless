@@ -12,11 +12,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductManager {
     Set<Product> products = new HashSet<>();
-    int id = 0;
-    static final int CATEGORY_SIZE = Category.values().length;
+    private int id = 0;
+    private static final int CATEGORY_SIZE = Category.values().length;
 
     public void addProduct(Category category, String name) throws Exception {
         if (category == null || name == null || name.isBlank()) {

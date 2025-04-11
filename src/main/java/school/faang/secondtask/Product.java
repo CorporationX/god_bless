@@ -9,9 +9,8 @@ import java.util.Objects;
 
 @Data
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
-    int id;
-    String name;
-    Category category;
+    private int id;
+    private String name;
+    private Category category;
 }
