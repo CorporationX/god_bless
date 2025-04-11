@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /*
 * Related to JIRA ticket: BJS2-68742
@@ -81,14 +83,8 @@ public class BookingSystem {
 
     public List<Room> findAvailableRooms(String strDate, String timeSlot, Set<String> requiredAmenities) {
         List<Room> availableRooms = new ArrayList<>();
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
-
-        String[] timeParts = timeSlot.split("-");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime newStart = LocalTime.parse(timeParts[0], timeFormatter);
-        LocalTime newEnd = LocalTime.parse(timeParts[1], timeFormatter);
+        LocalDate newDate = LocalDate.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        TimeSlot newTimeSlot = TimeSlot.getTimeSlotFromString(timeSlot);
 
         for (Room room : rooms) {
             boolean isRoomAvailable = true;
@@ -96,16 +92,15 @@ public class BookingSystem {
                 continue;
             }
             for (Booking booking : bookings) {
-                if (!booking.getRoom().equals(room)) {
+                if (!Objects.equals(booking.getRoom(), room)) {
                     continue;
                 }
-                LocalDate bookedDate = LocalDate.parse(booking.getDate(), dateTimeFormatter);
-                if (bookedDate.equals(date)) {
-                    String[] bookedTimeParts = booking.getTimeSlot().split("-");
-                    LocalTime bookedStart = LocalTime.parse(bookedTimeParts[0], timeFormatter);
-                    LocalTime bookedEnd = LocalTime.parse(bookedTimeParts[1], timeFormatter);
+                LocalDate bookedDate = booking.getDate();
+                if (Objects.equals(bookedDate, newDate)) {
+                    LocalTime bookedStart = booking.getTimeSlot().getStart();
+                    LocalTime bookedEnd = booking.getTimeSlot().getEnd();
 
-                    if (newStart.isBefore(bookedEnd) && bookedStart.isBefore(newEnd)) {
+                    if (newTimeSlot.getStart().isBefore(bookedEnd) && bookedStart.isBefore(newTimeSlot.getEnd())) {
                         isRoomAvailable = false;
                         break;
                     }
@@ -119,21 +114,12 @@ public class BookingSystem {
     }
 
     public List<Booking> findBookingForDate(String date) {
-        List<Booking> bookingForDate = new ArrayList<>();
-        for (Booking booking : bookings) {
-            if (booking.getDate().equals(date)) {
-                bookingForDate.add(booking);
-            }
-        }
-        return bookingForDate;
+        return bookings.stream()
+                .filter(booking -> Objects.equals(booking.getDate().toString(), date))
+                .collect(Collectors.toList());
     }
 
     private boolean isRoomInBooking(Room room) {
-        for (Booking booking : bookings) {
-            if (booking.getRoom().equals(room)) {
-                return true;
-            }
-        }
-        return false;
+        return bookings.stream().anyMatch(booking -> Objects.equals(booking.getRoom(), room));
     }
 }
