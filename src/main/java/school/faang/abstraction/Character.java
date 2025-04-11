@@ -25,9 +25,9 @@ public abstract class Character {
     abstract void attack(Character opponent);
 
     protected boolean healthCheck(int dmg, int health) {
-        if (health - dmg <= 0)
+        if (health - dmg <= 0) {
             System.out.println("убил...");
-
+        }
         return health - dmg >= 0;
     }
 }

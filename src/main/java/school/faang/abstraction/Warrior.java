@@ -11,7 +11,8 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character opponent) {
-        if (healthCheck(power, opponent.health))
+        if (healthCheck(power, opponent.health)) {
             opponent.health = opponent.health - power;
+        }
     }
 }

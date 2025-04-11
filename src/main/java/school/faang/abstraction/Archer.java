@@ -11,7 +11,8 @@ public class Archer extends Character {
 
     @Override
     void attack(Character opponent) {
-        if (healthCheck(agility, opponent.health))
+        if (healthCheck(agility, opponent.health)) {
             opponent.health = opponent.health - agility;
+        }
     }
 }
