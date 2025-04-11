@@ -19,17 +19,15 @@ public class HogwartsSpells {
     public SpellEvent getSpellEventById(int id) {
         if(spellById.containsKey(id)) {
             return spellById.get(id);
-        } else {
-            return null;
         }
+        return null;
     }
 
     public List<SpellEvent> getSpellEventByType(String eventType) {
         if(spellsByType.containsKey(eventType)) {
             return new ArrayList<>(spellsByType.get(eventType));
-        } else{
-            return null;
         }
+        return Collections.emptyList();
     }
 
     public void deleteSpellEventsByType(int id) {
