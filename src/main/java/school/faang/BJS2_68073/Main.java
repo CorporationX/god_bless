@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public class Main {
     public static void main(String[] args) {
         List<User> users = List.of(
@@ -18,7 +17,5 @@ public class Main {
         Set<String> activities = Set.of("бег", "чтение");
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, activities);
         System.out.println(hobbyLovers);
-
     }
-
 }

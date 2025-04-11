@@ -2,7 +2,6 @@ package school.faang.BJS2_68073;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,21 +16,16 @@ public class User {
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> listOfMatches = new HashMap<>();
+        Map<User, String> result = new HashMap<>();
 
         for (User user : users) {
             for (String activity : user.getActivities()) {
                 if (activities.contains(activity)) {
-                    listOfMatches.put(user, activity);
+                    result.put(user, activity);
                     break;
                 }
             }
         }
-        return listOfMatches;
+        return result;
     }
 }
-
-
-
-
-
