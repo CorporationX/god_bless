@@ -12,6 +12,7 @@ public class SpellEvent {
     private int id;
     private String eventType;
     private String action;
+    private static final int RANDOM_SEED = 9999;
 
     public SpellEvent(String eventType, String action) {
         this.eventType = eventType;
@@ -21,7 +22,7 @@ public class SpellEvent {
 
     private int createId() {
         Random rand = new Random();
-        return rand.nextInt(9999);
+        return rand.nextInt(RANDOM_SEED);
     }
 
     @Override
