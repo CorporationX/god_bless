@@ -8,6 +8,5 @@ public class Main {
         System.out.printf("Массив пришел такой: %s%n", Arrays.toString(arr));
         Example.reverse(arr);
         System.out.printf("Массив вышел такой: %s%n", Arrays.toString(arr));
-
     }
 }

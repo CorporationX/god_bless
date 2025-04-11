@@ -1,8 +1,5 @@
 package school.faang.arrayrevert;
 
-import lombok.Data;
-
-@Data
 public class Example {
     public static void reverse(int[] numbers) {
         int temp;
