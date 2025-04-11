@@ -20,17 +20,15 @@ public class ProductManager {
         return product;
     }
 
-    public Product removeProduct(Category category, String name) {
+    public void removeProduct(Category category, String name) {
         Iterator<Product> productIterator = products.iterator();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 productIterator.remove();
-                return product;
             }
         }
         System.out.printf(PRODUCT_DONT_EXISTS, name, category.getName());
-        return null;
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -54,8 +52,8 @@ public class ProductManager {
     public void printAllProducts() {
         Map<Category, List<Product>> groupByCategory = groupProductsByCategory();
         for (var entity : groupByCategory.entrySet()) {
-            System.out.printf("Категория: %s\n", entity.getKey().getName())
-                .print("Продукты:\n");
+            System.out.printf("Category: %s\n", entity.getKey().getName())
+                .print("Products:\n");
             entity.getValue().forEach(product -> {
                 System.out.printf("\t- %s\n", product.getName());
             });
