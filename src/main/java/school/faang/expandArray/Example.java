@@ -17,7 +17,7 @@ public class Example {
         return IntStream.of(nums)
                 .boxed()
                 .sorted(Comparator.reverseOrder())
-                .mapToInt(Integer::intValue) // обратно в int
+                .mapToInt(Integer::intValue)
                 .toArray();
     }
 }
