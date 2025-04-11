@@ -16,24 +16,24 @@ public class ProjectManager {
     private TeamAssignmentStrategy assignmentStrategy;
     private int employeesCount = 0;
 
-    private void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
+    public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
         this.assignmentStrategy = strategy;
     }
 
-    private void assignTeamToProject(int pojectId) {
+    public void assignTeamToProject(int pojectId) {
         assignmentStrategy.assignTeam(projects.get(pojectId), employees);
     }
 
-    private List<Employee> getTeamForProject(int projectId) {
+    public  List<Employee> getTeamForProject(int projectId) {
         return projects.get(projectId).getTeamMembers();
     }
 
-    private Employee addEmployee(String name, Set<String> skills) {
+    public Employee addEmployee(String name, Set<String> skills) {
         employeesCount++;
         return new Employee(employeesCount, name, skills, 0);
     }
 
-    private List<Project> findProjectsForEmployee(Employee employee) {
+    public List<Project> findProjectsForEmployee(Employee employee) {
         return projects.stream().filter(
                 project -> project.getRequiredSkills()
                         .stream()
@@ -41,17 +41,17 @@ public class ProjectManager {
                 .collect(Collectors.toList());
     }
 
-    private void assignEmployeeToProject(Employee employee, int projectId) {
+    public void assignEmployeeToProject(Employee employee, int projectId) {
         projects.get(projectId).getTeamMembers().add(employee);
         employee.incrementProjectsAmount();
     }
 
-    private void removeEmployeeFromProject(int employeeId, int projectId) {
+    public void removeEmployeeFromProject(int employeeId, int projectId) {
         projects.get(projectId).getTeamMembers().remove(employeeId);
         employees.get(employeeId).decrementProjectsAmount();
     }
 
-    private void removeIneligibleEmployees(Project project) {
+    public void removeIneligibleEmployees(Project project) {
         project.getTeamMembers().removeIf(
                 employee -> Collections.disjoint(
                         employee.getSkills(), project.getRequiredSkills()));
