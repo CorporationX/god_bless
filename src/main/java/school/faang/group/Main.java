@@ -12,6 +12,6 @@ public class Main {
         User userMasha = new User("Masha", 19, "Google", "NY");
 
         List<User> userAgeList = List.of(userIgor, userMasha, userMisha, userOleg, userOlga);
-        System.out.println(User.groupUserByAge(19, userAgeList));
+        System.out.println(User.groupUser(19, userAgeList));
     }
 }

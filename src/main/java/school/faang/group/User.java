@@ -21,15 +21,15 @@ public class User {
     private String work;
     private String address;
 
-    public static Map<Integer, List<User>> groupUserByAge(int ageUser, List<User> userAgeList) {
-        Map<Integer, List<User>> resultMap = new HashMap<>();
+    public static Map<Integer, List<User>> groupUser(int age, List<User> userAgeList) {
+        Map<Integer, List<User>> result = new HashMap<>();
         List<User> ageList = new ArrayList<>();
-        for (User userAge : userAgeList) {
-            if (ageUser == userAge.getAge()) {
-                ageList.add(userAge);
-                resultMap.put(ageUser, ageList);
+        for (User user : userAgeList) {
+            if (age == user.getAge()) {
+                ageList.add(user);
             }
         }
-        return resultMap;
+        result.put(age, ageList);
+        return result;
     }
 }
