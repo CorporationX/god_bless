@@ -9,6 +9,7 @@ import java.util.Map;
 public class StudentDatabase {
     public static final String GRADE_CANNOT_BE_EMPTY = "Оценка не должна быть пустая";
     public static final String GRADE_CANNOT_BE_NEGATIVE = "Оценка не должна быть отрицательная";
+
     private final Map<Student, Map<Subject, Integer>> studentSubjects; // хранит информацию о студентах, их предметах и оценках.
     private final Map<Subject, List<Student>> subjectStudents; // хранит информацию о предметах и списке студентов, изучающих каждый предмет.
 
@@ -17,69 +18,78 @@ public class StudentDatabase {
         this.subjectStudents = new HashMap<>();
     }
 
-    //Добавление нового студента и его предметов с оценками.
-    public boolean addStudentDatabaseInfo(String studentName, String subjectName, Integer grade) {
-        if (grade == null) {
-            throw new IllegalArgumentException(GRADE_CANNOT_BE_EMPTY);
-        } else if (grade < 0) {
-            throw new IllegalArgumentException(GRADE_CANNOT_BE_NEGATIVE);
+    //    Добавление нового студента и его предметов с оценками.
+    public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).putAll(subjects);
+        for (Subject subject : studentSubjects.get(student).keySet()) {
+            putStudentIntoSubjectStudentsMap(student, subject);
         }
-        Student student = new Student(studentName);
-        Subject subject = new Subject(subjectName);
-
-        addStudentToSubjects(subject, student);
-        addSubjectToStudent(student, subject, grade);
-
-        return false;
     }
 
-    private void addStudentToSubjects(Subject subject, Student student) {
+    //    Добавление нового предмета для существующего студента с оценкой.
+    public void addSubjectToStudent(Student student, Subject subject, Integer grade) {
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).put(subject, grade);
+        putStudentIntoSubjectStudentsMap(student, subject);
+    }
+
+    //    Удаление студента и его предметов.
+    public void removeStudent(Student student) {
+        studentSubjects.remove(student);
+        subjectStudents.forEach((subject, students) -> students.remove(student));
+    }
+
+    //    Вывод списка всех студентов и их оценок по предметам.
+    public void printAllStudents() {
+        studentSubjects.forEach((student, subjectsMap) -> {
+            System.out.printf("Студент: %s\n", student.name());
+            subjectsMap.forEach((subject, grade)
+                -> System.out.printf("\t%s - %d\n", subject.name(), grade));
+        });
+    }
+
+    //    Добавление нового предмета и списка студентов, изучающих его.
+    public void addSubjectWithStudentList(Subject subject, List<Student> students) {
+        for (Student student : students) {
+            addStudentToSubjects(student, subject);
+        }
+    }
+
+    //    Добавление студента к существующему предмету.
+    public void addStudentToSubjects(Student student, Subject subject) {
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).put(subject, null);
+        putStudentIntoSubjectStudentsMap(student, subject);
+    }
+
+    //    Удаление студента из предмета.
+    public void removeStudentFromSubject(Student student, Subject subject) {
+        /*
+         * private final Map<Student, Map<Subject, Integer>> studentSubjects; // хранит информацию о студентах, их предметах и оценках.
+         * private final Map<Subject, List<Student>> subjectStudents; // хранит информацию о предметах и списке студентов, изучающих каждый предмет.
+         */
+        Map<Subject, Integer> subjects = studentSubjects.get(student);
+        if (subjects != null) {
+            subjects.remove(subject);
+        }
+        List<Student> students = subjectStudents.get(subject);
+        if (students != null) {
+            students.remove(student);
+        }
+    }
+
+    //    Вывод списка всех предметов и студентов, изучающих их.
+    public void printAllSubject() {
+        //Map<Subject, List<Student>> subjectStudents
+        subjectStudents.forEach((subject, students) -> {
+            System.out.printf("Предмет: %s\n", subject.name());
+            students.forEach(student -> System.out.printf("\tСтудент: %s\n", student.name()));
+        });
+    }
+
+    private void putStudentIntoSubjectStudentsMap(Student student, Subject subject) {
         List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
             subjectStudents.put(subject, students);
         }
     }
-
-    private void addSubjectToStudent(Student student, Subject subject, Integer grade) {
-        // Map<Student, Map<Subject, Integer>> studentSubjects; // хранит информацию о студентах, их предметах и оценках.
-        Map<Subject, Integer> studentSubjectsValue = studentSubjects.get(student);
-        if (studentSubjectsValue == null) {
-            studentSubjectsValue = new HashMap<>();
-        } else {
-            Integer gradeValue = studentSubjectsValue.get(subject);
-            if (gradeValue == null) {
-
-            }
-        }
-    }
-
-    public boolean removeStudent(String studentName) {
-        Student student = new Student(studentName);
-        studentSubjects.remove(student);
-        return false;
-    }
-
-    public boolean removeSubject(String subject) {
-        return false;
-    }
-
-    public void printAllStudents() {
-        for (var entry : studentSubjects.entrySet()) {
-            System.out.printf("Студент: %s\n", entry.getKey());
-            entry.getValue().forEach((subject, grade) -> {
-                System.out.printf("\tПредмет: %s, Оценка: %d\n", subject, grade);
-            });
-        }
-    }
-
-    public void printAllSubjects() {
-        for (var entry : subjectStudents.entrySet()) {
-            System.out.printf("Предмет: %s\n", entry.getKey());            
-            entry.getValue().forEach((student) -> {
-                System.out.printf("\tСтудент: %s\n", student);
-            });
-        }
-    }
-
 }
