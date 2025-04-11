@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ public class HogwartsSpells {
 
     public UUID addSpellEvent(EventType eventType, String actionDescription) {
         UUID uuid = UUID.randomUUID();
-        var spellEvent = new SpellEvent(uuid, eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(uuid, eventType, actionDescription);
         spellById.put(uuid, spellEvent);
         spellsByType.computeIfAbsent(eventType, e -> new ArrayList<>()).add(spellEvent);
         return uuid;
@@ -32,9 +33,11 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(UUID id) {
-        spellById.entrySet().stream().filter(entry -> entry.getKey().equals(id))
-                .map(entry -> entry.getValue().eventType()).forEachOrdered(spellsByType::remove);
-        spellById.remove(id);
+        SpellEvent spellEvent = spellById.get(id);
+        if (Objects.nonNull(spellEvent)) {
+            spellsByType.remove(spellEvent.eventType());
+            spellById.remove(id);
+        }
     }
 
     public void printAllSpellEvents() {
