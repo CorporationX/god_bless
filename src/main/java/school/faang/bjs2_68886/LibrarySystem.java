@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LibrarySystem {
     private final Map<Book, String> booksWithLocations = new HashMap<>();
 
@@ -16,14 +19,17 @@ public class LibrarySystem {
         booksWithLocations.remove(bookToBeRemoved);
     }
 
-    public boolean findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
         Book bookToBeFound = new Book(title, author, year);
-        return booksWithLocations.containsKey(bookToBeFound);
+        if (booksWithLocations.containsKey(bookToBeFound)) {
+            return "Книга находится тут: " + booksWithLocations.get(bookToBeFound);
+        }
+        return "Книга не найдена";
     }
 
     public void printAllBooks() {
         for (Entry<Book, String> entry : booksWithLocations.entrySet()) {
-            System.out.printf("Книга: %s, Где: %s\n", entry.getKey().getTitle(), entry.getValue());
+            log.info("Книга: {}, Где: {}", entry.getKey().getTitle(), entry.getValue());
         }
     }
 }

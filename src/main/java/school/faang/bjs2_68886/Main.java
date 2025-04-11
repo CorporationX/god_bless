@@ -10,18 +10,10 @@ public class Main {
         library.addBook("Хоббит", "Джон Толкин", 1937, "Секция 1.2");
         library.addBook("Хоббит", "Джон Толкин", 1937, "Секция 1.3");
 
-        printResult(library.findBook("Мы", "Евгений Замянит", 1920));
+        System.out.println(library.findBook("Мы", "Евгений Замянит", 1920));
         library.removeBook("Мы", "Евгений Замянит", 1920);
-        printResult(library.findBook("Мы", "Евгений Замянит", 1920));
+        System.out.println(library.findBook("Мы", "Евгений Замянит", 1920));
 
         library.printAllBooks();
-    }
-
-    private static void printResult(boolean result) {
-        if (result) {
-            System.out.println("Книга найдена!");
-        } else {
-            System.out.println("Что то уже нет такой книги...");
-        }
     }
 }
