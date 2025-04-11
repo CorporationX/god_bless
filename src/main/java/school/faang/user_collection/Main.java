@@ -1,10 +1,13 @@
 package school.faang.user_collection;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -17,30 +20,30 @@ public class Main {
         Set<String> targetActivities = Set.of("A", "D", "E");
 
         Map<User, String> hobbyLovers = user1.findHobbyLovers(users, targetActivities);
-        System.out.println("Найденные любители активностей:");
+        log.info("Найденные любители активностей:");
         hobbyLovers.forEach((user, activity) ->
-                System.out.printf("%s (возраст %d) - активность: %s%n",
+                log.info("{} (возраст {}) - активность: {}",
                         user.getName(), user.getAge(), activity));
 
 
         if (hobbyLovers.containsKey(user1) && hobbyLovers.get(user1).equals("A")) {
-            System.out.println("user1 найден с активностью 'A'");
+            log.info("user1 найден с активностью 'A'");
         } else {
-            System.out.println("ОШИБКА user1");
+            log.error("ОШИБКА user1");
         }
 
         if (hobbyLovers.containsKey(user2)
                 && hobbyLovers.get(user2).equals("D")
                 || hobbyLovers.get(user2).equals("E")) {
-            System.out.println("user2 найден с активностью 'D' или 'E'");
+            log.info("user2 найден с активностью 'D' или 'E'");
         } else {
-            System.out.println("ОШИБКА user2");
+            log.error("ОШИБКА user2");
         }
 
         if (!hobbyLovers.containsKey(user3)) {
-            System.out.println("user3 не найден");
+            log.info("user3 не найден");
         } else {
-            System.out.println("ОШИБКА user3");
+            log.error("ОШИБКА user3");
         }
     }
 }

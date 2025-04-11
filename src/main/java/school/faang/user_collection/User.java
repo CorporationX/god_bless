@@ -18,7 +18,7 @@ public class User {
     private final int id;
     private final String name;
     private final int age;
-    private Set<String> activity;
+    private final Set<String> activity;
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobbyLovers = new HashMap<>();
