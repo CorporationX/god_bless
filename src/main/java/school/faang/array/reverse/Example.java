@@ -1,7 +1,8 @@
-package school.faang.reverse.array;
+package school.faang.array.reverse;
 
 public class Example {
-    public int[] reverse(int[] array) {
+
+    public static int[] reverse(int[] array) {
         for (int i = 0; i < array.length / 2; i++) {
             int temp = array[i];
             array[i] = array[array.length - i - 1];
