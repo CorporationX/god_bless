@@ -1,33 +1,31 @@
 package school.faang;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static school.faang.User.groupUsers;
-
-@Slf4j
 public class Main {
     public static void main(String[] args) {
-        List<User> usersList = new ArrayList<>();
-        usersList.add(new User("KOLYA", 34, "FBI", "London"));
-        usersList.add(new User("PAVEL", 55, "KGB", "MOSCOW"));
-        usersList.add(new User("SERGEY", 43, "MI-6", "London"));
-        usersList.add(new User("IGOR", 55, "FBI", "London"));
-        usersList.add(new User("JONNY", 31, "FBI", "PARIS"));
-        usersList.add(new User("QWERTY", 43, "FBI", "London"));
-        usersList.add(new User("LOBBY", 31, "FSB", "London"));
-        usersList.add(new User("SLAVA", 34, "FBI", "London"));
-        usersList.add(new User("VANYA", 34, "FBI", "London"));
+        LibrarySystem library = new LibrarySystem();
 
-        Map<Integer, List<User>> groupUsers = groupUsers(usersList);
+        Book book1 = new Book("The Lord of the Rings", "J.R.R. Tolkien", 1954);
+        Book book2 = new Book("Sunny day", "Paul Anderson", 1978);
+        Book book3 = new Book("Alan Wake", "J.R.R. Tolkien", 1954);
+        Book book4 = new Book("One Republic", "J.R.R. Tolkien", 1954);
+        Book book5 = new Book("Diary", "For me", 2025);
 
-        System.out.println("Возраст и пользователи:");
-        groupUsers.forEach((age, users) -> {
-            log.info("Возраст: {}", age);
-            users.forEach(user -> System.out.println(" - " + user.name()));
-        });
+        library.addBook(book1, "A1");
+        library.addBook(book2, "B3");
+        library.addBook(book3, "A2");
+        library.addBook(book4, "B4");
+        library.addBook(book5, "B1");
+
+
+        library.removeBook("Sunny day", "Paul Anderson", 1978);
+        boolean isRemoved = library.removeBook("Diary", "For me", 2025);
+        if (isRemoved) {
+            System.out.println("Книга 'Diary' успешно удалена из библиотеки!");
+        } else {
+            System.out.println("Книга 'Diary' не найдена, удаление не выполнено.");
+        }
+
+        System.out.println(library.getBookLocation(book2));
+        library.printAllBooks();
     }
 }
