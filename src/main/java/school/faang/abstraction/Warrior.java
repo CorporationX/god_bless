@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.abstraction;
 
-public class Warrior extends Character {
+public class Warrior extends school.faang.abstraction.Character {
 
     private static final int ARCHER_STRENGTH = 10;
     private static final int ARCHER_AGILITY = 5;
