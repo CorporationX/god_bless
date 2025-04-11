@@ -1,7 +1,5 @@
 package school.faang.secondtask;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -17,9 +15,10 @@ public class ProductManager {
     private int id = 0;
     private static final int CATEGORY_SIZE = Category.values().length;
 
+
     public void addProduct(Category category, String name) throws Exception {
         if (category == null || name == null || name.isBlank()) {
-            throw new Exception("wdklwnd");
+            throw new Exception("provide valid product");
         }
         id++;
         products.add(new Product(id, name, category));
@@ -65,7 +64,4 @@ public class ProductManager {
             System.out.println();
         }
     }
-
-
-
 }

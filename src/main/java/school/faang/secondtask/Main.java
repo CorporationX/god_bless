@@ -1,8 +1,5 @@
 package school.faang.secondtask;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Main {
     public static void main(String[] args) throws Exception {
         ProductManager productManager = new ProductManager();
