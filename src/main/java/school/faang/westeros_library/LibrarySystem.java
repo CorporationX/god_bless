@@ -10,7 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public class LibrarySystem {
-    HashMap<Book, String> bookShelves = new HashMap<>();
+    private HashMap<Book, String> bookShelves = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book newBook = new Book(title, author, year);

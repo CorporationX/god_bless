@@ -10,9 +10,9 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 public class Book {
-    String title;
-    String author;
-    int year;
+    private String title;
+    private String author;
+    private int year;
 
 
     @Override
