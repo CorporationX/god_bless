@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static school.faang.bjs2_68782.data_set.TestData.ALL_SUBJECTS_WITH_GRADES;
@@ -35,12 +36,10 @@ class AddStudentWithSubjectsAndGradeTest {
     }
 
     @Test
-    void testAddStudentWithSubjectsAndGradeWhenExistingStudentThenDoNotAdd() {
-        studentDatabase.addStudentWithSubjectsAndGrade(STUDENT1, SOME_SUBJECTS_WITH_CHANGED_GRADES);
-
-        var actualStudentSubjects = studentDatabase.getStudentSubjects();
-        assertTrue(actualStudentSubjects.containsKey(STUDENT1));
-        assertEquals(ALL_SUBJECTS_WITH_GRADES, actualStudentSubjects.get(STUDENT1));
+    void testAddStudentWithSubjectsAndGradeWhenExistingStudentThenThrowsException() {
+        assertThatThrownBy(() ->
+                studentDatabase.addStudentWithSubjectsAndGrade(STUDENT1, SOME_SUBJECTS_WITH_CHANGED_GRADES))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
