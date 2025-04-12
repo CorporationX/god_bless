@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,14 +24,14 @@ public class UserTest {
 
         Map<User, String> result = user1.findHobbyLovers(users, targetActivities);
 
-        assertAll(
-                () -> assertEquals(2, result.size(), "Должно быть найдено 2 пользователя"),
-                () -> assertTrue(result.containsKey(user1), "user1 должен быть найден"),
-                () -> assertEquals("A", result.get(user1), "user1 должен иметь активность A"),
-                () -> assertTrue(result.containsKey(user2), "user2 должен быть найден"),
-                () -> assertTrue(result.get(user2).equals("D") || result.get(user2).equals("E"),
-                        "user2 должен иметь активность D или E"),
-                () -> assertFalse(result.containsKey(user3), "user3 не должен быть найден")
-        );
+
+        assertEquals(2, result.size(), "Должно быть найдено 2 пользователя");
+        assertTrue(result.containsKey(user1), "user1 должен быть найден");
+        assertEquals("A", result.get(user1), "user1 должен иметь активность A");
+        assertTrue(result.containsKey(user2), "user2 должен быть найден");
+        assertTrue(result.get(user2).equals("D")
+                || result.get(user2).equals("E"), "user2 должен иметь активность D или E");
+        assertFalse(result.containsKey(user3), "user3 не должен быть найден");
+
     }
 }
