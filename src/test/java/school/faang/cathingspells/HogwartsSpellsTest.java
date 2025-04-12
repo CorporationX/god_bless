@@ -28,15 +28,32 @@ class HogwartsSpellsTest {
                 "Lumos for getting area lighten");
         Integer id = spellEvent.getId();
 
-        assertEquals(hogwartsSpells.getSpellById().get(id), spellEvent);
+        assertEquals(hogwartsSpells.getSpellById().get(id), hogwartsSpells.getSpellEventById(id));
     }
 
     @Test
     void shouldGetSpellEventsByType() {
+        hogwartsSpells.addSpellEvent("Common", "Lumos for getting area lighten");
+        hogwartsSpells.addSpellEvent("Common", "Reparo for getting things fixed");
+        hogwartsSpells.addSpellEvent("Battle", "Expeliarmus for disarming your opponent");
 
+        assertEquals(hogwartsSpells.getSpellEventsByType("Common"),
+                hogwartsSpells.getSpellsByType().get("Common"));
     }
 
     @Test
     void shouldDeleteSpellEvent() {
+        SpellEvent spellEvent1 = hogwartsSpells.addSpellEvent("Common",
+                "Lumos for getting area lighten");
+        SpellEvent spellEvent2 = hogwartsSpells.addSpellEvent("Common",
+                "Reparo for getting things fixed");
+        SpellEvent spellEvent3 = hogwartsSpells.addSpellEvent("Battle",
+                "Expeliarmus for disarming your opponent");
+
+        hogwartsSpells.deleteSpellEvent(spellEvent1.getId());
+
+        assertTrue(hogwartsSpells.getSpellById().containsKey(spellEvent2.getId()));
+        assertTrue(hogwartsSpells.getSpellById().containsKey(spellEvent3.getId()));
+        assertFalse(hogwartsSpells.getSpellById().containsKey(spellEvent1.getId()));
     }
 }

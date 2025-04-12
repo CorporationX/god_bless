@@ -6,5 +6,4 @@ public class Main {
         hogwartsSpells.addSpellEvent("Common", "Lumos for getting area lighten");
         hogwartsSpells.printAllSpellEvents();
     }
-
 }
