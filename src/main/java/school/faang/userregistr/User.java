@@ -17,7 +17,9 @@ public class User {
     private static int VALID_AGE = 18;
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
-        if (name.isBlank()) {
+        if (name == null) {
+            throw new IllegalArgumentException("Поле имя не может быть пустым");
+        } else if (name.isBlank()) {
             throw new IllegalArgumentException("Поле имя не может быть пустым");
         } else if (age < VALID_AGE) {
             throw new IllegalArgumentException("Возрастное ограничение 18+");
