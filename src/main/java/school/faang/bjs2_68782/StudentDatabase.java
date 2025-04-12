@@ -3,6 +3,7 @@ package school.faang.bjs2_68782;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,7 @@ public class StudentDatabase {
      * Удаление студента и его предметов.
      */
     public void deleteStudentWithSubjects(Student student) {
-        var deletedStudent = studentSubjects.remove(student);
-        if (deletedStudent == null) {
+        if (studentSubjects.remove(student) == null) {
             throw new NoSuchElementException("Студент %s отсутствует в списке, не был удалён".formatted(student));
         }
     }
