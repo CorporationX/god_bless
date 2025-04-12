@@ -1,8 +1,11 @@
-package school.faang.westerosLibrary;
+package school.faang.westeroslibrary;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LibrarySystemTest {
     private LibrarySystem librarySystem;
@@ -24,19 +27,18 @@ public class LibrarySystemTest {
     void shouldRemoveBook() {
         Book book = librarySystem.addBook("Dragons and Balls", "J. J. Martin", 2005, "5");
 
-        librarySystem.removeBook("Dragons and Balls", "random", 2002);
+        boolean isRemoved = librarySystem.removeBook("Dragons and Balls", "J. J. Martin", 2005);
 
         assertFalse(librarySystem.getBookLocations().containsKey(book));
+        assertTrue(isRemoved);
     }
 
     @Test
     void shouldFindBook() {
         librarySystem.addBook("Dragons and Balls", "J. J. Martin", 2005, "5");
 
-        Book book = librarySystem.findBook("Dragons and Balls", "J. J. Martin", 2005);
+        String bookLocation = librarySystem.findBook("Dragons and Balls", "J. J. Martin", 2005);
 
-        assertEquals(book.getAuthor(), "J. J. Martin");
-        assertEquals(book.getTitle(), "Dragons and Balls");
-        assertEquals(book.getYear(), 2005);
+        assertEquals(bookLocation, "5");
     }
 }

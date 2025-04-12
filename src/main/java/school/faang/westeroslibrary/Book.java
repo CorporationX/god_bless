@@ -1,4 +1,4 @@
-package school.faang.westerosLibrary;
+package school.faang.westeroslibrary;
 
 import lombok.Data;
 
