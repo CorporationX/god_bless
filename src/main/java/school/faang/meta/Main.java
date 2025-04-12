@@ -1,5 +1,8 @@
 package school.faang.meta;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -32,6 +35,6 @@ public class Main {
         notificationManager.sendNotification(notValidEmailNotification);
         notificationManager.sendNotification(emptyEmailNotification);
 
-        System.out.println("Errors list : " + notificationManager.getErrors());
+        log.debug("Errors list : {}", notificationManager.getErrors());
     }
 }

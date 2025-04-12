@@ -1,5 +1,7 @@
 package school.faang.meta;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,44 +9,39 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+@Slf4j
 public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> notificationHandlersMap = new HashMap<>();
     private final Map<NotificationType, List<Predicate<Notification>>> filtersMap = new HashMap<>();
     private final List<String> errors = new ArrayList<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationHandlersMap.put(type, handler);
+        this.notificationHandlersMap.put(type, handler);
     }
 
     public void registerFilter(NotificationType type, Predicate<Notification> filter) {
-        List<Predicate<Notification>> filtersList = filtersMap.getOrDefault(type, new ArrayList<>());
-        filtersList.add(filter);
-        filtersMap.put(type, filtersList);
+        this.filtersMap.computeIfAbsent(type, notificationType -> new ArrayList<>()).add(filter);
     }
 
     public void sendNotification(Notification notification) {
         boolean isValidationPassed = validateNotification(notification);
         if (isValidationPassed) {
-            notificationHandlersMap.get(notification.getType()).accept(notification);
+            this.notificationHandlersMap.get(notification.getType()).accept(notification);
         }
     }
 
     public boolean validateNotification(Notification notification) {
-        boolean isValidationPassed = true;
-        List<Predicate<Notification>> filters = filtersMap.get(notification.getType());
-        if (filters != null) {
-            for (Predicate<Notification> filter : filters) {
-                if (!filter.test(notification)) {
-                    errors.add("filtering not passed for notification: " + notification);
-                    isValidationPassed = false;
-                }
+        List<Predicate<Notification>> filters = this.filtersMap.computeIfAbsent(notification.getType(), notificationType -> new ArrayList<>());
+        return filters.stream().allMatch(filter -> {
+            if (!filter.test(notification)) {
+                errors.add("filtering not passed for notification: " + notification);
+                log.warn("filtering not passed for notification: {}", notification);
             }
-        }
-        return isValidationPassed;
+            return filter.test(notification);
+        });
     }
 
     public List<String> getErrors() {
         return errors;
     }
-
 }
