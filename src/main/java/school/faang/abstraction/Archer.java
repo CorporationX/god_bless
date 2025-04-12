@@ -7,7 +7,7 @@ public class Archer extends school.faang.abstraction.Character {
 
     @Override
     public void attack(Character opponent) {
-        int demage = this.agility;
-        opponent.applyDamage(demage);
+        int damage = this.agility;
+        opponent.applyDamage(damage);
     }
 }

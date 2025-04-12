@@ -8,7 +8,7 @@ public class Warrior extends school.faang.abstraction.Character {
 
     @Override
     public void attack(Character opponent) {
-        int demage = this.strength;
-        opponent.applyDamage(demage);
+        int damage = this.strength;
+        opponent.applyDamage(damage);
     }
 }
