@@ -66,4 +66,5 @@ public class User {
 
         return groupedByHobby;
     }
+
 }
