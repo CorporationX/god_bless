@@ -12,7 +12,7 @@ public class User {
     private int age;
     private String job;
     private String address;
-    private static List<String> VALID_JOBS = List.of("Google","Uber","Amazon");
+    private static List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
     private static int VALID_AGE = 18;
 
