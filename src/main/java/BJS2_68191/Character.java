@@ -21,6 +21,11 @@ public abstract class Character {
         this.health = DEFAULT_HEALTH;
     }
 
+    public Character(String name) {
+        this(name, AVERAGE_PROPERTIES_VALUE, AVERAGE_PROPERTIES_VALUE, AVERAGE_PROPERTIES_VALUE);
+    }
+
+
     public abstract void attak(Character opponent);
 
     public void takeDamage(int damage) {

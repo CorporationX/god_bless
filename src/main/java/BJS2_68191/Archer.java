@@ -5,10 +5,6 @@ public abstract class Archer extends Character {
     private static final int DEFAULT_AGILITY = 10;
     private static final int DEFAULT_INTELLIGENCE = 5;
 
-    @Override
-    public void attak(Character opponent) {
-    }
-
     public Archer(String name) {
         super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }

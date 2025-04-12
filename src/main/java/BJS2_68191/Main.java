@@ -3,6 +3,9 @@ package BJS2_68191;
 public class Main {
     public static void main(String[] args) {
         Archer archer = new Archer("Archer") {
+            @Override
+            public void attak(Character opponent) {
+            }
         };
         Character warrior = new Warrior("Warrior") {
             @Override
