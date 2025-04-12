@@ -2,9 +2,7 @@ package school.faang.userregistr;
 
 import lombok.Setter;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,10 +12,8 @@ public class User {
     private int age;
     private String job;
     private String address;
-    private static ArrayList<String> VALID_JOBS =
-            new ArrayList<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static ArrayList<String> VALID_ADDRESSES =
-            new ArrayList<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static List<String> VALID_JOBS = List.of("Google","Uber","Amazon");
+    private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
     private static int VALID_AGE = 18;
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
