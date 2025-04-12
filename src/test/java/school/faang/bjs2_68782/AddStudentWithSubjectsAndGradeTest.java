@@ -44,7 +44,7 @@ class AddStudentWithSubjectsAndGradeTest {
     }
 
     @Test
-    void testAddStudentWithSubjectsAndGradeWhenEmptySubjectsThenAddStudentWOSubjects() {
+    void testAddStudentWithSubjectsAndGradeWhenEmptySubjectsThenAddStudentWoSubjects() {
         studentDatabase.addStudentWithSubjectsAndGrade(STUDENT3, Map.of());
 
         var actualStudentSubjects = studentDatabase.getStudentSubjects();
