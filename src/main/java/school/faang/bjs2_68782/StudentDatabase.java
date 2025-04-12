@@ -20,7 +20,7 @@ public class StudentDatabase {
      */
     public void addStudentWithSubjectsAndGrade(Student student, Map<Subject, Integer> subjectsWithGrades) {
         if (studentSubjects.containsKey(student)) {
-            log.info("Студент {} уже есть в списке", student);
+            throw new IllegalArgumentException("Студент %s уже есть в списке".formatted(student));
         }
         studentSubjects.computeIfAbsent(student, stud -> new HashMap<>(subjectsWithGrades));
     }
