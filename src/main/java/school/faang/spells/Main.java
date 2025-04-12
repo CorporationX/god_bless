@@ -37,7 +37,5 @@ public class Main {
         } catch (NoSuchElementException e) {
             log.info("Ошибка: {}", e.toString());
         }
-
-
     }
 }

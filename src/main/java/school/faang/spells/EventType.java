@@ -11,7 +11,7 @@ public enum EventType {
 
     private final String typeName;
 
-    EventType(String name) {
+    private EventType(String name) {
         this.typeName = name;
     }
 

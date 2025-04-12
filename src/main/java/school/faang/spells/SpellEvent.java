@@ -15,7 +15,7 @@ public class SpellEvent {
     public SpellEvent(EventType eventType, String action) {
         this.eventType = eventType;
         this.action = action;
-        spellId = IdGenerator.getId().getAndIncrement();
+        spellId = IdGenerator.idCounterUp();
     }
 
 }

@@ -45,9 +45,7 @@ public class HogwartsSpells {
         if (removedFromById == null) {
             throw new NoSuchElementException("События заклинания с id = %d не были добавлены в HashMap".formatted(id));
         }
-        for (EventType key : spellByType.keySet()) {
-            spellByType.get(key).removeIf(spellEvent -> spellEvent.getSpellId() == id);
-        }
+        spellByType.get(removedFromById.getEventType()).remove(removedFromById);
     }
 
     public void printAllSpellEvents() {
