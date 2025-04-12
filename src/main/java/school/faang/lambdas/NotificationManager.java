@@ -37,7 +37,8 @@ public class NotificationManager {
         if (moderator.isDecentMessage(notification)) {
             Consumer<Notification> messageHandler = notificationHandlers.get(notification.type());
             if (messageHandler == null) {
-                throw new NoSuchElementException("For notification type %s no handler added!".formatted(notification.type()));
+                throw new NoSuchElementException(
+                        "For notification type %s no handler added!".formatted(notification.type()));
             }
             messageHandler.accept(corrector.correct(notification));
         }
