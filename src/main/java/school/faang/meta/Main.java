@@ -8,7 +8,8 @@ public class Main {
         notificationManager.registerHandler(NotificationType.SMS, notification ->
                 System.out.println("here we send sms to user with a message: " + notification.getMessage()));
         notificationManager.registerHandler(NotificationType.PUSH, notification ->
-                System.out.println("here we send PUSH notification to user with a message: " + notification.getMessage()));
+                System.out.println("here we send PUSH notification to user with a message: " +
+                        notification.getMessage()));
 
         Notification emailNotification = new Notification(NotificationType.EMAIL,
                 "Your notification #1 sent by email");
