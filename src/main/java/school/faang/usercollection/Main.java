@@ -1,17 +1,15 @@
 package school.faang.usercollection;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Set<String> activities1 = new HashSet<>(Arrays.asList("Футбол", "Шахматы"));
+        Set<String> activities1 = Set.of("Футбол", "Шахматы");
         User user1 = new User(1, "Iван", 25, activities1);
 
-        Set<String> activities2 = new HashSet<>(Arrays.asList("Плавание", "Теннис"));
+        Set<String> activities2 = Set.of("Плавание", "Теннис");
         User user2 = new User(2, "Ольга", 30, activities2);
 
         Map<User, String> result = User.findHobbyLovers(
