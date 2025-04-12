@@ -2,32 +2,27 @@ package school.faang.management.team_project;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Getter
 @EqualsAndHashCode
 @ToString
 public class Project {
-    private static int idCounter = 1;
+    private static final AtomicInteger idCounter = new AtomicInteger(1);
 
-    private final int id = idCounter++;
+    private final int id;
     private final String name;
-    @Setter
-    private Set<String> requiredSkills = new HashSet<>();
+    private final Set<String> requiredSkills;
     private final List<Employee> teamMembers = new ArrayList<>();
 
-    public Project(String name) {
-        this.name = name;
-    }
-
     public Project(String name, Set<String> requiredSkills) {
+        this.id = idCounter.getAndIncrement();
         this.name = name;
         this.requiredSkills = requiredSkills;
     }
