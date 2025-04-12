@@ -11,11 +11,11 @@ public class Main {
         createUser(null, 28, "Google", "New York"); // name is null
     }
 
-    public static void createUser(String name, int age, String job, String address){
+    public static void createUser(String name, int age, String job, String address) {
         try {
             User user = new User(name, age, job, address);
             System.out.println("Создан пользователь: " + user);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.err.println("Ошибка при создании пользователя: " + e.getMessage());
         }
     }
