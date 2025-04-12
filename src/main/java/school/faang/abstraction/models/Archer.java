@@ -1,6 +1,6 @@
 package school.faang.abstraction.models;
 
-public class Archer extends Character{
+public class Archer extends Character {
     public Archer(String name) {
         super(name);
         this.setStrength(3);

@@ -1,6 +1,6 @@
 package school.faang.abstraction.models;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         this.setStrength(10);
@@ -12,5 +12,4 @@ public class Warrior extends Character{
     public void attack(Character opponent) {
         reduceHealth(opponent, getStrength());
     }
-
 }
