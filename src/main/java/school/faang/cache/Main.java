@@ -21,9 +21,7 @@ public class Main {
 
         subjectAndBallForOleg.put(math, 3);
         subjectAndBallForOleg.put(russia, 5);
-
         subjectAndBallForEgor.put(biology, 4);
-
         subjectAndBallForAlex.put(math, 5);
         subjectAndBallForAlex.put(biology, 5);
         subjectAndBallForAlex.put(fiz, 4);
