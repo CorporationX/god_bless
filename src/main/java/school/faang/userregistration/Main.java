@@ -2,7 +2,7 @@ package school.faang.userregistration;
 
 public class Main {
     public static void main(String[] args) {
-        createUser("Alice", 25, "Google", "London");// positive
+        createUser("Alice", 25, "Google", "London"); // positive
         createUser("Bob", 17, "Amazon", "New York");// negative age
         createUser("Charlie", 30, "Facebook", "Amsterdam");// negative job
         createUser("", 22, "Uber", "London");// negative name isBlank
