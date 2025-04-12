@@ -1,10 +1,8 @@
 package school.faang.amazonwarehouse;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode
 public class Product {
     private static int nextId = 1;
 

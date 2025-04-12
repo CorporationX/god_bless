@@ -3,7 +3,6 @@ package school.faang.amazonwarehouse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,20 +17,14 @@ public class ProductManager {
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
-        if (!products.contains(product)) {
-            products.add(product);
-            System.out.printf("Продукт: %s добавлен.%n", name);
-        } else {
-            System.out.printf("Продукт: %s уже существует.%n", name);
-        }
+        products.add(product);
+        System.out.printf("Продукт: %s добавлен.%n", name);
     }
 
     public void removeProduct(Category category, String name) {
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getCategory().equals(category) && product.getName().equals(name)) {
-                iterator.remove();
+        for (Product product : products) {
+            if (product.getCategory() == category && product.getName().equals(name)) {
+                products.remove(product);
                 System.out.printf("Продукт: %s удален.", name);
                 break;
             }
