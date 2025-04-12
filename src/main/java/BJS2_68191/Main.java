@@ -1,18 +1,12 @@
 package BJS2_68191;
 
-
 public class Main {
     public static void main(String[] args) {
-        Character archer = new Archer("Archer") {
-            @Override
-            public void attak(Character opponent) {
-
-            }
+        Archer archer = new Archer("Archer") {
         };
         Character warrior = new Warrior("Warrior") {
             @Override
             public void attak(Character opponent) {
-
             }
         };
         System.out.println("Warrior health: " + warrior.getHealth());

@@ -21,14 +21,6 @@ public abstract class Character {
         this.health = DEFAULT_HEALTH;
     }
 
-    public Character(String name) {
-        this.name = name;
-        this.power = AVERAGE_PROPERTIES_VALUE;
-        this.agility = AVERAGE_PROPERTIES_VALUE;
-        this.intelligence = AVERAGE_PROPERTIES_VALUE;
-        this.health = DEFAULT_HEALTH;
-    }
-
     public abstract void attak(Character opponent);
 
     public void takeDamage(int damage) {
@@ -40,7 +32,7 @@ public abstract class Character {
         this.health -= damage;
     }
 
-    private void death() {
+    public void death() {
         System.out.println("The end");
     }
 }
