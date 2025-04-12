@@ -9,13 +9,13 @@ import lombok.ToString;
 @ToString
 public class SpellEvent {
     private final int spellId;
-    private final String eventType;
+    private final EventType eventType;
     private final String action;
 
-    public SpellEvent(String eventType, String action) {
+    public SpellEvent(EventType eventType, String action) {
         this.eventType = eventType;
         this.action = action;
-        spellId = IdGenerator.id.getAndIncrement();
+        spellId = IdGenerator.getId().getAndIncrement();
     }
 
 }

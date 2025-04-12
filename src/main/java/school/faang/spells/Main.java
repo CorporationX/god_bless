@@ -8,22 +8,22 @@ import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
-        hogwartsSpells.addSpellEvent("Чары", "Левитация");
-        hogwartsSpells.addSpellEvent("Чары", "Дыхание под водой");
-        hogwartsSpells.addSpellEvent("Чары", "Хождение по лаве");
-        hogwartsSpells.addSpellEvent("Защита", "Защита от заклинаний");
-        hogwartsSpells.addSpellEvent("Защита", "Защита от физических атак");
-        hogwartsSpells.addSpellEvent("Чары", "Невидимость");
-        hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразование предмета");
-        hogwartsSpells.addSpellEvent("Трансфигурация", "Анимагия");
-        hogwartsSpells.addSpellEvent("Атакующие Чары", "Взрыв");
-        hogwartsSpells.addSpellEvent("Атакующие Чары", "Дуговая молния");
-        hogwartsSpells.addSpellEvent("Атакующие Чары", "Огненный шар");
+        hogwartsSpells.addSpellEvent(EventType.CHARMS, "Левитация");
+        hogwartsSpells.addSpellEvent(EventType.CHARMS, "Дыхание под водой");
+        hogwartsSpells.addSpellEvent(EventType.CHARMS, "Хождение по лаве");
+        hogwartsSpells.addSpellEvent(EventType.DEFENCE, "Защита от заклинаний");
+        hogwartsSpells.addSpellEvent(EventType.DEFENCE, "Защита от физических атак");
+        hogwartsSpells.addSpellEvent(EventType.CHARMS, "Невидимость");
+        hogwartsSpells.addSpellEvent(EventType.TRANSFIGURATION, "Преобразование предмета");
+        hogwartsSpells.addSpellEvent(EventType.TRANSFIGURATION, "Анимагия");
+        hogwartsSpells.addSpellEvent(EventType.ATTACK, "Взрыв");
+        hogwartsSpells.addSpellEvent(EventType.ATTACK, "Дуговая молния");
+        hogwartsSpells.addSpellEvent(EventType.ATTACK, "Огненный шар");
 
         hogwartsSpells.printAllSpellEvents();
 
         log.info(hogwartsSpells.getSpellEventById(10).toString());
-        log.info(hogwartsSpells.getSpellEventByType("Чары").toString());
+        log.info(hogwartsSpells.getSpellEventByType(EventType.CHARMS).toString());
 
         hogwartsSpells.deleteSpellEvent(3);
         try {

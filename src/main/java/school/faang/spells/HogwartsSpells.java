@@ -10,10 +10,10 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<EventType, List<SpellEvent>> spellByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String action) {
+    public void addSpellEvent(EventType eventType, String action) {
         SpellEvent newEvent = new SpellEvent(eventType, action);
         spellById.put(newEvent.getSpellId(), newEvent);
         spellByType.putIfAbsent(eventType, new ArrayList<>());
@@ -30,7 +30,7 @@ public class HogwartsSpells {
         return spellEvent;
     }
 
-    public List<SpellEvent> getSpellEventByType(String eventType) throws NoSuchElementException {
+    public List<SpellEvent> getSpellEventByType(EventType eventType) throws NoSuchElementException {
         List<SpellEvent> spellEventList = spellByType.get(eventType);
 
         if (spellEventList == null) {
@@ -42,11 +42,11 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent removedFromById = spellById.remove(id);
-        for (Map.Entry<String, List<SpellEvent>> entry : spellByType.entrySet()) {
-            entry.getValue().removeIf(spellEvent -> spellEvent.getSpellId() == id);
-        }
         if (removedFromById == null) {
             throw new NoSuchElementException("События заклинания с id = %d не были добавлены в HashMap".formatted(id));
+        }
+        for (EventType key : spellByType.keySet()) {
+            spellByType.get(key).removeIf(spellEvent -> spellEvent.getSpellId() == id);
         }
     }
 
