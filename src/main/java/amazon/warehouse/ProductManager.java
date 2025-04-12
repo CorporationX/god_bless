@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
+    private Integer randomId = 0;
 
     public void addProduct(Category category, String name) {
-        int randomId = ThreadLocalRandom.current().nextInt(1, 10);
-        this.products.add(new Product(randomId, name, category));
+        this.randomId++;
+        this.products.add(new Product(this.randomId, name, category));
     }
 
     public void removeProduct(int id, Category category, String name) {
@@ -21,7 +23,7 @@ public class ProductManager {
         if (this.products.contains(productForRemove)) {
             this.products.remove(productForRemove);
         } else {
-            System.out.printf("Product on category %s with name %s is not find!", category, name);
+            throw new IllegalArgumentException("Product category " + category + " with name " + name + " not found!");
         }
     }
 
@@ -36,12 +38,8 @@ public class ProductManager {
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-        Map<Category, List<Product>> groupedListsByCategory = new HashMap<>();
-        for (Product product : this.products) {
-            groupedListsByCategory.putIfAbsent(product.getCategory(),
-                    findProductsByCategory(product.getCategory()));
-        }
-        return groupedListsByCategory;
+        return this.products.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
     }
 
     public void printAllProducts() {

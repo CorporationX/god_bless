@@ -15,6 +15,6 @@ public class Main {
 
         productManager.printAllProducts();
 
-        productManager.removeProduct(1, Category.BOOKS, "1984");
+        productManager.removeProduct(2, Category.BOOKS, "1984");
     }
 }
