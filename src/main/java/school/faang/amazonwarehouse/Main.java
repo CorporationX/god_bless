@@ -30,11 +30,11 @@ public class Main {
         productManager.printAllProducts();
 
         productManager.findProductsByCategory(Category.FOOD)
-                .forEach(p-> System.out.println(p.getName()));
+                .forEach(p -> System.out.println(p.getName()));
 
         productManager.removeProduct(Category.ELECTRONICS, "vacuum cleaner");
         productManager.findProductsByCategory(Category.ELECTRONICS)
-                .forEach(p-> System.out.println(p.getName()));
+                .forEach(p -> System.out.println(p.getName()));
 
         productManager.printAllProducts();
 
