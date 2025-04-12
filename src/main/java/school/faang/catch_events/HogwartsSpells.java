@@ -1,6 +1,7 @@
 package school.faang.catch_events;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,4 +25,54 @@ public class HogwartsSpells {
         spellsByType.computeIfAbsent(eventType, a -> new ArrayList<>()).add(event);
     }
 
+    public SpellEvent getSpellEventById(int id) {
+        SpellEvent event = spellById.get(id);
+        if (event == null) {
+            throw new IllegalArgumentException("Событие с ID " + id + " не найдено");
+        }
+        return event;
+    }
+
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (eventType == null) {
+            throw new IllegalArgumentException("Тип события не может быть null");
+        }
+
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
+    }
+
+    public void deleteSpellEvent(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID должен быть положительным числом");
+        }
+
+        SpellEvent removedEvent = spellById.remove(id);
+        if (removedEvent == null) {
+            return;
+        }
+
+        String eventType = removedEvent.getEventType();
+        spellsByType.computeIfPresent(eventType, (type, eventsList) -> {
+            eventsList.removeIf(e -> e.getId() == id);
+            return eventsList.isEmpty() ? null : eventsList;
+        });
+
+    }
+
+    public void printAllSpellEvents() {
+        if (spellById.isEmpty()) {
+            System.out.println("Нет сохраненных событий заклинаний");
+            return;
+        }
+
+        System.out.println("Все применения заклинаний");
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            SpellEvent event = entry.getValue();
+            System.out.printf("[ID: %d, Тип: %s, Описание: %s]%n",
+                    event.getId(),
+                    event.getEventType(),
+                    event.getAction());
+        }
+        System.out.println("Всего применений: " + spellById.size());
+    }
 }
