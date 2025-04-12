@@ -1,20 +1,19 @@
 package gratsio_BJS2_68672;
 
 import java.util.*;
-import gratsio_BJS2_68672.Category;
 
 public class ProductManager {
     private final Set<Product> products = new HashSet<Product>();
-    private int CurrentIdOfProduct = 1;
+    private int currentIdOfProduct = 1;
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                System.out.println("Товар с таким именем уже существует в другой категории");
+                System.out.println("A product with that name already exists in another category!");
                 return;
             }
         }
-        int id = CurrentIdOfProduct++;
+        int id = currentIdOfProduct++;
         Product product = new Product(id, name, category);
         products.add(product);
     }
@@ -23,24 +22,24 @@ public class ProductManager {
         Iterator<Product> iterator = products.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getCategory().equals(category) && iterator.next().getName().equals(name)) {
-                System.out.println(iterator.next().getName() + " удален из категории " + iterator.next().getCategory());
+                System.out.println(iterator.next().getName() + " removed from the category " + iterator.next().getCategory());
                 iterator.remove();
                 return;
             }
         }
-        System.out.println("Продукта с такой категорией нет на складе");
+        System.out.println("There is no product with this category in stock.");
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> ListOfProducts = new ArrayList<>();
+        List<Product> listOfProducts = new ArrayList<>();
         for (Product product : products) {
             if (product.getCategory().equals(category)) {
-                ListOfProducts.add(product);
+                listOfProducts.add(product);
             }
         }
-        if (!ListOfProducts.isEmpty()) {
-            return ListOfProducts;
-        } return null;
+        if (!listOfProducts.isEmpty()) {
+            return listOfProducts;
+        } return Collections.emptyList();
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
@@ -57,8 +56,8 @@ public class ProductManager {
 
     public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> entry : groupProductsByCategory().entrySet()) {
-            System.out.println("Категория: " + entry.getKey());
-            System.out.println("Продукты: ");
+            System.out.println("Category: " + entry.getKey());
+            System.out.println("Products: ");
             for (Product product : entry.getValue()) {
                 System.out.println("- " + product.getName());
             }
