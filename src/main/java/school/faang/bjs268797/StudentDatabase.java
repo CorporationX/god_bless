@@ -50,8 +50,12 @@ public class StudentDatabase {
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         subjectStudents.put(subject, new ArrayList<>(students));
         for (Student student : students) {
-            studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, null);
+            Map<Subject, Integer> subjects = studentSubjects.get(student);
+            if (!(subjects instanceof HashMap)) {
+                subjects = new HashMap<>();
+                studentSubjects.put(student, subjects);
+            }
+            subjects.put(subject, null);
         }
     }
 
