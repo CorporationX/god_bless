@@ -1,16 +1,17 @@
 package school.faang;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @ToString
-
 public class User {
     private int id;
     private String name;
@@ -32,4 +33,3 @@ public class User {
         return result;
     }
 }
-

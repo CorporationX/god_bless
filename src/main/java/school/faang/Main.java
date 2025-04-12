@@ -1,5 +1,7 @@
 package school.faang;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +15,7 @@ public class Main {
         Map<User, String> hobbyLovers = User.findHobbyLovers(userList, target);
 
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println(entry.getKey() + " loves: " + entry.getValue());
+            System.out.printf("%s loves: %s", entry.getKey(), entry.getValue());
         }
     }
 }
