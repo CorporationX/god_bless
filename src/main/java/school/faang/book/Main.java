@@ -9,9 +9,9 @@ public class Main {
         librarySystem.addBook("Бородино", "Lermontov", 1865, "5B");
         librarySystem.addBook("Мертвые души", "Gogol", 1873, "3C");
 
-        librarySystem.removeBook("Онегин", "Pushkin", 1889);
+        librarySystem.removeBook(new Book("Детство. Отрочество. Юность", "Tolstoy", 1894));
 
-        System.out.println(librarySystem.findBook("Мертвые души", "Gogol", 1873));
+        librarySystem.findBook("Мертвые души", "Gogol", 1873);
 
         librarySystem.printAllBooks();
     }
