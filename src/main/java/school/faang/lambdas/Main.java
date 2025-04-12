@@ -13,7 +13,22 @@ public class Main {
 
         String messageTemplate = "%s message: %s";
 
-        NotificationManager amazonMessageManager = new NotificationManager(new DumbModerator(), new AmazonCorrector())
+        NotificationManager defaultMessageManager = new NotificationManager()
+                .registerHandler(NotificationType.EMAIL, notification ->
+                        System.out.printf((messageTemplate) + "%n", notification.type(), notification.message()))
+                .registerHandler(NotificationType.SMS, notification ->
+                        System.out.printf((messageTemplate) + "%n", notification.type(), notification.message()))
+                .registerHandler(NotificationType.PUSH, notification ->
+                        System.out.printf((messageTemplate) + "%n", notification.type(), notification.message()));
+
+
+        defaultMessageManager.sendNotification(new Notification(NotificationType.EMAIL, "send email to you"));
+        defaultMessageManager.sendNotification(new Notification(NotificationType.SMS, "send sms to you"));
+        defaultMessageManager.sendNotification(new Notification(NotificationType.PUSH, "send push to you"));
+
+        NotificationManager amazonMessageManager = new NotificationManager()
+                .setModerator(new DumbModerator())
+                .setCorrector(new AmazonCorrector())
                 .registerHandler(NotificationType.EMAIL, notification ->
                         System.out.printf((messageTemplate) + "%n", notification.type(), notification.message()))
                 .registerHandler(NotificationType.SMS, notification ->
@@ -25,7 +40,16 @@ public class Main {
         amazonMessageManager.sendNotification(new Notification(NotificationType.SMS, "send sms to you"));
         amazonMessageManager.sendNotification(new Notification(NotificationType.PUSH, "send push to you"));
 
-        NotificationManager twitterMessageManager = new NotificationManager(new DumbModerator(), new TwitterCorrector())
+        try {
+            amazonMessageManager.sendNotification(
+                    new Notification(NotificationType.EMAIL, "send email with bad word 2 to you"));
+
+        } catch (IllegalMessageException e) {
+            log.warn(e.getMessage());
+        }
+
+        NotificationManager twitterMessageManager = new NotificationManager()
+                .setCorrector(new TwitterCorrector())
                 .registerHandler(NotificationType.EMAIL, notification ->
                         System.out.printf((messageTemplate) + "%n", notification.type(), notification.message()))
                 .registerHandler(NotificationType.SMS, notification ->
@@ -43,14 +67,5 @@ public class Main {
         } catch (IllegalMessageException e) {
             log.warn(e.getMessage());
         }
-
-        try {
-            amazonMessageManager.sendNotification(
-                    new Notification(NotificationType.EMAIL, "send email with bad word 2 to you"));
-
-        } catch (IllegalMessageException e) {
-            log.warn(e.getMessage());
-        }
-
     }
 }
