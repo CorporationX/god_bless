@@ -1,4 +1,4 @@
-package school.faang.BJS2_68368;
+package school.faang.registration;
 
 public class Main {
     public static void main(String[] args) {

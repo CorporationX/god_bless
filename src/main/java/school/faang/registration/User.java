@@ -1,4 +1,4 @@
-package school.faang.BJS2_68368;
+package school.faang.registration;
 
 import lombok.Data;
 
@@ -9,6 +9,7 @@ public class User {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int AGE_LIMIT = 18;
 
     private String name;
     private int age;
@@ -19,7 +20,7 @@ public class User {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
-        if (age < 18) {
+        if (age < AGE_LIMIT) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18.");
         }
         if (!VALID_JOBS.contains(job)) {
