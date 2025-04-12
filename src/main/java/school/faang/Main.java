@@ -1,20 +1,18 @@
 package school.faang;
 
-import static school.faang.Example.Reverse;
-import static school.faang.Example.printArray;
-
 public class Main {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 4, 5};
 
+        // Печатаем исходный массив
         System.out.println("Исходный массив:");
         printArray(nums);
 
+        // Разворачиваем массив
+        reverse(nums);
 
-        Reverse(nums);
-
+        // Печатаем развёрнутый массив
         System.out.println("Развёрнутый массив:");
         printArray(nums);
-
     }
 }

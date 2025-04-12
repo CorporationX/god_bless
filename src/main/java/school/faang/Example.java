@@ -2,20 +2,18 @@ package school.faang;
 
 public class Example {
 
-    private static int[] nums;
+    public static void reverse(int[] nums) {
+        int start = 0;
+        int end = nums.length - 1;
 
-    public static void Reverse(int[] nums) {
-        Example.nums = nums;
-        int left = 0;
-        int right = nums.length - 1;
+        // Разворачиваем массив, меняя элементы местами
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
 
-        while (left < right) {
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-
-            left++;
-            right--;
+            start++;
+            end--;
         }
     }
 
