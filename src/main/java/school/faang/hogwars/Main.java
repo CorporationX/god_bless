@@ -2,7 +2,6 @@ package school.faang.hogwars;
 
 public class Main {
     public static void main(String[] args) {
-
         SpellCaster spellCaster = new SpellCaster();
 
         String alohomora = "Alohomora";
