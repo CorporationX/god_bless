@@ -19,22 +19,18 @@ public class Main {
 
         // Отправка оповещений
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
+        Notification wrongNotification = new Notification(NotificationType.EMAIL, "**Ваш аккаунт активирован**");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(wrongNotification);
 
-        notificationManager.registerChecker(notification -> notification.getMessage().contains("*"));
-        Notification censorNotification = new Notification(NotificationType.EMAIL,
-                "*******");
-        notificationManager.checkNotificationMessage(censorNotification);
-
-        notificationManager.registerSignWriter(notification -> new Notification(notification.getType(),
-                notification.getMessage() + " - From Me"));
-
-        emailNotification = notificationManager.fillSender(emailNotification);
+        emailNotification = notificationManager.fillSender(emailNotification,
+                notification -> new Notification(notification.getType(),
+                        notification.getMessage() + " - From Me"));
         notificationManager.sendNotification(emailNotification);
     }
 }
