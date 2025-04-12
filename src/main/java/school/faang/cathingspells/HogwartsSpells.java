@@ -1,16 +1,26 @@
 package school.faang.cathingspells;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
+import static java.lang.Math.random;
+
+@Data
 public class HogwartsSpells {
     private HashMap<Integer, SpellEvent> spellById;
     private HashMap<String, List<SpellEvent>> spellsByType;
 
+
+    public HogwartsSpells() {
+        this.spellById = new HashMap<>();
+        this.spellsByType = new HashMap<>();
+    }
+
     public SpellEvent addSpellEvent(String eventType, String actionDescription) {
-        Integer uniqueId = Integer.parseInt(UUID.randomUUID().toString());
+        Integer uniqueId = getUniqueId();
         SpellEvent spellEvent = new SpellEvent(uniqueId, eventType, actionDescription);
         spellById.put(uniqueId, spellEvent);
         List<SpellEvent> thisTypeSpellEvents = new ArrayList<>();
@@ -20,6 +30,14 @@ public class HogwartsSpells {
         thisTypeSpellEvents.add(spellEvent);
         spellsByType.put(eventType, thisTypeSpellEvents);
         return spellEvent;
+    }
+
+    private Integer getUniqueId() {
+        Integer uniqueId = (int) (random() * 1000);
+        if (spellById.containsKey(uniqueId)) {
+            return getUniqueId();
+        }
+        return uniqueId;
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -41,7 +59,8 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         spellById.forEach((id, spellEvent) -> {
-            System.out.println("ID: " + id + ", Event Type: " + spellEvent.getEventType() + ", Action: " + spellEvent.getAction());
+            System.out.println("ID: " + id + ", Event Type: " + spellEvent.getEventType() +
+                    ", Action: " + spellEvent.getAction());
         });
     }
 }
