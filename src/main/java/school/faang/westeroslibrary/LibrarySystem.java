@@ -14,7 +14,8 @@ public class LibrarySystem {
     }
 
     public String getBookLocation(Book book) {
-        return this.bookLocationMap.get(book) != null ? this.bookLocationMap.get(book) : "Книга " + book.getTitle() + "в библиотеке на найдена.";
+        return this.bookLocationMap.get(book) != null
+                ? this.bookLocationMap.get(book) : "Книга " + book.getTitle() + "в библиотеке на найдена.";
     }
 
     public boolean removeBook(String title, String author, int year) {
