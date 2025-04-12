@@ -11,13 +11,13 @@ public class Main {
 
         hogwartsSpells.printAllSpellEvents();
 
-        System.out.println(hogwartsSpells.getSpellEventById(9));
+        System.out.println(hogwartsSpells.getSpellEventById(3));
 
         for (SpellEvent spellEvent : hogwartsSpells.getSpellEventsByType("Чар")) {
             System.out.println(spellEvent);
         }
 
-        hogwartsSpells.deleteSpellEvent(9);
+        hogwartsSpells.deleteSpellEvent(2);
 
         System.out.println();
         hogwartsSpells.printAllSpellEvents();

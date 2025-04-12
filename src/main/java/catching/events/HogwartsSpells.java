@@ -9,43 +9,37 @@ import java.util.concurrent.ThreadLocalRandom;
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private Integer randomId = 0;
 
     protected void addSpellEvent(String eventType, String actionDescription) {
-        Integer randomId = ThreadLocalRandom.current().nextInt(1, 10);
-
+        randomId++;
         this.spellById.put(randomId, new SpellEvent(randomId, eventType, actionDescription));
-        this.spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        this.spellsByType.get(eventType).add(new SpellEvent(randomId, eventType, actionDescription));
+        this.spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>())
+                .add(new SpellEvent(randomId, eventType, actionDescription));
     }
 
     protected SpellEvent getSpellEventById(int id) {
-        if (this.spellById.containsKey(id)) {
-            return this.spellById.get(id);
-        } else {
-            System.out.printf("Spell event with this %d is not found!", id);
+        if (!this.spellById.containsKey(id)) {
+            throw new IllegalArgumentException("Spell event with id " + id + " is not found!");
         }
-        return null;
+        return this.spellById.get(id);
     }
 
     protected List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (this.spellsByType.containsKey(eventType)) {
-            return this.spellsByType.get(eventType);
-        } else {
-            System.out.printf("Event type %s is not found!", eventType);
+        if (!this.spellsByType.containsKey(eventType)) {
+            throw new IllegalArgumentException("Event type " + eventType + " is not found!");
         }
-        return null;
+        return this.spellsByType.get(eventType);
     }
 
     protected void deleteSpellEvent(int id) {
-        if (this.spellById.containsKey(id)) {
-            SpellEvent spellEventObject = this.spellById.get(id);
-            String eventType = spellEventObject.getEventType();
-
-            this.spellById.remove(id);
-            this.spellsByType.get(eventType).remove(spellEventObject);
-        } else {
-            System.out.printf("Spell event with this %d is not found!", id);
+        if (!this.spellById.containsKey(id)) {
+            throw new IllegalArgumentException("Spell event with id " + id + " is not found!");
         }
+        SpellEvent spellEventObject = this.spellById.get(id);
+        String eventType = spellEventObject.getEventType();
+        this.spellById.remove(id);
+        this.spellsByType.get(eventType).remove(spellEventObject);
     }
 
     protected void printAllSpellEvents() {
