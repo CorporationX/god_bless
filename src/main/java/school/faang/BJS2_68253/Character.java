@@ -1,12 +1,17 @@
 package school.faang.BJS2_68253;
 
 public abstract class Character {
+    private static final int AGILITY = 5;
+    private static final int INTELLIGENCE = 5;
+    private static final int STRENGTH = 5;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(AGILITY, INTELLIGENCE, STRENGTH, name);
 
     }
 
@@ -17,12 +22,6 @@ public abstract class Character {
         this.name = name;
     }
 
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
-    protected boolean isAlive = true;
 
     public String getName() {
         return name;
@@ -61,15 +60,11 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
-        if (!isAlive) {
+        if (this.health <= 0) {
             System.out.println(getName() + "is died ");
-            return;
         } else {
-            this.health = Math.max(0, health);
-            if (this.health == 0) {
-                isAlive = false;
-                System.out.println(getName() + " has just died ");
-            }
+            this.health = health;
+
         }
     }
 
