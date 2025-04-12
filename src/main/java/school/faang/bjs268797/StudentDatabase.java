@@ -40,9 +40,9 @@ public class StudentDatabase {
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             Subject subject = entry.getKey();
-            System.out.println("Предмет: " + subject.getName());
+            System.out.println("Subject: " + subject.name());
             for (Student student : entry.getValue()) {
-                System.out.println("   Студент: " + student.getName());
+                System.out.println("   Student: " + student.name());
             }
         }
     }
