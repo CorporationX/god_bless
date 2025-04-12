@@ -14,7 +14,7 @@ public class HogwartsSpells {
         SpellEvent spellEvent = new SpellEvent(uniqueId, eventType, actionDescription);
         spellById.put(uniqueId, spellEvent);
         List<SpellEvent> thisTypeSpellEvents = new ArrayList<>();
-        if(spellsByType.containsKey(eventType)){
+        if (spellsByType.containsKey(eventType)) {
             thisTypeSpellEvents.addAll(spellsByType.get(eventType));
         }
         thisTypeSpellEvents.add(spellEvent);
@@ -22,14 +22,26 @@ public class HogwartsSpells {
         return spellEvent;
     }
 
+    public SpellEvent getSpellEventById(int id) {
+        SpellEvent spellEvent = spellById.get(id);
+        return spellEvent;
+    }
 
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        List<SpellEvent> thisTypeSpellEvents = spellsByType.get(eventType);
+        return thisTypeSpellEvents;
+    }
 
-    getSpellEventById(int id): возвращает событие заклинания по его ID;
+    public SpellEvent deleteSpellEvent(int id) {
+        SpellEvent spellEvent = spellById.get(id);
+        spellById.remove(id);
+        spellsByType.get(spellEvent.getEventType()).remove(spellEvent);
+        return spellEvent;
+    }
 
-    getSpellEventsByType(String eventType): возвращает список событий заклинаний по типу;
-
-    deleteSpellEvent(int id): удаляет событие заклинания по его ID из обеих HashMap;
-
-    printAllSpellEvents(): выводит информацию о всех событиях заклинаний в консоль,
-    используя обход элементов Entry в HashMap spellById. Выведите ID, тип и данные каждого события.
+    public void printAllSpellEvents() {
+        spellById.forEach((id, spellEvent) -> {
+            System.out.println("ID: " + id + ", Event Type: " + spellEvent.getEventType() + ", Action: " + spellEvent.getAction());
+        });
+    }
 }
