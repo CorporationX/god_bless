@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.abstraction;
 
-public class MainTest68229 {
+public class Main {
 
     public static void main(String[] args) {
         Warrior firstWarrior = new Warrior("Zdorovyak");
