@@ -1,10 +1,10 @@
-package school.faang.collections.cash;
+package school.faang.collections.cache;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import school.faang.collection.cash.Student;
-import school.faang.collection.cash.StudentDatabase;
-import school.faang.collection.cash.Subject;
+import school.faang.collection.cache.Student;
+import school.faang.collection.cache.StudentDatabase;
+import school.faang.collection.cache.Subject;
 
 import java.util.List;
 import java.util.Map;
@@ -64,11 +64,21 @@ public class StudentDatabaseTests {
                 .addSubjectStudents(subject, checkData);
 
         checkData.forEach((student, rating) -> {
-                    Assertions.assertThat(database.getStudentSubjects().get(student).keySet())
+            Assertions.assertThat(
+                            database
+                                    .getStudentSubjects()
+                                    .get(student)
+                                    .keySet()
+                    )
                             .as("student do not have added subject")
                             .contains(subject);
 
-                    Assertions.assertThat(database.getStudentSubjects().get(student).get(subject))
+            Assertions.assertThat(
+                            database
+                                    .getStudentSubjects()
+                                    .get(student)
+                                    .get(subject)
+                    )
                             .as("subject rating not added")
                             .isEqualTo(rating);
                 }

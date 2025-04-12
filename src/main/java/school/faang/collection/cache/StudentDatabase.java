@@ -1,4 +1,4 @@
-package school.faang.collection.cash;
+package school.faang.collection.cache;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,7 @@ public class StudentDatabase {
         diary
                 .keySet()
                 .forEach(subject ->
-                        addStudentToSubject(subject, student)
-                );
+                        addStudentToSubject(subject, student));
         return this;
     }
 
@@ -43,7 +42,8 @@ public class StudentDatabase {
     public StudentDatabase printStudentRating() {
         studentSubjects.forEach((student, diary) -> {
                     log.info("Оценки {}:", student);
-                    diary.forEach((subject, rating) -> log.info("{} - {}", subject, rating));
+            diary.forEach((subject, rating) ->
+                    log.info("{} - {}", subject, rating));
                 }
         );
         return this;
