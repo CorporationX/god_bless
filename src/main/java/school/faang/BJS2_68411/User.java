@@ -11,6 +11,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final int MIN_USER_AGE = 18;
 
     private String name;
     private int age;
@@ -30,14 +31,14 @@ public class User {
     }
 
     private void validateName(String name) {
-        if (name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Can't create user cause name is empty.");
         }
     }
 
     private void validateAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Can't create user cause  age should be greater then 17");
+        if (age < MIN_USER_AGE) {
+            throw new IllegalArgumentException("Can't create user cause age should not be less then " + MIN_USER_AGE);
         }
     }
 
