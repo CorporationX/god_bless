@@ -24,7 +24,7 @@ public class ProductManager {
                 toDelete.add(product);
             }
         }
-        products.removeAll(toDelete);
+        toDelete.forEach(products::remove);
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -39,21 +39,19 @@ public class ProductManager {
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> grouped = new HashMap<>();
-        List<Product> productList = new ArrayList<>();
         for (Product product : products) {
-            if (!(grouped.containsKey(product.getCategory()))) {
-                productList = new ArrayList<>();
+            if (!grouped.containsKey(product.getCategory())) {
+                grouped.put(product.getCategory(), new ArrayList<>());
             }
-            productList.add(product);
-            grouped.put(product.getCategory(), productList);
+            grouped.get(product.getCategory()).add(product);
         }
         return grouped;
     }
 
     public void printAllProducts() {
         for (Product product : products) {
-            System.out.println("Категория: " + product.getCategory() +
-                    "\nПродукты: " +
+            System.out.println("Category: " + product.getCategory() +
+                    "\nProducts: " +
                     "\n- " + product.getName() + "\n");
         }
     }
