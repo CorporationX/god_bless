@@ -41,16 +41,14 @@ public class StudentDatabase {
 
     public StudentDatabase printStudentRating() {
         studentSubjects.forEach((student, diary) -> {
-                    log.info("Оценки {}:", student);
-            diary.forEach((subject, rating) ->
-                    log.info("{} - {}", subject, rating));
-                }
-        );
+            log.info("Оценки {}:", student);
+            diary.forEach((subject, rating) -> log.info("{} - {}", subject, rating));
+        });
         return this;
     }
 
     public StudentDatabase addSubjectStudents(Subject subject, Map<Student, Integer> studentDiaries) {
-        addStudentToSubject(subject, studentDiaries.keySet().stream().toList());
+        addStudentsToSubject(subject, studentDiaries.keySet().stream().toList());
         studentDiaries.forEach((student, rating) -> addNewSubjectToStudent(student, subject, rating));
         return this;
     }
@@ -93,7 +91,7 @@ public class StudentDatabase {
         subjectStudents.computeIfAbsent(subject, newSubject -> new ArrayList<>()).add(student);
     }
 
-    private void addStudentToSubject(Subject subject, List<Student> students) {
+    private void addStudentsToSubject(Subject subject, List<Student> students) {
         subjectStudents.computeIfAbsent(subject, newSubject -> new ArrayList<>()).addAll(students);
     }
 

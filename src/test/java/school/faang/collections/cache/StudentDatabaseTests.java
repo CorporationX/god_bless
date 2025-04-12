@@ -65,23 +65,14 @@ public class StudentDatabaseTests {
 
         checkData.forEach((student, rating) -> {
             Assertions.assertThat(
-                            database
-                                    .getStudentSubjects()
-                                    .get(student)
-                                    .keySet()
-                    )
-                            .as("student do not have added subject")
-                            .contains(subject);
+                            database.getStudentSubjects().get(student).keySet()
+                    ).as("student do not have added subject")
+                    .contains(subject);
 
             Assertions.assertThat(
-                            database
-                                    .getStudentSubjects()
-                                    .get(student)
-                                    .get(subject)
-                    )
-                            .as("subject rating not added")
-                            .isEqualTo(rating);
-                }
-        );
+                            database.getStudentSubjects().get(student).get(subject)
+                    ).as("subject rating not added")
+                    .isEqualTo(rating);
+        });
     }
 }
