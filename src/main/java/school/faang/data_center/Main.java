@@ -8,7 +8,6 @@ public class Main {
         DataCenter dataCenter = new DataCenter();
         DataCenterService dataCenterService = new DataCenterService();
 
-
         dataCenterService.addServer(dataCenter, new Server(0, 100, 10));
         dataCenterService.addServer(dataCenter, new Server(100, 100, 100));
         dataCenterService.addServer(dataCenter, new Server(100, 200, 300));
@@ -38,6 +37,8 @@ public class Main {
         dataCenterService.optimize(dataCenter, loadBalance);
         log.info(dataCenter.toString());
 
+        dataCenterService.releaseResources(dataCenter, new ResourceRequest(5000));
+        log.info(dataCenter.toString());
 
     }
 }

@@ -1,7 +1,8 @@
 package school.faang.data_center;
 
-import school.faang.library.Main;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DataCenterService {
 
     public void addServer(DataCenter dataCenter, Server server) {
@@ -20,19 +21,21 @@ public class DataCenterService {
         return totalConsumption;
     }
 
-    public boolean allocateResources(DataCenter dataCenter, ResourceRequest resourceRequest) {
-        double requstedLoad = resourceRequest.getLoad();
+    public void allocateResources(DataCenter dataCenter, ResourceRequest resourceRequest) {
+        double requestedLoad = resourceRequest.getLoad();
         for (Server server : dataCenter.getServers()) {
             double remainingLoad = server.getMaxLoad() - server.getLoad();
-            if (requstedLoad > remainingLoad) {
+            if (requestedLoad > remainingLoad) {
                 server.setLoad(server.getLoad() + remainingLoad);
-                requstedLoad -= remainingLoad;
+                requestedLoad -= remainingLoad;
             } else {
-                server.setLoad(requstedLoad);
-                return true;
+                server.setLoad(requestedLoad);
+                log.info("{} resources were distributed between servers", resourceRequest.getLoad());
             }
         }
-        return false;
+        if (requestedLoad > 0) {
+            log.info("{} resources are exceeding total data center load capacity", resourceRequest.getLoad());
+        }
     }
 
     public void releaseResources(DataCenter dataCenter, ResourceRequest resourceRequest) {
@@ -45,6 +48,7 @@ public class DataCenterService {
                 break;
             }
         }
+        log.info("{} resources were released from data center", resourceRequest.getLoad());
     }
 
     public void optimize(DataCenter dataCenter, OptimizationStrategy strategy) {
