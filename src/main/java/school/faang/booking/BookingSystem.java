@@ -25,12 +25,14 @@ public class BookingSystem {
         dbRoom.remove(roomNumber);
     }
 
-    public Booking bookRoom(int roomNumber, String date, String timeSlot) throws IllegalArgumentException {
+    public Booking bookRoom(int roomNumber, String date, String timeSlot) {
         Room room = findRoomByNumber(roomNumber)
-                .orElseThrow(() -> new IllegalArgumentException("Комната не найдена"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Комната с номером %d не найдена", roomNumber)));
 
         if (isRoomBooked(roomNumber, date, timeSlot)) {
-            throw new IllegalStateException("Комната уже забронирована на это время");
+            throw new IllegalStateException(
+                    String.format("Комната с номером %d уже забронирована на это время", roomNumber));
         }
 
         Booking booking = new Booking(room, date, timeSlot);
@@ -56,11 +58,10 @@ public class BookingSystem {
 
     public void cancelBooking(int bookingId) {
         Booking booking = findBookingById(bookingId)
-                .orElseThrow(() -> new IllegalArgumentException("Брониорвание не найдено"));
-        if (booking != null) {
-            dbBooking.remove(booking);
-            notifier.notifyObservers(booking, BookingNotifier.STATUS_CANCELLED);
-        }
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Брониорвание id=%d не найдено", bookingId)));
+        dbBooking.remove(booking);
+        notifier.notifyObservers(booking, BookingNotifier.STATUS_CANCELLED);
     }
 
     private Optional<Booking> findBookingById(int bookingId) {
