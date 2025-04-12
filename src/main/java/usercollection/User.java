@@ -21,17 +21,16 @@ public class User {
     private int age;
     private Set<String> activities = new HashSet<>();
 
-    public Map<User, String> findHobbyLovers(List<User> userList, Set<String> targetActivities) {
-        Map<User, String> resultMap = new HashMap<>();
-
+    public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> targetActivities) {
+        Map<User, String> result = new HashMap<>();
         for (User user : userList) {
             for (String activity : user.getActivities()) {
                 if (targetActivities.contains(activity)) {
-                    resultMap.put(user, activity);
+                    result.put(user, activity);
                     break;
                 }
             }
         }
-        return resultMap;
+        return result;
     }
 }

@@ -1,9 +1,13 @@
 package usercollection;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         User alice = new User(1, "Alice", 25, Set.of("Reading", "Swimming", "Gaming"));
@@ -15,6 +19,6 @@ public class Main {
 
         Map<User, String> result = alice.findHobbyLovers(users, hobbiesToSearch);
 
-        result.forEach((user, hobby) -> System.out.println(user + " loves " + hobby));
+        result.forEach((user, hobby) -> log.info(user + " loves " + hobby));
     }
 }
