@@ -53,7 +53,7 @@ public class StudentDatabase {
         return this;
     }
 
-    public StudentDatabase addStudentToSubject(Subject subject, Student student, Integer rating) {
+    public StudentDatabase addStudentToSubjectList(Subject subject, Student student, Integer rating) {
         addStudentToSubject(subject, student);
         addStudentSubject(student, subject, rating);
         return this;
