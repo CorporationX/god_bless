@@ -46,7 +46,7 @@ public class ProductManager {
 
     public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> productsOfCategory : productsByCategory.entrySet()) {
-            System.out.printf("Категория: %s \nПродукты:\n%s", productsOfCategory.getKey());
+            System.out.printf("Категория: %s \nПродукты:\n", productsOfCategory.getKey());
             for (Product product : productsOfCategory.getValue()) {
                 System.out.println("- " + product.getName());
             }
