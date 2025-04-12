@@ -1,9 +1,9 @@
 package school.faang.abstraction_abstraction;
 
-public class Main    {
+public class Main {
     public static void main(String[] args) {
-        school.faang.abstraction_abstraction.Character archer = new Archer("archer");
-        school.faang.abstraction_abstraction.Character warrior = new Warrior("warrior");
+        Character archer = new Archer("archer");
+        Character warrior = new Warrior("warrior");
 
         System.out.println("warrior strength = " + warrior.getStrength());
         System.out.println("archer agility = " + archer.getAgility());

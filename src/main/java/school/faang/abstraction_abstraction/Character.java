@@ -13,10 +13,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -26,11 +23,13 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void validateHealthLevel(int damage) {
-        if (health - damage < 0) {
+    public void validateHealthLevel(Character opponent) {
+        if (opponent.getHealth() == 0) {
             throw new RuntimeException("Health level is too low!");
         }
     }
 
     public abstract void attack(Character target);
+
+    public abstract void receiveDamage(int damage);
 }
