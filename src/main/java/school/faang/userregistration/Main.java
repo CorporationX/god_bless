@@ -10,6 +10,7 @@ public class Main {
         createUser("Evan", 21, "Amazon", "Amsterdam"); // positive
         createUser(null, 28, "Google", "New York"); // name is null
     }
+
     public static void createUser(String name, int age, String job, String address){
         try {
             User user = new User(name, age, job, address);
