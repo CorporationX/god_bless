@@ -31,7 +31,8 @@ public class NotificationManager {
     }
 
     public boolean validateNotification(Notification notification) {
-        List<Predicate<Notification>> filters = this.filtersMap.computeIfAbsent(notification.getType(), notificationType -> new ArrayList<>());
+        List<Predicate<Notification>> filters = this.filtersMap.computeIfAbsent(notification.getType(),
+                notificationType -> new ArrayList<>());
         return filters.stream().allMatch(filter -> {
             if (!filter.test(notification)) {
                 errors.add("filtering not passed for notification: " + notification);
