@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,13 +19,11 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        products.removeIf(product -> product.category() == category && product.name().equals(name));
+        products.removeIf(product -> product.category() == category && Objects.equals(product.name(), name));
     }
 
     public Set<Product> findProductsByCategory(Category category) {
-        return products.stream().
-                filter(p -> p.category().equals(category))
-                .collect(Collectors.toSet());
+        return products.stream().filter(p -> p.category() == category).collect(Collectors.toSet());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
