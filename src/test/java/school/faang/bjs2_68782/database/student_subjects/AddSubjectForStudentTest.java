@@ -1,15 +1,18 @@
-package school.faang.bjs2_68782;
+package school.faang.bjs2_68782.database.student_subjects;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import school.faang.bjs2_68782.StudentDatabase;
 
+import java.util.NoSuchElementException;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static school.faang.bjs2_68782.data_set.TestData.ADDED_SUBJECTS_WITH_GRADES;
 import static school.faang.bjs2_68782.data_set.TestData.ALL_SUBJECTS_WITH_GRADES;
 import static school.faang.bjs2_68782.data_set.TestData.SOME_SUBJECTS_WITH_CHANGED_GRADES;
-import static school.faang.bjs2_68782.data_set.TestData.STUDENT1;
 import static school.faang.bjs2_68782.data_set.TestData.STUDENT2;
 import static school.faang.bjs2_68782.data_set.TestData.STUDENT3;
 
@@ -19,7 +22,6 @@ class AddSubjectForStudentTest {
 
     @BeforeAll
     void setUp() {
-        studentDatabase.addStudentWithSubjectsAndGrade(STUDENT1, ALL_SUBJECTS_WITH_GRADES);
         studentDatabase.addStudentWithSubjectsAndGrade(STUDENT2, SOME_SUBJECTS_WITH_CHANGED_GRADES);
     }
 
@@ -33,7 +35,9 @@ class AddSubjectForStudentTest {
 
     @Test
     void testAddSubjectForStudentWhenStudentNotExistThenNotAddSubject() {
-        studentDatabase.addSubjectsForStudent(STUDENT3, ALL_SUBJECTS_WITH_GRADES);
+        assertThatThrownBy(() -> studentDatabase.addSubjectsForStudent(STUDENT3, ALL_SUBJECTS_WITH_GRADES))
+                .isInstanceOf(NoSuchElementException.class);
+
 
         var actualStudentSubjects = studentDatabase.getStudentSubjects();
         assertFalse(actualStudentSubjects.containsKey(STUDENT3));

@@ -3,8 +3,8 @@ package school.faang.bjs2_68782.data_set;
 import school.faang.bjs2_68782.Student;
 import school.faang.bjs2_68782.Subject;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TestData {
     public static final Student STUDENT1 = new Student("Student 1");
@@ -29,7 +29,14 @@ public class TestData {
                     SPORT, 3,
                     MUSIC, 5,
                     LAW, 5);
-    public static final List<Student> STUDENTS = List.of(
+    public static final Set<Student> STUDENTS = Set.of(
             STUDENT1, STUDENT2, STUDENT3
     );
+    public static final Set<Student> ANOTHER_STUDENTS = Set.of(
+            STUDENT1, STUDENT4
+    );
+    public static final Set<Student> ALL_STUDENTS = Set.of(
+            STUDENT1, STUDENT2, STUDENT3, STUDENT4
+    );
+    public static final Set<Student> EMPTY_LIST_OF_STUDENTS = Set.of();
 }

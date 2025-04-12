@@ -3,17 +3,17 @@ package school.faang.bjs2_68782;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Slf4j
 @Getter
 public class StudentDatabase {
     private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private Map<Subject, Set<Student>> subjectStudents = new HashMap<>();
 
     /**
      * Добавление нового студента и его предметов с оценками.
@@ -30,7 +30,8 @@ public class StudentDatabase {
      */
     public void addSubjectsForStudent(Student student, Map<Subject, Integer> subjectsWithGrades) {
         if (!studentSubjects.containsKey(student)) {
-            log.info("Студент {} отсутствует в списке, предметы не были обновлены", student);
+            throw new NoSuchElementException("Студент %s отсутствует в списке, предметы не были добавлены"
+                    .formatted(student));
         }
         studentSubjects.computeIfPresent(student, (stud, subGrades) -> {
             subjectsWithGrades.forEach(
@@ -62,24 +63,42 @@ public class StudentDatabase {
     /**
      * Добавление нового предмета и списка студентов, изучающих его.
      */
-    private void addSubjectWithStudents(Subject subject, List<Student> students) {
+    public void addSubjectWithStudents(Subject subject, Set<Student> students) {
+        if (subjectStudents.containsKey(subject)) {
+            throw new IllegalArgumentException("Предмет %s уже сохранён".formatted(subject));
+        }
+        subjectStudents.computeIfAbsent(subject, subject1 -> new HashSet<>(students) {
+        });
     }
 
     /**
      * Добавление студента к существующему предмету.
      */
-    private void addStudentToSubject(Subject subject, Student student) {
+    public void addStudentToSubject(Subject subject, Set<Student> students) {
+        if (!subjectStudents.containsKey(subject)) {
+            throw new IllegalArgumentException("Предмет %s отсутствует в списке, студенты не были добавлены"
+                    .formatted(subject));
+        }
+        subjectStudents.computeIfPresent(subject, (subj, studentSet) -> {
+            studentSet.addAll(students);
+            return studentSet;
+        });
     }
 
     /**
      * Удаление студента из предмета.
      */
-    private void deleteStudentFromSubject(Subject subject, Student student) {
+    public void deleteStudentFromSubject(Subject subject, Student student) {
+        if (!subjectStudents.get(subject).remove(student)) {
+            throw new NoSuchElementException("Студент %s отсутствует в списке, не был удалён".formatted(student));
+        }
     }
 
     /**
      * Вывод списка всех предметов и студентов, изучающих их.
      */
-    private void printSubjectInfo(Subject subject) {
+    public void printSubjectInfo() {
+        subjectStudents.forEach((subject, student) ->
+                log.info("{}:\n{}", subject, student));
     }
 }

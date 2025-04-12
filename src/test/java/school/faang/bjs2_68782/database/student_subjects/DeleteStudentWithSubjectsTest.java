@@ -1,9 +1,10 @@
-package school.faang.bjs2_68782;
+package school.faang.bjs2_68782.database.student_subjects;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import school.faang.bjs2_68782.StudentDatabase;
 
 import java.util.NoSuchElementException;
 
@@ -37,7 +38,7 @@ class DeleteStudentWithSubjectsTest {
     }
 
     @Test
-    void testDeleteStudentWithSubjectsWhenStudentNotExistsThenDoNothing() {
+    void testDeleteStudentWithSubjectsWhenStudentNotExistsThenThrowsException() {
         Assertions.assertThatThrownBy(() -> studentDatabase.deleteStudentWithSubjects(STUDENT3))
                 .isInstanceOf(NoSuchElementException.class);
     }
