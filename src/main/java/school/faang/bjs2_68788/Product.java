@@ -4,13 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "id")
 public class Product {
-    @EqualsAndHashCode.Exclude
-    private int id;
+    private static int counter;
+    private final int id;
     private final String name;
     private final Category category;
-    private static int counter;
 
     public Product(String name, Category category) {
         this.id = ++counter;

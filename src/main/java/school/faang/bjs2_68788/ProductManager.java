@@ -1,7 +1,5 @@
 package school.faang.bjs2_68788;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
-@Slf4j
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
@@ -18,12 +15,7 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        for (Product product : products) {
-            if (product.equals(new Product(name, category))) {
-                products.remove(product);
-                return;
-            }
-        }
+        products.remove(new Product(name, category));
     }
 
     public Set<Product> findProductsByCategory(Category category) {
