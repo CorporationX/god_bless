@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class HogwartsSpells {
 
-    private Map<Integer, SpellEvent> spellById;
-    private Map<String, List<SpellEvent>> spellsByType;
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     private int eventId;
 
@@ -28,14 +28,14 @@ public class HogwartsSpells {
     public SpellEvent getSpellEventById(int id) {
         SpellEvent event = spellById.get(id);
         if (event == null) {
-            throw new IllegalArgumentException("Событие с ID " + id + " не найдено");
+            throw new IllegalArgumentException("Event with ID=" + id + " not found");
         }
         return event;
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         if (eventType == null) {
-            throw new IllegalArgumentException("Тип события не может быть null");
+            throw new IllegalArgumentException("The type of event cannot be null");
         }
 
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
@@ -43,7 +43,7 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         if (id <= 0) {
-            throw new IllegalArgumentException("ID должен быть положительным числом");
+            throw new IllegalArgumentException("ID should be a positive number");
         }
 
         SpellEvent removedEvent = spellById.remove(id);
@@ -61,18 +61,18 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         if (spellById.isEmpty()) {
-            System.out.println("Нет сохраненных событий заклинаний");
+            System.out.println("No stored spell events");
             return;
         }
 
-        System.out.println("Все применения заклинаний");
+        System.out.println("All used of spells");
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             SpellEvent event = entry.getValue();
-            System.out.printf("[ID: %d, Тип: %s, Описание: %s]%n",
+            System.out.printf("[ID: %d, Type: %s, Action: %s]%n",
                     event.getId(),
                     event.getEventType(),
                     event.getAction());
         }
-        System.out.println("Всего применений: " + spellById.size());
+        System.out.println("All applications: " + spellById.size());
     }
 }
