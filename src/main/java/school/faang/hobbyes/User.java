@@ -2,6 +2,7 @@ package school.faang.hobbyes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +11,18 @@ import java.util.Set;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class User {
+    private int id;
     private String name;
     private int age;
-    private Set<String> manyActions;
-    private int id;
+    private Set<String> hobbyes;
+
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> manyActions) {
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
-            Set<String> userHobbies = user.getManyActions();
-            for (String hobby : userHobbies) {
+            for (String hobby : user.getHobbyes()) {
                 if (manyActions.contains(hobby)) {
                     result.put(user, hobby);
                     break;
@@ -30,8 +32,5 @@ public class User {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+
 }

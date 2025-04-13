@@ -7,11 +7,11 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         List<User> users = List.of(
-                new User("Andrew", 20, Set.of("tv", "sport", "eat"), 1),
-                new User("Kirill", 21, Set.of("youtube", "circling", "games"), 2),
-                new User("Nikita", 23, Set.of("swim", "sport", "car"), 3),
-                new User("Dima", 24, Set.of("golf"), 4),
-                new User("Natan", 26, Set.of("Tennis"), 5)
+                new User(1, "Andrew", 20, Set.of("tv", "sport", "eat")),
+                new User(2, "Kirill", 22, Set.of("youtube", "circling", "games")),
+                new User(3, "Nikita", 23, Set.of("swim", "sport", "car")),
+                new User(4, "Dima", 25, Set.of("golf")),
+                new User(5, "Natan", 24, Set.of("Tennis"))
         );
         Map<User, String> result = User.findHobbyLovers(users, Set.of("eat", "sport", "games"));
         System.out.println(result);
