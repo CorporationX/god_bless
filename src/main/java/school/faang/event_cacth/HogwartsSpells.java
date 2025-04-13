@@ -1,7 +1,6 @@
 package school.faang.event_cacth;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +20,8 @@ public class HogwartsSpells {
     }
 
     public void getSpellEventById(int id) {
-        if (spellsByType.get(id) != null) {
-            log.info("Найдено заклинание: {} .", spellById.get(id));
+        if (spellById.get(id) != null) {
+            log.info("Найдено заклинание: {}.", spellById.get(id));
         } else {
             log.info("Заклинание под номером: {} не найдено.", id);
         }
@@ -32,7 +31,7 @@ public class HogwartsSpells {
         if (spellsByType.get(eventType) != null) {
             log.info("Найдены заклинания: {} ", spellsByType.get(eventType));
         } else {
-            log.info("Заклинания по типу {} не найдены.", spellsByType.get(eventType));
+            log.info("Заклинания по типу {} не найдены.", eventType);
         }
     }
 
@@ -41,7 +40,7 @@ public class HogwartsSpells {
         if (spellEvent != null) {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             if (events != null) {
-                log.info("Заклинание: {} удалено", spellEvent);
+                log.info("Заклинание: {} удалено.", spellEvent);
                 events.remove(spellEvent);
             }
         } else {

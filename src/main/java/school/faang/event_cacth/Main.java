@@ -12,6 +12,5 @@ public class Main {
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.getSpellEventById(1);
-
     }
 }
