@@ -16,7 +16,7 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
-        boolean resultOfAdd = products.add(new Product(name, category));
+        boolean resultOfAdd = products.add(new Product(IdGenerator.idCounterUp(), name, category));
 
         if (resultOfAdd) {
             log.info("Продукт {} по категории {} был добавлен", name, category);
@@ -26,23 +26,18 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        boolean resultOfRemoval = products.remove(new Product(name, category));
-
-        if (resultOfRemoval) {
-            log.info("Продукт {} по категории {} был удален", name, category);
-        } else {
-            log.info("Продукта {} по категории {} не было в списке", name, category);
-        }
+        products.removeIf(product -> product.getName().equals(name) && product.getCategory().equals(category));
+        log.info("Продукты {} по категории {} были удалены", name, category);
     }
 
     public List<Product> findProductsByCategory(Category category) {
         List<Product> productsByCategory = new ArrayList<>();
 
-        for (Product product : products) {
+        products.forEach(product -> {
             if (product.getCategory() == category) {
                 productsByCategory.add(product);
             }
-        }
+        });
 
         return productsByCategory;
     }
@@ -50,23 +45,19 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productsByCategory = new HashMap<>();
 
-        for (Product product : products) {
+        products.forEach(product -> {
             productsByCategory.putIfAbsent(product.getCategory(), new ArrayList<>());
             productsByCategory.get(product.getCategory()).add(product);
-        }
-
+        });
         return productsByCategory;
     }
 
     public void printAllProducts() {
         Map<Category, List<Product>> productsByCategory = groupProductsByCategory();
-
-        for (Map.Entry<Category, List<Product>> categoryListEntry : productsByCategory.entrySet()) {
-            log.info("Категория: {}", categoryListEntry.getKey());
+        productsByCategory.forEach((category, products) -> {
+            log.info("Категория: {}", category);
             log.info("Продукты:");
-            for (Product product : categoryListEntry.getValue()) {
-                log.info("- {}", product.getName());
-            }
-        }
+            products.forEach(product -> log.info("- {}", product.getName()));
+        });
     }
 }
