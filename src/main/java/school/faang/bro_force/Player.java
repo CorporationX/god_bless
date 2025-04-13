@@ -10,10 +10,10 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.points = 0;
-        System.out.println("Player " + name + " joined the game");
         this.isDead = false;
         this.isScoreChanged = false;
         Game.addPlayer(this);
+        System.out.println("Player " + name + " joined the game");
     }
 
     public String getName() {
@@ -46,12 +46,16 @@ public class Player {
         this.lastChange = points;
         System.out.println("Player " + this.name + " scored " + points + " points");
         this.isScoreChanged = true;
-        Game.lockLives.notify();
+        synchronized (Game.lockScore) {
+            Game.lockScore.notify();
+        }
     }
 
     public void gameOver() {
         this.isDead = true;
-        Game.lockLives.notify();
         System.out.println("Game over for the player " + this.getName());
+        synchronized (Game.lockLives) {
+            Game.lockLives.notify();
+        }
     }
 }
