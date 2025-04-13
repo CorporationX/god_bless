@@ -6,27 +6,32 @@ import java.util.Map;
 
 @Slf4j
 public class LibrarySystem {
-    private Book bookTemp;
     private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        bookTemp = buildBook(title, author, year);
-        library.put(bookTemp, location);
+        library.put(buildBook(title, author, year), location);
     }
 
     public void removeBook(String title, String author, int year) {
-        bookTemp = buildBook(title, author, year);
-        library.remove(bookTemp);
+
+        if (library.remove(buildBook(title, author, year)) == null) {
+            log.info("Не найдена книга: \"{}\".",
+                    buildBook(title, author, year).getTitle());
+        } else {
+            log.info("Книга: \"{}\" удалена.",
+                    buildBook(title, author, year).getTitle());
+        }
     }
 
     public void findBook(String title, String author, int year) {
-        bookTemp = buildBook(title, author, year);
-        String destination = library.get(bookTemp);
+        String destination = library.get(buildBook(title, author, year));
 
         if (destination == null) {
-            log.info("Книга: \"{}\" не найдена.", bookTemp.getTitle());
+            log.info("Не найдена книга: \"{}\".",
+                    buildBook(title, author, year).getTitle());
         } else {
-            log.info("Книга: \"{}\" найдена. Местонахождение: {}", bookTemp.getTitle(), destination);
+            log.info("Найдена книга: \"{}\". Местонахождение: {}",
+                    buildBook(title, author, year).getTitle(), destination);
         }
     }
 
@@ -38,7 +43,7 @@ public class LibrarySystem {
     }
 
     private Book buildBook(String title, String author, int year) {
-        return bookTemp = Book.builder()
+        return Book.builder()
                 .title(title)
                 .author(author)
                 .year(year)

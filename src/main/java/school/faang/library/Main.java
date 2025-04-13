@@ -8,11 +8,10 @@ public class Main {
         librarySystem.addBook("Мир", "Толстой", 18, "Нижняя полка");
 
         librarySystem.printAllBooks();
+        librarySystem.removeBook("Нет", "Т", 0);
         librarySystem.removeBook("Война", "Л", 67);
         librarySystem.printAllBooks();
         librarySystem.findBook("Мир", "Толстой", 18);
         librarySystem.findBook("Нет", "Т", 0);
-
-
     }
 }
