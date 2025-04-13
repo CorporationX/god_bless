@@ -2,7 +2,6 @@ package doubled.cache.cache;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +18,8 @@ public class StudentDatabase {
         this.studentSubjects.putIfAbsent(new Student(studentName), subjectsAndGrades);
 
         for (Map.Entry<Subject, Integer> subIntEntry : subjectsAndGrades.entrySet()) {
-            this.subjectStudents.putIfAbsent(subIntEntry.getKey(), new ArrayList<>());
-            this.subjectStudents.get(subIntEntry.getKey()).add(new Student(studentName));
+            this.subjectStudents.computeIfAbsent(subIntEntry.getKey(),
+                    key -> new ArrayList<>()).add(new Student(studentName));
         }
     }
 
@@ -33,8 +32,8 @@ public class StudentDatabase {
             System.out.printf("Subject %s for student %s already exists!");
         } else {
             this.studentSubjects.get(new Student(existStudent)).put(new Subject(subject), grade);
-            this.subjectStudents.put(new Subject(subject), new ArrayList<>());
-            this.subjectStudents.get(new Subject(subject)).add(new Student(existStudent));
+            this.subjectStudents.computeIfAbsent(new Subject(subject),
+                    key -> new ArrayList<>()).add(new Student(existStudent));
         }
     }
 
@@ -48,12 +47,7 @@ public class StudentDatabase {
         }
         this.studentSubjects.remove(new Student(studentName));
         for (Map.Entry<Subject, List<Student>> subEntry : this.subjectStudents.entrySet()) {
-            Iterator<Student> iterator = subEntry.getValue().iterator();
-            while (iterator.hasNext()) {
-                if (iterator.next().equals(new Student(studentName))) {
-                    iterator.remove();
-                }
-            }
+            subEntry.getValue().remove(new Student(studentName));
         }
     }
 

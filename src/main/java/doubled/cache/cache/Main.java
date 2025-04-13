@@ -42,6 +42,5 @@ public class Main {
 
         studentDatabase.removeStudentAndData("John");
         studentDatabase.printAllStudentsInfo();
-
     }
 }
