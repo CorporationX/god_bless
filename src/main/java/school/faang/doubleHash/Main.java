@@ -19,7 +19,7 @@ public class Main {
 
         studentDatabase.addStudentWithSubject(student, subjectIntegerMap);
         studentDatabase.addSubjectForExistingStudent(studentIgor, subjectFisra, 4);
-        studentDatabase.deleteStudent(student, subject);
+        studentDatabase.deleteStudent(student);
         studentDatabase.printStudentWithGrade();
 
         Student studentOlga = new Student("Olga");
@@ -29,7 +29,7 @@ public class Main {
         Subject subjectBiology = new Subject("Biology");
         studentDatabase.addSubjectAndStudent(subjectHistory, studentList);
         studentDatabase.addSubjectExistingStudent(subjectBiology, studentOlga);
-        studentDatabase.deleteStudentFromSubject(studentMisha, subjectHistory);
+        //studentDatabase.deleteStudentFromSubject(studentMisha, subjectHistory);
         studentDatabase.printSubjectAndStudent();
     }
 }

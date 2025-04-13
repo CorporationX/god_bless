@@ -1,11 +1,5 @@
 package school.faang.doubleHash;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public record Student(String name) {
 
-@Data
-@AllArgsConstructor
-public class Student {
-
-    private String name;
 }
