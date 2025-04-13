@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Data
@@ -22,10 +23,7 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         MessageValidator validator = new MessageValidator();
-        String unacceptableSymbol = "*";
-        if (validator.test(notification, unacceptableSymbol)) {
-            log.info("You message contains unacceptable symbol {}", unacceptableSymbol);
-        } else {
+        if (validator.test(notification)) {
             handlerContainer.get(notification.getType()).accept(notification);
         }
     }

@@ -1,20 +1,23 @@
 package school.faang.lambda.meta_universe;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
         // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage())
+                notification -> log.info("Email: {}", notification.getMessage())
         );
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage())
+                notification -> log.info("SMS: {}", notification.getMessage())
         );
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.getMessage())
+                notification -> log.info("Push Notification: {}", notification.getMessage())
         );
 
         // Отправка оповещений
@@ -22,11 +25,13 @@ public class Main {
         Notification wrongNotification = new Notification(NotificationType.EMAIL, "**Ваш аккаунт активирован**");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
+        Notification nullNotification = new Notification(null, null);
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
         notificationManager.sendNotification(wrongNotification);
+        notificationManager.sendNotification(nullNotification);
 
         emailNotification = notificationManager.fillSender(emailNotification,
                 notification -> new Notification(notification.getType(),
