@@ -15,24 +15,26 @@ public class ProductManager {
     private int productId;
 
     public boolean addProduct(Category category, String name) {
-        return this.products.add(new Product(generateId(), name, category));
+        return products.add(new Product(generateId(), name, category));
     }
 
     public boolean removeProduct(Category category, String name) {
-        return this.products.removeIf(product -> product.getName().equals(name)
-                && product.getCategory().equals(category));
+        return products.removeIf(product -> product.getName().equals(name) && product.getCategory() == category);
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        return products.stream().filter(product -> product.getCategory().equals(category)).toList();
+        return products.stream()
+                .filter(product -> product.getCategory() == category)
+                .toList();
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-        return products.stream().collect(Collectors.groupingBy(Product::getCategory));
+        return products.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
     }
 
     public void printAllProducts() {
-        for (Map.Entry<Category, List<Product>> categoryListEntry : this.groupProductsByCategory().entrySet()) {
+        for (Map.Entry<Category, List<Product>> categoryListEntry : groupProductsByCategory().entrySet()) {
             System.out.printf("Категория: %s\nПродукты:\n", categoryListEntry.getKey());
             categoryListEntry.getValue()
                     .forEach(product -> System.out.println(String.format("- %s", product.getName())));
