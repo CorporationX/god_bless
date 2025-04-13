@@ -1,12 +1,15 @@
 package school.faang.bjs2_68757;
 
-import lombok.experimental.UtilityClass;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@UtilityClass
+
 public class SpellEventIdCounter {
-    private long idCounter = 0;
+    private static final AtomicInteger ID_COUNTER = new AtomicInteger();
 
-    public long getNextSpellEventId() {
-        return ++idCounter;
+
+
+    public static long getNextSpellEventId() {
+        return 1L;
+//        return ++ID_COUNTER;
     }
 }

@@ -15,20 +15,20 @@ public class HogwartsSpells {
     public void addSpellEvent(String eventType, String actionDescription) {
         long spellId = getNextSpellEventId();
         SpellEvent spellEvent = new SpellEvent(spellId, eventType, actionDescription);
-        this.spellById.put(spellEvent.id(), spellEvent);
-        this.spellsByType.computeIfAbsent(eventType, value -> new ArrayList<>()).add(spellEvent);
-        this.indexSpellById.put(spellId, this.spellsByType.get(eventType).size() - 1);
+        spellById.put(spellEvent.id(), spellEvent);
+        spellsByType.computeIfAbsent(eventType, value -> new ArrayList<>()).add(spellEvent);
+        indexSpellById.put(spellId, spellsByType.get(eventType).size() - 1);
     }
 
     public SpellEvent getSpellEventById(long id) {
-        if (!this.spellById.containsKey(id)) {
+        if (!spellById.containsKey(id)) {
             throw new SpellEventNotFoundException("Spell event with id " + id + " not found");
         }
         return this.spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (!this.spellsByType.containsKey(eventType)) {
+        if (!spellsByType.containsKey(eventType)) {
             throw new TypeSpellEventNotFoundException("Type spell event " + eventType + " not found");
         }
         return this.spellsByType.get(eventType);
@@ -38,13 +38,15 @@ public class HogwartsSpells {
         if (!this.spellById.containsKey(id)) {
             throw new SpellEventNotFoundException("Spell event with id " + id + " not found");
         }
-        SpellEvent spellEvent = this.spellById.remove(id);
-        int indexSpell = this.indexSpellById.remove(id);
-        List<SpellEvent> spellEvents = this.spellsByType.get(spellEvent.type());
+        // TODO: выполнится ли этот код, после исключения
+        SpellEvent spellEvent = spellById.remove(id);
+        int indexSpell = indexSpellById.remove(id);
+        // TODO: нужно пробежаться по всем id, которые относятся к нужному типу и их индекс больше и уменьшить на 1
+        List<SpellEvent> spellEvents = spellsByType.get(spellEvent.type());
         spellEvents.remove(indexSpell);
     }
 
     public void printAllSpellEvents() {
-        this.spellById.entrySet().forEach(System.out::println);
+        spellById.entrySet().forEach(System.out::println);
     }
 }
