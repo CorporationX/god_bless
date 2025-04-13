@@ -15,17 +15,17 @@ public class Main {
         Student alex = new Student("Алексей");
         Student egor = new Student("Егор");
 
-        Map<Subject, Integer> subjectAndBallForOleg = new HashMap<>();
-        Map<Subject, Integer> subjectAndBallForAlex = new HashMap<>();
-        Map<Subject, Integer> subjectAndBallForEgor = new HashMap<>();
+        Map<Subject, Ball> subjectAndBallForOleg = new HashMap<>();
+        Map<Subject, Ball> subjectAndBallForAlex = new HashMap<>();
+        Map<Subject, Ball> subjectAndBallForEgor = new HashMap<>();
 
-        subjectAndBallForOleg.put(math, 3);
-        subjectAndBallForOleg.put(russia, 5);
-        subjectAndBallForEgor.put(biology, 4);
-        subjectAndBallForAlex.put(math, 5);
-        subjectAndBallForAlex.put(biology, 5);
-        subjectAndBallForAlex.put(fiz, 4);
-        subjectAndBallForAlex.put(russia, 5);
+        subjectAndBallForOleg.put(math, Ball.THREE);
+        subjectAndBallForOleg.put(russia, Ball.TWO);
+        subjectAndBallForEgor.put(biology, Ball.FOUR );
+        subjectAndBallForAlex.put(math, Ball.FIVE);
+        subjectAndBallForAlex.put(biology, Ball.FIVE);
+        subjectAndBallForAlex.put(fiz, Ball.FOUR);
+        subjectAndBallForAlex.put(russia, Ball.FIVE);
 
         StudentDatabase studentDatabase = new StudentDatabase();
 
@@ -35,7 +35,7 @@ public class Main {
 
 //        studentDatabase.printAllStudentAndSubjectWithBall();
 
-        studentDatabase.addSubjectWithBallForOldStudent(egor, math, 3);
+        studentDatabase.addSubjectWithBallForOldStudent(egor, math, Ball.THREE);
 //        studentDatabase.printAllStudentAndSubjectWithBall();
 
         System.out.println(studentDatabase.getSubjectStudents().get(biology));
@@ -48,7 +48,7 @@ public class Main {
         System.out.println(studentDatabase.getSubjectStudents().get(biology));
         System.out.println(studentDatabase.getSubjectStudents().get(fiz));
 
-        // неккорректно формируется list студентов во втором мап
+        studentDatabase.printAllSubjectWithStudent();
     }
 }
 
