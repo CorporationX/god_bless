@@ -34,7 +34,7 @@ public class ProductManager {
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productsByCategories = new HashMap<>();
-        for (Product product: products) {
+        for (Product product : products) {
             productsByCategories.putIfAbsent(product.category(), new ArrayList<>());
             productsByCategories.get(product.category()).add(product);
         }
