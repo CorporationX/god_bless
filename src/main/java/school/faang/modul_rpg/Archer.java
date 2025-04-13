@@ -1,12 +1,12 @@
 package school.faang.modul_rpg;
 
 class Archer extends Character {
-    public static final int strange = 3;
-    public static final int agility = 10;
-    public static final int intelligence = 5;
+    public static final int STRANGE = 3;
+    public static final int AGILITY = 10;
+    public static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name, strange, agility, intelligence);
+        super(name, STRANGE, AGILITY, INTELLIGENCE);
     }
 
     @Override

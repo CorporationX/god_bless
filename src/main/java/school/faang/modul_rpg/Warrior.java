@@ -1,12 +1,12 @@
 package school.faang.modul_rpg;
 
 class Warrior extends Character {
-    public static final int strange = 10;
-    public static final int agility = 5;
-    public static final int intelligence = 3;
+    public static final int STRANGE = 10;
+    public static final int AGILITY = 5;
+    public static final int INTELLIGENCE = 3;
 
     public Warrior(String name) {
-        super(name, strange, agility, intelligence);
+        super(name, STRANGE, AGILITY, INTELLIGENCE);
     }
 
     @Override
