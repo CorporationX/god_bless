@@ -17,6 +17,8 @@ public class Main {
 
         productManager.removeProduct(Category.FOOD, "картошка");
 
+        System.out.println(productManager.findProductsByCategory(Category.FOOD));
+
         System.out.println(productManager.groupProductsByCategory());
 
         productManager.printAllProducts();

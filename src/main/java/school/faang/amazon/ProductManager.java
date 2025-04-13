@@ -11,42 +11,32 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
-        for (Product product : products) {
-            if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                System.out.println("Такой товар уже существует в данной категории");
-                return;
-            }
-            if (product.getName().equals(name)) {
-                System.out.println("Товар с таким именем существует, но в другой катогории");
-                return;
-            }
+        Product product = new Product(IdGenerator.getId(), name, category);
+        boolean check = products.add(product);
+        if (!check) {
+            throw new IllegalArgumentException("Такой товар уже существует");
         }
-        Product product = new Product(name, category);
-        products.add(product);
-        Product.setId();
     }
 
     public void removeProduct(Category category, String name) {
-        products.remove(new Product(name, category));
+        products.removeIf((prod) -> prod.name().equals(name) && prod.category().equals(category));
     }
 
     public List<Product> findProductsByCategory(Category category) {
         List<Product> productsFromCategory = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getCategory() == category) {
+        products.forEach(product -> {
+            if (product.category() == category) {
                 productsFromCategory.add(product);
             }
-        }
+        });
         return productsFromCategory;
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productsByCategories = new HashMap<>();
-        for (Category category : Category.values()) {
-            List<Product> productsByCategory = findProductsByCategory(category);
-            if (!productsByCategory.isEmpty()) {
-                productsByCategories.put(category, findProductsByCategory(category));
-            }
+        for (Product product: products) {
+            productsByCategories.putIfAbsent(product.category(), new ArrayList<>());
+            productsByCategories.get(product.category()).add(product);
         }
         return productsByCategories;
     }
@@ -54,9 +44,7 @@ public class ProductManager {
     public void printAllProducts() {
         for (Map.Entry<Category, List<Product>> entry : groupProductsByCategory().entrySet()) {
             System.out.println("Категория: " + entry.getKey() + "\nПродукты:");
-            for (Product product : entry.getValue()) {
-                System.out.println("- " + product.getName());
-            }
+            entry.getValue().forEach(product -> System.out.println(" - " + product.name()));
             System.out.println();
         }
     }
