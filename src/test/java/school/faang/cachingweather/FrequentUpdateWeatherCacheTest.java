@@ -2,6 +2,7 @@ package school.faang.cachingweather;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FrequentUpdateWeatherCacheTest {
@@ -40,5 +41,14 @@ class FrequentUpdateWeatherCacheTest {
 
         assertFalse(frequentUpdateWeatherCache.getCityWeather().containsKey(city));
         assertTrue(frequentUpdateWeatherCache.getCityWeather().isEmpty());
+    }
+
+    @Test
+    void getWeatherDataTest() {
+        String city = "Voronezh";
+
+        WeatherData weatherData = frequentUpdateWeatherCache.getWeatherData(city);
+
+        assertTrue(frequentUpdateWeatherCache.getCityWeather().containsKey(city));
     }
 }

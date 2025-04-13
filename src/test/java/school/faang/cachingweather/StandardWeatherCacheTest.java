@@ -47,4 +47,22 @@ class StandardWeatherCacheTest {
         assertFalse(standardWeatherCache.getCityWeather().containsKey(city1));
         assertTrue(standardWeatherCache.getCityWeather().containsKey(city2));
     }
+
+    @Test
+    void getWeatherDataTest() {
+        String city1 = "Voronezh";
+        String city2 = "Rostov-on-Don";
+
+        WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2);
+        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1);
+
+        assertTrue(weatherData2.getTimestamp() <= weatherData1.getTimestamp());
+
+        weatherData2.setTimestamp(System.currentTimeMillis() - 8001);
+        weatherData1.setTimestamp(System.currentTimeMillis());
+        WeatherData weatherData2New = standardWeatherCache.getWeatherData(city2);
+        WeatherData weatherData1New = standardWeatherCache.getWeatherData(city1);
+
+        assertFalse(weatherData2New.getTimestamp() < weatherData1New.getTimestamp());
+    }
 }
