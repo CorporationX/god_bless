@@ -29,7 +29,7 @@ public class StudentDatabase {
 
     public Subject addSubjectForExistingStudent(Subject subject, Integer mark, Student student) {
         if (!studentSubjects.keySet().contains(student)) {
-            throw new RuntimeException("No such student");
+            throw new RuntimeException(String.format("Student with name %s not found", student.getName()));
         }
         subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
         studentSubjects.get(student).put(subject, mark);
@@ -54,7 +54,7 @@ public class StudentDatabase {
 
     public Student addStudentToExistingSubject(Student student, Subject subject, Integer mark) {
         if (!subjectStudents.keySet().contains(subject)) {
-            throw new RuntimeException("No such subject");
+            throw new RuntimeException(String.format("Subject with name %s not found", subject.getName()));
         }
         studentSubjects.computeIfAbsent(student, key -> new HashMap<>()).put(subject, mark);
         subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
