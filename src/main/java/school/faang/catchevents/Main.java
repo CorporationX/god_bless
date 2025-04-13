@@ -2,9 +2,10 @@ package school.faang.catchevents;
 
 public class Main {
     public static void main(String[] args) {
+
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        hogwartsSpells.addSpellEvent(EventType.DEFENSE, "Защищает");
+        hogwartsSpells.addSpellEvent(null, "Защищает");
         hogwartsSpells.addSpellEvent(EventType.ATTACK, "Атакует в ближнем бою");
         hogwartsSpells.addSpellEvent(EventType.ATTACK, "Атакует c воздуха");
 
