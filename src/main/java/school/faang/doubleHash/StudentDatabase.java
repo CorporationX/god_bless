@@ -35,10 +35,10 @@ public class StudentDatabase {
 
     public void deleteStudent(Student student) {
         Map<Subject, Integer> subjectIntegerMap = studentSubject.remove(student);
-        if(subjectIntegerMap != null){
-            for(Subject subject : subjectIntegerMap.keySet()){
+        if (subjectIntegerMap != null) {
+            for (Subject subject : subjectIntegerMap.keySet()) {
                 List<Student> students = subjectStudents.get(subject);
-                if (student != null){
+                if (student != null) {
                     students.remove(student);
                 }
             }
