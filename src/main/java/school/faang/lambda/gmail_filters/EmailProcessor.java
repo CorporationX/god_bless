@@ -12,9 +12,9 @@ public class EmailProcessor {
                               Function<Email, String> transformer) {
         emails.forEach(email -> {
             if (filter.test(email)) {
-                printer.accept(email);
                 String transformedBody = transformer.apply(email);
                 email.setBody(transformedBody);
+                printer.accept(email);
             }
         });
     }

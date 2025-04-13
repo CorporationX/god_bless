@@ -14,7 +14,7 @@ public class Main {
                 new Email("Letter 1", "Your First Letter", true),
                 new Email("Letter 2", "Your Second Letter", true),
                 new Email("Spam 1", "Your First Spam", false),
-                new Email("Spam 2", "Your Second Letter", false), //Ловушка в body
+                new Email("Spam 2", "Your Second Letter", false),
                 new Email("Letter 3", "Your Third Letter", true),
                 new Email("Letter 4", "Your Fourth Letter", true),
                 new Email("Spam 3", "Your Third Spam", false)
@@ -25,8 +25,8 @@ public class Main {
         Consumer<Email> printImportant = email -> log.info("Letter {} is important", email);
         Consumer<Email> printSpam = email -> log.info("{} is spam", email);
         Function<Email, String> bodyToUpper = email -> email.getBody().toUpperCase();
-        Function<Email, String> spamAttention = email -> "Before you read this letter, remember this is a SPAM LETTER! "
-                + email.getBody();
+        Function<Email, String> spamAttention = email -> ("Before you read this letter, " +
+                "remember this is a SPAM LETTER! %s").formatted(email.getBody());
 
         EmailProcessor firstProcessor = new EmailProcessor();
 
@@ -34,6 +34,5 @@ public class Main {
         firstProcessor.processEmails(emails, showSpam, printSpam, spamAttention);
 
         emails.forEach(email -> log.info("Subject: {}, Body: {}", email.getSubject(), email.getBody()));
-
     }
 }

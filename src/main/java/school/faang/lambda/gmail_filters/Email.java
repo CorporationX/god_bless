@@ -8,5 +8,5 @@ import lombok.Data;
 public class Email {
     private String subject;
     private String body;
-    private boolean important;
+    private boolean isImportant;
 }
