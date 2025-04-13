@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Student vasya = new Student("вася");
-        Student anton = new Student("антон");
-        Student carolina = new Student("каролина");
+        final Student vasya = new Student("вася");
+        final Student anton = new Student("антон");
+        final Student carolina = new Student("каролина");
         Subject math = new Subject("Математика");
         Subject english = new Subject("Английский");
         StudentDataBase studentDataBase = new StudentDataBase();
