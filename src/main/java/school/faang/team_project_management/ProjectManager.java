@@ -2,7 +2,6 @@ package school.faang.team_project_management;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,12 +19,10 @@ public class ProjectManager {
     private int projectsCount = 0;
 
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
-
         this.assignmentStrategy = strategy;
     }
 
     public List<Employee> assignTeamToProject(int pojectId) {
-
         return assignmentStrategy.assignTeam(projects.get(pojectId), employees);
     }
 
@@ -34,7 +31,6 @@ public class ProjectManager {
     }
 
     public  List<Employee> getTeamForProject(int projectId) {
-
         return projects.get(projectId).getTeamMembers();
     }
 
@@ -53,7 +49,7 @@ public class ProjectManager {
                 project -> project.getRequiredSkills()
                         .stream()
                         .anyMatch(skill -> employee.getSkills().contains(skill)))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void assignEmployeeToProject(Employee employee, int projectId) {
