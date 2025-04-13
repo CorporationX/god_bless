@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    public static final int MINIMAL_AGE= 18;
+    public static final int MINIMAL_AGE = 18;
 
     private String name;
     private int age;
