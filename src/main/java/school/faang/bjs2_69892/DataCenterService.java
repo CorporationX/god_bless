@@ -1,5 +1,7 @@
 package school.faang.bjs2_69892;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,22 +18,20 @@ public class DataCenterService {
 
     public void addServer(DataCenter dataCenter, Server server) {
         if (dataCenter == null || server == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
-        if (dataCenter.getServers().contains(server)) {
+        if (!dataCenter.getServers().add(server)) {
             throw new ServerAlreadyExistsException("Server with id " + server.getId() + " already exists");
         }
-        dataCenter.getServers().add(server);
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
         if (dataCenter == null || server == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
-        if (!dataCenter.getServers().contains(server)) {
+        if (!dataCenter.getServers().remove(server)) {
             throw new ServerNotFoundException("Server with id " + server.getId() + " not found");
         }
-        dataCenter.getServers().remove(server);
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
