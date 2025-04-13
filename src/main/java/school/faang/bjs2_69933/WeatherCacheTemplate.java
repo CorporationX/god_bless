@@ -10,11 +10,11 @@ public abstract class WeatherCacheTemplate {
     abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if (weatherCash.containsKey(city)) {
-            if (isCacheExpired(weatherCash.get(city), maxCacheAgeMillis)) {
-                //weatherCash.computeIfAbsent(city, k -> weatherProvider.fetchWeatherData(city));
-                weatherCash.put(city, weatherProvider.fetchWeatherData(city));
-            }
+        if (!weatherCash.containsKey(city)) {
+            weatherCash.put(city, weatherProvider.fetchWeatherData(city));
+        }
+        if (isCacheExpired(weatherCash.get(city), maxCacheAgeMillis)) {
+            weatherCash.put(city, weatherProvider.fetchWeatherData(city));
         }
         return weatherCash.get(city);
     }
@@ -26,7 +26,7 @@ public abstract class WeatherCacheTemplate {
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         for (Map.Entry<String, WeatherData> entry : weatherCash.entrySet()) {
-            if (System.currentTimeMillis() - entry.getValue().getTimestamp() < maxCacheAgeMillis) {
+            if (System.currentTimeMillis() - entry.getValue().getTimestamp() > maxCacheAgeMillis) {
                 weatherCash.remove(entry.getKey());
             }
         }
