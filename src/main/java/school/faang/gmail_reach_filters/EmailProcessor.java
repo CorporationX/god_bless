@@ -6,7 +6,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public List<Email> processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> function, Consumer<Email> consumer) {
+    public List<Email> processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> function,
+                                     Consumer<Email> consumer) {
         emails.forEach(consumer);
         return emails.stream()
                 .filter(filter)

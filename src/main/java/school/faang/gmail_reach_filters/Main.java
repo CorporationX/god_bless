@@ -17,10 +17,13 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Письмо получено обработчиком: " + email.getSubject());
+        Consumer<Email> printEmailSubject = email -> System.out.println("Письмо получено обработчиком: " +
+                email.getSubject());
         Function<Email, String> signatureFunction = email -> email.getBody().concat("\nSignature");
 
-        List<Email> emailsList = emailProcessor.processEmails(emails, importantFilter, signatureFunction, printEmail);
-        emailsList.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма с подписью: " + email.getBody()));
+        List<Email> emailsList = emailProcessor.processEmails(emails, importantFilter, signatureFunction,
+                printEmailSubject);
+        emailsList.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма с подписью: " +
+                email.getBody()));
     }
 }
