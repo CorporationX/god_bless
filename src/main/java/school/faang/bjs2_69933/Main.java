@@ -22,5 +22,9 @@ public class Main {
         for (Map.Entry<String, WeatherData> entry : stdWeatherCash.weatherCash.entrySet()) {
             System.out.println(entry.getValue());
         }
+
+        System.out.println(freqWeatherCash.getWeatherData("Cheboksary", 7_000));
+        freqWeatherCash.forceUpdateWeather("Cheboksary");
+        System.out.println(freqWeatherCash.getWeatherData("Cheboksary", 7_000));
     }
 }
