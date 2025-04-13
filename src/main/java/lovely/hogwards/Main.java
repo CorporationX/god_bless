@@ -6,6 +6,6 @@ public class Main {
 
         spellCaster.cast("Alohamora", (str) -> "Door is open by " + str);
         spellCaster.cast("Getyourwallet", (str) -> "You were robbed by " + str);
-        spellCaster.cast("Ovada Kedavra", (str) -> "You are killed by " + str);
+        spellCaster.cast("Avada Kedavra", (str) -> "You are killed by " + str);
     }
 }
