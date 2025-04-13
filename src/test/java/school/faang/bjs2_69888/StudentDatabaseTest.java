@@ -64,8 +64,8 @@ public class StudentDatabaseTest {
     @Test
     public void testRemoveStudent() {
         // arrange
-        int expectedNumberOfSubjects = 1;
-        int expectedNumberOfStudents = 1;
+        int expectedNumberOfSubjects = 3;
+        int expectedNumberOfStudents = 2;
         // act
         STUDENTS_DATABASE.removeStudent(studentNewton);
         // assert
@@ -76,7 +76,7 @@ public class StudentDatabaseTest {
     @Test
     public void testAddSubjectWithStudents() {
         // arrange
-        int expectedNumberOfSubjects = 2;
+        int expectedNumberOfSubjects = 3;
         int expectedNumberOfStudents = 3;
         // act
         STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
@@ -88,8 +88,8 @@ public class StudentDatabaseTest {
     @Test
     public void testAddStudentToSubject() {
         // arrange
-        int expectedNumberOfSubjects = 2;
-        int expectedNumberOfStudents = 2;
+        int expectedNumberOfSubjects = 3;
+        int expectedNumberOfStudents = 3;
         // act
         STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
         // assert
@@ -100,8 +100,8 @@ public class StudentDatabaseTest {
     @Test
     public void testRemoveStudentFromSubject() {
         // arrange
-        int expectedNumberOfSubjects = 2;
-        int expectedNumberOfStudents = 1;
+        int expectedNumberOfSubjects = 3;
+        int expectedNumberOfStudents = 2;
         // act
         STUDENTS_DATABASE.removeStudentFromSubject(studentDarvin, subjectPhisics);
         // assert

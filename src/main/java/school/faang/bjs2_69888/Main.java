@@ -25,14 +25,17 @@ public class Main {
                 put(subjectPhisics, 2);
             }
         });
-        //        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
-        //        STUDENTS_DATABASE.removeStudent(studentNewton);
-        //        STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
-        //        STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
+        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
+        STUDENTS_DATABASE.removeStudent(studentNewton);
+        STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
+        STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
         STUDENTS_DATABASE.removeStudentFromSubject(studentDarvin, subjectPhisics);
 
         STUDENTS_DATABASE.printAllStudents();
         System.out.println("-------");
         STUDENTS_DATABASE.printAllSubjects();
+
+        System.out.println(STUDENTS_DATABASE.getStudentSubjects().size() + " Students");
+        System.out.println(STUDENTS_DATABASE.getSubjectStudents().size() + " Subjects");
     }
 }
