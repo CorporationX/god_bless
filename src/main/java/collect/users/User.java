@@ -30,8 +30,7 @@ public class User {
         for (User user : users) {
             if (!Collections.disjoint(user.getHobbies(), hobbies)) {
                 String commonHobby = user.getHobbies().stream()
-                        .filter(hobbies::contains)
-                        .findFirst().get();
+                        .filter(hobbies::contains).findFirst().get();
                 usersAndHobbies.putIfAbsent(user, commonHobby);
             }
         }
