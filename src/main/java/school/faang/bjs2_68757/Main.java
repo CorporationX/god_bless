@@ -1,14 +1,18 @@
 package school.faang.bjs2_68757;
 
+import static school.faang.bjs2_68757.SpellEventType.ENCHANTMENT;
+import static school.faang.bjs2_68757.SpellEventType.PROTECTION;
+import static school.faang.bjs2_68757.SpellEventType.TRANSFIGURATION;
+
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
         System.out.println("\nAdding spells:");
-        hogwartsSpells.addSpellEvent("Levitation", "An object lifted into the air");
-        hogwartsSpells.addSpellEvent("Stun", "The opponent lost consciousness");
-        hogwartsSpells.addSpellEvent("Levitation", "The book flew up to the shelf");
-        hogwartsSpells.addSpellEvent("Transfiguration", "The chair turned into a rabbit");
+        hogwartsSpells.addSpellEvent(ENCHANTMENT, "An object lifted into the air");
+        hogwartsSpells.addSpellEvent(TRANSFIGURATION, "The opponent lost consciousness");
+        hogwartsSpells.addSpellEvent(PROTECTION, "The book flew up to the shelf");
+        hogwartsSpells.addSpellEvent(ENCHANTMENT, "The chair turned into a rabbit");
 
         System.out.println("\nAll spells:");
         hogwartsSpells.printAllSpellEvents();
@@ -22,7 +26,7 @@ public class Main {
 
         try {
             System.out.println("\nAll spells of type 'Levitation':");
-            hogwartsSpells.getSpellEventsByType("Levitation").forEach(System.out::println);
+            hogwartsSpells.getSpellEventsByType(PROTECTION).forEach(System.out::println);
         } catch (TypeSpellEventNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -43,7 +47,7 @@ public class Main {
 
         try {
             System.out.println("\nTrying to get spells of type 'Invisibility':");
-            hogwartsSpells.getSpellEventsByType("Invisibility");
+            hogwartsSpells.getSpellEventsByType(TRANSFIGURATION);
         } catch (TypeSpellEventNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
