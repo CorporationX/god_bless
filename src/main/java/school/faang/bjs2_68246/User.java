@@ -13,7 +13,7 @@ public class User {
     private String job;
     private String address;
 
-    public static final Set<String> COMPANY_NAMES = Set.of(
+    public static final Set<String> VALID_JOBS = Set.of(
             "Google",
             "Uber",
             "Amazon"
@@ -34,10 +34,10 @@ public class User {
             throw new IllegalArgumentException("Invalid user age: %d".formatted(age));
         }
 
-        if (!COMPANY_NAMES.contains(job)) {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException(
                 "Invalid job: \"%s\". The job must be one of the following: %s"
-                .formatted(job, String.join(", ", COMPANY_NAMES))
+                .formatted(job, String.join(", ", VALID_JOBS))
             );
         }
 
