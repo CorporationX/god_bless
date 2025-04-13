@@ -1,12 +1,13 @@
-package school.faang.abstraction;
+package school.faang.bjs2_69309;
 
 public class Warrior extends Character {
 
+    final int power = 10;
+    final int agility = 5;
+    final int intelligence = 3;
+
     public Warrior(String name) {
         super(name);
-        power = 10;
-        agility = 5;
-        intelligence = 3;
     }
 
     @Override

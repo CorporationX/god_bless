@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.bjs2_69309;
 
 public abstract class Character {
 
@@ -9,13 +9,10 @@ public abstract class Character {
     protected int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        power = 5;
-        agility = 5;
-        intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
-    protected Character(String name, int power, int agility, int intelligence) {
+    public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
         this.power = power;
         this.agility = agility;
