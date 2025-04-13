@@ -1,12 +1,20 @@
 package school.faang.cachingweather;
 
+import lombok.Getter;
+
+@Getter
 public class StandardWeatherCache extends WeatherCacheTemplate {
-    long maxCacheAgeMillis = 6000;
+    long maxCacheAgeMillis;
+
+    public StandardWeatherCache() {
+        super();
+        this.maxCacheAgeMillis = 6000;
+    }
 
     @Override
-    public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
+    public boolean isCacheExpired(WeatherData data) {
         long cacheAgeMillis = System.currentTimeMillis() - data.getTimestamp();
-        if (maxCacheAgeMillis < cacheAgeMillis) {
+        if (this.getMaxCacheAgeMillis() < cacheAgeMillis) {
             return true;
         } else {
             return false;

@@ -1,16 +1,28 @@
 package school.faang.cachingweather;
 
+import lombok.Getter;
+
+import java.util.Iterator;
+
+
+import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public abstract class WeatherCacheTemplate {
     private Map<String, WeatherData> cityWeather;
     private WeatherService weatherService;
 
-    public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+    public WeatherCacheTemplate() {
+        this.cityWeather = new HashMap<String, WeatherData>();
+        this.weatherService = new WeatherService();
+    }
+
+    public abstract boolean isCacheExpired(WeatherData data);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         if (cityWeather.containsKey(city)) {
-            if (!isCacheExpired(cityWeather.get(city), maxCacheAgeMillis)) {
+            if (!isCacheExpired(cityWeather.get(city))) {
                 return cityWeather.get(city);
             }
         }
@@ -30,12 +42,14 @@ public abstract class WeatherCacheTemplate {
         return weatherData;
     }
 
-    public void clearExpiredCache(long maxCacheAgeMillis) {
-        cityWeather.forEach((city, weatherData) -> {
-            long cacheAgeMillis = System.currentTimeMillis() - weatherData.getTimestamp();
-            if (maxCacheAgeMillis < cacheAgeMillis) {
-                cityWeather.remove(city);
+    public void clearExpiredCache() {
+        Iterator<Map.Entry<String, WeatherData>> iterator = cityWeather.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, WeatherData> entry = iterator.next();
+            if (isCacheExpired(entry.getValue())) {
+                iterator.remove();
             }
-        });
+        }
     }
+
 }
