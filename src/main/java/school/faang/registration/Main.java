@@ -1,4 +1,4 @@
-package BJS2_69069;
+package school.faang.registration;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class Main {
             User user2 = new User("Петя", 20, "Uber", "Amsterdam");
             User user3 = new User("Саша", 15, "Uber", "Novosibirsk");
         } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка при создании пользователя: " + e.getMessage());
+            System.out.printf("Ошибка при создании пользователя: %s", e.getMessage());
         }
     }
 }
