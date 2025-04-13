@@ -1,6 +1,6 @@
 package school.faang.library;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addBook("Король", "Антон антонович", 2009, "шкаф1");
