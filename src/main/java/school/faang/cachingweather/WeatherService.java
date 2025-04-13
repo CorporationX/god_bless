@@ -1,10 +1,10 @@
 package school.faang.cachingweather;
 
 public class WeatherService implements WeatherProvider {
-    public final static int MIN_TEMPERATURE = -40;
-    public final static int MAX_TEMPERATURE = 40;
-    public final static int MIN_HUMIDITY = 0;
-    public final static int MAX_HUMIDITY = 80;
+    public static final  int MIN_TEMPERATURE = -40;
+    public static final int MAX_TEMPERATURE = 40;
+    public static final int MIN_HUMIDITY = 0;
+    public static final int MAX_HUMIDITY = 80;
 
     @Override
     public WeatherData fetchWeatherData(String city) {
