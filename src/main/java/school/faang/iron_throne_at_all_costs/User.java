@@ -11,7 +11,7 @@ public class User {
     public void joinHouse(House house) {
         synchronized (this) {
             this.assignedRole = house.assignRole(this.name);
-            this.notify();
+            this.notifyAll();
         }
     }
 
@@ -19,7 +19,7 @@ public class User {
         synchronized (this) {
             while (this.assignedRole == null) {
                 System.out.println("User " + this.name + ", you can't leave house, " +
-                        "because you're haven''t joined to some yet");
+                        "because you're haven't joined to some yet");
                 try {
                     this.wait();
                 } catch (InterruptedException e) {

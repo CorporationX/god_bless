@@ -30,7 +30,8 @@ public class House {
                 }
             }
             System.out.println("Available roles for your chose: " + availableRoles);
-            String role = availableRoles.stream().findFirst().orElse(null);
+            String role = availableRoles.stream().findFirst().orElseThrow(() ->
+                    new IllegalArgumentException("availableRoles contains null!"));
             System.out.println("User " + name + " has chosen the role " + role);
             availableRoles.remove(role);
             return role;
