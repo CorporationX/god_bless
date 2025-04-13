@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ToString
 @EqualsAndHashCode
 public class Product {
-    private static final AtomicInteger ID_COUNTER = new AtomicInteger(1);
+    private static final AtomicInteger idCounter = new AtomicInteger(1);
 
     private final int id;
     private final String name;
@@ -23,6 +23,6 @@ public class Product {
     }
 
     public static Integer createId() {
-        return ID_COUNTER.getAndIncrement();
+        return idCounter.getAndIncrement();
     }
 }
