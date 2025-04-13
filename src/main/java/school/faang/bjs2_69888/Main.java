@@ -16,9 +16,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Map<Subject, Integer> subjectsB = new HashMap<>();
-        subjectsB.put(subjectPhisics, 2);
-
         STUDENTS_DATABASE.addStudent(studentNewton, new HashMap<>() { {
                 put(subjectPhisics, 5);
                 put(subjectMath, 3);
@@ -28,11 +25,11 @@ public class Main {
                 put(subjectPhisics, 2);
             }
         });
-        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
-        STUDENTS_DATABASE.removeStudent(studentNewton);
-        STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
-        STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
-        STUDENTS_DATABASE.removeStudentFromSubject(studentNewton, subjectPhisics);
+        //        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
+        //        STUDENTS_DATABASE.removeStudent(studentNewton);
+        //        STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
+        //        STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
+        STUDENTS_DATABASE.removeStudentFromSubject(studentDarvin, subjectPhisics);
 
         STUDENTS_DATABASE.printAllStudents();
         System.out.println("-------");

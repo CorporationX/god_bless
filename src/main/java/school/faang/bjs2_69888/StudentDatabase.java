@@ -1,5 +1,7 @@
 package school.faang.bjs2_69888;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
@@ -70,7 +73,14 @@ public class StudentDatabase {
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         subjectStudents.get(subject).remove(student);
+        if  (subjectStudents.get(subject).isEmpty()) {
+            subjectStudents.remove(subject);
+        }
+
         studentSubjects.get(student).remove(subject);
+        if (studentSubjects.get(student).isEmpty()) {
+            studentSubjects.remove(student);
+        }
     }
 
     public void printAllSubjects() {
