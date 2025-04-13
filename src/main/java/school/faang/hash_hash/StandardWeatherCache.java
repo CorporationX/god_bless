@@ -1,6 +1,6 @@
 package school.faang.hash_hash;
 
-public class StandardWeatherCache extends WeatherCacheTemplate{
+public class StandardWeatherCache extends WeatherCacheTemplate {
 
     public StandardWeatherCache() {
         super(new WeatherService());
