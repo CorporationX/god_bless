@@ -16,24 +16,26 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Map<Subject, Integer> subjectsA = new HashMap<>();
-        subjectsA.put(subjectPhisics, 5);
-        subjectsA.put(subjectMath, 3);
         Map<Subject, Integer> subjectsB = new HashMap<>();
         subjectsB.put(subjectPhisics, 2);
 
-        //        STUDENTS_DATABASE.addStudent(studentNewton, subjectsA);
-        //        STUDENTS_DATABASE.addStudent(studentDarvin, subjectsB);
-        //        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
-        //        STUDENTS_DATABASE.removeStudent(studentNewton);
+        STUDENTS_DATABASE.addStudent(studentNewton, new HashMap<>() { {
+                put(subjectPhisics, 5);
+                put(subjectMath, 3);
+            }
+        });
+        STUDENTS_DATABASE.addStudent(studentDarvin, new HashMap<>() { {
+                put(subjectPhisics, 2);
+            }
+        });
+        STUDENTS_DATABASE.addSubjectForStudent(studentNewton, subjectGeography, 3);
+        STUDENTS_DATABASE.removeStudent(studentNewton);
         STUDENTS_DATABASE.addSubjectWithStudents(subjectPhisics, List.of(studentSemikhatov, studentNewton));
         STUDENTS_DATABASE.addStudentToSubject(studentNewton, subjectMath);
-        try {
-            STUDENTS_DATABASE.removeStudentFromSubject(studentNewton, subjectPhisics);
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage() + "===");
-        }
+        STUDENTS_DATABASE.removeStudentFromSubject(studentNewton, subjectPhisics);
+
         STUDENTS_DATABASE.printAllStudents();
+        System.out.println("-------");
         STUDENTS_DATABASE.printAllSubjects();
     }
 }

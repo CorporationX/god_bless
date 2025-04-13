@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class StudentDatabase {
@@ -28,8 +29,15 @@ public class StudentDatabase {
 
     public void removeStudent(Student student) {
         studentSubjects.remove(student);
+        List<Subject> subjectsToRemove = new ArrayList<>();
         for (Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             entry.getValue().remove(student);
+            if (entry.getValue().isEmpty()) {
+                subjectsToRemove.add(entry.getKey());
+            }
+        }
+        for (Subject subject : subjectsToRemove) {
+            subjectStudents.remove(subject);
         }
     }
 
@@ -43,12 +51,15 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        if (!subjectStudents.containsKey(subject)) {
-            subjectStudents.put(subject, students);
-        }
+        //        if (!subjectStudents.containsKey(subject)) {
+        //            subjectStudents.put(subject, new ArrayList<>(students));
+        //        } else {
+        //
+        //        }
 
         for (Student student : students) {
             studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
