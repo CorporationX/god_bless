@@ -14,9 +14,9 @@ public class Scheduller {
     private void takeTimeToOptimize(DataCenter dataCenter) {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
-        Runnable optimize = () -> {
+        Runnable optimize = () ->
             DataCenterService.callOptimization(dataCenter);
-        };
+
         scheduler.scheduleAtFixedRate(optimize, INITIAL_DELAY, PERIOD, TimeUnit.MINUTES);
     }
 }

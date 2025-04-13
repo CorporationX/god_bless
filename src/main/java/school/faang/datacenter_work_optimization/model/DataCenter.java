@@ -11,7 +11,7 @@ public class DataCenter {
 
     public double calculateTotalLoad() {
         return servers
-                .stream().mapToDouble(server -> server.getLoad())
+                .stream().mapToDouble(Server::getLoad)
                 .sum();
     }
 }

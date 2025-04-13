@@ -1,6 +1,5 @@
 package school.faang.datacenter_work_optimization;
 
-
 import school.faang.datacenter_work_optimization.model.DataCenter;
 import school.faang.datacenter_work_optimization.model.ResourceRequest;
 import school.faang.datacenter_work_optimization.model.Server;
