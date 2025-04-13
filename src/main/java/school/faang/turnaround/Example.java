@@ -1,7 +1,7 @@
 package school.faang.turnaround;
 
 public class Example {
-    public Integer[] reverse(Integer[] nums) {
+    public int[] reverse(int[] nums) {
         int right = nums.length - 1;
         int left = 0;
         while (left < right) {
