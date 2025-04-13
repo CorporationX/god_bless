@@ -1,5 +1,8 @@
 package school.faang.bjs2_68734;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         LibrarySystem library = new LibrarySystem();
@@ -10,19 +13,19 @@ public class Main {
         library.addBook("The Hobbit", "J.R.R. Tolkien", 1937, "Shelf C3");
 
         // Finding books
-        System.out.println(library.findBook("1984", "George Orwell", 1949));
-        System.out.println(library.findBook("Unknown", "Nobody", 2000));
+        log.info(library.findBook("1984", "George Orwell", 1949));
+        log.info(library.findBook("Unknown", "Nobody", 2000));
 
         // Removing a book
         boolean removed = library.removeBook("The Hobbit", "J.R.R. Tolkien", 1937);
-        System.out.println("Was 'The Hobbit' removed? " + removed);
+        log.info("Was 'The Hobbit' removed? {}", removed);
 
         // Removing a book that doesn't exist
         boolean removedUnknown = library.removeBook("Dune", "Frank Herbert", 1965);
-        System.out.println("Was 'Dune' removed? " + removedUnknown);
+        log.info("Was 'Dune' removed? {}", removedUnknown);
 
         // Listing all remaining books
-        System.out.println("Remaining books in the library:");
+        log.info("Remaining books in the library:");
         library.printAllBooks();
     }
 
