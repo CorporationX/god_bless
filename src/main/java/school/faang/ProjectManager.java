@@ -98,7 +98,7 @@ public class ProjectManager {
         if (project == null) {
             throw new IllegalArgumentException("Project must not be null");
         }
-        project.teamMembers().removeIf(employee -> employee != null &&
-                Collections.disjoint(employee.skills(), project.requiredSkills()));
+        project.teamMembers().removeIf(employee -> employee != null
+                && Collections.disjoint(employee.skills(), project.requiredSkills()));
     }
 }
