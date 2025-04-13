@@ -10,6 +10,5 @@ public class SpellEventIdCounter {
 
     public static long getNextSpellEventId() {
         return 1L;
-//        return ++ID_COUNTER;
     }
 }
