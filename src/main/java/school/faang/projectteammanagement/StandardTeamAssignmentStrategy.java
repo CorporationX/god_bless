@@ -2,9 +2,9 @@ package school.faang.projectteammanagement;
 
 import java.util.List;
 
-public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy{
+public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
-        return null;
+        return TeamAssignmentStrategy.coverAllSkills(project.getRequiredSkills(), employees);
     }
 }

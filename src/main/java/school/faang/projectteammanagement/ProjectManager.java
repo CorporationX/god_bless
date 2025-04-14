@@ -1,26 +1,38 @@
 package school.faang.projectteammanagement;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
+@AllArgsConstructor
+@Data
 public class ProjectManager {
 
-  /*  Хранит списки
-    сотрудников компании
-    и проектов.*/
-    List<Project> companyProjects;
-    List<Employee> allEmployees;
-    TeamAssignmentStrategy activeStrategy;
+    private List<Project> companyProjects;
+    private List<Employee> allEmployees;
+    private TeamAssignmentStrategy activeStrategy;
 
 
-    //    Имеет метод  для выбора стратегии распределения сотрудников.
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
+        this.activeStrategy = strategy;
     }
 
-    //    Реализует метод    ,который применяет выбранную стратегию для назначения команды на проект.
     public void assignTeamToProject(int projectId) {
+        getProjectById(projectId).setTeamMembers(
+                activeStrategy.assignTeam(getProjectById(projectId), allEmployees)
+        );
     }
 
-    //    Поддерживает метод    ,возвращающий список сотрудников,назначенных на проект.
-    public void getTeamForProject(int projectId) {
+    public List<Employee> getTeamForProject(int projectId) {
+        return getProjectById(projectId).getTeamMembers();
+    }
+
+    private Project getProjectById(int id) {
+        return companyProjects
+                .stream()
+                .filter(project -> (project.getProjectId() == id))
+                .findFirst()
+                .get();
     }
 }
