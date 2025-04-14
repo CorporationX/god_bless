@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2;
 
 import lombok.Data;
 
@@ -8,9 +8,9 @@ public class Product {
 
     private final int id;
     private final String name;
-    private final Category category;
+    private final school.faang.BJS2.Category category;
 
-    public Product(String name, Category category) {
+    public Product(String name, school.faang.BJS2.Category category) {
         this.id = counter++;
         this.name = name;
         this.category = category;
