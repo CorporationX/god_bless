@@ -101,7 +101,7 @@ public class StudentDatabaseTest {
     public void testRemoveStudentFromSubject() {
         // arrange
         int expectedNumberOfSubjects = 3;
-        int expectedNumberOfStudents = 2;
+        int expectedNumberOfStudents = 1;
         // act
         STUDENTS_DATABASE.removeStudentFromSubject(studentDarvin, subjectPhisics);
         // assert

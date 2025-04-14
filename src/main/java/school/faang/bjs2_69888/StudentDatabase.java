@@ -1,24 +1,22 @@
 package school.faang.bjs2_69888;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 @Getter
+@Slf4j
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudent(Student student, Map<Subject, Integer> subjects) {
-        if (!studentSubjects.containsKey(student)) {
-            studentSubjects.put(student, subjects);
-        }
+        studentSubjects.put(student, subjects);
 
         for (Map.Entry<Subject, Integer> entry : subjects.entrySet()) {
             subjectStudents.computeIfAbsent(entry.getKey(), k -> new ArrayList<>()).add(student);
@@ -54,12 +52,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        //        if (!subjectStudents.containsKey(subject)) {
-        //            subjectStudents.put(subject, new ArrayList<>(students));
-        //        } else {
-        //
-        //        }
-
         for (Student student : students) {
             studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
             subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
@@ -74,11 +66,19 @@ public class StudentDatabase {
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
+        if (subjectStudents.get(subject) == null || subject == null) {
+            log.error("Такой записи с предметом нет или имя предмета не верное.");
+            return;
+        }
         subjectStudents.get(subject).remove(student);
         if  (subjectStudents.get(subject).isEmpty()) {
             subjectStudents.remove(subject);
         }
 
+        if (studentSubjects.get(student) == null || student == null) {
+            log.error("Такой записи со студентом нет или имя студента не верное.");
+            return;
+        }
         studentSubjects.get(student).remove(subject);
         if (studentSubjects.get(student).isEmpty()) {
             studentSubjects.remove(student);
