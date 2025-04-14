@@ -10,13 +10,9 @@ public class HogwartsSpells {
 
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-
-    private int eventId;
+    private int eventId = 0;
 
     public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellsByType = new HashMap<>();
-        eventId = 0;
     }
 
     public void addSpellEvent(String eventType, String actionDescription) {
