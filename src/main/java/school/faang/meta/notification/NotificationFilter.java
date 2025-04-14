@@ -10,11 +10,11 @@ public class NotificationFilter {
     private final Map<NotificationType, List<Predicate<Notification>>> filters = new EnumMap<>(NotificationType.class);
 
     public void addFilter(NotificationType type, Predicate<Notification> filter) {
-        filters.computeIfAbsent(type, k -> new ArrayList<>()).add(filter);
+        this.filters.computeIfAbsent(type, k -> new ArrayList<>()).add(filter);
     }
 
     public boolean applyFilters(Notification notification) {
-        List<Predicate<Notification>> typeFilters = filters.get(notification.getType());
+        List<Predicate<Notification>> typeFilters = this.filters.get(notification.getType());
         if (typeFilters == null || typeFilters.isEmpty()) {
             return true;
         }

@@ -13,34 +13,34 @@ public class NotificationStatistics {
 
     public NotificationStatistics() {
         for (NotificationType type : NotificationType.values()) {
-            statistics.put(type, new AtomicInteger());
+            this.statistics.put(type, new AtomicInteger());
         }
     }
 
     public void increment(NotificationType type) {
-        statistics.computeIfAbsent(type, k -> new AtomicInteger()).incrementAndGet();
+        this.statistics.computeIfAbsent(type, k -> new AtomicInteger()).incrementAndGet();
     }
 
     public void addBlocked(int count) {
-        totalBlocked.addAndGet(count);
+        this.totalBlocked.addAndGet(count);
     }
 
     public void printStatistics() {
         log.info("---> Notification Statistics <---");
         log.info("Total processed: {}", getTotalProcessed());
         log.info("Total successfully sent: {}", getSuccessfullySent());
-        log.info("Total blocked: {}", totalBlocked.get());
+        log.info("Total blocked: {}", this.totalBlocked.get());
 
         log.info("By type:");
-        statistics.forEach((type, count) ->
+        this.statistics.forEach((type, count) ->
                 log.info(" -{}: {}", type, count.get()));
     }
 
     private int getTotalProcessed() {
-        return getSuccessfullySent() + totalBlocked.get();
+        return getSuccessfullySent() + this.totalBlocked.get();
     }
 
     private int getSuccessfullySent() {
-        return statistics.values().stream().mapToInt(AtomicInteger::get).sum();
+        return this.statistics.values().stream().mapToInt(AtomicInteger::get).sum();
     }
 }

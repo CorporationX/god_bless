@@ -12,11 +12,11 @@ public class NotificationEditor {
             new EnumMap<>(NotificationType.class);
 
     public void addEditRule(NotificationType type, Function<Notification, Notification> editRule) {
-        editRules.computeIfAbsent(type, k -> new ArrayList<>()).add(editRule);
+        this.editRules.computeIfAbsent(type, k -> new ArrayList<>()).add(editRule);
     }
 
     public Notification applyEditRules(Notification notification) {
-        return editRules.getOrDefault(notification.getType(), Collections.emptyList())
+        return this.editRules.getOrDefault(notification.getType(), Collections.emptyList())
                 .stream()
                 .reduce(Function.identity(), Function::andThen)
                 .apply(notification);

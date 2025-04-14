@@ -21,52 +21,52 @@ public class NotificationManager {
     private final NotificationStatistics statistics = new NotificationStatistics();
 
     public void registerHandler(@NonNull NotificationType type, @NonNull Consumer<Notification> handler) {
-        handlers.computeIfAbsent(type, k -> new ArrayList<>()).add(handler);
+        this.handlers.computeIfAbsent(type, k -> new ArrayList<>()).add(handler);
     }
 
     public void addForwardRule(Function<Notification, Optional<NotificationType>> forwardRule) {
-        forwarder.addForwardRule(forwardRule);
+        this.forwarder.addForwardRule(forwardRule);
     }
 
     public void addFilterRule(NotificationType type, Predicate<Notification> filterRule) {
-        filter.addFilter(type, filterRule);
+        this.filter.addFilter(type, filterRule);
     }
 
     public void addEditMessageRule(NotificationType type, Function<Notification, Notification> editRule) {
-        editor.addEditRule(type, editRule);
+        this.editor.addEditRule(type, editRule);
     }
 
     public void sendNotification(@NonNull Notification notification) {
-        Notification processedNotification = editor.applyEditRules(forwarder.applyForwardRules(notification));
-        List<Consumer<Notification>> handlersForType = handlers.get(processedNotification.getType());
+        Notification processedNotification = this.editor.applyEditRules(this.forwarder.applyForwardRules(notification));
+        List<Consumer<Notification>> handlersForType = this.handlers.get(processedNotification.getType());
 
         if (handlersForType == null || handlersForType.isEmpty()) {
             handleNoHandlers(processedNotification);
             return;
         }
 
-        if (!filter.applyFilters(processedNotification)) {
+        if (!this.filter.applyFilters(processedNotification)) {
             handleBlockedNotification(processedNotification, handlersForType.size());
             return;
         }
 
         handlersForType.forEach(handler -> {
             handler.accept(processedNotification);
-            statistics.increment(processedNotification.getType());
+            this.statistics.increment(processedNotification.getType());
         });
     }
 
     private void handleNoHandlers(Notification notification) {
-        statistics.addBlocked(1);
+        this.statistics.addBlocked(1);
         log.warn("Нет обработчиков для типа: {}", notification.getType());
     }
 
     private void handleBlockedNotification(Notification notification, int handlersCount) {
-        statistics.addBlocked(handlersCount);
+        this.statistics.addBlocked(handlersCount);
         log.warn("Уведомление заблокировано фильтрами: {}", notification);
     }
 
     public void printStatistics() {
-        statistics.printStatistics();
+        this.statistics.printStatistics();
     }
 }
