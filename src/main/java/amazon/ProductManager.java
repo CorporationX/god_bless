@@ -19,8 +19,8 @@ public class ProductManager {
 
     public void removeProduct(Category category, String name) {
         products.removeIf(product ->
-                Objects.equals(product.getCategory(), category) &&
-                        Objects.equals(product.getName(), name));
+                Objects.equals(product.getCategory(), category)
+                        && Objects.equals(product.getName(), name));
     }
 
     public Set<Product> findProductsByCategory(Category category) {
