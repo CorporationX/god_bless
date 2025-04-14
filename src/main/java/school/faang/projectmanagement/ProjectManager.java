@@ -10,14 +10,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ProjectManager {
-    private final Map<Integer, Project> companyProjects;
+    private final Map<Integer, Project> projectByProjectId;
     private final List<Employee> employees;
 
     private TeamAssignmentStrategy teamAssignmentStrategy;
 
     public ProjectManager(TeamAssignmentStrategy teamAssignmentStrategy) {
         this.teamAssignmentStrategy = teamAssignmentStrategy;
-        this.companyProjects = new HashMap<>();
+        this.projectByProjectId = new HashMap<>();
         this.employees = new ArrayList<>();
     }
 
@@ -25,8 +25,17 @@ public class ProjectManager {
         this.teamAssignmentStrategy = teamAssignmentStrategy;
     }
 
+    public Project addProject(Project project) {
+        return projectByProjectId.put(project.getProjectId(), project);
+    }
+
+    public boolean removeProject(int projectId) {
+        Project project = projectByProjectId.remove(projectId);
+        return project != null;
+    }
+
     public List<Employee> assignTeamToProject(int projectId) {
-        Project project = companyProjects.get(projectId);
+        Project project = projectByProjectId.get(projectId);
         if (project == null) {
             throw new NoSuchElementException(String.format("Project with id %d doesn't exist", projectId));
         }
@@ -34,9 +43,9 @@ public class ProjectManager {
     }
 
     public List<Employee> getTeamForProject(int projectId) {
-        return Optional.ofNullable(companyProjects.get(projectId))
-                .orElseThrow(() -> new NoSuchElementException(String.format("Project with id %d doesn't exist")))
-                .getTeamMembers();
+        return Optional.ofNullable(projectByProjectId.get(projectId))
+                .map(Project::getTeamMembers)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Project with id %d doesn't exist")));
     }
 
     public Employee addEmployee(Employee employee) {
@@ -45,13 +54,14 @@ public class ProjectManager {
     }
 
     public List<Project> findProjectsForEmployee(Employee employee) {
-        return companyProjects.values().stream().filter(project -> project.getRequiredSkills().stream()
+        return projectByProjectId.values().stream()
+                .filter(project -> project.getRequiredSkills().stream()
                 .anyMatch(skill -> employee.getSkills().contains(skill)))
                 .toList();
     }
 
     public boolean assignEmployeeToProject(int projectId, Employee employee) {
-        Project project = companyProjects.get(projectId);
+        Project project = projectByProjectId.get(projectId);
         if (project == null || project.getRequiredSkills().stream()
                 .noneMatch(skill -> employee.getSkills().contains(skill))) {
             return false;
@@ -61,7 +71,7 @@ public class ProjectManager {
     }
 
     public boolean removeEmployeeFromProject(int projectId, int employeeId) {
-        Project project = companyProjects.get(projectId);
+        Project project = projectByProjectId.get(projectId);
         if (project == null) {
             return false;
         }
@@ -76,7 +86,7 @@ public class ProjectManager {
     }
 
     public List<Employee> getTeamMembers(int projectId) {
-        Project project = companyProjects.get(projectId);
+        Project project = projectByProjectId.get(projectId);
         List<Employee> teamMembers = new ArrayList<>();
         if (project != null) {
             teamMembers = project.getTeamMembers();
