@@ -13,8 +13,6 @@ public class StudentDatabase {
     private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addNewStudentWithSubjectAndMarks(String studentName, List<String> subjectsNames, List<Integer> marks) {
-        Objects.requireNonNull(studentName, "student is null");
-        Objects.requireNonNull(subjectsNames, "subjects is null");
         Objects.requireNonNull(marks, "marks is null");
         if (subjectsNames.size() != marks.size()) {
             throw new IllegalArgumentException("amount of subjects and marks differ");
@@ -24,7 +22,7 @@ public class StudentDatabase {
         Map<Subject, Integer> subjectsMarks = new HashMap<>();
         List<Subject> subjects = subjectsNames.stream()
                 .map(Subject::new)
-                .collect(Collectors.toList());
+                .toList();
 
         subjectsMarks = IntStream.range(0, subjects.size())
                 .boxed()
@@ -37,8 +35,6 @@ public class StudentDatabase {
     }
 
     public void addNewSubjectToStudent(String subjectName, Student student) {
-        Objects.requireNonNull(subjectName, "subject is null");
-
         Subject subject = new Subject(subjectName);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         studentSubject.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, null);
@@ -92,5 +88,4 @@ public class StudentDatabase {
             System.out.println(joined);
         });
     }
-
 }
