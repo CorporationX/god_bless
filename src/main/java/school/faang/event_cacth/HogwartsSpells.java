@@ -14,25 +14,19 @@ public class HogwartsSpells {
 
     public void addSpellEvent(String eventType, String actionDescription) {
         int id = currentId++;
-        spellById.put(id, buildSpellEvent(id, eventType, actionDescription));
+        SpellEvent event = new SpellEvent(id, eventType, actionDescription);
+        spellById.put(id, event);
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
-        spellsByType.get(eventType).add(buildSpellEvent(id, eventType, actionDescription));
+        spellsByType.get(eventType).add(event);
+        log.info("Заклинание добавлено {}", event);
     }
 
-    public void getSpellEventById(int id) {
-        if (spellById.get(id) != null) {
-            log.info("Найдено заклинание: {}.", spellById.get(id));
-        } else {
-            log.info("Заклинание под номером: {} не найдено.", id);
-        }
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public void getSpellEventsByType(String eventType) {
-        if (spellsByType.get(eventType) != null) {
-            log.info("Найдены заклинания: {} ", spellsByType.get(eventType));
-        } else {
-            log.info("Заклинания по типу {} не найдены.", eventType);
-        }
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return  spellsByType.get(eventType);
     }
 
     public void deleteSpellEvent(int id) {
@@ -52,12 +46,5 @@ public class HogwartsSpells {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.println(entry.getValue());
         }
-    }
-
-    private SpellEvent buildSpellEvent(int id, String eventType, String actionDescription) {
-        return SpellEvent.builder()
-                .id(id)
-                .eventType(eventType)
-                .action(actionDescription).build();
     }
 }

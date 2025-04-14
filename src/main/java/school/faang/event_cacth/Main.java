@@ -7,8 +7,8 @@ public class Main {
         hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
 
         hogwartsSpells.printAllSpellEvents();
-        hogwartsSpells.getSpellEventById(1);
-        hogwartsSpells.getSpellEventsByType("Защита");
+        System.out.println(hogwartsSpells.getSpellEventById(1));
+        System.out.println(hogwartsSpells.getSpellEventsByType("Защита"));
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.deleteSpellEvent(1);
         hogwartsSpells.getSpellEventById(1);
