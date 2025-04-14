@@ -2,18 +2,18 @@ package school.faang.bjs2_69309;
 
 public class Archer extends Character {
 
-    final int power = 3;
-    final int agility = 10;
-    final int intelligence = 5;
+    private static final int POWER = 3;
+    private static final int AGILITY = 10;
+    private static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
+        super(name, POWER, AGILITY, INTELLIGENCE);
     }
 
     @Override
     void attack(Character opponent) {
-        if (healthCheck(agility, opponent.health)) {
-            opponent.health = opponent.health - agility;
+        if (healthCheck(AGILITY, opponent.health)) {
+            opponent.health = opponent.health - AGILITY;
         }
     }
 }
