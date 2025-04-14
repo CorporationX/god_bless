@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 @Slf4j
 public class NotificationManager {
     private static final Function<Notification, Notification> ADD_SIGNATURE = notification ->
-            new Notification(notification.getType(), notification.getMessage() + " - Meta Team");
+            new Notification(notification.getType(), "%s - Meta Team".formatted(notification.getMessage()));
 
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
     private final List<Predicate<Notification>> filters = new ArrayList<>();
@@ -25,20 +25,24 @@ public class NotificationManager {
     }
 
     public void addFilter(Predicate<Notification> filter) {
+        if (filter == null) {
+            log.warn("Attempted to add a null filter. This filter will be ignored");
+            return;
+        }
         filters.add(filter);
     }
 
     public void sendNotification(Notification notification) {
         if (!isAllowed(notification)) {
             log.warn("Notification blocked by filter: {}", notification.getMessage());
-        } else {
-            Consumer<Notification> handler = handlers.get(notification.getType());
-            if (handler != null) {
-                handler.accept(ADD_SIGNATURE.apply(notification));
-            } else {
-                log.warn("No handler for type: {}", notification.getType());
-            }
+            return;
         }
+        Consumer<Notification> handler = handlers.get(notification.getType());
+        if (handler == null) {
+            log.warn("No handler for type: {}", notification.getType());
+            return;
+        }
+        handler.accept(ADD_SIGNATURE.apply(notification));
     }
 
     private boolean isAllowed(Notification notification) {
