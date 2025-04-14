@@ -17,7 +17,6 @@ public class Main {
         testUsersGroupedByAge();
         testCollectUsers();
     }
-    
 
     public static void testUsersGroupedByAge() {
         List<school.faang.groupusersage.User> users = List.of(
