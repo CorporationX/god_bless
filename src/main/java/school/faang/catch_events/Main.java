@@ -14,15 +14,6 @@ public class Main {
         hogwartsSpells.addSpellEvent("Charm", "Makes an object move");
         hogwartsSpells.printAllSpellEvents();
 
-        // Test 2: Getting spell by ID
-        System.out.println("\n--- Test 2: Getting Spell by ID ---");
-        SpellEvent spell1 = hogwartsSpells.getSpellEventById(1);
-        System.out.println("Spell with ID 1: " + spell1);
-        SpellEvent spell3 = hogwartsSpells.getSpellEventById(3);
-        System.out.println("Spell with ID 3: " + spell3);
-        SpellEvent spellNotFound = hogwartsSpells.getSpellEventById(99);
-        System.out.println("Spell with ID 99: " + spellNotFound);
-
         // Test 3: Getting spells by type
         System.out.println("\n--- Test 3: Getting Spells by Type ---");
         List<SpellEvent> charms = hogwartsSpells.getSpellEventsByType("Charm");
