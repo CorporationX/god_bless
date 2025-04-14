@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class Notification {
     private NotificationType type;
-    String message;
+    private String message;
 }
