@@ -21,9 +21,8 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        productToRemove = null;
         for (Product product : products) {
-            if (product.getCategory().equals(category) && product.getName().equals(name)) {
+            if (product.getCategory() == category && product.getName().equals(name)) {
                 productToRemove = product;
                 break;
             }
@@ -35,18 +34,15 @@ public class ProductManager {
         }
     }
 
-    public void findProductsByCategory(Category category) {
-        int foundCount = 0;
-        System.out.println("В категории: " + category);
+    public List<Product> findProductsByCategory(Category category) {
+        List<Product> productsByCategory = new ArrayList<>();
+        System.out.println("Список продуктов в категории: " + category);
         for (Product product : products) {
-            if (product.getCategory().equals(category)) {
-                System.out.println("найден продукт " + product.getName());
-                foundCount++;
+            if (product.getCategory() == category) {
+                productsByCategory.add(product);
             }
         }
-        if (foundCount == 0) {
-            System.out.println(" продукты отсутствуют");
-        }
+        return productsByCategory;
     }
 
     private Map<Category, List<Product>> groupProductsByCategory() {

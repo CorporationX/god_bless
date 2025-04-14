@@ -12,8 +12,8 @@ public class Main {
         productManager.printAllProducts();
         productManager.removeProduct(Category.ELECTRONICS, "Телефон");
         productManager.removeProduct(Category.OTHER, "Кролик");
-        productManager.findProductsByCategory(Category.ELECTRONICS);
-        productManager.findProductsByCategory(Category.FOOD);
+        System.out.println(productManager.findProductsByCategory(Category.ELECTRONICS));
+        System.out.println(productManager.findProductsByCategory(Category.FOOD));
         productManager.printAllProducts();
     }
 }
