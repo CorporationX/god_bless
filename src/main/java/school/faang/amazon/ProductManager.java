@@ -11,22 +11,21 @@ public class ProductManager {
         products.add(new Product(++productId, name, category));
     }
 
-    public boolean removeProduct(Category category, String name) {
-        return products.removeAll(products.stream()
-                .filter(e -> e.getCategory().equals(category) && e.getName().equals(name))
-                .collect(Collectors.toSet()));
+    public void removeProduct(Category category, String name) {
+        products.removeIf(product -> product.getCategory().equals(category) && product.getName().equals(name));
     }
 
     public Set<Product> findProductsByCategory(Category category) {
         return products.stream()
-                .filter(e -> e.getCategory().equals(category))
+                .filter(product -> product.getCategory().equals(category))
                 .collect(Collectors.toSet());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> mapProductByCategory = new HashMap<>();
 
-        products.forEach(e -> mapProductByCategory.computeIfAbsent(e.getCategory(), k -> new ArrayList<>()).add(e));
+        products.forEach(product -> mapProductByCategory
+                .computeIfAbsent(product.getCategory(), newList -> new ArrayList<>()).add(product));
 
         return mapProductByCategory;
     }
