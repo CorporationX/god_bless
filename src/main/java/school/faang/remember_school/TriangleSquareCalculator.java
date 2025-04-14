@@ -10,7 +10,6 @@ public class TriangleSquareCalculator {
     private static final BiFunction<Double, Double, Double> DIVIDE = (a, b) -> a / b;
     private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
-
     public static Double calculateTriangleArea(double a, double b, double c) {
         validateIfTriangle(a, b, c);
         double halfPerimeter = DIVIDE.apply(ADD.apply(a, ADD.apply(b, c)), 2.0);
