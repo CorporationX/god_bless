@@ -18,10 +18,14 @@ public class Main {
         LocationSearchEngine searchEngine = new LocationSearchEngine();
 
         // Filter by longitude
-        List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
+        List<Location> filteredLocations = searchEngine
+                .filterLocations(locations, (location) -> location.getLongitude() > 0);
 
         // Print filtered locations
-        searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
+        searchEngine.processLocations(
+                filteredLocations,
+                (location) -> System.out.println(location.getName())
+        );
 
         // Calculate distances from a point to every location
         double baseLatitude = 37.4220;
