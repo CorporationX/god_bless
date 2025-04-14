@@ -10,40 +10,72 @@ import java.util.function.Predicate;
 
 @Slf4j
 public class Main {
+    private static final List<Email> emails = Arrays.asList(
+            new Email("Встреча", "Встреча в 15:00", true),
+            new Email("Реклама", "Выиграйте миллион!", false),
+            new Email("IP адреса", "10.29.140.71 и 10.29.140.72", false),
+            new Email("Long Email", "1".repeat(101), false),
+            new Email("Cut Email", "2".repeat(100), false),
+            new Email("SNMP", "Система дала сбой!", true)
+    );
 
-    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
-        List<Email> emails = Arrays.asList(
-                new Email("Встреча", "Встреча в 15:00", true),
-                new Email("Реклама", "Выиграйте миллион!", false),
-                new Email("IP адреса", "10.29.140.71 и 10.29.140.72", false),
-                new Email("Long Email", "1".repeat(101), false),
-                new Email("Cut Email", "2".repeat(100), false),
-                new Email("SNMP", "Система дала сбой!", true)
-        );
-
         EmailProcessor processor = new EmailProcessor();
 
-        Predicate<Email> importantFilter = Email::isImportant;
-        Predicate<Email> shortBodyFilter = email -> email.getBody().length() <= 100;
+        processImportantEmails(processor);
+        processShortEmails(processor);
+        archiveImportantEmails(processor);
+    }
 
-        Function<Email, String> addPriorityMark = email ->
-                (email.isImportant() ? "[ВАЖНО] " : "") + email.getBody();
-        Function<Email, String> truncateLongEmails = email ->
-                email.getBody().length() > 50
-                        ? email.getBody().substring(0, 50) + "..."
-                        : email.getBody();
-
-        Consumer<Email> printEmail = email ->
-                log.info("Обработано: {}", email);
-        Consumer<Email> archiveEmail = email ->
-                log.info("Архивировано: {}", email.getSubject());
-
+    private static void processImportantEmails(EmailProcessor processor) {
         log.info("1. Обработка важных писем:");
-        processor.processEmails(emails, importantFilter, addPriorityMark, printEmail);
+        processor.processEmails(
+                emails,
+                Email::isImportant,
+                addPriorityMark(),
+                logEmail()
+        );
+    }
+
+    private static void processShortEmails(EmailProcessor processor) {
         log.info("2. Обработка коротких писем с обрезкой:");
-        processor.processEmails(emails, shortBodyFilter, truncateLongEmails, printEmail);
+        processor.processEmails(
+                emails,
+                isShortEmail(),
+                truncateLongEmails(),
+                logEmail()
+        );
+    }
+
+    private static void archiveImportantEmails(EmailProcessor processor) {
         log.info("3. Архивация важных писем:");
-        processor.processEmails(emails, importantFilter, Email::getBody, archiveEmail);
+        processor.processEmails(
+                emails,
+                Email::isImportant,
+                Email::getBody,
+                archiveEmail()
+        );
+    }
+
+    private static Predicate<Email> isShortEmail() {
+        return email -> email.getBody().length() <= 100;
+    }
+
+    private static Function<Email, String> addPriorityMark() {
+        return email -> (email.isImportant() ? "[ВАЖНО] " : "") + email.getBody();
+    }
+
+    private static Function<Email, String> truncateLongEmails() {
+        return email -> email.getBody().length() > 50
+                ? email.getBody().substring(0, 50) + "..."
+                : email.getBody();
+    }
+
+    private static Consumer<Email> logEmail() {
+        return email -> log.info("Обработано: {}", email);
+    }
+
+    private static Consumer<Email> archiveEmail() {
+        return email -> log.info("Архивировано: {}", email.getSubject());
     }
 }
