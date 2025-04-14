@@ -8,11 +8,28 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class BookingSystem {
+public class BookingSystem implements BookingObserver {
     private List<Room> rooms;
     private List<Booking> bookings;
-
+    private BookingNotifier notifier;
     private int bookingId = 0;
+
+    public BookingSystem() {
+        this.rooms = new ArrayList<>();
+        this.bookings = new ArrayList<>();
+        this.notifier = new BookingNotifier();
+    }
+
+    public void addObserver(BookingObserver observer) {
+        notifier.addObserver(observer);
+    }
+
+    @Override
+    public void update(Booking booking, String status) {
+        System.out.println("Booking Update: Booking ID " + booking.getBookingId() +
+                ", Room: " + booking.getRoom().getRoomNumber() +
+                ", Status: " + status);
+    }
 
     public void addRoom(Room newRoom) {
         if (!rooms.contains(newRoom)) {
@@ -22,43 +39,83 @@ public class BookingSystem {
         }
     }
 
-    public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-        List<Room> freeRooms = new ArrayList<>();
+    public void removeRoom(int roomNumber) {
+        Room roomToRemove = null;
         for (Room room : rooms) {
-            if (room.getAmenities() == requiredAmenities) {
-                for (Booking booking : bookings) {
-                    if (booking.getDate() != date && booking.getTimeSlot() != timeSlot && booking.getRoom() == room) {
-                        freeRooms.add(room);
-                    }
-                }
-            } else {
-                System.out.println("No rooms found");
+            if (room.getRoomNumber().equals(roomNumber)) {
+                roomToRemove = room;
             }
         }
 
+        if (roomToRemove != null) {
+            rooms.remove(roomToRemove);
+            System.out.println("Room has been successfully deleted");
+        } else {
+            System.out.println("Room with this room number has not been found");
+        }
+
+
+    }
+
+    public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
+        List<Room> freeRooms = new ArrayList<>();
+        for (Room room : rooms) {
+            if (room.getAmenities().containsAll(requiredAmenities)) {
+                for (Booking booking : bookings) {
+                    if (Objects.equals(booking.getDate(), date) && Objects.equals(booking.getTimeSlot(), timeSlot)
+                            && booking.getRoom().equals(room)) {
+                        freeRooms.add(room);
+                    }
+                }
+            }
+        }
+        if (freeRooms.isEmpty()) {
+            System.out.println("No available rooms found for the specified date, time, and amenities.");
+        }
 
         return freeRooms;
     }
 
-    public void bookRooms(int roomNumber, String date, String timeSlot) {
-        Room room = rooms.get(roomNumber);
-
-        List<Booking> bookingForRoom;
-        bookingForRoom = new ArrayList<>(bookings.stream().filter(booking
-                -> booking.getRoom().getRoomNumber().equals(roomNumber)).toList());
-
-        if (bookingForRoom.isEmpty()) {
-            bookingForRoom.add(new Booking(roomNumber, date, timeSlot));
-        }
-
-        for (Booking booking : bookingForRoom) {
-            if (!booking.getDate().equals(date) && !booking.getTimeSlot().equals(timeSlot)) {
-                bookingId++;
-                bookingForRoom.add(new Booking(roomNumber, date, timeSlot));
+    private Room findRoomByNumber(int roomNumber) {
+        for (Room room : rooms) {
+            if (room.getRoomNumber() == roomNumber) {
+                return room;
             }
         }
+        return null;
     }
 
+    public void bookRoom(int roomNumber, String date, String timeSlot) {
+        Room room = findRoomByNumber(roomNumber);
+
+        boolean isBooked = bookings.stream().allMatch(b -> b.getRoom().getRoomNumber() == roomNumber
+                && b.getDate().equals(date) && b.getTimeSlot().equals(timeSlot));
+
+        if (isBooked) {
+            System.out.println("Room is already booked for this date and time slot.");
+        }
+        bookingId++;
+        Booking newBooking = new Booking(bookingId, room, date, timeSlot);
+        bookings.add(newBooking);
+        notifier.notifyObservers(newBooking, "created");
+    }
+
+    public void cancelBooking(int bookingId) {
+        Booking bookingToDelete = null;
+
+        for (Booking booking : bookings) {
+            if (booking.getBookingId() == bookingId) {
+                bookingToDelete = booking;
+            }
+        }
+
+        if (bookingToDelete != null) {
+            bookings.remove(bookingToDelete);
+            notifier.notifyObservers(bookingToDelete, "CANCELLED");
+        } else {
+            System.out.println("No booking found");
+        }
 
 
+    }
 }

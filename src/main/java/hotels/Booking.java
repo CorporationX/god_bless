@@ -12,8 +12,11 @@ public class Booking {
     private String timeSlot;
 
 
-    public Booking(int roomNumber, String date, String timeSlot) {
-
+    public Booking(int bookingId, Room room, String date, String timeSlot) {
+        this.bookingId = bookingId;
+        this.room = room;
+        this.date = date;
+        this.timeSlot = timeSlot;
     }
 
 }

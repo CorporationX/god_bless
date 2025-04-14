@@ -1,12 +1,16 @@
 package hotels;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Set;
 
-@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
+@Data
 public class Room {
     @NonNull
     private Integer roomNumber;
