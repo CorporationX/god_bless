@@ -7,21 +7,21 @@ public class Main {
 
     public static void main(String[] args) {
         DataCenter dataCenter = new DataCenter();
-        DataCenterService.addServer(dataCenter, new Server(100, 1000, 3));
-        DataCenterService.addServer(dataCenter, new Server(200, 800, 1));
-        DataCenterService.addServer(dataCenter, new Server(1900, 2000, 9));
-        DataCenterService.addServer(dataCenter, new Server(10, 10, 1));
+        dataCenter.addServer(dataCenter, new Server(100, 1000, 3));
+        dataCenter.addServer(dataCenter, new Server(200, 800, 1));
+        dataCenter.addServer(dataCenter, new Server(1900, 2000, 9));
+        dataCenter.addServer(dataCenter, new Server(10, 10, 1));
         DataCenterService.allocateResources(dataCenter, new ResourceRequest(SMALL_LOAD));
         DataCenterService.allocateResources(dataCenter, new ResourceRequest(MEDIUM_LOAD));
         DataCenterService.allocateResources(dataCenter, new ResourceRequest(HIGH_LOAD));
-        System.out.println(dataCenter.servers);
-        DataCenterService.removeServer(dataCenter, new Server(10, 10, 1));
-        System.out.println(dataCenter.servers);
+        System.out.println(dataCenter.getServers());
+        dataCenter.removeServer(dataCenter, new Server(10, 10, 1));
+        System.out.println(dataCenter.getServers());
         DataCenterService.optimizeLoad(new LoadBalancingOptimizationStrategy(), dataCenter);
-        System.out.println(dataCenter.servers);
-        DataCenterService.addServer(dataCenter, new Server(0, 10, 9));
+        System.out.println(dataCenter.getServers());
+        dataCenter.addServer(dataCenter, new Server(0, 10, 9));
         DataCenterService.optimizeLoad(new EnergyEfficiencyOptimizationStrategy(), dataCenter);
         DataCenterService.releaseResources(dataCenter, new ResourceRequest(HIGH_LOAD));
-        System.out.println(dataCenter.servers);
+        System.out.println(dataCenter.getServers());
     }
 }

@@ -4,24 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DataCenterService {
-    public static void addServer(DataCenter dataCenter, Server server) {
-        dataCenter.servers.add(server);
-    }
-
-    public static void removeServer(DataCenter dataCenter, Server server) {
-        dataCenter.servers.remove(server);
-    }
-
     public static double getTotalEnergyConsumption(DataCenter dataCenter) {
         double totalEnergyConsumption = 0;
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             totalEnergyConsumption += server.getEnergyConsumption();
         }
         return totalEnergyConsumption;
     }
 
     public static boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             double freeCapacity = server.getMaxLoad() - server.getLoad();
             if (freeCapacity == 0) {
                 log.info("There is no free capacity in server {}. Switching to the next server.", server);
@@ -41,7 +33,7 @@ public class DataCenterService {
     }
 
     public static void releaseResources(DataCenter dataCenter, ResourceRequest request) {
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             double resourcesToBeDeallocated = Math.min(server.getLoad(), request.getLoad());
             server.setLoad(server.getLoad() - resourcesToBeDeallocated);
             request.setLoad(request.getLoad() - resourcesToBeDeallocated);

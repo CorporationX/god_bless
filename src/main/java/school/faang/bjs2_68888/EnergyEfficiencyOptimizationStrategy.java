@@ -4,8 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
+    @Override
     public void optimize(DataCenter dataCenter) {
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             if (server.getLoad() == 0.0) {
                 server.setEnergyConsumption(0);
                 log.info("Sever {} is shot down.", server);

@@ -10,10 +10,10 @@ public class DataCenterServiceTest {
     @BeforeEach
     void setUp() {
         dataCenter = new DataCenter();
-        DataCenterService.addServer(dataCenter, new Server(100, 1000, 3));
-        DataCenterService.addServer(dataCenter, new Server(200, 800, 1));
-        DataCenterService.addServer(dataCenter, new Server(1900, 2000, 9));
-        DataCenterService.addServer(dataCenter, new Server(10, 10, 1));
+        dataCenter.addServer(dataCenter, new Server(100, 1000, 3));
+        dataCenter.addServer(dataCenter, new Server(200, 800, 1));
+        dataCenter.addServer(dataCenter, new Server(1900, 2000, 9));
+        dataCenter.addServer(dataCenter, new Server(10, 10, 1));
     }
 
     // positive scenarios
@@ -23,8 +23,8 @@ public class DataCenterServiceTest {
         int expectedResult = 5;
         Server server = new Server(10, 10, 10);
         // act
-        DataCenterService.addServer(dataCenter, server);
-        int result = dataCenter.servers.size();
+        dataCenter.addServer(dataCenter, server);
+        int result = dataCenter.getServers().size();
         // assert
         Assertions.assertEquals(expectedResult, result);
     }
@@ -35,8 +35,8 @@ public class DataCenterServiceTest {
         int expectedResult = 3;
         Server server = new Server(10, 10, 1);
         // act
-        DataCenterService.removeServer(dataCenter, server);
-        int result = dataCenter.servers.size();
+        dataCenter.removeServer(dataCenter, server);
+        int result = dataCenter.getServers().size();
         // assert
         Assertions.assertEquals(expectedResult, result);
     }
@@ -81,7 +81,7 @@ public class DataCenterServiceTest {
         ResourceRequest resourceRequest = new ResourceRequest(10);
         // act
         DataCenterService.releaseResources(dataCenter, resourceRequest);
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             result += server.getLoad();
         }
         // assert
@@ -96,7 +96,7 @@ public class DataCenterServiceTest {
         ResourceRequest resourceRequest = new ResourceRequest(2_210);
         // act
         DataCenterService.releaseResources(dataCenter, resourceRequest);
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             result += server.getLoad();
         }
         // assert
@@ -109,11 +109,11 @@ public class DataCenterServiceTest {
         double resultBeforeOptimization = 0;
         double resultAfterOptimization = 0;
         // act
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             resultBeforeOptimization += server.getLoad();
         }
         DataCenterService.optimizeLoad(new LoadBalancingOptimizationStrategy(), dataCenter);
-        for (Server server : dataCenter.servers) {
+        for (Server server : dataCenter.getServers()) {
             resultAfterOptimization += server.getLoad();
         }
         // assert
@@ -123,7 +123,7 @@ public class DataCenterServiceTest {
     @Test
     void testOptimizeLoad_energyEfficiencyStrategy() {
         // arrange
-        DataCenterService.addServer(dataCenter, new Server(0, 10, 1));
+        dataCenter.addServer(dataCenter, new Server(0, 10, 1));
         double energyConsumptionAfterOptimization = 0;
         double expectedResult = 14;
         // act
