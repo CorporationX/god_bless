@@ -1,9 +1,5 @@
 package school.faang.bjs2_70454;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -15,6 +11,4 @@ public class FilterProcessor {
         Function<Image, Image> combinedFilter = filter1.andThen(filter2);
         return combinedFilter.apply(image);
     }
-
-
 }
