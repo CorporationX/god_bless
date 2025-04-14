@@ -13,24 +13,21 @@ public class BookingSystem {
     private final Map<Integer, Room> roomNumbers;
     private final BookingNotifier bookingNotifier;
 
+    private int bookingId;
+
     public BookingSystem() {
         this.bookingNotifier = new BookingNotifier();
         this.bookings = new HashMap<>();
         this.roomNumbers = new HashMap<>();
     }
 
-    private int bookingId;
-
     public Room addRoom(Room room) {
         return roomNumbers.put(room.getRoomNumber(), room);
     }
 
     public boolean removeRoom(Room room) {
-        if (roomNumbers.get(room.getRoomNumber()).equals(room)) {
-            roomNumbers.remove(room.getRoomNumber());
-            return true;
-        }
-        return false;
+        Room removedRoom = roomNumbers.remove(room.getRoomNumber());
+        return removedRoom != null;
     }
 
     public Booking bookRoom(int roomNumber, String date, String timeSlot) {
@@ -39,8 +36,13 @@ public class BookingSystem {
                         String.format("Room with number %d doesn't exist", roomNumber)));
         int id = generateBookingId();
         Booking booking = new Booking(id, room, date, timeSlot);
-        bookings.put(id, booking);
-        bookingNotifier.notifyObservers(booking, "Created");
+        if (isRoomAvailable(room, date, timeSlot, Set.of())) {
+            bookings.put(id, booking);
+            bookingNotifier.notifyObservers(booking, "Created");
+        } else {
+            throw new RuntimeException(String.format("Room %s is already booked for %s and %s timeslot",
+                    room.getRoomNumber(), date, timeSlot));
+        }
         return booking;
     }
 
@@ -64,13 +66,15 @@ public class BookingSystem {
     }
 
     public List<Booking> findBookingsForDate(String date) {
-        return bookings.values().stream().filter(booking -> booking.getDate().equals(date)).toList();
+        return bookings.values().stream()
+                .filter(booking -> booking.getDate().equals(date))
+                .toList();
     }
 
     private boolean isRoomAvailable(Room room, String date, String timeSlot, Set<String> requiredAmenities) {
         return bookings.values().stream()
-                .filter(booking -> !booking.getDate().equals(date) || !booking.getTimeSlot().equals(timeSlot)
-                        || room.getAmenities().containsAll(requiredAmenities)).findFirst().isEmpty();
+                .noneMatch(booking -> booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)
+                        && room.getAmenities().containsAll(requiredAmenities));
     }
 
     private int generateBookingId() {
