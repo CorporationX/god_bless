@@ -1,5 +1,7 @@
 package optimizingdatacenter;
 
+import java.util.Optional;
+
 public class DataCenterService {
 
     public void addServer(DataCenter dataCenter, Server server) {
@@ -20,11 +22,12 @@ public class DataCenterService {
         double remainingLoad = request.getLoad();
         for (Server server : dataCenter.getServers()) {
             double availableLoad = server.getMaxLoad() - server.getLoad();
-            if (availableLoad >= 0) {
-                double loadToAllocate = Math.min(availableLoad, remainingLoad);
-                server.setLoad(server.getLoad() + loadToAllocate);
-                remainingLoad -= loadToAllocate;
+            if (availableLoad <= 0) {
+                continue;
             }
+            double loadToAllocate = Math.min(availableLoad, remainingLoad);
+            server.setLoad(server.getLoad() + loadToAllocate);
+            remainingLoad -= loadToAllocate;
             if (remainingLoad <= 0) {
                 return true;
             }
@@ -39,15 +42,14 @@ public class DataCenterService {
             server.setLoad(server.getLoad() - loadToReduction);
             loadToRelease -= loadToReduction;
             if (loadToRelease <= 0) {
-                break;
+                return;
             }
         }
     }
 
     public void optimize(DataCenter dataCenter, OptimizationStrategy strategy) {
-        if (strategy != null) {
-            strategy.optimize(dataCenter);
-        }
+        Optional.ofNullable(strategy)
+                .ifPresent(s -> s.optimize(dataCenter));
     }
 
 
