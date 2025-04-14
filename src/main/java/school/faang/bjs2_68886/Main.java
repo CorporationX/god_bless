@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println(LIBRARY.findBook("Мы", "Евгений Замянит", 1920));
         LIBRARY.removeBook("Мы", "Евгений Замянит", 1920);
-        System.out.println(LIBRARY.findBook("Мы", "Евгений Замянит", 1920));
+        LIBRARY.findBook("Мы", "Евгений Замянит", 1920);
 
         LIBRARY.printAllBooks();
     }

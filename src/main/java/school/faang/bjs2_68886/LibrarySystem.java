@@ -19,12 +19,13 @@ public class LibrarySystem {
         booksWithLocations.remove(bookToBeRemoved);
     }
 
-    public String findBook(String title, String author, int year) {
-        Book bookToBeFound = new Book(title, author, year);
-        if (booksWithLocations.containsKey(bookToBeFound)) {
-            return "Книга находится тут: " + booksWithLocations.get(bookToBeFound);
+    public Book findBook(String title, String author, int year) {
+        Book book = new Book(title, author, year);
+        String location = booksWithLocations.get(book);
+        if (location == null) {
+            log.warn("Книгк {} не найдена", book);
         }
-        return "Книга не найдена";
+        return book;
     }
 
     public void printAllBooks() {
