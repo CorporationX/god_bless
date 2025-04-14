@@ -10,23 +10,21 @@ public class Main {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        // Фильтры
         Function<Image, Image> grayscaleFilter = (image) -> {
-            new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
+            image.setDescription(image.getDescription() + " | Фильтр: черно-белый");
             return image;
         };
         Function<Image, Image> sepiaFilter = (image) -> {
-            new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+            image.setDescription(image.getDescription() + " | Фильтр: сепия");
             return image;
         };
 
-        // Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
         System.out.println(sepiaImage.getDescription());
-        // Комбинирование фильтров
+
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
