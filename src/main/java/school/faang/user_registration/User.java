@@ -26,11 +26,11 @@ public class User {
     }
 
     private void validateUser(String name, int age, String job, String address) {
-        if (name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty!");
         }
         if (age < LEGAL_AGE) {
-            throw new IllegalArgumentException("You must be over 18 years old!");
+            throw new IllegalArgumentException("You must be over %s years old!".formatted(LEGAL_AGE));
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Your job is not on the list!");
