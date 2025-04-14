@@ -1,4 +1,4 @@
-package BJS2_69795;
+package school.faang.library.BJS2_69795;
 
 import java.util.Objects;
 import java.util.HashMap;
@@ -11,18 +11,16 @@ public class LibrarySystem {
     private static final String BOOK_NOT_FOUND = "Book nort found!";
 
     public void addBook(String title, String author, int year, String location) {
-        this.placeBook.put(new Book(title, author, year), location);
+        placeBook.put(new Book(title, author, year), location);
     }
 
     public String findBook(String title, String author, int year) {
         String location;
-        Book book = new Book(title, author, year);
-        location = this.placeBook.getOrDefault(book, BOOK_NOT_FOUND);
-        return location;
+        return placeBook.getOrDefault(new Book(title, author, year), null);
     }
 
     public void removeBook(String title, String author, int year) {
-        if (!Objects.equals(findBook(title, author, year), BOOK_NOT_FOUND)) {
+        if (!Objects.equals(findBook(title, author, year), null)) {
             this.placeBook.remove(new Book(title, author, year));
         }
     }
@@ -30,9 +28,8 @@ public class LibrarySystem {
     public List<String> printAllBooks() {
         List<String> listBook = new ArrayList<>();
         for (Map.Entry<Book, String> entry : this.placeBook.entrySet()) {
-            listBook.add(entry.getKey().toString() + " в " + entry.getValue());
+            listBook.add("%s в %s".formatted(entry.getKey().toString(), entry.getValue()));
         }
         return listBook;
     }
 }
-
