@@ -1,14 +1,11 @@
 package school.faang.meta;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
+@Data
+@AllArgsConstructor
 public class Notification {
     private final NotificationType type;
-    private final String message;
-
-    public Notification(NotificationType type, String message) {
-        this.type = type;
-        this.message = message;
-    }
+    private String message;
 }
