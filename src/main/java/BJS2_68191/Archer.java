@@ -1,6 +1,6 @@
 package BJS2_68191;
 
-public abstract class Archer extends Character {
+public class Archer extends Character {
     private static final int DEFAULT_STRENGTH = 3;
     private static final int DEFAULT_AGILITY = 10;
     private static final int DEFAULT_INTELLIGENCE = 5;
@@ -13,8 +13,8 @@ public abstract class Archer extends Character {
         super(name, strength, agility, intelligence);
     }
 
-    public void attack(Character target) {
-        target.takeDamage(DEFAULT_AGILITY);
+    public void attack(Character opponent) {
+        opponent.takeDamage(DEFAULT_AGILITY);
     }
 }
 

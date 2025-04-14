@@ -26,7 +26,7 @@ public abstract class Character {
     }
 
 
-    public abstract void attak(Character opponent);
+    public abstract void attack(Character opponent);
 
     public void takeDamage(int damage) {
         if (this.health <= 0) {

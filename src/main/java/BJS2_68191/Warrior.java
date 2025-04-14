@@ -1,6 +1,6 @@
 package BJS2_68191;
 
-public abstract class Warrior extends Character {
+public class Warrior extends Character {
     private static final int DEFAULT_STRENGTH = 10;
     private static final int DEFAULT_AGILITY = 5;
     private static final int DEFAULT_INTELLIGENCE = 3;
@@ -13,8 +13,9 @@ public abstract class Warrior extends Character {
         super(name, strength, agility, intelligence);
     }
 
-    public void attack(Character target) {
-        target.takeDamage(DEFAULT_STRENGTH);
+    @Override
+    public void attack(Character opponent) {
+        opponent.takeDamage(DEFAULT_STRENGTH);
 
     }
 }
