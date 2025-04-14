@@ -20,9 +20,9 @@ public class Main {
                 notification -> System.out.println("Push Notification: " + notification.message())
         );
 
-        Notification emailNotification = new Notification(EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(SMS, "Ваш пароль изменен");
-        Notification pushNotification = new Notification(PUSH, "У вас новое сообщение!");
+        Notification emailNotification = new Notification(EMAIL, "Your account is activated");
+        Notification smsNotification = new Notification(SMS, "Your password has been changed");
+        Notification pushNotification = new Notification(PUSH, "You have a new message!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
