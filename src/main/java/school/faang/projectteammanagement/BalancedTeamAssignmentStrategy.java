@@ -5,10 +5,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.Comparator;
 import java.util.List;
 
-/*добавляет сотрудников так, чтобы равномерно распределить нагрузку между ними,
-избегая назначения одного сотрудника на слишком много проектов.
-Эта стратегия может учитывать количество уже назначенных проектов для каждого сотрудника.
- */
 @RequiredArgsConstructor
 public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
 

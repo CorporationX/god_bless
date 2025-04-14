@@ -15,7 +15,6 @@ public class Main {
                 new Employee(5, "Alyona", Set.of("calm", "woman", "cunning")),
                 new Employee(6, "Elizabeth", Set.of("old", "ugly", "experienced")),
                 new Employee(7, "Foma", Set.of("men", "ugly", "experienced"))
-
         );
 
         List<Employee> emptyList = Collections.emptyList();

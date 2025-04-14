@@ -11,6 +11,6 @@ import java.util.Set;
 public class Project {
     private final int projectId;
     private final String name;
-    private final Set<String> requiredSkills;
+    private Set<String> requiredSkills;
     private List<Employee> teamMembers;
 }
