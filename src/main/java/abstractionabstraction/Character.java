@@ -17,11 +17,7 @@ public abstract class Character {
     protected int health = DEFAULT_HEALTH;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -32,12 +28,13 @@ public abstract class Character {
     }
 
     public void takeDamage(int damage) {
-        if (this.health - damage < 0) {
-            this.health = 0;
-        } else {
-            this.health -= damage;
-        }
+        this.health = Math.max(0, this.health - damage);
     }
 
     public abstract void attack(Character opponent);
+
+    public boolean isAlive() {
+        return this.health > 0;
+    }
+
 }

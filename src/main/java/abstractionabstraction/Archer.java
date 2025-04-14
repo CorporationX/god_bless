@@ -8,6 +8,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
+        if (!opponent.isAlive()) {
+            System.out.println("Нельзя атаковать мертвого противника.");
+        }
         opponent.takeDamage(this.agility);
     }
 }
