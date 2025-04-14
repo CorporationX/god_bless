@@ -7,10 +7,10 @@ public class Main {
         Image originalImg = new Image("original.jpg", "Фото без фильтров");
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> firstFilter =
-                image -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
-        Function<Image, Image> secondFilter =
-                image -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+        Function<Image, Image> firstFilter = image -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: черно-белый");
+        Function<Image, Image> secondFilter = image -> new Image(image.getName(),
+                image.getDescription() + " | Фильтр: сепия");
 
         Image imageBlackAndWite = filterProcessor.applyFilter(originalImg, firstFilter);
         System.out.printf("Image name: %s | Image filters: %s%n", imageBlackAndWite.getName(),
