@@ -1,20 +1,19 @@
-package school.faang.westeros_library;
+package school.faang.westeroslibrary;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 @Getter
-@Setter
 public class LibrarySystem {
-    private HashMap<Book, String> bookShelves = new HashMap<>();
+
+    private final HashMap<Book, String> bookShelves = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book newBook = new Book(title, author, year);
-        bookShelves.put(newBook, location);
+        bookShelves.putIfAbsent(newBook, location);
     }
 
     public void removeBook(String title, String author, int year) {
@@ -23,8 +22,8 @@ public class LibrarySystem {
     }
 
     public String findBook(String title, String author, int year) {
-        Book newBook = new Book(title, author, year);
-        String location = bookShelves.get(newBook);
+        Book searchBook = new Book(title, author, year);
+        String location = bookShelves.get(searchBook);
         return Objects.requireNonNullElse(location, "Book was not found.");
     }
 

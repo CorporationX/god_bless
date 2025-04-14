@@ -1,17 +1,37 @@
-package school.faang.westeros_library;
+package school.faang.westeroslibrary;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The {@code Main} class contains the main entry point for the Westeros Library application
+ * and includes test methods for verifying the functionality of the {@link Book} and
+ * {@link LibrarySystem} classes.
+ */
 public class Main {
+
+    /**
+     * The main method that serves as the entry point of the application.
+     * It calls the test methods for the {@link Book} and {@link LibrarySystem} classes.
+     *
+     * @param args Command line arguments (not used in this application).
+     */
     public static void main(String[] args) {
-        testWesterosLibrary();
+        testBook();
+        testLibrarySystem();
     }
 
-    public static void testWesterosLibrary() {
-        // --- Tests for Book Class (equals and hashCode) ---
+    /**
+     * Tests the functionality of the {@link Book} class, specifically its
+     * {@code equals()} and {@code hashCode()} methods. It creates several
+     * {@code Book} instances with different properties and uses assertions
+     * (via {@code System.out.println()}) to verify the expected behavior
+     * in equality comparisons and when used as keys in a {@link HashMap}
+     * and elements in a {@link HashSet}.
+     */
+    public static void testBook() {
         System.out.println("--- Testing Book Class (equals and hashCode) ---");
 
         Book book1 = new Book("A Game of Thrones", "George R.R. Martin", 1996);
@@ -60,8 +80,15 @@ public class Main {
         System.out.println("Contains book1: " + bookSet.contains(book1));
         System.out.println("Contains book2: " + bookSet.contains(book2));
         System.out.println("Contains book3: " + bookSet.contains(book3));
+    }
 
-        // --- Tests for LibrarySystem Class ---
+    /**
+     * Tests the functionality of the {@link LibrarySystem} class, including adding books,
+     * finding books by their properties, removing books, and printing all books in the library.
+     * It creates a {@code LibrarySystem} instance and performs several operations,
+     * printing the results to the console to verify the expected behavior.
+     */
+    public static void testLibrarySystem() {
         System.out.println("\n--- Testing LibrarySystem Class ---");
         LibrarySystem library = new LibrarySystem();
 
