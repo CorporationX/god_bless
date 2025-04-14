@@ -7,7 +7,8 @@ import java.util.function.Supplier;
 
 @Slf4j
 public class ErrorHandler {
-    public static <T> T withErrorHandling(Supplier<T> callRemoteService, Function<Throwable, T> exceptionHandlerFunction) {
+    public static <T> T withErrorHandling(Supplier<T> callRemoteService,
+                                          Function<Throwable, T> exceptionHandlerFunction) {
         T methodOutput;
         try {
             methodOutput = callRemoteService.get();
