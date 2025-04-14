@@ -12,12 +12,13 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public Product addProduct(Category category, String name) {
+        String trimmedName = name.trim();
         Objects.requireNonNull(category, "Category cannot be null");
-        if (name == null || name.trim().isEmpty()) {
+        if (name.trim().isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be null or empty");
         }
 
-        Product newProduct = new Product(name.trim(), category);
+        Product newProduct = new Product(trimmedName, category);
         if (!products.add(newProduct)) {
             throw new IllegalStateException("Product already exists: " + name + " in category " + category);
         }
@@ -25,13 +26,14 @@ public class ProductManager {
     }
 
     public boolean removeProduct(Category category, String name) {
+        String trimmedName = name.trim();
         Objects.requireNonNull(category, "Category cannot be null");
-        if (name == null || name.trim().isEmpty()) {
+        if (trimmedName.isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be null or empty");
         }
-        return products.removeIf(p ->
-                p.getCategory() == category
-                        && p.getName().equalsIgnoreCase(name.trim())
+        return products.removeIf(product ->
+                product.getCategory() == category
+                        && product.getName().equalsIgnoreCase(name.trim())
         );
     }
 
@@ -39,7 +41,7 @@ public class ProductManager {
         Objects.requireNonNull(category, "Category cannot be null");
 
         return products.stream()
-                .filter(p -> p.getCategory() == category)
+                .filter(product -> product.getCategory() == category)
                 .collect(Collectors.toList());
     }
 
