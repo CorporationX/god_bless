@@ -12,7 +12,7 @@ public class Example {
             nums[start] = nums[end];
             nums[end] = temp;
 
-            start++;
+            int i = start++;
             end--;
         }
     }
