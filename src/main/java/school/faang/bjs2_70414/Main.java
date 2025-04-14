@@ -1,38 +1,34 @@
 package school.faang.bjs2_70414;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
 
-        // Список входящих писем
         List<Email> emails = Arrays.asList(
             new Email("Письмо 1", "Текст письма 1", false),
             new Email("Письмо 2", "Текст письма 2", true),
             new Email("Спам", "Текст спама", false)
         );
 
-        // Фильтр, который пропускает только важные письма
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
 
-        // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> log.info("Обработано письмо: {}", email.getSubject());
 
-        // Преобразователь, который переводит текст письма в верхний регистр и сохраняет изменения
         Function<Email, String> toUpperCase = email -> {
             email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
+            return email.getBody();
         };
 
-        // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-
-        // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> log.debug("Тема: {}, Тело письма: {}", email.getSubject(), email.getBody()));
     }
 }

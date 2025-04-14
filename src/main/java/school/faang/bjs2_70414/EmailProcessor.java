@@ -6,12 +6,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> print,
+    public void processEmails(
+        List<Email> emails,
+        Predicate<Email> filter,
+        Consumer<Email> print,
         Function<Email, String> toUpperCase
     ) {
         emails.forEach(email -> {
             if (filter.test(email)) {
-                email.setBody(toUpperCase.apply(email));
+                toUpperCase.apply(email);
                 print.accept(email);
             }
         });
