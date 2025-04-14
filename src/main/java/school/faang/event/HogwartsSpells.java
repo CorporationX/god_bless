@@ -28,15 +28,18 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        spellsByType.remove(spellById.get(id).getEventType());
+        spellsByType.get(spellById.get(id).getEventType()).remove(spellById.get(id));
         spellById.remove(id);
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("id: " + entry.getKey() + '\n'
-                    + "Тип заклинания: " + entry.getValue().getEventType() + '\n'
-                    + "Действие: " + entry.getValue().getAction());
+            System.out.printf(
+                    "id: %s\nSpell type: %s\nAction: %s%n",
+                    entry.getKey(),
+                    entry.getValue().getEventType(),
+                    entry.getValue().getAction()
+            );
         }
     }
 }
