@@ -3,12 +3,13 @@ package amazon;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
-    private int productId = 1;
+    private static int productId = 1;
 
     public void addProduct(Category category, String name) {
         int id = productId++;
@@ -17,11 +18,15 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        products.removeIf(product -> product.getCategory().equals(category) && product.getName().equals(name));
+        products.removeIf(product ->
+                Objects.equals(product.getCategory(), category) &&
+                        Objects.equals(product.getName(), name));
     }
 
     public Set<Product> findProductsByCategory(Category category) {
-        return products.stream().filter(p -> p.getCategory().equals(category)).collect(Collectors.toSet());
+        return products.stream()
+                .filter(p -> p.getCategory() == category)
+                .collect(Collectors.toSet());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
