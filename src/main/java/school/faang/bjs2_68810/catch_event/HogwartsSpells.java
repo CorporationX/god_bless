@@ -6,22 +6,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellByIdMap = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByTypeMap = new HashMap<>();
-    private int currentId = 0;
+    private final Map<UUID, SpellEvent> spellByIdMap = new HashMap<>();
+    private final Map<EventType, List<SpellEvent>> spellsByTypeMap = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-        currentId++;
-        SpellEvent spellEvent = new SpellEvent(currentId, eventType, actionDescription);
-        spellByIdMap.put(currentId, spellEvent);
+    public void addSpellEvent(EventType eventType, String actionDescription) {
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        spellByIdMap.put(spellEvent.getId(), spellEvent);
         spellsByTypeMap.putIfAbsent(eventType, new ArrayList<>());
         spellsByTypeMap.get(eventType).add(spellEvent);
     }
 
-    public SpellEvent getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(UUID id) {
         SpellEvent spellEvent = spellByIdMap.get(id);
         if (spellEvent == null) {
             log.error("SpellEvent with id {} is not found", id);
@@ -30,7 +29,7 @@ public class HogwartsSpells {
         return spellEvent;
     }
 
-    public List<SpellEvent> getSpellEventsByType(String spellEventType) {
+    public List<SpellEvent> getSpellEventsByType(EventType spellEventType) {
         List<SpellEvent> spellEventList = spellsByTypeMap.get(spellEventType);
         if (spellEventList == null) {
             log.error("SpellEvents with type {} are not found", spellEventType);
@@ -40,17 +39,18 @@ public class HogwartsSpells {
         return spellEventList;
     }
 
-    public void deleteSpellEvent(int id) {
-        SpellEvent spellEvent = getSpellEventById(id);
-
-        spellByIdMap.remove(id);
-
+    public void deleteSpellEvent(UUID id) {
+        SpellEvent spellEvent = spellByIdMap.remove(id);
+        if (spellEvent == null) {
+            log.error("SpellEvent with id {} is not found", id);
+            throw new SpellEventNotFoundException("Exception: SpellEvent with id " + id + " is not found");
+        }
         List<SpellEvent> spellEventsDefineType = spellsByTypeMap.get(spellEvent.getEventType());
         spellEventsDefineType.remove(spellEvent);
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellByIdMap.entrySet()) {
+        for (Map.Entry<UUID, SpellEvent> entry : spellByIdMap.entrySet()) {
             log.info(entry.getValue().toString());
         }
     }
