@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs_68133;
 
 public class Example {
 
@@ -6,13 +6,12 @@ public class Example {
         int start = 0;
         int end = nums.length - 1;
 
-        // Разворачиваем массив, меняя элементы местами
         while (start < end) {
             int temp = nums[start];
             nums[start] = nums[end];
             nums[end] = temp;
 
-            int i = start++;
+            start++;
             end--;
         }
     }

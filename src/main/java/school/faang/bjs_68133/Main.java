@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.bjs_68133;
 
-import static school.faang.Example.*;
+import static school.faang.bjs_68133.Example.*;
 
 public class Main {
     public static void main(String[] args) {
