@@ -16,9 +16,11 @@ public class Main {
         inventoryManager.addItem(character, f22,
                 item -> {
                     if (character.getInventory().contains(item)) {
-                        System.out.printf("Item %s added to %s's Inventory.\n", item.getName(), character.getName());
+                        System.out.printf("Item %s added to %s's Inventory.\n",
+                                item.getName(), character.getName());
                     } else {
-                        System.out.printf("Item %s not added to %s's Inventory.\n", item.getName(), character.getName());
+                        System.out.printf("Item %s not added to %s's Inventory.\n",
+                                item.getName(), character.getName());
                     }
                 });
         character.getInventory().forEach(System.out::println);

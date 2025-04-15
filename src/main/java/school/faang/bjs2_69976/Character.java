@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-//NoArgs добавлен исключительно чтобы не забывать навешивать его на сущности Hibernate
 @NoArgsConstructor
 public class Character {
     private String name;
