@@ -8,19 +8,18 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NotificationManager {
-    private final Map<Notification.NotificationType, Consumer<Notification>> handlers =
-            new EnumMap<>(Notification.NotificationType.class);
-    private final Map<Notification.NotificationType, List<Function<Notification, Notification>>> correctors =
-            new EnumMap<>(Notification.NotificationType.class);
+    private final Map<NotificationType, Consumer<Notification>> handlers =
+            new EnumMap<>(NotificationType.class);
+    private final Map<NotificationType, List<Function<Notification, Notification>>> correctors =
+            new EnumMap<>(NotificationType.class);
 
-    public void registerCorrector(Notification.NotificationType type, Function<Notification, Notification> corrector) {
+    public void registerCorrector(NotificationType type, Function<Notification, Notification> corrector) {
         correctors.computeIfAbsent(type, k -> new ArrayList<>()).add(corrector);
     }
 
-    public void registerHandler(Notification.NotificationType type, Consumer<Notification> handler) {
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlers.put(type, handler);
     }
-
 
     public void sendNotification(Notification notification) {
         List<Function<Notification, Notification>> correctorList = correctors.get(notification.getNotificationType());
@@ -35,7 +34,7 @@ public class NotificationManager {
         if (handler != null) {
             handler.accept(correctedNotification);
         } else {
-            System.out.println("Нет обработчика для типа: " + correctedNotification.getNotificationType());
+            System.out.printf("Нет обработчика для типа: %s", correctedNotification.getNotificationType());
         }
     }
 }
