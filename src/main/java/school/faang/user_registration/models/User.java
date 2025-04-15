@@ -1,19 +1,21 @@
 package school.faang.user_registration.models;
 
 import lombok.Getter;
+import lombok.ToString;
 
+import java.util.Set;
+
+@ToString
+@Getter
 public class User {
-    @Getter
     private String name;
     private int age;
     private String job;
     private String address;
 
     public static final int AGE_LIMIT = 18;
-    public static final String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
-    public static final String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
-
-    public User() {}
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         validateName(name);
@@ -40,26 +42,18 @@ public class User {
     }
 
     private void validateJob(String job) {
-        if (!isValidValue(job, VALID_JOBS)) {
-            throw new IllegalArgumentException("Недопустимое место работы. Допустимые варианты: "
-                    + String.join(", ", VALID_JOBS));
+        if (isNotValidValue(job, VALID_JOBS)) {
+            throw new IllegalArgumentException("Недопустимое место работы. Допустимые варианты: " + VALID_JOBS);
         }
     }
 
     private void validateAddress(String address) {
-        if (!isValidValue(address, VALID_ADDRESSES)) {
-            throw new IllegalArgumentException("Недопустимый адрес. Допустимые варианты: "
-                    + String.join(", ", VALID_ADDRESSES));
+        if (isNotValidValue(address, VALID_ADDRESSES)) {
+            throw new IllegalArgumentException("Недопустимый адрес. Допустимые варианты: " + VALID_ADDRESSES);
         }
     }
 
-    private boolean isValidValue(String value, String[] validValues) {
-        for (String validValue : validValues) {
-            if (validValue.equals(value)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isNotValidValue(String value, Set<String> validValues) {
+        return !validValues.contains(value);
     }
-
 }
