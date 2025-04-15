@@ -42,7 +42,7 @@ public class BookingSystem implements BookingObserver {
     public void removeRoom(int roomNumber) {
         Room roomToRemove = null;
         for (Room room : rooms) {
-            if (room.getRoomNumber().equals(roomNumber)) {
+            if (Objects.equals(room.getRoomNumber(), roomNumber)) {
                 roomToRemove = room;
             }
         }
@@ -63,7 +63,7 @@ public class BookingSystem implements BookingObserver {
             if (room.getAmenities().containsAll(requiredAmenities)) {
                 for (Booking booking : bookings) {
                     if (Objects.equals(booking.getDate(), date) && Objects.equals(booking.getTimeSlot(), timeSlot)
-                            && booking.getRoom().equals(room)) {
+                            && Objects.equals(booking.getRoom(), room)) {
                         freeRooms.add(room);
                     }
                 }
@@ -89,7 +89,7 @@ public class BookingSystem implements BookingObserver {
         Room room = findRoomByNumber(roomNumber);
 
         boolean isBooked = bookings.stream().allMatch(b -> b.getRoom().getRoomNumber() == roomNumber
-                && b.getDate().equals(date) && b.getTimeSlot().equals(timeSlot));
+                && Objects.equals(b.getDate(), date) && Objects.equals(b.getTimeSlot(), timeSlot));
 
         if (isBooked) {
             System.out.println("Room is already booked for this date and time slot.");

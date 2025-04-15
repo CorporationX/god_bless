@@ -23,6 +23,4 @@ public class BookingNotifier {
             observer.update(booking, status);
         }
     }
-
-
 }
