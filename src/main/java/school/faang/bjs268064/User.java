@@ -1,7 +1,6 @@
 package school.faang.bjs268064;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-@Getter
 @Data
 public class User {
     private final String name;
