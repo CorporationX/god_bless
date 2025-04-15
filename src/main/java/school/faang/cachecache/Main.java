@@ -21,5 +21,8 @@ public class Main {
         frequentUpdateWeatherCache.getWeatherData("Berlin", 100L);
 
         standardWeatherCache.clearExpiredCache(100L);
+
+        WeatherData weatherData = new WeatherData("asd", 2.2, 2.3, 1L);
+        System.out.println(weatherData.city());
     }
 }

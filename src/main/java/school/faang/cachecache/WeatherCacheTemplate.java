@@ -4,19 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
-    private Map<String, WeatherData> mapWeatherCity;
-    private WeatherProvider weatherProvider;
+    private Map<String, WeatherData> mapWeatherCity = new HashMap<>();
+    private WeatherProvider weatherProvider = new WeatherService();
 
     public WeatherCacheTemplate() {
-        mapWeatherCity = new HashMap<>();
-        weatherProvider = new WeatherService();
     }
 
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public final WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if (mapWeatherCity.containsKey(city) && isCacheExpired(mapWeatherCity.get(city), maxCacheAgeMillis)) {
-            return mapWeatherCity.get(city);
+        WeatherData data = mapWeatherCity.get(city);
+        if (data != null && isCacheExpired(data, maxCacheAgeMillis)) {
+            return data;
         }
         WeatherData weatherData = weatherProvider.fetchWeatherData(city);
         mapWeatherCity.put(city, weatherData);
@@ -33,6 +32,6 @@ public abstract class WeatherCacheTemplate {
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         mapWeatherCity.entrySet()
-                .removeIf(entry -> (System.currentTimeMillis() - entry.getValue().getTimeStamp()) >= maxCacheAgeMillis);
+                .removeIf(entry -> (System.currentTimeMillis() - entry.getValue().timeStamp()) >= maxCacheAgeMillis);
     }
 }

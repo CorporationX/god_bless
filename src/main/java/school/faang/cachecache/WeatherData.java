@@ -1,13 +1,4 @@
 package school.faang.cachecache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class WeatherData {
-    private String city;
-    private double temperature;
-    private double humidity;
-    private long timeStamp;
+public record WeatherData(String city, double temperature, double humidity, long timeStamp) {
 }
