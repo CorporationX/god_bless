@@ -10,16 +10,16 @@ public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        if (handlers.containsKey(type)) {
+        if (this.handlers.containsKey(type)) {
             throw new IllegalArgumentException("Обработчик для данного типа уведомлений уже зарегистрирован");
         }
-        handlers.put(type, handler);
+        this.handlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> handler = handlers.get(notification.getType());
+        Consumer<Notification> handler = this.handlers.get(notification.getType());
         if (handler == null) {
-            throw new IllegalArgumentException("Обработчик не зарегитсрирован");
+            throw new IllegalArgumentException("Обработчик не зарегистрирован");
         }
         handler.accept(notification);
     }
@@ -27,7 +27,7 @@ public class NotificationManager {
     public void checkMessage(Notification notification) {
         Predicate<Notification> filter = notice -> notice.getMessage().contains("брань");
         if (filter.test(notification)) {
-            throw new IllegalArgumentException("Сообщение заблокировано, не прошла цензуру");
+            throw new IllegalArgumentException("Сообщение заблокировано, не прошло цензуру");
         }
     }
 
