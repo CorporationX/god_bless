@@ -18,13 +18,8 @@ public class HogwartsSpells {
         nextId++;
     }
 
-    public void getSpellEventById(int id) {
-        SpellEvent spell = spellById.get(id);
-        if (spell != null) {
-            System.out.println(spell);
-        } else {
-            System.out.println("Заклинание с таким ID не найдено.");
-        }
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {

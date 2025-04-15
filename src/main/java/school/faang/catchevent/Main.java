@@ -15,7 +15,12 @@ public class Main {
         spells.printAllSpellEvents();
 
         System.out.println("\nПолучение заклинания с ID = 2:");
-        spells.getSpellEventById(2);
+        SpellEvent spellEvent = spells.getSpellEventById(2);
+        if (spellEvent != null) {
+            System.out.println(spellEvent);
+        } else {
+            System.out.println("Заклинание с таким ID не найдено.");
+        }
 
         System.out.println("\nЗаклинания типа 'Чар':");
         List<SpellEvent> spellsByType = spells.getSpellEventsByType("Чар");
