@@ -1,7 +1,4 @@
-package school.faang.amazonwarehouse;
-
-import java.util.List;
-import java.util.Map;
+package school.faang.stream1.amazonwarehouse;
 
 public class Main {
     public static void main(String[] args) {

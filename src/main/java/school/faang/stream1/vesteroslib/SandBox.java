@@ -1,4 +1,4 @@
-package school.faang.vesteroslib;
+package school.faang.stream1.vesteroslib;
 
 public class SandBox {
     public static void main(String[] args) {

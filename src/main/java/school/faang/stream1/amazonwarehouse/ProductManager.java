@@ -1,4 +1,4 @@
-package school.faang.amazonwarehouse;
+package school.faang.stream1.amazonwarehouse;
 
 import java.util.ArrayList;
 import java.util.Collections;

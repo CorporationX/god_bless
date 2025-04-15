@@ -1,4 +1,4 @@
-package school.faang.vesteroslib;
+package school.faang.stream1.vesteroslib;
 
 import java.util.HashMap;
 import java.util.Map;
