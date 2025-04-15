@@ -6,7 +6,7 @@ public class Warrior extends Character {
     public static final int INTELLIGENCE = 3;
     public static final int STRENGTH = 10;
 
-    public Warrior(int agility, int intelligence, int strength, String name) {
+    public Warrior(String name) {
         super(AGILITY, INTELLIGENCE, STRENGTH, name);
     }
 
