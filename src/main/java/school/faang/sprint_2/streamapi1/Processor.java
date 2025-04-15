@@ -1,15 +1,20 @@
 package school.faang.sprint_2.streamapi1;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+
+@Setter
+@Getter
 public class Processor {
-    @NonNull List<Integer> numbers = new ArrayList<>();
-    @NonNull List<String> words = new ArrayList<>();
+    @NonNull private List<Integer> numbers = new ArrayList<>();
+    @NonNull private List<String> words = new ArrayList<>();
 
     public int sumEvenNumbers(List<Integer> numbers) {
         return numbers.stream().filter(number -> number % 2 == 0).reduce(0, Integer::sum);
