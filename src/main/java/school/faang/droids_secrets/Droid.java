@@ -7,6 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Droid {
     private String name;
+    private static DroidMessageEncryptionHandler messageEncryptor = (msg, key) -> {
+        StringBuilder encryptedMessage = new StringBuilder();
+        for (Character letter : msg.toCharArray()) {
+            char encryptedChar = letter;
+            if (Character.isLetter(letter) && Character.isUpperCase(letter)) {
+                encryptedChar = (char) (((letter - 'A') + key) % 26 + 'A');
+            } else if (Character.isLetter(letter) && Character.isLowerCase(letter)) {
+                encryptedChar = (char) (((letter - 'a') + key) % 26 + 'a');
+            }
+            encryptedMessage.append(encryptedChar);
+        }
+        return encryptedMessage.toString();
+    };
+
 
     public Droid(String name) {
         this.name = name;
@@ -24,26 +38,12 @@ public class Droid {
         System.out.printf("Decrypted message received: %s%n", decryptedMessage);
     }
 
-    private String encryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-
-            for (Character letter : msg.toCharArray()) {
-                char encryptedChar = letter;
-                if (Character.isLetter(letter) && Character.isUpperCase(letter)) {
-                    encryptedChar = (char) (((letter - 'A') + key) % 26 + 'A');
-                } else if (Character.isLetter(letter) && Character.isLowerCase(letter)) {
-                    encryptedChar = (char) (((letter - 'a') + key) % 26 + 'a');
-                }
-                encryptedMessage.append(encryptedChar);
-            }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encryptMessage(message, encryptionKey);
+    private String encryptMessage(String messageToEncrypt, int encryptionKey) {
+        return messageEncryptor.handleMessageEncryption(messageToEncrypt, encryptionKey);
     }
 
     private String decryptMessage(String encryptedMessage, int encryptionKey) {
-        DroidMessageEncryptor decryptor = (msg, key) -> {
+        DroidMessageEncryptionHandler messageDecryptor = (msg, key) -> {
             StringBuilder decryptedMessage = new StringBuilder();
             for (Character letter : msg.toCharArray()) {
                 char encryptedChar = letter;
@@ -56,6 +56,6 @@ public class Droid {
             }
             return decryptedMessage.toString();
         };
-        return decryptor.encryptMessage(encryptedMessage, encryptionKey);
+        return messageDecryptor.handleMessageEncryption(encryptedMessage, encryptionKey);
     }
 }
