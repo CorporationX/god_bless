@@ -9,18 +9,20 @@ import java.util.function.Consumer;
 @Slf4j
 public class NotificationManager {
 
-    private final Map<NotificationType, Consumer<Notification>> consumerMap = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        consumerMap.put(type, handler);
-        log.info("Registered handler for " + type);
+        notificationHandlers.put(type, handler);
+        log.info("Registered handler for {}", type);
     }
 
     public void sendNotification(Notification notification) {
-        for (Map.Entry<NotificationType, Consumer<Notification>> entry : consumerMap.entrySet()) {
-            log.info("Sending notification " + entry.getKey());
-            entry.getValue().accept(notification);
-
+        Consumer<Notification> handler = notificationHandlers.get(notification.getType());
+        if (handler != null) {
+            log.info("Sending notification for {}", notification.getType());
+            handler.accept(notification);
+        } else {
+            log.info("No handler for {}", notification.getType());
         }
     }
 }
