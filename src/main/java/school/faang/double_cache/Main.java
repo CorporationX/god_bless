@@ -12,9 +12,9 @@ public class Main {
 
         log.info("Test1: 'Добавление студентов с предметами'");
         Map<Subject, Integer> subjects1 = new HashMap<>();
-        Subject math = new Subject("Математика", "MATH101");
-        Subject physics = new Subject("Физика", "PHYS201");
-        Subject chemistry = new Subject("Химия", "CHEM301");
+        Subject math = new Subject("Математика");
+        Subject physics = new Subject("Физика");
+        Subject chemistry = new Subject("Химия");
         subjects1.put(math, 5);
         subjects1.put(physics, 4);
         subjects1.put(chemistry, 3);
@@ -40,7 +40,7 @@ public class Main {
         log.info(database.getAllStudentsWithGrades());
 
         log.info("Test3: 'Добавление предмета с группой студентов'");
-        Subject biology = new Subject("Биология", "BIO401");
+        Subject biology = new Subject("Биология");
         database.addSubjectWithStudents(biology, List.of(student1, student3));
         log.info("После добавления биологии:");
         database.printAllSubjectsWithStudents();

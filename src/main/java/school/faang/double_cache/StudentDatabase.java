@@ -10,20 +10,24 @@ import java.util.Map;
 @Getter
 public class StudentDatabase {
 
-    Map<Student, Map<Subject, Integer>> studentSubjects;
-    Map<Subject, List<Student>> subjectStudents;
+    Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public StudentDatabase() {
-        this.studentSubjects = new HashMap<>();
-        this.subjectStudents = new HashMap<>();
     }
 
     public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Integer> subjectsWithGrades) {
         if (student == null || subjectsWithGrades == null) {
-            throw new IllegalArgumentException("Student and subjects not be a null");
+            throw new IllegalArgumentException("Student or subjects not be a null");
         }
 
-        studentSubjects.put(student, new HashMap<>(subjectsWithGrades));
+        Map<Subject, Integer> existingSubjects = studentSubjects.getOrDefault(student, new HashMap<>());
+
+        for (Map.Entry<Subject, Integer> entry : subjectsWithGrades.entrySet()) {
+            existingSubjects.putIfAbsent(entry.getKey(), entry.getValue());
+        }
+
+        studentSubjects.put(student, existingSubjects);
 
         for (Subject subject : subjectsWithGrades.keySet()) {
             subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
@@ -34,32 +38,21 @@ public class StudentDatabase {
         if (student == null || subject == null || grade == null) {
             throw new IllegalArgumentException("Student, subject and grade cannot be null");
         }
-
-        if (!studentSubjects.containsKey(student)) {
-            throw new IllegalArgumentException("Student not found in database");
-        }
-        studentSubjects.get(student).put(subject, grade);
+        studentSubjects.computeIfAbsent(student, newMap -> new HashMap<>()).put(subject, grade);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null");
-        }
-
-        if (!studentSubjects.containsKey(student)) {
-            throw new IllegalArgumentException("Student not found in database");
-        }
         Map<Subject, Integer> subjects = studentSubjects.get(student);
-        for (Subject subject : subjects.keySet()) {
-            List<Student> studentsForSubject = subjectStudents.get(subject);
-            if (studentsForSubject != null) {
-                studentsForSubject.remove(student);
-
-                if (studentsForSubject.isEmpty()) {
-                    subjectStudents.remove(subject);
+        if (subjects != null) {
+            subjects.keySet().removeIf(subject -> {
+                List<Student> students = subjectStudents.get(subject);
+                if (students != null) {
+                    students.remove(student);
+                    return students.isEmpty();
                 }
-            }
+                return false;
+            });
         }
     }
 

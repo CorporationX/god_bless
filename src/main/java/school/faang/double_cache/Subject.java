@@ -1,12 +1,9 @@
 package school.faang.double_cache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class Subject {
+public record Subject(String name) {
 
-    private String name;
-    private String code;
+    public String getName() {
+        return name();
+    }
 }
