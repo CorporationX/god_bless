@@ -1,7 +1,8 @@
 package school.faang;
 
 import java.util.Objects;
-
+import lombok.Data;
+@Data
 public class Book {
     private String title;
     private String author;
