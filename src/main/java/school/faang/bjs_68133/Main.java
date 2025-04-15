@@ -1,6 +1,6 @@
 package school.faang.bjs_68133;
 
-import static school.faang.bjs_68133.Example.*;
+import static school.faang.bjs_68133.Example.printArray;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,7 +10,6 @@ public class Main {
             Example.reverse(nums);
             System.out.println("Развёрнутый массив:");
             printArray(nums);
-
             Example.reverse(nums);
             System.out.println("Развёрнутый массив:");
             printArray(nums);
