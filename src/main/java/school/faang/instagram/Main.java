@@ -5,11 +5,11 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         Function<Image, Image> functionSepia = image ->
-                new Image(image.getName(), image.getDescription() + ", add sepia");
+                new Image(image.name(), image.description() + ", add sepia");
         Function<Image, Image> functionBlackWhite = image ->
-                new Image(image.getName(), image.getDescription() + ", add Black-White");
+                new Image(image.name(), image.description() + ", add Black-White");
         Function<Image, Image> functionSpirit = image ->
-                new Image(image.getName(), image.getDescription() + ", add Spirit");
+                new Image(image.name(), image.description() + ", add Spirit");
 
         Image image1 = new Image("original", "Original image");
         Image image2 = new Image("new jpg", "here is empty");
