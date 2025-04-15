@@ -31,11 +31,15 @@ public class NotificationManager {
         }
     }
 
-    public void addHeader(Notification notification) {
-        Function<Notification, Notification> corrector = notice -> {
-            notice.setMessage(notification.getMessage() + "\nC Уважением, Meta\n");
-            return notice;
-        };
+    public void addHeader(Function<Notification, Notification> corrector, Notification notification ) {
         corrector.apply(notification);
     }
+
+//    public void addHeader(Notification notification) {
+//        Function<Notification, Notification> corrector = notice -> {
+//            notice.setMessage(notification.getMessage() + "\nC Уважением, Meta\n");
+//            return notice;
+//        };
+//        corrector.apply(notification);
+//    }
 }

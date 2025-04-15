@@ -17,7 +17,7 @@ public class Main {
         );
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Вам пришло сообщение с бранью");
+        Notification smsNotification = new Notification(NotificationType.SMS, "Вам пришло сообщение с ");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
 
         notificationManager.sendNotification(emailNotification);
@@ -26,9 +26,12 @@ public class Main {
 
         notificationManager.checkMessage(smsNotification);
 
-        notificationManager.addHeader(emailNotification);
-        notificationManager.addHeader(smsNotification);
-        notificationManager.addHeader(pushNotification);
+        notificationManager.addHeader((notification -> {
+            notification.setMessage(notification.getMessage() + "\nC Уважением, Meta\n");
+            return notification;
+        }), emailNotification);
+//        notificationManager.addHeader(smsNotification);
+//        notificationManager.addHeader(pushNotification);
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
