@@ -2,15 +2,14 @@ package school.faang.bjs2_69309;
 
 public abstract class Character {
 
-
     private static final int DEFAULT_POWER = 5;
     private static final int DEFAULT_AGILITY = 5;
     private static final int DEFAULT_INTELLIGENCE = 5;
 
     protected String name;
-    protected int POWER;
-    protected int AGILITY;
-    protected int INTELLIGENCE;
+    protected int power;
+    protected int agility;
+    protected int intelligence;
     protected int health = 100;
 
     public Character(String name) {
@@ -19,9 +18,9 @@ public abstract class Character {
 
     public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
-        POWER = power;
-        AGILITY = agility;
-        INTELLIGENCE = intelligence;
+        this.power = power;
+        this.agility = agility;
+        this.intelligence = intelligence;
     }
 
     abstract void attack(Character opponent);
