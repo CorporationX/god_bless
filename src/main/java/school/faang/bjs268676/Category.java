@@ -1,4 +1,4 @@
-package school.faang.bjs2_68676;
+package school.faang.bjs268676;
 
 public enum Category {
     FOOD,

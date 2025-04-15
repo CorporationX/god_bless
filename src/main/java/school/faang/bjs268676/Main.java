@@ -1,10 +1,8 @@
-package school.faang.bjs2_68676;
-
-import lombok.extern.slf4j.Slf4j;
+package school.faang.bjs268676;
 
 import java.util.List;
+import java.util.Map;
 
-@Slf4j
 public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
@@ -20,7 +18,7 @@ public class Main {
         productManager.addProduct(Category.OTHER, "Chair");
         productManager.removeProduct(Category.CLOTHING, "Shoes");
         List<Product> electronics = productManager.findProductsByCategory(Category.FOOD);
-        var categoryByGroups = productManager.groupProductsByCategory();
+        Map<Category, List<Product>> categoryByGroups = productManager.groupProductsByCategory();
         productManager.printAllProducts();
     }
 }
