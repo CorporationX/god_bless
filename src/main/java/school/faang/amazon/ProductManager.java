@@ -16,7 +16,7 @@ public class ProductManager {
 
     private final Set<Product> productSet = new HashSet<>();
 
-    public boolean addProduct(int id,Category category, String name) {
+    public boolean addProduct(int id, Category category, String name) {
         Product product = new Product(id, name, category);
         return productSet.add(product);
     }
