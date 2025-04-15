@@ -1,11 +1,8 @@
 package school.faang.bjs2_68748;
 
-import lombok.NoArgsConstructor;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@NoArgsConstructor
 public class LibrarySystem {
     private final Map<Book, String> library = new HashMap<>();
 
@@ -28,7 +25,7 @@ public class LibrarySystem {
         System.out.println("Все книги в библиотеке:");
         for (Map.Entry<Book, String> entry : library.entrySet()) {
             System.out.printf("Книга \"%s (%s, %d)\" находится здесь: %s%n",
-                    entry.getKey().getTitle(), entry.getKey().getAuthor(), entry.getKey().getYear(), entry.getValue());
+                    entry.getKey().title(), entry.getKey().author(), entry.getKey().year(), entry.getValue());
         }
     }
 }
