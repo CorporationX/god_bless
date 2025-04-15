@@ -1,42 +1,47 @@
 package school.faang.westeroslibrary;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class LibrarySystem {
-    private final Map<Book, String> bookLocations;
-
-    public LibrarySystem() {
-        this.bookLocations = new HashMap<>();
-    }
+    private final Map<Book, String> bookLocations = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
-        bookLocations.put(book, location);
-        System.out.println("Книга добавлена: " + book + " на местонахождение: " + location);
+        this.bookLocations.put(book, location);
+        log.info("Книга добавлена: '{}' автора {} ({} г.) на полку: {}",
+                title, author, year, location);
     }
 
     public void removeBook(String title, String author, int year) {
         Book bookToRemove = new Book(title, author, year);
-        if (bookLocations.remove(bookToRemove) != null) {
-            System.out.println("Книга удалена");
+        if (this.bookLocations.remove(bookToRemove) != null) {
+            log.info("Книга '{}' автора {} ({} г.) удалена!", title, author, year);
         } else {
-            System.out.println("В библиотеке нет такой книги");
+            log.warn("Ошибка удаления! Книга '{}' не найдена ", title);
         }
     }
 
-    public String findBook(String title, String author, int year) {
-        Book book = new Book(title, author, year);
-        return bookLocations.getOrDefault(book, "Книга не найдена в библиотеке.");
+    public void findBook(String title, String author, int year) {
+        Book bookToFind = new Book(title, author, year);
+        String location = this.bookLocations.get(bookToFind);
+        if (location != null) {
+            log.info("Найдена книга: '{}' автора {} ({} г.) - полка: {}",
+                    title, author, year, location);
+        } else {
+            log.info("Книга не найдена: '{}' автора {} ({} г.)", title, author, year);
+        }
     }
 
     public void printAllBooks() {
-        if (bookLocations.isEmpty()) {
-            System.out.println("В библиотеке нет книг.");
+        if (this.bookLocations.isEmpty()) {
+            log.info("Библиотека пуста");
             return;
         }
-        for (Map.Entry<Book, String> entry : bookLocations.entrySet()) {
-            System.out.println(entry.getKey() + " находится на полке: " + entry.getValue());
-        }
+        this.bookLocations.forEach((book, location) ->
+                log.info("{} - находится на полке: {}", book, location));
     }
 }
