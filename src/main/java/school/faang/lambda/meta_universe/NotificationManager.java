@@ -25,6 +25,8 @@ public class NotificationManager {
         MessageValidator validator = new MessageValidator();
         if (validator.test(notification)) {
             handlerContainer.get(notification.getType()).accept(notification);
+        } else {
+            log.info("Your message was not sent");
         }
     }
 
