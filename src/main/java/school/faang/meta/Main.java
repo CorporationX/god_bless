@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Logger logger = LoggerFactory.getLogger(Main.class);
+        final Logger logger = LoggerFactory.getLogger(Main.class);
 
         NotificationManager notificationManager = new NotificationManager();
 
