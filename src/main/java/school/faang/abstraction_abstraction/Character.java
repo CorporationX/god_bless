@@ -29,4 +29,4 @@ public abstract class Character {
     protected void setHealth(int damage) {
         this.health = Math.max(health - damage, 0);
     }
- }
+}
