@@ -30,7 +30,7 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent removedEvent  = spellById.remove(id);
+        SpellEvent removedEvent = spellById.remove(id);
         if (removedEvent == null) {
             log.error("Invalid spell id: {}", id);
             throw new IllegalArgumentException("Invalid spell id: " + id);
