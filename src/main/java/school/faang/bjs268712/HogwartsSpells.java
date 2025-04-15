@@ -30,19 +30,20 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        if (!spellById.containsKey(id)) {
+        SpellEvent removedEvent  = spellById.remove(id);
+        if (removedEvent == null) {
             log.error("Invalid spell id: {}", id);
             throw new IllegalArgumentException("Invalid spell id: " + id);
         }
-        SpellEvent eventToRemove = spellById.remove(id);
-        List<SpellEvent> events = spellsByType.get(eventToRemove.getEventType());
+
+        List<SpellEvent> events = spellsByType.get(removedEvent.getEventType());
         if (events != null) {
             events.removeIf(event -> event.getId() == id);
             if (events.isEmpty()) {
-                spellsByType.remove(eventToRemove.getEventType());
+                spellsByType.remove(removedEvent.getEventType());
             }
         }
-        log.info("Removed spell event by id: " + id + ": " + eventToRemove.getEventType());
+        log.info("Removed spell event by id: " + id + ": " + removedEvent.getEventType());
     }
 
     public void printAllSpellEvents() {
