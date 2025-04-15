@@ -29,9 +29,9 @@ public class ActivityAnalyzer {
 
     public static List<String> topHashTags(List<UserAction> actions, int topToReturn) {
         return actions.stream()
-                .filter(action -> (action.getActionType() == ActionType.POST ||
-                        action.getActionType() == ActionType.COMMENT) &&
-                        !action.getContent().isBlank())
+                .filter(action -> (action.getActionType() == ActionType.POST
+                        || action.getActionType() == ActionType.COMMENT)
+                        && !action.getContent().isBlank())
                 .flatMap(action -> tagPattern.matcher(action.getContent())
                         .results()
                         .map(match -> match.group(1)))
@@ -45,8 +45,8 @@ public class ActivityAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int topToReturn) {
         return actions.stream()
-                .filter(action -> action.getActionType() == ActionType.COMMENT &&
-                        action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+                .filter(action -> action.getActionType() == ActionType.COMMENT
+                        && action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
                 .collect(Collectors.groupingBy(action ->
                         Map.of(action.getId(), action.getName()), Collectors.counting()))
                 .entrySet().stream()
