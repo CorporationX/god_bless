@@ -11,8 +11,8 @@ public class Main {
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.caster(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.caster(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.caster(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+        spellCaster.caster(alohomora, (spell) -> String.format("The door is unlocked by %s", spell));
+        spellCaster.caster(lumos, (spell) -> String.format("A beam of light is created by %s", spell));
+        spellCaster.caster(expelliarmus, (spell) -> String.format("The opponent is disarmed by %s", spell));
     }
 }
