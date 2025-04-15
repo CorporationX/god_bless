@@ -59,8 +59,7 @@ public class ProjectManager {
 
     public void assignTeamToProject(int projectId) {
         Project project = findProjectById(projectId);
-        project.setTeamMembers
-                (assignmentStrategy.assignTeam(companyProjects.get(projectId), companyEmployees));
+        project.setTeamMembers(assignmentStrategy.assignTeam(companyProjects.get(projectId), companyEmployees));
     }
 
     public List<Employee> getTeamToProject(int projectId) {

@@ -6,5 +6,6 @@ import java.util.Set;
 
 public interface TeamAssignmentStrategy {
     Set<Employee> acceptedEmployees = new HashSet<>();
+
     List<Employee> assignTeam(Project project, List<Employee> employees);
 }
