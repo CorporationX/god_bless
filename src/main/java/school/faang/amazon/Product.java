@@ -1,18 +1,24 @@
 package school.faang.amazon;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class Product {
 
-    private int id;
+    private final int id;
 
-    private String name;
+    private final String name;
 
-    private Category category;
+    private final Category category;
 
-    public Product(String name, Category category) {
+    public Product(int id, String name, Category category) {
+        this.id = id;
         this.name = name;
         this.category = category;
     }
+
 }
