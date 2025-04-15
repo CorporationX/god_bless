@@ -3,7 +3,6 @@ package school.faang.practicstream1;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ListOperation {
@@ -15,8 +14,9 @@ public class ListOperation {
     }
 
     public static int findMaxElement(List<Integer> numbers) {
-        Optional<Integer> max = numbers.stream().max(Integer::compareTo);
-        return max.orElseThrow(() -> new NoSuchElementException("Нет элементов в списке"));
+        return numbers.stream()
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов в списке"));
     }
 
     public static double findAverageValue(List<Integer> numbers) {
