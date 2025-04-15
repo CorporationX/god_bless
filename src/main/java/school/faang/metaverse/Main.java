@@ -9,11 +9,11 @@ public class Main {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.printf("📧 Email: %s", notification.getMessage()));
+                notification -> System.out.printf("📧 Email: %s\n", notification.getMessage()));
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.printf("📱 SMS: %s", notification.getMessage()));
+                notification -> System.out.printf("📱 SMS: %s\n", notification.getMessage()));
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.printf("🔔 Push Notification: %s", notification.getMessage()));
+                notification -> System.out.printf("🔔 Push Notification: %s\n", notification.getMessage()));
 
         notificationManager.addFilter(notification -> !notification.getMessage().contains("badword"));
 
@@ -35,7 +35,7 @@ public class Main {
         try {
             notificationManager.sendNotification(blockedNotification);
         } catch (IllegalStateException e) {
-            System.out.printf("🚫 Blocked notification: %s", e.getMessage());
+            System.out.printf("🚫 Blocked notification: %s\n", e.getMessage());
         }
     }
 }
