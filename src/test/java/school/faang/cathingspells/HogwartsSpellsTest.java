@@ -24,11 +24,20 @@ class HogwartsSpellsTest {
 
     @Test
     void shouldGetSpellEventById() {
-        SpellEvent spellEvent = hogwartsSpells.addSpellEvent("Common",
+        SpellEvent spellEvent1 = hogwartsSpells.addSpellEvent("Common",
                 "Lumos for getting area lighten");
-        Integer id = spellEvent.getId();
+        SpellEvent spellEvent2 = hogwartsSpells.addSpellEvent("Common",
+                "Reparo for getting things fixed");
+        SpellEvent spellEvent3 = hogwartsSpells.addSpellEvent("Battle",
+                "Expeliarmus for disarming your opponent");
+        Integer id1 = spellEvent1.getId();
+        Integer id2 = spellEvent2.getId();
+        Integer id3 = spellEvent3.getId();
 
-        assertEquals(hogwartsSpells.getSpellById().get(id), hogwartsSpells.getSpellEventById(id));
+        assertEquals(1, id1);
+        assertEquals(2, id2);
+        assertEquals(3, id3);
+        assertEquals(hogwartsSpells.getSpellById().get(id1), hogwartsSpells.getSpellEventById(id1));
     }
 
     @Test
