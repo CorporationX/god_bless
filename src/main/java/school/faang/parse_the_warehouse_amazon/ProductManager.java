@@ -11,10 +11,16 @@ import java.util.stream.Collectors;
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be null or empty");
+        }
+    }
+
     public Product addProduct(Category category, String name) {
         String trimmedName = name.trim();
         Objects.requireNonNull(category, "Category cannot be null");
-        if (name.trim().isEmpty()) {
+        if (trimmedName.isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be null or empty");
         }
 
@@ -28,15 +34,14 @@ public class ProductManager {
     public boolean removeProduct(Category category, String name) {
         String trimmedName = name.trim();
         Objects.requireNonNull(category, "Category cannot be null");
-        if (trimmedName.isEmpty()) {
-            throw new IllegalArgumentException("Product name cannot be null or empty");
+        validateName(trimmedName);
+        {
+            return products.removeIf(product ->
+                    product.getCategory() == category
+                            && product.getName().equalsIgnoreCase(trimmedName)
+            );
         }
-        return products.removeIf(product ->
-                product.getCategory() == category
-                        && product.getName().equalsIgnoreCase(name.trim())
-        );
     }
-
     public List<Product> findProductsByCategory(Category category) {
         Objects.requireNonNull(category, "Category cannot be null");
 
