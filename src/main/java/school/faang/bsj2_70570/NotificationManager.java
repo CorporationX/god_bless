@@ -1,39 +1,57 @@
 package school.faang.bsj2_70570;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Data
-@AllArgsConstructor
 public class NotificationManager {
 
     private Map<NotificationType, Consumer<Notification>> notifications;
-    private Map<NotificationType, Predicate<Notification>> profanityFilter;
+    private Map<NotificationType, Predicate<Notification>> profanityFilters;
     private Map<NotificationType, Function<Notification, Notification>> messageChanger;
 
+    public NotificationManager() {
+        this.notifications = new HashMap<>();
+        this.profanityFilters = new HashMap<>();
+        this.messageChanger = new HashMap<>();
+    }
+
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notifications.putIfAbsent(type, handler);
+        this.notifications.putIfAbsent(type, handler);
     }
 
-    public void sendNotification(Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
-    }
-
+    /*
+    Полагаю, что хотели увидеть от меня примерно такую проверку. Я пока не очень хорош в работах с мапами
+    (хотя хорошо понимаю, как они работают "под капотом"), с остальными коллекциями всё ок:(.
+     */
     public void registerProfanityFilter(NotificationType type, Predicate<Notification> filter) {
-        profanityFilter.putIfAbsent(type, filter);
-    }
+        this.profanityFilters.putIfAbsent(type, filter);
+        boolean isTypeAdded = profanityFilters.entrySet().stream()
+                .anyMatch(entry -> profanityFilters.containsKey(entry.getKey()));
+        boolean isFilterAdded = profanityFilters.entrySet().stream()
+                .anyMatch(entry -> profanityFilters.containsKey(entry.getValue()));
 
-    public boolean sendProfanityNotification(Notification notification) {
-        return profanityFilter.get(notification.getType()).test(notification);
+        if (isTypeAdded || isFilterAdded) {
+            System.out.println("Profanity Filter Added");
+        }
+        System.out.println("Adding Profanity Filter failed");
     }
 
     public void registerMessageChanger(NotificationType type, Function<Notification, Notification> changer) {
         messageChanger.putIfAbsent(type, changer);
+    }
+
+    public void sendNotification(Notification notification) {
+        this.notifications.get(notification.getType()).accept(notification);
+    }
+
+    public boolean sendProfanityNotification(Notification notification) {
+        return profanityFilters.get(notification.getType()).test(notification);
     }
 
     public void changeNotificationMessage(Notification notification) {

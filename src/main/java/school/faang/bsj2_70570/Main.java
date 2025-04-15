@@ -1,43 +1,37 @@
 package school.faang.bsj2_70570;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        NotificationManager notificationManager =
-                new NotificationManager(new HashMap<>(), new HashMap<>(), new HashMap<>());
+        NotificationManager notificationManager = new NotificationManager();
+        // Не экстракчу, тк это довольно маленький блок кода. Будет больше - непременно заэкстрактил бы.
         notificationManager.registerHandler(NotificationType.EMAIL,
                 handler -> System.out.println("Email: " + handler.getMessage()));
         notificationManager.registerHandler(NotificationType.PUSH,
                 handler -> System.out.println("Push: " + handler.getMessage()));
         notificationManager.registerHandler(NotificationType.SMS,
                 handler -> System.out.println("SMS: " + handler.getMessage()));
-        notificationManager.registerProfanityFilter(NotificationType.EMAIL,
-                handler -> {
-                    if (handler.getMessage().equals("Curse")) {
-                        System.out.println(handler.getMessage() + " contained profanity and was not sent");
-                        return true;
-                    }
-                    return false;
-                });
-        notificationManager.registerProfanityFilter(NotificationType.SMS,
-                handler -> {
-                    if (handler.getMessage().equals("Curse")) {
-                        System.out.println(handler.getType() + " contained profanity and was not sent");
-                        return true;
-                    }
-                    return false;
-                });
-        notificationManager.registerProfanityFilter(NotificationType.PUSH,
-                handler -> {
-                    if (handler.getMessage().equals("Curse")) {
-                        System.out.println(handler.getType() + " contained profanity and was not sent");
-                        return true;
-                    }
-                    return false;
-                });
 
+        // Как вынести это в переменную догадался только при решении следующей задачи.
+        Predicate<Notification> isProfane = profanityHandler -> {
+            if (profanityHandler.getMessage().equals("Curse")) {
+                System.out.println(profanityHandler.getType() + " contained profanity and was not sent");
+                return true;
+            }
+            return false;
+        };
+
+        notificationManager.registerProfanityFilter(NotificationType.EMAIL, isProfane);
+        notificationManager.registerProfanityFilter(NotificationType.SMS, isProfane);
+        notificationManager.registerProfanityFilter(NotificationType.PUSH, isProfane);
+        /* Аналогично, был бы код более громоздкий - заэкстрактил бы.
+            От себя добавлю, что именно такой синтаксис даётся мне крайне сложно почему-то,
+            то есть если лямбда вызывается "на ходу" и не в рамках стримов, по какой-то причине
+            мне гораздо сложнее это воспринимать. Сам не знаю почему, будто блок какой-то в голове.
+            При использовании stream api всё интуитивно как-то выходит.
+         */
         notificationManager.registerMessageChanger(NotificationType.EMAIL,
                 notification -> {
                     notification.setMessage(notification.getMessage() + ". respond at roga&kopyta@gmail.com");
