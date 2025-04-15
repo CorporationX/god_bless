@@ -7,7 +7,7 @@ public class LibrarySystem {
     private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        library.put(new Book(title, author, year), location);
+        library.putIfAbsent(new Book(title, author, year), location);
     }
 
     public void removeBook(String title, String author, int year) {
