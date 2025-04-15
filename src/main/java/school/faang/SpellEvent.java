@@ -1,29 +1,19 @@
 package school.faang;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class SpellEvent {
-    private int currentId = 1;
+    private int id;
+    @Getter @Setter
     private String eventType;
     private String action;
 
-    public SpellEvent(String eventType, String action) {
-        int id = currentId++;
+    public SpellEvent(int id, String eventType, String action) {
+        this.id = id;
         this.eventType = eventType;
-        this.action = action;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
         this.action = action;
     }
 }
