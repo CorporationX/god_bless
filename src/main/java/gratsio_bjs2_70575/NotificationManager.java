@@ -7,12 +7,12 @@ import java.util.function.Predicate;
 import java.util.function.Function;
 
 public class NotificationManager {
-    Map<NotificationType, Consumer<Notification>> manager = new HashMap<>();
+    Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
     Predicate<Notification> filter = notification -> true;
     Function<Notification, Notification> messageCorrector = notification -> notification;
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        manager.put(type, handler);
+        this.handlers.put(type, handler);
     }
 
     public void addFilter(Predicate<Notification> filter) {
@@ -25,12 +25,15 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         if (filter.test(notification)) {
-            Notification correctNotification = messageCorrector.apply(notification);
-            Consumer<Notification> handler = manager.get(correctNotification.getType());
+            Consumer<Notification> handler = this.handlers.get(notification.getType());
             if (handler != null) {
+                Notification correctNotification = messageCorrector.apply(notification);
                 handler.accept(correctNotification);
+            } else {
+                System.out.println("No handler registered for " + notification.getType());
             }
-            else System.out.println("No handler registered for " + notification.getType());
-        } else System.out.println("The alert contains profanity!");
+        } else {
+            System.out.println("The alert contains profanity!");
+        }
     }
 }
