@@ -20,7 +20,7 @@ public class Main {
         }
         List<SpellEvent> attackSpells = hogwartsSpells.getSpellEventsByType("Attack");
         if (attackSpells != null) {
-            for (SpellEvent event: attackSpells){
+            for (SpellEvent event : attackSpells) {
                 log.info(event.getEventType());
             }
         }
