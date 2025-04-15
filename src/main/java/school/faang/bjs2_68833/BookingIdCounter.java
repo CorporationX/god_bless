@@ -1,12 +1,12 @@
 package school.faang.bjs2_68833;
 
-import lombok.experimental.UtilityClass;
+import java.util.concurrent.atomic.AtomicLong;
 
-@UtilityClass
+
 public class BookingIdCounter {
-    private static long bookingId = 0;
+    private static final AtomicLong BOOKING_ID = new AtomicLong();
 
     public static long getNextBookingId() {
-        return ++bookingId;
+        return BOOKING_ID.get();
     }
 }

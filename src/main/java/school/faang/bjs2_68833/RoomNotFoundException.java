@@ -1,7 +1,9 @@
 package school.faang.bjs2_68833;
 
-public class RoomNotFoundException extends RuntimeException {
-    public RoomNotFoundException(String message) {
-        super(message);
+import java.util.NoSuchElementException;
+
+public class RoomNotFoundException extends NoSuchElementException {
+    public RoomNotFoundException(String msg) {
+        super(msg);
     }
 }
