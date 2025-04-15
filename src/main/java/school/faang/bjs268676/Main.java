@@ -18,7 +18,15 @@ public class Main {
         productManager.addProduct(Category.OTHER, "Chair");
         productManager.removeProduct(Category.CLOTHING, "Shoes");
         List<Product> electronics = productManager.findProductsByCategory(Category.FOOD);
+        for (Product product : electronics) {
+            System.out.println(product);
+        }
         Map<Category, List<Product>> categoryByGroups = productManager.groupProductsByCategory();
+        for (Category category : categoryByGroups.keySet()) {
+            for (Product product : categoryByGroups.get(category)) {
+                System.out.println(product);
+            }
+        }
         productManager.printAllProducts();
     }
 }
