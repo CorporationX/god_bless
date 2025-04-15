@@ -1,17 +1,9 @@
 package school.faang.bjs2_70555;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@EqualsAndHashCode
-@ToString
-@Getter
-@AllArgsConstructor
+@Data
 public class Notification {
     private final NotificationType type;
-    @Setter
-    private String message;
+    private final String message;
 }
