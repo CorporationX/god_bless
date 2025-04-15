@@ -12,9 +12,6 @@ public abstract class Character {
     private int intelligence;
     private int health = 100;
 
-    public Character() {
-    }
-
     public Character(String name) {
         this.name = name;
         this.strength = 5;
