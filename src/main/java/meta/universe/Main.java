@@ -19,10 +19,6 @@ public class Main {
         notificationManager.addFilter(notification -> notification.getMessage().contains("kill"));
         notificationManager.addFilter(notification -> notification.getMessage().contains("parallelepiped"));
 
-        notificationManager.checkBadWords(sms);
-        notificationManager.checkBadWords(meeting);
-        notificationManager.checkBadWords(push);
-
         notificationManager.sendNotification(sms);
         notificationManager.sendNotification(meeting);
         notificationManager.sendNotification(push);

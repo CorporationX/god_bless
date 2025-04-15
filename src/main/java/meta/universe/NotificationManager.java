@@ -25,8 +25,15 @@ public class NotificationManager {
     public void sendNotification(Notification notification) {
         if (Objects.isNull(notification)) {
             throw new IllegalArgumentException("Please use non null parameter!");
+        } else if (!notifyAndHandlers.containsKey(notification.getType())) {
+            throw new IllegalArgumentException("This notification type doesn t exist!");
+        } else if (notifyAndHandlers.get(notification.getType()) == null) {
+            throw new IllegalArgumentException("Notification for this type doesn t exist!");
         }
-        notifyAndHandlers.get(notification.getType()).accept(notification);
+
+        if (checkBadWords(notification)) {
+            notifyAndHandlers.get(notification.getType()).accept(notification);
+        }
     }
 
     public void addFilter(Predicate<Notification> filter) {
@@ -36,14 +43,15 @@ public class NotificationManager {
         filterBadWords.add(filter);
     }
 
-    public void checkBadWords(Notification notification) {
+    public boolean checkBadWords(Notification notification) {
         if (Objects.isNull(notification)) {
             throw new IllegalArgumentException("Please use non null parameter!");
         }
         for (Predicate<Notification> filter : filterBadWords) {
             if (filter.test(notification)) {
-                notification.setMessage("This message violates our app policy!");
+                return false;
             }
         }
+        return true;
     }
 }
