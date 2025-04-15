@@ -3,13 +3,12 @@ package school.faang.abstraction_abstraction;
 import lombok.Data;
 
 @Data
-
-abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
+public abstract class Character {
+    protected String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -24,4 +23,10 @@ abstract class Character {
         this.agility = agility;
         this.intelligence = intelligence;
     }
-}
+
+    public abstract void attack(Character opponent);
+
+    protected void setHealth(int damage) {
+        this.health = Math.max(health - damage, 0);
+    }
+ }
