@@ -20,7 +20,7 @@ public abstract class WeatherCacheTemplate {
     public abstract boolean isCacheExpired(WeatherData weatherData, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(@NonNull String city, long maxCacheAgeMillis) {
-        weatherDataCache.computeIfAbsent(city, newCity -> weatherProvider.fetchWeatherData(city));
+        weatherDataCache.computeIfAbsent(city, weatherProvider::fetchWeatherData);
 
         if (isCacheExpired(weatherDataCache.get(city), maxCacheAgeMillis)) {
             forceUpdateWeather(city);
@@ -36,8 +36,7 @@ public abstract class WeatherCacheTemplate {
         weatherDataCache = weatherDataCache
                 .entrySet()
                 .stream()
-                .filter(entry ->
-                        !isCacheExpired(entry.getValue(), maxCacheAgeMillis))
+                .filter(entry -> !isCacheExpired(entry.getValue(), maxCacheAgeMillis))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
