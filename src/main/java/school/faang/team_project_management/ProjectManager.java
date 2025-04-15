@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -15,8 +14,8 @@ public class ProjectManager {
     private List<Employee> employees = new ArrayList<>();
     private List<Project> projects = new ArrayList<>();
     private TeamAssignmentStrategy assignmentStrategy;
-    private int employeesCount = 0;
-    private int projectsCount = 0;
+    private int employeesIdCounter = 0;
+    private int projectsIdCounter = 0;
 
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
         this.assignmentStrategy = strategy;
@@ -35,13 +34,13 @@ public class ProjectManager {
     }
 
     public void addEmployee(String name, Set<String> skills) {
-        employeesCount++;
-        employees.add(new Employee(employeesCount, name, skills, 0));
+        employeesIdCounter++;
+        employees.add(new Employee(employeesIdCounter, name, skills, 0));
     }
 
     public void addProject(String name, Set<String> requiredSkills, List<Employee> teamMembers) {
-        projectsCount++;
-        projects.add(new Project(employeesCount, name, requiredSkills, teamMembers));
+        projectsIdCounter++;
+        projects.add(new Project(employeesIdCounter, name, requiredSkills, teamMembers));
     }
 
     public List<Project> findProjectsForEmployee(Employee employee) {
