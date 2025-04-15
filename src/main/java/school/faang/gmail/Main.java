@@ -1,11 +1,14 @@
 package school.faang.gmail;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -18,13 +21,10 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.subject());
-
-        Function<Email, String> toUpperCase = email -> email.body().toUpperCase();
-
-        List<Email> newEmail = emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
-
-        newEmail.forEach(email -> System.out.println("Тема: " + email.subject() + ", Тело письма: " + email.body()));
+        emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail)
+                .forEach(email -> log.debug("Тема: {}, Тело письма: {}", email.getSubject(), email.getBody()));
     }
 }
