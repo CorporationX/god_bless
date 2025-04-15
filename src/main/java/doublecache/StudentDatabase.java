@@ -17,10 +17,8 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).put(subject, grade);
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        subjectStudents.get(subject).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
@@ -52,18 +50,13 @@ public class StudentDatabase {
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         subjectStudents.put(subject, new ArrayList<>(students));
         for (Student student : students) {
-            studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, null);
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
         }
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
-        }
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).putIfAbsent(subject, null);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, null);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
