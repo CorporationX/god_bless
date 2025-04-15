@@ -16,9 +16,9 @@ public class Main {
 
         InventoryManager inventoryManager = new InventoryManager();
         inventoryManager.addItem(frodo, cloak, item ->
-                System.out.println(String.format("New item was added: %s, congratulations!%n", item.getName())));
+                System.out.println(String.format("New item was added: %s, congratulations!", item.getName())));
         inventoryManager.addItem(gandalf, stick, item ->
-                System.out.println(String.format("New item was added: %s, congratulations!%n", item.getName())));
+                System.out.println(String.format("New item was added: %s, congratulations!", item.getName())));
         inventoryManager.removeItem(frodo, item -> item.getValue() < 1000);
         inventoryManager.removeItem(gandalf, item -> item.getValue() < 1);
         inventoryManager.updateItem(frodo, item -> {

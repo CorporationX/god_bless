@@ -18,12 +18,6 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Function<Item, Item> transformer) {
-        character.getInventory().stream().map(transformer).toList();
-        /*character.getInventory().forEach(transformer::apply);
-        тут вот не знаю насколько нормально использовать forEach в таком ключе.
-        Как будто вариант с map более очевидный, поскольку из самого метода map понятно, что здесь как-то будут
-        модифицироваться объекты стрима, в forEach же надо смотреть сам метод, то ли мы хотим что-то распечатать,
-        то ли обновляем поле как в этом случае.
-         */
+        character.getInventory().forEach(transformer::apply);
     }
 }
