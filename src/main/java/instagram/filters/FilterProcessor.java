@@ -9,9 +9,6 @@ public class FilterProcessor {
 
     public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter,
                                                  Function<Image, Image> secondFilter) {
-        Function<Image, Image> combinedFunction = image -> new Image("Combined filters", firstFilter
-                        .apply(new Image("Combined", secondFilter
-                                .apply(image).getDescription())).getDescription());
-        return combinedFunction;
+        return secondFilter.compose(firstFilter);
     }
 }
