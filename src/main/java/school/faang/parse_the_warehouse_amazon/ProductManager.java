@@ -34,17 +34,16 @@ public class ProductManager {
     public boolean removeProduct(Category category, String name) {
         String trimmedName = name.trim();
         Objects.requireNonNull(category, "Category cannot be null");
-        validateName(trimmedName);
-        {
+        validateName(trimmedName); {
             return products.removeIf(product ->
                     product.getCategory() == category
                             && product.getName().equalsIgnoreCase(trimmedName)
             );
         }
     }
+
     public List<Product> findProductsByCategory(Category category) {
         Objects.requireNonNull(category, "Category cannot be null");
-
         return products.stream()
                 .filter(product -> product.getCategory() == category)
                 .collect(Collectors.toList());
