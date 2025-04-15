@@ -17,8 +17,9 @@ public class Main {
         ));
 
         Predicate<Email> predicate = Email::isImportant;
-        Function<Email, String> function = email -> email.getBody().toUpperCase();
-        Consumer<Email> consumer = email -> System.out.println("Письмо " + email.getSubject() + " обработано!");
+        Function<Email, Email> function = email ->
+                new Email(email.subject(),email.body().toUpperCase(), email.isImportant());
+        Consumer<Email> consumer = email -> System.out.println("Письмо " + email.subject() + " обработано!");
 
         EmailProcessor processor = new EmailProcessor();
         processor.processEmails(predicate, function, consumer, emails);
