@@ -1,6 +1,7 @@
 package school.faang.double_cache;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,13 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@NoArgsConstructor
 public class StudentDatabase {
 
     Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     Map<Subject, List<Student>> subjectStudents = new HashMap<>();
-
-    public StudentDatabase() {
-    }
 
     public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Integer> subjectsWithGrades) {
         if (student == null || subjectsWithGrades == null) {
