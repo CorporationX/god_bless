@@ -1,19 +1,16 @@
 package school.faang.stream1.bookingsystem;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
 public class Room {
-    // — уникальный номер комнаты;
-    int roomNumber;
+    private final int roomNumber;
 
-    // — тип комнаты (например, "конференц-зал", "переговорная");
-    String type;
+    private final String type;
 
-    // — набор удобств, доступных в комнате (например, "проектор", "видеоконференция").
-    Set<String> amenities;
+    private final Set<String> amenities;
 }

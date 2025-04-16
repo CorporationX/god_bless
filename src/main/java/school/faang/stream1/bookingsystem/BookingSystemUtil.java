@@ -24,11 +24,15 @@ public class BookingSystemUtil {
     }
 
     public static Optional<Room> getRoomByNumber(List<Room> roomList, int roomNumber) {
-        return roomList.stream().filter(r -> roomNumber == r.getRoomNumber()).findFirst();
+        return roomList.stream()
+                .filter(r -> roomNumber == r.getRoomNumber())
+                .findFirst();
     }
 
     public static Optional<Booking> getBookingById(List<Booking> bookingList, int bookingNumber) {
-        return bookingList.stream().filter(r -> bookingNumber == r.getBookingId()).findFirst();
+        return bookingList.stream()
+                .filter(r -> bookingNumber == r.getBookingId())
+                .findFirst();
     }
 
 }

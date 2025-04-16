@@ -25,20 +25,17 @@ public class BookingSystem {
 
     private final BookingNotifier bookingNotifier;
 
-    // — добавляет комнату в систему.
     public boolean addRoom(Room room) {
         return roomList.add(room);
     }
 
-    // — удаляет комнату из системы.
     public boolean removeRoom(int roomNumber) {
-        Optional<Room> optRoom2remove = roomList
-                .stream().filter(r -> (r.getRoomNumber() == roomNumber)).findFirst();
+        Optional<Room> optRoom2remove = roomList.stream()
+                .filter(room -> (room.getRoomNumber() == roomNumber))
+                .findFirst();
         return optRoom2remove.map(roomList::remove).orElse(false);
     }
 
-    // — бронирует комнату на указанную дату и временной интервал, если она доступна.
-    // При успешном бронировании уведомляет всех наблюдателей.
     public Booking bookRoom(int roomNumber, String date, String timeSlot) {
         List<Booking> roomBookings = bookingList.stream()
                 .filter(b -> roomNumber == b.getRoom().getRoomNumber()).toList();
@@ -48,18 +45,15 @@ public class BookingSystem {
         return null;
     }
 
-    // — отменяет бронирование и уведомляет всех наблюдателей.
     public Booking cancelBooking(int bookingId) {
         Optional<Booking> bookingById = BookingSystemUtil.getBookingById(bookingList, bookingId);
-        if (bookingById.isPresent()) {
-            Booking booking = bookingById.get();
+        bookingById.ifPresent(booking -> {
             bookingList.remove(booking);
             bookingNotifier.notifyObservers(booking, "canceled");
-        }
+        });
         return null;
     }
 
-    // — возвращает список доступных комнат, которые подходят по дате, времени и набору удобств.
     public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
         List<Room> rooms2Check = roomList.stream()
                 .filter(r -> r.getAmenities().containsAll(requiredAmenities)).toList();
@@ -73,12 +67,15 @@ public class BookingSystem {
                 .map(Map.Entry::getKey)
                 .toList();
 
-        return rooms2Check.stream().filter(r -> !roomsDoesntPass.contains(r)).toList();
+        return rooms2Check.stream()
+                .filter(room -> !roomsDoesntPass.contains(room))
+                .toList();
     }
 
-    //additional возвращает список всех бронирований на указанную дату.
     public List<Booking> findBookingsForDate(String date) {
-        return bookingList.stream().filter(b -> (date.equals(b.getDate()))).toList();
+        return bookingList.stream()
+                .filter(booking -> (date.equals(booking.getDate())))
+                .toList();
     }
 
     private Booking createBooking(int roomNumber, String date, String timeSlot) {
@@ -101,7 +98,7 @@ public class BookingSystem {
     }
 
     private boolean checkRoomAvailableForBooking(Booking booking, String date, String timeSlot) {
-        if (!booking.date.equals(date)) {
+        if (!booking.getDate().equals(date)) {
             return true;
         }
         return !BookingSystemUtil.timeSlotCrossing(booking.getTimeSlot(), timeSlot);

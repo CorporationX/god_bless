@@ -148,7 +148,7 @@ class BookingSystemTest {
 
         ArrayList<Room> rooms = new ArrayList<>(availableRooms0);
         rooms.removeAll(availableRooms1);
-        assertEquals(13, rooms.get(0).roomNumber);
+        assertEquals(13, rooms.get(0).getRoomNumber());
     }
 
     @Test

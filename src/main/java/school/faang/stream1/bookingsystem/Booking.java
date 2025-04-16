@@ -4,17 +4,13 @@ import lombok.Getter;
 
 @Getter
 public class Booking {
-    // — уникальный идентификатор бронирования;
-    int bookingId;
+    private final int bookingId;
 
-    // — забронированная комната;
-    Room room;
+    private final Room room;
 
-    // — дата бронирования;
-    String date;
+    private final String date;
 
-    // — временной интервал бронирования.
-    String timeSlot;
+    private final String timeSlot;
 
     private static int lastBookingNumberHolder;
 
