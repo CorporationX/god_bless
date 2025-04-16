@@ -1,5 +1,6 @@
 package school.faang.instagramfilters;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -11,7 +12,8 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> filter1, Function<Image, Image> filter2) {
-        return filter1.andThen(filter2);
+    @SafeVarargs
+    public final Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
+        return Arrays.stream(filters).reduce(Function.identity(), Function::andThen);
     }
 }
