@@ -15,7 +15,7 @@ public class Main {
         System.out.println(gray);
         Image sep = filterProcessor.applyFilter(sepia, image);
         System.out.println(sep);
-        Image both = filterProcessor.combineFilter(grayScale, sepia, image);
+        Image both = filterProcessor.applyFilter(filterProcessor.combineFilter(grayScale, sepia), image);
         System.out.println(both);
     }
 }
