@@ -1,10 +1,14 @@
 package school.faang.bjs270450;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@AllArgsConstructor
+@Setter
+@Getter
 public class Email {
-    private final String subject;
-    private final String body;
-    public final boolean isImportant;
+    private String subject;
+    private String body;
+    private boolean isImportant;
 }
