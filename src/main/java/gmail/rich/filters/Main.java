@@ -16,17 +16,10 @@ public class Main {
 
         EmailProcessor emailProcessor = new EmailProcessor();
 
-        Predicate<Email> important = Email::isImportant;
-        Function<Email, Email> toUpperCase =
-                email -> new Email(email.subject().toUpperCase(), email.body(), email.isImportant());
-        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s%n", email.subject());
+        Predicate<Email> important = email -> email.isImportant();
+        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s%n", email.getSubject());
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        Predicate<Email> spamFilter = email -> email.subject().equals("Спам");
-        Function<Email, Email> censoring = email -> new Email(email.subject(), "*CENSORED*", email.isImportant());
-        Consumer<Email> deletedEmail =
-                email -> System.out.printf("Удаленно письмо: %s - %s%n", email.subject(), email.body());
-
-        emailProcessor.processEmails(emails, important, toUpperCase, printEmail);
-        emailProcessor.processEmails(emails, spamFilter, censoring, deletedEmail);
+        emailProcessor.processEmails(emails, important, printEmail, toUpperCase);
     }
 }
