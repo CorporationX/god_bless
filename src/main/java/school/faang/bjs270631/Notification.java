@@ -1,9 +1,7 @@
 package school.faang.bjs270631;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 
 @Getter
 @AllArgsConstructor
