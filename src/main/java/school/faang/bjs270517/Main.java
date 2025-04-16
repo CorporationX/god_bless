@@ -1,12 +1,10 @@
 package school.faang.bjs270517;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -23,7 +21,7 @@ public class Main {
         Predicate<Email> importantFilter = email -> email.isImportant();
 
         // Обработчик, который выводит тему письма в консоль
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s", email.getSubject());
 
         // Преобразователь, который переводит текст письма в верхний регистр
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
@@ -32,7 +30,6 @@ public class Main {
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
-        emails.forEach(email
-                -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Тема: %s, Тело письма: %s", email.getSubject(), email.getBody()));
     }
 }

@@ -1,10 +1,8 @@
 package school.faang.bjs270517;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
