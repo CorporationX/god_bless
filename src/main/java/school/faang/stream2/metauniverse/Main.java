@@ -21,13 +21,15 @@ public class Main {
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-        Notification myNotification = new Notification(NotificationType.SMS, "У вас сова!");
+        Notification myNotification = new Notification(NotificationType.SMS, "У вас будет сова!");
         Notification owlNotification = new Notification(NotificationType.OWL, "У вас сова, угу!");
+        Notification rudeNotification = new Notification(NotificationType.SMS, "Ты чё бля долбоёб охуел?!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
         notificationManager.sendNotification(myNotification);
+        notificationManager.sendNotification(rudeNotification);
         notificationManager.sendNotification(owlNotification);
     }
 }
