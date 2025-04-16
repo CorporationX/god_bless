@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 public class StreamHandler {
     public static Set<List<Integer>> findUniquePairs(Set<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(number -> number != sum - number && numbers.contains(sum - number))
+                .filter(number -> number != sum - number)
+                .filter(number -> numbers.contains(sum - number))
                 .map(number -> new ArrayList<>(List.of(number, sum - number)))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
