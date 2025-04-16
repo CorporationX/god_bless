@@ -15,7 +15,6 @@ public class Main {
             "apple", "banana", "cherry", "date", "", "animal", "island", "angle", "  "
         );
 
-        // Пример использования методов:
         System.out.printf("Сумма четных чисел: %s\n", ListOperations.sumOfEvenNumbers(numbers));
         System.out.printf("Максимум: %d\n", ListOperations.findMax(numbers));
         System.out.printf("Среднее: %s\n", ListOperations.findAverage(numbers));
