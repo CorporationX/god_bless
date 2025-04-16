@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -23,18 +25,15 @@ public class ProductManager {
 
     public void removeProduct(Category category, String name) {
         productSet.removeIf(product ->
-                product.getCategory().equals(category) && product.getName().equals(name)
+                Objects.equals(product.getCategory(), product.getName())
         );
         System.out.println(productSet);
     }
 
     public Set<Product> findProductByCategory(Category category) {
-        Set<Product> productFindCategory = new HashSet<>();
-        productFindCategory.add(productSet.stream()
+        return productSet.stream()
                 .filter(product -> product.getCategory().equals(category))
-                .findFirst()
-                .orElseThrow());
-        return productFindCategory;
+                .collect(Collectors.toSet());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
