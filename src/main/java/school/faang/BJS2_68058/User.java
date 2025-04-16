@@ -33,11 +33,13 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;{
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+        User user = (User) o;
         return id == user.id && age == user.age && Objects.equals(name, user.name) 
             && Objects.equals(hobbies, user.hobbies);
-        }
+        
     }
 
     @Override
