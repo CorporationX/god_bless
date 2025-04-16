@@ -12,13 +12,8 @@ public class InventoryManager {
         itemAdder.accept(item);
     }
 
-    public void removeItem(Character character, Item item, Predicate<Item> itemPresenceChecker) {
-        boolean isRemoved = character.getInventory().removeIf(itemPresenceChecker);
-        if (isRemoved) {
-            System.out.println(item.getName() + " removed");
-        } else {
-            System.out.println(item.getName() + " not found");
-        }
+    public void removeItem(Character character, Item item, Predicate<Item> condition) {
+        character.getInventory().removeIf(condition);
     }
 
     public void updateItem(Character character, Predicate<Item> itemPresenceChecker,
