@@ -18,7 +18,6 @@ public class Main {
         // Пример использования методов:
         System.out.printf("Сумма четных чисел: %s\n", ListOperations.sumOfEvenNumbers(numbers));
         System.out.printf("Максимум: %d\n", ListOperations.findMax(numbers));
-        //System.out.printf("Максимум: %s\n", ListOperations.findMax(emptyList));
         System.out.printf("Среднее: %s\n", ListOperations.findAverage(numbers));
         System.out.printf("Количество строк, начинающихся на 'a': %s\n",
             ListOperations.countStringsStartingWith(strings, 'a'));
@@ -43,7 +42,7 @@ public class Main {
         public static int sumOfEvenNumbers(List<Integer> intList) {
             return intList.stream()
                 .filter(x -> x % 2 == 0)
-                .reduce(0, (a, b) -> a + b);
+                .reduce(0, Integer::sum);
         }
 
         /**
