@@ -16,7 +16,7 @@ public class Main {
         manager.registerHandler(NotificationType.PUSH, null);
         manager.registerHandler(NotificationType.SMS, sendMessageHandler);
 
-        System.out.println(manager.getNotificationHandlers().size());
+        log.info("Количество обработчиков {}", manager.getNotificationHandlers().size());
 
         manager.sendNotification(new Notification(NotificationType.PUSH, "Привет буткэмп!"));
         manager.sendNotification(new Notification(NotificationType.SMS, "Скоро дейлик!"));
