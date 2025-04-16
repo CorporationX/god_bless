@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intellect;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intellect;
     private int healthPoints;
 
     public static final int MAX_HEALTH = 100;

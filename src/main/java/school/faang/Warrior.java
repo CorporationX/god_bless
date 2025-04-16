@@ -1,12 +1,13 @@
 package school.faang;
 
+
 public class Warrior extends Character {
 
     public static final int MAX_STRENGTH = 10;
     public static final int MAX_AGILITY = 5;
     public static final int MAX_INTELLECT = 3;
 
-    public Warrior(String name) {
+    protected Warrior(String name) {
         super(name, MAX_STRENGTH, MAX_AGILITY, MAX_INTELLECT);
     }
 

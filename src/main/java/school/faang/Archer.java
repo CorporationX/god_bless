@@ -6,7 +6,7 @@ public class Archer extends Character {
     public static final int MAX_AGILITY = 10;
     public static final int MAX_INTELLECT = 5;
 
-    public Archer(String name) {
+    protected Archer(String name) {
         super(name, MAX_STRENGTH, MAX_AGILITY, MAX_INTELLECT);
     }
 
