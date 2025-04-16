@@ -1,4 +1,4 @@
-package school.faang.team_project_management;
+package school.faang.sprint_1.team_project_management;
 
 import java.util.List;
 

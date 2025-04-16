@@ -1,4 +1,4 @@
-package school.faang.caching_caching;
+package school.faang.sprint_1.caching_caching;
 
 public interface WeatherProvider {
 
