@@ -16,7 +16,9 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().max(Integer::compareTo).orElseThrow();
+        return numbers.stream()
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new RuntimeException("Fail to compute max value"));
     }
 
     public static double findAverage(List<Integer> numbers) {
