@@ -9,14 +9,14 @@ public class StudentDataBase {
     Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void newStudent(Student student, Map<Subject, Integer> subjectGrade) {
-        studentSubjects.put(student, subjectGrade);
-        for (Subject subject : subjectGrade.keySet()) {
+    public void newStudent(Student student, Map<Subject, Integer> subjectGrades) {
+        studentSubjects.put(student, subjectGrades);
+        for (Subject subject : subjectGrades.keySet()) {
             subjectStudents.computeIfAbsent(subject, a -> new ArrayList<>()).add(student);
         }
     }
 
-    public void newSubjectForStud(Student student, Subject subject, int grade) {
+    public void newSubjectForStudent(Student student, Subject subject, int grade) {
         studentSubjects.computeIfAbsent(student, a -> new HashMap<>()).put(subject, grade);
         subjectStudents.computeIfAbsent(subject, a -> new ArrayList<>()).add(student);
     }
@@ -24,21 +24,21 @@ public class StudentDataBase {
     public void removeStudent(Student student) {
         studentSubjects.remove(student);
         for (List<Student> students : subjectStudents.values()) {
-            students.removeIf(s -> s.equals(student));
+            students.removeIf(existedStudent -> existedStudent.equals(student));
         }
     }
 
-    public void printAllStud() {
+    public void printAllStudents() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            System.out.println(entry.getKey().getName() + ": ");
+            System.out.println(entry.getKey().name() + ": ");
             for (Map.Entry<Subject, Integer> subjGrade : entry.getValue().entrySet()) {
-                System.out.println("Предмет: " + subjGrade.getKey().getName() + '\n'
-                        + "Оценка: " + subjGrade.getValue());
+                System.out.println("Subject: " + subjGrade.getKey().name() + '\n'
+                        + "Grade: " + subjGrade.getValue());
             }
         }
     }
 
-    public void newSubject(Subject subject, List<Student> students, List<Integer> grades) {
+    public void addNewSubject(Subject subject, List<Student> students, List<Integer> grades) {
         subjectStudents.put(subject, students);
         for (int i = 0; i < students.size(); i++) {
             studentSubjects.computeIfAbsent(students.get(i), a -> new HashMap<>()).put(subject, grades.get(i));
@@ -50,17 +50,22 @@ public class StudentDataBase {
         studentSubjects.computeIfAbsent(student, a -> new HashMap<>()).put(subject, grade);
     }
 
-    public void removeStudentFromSubj(Student student, Subject subject) {
-        subjectStudents.get(subject).remove(student);
-        studentSubjects.get(student).remove(subject);
+    public void removeStudentFromSubject(Student student, Subject subject) {
+        List<Student> students = subjectStudents.get(subject);
+        if(students == null) {
+            System.out.println("Subject does not exist in this database");
+        } else {
+            students.remove(student);
+            studentSubjects.get(student).remove(subject);
+        }
     }
 
     public void printAllSubj() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.println("Урок: " + entry.getKey().getName());
+            System.out.println("Урок: " + entry.getKey().name());
             System.out.println("Ученики: ");
             for (Student student : entry.getValue()) {
-                System.out.println(student.getName());
+                System.out.println(student.name());
             }
         }
     }

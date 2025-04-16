@@ -15,23 +15,24 @@ public class Main {
         StudentDataBase studentDataBase = new StudentDataBase();
         Map<Subject, Integer> test = new HashMap<>();
         test.put(math, 5);
+        studentDataBase.removeStudentFromSubject(vasya, english);
         //тесты
         studentDataBase.newStudent(vasya, test);
-        studentDataBase.newSubjectForStud(vasya, english, 4);
-        studentDataBase.printAllStud();
+        studentDataBase.newSubjectForStudent(vasya, english, 4);
+        studentDataBase.printAllStudents();
         studentDataBase.removeStudent(vasya);
         studentDataBase.newStudent(anton, test);
-        studentDataBase.newSubjectForStud(anton, english, 12);
-        studentDataBase.printAllStud();
+        studentDataBase.newSubjectForStudent(anton, english, 12);
+        studentDataBase.printAllStudents();
         List<Student> studList = new ArrayList<>();
         studList.add(anton);
         studList.add(vasya);
-        studentDataBase.newSubject(english, studList, List.of(3, 4));
+        studentDataBase.addNewSubject(english, studList, List.of(3, 4));
         studentDataBase.newStudentForSubj(carolina, english, 5);
-        studentDataBase.newSubjectForStud(anton, math, 5);
+        studentDataBase.newSubjectForStudent(anton, math, 5);
         studentDataBase.printAllSubj();
-        studentDataBase.removeStudentFromSubj(anton, english);
+        studentDataBase.removeStudentFromSubject(anton, english);
         studentDataBase.printAllSubj();
-        studentDataBase.printAllStud();
+        studentDataBase.printAllStudents();
     }
 }
