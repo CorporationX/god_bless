@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SubjectDatabase {
-    private Map<Student, Map<Subject, Integer>> studentSubjects;
-    private Map<Subject, List<Student>> subjectStudents;
-
-    public SubjectDatabase() {
-        this.studentSubjects = new HashMap<>();
-        this.subjectStudents = new HashMap<>();
-    }
-
+    private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjects(String name, Map<Subject, Integer> subjectWithGrades) {
         Student student = new Student(name);
@@ -34,18 +29,19 @@ public class SubjectDatabase {
 
     public void addSubject(String studentName, Integer grade, String subjectName) {
         for (Student student : studentSubjects.keySet()) {
-            if (student.getName().equals(studentName)) {
-                Map<Subject, Integer> subjects = studentSubjects.get(student);
-                subjects.put(new Subject(subjectName), grade);
-                Subject newSubject = new Subject(subjectName);
+            if (Objects.equals(student.getName(), studentName)) {
+                Subject subject = new Subject(subjectName);
 
-                if (subjectStudents.containsKey(newSubject)) {
-                    List<Student> students = subjectStudents.get(newSubject);
+                Map<Subject, Integer> subjects = studentSubjects.get(student);
+                subjects.put(subject, grade);
+
+                if (subjectStudents.containsKey(subject)) {
+                    List<Student> students = subjectStudents.get(subject);
                     students.add(student);
                 } else {
                     List<Student> students = new ArrayList<>();
                     students.add(student);
-                    subjectStudents.put(newSubject, students);
+                    subjectStudents.put(subject, students);
                 }
             }
         }
@@ -53,7 +49,7 @@ public class SubjectDatabase {
 
     public void deleteStudent(String name, String subjectName) {
         for (Student student : studentSubjects.keySet()) {
-            if (student.getName().equals(name)) {
+            if (Objects.equals(student.getName(), name)) {
                 Subject newSubject =  new Subject(subjectName);
                 Map<Subject, Integer> subjects = studentSubjects.get(student);
                 subjects.remove(newSubject);
@@ -86,14 +82,8 @@ public class SubjectDatabase {
         subjectStudents.put(newSubject, new ArrayList<>(students));
 
         for (Student student : students) {
-            if (studentSubjects.containsKey(student)) {
-                Map<Subject, Integer> subjects = studentSubjects.get(student);
-                subjects.put(newSubject, 0);
-            } else {
-                Map<Subject, Integer> subjects = new HashMap<>();
-                subjects.put(newSubject, 0);
-                studentSubjects.put(student, subjects);
-            }
+            Map<Subject, Integer> subjects = studentSubjects.computeIfAbsent(student, s -> new HashMap<>());
+            subjects.putIfAbsent(newSubject, 0);
         }
     }
 
@@ -127,7 +117,7 @@ public class SubjectDatabase {
         
 
         for (Student student : studentSubjects.keySet()) {
-            if (student.getName().equals(studentName)) {
+            if (Objects.equals(student.getName(), studentName)) {
                 Map<Subject, Integer> subjects = studentSubjects.get(student);
                 subjects.remove(subject);
                 break;
@@ -142,7 +132,7 @@ public class SubjectDatabase {
 
             List<Student> students = subjectStudents.get(subject);
             for (Student student : students) {
-                System.out.println("  Student: " + student.getName());
+                System.out.println("Student: " + student.getName());
             }
 
             System.out.println();
