@@ -8,11 +8,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class NotificationManager {
-    private final Map<NotificationType, Consumer<Notification>> configMap;
+    private static final List<String> RUDE_WORDS_DICT = List.of("бля", "eба", "ёба", "хуё", "хуе", "хуй", "пизд", "ёб");
+
+    private final Map<NotificationType, Consumer<Notification>> configMap = new HashMap<>();
     private final Function<Notification, Notification> addSignature =
             n -> new Notification(n.getType(), n.getMessage() + "\nYours META.");
     private final Predicate<Notification> rudeBlocker =
-            n -> RUDEWORDSDICT.stream().anyMatch(rude -> n.getMessage().toLowerCase().contains(rude));
+            n -> RUDE_WORDS_DICT.stream().anyMatch(rude -> n.getMessage().toLowerCase().contains(rude));
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         configMap.put(type, handler);
@@ -28,9 +30,4 @@ public class NotificationManager {
         }
     }
 
-    public NotificationManager() {
-        this.configMap = new HashMap<>();
-    }
-
-    private static final List<String> RUDEWORDSDICT = List.of("бля", "eба", "ёба", "хуё", "хуе", "хуй", "пизд", "ёб");
 }
