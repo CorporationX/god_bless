@@ -1,5 +1,9 @@
 package school.faang.abstraction;
 
+
+import lombok.Getter;
+
+@Getter
 public abstract class Character {
     public static final int DEFAULT_STRENGTH = 5;
     public static final int DEFAULT_AGILITY = 5;
@@ -20,26 +24,6 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getHealth() {
-        return health;
     }
 
     public void setHealth(int health) {
