@@ -19,27 +19,17 @@ public abstract class WeatherCacheTemplate {
 
     public abstract boolean isCacheExpired(WeatherData data);
 
-    public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
+    public WeatherData getWeatherData(String city) {
         if (cityWeather.containsKey(city)) {
             if (!isCacheExpired(cityWeather.get(city))) {
                 return cityWeather.get(city);
             }
         }
-        WeatherData weatherData = getWeather(city);
-        cityWeather.put(city, weatherData);
+        WeatherData weatherData = forceUpdateWeather(city);
         return weatherData;
-    }
-
-    public WeatherData getWeatherData(String city) {
-        return getWeatherData(city, this.maxCacheAgeMillis);
     }
 
     public WeatherData forceUpdateWeather(String city) {
-        WeatherData weatherData = getWeather(city);
-        return weatherData;
-    }
-
-    public WeatherData getWeather(String city) {
         WeatherData weatherData = weatherService.fetchWeatherData(city);
         cityWeather.put(city, weatherData);
         return weatherData;

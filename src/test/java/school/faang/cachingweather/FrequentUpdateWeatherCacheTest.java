@@ -18,7 +18,7 @@ class FrequentUpdateWeatherCacheTest {
     void getWeatherTest() {
         String city = "Rostov-on-Don";
 
-        frequentUpdateWeatherCache.getWeather(city);
+        frequentUpdateWeatherCache.getWeatherData(city);
 
         assertTrue(frequentUpdateWeatherCache.getCityWeather().containsKey(city));
     }
@@ -27,7 +27,7 @@ class FrequentUpdateWeatherCacheTest {
     void isCacheExpiredTest() {
         String city = "Rostov-on-Don";
         long maxCacheAgeMillis = 10_000;
-        WeatherData weatherData = frequentUpdateWeatherCache.getWeather(city);
+        WeatherData weatherData = frequentUpdateWeatherCache.getWeatherData(city);
 
         assertTrue(frequentUpdateWeatherCache.isCacheExpired(weatherData));
     }
@@ -35,7 +35,7 @@ class FrequentUpdateWeatherCacheTest {
     @Test
     void clearExpiredCacheTest() {
         String city = "Rostov-on-Don";
-        frequentUpdateWeatherCache.getWeather(city);
+        frequentUpdateWeatherCache.getWeatherData(city);
 
         frequentUpdateWeatherCache.clearExpiredCache();
 

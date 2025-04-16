@@ -17,7 +17,7 @@ class StandardWeatherCacheTest {
     void getWeatherTest() {
         String city = "Rostov-on-Don";
 
-        standardWeatherCache.getWeather(city);
+        standardWeatherCache.getWeatherData(city);
 
         assertTrue(standardWeatherCache.getCityWeather().containsKey(city));
     }
@@ -26,8 +26,8 @@ class StandardWeatherCacheTest {
     void isCacheExpiredTest() {
         String city1 = "Rostov-on-Don";
         String city2 = "Novocherkassk";
-        WeatherData weatherData1 = standardWeatherCache.getWeather(city1);
-        WeatherData weatherData2 = standardWeatherCache.getWeather(city2);
+        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1);
+        WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2);
         weatherData1.setTimestamp(System.currentTimeMillis() - 6001);
 
         assertTrue(standardWeatherCache.isCacheExpired(weatherData1));
@@ -38,8 +38,8 @@ class StandardWeatherCacheTest {
     void clearExpiredCacheTest() {
         String city1 = "Rostov-on-Don";
         String city2 = "Novocherkassk";
-        WeatherData weatherData1 = standardWeatherCache.getWeather(city1);
-        WeatherData weatherData2 = standardWeatherCache.getWeather(city2);
+        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1);
+        WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2);
         weatherData1.setTimestamp(System.currentTimeMillis() - 6001);
 
         standardWeatherCache.clearExpiredCache();
