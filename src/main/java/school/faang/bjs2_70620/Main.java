@@ -1,15 +1,18 @@
 package school.faang.bjs2_70620;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.printf("Sending email with message '%s'%n", notification.getMessage()));
+                notification -> log.info("Sending email with message '{}'", notification.getMessage()));
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.printf("Sending sms with message '%s'%n", notification.getMessage()));
+                notification -> log.info("Sending sms with message '{}'", notification.getMessage()));
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.printf("Sending push with message '%s'%n", notification.getMessage()));
+                notification -> log.info("Sending push with message '{}'", notification.getMessage()));
 
         notificationManager.sendNotification(new Notification(NotificationType.EMAIL, "Hello, world!"));
         notificationManager.sendNotification(new Notification(NotificationType.SMS, "Hello, world!"));
