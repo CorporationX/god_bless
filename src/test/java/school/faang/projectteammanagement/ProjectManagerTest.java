@@ -3,6 +3,7 @@ package school.faang.projectteammanagement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +17,7 @@ class ProjectManagerTest {
 
     @BeforeEach
     void setUp() {
-        allEmployees = List.of(
+        allEmployees = new ArrayList<>(List.of(
                 new Employee(0, "Mr.X", Set.of("calm", "smart", "cunning")),
                 new Employee(1, "Ivan", Set.of("stress resistant", "active", "dumb")),
                 new Employee(2, "Alexey", Set.of("strong", "lazy", "alcoholic")),
@@ -25,15 +26,15 @@ class ProjectManagerTest {
                 new Employee(5, "Alyona", Set.of("calm", "woman", "cunning")),
                 new Employee(6, "Elizabeth", Set.of("old", "ugly", "experienced")),
                 new Employee(7, "Foma", Set.of("men", "ugly", "experienced"))
-        );
+        ));
 
         List<Employee> emptyList = Collections.emptyList();
-        shapitoProjects = List.of(
+        shapitoProjects = new ArrayList<>(List.of(
                 new Project(0, "Clown Squad", Set.of("dumb", "smart", "ugly", "active"), emptyList),
                 new Project(1, "Administration", Set.of("stress resistant", "cunning", "calm"), emptyList),
                 new Project(2, "Feeding Vultures", Set.of("experienced", "smart", "strong"), emptyList),
                 new Project(3, "Acrobats", Set.of("strong", "smart", "experienced", "active"), emptyList)
-        );
+        ));
 
         projectManager = new ProjectManager(
                 shapitoProjects,
@@ -63,7 +64,7 @@ class ProjectManagerTest {
 
     @Test
     void assignTeamToProjectBalanced() {
-        projectManager.setActiveStrategy(new BalancedTeamAssignmentStrategy(shapitoProjects));
+        projectManager.setAssignmentStrategy(new BalancedTeamAssignmentStrategy(shapitoProjects));
         assignTeamToProjectStandard();
     }
 

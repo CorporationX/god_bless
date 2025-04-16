@@ -1,85 +1,86 @@
 package school.faang.projectteammanagement;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-@AllArgsConstructor
-@Data
+@Getter
 public class ProjectManager {
 
-    private List<Project> companyProjects;
-    private List<Employee> allEmployees;
+    private final List<Project> companyProjects;
+    private final List<Employee> allEmployees;
     private TeamAssignmentStrategy activeStrategy;
 
+    public ProjectManager(List<Project> companyProjects, List<Employee> allEmployees,
+                          TeamAssignmentStrategy activeStrategy) {
+        this.companyProjects = companyProjects;
+        this.allEmployees = allEmployees;
+        this.activeStrategy = activeStrategy;
+    }
 
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
         this.activeStrategy = strategy;
     }
 
     public void assignTeamToProject(int projectId) {
-        getProjectById(projectId).setTeamMembers(
-                activeStrategy.assignTeam(getProjectById(projectId), allEmployees)
-        );
+        Optional<Project> projectById = getProjectById(projectId);
+        projectById.ifPresent(project -> {
+            List<Employee> teamMembers = activeStrategy.assignTeam(project, allEmployees);
+            project.setTeamMembers(teamMembers);
+        });
     }
 
     public List<Employee> getTeamForProject(int projectId) {
-        return getProjectById(projectId).getTeamMembers();
+        return getProjectById(projectId)
+                .map(Project::getTeamMembers)
+                .orElse(Collections.emptyList());
     }
 
-    //добавляет сотрудника в систему. (без проверки уникальности)
     public boolean addEmployee(Employee employee) {
-        this.allEmployees = new ArrayList<>(allEmployees);
         return allEmployees.add(employee);
     }
 
-    //возвращает список проектов, для которых сотрудник обладае необходимыми навыками.
     public List<Project> findProjectsForEmployee(Employee employee) {
         return companyProjects.stream()
-                .filter(p -> p.getRequiredSkills().stream().anyMatch(employee.getSkills()::contains))
-                .collect(Collectors.toList());
+                .filter(project -> project.getRequiredSkills().stream().anyMatch(employee.getSkills()::contains))
+                .toList();
     }
 
-    //добавляет сотрудника в команду проекта, если у него есть все требуемые навыки.
     public boolean assignEmployeeToProject(int projectId, Employee employee) {
-        Project projectById = getProjectById(projectId);
-        boolean containsAll = projectById.getRequiredSkills().containsAll(employee.getSkills());
-        if (containsAll) {
-            projectById.getTeamMembers().add(employee);
-        }
-        return containsAll;
+        return getProjectById(projectId)
+                .filter(project -> project.getRequiredSkills().containsAll(employee.getSkills()))
+                .map(project -> project.getTeamMembers().add(employee))
+                .orElse(false);
     }
 
     public void removeEmployeeFromProject(int projectId, int employeeId) {
-        Project projectById = getProjectById(projectId);
-        projectById.setTeamMembers(
-                projectById.getTeamMembers().stream().filter(e -> e.getId() != employeeId).toList()
+        getProjectById(projectId).ifPresent(project -> {
+            List<Employee> filteredTeamMembers = project.getTeamMembers().stream()
+                    .filter(employee -> employee.getId() != employeeId)
+                    .toList();
+            project.setTeamMembers(filteredTeamMembers);
+        }
         );
     }
 
-    //дубликат, но раз посите (мало ли апи требует)
     public List<Employee> getTeamMembers(int projectId) {
         return getTeamForProject(projectId);
     }
 
-    //который удаляет из команды проекта тех сотрудников, которые больше не соответствуют его требованиям
-    //(например, при изменении набора необходимых навыков).
     public List<Employee> removeIneligibleEmployees(Project project) {
         List<Employee> employeesToRemove = project.getTeamMembers().stream()
-                .filter(e -> e.getSkills().stream().noneMatch(project.getRequiredSkills()::contains))
-                .collect(Collectors.toList());
+                .filter(employee -> employee.getSkills().stream().noneMatch(project.getRequiredSkills()::contains))
+                .toList();
         employeesToRemove.forEach(project.getTeamMembers()::remove);
         return employeesToRemove;
     }
 
-    private Project getProjectById(int id) {
+    private Optional<Project> getProjectById(int id) {
         return companyProjects
                 .stream()
                 .filter(project -> (project.getProjectId() == id))
-                .findFirst()
-                .get();
+                .findFirst();
     }
 }
