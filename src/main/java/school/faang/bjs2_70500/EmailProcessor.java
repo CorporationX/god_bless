@@ -6,12 +6,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> importantFilter,
-                              Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
+    public void processEmails(
+            List<Email> emails,
+            Predicate<Email> filter,
+            Consumer<Email> action,
+            Function<Email, String> transformer
+    ) {
         for (Email email : emails) {
-            if (importantFilter.test(email)) {
-                email.setBody(toUpperCase.apply(email));
-                printEmail.accept(email);
+            if (filter.test(email)) {
+                email.setBody(transformer.apply(email));
+                action.accept(email);
             }
         }
     }
