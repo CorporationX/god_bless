@@ -1,5 +1,8 @@
 package school.faang.lord_of_the_rings_rpg;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Character frodo = new Character("Frodo");
@@ -7,18 +10,15 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-// Добавляем предмет в инвентарь
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        manager.addItem(frodo, ring, (item) -> log.info("{} был добавлен в инвентарь.", item.name()));
 
-// Удаляем предмет из инвентаря
-        manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
+        manager.removeItem(frodo, (item) -> item.name().contains("Ring"));
 
-// Добавляем обратно предмет и обновляем его стоимость
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.addItem(frodo, ring, (item) -> log.info("{} снова добавлен.", item.name()));
+        manager.updateItem(frodo, (item) -> item.name().equals("The One Ring"),
+                (item) -> new Item(item.name(), item.value() * 2));
 
-// Проверяем результат
-        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+        frodo.getInventory().forEach(item -> log.info("{}: {}", item.name(), item.value()));
 
     }
 }
