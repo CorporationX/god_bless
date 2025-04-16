@@ -8,8 +8,6 @@ public class BookingSystem {
     private List<Room> rooms = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
 
-    private int bookingId = 0;
-
     public void addRoom(Room newRoom) {
         if (!rooms.contains(newRoom)) {
             rooms.add(newRoom);
@@ -49,8 +47,7 @@ public class BookingSystem {
                         && booking.getTimeSlot().equals(timeSlot));
 
         if (!alreadyBooked) {
-            bookingId++;
-            bookings.add(new Booking(bookingId, findRoomByRoomNumber(roomNumber), date, timeSlot));
+            bookings.add(new Booking(findRoomByRoomNumber(roomNumber), date, timeSlot));
         } else {
             System.out.println("Already booked");
         }
