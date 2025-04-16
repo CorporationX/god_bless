@@ -42,6 +42,7 @@ public class Droid {
 
     public void sendMessage(Droid droid, String message, int key) {
         String encryptedMessage = encryptMessage(message, key);
+        log.info("Droid {} sent encrypted message {}", name, encryptedMessage);
         droid.receiveMessage(encryptedMessage, key);
     }
 
