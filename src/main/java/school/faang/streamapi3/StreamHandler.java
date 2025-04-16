@@ -5,6 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamHandler {
+    /*
+    Это решение прямо очень страшное кажется за n в кубе. Но что-то так не пойму, как сделать проще)
+    Кажется, в каждой новой итерации цикла нет смысла идти заново по всем значениям,
+    а можно только по оставшимся Entry, но что-то не пойму как это перевести в код.
+     */
     public static List<List<String>> getWithMutualFriends(Map<String, List<String>> people) {
         return people.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
@@ -38,6 +43,10 @@ public class StreamHandler {
                 .collect(Collectors.toList());
     }
 
+    /*
+    Тоже немного сомнительное решение как по мне)
+    Уверен, что можно как-то проще...
+    */
     public static List<String> getPalindromsForString(String inputString) {
         String[] inputArray = inputString.split("");
         return IntStream.range(0, inputArray.length)
