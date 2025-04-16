@@ -94,8 +94,8 @@ public class BookingSystem implements BookingObserver {
         if (isBooked) {
             System.out.println("Room is already booked for this date and time slot.");
         }
-        bookingId++;
-        Booking newBooking = new Booking(bookingId, room, date, timeSlot);
+
+        Booking newBooking = new Booking(bookingId++, room, date, timeSlot);
         bookings.add(newBooking);
         notifier.notifyObservers(newBooking, "created");
     }
