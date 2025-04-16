@@ -11,17 +11,23 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, (item) -> log.info("{} was added to inventory.", item.getName()));
-        manager.addItem(frodo, sword, (item) -> log.info("{} was added to inventory.", item.getName()));
+        manager.addItem(frodo, ring, (item) -> getInfo("{} was added to inventory.", item));
+        manager.addItem(frodo, sword, (item) -> getInfo("{} was added to inventory.", item));
         frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
 
         manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
         frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
 
-        manager.addItem(frodo, ring, (item) -> log.info("{} added again.", item.getName()));
-        manager.updateItem(frodo,
+        manager.addItem(frodo, ring, (item) -> getInfo("{} added again.", item));
+        manager.updateItem(
+                frodo,
                 (item) -> item.getName().equals("The One Ring"),
-                (item) -> new Item(item.getName(), item.getValue() * 2));
+                (item) -> new Item(item.getName(), item.getValue() * 2)
+        );
         frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
+    }
+
+    private static void getInfo(String s, Item item) {
+        log.info(s, item.getName());
     }
 }
