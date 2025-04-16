@@ -1,8 +1,6 @@
 package school.faang.meta;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 public class Main {
@@ -10,12 +8,14 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
+        notificationManager.registerFilter(message -> message.contains("плохо"));
+
         notificationManager.registerHandler(NotificationType.EMAIL, notification ->
-                System.out.printf(" Email" + notification.getMessage()));
+                System.out.printf(" Email%s".formatted(notification.getMessage())));
         notificationManager.registerHandler(NotificationType.PUSH, notification ->
-                System.out.printf(" Email" + notification.getMessage()));
+                System.out.printf(" Email%s".formatted(notification.getMessage())));
         notificationManager.registerHandler(NotificationType.SMS, notification ->
-                System.out.printf(" Email" + notification.getMessage()));
+                System.out.printf(" Email%s".formatted(notification.getMessage())));
 
         Notification notificationEmail = new Notification(NotificationType.EMAIL, "Аккаунт активирован плохо");
         Notification notificationSms = new Notification(NotificationType.SMS, "пароль изменен");
