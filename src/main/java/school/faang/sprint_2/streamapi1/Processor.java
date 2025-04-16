@@ -7,49 +7,66 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-
 
 @Setter
 @Getter
 public class Processor {
-    @NonNull private List<Integer> numbers = new ArrayList<>();
-    @NonNull private List<String> words = new ArrayList<>();
-
-    public int sumEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().filter(number -> number % 2 == 0).reduce(0, Integer::sum);
+    public static int sumEvenNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .filter(number -> number % 2 == 0)
+                .reduce(0, Integer::sum);
     }
 
-    public int maxElement(List<Integer> numbers) {
-        return numbers.stream().max(Integer::compare).get();
+    public static int maxElement(List<Integer> numbers) {
+        return numbers.stream()
+                .max(Integer::compare)
+                .orElseThrow(NoSuchElementException::new);
     }
 
-    public double averageValue(List<Integer> numbers) {
-        return numbers.stream().mapToInt(number -> number).average().getAsDouble();
+    public static double averageValue(List<Integer> numbers) {
+        return numbers.stream()
+                .mapToInt(number -> number)
+                .average().orElseThrow(NoSuchElementException::new);
     }
 
-    public long findStringAmountStartedWith(List<String> words, char letter) {
-        return words.stream().filter(word -> word.startsWith(letter + "")).count();
+    public static long findStringAmountStartedWith(List<String> words, char letter) {
+        return words.stream()
+                .filter(word -> word
+                        .startsWith(letter + ""))
+                .count();
     }
 
-    public List<String> findWordsContaintsSubstring(List<String> words, String substring) {
-        return words.stream().filter(word -> word.contains(substring)).toList();
+    public static List<String> findWordsContaintsSubstring(List<String> words, String substring) {
+        return words.stream()
+                .filter(word -> word
+                        .contains(substring))
+                .toList();
     }
 
-    public List<String> sortListByLength(List<String> words) {
-        return words.stream().sorted(Comparator.comparingInt(String::length)).toList();
+    public static List<String> sortListByLength(List<String> words) {
+        return words.stream()
+                .sorted(Comparator
+                        .comparingInt(String::length))
+                .toList();
     }
 
-    public boolean compareListWithCondition(List<Integer> numbers, Predicate<Integer> condition) {
-        return numbers.stream().allMatch(condition::test);
+    public static boolean compareListWithCondition(List<Integer> numbers, Predicate<Integer> condition) {
+        return numbers.stream()
+                .allMatch(condition);
     }
 
-    public int findMinValueMoreThanTarget(List<Integer> numbers, int target) {
-        return numbers.stream().filter(number -> number > target).min(Integer::compare).orElse(target);
+    public static int findMinValueGreaterTarget(List<Integer> numbers, int target) {
+        return numbers.stream()
+                .filter(number -> number > target)
+                .min(Integer::compare)
+                .orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Integer> convertStringToIntByLength(List<String> words) {
-        return words.stream().map(String::length).toList();
+    public static List<Integer> convertStringToIntByLength(List<String> words) {
+        return words.stream()
+                .map(String::length)
+                .toList();
     }
 }
-
