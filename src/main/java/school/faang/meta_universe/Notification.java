@@ -10,12 +10,4 @@ public class Notification {
     private NotificationType type;
     private String message;
 
-    @Override
-    public String toString() {
-        return "Notification{" +
-                "type=" + type +
-                ", message='" + message + '\'' +
-                '}';
-    }
-
 }
