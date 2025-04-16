@@ -15,9 +15,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (!isCorrectMassage(massage -> Arrays.asList(massage.split(" ")).contains("плохо"),
-                notification.massage())) {
-            mapHandler.get(notification.type()).accept(addMassage(notification1 ->
+        boolean correctMessage = isCorrectMassage(massage ->
+                Arrays.asList(massage.split(" ")).contains("плохо"), notification.massage());
+        if (!correctMessage) {
+            mapHandler.get(notification.type()).accept(addMessage(notification1 ->
                     new Notification(notification.type(),
                             notification1.massage() + " @BadCompany prodaction"), notification));
         }
@@ -27,7 +28,7 @@ public class NotificationManager {
         return predicate.test(massage);
     }
 
-    public Notification addMassage(Function<Notification, Notification> function, Notification notification) {
+    public Notification addMessage(Function<Notification, Notification> function, Notification notification) {
         return function.apply(notification);
     }
 }
