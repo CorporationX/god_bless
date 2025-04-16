@@ -52,7 +52,7 @@ public class StudentDataBase {
 
     public void removeStudentFromSubject(Student student, Subject subject) {
         List<Student> students = subjectStudents.get(subject);
-        if(students == null) {
+        if (students == null) {
             System.out.println("Subject does not exist in this database");
         } else {
             students.remove(student);
