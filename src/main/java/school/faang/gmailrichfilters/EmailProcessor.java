@@ -6,8 +6,10 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> emailFilter,
-                              Function<Email, String> bodyTransformer, Consumer<Email> emailConsumer) {
+    public void processEmails(List<Email> emails,
+                              Predicate<Email> emailFilter,
+                              Function<Email, String> bodyTransformer,
+                              Consumer<Email> emailConsumer) {
         if (emails == null || emailFilter == null || bodyTransformer == null || emailConsumer == null) {
             throw new IllegalArgumentException("The email list, email filter, body transformer and email consumer " +
                     "must not be null!");
