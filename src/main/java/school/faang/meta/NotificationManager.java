@@ -12,7 +12,15 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            System.out.println("Notification is null");
+            return;
+        }
         NotificationType type = notification.getType();
+        if (type == null) {
+            System.out.println("Notification type is null");
+            return;
+        }
         Consumer<Notification> handler = handlers.get(type);
 
         if (handler != null) {

@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class Notification {
     private NotificationType type;
-    private String massage;
+    private String message;
 }
