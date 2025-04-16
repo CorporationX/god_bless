@@ -21,9 +21,13 @@ public class Main {
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
+        Notification myNotification = new Notification(NotificationType.SMS, "У вас сова!");
+        Notification owlNotification = new Notification(NotificationType.OWL, "У вас сова, угу!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(myNotification);
+        notificationManager.sendNotification(owlNotification);
     }
 }

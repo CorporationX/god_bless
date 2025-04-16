@@ -12,7 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        configMap.get(notification.getType()).accept(notification);
+        configMap.getOrDefault(notification.getType(),
+                n -> System.err.printf("Unregistered notification type '%s' request with message: %s\n",
+                        n.getType(), n.getMessage()))
+                .accept(notification);
     }
 
     public NotificationManager() {
