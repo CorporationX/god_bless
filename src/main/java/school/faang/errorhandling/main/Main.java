@@ -9,11 +9,10 @@ public class Main {
         String result = ErrorHandler.withErrorHandling(
                 () -> new RemoteService().getData(),
                 e -> {
-                    log.warn("Error: " + e.getMessage());
+                    log.warn("Error: {}", e.getMessage());
                     return "Service data";
                 }
         );
         System.out.println("Result: " + result);
-
     }
 }
