@@ -8,12 +8,16 @@ public class StreamApiHandler {
     }
 
     public static int maxElem(List<Integer> numbers) {
-        if (numbers.isEmpty()) return 0;
+        if (numbers.isEmpty()) {
+            return 0;
+        }
         return numbers.stream().mapToInt(num -> num).max().getAsInt();
     }
 
     public static double getAvg(List<Integer> numbers) {
-        if (numbers.isEmpty()) return 0;
+        if (numbers.isEmpty()) {
+            return 0;
+        }
         return numbers.stream().mapToInt(num -> num).average().getAsDouble();
     }
 
