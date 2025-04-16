@@ -14,7 +14,8 @@ public class Main {
         people.put("David", Arrays.asList("Bob", "Charlie"));
         System.out.println(StreamHandler.getWithMutualFriends(people));
 
-        System.out.println(StreamHandler.getDeptAverageSalary(List.of(new Employee("Kirill", 1000, "IT"),
+        System.out.println(StreamHandler.getDeptAverageSalary(List.of(
+                new Employee("Kirill", 1000, "IT"),
                 new Employee("Ilya", 500, "IT"),
                 new Employee("Vasya", 300, "HR"),
                 new Employee("Kate", 10000, "HR"))));

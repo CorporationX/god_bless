@@ -24,7 +24,8 @@ public class StreamHandler {
 
     public static Map<String, Double> getDeptAverageSalary(List<Employee> employees) {
         return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingDouble(Employee::getSalary)));
     }
 
     public static List<Integer> getPalindromInRage(Integer firstNum, Integer lastNum) {
@@ -47,7 +48,8 @@ public class StreamHandler {
                     list.add(val);
                     StringBuilder stringBuilder = new StringBuilder(val);
                     for (int j = i + 1; j < inputArray.length; j++) {
-                        if (stringBuilder.append(inputArray[j]).toString().contentEquals(new StringBuilder(stringBuilder).reverse())) {
+                        if (stringBuilder.append(inputArray[j]).toString()
+                                .contentEquals(new StringBuilder(stringBuilder).reverse())) {
                             list.add(stringBuilder.toString());
                         }
                     }
