@@ -26,12 +26,7 @@ public class Main {
         notificationManager.registerProfanityFilter(NotificationType.EMAIL, isProfane);
         notificationManager.registerProfanityFilter(NotificationType.SMS, isProfane);
         notificationManager.registerProfanityFilter(NotificationType.PUSH, isProfane);
-        /* Аналогично, был бы код более громоздкий - заэкстрактил бы.
-            От себя добавлю, что именно такой синтаксис даётся мне крайне сложно почему-то,
-            то есть если лямбда вызывается "на ходу" и не в рамках стримов, по какой-то причине
-            мне гораздо сложнее это воспринимать. Сам не знаю почему, будто блок какой-то в голове.
-            При использовании stream api всё интуитивно как-то выходит.
-         */
+
         notificationManager.registerMessageChanger(NotificationType.EMAIL,
                 notification -> {
                     notification.setMessage(notification.getMessage() + ". respond at roga&kopyta@gmail.com");
@@ -53,6 +48,8 @@ public class Main {
                 new Notification(NotificationType.SMS, "Curse"),
                 new Notification(NotificationType.PUSH, "Curse"));
 
+
+
         for (Notification notification : notificationList) {
             if ((notification.getType() == NotificationType.EMAIL || notification.getType() == NotificationType.SMS)
                 && !notificationManager.sendProfanityNotification(notification)) {
@@ -66,7 +63,3 @@ public class Main {
         }
     }
 }
-
-/*
-Push-уведомления специально оставил без реализации, чтобы лишний раз попрактиковаться в логике.
- */
