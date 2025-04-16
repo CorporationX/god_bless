@@ -9,23 +9,23 @@ import java.util.Map;
 
 @Slf4j
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellStorageById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellDescriptionStorageByName = new HashMap<>();
-    private int generateId = 1;
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellDescriptionByName = new HashMap<>();
+    private static int generateId = 1;
 
     public void addSpellEvent(String magicSpell, String spellDescription) {
         int id = getGenerateId();
         SpellEvent newSpell = new SpellEvent(id, magicSpell, spellDescription);
-        spellStorageById.put(id, newSpell);
-        spellDescriptionStorageByName.computeIfAbsent(magicSpell, newKey -> new ArrayList<>()).add(newSpell);
+        spellById.put(id, newSpell);
+        spellDescriptionByName.computeIfAbsent(magicSpell, newKey -> new ArrayList<>()).add(newSpell);
     }
 
-    public int getGenerateId() {
+    private int getGenerateId() {
         return generateId++;
     }
 
     public SpellEvent getSpellById(int id) {
-        SpellEvent spell = spellStorageById.get(id);
+        SpellEvent spell = spellById.get(id);
         if (spell == null) {
             log.warn("Заклинание ID {} не найдено", id);
         }
@@ -33,21 +33,21 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellDescriptionByName(String magicSpell) {
-        return spellDescriptionStorageByName.get(magicSpell);
+        return spellDescriptionByName.get(magicSpell);
     }
 
     public boolean deleteSpell(int id) {
-        SpellEvent event = spellStorageById.remove(id);
+        SpellEvent event = spellById.remove(id);
         if (event == null) {
             log.warn("Заклинание {} не найдено", id);
             return false;
         }
 
-        List<SpellEvent> eventsOfType = spellDescriptionStorageByName.get(event.getMagicSpell());
+        List<SpellEvent> eventsOfType = spellDescriptionByName.get(event.getMagicSpell());
         if (eventsOfType != null) {
             eventsOfType.remove(event);
             if (eventsOfType.isEmpty()) {
-                spellDescriptionStorageByName.remove(event.getMagicSpell());
+                spellDescriptionByName.remove(event.getMagicSpell());
             }
         }
         log.info("Заклинание с ID {} успешно удалено", id);
@@ -55,12 +55,12 @@ public class HogwartsSpells {
     }
 
     public void printAllMagicSpells() {
-        if (spellStorageById.isEmpty()) {
+        if (spellById.isEmpty()) {
             System.out.println("Заклинания не найдены");
             return;
         }
 
-        for (SpellEvent event : spellStorageById.values()) {
+        for (SpellEvent event : spellById.values()) {
             System.out.printf("ID: %d, Заклинание: %s, Описание: %s%n",
                     event.getId(),
                     event.getMagicSpell(),
