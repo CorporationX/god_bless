@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class StandardWeatherCache extends WeatherCacheTemplate {
-    long maxCacheAgeMillis;
+    private long maxCacheAgeMillis;
 
     public StandardWeatherCache() {
         super();

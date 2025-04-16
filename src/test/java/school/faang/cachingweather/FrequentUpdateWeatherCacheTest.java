@@ -26,7 +26,6 @@ class FrequentUpdateWeatherCacheTest {
     @Test
     void isCacheExpiredTest() {
         String city = "Rostov-on-Don";
-        long maxCacheAgeMillis = 10_000;
         WeatherData weatherData = frequentUpdateWeatherCache.getWeatherData(city);
 
         assertTrue(frequentUpdateWeatherCache.isCacheExpired(weatherData));
