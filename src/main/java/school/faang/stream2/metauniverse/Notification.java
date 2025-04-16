@@ -1,11 +1,11 @@
 package school.faang.stream2.metauniverse;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Notification {
-    private NotificationType type;
-    private String message;
+    private final NotificationType type;
+    private final String message;
 }

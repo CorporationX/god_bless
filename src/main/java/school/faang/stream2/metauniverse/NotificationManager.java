@@ -32,5 +32,5 @@ public class NotificationManager {
         this.configMap = new HashMap<>();
     }
 
-    private static final List<String> RUDEWORDSDICT = List.of("бля", "eба", "ёба", "хуё", "хуй", "пизд", "ёб");
+    private static final List<String> RUDEWORDSDICT = List.of("бля", "eба", "ёба", "хуё", "хуе", "хуй", "пизд", "ёб");
 }
