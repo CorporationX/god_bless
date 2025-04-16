@@ -1,7 +1,7 @@
 package school.faang.collecting;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,6 @@ public class User {
             for (String hobby : user.hobbies) {
                 if (hobbies.contains(hobby)) {
                     groupedByHobby.put(user, hobby);
-
                 }
             }
         }
