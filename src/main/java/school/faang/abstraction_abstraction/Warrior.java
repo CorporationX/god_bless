@@ -7,6 +7,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(strength);
+        opponent.updateHealth(strength);
     }
 }
