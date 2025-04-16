@@ -66,13 +66,12 @@ public class StudentDatabase {
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        if (subjectStudents.get(subject) == null || subject == null) {
+        List<Student> subjectKey = subjectStudents.get(subject);
+        if (subjectKey != null) {
+            subjectKey.remove(student);
+        } else {
             log.error("Такой записи с предметом нет или имя предмета не верное.");
             return;
-        }
-        subjectStudents.get(subject).remove(student);
-        if  (subjectStudents.get(subject).isEmpty()) {
-            subjectStudents.remove(subject);
         }
 
         if (studentSubjects.get(student) == null || student == null) {
