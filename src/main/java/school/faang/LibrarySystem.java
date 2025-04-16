@@ -21,7 +21,7 @@ public class LibrarySystem {
 
     public void printAllBooks() {
         for (HashMap.Entry<Book, String> book : bookMap.entrySet()) {
-            System.out.printf("The book: %s is located in: %s." , book.getKey(), book.getValue());
+            System.out.printf("The book: %s is located in: %s.", book.getKey(), book.getValue());
         }
     }
 }
