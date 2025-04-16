@@ -15,5 +15,6 @@ public class Main {
                 (item) -> new Item(item.getName(), item.getCost() * 2));
 
         frodo.getItems().forEach(item -> System.out.println(item.getName() + ": " + item.getCost()));
+        frodo.getItems().set(0, ring);
     }
 }

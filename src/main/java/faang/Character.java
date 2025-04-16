@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -23,14 +22,13 @@ public class Character {
         items.removeIf(predicate);
     }
 
-    public void update(Predicate<Item> predicate, Function<Item, Item> itemFunction) {
-        Optional<Item> targetItem = items.stream()
-                .filter(predicate)
-                .findFirst();
+    public void update(Predicate<Item> predicate, Function<Item, Item> updater) {
+        for (int i = 0; i < items.size(); i++) {
+            Item targetItem = items.get(i);
 
-        if (targetItem.isPresent()) {
-            items.remove(targetItem.get());
-            items.add(itemFunction.apply(targetItem.get()));
+            if (predicate.test(targetItem)) {
+                items.set(i, updater.apply(targetItem));
+            }
         }
     }
 
