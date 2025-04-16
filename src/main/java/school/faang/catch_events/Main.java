@@ -6,7 +6,6 @@ public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
-        // Test 1: Adding spells
         System.out.println("--- Test 1: Adding Spells ---");
         hogwartsSpells.addSpellEvent("Charm", "Levitates an object");
         hogwartsSpells.addSpellEvent("Transfiguration", "Turns a rat into a cup");
@@ -14,7 +13,6 @@ public class Main {
         hogwartsSpells.addSpellEvent("Charm", "Makes an object move");
         hogwartsSpells.printAllSpellEvents();
 
-        // Test 3: Getting spells by type
         System.out.println("\n--- Test 3: Getting Spells by Type ---");
         List<SpellEvent> charms = hogwartsSpells.getSpellEventsByType("Charm");
         System.out.println("\nSpells of type 'Charm':");
@@ -32,7 +30,6 @@ public class Main {
             System.out.println("- " + spell);
         }
 
-        // Test 4: Deleting spell by ID
         System.out.println("\n--- Test 4: Deleting Spell by ID ---");
         hogwartsSpells.deleteSpellEvent(2);
         System.out.println("After deleting spell with ID 2:");
@@ -43,13 +40,11 @@ public class Main {
             System.out.println("- " + spell);
         }
 
-        // Test 5: Attempting to delete a non-existent spell
         System.out.println("\n--- Test 5: Attempting to Delete a Non-Existent Spell ---");
         hogwartsSpells.deleteSpellEvent(99);
         System.out.println("After attempting to delete non-existent spell with ID 99:");
         hogwartsSpells.printAllSpellEvents();
 
-        // Test 6: Adding another spell after deletion
         System.out.println("\n--- Test 6: Adding Another Spell After Deletion ---");
         hogwartsSpells.addSpellEvent("Defense", "Deflects physical attacks");
         hogwartsSpells.printAllSpellEvents();
