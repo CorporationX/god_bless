@@ -47,7 +47,7 @@ class FrequentUpdateWeatherCacheTest {
     void getWeatherDataTest() {
         String city = "Voronezh";
 
-        WeatherData weatherData = frequentUpdateWeatherCache.getWeatherData(city);
+        frequentUpdateWeatherCache.getWeatherData(city);
 
         assertTrue(frequentUpdateWeatherCache.getCityWeather().containsKey(city));
     }

@@ -10,7 +10,6 @@ import java.util.Map;
 public abstract class WeatherCacheTemplate {
     private Map<String, WeatherData> cityWeather;
     private WeatherService weatherService;
-    private long maxCacheAgeMillis;
 
     public WeatherCacheTemplate() {
         this.cityWeather = new HashMap<String, WeatherData>();
@@ -25,8 +24,7 @@ public abstract class WeatherCacheTemplate {
                 return cityWeather.get(city);
             }
         }
-        WeatherData weatherData = forceUpdateWeather(city);
-        return weatherData;
+        return forceUpdateWeather(city);
     }
 
     public WeatherData forceUpdateWeather(String city) {
