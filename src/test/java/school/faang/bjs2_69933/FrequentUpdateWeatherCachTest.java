@@ -24,14 +24,14 @@ public class FrequentUpdateWeatherCachTest {
         // act
         freqWeatherCash.getWeatherData("Cheboksary", 7_000);
         // assert
-        Assertions.assertEquals(expectedResult, freqWeatherCash.weatherCash.size());
+        Assertions.assertEquals(expectedResult, freqWeatherCash.getWeatherByCity().size());
     }
 
     @Test
     public void testForceUpdateWeather() {
         // arrange
         freqWeatherCash.getWeatherData("Cheboksary", 7_000);
-        long resultBefore = freqWeatherCash.weatherCash.get("Cheboksary").getTimestamp();
+        long resultBefore = freqWeatherCash.getWeatherByCity().get("Cheboksary").getTimestamp();
         // act
         try {
             Thread.sleep(10);
@@ -39,7 +39,7 @@ public class FrequentUpdateWeatherCachTest {
             throw new RuntimeException(e);
         }
         freqWeatherCash.forceUpdateWeather("Cheboksary");
-        long resultAfter = freqWeatherCash.weatherCash.get("Cheboksary").getTimestamp();
+        long resultAfter = freqWeatherCash.getWeatherByCity().get("Cheboksary").getTimestamp();
         // assert
         Assertions.assertNotEquals(resultBefore, resultAfter);
     }
@@ -48,7 +48,7 @@ public class FrequentUpdateWeatherCachTest {
     public void testClearExpiredCache() {
         // arrange
         freqWeatherCash.getWeatherData("Cheboksary", 7_000);
-        long resultBefore = freqWeatherCash.weatherCash.get("Cheboksary").getTimestamp();
+        long resultBefore = freqWeatherCash.getWeatherByCity().get("Cheboksary").getTimestamp();
         // act
         try {
             Thread.sleep(10);
@@ -57,6 +57,6 @@ public class FrequentUpdateWeatherCachTest {
         }
         freqWeatherCash.clearExpiredCache(1);
         // assert
-        Assertions.assertNull(freqWeatherCash.weatherCash.get("Cheboksary"));
+        Assertions.assertNull(freqWeatherCash.getWeatherByCity().get("Cheboksary"));
     }
 }

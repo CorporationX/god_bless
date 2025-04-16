@@ -3,6 +3,7 @@ package school.faang.bjs2_69933;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WeatherService implements WeatherProvider {
+    @Override
     public WeatherData fetchWeatherData(String city) {
         return new WeatherData(
                 city,

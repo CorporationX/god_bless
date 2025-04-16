@@ -19,7 +19,7 @@ public class Main {
 
         stdWeatherCash.clearExpiredCache(10_000);
 
-        for (Map.Entry<String, WeatherData> entry : stdWeatherCash.weatherCash.entrySet()) {
+        for (Map.Entry<String, WeatherData> entry : stdWeatherCash.getWeatherByCity().entrySet()) {
             System.out.println(entry.getValue());
         }
 
