@@ -23,12 +23,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductByCategory(Category category) {
-        List<Product> foundProducts;
-
-        foundProducts = products.stream().filter(
-                a -> a.getCategory().equals(category)).toList();
-
-        return foundProducts;
+        return products.stream().filter(product -> product.getCategory() == category).toList();
     }
 
     public Map<Category, List<Product>> groupProductByCategory() {
