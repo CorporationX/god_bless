@@ -13,7 +13,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 public class Project {
-    private static int countId = 0;
+    private static int id = 0;
     private int projectId;
     private String name;
     private Set<String> requiredSkills;
@@ -24,7 +24,7 @@ public class Project {
     }
 
     public Project(String name, Set<String> requiredSkills) {
-        this.projectId = ++countId;
+        this.projectId = ++id;
         this.name = name;
         this.requiredSkills = requiredSkills;
         this.teamMembers = new ArrayList<>();

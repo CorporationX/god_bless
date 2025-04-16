@@ -15,7 +15,7 @@ public class Employee {
     private int id;
     private String name;
     private Set<String> skills;
-    private int projectEmploy;
+    private int projectEmployCount;
 
     public Employee(String name) {
         this(name, new HashSet<>());
@@ -23,7 +23,7 @@ public class Employee {
 
     public Employee(String name, Set<String> skills) {
         this.id = ++countId;
-        this.projectEmploy = 0;
+        this.projectEmployCount = 0;
         this.name = name;
         this.skills = skills;
     }

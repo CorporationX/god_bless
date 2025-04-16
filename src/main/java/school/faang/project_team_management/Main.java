@@ -17,8 +17,6 @@ public class Main {
                 new HashSet<>(Set.of("Добрый", "Предприимчивый", "Сокол"))));
         projectManager.addProject(new Project("At-At", new HashSet<>(Set.of("Джедай", "Dark"))));
 
-        projectManager.print();
-
         projectManager.setAssignmentStrategy(new StandardTeamAssignmentStrategy());
 
         for (int i = 1; i < 5; i++) {

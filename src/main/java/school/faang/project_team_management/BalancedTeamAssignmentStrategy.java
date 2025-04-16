@@ -10,11 +10,11 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
         List<Employee> employeeList = new ArrayList<>();
         for (Employee employee : employees) {
-            if (employee.getProjectEmploy() <= MAX_PROJECTS_PER_EMPLOYEE) {
+            if (employee.getProjectEmployCount() <= MAX_PROJECTS_PER_EMPLOYEE) {
                 for (String skill : employee.getSkills()) {
                     if (project.getRequiredSkills().contains(skill)) {
                         employeeList.add(employee);
-                        employee.setProjectEmploy(employee.getProjectEmploy() + 1);
+                        employee.setProjectEmployCount(employee.getProjectEmployCount() + 1);
                         break;
                     }
                 }
