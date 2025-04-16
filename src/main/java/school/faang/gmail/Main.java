@@ -18,13 +18,13 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> predicate = Email::isImportant;
-        Consumer<Email> consumer = email -> System.out.println("Письмо " + email.getSubject());
-        Function<Email, String> function = email -> {
+        Predicate<Email> filter = Email::isImportant;
+        Consumer<Email> processing = email -> System.out.println("Письмо " + email.getSubject());
+        Function<Email, String> converter = email -> {
             email.setBody(email.getBody().toUpperCase());
             return email.getBody();
         };
 
-        emailProcessor.processEmails(emails, predicate, consumer, function);
+        emailProcessor.processEmails(emails, filter, processing, converter);
     }
 }
