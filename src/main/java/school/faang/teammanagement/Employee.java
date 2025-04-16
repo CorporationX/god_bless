@@ -1,14 +1,13 @@
 package school.faang.teammanagement;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 public class Employee {
-    private int id;
-    private String name;
-    private Set<String> skills;
+
+    private final int id;
+    private final String name;
+    private final Set<String> skills;
 }

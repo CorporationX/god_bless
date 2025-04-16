@@ -3,7 +3,8 @@ package school.faang.teammanagement;
 import java.util.List;
 
 public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
-    public void assignTeam(Project project, List<Employee> employees) {
 
+    public List<Employee> assignTeam(Project project, List<Employee> employees) {
+        return TeamAssignmentStrategy.super.assignTeam(project, employees);
     }
 }
