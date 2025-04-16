@@ -6,50 +6,39 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
 @AllArgsConstructor
 public class ProjectManager {
 
-    private List<Employee> companyEmployees;
-    private List<Project> companyProjects;
+    private Map<Integer, Employee> companyEmployees;
+    private Map<Integer, Project> companyProjects;
     private TeamAssignmentStrategy assignmentStrategy;
 
     public void addEmployee(Employee employee) {
-        companyEmployees.add(employee);
+        companyEmployees.put(employee.getId(), employee);
     }
 
     public void assignEmployeeToProject(int projectId, Employee employee) {
-        Project project = findProjectById(projectId);
-        List<String> sortedEmployeeSkills = employee.getSkills()
-                .stream()
-                .sorted()
-                .toList();
-        List<String> sortedProjectSkills = project.getRequiredSkills()
-                .stream()
-                .sorted()
-                .toList();
-        if (sortedEmployeeSkills.equals(sortedProjectSkills)) {
+        Project project = companyProjects.get(projectId);
+        if (employee.getSkills().containsAll(project.getRequiredSkills())) {
             project.getTeamMembers().add(employee);
         }
     }
 
     public void removeEmployeeFromProject(int projectId, int employeeId) {
-        Project project = findProjectById(projectId);
-        Employee employee = companyEmployees.stream()
-                .filter(e -> e.getId() == employeeId)
-                .findFirst().orElse(null);
-        project.getTeamMembers().remove(employee);
+        companyProjects.get(projectId).getTeamMembers().remove(companyEmployees.get(employeeId));
 
     }
 
     public List<Project> findProjectsForEmployee(Employee employee) {
         List<Project> suitableProjects = new ArrayList<>();
-        for (Project project : companyProjects) {
+        for (Map.Entry<Integer, Project> entry : companyProjects.entrySet()) {
             for (String skill : employee.getSkills()) {
-                if (project.getRequiredSkills().contains(skill)) {
-                    suitableProjects.add(project);
+                if (entry.getValue().getRequiredSkills().contains(skill)) {
+                    suitableProjects.add(entry.getValue());
                     break;
                 }
             }
@@ -58,29 +47,20 @@ public class ProjectManager {
     }
 
     public void assignTeamToProject(int projectId) {
-        Project project = findProjectById(projectId);
-        project.setTeamMembers(assignmentStrategy.assignTeam(companyProjects.get(projectId), companyEmployees));
+        companyProjects.get(projectId).setTeamMembers(assignmentStrategy
+                .assignTeam(companyProjects.get(projectId), companyEmployees.values().stream().toList()));
     }
 
-    public List<Employee> getTeamToProject(int projectId) {
-        Project project = findProjectById(projectId);
-        return project.getTeamMembers();
+    public List<Employee> getTeamForProject(int projectId) {
+        return companyProjects.get(projectId).getTeamMembers();
     }
 
     public List<Employee> getTeamMembers(int projectId) {
-        Project project = findProjectById(projectId);
-        return project.getTeamMembers();
+        return companyProjects.get(projectId).getTeamMembers();
     }
 
     public void removeIneligibleEmployees(Project project) {
         project.getTeamMembers()
                 .removeIf(employee -> !findProjectsForEmployee(employee).contains(project));
-    }
-
-    private Project findProjectById(int projectId) {
-        return companyProjects.stream()
-                .filter(project -> project.getProjectId() == projectId)
-                .findFirst()
-                .orElse(null);
     }
 }
