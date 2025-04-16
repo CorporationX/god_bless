@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LibrarySystem {
-    private final String BOOK_NOT_FOUND = "Book not Found ";
+    private static final String BOOK_NOT_FOUND = "Book not Found ";
     Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
