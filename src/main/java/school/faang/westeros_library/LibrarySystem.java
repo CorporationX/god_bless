@@ -6,21 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 public class LibrarySystem {
+    private final String BOOK_NOT_FOUND = "Book not Found ";
     Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book addBook = new Book(title, author, year);
-        library.put(addBook, location);
+        this.library.put(addBook, location);
     }
 
     public void removeBook(String title, String author, int year) {
         Book removeBook = new Book(title, author, year);
-        library.remove(removeBook);
+        if (library.containsKey(removeBook)) {
+            this.library.remove(removeBook);
+        } else {
+            System.out.println(BOOK_NOT_FOUND + removeBook);
+        }
     }
 
     public String findBook(String title, String author, int year) {
         Book findBook = new Book(title, author, year);
-        return library.getOrDefault(findBook, "Book not found");
+        return library.getOrDefault(findBook, BOOK_NOT_FOUND);
     }
 
     public List<String> printAllBooks() {

@@ -1,6 +1,6 @@
 package school.faang.westeros_library;
 
-public class TestLibrary {
+public class LibrarySystemTests {
     public static void main(String[] args) {
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addBook("Total", "Borodin", 2020, "First shelf");
