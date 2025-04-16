@@ -8,8 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Notification {
-
     private final NotificationType notificationType;
-
     private final String message;
 }

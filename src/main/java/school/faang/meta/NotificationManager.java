@@ -29,10 +29,9 @@ public class NotificationManager {
 
     public String sendNotification(Notification notification) {
         if (isCensure().test(notification.getMessage())) {
-            return " Не использовать цензуру";
+            return "Не использовать цензуру";
         } else {
-            return "Сообщение отправлено " + notification.getNotificationType();
+            return "Сообщение отправлено %s".formatted(notification.getNotificationType());
         }
     }
-
 }
