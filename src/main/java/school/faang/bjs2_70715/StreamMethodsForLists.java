@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-public class StreamMethodsfForLists {
+public class StreamMethodsForLists {
 
     public static int findEvenSum(List<Integer> list) {
         return list.stream().filter(x -> x % 2 == 0).reduce(0, Integer::sum);
@@ -39,5 +39,4 @@ public class StreamMethodsfForLists {
     public static List<Integer> transformToListOfLenghts(List<String> list) {
         return list.stream().map(String::length).toList();
     }
-
 }
