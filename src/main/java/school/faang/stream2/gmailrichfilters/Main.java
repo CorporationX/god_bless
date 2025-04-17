@@ -18,7 +18,7 @@ public class Main {
         );
 
         // Фильтр, который пропускает только важные письма
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
 
         // Обработчик, который выводит тему письма в консоль
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
@@ -30,7 +30,7 @@ public class Main {
         };
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
         emails.forEach(email ->
