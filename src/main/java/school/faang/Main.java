@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         User u1 = new User(1, "Alice", 25, Set.of("reading", "gaming", "hiking"));
@@ -17,5 +19,11 @@ public class Main {
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.printf("%s loves: %s", entry.getKey(), entry.getValue());
         }
+=======
+        int[] nums = {1, 2, 3, 4, 5};
+
+        System.out.println("До разворота: " + Arrays.toString(nums));
+        Example.reverse(nums);
+        System.out.println("После разворота: " + Arrays.toString(nums));
     }
 }
