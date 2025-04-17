@@ -21,7 +21,7 @@ public class ProductManager {
     public void removeProduct(Category category, String name) {
         Product product = new Product(currentId, name, category);
         products.remove(product);
-            }
+    }
 
     public List<Product> findProductsByCategory(Category category) {
         List<Product> productList = new ArrayList<>();

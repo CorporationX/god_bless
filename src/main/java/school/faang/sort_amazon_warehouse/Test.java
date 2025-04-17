@@ -6,7 +6,7 @@ import static school.faang.sort_amazon_warehouse.Category.FOOD;
 public class Test {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
-
+        
         productManager.addProduct(FOOD, "Apple");
         productManager.addProduct(FOOD, "Bread");
         productManager.addProduct(ELECTRONICS, "Laptop");
@@ -24,6 +24,7 @@ public class Test {
 
         productManager.printAllProducts();
     }
+
     private static void delimiter() {
         System.out.println();
         System.out.println("------------------------------");
