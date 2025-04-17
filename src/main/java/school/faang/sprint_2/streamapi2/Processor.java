@@ -25,9 +25,25 @@ public class Processor {
                 .toList();
     }
 
+    public static List<String> filterAndSortWords(List<String> words, char symbol) {
+        return words.stream()
+                .filter(word -> word.startsWith(String.valueOf(symbol)))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
     public static List<String> convertingNumbersToBinaryFormat(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
+                .toList();
+    }
+
+    public static List<String> filterByAlphabetAndSortWords(List<String> words, String alphabet) {
+        return words.stream()
+                .filter(word -> word.chars()
+                        .mapToObj(c -> (char) c)
+                        .allMatch(character -> alphabet.indexOf(character) != -1))
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 }
