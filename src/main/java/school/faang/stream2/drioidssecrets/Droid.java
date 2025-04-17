@@ -10,7 +10,13 @@ public class Droid {
     private final String name;
     @Setter
     private DroidMessageEncryptor encryptor = ((message, key) -> {
-        return message;//no encryption for now
+        StringBuilder result = new StringBuilder();
+        for (char c : message.toCharArray()) {
+            char e = (char) ((int) c + key);
+            char u = (key >= 0) ? c : e;
+            result.append(Character.isAlphabetic(u) ? e : c);
+        }
+        return result.toString();
     });
 
     private String encryptMessage(String message, int key) {
@@ -21,11 +27,10 @@ public class Droid {
         return encryptor.doCryptography(encrypted, -key);
     }
 
-
     public void sendMessage(Droid recipient, String message, int encryptionKey) {
         String encryptedMessage = encryptMessage(message, encryptionKey);
-        recipient.receiveMessage(encryptedMessage, encryptionKey);
         System.out.printf("%s отправил зашифрованное сообщение: %s\n", this.getName(), encryptedMessage);
+        recipient.receiveMessage(encryptedMessage, encryptionKey);
     }
 
     public void receiveMessage(String message, int decryptionKey) {
