@@ -1,4 +1,4 @@
-package school.faang.BJS2_68253;
+package school.faang.abstraction;
 
 public class Warrior extends Character {
 

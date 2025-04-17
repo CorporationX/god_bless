@@ -1,4 +1,4 @@
-package school.faang.BJS2_68253;
+package school.faang.abstraction;
 
 public abstract class Character {
     private static final int AGILITY = 5;
