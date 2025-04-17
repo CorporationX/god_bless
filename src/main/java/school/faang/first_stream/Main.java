@@ -1,8 +1,11 @@
 package school.faang.first_stream;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -10,16 +13,16 @@ public class Main {
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date", "12345678990");
 
         // Пример использования методов:
-        System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
-        System.out.println("Максимум: " + ListOperations.findMax(numbers));
-        System.out.println("Среднее: " + ListOperations.findAverage(numbers));
-        System.out.println("Количество строк, начинающихся на 'a': " +
+        log.info("Сумма четных чисел: {}", ListOperations.sumOfEvenNumbers(numbers));
+        log.info("Максимум: {}", ListOperations.findMax(numbers));
+        log.info("Среднее: {}", ListOperations.findAverage(numbers));
+        log.info("Количество строк, начинающихся на 'a': {}",
                 ListOperations.countStringsStartingWith(strings, 'a'));
-        System.out.println("Строки, содержащие 'an': " +
+        log.info("Строки, содержащие 'an': {}",
                 ListOperations.filterStringsContainingSubstring(strings, "an"));
-        System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
-        System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 4));
-        System.out.println("Длины строк: " + ListOperations.convertToLengths(strings));
+        log.info("Отсортированные по длине строки: {}", ListOperations.sortByLength(strings));
+        log.info("Все ли числа чётные? {}", ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
+        log.info("Наименьшее число больше 4: {}", ListOperations.findMinGreaterThan(numbers, 4));
+        log.info("Длины строк: {}", ListOperations.convertToLengths(strings));
     }
 }
