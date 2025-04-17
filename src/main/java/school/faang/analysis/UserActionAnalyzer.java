@@ -10,17 +10,20 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions, int n) {
-        Map<Integer, String> userIdToName = buildMapIdToName(actions);
-
-        return actions.stream()
+        Map<Integer, Long> userActivityCounts = actions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getUserId,
                         Collectors.counting()
-                ))
-                .entrySet().stream()
+                ));
+
+        List<Integer> topUserIds = userActivityCounts.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
                 .limit(n)
-                .map(entry -> userIdToName.get(entry.getKey()))
+                .map(Map.Entry::getKey)
+                .toList();
+
+        return topUserIds.stream()
+                .map(buildMapIdToName(actions)::get)
                 .toList();
     }
 
@@ -34,14 +37,19 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int n) {
-        return actions.stream()
-                .filter(a -> a.getActionType() == ActionType.POST || a.getActionType() == ActionType.COMMENT)
-                .flatMap(a -> extractHashtags(a.getContent()).stream())
+        List<String> allHashtags = actions.stream()
+                .filter(action -> action.getActionType() == ActionType.POST
+                        || action.getActionType() == ActionType.COMMENT)
+                .flatMap(action -> extractHashtags(action.getContent()).stream())
+                .toList();
+
+        Map<String, Long> hashtagPopularity = allHashtags.stream()
                 .collect(Collectors.groupingBy(
                         Function.identity(),
                         Collectors.counting()
-                ))
-                .entrySet().stream()
+                ));
+
+        return hashtagPopularity.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(n)
                 .map(Map.Entry::getKey)
@@ -55,19 +63,21 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int n) {
-        Map<Integer, String> userIdToName = buildMapIdToName(actions);
+        List<UserAction> monthComments = actions.stream()
+                .filter(action -> action.getActionType() == ActionType.COMMENT)
+                .filter(action -> action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+                .toList();
 
-        return actions.stream()
-                .filter(a -> a.getActionType() == ActionType.COMMENT)
-                .filter(a -> a.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+        Map<Integer, Long> commentCounts = monthComments.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getUserId,
                         Collectors.counting()
-                ))
-                .entrySet().stream()
+                ));
+
+        return commentCounts.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
                 .limit(n)
-                .map(entry -> userIdToName.get(entry.getKey()))
+                .map(entry -> buildMapIdToName(actions).get(entry.getKey()))
                 .toList();
     }
 
@@ -81,8 +91,8 @@ public class UserActionAnalyzer {
                 ))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
-                        e -> e.getKey().toString(),
-                        e -> (double) e.getValue() / totalActions * 100
+                        entry -> entry.getKey().toString(),
+                        entry -> (double) entry.getValue() / totalActions * 100
                 ));
     }
 }
