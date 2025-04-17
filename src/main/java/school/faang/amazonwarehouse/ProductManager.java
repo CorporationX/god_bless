@@ -11,12 +11,12 @@ import java.util.Set;
 
 @Slf4j
 public class ProductManager {
-    private final Set<Product> products = new HashSet<>();
     private static int generateId = 1;
+    private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
-            if (product.getName().equals(name) && product.getCategory().equals(category)) {
+            if (product.getName().equals(name) && product.getCategory() == category) {
                 log.info("Товар с таким именем уже существует в категории {}", category);
                 return;
             }
@@ -32,35 +32,27 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        boolean removed = products.removeIf(product ->
-                product.getCategory() == category && product.getName().equals(name));
-        if (removed) {
-            log.info("Продукт '{}' успешно удален", name);
-        } else {
-            log.info("Продукт '{}' не найден!", name);
-        }
+        products.removeIf(product -> product.getCategory() == category && product.getName().equals(name));
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> result = new ArrayList<>();
-        int foundCount = 0;
+        List<Product> findProduct = new ArrayList<>();
         for (Product product : products) {
             if (product.getCategory() == category) {
-                result.add(product);
-                foundCount++;
+                findProduct.add(product);
                 log.info("Поиск по категории. Найден продукт: '{}'", product.getName());
             }
         }
 
-        if (foundCount == 0) {
+        if (findProduct.isEmpty()) {
             log.info("Ничего не найдено в категории '{}'", category);
         } else {
-            log.info("Всего Найдено: '{}' ед.", foundCount);
+            log.info("Всего Найдено: '{}' ед.", findProduct.size());
         }
-        return result;
+        return findProduct;
     }
 
-    public Map<Category, List<Product>> groupProductsByCategory() {
+    public Map<Category, List<Product>> productsByCategory() {
         Map<Category, List<Product>> groupProducts = new HashMap<>();
         for (Product product : products) {
             Category category = product.getCategory();
@@ -70,7 +62,7 @@ public class ProductManager {
     }
 
     public void printAllProducts() {
-        Map<Category, List<Product>> groupedProducts = groupProductsByCategory();
+        Map<Category, List<Product>> groupedProducts = productsByCategory();
         for (Map.Entry<Category, List<Product>> entry : groupedProducts.entrySet()) {
             log.info("Категория: '{}'", entry.getKey());
             log.info("Продукты:");

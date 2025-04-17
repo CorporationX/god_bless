@@ -17,7 +17,7 @@ public class Main {
         productManager.findProductsByCategory(Category.FOOD);
         productManager.findProductsByCategory(Category.OTHER);
 
-        productManager.groupProductsByCategory();
+        productManager.productsByCategory();
         productManager.printAllProducts();
 
     }
