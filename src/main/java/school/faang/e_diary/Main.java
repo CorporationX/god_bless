@@ -17,8 +17,9 @@ public class Main {
                                 "Химия", List.of(5, 5, 5),
                                 "Литература", List.of(5, 5, 5))
                         )));
-        System.out.println(DiaryHandler.getSubjectAvgGrades(students));
-        System.out.println(DiaryHandler.getAvgGradesForStudent(students, "Иван", "Иванов"));
-
+        System.out.println(DiaryOperations.getSubjectAvgGrades(students));
+        System.out.println(DiaryOperations.getAvgGradesForStudent(students, "Иван", "Иванов"));
+        System.out.println(DiaryOperations.getTheLowestGradeSubject(students));
+        System.out.println(DiaryOperations.getStudentsGradingTable(students));
     }
 }
