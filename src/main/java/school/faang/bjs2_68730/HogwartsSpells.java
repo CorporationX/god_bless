@@ -23,7 +23,7 @@ class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(Integer id) {
-        var spellEvent = this.spellById.get(id);
+        SpellEvent spellEvent = this.spellById.get(id);
         if (spellEvent == null) {
             throw new NoSuchElementException("Заклинание с id %d отсутствует".formatted(id));
         }
@@ -31,7 +31,7 @@ class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(EventType eventType) {
-        var spellEvents = this.spellsByType.get(eventType);
+        List<SpellEvent> spellEvents = this.spellsByType.get(eventType);
         if (spellEvents == null || spellEvents.isEmpty()) {
             throw new NoSuchElementException("Заклинание с eventType %s отсутствует".formatted(eventType));
         }
@@ -39,7 +39,7 @@ class HogwartsSpells {
     }
 
     public void deleteSpellEvent(Integer id) {
-        var spellEvent = this.spellById.remove(id);
+        SpellEvent spellEvent = this.spellById.remove(id);
         if (spellEvent == null) {
             throw new NoSuchElementException("Заклинание с id %d отсутствует".formatted(id));
         }
