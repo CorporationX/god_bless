@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class DiaryOperations {
-    String formatForTitle = "%-17s | %11s | %11s | %5s | %6s | %16s%n";
-    String formatForRow = "%-15.15s   | %11.1f | %11.1f | %5.1f | %6.1f | %16.1f %n";
+    private String formatForTitle = "%-17s | %11s | %11s | %5s | %6s | %16s%n";
+    private String formatForRow = "%-15.15s   | %11.1f | %11.1f | %5.1f | %6.1f | %16.1f %n";
 
     public Map<String, Double> getSubjectAvgGrades(List<Student> students) {
         return students.stream()
@@ -77,14 +77,21 @@ public class DiaryOperations {
                                             Map<Student, Double> studentToTotalAverageMark,
                                             Map<Student, Double> studentOverallPerformance) {
         StringBuilder resultTable = new StringBuilder();
-        resultTable.append(String.format(formatForTitle, "ФИО", "Математика", "Литература", "Химия",
-                "%", "Итоговая оценка"));
+        resultTable.append(String.format(formatForTitle, "ФИО",
+                "Математика",
+                "Литература",
+                "Химия",
+                "%",
+                "Итоговая оценка"));
         for (Student student : students) {
             Map<String, Double> subjectAvgMarkMap = studentsToAvgMarks.get(student);
             resultTable.append(String.format(formatForRow,
-                    String.format("%s %s", student.getName(), student.getLastName()), subjectAvgMarkMap.get("Математика"),
-                    subjectAvgMarkMap.get("Литература"), subjectAvgMarkMap.get("Химия"),
-                    studentOverallPerformance.get(student), studentToTotalAverageMark.get(student)));
+                    String.format("%s %s", student.getName(), student.getLastName()),
+                    subjectAvgMarkMap.get("Математика"),
+                    subjectAvgMarkMap.get("Литература"),
+                    subjectAvgMarkMap.get("Химия"),
+                    studentOverallPerformance.get(student),
+                    studentToTotalAverageMark.get(student)));
         }
         return resultTable.toString();
     }
