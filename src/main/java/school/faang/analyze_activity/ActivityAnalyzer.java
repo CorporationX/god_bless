@@ -19,7 +19,7 @@ public class ActivityAnalyzer {
                 .sorted(Comparator.comparingLong((Map.Entry<UserAction, Long> list) -> list.getValue()).reversed())
                 .limit(topToReturn)
                 .map(entry -> entry.getKey().getName())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> topHashTags(List<UserAction> actions, int topToReturn) {
@@ -35,7 +35,7 @@ public class ActivityAnalyzer {
                 .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .map(Map.Entry::getKey)
                 .limit(topToReturn)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -48,7 +48,7 @@ public class ActivityAnalyzer {
                 .sorted(Comparator.comparingLong((Map.Entry<UserAction, Long> list) -> list.getValue()).reversed())
                 .limit(topToReturn)
                 .map(entry -> entry.getKey().getName())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
