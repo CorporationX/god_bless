@@ -15,13 +15,12 @@ public class LibrarySystem {
     }
 
     public String findBook(String title, String author, int year) {
-        String location;
-        return placeBook.getOrDefault(new Book(title, author, year), null);
+        return placeBook.get(new Book(title, author, year));
     }
 
     public void removeBook(String title, String author, int year) {
         if (!Objects.equals(findBook(title, author, year), null)) {
-            this.placeBook.remove(new Book(title, author, year));
+            placeBook.remove(new Book(title, author, year));
         }
     }
 
