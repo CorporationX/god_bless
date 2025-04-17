@@ -96,13 +96,13 @@ public class StudentDatabase {
             log.error("неподходящий метод, данного предмета не существует");
             return;
         }
-        if (subjectStudents.get(subject).remove(student)){
+        if (subjectStudents.get(subject).remove(student)) {
             studentSubjects.get(student).remove(subject);
         }
     }
 
     public void printAllSubjectWithStudent() {
-        for (Map.Entry<Subject, List<Student>> entry: subjectStudents.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             System.out.println("Предмет: " + entry.getKey().name() + "\n\t" + "Студенты: ");
             entry.getValue().forEach((student) -> System.out.println("\t-" + student.name()));
 

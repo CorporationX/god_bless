@@ -21,7 +21,7 @@ public class Main {
 
         subjectAndBallForOleg.put(math, Ball.THREE);
         subjectAndBallForOleg.put(russia, Ball.TWO);
-        subjectAndBallForEgor.put(biology, Ball.FOUR );
+        subjectAndBallForEgor.put(biology, Ball.FOUR);
         subjectAndBallForAlex.put(math, Ball.FIVE);
         subjectAndBallForAlex.put(biology, Ball.FIVE);
         subjectAndBallForAlex.put(fiz, Ball.FOUR);
