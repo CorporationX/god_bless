@@ -1,7 +1,10 @@
 package school.faang.bjs2_69409;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 
+@Slf4j
 public class Main {
     public static void main(String [] args) {
         try {
@@ -12,8 +15,8 @@ public class Main {
                     new User("Красавела", 37, "Там", "Uspensk"),
                     new User("Кадыров", 48, "Google", "London")
             );
-        } catch (Exception ex) {
-            System.out.println(ex.getCause());
+        } catch (IllegalArgumentException ex) {
+            log.error("Exception occurred: {}", ex.getMessage(), ex);
         }
     }
 }
