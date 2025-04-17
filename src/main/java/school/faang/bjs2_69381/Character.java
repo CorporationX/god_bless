@@ -1,7 +1,7 @@
 package school.faang.bjs2_69381;
 
 public abstract class Character {
-    private final static int DEFAULT_ATTR_VALUE = 5;
+    private static final int DEFAULT_ATTR_VALUE = 5;
 
     protected String name;
     protected int strength;
