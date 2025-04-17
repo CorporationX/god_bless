@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+
         Subject math = new Subject("Математика");
         Subject fiz = new Subject("Физика");
         Subject russia = new Subject("Русский");
