@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class DiaryOperations {
+    String formatForTitle = "%-17s | %11s | %11s | %5s | %6s | %16s%n";
+    String formatForRow = "%-15.15s   | %11.1f | %11.1f | %5.1f | %6.1f | %16.1f %n";
+
     public Map<String, Double> getSubjectAvgGrades(List<Student> students) {
         return students.stream()
                 .map(Student::getMarks)
@@ -52,72 +55,75 @@ public class DiaryOperations {
                                         .average()
                                         .getAsDouble()))
                 .flatMap(m -> m.entrySet().stream())
-                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)))
+                .collect(Collectors.groupingBy(Map.Entry::getKey,
+                        Collectors.averagingDouble(Map.Entry::getValue)))
                 .entrySet().stream()
                 .min(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .get();
     }
 
-    /*
-    Дополнительная задача:
-Напишите метод, который выводит в консоль таблицу с итоговой успеваемостью всех учеников. В таблице должны быть такие колонки:
-ФИО (имя и фамилия ученика),
-Итоговые оценки по каждому предмету,
-Процент успеваемости по всем предметам,
-Итоговая оценка по 5-балльной шкале.
-
-ищем средний бал без округления для каждого ученика за предмет
-Map<Student, Map<String, Double>>
-     */
-
     public String getStudentsGradingTable(List<Student> students) {
-        Map<Student, Map<String, Double>> studentsToAvgMarks = students.stream()
+        Map<Student, Map<String, Double>> studentsToAvgMarks = getstudentsToAvgMarksMap(students);
+        Map<Student, Double> studentToTotalAverageMark = getTotalAverageMarkForStudent(studentsToAvgMarks);
+        Map<Student, Double> studentOverallPerformance = getStudentOverallPerformance(studentToTotalAverageMark);
+        return getFormattedTable(students, studentsToAvgMarks, studentToTotalAverageMark, studentOverallPerformance);
+
+
+    }
+
+    private static String getFormattedTable(List<Student> students, Map<Student,
+                                                    Map<String, Double>> studentsToAvgMarks,
+                                            Map<Student, Double> studentToTotalAverageMark,
+                                            Map<Student, Double> studentOverallPerformance) {
+        StringBuilder resultTable = new StringBuilder();
+        resultTable.append(String.format(formatForTitle, "ФИО", "Математика", "Литература", "Химия",
+                "%", "Итоговая оценка"));
+        for (Student student : students) {
+            Map<String, Double> subjectAvgMarkMap = studentsToAvgMarks.get(student);
+            resultTable.append(String.format(formatForRow,
+                    String.format("%s %s", student.getName(), student.getLastName()), subjectAvgMarkMap.get("Математика"),
+                    subjectAvgMarkMap.get("Литература"), subjectAvgMarkMap.get("Химия"),
+                    studentOverallPerformance.get(student), studentToTotalAverageMark.get(student)));
+        }
+        return resultTable.toString();
+    }
+
+    private static Map<Student, Double> getStudentOverallPerformance(
+            Map<Student, Double> studentToTotalAverageMark) {
+        return studentToTotalAverageMark.entrySet().stream()
+                .map(entry -> Map.of(entry.getKey(), 100 * (entry.getValue() / 5)))
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
+    }
+
+    private static Map<Student, Double> getTotalAverageMarkForStudent(
+            Map<Student, Map<String, Double>> studentsToAvgMarks) {
+        return studentsToAvgMarks.entrySet().stream()
+                .filter(entry -> !entry.getValue().isEmpty())
+                .map(entry -> {
+                    double averageForAllMarks = entry.getValue().values().stream()
+                            .collect(Collectors.averagingDouble(Double::doubleValue));
+                    return Map.of(entry.getKey(), averageForAllMarks);
+                })
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    private static Map<Student, Map<String, Double>> getstudentsToAvgMarksMap(List<Student> students) {
+        return students.stream()
                 .map(student -> {
                     Map<String, Double> subjectToAvgMark = student.getMarks()
                             .entrySet().stream()
                             .filter(entry -> !entry.getValue().isEmpty())
-                            .map(entry -> Map.of(entry.getKey(), entry.getValue().stream().mapToInt(num -> num).average().getAsDouble()))
-                            .flatMap(m -> m.entrySet().stream())
-                            .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
+                            .map(entry -> Map.of(entry.getKey(),
+                                    entry.getValue().stream().mapToInt(num -> num).average().getAsDouble()))
+                            .flatMap(map -> map.entrySet().stream())
+                            .collect(Collectors.groupingBy(Map.Entry::getKey,
+                                    Collectors.averagingDouble(Map.Entry::getValue)));
                     return Map.of(student, subjectToAvgMark);
                 })
                 .flatMap(m -> m.entrySet().stream())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        Map<Student, Map<String, Double>> studentToSubjectPerformance = studentsToAvgMarks.entrySet().stream()
-                .filter(entry -> !entry.getValue().isEmpty())
-                .map(entry -> {
-                    Map<String, Double> mapOfSubjectPerformance = entry.getValue().entrySet().stream()
-                            .map(subjToAvgMark -> Map.of(subjToAvgMark.getKey(), 100 * (subjToAvgMark.getValue() / 5)))
-                            .flatMap(modifiedEntry -> modifiedEntry.entrySet().stream())
-                            .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
-                    return Map.of(entry.getKey(), mapOfSubjectPerformance);
-                })
-                .flatMap(m -> m.entrySet().stream())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        Map<Student, Long> studentToAverageForAllMarks = studentsToAvgMarks.entrySet().stream()
-                .filter(entry -> !entry.getValue().isEmpty())
-                .map(entry -> {
-                    double averageForAllMarks = entry.getValue().entrySet().stream()
-                            .map(subjectToAvgMark -> subjectToAvgMark.getValue())
-                            .mapToDouble(mark -> mark)
-                            .average()
-                            .getAsDouble();
-                    return Map.of(entry.getKey(), Math.round(averageForAllMarks));
-                })
-                .flatMap(m -> m.entrySet().stream())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        System.out.println("studentsToAvgMarks = " + studentsToAvgMarks);
-        //System.out.println("studentToSubjectPerformance = " + studentToSubjectPerformance);
-        //System.out.println("studentToAverageForAllMarks = " + studentToAverageForAllMarks);
-
-        StringBuilder sb = new StringBuilder();
-        String format = "%-15s | %11s | %11s | %5s | %6s | %16s%n";
-        sb.append(String.format(format, "ФИО", "Математика", "Литература", "Химия", "%", "Итоговая оценка"));
-
-        return sb.toString();
     }
 }
