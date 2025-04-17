@@ -8,18 +8,19 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public List<Email> processEmails(List<Email> emails,
-                              Predicate<Email> filter,
-                              Consumer<Email> transform,
-                              Function<Email, String> process) {
+    public void processEmails(List<Email> emails,
+                              Predicate<Email> predicate,
+                              Consumer<Email> consumer,
+                              Function<Email, String> function) {
         List<Email> result = new ArrayList<>();
         emails.forEach(email -> {
-            if (filter.test(email)) {
-                transform.accept(email);
-                process.apply(email);
+            if (predicate.test(email)) {
+                function.apply(email);
+                consumer.accept(email);
                 result.add(email);
             }
         });
-        return result;
+        emails.clear();
+        emails.addAll(result);
     }
 }
