@@ -17,12 +17,12 @@ public class Main {
         new Email("Normal Email", "This is a normal email.", false),
         new Email("Normal Email", "Nothing to say.", false)
     );
-    // private static final Predicate<Email> IS_IMPORTANT = Email::isImportant;
     private static final Predicate<Email> IS_IMPORTANT = email -> !email.isImportant();
     private static final Consumer<Email> PRINT_EMAILS = email -> log.info(email.toString());
-    private static final Function<Email, String> MODIFY_EMAIL = email -> email.getBody().toUpperCase();
+    // private static final Function<Email, String> MODIFY_EMAIL = email -> email.getBody().toUpperCase();
+    private static final Function<Email, Email> MODIFY_EMAIL = email -> new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant());
 
     public static void main(String[] args) {
-        EMAIL_PROCESSOR.processEmails(EMAILS, IS_IMPORTANT, PRINT_EMAILS, MODIFY_EMAIL);
+        EMAIL_PROCESSOR.filter(EMAILS, IS_IMPORTANT, PRINT_EMAILS, MODIFY_EMAIL);
     }
 }
