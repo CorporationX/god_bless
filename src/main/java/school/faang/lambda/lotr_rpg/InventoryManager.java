@@ -3,22 +3,30 @@ package school.faang.lambda.lotr_rpg;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> onAddMsg) {
-        character.inventory().add(item);
+        character.getInventory().add(item);
         onAddMsg.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> condition) {
-        character.inventory().removeIf(condition);
+        character.getInventory().removeIf(condition);
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
-        character.inventory().forEach(item -> {
-            if (condition.test(item)) {
-                character.inventory().set(character.inventory().indexOf(item), updater.apply(item));
-            }
-        });
+        Stream<Item> trueCondition = character
+                .getInventory()
+                .stream()
+                .filter(condition)
+                .map(updater);
+
+        Stream<Item> falseCondition = character
+                .getInventory()
+                .stream()
+                .filter(item -> !condition.test(item));
+
+        character.setInventory(Stream.concat(trueCondition, falseCondition).toList());
     }
 }
