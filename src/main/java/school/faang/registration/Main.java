@@ -22,6 +22,5 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Registration failed. " + e.getMessage());
         }
-
     }
 }
