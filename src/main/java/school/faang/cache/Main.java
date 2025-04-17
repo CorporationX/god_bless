@@ -7,45 +7,37 @@ public class Main {
     public static void main(String[] args) {
 
         Subject math = new Subject("Математика");
-        Subject fiz = new Subject("Физика");
         Subject russia = new Subject("Русский");
         Subject biology = new Subject("Биологи");
-        Student oleg = new Student("Олег");
-        Student alex = new Student("Алексей");
-        Student egor = new Student("Егор");
+        Student student1 = new Student("Олег");
+        Student student2 = new Student("Алекс");
 
         Map<Subject, Ball> subjectAndBallForOleg = new HashMap<>();
         Map<Subject, Ball> subjectAndBallForAlex = new HashMap<>();
-        Map<Subject, Ball> subjectAndBallForEgor = new HashMap<>();
 
         subjectAndBallForOleg.put(math, Ball.THREE);
         subjectAndBallForOleg.put(russia, Ball.TWO);
-        subjectAndBallForEgor.put(biology, Ball.FOUR);
         subjectAndBallForAlex.put(math, Ball.FIVE);
         subjectAndBallForAlex.put(biology, Ball.FIVE);
-        subjectAndBallForAlex.put(fiz, Ball.FOUR);
         subjectAndBallForAlex.put(russia, Ball.FIVE);
 
         StudentDatabase studentDatabase = new StudentDatabase();
 
-        studentDatabase.addNewStudentAndSubjectWithBall(oleg, subjectAndBallForOleg);
-        studentDatabase.addNewStudentAndSubjectWithBall(alex, subjectAndBallForAlex);
-        studentDatabase.addNewStudentAndSubjectWithBall(egor, subjectAndBallForEgor);
+        studentDatabase.addNewStudentAndSubjectWithBall(student1, subjectAndBallForOleg);
+        studentDatabase.addNewStudentAndSubjectWithBall(student2, subjectAndBallForAlex);
 
         studentDatabase.printAllStudentAndSubjectWithBall();
 
-        studentDatabase.addSubjectWithBallForOldStudent(egor, math, Ball.THREE);
+        studentDatabase.addSubjectWithBallForOldStudent(student2, math, Ball.THREE);
         studentDatabase.printAllStudentAndSubjectWithBall();
 
         System.out.println(studentDatabase.getSubjectStudents().get(biology));
-        System.out.println(studentDatabase.getSubjectStudents().get(fiz));
 
-        studentDatabase.removeStudentAndYouSubject(alex);
+        studentDatabase.removeStudentAndYouSubject(student1);
 
         studentDatabase.printAllStudentAndSubjectWithBall();
 
         System.out.println(studentDatabase.getSubjectStudents().get(biology));
-        System.out.println(studentDatabase.getSubjectStudents().get(fiz));
 
         studentDatabase.printAllSubjectWithStudent();
     }
