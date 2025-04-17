@@ -1,19 +1,18 @@
 package school.faang.sprint_2.metauniverse;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-@Getter
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notificationHandler = new HashMap<>();
-    private List<Predicate<Notification>> badWords = new ArrayList<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationHandler = new HashMap<>();
+    private final List<Predicate<Notification>> badWords = new ArrayList<>();
     private Function<Notification, Notification> notificationCorrector;
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
@@ -21,11 +20,15 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        Objects.requireNonNull(notification);
         if (checkBadWord(notification)) {
             notification = editNotification(notification);
         }
 
-        notificationHandler.get(notification.getType()).accept(notification);
+        Notification finalNotification = notification;
+
+        Optional.ofNullable(notificationHandler.get(finalNotification.getType()))
+                .ifPresent(handler -> handler.accept(finalNotification));
     }
 
     public void registerBadWord(Predicate<Notification> predicate) {

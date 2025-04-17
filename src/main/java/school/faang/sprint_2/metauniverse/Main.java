@@ -1,16 +1,19 @@
 package school.faang.sprint_2.metauniverse;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email " + notification.getMessage()));
+                notification -> log.info("Email {}", notification.getMessage()));
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push " + notification.getMessage()));
+                notification -> log.info("Push {}", notification.getMessage()));
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS " + notification.getMessage()));
+                notification -> log.info("SMS {}", notification.getMessage()));
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован.");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен stupid.");
