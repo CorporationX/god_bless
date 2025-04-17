@@ -10,13 +10,10 @@ public abstract class Character {
     protected int intelligence;
     protected int health;
 
-    public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-        this.health = 100;
-    }
+    protected static final int DEFAULT_STRENGTH = 5;
+    protected static final int DEFAULT_AGILITY = 5;
+    protected static final int DEFAULT_INTELLIGENCE = 5;
+    protected static final int DEFAULT_HEALTH = 100;
 
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
