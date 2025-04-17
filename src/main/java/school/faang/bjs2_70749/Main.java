@@ -12,35 +12,35 @@ public class Main {
 
 
         // Пример использования методов:
-        System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(NUMBERS));
+        System.out.println("Sum of even numbers: " + ListOperations.sumOfEvenNumbers(NUMBERS));
 
         try {
-            System.out.println("Максимум: " + ListOperations.findMax(NUMBERS));
+            System.out.println("Maximum: " + ListOperations.findMax(NUMBERS));
         } catch (ValueNotFoundException ex) {
-            System.out.println("Максимум: " + ex.getMessage());
+            System.out.println("Maximum: " + ex.getMessage());
         }
 
         try {
-            System.out.println("Среднее: " + ListOperations.findAverage(NUMBERS));
+            System.out.println("Average: " + ListOperations.findAverage(NUMBERS));
         } catch (ValueNotFoundException ex) {
-            System.out.println("Среднее: " + ex.getMessage());
+            System.out.println("Average: " + ex.getMessage());
         }
 
-        System.out.println("Количество строк, начинающихся на 'a': "
+        System.out.println("Number of lines starting with 'a': "
                 + ListOperations.countStringsStartingWith(STRINGS, 'a'));
-        System.out.println("Строки, содержащие 'an': "
+        System.out.println("Strings containing 'an': "
                 + ListOperations.filterStringsContainingSubstring(STRINGS, "an"));
 
-        System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(STRINGS));
+        System.out.println("Sorted by string length: " + ListOperations.sortByLength(STRINGS));
 
-        System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(NUMBERS, n -> n % 2 == 0));
+        System.out.println("Are all the numbers even? " + ListOperations.allMatchCondition(NUMBERS, n -> n % 2 == 0));
 
         try {
-            System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(NUMBERS, 4));
+            System.out.println("The smallest number greater than 4: " + ListOperations.findMinGreaterThan(NUMBERS, 4));
         } catch (ValueNotFoundException ex) {
-            System.out.println("Наименьшее число больше 4: " + ex.getMessage());
+            System.out.println("The smallest number greater than 4: " + ex.getMessage());
         }
 
-        System.out.println("Длины строк: " + ListOperations.convertToLengths(STRINGS));
+        System.out.println("Line lengths: " + ListOperations.convertToLengths(STRINGS));
     }
 }
