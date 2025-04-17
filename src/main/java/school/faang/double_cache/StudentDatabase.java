@@ -58,7 +58,7 @@ public class StudentDatabase {
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             Subject subject = entry.getKey();
-            System.out.println("Предмет: " + subject.getName());
+            System.out.println("Предмет: " + subject.name());
             for (Student student : entry.getValue()) {
                 System.out.println("   Студент: " + student.getName());
             }
@@ -105,7 +105,7 @@ public class StudentDatabase {
                 sb.append("  No subjects\n");
             } else {
                 for (Map.Entry<Subject, Integer> subjectEntry : subjects.entrySet()) {
-                    sb.append("  Subject: ").append(subjectEntry.getKey().getName())
+                    sb.append("  Subject: ").append(subjectEntry.getKey().name())
                             .append(" - Grade: ").append(subjectEntry.getValue()).append("\n");
                 }
             }
