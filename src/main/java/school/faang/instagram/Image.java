@@ -1,15 +1,13 @@
 package school.faang.instagram;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
-@Data
 @AllArgsConstructor
+@Getter
 @Setter
 public class Image {
     private final String name;
     private String description;
 }
-
-
