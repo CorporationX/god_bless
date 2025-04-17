@@ -14,7 +14,7 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Ball>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addNewStudentAndSubjectAWithBall(Student student, Map<Subject, Ball> mapSubjectAndBall) {
+    public void addNewStudentAndSubjectWithBall(Student student, Map<Subject, Ball> mapSubjectAndBall) {
         if (studentSubjects.get(student) != null) {
             log.error("Неподходящий метод, он только для новых студентов, " +
                     "попробуй метод: addNewSubjectWithBallForOldStudent");

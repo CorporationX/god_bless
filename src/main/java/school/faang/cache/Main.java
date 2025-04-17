@@ -29,9 +29,9 @@ public class Main {
 
         StudentDatabase studentDatabase = new StudentDatabase();
 
-        studentDatabase.addNewStudentAndSubjectAWithBall(oleg, subjectAndBallForOleg);
-        studentDatabase.addNewStudentAndSubjectAWithBall(alex, subjectAndBallForAlex);
-        studentDatabase.addNewStudentAndSubjectAWithBall(egor, subjectAndBallForEgor);
+        studentDatabase.addNewStudentAndSubjectWithBall(oleg, subjectAndBallForOleg);
+        studentDatabase.addNewStudentAndSubjectWithBall(alex, subjectAndBallForAlex);
+        studentDatabase.addNewStudentAndSubjectWithBall(egor, subjectAndBallForEgor);
 
 //        studentDatabase.printAllStudentAndSubjectWithBall();
 

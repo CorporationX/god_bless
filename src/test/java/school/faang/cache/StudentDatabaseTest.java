@@ -26,12 +26,12 @@ public class StudentDatabaseTest {
     }
 
     @Test
-    void testAddNewStudentAndSubjectAWithBall() {
+    void testAddNewStudentAndSubjectWithBall() {
         Map<Subject, Ball> subjects = new HashMap<>();
         subjects.put(subject1, Ball.FOUR);
         subjects.put(subject2, Ball.FIVE);
 
-        database.addNewStudentAndSubjectAWithBall(student1, subjects);
+        database.addNewStudentAndSubjectWithBall(student1, subjects);
 
         assertTrue(database.getStudentSubjects().containsKey(student1));
         assertEquals(2, database.getStudentSubjects().get(student1).size());
