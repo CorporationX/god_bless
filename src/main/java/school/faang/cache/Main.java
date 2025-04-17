@@ -5,12 +5,10 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         Subject math = new Subject("Математика");
         Subject fiz = new Subject("Физика");
         Subject russia = new Subject("Русский");
         Subject biology = new Subject("Биологи");
-
         Student oleg = new Student("Олег");
         Student alex = new Student("Алексей");
         Student egor = new Student("Егор");
@@ -33,10 +31,10 @@ public class Main {
         studentDatabase.addNewStudentAndSubjectWithBall(alex, subjectAndBallForAlex);
         studentDatabase.addNewStudentAndSubjectWithBall(egor, subjectAndBallForEgor);
 
-//        studentDatabase.printAllStudentAndSubjectWithBall();
+        studentDatabase.printAllStudentAndSubjectWithBall();
 
         studentDatabase.addSubjectWithBallForOldStudent(egor, math, Ball.THREE);
-//        studentDatabase.printAllStudentAndSubjectWithBall();
+        studentDatabase.printAllStudentAndSubjectWithBall();
 
         System.out.println(studentDatabase.getSubjectStudents().get(biology));
         System.out.println(studentDatabase.getSubjectStudents().get(fiz));
