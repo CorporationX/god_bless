@@ -10,39 +10,25 @@ public class StudentDatabase {
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
-        if (studentSubjects.containsKey(student)) {
-            studentSubjects.get(student).putAll(grades);
-        } else {
-            studentSubjects.put(student, new HashMap<>(grades));
-        }
-
+        studentSubjects.put(student, grades);
         for (Map.Entry<Subject, Integer> entry : grades.entrySet()) {
             Subject subject = entry.getKey();
-            subjectStudents.putIfAbsent(subject, new ArrayList<>());
-            if (!subjectStudents.get(subject).contains(student)) {
-                subjectStudents.get(subject).add(student);
-            }
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
     }
 
     public void addSubjectForStudent(Student student, Subject subject, int grade) {
-        if (!studentSubjects.containsKey(student)) {
-            studentSubjects.put(student, new HashMap<>());
-        }
-        studentSubjects.get(student).put(subject, grade);
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
-        }
+        studentSubjects.computeIfAbsent(student, l -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudentWithSubjects(Student student) {
-        studentSubjects.remove(student);
-        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            for (Student studentToRemove : entry.getValue()) {
-                if (studentToRemove.equals(student)) {
-                    subjectStudents.get(entry.getKey()).remove(student);
-                    break;
+        Map<Subject, Integer> grades = studentSubjects.remove(student);
+        if (grades != null) {
+            for (Subject subject : grades.keySet()) {
+                List<Student> students = subjectStudents.get(subject);
+                if (students != null) {
+                    students.remove(student);
                 }
             }
         }
@@ -57,21 +43,13 @@ public class StudentDatabase {
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
         subjectStudents.putIfAbsent(subject, students);
         for (Student student : students) {
-            if (!subjectStudents.get(subject).contains(student)) {
-                subjectStudents.get(subject).add(student);
-            }
-            studentSubjects.putIfAbsent(student, new HashMap<>());
-            studentSubjects.get(student).putIfAbsent(subject, null);
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, null);
         }
     }
 
     public void addStudentForSubject(Student student, Subject subject) {
-        subjectStudents.putIfAbsent(subject, new ArrayList<>());
-        if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student);
-        }
-        studentSubjects.putIfAbsent(student, new HashMap<>());
-        studentSubjects.get(student).putIfAbsent(subject, null);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, null);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
