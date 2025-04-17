@@ -19,10 +19,10 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        var productsByCategory = new ArrayList<Product>();
+        ArrayList<Product> productsByCategory = new ArrayList<>();
 
         products.forEach(product -> {
-            if (product.getCategory().equals(category)) {
+            if (product.getCategory() == category) {
                 productsByCategory.add(product);
             }
         });
@@ -33,7 +33,7 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productsGroupedByCategory = new EnumMap<>(Category.class);
 
-        for (var category : Category.values()) {
+        for (Category category : Category.values()) {
             productsGroupedByCategory.putIfAbsent(category, findProductsByCategory(category));
         }
 
@@ -41,7 +41,7 @@ public class ProductManager {
     }
 
     public void printAllProducts() {
-        var productsGroupedByCategory = groupProductsByCategory();
+        Map<Category, List<Product>> productsGroupedByCategory = groupProductsByCategory();
 
         for (Map.Entry<Category, List<Product>> entry : productsGroupedByCategory.entrySet()) {
             if (!entry.getValue().isEmpty()) {
