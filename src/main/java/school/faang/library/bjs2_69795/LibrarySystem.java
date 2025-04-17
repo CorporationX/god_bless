@@ -1,6 +1,5 @@
-package school.faang.library.BJS2_69795;
+package school.faang.library.bjs2_69795;
 
-import java.util.Objects;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -19,8 +18,12 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        if (!Objects.equals(findBook(title, author, year), null)) {
-            placeBook.remove(new Book(title, author, year));
+        Book book = new Book(title, author, year);
+        if (books.remove(new Book(title, author, year)) != null) {
+            System.out.printf("Книга удалена: %s", book);
+        } else {
+            System.out.printf("Книга не найдена для удаления: %s", book);
+
         }
     }
 
