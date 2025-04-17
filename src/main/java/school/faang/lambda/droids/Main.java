@@ -16,7 +16,7 @@ public class Main {
         bb8.sendMessage("The mission is complete.", encryptionKey1, c3po);
 
         String message3 = "Luke, I am your father!";
-        int encryptionKey3 = 10;
+        int encryptionKey3 = 9;
         r2d2.sendMessage(message3, encryptionKey3, bb8);
     }
 }
