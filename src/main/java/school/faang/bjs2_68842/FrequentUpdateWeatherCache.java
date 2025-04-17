@@ -6,7 +6,7 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     }
 
     @Override
-    protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
+    public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         return true;
     }
 }

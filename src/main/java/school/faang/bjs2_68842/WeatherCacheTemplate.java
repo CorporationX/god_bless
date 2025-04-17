@@ -1,17 +1,19 @@
 package school.faang.bjs2_68842;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Getter
 @AllArgsConstructor
 public abstract class WeatherCacheTemplate {
     private final Map<City, WeatherData> weatherInfo = new HashMap<>();
     private final WeatherServiceImpl weatherService;
 
-    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+    public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(City city, long maxCacheAgeMillis) {
         WeatherData weatherData = weatherInfo.get(city);
@@ -21,7 +23,7 @@ public abstract class WeatherCacheTemplate {
         return weatherData;
     }
 
-    private WeatherData forceUpdateWeather(City city) {
+    public WeatherData forceUpdateWeather(City city) {
         WeatherData weatherData = weatherService.fetchWeatherData(city);
         weatherInfo.put(city, weatherData);
         return weatherData;
