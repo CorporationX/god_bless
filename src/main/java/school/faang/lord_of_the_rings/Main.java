@@ -9,18 +9,18 @@ public class Main {
         Character frodo = new Character("Frodo");
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, item -> System.out.println(item.getName() + " добавлено в инвентарь"));
-        manager.addItem(frodo, sword, item -> System.out.println(item.getName() + " добавлено в инвентарь"));
-        manager.addItem(frodo, shield, item -> System.out.println(item.getName() + " добавлено в инвентарь"));
-        System.out.println(frodo);
+        manager.addItem(frodo, new Item("One Ring", 1000),
+                item -> System.out.printf("Added: %s%n", item.name()));
+        manager.addItem(frodo, new Item("Sting Sword", 500),
+                item -> System.out.printf("Added: %s%n", item.name()));
+        System.out.printf("Inventory before removal: %s%n", frodo.getInventory());
 
-        manager.removeItem(frodo, item -> item.getName().contains("Кольцо"));
-        System.out.println(frodo);
+        manager.removeItem(frodo, item -> item.name().contains("Ring"));
+        System.out.printf("Inventory after removal: %s%n", frodo.getInventory());
 
-        manager.updateItem(frodo, item -> item.getName().equals("Меч"), item -> {
-            item.setValue(item.getValue() * 2);
-            return item;
-        });
-        System.out.println(frodo);
+        manager.updateItem(frodo,
+                item -> item.name().contains("Ring"),
+                item -> new Item(item.name(), item.value() * 2));
+        System.out.printf("Inventory after update: %s%n", frodo.getInventory());
     }
 }

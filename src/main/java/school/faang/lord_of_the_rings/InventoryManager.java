@@ -8,21 +8,21 @@ import java.util.function.Predicate;
 public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> action) {
-        character.addItem(item);
+        character.getInventory().add(item);
         action.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> condition) {
-        List<Item> inventory = character.getInventory();
-        inventory.removeIf(condition);
+        character.getInventory().removeIf(condition);
     }
 
-    public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updateFunction) {
+    public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
         List<Item> inventory = character.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             Item item = inventory.get(i);
             if (condition.test(item)) {
-                inventory.set(i, updateFunction.apply(item));
+                Item updatedItem = updater.apply(item);
+                inventory.set(i, updatedItem);
             }
         }
     }
