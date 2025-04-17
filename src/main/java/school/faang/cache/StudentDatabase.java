@@ -36,9 +36,8 @@ public class StudentDatabase {
         }
         Map<Subject, Ball> subjectWithBall = studentSubjects.get(student);
         subjectWithBall.put(subject, ball);
-        List<Student> students = subjectStudents.get(subject);
-        if (!students.contains(student)) {
-            students.add(student);
+        if (!subjectStudents.get(subject).contains(student)) {
+            subjectStudents.get(subject).add(student);
         }
     }
 
