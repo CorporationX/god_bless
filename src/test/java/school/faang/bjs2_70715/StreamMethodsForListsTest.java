@@ -1,8 +1,7 @@
-package test;
+package school.faang.bjs2_70715;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_70715.StreamMethodsForLists;
 
 import java.util.Arrays;
 import java.util.List;
