@@ -7,14 +7,14 @@ public class Main {
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Email: " + notification.getMessage())
         );
-
         notificationManager.registerHandler(NotificationType.SMS,
                 notification -> System.out.println("SMS: " + notification.getMessage())
         );
-
         notificationManager.registerHandler(NotificationType.PUSH,
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
+
+        notificationManager.addFilter();
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Вам пришло сообщение с ");
@@ -26,7 +26,8 @@ public class Main {
 
         notificationManager.checkMessage(smsNotification);
 
-        notificationManager.addHeader((notification -> {
+        notificationManager.addHeader(notice -> notice.getMessage().contains("брань"));
+
             notification.setMessage(notification.getMessage() + "\nC Уважением, Meta\n");
             return notification;
         }), emailNotification);
