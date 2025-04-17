@@ -23,7 +23,7 @@ public class Main {
     private static final Student UNKNOWN_STUDENT = new Student("Неизвестный студент");
 
     public static void main(String[] args) {
-        var studentDb = new StudentDatabase();
+        StudentDatabase studentDb = new StudentDatabase();
 
         studentDb.addStudent(PETYA, getSubjectsWithMarks(new Subject[]{MATH, PHYSICS, ENGLISH}, new int[]{5, 5, 3}));
         studentDb.addStudent(DIMA, getSubjectsWithMarks(new Subject[]{MATH, PHYSICS, ENGLISH}, new int[]{4, 4, 4}));
@@ -64,7 +64,7 @@ public class Main {
     }
 
     public static Map<Subject, Integer> getSubjectsWithMarks(Subject[] subjects, int[] marks) {
-        var subjectsWithMarks = new HashMap<Subject, Integer>();
+        HashMap<Subject, Integer> subjectsWithMarks = new HashMap<>();
 
         for (int i = 0; i < subjects.length; i++) {
             subjectsWithMarks.put(subjects[i], marks[i]);

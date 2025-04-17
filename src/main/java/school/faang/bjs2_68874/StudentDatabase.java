@@ -34,21 +34,21 @@ public class StudentDatabase {
     }
 
     public void removeStudent(Student student) {
-        var subjects = studentSubjects.remove(student);
+        Map<Subject, Integer> subjects = studentSubjects.remove(student);
         if (subjects != null) {
-            for (var subject : subjects.keySet()) {
+            for (Subject subject : subjects.keySet()) {
                 removeStudentFromSubject(student, subject);
             }
         }
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        var subjects = studentSubjects.get(student);
+        Map<Subject, Integer> subjects = studentSubjects.get(student);
         if (subjects != null) {
             subjects.remove(subject);
         }
 
-        var students = subjectStudents.get(subject);
+        List<Student> students = subjectStudents.get(subject);
         if (students != null) {
             students.remove(student);
         }
