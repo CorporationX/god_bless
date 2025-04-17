@@ -11,16 +11,22 @@ public class Main {
         Set<List<Integer>> uniquePair = Operations.findUniquePairs(uniqueNumbers, 6);
         log.info("unique pairs: {}", uniquePair);
 
-        // Вход: {"Russia": "Moscow", "USA": "Washington", "Germany": "Berlin"}
-        // Выход: ["Berlin", "Moscow", "Washington"]
-        Map<String, String> countries = new HashMap<>(Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin"));
+        Map<String, String> countries =
+            new HashMap<>(Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin"));
         List<String> capitals = Operations.getCapitalBySortedCountry(countries);
         log.info("sorted capitals list: {}", capitals);
 
-        // Вход: ["apple", "banana", "avocado", "apricot"], символ: 'a'
-        // Выход: ["apple", "apricot", "avocado"]
-        List<String> words = Arrays.asList("apple", "banana", "avocado", "apricot");
-        List<String> sortedWords = Operations.sortByLength(words, 'a');
+        List<String> words = Arrays.asList("apple", "banana", "avocado", "apricot", "grape");
+        List<String> sortedWords = Operations.getSortingByLengthWords(words, 'a');
         log.info("sorted word by length: {}", sortedWords);
+
+        List<String> binaryList = Operations.convertToBinary(uniqueNumbers);
+        log.info("binary list: {}", binaryList);
+
+        List<String> anotherWords =
+            Arrays.asList("grape", "apple", "banana", "cherry", "date", "fig", "яблоко", "GRAPE");
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        List<String> filterindAndSortingList = Operations.getFilteringAndSorting(anotherWords, alphabet);
+        log.info("filtering and sorting list: {}", filterindAndSortingList);
     }
 }
