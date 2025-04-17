@@ -1,11 +1,14 @@
 package school.faang.bjs2_70706;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+@UtilityClass
 public class ListOperations {
     /**
      * Метод принимает список чисел и возвращает сумму всех чётных чисел.

@@ -1,9 +1,12 @@
 package school.faang.bjs2_70706;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
@@ -17,26 +20,26 @@ public class Main {
             "apple", "banana", "cherry", "date", "", "animal", "island", "angle", "  "
         );
 
-        System.out.printf("Сумма четных чисел: %s\n", ListOperations.sumOfEvenNumbers(numbers));
-        System.out.printf("Максимум: %d\n", ListOperations.findMax(numbers));
-        System.out.printf("Максимум (null): %d\n", ListOperations.findMax(numbersWithNull));
-        System.out.printf("Среднее: %s\n", ListOperations.findAverage(numbers));
-        System.out.printf("Среднее: %s\n", ListOperations.findAverage(numbersWithNull));
-        System.out.printf("Количество строк, начинающихся на 'a': %s\n",
+        log.info("Сумма четных чисел: {}", ListOperations.sumOfEvenNumbers(numbers));
+        log.info("Максимум: {}", ListOperations.findMax(numbers));
+        log.info("Максимум (null): {}", ListOperations.findMax(numbersWithNull));
+        log.info("Среднее: {}", ListOperations.findAverage(numbers));
+        log.info("Среднее: {}", ListOperations.findAverage(numbersWithNull));
+        log.info("Количество строк, начинающихся на 'a': {}",
             ListOperations.countStringsStartingWith(strings, 'a'));
-        System.out.printf("Количество строк, начинающихся на 'a': %s\n",
+        log.info("Количество строк, начинающихся на 'a': {}",
             ListOperations.countStringsStartingWith(stringsWithNull, 'a'));
-        System.out.printf("Строки, содержащие 'an': %s\n",
+        log.info("Строки, содержащие 'an': {}",
             ListOperations.filterStringsContainingSubstring(strings, "an"));
-        System.out.printf("Строки, содержащие 'an': %s\n",
+        log.info("Строки, содержащие 'an': {}",
             ListOperations.filterStringsContainingSubstring(stringsWithNull, "an"));
-        System.out.printf("Отсортированные по длине строки: %s\n", ListOperations.sortByLength(strings));
-        System.out.printf("Отсортированные по длине строки: %s\n", ListOperations.sortByLength(stringsWithNull));
-        System.out.printf("Все ли числа чётные? %s\n", ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
-        System.out.printf("Все ли числа чётные? %s\n", ListOperations.allMatchCondition(evenNumbers, n -> n % 2 == 0));
-        System.out.printf("Наименьшее число больше 4: %s\n", ListOperations.findMinGreaterThan(numbers, 4));
-        System.out.printf("Наименьшее число больше 4: %s\n", ListOperations.findMinGreaterThan(numbersWithNull, 4));
-        System.out.printf("Длины строк: %s\n", ListOperations.convertToLengths(stringsWithNull));
-        System.out.printf("Длины строк: %s\n", ListOperations.convertToLengths(strings));
+        log.info("Отсортированные по длине строки: {}", ListOperations.sortByLength(strings));
+        log.info("Отсортированные по длине строки: {}", ListOperations.sortByLength(stringsWithNull));
+        log.info("Все ли числа чётные? {}", ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
+        log.info("Все ли числа чётные? {}", ListOperations.allMatchCondition(evenNumbers, n -> n % 2 == 0));
+        log.info("Наименьшее число больше 4: {}", ListOperations.findMinGreaterThan(numbers, 4));
+        log.info("Наименьшее число больше 4: {}", ListOperations.findMinGreaterThan(numbersWithNull, 4));
+        log.info("Длины строк: {}", ListOperations.convertToLengths(stringsWithNull));
+        log.info("Длины строк: {}", ListOperations.convertToLengths(strings));
     }
 }
