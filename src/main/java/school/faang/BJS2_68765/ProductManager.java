@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_68765;
 
 import java.util.*;
 
@@ -32,11 +32,10 @@ public class ProductManager {
         Map<Category, List<Product>> productMap = new HashMap<>();
 
         for (Product product : products) {
-            if (!productMap.containsKey(product.getCategory())) {
-                productMap.put(product.getCategory(), new ArrayList<>());
-            }
-            productMap.get(product.getCategory()).add(product);
+            productMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>())
+                    .add(product);
         }
+
         return productMap;
     }
 

@@ -1,9 +1,9 @@
-package school.faang;
+package school.faang.BJS2_68765;
 
 import java.util.ArrayList;
 
-import static school.faang.Category.ELECTRONICS;
-import static school.faang.Category.FOOD;
+import static school.faang.BJS2_68765.Category.ELECTRONICS;
+import static school.faang.BJS2_68765.Category.FOOD;
 
 public class Main {
     public static void main(String[] args) {
