@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class User {
-
     private String name;
     private int age;
     private String workplace;
