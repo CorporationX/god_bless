@@ -12,22 +12,22 @@ public class EmailProcessor {
         Predicate<Email> isImportant, 
         Consumer<Email> action, 
         Function<Email, String> modifyEmailFunction) {
-            List<Email> filteredEmails = new ArrayList<>();
-            
-            for (Email email : emails) {
-                if (isImportant.test(email)) {
-                    filteredEmails.add(email);
-                }
+        List<Email> filteredEmails = new ArrayList<>();
+        
+        for (Email email : emails) {
+            if (isImportant.test(email)) {
+                filteredEmails.add(email);
             }
+        }
 
-            for (Email email : filteredEmails) {
-                email.setBody(modifyEmailFunction.apply(email));
-            }
-            
-            for (Email email : filteredEmails) {
-                action.accept(email);
-            }
-            
-            return emails;
+        for (Email email : filteredEmails) {
+            email.setBody(modifyEmailFunction.apply(email));
+        }
+        
+        for (Email email : filteredEmails) {
+            action.accept(email);
+        }
+        
+        return emails;
     }
 }
