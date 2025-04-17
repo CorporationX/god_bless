@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.user_reg.User;
+package school.faang.user_reg;
 
 public class Main {
     public static void main(String[] args) {
