@@ -1,6 +1,8 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Warrior extends Character {
 
     public static final int MAX_STRENGTH = 10;
@@ -14,6 +16,6 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
 
         opponent.reduceHealth(this.getStrength());
-        System.out.println(this.getName() + " атакует " + opponent.getName() + " и наносит " + MAX_STRENGTH + " урона.");
+        log.info("{} атакует {} и наносит {} урона", this.getName(), opponent.getName(), MAX_STRENGTH);
     }
 }

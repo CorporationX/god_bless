@@ -1,5 +1,8 @@
 package school.faang;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Archer extends Character {
 
     public static final int MAX_STRENGTH = 3;
@@ -12,6 +15,6 @@ public class Archer extends Character {
 
     public void attack(Character opponent) {
         opponent.reduceHealth(getAgility());
-        System.out.println(this.getName() + " атакует " + opponent.getName() + " и наносит " + MAX_AGILITY + " урона ");
+        log.info("{} атакует {} и наносит {} урона", this.getName(), opponent.getName(), MAX_AGILITY);
     }
 }
