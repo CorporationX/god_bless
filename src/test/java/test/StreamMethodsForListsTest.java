@@ -43,14 +43,14 @@ public class StreamMethodsForListsTest {
     }
 
     @Test
-    void testFindAverage() {
-        double result = StreamMethodsForLists.findAverage(integers);
+    void testCalcAverage() {
+        double result = StreamMethodsForLists.calcAverage(integers);
         assertEquals(5.5, result);
     }
 
     @Test
-    void testFindStringsStartingWith() {
-        int result = StreamMethodsForLists.findStringsStartingWith(strings, 'G');
+    void testCountStringsStartingWith() {
+        long result = StreamMethodsForLists.countStringsStartingWith(strings, 'G');
         assertEquals(1, result);
     }
 
