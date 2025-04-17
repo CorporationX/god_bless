@@ -1,4 +1,4 @@
-package school.faang.projectteammanagement;
+package school.faang.stream1.projectteammanagement;
 
 import lombok.Getter;
 
