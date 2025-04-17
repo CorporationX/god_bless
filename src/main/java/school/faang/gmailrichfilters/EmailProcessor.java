@@ -9,12 +9,13 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> unprocessedEmails,
                               Predicate<Email> predicatedFilter,
-                              Consumer<Email> doSomeThing,
-                              Function<Email, String> process) {
+                              Function<Email, String> processEmailBody,
+                              Consumer<Email> processFinalEmail
+    ) {
         unprocessedEmails.forEach(email -> {
             if (predicatedFilter.test(email)) {
-                email.setBody(process.apply(email));
-                doSomeThing.accept(email);
+                email.setBody(processEmailBody.apply(email));
+                processFinalEmail.accept(email);
             }
         });
     }

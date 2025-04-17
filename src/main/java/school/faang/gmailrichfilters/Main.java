@@ -13,7 +13,19 @@ public class Main {
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Письмо 3", "Текст письма 3", true),
+                Email.builder()
+                        .subject("Спам")
+                        .body("Текст спама")
+                        .isImportant(false)
+                        .build(),
+                Email.builder()
+                        .subject("Спам2")
+                        .body("Текст спама2")
+                        .build(),
+                Email.builder()
+                        .body("Текст спама3")
+                        .build()
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
@@ -25,7 +37,7 @@ public class Main {
             return email.getBody();
         };
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
                 ", Тело письма: " + email.getBody()));
