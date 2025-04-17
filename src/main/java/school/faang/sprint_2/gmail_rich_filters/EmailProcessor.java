@@ -15,8 +15,11 @@ public class EmailProcessor {
                               Consumer<Email> emailHandler) {
         emails.stream()
                 .filter(emailFilter)
-                .peek(emailHandler)
-                .map(emailEditor)
-                .forEach(log::info);
+                .peek(email -> email.setBody(emailEditor.apply(email)))
+                .peek(email ->
+                        log.info("Отредактированное письмо: subject={}, body={}",
+                                email.getSubject(), email.getBody()))
+                .forEach(emailHandler);
+
     }
 }
