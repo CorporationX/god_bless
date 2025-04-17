@@ -2,7 +2,6 @@ package school.faang.second_stream;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +11,13 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class StreamUtil {
 
-    public static Collection<List<Integer>> uniqueSumFinder(Set<Integer> numbers, Integer sum) {
+    public static Set<String> uniqueSumFinder(Set<Integer> numbers, Integer sum) {
         return numbers.stream()
+                .filter(number -> numbers.contains(sum - number) && number != sum - number)
                 .map(number ->
-                        List.of(Math.min(number, sum - number), Math.max(number, sum - number)))
-                .filter(contender ->
-                        contender.stream()
-                                .distinct()
-                                .count() > 1
-                                && numbers.containsAll(contender))
+                        number > sum - number
+                                ? "(%d, %d)".formatted(sum - number, number)
+                                : "(%d, %d)".formatted(number, sum - number))
                 .collect(Collectors.toSet());
     }
 
