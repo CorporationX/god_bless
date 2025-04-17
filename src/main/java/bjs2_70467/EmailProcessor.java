@@ -6,14 +6,20 @@ import java.util.function.Function;
 import java.util.function.Consumer;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> converter, Consumer<Email> handler) {
+    public void processEmails(
+            List<Email> emails,
+            Predicate<Email> filter,
+            Function<Email, String> converter,
+            Consumer<Email> handler
+    ) {
         for(Email email : emails) {
             if(filter.test(email)) {
                 String convertedBody = converter.apply(email);
                 email.setBody(convertedBody);
                 handler.accept(email);
             } else {
-                System.out.println("Email " + email.getSubject() + " does not belong to the appropriate category (important or not)");
+                System.out.printf("Email %s does not belong to the " +
+                        "appropriate category (important or not)\n", email.getSubject());
             }
         }
     }

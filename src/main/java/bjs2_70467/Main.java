@@ -13,7 +13,8 @@ public class Main {
         List<Email> emails = Arrays.asList(
                 new Email("Mailing", "Which concert should I go to this weekend?", false),
                 new Email("Delivery", "Your order has been delivered to the pick-up point!", true),
-                new Email("Spam", "Do you want to earn mountains of gold by sitting on the couch and not working? Click here!", false),
+                new Email("Spam", "Do you want to earn mountains of gold" +
+                        " by sitting on the couch and not working? Click here!", false),
                 new Email("Payment", "Your tickets are paid!", true)
         );
 
@@ -21,10 +22,10 @@ public class Main {
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        Consumer<Email> printEmail = email -> System.out.println("The email has been processed: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.printf("The email has been processed: %s\n", email.getSubject());
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
-        emails.forEach(email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody()));
+        emails.forEach(email -> System.out.printf("Subject: %s, Body: %s\n", email.getSubject(), email.getBody()));
     }
 }
