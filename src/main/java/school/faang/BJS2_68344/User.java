@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_68344;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +20,6 @@ public class User {
     private Integer age;
     private String  placeOfWork;
     private String address;
-
-
 
     public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> groupedByAge = new HashMap<>();

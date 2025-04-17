@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_68344;
 
 import java.util.*;
 
