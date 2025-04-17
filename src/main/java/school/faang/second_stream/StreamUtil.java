@@ -7,17 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @UtilityClass
 public class StreamUtil {
 
-    public static Set<String> uniqueSumFinder(Set<Integer> numbers, Integer sum) {
+    public static Set<List<Integer>> uniqueSumFinder(Set<Integer> numbers, Integer sum) {
         return numbers.stream()
                 .filter(number -> numbers.contains(sum - number) && number != sum - number)
                 .map(number ->
-                        number > sum - number
-                                ? "(%d, %d)".formatted(sum - number, number)
-                                : "(%d, %d)".formatted(number, sum - number))
+                        Stream.of(number, sum - number)
+                                .sorted()
+                                .toList())
                 .collect(Collectors.toSet());
     }
 
