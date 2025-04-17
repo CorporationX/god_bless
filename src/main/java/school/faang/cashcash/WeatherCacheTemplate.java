@@ -10,7 +10,7 @@ public abstract class WeatherCacheTemplate {
     private final Map<String, WeatherData> cacheWeather = new HashMap<>();
     private final WeatherProvider weatherProvider = new WeatherService();
 
-    public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis );
+    public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData weatherData = cacheWeather.get(city);

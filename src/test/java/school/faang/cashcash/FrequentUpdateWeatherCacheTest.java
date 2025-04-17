@@ -23,7 +23,6 @@ class FrequentUpdateWeatherCacheTest {
         frequentUpdateWeatherCache.getWeatherData(city, maxCacheAgeMillis);
 
         assertTrue(frequentUpdateWeatherCache.getCacheWeather().containsKey(city));
-
     }
 
     @Test

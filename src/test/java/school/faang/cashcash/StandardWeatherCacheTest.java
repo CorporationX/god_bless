@@ -32,7 +32,7 @@ class StandardWeatherCacheTest {
 
     @Test
     void clearExpiredCacheTest() {
-        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1,maxCacheAgeMillis);
+        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1, maxCacheAgeMillis);
         WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2, maxCacheAgeMillis);
         weatherData1.setTimestamp(System.currentTimeMillis() - 6001);
 
@@ -44,8 +44,8 @@ class StandardWeatherCacheTest {
 
     @Test
     void getWeatherDataTest() {
-        WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2,maxCacheAgeMillis);
-        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1,maxCacheAgeMillis);
+        WeatherData weatherData2 = standardWeatherCache.getWeatherData(city2, maxCacheAgeMillis);
+        WeatherData weatherData1 = standardWeatherCache.getWeatherData(city1, maxCacheAgeMillis);
 
         assertTrue(weatherData2.getTimestamp() <= weatherData1.getTimestamp());
 
