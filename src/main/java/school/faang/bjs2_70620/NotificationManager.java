@@ -33,13 +33,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (notification == null) {
-            throw new NullPointerException("Notification if null");
-        } else if (notification.getMessage() == null) {
-            throw new NullPointerException("Notification message if null");
-        } else if (notification.getNotificationType() == null) {
-            throw new NullPointerException("Notification type if null");
-        }
+        validateNotification(notification);
         Consumer<Notification> handler = Optional.ofNullable(notificationHandlersByType.get(
                 notification.getNotificationType())).orElseThrow(() -> new NoSuchElementException(String.format(
                 "Handler for notification with type %s not found", notification.getNotificationType())));
@@ -49,6 +43,18 @@ public class NotificationManager {
             handler.accept(notification);
         } else {
             log.error("Your message contains bad words. We don't able to send it.");
+        }
+    }
+
+    private void validateNotification(Notification notification) {
+        if (notification == null) {
+            throw new IllegalArgumentException("Notification if null");
+        }
+        if (notification.getMessage() == null) {
+            throw new IllegalArgumentException("Notification message if null");
+        }
+        if (notification.getNotificationType() == null) {
+            throw new IllegalArgumentException("Notification type if null");
         }
     }
 }
