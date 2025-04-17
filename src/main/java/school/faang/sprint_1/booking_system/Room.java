@@ -1,8 +1,7 @@
-package school.faang.booking_system;
+package school.faang.sprint_1.booking_system;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.Set;
 

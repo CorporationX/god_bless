@@ -1,4 +1,4 @@
-package school.faang.booking_system;
+package school.faang.sprint_1.booking_system;
 
 public class BookingObserverImpl implements BookingObserver {
 
