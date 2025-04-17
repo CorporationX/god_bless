@@ -16,7 +16,7 @@ public class LibrarySystem {
 
     public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        return bookMap.getOrDefault(book, "The book is not found.");
+        return bookMap.getOrDefault(book, null);
     }
 
     public void printAllBooks() {

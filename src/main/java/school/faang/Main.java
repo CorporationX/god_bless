@@ -16,10 +16,12 @@ public class Main {
         librarySystem.addBook("Vita Nova", "Louise Glück", 1999, "5th shelf");
 
         System.out.println(librarySystem.findBook("The Vegetarian", "Han Kang", 2015));
-        librarySystem.findBook("Vita Nova", "Louise Glück", 1999);
         librarySystem.printAllBooks();
         System.out.println();
 
-        librarySystem.printAllBooks();
+        String foundBook = librarySystem.findBook("Oskar","My",2025);
+        System.out.println(foundBook);
+        String foundBook2 = librarySystem.findBook("Vita Nova", "Louise Glück", 1999);
+        System.out.println(foundBook2);
     }
 }
