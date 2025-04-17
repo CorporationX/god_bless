@@ -38,8 +38,9 @@ public class UserActionAnalyzer {
      * Метод должен возвращать список из n самых популярных хэштегов (слова, начинающиеся с символа #).
      */
     public static List<String> topPopularHashtags(List<UserAction> actions, Integer lim) {
+        Set<ActionType> filterActionType = Set.of(ActionType.POST, ActionType.COMMENT);
         Map<String, Long> countByHashTag = actions.stream()
-            .filter(action -> action.content() != null && Set.of(ActionType.POST, ActionType.COMMENT).contains(action.actionType()))
+            .filter(action -> action.content() != null && filterActionType.contains(action.actionType()))
             .flatMap(action -> Pattern.compile("#\\s*(\\w+)").matcher(action.content()).results())
             .map(MatchResult::group)
             .map(String::toLowerCase)
