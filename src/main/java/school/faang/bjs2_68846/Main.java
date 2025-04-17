@@ -5,16 +5,7 @@ package school.faang.bjs2_68846;
  */
 public class Main {
     public static void main(String[] args) {
-        var hogwartsSpells = new HogwartsSpells();
-
-        hogwartsSpells.addSpellEvent("Чар", "Файербол");
-        hogwartsSpells.addSpellEvent("Чар", "Стена огня");
-        hogwartsSpells.addSpellEvent("Чар", "Файербол");
-        hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет");
-        hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
-        hogwartsSpells.addSpellEvent("Защита", "Защищает от яда");
-        hogwartsSpells.addSpellEvent("Защита", "Защищает от огня");
-
+        HogwartsSpells hogwartsSpells = getHogwartsSpells();
         hogwartsSpells.printAllSpellEvents();
 
         System.out.println("\nПоиск заклинания по ID:");
@@ -32,5 +23,18 @@ public class Main {
         hogwartsSpells.deleteSpellEvent(-158185974);
 
         hogwartsSpells.printAllSpellEvents();
+    }
+
+    private static HogwartsSpells getHogwartsSpells() {
+        HogwartsSpells hogwartsSpells = new HogwartsSpells();
+
+        hogwartsSpells.addSpellEvent("Чар", "Файербол");
+        hogwartsSpells.addSpellEvent("Чар", "Стена огня");
+        hogwartsSpells.addSpellEvent("Чар", "Файербол");
+        hogwartsSpells.addSpellEvent("Трансфигурация", "Преобразует предмет");
+        hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
+        hogwartsSpells.addSpellEvent("Защита", "Защищает от яда");
+        hogwartsSpells.addSpellEvent("Защита", "Защищает от огня");
+        return hogwartsSpells;
     }
 }

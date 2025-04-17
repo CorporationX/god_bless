@@ -12,10 +12,10 @@ public class HogwartsSpells {
     public void addSpellEvent(String eventType, String actionDescription) {
         int eventId = (eventType + actionDescription).hashCode();
 
-        var spellEvent = spellById.computeIfAbsent(
+        SpellEvent spellEvent = spellById.computeIfAbsent(
                 eventId, key -> new SpellEvent(eventId, eventType, actionDescription));
 
-        var eventList = spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>());
+        List<SpellEvent> eventList = spellsByType.computeIfAbsent(eventType, key -> new ArrayList<>());
         if (!eventList.contains(spellEvent)) {
             eventList.add(spellEvent);
         }
@@ -30,7 +30,7 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        var spellEvent = spellById.remove(id);
+        SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
             spellsByType.get(spellEvent.eventType()).remove(spellEvent);
         }
@@ -38,7 +38,7 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         System.out.println("\nВсе доступные заклинания:");
-        for (var entry : spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.printf("ID: %d, type: %s, action: %s%n",
                     entry.getValue().id(), entry.getValue().eventType(), entry.getValue().action());
         }
