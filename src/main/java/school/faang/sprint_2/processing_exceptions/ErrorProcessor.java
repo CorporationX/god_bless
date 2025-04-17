@@ -4,14 +4,14 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ErrorProcessor {
-    public static <T> T withErrorHandling(Supplier supplier, ServiceCallException serviceCallException) {
+    public static <T> T withErrorHandling(Supplier<T> supplier, ErrorFallback<T> errorFallback) {
         if (Objects.isNull(supplier) || Objects.isNull(supplier)) {
             throw new IllegalArgumentException("One of arguments is null");
         }
         try {
-            return (T) supplier.get();
+            return supplier.get();
         } catch (Exception e) {
-            return (T) serviceCallException.returnDefault(e);
+            return errorFallback.returnDefault(e);
         }
     }
 }
