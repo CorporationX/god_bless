@@ -3,7 +3,7 @@ package school.faang.bjs2_69397;
 import java.util.Arrays;
 
 public class Main {
-    public static void main (String [] args) {
+    public static void main(String [] args) {
         var users = Arrays.asList(
                 new User("Владимир", 16, "Батуты", "г. Лукино"),
                 new User("Путин", 23, "Ларек", "г. Сирия"),
