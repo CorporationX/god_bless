@@ -1,7 +1,10 @@
 package school.faang.streamapi1;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         System.out.println(StreamApiOperations.getSum(List.of(1, 2, 3, 4, 5)));
