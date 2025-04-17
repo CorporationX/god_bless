@@ -23,11 +23,11 @@ public class InventoryManager {
                 inventory.stream()
                         .filter(criteria)
                         .findFirst().map(original -> {
-                    Item updated = function.apply(original);
-                    int originalIndex = inventory.indexOf(original);
-                    inventory.set(originalIndex, updated);
-                    return updated;
-                });
+                            Item updated = function.apply(original);
+                            int originalIndex = inventory.indexOf(original);
+                            inventory.set(originalIndex, updated);
+                            return updated;
+                        });
         return itemOptional.isPresent();
     }
 }
