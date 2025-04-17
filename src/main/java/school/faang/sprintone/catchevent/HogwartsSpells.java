@@ -1,4 +1,4 @@
-package school.faang.catchevent;
+package school.faang.sprintone.catchevent;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package school.faang.catchevent;
+package school.faang.sprintone.catchevent;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
