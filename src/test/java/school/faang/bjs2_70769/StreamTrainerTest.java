@@ -1,7 +1,8 @@
+package school.faang.bjs2_70769;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_70769.StreamTrainer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public class StreamTrainerTest {
     Map<String, String> map;
     List<String> strings;
     List<Integer> integers;
-    char a;
+    char testChar;
     String s;
 
     @BeforeEach
@@ -25,7 +26,7 @@ public class StreamTrainerTest {
         map.put("c", "d");
         map.put("e", "f");
         strings = List.of("a2", "a13", "a114", "d1115", "e11116");
-        a = 'a';
+        testChar = 'a';
         integers = List.of(1, 2, 3, 4);
         s = "abcfg";
     }
@@ -49,7 +50,7 @@ public class StreamTrainerTest {
 
     @Test
     public void filterSortedStrings() {
-        List<String> result = StreamTrainer.filterSortedStrings(strings, a);
+        List<String> result = StreamTrainer.filterSortedStrings(strings, testChar);
         List<String> expectedList = List.of("a2", "a13", "a114");
         Assertions.assertEquals(expectedList, result);
     }
