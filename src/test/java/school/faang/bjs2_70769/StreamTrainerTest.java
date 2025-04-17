@@ -16,7 +16,7 @@ public class StreamTrainerTest {
     List<String> strings;
     List<Integer> integers;
     char testChar;
-    String s;
+    String testString;
 
     @BeforeEach
     void setUp() {
@@ -28,7 +28,7 @@ public class StreamTrainerTest {
         strings = List.of("a2", "a13", "a114", "d1115", "e11116");
         testChar = 'a';
         integers = List.of(1, 2, 3, 4);
-        s = "abcfg";
+        testString = "abcfg";
     }
 
     @Test
@@ -64,7 +64,7 @@ public class StreamTrainerTest {
 
     @Test
     public void filterStringsViaAlphabet() {
-        List<String> result = StreamTrainer.filterStringsViaAlphabet(strings, s);
+        List<String> result = StreamTrainer.filterStringsViaAlphabet(strings, testString);
         List<String> expectedList = List.of("a2", "a13", "a114");
     }
 }
