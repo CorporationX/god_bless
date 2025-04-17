@@ -32,7 +32,7 @@ public class ProductManager {
         Map<Category, List<Product>> productMap = new HashMap<>();
 
         for (Product product : products) {
-            if(!productMap.containsKey(product.getCategory())){
+            if (!productMap.containsKey(product.getCategory())) {
                 productMap.put(product.getCategory(), new ArrayList<>());
             }
             productMap.get(product.getCategory()).add(product);
@@ -51,10 +51,10 @@ public class ProductManager {
 
     public void printAllProducts() {
         Map<Category, List<Product>> groupedProducts = groupProductsByCategory();
-        for(Map.Entry<Category, List<Product>> entry : groupedProducts.entrySet()){
+        for (Map.Entry<Category, List<Product>> entry : groupedProducts.entrySet()) {
             System.out.println("Category: " + entry.getKey());
             System.out.println("Продукты:");
-            for (Product product : entry.getValue()){
+            for (Product product : entry.getValue()) {
                 System.out.println(" - " + product.getName());
             }
         }
