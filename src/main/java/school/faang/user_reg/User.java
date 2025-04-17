@@ -15,14 +15,14 @@ public class User {
 
     public static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     public static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    public static final int VALID_AGE = 18;
 
-    // Создаём конструктор
     public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age must be >= 18");
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Age must be >= " + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job");
@@ -34,9 +34,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-
-
-
-
     }
 }

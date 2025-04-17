@@ -4,7 +4,6 @@ import school.faang.user_reg.User;
 
 public class Main {
     public static void main(String[] args) {
-        // Успешное создание пользователя
         try {
             User validUser = new User("Alice", 25, "Google", "London");
             System.out.println("Успешно создан пользователь: " + validUser);
@@ -13,12 +12,11 @@ public class Main {
             System.out.println("Ошибка: " + e.getMessage());
         }
 
-        // Тест с некорректными данными
-        testInvalidUser("", 30, "Amazon", "New York");      // Пустое имя
-        testInvalidUser("Bob", 17, "Uber", "Amsterdam");    // Возраст < 18
-        testInvalidUser("Charlie", 20, "Microsoft", "Paris"); // Неверная работа
-        testInvalidUser("Diana", 22, "Amazon", "Berlin");   // Неверный адрес
-        testInvalidUser(null, 25, "Google", "London");       // Null имя
+        testInvalidUser("", 30, "Amazon", "New York");
+        testInvalidUser("Bob", 17, "Uber", "Amsterdam");
+        testInvalidUser("Charlie", 20, "Microsoft", "Paris");
+        testInvalidUser("Diana", 22, "Amazon", "Berlin");
+        testInvalidUser(null, 25, "Google", "London");
     }
 
     private static void testInvalidUser(String name, int age, String job, String address) {
