@@ -8,8 +8,10 @@ public class Main {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = image -> new Image(image.getName(), image.getDescription() + " | Filer: black-white");
-        Function<Image, Image> sepiaFilter = image -> new Image(image.getName(), image.getDescription() + " | Filter: sepia");
+        Function<Image, Image> grayscaleFilter = image ->
+                new Image(image.getName(), image.getDescription() + " | Filer: black-white");
+        Function<Image, Image> sepiaFilter = image ->
+                new Image(image.getName(), image.getDescription() + " | Filter: sepia");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
