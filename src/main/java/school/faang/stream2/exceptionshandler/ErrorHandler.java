@@ -1,7 +1,13 @@
 package school.faang.stream2.exceptionshandler;
 
+import java.util.function.Supplier;
+
 public class ErrorHandler {
-    public static String withErrorHandling(Object someParam, Object o) {
-        return "iasjdf";
+    public static <T> T withErrorHandling(Supplier<T> mainSupplier, ExceptionHandler<T> defaultSupplier) {
+        try {
+            return mainSupplier.get();
+        } catch (Exception e) {
+            return defaultSupplier.handleException(e);
+        }
     }
 }
