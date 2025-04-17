@@ -15,119 +15,68 @@ public class UserActionAnalyzerTest {
 
     @BeforeEach
     void setUp() {
-        UserAction userNNAction1PostWork =
+        UserAction userNaction1PostWork =
                 new UserAction(1, "NN", ActionType.POST, LocalDate.now(), "#Work");
-        UserAction userNNAction2CommentRun =
+        UserAction userNaction2CommentRun =
                 new UserAction(1, "NN", ActionType.COMMENT, LocalDate.now(), "#Run");
-        UserAction userNNAction3CommentSleep =
+        UserAction userNaction3CommentSleep =
                 new UserAction(1, "NN", ActionType.COMMENT, LocalDate.now(), "#Sleep");
-        UserAction userNNAction4ShareWake =
+        UserAction userNaction4ShareWake =
                 new UserAction(1, "NN", ActionType.SHARE, LocalDate.of(1998, 11, 1), "#Wake");
-        UserAction userMAAction4PostWork =
+        UserAction userMaction4PostWork =
                 new UserAction(2, "MA", ActionType.POST, LocalDate.now(), "#Work");
-        UserAction userMAAction1CommentSleep =
+        UserAction userMaction1CommentSleep =
                 new UserAction(2, "MA", ActionType.COMMENT, LocalDate.now(), "#Sleep");
-        UserAction userMAAction2PostWake =
+        UserAction userMaction2PostWake =
                 new UserAction(2, "MA", ActionType.POST, LocalDate.now(), "#Wake");
-        UserAction userMAAction3ShareWake =
+        UserAction userMaction3ShareWake =
                 new UserAction(2, "MA", ActionType.SHARE, LocalDate.of(1998, 11, 1), "#Wake");
-        UserAction userVKAction1PostWork =
+        UserAction userVaction1PostWork =
                 new UserAction(3, "VK", ActionType.POST, LocalDate.now(), "#Work");
-        UserAction userVKAction2LikeF22 =
+        UserAction userVaction2LikeF22 =
                 new UserAction(3, "VK", ActionType.LIKE, LocalDate.now(), "#F22");
-        UserAction userVKAction3CommentF22 =
+        UserAction userVaction3CommentF22 =
                 new UserAction(3, "VK", ActionType.COMMENT, LocalDate.now(), "#F22");
-        UserAction userVKAction4ShareWake =
+        UserAction userVaction4ShareWake =
                 new UserAction(3, "VK", ActionType.SHARE, LocalDate.of(1998, 11, 1), "#Wake");
-        UserAction userTAAction4PostWork =
+        UserAction userTaction4PostWork =
                 new UserAction(4, "TA", ActionType.POST, LocalDate.now(), "#Work");
-        UserAction userTAAction1CommentSleep =
+        UserAction userTaction1CommentSleep =
                 new UserAction(4, "TA", ActionType.COMMENT, LocalDate.now(), "#Sleep");
-        UserAction userTAAction2PostWork =
+        UserAction userTaction2PostWork =
                 new UserAction(4, "TA", ActionType.POST, LocalDate.now(), "#Work");
-        UserAction userTAAction3ShareWake =
+        UserAction userTaction3ShareWake =
                 new UserAction(4, "TA", ActionType.SHARE, LocalDate.of(1998, 11, 1), "#Wake");
 
-        userActions.add(userNNAction1PostWork);
-        userActions.add(userNNAction2CommentRun);
-        userActions.add(userNNAction3CommentSleep);
-        userActions.add(userNNAction4ShareWake);
-        userActions.add(userNNAction1PostWork);
-        userActions.add(userNNAction2CommentRun);
-        userActions.add(userNNAction3CommentSleep);
-        userActions.add(userNNAction4ShareWake);
+        userActions.add(userNaction1PostWork);
+        userActions.add(userNaction2CommentRun);
+        userActions.add(userNaction3CommentSleep);
+        userActions.add(userNaction4ShareWake);
+        userActions.add(userNaction1PostWork);
+        userActions.add(userNaction2CommentRun);
+        userActions.add(userNaction3CommentSleep);
+        userActions.add(userNaction4ShareWake);
 
-        userActions.add(userMAAction4PostWork);
-        userActions.add(userMAAction2PostWake);
-        userActions.add(userMAAction3ShareWake);
-        userActions.add(userMAAction4PostWork);
-        userActions.add(userMAAction3ShareWake);
-        userActions.add(userMAAction1CommentSleep);
+        userActions.add(userMaction4PostWork);
+        userActions.add(userMaction2PostWake);
+        userActions.add(userMaction3ShareWake);
+        userActions.add(userMaction4PostWork);
+        userActions.add(userMaction3ShareWake);
+        userActions.add(userMaction1CommentSleep);
 
-        userActions.add(userVKAction1PostWork);
-        userActions.add(userVKAction2LikeF22);
-        userActions.add(userVKAction3CommentF22);
-        userActions.add(userVKAction1PostWork);
-        userActions.add(userVKAction2LikeF22);
-        userActions.add(userVKAction3CommentF22);
-        userActions.add(userVKAction4ShareWake);
+        userActions.add(userVaction1PostWork);
+        userActions.add(userVaction2LikeF22);
+        userActions.add(userVaction3CommentF22);
+        userActions.add(userVaction1PostWork);
+        userActions.add(userVaction2LikeF22);
+        userActions.add(userVaction3CommentF22);
+        userActions.add(userVaction4ShareWake);
 
 
-        userActions.add(userTAAction1CommentSleep);
-        userActions.add(userTAAction2PostWork);
-        userActions.add(userTAAction3ShareWake);
-        userActions.add(userTAAction4PostWork);
-    }
-
-    @Test
-    public void countStuff() {
-        int work = 0, sleep = 0, comment = 0, share = 0, like = 0, post = 0, wake = 0, run = 0, f22 = 0;
-
-        for (UserAction userAction : userActions) {
-            switch (userAction.getActionType()) {
-                case POST:
-                    post++;
-                    break;
-                case COMMENT:
-                    comment++;
-                    break;
-                case SHARE:
-                    share++;
-                    break;
-                case LIKE:
-                    like++;
-                    break;
-            }
-            switch (userAction.getContent()) {
-                case "#Work":
-                    work++;
-                    break;
-                case "#Sleep":
-                    sleep++;
-                    break;
-                case "#Run":
-                    run++;
-                    break;
-                case "#Wake":
-                    wake++;
-                    break;
-                case "#F22":
-                    f22++;
-                    break;
-            }
-        }
-
-        Map<String, Integer> counts = new HashMap<>();
-        counts.put("#WORK", work);
-        counts.put("#SLEEP", sleep);
-        counts.put("COMMENT", comment);
-        counts.put("SHARE", share);
-        counts.put("LIKE", like);
-        counts.put("POST", post);
-        counts.put("#WAKE", wake);
-        counts.put("#RUN", run);
-
-        System.out.println(counts);
+        userActions.add(userTaction1CommentSleep);
+        userActions.add(userTaction2PostWork);
+        userActions.add(userTaction3ShareWake);
+        userActions.add(userTaction4PostWork);
     }
 
     @Test
