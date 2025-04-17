@@ -19,7 +19,7 @@ public class Main {
         librarySystem.printAllBooks();
         System.out.println();
 
-        String foundBook = librarySystem.findBook("Oskar","My",2025);
+        String foundBook = librarySystem.findBook("Oskar", "My", 2025);
         System.out.println(foundBook);
         String foundBook2 = librarySystem.findBook("Vita Nova", "Louise Glück", 1999);
         System.out.println(foundBook2);
