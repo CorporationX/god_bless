@@ -2,6 +2,8 @@ package school.faang.cathingspells;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.stream1.cathingspells.HogwartsSpells;
+import school.faang.stream1.cathingspells.SpellEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -2,6 +2,8 @@ package school.faang.cachingweather;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.stream1.cachingweather.FrequentUpdateWeatherCache;
+import school.faang.stream1.cachingweather.WeatherData;
 
 import static org.junit.jupiter.api.Assertions.*;
 
