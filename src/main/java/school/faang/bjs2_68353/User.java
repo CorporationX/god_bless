@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class User {
     private UUID id;
     private String name;
-    private Integer age;
+    private int age;
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> requestedActivities) {
