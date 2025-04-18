@@ -21,10 +21,12 @@ public class Main {
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        Consumer<Email> printEmail = email -> System.out.printf("The email has been processed: %s\n", email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.printf("The email has been processed: %s\n",
+                email.getSubject());
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
-        emails.forEach(email -> System.out.printf("Subject: %s, Body: %s\n", email.getSubject(), email.getBody()));
+        emails.forEach(email -> System.out.printf("Subject: %s, Body: %s\n", email.getSubject(),
+                email.getBody()));
     }
 }
