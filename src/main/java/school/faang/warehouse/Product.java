@@ -1,10 +1,12 @@
 package school.faang.warehouse;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
 public class Product {
     private static int counter = 1;
 
@@ -20,7 +22,7 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Product product = (Product) o;
