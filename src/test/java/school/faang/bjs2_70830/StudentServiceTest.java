@@ -40,9 +40,8 @@ public class StudentServiceTest {
 
     @Test
     void testGetMostDifficultSubject_whenStudentsIsNull_shouldThrowParamsInStudentServiceIsNullException() {
-        assertThrows(ParamsInStudentServiceIsNullException.class, () -> {
-            studentService.getMostDifficultSubject(null);
-        });
+        assertThrows(ParamsInStudentServiceIsNullException.class, () ->
+                studentService.getMostDifficultSubject(null));
     }
 
     @Test
@@ -52,9 +51,7 @@ public class StudentServiceTest {
                 new Student("John", "Clark", Map.of())
         );
 
-        assertThrows(SubjectNotFoundException.class, () -> {
-            studentService.getMostDifficultSubject(students);
-        });
+        assertThrows(SubjectNotFoundException.class, () -> studentService.getMostDifficultSubject(students));
     }
 
     @Test
@@ -82,15 +79,13 @@ public class StudentServiceTest {
     public void testGetFinalGradesForStudent_studentNotFound() {
         List<Student> students = List.of(new Student("Anna", "Petrova", Map.of()));
 
-        assertThrows(StudentNotFoundException.class, () -> {
-            new StudentService().getFinalGradesForStudent(students, "Ivan", "Ivanov");
-        });
+        assertThrows(StudentNotFoundException.class, () ->
+                new StudentService().getFinalGradesForStudent(students, "Ivan", "Ivanov"));
     }
 
     @Test
     public void testGetFinalGradesForStudent_studentsListIsNull() {
-        assertThrows(ParamsInStudentServiceIsNullException.class, () -> {
-            new StudentService().getFinalGradesForStudent(null, "Ivan", "Ivanov");
-        });
+        assertThrows(ParamsInStudentServiceIsNullException.class, () ->
+                new StudentService().getFinalGradesForStudent(null, "Ivan", "Ivanov"));
     }
 }
