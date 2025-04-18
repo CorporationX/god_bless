@@ -14,7 +14,7 @@ public class Product {
     private Category category;
 
     public Product(String name, Category category) {
-        counter+=1;
+        counter++;
         this.name = name;
         this.category = category;
     }
