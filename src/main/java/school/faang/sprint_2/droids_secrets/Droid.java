@@ -15,7 +15,7 @@ public class Droid   {
         this.name = name;
     }
 
-    DroidMessageEncryptor encryptor = (message, k) -> message.chars()
+    DroidMessageCipher convertor = (message, k) -> message.chars()
             .mapToObj(c -> {
                 char ch = (char) c;
                 if (Character.isUpperCase(ch)) {
@@ -29,11 +29,11 @@ public class Droid   {
             .collect(Collectors.joining());
 
     public String encryptMessage(String message, int key) {
-        return encryptor.encrypt(message, key);
+        return convertor.convert(message, key);
     }
 
     public  String decryptMessage(String message, int key) {
-        return encryptor.encrypt(message, -key);
+        return convertor.convert(message, -key);
     }
 
     public void sendMessageTo(Droid droid, String message, int key) {
