@@ -2,6 +2,7 @@ package school.faang.stream_api1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -16,14 +17,14 @@ public class ListOperations {
     public static int findMaxElement(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compare)
-                .orElse(Integer.MIN_VALUE);
+                .orElseThrow(() -> new NoSuchElementException("The list is empty, the maximum could not be found."));
     }
 
-    public static double findAverage(List<Integer> numbers) {
+    public static double getAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::intValue)
                 .average()
-                .orElse(0.0); // Возвращаем 0.0 если список пуст
+                .orElseThrow(() -> new NoSuchElementException("The list is empty, it is impossible to calculate the average."));
     }
 
     public static long countStringsStartingWith(List<String> strings, char symbol) {
@@ -53,7 +54,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > threshold)
                 .min(Integer::compare)
-                .orElse(Integer.MAX_VALUE);
+                .orElseThrow(() -> new NoSuchElementException("The list is empty, the minimum could not be found."));
     }
 
     public static List<Integer> transformToStringLengths(List<String> strings) {
@@ -61,6 +62,4 @@ public class ListOperations {
                 .map(String::length)
                 .collect(Collectors.toList());
     }
-
-
 }

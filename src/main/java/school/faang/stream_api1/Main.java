@@ -5,9 +5,9 @@ import java.util.List;
 import static school.faang.stream_api1.ListOperations.allElementsMatchCondition;
 import static school.faang.stream_api1.ListOperations.countStringsStartingWith;
 import static school.faang.stream_api1.ListOperations.filterStringsContaining;
-import static school.faang.stream_api1.ListOperations.findAverage;
 import static school.faang.stream_api1.ListOperations.findMaxElement;
 import static school.faang.stream_api1.ListOperations.findSmallestGreaterThan;
+import static school.faang.stream_api1.ListOperations.getAverage;
 import static school.faang.stream_api1.ListOperations.sortStringsByLength;
 import static school.faang.stream_api1.ListOperations.sumOfEvenNumbers;
 import static school.faang.stream_api1.ListOperations.transformToStringLengths;
@@ -19,7 +19,7 @@ public class Main {
 
         System.out.printf("Sum of even numbers: %s%n", sumOfEvenNumbers(numbers));
         System.out.printf("Max element: %s%n", findMaxElement(numbers));
-        System.out.printf("Average: %s%n", findAverage(numbers));
+        System.out.printf("Average: %s%n", getAverage(numbers));
         System.out.printf("Count strings starting with 'a': %s%n", countStringsStartingWith(strings, 'a'));
         System.out.printf("Strings contains 'an': %s%n", filterStringsContaining(strings, "an"));
         System.out.printf("Strings sorted by length : %s%n", sortStringsByLength(strings));
