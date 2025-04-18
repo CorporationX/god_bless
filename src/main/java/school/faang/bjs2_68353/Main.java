@@ -27,7 +27,9 @@ public class Main {
                         new HashSet<>(Set.of("Review", "Basketball"))
                 )
         );
-        var activities = new HashSet<>(Set.of("Reading", "Review", "Basketball", "Bulling", "Swimming", "NotListedHobby"));
+        var activities = new HashSet<>(
+                Set.of("Reading", "Review", "Basketball", "Bulling", "Swimming", "NotListedHobby")
+        );
 
         var hobbyLovers = User.findHobbyLovers(users, activities);
         System.out.println(hobbyLovers);
