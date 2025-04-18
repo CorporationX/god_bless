@@ -43,11 +43,29 @@ public class StreamHandler {
                 .collect(Collectors.toList());
     }
 
-    /*
-    Тоже немного сомнительное решение как по мне)
-    Уверен, что можно как-то проще...
-    */
     public static List<String> getPalindromsForString(String inputString) {
+
+
+
+
+        /*
+        Вход: "abacdan"
+        Выход: ["a", "aba", "b", "c"]
+
+        идем циклом по i
+        каждый новый элемент добавляем в set
+        если i > 0 ->
+         */
+
+    StringBuilder stringBuilder = new StringBuilder(inputString);
+
+
+
+
+
+
+
+
         String[] inputArray = inputString.split("");
         return IntStream.range(0, inputArray.length)
                 .boxed()
