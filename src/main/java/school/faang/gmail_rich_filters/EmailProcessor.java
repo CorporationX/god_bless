@@ -8,14 +8,15 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> emails,
                               Predicate<Email> filter,
-                              Function<Email, String> bodyTransformer,
+                              Function<Email, String> transformer,
                               Consumer<Email> emailConsumer) {
 
         emails.stream()
                 .filter(filter)
-                .peek(email -> {
-                    String transformedBody = bodyTransformer.apply(email);
+                .map(email -> {
+                    String transformedBody = transformer.apply(email);
                     email.setBody(transformedBody);
+                    return email;
                 })
                 .forEach(emailConsumer);
     }

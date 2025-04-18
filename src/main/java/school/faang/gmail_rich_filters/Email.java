@@ -10,9 +10,5 @@ import lombok.Setter;
 public class Email {
     private String subject;
     private String body;
-    private boolean isImportant;
-
-    public boolean isImportant() {
-        return this.isImportant;
-    }
+    private boolean important;
 }
