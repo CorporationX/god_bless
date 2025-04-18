@@ -24,7 +24,8 @@ public class ListOperations {
         return numbers.stream()
                 .mapToDouble(Integer::intValue)
                 .average()
-                .orElseThrow(() -> new NoSuchElementException("The list is empty, it is impossible to calculate the average."));
+                .orElseThrow(() -> new NoSuchElementException("The list is empty, " +
+                        "it is impossible to calculate the average."));
     }
 
     public static long countStringsStartingWith(List<String> strings, char symbol) {
