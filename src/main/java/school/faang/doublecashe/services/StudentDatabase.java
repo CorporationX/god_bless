@@ -15,10 +15,6 @@ public class StudentDatabase {
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
-        if (student == null || subjects == null) {
-            throw new IllegalArgumentException("Введите имя студента и название предмета");
-        }
-
         studentSubjects.put(student, subjects);
 
         for (Subject subject : subjects.keySet()) {
@@ -30,9 +26,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Subject subject, Student student, int grade) {
-        if (subject == null || student == null) {
-            throw new IllegalArgumentException("Предмет и студент не могут быть null");
-        }
         if (!studentSubjects.containsKey(student)) {
             throw new IllegalArgumentException("Студента с именем " + student + " нет в списке");
         }
@@ -46,9 +39,6 @@ public class StudentDatabase {
     }
 
     public void removeStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Студент не может быть null");
-        }
         if (!studentSubjects.containsKey(student)) {
             throw new IllegalArgumentException("Студента с именем " + student + " нет в списке");
         }
@@ -71,10 +61,6 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        if (subject == null || students == null) {
-            throw new IllegalArgumentException("Введите название предмета и имя студента");
-        }
-
         subjectStudents.put(subject, new ArrayList<>(students));
 
         for (Student student : students) {
@@ -86,9 +72,6 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Subject subject, Student student) {
-        if (subject == null || student == null) {
-            throw new IllegalArgumentException("Предмет и студент не могут быть null");
-        }
         if (!subjectStudents.containsKey(subject)) {
             throw new IllegalArgumentException("Предмета с названием " + subject + " нет в списке");
         }
@@ -105,9 +88,6 @@ public class StudentDatabase {
 
     // Удаление студента из предмета
     public void removeStudentFromSubject(Subject subject, Student student) {
-        if (subject == null || student == null) {
-            throw new IllegalArgumentException("Предмет и студент не могут быть null");
-        }
         if (!subjectStudents.containsKey(subject)) {
             throw new IllegalArgumentException("Предмета с названием " + subject + " нет в списке");
         }

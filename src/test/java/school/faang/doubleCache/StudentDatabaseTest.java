@@ -42,13 +42,6 @@ class StudentDatabaseTest {
     }
 
     @Test
-    void testAddStudentWithSubjects_NullArguments() {
-        assertThrows(IllegalArgumentException.class, () -> database.addStudentWithSubjects(null, null));
-        assertThrows(IllegalArgumentException.class, () -> database.addStudentWithSubjects(student1, null));
-        assertThrows(IllegalArgumentException.class, () -> database.addStudentWithSubjects(null, new HashMap<>()));
-    }
-
-    @Test
     void testAddSubjectForStudent() {
         database.addStudentWithSubjects(student1, new HashMap<>());
         database.addSubjectForStudent(math, student1, 5);
@@ -89,13 +82,6 @@ class StudentDatabaseTest {
         assertTrue(database.getSubjectStudents().get(math).contains(student2));
         assertEquals(0, database.getStudentSubjects().get(student1).get(math));
         assertEquals(0, database.getStudentSubjects().get(student2).get(math));
-    }
-
-    @Test
-    void testAddSubjectWithStudents_NullArguments() {
-        assertThrows(IllegalArgumentException.class, () -> database.addSubjectWithStudents(null, null));
-        assertThrows(IllegalArgumentException.class, () -> database.addSubjectWithStudents(math, null));
-        assertThrows(IllegalArgumentException.class, () -> database.addSubjectWithStudents(null, List.of(student1)));
     }
 
     @Test
