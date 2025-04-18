@@ -5,6 +5,6 @@ public class Main{
         SpellCaster caster = new SpellCaster();
 
         caster.cast("Fireball", spell -> "Boom by " + spell);
-        caster.cast("Lumos", spell -> "Light was created by" + spell);
+        caster.cast("Lumos", spell -> "Light was created by " + spell);
     }
 }
