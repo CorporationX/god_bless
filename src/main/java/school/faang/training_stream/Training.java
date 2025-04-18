@@ -58,7 +58,7 @@ public class Training {
                 .orElseThrow(() -> new NoSuchElementException("Не нашел больше" + number));
     }
 
-    public static List<Integer> converter (List<String> wordString) {
+    public static List<Integer> converter(List<String> wordString) {
         return wordString.stream()
                 .map(String::length)
                 .toList();
