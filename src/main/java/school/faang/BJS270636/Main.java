@@ -1,6 +1,7 @@
 package school.faang.BJS270636;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +24,11 @@ public class Main {
         manager.sendNotification(emailNotification);
         manager.sendNotification(smsNotification);
         manager.sendNotification(pushNotification);
+
+        Predicate<Notification> lengthFilter = notification ->
+                notification.getMessage().length() > 35;
+        manager.sendNotificationWithFilter(emailNotification, lengthFilter);
+
 
     }
 }
