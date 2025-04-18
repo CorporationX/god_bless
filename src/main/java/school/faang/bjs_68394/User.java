@@ -13,11 +13,11 @@ import java.util.Map;
 @Getter
 @ToString
 public class User {
+    private static User[] users;
     private String name;
     private int age;
     private String workplace;
     private String address;
-    private static String users;
 
     public User(String name, int age, String workplace, String address) {
         this.name = name;
