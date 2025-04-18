@@ -1,12 +1,11 @@
 package school.faang.warehouse;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 
 import java.util.Objects;
 
 @Data
-@AllArgsConstructor
 public class Product {
     private static int counter = 1;
 
@@ -15,7 +14,7 @@ public class Product {
     private Category category;
 
     public Product(String name, Category category) {
-        counter++;
+        counter+=1;
         this.name = name;
         this.category = category;
     }
