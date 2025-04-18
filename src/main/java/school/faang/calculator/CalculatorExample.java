@@ -13,7 +13,7 @@ public class CalculatorExample {
             }
         });
 
-       return nums.stream().reduce(calculator::calculate).get();
+        return nums.stream().reduce(calculator::calculate).get();
     }
 
     public static int sum(List<Integer> nums) {
