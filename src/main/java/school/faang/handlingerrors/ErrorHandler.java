@@ -6,7 +6,7 @@ public class ErrorHandler {
     public static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> handler) {
         try {
             return action.get();
-        } catch (RuntimeException e) {
+        } catch (Throwable e) {
             return handler.handle(e);
         }
     }
