@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
+    private static final String ERROR_MESSAGE = "Error when calling the service, we return the default value: {}";
+
     public static void main(String[] args) {
         String result = ErrorHandler.withErrorHandling(
             () -> RemoteService.call("someParam"),
@@ -19,7 +21,6 @@ public class Main {
     }
 
     private static String showException(String message) {
-        String ERROR_MESSAGE = "Error when calling the service, we return the default value: {}";
         log.error(ERROR_MESSAGE, message);
         return message;
     }
