@@ -1,5 +1,7 @@
 package school.faang.streamapione;
 
+import lombok.NonNull;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -7,84 +9,57 @@ import java.util.stream.Collectors;
 
 public final class ListOperations {
 
-    public static int sumOfEvenNumbers(List<Integer> nums) {
-        if (nums == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static int sumOfEvenNumbers(@NonNull List<Integer> nums) {
         return nums.stream()
                 .filter(num -> num % 2 == 0)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public static int findMax(List<Integer> nums) {
-        if (nums == null || nums.isEmpty()) {
-            throw new IllegalArgumentException("Input list must not be null or empty");
-        }
+    public static int getMax(@NonNull List<Integer> nums) {
         return nums.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find max of an empty list!"));
     }
 
-    public static double findAverage(List<Integer> nums) {
-        if (nums == null || nums.isEmpty()) {
-            throw new IllegalArgumentException("Input list must not be null or empty");
-        }
+    public static double getAverage(@NonNull List<Integer> nums) {
         return nums.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("Cannot calculate average of an empty list!"));
     }
 
-    public static long countStringsStartingWith(List<String> strings, char firstChar) {
-        if (strings == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static long countStringsStartingWith(@NonNull List<String> strings, char firstChar) {
         return strings.stream()
                 .filter(string -> !string.isEmpty() && string.charAt(0) == firstChar)
                 .count();
     }
 
-    public static List<String> filterStringsContainingSubstring(List<String> strings, String subString) {
-        if (strings == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, String subString) {
         return strings.stream()
                 .filter(s -> s.contains(subString))
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public static List<String> sortByLength(List<String> strings) {
-        if (strings == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
-    public static boolean allMatchCondition(List<Integer> nums, Predicate<Integer> condition) {
-        if (nums == null || condition == null) {
-            throw new IllegalArgumentException("Inputs must not be null");
-        }
+    public static boolean allMatchCondition(@NonNull List<Integer> nums, @NonNull Predicate<Integer> condition) {
         return nums.stream().allMatch(condition);
     }
 
-    public static int findMinGreaterThan(List<Integer> nums, int value) {
-        if (nums == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static int findMinGreaterThan(@NonNull List<Integer> nums, int value) {
         return nums.stream()
                 .filter(n -> n > value)
                 .min(Integer::compareTo)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("No element greater than %d", value)));
     }
 
-    public static List<Integer> convertToLengths(List<String> strings) {
-        if (strings == null) {
-            throw new IllegalArgumentException("Input list must not be null");
-        }
+    public static List<Integer> convertToLengths(@NonNull List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .collect(Collectors.toList());

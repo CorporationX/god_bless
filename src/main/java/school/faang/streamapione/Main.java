@@ -10,8 +10,8 @@ public class Main {
 
         // Пример использования методов:
         System.out.printf("Сумма четных чисел: %d%n", ListOperations.sumOfEvenNumbers(numbers));
-        System.out.printf("Максимум: %d%n", ListOperations.findMax(numbers));
-        System.out.printf("Среднее: %.2f%n", ListOperations.findAverage(numbers)); // если возвращается double
+        System.out.printf("Максимум: %d%n", ListOperations.getMax(numbers));
+        System.out.printf("Среднее: %.2f%n", ListOperations.getAverage(numbers)); // если возвращается double
         System.out.printf("Количество строк, начинающихся на 'a': %d%n",
                 ListOperations.countStringsStartingWith(strings, 'a'));
         System.out.printf("Строки, содержащие 'an': %s%n",
