@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String [] args) {
-        var nums = new ArrayList<Integer>();
-        nums.add(11);
-        nums.add(32);
-        nums.add(76);
-        nums.add(99);
-        nums.add(713);
-        var numsCopy = new ArrayList<>(nums);
+        var array = new ArrayList<Integer>();
+        array.add(11);
+        array.add(32);
+        array.add(76);
+        array.add(99);
+        array.add(713);
+        var arrayCopy = new ArrayList<>(array);
 
-        Example.reverseNaive(nums);
-        Example.reverse(numsCopy);
+        Example.reverseNaive(array);
+        Example.reverse(arrayCopy);
 
-        System.out.println(nums);
-        System.out.println(numsCopy);
+        System.out.println(array);
+        System.out.println(arrayCopy);
     }
 }
