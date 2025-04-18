@@ -53,7 +53,7 @@ public class StudentServiceTest {
         );
 
         assertThrows(SubjectNotFoundException.class, () -> {
-            studentService.getMostDifficultSubject(students)
+            studentService.getMostDifficultSubject(students);
         });
     }
 
