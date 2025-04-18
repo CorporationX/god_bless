@@ -4,7 +4,7 @@ public class TransformationExecutor {
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         if (flipDirection == FlipDirection.HORIZONTAL) {
             return transformMatrix(matrix, (a, b) -> new Coordinates((a + 1) % matrix[0].length, b));
-        } else if (flipDirection == FlipDirection.VERTICAL) {
+        } else {
             return transformMatrix(matrix, (a, b) -> new Coordinates(a, (b + 1) % matrix.length));
         }
     }
