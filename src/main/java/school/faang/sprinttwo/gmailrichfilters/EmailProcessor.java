@@ -10,12 +10,12 @@ public class EmailProcessor {
                               Predicate<Email> filter,
                               Consumer<Email> action,
                               Function<Email, String> transformer) {
-        for (Email email : emails) {
-            if (filter.test(email)) {
-                String transformedBody = transformer.apply(email);
-                email.setBody(transformedBody);
-                action.accept(email);
-            }
-        }
+        emails.stream()
+                .filter(filter)
+                .peek(email -> {
+                    String transformedBody = transformer.apply(email);
+                    email.setBody(transformedBody);
+                })
+                .forEach(action);
     }
 }
