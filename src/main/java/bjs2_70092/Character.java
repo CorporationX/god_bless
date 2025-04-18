@@ -12,10 +12,9 @@ import java.util.List;
 @Setter
 public class Character {
     private String name;
-    private List<Item> inventory;
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
-        this.inventory = new ArrayList<>();
     }
 }
