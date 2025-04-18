@@ -1,6 +1,4 @@
 package school.faang.bjs270636;
-
-import static Notification.NotificationType.*;
 import java.util.function.Predicate;
 
 public class Main {
