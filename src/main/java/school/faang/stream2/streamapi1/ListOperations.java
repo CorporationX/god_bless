@@ -16,14 +16,14 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow(()->new IllegalArgumentException("the list is empty"));
+                .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow(()->new IllegalArgumentException("the list is empty"));
+                .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char firstLetter) {
@@ -53,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > threshold)
                 .min(Integer::compareTo)
-                .orElseThrow(()->new NoSuchElementException("there is no such element in collection"));
+                .orElseThrow(() -> new NoSuchElementException("there is no such element in collection"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
