@@ -1,8 +1,11 @@
 package school.faang.bjs2_69862;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
@@ -21,7 +24,7 @@ public class ProductManager {
         }
 
         if (productToRemove == null) {
-            System.out.println("Продукт не найден: " + name + ", " + category);
+            log.warn("Продукт не найден: " + name + ", " + category);
             return;
         }
 
