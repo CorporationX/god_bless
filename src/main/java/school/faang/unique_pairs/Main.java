@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.unique_pairs;
 
 import java.util.List;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class Main {
         uniquePairs.forEach(pair -> System.out.println(pair[0] + " " + pair[1]));
     }
 
-    public static List<int[]> findUniquePairs(Set<Integer> numbers, int targetNumber) {
+    private static List<int[]> findUniquePairs(Set<Integer> numbers, int targetNumber) {
         return numbers.stream()
                 .flatMap(first -> numbers.stream()
                         .filter(second -> first + second == targetNumber)
