@@ -2,10 +2,17 @@ package school.faang.bjs271922;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ListOperations {
+
+    public static List<Integer> numbersRange(int start, int end) {
+        return IntStream.rangeClosed(start, end)
+                .boxed()
+                .toList();
+    }
 
     public static int evenNumbersSum(List<Integer> numbersList) {
         return numbersList.stream()
@@ -17,7 +24,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbersList) {
         return numbersList.stream()
                 .max(Integer::compareTo)
-                .orElse(0);
+                .orElseThrow();
     }
 
     public static double findAverage(List<Integer> numbersList) {
@@ -29,7 +36,7 @@ public class ListOperations {
 
     public static long countStringsStartingWith(List<String> strings, char ch) {
         return strings.stream()
-                .filter(string -> string.charAt(0) == ch)
+                .filter(string -> !string.isEmpty() && string.charAt(0) == ch)
                 .count();
     }
 
@@ -37,13 +44,13 @@ public class ListOperations {
                                                                 String substring) {
         return strings.stream()
                 .filter(string -> string.contains(substring))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
@@ -54,7 +61,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(num -> num > number)
                 .min(Integer::compareTo)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %s".formatted(number)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
