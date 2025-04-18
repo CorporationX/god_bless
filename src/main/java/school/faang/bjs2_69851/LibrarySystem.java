@@ -1,8 +1,11 @@
 package school.faang.bjs2_69851;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class LibrarySystem {
     private final Map<Book, String> storage = new HashMap<>();
 
@@ -20,20 +23,20 @@ public class LibrarySystem {
         var book = new Book(title, author, year);
         var location = storage.get(book);
         if (location == null) {
-            System.out.println("Книга отсутствует в библиотеке!");
+            log.warn("Книга отсутствует в библиотеке!");
         } else {
-            System.out.println(book + ", лежит в: " + location);
+            log.info(book + ", лежит в: " + location);
         }
     }
 
     public void printAllBooks() {
         if (storage.isEmpty()) {
-            System.out.println("В библиотеке отсутствуют книги");
+            log.info("В библиотеке отсутствуют книги");
             return;
         }
 
         for (Map.Entry<Book, String> entry : storage.entrySet()) {
-            System.out.println(entry.getKey() + " лежит в " + entry.getValue());
+            log.info(entry.getKey() + " лежит в " + entry.getValue());
         }
     }
 }
