@@ -2,6 +2,7 @@ package school.faang.stream2.streamapipractice1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -13,14 +14,15 @@ public class ListOperations {
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
-                .max(Integer::compare).orElse(0);
+                .max(Integer::compare)
+                .orElseThrow(() -> new NoSuchElementException("Empty list. No max value can be found."));
     }
 
-    public static double findAverage(List<Integer> numbers) {
+    public static double computeAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Empty list. No average value can be found."));
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int limit) {
@@ -28,7 +30,7 @@ public class ListOperations {
                 .mapToInt(Integer::intValue)
                 .filter(number -> number > limit)
                 .min()
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("No elements greater than " + limit));
     }
 
     public static long countStringsStartingWith(List<String> strings, Character c) {
