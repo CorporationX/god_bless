@@ -18,5 +18,8 @@ class Main {
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+
+        Notification unappropriatedMessage = new Notification(NotificationType.EMAIL, "говно");
+        notificationManager.censorChecker(unappropriatedMessage);
     }
 }
