@@ -14,7 +14,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String company, String address) {
-        if (name.isEmpty()) {
+        if (name.isEmpty() && name == null) {
             throw new IllegalArgumentException("The name can't be empty");
         }
         if (age < LEGAL_AGE) {
