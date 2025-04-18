@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Processor {
@@ -40,9 +41,7 @@ public class Processor {
 
     public static List<String> filterByAlphabetAndSortWords(List<String> words, String alphabet) {
         return words.stream()
-                .filter(word -> word.chars()
-                        .mapToObj(c -> (char) c)
-                        .allMatch(character -> alphabet.indexOf(character) != -1))
+                .filter(word -> word.matches("^[" + Pattern.quote(alphabet) + "]+$"))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
