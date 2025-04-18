@@ -20,9 +20,9 @@ public class Book {
             return false;
         }
 
-        return Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author) &&
-                year == book.year;
+        return Objects.equals(title, book.title)
+                && Objects.equals(author, book.author)
+                && year == book.year;
     }
 
     @Override
