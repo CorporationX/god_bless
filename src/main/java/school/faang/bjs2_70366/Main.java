@@ -1,7 +1,7 @@
 package school.faang.bjs2_70366;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
 
         String alohomora = "Alohomora";
