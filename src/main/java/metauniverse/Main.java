@@ -4,11 +4,11 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager manager = new NotificationManager();
 
-        manager.registerHandler(NotificationType.EMAIL, n ->
+        manager.addHandler(NotificationType.EMAIL, n ->
                 System.out.println(" Email: " + n.getMessage()));
-        manager.registerHandler(NotificationType.SMS, n ->
+        manager.addHandler(NotificationType.SMS, n ->
                 System.out.println(" SMS: " + n.getMessage()));
-        manager.registerHandler(NotificationType.PUSH, n ->
+        manager.addHandler(NotificationType.PUSH, n ->
                 System.out.println(" PUSH: " + n.getMessage()));
 
         manager.addFilter(n -> !n.getMessage().toLowerCase().contains("бяка"));

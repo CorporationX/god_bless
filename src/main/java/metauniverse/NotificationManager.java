@@ -13,36 +13,47 @@ public class NotificationManager {
     private final List<Predicate<Notification>> filters = new ArrayList<>();
     private final List<Function<Notification, Notification>> modifiers = new ArrayList<>();
 
-    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        handlers.put(type, handler);
+    public void addHandler(NotificationType type, Consumer<Notification> handler) {
+        this.handlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        for (Predicate<Notification> filter : filters) {
-            if (!filter.test(notification)) {
-                System.out.println("Notification blocked by filter: " + notification.getMessage());
-                return;
-            }
+        if (!this.filterBefore(notification)) {
+            return;
         }
+        notification = this.modifyBefore(notification);
 
-        for (Function<Notification, Notification> modifier : modifiers) {
-            notification = modifier.apply(notification);
-        }
-
-        Consumer<Notification> handler = handlers.get(notification.getType());
+        Consumer<Notification> handler = this.handlers.get(notification.getType());
 
         if (handler != null) {
             handler.accept(notification);
         } else {
-            System.out.println("Нет обработчика для типа: " + notification.getType());
+            System.out.println("No handler for type: " + notification.getType());
         }
     }
 
+    private boolean filterBefore(Notification notification) {
+        for (Predicate<Notification> filter : this.filters) {
+            if (!filter.test(notification)) {
+                System.out.println("Notification blocked by filter: " + notification.getMessage());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Notification modifyBefore(Notification notification) {
+        for (Function<Notification, Notification> modifier : this.modifiers) {
+            notification = modifier.apply(notification);
+        }
+        return notification;
+    }
+
     public void addFilter(Predicate<Notification> filter) {
-        filters.add(filter);
+        this.filters.add(filter);
     }
 
     public void addModifier(Function<Notification, Notification> modifier) {
-        modifiers.add(modifier);
+        this.modifiers.add(modifier);
     }
 }
