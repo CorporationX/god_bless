@@ -1,5 +1,6 @@
 package school.faang.lambda.lotr_rpg;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -25,8 +26,10 @@ public class InventoryManager {
         Stream<Item> falseCondition = character
                 .getInventory()
                 .stream()
-                .filter(item -> !condition.test(item));
+                .filter(condition.negate());
 
-        character.setInventory(Stream.concat(trueCondition, falseCondition).toList());
+        List<Item> updatedList = Stream.concat(trueCondition, falseCondition).toList();
+        character.getInventory().clear();
+        character.getInventory().addAll(updatedList);
     }
 }
