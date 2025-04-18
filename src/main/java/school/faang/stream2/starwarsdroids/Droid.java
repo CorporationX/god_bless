@@ -26,7 +26,7 @@ public class Droid {
         System.out.println(decryptMessage(message, key));
     }
 
-    public void sendMessage(String message, int key, Droid reciever){
+    public void sendMessage(String message, int key, Droid reciever) {
         String encryptedMessage = this.encryptMessage(message, key);
         reciever.receiveMessage(encryptedMessage, key);
     }
