@@ -25,6 +25,7 @@ public class Main {
         manager.sendNotification(smsNotification);
         manager.sendNotification(pushNotification);
 
+        //4*
         Predicate<Notification> lengthFilter = notification ->
                 notification.getMessage().length() > 35;
         manager.sendNotificationWithFilter(emailNotification, lengthFilter);
