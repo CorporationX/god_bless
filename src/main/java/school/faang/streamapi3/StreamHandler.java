@@ -54,7 +54,8 @@ public class StreamHandler {
 
     public static List<String> getPalindromsForString(String inputString) {
         Set<String> palindromes = new HashSet<>();
-        int j, k;
+        int j;
+        int k;
 
         for (int i = 0; i < inputString.length(); i++) {
             palindromes.add(String.valueOf(inputString.charAt(i)));
