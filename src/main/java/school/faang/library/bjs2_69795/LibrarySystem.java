@@ -19,7 +19,7 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (books.remove(new Book(title, author, year)) != null) {
+        if (placeBook.remove(new Book(title, author, year)) != null) {
             System.out.printf("Книга удалена: %s", book);
         } else {
             System.out.printf("Книга не найдена для удаления: %s", book);
