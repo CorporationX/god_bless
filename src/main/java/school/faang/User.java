@@ -52,13 +52,15 @@ public class User {
 
     private void validatejob(String job) {
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException(String.format("Недопустимое место работы. Допустимые варианты: %s", VALID_JOBS));
+            throw new IllegalArgumentException(String.format(
+                    "Недопустимое место работы. Допустимые варианты: %s", VALID_JOBS));
         }
     }
 
     private void validateAddress(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException(String.format("Недопустимый адрес. Допустимые выарианты: %s", VALID_ADDRESSES));
+            throw new IllegalArgumentException(String.format(
+                    "Недопустимый адрес. Допустимые выарианты: %s", VALID_ADDRESSES));
         }
     }
 
