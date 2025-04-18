@@ -1,11 +1,14 @@
 package school.faang.bjs2_69898;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -16,7 +19,7 @@ public class HogwartsSpells {
         try {
             type = EventType.valueOf(eventType);
         } catch (IllegalArgumentException e) {
-            System.out.println("Неизвестный тип заклинания: " + eventType);
+            log.warn("Неизвестный тип заклинания: " + eventType);
             return;
         }
 
@@ -38,7 +41,7 @@ public class HogwartsSpells {
     public void deleteSpellEvent(int id) {
         var removedSpell = spellById.remove(id);
         if (removedSpell == null) {
-            System.out.println("Событие с ID " + id + " не найдено");
+            log.warn("Событие с ID " + id + " не найдено");
             return;
         }
 
