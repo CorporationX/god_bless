@@ -25,7 +25,7 @@ public class LibrarySystem {
         if (location == null) {
             log.warn("Книга отсутствует в библиотеке!");
         } else {
-            log.info(book + ", лежит в: " + location);
+            log.info("{}, лежит в: {}", book, location);
         }
     }
 
@@ -36,7 +36,7 @@ public class LibrarySystem {
         }
 
         for (Map.Entry<Book, String> entry : storage.entrySet()) {
-            log.info(entry.getKey() + " лежит в " + entry.getValue());
+            log.info("{} лежит в {}", entry.getKey(), entry.getValue());
         }
     }
 }
