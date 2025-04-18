@@ -7,10 +7,11 @@ public class User {
     private final String name;
     private final int age;
     private final String job;
-    private final String address;
+    private String address;
 
-    public static final Set<String> VALID_JOBS = new HashSet<>();
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>();
+    static final int MIN_AGE = 18;
+    static final Set<String> VALID_JOBS = new HashSet<>();
+    static final Set<String> VALID_ADDRESSES = new HashSet<>();
 
     static {
         VALID_JOBS.add("Google");
@@ -23,21 +24,10 @@ public class User {
     }
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
-        }
-
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
-        }
-
-        if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Недопустимое место работы. Допустимые варианты: " + VALID_JOBS);
-        }
-
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Недопустимый адрес. Допустимые варианты: " + VALID_ADDRESSES);
-        }
+        validateName(name);
+        validateAge(age);
+        validatejob(job);
+        validateAddress(address);
 
         this.name = name;
         this.age = age;
@@ -45,19 +35,34 @@ public class User {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
     }
 
-    public int getAge() {
-        return age;
+    private void validateAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        }
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException(String.format("Возраст не может быть меньше %d лет", MIN_AGE));
+        }
     }
 
-    public String getJob() {
-        return job;
+    private void validatejob(String job) {
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException(String.format("Недопустимое место работы. Допустимые варианты: %s", VALID_JOBS));
+        }
     }
 
-    public String getAddress() {
-        return address;
+    private void validateAddress(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException(String.format("Недопустимый адрес. Допустимые выарианты: %s", VALID_ADDRESSES));
+        }
+    }
+
+    public String toString() {
+        return "User{name='" + name + "', age=" + age + ", job='" + job + "', address='" + address + "'}";
     }
 }
