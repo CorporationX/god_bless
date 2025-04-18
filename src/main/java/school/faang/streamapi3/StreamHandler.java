@@ -5,26 +5,35 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamHandler {
-    /*
-    Это решение прямо очень страшное кажется за n в кубе. Но что-то так не пойму, как сделать проще)
-    Кажется, в каждой новой итерации цикла нет смысла идти заново по всем значениям,
-    а можно только по оставшимся Entry, но что-то не пойму как это перевести в код.
-     */
     public static List<List<String>> getWithMutualFriends(Map<String, List<String>> people) {
         return people.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
-                .filter(entry -> people.entrySet().stream()
-                        .anyMatch(pairEntry -> !pairEntry.getKey().equals(entry.getKey())
-                                && pairEntry.getValue().equals(entry.getValue())))
-                .map(entry -> {
-                    Map.Entry<String, List<String>> pairEntry = people.entrySet().stream()
-                            .filter(enr -> !enr.getKey().equals(entry.getKey())
-                                    && enr.getValue().equals(entry.getValue())).findFirst().get();
-                    return Arrays.asList(entry.getKey(), pairEntry.getKey());
-                })
+                .filter(entryPerson -> isPairExists(people, entryPerson))
+                .map(entryForPair -> getPair(people, entryForPair))
                 .peek(Collections::sort)
                 .distinct()
                 .toList();
+    }
+
+    private static List<String> getPair(Map<String, List<String>> people,
+                                        Map.Entry<String, List<String>> entryForPair) {
+        Map.Entry<String, List<String>> pairEntry = people.entrySet().stream()
+                .filter(potentialPair -> isPairPerConditions(potentialPair, entryForPair))
+                .findFirst()
+                .get();
+        return Arrays.asList(entryForPair.getKey(), pairEntry.getKey());
+    }
+
+    private static boolean isPairExists(Map<String, List<String>> people,
+                                        Map.Entry<String, List<String>> entryPerson) {
+        return people.entrySet().stream()
+                .anyMatch(potentialPair -> isPairPerConditions(potentialPair, entryPerson));
+    }
+
+    private static boolean isPairPerConditions(Map.Entry<String, List<String>> potentialPair,
+                                               Map.Entry<String, List<String>> entryToBePaired) {
+        return !Objects.equals(potentialPair.getKey(), entryToBePaired.getKey())
+                && Objects.equals(potentialPair.getValue(), entryToBePaired.getValue());
     }
 
     public static Map<String, Double> getDeptAverageSalary(List<Employee> employees) {
@@ -44,46 +53,38 @@ public class StreamHandler {
     }
 
     public static List<String> getPalindromsForString(String inputString) {
+        Set<String> palindromes = new HashSet<>();
+        int j, k;
 
+        for (int i = 0; i < inputString.length(); i++) {
+            palindromes.add(String.valueOf(inputString.charAt(i)));
+            j = i + 1;
+            k = i - 1;
+            boolean isTheSameSymbol = true;
+            while (k >= 0 && j < inputString.length() - 1) {
+                if (checkIfDifferentChar(inputString.charAt(k + 1), inputString.charAt(i), inputString.charAt(j - 1))) {
+                    isTheSameSymbol = false;
+                }
+                if (inputString.charAt(k) == inputString.charAt(j - 1) && isTheSameSymbol) {
+                    palindromes.add(inputString.substring(k, j));
+                }
+                if (inputString.charAt(k + 1) == inputString.charAt(j) && isTheSameSymbol) {
+                    palindromes.add(inputString.substring(k + 1, j + 1));
+                }
+                if (inputString.charAt(k) == inputString.charAt(j)) {
+                    palindromes.add(inputString.substring(k, j + 1));
+                } else {
+                    break;
+                }
+                k--;
+                j++;
+            }
+        }
+        return List.copyOf(palindromes);
+    }
 
-
-
-        /*
-        Вход: "abacdan"
-        Выход: ["a", "aba", "b", "c"]
-
-        идем циклом по i
-        каждый новый элемент добавляем в set
-        если i > 0 ->
-         */
-
-    StringBuilder stringBuilder = new StringBuilder(inputString);
-
-
-
-
-
-
-
-
-        String[] inputArray = inputString.split("");
-        return IntStream.range(0, inputArray.length)
-                .boxed()
-                .flatMap(i -> {
-                    String val = inputArray[i];
-                    List<String> list = new ArrayList<>();
-                    list.add(val);
-                    StringBuilder stringBuilder = new StringBuilder(val);
-                    for (int j = i + 1; j < inputArray.length; j++) {
-                        if (stringBuilder.append(inputArray[j]).toString()
-                                .contentEquals(new StringBuilder(stringBuilder).reverse())) {
-                            list.add(stringBuilder.toString());
-                        }
-                    }
-                    return list.stream();
-                })
-                .distinct()
-                .toList();
+    private static boolean checkIfDifferentChar(char leftChar, char middleChar, char rightChar) {
+        return leftChar != middleChar || leftChar != rightChar;
     }
 
     public static List<Integer> getPerfectNumbers(Integer firstNum, Integer lastNum) {
