@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_68111;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,11 +19,5 @@ public class Main {
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.printf("%s loves: %s", entry.getKey(), entry.getValue());
         }
-=======
-        int[] nums = {1, 2, 3, 4, 5};
-
-        System.out.println("До разворота: " + Arrays.toString(nums));
-        Example.reverse(nums);
-        System.out.println("После разворота: " + Arrays.toString(nums));
     }
 }
