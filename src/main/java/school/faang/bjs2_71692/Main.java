@@ -1,6 +1,6 @@
 package school.faang.bjs2_71692;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
         SpellCaster caster = new SpellCaster();
 
