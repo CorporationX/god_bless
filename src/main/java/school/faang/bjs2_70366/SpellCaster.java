@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_70366;
 
 public class SpellCaster {
     public void cast(String spellName, SpellAction action){
