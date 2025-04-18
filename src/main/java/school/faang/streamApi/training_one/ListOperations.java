@@ -53,7 +53,7 @@ public class ListOperations {
         return list.stream()
                 .filter(integer -> integer > compared)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Empty List"));
+                .orElseThrow(() -> new NoSuchElementException("Absence of numbers larger then %d".formatted(compared)));
     }
 
     public static List<Integer> toStringLengthList(List<String> list) {
