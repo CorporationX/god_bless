@@ -1,4 +1,4 @@
-package school.faang.BJS270636;
+package school.faang.bjs270636;
 
 public class Notification {
     public enum NotificationType {

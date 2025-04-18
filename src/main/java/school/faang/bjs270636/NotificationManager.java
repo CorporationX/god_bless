@@ -1,4 +1,4 @@
-package school.faang.BJS270636;
+package school.faang.bjs270636;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +10,10 @@ public class NotificationManager {
     private Map<Notification.NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(Notification.NotificationType type, Consumer<Notification> handler) {
-        handlers.put(type, handler);
+        this.handlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-
         Consumer<Notification> handler = handlers.get(notification.getType());
 
         if (handler != null) {
