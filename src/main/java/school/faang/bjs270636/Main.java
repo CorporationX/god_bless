@@ -1,4 +1,5 @@
 package school.faang.bjs270636;
+
 import java.util.function.Predicate;
 
 public class Main {
