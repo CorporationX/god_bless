@@ -1,6 +1,8 @@
 package school.faang.bjs2_68795.amazon_warehouse;
 
 import lombok.extern.slf4j.Slf4j;
+import school.faang.bjs2_68795.amazon_warehouse.exceptions.ProductAlreadyExistsException;
+import school.faang.bjs2_68795.amazon_warehouse.exceptions.ProductNotFoundException;
 
 import java.util.List;
 

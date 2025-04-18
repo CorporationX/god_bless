@@ -1,12 +1,15 @@
 package school.faang.bjs2_68795.amazon_warehouse;
 
 import lombok.extern.slf4j.Slf4j;
+import school.faang.bjs2_68795.amazon_warehouse.exceptions.ProductAlreadyExistsException;
+import school.faang.bjs2_68795.amazon_warehouse.exceptions.ProductNotFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
@@ -14,7 +17,7 @@ public class ProductManager {
     private static final String PRODUCT_NOT_FOUND = "Product with name {} and category {} is not found";
     private static final String PRODUCT_ALREADY_EXISTS = "Product with name {} and category {} is already exists";
 
-    Set<Product> products = new HashSet<>();
+    private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
@@ -29,15 +32,9 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        boolean isFound = false;
-        for (Product product : products) {
-            if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                isFound = true;
-                products.remove(product);
-                break;
-            }
-        }
-        if (!isFound) {
+        if (!products.removeIf(
+                product -> Objects.equals(product.getName(), name)
+                        && Objects.equals(product.getCategory(), category))) {
             log.error(PRODUCT_NOT_FOUND, name, category);
             throw new ProductNotFoundException(PRODUCT_NOT_FOUND, name, category);
         }
@@ -45,20 +42,20 @@ public class ProductManager {
 
     public List<Product> findProductsByCategory(Category category) {
         List<Product> categoryList = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getCategory().equals(category)) {
+        products.forEach(product -> {
+            if (Objects.equals(product.getCategory(), category)) {
                 categoryList.add(product);
             }
-        }
+        });
         return categoryList;
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> groupedProductsMap = new HashMap<>();
-        for (Product product : products) {
+        products.forEach(product -> {
             groupedProductsMap.putIfAbsent(product.getCategory(), new ArrayList<>());
             groupedProductsMap.get(product.getCategory()).add(product);
-        }
+        });
         return groupedProductsMap;
     }
 
@@ -67,9 +64,7 @@ public class ProductManager {
         for (Map.Entry<Category, List<Product>> entry : groupProductsByCategoryMap.entrySet()) {
             log.info("Category: {}", entry.getKey());
             log.info("Products:");
-            for (Product product : entry.getValue()) {
-                log.info("- {}", product.getName());
-            }
+            entry.getValue().forEach(product -> log.info("- {}", product.getName()));
             log.info("");
         }
     }
