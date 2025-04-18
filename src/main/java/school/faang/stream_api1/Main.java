@@ -14,7 +14,7 @@ import static school.faang.stream_api1.ListOperations.transformToStringLengths;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(10, 5, 7, 6, 2, 18, 13, 0);
+        List<Integer> numbers = List.of(10, 5, 7, 6, 2, 18, 0);
         List<String> strings = List.of("apple", "banana", "avocado", "orange", "apricot");
 
         System.out.printf("Sum of even numbers: %s%n", sumOfEvenNumbers(numbers));
