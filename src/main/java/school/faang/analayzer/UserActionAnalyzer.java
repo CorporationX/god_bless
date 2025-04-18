@@ -1,5 +1,6 @@
 package school.faang.analayzer;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +76,8 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
         return actions.stream()
-                .filter(userAction -> userAction.actionType().equals(ActionType.COMMENT))
+                .filter(userAction -> userAction.actionType().equals(ActionType.COMMENT)
+                        && userAction.localDate().isAfter(LocalDate.now().minusMonths(1)))
                 .reduce(new HashMap<>(),
                         USER_ACTION_COUNTER,
                         COMBINER)
