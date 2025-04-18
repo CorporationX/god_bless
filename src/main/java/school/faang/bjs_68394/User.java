@@ -1,15 +1,13 @@
 package school.faang.bjs_68394;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 @Setter
 @Getter
@@ -28,11 +26,7 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers() {
-        Map<Integer, List<User>> group = new HashMap<>();
-        return group;
+        Map<Integer, List<User>> result = new HashMap<>();
+        return result;
     }
 }
-
-
-
-
