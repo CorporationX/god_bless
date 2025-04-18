@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -17,29 +18,25 @@ public class DiaryOperations {
                 .flatMap(m -> m.entrySet().stream())
                 .filter(entry -> !entry.getValue().isEmpty())
                 .map(entry ->
-                        Map.of(entry.getKey(),
-                                entry.getValue().stream()
-                                        .mapToInt(num -> num)
-                                        .average()
-                                        .getAsDouble()))
-                .flatMap(m -> m.entrySet().stream())
+                        Map.entry(entry.getKey(), entry.getValue().stream()
+                                .mapToInt(num -> num)
+                                .average()
+                                .getAsDouble()))
                 .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
     }
 
     public Map<String, Long> getAvgGradesForStudent(List<Student> students, String name, String lastName) {
         return students.stream()
-                .filter(student -> student.getName().equals(name) && student.getLastName().equals(lastName))
+                .filter(student -> Objects.equals(student.getName(), name)
+                        && Objects.equals(student.getLastName(), lastName))
                 .map(Student::getMarks)
                 .flatMap(m -> m.entrySet().stream())
                 .filter(entry -> !entry.getValue().isEmpty())
-                .map(entry -> {
-                    double avgMark = entry.getValue().stream()
-                            .mapToInt(num -> num)
-                            .average()
-                            .getAsDouble();
-                    return Map.of(entry.getKey(), Math.round(avgMark));
-                })
-                .flatMap(m -> m.entrySet().stream())
+                .map(entry -> Map.entry(entry.getKey(),
+                        Math.round(entry.getValue().stream()
+                                .mapToInt(num -> num)
+                                .average()
+                                .getAsDouble())))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -48,13 +45,10 @@ public class DiaryOperations {
                 .map(Student::getMarks)
                 .flatMap(m -> m.entrySet().stream())
                 .filter(entry -> !entry.getValue().isEmpty())
-                .map(entry ->
-                        Map.of(entry.getKey(),
-                                entry.getValue().stream()
-                                        .mapToInt(num -> num)
-                                        .average()
-                                        .getAsDouble()))
-                .flatMap(m -> m.entrySet().stream())
+                .map(entry -> Map.entry(entry.getKey(), entry.getValue().stream()
+                        .mapToInt(num -> num)
+                        .average()
+                        .getAsDouble()))
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                         Collectors.averagingDouble(Map.Entry::getValue)))
                 .entrySet().stream()
@@ -99,8 +93,7 @@ public class DiaryOperations {
     private static Map<Student, Double> getStudentOverallPerformance(
             Map<Student, Double> studentToTotalAverageMark) {
         return studentToTotalAverageMark.entrySet().stream()
-                .map(entry -> Map.of(entry.getKey(), 100 * (entry.getValue() / 5)))
-                .flatMap(map -> map.entrySet().stream())
+                .map(entry -> Map.entry(entry.getKey(), 100 * (entry.getValue() / 5)))
                 .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
     }
 
@@ -108,12 +101,8 @@ public class DiaryOperations {
             Map<Student, Map<String, Double>> studentsToAvgMarks) {
         return studentsToAvgMarks.entrySet().stream()
                 .filter(entry -> !entry.getValue().isEmpty())
-                .map(entry -> {
-                    double averageForAllMarks = entry.getValue().values().stream()
-                            .collect(Collectors.averagingDouble(Double::doubleValue));
-                    return Map.of(entry.getKey(), averageForAllMarks);
-                })
-                .flatMap(map -> map.entrySet().stream())
+                .map(entry -> Map.entry(entry.getKey(), entry.getValue().values().stream()
+                        .collect(Collectors.averagingDouble(Double::doubleValue))))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -123,9 +112,11 @@ public class DiaryOperations {
                     Map<String, Double> subjectToAvgMark = student.getMarks()
                             .entrySet().stream()
                             .filter(entry -> !entry.getValue().isEmpty())
-                            .map(entry -> Map.of(entry.getKey(),
-                                    entry.getValue().stream().mapToInt(num -> num).average().getAsDouble()))
-                            .flatMap(map -> map.entrySet().stream())
+                            .map(entry -> Map.entry(entry.getKey(),
+                                    entry.getValue().stream()
+                                            .mapToInt(num -> num)
+                                            .average()
+                                            .getAsDouble()))
                             .collect(Collectors.groupingBy(Map.Entry::getKey,
                                     Collectors.averagingDouble(Map.Entry::getValue)));
                     return Map.of(student, subjectToAvgMark);
