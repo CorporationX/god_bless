@@ -1,5 +1,6 @@
 package school.faang.bjs270636;
 
+import static Notification.NotificationType.*;
 import java.util.function.Predicate;
 
 public class Main {
@@ -16,9 +17,12 @@ public class Main {
             System.out.println("Отправлено SMS: " + notification.getMessage());
         });
 
-        Notification emailNotification = new Notification(Notification.NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(Notification.NotificationType.SMS, "Ваш пароль изменен");
-        Notification pushNotification = new Notification(Notification.NotificationType.PUSH, "У вас новое сообщение!");
+        Notification emailNotification = new Notification(
+                Notification.NotificationType.EMAIL, "Ваш аккаунт активирован");
+        Notification smsNotification = new Notification(
+                Notification.NotificationType.SMS, "Ваш пароль изменен");
+        Notification pushNotification = new Notification(
+                Notification.NotificationType.PUSH, "У вас новое сообщение!");
 
         manager.sendNotification(emailNotification);
         manager.sendNotification(smsNotification);
