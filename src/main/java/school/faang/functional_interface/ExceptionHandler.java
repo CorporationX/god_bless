@@ -1,4 +1,4 @@
-package school.faang.we_process_errors_beautifully;
+package school.faang.functional_interface;
 
 @FunctionalInterface
 public interface ExceptionHandler<T> {
