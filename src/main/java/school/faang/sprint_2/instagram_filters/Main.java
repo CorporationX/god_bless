@@ -12,6 +12,8 @@ public class Main {
                 new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
         Function<Image, Image> vignetteFilter = (image) ->
                 new Image(image.getName(), image.getDescription() + " | Фильтр: виньетка");
+        Function<Image, Image> blurFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Фильтр: размытие");
 
         Image grayscaleImage = FilterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
@@ -20,8 +22,13 @@ public class Main {
         Image vignetteImage = FilterProcessor.applyFilter(grayscaleImage, vignetteFilter);
         System.out.println(vignetteImage.getDescription());
 
-        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = FilterProcessor.applyFilter(originalImage, combinedFilter);
+        Function<Image, Image> combinedTwoFilters = FilterProcessor.combineTwoFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = FilterProcessor.applyFilter(originalImage, combinedTwoFilters);
         System.out.println(combinedImage.getDescription());
+
+        Function<Image, Image> combinedFilters = FilterProcessor.combineFilters(vignetteFilter,
+                grayscaleFilter, sepiaFilter, blurFilter);
+        Image allFiltersImage = FilterProcessor.applyFilter(originalImage, combinedFilters);
+        System.out.println(allFiltersImage.getDescription());
     }
 }

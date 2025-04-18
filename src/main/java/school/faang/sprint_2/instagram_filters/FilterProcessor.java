@@ -1,5 +1,8 @@
 package school.faang.sprint_2.instagram_filters;
 
+import java.sql.PreparedStatement;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class FilterProcessor {
@@ -7,8 +10,15 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public static Function<Image, Image> combineFilters(Function<Image, Image> firstFilter,
+    public static Function<Image, Image> combineTwoFilters(Function<Image, Image> firstFilter,
                                                          Function<Image, Image> secondFilter) {
-        return image -> secondFilter.apply(firstFilter.apply(image));
+        return firstFilter.andThen(secondFilter);
+    }
+
+    @SafeVarargs
+    public static Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
+        Objects.requireNonNull(filters, "filters cannot be null");
+        return Arrays.stream(filters)
+                .reduce(Function.identity(), Function::andThen);
     }
 }
