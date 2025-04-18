@@ -12,6 +12,10 @@ public class EmailProcessor {
             Function<Email, String> transformer,
             Consumer<Email> consumer
     ) {
+        if (emails == null) {
+            throw new IllegalArgumentException("Email list must not be null");
+        }
+
         emails.stream()
                 .filter(predicate)
                 .peek(consumer)
