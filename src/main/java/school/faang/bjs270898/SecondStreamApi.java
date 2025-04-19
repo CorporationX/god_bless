@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class SecondStreamAPI {
+public class SecondStreamApi {
     public static List<List<Integer>> findPairs(Set<Integer> setNumbers, int targetNumber) {
         return setNumbers.stream()
                 .filter(num ->
@@ -34,9 +34,9 @@ public class SecondStreamAPI {
                 .toList();
     }
 
-    public static List<String> filterByAlphabetAndSort (List<String> list, String alphabet) {
+    public static List<String> filterByAlphabetAndSort(List<String> list, String alphabet) {
         return list.stream()
-                .filter(string -> string.chars().allMatch(ch -> alphabet.indexOf(ch)>=0))
+                .filter(string -> string.chars().allMatch(ch -> alphabet.indexOf(ch) >= 0))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }

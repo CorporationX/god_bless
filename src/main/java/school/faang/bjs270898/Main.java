@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static school.faang.bjs270898.SecondStreamAPI.*;
+import static school.faang.bjs270898.SecondStreamApi.*;
 
 public class Main {
     public static void main(String[] args) {
