@@ -1,6 +1,7 @@
 package school.faang.train_stream_api_2;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +33,23 @@ public class ListOperations {
                 .collect(Collectors.toList());
     }
 
-    public static long filteringAndSortingLines(List<String> string, String prefix) {
-        return string.stream()
-                .filter(s -> s.startsWith(prefix))
-                .count();
+    public static List<String> filteringAndSortingLines(List<String> strings, String prefix) {
+        return strings.stream()
+                .filter(s -> s != null && s.toLowerCase().startsWith(prefix.toLowerCase()))
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> transformationOfNumbersIntoBinaryFormat(List<Integer> numbers) {
+        return numbers.stream()
+                .map(Integer::toBinaryString)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> filterAndSortByAlphabetAndLength(List<String> strings, String alphabet) {
+        return strings.stream()
+                .filter(s -> s != null && s.matches("[" + alphabet + "]+"))
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 }
