@@ -13,6 +13,7 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
     private final Set<Project> projects;
 
+    @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
         Set<Employee> noDuplicatesEmployees = new HashSet<>(employees);
         Map<Employee, Integer> relevantEmployeesMap = new HashMap<>();
@@ -32,6 +33,6 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
         List<Employee> sortedByLoadEmployees = relevantEmployeesMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).toList();
-        return TeamAssignmentStrategy.super.assignTeam(project, sortedByLoadEmployees);
+        return TeamAssignmentStrategy.assignTeamHelperMethod(project, sortedByLoadEmployees);
     }
 }

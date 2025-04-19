@@ -7,7 +7,9 @@ import java.util.Set;
 
 public interface TeamAssignmentStrategy {
 
-    default List<Employee> assignTeam(Project project, List<Employee> employees) {
+    public List<Employee> assignTeam(Project project, List<Employee> employees);
+    
+    public static List<Employee> assignTeamHelperMethod(Project project, List<Employee> employees) {
         List<Employee> requiredEmployees = new ArrayList<>();
         Set<String> coveredRequiredSkills = new HashSet<>();
 

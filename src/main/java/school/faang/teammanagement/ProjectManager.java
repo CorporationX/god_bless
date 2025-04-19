@@ -7,13 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Getter
 public class ProjectManager {
 
     private final Set<Project> companyProjects = new HashSet<>();
-    private final List<Employee> companyEmployee = new ArrayList<>();
+    private final List<Employee> companyEmployees = new ArrayList<>();
     private TeamAssignmentStrategy strategy;
 
     public void setAssignmentStrategy(TeamAssignmentStrategy strategy) {
@@ -26,7 +25,7 @@ public class ProjectManager {
                 .findFirst();
 
         foundProjectById.ifPresent(project -> {
-            List<Employee> employees = strategy.assignTeam(project, companyEmployee);
+            List<Employee> employees = strategy.assignTeam(project, companyEmployees);
             project.setTeamMembers(employees);
         });
     }
@@ -41,9 +40,8 @@ public class ProjectManager {
     }
 
     public void addEmployee(Employee employee) {
-        // Why it doesn't suggest to simplify to add here as it does in addProject method?
-        if (!companyEmployee.contains(employee)) {
-            companyEmployee.add(employee);
+        if (!companyEmployees.contains(employee)) {
+            companyEmployees.add(employee);
         }
     }
 
@@ -68,18 +66,15 @@ public class ProjectManager {
                 .filter(value -> value.getProjectId() == projectId)
                 .findFirst();
 
-        AtomicBoolean assignedSuccessfully = new AtomicBoolean(false);
-        foundProject.ifPresentOrElse(
-                project -> {
-                    if (!project.getTeamMembers().contains(employee)) {
-                        if (project.getRequiredSkills().isEmpty()
-                                || employee.getSkills().containsAll(project.getRequiredSkills())) {
-                            project.getTeamMembers().add(employee);
-                            assignedSuccessfully.set(true);
-                        }
-                    }
-                }, () -> System.out.println("no such project"));
-        return assignedSuccessfully.get();
+        return foundProject.map(project -> {
+            if (!project.getTeamMembers().contains(employee)) {
+                if (project.getRequiredSkills().isEmpty()
+                        || employee.getSkills().containsAll(project.getRequiredSkills())) {
+                    project.getTeamMembers().add(employee);
+                }
+            }
+            return true;
+        }).orElse(false);
     }
 
     public void removeEmployeeFromProject(int projectId, int employeeId) {
@@ -87,19 +82,19 @@ public class ProjectManager {
                 .filter(project -> project.getProjectId() == projectId)
                 .findFirst();
 
-        Optional<Employee> foundEmployee = companyEmployee.stream()
+        Optional<Employee> foundEmployee = companyEmployees.stream()
                 .filter(employee -> employee.getId() == employeeId)
                 .findFirst();
 
         foundProject.ifPresentOrElse(
-                project -> { // if project was found
+                project -> {
                     foundEmployee.ifPresentOrElse(
-                            employee -> { // if employee was found
+                            employee -> {
                                 project.getTeamMembers().remove(employee);
-                            }, () -> { // else if employee not found
+                            }, () -> {
                                 System.out.println("Employee with ID " + employeeId + " not found.");
                             });
-                }, () -> { // else if project not found
+                }, () -> {
                     System.out.println("Project with ID " + projectId + " not found.");
                 });
     }
