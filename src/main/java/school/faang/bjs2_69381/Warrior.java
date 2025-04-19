@@ -11,6 +11,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        takeDamage(this.strength);
+        opponent.takeDamage(strength);
     }
 }

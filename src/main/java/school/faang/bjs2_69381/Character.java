@@ -2,18 +2,19 @@ package school.faang.bjs2_69381;
 
 public abstract class Character {
     private static final int DEFAULT_ATTR_VALUE = 5;
+    private static final int DEFAULT_HEALTH = 100;
 
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = 100;
+    protected final String name;
+    protected final int strength;
+    protected final int agility;
+    protected final int intelligence;
+    protected int health = DEFAULT_HEALTH;
 
     public Character(String name) {
         this(name, DEFAULT_ATTR_VALUE, DEFAULT_ATTR_VALUE, DEFAULT_ATTR_VALUE);
     }
 
-    public Character(String name, int strength, int agility, int intelligence) {
+    protected Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
