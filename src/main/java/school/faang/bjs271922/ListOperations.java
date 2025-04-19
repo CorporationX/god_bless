@@ -24,7 +24,8 @@ public class ListOperations {
     public static int findMax(List<Integer> numbersList) {
         return numbersList.stream()
                 .max(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new NoSuchElementException("Невозможно найти максимум: список пуст"));
     }
 
     public static double findAverage(List<Integer> numbersList) {
@@ -61,7 +62,8 @@ public class ListOperations {
         return numbers.stream()
                 .filter(num -> num > number)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %s".formatted(number)));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Нет элементов больше %s".formatted(number)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
