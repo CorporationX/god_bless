@@ -1,9 +1,13 @@
 package school.faang.bjs268455;
-import lombok.Builder;
+
 import java.util.Set;
 
+import lombok.Builder;
+import lombok.ToString;
+
 @Builder
-public class Employee {
+@ToString
+public class User {
     private String name;
     private Integer age;
     private String job;
@@ -11,7 +15,7 @@ public class Employee {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    public Employee(String name, Integer age, String job, String address) {
+    public User(String name, Integer age, String job, String address) {
         // add validation for VALID_JOBS and VALID_ADDRESSES
 
         if (name == null || name.trim().isEmpty()) {
