@@ -17,7 +17,7 @@ public class Main {
                 item -> System.out.printf("🔁 %s снова добавлен.%n", item.getName()));
         manager.updateItem(frodo,
                 item -> item.getName().equals("The One Ring"),
-                item -> new Item(item.getName(),item.getValue() * 2));
+                item -> new Item(item.getName(), item.getValue() * 2));
 
         System.out.println("📦 Инвентарь Фродо:");
         frodo.getInventory().forEach(
