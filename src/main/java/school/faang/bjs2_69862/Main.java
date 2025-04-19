@@ -17,9 +17,7 @@ public class Main {
 
         productManager.printAllProducts();
 
-        for (Product product : productManager.findProductsByCategory(Category.FOOD)) {
-            System.out.println("- " + product.getName());
-        }
+        productManager.findProductsByCategory(Category.FOOD).forEach(System.out::println);
 
         productManager.removeProduct(Category.FOOD, "Bread");
         productManager.printAllProducts();

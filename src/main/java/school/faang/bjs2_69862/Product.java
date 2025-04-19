@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
-@EqualsAndHashCode
 public class Product {
     private final UUID id;
     private final String name;

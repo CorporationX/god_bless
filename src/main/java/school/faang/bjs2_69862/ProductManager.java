@@ -2,7 +2,12 @@ package school.faang.bjs2_69862;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -15,20 +20,14 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        Product productToRemove = null;
-        for (var product : products) {
-            if (product.getCategory() == category && product.getName().equals(name)) {
-                productToRemove = product;
-                break;
-            }
-        }
+        boolean removed = products.removeIf(product ->
+                Objects.equals(product.getCategory(), category) &&
+                        Objects.equals(product.getName(), name)
+        );
 
-        if (productToRemove == null) {
-            log.warn("Продукт не найден: " + name + ", " + category);
-            return;
+        if (!removed) {
+            log.warn("Продукт не найден: {}, {}", name, category);
         }
-
-        products.remove(productToRemove);
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -46,16 +45,17 @@ public class ProductManager {
         var groupedProducts = groupProductsByCategory();
         for (var category : Category.values()) {
             var products = groupedProducts.getOrDefault(category, new ArrayList<>());
-            System.out.println("Категория: " + category);
+            log.info("Категория: {}", category);
+
             if (products.isEmpty()) {
-                System.out.println("Нет продуктов.");
-            } else {
-                System.out.println("Продукты:");
-                for (var product : products) {
-                    System.out.println("- " + product.getName());
-                }
+                log.info("Нет продуктов.");
+                continue;
             }
-            System.out.println();
+
+            log.info("Продукты:");
+            products.forEach(product -> log.info("- {}", product.getName()));
+
+            log.info("");
         }
     }
 }
