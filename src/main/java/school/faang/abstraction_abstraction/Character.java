@@ -6,26 +6,28 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    private String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    private int health = 100;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private static final int HEALTH = 100;
+    private int currentHealth;
 
-    public Character(String name) {
-        this(name, 5, 5, 5);
+    protected Character(String name) {
+        this(name, CharacterConfig.BASE_STAT, CharacterConfig.BASE_STAT, CharacterConfig.BASE_STAT);
     }
 
-    public Character(String name, int strength, int agility, int intelligence) {
+    protected Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+        this.currentHealth = HEALTH;
     }
 
     public abstract void attack(Character opponent);
 
     public void updateHealth(int damage) {
-        this.health = Math.max(health - damage, 0);
+        this.currentHealth = Math.max(currentHealth - damage, 0);
     }
 }
