@@ -19,8 +19,8 @@ public class InventoryManager {
         List<Item> inventory = character.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             Item current = inventory.get(i);
-            if(condition.test(current)) {
-                inventory.set(i,updater.apply(current));
+            if (condition.test(current)) {
+                inventory.set(i, updater.apply(current));
             }
         }
     }

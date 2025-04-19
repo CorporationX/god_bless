@@ -7,14 +7,20 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, (item) -> System.out.printf("➕ %s был добавлен в инвентарь.%n", item.getName()));
+        manager.addItem(frodo, ring,
+                item -> System.out.printf("➕ %s был добавлен в инвентарь.%n", item.getName()));
 
-        manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
+        manager.removeItem(frodo,
+                item -> item.getName().contains("Ring"));
 
-        manager.addItem(frodo, ring, (item) -> System.out.printf("🔁 %s снова добавлен.%n", item.getName()));
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(),item.getValue() * 2));
+        manager.addItem(frodo, ring,
+                item -> System.out.printf("🔁 %s снова добавлен.%n", item.getName()));
+        manager.updateItem(frodo,
+                item -> item.getName().equals("The One Ring"),
+                item -> new Item(item.getName(),item.getValue() * 2));
 
         System.out.println("📦 Инвентарь Фродо:");
-        frodo.getInventory().forEach(item -> System.out.printf("• %s — %d золота%n", item.getName(), item.getValue()));
+        frodo.getInventory().forEach(
+                item -> System.out.printf("• %s — %d золота%n", item.getName(), item.getValue()));
     }
 }
