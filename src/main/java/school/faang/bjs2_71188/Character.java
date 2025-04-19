@@ -10,10 +10,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 public class Character {
     @NonNull
-    private final String name;
+    private String name;
     private List<Item> inventory = new ArrayList<>();
 
     public void addItemToInventory(Item item) {

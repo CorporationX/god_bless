@@ -17,7 +17,7 @@ public class Main {
 
         Consumer<Item> itemAddedLog = (item) -> log.info("The item {} has been added to the invetory", item.getName());
         Predicate<Item> itemContainsName = (item) -> item.getName().contains("Ring");
-        Predicate<Item> findItemByName = (item) -> item.getName().equals("Allmighty Ring");
+        Predicate<Item> filterItemByName = (item) -> item.getName().equals("Allmighty Ring");
         Function<Item, Item> updataeItem = (item) -> new Item(item.getName(), item.getValue() * 2);
 
         // Добавляем предмет в инвентарь
@@ -30,7 +30,7 @@ public class Main {
 
         // Добавляем обратно предмет и обновляем его стоимость
         manager.addItem(frodo, theRing, itemAddedLog);
-        manager.updateItem(frodo, findItemByName, updataeItem);
+        manager.updateItem(frodo, filterItemByName, updataeItem);
 
         // Проверяем результат
         frodo.getInventory().forEach(item -> log.info("{} : {}", item.getName(), item.getValue()));
