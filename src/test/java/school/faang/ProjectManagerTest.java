@@ -2,6 +2,10 @@ package school.faang;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.BJS2_68773.Employee;
+import school.faang.BJS2_68773.Project;
+import school.faang.BJS2_68773.ProjectManager;
+import school.faang.BJS2_68773.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +24,12 @@ class ProjectManagerTest {
     void setUp() {
         projectManager = new ProjectManager();
 
-        employee1 = new Employee(1L, "Anna", Set.of("Java", "Docker"));
-        employee2 = new Employee(2L, "Alex", Set.of("Kubernetes", "Spring", "Java", "Docker"));
-        employee3 = new Employee(3L, "Masha", Set.of("Spring", "JavaScript"));
+        employee1 = new Employee(1L, "Anna", Set.of(Skill.JAVA, Skill.DOCKER));
+        employee2 = new Employee(2L, "Alex", Set.of(Skill.KUBERNETES, Skill.SPRING, Skill.JAVA, Skill.DOCKER));
+        employee3 = new Employee(3L, "Masha", Set.of(Skill.SPRING, Skill.JAVA_SCRIPT));
         List<Employee> team = new ArrayList<>();
         team.add(employee1);
-        project = new Project(1L, "Project", Set.of("Java", "Spring", "Docker"), team);
+        project = new Project(1L, "Project", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER), team);
 
         projectManager.addProject(project);
         projectManager.addEmployee(employee1);
@@ -36,7 +40,7 @@ class ProjectManagerTest {
     @Test
     void testGetTeamForProject() {
         List<Employee> employees = projectManager.getTeamForProject(1L);
-        assertEquals(employees.size(), project.teamMembers().size());
+        assertEquals(employees.size(), project.getTeamMembers().size());
     }
 
     @Test
@@ -49,21 +53,21 @@ class ProjectManagerTest {
     void testAssignEmployeeToProject() {
         projectManager.assignEmployeeToProject(1L, employee2);
 
-        assertTrue(project.teamMembers().contains(employee2));
+        assertTrue(project.getTeamMembers().contains(employee2));
     }
 
     @Test
     void testRemoveEmployeeFromProject() {
-        project.teamMembers().add(employee2);
+        project.getTeamMembers().add(employee2);
 
         projectManager.removeEmployeeFromProject(1L, 2L);
 
-        assertFalse(project.teamMembers().contains(employee2));
+        assertFalse(project.getTeamMembers().contains(employee2));
     }
 
     @Test
     void testGetTeamMembers() {
-        project.teamMembers().add(employee2);
+        project.getTeamMembers().add(employee2);
 
         List<Employee> teamMembers = projectManager.getTeamMembers(1L);
 
@@ -73,13 +77,13 @@ class ProjectManagerTest {
 
     @Test
     void testRemoveIneligibleEmployees() {
-        Employee ineligible = new Employee(2L, "Max", Set.of("Python"));
+        Employee ineligible = new Employee(2L, "Max", Set.of(Skill.PYTHON));
 
-        project.teamMembers().addAll(List.of(employee2, ineligible));
+        project.getTeamMembers().addAll(List.of(employee2, ineligible));
 
         projectManager.removeIneligibleEmployees(project);
 
-        assertTrue(project.teamMembers().contains(employee2));
-        assertFalse(project.teamMembers().contains(ineligible));
+        assertTrue(project.getTeamMembers().contains(employee2));
+        assertFalse(project.getTeamMembers().contains(ineligible));
     }
 }

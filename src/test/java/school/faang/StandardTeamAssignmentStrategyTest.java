@@ -2,8 +2,13 @@ package school.faang;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.BJS2_68773.Employee;
+import school.faang.BJS2_68773.Project;
+import school.faang.BJS2_68773.Skill;
+import school.faang.BJS2_68773.StandardTeamAssignmentStrategy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,23 +23,25 @@ class StandardTeamAssignmentStrategyTest {
 
     @BeforeEach
     void setUp() {
-        employee1 = new Employee(1L, "Anna", Set.of("Java", "Docker"));
-        employee2 = new Employee(2L, "Alex", Set.of("Kubernetes", "Spring"));
-        employee3 = new Employee(3L, "Masha", Set.of("Spring", "JavaScript"));
+        employee1 = new Employee(1L, "Anna", Set.of(Skill.JAVA, Skill.DOCKER));
+        employee2 = new Employee(2L, "Alex", Set.of(Skill.KUBERNETES, Skill.SPRING));
+        employee3 = new Employee(3L, "Masha", Set.of(Skill.SPRING, Skill.JAVA_SCRIPT));
         List<Employee> team = new ArrayList<>();
         team.add(employee2);
-        project = new Project(1L, "Project", Set.of("Java", "Spring", "Docker"), team);
+        project = new Project(1L, "Project", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER), team);
     }
 
     @Test
     void testAssignTeam() {
         StandardTeamAssignmentStrategy strategy = new StandardTeamAssignmentStrategy();
-        List<Employee> team = strategy.assignTeam(project, List.of(employee1, employee3));
+        List<Employee> team = strategy.assignTeam(project, Arrays.asList(employee1, employee3));
+        team.forEach(employee -> employee.getProjects().add(project));
+        project.getTeamMembers().addAll(team);
 
         assertNotNull(team);
-        Set<String> combined = new HashSet<>();
-        team.forEach(emp -> combined.addAll(emp.skills()));
+        Set<Skill> combined = new HashSet<>();
+        team.forEach(emp -> combined.addAll(emp.getSkills()));
 
-        assertTrue(combined.containsAll(project.requiredSkills()));
+        assertTrue(combined.containsAll(project.getRequiredSkills()));
     }
 }

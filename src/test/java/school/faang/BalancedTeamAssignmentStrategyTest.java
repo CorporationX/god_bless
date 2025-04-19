@@ -2,13 +2,19 @@ package school.faang;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.BJS2_68773.BalancedTeamAssignmentStrategy;
+import school.faang.BJS2_68773.Employee;
+import school.faang.BJS2_68773.Project;
+import school.faang.BJS2_68773.Skill;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BalancedTeamAssignmentStrategyTest {
     private Employee employee1;
@@ -18,17 +24,25 @@ class BalancedTeamAssignmentStrategyTest {
 
     @BeforeEach
     void setUp() {
-        employee1 = new Employee(1L, "Anna", Set.of("Java", "Kubernetes"));
-        employee2 = new Employee(2L, "Alex", Set.of("Docker", "Spring"));
-        employee3 = new Employee(3L, "Masha", Set.of("Spring", "Java"));
-        project = new Project(1L, "Project", Set.of("Java", "Spring", "Docker"), new ArrayList<>());
+        employee1 = new Employee(1L, "Anna", Set.of(Skill.JAVA, Skill.KUBERNETES));
+        employee2 = new Employee(2L, "Alex", Set.of(Skill.DOCKER, Skill.SPRING));
+        employee3 = new Employee(3L, "Masha", Set.of(Skill.SPRING, Skill.JAVA));
+        project = new Project(1L, "Project", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
     }
 
     @Test
     void testBalancedStrategyAssignTeam() {
-        ProjectManager.PROJECTS_COUNT_BY_EMPLOYEE.put(employee1, 2);
-        ProjectManager.PROJECTS_COUNT_BY_EMPLOYEE.put(employee2, 1);
-        ProjectManager.PROJECTS_COUNT_BY_EMPLOYEE.put(employee3, 0);
+        Project project1 = new Project(2L, "Project1", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
+        Project project2 = new Project(3L, "Project1", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
+        Project project3 = new Project(4L, "Project1", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
+        Project project4 = new Project(5L, "Project1", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
+        Project project5 = new Project(6L, "Project1", Set.of(Skill.JAVA, Skill.SPRING, Skill.DOCKER));
+        employee1.getProjects().add(project1);
+        employee1.getProjects().add(project2);
+        employee1.getProjects().add(project3);
+        employee2.getProjects().add(project1);
+        employee2.getProjects().add(project5);
+        employee3.getProjects().add(project4);
 
         BalancedTeamAssignmentStrategy strategy = new BalancedTeamAssignmentStrategy();
         List<Employee> employees = new ArrayList<>();
@@ -36,12 +50,14 @@ class BalancedTeamAssignmentStrategyTest {
         employees.add(employee2);
         employees.add(employee3);
         List<Employee> team = strategy.assignTeam(project, employees);
+        team.forEach(employee -> employee.getProjects().add(project));
+        project.getTeamMembers().addAll(team);
 
         assertNotNull(team);
-        Set<String> combined = new HashSet<>();
-        team.forEach(emp -> combined.addAll(emp.skills()));
+        Set<Skill> combined = new HashSet<>();
+        team.forEach(emp -> combined.addAll(emp.getSkills()));
 
-        assertTrue(combined.containsAll(project.requiredSkills()));
-        assertEquals(1, ProjectManager.PROJECTS_COUNT_BY_EMPLOYEE.get(employee3));
+        assertTrue(combined.containsAll(project.getRequiredSkills()));
+        assertEquals(2, employee3.getProjects().size());
     }
 }

@@ -1,6 +1,5 @@
-package school.faang;
+package school.faang.BJS2_68773;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class ProjectManager {
-    public static final Map<Employee, Integer> PROJECTS_COUNT_BY_EMPLOYEE = new HashMap<>();
-
     private final Map<Long, Employee> employees = new HashMap<>();
     private final Map<Long, Project> projects = new HashMap<>();
     private TeamAssignmentStrategy strategy;
@@ -19,12 +16,12 @@ public class ProjectManager {
         this.strategy = strategy;
     }
 
-    public void assignTeamToProject(long projectId) {
+    public List<Employee> assignTeamToProject(long projectId) {
         Project project = projects.get(projectId);
         if (project == null) {
             throw new NoSuchElementException("Project with id = " + projectId + " was not found");
         }
-        strategy.assignTeam(project, (List<Employee>) employees.values());
+        return strategy.assignTeam(project, (List<Employee>) employees.values());
     }
 
     public List<Employee> getTeamForProject(long projectId) {
@@ -32,21 +29,21 @@ public class ProjectManager {
         if (project == null) {
             throw new NoSuchElementException("Project with id = " + projectId + " was not found");
         }
-        return project.teamMembers();
+        return project.getTeamMembers();
     }
 
     public void addEmployee(Employee employee) {
         if (employee == null) {
             throw new IllegalArgumentException("Employee must not be null");
         }
-        employees.putIfAbsent(employee.id(), employee);
+        employees.putIfAbsent(employee.getId(), employee);
     }
 
     public void addProject(Project project) {
         if (project == null) {
             throw new IllegalArgumentException("Project must not be null");
         }
-        projects.putIfAbsent(project.projectId(), project);
+        projects.putIfAbsent(project.getProjectId(), project);
     }
 
     public Set<Project> findProjectsForEmployee(Employee employee) {
@@ -55,7 +52,7 @@ public class ProjectManager {
         }
         Set<Project> employeeProjects = new HashSet<>();
         projects.forEach((projectId, project) -> {
-            if (!Collections.disjoint(employee.skills(), project.requiredSkills())) {
+            if (SkillUtils.hasCommonSkills(project.getRequiredSkills(), employee.getSkills())) {
                 employeeProjects.add(project);
             }
         });
@@ -70,11 +67,10 @@ public class ProjectManager {
         if (employee == null) {
             throw new IllegalArgumentException("Employee must not be null");
         }
-        Set<String> requiredProjectSkills = new HashSet<>(project.requiredSkills());
-        requiredProjectSkills.removeAll(employee.skills());
+        Set<Skill> requiredProjectSkills = new HashSet<>(project.getRequiredSkills());
+        SkillUtils.subtractSkillsCoveredBy(employee, requiredProjectSkills);
         if (requiredProjectSkills.isEmpty()) {
-            project.teamMembers().add(employee);
-            PROJECTS_COUNT_BY_EMPLOYEE.put(employee, PROJECTS_COUNT_BY_EMPLOYEE.getOrDefault(employee, 0) + 1);
+            project.getTeamMembers().add(employee);
         }
     }
 
@@ -83,7 +79,7 @@ public class ProjectManager {
         if (project == null) {
             throw new NoSuchElementException("Project with id = " + projectId + " was not found");
         }
-        project.teamMembers().removeIf(employee -> employee.id() == employeeId);
+        project.getTeamMembers().removeIf(employee -> employee.getId().equals(employeeId));
     }
 
     public List<Employee> getTeamMembers(long projectId) {
@@ -91,14 +87,14 @@ public class ProjectManager {
         if (project == null) {
             throw new NoSuchElementException("Project with id = " + projectId + " was not found");
         }
-        return project.teamMembers();
+        return project.getTeamMembers();
     }
 
     public void removeIneligibleEmployees(Project project) {
         if (project == null) {
             throw new IllegalArgumentException("Project must not be null");
         }
-        project.teamMembers().removeIf(employee -> employee != null
-                && Collections.disjoint(employee.skills(), project.requiredSkills()));
+        project.getTeamMembers().removeIf(employee -> employee != null &&
+                !SkillUtils.hasCommonSkills(project.getRequiredSkills(), employee.getSkills()));
     }
 }
