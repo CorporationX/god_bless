@@ -18,16 +18,15 @@ public class ListOperations {
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
-                .mapToInt(Integer::intValue)
-                .max()
-                .orElseThrow();
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("The list" + numbers + "is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("The list" + numbers + "is empty"));
     }
 
     public static long countStringsStartingWith(List<String> strings, String prefix) {
@@ -36,16 +35,16 @@ public class ListOperations {
                 .count();
     }
 
-    public static List<String> filterStringsContainingSubstring(List<String> strings, String settings) {
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         return strings.stream()
-                .filter(s -> s.contains(settings))
+                .filter(s -> s.contains(substring))
                 .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
@@ -57,9 +56,8 @@ public class ListOperations {
         return numbers.stream()
                 .filter(Objects::nonNull)
                 .filter(n -> n > num)
-                .mapToInt(Integer::intValue)
-                .min()
-                .orElseThrow(() -> new NoSuchElementException("No value greater than " + num));
+                .min(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("No value greater than %s".formatted(num)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
