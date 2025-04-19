@@ -2,7 +2,6 @@ package school.faang.filter_and_sorted_strings;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +16,6 @@ public class Main {
         return strings.stream()
                 .filter(string -> string.startsWith(String.valueOf(symbol)))
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

@@ -1,7 +1,6 @@
 package school.faang.map_to_binary_format;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +12,6 @@ public class Main {
     private static List<String> mapToBinaryFormat(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
