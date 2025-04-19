@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractTeamAssignmentStrategy implements TeamAssignmentStrategy {
-    protected final List<Employee> assignTeamDefault(Project project, List<Employee> employees, Comparator<Employee> comparator) {
+    protected final List<Employee> assignTeamDefault(Project project, List<Employee> employees,
+                                                     Comparator<Employee> comparator) {
         employees.sort(comparator);
         List<Employee> teamEmployees = new ArrayList<>();
         Set<Skill> projectRequiredSkills = new HashSet<>(project.getRequiredSkills());

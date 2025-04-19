@@ -94,7 +94,7 @@ public class ProjectManager {
         if (project == null) {
             throw new IllegalArgumentException("Project must not be null");
         }
-        project.getTeamMembers().removeIf(employee -> employee != null &&
-                !SkillUtils.hasCommonSkills(project.getRequiredSkills(), employee.getSkills()));
+        project.getTeamMembers().removeIf(employee -> employee != null
+                && !SkillUtils.hasCommonSkills(project.getRequiredSkills(), employee.getSkills()));
     }
 }

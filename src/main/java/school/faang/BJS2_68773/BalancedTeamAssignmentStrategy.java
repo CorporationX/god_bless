@@ -13,6 +13,7 @@ public class BalancedTeamAssignmentStrategy extends AbstractTeamAssignmentStrate
         if (employees == null) {
             throw new IllegalArgumentException("Employees must not be null");
         }
-        return assignTeamDefault(project, employees, Comparator.comparingInt(employee -> employee.getProjects().size()));
+        return assignTeamDefault(project, employees,
+                Comparator.comparingInt(employee -> employee.getProjects().size()));
     }
 }
