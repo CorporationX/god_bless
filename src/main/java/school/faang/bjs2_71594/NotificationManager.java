@@ -12,7 +12,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if(this.handlers.containsKey(notification.getType())) {
+        if (this.handlers.containsKey(notification.getType())) {
             this.handlers.get(notification.getType()).accept(notification);
         } else {
             System.out.println("Unknown notification type");
