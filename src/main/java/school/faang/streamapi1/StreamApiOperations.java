@@ -2,7 +2,10 @@ package school.faang.streamapi1;
 
 import lombok.experimental.UtilityClass;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 @UtilityClass
 public class StreamApiOperations {
@@ -42,6 +45,29 @@ public class StreamApiOperations {
     public List<String> getStringsWithSubstring(List<String> strings, String str) {
         return strings.stream()
                 .filter(s -> s.contains(str))
+                .toList();
+    }
+
+    public List<String> getSortedByLength(List<String> strings) {
+        return strings.stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public boolean checkIfAllMatch(List<Integer> numbers, Predicate<Integer> predicate) {
+        return numbers.stream()
+                .allMatch(predicate);
+    }
+
+    public Optional<Integer> getHigherNumber(List<Integer> numbers, int targetForHigher) {
+        return numbers.stream()
+                .filter(num -> num > targetForHigher)
+                .min(Comparator.naturalOrder());
+    }
+
+    public List<Integer> getStringsLength(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
                 .toList();
     }
 }
