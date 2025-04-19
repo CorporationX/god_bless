@@ -1,7 +1,13 @@
 package school.faang.bjs270509;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Email {
+    @Getter
     private String subject;
+    @Getter
+    @Setter
     private String body;
     private boolean isImportant;
 
@@ -11,20 +17,8 @@ public class Email {
         this.isImportant = isImportant;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public boolean isImportant() {
         return isImportant;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getBody() {
-        return body;
     }
 
 }
