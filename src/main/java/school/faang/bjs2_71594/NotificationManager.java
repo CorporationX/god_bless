@@ -5,13 +5,17 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
+    private Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        handlers.put(type, handler);
+        this.handlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        handlers.get(notification.getType()).accept(notification);
+        if(this.handlers.containsKey(notification.getType())) {
+            this.handlers.get(notification.getType()).accept(notification);
+        } else {
+            System.out.println("Unknown notification type");
+        }
     }
 }
