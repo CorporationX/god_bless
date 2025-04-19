@@ -11,49 +11,37 @@ import java.util.Map;
 @Slf4j
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private int innerId = 1;
+    private final Map<EventType, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-        EventType type;
-        try {
-            type = EventType.valueOf(eventType);
-        } catch (IllegalArgumentException e) {
-            log.warn("Неизвестный тип заклинания: " + eventType);
-            return;
-        }
-
-        var event = new SpellEvent(type, actionDescription);
-        spellById.put(innerId, event);
+    public void addSpellEvent(EventType eventType, String actionDescription) {
+        var event = new SpellEvent(eventType, actionDescription);
+        spellById.put(event.id(), event);
 
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(event);
-        innerId++;
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return spellById.get(id);
+        return spellById.getOrDefault(id, null);
     }
 
-    public List<SpellEvent> getSpellEventsByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(EventType eventType) {
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
         var removedSpell = spellById.remove(id);
         if (removedSpell == null) {
-            log.warn("Событие с ID " + id + " не найдено");
+            log.warn("Событие с ID {} не найдено", id);
             return;
         }
 
-        var spellEvents = spellsByType.get(removedSpell.getEventType().name());
+        var spellEvents = spellsByType.get(removedSpell.eventType());
         if (spellEvents != null) {
             spellEvents.remove(removedSpell);
         }
     }
 
     public void printAllSpellEvents() {
-        for (var entry : spellById.entrySet()) {
-            System.out.println("ID: " + entry.getKey() + ", " + entry.getValue());
-        }
+        spellById.forEach((id, spell) -> System.out.println("ID: " + id + ", " + spell));
     }
 }

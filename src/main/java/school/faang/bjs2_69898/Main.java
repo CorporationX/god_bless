@@ -3,16 +3,12 @@ package school.faang.bjs2_69898;
 public class Main {
     public static void main(String [] args) {
         var spells = new HogwartsSpells();
-
-        spells.addSpellEvent("Чар", "Огненное заклинание");
-        spells.addSpellEvent("Защита", "Живой щит");
-        spells.addSpellEvent("Трансфигурация", "Трасмутация");
+        spells.addSpellEvent(EventType.Enchantment, "Огненное заклинание");
+        spells.addSpellEvent(EventType.Protection, "Живой щит");
+        spells.addSpellEvent(EventType.Transfiguration, "Трасмутация");
 
         spells.printAllSpellEvents();
-
-        for (var event : spells.getSpellEventsByType("Чар")) {
-            System.out.println(event);
-        }
+        spells.getSpellEventsByType(EventType.Enchantment).forEach(System.out::println);
 
         System.out.println(spells.getSpellEventById(1));
         System.out.println(spells.getSpellEventById(2));
