@@ -39,8 +39,8 @@ public class Main {
         }
 
         try {
-            User amazonProjectManager = User.builder().
-                    name("Kevin Liner")
+            User amazonProjectManager = User.builder()
+                    .name("Kevin Liner")
                     .age(23).job("Amazon")
                     .address("Bali")
                     .build();
