@@ -1,7 +1,6 @@
 package school.faang.train_stream_api_2;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
