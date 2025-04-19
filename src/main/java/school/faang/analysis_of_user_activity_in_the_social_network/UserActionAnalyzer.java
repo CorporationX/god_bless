@@ -26,7 +26,9 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topActiveUsers(List<UserAction> actions, int n) {
-        if (actions == null || n <= 0) return Collections.emptyList();
+        if (actions == null || n <= 0) {
+            return Collections.emptyList();
+        }
 
         try {
             return getTopN(actions.stream()
@@ -41,7 +43,9 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int n) {
-        if (actions == null || n <= 0) return Collections.emptyList();
+        if (actions == null || n <= 0) {
+            return Collections.emptyList();
+        }
 
         try {
             Map<String, Long> hashtagCounts = actions.stream()
@@ -67,7 +71,9 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int n) {
-        if (actions == null || n <= 0) return Collections.emptyList();
+        if (actions == null || n <= 0) {
+            return Collections.emptyList();
+        }
 
         try {
             YearMonth lastMonth = YearMonth.from(LocalDate.now().minusMonths(1));
@@ -91,7 +97,9 @@ public class UserActionAnalyzer {
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-        if (actions == null || actions.isEmpty()) return Collections.emptyMap();
+        if (actions == null || actions.isEmpty()) {
+            return Collections.emptyMap();
+        }
 
         try {
             double total = actions.size();
