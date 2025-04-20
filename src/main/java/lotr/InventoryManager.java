@@ -16,10 +16,7 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
-        character.getInventory()
-                .replaceAll(item ->
-                filter.test(item) ? updater.apply(item) : item
-        );
+        character.getInventory().replaceAll(item -> filter.test(item) ? updater.apply(item) : item);
     }
 }
 
