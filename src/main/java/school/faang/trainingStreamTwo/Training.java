@@ -1,6 +1,7 @@
 package school.faang.trainingStreamTwo;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Training {
 
-    public static Set<List<Integer>> sumNumber(Set<Integer> setNumber, int number) {
+    public static Set<Integer> sumNumber(Set<Integer> setNumber, int number) {
         return null;
     }
 
