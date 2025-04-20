@@ -22,7 +22,6 @@ public final class UserAction {
     private final LocalDate actionDate;
     private final String content;
 
-    @java.beans.ConstructorProperties({"id", "name", "actionType", "actionDate", "content"})
     public UserAction(int id, String name, ActionType actionType, LocalDate actionDate, String content) {
         this.id = id;
         this.name = Objects.requireNonNull(name, "Name cannot be null");

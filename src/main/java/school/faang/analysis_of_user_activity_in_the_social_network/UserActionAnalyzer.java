@@ -17,16 +17,8 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
     private static final Pattern HASHTAG_PATTERN = Pattern.compile("#\\w+");
 
-    private static <T> List<T> getTopN(Map<T, Long> counts, int n) {
-        return counts.entrySet().stream()
-                .sorted(Map.Entry.<T, Long>comparingByValue().reversed())
-                .limit(n)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-    }
-
-    public static List<String> topActiveUsers(List<UserAction> actions, int n) {
-        if (actions == null || n <= 0) {
+    public static List<String> topActiveUsers(List<UserAction> actions, int usersInTop) {
+        if (actions == null || usersInTop <= 0) {
             return Collections.emptyList();
         }
 
@@ -35,7 +27,7 @@ public class UserActionAnalyzer {
                     .collect(Collectors.groupingBy(
                             UserAction::getName,
                             Collectors.counting()
-                    )), n);
+                    )), usersInTop);
         } catch (Exception e) {
             log.error("Error calculating top active users", e);
             return Collections.emptyList();
@@ -115,5 +107,13 @@ public class UserActionAnalyzer {
             log.error("Error calculating action type percentages", e);
             return Collections.emptyMap();
         }
+    }
+
+    private static <T> List<T> getTopN(Map<T, Long> counts, int n) {
+        return counts.entrySet().stream()
+                .sorted(Map.Entry.<T, Long>comparingByValue().reversed())
+                .limit(n)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }
