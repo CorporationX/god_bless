@@ -14,8 +14,4 @@ public class Character {
     private final String name;
 
     private final List<Item> inventory = new ArrayList<>();
-
-    public Character(String name, List<Item> inventoryList) {
-        this.name = name;
-    }
 }

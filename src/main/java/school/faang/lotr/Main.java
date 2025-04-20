@@ -14,6 +14,8 @@ public class Main {
         manager.updateItem(frodo, (item) -> Objects.equals(item.getName(), ("The One Ring")),
                 (item) -> new Item(item.getName(), item.getValue() * 2));
 
-        manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
+        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+
+        //manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
     }
 }

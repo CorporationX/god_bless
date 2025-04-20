@@ -1,17 +1,19 @@
 package school.faang.lotr;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+@Slf4j
 public class InventoryManager {
 
-    public void addItem(Character character, Item item, Consumer<Item> inventory) {
-        if (inventory != null && validationData(character, item)) {
-            inventory.accept(item);
+
+    public void addItem(Character character, Item item, Consumer<Item> actionAfterItemAddedToInventory) {
+        if (actionAfterItemAddedToInventory != null && isCorrectData(character, item)) {
+            character.getInventory().add(item);
+            actionAfterItemAddedToInventory.accept(item);
         }
     }
 
@@ -20,19 +22,15 @@ public class InventoryManager {
 
     }
 
-    public List<Item> updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updateItem) {
-        return character.getInventory().stream()
-                .filter(filter)
-                .map(updateItem)
-                .toList();
+    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updateItem) {
+        character.getInventory().replaceAll(item -> filter.test(item) ? updateItem.apply(item) : item);
     }
 
-    private boolean validationData(Character character, Item item) {
+    private boolean isCorrectData(Character character, Item item) {
         if (character != null && item != null) {
-            character.getInventory().add(item);
             return true;
         } else {
-            System.out.println("Object null");
+            log.error("Объект не может быть null");
             return false;
         }
     }
