@@ -1,20 +1,17 @@
 package school.faang.trainingStreamTwo;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Training {
 
-    public static Set<String> sumNumber(Set<Integer> setNumber, int number) {
+    public static int sumNumber(List<Integer> setNumber) {
         return setNumber.stream()
-                .flatMap(a -> setNumber.stream()
-                        .filter(b -> a + b == number && a < b)
-                        .map(b -> "(" + a + "," + b + ")"))
-                .collect(Collectors.toSet());
+                .mapToInt(Integer::intValue)
+                .filter(a -> a % 2 == 0)
+                .sum();
     }
 
     public static List<String> sortedCountry(Map<String, String> countryCapital) {
@@ -26,7 +23,7 @@ public class Training {
 
     public static List<String> sortedList(List<String> wordList, char c) {
         return wordList.stream()
-                .filter(a -> a.charAt(0) == c && !a.isEmpty())
+                .filter(a -> a.startsWith(String.valueOf(c)))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }

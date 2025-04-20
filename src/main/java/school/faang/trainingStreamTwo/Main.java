@@ -8,8 +8,8 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        Set<Integer> setNumber = Set.of(1, 4, 6, 2, 7, 3, 5);
-        System.out.println(Training.sumNumber(setNumber, 6));
+        List<Integer> setNumber = List.of(1, 4, 6, 2, 7, 3, 5, 3, 1, 6, 4, 2);
+        System.out.println(Training.sumNumber(setNumber));
         System.out.println(Training.converter(setNumber.stream().toList()));
 
         Map<String, String> mapCountry = new HashMap<>();
