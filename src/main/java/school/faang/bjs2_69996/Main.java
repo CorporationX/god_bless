@@ -13,21 +13,21 @@ public class Main {
 
         manager.addItem(frodo, ring, (item) -> getInfo("{} was added to inventory.", item));
         manager.addItem(frodo, sword, (item) -> getInfo("{} was added to inventory.", item));
-        frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
+        frodo.getInventory().forEach(item -> log.info("{}: {}", item.name(), item.value()));
 
-        manager.removeItem(frodo, (item) -> item.getName().contains("Ring"));
-        frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
+        manager.removeItem(frodo, (item) -> item.name().contains("Ring"));
+        frodo.getInventory().forEach(item -> log.info("{}: {}", item.name(), item.value()));
 
         manager.addItem(frodo, ring, (item) -> getInfo("{} added again.", item));
         manager.updateItem(
                 frodo,
-                (item) -> item.getName().equals("The One Ring"),
-                (item) -> new Item(item.getName(), item.getValue() * 2)
+                (item) -> item.name().equals("The One Ring"),
+                (item) -> new Item(item.name(), item.value() * 2)
         );
-        frodo.getInventory().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
+        frodo.getInventory().forEach(item -> log.info("{}: {}", item.name(), item.value()));
     }
 
     private static void getInfo(String s, Item item) {
-        log.info(s, item.getName());
+        log.info(s, item.name());
     }
 }
