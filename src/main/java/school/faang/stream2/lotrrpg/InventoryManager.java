@@ -19,15 +19,15 @@ public class InventoryManager {
 
     public boolean updateItem(Character character, Predicate<Item> criteria, Function<Item, Item> function) {
         List<Item> inventory = character.getInventory();
-        Optional<Item> itemOptional =
-                inventory.stream()
-                        .filter(criteria)
-                        .findFirst().map(original -> {
-                            Item updated = function.apply(original);
-                            int originalIndex = inventory.indexOf(original);
-                            inventory.set(originalIndex, updated);
-                            return updated;
-                        });
-        return itemOptional.isPresent();
+        Optional<Item> foundItemOpt = inventory.stream()
+                .filter(criteria)
+                .findFirst();
+        Optional<Item> updatedItemOpt = foundItemOpt.map(original -> {
+            Item updated = function.apply(original);
+            int originalIndex = inventory.indexOf(original);
+            inventory.set(originalIndex, updated);
+            return updated;
+        });
+        return updatedItemOpt.isPresent();
     }
 }
