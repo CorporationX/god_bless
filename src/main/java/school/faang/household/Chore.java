@@ -14,13 +14,16 @@ import java.util.concurrent.ThreadLocalRandom;
 @EqualsAndHashCode
 @ToString
 public class Chore implements Runnable {
+    private static final int MIN_SLEEP_MS = 500;
+    private static final int MAX_SLEEP_MS = 111500;
+
     private final String chore;
 
     @Override
     public void run() {
         try {
             log.info("{} начал выполнять: {}", Thread.currentThread().getName(), chore);
-            Thread.sleep(ThreadLocalRandom.current().nextInt(500, 1500));
+            Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_MS, MAX_SLEEP_MS));
             log.info("{} завершил: {}", Thread.currentThread().getName(), chore);
         } catch (InterruptedException e) {
             log.error("{} был прерван во время: {}", Thread.currentThread().getName(), chore);
