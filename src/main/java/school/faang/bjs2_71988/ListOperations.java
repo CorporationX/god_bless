@@ -1,13 +1,10 @@
 package school.faang.bjs2_71988;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
-    private static final NullPointerException exception = new NullPointerException(
-        "Не удалось выполнить операцию. Возможно в списке нет объектов."
-    );
-
     public static int findSumOfEvenNumbers(List<Integer> nums) {
         return nums.stream()
             .filter(num -> num % 2 == 0)
@@ -18,14 +15,14 @@ public class ListOperations {
     public static int findMaxNum(List<Integer> nums) {
         return nums.stream()
             .max(Integer::compare)
-            .orElseThrow(() -> exception);
+            .orElseThrow(() -> new NoSuchElementException("Не посчиталась максимальная цифра. Возможно список пустой."));
     }
 
     public static double calcAverage(List<Integer> nums) {
         return nums.stream()
             .mapToInt(Integer::valueOf)
             .average()
-            .orElseThrow(() -> exception);
+            .orElseThrow(() -> new NoSuchElementException("Не посчиталось среднее значение. Возможно список пустой."));
     }
 
     public static long countStringsStartsWith(List<String> strs, char ch) {
@@ -55,7 +52,7 @@ public class ListOperations {
         return nums.stream()
             .filter(i -> i > num)
             .min(Integer::compareTo)
-            .orElseThrow(() -> exception);
+            .orElseThrow(() -> new NoSuchElementException("Не посчиталась значение. Возможно список пустой."));
     }
 
     public static List<Integer> toStringLengths(List<String> strs) {
