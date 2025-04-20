@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamHandler {
+    private static final List<Integer> PERFECT_NUMBERS = new ArrayList<>(List.of(6, 28, 496, 8128, 33550336));
+
     public static List<List<String>> getWithMutualFriends(Map<String, List<String>> people) {
         return people.entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
@@ -89,22 +91,12 @@ public class StreamHandler {
     }
 
     public static List<Integer> getPerfectNumbers(Integer firstNum, Integer lastNum) {
-        return IntStream.range(firstNum, lastNum + 1)
-                .filter(num -> {
-                    List<Integer> delimeters = new ArrayList<>();
-                    for (int i = 1; i < num; i++) {
-                        boolean isDelimeter = num % i == 0;
-                        if (isDelimeter) {
-                            delimeters.add(i);
-                        }
-                    }
-                    int sum = 0;
-                    for (Integer j : delimeters) {
-                        sum += j;
-                    }
-                    return sum == num;
-                })
-                .boxed()
-                .toList();
+        List<Integer> result = new ArrayList<>();
+        for (Integer number : PERFECT_NUMBERS) {
+            if (firstNum <= number && lastNum >= number) {
+                result.add(number);
+            }
+        }
+        return result;
     }
 }

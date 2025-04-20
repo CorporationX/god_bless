@@ -33,6 +33,6 @@ public class Main {
         System.out.println(String.format("getPalindromsForString - %s: %s", "",
                 StreamHandler.getPalindromsForString("")));
         System.out.println(String.format("getPerfectNumbers result = %s",
-                StreamHandler.getPerfectNumbers(1, 1000)));
+                StreamHandler.getPerfectNumbers(1, Integer.MAX_VALUE)));
     }
 }
