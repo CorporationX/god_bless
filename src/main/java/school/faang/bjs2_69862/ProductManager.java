@@ -15,14 +15,14 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
-        var product = new Product(category, name);
+        Product product = new Product(category, name);
         products.add(product);
     }
 
     public void removeProduct(Category category, String name) {
         boolean removed = products.removeIf(product ->
-                Objects.equals(product.getCategory(), category) &&
-                        Objects.equals(product.getName(), name)
+                Objects.equals(product.getCategory(), category)
+                        && Objects.equals(product.getName(), name)
         );
 
         if (!removed) {
@@ -42,9 +42,9 @@ public class ProductManager {
     }
 
     public void printAllProducts() {
-        var groupedProducts = groupProductsByCategory();
-        for (var category : Category.values()) {
-            var products = groupedProducts.getOrDefault(category, new ArrayList<>());
+        Map<Category, List<Product>> groupedProducts = groupProductsByCategory();
+        for (Category category : Category.values()) {
+            List<Product> products = groupedProducts.getOrDefault(category, new ArrayList<>());
             log.info("Категория: {}", category);
 
             if (products.isEmpty()) {

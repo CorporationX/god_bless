@@ -2,7 +2,7 @@ package school.faang.bjs2_69862;
 
 public class Main {
     public static void main(String [] args) {
-        var productManager = new ProductManager();
+        ProductManager productManager = new ProductManager();
 
         productManager.addProduct(Category.FOOD, "Хлеб");
         productManager.addProduct(Category.FOOD, "Чипсы");
