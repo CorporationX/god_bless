@@ -13,8 +13,8 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
 
-        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        int target = 7;
+        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2));
+        int target = 4;
         log.info("1️⃣ Найдите уникальные пары чисел {}",
                 ListOperations.uniqueCouples(numbers, target));
 
