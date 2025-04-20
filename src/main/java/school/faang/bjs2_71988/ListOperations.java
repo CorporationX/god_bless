@@ -16,8 +16,8 @@ public class ListOperations {
         return nums.stream()
             .max(Integer::compare)
             .orElseThrow(() -> new NoSuchElementException(
-                "Не посчиталась максимальная цифра. Возможно список пустой.")
-            );
+                "Не посчиталась максимальная цифра. Возможно список пустой."
+            ));
     }
 
     public static double calcAverage(List<Integer> nums) {
