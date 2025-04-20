@@ -1,4 +1,4 @@
-package school.faang.fighter;
+package school.faang.heroes.fighter;
 
 import lombok.Data;
 

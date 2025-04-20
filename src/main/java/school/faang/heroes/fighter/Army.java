@@ -1,7 +1,6 @@
-package school.faang;
+package school.faang.heroes.fighter;
 
 import lombok.Data;
-import school.faang.fighter.Fighter;
 
 import java.util.ArrayList;
 import java.util.List;

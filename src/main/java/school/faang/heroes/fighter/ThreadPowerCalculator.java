@@ -1,7 +1,6 @@
-package school.faang;
+package school.faang.heroes.fighter;
 
 import lombok.Getter;
-import school.faang.fighter.Fighter;
 
 public class ThreadPowerCalculator extends Thread {
     private final Squad<? extends Fighter> squad;
