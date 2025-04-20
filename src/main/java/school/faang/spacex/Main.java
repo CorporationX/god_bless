@@ -44,21 +44,25 @@ public class Main {
             log.warn("Планирование прервано");
             Thread.currentThread().interrupt();
         } finally {
-            executor.shutdown();
-            try {
-                if (executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
-                    log.info("Все заупски завершены");
-                } else {
-                    log.error("Не все запуски завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                log.warn("Ожидание завершения запуска прервано.");
-                executor.shutdownNow();
-                Thread.currentThread().interrupt();
-            }
+            gracefullyShutdown(executor);
         }
 
         log.info("Общее время запуска: {} мс", System.currentTimeMillis() - startTime);
+    }
+
+    private static void gracefullyShutdown(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
+                log.info("Все заупски завершены");
+            } else {
+                log.error("Не все запуски завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.warn("Ожидание завершения запуска прервано.");
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
