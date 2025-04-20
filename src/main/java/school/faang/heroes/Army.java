@@ -14,8 +14,6 @@ public class Army {
     private final List<Squad> squads = new CopyOnWriteArrayList<>();
     private final AtomicInteger totalPower = new AtomicInteger(0);
 
-    private final Object lock = new Object();
-
     public void addSquad(Squad squad) {
         squads.add(squad);
     }

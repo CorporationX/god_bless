@@ -1,5 +1,12 @@
 package school.faang.heroes;
 
-public interface Warrior {
-    int getPower();
+import lombok.Getter;
+
+@Getter
+abstract class Warrior {
+    protected final int power;
+
+    Warrior(int power) {
+        this.power = power;
+    }
 }
