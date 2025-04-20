@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        String result = ErrorHandler.withErrorHandling(
+        ErrorHandler.withErrorHandling(
             () -> RemoteService.call("someParam"),
             e -> {
                 log.warn("Ошибка при вызове сервиса, возвращаем дефолтное значение");
@@ -13,23 +13,13 @@ public class Main {
             }
         );
 
-        String noErrorResult = ErrorHandler.withErrorHandling(
+        ErrorHandler.withErrorHandling(
             () -> RemoteService.call("someGoodParam"),
             e -> {
                 log.warn("Ошибка при вызове сервиса, возвращаем дефолтное значение");
                 return "DEFAULT";
             }
         );
-
-        int intResult = ErrorHandler.withErrorHandling(
-            () -> RemoteService.call("someParam"),
-            e -> {
-                log.warn("Ошибка при вызове сервиса, возвращаем дефолтное значение. Код ошибки 5");
-                return 5;
-            }
-        );
-
-        log.info("Результаты {}, {}, {}.", result, noErrorResult, intResult);
     }
 
     public static class RemoteService {

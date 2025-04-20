@@ -1,14 +1,14 @@
 package school.faang.bjs2_71688;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ErrorHandler {
-    public static <T extends Object> T withErrorHandling(Runnable runnable, Function<Exception, T> function) {
+    public static <T> T withErrorHandling(Supplier<T> supplier, Function<Exception, T> function) {
         try {
-            runnable.run();
+            return supplier.get();   
         } catch (Exception e) {
             return function.apply(e);
         }
-        return (T) null;
-    }
+    }    
 }
