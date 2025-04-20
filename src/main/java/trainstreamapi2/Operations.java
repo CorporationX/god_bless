@@ -25,11 +25,14 @@ public class Operations {
     }
 
     public static List<String> sortCountriesAndPrintCapitals(Map<String, String> countriesToCapitals) {
-        return countriesToCapitals.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
+        return countriesToCapitals.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
     }
 
     public static List<String> filterAndSortStrings(List<String> strings, char c) {
-        return strings.stream().filter(s -> s.startsWith(String.valueOf(c))).sorted(Comparator.comparingInt(String::length)).toList();
+        return strings.stream()
+                .filter(s -> s.startsWith(String.valueOf(c)))
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static List<String> convertNumbersToBinary(List<Integer> numbers) {
@@ -39,6 +42,8 @@ public class Operations {
     public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
         String regex = "[" + alphabet + "]+";
 
-        return strings.stream().filter(s -> s.matches(regex)).sorted(Comparator.comparingInt(String::length)).toList();
+        return strings.stream()
+                .filter(s -> s.matches(regex))
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 }
