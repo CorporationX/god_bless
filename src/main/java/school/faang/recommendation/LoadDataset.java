@@ -38,12 +38,17 @@ public class LoadDataset {
         try (FileReader reader = new FileReader(filePath)) {
             return gson.fromJson(reader, type);
         } catch (FileNotFoundException e) {
-            log.error("File not found: {}", filePath, e);
+            String msg = String.format("File not found: %s", filePath);
+            log.error(msg, e);
+            throw new DataLoadException(msg, e);
         } catch (JsonSyntaxException e) {
-            log.error("Invalid JSON syntax in file: {}", filePath, e);
+            String msg = String.format("Invalid JSON syntax in file: %s", filePath);
+            log.error(msg, e);
+            throw new DataLoadException(msg, e);
         } catch (IOException e) {
-            log.error("Error reading file: {}", filePath, e);
+            String msg = String.format("Error reading file: %s", filePath);
+            log.error(msg, e);
+            throw new DataLoadException(msg, e);
         }
-        return null;
     }
 }
