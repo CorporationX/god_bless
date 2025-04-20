@@ -1,9 +1,13 @@
 package trainstreamapi1;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
+@UtilityClass
 public class ListOperations {
 
     public static int sumEvenNumbers(List<Integer> numbers) {
@@ -15,15 +19,16 @@ public class ListOperations {
     public static int findMaxNumber(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compare)
-                .get();
+                .orElseThrow(() -> new IllegalArgumentException("Список пуст — максимум не найден"));
     }
 
     public static double findAvgNumber(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new IllegalArgumentException("Список пуст"));
     }
+
 
     public static long countStringsStartingWith(List<String> strings, char c) {
         return strings.stream()
@@ -48,11 +53,10 @@ public class ListOperations {
                 .allMatch(predicate);
     }
 
-    public static int findSmallestElementGreaterThan(List<Integer> numbers, int target) {
+    public static Optional<Integer> findSmallestElementGreaterThan(List<Integer> numbers, int target) {
         return numbers.stream()
                 .filter(n -> n > target)
-                .findFirst()
-                .get();
+                .findFirst();
     }
 
     public static List<Integer> mapStringsToLengths(List<String> strings) {
