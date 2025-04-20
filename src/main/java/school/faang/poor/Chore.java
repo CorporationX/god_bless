@@ -11,12 +11,12 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        log.info("{} начинает выполнять {}", Thread.currentThread().getName(), this.chore);
+        log.info("Начинаем выполнять {}", this.chore);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
-        log.info("{} закончил {}", Thread.currentThread().getName(), this.chore);
+        log.info("Закончили {}", this.chore);
     }
 }
