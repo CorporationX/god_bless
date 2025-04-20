@@ -18,13 +18,15 @@ public class WeasleyFamily {
                 "погладить"
         };
 
-        try (ExecutorService executor = Executors.newCachedThreadPool()) {
+        ExecutorService executor = Executors.newCachedThreadPool();
+
+        try {
             for (String chore : chores) {
                 executor.execute(new Chore(chore));
             }
+        } finally {
+            log.info("Все задачи добавлены в пул");
             executor.shutdown();
         }
-
-        log.info("Все задачи выполнены.");
     }
 }
