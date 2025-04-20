@@ -11,9 +11,9 @@ public class InventoryManager {
     }
 
     public void removeItemsIfSatisfyCondition(Character character, Predicate<Item> condition) {
-        if (!character.getInventory().isEmpty()){
+        if (!character.getInventory().isEmpty()) {
             character.getInventory().removeIf(condition);
-            }
+        }
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Consumer<Item> itemChanger) {
