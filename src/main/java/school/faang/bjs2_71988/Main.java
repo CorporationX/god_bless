@@ -13,12 +13,13 @@ public class Main {
     public static void main(String[] args) {
         log.info("Сумма четных чисел: {}.", ListOperations.findSumOfEvenNumbers(NUMBERS));
         log.info("Максимум: {}.", ListOperations.findMaxNum(NUMBERS));
-        log.info("Среднее: {}.", ListOperations.findAverage(NUMBERS));
-        log.info("Количество строк, начинающихся на 'a': {}.", ListOperations.findNumOfStringsWithFilter(STRINGS, 'a'));
+        log.info("Среднее: {}.", ListOperations.calcAverage(NUMBERS));
+        log.info("Количество строк, начинающихся на 'a': {}.", ListOperations.countStringsStartsWith(STRINGS, 'a'));
         log.info("Строки, содержащие 'an': {}", ListOperations.filterStringsBySubstring(STRINGS, "an"));
         log.info("Отсортированные по длине строки: {}.", ListOperations.sortStringsByLength(STRINGS));
         log.info("Все ли числа чётные? {}.", ListOperations.filterNums(NUMBERS, num -> num % 2 == 0));
         log.info("Наименьшее число больше 4: {}", ListOperations.findMinNumWithCondition(NUMBERS, 4));
-        log.info("Длины строк: {}", ListOperations.convertStringsToStiringLengths(STRINGS));
+        log.info("Длины строк: {}", ListOperations.toStringLengths(STRINGS));
+        log.info("Max num {}.", ListOperations.findMaxNum(List.of()));
     }
 }

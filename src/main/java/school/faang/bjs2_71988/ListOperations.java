@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ListOperations {
+    private static final NullPointerException exception = new NullPointerException(
+        "Не удалось выполнить операцию. Возможно в списке нет объектов."
+    );
+
     public static int findSumOfEvenNumbers(List<Integer> nums) {
         return nums.stream()
             .filter(num -> num % 2 == 0)
@@ -14,17 +18,17 @@ public class ListOperations {
     public static int findMaxNum(List<Integer> nums) {
         return nums.stream()
             .max(Integer::compare)
-            .orElseThrow();
+            .orElseThrow(() -> exception);
     }
 
-    public static double findAverage(List<Integer> nums) {
+    public static double calcAverage(List<Integer> nums) {
         return nums.stream()
             .mapToInt(Integer::valueOf)
             .average()
-            .orElseThrow();
+            .orElseThrow(() -> exception);
     }
 
-    public static long findNumOfStringsWithFilter(List<String> strs, char ch) {
+    public static long countStringsStartsWith(List<String> strs, char ch) {
         return strs.stream()
             .filter(str -> str.charAt(0) == ch)
             .count();
@@ -44,17 +48,17 @@ public class ListOperations {
 
     public static boolean filterNums(List<Integer> nums, Predicate<Integer> filter) {
         return nums.stream()
-            .allMatch(filter::test);
+            .allMatch(filter);
     }
 
     public static int findMinNumWithCondition(List<Integer> nums, int num) {
         return nums.stream()
             .filter(i -> i > num)
             .min(Integer::compareTo)
-            .orElseThrow();
+            .orElseThrow(() -> exception);
     }
 
-    public static List<Integer> convertStringsToStiringLengths(List<String> strs) {
+    public static List<Integer> toStringLengths(List<String> strs) {
         return strs.stream()
             .map(s -> s.length())
             .toList();
