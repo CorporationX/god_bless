@@ -23,42 +23,42 @@ public class Training {
                 .max();
     }
 
-    public static OptionalDouble middleValue(List<Integer> numberList) {
+    public static OptionalDouble averageValue(List<Integer> numberList) {
         return numberList.stream()
                 .mapToInt(a -> a).average();
     }
 
-    public static long startOfLine(List<String> wordList, char index) {
+    public static long countStringsStartingWith(List<String> wordList, char index) {
         return wordList.stream()
-                .filter(a -> a.charAt(0) == index && !a.isEmpty())
+                .filter(a -> !a.isEmpty() && a.charAt(0) == index)
                 .count();
     }
 
-    public static List<String> substringString(List<String> wordsList, String word) {
+    public static List<String> findWithSubstring(List<String> wordsList, String word) {
         return wordsList.stream()
                 .filter(s -> s.contains(word))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> lengthString(List<String> wordList) {
+    public static List<String> sortedByLength(List<String> wordList) {
         return wordList.stream()
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
-    public static boolean sortedByIf(List<Integer> numberList, Predicate<Integer> filter) {
+    public static boolean allMatch(List<Integer> numberList, Predicate<Integer> filter) {
         return numberList.stream()
                 .anyMatch(filter);
     }
 
-    public static int minMaxNumber(List<Integer> numberList, int number) {
+    public static int floorNumber(List<Integer> numberList, int number) {
         return numberList.stream()
                 .filter(a -> a > number)
                 .min(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("Не нашел больше" + number));
     }
 
-    public static List<Integer> converter(List<String> wordString) {
+    public static List<Integer> converterToLength(List<String> wordString) {
         return wordString.stream()
                 .map(String::length)
                 .toList();

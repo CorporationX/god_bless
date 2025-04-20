@@ -10,15 +10,15 @@ public class Main {
         Predicate<Integer> filter;
         System.out.println(Training.sumList(integerList));
         System.out.println(Training.maxValue(integerList));
-        System.out.println(Training.middleValue(integerList));
-        System.out.println(Training.sortedByIf(integerList, a -> a > 11));
-        System.out.println(Training.minMaxNumber(integerList, 3));
+        System.out.println(Training.averageValue(integerList));
+        System.out.println(Training.allMatch(integerList, a -> a > 11));
+        System.out.println(Training.floorNumber(integerList, 3));
 
         List<String> stringList = List.of("bob clone", "wod list", "beb map", "lom son", "word lom", "bor bum");
-        System.out.println(Training.startOfLine(stringList, 'b'));
-        System.out.println(Training.substringString(stringList, "lom"));
-        System.out.println(Training.lengthString(stringList));
-        System.out.println(Training.converter(stringList));
+        System.out.println(Training.countStringsStartingWith(stringList, 'b'));
+        System.out.println(Training.findWithSubstring(stringList, "lom"));
+        System.out.println(Training.sortedByLength(stringList));
+        System.out.println(Training.converterToLength(stringList));
 
     }
 }
