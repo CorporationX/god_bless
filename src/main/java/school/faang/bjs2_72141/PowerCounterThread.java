@@ -1,16 +1,23 @@
 package school.faang.bjs2_72141;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
-import java.util.concurrent.Callable;
-
-
+@Getter
 public class PowerCounterThread extends Thread {
     private final Squad squad;
 
     public PowerCounterThread(Squad squad) {
         super(getRunnable(squad));
         this.squad = squad;
+    }
+
+    public PowerCounterThread handleJoin() {
+        try {
+            this.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
     }
 
     private static Runnable getRunnable(Squad squad) {

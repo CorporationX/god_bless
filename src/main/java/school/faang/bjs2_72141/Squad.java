@@ -8,10 +8,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 public class Squad {
+    private final String name;
     private final List<Warrior> squad;
+    private int totalSquadPower;
 
-    public Integer calculateSquadPower() {
-        return this.squad.stream()
+    public void calculateSquadPower() {
+        this.totalSquadPower = this.squad.stream()
                 .mapToInt(Warrior::getPower)
                 .sum();
     }
