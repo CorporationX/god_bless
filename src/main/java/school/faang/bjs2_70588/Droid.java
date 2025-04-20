@@ -14,7 +14,7 @@ public class Droid {
 
     private final String name;
 
-    DroidMessageEncryptor messageEncryptor = (message, key) -> {
+    private final DroidMessageEncryptor messageEncryptor = (message, key) -> {
         StringBuilder result = new StringBuilder();
         int shift = ((key % LENGH_OF_ALPHABET) + LENGH_OF_ALPHABET) % LENGH_OF_ALPHABET;
         int indexOfChar = 0;
@@ -24,7 +24,6 @@ public class Droid {
             if (indexOfChar != -1) {
                 int newIndex = (indexOfChar + shift) % LENGH_OF_ALPHABET;
                 result.append(KEY_ALPHABET.charAt(newIndex));
-                continue;
             } else {
                 result.append(ch);
             }
