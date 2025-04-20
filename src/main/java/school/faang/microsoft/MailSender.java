@@ -1,17 +1,21 @@
 package school.faang.microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class MailSender {
     public static void main(String[] args) {
-        int numberOfThreads = 5;
-        int numberOfMessagesPerThread = 200;
+        int numOfThreads = 5;
+        int batchSize = 200;
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 1; i <= numberOfThreads; i++) {
-            Thread thread = new Thread(new SenderRunnable(numberOfMessagesPerThread * (i - 1),
-                    numberOfMessagesPerThread * i - 1));
+        for (int i = 1; i <= numOfThreads; i++) {
+            int startIndex = batchSize * (i - 1);
+            int endIndex = batchSize * i - 1;
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
             thread.start();
             threads.add(thread);
         }
@@ -21,7 +25,7 @@ public class MailSender {
                 thread.join();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                e.printStackTrace();
+                log.error("Thread was interrupted", e);
             }
         }
         System.out.println("Все 1000 писем успешно отправлены!");

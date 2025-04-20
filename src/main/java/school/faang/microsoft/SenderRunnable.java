@@ -1,16 +1,13 @@
 package school.faang.microsoft;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
-
-    public SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
 
     @Override
     public void run() {
