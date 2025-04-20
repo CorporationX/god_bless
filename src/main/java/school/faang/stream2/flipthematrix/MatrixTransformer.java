@@ -17,6 +17,13 @@ public interface MatrixTransformer {
     }
 
     static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
-        return null;
+        return switch (flipDirection) {
+            case VERTICAL -> transformMatrix(matrix, (x, y) ->
+                    new Coordinates(x, matrix[0].length - 1 - y)
+            );
+            case HORIZONTAL -> transformMatrix(matrix, (x, y) ->
+                    new Coordinates(matrix[0].length - 1 - x, y)
+            );
+        };
     }
 }
