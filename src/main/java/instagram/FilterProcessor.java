@@ -9,7 +9,8 @@ public class FilterProcessor {
         return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
+    @SafeVarargs
+    public static Function<Image, Image> combineFilters(Function<Image, Image>... filters) {
         return Arrays.stream(filters)
                 .reduce(Function.identity(), Function::andThen);
     }
