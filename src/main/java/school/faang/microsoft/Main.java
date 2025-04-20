@@ -11,9 +11,9 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         int countLettersForOneThread = TOTAL_NUMBER_LETTERS / TOTAL_COUNT_THREAD;
-        Thread [] threads = new Thread[5];
+        Thread[] threads = new Thread[5];
 
-        for(int i = 0; i < TOTAL_COUNT_THREAD; i++) {
+        for (int i = 0; i < TOTAL_COUNT_THREAD; i++) {
             int startIndex = i * countLettersForOneThread;
             int endIndex = (i + 1) * countLettersForOneThread;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
