@@ -33,6 +33,11 @@ public class Main {
                 .andThen(vignetteFilter);
         Image finalImage = processor.applyFilter(originalImage, fullCombo);
         System.out.println(finalImage.getDescription());
+
+        Function<Image, Image> combinedAll = processor.combineMultipleFilters(grayscaleFilter, sepiaFilter, vignetteFilter);
+        Image allFiltersApplied = processor.applyFilter(originalImage, combinedAll);
+        System.out.println("После всех фильтров: ");
+        System.out.println(allFiltersApplied.getDescription());
     }
 }
 
