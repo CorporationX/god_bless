@@ -10,13 +10,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Army {
     private final List<Squad> army = new ArrayList<>();
     private final AtomicInteger totalPower = new AtomicInteger(0);
+    private static final int INIT_POWER_VALUE = 0;
 
     public void addSquad(Squad squad) {
         army.add(squad);
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        totalPower.set(0);
+        totalPower.set(INIT_POWER_VALUE);
         int threadAmount = army.size();
 
         List<Thread> threadPool = new ArrayList<>(threadAmount);
