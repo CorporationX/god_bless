@@ -1,6 +1,5 @@
 package lotr;
 
-import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -17,13 +16,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
-        ListIterator<Item> itemIterator = character.getInventory().listIterator();
-        while (itemIterator.hasNext()) {
-            Item currentItem = itemIterator.next();
-            if (filter.test(currentItem)) {
-                itemIterator.set(currentItem);
-            }
-        }
+        character.getInventory()
+                .replaceAll(item ->
+                filter.test(item) ? updater.apply(item) : item
+        );
     }
 }
 
