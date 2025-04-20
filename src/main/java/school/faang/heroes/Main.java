@@ -1,4 +1,4 @@
-package school.faang.heroes.fighter;
+package school.faang.heroes;
 
 import java.util.List;
 
