@@ -15,11 +15,11 @@ public class Droid {
     }
 
     public String encryptMessage(String message, int key) {
-        return this.encryptor.processMessage(message, key);
+        return encryptor.processMessage(message, key);
     }
 
     public String decryptMessage(String message, int key) {
-        return this.encryptMessage(message, -key);
+        return encryptMessage(message, -key);
     }
 
     public void receiveMessage(String message, int key) {
@@ -27,7 +27,7 @@ public class Droid {
     }
 
     public void sendMessage(String message, int key, Droid reciever) {
-        String encryptedMessage = this.encryptMessage(message, key);
+        String encryptedMessage = encryptMessage(message, key);
         reciever.receiveMessage(encryptedMessage, key);
     }
 }
