@@ -31,9 +31,9 @@ public class ListOperations {
                 .count();
     }
 
-    public static List<String> filterByLine(List<String> lines, String line) {
+    public static List<String> filterByLine(List<String> lines, String subString) {
         return lines.stream()
-                .filter(l -> l.contains(line))
+                .filter(l -> l.contains(subString))
                 .toList();
     }
 
