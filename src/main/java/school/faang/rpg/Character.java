@@ -1,22 +1,15 @@
 package school.faang.rpg;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 public class Character {
     private final String name;
-    private final List<Item> inventory;
+    private final List<Item> inventory = new ArrayList<>();
 
-    public Character(String name) {
-        this.name = name;
-        this.inventory = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Item> getInventory() {
-        return inventory;
-    }
 }
