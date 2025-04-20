@@ -14,7 +14,9 @@ public class MailSender {
         Thread[] threads = new Thread[THREAD_POOL];
 
         for (int i = 0; i < THREAD_POOL; i++) {
-            threads[i] = new Thread(new SenderRunnable(i * batchSize, (i + 1) * batchSize - 1));
+            int startIndex = i * batchSize;
+            int endIndex = (i + 1) * batchSize;
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             threads[i].start();
         }
 
