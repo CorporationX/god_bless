@@ -26,7 +26,7 @@ public class ListOperations {
                 .orElse(0.0);
     }
 
-    public static long countStringsStartingWith( List<String> strings, char character) {
+    public static long countStringsStartingWith(List<String> strings, char character) {
         return strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(character)))
                 .count();
