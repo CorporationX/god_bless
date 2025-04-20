@@ -14,17 +14,19 @@ public class Main {
     public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < THREAD_COUNT; i++) {
-            Thread newThread = new Thread(new SenderRunnable(i * BATCH_SIZE, (i + 1) * BATCH_SIZE));
+            int startIndex = i * BATCH_SIZE;
+            int endIndex = (i + 1) * BATCH_SIZE;
 
+            Thread newThread = new Thread(new SenderRunnable(startIndex, endIndex));
             threads.add(newThread);
             newThread.start();
-            log.info("{} - started}", newThread.getName());
+            log.info("{} - started", newThread.getName());
         }
 
         threads.forEach(thread -> {
             try {
                 thread.join();
-                log.info("{} - joined}", thread.getName());
+                log.info("{} - joined", thread.getName());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
