@@ -8,19 +8,19 @@ public class Main {
         InventoryManager manager = new InventoryManager();
 
         manager.addItem(frodo, ring,
-                item -> System.out.printf("➕ %s был добавлен в инвентарь.%n", item.getName()));
+                item -> System.out.printf("➕ %s был добавлен в инвентарь.%n", item.name()));
 
         manager.removeItem(frodo,
-                item -> item.getName().contains("Ring"));
+                item -> item.name().contains("Ring"));
 
         manager.addItem(frodo, ring,
-                item -> System.out.printf("🔁 %s снова добавлен.%n", item.getName()));
+                item -> System.out.printf("🔁 %s снова добавлен.%n", item.name()));
         manager.updateItem(frodo,
-                item -> item.getName().equals("The One Ring"),
-                item -> new Item(item.getName(), item.getValue() * 2));
+                item -> item.name().equals("The One Ring"),
+                item -> new Item(item.name(), item.value() * 2));
 
         System.out.println("📦 Инвентарь Фродо:");
         frodo.getInventory().forEach(
-                item -> System.out.printf("• %s — %d золота%n", item.getName(), item.getValue()));
+                item -> System.out.printf("• %s — %d золота%n", item.name(), item.value()));
     }
 }
