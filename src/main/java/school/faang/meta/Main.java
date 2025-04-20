@@ -1,5 +1,7 @@
 package school.faang.meta;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -12,6 +14,26 @@ public class Main {
 
         notificationManager.registerHandler(NotificationType.PUSH,
                 notification -> System.out.println("Push Notification: " + notification.getMessage()));
+
+        notificationManager.registerFilter(notification -> {
+            String message = notification.getMessage().toLowerCase();
+            List<String> badWords = List.of("kill", "die", "noob");
+            for (String badWord : badWords) {
+                if (message.contains(badWord)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        notificationManager.registerCorrector(notification -> {
+            String message = notification.getMessage();
+            if (!message.contains("Meta")) {
+                return new Notification(notification.getType(),
+                        message + " Благодарим вас за пользование нашими сервисами!\n Meta Platforms");
+            }
+            return notification;
+        });
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         notificationManager.sendNotification(emailNotification);

@@ -1,6 +1,5 @@
 package school.faang.meta;
 
-
 import lombok.Data;
 
 @Data
