@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -11,9 +12,14 @@ import java.util.function.Predicate;
 @AllArgsConstructor
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> action) {
-        List<Item> items = new ArrayList<>();
-        items.add(item);
-        character.setInventory(items);
+        Optional<List<Item>> inventory = Optional.ofNullable(character.getInventory());
+        inventory.ifPresentOrElse(
+                inv -> inv.add(item),
+                () -> {
+                    List<Item> newInventory = new ArrayList<>();
+                    newInventory.add(item);
+                    character.setInventory(newInventory);
+                });
         action.accept(item);
     }
 
