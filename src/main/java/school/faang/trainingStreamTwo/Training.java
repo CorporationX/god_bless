@@ -3,15 +3,13 @@ package school.faang.trainingStreamTwo;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Training {
 
-    public static int sumNumber(List<Integer> setNumber) {
-        return setNumber.stream()
-                .mapToInt(Integer::intValue)
-                .filter(a -> a % 2 == 0)
-                .sum();
+    public static Set<List<Integer>> sumNumber(Set<Integer> setNumber, int number) {
+        return null;
     }
 
     public static List<String> sortedCountry(Map<String, String> countryCapital) {
