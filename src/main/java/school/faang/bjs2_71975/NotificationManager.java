@@ -32,7 +32,8 @@ public class NotificationManager {
         List<Predicate<Notification>> predicates = predicateMap.getOrDefault(notification.type(), List.of());
         for (Predicate<Notification> predicate : predicates) {
             if (!predicate.test(notification)) {
-                log.info("Уведомление {} с типом {} заблокировано предикатом", notification.message(), notification.type());
+                log.info("Уведомление {} с типом {} заблокировано предикатом",
+                        notification.message(), notification.type());
                 return;
             }
         }
@@ -46,8 +47,6 @@ public class NotificationManager {
             return;
         }
 
-        for (Consumer<Notification> consumer : handlers) {
-            consumer.accept(notification);
-        }
+        handlers.forEach(consumer -> consumer.accept(notification));
     }
 }
