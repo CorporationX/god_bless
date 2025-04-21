@@ -31,19 +31,11 @@ public class Main {
                 transformer = (x, y) -> {
                     return new Coordinate(x, matrix.length - 1 - y);
                 };
-                // 0, 0 -> 0, 1   
-                // 0, 1 -> 0, 0
-                // 1, 0 -> 1, 1
-                // 1, 1 -> 1, 0
                 break;
             case VERTICAL:
                 transformer = (x, y) -> {
                     return new Coordinate(matrix.length - 1 - x, y);
                 };
-                // 0, 0 -> 1, 0   
-                // 0, 1 -> 1, 1
-                // 1, 0 -> 0, 0
-                // 1, 1 -> 0, 1
                 break;
             default:
                 throw new IllegalArgumentException("Illegal flip direction.");
