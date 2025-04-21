@@ -12,8 +12,8 @@ public class Main {
         try {
             StreamOperations operations = new StreamOperations();
 
-            Set<Integer> nums = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-            int targetSum = 7;
+            Set<Integer> nums = new HashSet<>(Arrays.asList(-1, -2, -3, -4, -5, -6, 1, 2, 3, 4, 5, 6));
+            int targetSum = 0;
             Set<IntegerPair> resultPairs = operations.getIntegerPairsMatchingSum(nums, targetSum);
             System.out.println("Пары с суммой " + targetSum + ": " + resultPairs);
 

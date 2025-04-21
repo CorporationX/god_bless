@@ -3,7 +3,6 @@ package school.faang.bjs2_72288;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,12 +11,8 @@ public class StreamOperations {
         checkParamsNull(integers);
         integers.forEach(this::checkParamsNull);
         return integers.stream()
-                .filter(value -> value <= targetValue)
-                .flatMap(value -> integers.stream()
-                        .filter(nextValue -> value < nextValue)
-                        .filter(nextValue -> nextValue <= targetValue)
-                        .filter(nextValue -> Objects.equals(nextValue + value, targetValue))
-                        .map(nextValue -> new IntegerPair(value, nextValue)))
+                .filter(value -> value * 2 != targetValue && integers.contains(targetValue - value))
+                .map(value -> new IntegerPair(value, targetValue - value))
                 .collect(Collectors.toSet());
     }
 
