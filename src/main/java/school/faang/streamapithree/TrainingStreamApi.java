@@ -1,5 +1,7 @@
 package school.faang.streamapithree;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.stream.IntStream;
 public final class TrainingStreamApi {
 
     public static List<Pair<String, String>> findNonFriendPairs(
-            Map<String, List<String>> peopleAndTheirFriends) {
+            @NonNull Map<String, List<String>> peopleAndTheirFriends) {
 
         Set<String> people = peopleAndTheirFriends.keySet();
         return peopleAndTheirFriends.entrySet().stream()
@@ -30,7 +32,7 @@ public final class TrainingStreamApi {
                 .toList();
     }
 
-    public static Map<String, Double> calculateAverageSalaryByDepartment(List<Employee> employees) {
+    public static Map<String, Double> calculateAverageSalaryByDepartment(@NonNull List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy(
                         Employee::getDepartment,
