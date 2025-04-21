@@ -14,10 +14,10 @@ public class HogwartsSpells {
     private final Map<EventType, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(EventType eventType, String actionDescription) {
-        var event = new SpellEvent(eventType, actionDescription);
+        SpellEvent event = new SpellEvent(eventType, actionDescription);
         spellById.put(event.id(), event);
 
-        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(event);
+        spellsByType.computeIfAbsent(eventType, eventType1 -> new ArrayList<>()).add(event);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -29,19 +29,19 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        var removedSpell = spellById.remove(id);
+        SpellEvent removedSpell = spellById.remove(id);
         if (removedSpell == null) {
             log.warn("Событие с ID {} не найдено", id);
             return;
         }
 
-        var spellEvents = spellsByType.get(removedSpell.eventType());
+        List<SpellEvent> spellEvents = spellsByType.get(removedSpell.eventType());
         if (spellEvents != null) {
             spellEvents.remove(removedSpell);
         }
     }
 
     public void printAllSpellEvents() {
-        spellById.forEach((id, spell) -> System.out.println("ID: " + id + ", " + spell));
+        spellById.forEach((id, spell) -> System.out.printf("ID: %s, %s%n", id, spell));
     }
 }
