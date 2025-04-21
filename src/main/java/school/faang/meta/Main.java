@@ -11,11 +11,11 @@ public class Main {
 
         NotificationManager manager = new NotificationManager();
         manager.registerHandler(NotificationType.EMAIL, message ->
-                log.info("Отправить на почту: {}", message.massage()));
+                log.info("Отправить на почту: {}", message.message()));
         manager.registerHandler(NotificationType.PUSH, message ->
-                log.info("Вывести пуш уведомлением: {}", message.massage()));
+                log.info("Вывести пуш уведомлением: {}", message.message()));
         manager.registerHandler(NotificationType.SMS, message ->
-                log.info("Отправить по SMS: {}", message.massage()));
+                log.info("Отправить по SMS: {}", message.message()));
 
         manager.sendNotification(notification1);
         manager.sendNotification(notification2);
