@@ -8,6 +8,5 @@ public class Main {
         c3po.sendMessage(r2d2, "Join the Rebellion!", 3);
         c3po.sendMessage(r2d2, "Join the Rebellion!", 4);
         c3po.sendMessage(r2d2, "Join the Rebellion!", 5);
-
     }
 }
