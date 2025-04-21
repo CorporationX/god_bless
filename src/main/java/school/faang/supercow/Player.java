@@ -31,7 +31,7 @@ public class Player {
     }
 
     private void mechanicsBattle() throws InterruptedException {
-        int battleTime = ThreadLocalRandom.current().nextInt(MIN_SLEEP_MS, MAX_SLEEP_MS );
+        int battleTime = ThreadLocalRandom.current().nextInt(MIN_SLEEP_MS, MAX_SLEEP_MS);
         log.info("Игрок {} сражается с боссом! Длительность боя: {}", this.name, battleTime);
         Thread.sleep(battleTime);
     }
