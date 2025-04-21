@@ -14,13 +14,13 @@ public class StudentDatabase {
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
         studentSubjects.put(student, new HashMap<>(subjects));
-        subjects.forEach((key, value) ->
-                subjectStudents.computeIfAbsent(key, subject -> new ArrayList<>()).add(student));
+        subjects.forEach((subject, grade) ->
+                subjectStudents.computeIfAbsent(subject, subject1 -> new ArrayList<>()).add(student));
     }
 
     public void addSubjectToStudent(Student student, Subject subject, int grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, student1 -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, subject1 -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
@@ -44,10 +44,10 @@ public class StudentDatabase {
     }
 
     public void printAllStudents() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            log.info("Студент: {}", entry.getKey().name());
-            entry.getValue().forEach((key, value) -> log.info("  {}: {}", key.name(), value));
-        }
+        studentSubjects.forEach((student, grades) -> {
+            log.info("Студент: {}", student.name());
+            grades.forEach((subject, grade) -> log.info("  {}: {}", subject.name(), grade));
+        });
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students, int defaultGrade) {
@@ -57,8 +57,8 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Student student, Subject subject, int grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, student1 -> new HashMap<>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, subject1 -> new ArrayList<>()).add(student);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
@@ -82,9 +82,9 @@ public class StudentDatabase {
     }
 
     public void printAllSubjects() {
-        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.println("Предмет: " + entry.getKey().name());
-            entry.getValue().forEach(student -> System.out.println("  " + student.name()));
-        }
+        subjectStudents.forEach((subject, students) -> {
+            System.out.println("Предмет: " + subject.name());
+            students.forEach(student -> System.out.println("  " + student.name()));
+        });
     }
 }
