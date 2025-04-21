@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 class Chore implements Runnable {
     private final String chore;
+
     @Override
     public void run() {
         var threadName = Thread.currentThread().getName();
