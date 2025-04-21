@@ -3,11 +3,11 @@ package school.faang.bjs2_71714;
 public class Droid {
     private final DroidMessageEncryptor droidMessageEncryptor = (message1, key1) -> {
         StringBuilder changedMessage = new StringBuilder();
-        final int ALPHABET_LENGTH = 26;
+        final int alphabetLength = 26;
         for (char a : message1.toCharArray()) {
             if (Character.isLetter(a)) {
                 char base = Character.isLowerCase(a) ? 'a' : 'A';
-                changedMessage.append((char) ((a - base + key1) % ALPHABET_LENGTH + base));
+                changedMessage.append((char) ((a - base + key1) % alphabetLength + base));
             } else {
                 changedMessage.append(a);
             }
