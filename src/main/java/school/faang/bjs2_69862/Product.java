@@ -1,9 +1,7 @@
 package school.faang.bjs2_69862;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Getter
