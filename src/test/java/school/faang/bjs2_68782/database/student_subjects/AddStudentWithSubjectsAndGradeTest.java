@@ -3,8 +3,8 @@ package school.faang.bjs2_68782.database.student_subjects;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import school.faang.bjs2_68782.StudentDatabase;
-import school.faang.bjs2_68782.Subject;
+import school.faang.java_collection_1_3.bjs2_68782.StudentDatabase;
+import school.faang.java_collection_1_3.bjs2_68782.Subject;
 
 import java.util.HashMap;
 import java.util.Map;

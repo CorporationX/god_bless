@@ -3,7 +3,7 @@ package school.faang.bjs2_68782.database.subject_students;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import school.faang.bjs2_68782.StudentDatabase;
+import school.faang.java_collection_1_3.bjs2_68782.StudentDatabase;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;

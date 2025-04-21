@@ -1,0 +1,14 @@
+package school.faang.java_collection_1_3.bjs2_68652;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@EqualsAndHashCode
+@AllArgsConstructor
+@ToString
+public class Book {
+    private String title;
+    private String author;
+    private int year;
+}

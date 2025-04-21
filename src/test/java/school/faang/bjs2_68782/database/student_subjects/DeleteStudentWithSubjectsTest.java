@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import school.faang.bjs2_68782.StudentDatabase;
+import school.faang.java_collection_1_3.bjs2_68782.StudentDatabase;
 
 import java.util.NoSuchElementException;
 

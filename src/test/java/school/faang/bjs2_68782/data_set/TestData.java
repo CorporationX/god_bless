@@ -1,7 +1,7 @@
 package school.faang.bjs2_68782.data_set;
 
-import school.faang.bjs2_68782.Student;
-import school.faang.bjs2_68782.Subject;
+import school.faang.java_collection_1_3.bjs2_68782.Student;
+import school.faang.java_collection_1_3.bjs2_68782.Subject;
 
 import java.util.Map;
 import java.util.Set;
