@@ -18,16 +18,19 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (filter.test(notification)) {
-            Notification processedNotification = messageProcessor.apply(notification);
-            Consumer<Notification> handler = handlers.get(processedNotification.getType());
-            if (handler != null) {
-                handler.accept(processedNotification);
-            } else {
-                System.out.println("No handler registered for: " + processedNotification.getType());
-            }
-        } else {
-            System.out.println("Notification blocked by filter: " + notification.getMessage());
+        if (!filter.test(notification)) {
+            System.out.printf("Notification blocked by filter: %s", notification.getMessage());
+            return;
         }
+
+        Notification processedNotification = messageProcessor.apply(notification);
+        Consumer<Notification> handler = handlers.get(processedNotification.getType());
+
+        if (handler == null) {
+            System.out.printf("No handler registered for: %s", processedNotification.getType());
+            return;
+        }
+
+        handler.accept(processedNotification);
     }
 }
