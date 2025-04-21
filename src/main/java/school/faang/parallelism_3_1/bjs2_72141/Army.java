@@ -1,4 +1,4 @@
-package school.faang.bjs2_72141;
+package school.faang.parallelism_3_1.bjs2_72141;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 class Army {
-    private List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
         squads.add(squad);
