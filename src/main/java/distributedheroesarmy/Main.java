@@ -1,4 +1,4 @@
-package distributedHeroesArmy;
+package distributedheroesarmy;
 
 public class Main {
 

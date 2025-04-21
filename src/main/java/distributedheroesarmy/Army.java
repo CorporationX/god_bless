@@ -1,4 +1,4 @@
-package distributedHeroesArmy;
+package distributedheroesarmy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,14 +13,10 @@ public class Army {
 
     public int calculateTotalPower() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
-        List<Integer> result = new ArrayList<>(Collections.nCopies(squads.size(), 0));
+        List<Integer> result = Collections.synchronizedList(new ArrayList<>());
 
-        for (int i = 0; i < squads.size(); i++) {
-            final int index = i;
-            Thread thread = new Thread(() -> {
-                int power = Squad.calculateSquadPower(squads.get(index).units);
-                result.set(index, power);
-            });
+        for (Squad squad : squads) {
+            Thread thread = new Thread(() -> result.add(squad.calculateSquadPower()));
             threads.add(thread);
             thread.start();
         }
@@ -28,10 +24,7 @@ public class Army {
         for (Thread thread : threads) {
             thread.join();
         }
-
-        return result.stream()
-                .mapToInt(Integer::intValue)
-                .sum();
+        return result.stream().mapToInt(Integer::intValue).sum();
     }
 
 }

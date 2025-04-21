@@ -1,4 +1,4 @@
-package distributedHeroesArmy;
+package distributedheroesarmy;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public  class Unit {
-    protected int power;
+    private int power;
 }

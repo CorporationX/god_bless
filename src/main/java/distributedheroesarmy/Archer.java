@@ -1,4 +1,4 @@
-package distributedHeroesArmy;
+package distributedheroesarmy;
 
 import lombok.Getter;
 
