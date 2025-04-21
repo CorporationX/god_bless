@@ -1,34 +1,38 @@
 package school.faang.stream3.youareinmicrosoft;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class MailSender {
     public static List<String> emails = new ArrayList<>();
+    public static final int DELAYED_EMAILS = 998;
+    public static final int THREAD_COUNT = 5;
+    public static final int BATCH_SIZE = DELAYED_EMAILS / THREAD_COUNT + 1;
 
     public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++) {
+
+        for (int i = 0; i < DELAYED_EMAILS; i++) {
             emails.add("email #" + i);
         }
-        final Thread thread1 = new Thread(new SenderRunnable(0, 199));
-        final Thread thread2 = new Thread(new SenderRunnable(200, 399));
-        final Thread thread4 = new Thread(new SenderRunnable(600, 799));
-        final Thread thread3 = new Thread(new SenderRunnable(400, 599));
-        final Thread thread5 = new Thread(new SenderRunnable(800, 999));
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
+        List<Thread> threadList = new ArrayList<>();
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            int startIndex = i * BATCH_SIZE;
+            int endIndex = Math.min((i + 1) * BATCH_SIZE - 1, DELAYED_EMAILS - 1);
+            threadList.add(new Thread(
+                    new SenderRunnable(startIndex, endIndex)
+            ));
+        }
+        threadList.forEach(Thread::start);
 
         try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
+            for (Thread thread : threadList) {
+                thread.join();
+            }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("Thread interrupted", e);
         }
         System.out.println("Main thread: sending done");
     }
