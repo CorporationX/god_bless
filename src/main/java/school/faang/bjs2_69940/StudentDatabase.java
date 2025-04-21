@@ -9,14 +9,13 @@ import java.util.Map;
 
 @Slf4j
 public class StudentDatabase {
-    private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
         studentSubjects.put(student, new HashMap<>(subjects));
-        for (var entry : subjects.entrySet()) {
-            subjectStudents.computeIfAbsent(entry.getKey(), k -> new ArrayList<>()).add(student);
-        }
+        subjects.forEach((key, value) ->
+                subjectStudents.computeIfAbsent(key, subject -> new ArrayList<>()).add(student));
     }
 
     public void addSubjectToStudent(Student student, Subject subject, int grade) {
@@ -25,14 +24,14 @@ public class StudentDatabase {
     }
 
     public void removeStudent(Student student) {
-        var removedSubjects = studentSubjects.remove(student);
+        Map<Subject, Integer> removedSubjects = studentSubjects.remove(student);
         if (removedSubjects == null) {
-            log.warn("У пользователя {} отсутствуют предметы.", student.getName());
+            log.warn("У пользователя {} отсутствуют предметы.", student.name());
             return;
         }
 
-        for (var subject : removedSubjects.keySet()) {
-            var students = subjectStudents.get(subject);
+        for (Subject subject : removedSubjects.keySet()) {
+            List<Student> students = subjectStudents.get(subject);
             if (students == null) {
                 continue;
             }
@@ -45,19 +44,15 @@ public class StudentDatabase {
     }
 
     public void printAllStudents() {
-        for (var entry : studentSubjects.entrySet()) {
-            System.out.println("Студент: " + entry.getKey().getName());
-            for (var subEntry : entry.getValue().entrySet()) {
-                System.out.println("  " + subEntry.getKey().getName() + ": " + subEntry.getValue());
-            }
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
+            log.info("Студент: {}", entry.getKey().name());
+            entry.getValue().forEach((key, value) -> log.info("  {}: {}", key.name(), value));
         }
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students, int defaultGrade) {
-        for (var student : students) {
-            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, defaultGrade);
-        }
-
+        students.forEach(student ->
+                studentSubjects.computeIfAbsent(student, student1 -> new HashMap<>()).put(subject, defaultGrade));
         subjectStudents.put(subject, new ArrayList<>(students));
     }
 
@@ -67,16 +62,16 @@ public class StudentDatabase {
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        var subjects = studentSubjects.get(student);
+        Map<Subject, Integer> subjects = studentSubjects.get(student);
         if (subjects == null) {
-            log.warn("У пользователя {} отсутствуют предметы.", student.getName());
+            log.warn("У пользователя {} отсутствуют предметы.", student.name());
             return;
         }
 
         subjects.remove(subject);
         var students = subjectStudents.get(subject);
         if (students == null) {
-            log.warn("В коллекции не найдены пользователи с предметом {}", subject.getName());
+            log.warn("В коллекции не найдены пользователи с предметом {}", subject.name());
             return;
         }
 
@@ -87,11 +82,9 @@ public class StudentDatabase {
     }
 
     public void printAllSubjects() {
-        for (var entry : subjectStudents.entrySet()) {
-            System.out.println("Предмет: " + entry.getKey().getName());
-            for (var student : entry.getValue()) {
-                System.out.println("  " + student.getName());
-            }
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
+            System.out.println("Предмет: " + entry.getKey().name());
+            entry.getValue().forEach(student -> System.out.println("  " + student.name()));
         }
     }
 }
