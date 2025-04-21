@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_70673;
 
 import lombok.Setter;
 import java.util.HashMap;
