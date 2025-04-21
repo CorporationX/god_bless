@@ -16,17 +16,17 @@ public class Droid {
         return encrypted.toString();
     };
 
-    public void sendMessage(Droid a, String message, int encryptionKey) {
+    public void sendMessage(Droid droid, String message, int encryptionKey) {
 
         String encryptedMessage = encryptMessage(message, encryptionKey);
 
-        a.receiveMessage(encryptedMessage, encryptionKey);
+        droid.receiveMessage(encryptedMessage, encryptionKey);
     }
 
     public void receiveMessage(String encryptedMessage, int encryptionKey) {
         String decryptedMessage = decryptMessage(encryptedMessage, encryptionKey);
 
-        System.out.println("Received and decrypted message: " + decryptedMessage);
+        System.out.printf("Received and decrypted message: %s \n", decryptedMessage);
     }
 
     private String decryptMessage(String encryptedMessage, int encryptionKey) {
