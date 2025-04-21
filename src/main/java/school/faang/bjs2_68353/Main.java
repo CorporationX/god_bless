@@ -1,13 +1,18 @@
 package school.faang.bjs2_68353;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+@Slf4j
 public class Main {
     public static void main(String [] args) {
-        var users = Arrays.asList(
+        List<User> users = Arrays.asList(
                 new User(
                         UUID.randomUUID(),
                         "Михаил",
@@ -27,9 +32,9 @@ public class Main {
                         new HashSet<>(Set.of("Review", "Basketball"))
                 )
         );
-        var activities = Set.of("Reading", "Review", "Basketball", "Bulling", "Swimming", "NotListedHobby");
+        Set<String> activities = Set.of("Reading", "Review", "Basketball", "Bulling", "Swimming", "NotListedHobby");
 
-        var hobbyLovers = User.findHobbyLovers(users, activities);
-        System.out.println(hobbyLovers);
+        Map<User, String> hobbyLovers = User.findHobbyLovers(users, activities);
+        hobbyLovers.forEach((user, hobby) -> log.info("Пользователь {} предпочитает {}", user.name(), hobby));
     }
 }

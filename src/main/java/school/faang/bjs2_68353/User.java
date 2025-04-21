@@ -1,8 +1,5 @@
 package school.faang.bjs2_68353;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Getter
-@AllArgsConstructor
-public class User {
-    private UUID id;
-    private String name;
-    private int age;
-    private Set<String> activities;
-
+public record User(UUID id, String name, int age, Set<String> activities) {
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> requestedActivities) {
         if (users == null || users.isEmpty() || requestedActivities == null || requestedActivities.isEmpty()) {
             return Collections.emptyMap();
@@ -26,7 +16,7 @@ public class User {
 
         return users.stream()
                 .flatMap(user ->
-                        Optional.ofNullable(user.getActivities())
+                        Optional.ofNullable(user.activities())
                                 .orElse(Collections.emptySet())
                                 .stream()
                                 .filter(requestedActivities::contains)
