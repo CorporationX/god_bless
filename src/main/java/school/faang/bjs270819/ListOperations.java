@@ -2,6 +2,7 @@ package school.faang.bjs270819;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -10,23 +11,21 @@ public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .filter(n -> n % 2 == 0)
-                .map(n -> n) // тут можно было бы и `.map(Integer::valueOf)`
                 .reduce(0, (a, b) -> a + b);
     }
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compare)
-                .orElse(Integer.MIN_VALUE);
+                .orElseThrow(() -> new IllegalArgumentException("Список пуст"));
     }
 
-    public static double findAverage(List<Integer> numbers) {
-        if (numbers.isEmpty()) {
-            return 0.0;
-        }
-        int sum = numbers.stream()
-                .reduce(0, Integer::sum);
-        return (double) sum / numbers.size();
+
+    public static double getAverage(List<Integer> numbers) {
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char start) {
