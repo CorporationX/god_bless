@@ -6,12 +6,12 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 public class DictionaryProcessor {
-    public void processWord(String word, String translation, BiConsumer<String, String> biConsumer) {
-        if (word == null || translation == null || biConsumer == null) {
+    public void processWord(String word, String translation, BiConsumer<String, String> dictionaryConsumer) {
+        if (word == null || translation == null || dictionaryConsumer == null) {
             log.warn("Слово, перевод и обработчик не должны быть null");
             return;
         }
 
-        biConsumer.accept(word, translation);
+        dictionaryConsumer.accept(word, translation);
     }
 }
