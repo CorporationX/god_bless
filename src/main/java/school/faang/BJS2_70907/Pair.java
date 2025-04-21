@@ -9,7 +9,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @AllArgsConstructor
-public class Pair <T> {
+public class Pair<T> {
     private T key;
     private T value;
 
@@ -21,7 +21,7 @@ public class Pair <T> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Pair <?> pair = (Pair <?>) o;
+        Pair<?> pair = (Pair<?>) o;
         return (Objects.equals(key, pair.key) && Objects.equals(value, pair.value))
                 || (Objects.equals(key, pair.value) && Objects.equals(value, pair.key));
     }
