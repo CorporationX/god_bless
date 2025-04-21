@@ -1,29 +1,22 @@
 package school.faang.bjs2_69948;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public abstract class WeatherCacheTemplate {
-    protected final Map<String, WeatherData> weatherCache = new HashMap<>();
-    protected final WeatherProvider cacheProvider;
-
-    public WeatherCacheTemplate(WeatherProvider provider) {
-        this.cacheProvider = provider;
-    }
+    private final Map<String, WeatherData> weatherCache = new HashMap<>();
+    private final WeatherProvider cacheProvider;
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        var weatherData = weatherCache.get(city);
+        WeatherData weatherData = weatherCache.get(city);
         if (weatherData == null || isCacheExpired(weatherData, maxCacheAgeMillis)) {
-            weatherData = cacheProvider.fetchWeatherData(city);
-            weatherCache.put(city, weatherData);
+            forceUpdateWeather(city);
         }
 
         return weatherData;
-    }
-
-    public void forceUpdateWeather(String city) {
-        var weatherData = cacheProvider.fetchWeatherData(city);
-        weatherCache.put(city, weatherData);
     }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
@@ -31,4 +24,9 @@ public abstract class WeatherCacheTemplate {
     }
 
     protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+
+    private void forceUpdateWeather(String city) {
+        var weatherData = cacheProvider.fetchWeatherData(city);
+        weatherCache.put(city, weatherData);
+    }
 }

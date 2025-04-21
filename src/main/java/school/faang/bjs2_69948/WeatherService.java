@@ -7,9 +7,9 @@ public class WeatherService implements WeatherProvider {
 
     @Override
     public WeatherData fetchWeatherData(String city) {
-        var temperature = random.nextDouble();
-        var humidity = random.nextDouble();
-        var timestamp = System.currentTimeMillis();
+        double temperature = -30 + random.nextDouble() * 80;
+        double humidity = random.nextDouble() * 100;
+        long timestamp = System.currentTimeMillis();
 
         return new WeatherData(city, temperature, humidity, timestamp);
     }
