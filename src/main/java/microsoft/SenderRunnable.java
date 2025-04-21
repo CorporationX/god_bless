@@ -9,8 +9,13 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Письмо отправлено: " + i + " " + Thread.currentThread().getName());
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.printf("Письмо отправлено: %d %s", i, Thread.currentThread().getName());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
