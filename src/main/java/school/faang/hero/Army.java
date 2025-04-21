@@ -19,23 +19,19 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-
         for (Squad squad : squads) {
-            threads.add(new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 int powerSquad = squad.calculateSquadPower();
                 powerSquads.add(powerSquad);
                 log.info("Создан поток {}", Thread.currentThread().getName());
-            }));
-        }
-        for (Thread thread : threads) {
+            });
             thread.start();
+            threads.add(thread);
             log.info("В работе поток {}", thread.getName());
-            thread.join();
         }
         for (Thread thread : threads) {
             thread.join();
             log.info("Ожидаем завершения потока{}", thread.getName());
-
         }
         return powerSquads.stream()
                 .reduce(Integer::sum)
