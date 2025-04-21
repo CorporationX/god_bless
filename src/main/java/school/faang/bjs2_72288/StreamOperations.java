@@ -10,19 +10,21 @@ import java.util.stream.Collectors;
 public class StreamOperations {
     public Set<IntegerPair> getIntegerPairsMatchingSum(Set<Integer> integers, int targetValue) {
         checkParamsNull(integers);
+        integers.forEach(this::checkParamsNull);
         return integers.stream()
-                .filter(Objects::nonNull)
+                .filter(value -> value <= targetValue)
                 .flatMap(value -> integers.stream()
                         .filter(nextValue -> value < nextValue)
-                        .map(nextValue -> new IntegerPair(value, nextValue))
-                        .filter(pair -> Objects.equals(pair.getSum(), targetValue)))
+                        .filter(nextValue -> nextValue <= targetValue)
+                        .filter(nextValue -> Objects.equals(nextValue + value, targetValue))
+                        .map(nextValue -> new IntegerPair(value, nextValue)))
                 .collect(Collectors.toSet());
     }
 
     public List<String> getCapitals(Map<String, String> countryMap) {
         checkParamsNull(countryMap);
+        countryMap.keySet().forEach(this::checkParamsNull);
         return countryMap.entrySet().stream()
-                .filter(entry -> Objects.nonNull(entry.getKey()))
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
@@ -30,9 +32,9 @@ public class StreamOperations {
 
     public List<String> filterByPrefixAndSortStrings(List<String> strings, char ch) {
         checkParamsNull(strings);
+        strings.forEach(this::checkParamsNull);
         String prefix = String.valueOf(ch).toLowerCase();
         return strings.stream()
-                .filter(Objects::nonNull)
                 .filter(str -> str.toLowerCase().startsWith(prefix))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
@@ -40,17 +42,18 @@ public class StreamOperations {
 
     public List<String> toBinary(List<Integer> integers) {
         checkParamsNull(integers);
+        integers.forEach(this::checkParamsNull);
         return integers.stream()
-                .map(value -> value == null ? null : Integer.toString(value, 2))
+                .map(Integer::toBinaryString)
                 .toList();
     }
 
     public List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
         checkParamsNull(strings);
+        strings.forEach(this::checkParamsNull);
         checkParamsNull(alphabet);
         Set<Character> alphabetSet = toCharacterSet(alphabet);
         return strings.stream()
-                .filter(Objects::nonNull)
                 .filter(str -> alphabetSet.containsAll(toCharacterSet(str)))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
