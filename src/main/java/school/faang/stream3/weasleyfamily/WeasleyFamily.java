@@ -47,5 +47,6 @@ public class WeasleyFamily {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
         }
+        System.out.println("Все дела по дому переделаны");
     }
 }
