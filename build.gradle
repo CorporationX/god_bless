@@ -1,11 +1,11 @@
 plugins {
     id 'checkstyle'
     id 'java'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 group = "faang.school"
 version = "1.0"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 test {
@@ -49,4 +50,7 @@ tasks.checkstyleTest {
     include("**/*.java")
 
     classpath = files()
+}
+kotlin {
+    jvmToolchain(17)
 }
