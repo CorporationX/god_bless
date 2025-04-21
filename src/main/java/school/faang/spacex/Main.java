@@ -22,9 +22,7 @@ public class Main {
 
     private static void planLaunches(List<RocketLaunch> launches) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        for (RocketLaunch scheduledLaunch : launches) {
-            executor.submit(scheduledLaunch::launch);
-        }
+        launches.forEach(scheduledLaunch -> executor.submit(scheduledLaunch::launch));
         executor.shutdown();
 
         try {

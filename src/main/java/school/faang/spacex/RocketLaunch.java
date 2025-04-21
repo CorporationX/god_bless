@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class RocketLaunch {
 
-    private static final long LAUNCH_TIME = 1000;
+    private static final long MOCK_LAUNCH_PROCESS_TIME = 1000;
 
     private final String name;
     private final long launchTime;
@@ -20,7 +20,7 @@ public class RocketLaunch {
                 Thread.sleep(delay);
             }
             log.info("Rocket {} start launching...", name);
-            Thread.sleep(LAUNCH_TIME);
+            Thread.sleep(MOCK_LAUNCH_PROCESS_TIME);
         } catch (InterruptedException e) {
             log.info("Rocket {} launch interrupted. Planning stopped.", name);
             Thread.currentThread().interrupt();
