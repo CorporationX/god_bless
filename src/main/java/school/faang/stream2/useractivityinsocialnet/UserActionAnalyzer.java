@@ -19,13 +19,12 @@ public class UserActionAnalyzer {
     }
 
     public Map<String, Integer> countUsersActions(ActionList usersActionList) {
-        Map<String, Integer> usersActions = new HashMap<>();
-        usersActionList.getActions().stream()
-                .forEach(action -> {
-                    usersActions.merge("id: " + action.getUserId().toString() + " - " + action.getName(),
-                            1, Integer::sum);
-                });
-        return usersActions;
+        return usersActionList.getActions().stream()
+                .collect(Collectors.toMap(
+                        action -> "id: " + action.getUserId().toString() + " - " + action.getName(),
+                        action -> 1,
+                        Integer::sum
+                ));
     }
 
     public List<String> makeListOfTopPopularHashtags(ActionList usersActionList, int limitNumber) {
@@ -35,7 +34,6 @@ public class UserActionAnalyzer {
                         .map(word -> word.replaceAll("[^#\\w]", ""))
                         .filter(word -> word.startsWith("#")))
                 .forEach(hashtag -> usersActions.merge(hashtag, 1, Integer::sum));
-
         return usersActions.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .limit(limitNumber)
