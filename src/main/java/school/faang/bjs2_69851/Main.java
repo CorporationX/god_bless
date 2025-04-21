@@ -2,7 +2,7 @@ package school.faang.bjs2_69851;
 
 public class Main {
     public static void main(String [] args) {
-        var library = new LibrarySystem();
+        LibrarySystem library = new LibrarySystem();
 
         library.addBook("Игра престолов", "Джордж Мартин", 1996, "Полка 1");
         library.addBook("Песнь льда и огня", "Джордж Мартин", 1996, "Полка 2");

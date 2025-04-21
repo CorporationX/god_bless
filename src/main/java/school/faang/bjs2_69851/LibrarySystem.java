@@ -10,18 +10,18 @@ public class LibrarySystem {
     private final Map<Book, String> storage = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        var book = new Book(title, author, year);
+        Book book = new Book(title, author, year);
         storage.put(book, location);
     }
 
     public void removeBook(String title, String author, int year) {
-        var book = new Book(title, author, year);
+        Book book = new Book(title, author, year);
         storage.remove(book);
     }
 
     public void findBook(String title, String author, int year) {
-        var book = new Book(title, author, year);
-        var location = storage.get(book);
+        Book book = new Book(title, author, year);
+        String location = storage.get(book);
         if (location == null) {
             log.warn("Книга отсутствует в библиотеке!");
         } else {
@@ -35,8 +35,6 @@ public class LibrarySystem {
             return;
         }
 
-        for (Map.Entry<Book, String> entry : storage.entrySet()) {
-            log.info("{} лежит в {}", entry.getKey(), entry.getValue());
-        }
+        storage.forEach((key, value) -> log.info("{} лежит в {}", key, value));
     }
 }
