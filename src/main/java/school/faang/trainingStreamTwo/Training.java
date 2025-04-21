@@ -1,16 +1,25 @@
 package school.faang.trainingStreamTwo;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Training {
-
-    public static Set<Integer> sumNumber(Set<Integer> setNumber, int number) {
-        return null;
+    //искать пару вычитая число от суммы, сохранять сортировать и метод peek
+    public static Set<String> sumNumber(Set<Integer> setNumber, int number) {
+        return setNumber.stream()
+                .flatMap(a -> {
+                    int b = number - a;
+                    if(setNumber.contains(b) && b > a) {
+                        return Set.of("(" + a + ", " + b + ")").stream();
+                    }return Stream.empty();
+                })
+                .sorted()
+                .peek(pair -> System.out.println("Pairs " + pair))
+                .collect(Collectors.toSet());
     }
 
     public static List<String> sortedCountry(Map<String, String> countryCapital) {
