@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -11,7 +12,7 @@ import java.util.List;
 public class Army {
 
     private final List<Squad> squads = new ArrayList<>();
-    private final List<Integer> powerSquads = new ArrayList<>();
+    private final List<Integer> powerSquads = Collections.synchronizedList(new ArrayList<>());
     private final List<Thread> threads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
