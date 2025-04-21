@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
@@ -53,15 +54,12 @@ public class UserActionAnalyzer {
     }
 
     public Map<String, Double> makeMapOfActionTypePercentages(ActionList usersActionList) {
-        Map<String, Double> mapOfActionTypeCounts = new HashMap<>();
-        usersActionList.getActions().stream()
-                .map(userAction -> userAction.getActionType())
-                .forEach(actionType ->
-                        mapOfActionTypeCounts.merge(actionType.toString(), 1.0, Double::sum));
         double allActionsCount = usersActionList.getActions().size();
+        Map<ActionType, List<UserAction>> actionsGroupedByType = usersActionList.getActions().stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType));
         Map<String, Double> mapOfActionTypePercentages = new HashMap<>();
-        mapOfActionTypeCounts.forEach((key, value) ->
-                mapOfActionTypePercentages.put(key, value / allActionsCount * 100));
+        actionsGroupedByType.forEach((type, actionList) ->
+                mapOfActionTypePercentages.put(type.toString(), actionList.size() / allActionsCount * 100));
         return mapOfActionTypePercentages;
     }
 }
