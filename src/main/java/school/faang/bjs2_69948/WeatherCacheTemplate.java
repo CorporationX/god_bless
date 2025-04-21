@@ -1,14 +1,16 @@
 package school.faang.bjs2_69948;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
 public abstract class WeatherCacheTemplate {
-    private final Map<String, WeatherData> weatherCache = new HashMap<>();
+    private final Map<String, WeatherData> weatherCache;
     private final WeatherProvider cacheProvider;
+
+    public WeatherCacheTemplate(WeatherProvider weatherProvider) {
+        weatherCache = new HashMap<>();
+        this.cacheProvider = weatherProvider;
+    }
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData weatherData = weatherCache.get(city);
