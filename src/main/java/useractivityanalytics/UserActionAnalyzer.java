@@ -2,6 +2,7 @@ package useractivityanalytics;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -17,7 +18,7 @@ public class UserActionAnalyzer {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .sorted(Comparator.comparing(Map.Entry::getValue))
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -34,7 +35,7 @@ public class UserActionAnalyzer {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .sorted(Comparator.comparing(Map.Entry::getValue))
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -52,7 +53,7 @@ public class UserActionAnalyzer {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .sorted(Comparator.comparing(Map.Entry::getValue))
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .toList();
