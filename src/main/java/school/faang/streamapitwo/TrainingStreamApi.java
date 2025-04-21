@@ -1,21 +1,20 @@
 package school.faang.streamapitwo;
 
-import java.util.BitSet;
+import lombok.NonNull;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class TrainingStreamApi {
 
-    public static Set<Pair<Integer, Integer>> findUniquePairs(Set<Integer> nums, int value) {
-        if (nums == null) {
-            throw new IllegalArgumentException("Set must not be null!");
-        }
+    public static Set<Pair<Integer, Integer>> findUniquePairs(@NonNull Set<Integer> nums, int value) {
         Set<Pair<Integer, Integer>> result = new HashSet<>();
         Set<Integer> seen = new HashSet<>();
 
@@ -29,45 +28,31 @@ public class TrainingStreamApi {
         return result;
     }
 
-    public static List<String> getSortedCapitals(Map<String, String> capitalsByCountries) {
-        if (capitalsByCountries == null) {
-            throw new IllegalArgumentException("Map must not be null!");
-        }
+    public static List<String> getSortedCapitals(@NonNull Map<String, String> capitalsByCountries) {
         return capitalsByCountries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public static List<String> filterAndSortByFirstChar(List<String> strings, char firstChar) {
-        if (strings == null) {
-            throw new IllegalArgumentException("List must not be null!");
-        }
+    public static List<String> filterAndSortByFirstChar(@NonNull List<String> strings, char firstChar) {
         return strings.stream()
                 .filter(s -> s != null && !s.isEmpty() && s.charAt(0) == firstChar)
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
-    public static List<String> toBinaryList(List<Integer> nums) {
-        if (nums == null) {
-            throw new IllegalArgumentException("List must not be null!");
-        }
+    public static List<String> toBinaryList(@NonNull List<Integer> nums) {
         return nums.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List<String> filterByAlphabetAndSort(List<String> strings, String alphabet) {
-        if (strings == null) {
-            throw new IllegalArgumentException("List must not be null!");
-        }
-        BitSet allowed = new BitSet();
-        for (char c : alphabet.toCharArray()) {
-            allowed.set(c);
-        }
+    public static List<String> filterByAlphabetAndSort(@NonNull List<String> strings, String alphabet) {
+        String charClass = "[" + Pattern.quote(alphabet) + "]";
+        Pattern onlyAllowed = Pattern.compile("^" + charClass + "+$");
         return strings.stream()
-                .filter(s -> s != null && !s.isEmpty() && s.chars().allMatch(allowed::get))
+                .filter(s -> s != null && !s.isEmpty() && onlyAllowed.matcher(s).matches())
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
