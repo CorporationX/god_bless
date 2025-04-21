@@ -15,7 +15,7 @@ public class MailSender {
         int startIndex = 1;
         int endIndex = PORTIONS;
         while (endIndex <= MAX_EMAIL) {
-            Thread mailSender = new Thread(new SenderRunnable(startIndex, endIndex, endIndex / PORTIONS));
+            Thread mailSender = new Thread(new SenderRunnable(startIndex, endIndex));
             mailSender.start();
             mailSenders.add(mailSender);
             startIndex = endIndex;
