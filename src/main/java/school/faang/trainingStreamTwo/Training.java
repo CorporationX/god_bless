@@ -13,9 +13,10 @@ public class Training {
         return setNumber.stream()
                 .flatMap(a -> {
                     int b = number - a;
-                    if(setNumber.contains(b) && b > a) {
+                    if (setNumber.contains(b) && b > a) {
                         return Set.of("(" + a + ", " + b + ")").stream();
-                    }return Stream.empty();
+                    }
+                    return Stream.empty();
                 })
                 .sorted()
                 .peek(pair -> System.out.println("Pairs " + pair))
