@@ -15,21 +15,20 @@ public class ListOperations {
 
     public static int findMaxNumber(List<Integer> integerList) {
         return integerList.stream()
-                .mapToInt(Integer::intValue)
-                .max()
-                .orElseThrow();
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
     }
 
     public static double findAverage(List<Integer> integerList) {
         return integerList.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
     }
 
-    public static long countByFirstLetter(List<String> stringList, char ch) {
+    public static long countByFirstLetter(List<String> stringList, char firstLetter) {
         return stringList.stream()
-                .filter(s -> s.charAt(0) == ch)
+                .filter(s -> !s.isEmpty() && s != null && s.charAt(0) == firstLetter)
                 .count();
     }
 
@@ -52,9 +51,8 @@ public class ListOperations {
     public static int findMinGreaterThan(List<Integer> integerList, int num) {
         return integerList.stream()
                 .filter(i -> i > num)
-                .mapToInt(Integer::intValue)
-                .min()
-                .orElseThrow(() -> new IllegalArgumentException("Нет чисел больше " + num));
+                .min(Integer::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("Нет чисел больше %d".formatted(num)));
     }
 
     public static List<Integer> convertStringsToLength(List<String> stringList) {
