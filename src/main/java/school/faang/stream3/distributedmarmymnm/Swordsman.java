@@ -1,10 +1,7 @@
 package school.faang.stream3.distributedmarmymnm;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Getter
-public class Swordsman implements Unit {
-    private final int power;
+public class Swordsman extends Unit {
+    public Swordsman(int power) {
+        super(power);
+    }
 }

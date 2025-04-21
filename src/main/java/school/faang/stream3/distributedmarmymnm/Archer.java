@@ -1,10 +1,7 @@
 package school.faang.stream3.distributedmarmymnm;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Getter
-public class Archer implements Unit {
-    private final int power;
+public class Archer extends Unit {
+    public Archer(int power) {
+        super(power);
+    }
 }

@@ -1,5 +1,10 @@
 package school.faang.stream3.distributedmarmymnm;
 
-public interface Unit {
-    int getPower();
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
+public abstract class Unit {
+    private final int power;
 }
