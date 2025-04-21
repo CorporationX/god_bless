@@ -22,32 +22,33 @@ public class UserActionAnalyzer {
                                 .sorted(Map.Entry.<Long, Long>comparingByValue().reversed())
                                 .limit(3)
                                 .map(entry -> mapWithNames.get(entry.getKey()))
-                                .collect(Collectors.toList())
+                                .toList()
                 ));
-
     }
 
     public static List<String> getMostPopularHashTag(List<UserAction> userActions) {
-        return userActions.stream()
+        Map<String, Long> popularHashTagCount = userActions.stream()
                 .filter(userAction -> Objects.equals(userAction.actionDate, LocalDate.now()))
                 .flatMap(userAction -> Arrays.stream(userAction.getContent().split(" ")))
                 .filter(word -> word.startsWith("#"))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return popularHashTagCount.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(3)
                 .map(Map.Entry::getKey)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> getUsersWithMostComments(List<UserAction> userActions) {
-        return userActions.stream()
+        Map<String, Long> userNameCounted = userActions.stream()
                 .filter(userAction -> Objects.equals(userAction.actionDate, LocalDate.now()))
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
-                .entrySet()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
+        return userNameCounted.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(3)
