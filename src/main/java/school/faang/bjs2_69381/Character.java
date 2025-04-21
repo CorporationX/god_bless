@@ -10,7 +10,7 @@ public abstract class Character {
     protected final int intelligence;
     protected int health = DEFAULT_HEALTH;
 
-    public Character(String name) {
+    protected Character(String name) {
         this(name, DEFAULT_ATTR_VALUE, DEFAULT_ATTR_VALUE, DEFAULT_ATTR_VALUE);
     }
 
