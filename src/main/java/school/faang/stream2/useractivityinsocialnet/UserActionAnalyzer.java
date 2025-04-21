@@ -1,43 +1,67 @@
 package school.faang.stream2.useractivityinsocialnet;
 
-import lombok.AllArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Setter
-@AllArgsConstructor
 public class UserActionAnalyzer {
-    UsersByID users;
-    List<UserAction> actions;
 
-    public List<User> getTopActiveUsers(ActionType actionType, int limitNumber) {
-        return getActiveUsersByThisAction(actionType).entrySet()
+    public List<String> makeListOfTopActiveUsers(ActionList usersActionList, int limitNumber) {
+        return countUsersActions(usersActionList).entrySet()
                 .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .flatMap(entry -> entry.getValue().stream())
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .map(entry -> entry.getKey())
                 .limit(limitNumber)
                 .toList();
     }
 
-    public Map<Integer, List<User>> getActiveUsersByThisAction (ActionType actionType){
-        Map<Integer, List<User>> activeUsersByThisAction = new HashMap<>();
-        Map<Integer, Integer> userActionsCount = new HashMap<>();
-        actions.stream()
-                .filter(action -> action.getActionType() == actionType)
+    public Map<String, Integer> countUsersActions(ActionList usersActionList) {
+        Map<String, Integer> usersActions = new HashMap<>();
+        usersActionList.getActions().stream()
                 .forEach(action -> {
-                    userActionsCount.merge(action.getUserID(), 1, Integer::sum);
+                    usersActions.merge("id: " + action.getUserId().toString() + " - " + action.getName(),
+                            1, Integer::sum);
                 });
-        userActionsCount.entrySet().stream()
-                .forEach(entry -> {
-                    Integer actionCount = entry.getValue();
-                    User user = users.getUsers().get(entry.getKey());
-                    activeUsersByThisAction.computeIfAbsent(actionCount, k -> new ArrayList<>())
-                            .add(user);
-                });
-        return activeUsersByThisAction;
+        return usersActions;
+    }
+
+    public List<String> makeListOfTopPopularHashtags(ActionList usersActionList, int limitNumber) {
+        Map<String, Integer> usersActions = new HashMap<>();
+        usersActionList.getActions().stream()
+                .flatMap(userAction -> Arrays.stream(userAction.getContent().split("\\s+"))
+                        .map(word -> word.replaceAll("[^#\\w]", ""))
+                        .filter(word -> word.startsWith("#")))
+                .forEach(hashtag -> usersActions.merge(hashtag, 1, Integer::sum));
+
+        return usersActions.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(limitNumber)
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    public List<String> makeListOfTopCommentersLastMonth(ActionList usersActionList, int limitNumber) {
+        ActionList commentersList = new UsersActionList();
+        commentersList.setActions(usersActionList.getActions().stream()
+                .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
+                .filter(userAction -> userAction.getActionDate()
+                        .isAfter(LocalDate.now().minusMonths(1)))
+                .toList());
+        return makeListOfTopActiveUsers(commentersList, limitNumber);
+    }
+
+    public Map<String, Double> makeMapOfActionTypePercentages(ActionList usersActionList) {
+        Map<String, Double> mapOfActionTypeCounts = new HashMap<>();
+        usersActionList.getActions().stream()
+                .map(userAction -> userAction.getActionType())
+                .forEach(actionType ->
+                        mapOfActionTypeCounts.merge(actionType.toString(), 1.0, Double::sum));
+        double allActionsCount = usersActionList.getActions().size();
+        Map<String, Double> mapOfActionTypePercentages = new HashMap<>();
+        mapOfActionTypeCounts.forEach((key, value) ->
+                mapOfActionTypePercentages.put(key, value / allActionsCount * 100));
+        return mapOfActionTypePercentages;
     }
 }
