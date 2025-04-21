@@ -2,10 +2,11 @@ package school.faang.stream1;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = IntStream.rangeClosed(1, 6).boxed().toList();
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
         System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
