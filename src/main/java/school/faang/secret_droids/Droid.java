@@ -13,6 +13,7 @@ import java.util.List;
 public class Droid {
     private final String name;
     private final List<String> acceptedMessages;
+    private DroidMessageEncryptor<String, Integer> droidMessageEncryptor;
 
     public Droid(String name) {
         this(name, new ArrayList<>());
@@ -24,7 +25,7 @@ public class Droid {
     }
 
     public String encryptMessage(String message, Integer key) {
-        DroidMessageEncryptor<String, Integer> droidMessageEncryptor = (msg, k) -> {
+        droidMessageEncryptor = (msg, k) -> {
             StringBuilder strBox = new StringBuilder(message.length());
             char tmp;
             for (int i = 0; i < message.length(); i++) {
@@ -47,7 +48,7 @@ public class Droid {
     }
 
     public String decryptMessage(String message, Integer key) {
-        DroidMessageEncryptor<String, Integer> droidMessageEncryptor = (msg, k) -> {
+        droidMessageEncryptor = (msg, k) -> {
             StringBuilder strBox = new StringBuilder(msg.length());
             char tmp;
             for (int i = 0; i < msg.length(); i++) {
