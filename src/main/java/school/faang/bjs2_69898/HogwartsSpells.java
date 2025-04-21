@@ -42,6 +42,6 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        spellById.forEach((id, spell) -> System.out.printf("ID: %s, %s%n", id, spell));
+        spellById.forEach((id, spell) -> log.info("ID: {}, {}", id, spell));
     }
 }
