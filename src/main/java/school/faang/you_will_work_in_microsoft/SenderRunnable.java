@@ -9,9 +9,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Письмо отправлено успешно: " + i);
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.printf("Письмо отправлено успешно: %d%n", i);
         }
-
     }
 }
