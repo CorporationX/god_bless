@@ -19,7 +19,7 @@ public class LibrarySystem {
         storage.remove(book);
     }
 
-    public void findBook(String title, String author, int year) {
+    public String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String location = storage.get(book);
         if (location == null) {
@@ -27,6 +27,8 @@ public class LibrarySystem {
         } else {
             log.info("{}, лежит в: {}", book, location);
         }
+
+        return location;
     }
 
     public void printAllBooks() {
