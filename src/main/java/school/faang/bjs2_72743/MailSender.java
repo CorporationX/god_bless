@@ -18,7 +18,7 @@ public class MailSender {
             Thread mailSender = new Thread(new SenderRunnable(startIndex, endIndex));
             mailSender.start();
             mailSenders.add(mailSender);
-            startIndex = endIndex;
+            startIndex = endIndex + 1;
             endIndex += PORTIONS;
         }
 
