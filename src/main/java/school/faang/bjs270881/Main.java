@@ -125,7 +125,7 @@ public class Main {
         List<String> top3Users = UserActionAnalyzer.topActiveUsers(actions, 3);
         List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
         List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
-         Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
+        Map<String, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
         System.out.println("Топ-3 активных пользователей: " + top3Users);
         System.out.println("Топ-5 популярных хэштегов: " + top5Hashtags);
