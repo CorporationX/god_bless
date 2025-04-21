@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum NotificationType {
     EMAIL("Электронная почта"),
     SMS("SMS-сообщение"),
-    PUSH("PUSH-уведомление");
+    PUSH("PUSH-уведомление"),
+    TELEGRAM("Сообщение в телегу");
 
     private final String title;
 }

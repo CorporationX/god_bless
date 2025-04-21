@@ -11,35 +11,34 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = getNotificationManager();
 
-        notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage()));
-
-        notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage()));
-
-        notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push: " + notification.getMessage()));
-
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
+        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен.");
+        Notification longSmsNotification = new Notification(NotificationType.SMS,
+                "Ваш пароль изменен. Это слишком длинное сообщение для отправки одной SMS-кой");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
+        Notification telegramNotification = new Notification(NotificationType.TELEGRAM,
+                "У вас новое сообщение в телеге!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(longSmsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(telegramNotification);
     }
 
     private static NotificationManager getNotificationManager() {
-        NotificationManager notificationManager = new NotificationManager();
+        NotificationManager notificationManager = new NotificationManager(
+                notification -> System.out.println("Unknown handler used: " + notification.getType().name())
+        );
 
-        notificationManager.setNotificationModifier(
+        notificationManager.registerModifier(
                 notification -> {
                     notification.setMessage(notification.getMessage() + " (Подпись, высказывающая всяческое уважение)");
                     return notification;
                 }
         );
 
-        notificationManager.setNotificationFilter(notification -> {
+        notificationManager.registerFilter(notification -> {
             String message = notification.getMessage();
 
             if (notification.getType() == NotificationType.SMS) {
@@ -56,6 +55,15 @@ public class Main {
 
             return true;
         });
+
+        notificationManager.registerHandler(NotificationType.EMAIL,
+                notification -> System.out.println("Email: " + notification.getMessage()));
+
+        notificationManager.registerHandler(NotificationType.SMS,
+                notification -> System.out.println("SMS: " + notification.getMessage()));
+
+        notificationManager.registerHandler(NotificationType.PUSH,
+                notification -> System.out.println("Push: " + notification.getMessage()));
 
         return notificationManager;
     }
