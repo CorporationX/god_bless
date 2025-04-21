@@ -17,7 +17,7 @@ public class MailSender {
         }
         for (Thread thread : threads) {
             thread.join();
-            System.out.printf("Работа текущего потока успешно завершена%n");
+            System.out.printf("Работа %d потоков успешно завершена%n", THREAD_COUNT);
         }
     }
 }
