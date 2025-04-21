@@ -12,8 +12,8 @@ public class WeasleyFamily {
             new Chore("помыть посуду"), new Chore("подмести пол"), new Chore("приготовить ужин"));
 
     public static void main(String[] args) {
-        try (ExecutorService cachedThreadPool = Executors.newCachedThreadPool()) {
-            chores.forEach(cachedThreadPool::execute);
-        }
+        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+        chores.forEach(cachedThreadPool::execute);
+        cachedThreadPool.shutdown();
     }
 }
