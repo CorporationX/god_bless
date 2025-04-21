@@ -9,8 +9,14 @@ public class Main {
     public static void main(String[] args) {
         int[][] originalMatrix = {{1, 2}, {3, 4}};
         log.info("Original matrix {}.", Arrays.deepToString(originalMatrix));
-        log.info("Horizontally flipped matrix {}.", Arrays.deepToString(flipMatrix(originalMatrix, FlipDirection.HORIZONTAL)));
-        log.info("Vertically flipped matrix {}.", Arrays.deepToString(flipMatrix(originalMatrix, FlipDirection.VERTICAL)));
+        log.info(
+            "Horizontally flipped matrix {}.", 
+            Arrays.deepToString(flipMatrix(originalMatrix, FlipDirection.HORIZONTAL))
+        );
+        log.info(
+            "Vertically flipped matrix {}.", 
+            Arrays.deepToString(flipMatrix(originalMatrix, FlipDirection.VERTICAL))
+        );
     }
 
     public static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
