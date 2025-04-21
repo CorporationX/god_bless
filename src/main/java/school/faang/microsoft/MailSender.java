@@ -1,17 +1,13 @@
 package school.faang.microsoft;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-
-public class Main {
+public class MailSender {
 
     private static final int TOTAL_NUMBER_LETTERS = 1000;
     private static final int TOTAL_COUNT_THREAD = 5;
 
     public static void main(String[] args) throws InterruptedException {
         int countLettersForOneThread = TOTAL_NUMBER_LETTERS / TOTAL_COUNT_THREAD;
-        Thread[] threads = new Thread[5];
+        Thread[] threads = new Thread[TOTAL_COUNT_THREAD];
 
         for (int i = 0; i < TOTAL_COUNT_THREAD; i++) {
             int startIndex = i * countLettersForOneThread;
@@ -20,6 +16,7 @@ public class Main {
             threads[i].start();
         }
         for (Thread thread : threads) {
+            System.out.println("Все сообщения отправлены");
             thread.join();
         }
     }
