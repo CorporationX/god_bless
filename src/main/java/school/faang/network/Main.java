@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.introspect.Annotated;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,9 +41,11 @@ public class Main {
                         ""));
 
         UserActionAnalyzer analyzer = new UserActionAnalyzer();
-        //System.out.println(analyzer.userActivity(list, 3));
-        //System.out.println(analyzer.popularTopicDiscussion(list, '#', 2));
+        System.out.println(analyzer.userActivity(list, 3));
+        System.out.println(analyzer.popularTopicDiscussion(list, '#', 2));
         System.out.println(analyzer.maxComment(list, 3));
+        Map<ActionType, Double> actionPercentages = analyzer.calculatePercentActionType(list);
+        System.out.println(actionPercentages);
     }
 
 }

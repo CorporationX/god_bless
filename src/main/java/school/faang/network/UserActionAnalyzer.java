@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
 
@@ -37,5 +38,15 @@ public class UserActionAnalyzer {
                 .map(Map.Entry::getKey)
                 .toList();
     }
-    
+
+    public Map<ActionType, Double> calculatePercentActionType(List<UserAction> actionList) {
+        Map<ActionType, Long> actionTypeStream = actionList.stream()
+                .collect(Collectors.groupingBy(UserAction::getType, Collectors.counting()));
+        return actionTypeStream.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (entry.getValue() * 100.0) / actionList.size()
+                ));
+    }
+
 }
