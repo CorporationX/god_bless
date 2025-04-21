@@ -18,13 +18,13 @@ public class ListOperations {
 
     public static double getAverage(List<Integer> nums) {
         return nums.stream().mapToInt(Integer::intValue)
-                .average().orElse(0.0);
+                .average().orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     public static long findAmountOfStringsStartsWith(List<String> strings, char symbol) {
         return strings.stream()
                 .filter(string -> !string.isEmpty() && string
-                        .charAt(0) == symbol).count();
+                .charAt(0) == symbol).count();
     }
 
     public static List<String> sortStringsByLength(List<String> strings) {
@@ -32,7 +32,7 @@ public class ListOperations {
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
-    public static boolean isElementToCondition(List<Integer> nums, Predicate<Integer> predicate) {
+    public static boolean isGreaterThanCertainElement(List<Integer> nums, Predicate<Integer> predicate) {
         return nums.stream().allMatch(predicate);
     }
 

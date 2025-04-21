@@ -16,7 +16,8 @@ public class Main {
                 ListOperations.findAmountOfStringsStartsWith(strings, 'a'));
         System.out.println("Строки, содержащие 'an': " + ListOperations.findAmountOfStringsStartsWith(strings, 'd'));
         System.out.println("Отсортированные по длине строки: " + ListOperations.sortStringsByLength(strings));
-        System.out.println("Все ли числа чётные? " + ListOperations.isElementToCondition(numbers, n -> n % 2 == 0));
+        System.out.println("Все ли числа чётные? " + ListOperations
+                .isGreaterThanCertainElement(numbers, n -> n % 2 == 0));
         System.out.println("Наименьшее число больше 4: " + ListOperations.findLowestElementAtList(numbers, 4));
         System.out.println("Длины строк: " + ListOperations.transformStringsToLengths(strings));
     }
