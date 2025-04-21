@@ -9,11 +9,12 @@ public class Chore implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Chore is completing: " + chore + " in " + Thread.currentThread().getName());
+            System.out.printf("Chore is completing: %s in %s%n", chore, Thread.currentThread().getName());
             Thread.sleep(1000);
-            System.out.println("Chore is completed: " + chore + " in " + Thread.currentThread().getName());
+            System.out.printf("Chore is completed: %s in %s%n ", chore, Thread.currentThread().getName());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.printf("Задача \"%s\" была прервана в потоке %s.%n", chore, Thread.currentThread().getName());
+            Thread.currentThread().interrupt();
         }
     }
 }
