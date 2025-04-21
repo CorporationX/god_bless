@@ -13,6 +13,9 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         Consumer<Notification> handler = notifications.get(notification.getType());
+        if (handler == null) {
+            throw new IllegalArgumentException("Нет такого обработчика");
+        }
         handler.accept(notification);
     }
 }
