@@ -14,7 +14,7 @@ public class Main {
 
             Set<Integer> nums = new HashSet<>(Arrays.asList(-1, -2, -3, -4, -5, -6, 1, 2, 3, 4, 5, 6));
             int targetSum = 0;
-            Set<IntegerPair> resultPairs = operations.getIntegerPairsMatchingSum(nums, targetSum);
+            Set<Pair<Integer>> resultPairs = operations.getIntegerPairsMatchingSum(nums, targetSum);
             System.out.println("Пары с суммой " + targetSum + ": " + resultPairs);
 
             Map<String, String> countries = new HashMap<>();

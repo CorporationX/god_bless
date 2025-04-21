@@ -7,12 +7,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StreamOperations {
-    public Set<IntegerPair> getIntegerPairsMatchingSum(Set<Integer> integers, int targetValue) {
+    public Set<Pair<Integer>> getIntegerPairsMatchingSum(Set<Integer> integers, int targetValue) {
         checkParamsNull(integers);
         integers.forEach(this::checkParamsNull);
         return integers.stream()
                 .filter(value -> value * 2 != targetValue && integers.contains(targetValue - value))
-                .map(value -> new IntegerPair(value, targetValue - value))
+                .map(value -> new Pair<>(value, targetValue - value))
                 .collect(Collectors.toSet());
     }
 
