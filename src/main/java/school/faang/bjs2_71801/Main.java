@@ -5,9 +5,16 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> list = List.of("44444", "34253", "444");
-        System.out.println(Operations.containString(list, "4444"));
-        System.out.println(Operations.sortByLength(list));
+        List<String> strings = List.of("44444", "3432", "444", "05");
+        List<Integer> numbers = Operations.transform(strings);
+        System.out.println(numbers);
+        System.out.println(Operations.evenSum(numbers));
+        System.out.println(Operations.max(numbers));
+        System.out.println(Operations.average(numbers));
+        System.out.println(Operations.startsWithLetter(strings, '0'));
+        System.out.println(Operations.containString(strings, "4444"));
+        System.out.println(Operations.sortByLength(strings));
+        System.out.println(Operations.findLowest(numbers, 4));
     }
 
     public static class Operations {
@@ -33,6 +40,14 @@ public class Main {
 
         public static List<String> sortByLength(List<String> strings) {
             return strings.stream().sorted(Comparator.comparingInt(String::length).reversed()).toList();
+        }
+
+        public static int findLowest(List<Integer> numbers, int min) {
+            return numbers.stream().filter(a -> a > min).min(Comparator.naturalOrder()).orElseThrow();
+        }
+
+        public static List<Integer> transform(List<String> strings) {
+            return strings.stream().map(String::length).toList();
         }
     }
 }
