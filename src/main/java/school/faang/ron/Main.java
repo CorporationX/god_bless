@@ -4,9 +4,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+    private static final ExecutorService service = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        ExecutorService service = Executors.newCachedThreadPool();
         WeasleyFamily weasleyFamily = new WeasleyFamily();
         weasleyFamily.addChore(new Chore("помыть полы"));
         weasleyFamily.addChore(new Chore("помыть посуду"));
@@ -19,7 +19,7 @@ public class Main {
         weasleyFamily.addChore(new Chore("отмыть ванну"));
 
 
-        for(Chore chore : weasleyFamily.getChores()) {
+        for (Chore chore : weasleyFamily.getChores()) {
             service.submit(chore);
         }
         service.shutdown();
