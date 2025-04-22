@@ -15,13 +15,13 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        log.info("Обязанность {} выполняется в потоке {}",
-                this.getChore(), Thread.currentThread().getName());
         try {
-            Thread.sleep(3000);
+            log.info("Обязанность {} выполняется в потоке {}",
+                    this.getChore(), Thread.currentThread().getName());
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
-            log.error("метод {} на потоке {} не выполнен, поймано исключение {}",
-                    "sleep", Thread.currentThread().getName(), e.getMessage());
+            log.error("Поток {} был прерван", Thread.currentThread().getName(), e);
+            Thread.currentThread().interrupt();
         }
     }
 }
