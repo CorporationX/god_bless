@@ -2,8 +2,11 @@ package school.faang.heroes_of_might_and_magic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public record Army(List<Squad> squads) {
+public class Army {
+    private final List<Squad> squads;
+
     public int calculateTotalPower() throws InterruptedException {
         Thread[] threads = new Thread[squads.size()];
         List<CalculatePower> calculatePower = new ArrayList<>();
@@ -22,7 +25,13 @@ public record Army(List<Squad> squads) {
                 .sum();
     }
 
+    public Army(List<Squad> squads) {
+        this.squads = Objects.requireNonNullElseGet(squads, ArrayList::new);
+    }
+
     public void addSquad(Squad squad) {
-        squads.add(squad);
+        if (squad != null) {
+            squads.add(squad);
+        }
     }
 }
