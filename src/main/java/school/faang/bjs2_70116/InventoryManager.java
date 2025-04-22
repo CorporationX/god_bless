@@ -17,7 +17,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> action, Function<Item, Item> alterItem) {
-        List<Item> alteredItems = character.getInventory().stream().filter(action).map(alterItem).toList();
+        List<Item> alteredItems = character.getInventory().stream()
+                .filter(action)
+                .map(alterItem)
+                .toList();
         character.setInventory(alteredItems);
     }
 }
