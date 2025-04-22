@@ -2,7 +2,7 @@ package school.faang.they_were_very_nice_but_extremely_poor;
 
 import lombok.Getter;
 
-class Chore {
+class Mosca {
     public static void main(String[] args) throws InterruptedException {
         int[] a = {4, 4, 4, 5, 6, 7, 8, 9, 0};
         int[] b = {0, -1, -2, -3, -4, -5, -6, -7, -8, -9};
