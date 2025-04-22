@@ -1,5 +1,8 @@
 package work.at.microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREAD_COUNT = 5;
@@ -20,6 +23,6 @@ public class MailSender {
             startIndex = endIndex;
             endIndex += BATCH_SIZE;
         }
-
+        log.info("All messages has ben successfully sent!");
     }
 }
