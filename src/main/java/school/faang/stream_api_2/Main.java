@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static school.faang.stream_api_2.AlphabeticalStringFilterAndSorter.alphabeticalFilterAndSorter;
+
 public class Main {
     public static void main(String[] args) {
         // Task 1
@@ -33,8 +35,10 @@ public class Main {
 
         // Task 5
         List<String> stringsToFilter = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        Set<Character> alphabet = new HashSet<>(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
         System.out.printf("Filtered strings by alphabet and sorted: %s%n",
-                AlphabeticalStringFilterAndSorter.filterByAlphabetAndSortByLength(stringsToFilter, alphabet));
+                alphabeticalFilterAndSorter(stringsToFilter, alphabet));
+
     }
 }
