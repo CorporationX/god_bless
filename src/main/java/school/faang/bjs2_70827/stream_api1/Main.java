@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        final List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        final List<Integer> numbers = IntStream.rangeClosed(1, 20).boxed().toList();
         final List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
         log.info("Сумма четных чисел: {}", ListOperations.sumOfEvenNumbers(numbers));

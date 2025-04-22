@@ -56,8 +56,8 @@ public class ListOperations {
                 .filter(num -> num > number)
                 .min(Comparator.naturalOrder())
                 .orElseThrow(() ->
-                        new NoSuchElementException("There is impossible to find min greater than "
-                                + number + ". List is empty"));
+                        new NoSuchElementException("There is impossible to find min greater than %d. List is empty"
+                                .formatted(number)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
