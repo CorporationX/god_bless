@@ -13,11 +13,11 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> action) {
-        List<Item> itemsToRemove = character.getInventory().stream().filter(action).toList();
-        character.getInventory().removeAll(itemsToRemove);
+        character.getInventory().removeIf(action);
     }
 
     public void updateItem(Character character, Predicate<Item> action, Function<Item, Item> alterItem) {
-        character.setInventory(character.getInventory().stream().filter(action).map(alterItem).toList());
+        List<Item> alteredItems = character.getInventory().stream().filter(action).map(alterItem).toList();
+        character.setInventory(alteredItems);
     }
 }
