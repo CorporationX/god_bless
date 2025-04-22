@@ -1,17 +1,17 @@
 package school.faang.microsoft;
 
 public class MailSender {
-    private static final int TOTAL_MESSAGE = 100;
-    private static final int COUNT_THREAD = 5;
+    private static final int TOTAL_MESSAGES = 10000;
+    private static final int THREAD_COUNT = 5;
 
     public static void main(String[] args) throws InterruptedException {
-        int sizeMessage = TOTAL_MESSAGE / COUNT_THREAD;
+        int batchSize = TOTAL_MESSAGES / THREAD_COUNT;
 
-        Thread[] threads = new Thread[sizeMessage];
+        Thread[] threads = new Thread[THREAD_COUNT];
 
-        for (int i = 0; i < sizeMessage; i++) {
-            int start = i * sizeMessage;
-            int finish = (i + 1) * sizeMessage;
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            int start = i * batchSize;
+            int finish = (i + 1) * batchSize;
 
             threads[i] = new Thread(new SenderRunnable(start, finish));
             threads[i].start();
