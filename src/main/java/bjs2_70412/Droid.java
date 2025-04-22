@@ -11,38 +11,26 @@ public class Droid {
         String encrypt(String message, int key);
     }
 
-    public String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, k) -> {
+    public static String processMessage(String message, int shift) {
             StringBuilder result = new StringBuilder();
-            for (char character : msg.toCharArray()) {
+            for (char character : message.toCharArray()) {
                 if (Character.isLetter(character)) {
                     char characterCase = Character.isLowerCase(character) ? 'a' : 'A';
-                    char encryptedCharacter = (char) ((character - characterCase + k) % 26 + characterCase);
+                    char encryptedCharacter = (char) ((character - characterCase + shift + 26) % 26 + characterCase);
                     result.append(encryptedCharacter);
                 } else {
                     result.append(character);
                 }
             }
             return result.toString();
-        };
-        return encryptor.encrypt(message, key);
+    }
+
+    public String encryptMessage(String message, int key) {
+        return processMessage(message, -key);
     }
 
     public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, k) -> {
-            StringBuilder result = new StringBuilder();
-            for (char character : msg.toCharArray()) {
-                if (Character.isLetter(character)) {
-                    char characterCase = Character.isLowerCase(character) ? 'a' : 'A';
-                    char encryptedCharacter = (char) ((character - characterCase - k + 26) % 26 + characterCase);
-                    result.append(encryptedCharacter);
-                } else {
-                    result.append(character);
-                }
-            }
-            return result.toString();
-        };
-        return encryptor.encrypt(message, key);
+        return processMessage(message, key);
     }
 
     public void sendMessage(Droid droid, String message, int key) {
