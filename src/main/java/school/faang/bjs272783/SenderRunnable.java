@@ -13,7 +13,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = this.startIndex; i < this.endIndex; i++) {
+        for (int i = startIndex; i < endIndex; i++) {
             System.out.printf("Письмо %d отправлено (%s) %n ", i, Thread.currentThread().getName());
         }
     }
