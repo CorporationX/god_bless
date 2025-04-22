@@ -1,27 +1,25 @@
 package work.at.microsoft;
 
 public class MailSender {
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+    private static final int BATCH_SIZE = TOTAL_MESSAGES / THREAD_COUNT;
+    private static int startIndex = 0;
+    private static int endIndex = BATCH_SIZE;
+
     public static void main(String[] args) {
-        final Thread threadOne = new Thread(new SenderRunnable(0, 200));
-        final Thread threadTwo = new Thread(new SenderRunnable(201, 400));
-        final Thread threadThree = new Thread(new SenderRunnable(401, 600));
-        final Thread threadFour = new Thread(new SenderRunnable(601, 800));
-        final Thread threadFive = new Thread(new SenderRunnable(801, 1000));
-
-        threadOne.start();
-        threadTwo.start();
-        threadThree.start();
-        threadFour.start();
-        threadFive.start();
-
-        try {
-            threadOne.join();
-            threadTwo.join();
-            threadThree.join();
-            threadFour.join();
-            threadFive.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        Thread thread;
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new IllegalArgumentException(e.getMessage());
+            }
+            startIndex = endIndex;
+            endIndex += BATCH_SIZE;
         }
+
     }
 }

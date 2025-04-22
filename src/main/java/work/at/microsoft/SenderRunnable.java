@@ -1,23 +1,19 @@
 package work.at.microsoft;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
-
-    public SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
 
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
             System.out.printf("Your message no: %d has ben successfully sent!%n", i);
-
-            if (i == endIndex) {
-                System.out.printf("All messages from thread %s has ben successfully sent!%n",
-                        Thread.currentThread().getName());
-            }
         }
+        log.info("All messages from thread has ben successfully sent!");
     }
 }
