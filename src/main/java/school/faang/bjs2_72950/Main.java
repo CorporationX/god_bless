@@ -3,7 +3,6 @@ package school.faang.bjs2_72950;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
         List<String> choresList =
             List.of("wash the dishes", "clean the floor", "wipe off the dust", "chopping wood", "prepare food",
