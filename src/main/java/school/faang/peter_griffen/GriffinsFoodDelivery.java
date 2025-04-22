@@ -19,7 +19,7 @@ public class GriffinsFoodDelivery {
         }
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+            if (!executorService.awaitTermination(5000, TimeUnit.MILLISECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
