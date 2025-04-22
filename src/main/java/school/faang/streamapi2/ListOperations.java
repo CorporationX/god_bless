@@ -36,7 +36,7 @@ public class ListOperations {
                 .toList();
     }
 
-    public static List<String>  filterAndSortByAlphabet(List<String> words, String alphabet) {
+    public static List<String> filterAndSortByAlphabet(List<String> words, String alphabet) {
         Set<Character> allowed = alphabet.chars().mapToObj(c -> (char) c).collect(Collectors.toSet());
         return words.stream()
                 .filter(word -> word.chars().allMatch(c -> allowed.contains((char) c)))

@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Set<Integer> numbers = new HashSet<>(IntStream.range(1, 6).boxed().collect(Collectors.toSet()));
         int targetSum = 6;
 
         Set<String> pairs = ListOperations.findPairs(numbers, targetSum);
