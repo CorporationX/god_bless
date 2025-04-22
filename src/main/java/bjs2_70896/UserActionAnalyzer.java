@@ -32,6 +32,7 @@ public class UserActionAnalyzer {
                 .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
         return groupedByHashTag.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(amount)
                 .map(Map.Entry::getKey)
                 .toList();
     }
