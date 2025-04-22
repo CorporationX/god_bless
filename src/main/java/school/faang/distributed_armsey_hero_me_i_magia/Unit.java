@@ -8,6 +8,7 @@ import lombok.Getter;
 public class Unit {
     protected int power;
 
-    protected void setPower(int min) {
+    protected void setPower(int power) {
+        this.power = power;
     }
 }
