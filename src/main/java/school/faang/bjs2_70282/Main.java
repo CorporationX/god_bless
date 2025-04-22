@@ -3,7 +3,7 @@ package school.faang.bjs2_70282;
 public class Main {
 
     public static void main(String[] args) {
-        String result = ErrorHandler.withErrorHandling(
+        String result = ExceptionHandler.withErrorHandling(
                 () -> RemoteService.call("someParam"),
                 e -> {
                     System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
