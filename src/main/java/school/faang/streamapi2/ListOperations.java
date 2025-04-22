@@ -12,7 +12,7 @@ public class ListOperations {
         return numbers.stream()
                 .flatMap(a -> numbers.stream()
                         .filter(b -> a < b && a + b == targetSum)
-                        .map(b -> "(" + a + ", " + b + ")"))
+                        .map(b -> "(%d, %d)".formatted(a, b)))
                 .collect(Collectors.toSet());
     }
 
