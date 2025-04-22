@@ -9,31 +9,54 @@ import java.util.function.Predicate;
 
 public class NotificationManager {
 
-    private final Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> prefixHandlers = new HashMap<>();
+    private final Map<NotificationType, Predicate<Notification>> typeCheckHandlers = new HashMap<>();
+    private final Map<String, Function<Notification, Notification>> signatureHandlers = new HashMap<>();
+    private final Map<NotificationType,
+            BiFunction<Notification, Predicate<Notification>, Notification>>
+            exceptionHandlers = new HashMap<>();
 
-    private final Function<Notification, Notification> applySignature = notification ->
-            new Notification(notification.getType(), notification.getMessage() + " | @JegorKuz");
-
-    private final Predicate<Notification> wrongNotification = notification ->
-            notification.getType() == NotificationType.EMAIL;
-
-    private final BiFunction<Notification, Predicate<Notification>, Notification> exceptionNotification =
-            (notification, isEmail) -> {
-                if (isEmail.test(notification)) {
-                    return new Notification(notification.getType(), "currently not supported");
-                }
-                return notification;
-            };
-
-    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notifications.put(type, handler);
+    public void registerPrefixHandlers(NotificationType type, Consumer<Notification> handler) {
+        prefixHandlers.put(type, handler);
     }
 
-    public void sendNotification(Notification notification) {
-        Notification notificationWithSignature = applySignature.apply(notification);
-        Notification checkedForExceptionNotification =
-                exceptionNotification.apply(notificationWithSignature, wrongNotification);
-        Consumer<Notification> notificationConsumer = notifications.get(checkedForExceptionNotification.getType());
-        notificationConsumer.accept(checkedForExceptionNotification);
+    public void registerTypeCheckHandlers(NotificationType type, Predicate<Notification> typeCheck) {
+        typeCheckHandlers.put(type, typeCheck);
+    }
+
+    public void registerSignatureHandlers(String signature, Function<Notification, Notification> signatureHandler) {
+        signatureHandlers.put(signature, signatureHandler);
+    }
+
+    public void registerExceptionHandlers(NotificationType type,
+                                          BiFunction<Notification, Predicate<Notification>, Notification> exception) {
+        exceptionHandlers.put(type, exception);
+    }
+
+    public void sendNotification(Notification notification, String signature) {
+        Function<Notification, Notification> signatureHandler = signatureHandlers.get(signature);
+        if (signatureHandler != null) {
+            notification = signatureHandler.apply(notification);
+        } else {
+            System.out.println("No proper signature found");
+        }
+
+        BiFunction<Notification,
+                Predicate<Notification>,
+                Notification> exceptionHandler = exceptionHandlers.get(notification.getType());
+
+        if (exceptionHandler != null) {
+            Predicate<Notification> typeCheck = typeCheckHandlers.get(notification.getType());
+            if (typeCheck != null) {
+                notification = exceptionHandler.apply(notification, typeCheck);
+            }
+        }
+
+        Consumer<Notification> notificationConsumer = prefixHandlers.get(notification.getType());
+        if (notificationConsumer != null) {
+            notificationConsumer.accept(notification);
+        } else {
+            System.out.println("No proper prefix found");
+        }
     }
 }
