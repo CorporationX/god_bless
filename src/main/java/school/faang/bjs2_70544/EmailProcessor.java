@@ -11,9 +11,11 @@ public class EmailProcessor {
                               Predicate<Email> importance,
                               Consumer<Email> subject,
                               Function<Email, String> bodyModifier) {
-        emails.stream().filter(importance).forEach(email -> {
-            email.setBody(bodyModifier.apply(email));
-            subject.accept(email);
-        });
+        emails.stream()
+                .filter(importance)
+                .forEach(email -> {
+                    email.setBody(bodyModifier.apply(email));
+                    subject.accept(email);
+                });
     }
 }
