@@ -19,7 +19,6 @@ public class Main {
         for (Chore chore : weasleyFamily.chores()) {
             executor.submit(chore);
         }
-
         executor.shutdown();
 
         try {
