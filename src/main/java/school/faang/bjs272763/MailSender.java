@@ -4,8 +4,9 @@ public class MailSender {
 
     public static void main(String[] args) {
 
-        int emailsPerThread = 200;
+        int emailsTotal = 1000;
         int threadCount = 5;
+        int emailsPerThread = emailsTotal / threadCount;
 
         Thread[] threads = new Thread[threadCount];
 
@@ -24,6 +25,7 @@ public class MailSender {
                 thread.join();
             } catch (InterruptedException e) {
                 System.out.println("Ошибка InterruptedException");
+                Thread.currentThread().interrupt();
             }
         }
         System.out.println("Все письма отправлены");
