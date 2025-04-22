@@ -7,24 +7,24 @@ import java.util.List;
 
 @Slf4j
 public class MailSender {
-    private static final int MAX_EMAIL = 1000;
-    private static final int PORTIONS = 200;
+    private static final int MAX_THREAD = 5;
+    private static final int BATCH = 1000;
 
     public static void main(String[] args) {
         List<Thread> mailSenders = new ArrayList<>();
-        int startIndex = 1;
-        int endIndex = PORTIONS;
-        while (endIndex <= MAX_EMAIL) {
+        for (int i = 0; i < MAX_THREAD; i++) {
+            int startIndex = i * BATCH / MAX_THREAD + 1;
+            int endIndex = startIndex + BATCH / MAX_THREAD - 1;
+            log.debug("{} - {}", startIndex, endIndex);
             Thread mailSender = new Thread(new SenderRunnable(startIndex, endIndex));
             mailSender.start();
             mailSenders.add(mailSender);
-            startIndex = endIndex + 1;
-            endIndex += PORTIONS;
         }
 
         for (Thread mailSender : mailSenders) {
             try {
                 mailSender.join();
+                log.info("mail sender [{}] is finish", mailSender.getName());
             } catch (InterruptedException e) {
                 log.error("receive error from send email {}", e.getMessage(), e);
             }

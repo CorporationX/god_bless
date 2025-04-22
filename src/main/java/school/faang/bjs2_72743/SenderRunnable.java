@@ -12,7 +12,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = this.startIndex; i <= this.endIndex; i++) {
-            log.info("email sender [{}] was sent email with index {}", Thread.currentThread().getName(), i);
+            log.info("email sender was sent email with index {}", i);
         }
     }
 }
