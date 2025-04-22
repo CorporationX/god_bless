@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
+        if (squad == null) {
+            throw new IllegalArgumentException("Значение отряда null");
+        }
         squads.add(squad);
     }
 

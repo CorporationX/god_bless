@@ -1,10 +1,10 @@
 package school.faang.bjs272508;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-class Archer implements Unit {
-    private int power;
+class Archer extends Unit {
+    public Archer(int power) {
+        super(power);
+    }
 }

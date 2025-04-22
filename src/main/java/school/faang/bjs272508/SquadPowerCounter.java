@@ -1,8 +1,6 @@
 package school.faang.bjs272508;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 public class SquadPowerCounter extends Thread {

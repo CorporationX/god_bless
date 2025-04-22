@@ -1,5 +1,10 @@
 package school.faang.bjs272508;
 
-public interface Unit {
-    int getPower();
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+abstract class Unit {
+    private final int power;
 }
