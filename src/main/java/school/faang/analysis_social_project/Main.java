@@ -8,11 +8,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<UserAction> userActions = createList();
-        UserActionAnalyzer userActionAnalyzer = new UserActionAnalyzer();
-        System.out.println(userActionAnalyzer.topMostActiveUsers(userActions, 5));
-        System.out.println(userActionAnalyzer.topPopularDiscussion(userActions, 5));
-        System.out.println(userActionAnalyzer.topUsersMostCommentsLastMonth(userActions, 5));
-        System.out.println(userActionAnalyzer.calculatePercentageEachTypeCation(userActions));
+        System.out.println(UserActionAnalyzer.topMostActiveUsers(userActions, 5));
+        System.out.println(UserActionAnalyzer.topPopularDiscussion(userActions, 5));
+        System.out.println(UserActionAnalyzer.topUsersMostCommentsLastMonth(userActions, 5));
+        System.out.println(UserActionAnalyzer.calculatePercentageEachTypeCation(userActions));
     }
 
     public static List<UserAction> createList() {

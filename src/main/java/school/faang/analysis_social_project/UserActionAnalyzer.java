@@ -1,5 +1,7 @@
 package school.faang.analysis_social_project;
 
+import lombok.experimental.UtilityClass;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class UserActionAnalyzer {
     public List<String> topMostActiveUsers(List<UserAction> actions, int n) {
         Map<String, Long> users = actions.stream()
@@ -49,9 +52,7 @@ public class UserActionAnalyzer {
     public Map<ActionType, Double> calculatePercentageEachTypeCation(List<UserAction> actions) {
         Map<ActionType, Long> numberTypes = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()));
-        long count = numberTypes.values().stream()
-                .mapToInt(Long::intValue)
-                .sum();
+        long count = actions.size();
         Map<ActionType, Double> percent = new HashMap<>();
         numberTypes.forEach((key, value) -> percent.put(key, value / ((double) count) * 100));
         return percent;
