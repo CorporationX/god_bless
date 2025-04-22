@@ -1,0 +1,14 @@
+package school.faang.bjs270263;
+
+import java.util.function.Supplier;
+
+public class ErrorHandler {
+
+    public static <T> T invoke(Supplier<T> action, ExceptionHandler<T> handler) {
+        try {
+            return action.get();
+        } catch (Exception e) {
+            return handler.handle(e);
+        }
+    }
+}
