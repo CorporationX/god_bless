@@ -10,5 +10,8 @@ public class Main {
         UserActionAnalyzer userActionAnalyzer = new UserActionAnalyzer();
 
         log.info(userActionAnalyzer.getTopActiveUsers(ACTIONS, 3).toString());
+        log.info(userActionAnalyzer.getTopDiscussedTopics(ACTIONS, 2).toString());
+        log.info(userActionAnalyzer.getTopCommentatorsForMonth(ACTIONS, 3).toString());
+        log.info(userActionAnalyzer.calculateActionTypePercentages(ACTIONS).toString());
     }
 }
