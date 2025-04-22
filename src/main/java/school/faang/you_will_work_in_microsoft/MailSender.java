@@ -2,7 +2,7 @@ package school.faang.you_will_work_in_microsoft;
 
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
-    private static final int THREAD_COUNT = 5;
+    private static final int THREAD_COUNT = 50;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -13,11 +13,12 @@ public class MailSender {
             int end = (i + 1) * batchSize;
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
-            System.out.printf("Поток № %d из запущен из основного потока: %s", i, Thread.currentThread().getName());
+            System.out.printf("Поток № %d из запущен из основного потока: %s \n", i, Thread.currentThread().getName());
         }
         for (Thread thread : threads) {
             thread.join();
-            System.out.printf("Работа %d потоков успешно завершена%n", THREAD_COUNT);
+
         }
+        System.out.printf("Работа %d потоков успешно завершена%n", THREAD_COUNT);
     }
 }
