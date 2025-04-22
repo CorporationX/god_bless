@@ -1,7 +1,5 @@
 package school.faang.distributed_armsey_hero_me_i_magia;
 
-
-
 public class Archer extends Unit {
     private static final int INITIAL_POWER = 50;
     private static final int MAX_POWER = 1000;
