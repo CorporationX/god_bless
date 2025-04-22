@@ -14,7 +14,6 @@ public class Main {
                 new Email("Письмо 2", "Message2", true),
                 new Email("Спам", "Текст спама", false)
         );
-
         Predicate<Email> importantFilter = email -> email.isImportant();
 
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
