@@ -10,8 +10,7 @@ public class Test {
         String getObject = "Akzio";
         String openLock = "Allohomora";
 
-        spellCaster.cast(death, (spellName -> "Harry Potter was killed by " + spellName));
-        spellCaster.cast(getObject, spellName -> "We get nimbus by; " + spellName);
-
+        spellCaster.cast(death, ("Harry Potter was killed by %s"::formatted));
+        spellCaster.cast(getObject, ("We get nimbus by %s"::formatted));
     }
 }
