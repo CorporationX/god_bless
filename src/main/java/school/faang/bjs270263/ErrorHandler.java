@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 public class ErrorHandler {
 
-    public static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> handler) {
+    public static <T> T invoke(Supplier<T> action, ExceptionHandler<T> handler) {
         try {
             return action.get();
         } catch (Exception e) {
