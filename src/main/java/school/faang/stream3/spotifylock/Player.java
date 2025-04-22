@@ -1,10 +1,11 @@
 package school.faang.stream3.spotifylock;
 
 import lombok.Setter;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Player {
-    private final String lock = "";
+    private final Object lock = new Object();
     @Setter
     private boolean isPlaying = false;
 
@@ -42,8 +43,11 @@ public class Player {
         delay();
     }
 
-    @SneakyThrows
     private void delay() {
-        Thread.sleep(50);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            log.error("Interruption during delay");
+        }
     }
 }
