@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Integer> numbers = new HashSet<>(Arrays.asList(1,2,3,4,5,6));
+        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         int targetSum = 6;
 
         Set<String> pairs = ListOperations.findPairs(numbers, targetSum);

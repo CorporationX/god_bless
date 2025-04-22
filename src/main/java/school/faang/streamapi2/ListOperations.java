@@ -25,7 +25,7 @@ public class ListOperations {
 
     public static List<String> filterAndSortByLength(List<String> strings, char startsWith) {
         return strings.stream()
-                .filter(s ->s.startsWith(String.valueOf(startsWith)))
+                .filter(s -> s.startsWith(String.valueOf(startsWith)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
