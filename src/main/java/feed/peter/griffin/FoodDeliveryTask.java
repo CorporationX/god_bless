@@ -18,7 +18,7 @@ public class FoodDeliveryTask implements Runnable {
         FoodType randomFood = getFoodType();
         log.info("{} получает заказ из {} едениц {}...", characterName, foodAmount, randomFood);
 
-        int randomMilisecodsForSleep = ThreadLocalRandom.current().nextInt(1000, 5001);
+        int randomMilisecodsForSleep = random.nextInt(1000, 5001);
         try {
             Thread.sleep(randomMilisecodsForSleep);
         } catch (InterruptedException e) {
