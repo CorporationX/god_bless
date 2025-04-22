@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
 
-    public void addItem(Character character, Item item, Consumer<Item> printer) {
+    public void addItem(Character character, Item item, Consumer<Item> onItemAdded) {
         character.getInventory().add(item);
-        printer.accept(item);
+        onItemAdded.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> condition) {

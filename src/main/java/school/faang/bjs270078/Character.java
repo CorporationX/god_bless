@@ -1,12 +1,10 @@
 package school.faang.bjs270078;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
 public class Character {
 
@@ -15,5 +13,12 @@ public class Character {
 
     public Character(String name) {
         this.name = name;
+    }
+
+    public List<Item> getInventory() {
+        if (inventory == null) {
+            inventory = new ArrayList<>();
+        }
+        return inventory;
     }
 }
