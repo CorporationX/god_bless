@@ -16,9 +16,10 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
+        double distanceToCity = distance(city.location(), castleLocation);
         Target target = this.monsters.stream()
                 .map(monster -> new Target(monster,
-                        distance(city.location(), monster.location()) + distance(castleLocation, castleLocation)))
+                        distance(city.location(), monster.location()) + distanceToCity))
                 .min(Comparator.comparingDouble(Target::distance))
                 .orElseThrow(() ->
                         new IllegalStateException("Fail to calculate nearest monster for city %s"

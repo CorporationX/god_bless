@@ -24,28 +24,31 @@ public class Main {
         start = System.currentTimeMillis();
 
         cities.forEach(city -> oneThreadExecutor.submit(new CityWorker(city, monsters)));
-        oneThreadExecutor.shutdown();
-        if (oneThreadExecutor.awaitTermination(1, TimeUnit.MINUTES)) {
-            oneThreadExecutor.shutdownNow();
-        }
+        shutdownExecutor(oneThreadExecutor);
         log.info("With 1 thread finished in {} ms", System.currentTimeMillis() - start);
 
         start = System.currentTimeMillis();
 
         cities.forEach(city -> twoThreadExecutor.submit(new CityWorker(city, monsters)));
-        twoThreadExecutor.shutdown();
-        if (twoThreadExecutor.awaitTermination(1, TimeUnit.MINUTES)) {
-            twoThreadExecutor.shutdownNow();
-        }
+        shutdownExecutor(twoThreadExecutor);
         log.info("With 2 thread finished in {} ms", System.currentTimeMillis() - start);
 
         start = System.currentTimeMillis();
 
         cities.forEach(city -> fiveThreadExecutor.submit(new CityWorker(city, monsters)));
-        fiveThreadExecutor.shutdown();
-        if (fiveThreadExecutor.awaitTermination(1, TimeUnit.MINUTES)) {
-            fiveThreadExecutor.shutdownNow();
-        }
+        shutdownExecutor(fiveThreadExecutor);
         log.info("With 5 thread finished in {} ms", System.currentTimeMillis() - start);
+    }
+
+    private static void shutdownExecutor(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.warn("Executor shutdown with timeout");
+            executor.shutdownNow();
+        }
     }
 }

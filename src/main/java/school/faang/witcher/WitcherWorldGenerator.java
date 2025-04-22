@@ -1,7 +1,10 @@
 package school.faang.witcher;
 
-import java.util.*;
-import java.util.stream.*;
+
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class WitcherWorldGenerator {
     private static final List<String> CITY_NAMES = List.of(
