@@ -1,6 +1,7 @@
 package school.faang.heroe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Army {
@@ -14,7 +15,7 @@ public class Army {
 
     public int calculateTotalPower() throws InterruptedException {
         List<Thread> threads = new ArrayList<>(TOTAL_THREAD);
-        List<Integer> resultPower = new ArrayList<>();
+        List<Integer> resultPower = Collections.synchronizedList(new ArrayList<>());
         for (Squad squad : squadList) {
             Thread thread = new Thread(() -> resultPower.add(squad.calculateSquadPower()));
             threads.add(thread);
