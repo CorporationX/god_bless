@@ -12,9 +12,10 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions, int top) {
-        Map<String, Long> result = actions.stream()
+        Map<String, Long> userActionCounts  = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
-        return result.entrySet().stream()
+
+        return userActionCounts .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(top)
                 .map(Map.Entry::getKey)
@@ -22,14 +23,15 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int top) {
-        Map<String, Long> result = actions.stream()
+        Map<String, Long> hashtagCounts  = actions.stream()
                 .map(UserAction::getContent)
                 .filter(Objects::nonNull)
                 .filter(contentText -> !contentText.isEmpty())
                 .flatMap(contentText -> Arrays.stream(contentText.split(" ")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        return result.entrySet().stream()
+
+        return hashtagCounts .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .limit(top)
                 .map(Map.Entry::getKey)
@@ -38,11 +40,12 @@ public class UserActionAnalyzer {
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int top) {
         LocalDate lastMonth = LocalDate.now().minusMonths(1);
-        Map<String, Long> result = actions.stream()
+        Map<String, Long> commentCountsByUser  = actions.stream()
                 .filter(text -> text.getAction() == ActionType.COMMENT)
                 .filter(date -> date.getActionDate().isBefore(lastMonth))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
-        return result.entrySet().stream()
+
+        return commentCountsByUser .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(top)
                 .map(Map.Entry::getKey)
@@ -51,10 +54,11 @@ public class UserActionAnalyzer {
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
         long total = actions.size();
-        Map<String, Long> result = actions.stream()
+        Map<String, Long> actionTypeCounts  = actions.stream()
                 .collect(Collectors.groupingBy(userAction ->
                         userAction.getAction().name(), Collectors.counting()));
-        return result.entrySet().stream()
+
+        return actionTypeCounts .entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, element ->
                         element.getValue() * 100.00 / total));
     }
