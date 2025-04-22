@@ -7,6 +7,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class InventoryManager {
 
@@ -22,30 +23,29 @@ public class InventoryManager {
         List<Item> items = character.getItems();
         if (items == null || items.isEmpty()) {
             System.out.println("Инвентарь пуст");
+            return;
         }
 
-        int deleted = 0;
-        Iterator<Item> iterator = items.iterator();
-        while (iterator.hasNext()) {
-            Item item = iterator.next();
+        int initialSize = items.size();
+        items.removeIf(item -> {
             if (filter.test(item)) {
-                iterator.remove();
                 System.out.println("Удалён предмет: " + item.getName());
-                deleted++;
+                return true;
             }
-        }
+            return false;
+        });
 
-        if (deleted == 0) {
+        if (items.size() == initialSize) {
             System.out.println("Предметы не найдены");
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updater) {
-        for (Item item : character.getItems()) {
-            if (predicate.test(item)) {
-                int index = character.getItems().indexOf(item);
-                character.getItems().set(index, updater.apply(item));
-            }
+        if (character.getItems() != null) {
+            List<Item> updatedItems = character.getItems().stream()
+                    .map(item -> predicate.test(item) ? updater.apply(item) : item)
+                    .collect(Collectors.toList());
+            character.setItems(updatedItems);
         }
     }
 }
