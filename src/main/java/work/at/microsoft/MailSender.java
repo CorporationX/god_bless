@@ -2,6 +2,9 @@ package work.at.microsoft;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
@@ -11,17 +14,23 @@ public class MailSender {
     private static int endIndex = BATCH_SIZE;
 
     public static void main(String[] args) {
-        Thread thread;
+        List<Thread> threadsList = new ArrayList<>();
+
         for (int i = 0; i < THREAD_COUNT; i++) {
-            thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            threadsList.add(thread);
             thread.start();
+            startIndex = endIndex;
+            endIndex += BATCH_SIZE;
+        }
+
+        for (Thread thread : threadsList) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new IllegalArgumentException(e.getMessage());
             }
-            startIndex = endIndex;
-            endIndex += BATCH_SIZE;
         }
         log.info("All messages has ben successfully sent!");
     }
