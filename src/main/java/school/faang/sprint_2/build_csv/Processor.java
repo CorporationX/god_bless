@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Processor {
     public static String toCsv(List<List<String>> table) {
-
         VectorJoiner<String> vectorJoiner = vector -> {
             if (vector.isEmpty()) {
                 throw new IllegalArgumentException("Empty list");
@@ -17,7 +16,6 @@ public class Processor {
             }
             return builder.toString();
         };
-
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
             if (matrix.isEmpty()) {
