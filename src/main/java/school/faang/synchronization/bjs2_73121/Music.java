@@ -1,24 +1,27 @@
 package school.faang.synchronization.bjs2_73121;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 class Music {
     private static final Player player = new Player();
 
     public static void main(String[] args) {
-        Thread thread1 = new Thread(player::play);
-        thread1.start();
-        Thread thread2 = new Thread(player::pause);
-        thread2.start();
-        Thread thread3 = new Thread(player::play);
-        thread3.start();
-        Thread thread4 = new Thread(player::skip);
-        thread4.start();
-        Thread thread8 = new Thread(player::skip);
-        thread8.start();
-        Thread thread5 = new Thread(player::previous);
-        thread5.start();
-        Thread thread6 = new Thread(player::pause);
-        thread6.start();
-        Thread thread7 = new Thread(player::skip);
-        thread7.start();
+        List<Runnable> tasks = List.of(
+                player::play,
+                player::pause,
+                player::play,
+                player::skip,
+                player::skip,
+                player::previous,
+                player::pause,
+                player::skip
+        );
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        tasks.forEach(executorService::execute);
+        executorService.shutdown();
     }
 }

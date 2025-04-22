@@ -2,16 +2,13 @@ package school.faang.synchronization.bjs2_73121;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Slf4j
 class Player {
-    private final List<String> playList = new ArrayList<>();
-    private static boolean isPlaying;
+    private final Object lock = new Object();
+    private boolean isPlaying;
 
     public void play() {
-        synchronized (playList) {
+        synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
                 log.info("Музыка воспроизводится. isPlaying: {}", isPlaying);
@@ -22,7 +19,7 @@ class Player {
     }
 
     public void pause() {
-        synchronized (playList) {
+        synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
                 log.info("paused. isPlaying: {}", isPlaying);
@@ -33,14 +30,14 @@ class Player {
     }
 
     public void skip() {
-        synchronized (playList) {
+        synchronized (lock) {
             isPlaying = true;
             log.info("song skipped. isPlaying: {}", isPlaying);
         }
     }
 
     public void previous() {
-        synchronized (playList) {
+        synchronized (lock) {
             log.info("previous song. isPlaying: {}", isPlaying);
         }
     }
