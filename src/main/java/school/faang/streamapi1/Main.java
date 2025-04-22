@@ -12,7 +12,8 @@ public class Main {
         System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Максимум: " + ListOperations.maxNumber(numbers));
         System.out.println("Среднее: " + ListOperations.findAverage(numbers));
-        System.out.println("Кол-во строк, нач. на 'a':" + ListOperations.findStringsBySymbol(strings, 'a'));
+        System.out.println("Кол-во строк, нач. на 'a':" +
+                ListOperations.countStringsStartingWithSymbol(strings, 'a'));
         System.out.println("Строки, содержащие 'ap': " + ListOperations.filterBySubstring(strings, "ap"));
         System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
         System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers2, n -> n % 2 == 0));
