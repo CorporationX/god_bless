@@ -43,10 +43,10 @@ public class InventoryManager {
             return;
         }
 
-        for (Item item : character.getInventory()) {
+        character.getInventory().forEach(item -> {
             if (condition.test(item)) {
                 updater.apply(item);
             }
-        }
+        });
     }
 }
