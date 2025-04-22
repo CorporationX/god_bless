@@ -19,12 +19,16 @@ public class Main {
         final int maxY = 15;
         long startTime = System.nanoTime();
         List<String> cityNames = new ArrayList<>(List.of("Новиград", "Оксенфурт", "Вызима", "Цинтра", "Боклер"));
-        List<City> cities = cityNames.stream().map(name -> new City(name, new Location(rand.nextInt(minX, maxX),
-                rand.nextInt(minY, maxY)))).toList();
+        List<City> cities = cityNames.stream()
+                .map(name -> new City(name, new Location(rand.nextInt(minX, maxX),
+                        rand.nextInt(minY, maxY))))
+                .toList();
         List<String> monsterNames = new ArrayList<>(List.of("Стрыга", "Упырь", "Леший", "Волколак", "Грифон", "Гуль",
                 "Гнилец", "Полуденица", "Экимма", "Катайкан", "Кошмар"));
-        List<Monster> monsters = monsterNames.stream().map(name -> new Monster(name, new Location(rand.nextInt(minX, maxX),
-                rand.nextInt(minY, maxY)))).toList();
+        List<Monster> monsters = monsterNames.stream()
+                .map(name -> new Monster(name, new Location(rand.nextInt(minX, maxX),
+                        rand.nextInt(minY, maxY))))
+                .toList();
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 

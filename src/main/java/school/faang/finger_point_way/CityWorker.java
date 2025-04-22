@@ -15,16 +15,16 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        double xCity = city.getLocation().getX();
-        double yCity = city.getLocation().getY();
-        double distanceCastleToCity = Math.sqrt(xCity * xCity + yCity * yCity);
+        double xLocation = city.getLocation().getXVal();
+        double yLocation = city.getLocation().getYVal();
+        double distanceCastleToCity = Math.sqrt(xLocation * xLocation + yLocation * yLocation);
 
         double minDistanceToMonster = Integer.MAX_VALUE;
         Monster closestMonster = monsters.get(0);
         for (Monster monster : monsters) {
-            double xCityToMonster = Math.abs(city.getLocation().getX() - monster.getLocation().getX());
-            double yCityToMonster = Math.abs(city.getLocation().getY() - monster.getLocation().getY());
-            double distanceCityToMonster = Math.sqrt(xCityToMonster * xCityToMonster + yCityToMonster * yCityToMonster);
+            double xToMonster = Math.abs(city.getLocation().getXVal() - monster.getLocation().getXVal());
+            double yToMonster = Math.abs(city.getLocation().getYVal() - monster.getLocation().getYVal());
+            double distanceCityToMonster = Math.sqrt(xToMonster * xToMonster + yToMonster * yToMonster);
             if (distanceCityToMonster < minDistanceToMonster) {
                 minDistanceToMonster = distanceCityToMonster;
                 closestMonster = monster;
@@ -35,8 +35,9 @@ public class CityWorker implements Runnable {
         System.out.println(String.format("Расстояние от замка Ведьмака (координаты (0, 0)) до города %s - %.1f",
                 city.getName(), distanceCastleToCity));
         System.out.println(String.format("Расстояние от города %s (координаты (%s, %s)) до ближайшего монстра - %.1f",
-                city.getName(), city.getLocation().getX(), city.getLocation().getY(), minDistanceToMonster));
-        System.out.println(String.format("Расстояние от замка до города плюс расстояние от города %s до ближайшего монстра " +
-                "составляет %.1f часов. " + "Выбранная цель %s", city.getName(), distanceCastleToMonster, closestMonster.getName()));
+                city.getName(), city.getLocation().getXVal(), city.getLocation().getYVal(), minDistanceToMonster));
+        System.out.println(String.format("Расстояние от замка до города плюс расстояние от города %s до ближайшего " +
+                "монстра " + "составляет %.1f часов. " + "Выбранная цель %s", city.getName(),
+                distanceCastleToMonster, closestMonster.getName()));
     }
 }
