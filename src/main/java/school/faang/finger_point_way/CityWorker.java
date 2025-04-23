@@ -22,9 +22,7 @@ public class CityWorker implements Runnable {
         double minDistanceToMonster = Integer.MAX_VALUE;
         Monster closestMonster = monsters.get(0);
         for (Monster monster : monsters) {
-            double xtoMonster = Math.abs(city.getLocation().getXxVal() - monster.getLocation().getXxVal());
-            double ytoMonster = Math.abs(city.getLocation().getYyVal() - monster.getLocation().getYyVal());
-            double distanceCityToMonster = Math.sqrt(xtoMonster * xtoMonster + ytoMonster * ytoMonster);
+            double distanceCityToMonster = calculateDistanceBetween(city.getLocation(), monster.getLocation());
             if (distanceCityToMonster < minDistanceToMonster) {
                 minDistanceToMonster = distanceCityToMonster;
                 closestMonster = monster;
@@ -37,7 +35,13 @@ public class CityWorker implements Runnable {
         System.out.println(String.format("Расстояние от города %s (координаты (%s, %s)) до ближайшего монстра - %.1f",
                 city.getName(), city.getLocation().getXxVal(), city.getLocation().getYyVal(), minDistanceToMonster));
         System.out.println(String.format("Расстояние от замка до города плюс расстояние от города %s до ближайшего " +
-                "монстра " + "составляет %.1f часов. " + "Выбранная цель %s", city.getName(),
+                        "монстра " + "составляет %.1f часов. " + "Выбранная цель %s", city.getName(),
                 distanceCastleToMonster, closestMonster.getName()));
+    }
+
+    private double calculateDistanceBetween(Location location1, Location location2) {
+        double xdistance = Math.abs(location1.getXxVal() - location2.getXxVal());
+        double ydistance = Math.abs(location1.getYyVal() - location2.getYyVal());
+        return Math.sqrt(xdistance * xdistance + ydistance * ydistance);
     }
 }

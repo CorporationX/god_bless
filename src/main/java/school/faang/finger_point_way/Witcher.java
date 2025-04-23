@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class Main {
+public class Witcher {
     public static void main(String[] args) {
         final Random rand = new Random();
         final int minX = 1;
