@@ -17,6 +17,7 @@ public class Army {
             System.out.printf("Отряд %s был добавлен в ряды армии %n", squad.getSquadName());
         }
     }
+
     public int calculateTotalPower() {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<CompletableFuture<Integer>> futures = squads.stream()
