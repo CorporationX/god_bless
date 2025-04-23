@@ -3,7 +3,6 @@ package school.faang.train_stream_api_2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +17,11 @@ public class Main {
         log.info("1️⃣ Найдите уникальные пары чисел {}",
                 ListOperations.uniqueCouples(numbers, target));
 
-        Map<String, String> countries = new HashMap<>() {{
-                put("Germany", "Berlin");
-                put("France", "Paris");
-                put("Italy", "Rome");
-                put("Spain", "Madrid");
-                }};
+        Map<String, String> countries = Map.of(
+                "Germany", "Berlin",
+                "France", "Paris",
+                "Italy", "Rome",
+                "Spain", "Madrid");
 
         log.info("2️⃣ Отсортируйте страны и выведите столицы {}",
                 ListOperations.getCapitalsSortedByCountry(countries));
