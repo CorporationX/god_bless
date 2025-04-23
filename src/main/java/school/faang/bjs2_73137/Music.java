@@ -16,7 +16,7 @@ public class Music {
     private static final int THREAD_POOL = 5;
     private static final int MAX_THREAD_COUNT = 200;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Player player = new Player();
         List<Runnable> playerActions = List.of(
             player::play,
@@ -32,11 +32,21 @@ public class Music {
             });
         executor.shutdown();
 
-        if (executor.awaitTermination(MINUTES_TO_AWAIT, TimeUnit.MINUTES)) {
-            log.info("All tasks are completed.");
-        } else {
-            List<Runnable> notExecuted = executor.shutdownNow();
-            log.info("{} tasks failed to start.", notExecuted.size());
+        gracefullyShutdown(executor);
+    }
+
+    private static void gracefullyShutdown(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(MINUTES_TO_AWAIT, TimeUnit.MINUTES)) {
+                log.info("All tasks are completed.");
+            } else {
+                List<Runnable> notExecuted = executor.shutdownNow();
+                log.info("{} tasks failed to start.", notExecuted.size());
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            throw new RuntimeException(e);
         }
     }
 
