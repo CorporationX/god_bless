@@ -9,9 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Witcher {
-    //Провести сравнение времени выполнения программы в однопоточном и многопоточном режимах,
-    //а также при разном количестве потоков.
-
     private static final List<City> CITIES = List.of(
         new City("Kallax", new Location(3, 10)),
         new City("Bodviken", new Location(4, 6)),
@@ -45,7 +42,8 @@ public class Witcher {
     }
 
     private static void executeTasks(ExecutorService executor, String executorName) {
-        long start = System.currentTimeMillis();
+        final long start = System.currentTimeMillis();
+
         for (City city : CITIES) {
             CityWorker cityWorker = new CityWorker(WITCHER_LOCATION, city, MONSTERS);
             executor.execute(cityWorker);
