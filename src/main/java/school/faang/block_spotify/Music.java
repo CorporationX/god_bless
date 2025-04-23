@@ -18,8 +18,7 @@ public class Music {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         Random random = new Random();
         for (int i = 0; i < 50; i++) {
-            int randomNum = random.nextInt(4);
-            switch (randomNum) {
+            switch (random.nextInt(4)) {
                 case 0:
                     executor.execute(player::play);
                     break;
