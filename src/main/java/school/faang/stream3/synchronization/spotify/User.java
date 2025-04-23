@@ -7,7 +7,6 @@ public class User {
     private String name;
     private Player player;
 
-
     public User(String name) {
         this.name = name;
     }
@@ -20,25 +19,5 @@ public class User {
     public void joinPlayer(Player player) {
         this.player = player;
         player.getUserGroup().add(this);
-    }
-
-    public void play() {
-        player.play();
-    }
-
-    public void pause() {
-        player.pause();
-    }
-
-    public void skip() {
-        player.skip();
-    }
-
-    public void previous() {
-        player.previous();
-    }
-
-    public void showNextSongs() {
-        player.showNextSongs(10);
     }
 }
