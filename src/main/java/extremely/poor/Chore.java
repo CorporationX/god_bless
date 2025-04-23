@@ -7,14 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+    private static final int MILLIS_FOR_SLEEP = 2000;
 
     @Override
     public void run() {
         log.info("This task is executed by thread :{}", Thread.currentThread().getName());
         try {
-            Thread.sleep(2000);
+            Thread.sleep(MILLIS_FOR_SLEEP);
         } catch (InterruptedException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            log.error("Задача {} была прервана.", chore);
+            Thread.currentThread().interrupt();
         }
     }
 }
