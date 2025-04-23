@@ -31,8 +31,7 @@ public class Army {
             } else {
                 System.out.println("Все отряды были добавлены");
             }
-        } catch (
-                InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
