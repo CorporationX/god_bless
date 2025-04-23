@@ -1,7 +1,5 @@
 package school.faang;
-
 import lombok.Getter;
-
 @Getter
 
 public class Notification {
