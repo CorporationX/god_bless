@@ -21,10 +21,4 @@ public class Room {
             return foodList;
         }
     }
-
-//    public void clearRoom() {
-//        synchronized (foods) {
-//            foods.clear();
-//        }
-//    }
 }
