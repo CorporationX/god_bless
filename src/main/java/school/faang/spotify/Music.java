@@ -39,7 +39,7 @@ public class Music {
         });
         service.shutdown();
         try {
-            if(!service.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("Еще есть задачи ожидающие выполнения");
             }
         } catch (InterruptedException e) {
