@@ -1,47 +1,45 @@
 package school.faang.spotify;
 
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
+@ToString
 public class Player {
     private final Object lock = new Object();
-    @Getter
-    private static String isPlaying;
-
-    public void setIsPlaying(String isPlaying) {
-        Player.isPlaying = isPlaying;
-    }
+    private StatusPlayer isPlaying;
 
     public void play() {
         synchronized (lock) {
             log.info("PLAY");
-            this.setIsPlaying("Status: PLAY");
-            log.info(Player.getIsPlaying());
+            isPlaying = StatusPlayer.PLAY;
+            log.info("Статус после нажатия PLAY: {}", this.getIsPlaying());
         }
     }
 
     public void pause() {
         synchronized (lock) {
             log.info("PAUSE");
-            this.setIsPlaying("Status: PAUSE");
-            log.info(Player.getIsPlaying());
+            isPlaying = StatusPlayer.PAUSE;
+            log.info("Статус после нажатия PAUSE: {}", this.getIsPlaying());
         }
     }
 
     public void skip() {
         synchronized (lock) {
             log.info("SKIP");
-            this.setIsPlaying("Status: SKIP");
-            log.info(Player.getIsPlaying());
+            isPlaying = StatusPlayer.PLAY;
+            log.info("Статус после нажатия SKIP: {}", this.getIsPlaying());
         }
     }
 
     public void previous() {
         synchronized (lock) {
             log.info("PREVIOUS");
-            this.setIsPlaying("Status: PREVIOUS");
-            log.info(Player.getIsPlaying());
+            isPlaying = StatusPlayer.PLAY;
+            log.info("Статус после нажатия PREVIOUS: {}", this.getIsPlaying());
         }
     }
 }

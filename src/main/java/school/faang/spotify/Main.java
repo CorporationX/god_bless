@@ -4,9 +4,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Music music = new Music();
 
-        music.addThread();
-
-        for (Thread thread : music.getThreads()) {
+        for (Thread thread : music.getUserthreads()) {
             thread.start();
         }
     }
