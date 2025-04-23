@@ -1,13 +1,17 @@
 package school.faang.spotify;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
 @Getter
+@Setter
 public class Music {
+
+    private int currentIndex;
     private final List<String> music = List.of(
             "Song 1",
             "Song 2",
@@ -26,35 +30,11 @@ public class Music {
             "Song 15"
     );
 
-    private final Player player = new Player();
+    public void incrementIndex() {
+        currentIndex++;
+    }
 
-    private final Thread userOne = new Thread(() -> {
-        player.play();
-        log.info("В потоке {} запустили плеер", Thread.currentThread().getName());
-    });
-
-    private final Thread userTwo = new Thread(() -> {
-        player.skip();
-        log.info("В потоке {} пропустили трек", Thread.currentThread().getName());
-    });
-
-    private final Thread userThree = new Thread(() -> {
-        player.pause();
-        log.info("В потоке {} поставили музыку на паузу", Thread.currentThread().getName());
-    });
-
-    private final Thread userFour = new Thread(() -> {
-        player.previous();
-        log.info("В потоке {} вернулись на предыдущий трек", Thread.currentThread().getName());
-    });
-
-    private final List<Thread> userThreads = List.of(
-            userOne,
-            userTwo,
-            userThree,
-            userFour
-    );
+    public void decrementIndex() {
+        currentIndex--;
+    }
 }
-// надо установить начальное значение в плейлисте
-// команды заставляли передвигаться по плей листу
-// отдельно реализовать потоки юзеров в отдельном классе
