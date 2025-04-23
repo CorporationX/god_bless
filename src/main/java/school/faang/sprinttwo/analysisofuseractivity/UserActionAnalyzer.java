@@ -26,7 +26,10 @@ public class UserActionAnalyzer {
                 .filter(action ->
                         action.getContent() != null && ActionType.POST.equals(action.getActionType())
                                 || ActionType.COMMENT.equals(action.getActionType()))
-                .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
+                .flatMap(action -> {
+                    assert action.getContent() != null;
+                    return Arrays.stream(action.getContent().split("\\s+"));
+                })
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return hashtagToCount.entrySet().stream()
