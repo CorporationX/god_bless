@@ -11,7 +11,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i <= endIndex; i++) {
+        for (int i = startIndex; i < endIndex; i++) {
+            MailSender.counter.incrementAndGet();
             System.out.printf("Your message no: %d has ben successfully sent!%n", i);
         }
         log.info("All messages from thread has ben successfully sent!");
