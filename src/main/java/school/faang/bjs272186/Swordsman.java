@@ -7,6 +7,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Swordsman implements Fighters {
+public class Swordsman extends Fighters {
     private int power;
 }

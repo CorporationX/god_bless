@@ -1,5 +1,5 @@
 package school.faang.bjs272186;
 
-public interface Fighters {
-    int getPower();
+public abstract class Fighters {
+    abstract int getPower();
 }

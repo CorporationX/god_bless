@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Squad {
     private String squadName;
-    private List<Fighters> fighters;
+    private final List<Fighters> fighters;
 
     public int calculateSquadPower() {
         int totalPower = 0;
