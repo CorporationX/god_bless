@@ -7,9 +7,7 @@ import java.util.function.Predicate;
 
 public class LocationSearchEngine {
     public List<Location> filterLocations(List<Location> locations, Predicate<Location> locationPredicate) {
-        if (locations == null || locations.isEmpty()) {
-            throw new IllegalArgumentException("Список локаций пуст!");
-        }
+        validateList(locations);
 
         return locations.stream()
                 .filter(locationPredicate)
@@ -17,9 +15,7 @@ public class LocationSearchEngine {
     }
 
     public void processLocations(List<Location> locations, Consumer<Location> locationConsumer) {
-        if (locations == null || locations.isEmpty()) {
-            throw new IllegalArgumentException("Список локаций пуст!");
-        }
+        validateList(locations);
 
         if (locationConsumer == null) {
             throw new IllegalArgumentException("Консьюмер не может быть null!");
@@ -29,9 +25,7 @@ public class LocationSearchEngine {
     }
 
     public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> distanceCalculator) {
-        if (locations == null || locations.isEmpty()) {
-            throw new IllegalArgumentException("Список локаций пуст!");
-        }
+        validateList(locations);
 
         if (distanceCalculator == null) {
             throw new IllegalArgumentException("Лямба для расчёта расстояния не может быть null!");
@@ -40,5 +34,11 @@ public class LocationSearchEngine {
         return locations.stream()
                 .map(distanceCalculator)
                 .toList();
+    }
+
+    private <T> void validateList(List<T> list) {
+        if (list == null || list.isEmpty()) {
+            throw new IllegalArgumentException("Список локаций пуст!");
+        }
     }
 }
