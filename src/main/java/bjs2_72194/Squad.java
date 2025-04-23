@@ -7,7 +7,11 @@ public class Squad {
     private final List<Character> characters = new ArrayList<>();
 
     public void addCharacter(Character character){
-        characters.add(character);
+        if (character != null){
+            characters.add(character);
+        } else {
+            throw new NullPointerException("character is null");
+        }
     }
 
     public int calculateSquadPower(){

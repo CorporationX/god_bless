@@ -7,7 +7,11 @@ public class Army {
     private final List<Squad> army = new ArrayList<>();
 
     public void addSquad(Squad squad) {
-        army.add(squad);
+        if (squad != null) {
+            army.add(squad);
+        } else {
+            throw new IllegalArgumentException("squad is null");
+        }
     }
 
     public int calculateTotalPower() throws InterruptedException {

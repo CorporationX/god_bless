@@ -1,5 +1,8 @@
 package bjs2_72194;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
@@ -14,6 +17,6 @@ public class Main {
         army.addSquad(archers);
         army.addSquad(swordsmen);
 
-        System.out.println("The overall strength of the army: " + army.calculateTotalPower());
+        log.info("The overall strength of the army: " + army.calculateTotalPower());
     }
 }
