@@ -4,24 +4,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @EqualsAndHashCode
 @ToString
 public class Droid {
     private final String name;
-    private final List<String> acceptedMessages;
-    private DroidMessageEncryptor<String, Integer> droidMessageEncryptor;
+    private DroidMessageEncryptor droidMessageEncryptor;
 
     public Droid(String name) {
-        this(name, new ArrayList<>());
-    }
-
-    public Droid(String name, List<String> massages) {
         this.name = name;
-        this.acceptedMessages = massages;
     }
 
     public String encryptMessage(String message, Integer key) {

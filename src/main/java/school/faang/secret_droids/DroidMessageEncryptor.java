@@ -1,6 +1,6 @@
 package school.faang.secret_droids;
 
 @FunctionalInterface
-public interface DroidMessageEncryptor<T, V> {
-    T messageEncryptor(T message, V key);
+public interface DroidMessageEncryptor {
+    String messageEncryptor(String message, Integer key);
 }
