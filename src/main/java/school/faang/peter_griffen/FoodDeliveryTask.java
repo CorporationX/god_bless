@@ -1,16 +1,13 @@
 package school.faang.peter_griffen;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-@AllArgsConstructor
-@ToString
-@Getter
+@Data
 public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
@@ -24,15 +21,15 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType foodType = getFoodType();
-        System.out.println(String.format("%s получает %d %s", character, foodAmount, foodType.getDisplayName()));
+        log.info("{} получает {} {}", character, foodAmount, foodType.getDisplayName());
         log.debug("Thread {} is executing for {}", Thread.currentThread().getName(), character);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 6000));
         } catch (InterruptedException e) {
             log.error("Thread was interrupted", e);
             Thread.currentThread().interrupt();
             return;
         }
-        System.out.println(String.format("%s ест %d %s", character, foodAmount, foodType.getDisplayName()));
+        log.info("{} ест {} {}", character, foodAmount, foodType.getDisplayName());
     }
 }
