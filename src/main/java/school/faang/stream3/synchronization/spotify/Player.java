@@ -37,8 +37,9 @@ public class Player {
     public void skip() {
         synchronized (userLock) {
             positionPlaying++;
-            if (positionPlaying == playList.playList.size())
+            if (positionPlaying == playList.playList.size()) {
                 positionPlaying = 0;
+            }
             System.out.println("music has been changed to "
                     + playList.playList.get(positionPlaying));
         }
@@ -47,8 +48,9 @@ public class Player {
     public void previous() {
         synchronized (userLock) {
             positionPlaying--;
-            if (positionPlaying < 0)
+            if (positionPlaying < 0) {
                 positionPlaying = playList.playList.size() - 1;
+            }
             System.out.println("music has been changed to previous position - "
                     + playList.playList.get(positionPlaying));
         }
