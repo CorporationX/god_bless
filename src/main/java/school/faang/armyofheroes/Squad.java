@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class Squad<T extends Hero> {
+public class Squad {
     @NonNull
-    private final List<T> heroes;
+    private final List<Hero> heroes;
 
     public int calculateSquadPower() {
         return heroes.stream()

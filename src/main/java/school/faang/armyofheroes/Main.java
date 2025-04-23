@@ -1,16 +1,13 @@
 package school.faang.armyofheroes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // --- Test 1: single squad of three heroes ---
-        Squad<Hero> squad1 = new Squad<>(
-                List.of(
-                        new Archer(),    // power = 25
-                        new Mage(),      // power = 50
-                        new Swordsman()  // power = 25
-                )
+        Squad squad1 = new Squad(
+                List.of(new Archer(), new Mage(), new Swordsman())
         );
         int expected1 = 25 + 50 + 25; // 100
         int actual1   = squad1.calculateSquadPower();
@@ -19,36 +16,36 @@ public class Main {
             throw new AssertionError("Error calculating power of single squad");
         }
 
-        // --- Test 2: multiple squads in the army ---
-        // Archer squad: 2 Archers
-        Squad<Archer> archers = new Squad<>(
-                List.of(new Archer(), new Archer())
-        );
-        int expectedArchers = 2 * 25; // 50
+        // --- Test 2: multiple squads in the army under heavy load ---
+        int iterations = 10;
+        Army armyService = new Army(new ArrayList<>());
 
-        // Mage squad: 3 Mages
-        Squad<Mage> mages = new Squad<>(
-                List.of(new Mage(), new Mage(), new Mage())
-        );
-        int expectedMages = 3 * 50; // 150
 
-        // Swordsman squad: 1 Swordsman
-        Squad<Swordsman> swords = new Squad<>(
-                List.of(new Swordsman())
-        );
-        int expectedSwords = 25; // 25
-
-        Army armyService = new Army(
-                List.of(archers, mages, swords)
-        );
-
-        int expectedTotal = expectedArchers + expectedMages + expectedSwords; // 225
-        int actualTotal   = armyService.calculateTotalPower();
-        System.out.printf("Test 2 - entire army: expected = %d, actual = %d%n", expectedTotal, actualTotal);
-        if (actualTotal != expectedTotal) {
-            throw new AssertionError("Error calculating total army power");
+        for (int i = 0; i < iterations; i++) {
+            armyService.addSquad(new Squad(List.of(new Archer(), new Archer())));         // 2 Archers → 50
+            armyService.addSquad(new Squad(List.of(new Mage(), new Mage(), new Mage()))); // 3 Mages  → 150
+            armyService.addSquad(new Squad(List.of(new Swordsman())));                    // 1 Swordsman → 25
         }
 
-        System.out.println("All tests passed successfully!");
+        // Expected power per one “triplet” of squads
+        int perIteration = (2 * 25) + (3 * 50) + (25); // 50 + 150 + 25 = 225
+        int expectedTotal = perIteration * iterations;    // 225 × 10 = 2250
+
+        // Calculate actual total power
+        long startTime = System.nanoTime();
+        int actualTotal = armyService.calculateTotalPower();
+        long durationMs = (System.nanoTime() - startTime) / 1_000_000;
+
+        // Output results
+        System.out.printf(
+                "Heavy load calculation: expected total = %d, actual total = %d, time = %d ms%n",
+                expectedTotal, actualTotal, durationMs
+        );
+
+        if (actualTotal != expectedTotal) {
+            throw new AssertionError("Error calculating total army power under heavy load");
+        }
+
+        System.out.println("All tests passed successfully under heavy load!");
     }
 }

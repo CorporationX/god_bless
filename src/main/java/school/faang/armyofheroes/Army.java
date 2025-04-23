@@ -10,16 +10,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class Army {
-    private static final int THREAD_COUNT = 3;
-
     @NonNull
-    private final List<Squad<? extends Hero>> squads;
+    private final List<Squad> squads;
 
     @SneakyThrows
     public int calculateTotalPower() {
         int totalPower = 0;
-        int[] results = new int[THREAD_COUNT];
-        Thread[] threads = new Thread[THREAD_COUNT];
+        Thread[] threads = new Thread[squads.size()];
+        int[] results = new int[squads.size()];
 
         for (int i = 0; i < squads.size(); i++) {
             final int idx = i;
@@ -33,5 +31,9 @@ public class Army {
             totalPower += results[i];
         }
         return totalPower;
+    }
+
+    public void addSquad(@NonNull Squad squad) {
+        squads.add(squad);
     }
 }
