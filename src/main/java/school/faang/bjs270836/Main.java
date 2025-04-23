@@ -12,7 +12,9 @@ public class Main {
         System.out.println("Sum of even numbers: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Max: " + ListOperations.findMax(numbers));
         System.out.println("Average: " + ListOperations.findAverage(numbers));
-        System.out.println("Strings, contains 'an': " + ListOperations.filterStringsContainingSubstring(strings, 'e'));
+        System.out.println("Strings, contains 'a': " + ListOperations.filterStringsStartsWithSymbol(strings, 'a'));
+        System.out.println("Strings, starts with 'app': " +
+                ListOperations.filterStringsContainingSubstring(strings, "app"));
         System.out.println("Sorted by length of strings: " + ListOperations.sortByLength(strings));
         System.out.println("Are all numbers even? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
         System.out.println("Minimum number which greater than 4: " + ListOperations.findMinGreaterThan(numbers, 4));

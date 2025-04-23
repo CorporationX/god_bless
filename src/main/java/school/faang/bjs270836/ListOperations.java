@@ -10,7 +10,8 @@ public class ListOperations {
 
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .reduce(0, (sum, number) -> sum + number);
+                .filter(number -> number % 2 == 0)
+                .reduce(0, Integer::sum);
     }
 
     public static int findMax(List<Integer> numbers) {
@@ -19,19 +20,28 @@ public class ListOperations {
     }
 
     public static double findAverage(List<Integer> numbers) {
-        int sum = sumOfEvenNumbers(numbers);
-        long amount = numbers.stream().count();
-        return (double) sum / amount;
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
     }
 
-    public static long filterStringsContainingSubstring(List<String> strings, char symbol) {
+    public static long filterStringsStartsWithSymbol(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(string -> string.contains(String.valueOf(symbol))).count();
+                .filter(string -> string.charAt(0) == symbol)
+                .count();
+    }
+
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
+        return strings.stream()
+                .filter(string -> string.contains(substring))
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted(Comparator.comparingInt(String::length)).toList();
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
@@ -39,9 +49,10 @@ public class ListOperations {
                 .allMatch(condition);
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int number) {
+    public static int findMinGreaterThan(List<Integer> numbers, int threshold) {
         return numbers.stream()
-                .filter(number1 -> number1 > number).min(Integer::compareTo)
+                .filter(number -> number > threshold)
+                .min(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("No such element"));
     }
 
