@@ -10,11 +10,11 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class Music {
+    private static final long MINUTES_TO_AWAIT = 5;
     private static final int MIN_INDEX_VALUE = 0;
     private static final int MAX_INDEX_VALUE = 3;
     private static final int THREAD_POOL = 5;
     private static final int MAX_THREAD_COUNT = 200;
-    private static final long MINUTES_TO_AWAIT = 5;
 
     public static void main(String[] args) throws InterruptedException {
         Player player = new Player();
