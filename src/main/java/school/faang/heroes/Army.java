@@ -16,6 +16,8 @@ public class Army {
     public int calculateTotalPower() throws InterruptedException {
         for (Thread thread : threads) {
             thread.start();
+        }
+        for (Thread thread : threads) {
             thread.join();
         }
 
