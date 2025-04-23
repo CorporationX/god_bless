@@ -3,7 +3,6 @@ package school.faang.peter_griffen;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -11,11 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
-    private final Random random = new Random();
 
     private FoodType getFoodType() {
         FoodType[] foodTypes = FoodType.values();
-        return foodTypes[random.nextInt(foodTypes.length)];
+        return foodTypes[ThreadLocalRandom.current().nextInt(foodTypes.length)];
     }
 
     @Override
