@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
-    private final String lock;
+    private final Object lock = new Object();
     private boolean isPlaying;
 
-    public Player(String lock) {
-        this.lock = lock;
+    public Player() {
         this.isPlaying = false;
     }
 

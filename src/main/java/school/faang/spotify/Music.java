@@ -2,7 +2,7 @@ package school.faang.spotify;
 
 public class Music {
     public static void main(String[] args) {
-        Player player = new Player("");
+        Player player = new Player();
 
         Thread playThread = new Thread(player::play);
         playThread.start();
