@@ -7,6 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    private static final int POOL_SIZE = 3;
+    private static final int POOL_TERMINATION_TIMEOUT_SECONDS = 5;
+
     public static void main(String[] args) throws InterruptedException {
         Player player = new Player();
 
@@ -27,10 +30,10 @@ public class Main {
                 player::play
         );
 
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
         users.forEach(executor::submit);
         executor.shutdown();
-        if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+        if (!executor.awaitTermination(POOL_TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
             executor.shutdownNow();
         }
     }

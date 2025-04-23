@@ -22,49 +22,71 @@ public class Player {
             "Metallica – Nothing Else Matters",
             "Guns N’ Roses – Sweet Child O’ Mine"
     );
-    private int songIndex = 4;
+    private int songIndex;
     private boolean isPlaying;
 
     public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            log.info("press play - {} playing", tracks.get(songIndex));
+            if (isPlaying) {
+                log.info("'{}' already playing", tracks.get(songIndex));
+            } else {
+                isPlaying = true;
+                log.info("press play - '{}' playing", tracks.get(songIndex));
+            }
         }
     }
 
-    public synchronized void pause() {
+    public void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            log.info("press pause - {} paused", tracks.get(songIndex));
+            if (!isPlaying) {
+                log.info("'{}' already on pause", tracks.get(songIndex));
+            } else {
+                isPlaying = false;
+                log.info("press pause - '{}' paused", tracks.get(songIndex));
+            }
         }
     }
 
-    public synchronized void skip() {
+    public void skip() {
         synchronized (lock) {
-            log.info("skipping {} track", tracks.get(songIndex));
-            songIndex++;
+            log.info("skipping '{}' track", tracks.get(songIndex));
+            increaseSongIndex();
+            changeTrack();
             isPlaying = true;
-            log.info("next song - {}", tracks.get(songIndex));
-            sleep(TRACK_CHANGE_TIMEOUT_MILLIS);
+            log.info("next song '{}' starts playing", tracks.get(songIndex));
         }
     }
 
-    public synchronized void previous() {
+    public void previous() {
         synchronized (lock) {
-            log.info("select previous {}", tracks.get(songIndex));
-            songIndex--;
+            log.info("select previous '{}'", tracks.get(songIndex));
+            decreaseSongIndex();
+            changeTrack();
             isPlaying = true;
-            log.info("previous song - {}", tracks.get(songIndex));
-            sleep(TRACK_CHANGE_TIMEOUT_MILLIS);
+            log.info("previous song '{}' starts playing", tracks.get(songIndex));
         }
     }
 
-    private void sleep(long timeout) {
+    private void changeTrack() {
         try {
-            Thread.sleep(timeout);
+            Thread.sleep(TRACK_CHANGE_TIMEOUT_MILLIS);
         } catch (InterruptedException e) {
             log.info("Thread interrupted!!!");
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private void increaseSongIndex() {
+        songIndex++;
+        if (songIndex == tracks.size()) {
+            songIndex = 0;
+        }
+    }
+
+    private void decreaseSongIndex() {
+        songIndex--;
+        if (songIndex < 0) {
+            songIndex = tracks.size() - 1;
         }
     }
 }
