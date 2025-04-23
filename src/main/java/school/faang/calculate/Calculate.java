@@ -7,11 +7,11 @@ public class Calculate {
         int result;
         if (nums.isEmpty()) {
             throw new IllegalArgumentException();
-        } else {
-            result = nums.get(0);
-            for (int i = 1; i < nums.size(); i++) {
-                result = calculator.calculate(result, nums.get(i));
-            }
+        }
+        result = nums.get(0);
+        for (int i = 1; i < nums.size(); i++) {
+            result = calculator.calculate(result, nums.get(i));
+
         }
         return result;
     }

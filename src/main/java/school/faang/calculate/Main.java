@@ -1,6 +1,5 @@
 package school.faang.calculate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -9,6 +8,6 @@ public class Main {
         System.out.println(Calculate.sum(List.of(4, 8, 13, -1)));
         System.out.println(Calculate.product(List.of(3, 5, 10)));
         System.out.println(Calculate.calculate(List.of(20, 40), (a, b) -> a - b));
-        System.out.println(Calculate.calculate(new ArrayList<>(), (a, b) -> a * b));
+        System.out.println(Calculate.calculate(List.of(), (a, b) -> a * b));
     }
 }
