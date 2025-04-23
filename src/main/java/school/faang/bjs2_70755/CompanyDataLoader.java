@@ -1,14 +1,16 @@
 package school.faang.bjs2_70755;
 
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.io.Reader;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,42 +18,32 @@ import java.util.Objects;
 @NoArgsConstructor
 @Slf4j
 public class CompanyDataLoader {
-
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-
     public List<EnvironmentalImpact> readDataFromScv(String fileName) {
-        List<EnvironmentalImpact> impacts = new ArrayList<>();
+        List<EnvironmentalImpact> impacts;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(fileName))))) {
+        try (Reader myReader = getReader(fileName)) {
 
-            String line;
+            CsvMapper mapper = new CsvMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
+            CsvSchema schema = mapper.schemaFor(EnvironmentalImpact.class)
+                    .withColumnSeparator(',').withSkipFirstDataRow(true);
 
-                String[] parts = line.split(",");
+            MappingIterator<EnvironmentalImpact> iterator = mapper
+                    .readerFor(EnvironmentalImpact.class)
+                    .with(schema)
+                    .readValues(myReader);
 
-                if (parts.length != 5) {
-                    continue;
-                }
-
-                try {
-                    long id = Long.parseLong(parts[0].trim());
-                    long companyId = Long.parseLong(parts[1].trim());
-                    double volume = Double.parseDouble(parts[2].trim());
-                    LocalDate date = LocalDate.parse(parts[3].trim(), DATE_FORMATTER);
-                    EnvironmentalImpactType type = EnvironmentalImpactType.valueOf(parts[4].trim());
-
-                    impacts.add(new EnvironmentalImpact(id, companyId, volume, date, type));
-                } catch (Exception e) {
-                    log.error("Ошибка при обработке строки: {}", line);
-                }
-            }
-
+            impacts = iterator.readAll();
         } catch (IOException e) {
             throw new RuntimeException("Не удалось загрузить файл: " + fileName, e);
         }
         return impacts;
+    }
+
+    private Reader getReader(String fileName) {
+        return new InputStreamReader(Objects.requireNonNull(
+                getClass().getClassLoader().getResourceAsStream(fileName)));
     }
 }

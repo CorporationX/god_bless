@@ -80,24 +80,7 @@ public class EnvironmentalImpactAnalyzer {
         StringBuilder out = new StringBuilder(String.format("\n%-15s %-17s %-23s %-23s%n",
                 "Company", "TotalGasEmission", "AvgGasEmission/Month", "MinGasEmission/Month"));
         List<CompanyEmissionStats> statsList = emissionsByCompany.entrySet().stream()
-                .map(entry -> {
-                    double total = entry.getValue()
-                            .values()
-                            .stream()
-                            .mapToDouble(Double::doubleValue)
-                            .sum();
-                    double avg = total / 12;
-                    double min = entry.getValue()
-                            .values()
-                            .stream()
-                            .mapToDouble(Double::doubleValue)
-                            .min()
-                            .orElse(0);
-
-                    CompanyName companyName = entry.getKey().companyName();
-
-                    return new CompanyEmissionStats(companyName, total, avg, min);
-                })
+                .map(this::getCompanyEmissionStats)
                 .sorted(Comparator.comparingDouble(CompanyEmissionStats::total).reversed())
                 .limit(limit)
                 .toList();
@@ -106,6 +89,25 @@ public class EnvironmentalImpactAnalyzer {
                 stats.companyName(), stats.total(), stats.average(), stats.min())));
 
         log.info(out.toString());
+    }
+
+    private CompanyEmissionStats getCompanyEmissionStats(Map.Entry<Company, Map<YearMonth, Double>> entry) {
+        double total = entry.getValue()
+                .values()
+                .stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+        double avg = total / 12;
+        double min = entry.getValue()
+                .values()
+                .stream()
+                .mapToDouble(Double::doubleValue)
+                .min()
+                .orElse(0);
+
+        CompanyName companyName = entry.getKey().companyName();
+
+        return new CompanyEmissionStats(companyName, total, avg, min);
     }
 
     private void printEmissionsPerOneEmployee(Map<Company, Double> companyTotalEmissions) {

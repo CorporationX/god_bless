@@ -18,25 +18,34 @@ public class StatisticsAggregator {
                                                             List<EnvironmentalImpact> impactList,
                                                             EnvironmentalImpactType type,
                                                             long companyId) {
-        return getEmissions(startDate, endDate, impactList, type)
-                .entrySet()
-                .stream()
-                .filter(entry -> Objects.equals(entry.getKey().id(), companyId))
-                .findFirst()
-                .map(Map.Entry::getValue)
-                .orElseThrow(() -> new CompanyNotFoundException(companyId));
+        return impactList.stream()
+                .filter(Objects::nonNull)
+                .filter(impact -> !impact.date().isBefore(startDate)
+                        && !impact.date().isAfter(endDate))
+                .filter(impact -> Objects.equals(impact.type(), type))
+                .filter(impact -> Objects.equals(impact.companyId(), companyId))
+                .collect(
+                        Collectors.groupingBy(
+                                impact -> YearMonth.from(impact.date()),
+                                Collectors.summingDouble(EnvironmentalImpact::volume)
+
+                ));
     }
 
     public Map<Company, Double> getTotalEmissions(LocalDate startDate,
                                                   LocalDate endDate,
                                                   List<EnvironmentalImpact> impactList,
                                                   EnvironmentalImpactType type) {
-        return getEmissions(startDate, endDate, impactList, type)
-                .entrySet()
-                .stream()
-                .collect(Collectors.groupingBy(Map.Entry::getKey,
-                        Collectors.flatMapping(entry -> entry.getValue().values().stream(),
-                                Collectors.averagingDouble(Double::doubleValue))));
+        return impactList.stream()
+                .filter(Objects::nonNull)
+                .filter(impact -> !impact.date().isBefore(startDate)
+                        && !impact.date().isAfter(endDate))
+                .filter(impact -> Objects.equals(impact.type(), type))
+                .collect(Collectors.groupingBy(
+                        entry -> getCompanyById(entry.companyId()),
+                                Collectors.summingDouble(EnvironmentalImpact::volume)
+
+                ));
     }
 
     public Map<Company, Map<YearMonth, Double>> getEmissions(LocalDate startDate,
