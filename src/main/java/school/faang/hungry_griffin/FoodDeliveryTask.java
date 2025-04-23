@@ -1,24 +1,34 @@
 package school.faang.hungry_griffin;
 
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
-@AllArgsConstructor
+@Slf4j
 public class FoodDeliveryTask implements Runnable {
-    private String character;
-    private int foodAmount;
+    private final String character;
+    private final int foodAmount;
     private static final Random RANDOM = new Random();
+
+    public FoodDeliveryTask(String character, int foodAmount) {
+        this.character = character;
+        if (foodAmount > 0) {
+            this.foodAmount = foodAmount;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     @Override
     public void run() {
         FoodType foodType = getFoodType();
-        System.out.println(character + " получает " + foodAmount + " " + foodType.name());
+        log.info("{} получает {} {}", character, foodAmount, foodType.name());
         try {
             Thread.sleep(RANDOM.nextInt(4) + 1);
-            System.out.println(character + " начал есть " + foodAmount + " " + foodType.name());
+            log.info("{} начал есть {} {}", character, foodAmount, foodType.name());
+
         } catch (InterruptedException e) {
-            System.out.println(character + " остался голодным");
+            log.info("{} остался голодным", character);
             throw new RuntimeException(e);
         }
     }
