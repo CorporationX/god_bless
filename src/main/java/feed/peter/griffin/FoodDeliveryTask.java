@@ -22,7 +22,8 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(randomMilisecodsForSleep);
         } catch (InterruptedException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            log.error("Thread was interrupted! {}", e.getMessage());
+            Thread.currentThread().interrupt();
         }
 
         log.info("{} получил заказ и ест {} едениц {}", characterName, foodAmount, randomFood);
