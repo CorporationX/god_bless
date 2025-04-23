@@ -10,7 +10,7 @@ import java.util.List;
 public class Player {
     private final List<Integer> tracks;
     private final Object lock = new Object();
-    private boolean isPlaying = false;
+    private boolean isPlaying;
     private int currentTrack;
 
     public Player(List<Integer> tracks) {

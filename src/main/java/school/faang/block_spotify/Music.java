@@ -12,12 +12,12 @@ import java.util.stream.IntStream;
 @Slf4j
 public class Music {
     public static void main(String[] args) {
-        List<Integer> tracks = IntStream.range(0, 50).boxed().toList();
+        List<Integer> tracks = IntStream.range(0, 20).boxed().toList();
         Player player = new Player(tracks);
 
         ExecutorService executor = Executors.newFixedThreadPool(3);
         Random random = new Random();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < tracks.size(); i++) {
             switch (random.nextInt(4)) {
                 case 0:
                     executor.execute(player::play);
@@ -31,12 +31,14 @@ public class Music {
                 case 3:
                     executor.execute(player::skip);
                     break;
+                default:
+                    break;
             }
         }
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
