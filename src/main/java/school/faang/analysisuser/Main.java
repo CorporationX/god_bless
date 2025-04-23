@@ -81,18 +81,34 @@ public class Main {
                         LocalDate.of(2024, 10, 6), ""),
                 new UserAction(3, "Charlie", ActionType.POST,
                         LocalDate.of(2024, 10, 7), "Here's my review of the new #update."),
-                new UserAction(5, "Eve", ActionType.COMMENT, LocalDate.of(2024, 10, 8), "Your #review was helpful!"),
-                new UserAction(4, "Dave", ActionType.LIKE, LocalDate.of(2024, 10, 9), ""),
-                new UserAction(1, "Alice", ActionType.SHARE, LocalDate.of(2024, 10, 10), ""),
-                new UserAction(3, "Charlie", ActionType.COMMENT, LocalDate.of(2024, 10, 11), "Sharing my thoughts on the #update."),
-                new UserAction(5, "Eve", ActionType.POST, LocalDate.of(2024, 10, 12), "What a great #feature this update brings!"),
-                new UserAction(2, "Bob", ActionType.LIKE, LocalDate.of(2024, 10, 13), ""),
-                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2024, 10, 14), "#feature works really well."),
-                new UserAction(1, "Alice", ActionType.POST, LocalDate.of(2024, 10, 15), "The #feature saved me a lot of time."),
-                new UserAction(3, "Charlie", ActionType.LIKE, LocalDate.of(2024, 10, 16), ""),
-                new UserAction(5, "Eve", ActionType.SHARE, LocalDate.of(2024, 10, 17), ""),
-                new UserAction(2, "Bob", ActionType.POST, LocalDate.of(2024, 10, 18), "Can't wait for the next #update."),
-                new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2024, 10, 19), ""));
-    }
+                new UserAction(5, "Eve", ActionType.COMMENT,
+                        LocalDate.of(2024, 10, 8), "Your #review was helpful!"),
+                new UserAction(4, "Dave", ActionType.LIKE,
+                        LocalDate.of(2024, 10, 9), ""),
+                new UserAction(1, "Alice", ActionType.SHARE,
+                        LocalDate.of(2024, 10, 10), ""),
+                new UserAction(3, "Charlie", ActionType.COMMENT,
+                        LocalDate.of(2024, 10, 11), "Sharing my thoughts on the #update."),
+                new UserAction(5, "Eve", ActionType.POST,
+                        LocalDate.of(2024, 10, 12), "What a great #feature this update brings!"),
+                new UserAction(2, "Bob", ActionType.LIKE,
+                        LocalDate.of(2024, 10, 13), ""),
+                new UserAction(4, "Dave", ActionType.COMMENT,
+                        LocalDate.of(2024, 10, 14), "#feature works really well."),
+                new UserAction(1, "Alice", ActionType.POST,
+                        LocalDate.of(2024, 10, 15), "The #feature saved me a lot of time."),
+                new UserAction(3, "Charlie", ActionType.LIKE,
+                        LocalDate.of(2024, 10, 16), ""),
+                new UserAction(5, "Eve", ActionType.SHARE,
+                        LocalDate.of(2024, 10, 17), ""),
+                new UserAction(2, "Bob", ActionType.POST,
+                        LocalDate.of(2024, 10, 18), "Can't wait for the next #update."),
+                new UserAction(4, "Dave", ActionType.SHARE,
+                        LocalDate.of(2024, 10, 19), ""));
 
+        UserActionAnalyzer userActionAnalyzer = new UserActionAnalyzer();
+        System.out.println(userActionAnalyzer.toActiveUser(actions, 3));
+        System.out.println(userActionAnalyzer.toCommentsUser(actions, 3));
+        userActionAnalyzer.analyseData(actions);
+    }
 }
