@@ -18,7 +18,7 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public Map<String, Integer> countUsersActions(ActionList usersActionList) {
+    private Map<String, Integer> countUsersActions(ActionList usersActionList) {
         return usersActionList.getActions().stream()
                 .collect(Collectors.toMap(
                         action -> "id: " + action.getUserId().toString() + " - " + action.getName(),
@@ -28,14 +28,15 @@ public class UserActionAnalyzer {
     }
 
     public List<String> makeListOfTopPopularHashtags(ActionList usersActionList, int limitNumber) {
-        Map<String, Integer> usersActions = new HashMap<>();
-        usersActionList.getActions().stream()
+        Map<String, Long> usersActions = usersActionList.getActions().stream()
                 .flatMap(userAction -> Arrays.stream(userAction.getContent().split("\\s+"))
                         .map(word -> word.replaceAll("[^#\\w]", ""))
                         .filter(word -> word.startsWith("#")))
-                .forEach(hashtag -> usersActions.merge(hashtag, 1, Integer::sum));
+                .collect(Collectors.groupingBy(hashtag -> hashtag,
+                        Collectors.counting()));
+
         return usersActions.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limitNumber)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -48,6 +49,7 @@ public class UserActionAnalyzer {
                 .filter(userAction -> userAction.getActionDate()
                         .isAfter(LocalDate.now().minusMonths(1)))
                 .toList());
+
         return makeListOfTopActiveUsers(commentersList, limitNumber);
     }
 
@@ -55,9 +57,14 @@ public class UserActionAnalyzer {
         double allActionsCount = usersActionList.getActions().size();
         Map<ActionType, List<UserAction>> actionsGroupedByType = usersActionList.getActions().stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType));
-        Map<String, Double> mapOfActionTypePercentages = new HashMap<>();
-        actionsGroupedByType.forEach((type, actionList) ->
-                mapOfActionTypePercentages.put(type.toString(), actionList.size() / allActionsCount * 100));
+
+        Map<String, Double> mapOfActionTypePercentages =
+                actionsGroupedByType.entrySet().stream()
+                        .collect(Collectors.toMap(
+                                entry -> entry.getKey().toString(),
+                                entry -> entry.getValue().size() / allActionsCount * 100
+                        ));
+
         return mapOfActionTypePercentages;
     }
 }
