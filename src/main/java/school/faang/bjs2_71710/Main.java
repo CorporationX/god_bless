@@ -18,6 +18,8 @@ public class Main {
             throw new RuntimeException("Сервис недоступен");
         }
 
-        public static String call2(String param) { return "Сервис недоступен"; }
+        public static String call2(String param) {
+            return "Сервис недоступен";
+        }
     }
 }
