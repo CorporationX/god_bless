@@ -11,6 +11,4 @@ public class UserAction {
     private final ActionType actionType;
     private final LocalDate actionDate;
     private final String content;
-
-
 }

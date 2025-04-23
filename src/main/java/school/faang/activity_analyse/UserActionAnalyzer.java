@@ -11,6 +11,7 @@ public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions, int count) {
         Map<String, Long> usersToActionsCount = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
         return usersToActionsCount.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(count)
@@ -33,6 +34,7 @@ public class UserActionAnalyzer {
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT
                         && userAction.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
+
         return usersToActionsCount.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(count)
@@ -44,6 +46,7 @@ public class UserActionAnalyzer {
         long totalActions = actions.size();
         Map<ActionType, Long> groupedActionsCount = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
+
         return groupedActionsCount.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
