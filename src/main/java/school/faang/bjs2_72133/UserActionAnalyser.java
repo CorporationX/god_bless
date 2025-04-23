@@ -9,8 +9,8 @@ public class UserActionAnalyser {
 
     public List<String> filterTopByAppearance(List<String> stringsList, int top) {
         return stringsList.stream().sorted((string1, string2) ->
-                        (int) (stringsList.stream().filter(a -> a.equals(string2)).count() -
-                                stringsList.stream().filter(a -> a.equals(string1)).count()))
+                        (int) (stringsList.stream().filter(a -> a.equals(string2)).count()
+                                - stringsList.stream().filter(a -> a.equals(string1)).count()))
                 .distinct()
                 .limit(top)
                 .toList();
