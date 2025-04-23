@@ -23,13 +23,11 @@ public class BigBangTheory {
         for (Map.Entry<String, String> taskData : personAndHisTask.entrySet()) {
             executorService.submit(new Task(taskData.getKey(), taskData.getValue()));
         }
-
         smoothShutdown(executorService);
     }
 
     private static void smoothShutdown(ExecutorService executor) {
         executor.shutdown();
-
         try {
             if (!executor.awaitTermination(AWAITING_SECONDS, TimeUnit.SECONDS)) {
                 log.warn("Execution is not terminated in time. Forced shutdown!");

@@ -13,14 +13,12 @@ public class Task implements Runnable {
     @Override
     public void run() {
         log.info("{} начинает выполнение задачи {}...", name, task);
-
         try {
             Thread.sleep(MILLIS_FOR_SLEEP);
         } catch (InterruptedException e) {
             log.error("Thread was interrupted! {}", e.getMessage());
             Thread.currentThread().interrupt();
         }
-
         log.info("{} закончил выполнение задачи {}.", name, task);
     }
 }
