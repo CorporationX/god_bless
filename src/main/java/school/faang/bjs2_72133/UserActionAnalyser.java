@@ -17,7 +17,7 @@ public class UserActionAnalyser {
     }
 
     public List<String> topActiveUsers(List<UserAction> userActions, int top) {
-        List<String> names =  userActions.stream().map(UserAction::getName).toList();
+        List<String> names = userActions.stream().map(UserAction::getName).toList();
         return filterTopByAppearance(names, top);
     }
 
