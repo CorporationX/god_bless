@@ -11,13 +11,13 @@ import java.util.List;
 @Getter
 @ToString
 public class Room {
-    private final List<Food> foods;
+    private List<Food> foods;
     private final Object lock = new Object();
 
     public List<Food> pickFood() {
         synchronized (lock) {
             List<Food> foodList = new ArrayList<>(foods);
-            foods.clear();
+            this.foods = new ArrayList<>();
             return foodList;
         }
     }
