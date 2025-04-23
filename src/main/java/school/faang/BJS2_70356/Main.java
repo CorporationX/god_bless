@@ -8,8 +8,8 @@ public interface Main {
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.cast(alohomora, (spell -> "The door is unlocked by " + spell));
-        spellCaster.cast(lumos, (spell -> "A beam of light is created by " + spell));
-        spellCaster.cast(expelliarmus, (spell -> "The opponent is disarmed by " + spell));
+        spellCaster.cast("Alohomora", (spell) -> String.format("The door is unlocked by %s", spell));
+        spellCaster.cast("Lumos", (spell) -> String.format("A beam of light is created by %s", spell));
+        spellCaster.cast("Expelliarmus", (spell) -> String.format("The opponent is disarmed by %s", spell));
     }
 }
