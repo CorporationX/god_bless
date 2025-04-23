@@ -10,6 +10,7 @@ public class NotificationManager {
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlers.put(type, handler);
     }
+
     public void sendNotification(Notification notification) {
         Consumer<Notification> handler = handlers.get(notification.getType());
         if (handler != null) {
