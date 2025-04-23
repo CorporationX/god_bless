@@ -1,6 +1,7 @@
 package school.faang.photos;
 
 import lombok.extern.slf4j.Slf4j;
+import school.WaitUtils;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -9,34 +10,36 @@ import java.util.List;
 @Slf4j
 public class GooglePhotosAutoUploader {
 
+    private static final long PHOTO_DOWNLOAD_TIME_MILLIS = 300;
+
     private final Deque<String> photos = new ArrayDeque<>();
     private boolean autoUpdateOn;
 
-    public void startAutoUpload() throws InterruptedException {
+    public void startAutoUpload() {
         autoUpdateOn = true;
         log.info("starts auto update");
         while (autoUpdateOn) {
-            log.info("auto update running");
             uploadPhoto();
         }
     }
 
-    public void uploadPhoto() throws InterruptedException {
+    public void uploadPhoto() {
         String pathToPhoto;
         synchronized (photos) {
             if (photos.isEmpty()) {
                 photos.notify();
                 log.info("autoloader waiting new photos");
-                photos.wait();
-                log.info("continue uploading");
+                WaitUtils.threadWait(photos);
                 if (!autoUpdateOn) {
+                    log.info("auto uploader finish working");
                     return;
                 }
+                log.info("continue uploading");
             }
             pathToPhoto = photos.pop();
         }
         log.info("uploading {} start", pathToPhoto);
-        uploadProcess();
+        WaitUtils.sleep(PHOTO_DOWNLOAD_TIME_MILLIS);
         log.info("uploading {} finished", pathToPhoto);
     }
 
@@ -48,22 +51,13 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void turnOffAutoUpdate() throws InterruptedException {
+    public void turnOffAutoUpdate() {
         synchronized (photos) {
             if (!photos.isEmpty()) {
-                photos.wait();
+                WaitUtils.threadWait(photos);
             }
             autoUpdateOn = false;
             photos.notify();
-        }
-    }
-
-    private void uploadProcess() {
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            log.info("Thread interrupted!!!");
-            Thread.currentThread().interrupt();
         }
     }
 }
