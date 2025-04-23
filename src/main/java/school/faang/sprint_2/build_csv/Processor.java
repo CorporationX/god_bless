@@ -9,12 +9,7 @@ public class Processor {
                 throw new IllegalArgumentException("Empty list");
             }
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(vector.get(0));
-            for (int i = 1; i < vector.size(); ++i) {
-                builder.append(", ").append(vector.get(i));
-            }
-            return builder.toString();
+            return String.join(", ", vector);
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
