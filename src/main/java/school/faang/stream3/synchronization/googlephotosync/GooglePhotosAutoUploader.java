@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GooglePhotosAutoUploader {
-    List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
     private final Object lock = new Object();
 
     public void startAutoUpload() {
