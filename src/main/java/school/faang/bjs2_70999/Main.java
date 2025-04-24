@@ -24,7 +24,7 @@ public class Main {
             new Employee("Eve", "Logistics", 18_000),
             new Employee("Frank", "IT", 22_000)
         );
-        log.info("Average salare per departmetn {}.", Processor.calcAverageSalary(employes));
+        log.info("Average salare per departmetn {}.", Processor.getAvgSalaryByDpt(employes));
 
         int start = 100;
         int end = 200;

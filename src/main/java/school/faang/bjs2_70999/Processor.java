@@ -1,7 +1,6 @@
 package school.faang.bjs2_70999;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -34,55 +33,56 @@ public class Processor {
         .toList();
     }
 
-    public static Map<String, Double> calcAverageSalary(List<Employee> employees) {
+    public static Map<String, Double> getAvgSalaryByDpt(List<Employee> employees) {
         return employees.stream()
-        .map(employee -> new HashMap<String, Double>(Map.of(employee.getDepartment(), employee.getSalary())))
-        .flatMap(map -> map.entrySet().stream())
         .collect(Collectors.groupingBy(
-            Map.Entry::getKey, 
-            Collectors.averagingDouble(Map.Entry::getValue))
-        );
+            (e -> e.getDepartment()),
+            Collectors.averagingDouble(Employee::getSalary)
+        ));
     }
 
     public static List<Integer> findPalindromicNumsInRange(int start, int end) {
-        IntStream intStream = IntStream.range(start, end);
-        return intStream.mapToObj(i -> String.valueOf(i))
-        .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
-        .map(s -> Integer.valueOf(s))
-        .sorted()
-        .toList();
+        return IntStream.range(start, end).mapToObj(i -> String.valueOf(i))
+            .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
+            .map(s -> Integer.valueOf(s))
+            .sorted()
+            .toList();
     }
 
     public static List<String> findPalindromicStrings(String str) {
-        List<String> substrings = new ArrayList<>();
-        IntStream intStream = IntStream.range(0, str.length());
-        return intStream.mapToObj(i -> {
-            for (int j = 1 + i; j <= str.length(); j++) {
-                substrings.add(str.substring(i, j));
-            }
-            return substrings;
-        })
-        .flatMap(List::stream)
-        .distinct()
-        .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
-        .toList();
+        return IntStream.range(0, str.length())
+            .mapToObj(i -> Processor.intIndexToMapOfSubstrings(i, str))
+            .flatMap(List::stream)
+            .distinct()
+            .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
+            .toList();
     }
 
     public static List<Integer> findPerfectNumbersInRange(int start, int end) {
-        IntStream intStream = IntStream.range(start, end);
-        return intStream.mapToObj(i -> {
-            ArrayList<Integer> multipliers = new ArrayList<>();
-            for (int j = 1; j < i; j++) {
-                if (i % j == 0) {
-                    multipliers.add(j);
-                }
+        return IntStream.range(start, end)
+            .mapToObj(i -> Processor.intToMapOfIntDivision(i))
+            .flatMap(map -> map.entrySet().stream())
+            .filter(entry -> entry.getValue().stream()
+                .reduce(0, Integer::sum).equals(entry.getKey())
+            )
+            .collect(Collectors.mapping(Map.Entry::getKey, Collectors.toList()));
+    }
+
+    private static Map<Integer, List<Integer>> intToMapOfIntDivision(int i) {
+        ArrayList<Integer> multipliers = new ArrayList<>();
+        for (int j = 1; j < i; j++) {
+            if (i % j == 0) {
+                multipliers.add(j);
             }
-            return Map.of(i, multipliers);
-        })
-        .flatMap(map -> map.entrySet().stream())
-        .filter(entry -> entry.getValue().stream()
-            .reduce(0, Integer::sum).equals(entry.getKey())
-        )
-        .collect(Collectors.mapping(Map.Entry::getKey, Collectors.toList()));
+        }
+        return Map.of(i, multipliers);
+    }
+
+    private static List<String> intIndexToMapOfSubstrings(int i, String str) {
+        List<String> substrings = new ArrayList<>();
+        for (int j = 1 + i; j <= str.length(); j++) {
+            substrings.add(str.substring(i, j));
+        }
+        return substrings;
     }
 }
