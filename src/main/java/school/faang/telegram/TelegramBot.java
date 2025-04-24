@@ -1,121 +1,88 @@
 package school.faang.telegram;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import static school.WaitUtils.sleep;
 import static school.WaitUtils.threadWait;
 
 @Slf4j
 public class TelegramBot {
 
-    private static final int REQUEST_LIMIT = 10;
+    private static final int REQUEST_LIMIT = 5;
     private static final int REQUEST_TIME_LIMIT_MILLIS = 1000;
-    private static final int MESSAGE_SEND_PROCESS_MILLIS = 90;
 
     private int requestCounter;
-    private long lastRequestTimeMillis;
+    private long pivotRequestTimestampMillis;
     private final Deque<Message> messages;
-    private boolean botActive;
+    private final Object limitLock;
+    @Getter
+    private final Object botLock;
+
 
     public TelegramBot() {
         this.requestCounter = 0;
-        this.lastRequestTimeMillis = System.currentTimeMillis();
+        this.pivotRequestTimestampMillis = System.currentTimeMillis();
         this.messages = new ArrayDeque<>();
-        this.botActive = false;
-    }
-
-    public void activateBot() {
-        log.info("Activate bot");
-        botActive = true;
-        while (botActive) {
-            log.info("Start sending messages");
-            proceedMessages();
-        }
-    }
-
-    public void deactivateBot() {
-        log.info("Deactivate bot");
-        synchronized (messages) {
-            if (!messages.isEmpty()) {
-                log.info("Wait all messages is send");
-                threadWait(messages);
-            }
-            log.info("Turn off bot");
-            botActive = false;
-            log.info("Notify message sender");
-            messages.notify();
-        }
+        this.limitLock = new Object();
+        this.botLock = new Object();
     }
 
     public void sendMessage(Message message) {
-        synchronized (messages) {
+        synchronized (botLock) {
             messages.add(message);
-            messages.notify();
+            botLock.notify();
         }
     }
 
-    private void proceedMessages() {
-        emptyMessagePollHandle();
+    public Message provideMessage() {
+        long deltaFromPivot = timeFromPivotRequest();
+        tryResetPivotRequest(deltaFromPivot);
+        overflowHandle(deltaFromPivot);
 
-        if (!botActive) {
-            log.info("Deactivating bot");
-            return;
+        synchronized (limitLock) {
+            requestCounter++;
         }
 
-        increaseMessageSendPerLimitCounter();
-        overflowHandle();
-        resetMessageSendPerLimitCounter();
-
-        sendMessageProcess();
+        synchronized (botLock) {
+            return messages.pop();
+        }
     }
 
-    private long timeFromLastRequest() {
-        return System.currentTimeMillis() - lastRequestTimeMillis;
+    public boolean messagesNotPresent() {
+        synchronized (botLock) {
+            return messages.isEmpty();
+        }
     }
 
-    private void emptyMessagePollHandle() {
-        if (messages.isEmpty()) {
-            synchronized (messages) {
-                log.info("Notify deactivating thread");
-                messages.notify();
-                log.info("Waiting new messages");
-                threadWait(messages);
+    private long timeFromPivotRequest() {
+        synchronized (limitLock) {
+            return System.currentTimeMillis() - pivotRequestTimestampMillis;
+        }
+    }
+
+    private void overflowHandle(long deltaFromPivot) {
+        synchronized (limitLock) {
+            if (requestCounter > REQUEST_LIMIT) {
+                long restTime = REQUEST_TIME_LIMIT_MILLIS - deltaFromPivot;
+                log.info("overflow, rest for {} millis", restTime);
+                threadWait(limitLock, restTime);
+                log.info("continue");
+                requestCounter = 0;
+                pivotRequestTimestampMillis = System.currentTimeMillis();
             }
         }
     }
 
-    private void sendMessageProcess() {
-        Message messageToSend;
-        synchronized (messages) {
-            messageToSend = messages.pop();
-        }
-        log.info("Sending: {}", messageToSend.content());
-        sleep(MESSAGE_SEND_PROCESS_MILLIS);
-        log.info("Message is send: {}", messageToSend.content());
-    }
-
-    private void increaseMessageSendPerLimitCounter() {
-        if (timeFromLastRequest() < REQUEST_TIME_LIMIT_MILLIS) {
-            requestCounter++;
-        }
-    }
-
-    private void overflowHandle() {
-        if (requestCounter > REQUEST_LIMIT) {
-            long restTime = REQUEST_TIME_LIMIT_MILLIS - timeFromLastRequest();
-            log.info("overflow, rest for {} millis", restTime);
-            sleep(restTime < 0 ? 0 : restTime);
-            log.info("continue");
-        }
-    }
-
-    private void resetMessageSendPerLimitCounter() {
-        if (timeFromLastRequest() > REQUEST_TIME_LIMIT_MILLIS) {
-            requestCounter = 0;
-            lastRequestTimeMillis = System.currentTimeMillis();
+    private void tryResetPivotRequest(long deltaFromPivot) {
+        synchronized (limitLock) {
+            long deltaFromLimit = deltaFromPivot - REQUEST_TIME_LIMIT_MILLIS;
+            if (deltaFromLimit > 0) {
+                requestCounter = 0;
+                pivotRequestTimestampMillis = System.currentTimeMillis();
+            }
         }
     }
 }

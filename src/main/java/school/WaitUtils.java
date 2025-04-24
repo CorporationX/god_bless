@@ -28,6 +28,15 @@ public class WaitUtils {
         }
     }
 
+    public static void threadWait(Object lock, long timeoutMillis) {
+        try {
+            lock.wait(timeoutMillis);
+        } catch (InterruptedException e) {
+            log.info(e.getMessage());
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public static void shutdownExecutorWithWait(ExecutorService executorService, long timeout, TimeUnit unit) {
         executorService.shutdown();
         try {
