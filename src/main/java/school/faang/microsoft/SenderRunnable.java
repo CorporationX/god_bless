@@ -17,6 +17,8 @@ public class SenderRunnable implements Runnable {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 System.out.printf("Поток %s был прерван: %s%n", Thread.currentThread().getName(), e.getMessage());
+                Thread.currentThread().interrupt();
+                break;
             }
         }
     }
