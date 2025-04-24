@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,10 +21,15 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public List<String> popularTopicDiscussion(List<UserAction> userActions, char firstSymbol, int limitComment) {
+    public List<String> popularTopicDiscussion(List<UserAction> userActions, int limitComment) {
+        String regex = "#\\w+";
+        Pattern pattern = Pattern.compile(regex);
         return userActions.stream()
                 .map(UserAction::getComment)
-                .filter(comment -> !comment.isEmpty() && comment.charAt(0) == firstSymbol)
+                .filter(comment -> {
+                    Matcher matcher = pattern.matcher(comment);
+                    return matcher.find();
+                })
                 .limit(limitComment)
                 .collect(Collectors.toList());
     }
