@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 public class VideoManager {
     private final Object lock = new Object();
-    private Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public void addVideo(String videoId) {
         synchronized (lock) {
