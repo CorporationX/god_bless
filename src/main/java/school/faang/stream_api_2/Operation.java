@@ -37,9 +37,10 @@ public class Operation {
     }
 
     public static List<String> filterAndSort(List<String> strings, String alphabet) {
+        String regex = "[" + alphabet + "]+";
         return strings
                 .stream()
-                .filter(s -> s.matches(alphabet))
+                .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
