@@ -10,7 +10,7 @@ import static school.WaitUtils.threadWait;
 public class SendService {
 
     private static final int MESSAGE_SEND_PROCESS_MILLIS = 200;
-    private boolean serviceActive = false;
+    private boolean serviceActive;
     private final TelegramBot bot;
     private final String name;
     private final Object botLock;
@@ -27,20 +27,6 @@ public class SendService {
         serviceActive = true;
         while (serviceActive) {
             sendMessage();
-        }
-    }
-
-    public void deactivateBot() {
-        log.info("Deactivate service");
-        synchronized (botLock) {
-            if (!bot.messagesNotPresent()) {
-                log.info("Wait all messages is send");
-                threadWait(botLock);
-            }
-            log.info("Turn off send service");
-            serviceActive = false;
-            log.info("Notify empty poll handle");
-            botLock.notify();
         }
     }
 
