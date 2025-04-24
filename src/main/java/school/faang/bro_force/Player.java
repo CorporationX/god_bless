@@ -24,11 +24,11 @@ public class Player {
         }
         log.debug("Thread: {}, calling play()", Thread.currentThread().getName());
         Map<Parameter, Function<Integer, Integer>> updates = new HashMap<>();
-        makeAMove(updates);
+        makeMove(updates);
         game.update(updates);
     }
 
-    private void makeAMove(Map<Parameter, Function<Integer, Integer>> updates) {
+    private void makeMove(Map<Parameter, Function<Integer, Integer>> updates) {
         switch (ThreadLocalRandom.current().nextInt(2)) {
             case 0: {
                 log.debug("Thread: {}, Player won", Thread.currentThread().getName());
