@@ -1,6 +1,7 @@
 package school.faang.instagram;
 
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class FilterProcessor {
     public Image applyFilter(Image image, Function<Image, Image> filter) {
@@ -12,13 +13,9 @@ public class FilterProcessor {
         return filter1.andThen(filter2);
     }
 
-    public Function<Image, Image> combineMultipleFilters(Function<Image, Image>... filters) {
-        return image -> {
-            Image result = image;
-            for (Function<Image, Image> filter : filters) {
-                result = filter.apply(result);
-            }
-            return result;
-        };
+    @SafeVarargs
+    public final Function<Image, Image> combineMultipleFilters(Function<Image, Image>... filters) {
+        return Stream.of(filters)
+                .reduce(Function.identity(), Function::andThen);
     }
 }
