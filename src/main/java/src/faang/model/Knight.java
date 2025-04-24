@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 public class Knight {
+    public static final int EXECUTOR_AWAIT_TERMINATION_IN_SECONDS = 5;
     @Getter
     private final String name;
     private final List<Trial> trials = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Knight {
         }
 
         try {
-            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (executor.awaitTermination(EXECUTOR_AWAIT_TERMINATION_IN_SECONDS, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
