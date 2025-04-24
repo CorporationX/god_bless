@@ -30,7 +30,7 @@ public class Main {
                 resultPool.execute(() -> {
                     try {
                         Integer count = viewsFuture.get();
-                        log.info("Thread {}: Views for video {} - {}", Thread.currentThread().getName(), videoId, count);
+                        log.info("Thread {}: Views for video {}: {}", Thread.currentThread().getName(), videoId, count);
                     } catch (Exception e) {
                         log.error("Exception was thrown", e);
                     }
