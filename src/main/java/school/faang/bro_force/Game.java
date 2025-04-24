@@ -13,9 +13,8 @@ public class Game {
     private final Object secondLock = new Object();
     private boolean isGameOver = false;
 
-    public Game(int scores, int lives) {
-        log.debug("initial scores: {}, lives: {}", scores, lives);
-        this.scores = scores;
+    public Game(int lives) {
+        log.debug("initial lives: {}", lives);
         this.lives = lives;
     }
 
