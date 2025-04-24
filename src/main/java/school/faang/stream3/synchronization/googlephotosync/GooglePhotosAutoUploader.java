@@ -26,13 +26,13 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         for (String photo : photosToUpload) {
-            System.out.printf("%s is uploaded\n" ,photo);
+            System.out.printf("%s is uploaded\n", photo);
         }
         photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized(lock) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
             try {
                 int waitingTime = new Random().nextInt(500, 3000);
