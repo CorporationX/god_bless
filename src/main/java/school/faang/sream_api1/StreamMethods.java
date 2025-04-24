@@ -2,16 +2,13 @@ package school.faang.sream_api1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 class StreamMethods {
-    public static void main(String[] args) {
-        List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        System.out.println(evenNumberSum(list));
-        System.out.println(foundMaxNumber(list));
-    }
+
 
     static int evenNumberSum(List<Integer> list) {
         return list.stream()
@@ -40,8 +37,7 @@ class StreamMethods {
 
     static List<String> filterListBySubstringLength(List<String> list, String string) {
         return list.stream()
-                .filter(s -> s
-                        .contains(string))
+                .filter(s -> s.contains(string))
                 .collect(Collectors.toList());
     }
 
@@ -59,7 +55,8 @@ class StreamMethods {
     static int foundMinNumber(List<Integer> list, int num) {
         return list.stream()
                 .filter(x -> x > num)
-                .min(Integer::compare).get();
+                .min(Integer::compare)
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %d".formatted(num)));
     }
 
     static List<Integer> convertStringToStringLength(List<String> list) {
