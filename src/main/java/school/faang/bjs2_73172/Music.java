@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Music {
 
-    private static final Player PLAYER = new Player("lock");
+    private static final Player PLAYER = new Player();
     private static final List<Thread> THREADS = List.of(
             new Thread(PLAYER::pause),
             new Thread(PLAYER::play),
