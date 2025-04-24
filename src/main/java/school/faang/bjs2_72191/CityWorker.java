@@ -15,7 +15,7 @@ public class CityWorker implements Runnable {
     @Override
     public void run() {
         double distanceToCity = Math.sqrt(
-                Math.pow(city.getLocation().getX(), 2) + Math.pow(city.getLocation().getY(), 2));
+                Math.pow(city.getLocation().getLocX(), 2) + Math.pow(city.getLocation().getLocY(), 2));
 
         Map<Double, Monster> distanceToMonsterMap = monsters.stream()
                 .collect(Collectors.toMap(monster -> getDistance(monster.getLocation()),
@@ -33,7 +33,7 @@ public class CityWorker implements Runnable {
     }
 
     private double getDistance(Location location) {
-        return Math.sqrt(Math.pow(location.getX() - city.getLocation().getX(), 2)
-                + Math.pow(location.getY() - city.getLocation().getY(), 2));
+        return Math.sqrt(Math.pow(location.getLocX() - city.getLocation().getLocX(), 2)
+                + Math.pow(location.getLocY() - city.getLocation().getLocY(), 2));
     }
 }

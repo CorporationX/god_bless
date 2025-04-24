@@ -39,8 +39,10 @@ public class Witcher {
         System.out.printf("Single-threaded execution time: %d ms%n%n", duration);
     }
 
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     private static void testMultiThread(List<City> cities, List<Monster> monsters, int threadCount) {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        // Куда мне передвинуть startTime ниже? если я укажу её под for loop, то время будет не точное
         long startTime = System.currentTimeMillis();
 
         for (City city : cities) {
