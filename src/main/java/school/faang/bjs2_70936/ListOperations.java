@@ -1,21 +1,27 @@
 package school.faang.bjs2_70936;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class ListOperations {
 
     public static List<int[]> sumOfNumber(List<Integer> numbers, int goal) {
-        return IntStream.range(0, numbers.size())
-                .boxed()
-                .flatMap(i -> IntStream.range(i + 1, numbers.size())
-                        .filter(j -> numbers.get(i) + numbers.get(j) == goal)
-                        .mapToObj(j -> new int[]{numbers.get(i), numbers.get(j)})
-                ).collect(Collectors.toList());
+        Set<Integer> seen = new HashSet<>(numbers.size());
+        // Почему это работает с flatMap но не с map их разница ведь в том,
+        // что flatMap превращает List<List<?>> в List<?>, map же просто проходит по данному списку.
+        return numbers.stream()
+                .flatMap(number -> {
+                    int diff = goal - number;
+                    if (seen.contains(diff)) {
+                        return Stream.of(new int[]{number, diff});
+                    }
+                    seen.add(diff);
+                    return Stream.empty();
+                }).toList();
     }
 
     public static List<String> sortCapitals(Map<String, String> countryCapitalMap) {
@@ -25,12 +31,10 @@ public class ListOperations {
     }
 
     public static List<String> sortedByLengthWithLetter(List<String> words, char letter) {
-        return !words.isEmpty()
-                ? words.stream()
+        return words.stream()
                 .filter(word -> word.charAt(0) == letter)
-                .sorted((w1, w2) -> w1.length() >= w2.length() ? 1 : -1)
-                .toList()
-                : new ArrayList<>();
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static List<String> toBinary(List<Integer> numbers) {
