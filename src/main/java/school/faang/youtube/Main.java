@@ -13,8 +13,8 @@ public class Main {
         manager.addVideo("Video4");
         manager.addVideo("Video5");
 
-        final int numThreads = 4;
-        final int numVideos = 5;
+        final int numThreads = 10;
+        final int numVideos = manager.getViewsMap().size();
 
         ExecutorService service = Executors.newFixedThreadPool(numThreads);
 
