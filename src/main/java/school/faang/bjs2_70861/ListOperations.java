@@ -2,6 +2,7 @@ package school.faang.bjs2_70861;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -15,7 +16,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .reduce(Integer::max)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -51,7 +52,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(num -> num > min)
                 .reduce(Integer::min)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static List<Integer> convertToLengths(List<String> lines) {
