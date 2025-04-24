@@ -6,3 +6,4 @@ public class SpellCaster {
         System.out.printf("Заклинание %s выполнено: %s", spellName, result);
     }
 }
+
