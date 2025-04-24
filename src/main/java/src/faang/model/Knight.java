@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class Knight {
     public static final int EXECUTOR_AWAIT_TERMINATION_IN_SECONDS = 5;
+
     @Getter
     private final String name;
     private final List<Trial> trials = new ArrayList<>();
