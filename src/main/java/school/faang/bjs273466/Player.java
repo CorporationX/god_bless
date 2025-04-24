@@ -8,11 +8,11 @@ import lombok.Getter;
 public class Player {
     private String name;
 
-    public void doBattle(Boss boss){
+    public void doBattle(Boss boss) {
         boss.joinBattle(this);
-        try{
+        try {
             Thread.sleep(2000);
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Battle interrupted");
         }
         boss.leaveBattle(this);

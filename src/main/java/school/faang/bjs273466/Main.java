@@ -21,7 +21,7 @@ public class Main {
         );
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(WAIT_TIME, TimeUnit.MINUTES)){
+            if (!executor.awaitTermination(WAIT_TIME, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
