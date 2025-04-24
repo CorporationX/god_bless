@@ -3,10 +3,9 @@ package school.faang.bjs2_72187;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -22,16 +21,13 @@ public class CityWorker implements Runnable {
      */
     @Override
     public void run() {
-        double distanceToTheCity = calculateTheDistance(this.startLocation, this.city.location());
+        double distanceToTheCity = calculateDistance(this.startLocation, this.city.location());
 
         Optional<MonsterDistance> monsterWithMinDistances = monsters.stream()
-            .collect(Collectors.toMap(
-                Monster::name, monster -> calculateTheDistance(this.city.location(), monster.location())
-            ))
-            .entrySet().stream()
-            .sorted(Map.Entry.comparingByValue())
-            .map(s -> new MonsterDistance(s.getKey(), s.getValue()))
-            .findFirst();
+            .min(Comparator.comparingDouble(monster ->
+                calculateDistance(this.city.location(), monster.location())))
+            .map(monster -> new MonsterDistance(monster.name(),
+                calculateDistance(this.city.location(), monster.location())));
 
         monsterWithMinDistances.ifPresent(
             monster ->
@@ -40,7 +36,10 @@ public class CityWorker implements Runnable {
         );
     }
 
-    private double calculateTheDistance(Location firstPoint, Location secondPoint) {
+    private double calculateDistance(Location firstPoint, Location secondPoint) {
+        if (firstPoint == null || secondPoint == null) {
+            throw new IllegalArgumentException("Locations cannot be null");
+        }
         int deltaX = firstPoint.cordX() - secondPoint.cordX();
         int deltaY = firstPoint.cordY() - secondPoint.cordY();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
