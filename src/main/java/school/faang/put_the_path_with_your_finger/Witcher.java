@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+
+import static school.faang.put_the_path_with_your_finger.CityWorker.gracefullyShutdown;
 
 public class Witcher {
     private static final int NUM_THREADS = 4;
@@ -29,16 +30,6 @@ public class Witcher {
             CityWorker worker = new CityWorker(city, monsters);
             executorService.submit(worker);
         }
-
-        executorService.shutdown();
-        try {
-            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-        }
-
-        System.out.println("Все задания выполнены.");
+        gracefullyShutdown(executorService);
     }
 }
