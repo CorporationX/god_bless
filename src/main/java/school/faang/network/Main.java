@@ -42,7 +42,7 @@ public class Main {
 
         UserActionAnalyzer analyzer = new UserActionAnalyzer();
         System.out.println(analyzer.userActivity(list, 3));
-        System.out.println(analyzer.popularTopicDiscussion(list,  4));
+        System.out.println(analyzer.popularTopicDiscussion(list, 4));
         System.out.println(analyzer.maxComment(list, 3));
         Map<ActionType, Double> actionPercentages = analyzer.calculatePercentActionType(list);
         System.out.println(actionPercentages);

@@ -29,7 +29,7 @@ public class UserActionAnalyzer {
                 .map(UserAction::getComment)
                 .flatMap(comment -> {
                     Matcher matcher = pattern.matcher(comment);
-                    List<String>hashtag = new ArrayList<>();
+                    List<String> hashtag = new ArrayList<>();
                     while (matcher.find()) {
                         hashtag.add(matcher.group());
                     }
