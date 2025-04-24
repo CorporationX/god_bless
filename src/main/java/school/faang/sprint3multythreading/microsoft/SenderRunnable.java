@@ -1,7 +1,9 @@
 package school.faang.sprint3multythreading.microsoft;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
 
@@ -11,7 +13,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex + 1; i <= endIndex; i++) {
-            System.out.printf("Письмо №%s отправлено. Поток-%S\n", i, Thread.currentThread().getName());
+            log.info("Письмо {} отправлено.", i);
         }
     }
 }
