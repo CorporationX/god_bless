@@ -1,17 +1,17 @@
 package school.faang.google_photo_sync;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@AllArgsConstructor
 public class GooglePhotosAutoUploader {
-    private final List<String> photosToUpload;
+    private final Object lock = new Object();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     private void uploadPhotos() {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             for (String photo : photosToUpload) {
                 log.info("Фотография {} загружена", photo);
             }
@@ -19,19 +19,27 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void startAutoUpload() throws InterruptedException {
-        synchronized (photosToUpload) {
-            if (photosToUpload.isEmpty()) {
-                photosToUpload.wait();
+    public void startAutoUpload() {
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.error("ОШибка при ожидании: {}", e.getMessage());
+                        throw new RuntimeException();
+                    }
+                }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 }
