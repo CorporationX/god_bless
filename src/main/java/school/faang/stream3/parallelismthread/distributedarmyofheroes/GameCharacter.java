@@ -6,6 +6,7 @@ import lombok.Data;
 public abstract class GameCharacter {
     protected int power;
 
-    public GameCharacter() {
+    public GameCharacter(int power) {
+        this.power = power;
     }
 }

@@ -11,6 +11,6 @@ public class Squad<T extends GameCharacter> {
 
     public int calculateSquadPower() {
         return squadList.stream()
-                .mapToInt(t -> t.getPower()).sum();
+                .mapToInt(GameCharacter::getPower).sum();
     }
 }

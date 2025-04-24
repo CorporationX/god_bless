@@ -9,15 +9,25 @@ import java.util.List;
 
 @Setter
 public class ArmyWithThread {
-    private List<Squad> armyList = new ArrayList<>();
+    private List<Squad<? extends GameCharacter>> armyList = new ArrayList<>();
 
     public int calculateTotalPower() {
         int totalPower = 0;
+        List<SquadPowerCalculator> calculators = new ArrayList<>();
 
         for (Squad squad : armyList) {
             SquadPowerCalculator calculator = new SquadPowerCalculator(squad);
-            calculator.run();
-            totalPower += calculator.getPower();
+            calculator.start();
+            calculators.add(calculator);
+        }
+        for (SquadPowerCalculator calculator : calculators) {
+            try {
+                calculator.join();
+                totalPower += calculator.getPower();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted: " + e.getMessage());
+            }
         }
 
         return totalPower;
