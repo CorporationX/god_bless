@@ -19,10 +19,10 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public List<String> popularTopicDiscussion(List<UserAction> userActions, char c, int limitComment) {
+    public List<String> popularTopicDiscussion(List<UserAction> userActions, char firstSymbol, int limitComment) {
         return userActions.stream()
                 .map(UserAction::getComment)
-                .filter(comment -> !comment.isEmpty() && comment.charAt(0) == c)
+                .filter(comment -> !comment.isEmpty() && comment.charAt(0) == firstSymbol)
                 .limit(limitComment)
                 .collect(Collectors.toList());
     }
@@ -30,7 +30,7 @@ public class UserActionAnalyzer {
     public List<String> maxComment(List<UserAction> userActions, int limitUser) {
         LocalDate date = LocalDate.now().minusMonths(1);
         Map<String, Long> mapUser = userActions.stream()
-                .filter(a -> ActionType.COMMENT.equals(a.getType()) && a.getLocalDate().isAfter(date))
+                .filter(type -> ActionType.COMMENT == (type.getType()) && type.getLocalDate().isAfter(date))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
         return mapUser.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -40,9 +40,9 @@ public class UserActionAnalyzer {
     }
 
     public Map<ActionType, Double> calculatePercentActionType(List<UserAction> actionList) {
-        Map<ActionType, Long> actionTypeStream = actionList.stream()
+        Map<ActionType, Long> percentActionType = actionList.stream()
                 .collect(Collectors.groupingBy(UserAction::getType, Collectors.counting()));
-        return actionTypeStream.entrySet().stream()
+        return percentActionType.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> (entry.getValue() * 100.0) / actionList.size()
