@@ -15,6 +15,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @NoArgsConstructor
 @Slf4j
 public class RocketLaunchService {
+    private static final int max_expectation
     public void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -22,6 +23,16 @@ public class RocketLaunchService {
 
         launches.forEach(launch -> executorService.execute(() -> planRocketLaunch(launch, start)));
 
+        gracefullyShutdown(executorService);
+
+        log.info("Thread main is unlocked");
+
+        long end = Duration.between(start, now()).toMillis();
+        log.info(String.format("Planning is complete: %s", now()));
+        log.info(String.format("Total execution time: %d мс", end));
+    }
+
+    private static void gracefullyShutdown(ExecutorService executorService) {
         executorService.shutdown();
         try {
             log.info("Thread main is blocked");
@@ -33,12 +44,6 @@ public class RocketLaunchService {
             log.error("thread stoppage error");
             Thread.currentThread().interrupt();
         }
-
-        log.info("Thread main is unlocked");
-
-        long end = Duration.between(start, now()).toMillis();
-        log.info(String.format("Planning is complete: %s", now()));
-        log.info(String.format("Total execution time: %d мс", end));
     }
 
     private void planRocketLaunch(RocketLaunch launch, LocalDateTime start) {
