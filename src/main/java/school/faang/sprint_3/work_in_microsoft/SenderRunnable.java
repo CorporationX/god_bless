@@ -9,6 +9,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        log.info("Message sent");
+        for (int i = startIndex; i < endIndex; i++) {
+            log.info("Message sent");
+        }
     }
 }
