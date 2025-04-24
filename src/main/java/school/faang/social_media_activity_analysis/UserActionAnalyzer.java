@@ -12,12 +12,13 @@ public class UserActionAnalyzer {
 
     // Топ-N самых активных пользователей
     public static List<String> topActiveUsers(List<UserAction> userActions, int num) {
-        Map<String, Long> actionsCount = userActions
+        return userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
+                .entrySet()
                 .stream()
-                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
-
-        return actionsCount.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(num).map(Map.Entry::getKey)
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(num)
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
@@ -25,7 +26,7 @@ public class UserActionAnalyzer {
         Map<String, Long> hashtagCount = userActions
                 .stream()
                 .filter(action -> action.getContent() != null
-                        && ActionType.POST.equals(action.getActionType())
+                        && ActionType.POST == action.getActionType()
                         || ActionType.COMMENT.equals(action.getActionType()))
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\\\s+")))
                 .filter(action -> action.startsWith("#"))
@@ -39,8 +40,8 @@ public class UserActionAnalyzer {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         Map<String, Long> commentsByUserCount = userActions
                 .stream()
-                .filter(action -> ActionType.COMMENT
-                .equals(action.getActionType()) && action.getActionDate().isAfter(oneMonthAgo))
+                .filter(action -> ActionType.COMMENT == action.getActionType()
+                        && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()));
 
         return commentsByUserCount.entrySet().stream()
