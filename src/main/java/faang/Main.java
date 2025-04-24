@@ -3,6 +3,7 @@ package faang;
 import faang.model.Archer;
 import faang.model.Army;
 import faang.model.Mage;
+import faang.model.Swordsman;
 
 import java.util.List;
 

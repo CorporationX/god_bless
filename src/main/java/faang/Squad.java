@@ -16,12 +16,8 @@ public class Squad {
     }
 
     public int calculateSquadPower() {
-        int squadPower = 0;
-
-        for (Hero hero : heroes) {
-            squadPower += hero.getPower();
-        }
-
-        return squadPower;
+        return heroes.stream()
+                .mapToInt(Hero::getPower)
+                .sum();
     }
 }

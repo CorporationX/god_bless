@@ -1,6 +1,4 @@
-package faang;
-
-import faang.model.Hero;
+package faang.model;
 
 public class Swordsman extends Hero {
 
