@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MailSender {
     private static final int THREADS_LIMIT = 5;
     private static final int MESSAGES_BATCH = 200;
+    private static final int TERMINATION_TIMEOUT = 30;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_LIMIT);
@@ -19,7 +20,7 @@ public class MailSender {
         }
         try {
             executorService.shutdown();
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
                 log.error("Mails sending was not finished");
             }
             log.info("Mails sending was successfully finished");
