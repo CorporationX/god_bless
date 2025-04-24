@@ -25,7 +25,7 @@ public class MailSender {
             }
             log.info("All messages sent");
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
         }
     }
 }
