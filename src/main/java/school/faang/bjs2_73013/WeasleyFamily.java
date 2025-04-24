@@ -14,13 +14,15 @@ public class WeasleyFamily {
     private final List<Chore> chores;
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
+    private static final int EXECUTION_TIMEOUT = 30;
+
     public void executeChores() {
         for (Chore chore : chores) {
             executorService.submit(chore);
         }
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(EXECUTION_TIMEOUT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
