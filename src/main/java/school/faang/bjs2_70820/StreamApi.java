@@ -2,7 +2,10 @@ package school.faang.bjs2_70820;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,11 +25,13 @@ class StreamApi {
     public static Set<Pair<Integer, Integer>> findUniquePairsWithSumOfTargetNumber(
             Set<Integer> numbers, Integer targetNumber) {
         return numbers.stream()
-                .flatMap(i -> numbers.stream()
-                        .filter(j -> !Objects.equals(i, j) && i + j == targetNumber)
-                        .map(j -> new Pair<>(i, j)))
+                .filter(num -> num != targetNumber - num && numbers.contains(targetNumber - num))
+                .map(num -> {
+                    int first = Math.min(num, targetNumber - num);
+                    int second = Math.max(num, targetNumber - num);
+                    return new Pair<>(first, second);
+                })
                 .collect(Collectors.toSet());
-
     }
 
     public static List<String> sortCountriesAlphabetically(Map<String, String> countriesCapitals) {
