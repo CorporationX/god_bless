@@ -79,7 +79,7 @@ public class Util {
             return mapper.readValue(file, new TypeReference<List<Student>>() {
             });
         } catch (IOException e) {
-            log.error("File parse error" + e.getMessage());
+            log.error("File parse error {}", e.getMessage());
         }
         return Collections.emptyList();
     }
