@@ -13,6 +13,9 @@ public class WeasleyFamily {
     private final List<Chore> chores = new ArrayList<>();
 
     public void addChore(Chore chore) {
+        if (chore == null) {
+            throw new IllegalArgumentException("Chroe is null");
+        }
         chores.add(chore);
     }
 

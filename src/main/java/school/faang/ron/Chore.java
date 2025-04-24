@@ -17,8 +17,9 @@ public class Chore implements Runnable {
             Thread.sleep(2000);
             System.out.println("Выполнена ");
         } catch (InterruptedException e) {
-            System.out.println("Задача остановлена " + chore);
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            System.out.println("Поток прерван, задача завершена");
+            return;
         }
     }
 }
