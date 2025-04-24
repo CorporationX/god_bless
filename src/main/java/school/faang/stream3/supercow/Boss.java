@@ -7,13 +7,12 @@ public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
     private final List<Player> playerTeam;
+    private final Object lock = new Object();
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
         this.playerTeam = new ArrayList<>(maxPlayers);
     }
-
-    private final Object lock = new Object();
 
     public void joinBattle(Player player) {
         synchronized (lock) {
