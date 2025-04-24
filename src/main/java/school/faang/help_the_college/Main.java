@@ -21,7 +21,7 @@ public class Main {
             String lastName = faker.name().lastName();
             String workplace = faker.company().name();
 
-            company.add(new Person(firstName, lastName, workplace));
+            company.add(new Person(firstName, lastName, 20, workplace));
 
         }
         System.out.println("Создано персон в компании: " + company.size());
