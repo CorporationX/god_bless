@@ -3,12 +3,19 @@ package school.faang.bjs2_72999;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
+    private static final int THREADS_COUNT = 5;
+    private static final int TOTAL_EMAILS = 1000;
+    private static final int BATCH_SIZE = TOTAL_EMAILS / THREADS_COUNT;
+
     public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < 1_000; i += 200) {
-            SenderRunnable senderRunnable = new SenderRunnable(i, i + 200);
+        for (int i = 0; i < TOTAL_EMAILS; i += BATCH_SIZE) {
+            SenderRunnable senderRunnable = new SenderRunnable(i, i + BATCH_SIZE);
             Thread thread = new Thread(senderRunnable);
             threads.add(thread);
             thread.start();
@@ -18,10 +25,10 @@ public class Main {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("Thread was interrupted.", e);
             }
         }
 
-        System.out.println("All threads have finished.");
+        log.info("All threads have finished.");
     }
 }
