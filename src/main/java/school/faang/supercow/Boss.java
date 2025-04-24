@@ -9,7 +9,7 @@ public class Boss {
     private int currentPlayers;
 
     public Boss(int maxPlayers) {
-        if (maxPlayers<=0){
+        if (maxPlayers <= 0) {
             throw new IllegalArgumentException();
         }
         this.maxPlayers = maxPlayers;
@@ -27,8 +27,8 @@ public class Boss {
         }
     }
 
-    public void leaveBattle(Player player){
-        synchronized (lock){
+    public void leaveBattle(Player player) {
+        synchronized (lock) {
             log.info("С победой/поражением, {}. Верное выбери сам", player.name());
             currentPlayers--;
             lock.notify();
