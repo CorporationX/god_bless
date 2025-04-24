@@ -1,6 +1,7 @@
 package school.faang.network;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,15 @@ public class UserActionAnalyzer {
         Pattern pattern = Pattern.compile(regex);
         return userActions.stream()
                 .map(UserAction::getComment)
-                .filter(comment -> {
+                .flatMap(comment -> {
                     Matcher matcher = pattern.matcher(comment);
-                    return matcher.find();
+                    List<String>hashtag = new ArrayList<>();
+                    while (matcher.find()) {
+                        hashtag.add(matcher.group());
+                    }
+                    return hashtag.stream();
                 })
+                .distinct()
                 .limit(limitComment)
                 .collect(Collectors.toList());
     }
