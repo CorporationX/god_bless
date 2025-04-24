@@ -11,15 +11,14 @@ public class ListOperations {
 
     public static List<int[]> sumOfNumber(List<Integer> numbers, int goal) {
         Set<Integer> seen = new HashSet<>(numbers.size());
-        // Почему это работает с flatMap но не с map их разница ведь в том,
-        // что flatMap превращает List<List<?>> в List<?>, map же просто проходит по данному списку.
+
         return numbers.stream()
                 .flatMap(number -> {
                     int diff = goal - number;
                     if (seen.contains(diff)) {
                         return Stream.of(new int[]{number, diff});
                     }
-                    seen.add(diff);
+                    seen.add(number);
                     return Stream.empty();
                 }).toList();
     }
