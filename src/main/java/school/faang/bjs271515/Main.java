@@ -9,9 +9,9 @@ public class Main {
         String expelliarmus = "Expelliarmus";
         String expectoPatronum = "Expecto Patronum";
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
-        spellCaster.cast(expectoPatronum, (spell) -> "Dementor can be hit by " + spell);
+        spellCaster.cast(alohomora, (doSpell) -> "The door is unlocked by " + doSpell);
+        spellCaster.cast(lumos, (doSpell) -> "A beam of light is created by " + doSpell);
+        spellCaster.cast(expelliarmus, (doSpell) -> "The opponent is disarmed by " + doSpell);
+        spellCaster.cast(expectoPatronum, (doSpell) -> "Dementor can be hit by " + doSpell);
     }
 }
