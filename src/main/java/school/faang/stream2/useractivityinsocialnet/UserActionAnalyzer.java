@@ -58,13 +58,10 @@ public class UserActionAnalyzer {
         Map<ActionType, List<UserAction>> actionsGroupedByType = usersActionList.getActions().stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType));
 
-        Map<String, Double> mapOfActionTypePercentages =
-                actionsGroupedByType.entrySet().stream()
-                        .collect(Collectors.toMap(
-                                entry -> entry.getKey().toString(),
-                                entry -> entry.getValue().size() / allActionsCount * 100
-                        ));
-
-        return mapOfActionTypePercentages;
+        return actionsGroupedByType.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().toString(),
+                        entry -> entry.getValue().size() / allActionsCount * 100
+                ));
     }
 }
