@@ -13,16 +13,24 @@ public class Player {
     private int lives;
     private int scores;
 
+    public Player(String name, Game game, int lives, int scores) {
+        this.name = name;
+        this.game = game;
+        this.lives = lives;
+        this.scores = scores;
+        game.addPlayer(this);
+    }
+
     public void earnScores(int earnedScores) {
         scores += earnedScores;
         game.update(earnedScores, 0);
-        log.info(String.format("%s just earned %d scores", name, earnedScores));
+        log.info("{} just earned {} scores", name, earnedScores);
     }
 
     public void looseLives(int livesLives) {
         lives -= livesLives;
         game.update(0, livesLives);
-        log.info(String.format("%s just loose %d live(s)", name, livesLives));
+        log.info("{} just loose {} live(s)", name, livesLives);
 
     }
 
@@ -30,7 +38,7 @@ public class Player {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            log.error(String.format("%s Interrupted during delay %s", name, e.getMessage()));
+            log.error("{} Interrupted during delay {}", name, e.getMessage());
         }
     }
 
@@ -42,11 +50,4 @@ public class Player {
         }
     }
 
-    public Player(String name, Game game, int lives, int scores) {
-        this.name = name;
-        this.game = game;
-        this.lives = lives;
-        this.scores = scores;
-        game.addPlayer(this);
-    }
 }

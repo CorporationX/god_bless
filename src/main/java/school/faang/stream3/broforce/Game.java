@@ -10,6 +10,11 @@ public class Game {
     private int score;
     private int lives;
 
+    public Game(int score, int lives) {
+        this.score = score;
+        this.lives = lives;
+    }
+
     public void update(int scoresToAdd, int livesToRemove) {
         synchronized (soreLock) {
             this.score += scoresToAdd;
@@ -23,12 +28,7 @@ public class Game {
     }
 
     private void gameOver() {
-        log.info(String.format("Game over, the final score is %d", score));
-    }
-
-    public Game(int score, int lives) {
-        this.score = score;
-        this.lives = lives;
+        log.info("Game over, the final score is {}", score);
     }
 
     public void addPlayer(Player player) {

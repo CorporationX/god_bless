@@ -29,13 +29,13 @@ public class Main {
                     do {
                         player.playCycle();
                     } while (player.getLives() > 0);
-                    log.info(String.format("%s loose all of his lives", player.getName()));
+                    log.info("{} loose all of his lives", player.getName());
                 }));
 
         poolExecutor.shutdown();
         try {
             if (!poolExecutor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
-                log.info(String.format("Завершаем принудительно после %s", MAX_WAIT_MINUTES));
+                log.info("Завершаем принудительно после {}", MAX_WAIT_MINUTES);
                 poolExecutor.shutdownNow();
             }
         } catch (InterruptedException e) {
