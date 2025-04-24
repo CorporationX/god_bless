@@ -2,6 +2,7 @@ package school.faang.stream3.synchronization.googlephotosync;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GooglePhotosAutoUploader {
     List<String> photosToUpload = new ArrayList<>();
@@ -25,7 +26,7 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         for (String photo : photosToUpload) {
-            System.out.print(" ", photo);
+            System.out.printf("%s is uploaded\n" ,photo);
         }
         photosToUpload.clear();
     }
@@ -33,6 +34,12 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized(lock) {
             photosToUpload.add(photoPath);
+            try {
+                int waitingTime = new Random().nextInt(500, 3000);
+                Thread.sleep(waitingTime);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             lock.notify();
         }
     }
