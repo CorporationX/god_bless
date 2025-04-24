@@ -5,12 +5,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private int startIndex;
-    private int engIndex;
+    private int endIndex;
 
     @Override
     public void run() {
-        for (int i = startIndex; i < engIndex; i++) {
-            System.out.println("Отправлено через поток " + Thread.currentThread().getName() + " " + i);
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.printf("[Поток %s] Письмо №%d отправлено%n", Thread.currentThread().getName(), i);
         }
     }
 }
