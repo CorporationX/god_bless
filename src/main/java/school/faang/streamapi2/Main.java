@@ -12,16 +12,16 @@ public class Main {
         ListOperations listOperations = new ListOperations();
 
         Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        List<int[]> pairs = listOperations.findUniquePairs(numbers, 6);
+        Set<List<Integer>> pairs = listOperations.findPairs(numbers, 6);
         System.out.println("Уникальные пары чисел: ");
-        pairs.forEach(pair -> System.out.println(Arrays.toString(pair)));
+        pairs.forEach(System.out::println);
 
         Map<String, String> countryCapitals = new HashMap<>();
         countryCapitals.put("Russia", "Moscow");
         countryCapitals.put("USA", "Washington");
         countryCapitals.put("Germany", "Berlin");
         List<String> capitals = listOperations.getSortedCapitals(countryCapitals);
-        System.out.printf("\nОтсортированные столицы: \n - %s", capitals);
+        System.out.printf("Отсортированные столицы: \n - %s", capitals);
 
         List<String> strings = Arrays.asList("apple", "banana", "avocado", "apricot");
         List<String> filteredStrings = listOperations.filterAndSort(strings, 'a');
