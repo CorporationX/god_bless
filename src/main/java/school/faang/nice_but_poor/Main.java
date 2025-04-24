@@ -6,17 +6,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int TIMEOUT = 3000;
+
     public static void main(String[] args) {
         WeasleyFamily weasleyFamily = new WeasleyFamily();
         ExecutorService executorService = Executors.newCachedThreadPool();
         List<Chore> chores = weasleyFamily.getChores().stream().map(Chore::new).toList();
-        for (Chore chore : chores) {
-            executorService.submit(chore);
-        }
+        chores.forEach(executorService::execute);
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(3000, TimeUnit.MILLISECONDS);
+            executorService.awaitTermination(TIMEOUT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             executorService.shutdownNow();
         }

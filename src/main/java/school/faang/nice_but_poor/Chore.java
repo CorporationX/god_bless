@@ -12,7 +12,7 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(String.format("Задачу %s выполняет поток %s", chore, Thread.currentThread().getName()));
+        System.out.printf("Задачу %s выполняет поток %s%n", chore, Thread.currentThread().getName());
         try {
             log.debug("starting to sleep...");
             Thread.sleep(500);
