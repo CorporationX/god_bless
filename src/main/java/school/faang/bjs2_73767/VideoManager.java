@@ -11,7 +11,7 @@ public class VideoManager {
 
     public void addView(String videoId) {
         synchronized (viewsMap) {
-            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
+            viewsMap.merge(videoId, 1, Integer::sum);
         }
     }
 
