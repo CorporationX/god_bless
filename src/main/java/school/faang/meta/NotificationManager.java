@@ -17,11 +17,11 @@ public class NotificationManager {
         handlers.put(type, handler);
     }
 
-    public void addFilter(Predicate<Notification> filter) {
+    public void registerFilter(Predicate<Notification> filter) {
         filters.add(filter);
     }
 
-    public void addCorrector(Function<Notification, Notification> corrector) {
+    public void registerCorrector(Function<Notification, Notification> corrector) {
         correctors.add(corrector);
     }
 

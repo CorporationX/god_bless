@@ -11,9 +11,9 @@ public class Main {
         manager.registerHandler(NotificationType.PUSH,
                 n -> System.out.println("Push: " + n.getMessage()));
 
-        manager.addFilter(n -> !n.getMessage().toLowerCase().contains("spam"));
+        manager.registerFilter(n -> !n.getMessage().toLowerCase().contains("spam"));
 
-        manager.addCorrector(n ->
+        manager.registerCorrector(n ->
                 new Notification(n.getType(), n.getMessage() + " [Meta Corp]"));
 
         manager.sendNotification(new Notification(NotificationType.EMAIL, "Herzlich Wilkommen!"));
