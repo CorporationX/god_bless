@@ -4,18 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
+import static java.lang.Thread.currentThread;
+
 @Slf4j
 public record RocketLaunch(String name, LocalDateTime launchTime) {
 
-    private static int DELAYED_START_TIME = 1000;
+    private static final int DELAYED_START_TIME = 1000;
 
     public void launch() {
         try {
             Thread.sleep(DELAYED_START_TIME);
-            log.info(String.format("Rocket %s is launched", name));
+            log.info("Rocket {} is launched", name);
         } catch (InterruptedException ex) {
             log.error("thread stoppage error");
-            Thread.currentThread().interrupt();
+            currentThread().interrupt();
         }
     }
 }

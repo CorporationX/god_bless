@@ -15,7 +15,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @NoArgsConstructor
 @Slf4j
 public class RocketLaunchService {
-    private static final int max_expectation
+    private static final int MAX_EXPECTATION = 60;
+
     public void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -25,25 +26,24 @@ public class RocketLaunchService {
 
         gracefullyShutdown(executorService);
 
-        log.info("Thread main is unlocked");
-
         long end = Duration.between(start, now()).toMillis();
-        log.info(String.format("Planning is complete: %s", now()));
-        log.info(String.format("Total execution time: %d мс", end));
+        log.info("Planning is complete: {}", now());
+        log.info("Total execution time: {} мс", end);
     }
 
     private static void gracefullyShutdown(ExecutorService executorService) {
         executorService.shutdown();
+        log.info("Thread main is blocked");
         try {
-            log.info("Thread main is blocked");
-            boolean isClose = executorService.awaitTermination(60, SECONDS);
+            boolean isClose = executorService.awaitTermination(MAX_EXPECTATION, SECONDS);
             if (!isClose) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException ex) {
             log.error("thread stoppage error");
-            Thread.currentThread().interrupt();
+            executorService.shutdownNow();
         }
+        log.info("Thread main is unlocked");
     }
 
     private void planRocketLaunch(RocketLaunch launch, LocalDateTime start) {
@@ -51,7 +51,7 @@ public class RocketLaunchService {
         if (delay > 0) {
             try {
                 Thread.sleep(delay);
-                log.info(String.format("Launch delays have begun for the rocket %s", launch.name()));
+                log.info("Launch delays have begun for the rocket {}", launch.name());
             } catch (InterruptedException ex) {
                 log.error("thread stoppage error");
                 Thread.currentThread().interrupt();

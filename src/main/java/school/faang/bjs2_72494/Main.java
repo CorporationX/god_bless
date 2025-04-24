@@ -3,10 +3,12 @@ package school.faang.bjs2_72494;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.time.LocalDateTime.now;
+
 public class Main {
     public static void main(String[] args) {
         RocketLaunchService service = new RocketLaunchService();
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = now();
 
         List<RocketLaunch> launches = List.of(
                 new RocketLaunch("Falcon 9", now.plusSeconds(2)),
