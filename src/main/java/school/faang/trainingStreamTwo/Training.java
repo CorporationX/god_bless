@@ -5,19 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Training {
-    //искать пару вычитая число от суммы, сохранять сортировать и метод peek
     public static Set<String> sumNumber(Set<Integer> setNumber, int number) {
         return setNumber.stream()
-                .flatMap(a -> {
-                    int b = number - a;
-                    if (setNumber.contains(b) && b > a) {
-                        return Set.of("(" + a + ", " + b + ")").stream();
-                    }
-                    return Stream.empty();
+                .filter(numberOne -> {
+                    int numberTwo = number - numberOne;
+                    return setNumber.contains(numberTwo) && numberTwo > numberOne;
                 })
+                .map(digit -> "(" + digit + ", " + (number - digit) + ")")
                 .sorted()
                 .peek(pair -> System.out.println("Pairs " + pair))
                 .collect(Collectors.toSet());
