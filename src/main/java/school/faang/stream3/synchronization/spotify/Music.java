@@ -31,8 +31,10 @@ public class Music {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(50, TimeUnit.SECONDS)) {
-                System.out.println("Задачи не завершились за 50 секунд, принудительно останавливаем...");
+            int secondsForWaiting = 50;
+            if (!executor.awaitTermination(secondsForWaiting, TimeUnit.SECONDS)) {
+                System.out.printf("Задачи не завершились за %d секунд, принудительно останавливаем...",
+                        secondsForWaiting);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

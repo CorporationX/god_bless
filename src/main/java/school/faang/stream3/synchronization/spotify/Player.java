@@ -22,15 +22,23 @@ public class Player {
 
     public void play() {
         synchronized (userLock) {
-            isPlaying = true;
-            System.out.println("the music is playing again now");
+            if (isPlaying) {
+                System.out.println("the music is already playing now");
+            } else {
+                isPlaying = true;
+                System.out.println("the music is playing again now");
+            }
         }
     }
 
     public void pause() {
         synchronized (userLock) {
-            isPlaying = false;
-            System.out.println("this player has been stopped");
+            if (!isPlaying) {
+                System.out.println("the music was already paused");
+            } else {
+                isPlaying = false;
+                System.out.println("this player has been stopped");
+            }
         }
     }
 
@@ -40,8 +48,8 @@ public class Player {
             if (positionPlaying == playList.playList.size()) {
                 positionPlaying = 0;
             }
-            System.out.println("music has been changed to "
-                    + playList.playList.get(positionPlaying));
+            System.out.printf("music has been changed to %s\n",
+                    playList.playList.get(positionPlaying));
         }
     }
 
@@ -51,8 +59,8 @@ public class Player {
             if (positionPlaying < 0) {
                 positionPlaying = playList.playList.size() - 1;
             }
-            System.out.println("music has been changed to previous position - "
-                    + playList.playList.get(positionPlaying));
+            System.out.printf("music has been changed to previous position - %s\n",
+                    playList.playList.get(positionPlaying));
         }
     }
 
@@ -60,9 +68,9 @@ public class Player {
         synchronized (userLock) {
             for (int i = positionPlaying; i < amount; i++) {
                 if (i == positionPlaying) {
-                    System.out.println(playList.playList.get(i) + " is playing now");
+                    System.out.printf("%s is playing now\n", playList.playList.get(i));
                 } else {
-                    System.out.println(playList.playList.get(i) + " is number " + i + " in line");
+                    System.out.printf("%s is number %d in line\n", playList.playList.get(i), i);
                 }
             }
         }

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class User {
+    private static final int LIST_SIZE = 100;
     private String name;
     private Player player;
 
@@ -12,7 +13,7 @@ public class User {
     }
 
     public void startNewPlayer() {
-        player = new Player(100);
+        player = new Player(LIST_SIZE);
         player.getUserGroup().add(this);
     }
 
