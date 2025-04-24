@@ -3,12 +3,13 @@ package school.faang.bjs2_73680;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private final List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = Collections.synchronizedList(new ArrayList<>());
     private volatile boolean isRun = true;
 
     public void startAutoUpload() {
