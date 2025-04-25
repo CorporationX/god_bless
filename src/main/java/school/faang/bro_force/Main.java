@@ -17,19 +17,16 @@ public class Main {
 
         for (int i = 0; i < game.getBros().size(); i++) {
             executorService.submit(() -> {
-                while (true) {
-                    boolean gameOver = game.updateGameState();
-                    if (gameOver) {
-                        System.out.println("Game over detected in thread: " + Thread.currentThread().getName());
-                        break;
-                    }
+                while (!game.updateGameState(true, true)) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
+                        System.out.println("Thread interrupted: " + Thread.currentThread().getName());
                         break;
                     }
                 }
+                System.out.println("Game over detected in thread: " + Thread.currentThread().getName());
             });
         }
         executorService.shutdown();
