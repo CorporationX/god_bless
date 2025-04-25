@@ -15,21 +15,24 @@ public class Boss {
         synchronized (this) {
             while (currentPlayers.size() == maxPlayers) {
                 try {
-                    System.out.printf(" %s is waiting his turn %s%n", player.getName(), Thread.currentThread().getName());
+                    System.out.printf(" %s is waiting his turn %s%n",
+                            player.getName(), Thread.currentThread().getName());
                     this.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
             currentPlayers.add(player);
-            System.out.printf(" %s has been joined to battle %s%n", player.getName(), Thread.currentThread().getName());
+            System.out.printf(" %s has been joined to battle %s%n",
+                    player.getName(), Thread.currentThread().getName());
         }
     }
 
     public void leaveBattle(Player player) {
         synchronized (this) {
             currentPlayers.remove(player);
-            System.out.printf(" %s left the battle %s%n", player.getName(), Thread.currentThread().getName());
+            System.out.printf(" %s left the battle %s%n",
+                    player.getName(), Thread.currentThread().getName());
             this.notifyAll();
         }
     }
