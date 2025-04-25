@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.BJS2_70790.ListOperations;
+package school.faang.BJS2_70790;
 
 import java.util.Arrays;
 import java.util.List;
