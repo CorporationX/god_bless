@@ -1,4 +1,4 @@
-package s.f.BJS2_70867;
+package s.f.bjs2_70867;
 
 import java.util.Arrays;
 import java.util.HashSet;

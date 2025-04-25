@@ -1,7 +1,6 @@
-package s.f.BJS2_70867;
+package s.f.bjs2_70867;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
