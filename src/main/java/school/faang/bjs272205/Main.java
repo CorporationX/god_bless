@@ -14,6 +14,8 @@ public class Main {
         army.addSquad(swordsmen);
         army.addSquad(mages);
 
-        System.out.println("Total power of army: " + army.calculateTotalPower());
+        int totalPowerOfArmy = army.calculateTotalPower();
+
+        System.out.println("Total power of army: " + totalPowerOfArmy);
     }
 }

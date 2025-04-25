@@ -14,17 +14,14 @@ public class Army {
     public int calculateTotalPower() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
         List<Integer> results = new ArrayList<>();
-
         for (Squad squad : squads) {
             Thread thread = new Thread(() -> results.add(squad.calculateSquadPower()));
             threads.add(thread);
             thread.start();
         }
-
         for (Thread thread : threads) {
             thread.join();
         }
-
         return results.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
