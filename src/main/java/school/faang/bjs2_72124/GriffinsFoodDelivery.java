@@ -12,6 +12,7 @@ public class GriffinsFoodDelivery {
     private static final int THREADS_COUNT = 3;
     private static final int UPPER_BORDER = 10;
     private static final int LOWER_BORDER = 1;
+    private static final int TIMEOUT_SECONDS = 30;
 
     private final String[] characterNames = { "Peter", "Lois", "Meg", "Chris", "Stewie" };
     private final ExecutorService executorService = Executors.newFixedThreadPool(THREADS_COUNT);
@@ -23,7 +24,7 @@ public class GriffinsFoodDelivery {
         }
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
