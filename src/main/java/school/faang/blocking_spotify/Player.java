@@ -1,7 +1,7 @@
 package school.faang.blocking_spotify;
 
 public class Player {
-    volatile boolean isPlaying;
+    private volatile boolean isPlaying;
     private int currentTrackIndex;
     private final String[] playlist;
 
