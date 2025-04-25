@@ -1,7 +1,7 @@
 package school.faang.blocking_spotify;
 
 public class Player {
-    private boolean isPlaying;
+    volatile boolean isPlaying;
     private int currentTrackIndex;
     private final String[] playlist;
 
@@ -58,7 +58,9 @@ public class Player {
     }
 
     public void isPlaying() {
-        System.out.println("Текущий трек: " + playlist[currentTrackIndex] +
-                ", Состояние: " + (isPlaying ? "играет" : "на паузе"));
+        synchronized (lock) {
+            System.out.println("Текущий трек: " + playlist[currentTrackIndex] +
+                    ", Состояние: " + (isPlaying ? "играет" : "на паузе"));
+        }
     }
 }
