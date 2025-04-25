@@ -14,7 +14,7 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         while (isRun()) {
-            synchronized (this.lock) {
+            synchronized (lock) {
                 if (this.photosToUpload.isEmpty() && isRun) {
                     try {
                         log.info("wait into startAutoUpload()");
@@ -31,10 +31,10 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoName) {
-        synchronized (this.lock) {
-            this.photosToUpload.add(photoName);
+        synchronized (lock) {
+            photosToUpload.add(photoName);
             log.info("photo {} was loaded.", photoName);
-            this.lock.notify();
+            lock.notify();
         }
     }
 
@@ -48,13 +48,13 @@ public class GooglePhotosAutoUploader {
         synchronized (this) {
             isRun = false;
         }
-        synchronized (this.lock) {
-            this.lock.notify();
+        synchronized (lock) {
+            lock.notifyAll();
         }
     }
 
     private void uploadPhotos() {
-        this.photosToUpload.forEach(photoPath -> log.info("photo {} was upload", photoPath));
-        this.photosToUpload.clear();
+        photosToUpload.forEach(photoPath -> log.info("photo {} was upload", photoPath));
+        photosToUpload.clear();
     }
 }
