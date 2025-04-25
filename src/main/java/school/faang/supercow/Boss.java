@@ -10,7 +10,7 @@ public class Boss {
 
     public Boss(int maxPlayers) {
         if (maxPlayers <= 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("maxPlayers must be positive");
         }
         this.maxPlayers = maxPlayers;
         this.currentPlayers = 0;
