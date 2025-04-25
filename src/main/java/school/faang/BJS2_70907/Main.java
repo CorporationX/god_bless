@@ -1,11 +1,12 @@
 package school.faang.BJS2_70907;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -22,43 +23,37 @@ public class Main {
                 "David", List.of("Bob", "Charlie")
         );
 
-        List<Pair<String>> persons = friendsByPerson.entrySet().stream()
-                .flatMap(entry -> friendsByPerson.entrySet().stream()
-                        .filter(entryInner -> !entryInner.getKey().equals(entry.getKey())
-                                && !entry.getValue().contains(entryInner.getKey()))
-                        .map(entryInner -> entryInner.getValue().stream()
-                                .filter(friend -> entry.getValue().contains(friend))
-                                .map(friend -> new Pair<>(entry.getKey(), entryInner.getKey()))
-                                .findFirst()
-                                .orElse(null)
-                        )
-                )
-                .filter(Objects::nonNull)
-                .distinct()
-                .toList();
-
-        List<Pair<String>> suggestedFriendPairs = friendsByPerson.entrySet().stream()
-                .flatMap(personEntry -> {
-                    String person = personEntry.getKey();
-                    List<String> personFriends = personEntry.getValue();
-                    return friendsByPerson.entrySet().stream()
-                            .filter(otherPersonEntry ->  {
-                                String otherPerson = otherPersonEntry.getKey();
-                                return !otherPerson.equals(person) && !personFriends.contains(otherPerson);
-                            })
-                            .map(otherPersonEntry -> {
-                                String otherPerson = otherPersonEntry.getKey();
-                                List<String> otherPersonFriends = otherPersonEntry.getValue();
-                                boolean hasMutualFriend = otherPersonFriends.stream()
-                                        .anyMatch(personFriends::contains);
-                                return hasMutualFriend ? new Pair<>(person, otherPerson) : null;
-                            });
-                })
-                .filter(Objects::nonNull)
+        List<Map.Entry<String, String>> suggestedFriendPairs = friendsByPerson.entrySet().stream()
+                .flatMap(personEntry -> getSuggestedFriendsForPerson(personEntry.getKey(), personEntry.getValue(),
+                        friendsByPerson))
                 .distinct()
                 .toList();
         System.out.println("task1:");
         suggestedFriendPairs.forEach(System.out::println);
+    }
+
+    private static Stream<Map.Entry<String, String>> getSuggestedFriendsForPerson(
+            String person, List<String> personFriends, Map<String, List<String>> friendsByPerson) {
+        return friendsByPerson.entrySet().stream()
+                .filter(potentialFriendEntry ->
+                        isNotSelfOrExistingFriend(person, personFriends, potentialFriendEntry.getKey()))
+                .filter(potentialFriendEntry -> hasMutualFriend(personFriends, potentialFriendEntry.getValue()))
+                .map(potentialFriendEntry -> toNormalizePair(person, potentialFriendEntry.getKey()));
+    }
+
+    private static boolean isNotSelfOrExistingFriend(String person, List<String> personFriends,
+                                                     String potentialFriend) {
+        return !potentialFriend.equals(person) && !personFriends.contains(potentialFriend);
+    }
+
+    private static boolean hasMutualFriend(List<String> personFriends, List<String> potentialFriendFriends) {
+        return potentialFriendFriends.stream()
+                .anyMatch(personFriends::contains);
+    }
+
+    private static Map.Entry<String, String> toNormalizePair(String person, String potentialFriend) {
+        return person.compareTo(potentialFriend) < 0 ? Map.entry(person, potentialFriend)
+                : Map.entry(potentialFriend, person);
     }
 
     public static void task2() {
@@ -79,9 +74,16 @@ public class Main {
                 .collect(Collectors.groupingBy(
                         Employee::department,
                         Collectors.collectingAndThen(
-                                Collectors.averagingDouble(employee -> employee.salary().doubleValue()),
-                                value -> new BigDecimal(String.valueOf(value)))));
+                                Collectors.mapping(Employee::salary, Collectors.toList()),
+                                Main::calcAveragingBigDecimal
+                        )));
         System.out.println("task2:");
         avgSalaryByDepartment.entrySet().forEach(System.out::println);
+    }
+
+    private static BigDecimal calcAveragingBigDecimal(List<BigDecimal> values) {
+        BigDecimal total = values.stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return total.divide(BigDecimal.valueOf(values.size()), 2, RoundingMode.HALF_UP);
     }
 }
