@@ -17,7 +17,7 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updater) {
         List<Item> inventory = character.getInventory();
-        if (inventory == null) return;
+        if (inventory == null) {return;}
         inventory.replaceAll(item -> predicate.test(item) ? updater.apply(item) : item);
     }
 }
