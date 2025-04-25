@@ -8,9 +8,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Army {
+    private static final int MAX_TIMEOUT = 30;
+
     private final List<Squad> squads = new ArrayList<>();
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -30,12 +33,23 @@ public class Army {
             return totalPower;
         } catch (InterruptedException | ExecutionException e) {
             log.error("Exception with message {} was thrown", e.getMessage());
-            return 0;
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
     }
 
     public void dispose() {
-        executorService.shutdownNow();
-        log.info("Executor service disposed");
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(MAX_TIMEOUT, TimeUnit.MINUTES)) {
+                log.warn("Not all tasks finished at the time. Finishing thread pull...");
+                executorService.shutdownNow();
+            } else {
+                log.info("All tasks passed");
+            }
+        } catch (InterruptedException e) {
+            log.error("Main thread was interrupted");
+            executorService.shutdownNow();
+        }
     }
 }
