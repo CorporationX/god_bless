@@ -2,6 +2,7 @@ package school.faang.bjs2_70885;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class StreamListOperations {
@@ -19,13 +20,13 @@ public class StreamListOperations {
     public static int max(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .max().orElseThrow();
+                .max().orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double average(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average().orElseThrow();
+                .average().orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static long countStartWithPrefix(List<String> strings, String prefix) {
@@ -55,7 +56,7 @@ public class StreamListOperations {
         return numbers.stream()
                 .sorted()
                 .filter(number -> number > bound)
-                .findFirst().orElseThrow();
+                .findFirst().orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static List<Integer> getStringLengths(List<String> strings) {
