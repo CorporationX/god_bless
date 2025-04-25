@@ -30,10 +30,10 @@ public class Main {
             EXECUTOR.submit(() -> player.doBattle(boss));
         }
 
-        softShuttdown();
+        softShutdown();
     }
 
-    private static void softShuttdown() {
+    private static void softShutdown() {
         EXECUTOR.shutdown();
         try {
             if (!EXECUTOR.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
