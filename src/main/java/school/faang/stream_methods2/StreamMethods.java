@@ -25,8 +25,7 @@ class StreamMethods {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
-                .collect(Collectors
-                        .toList());
+                .toList();
 
     }
 
