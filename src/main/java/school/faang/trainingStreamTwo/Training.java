@@ -1,5 +1,6 @@
 package school.faang.trainingStreamTwo;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +9,16 @@ import java.util.stream.Collectors;
 
 public class Training {
     public static Set<String> sumNumber(Set<Integer> setNumber, int number) {
-        return setNumber.stream()
+        List<String> pairs = new ArrayList<>();
+        setNumber.stream()
                 .filter(numberOne -> {
                     int numberTwo = number - numberOne;
                     return setNumber.contains(numberTwo) && numberTwo > numberOne;
                 })
-                .map(digit -> "(" + digit + ", " + (number - digit) + ")")
+                .forEach(numberOne -> pairs.add(numberOne + ";" + (number - numberOne)));
+        return pairs.stream()
                 .sorted()
-                .peek(pair -> System.out.println("Pairs " + pair))
+                .peek(System.out::println)
                 .collect(Collectors.toSet());
     }
 
