@@ -5,15 +5,13 @@ import lombok.Getter;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class Game {
     private int score;
     private int lives;
-    private final Lock scoreLock = new ReentrantLock();
-    private final Lock livesLock = new ReentrantLock();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
     private final Random random = new Random();
     private final List<Bro> bros = new CopyOnWriteArrayList<>();
 
@@ -28,23 +26,24 @@ public class Game {
         }
 
         Bro bro = bros.get(random.nextInt(bros.size()));
-        scoreLock.lock();
-        try {
+        synchronized (livesLock) {
+
             if (shouldDecreaseLives && !bro.getAlive()) {
                 bro.setLives(bro.getLives() - 1);
                 lives++;
                 if (bro.getLives() <= 0) {
                     return gameOver();
                 }
+
             }
+        }
+        synchronized (scoreLock) {
             if (shouldAddScore) {
                 bro.setScore(bro.getScore() + 1);
                 score++;
             }
-            return false;
-        } finally {
-            scoreLock.unlock();
         }
+        return false;
     }
 
     public boolean gameOver() {
@@ -52,5 +51,4 @@ public class Game {
         System.out.println("Lost lives: " + lives);
         return true;
     }
-
 }
