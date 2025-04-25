@@ -9,5 +9,7 @@ public class Swordsman implements Fighter {
     private final int power;
 
     @Override
-    public int getPower() { return power; }
+    public int getPower() {
+        return power;
+    }
 }

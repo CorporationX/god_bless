@@ -9,5 +9,7 @@ public class Mage implements Fighter {
     private final int power;
 
     @Override
-    public int getPower() { return power; }
+    public int getPower() {
+        return power;
+    }
 }
