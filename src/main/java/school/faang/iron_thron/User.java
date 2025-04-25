@@ -20,8 +20,8 @@ public class User {
         log.info("{} присоединился к дому. Его роль -{}", name, assignRole);
     }
 
-    public void leaveHouse(House house){
-        if (house!=null && !"".equals(assignRole)){
+    public void leaveHouse(House house) {
+        if (house != null && !"".equals(assignRole)) {
             log.info("{} вышел из дома", name);
             house.releaseRole(this);
         }

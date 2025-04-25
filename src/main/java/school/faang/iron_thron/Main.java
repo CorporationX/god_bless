@@ -40,11 +40,11 @@ public class Main {
 
         service.shutdown();
 
-        try{
-            if (!service.awaitTermination(1, TimeUnit.MINUTES)){
+        try {
+            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
                 service.shutdownNow();
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             service.shutdownNow();
         }
     }
