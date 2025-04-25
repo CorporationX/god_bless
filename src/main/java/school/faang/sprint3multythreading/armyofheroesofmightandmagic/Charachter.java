@@ -1,8 +1,10 @@
 package school.faang.sprint3multythreading.armyofheroesofmightandmagic;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Charachter {
-    protected int power;
-    protected String name;
+    private final int power;
 
     public Charachter(int power) {
         this.power = power;

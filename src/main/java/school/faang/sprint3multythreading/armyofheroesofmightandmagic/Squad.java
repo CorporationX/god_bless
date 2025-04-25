@@ -10,6 +10,6 @@ public class Squad {
     private List<Charachter> fighters;
 
     public int calculateSquadPower() {
-        return fighters.stream().mapToInt(warrior -> warrior.power).sum();
+        return fighters.stream().mapToInt(Charachter::getPower).sum();
     }
 }

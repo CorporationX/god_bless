@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Army {
-    List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public int calculateTotalPower() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
