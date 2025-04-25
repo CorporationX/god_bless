@@ -27,7 +27,7 @@ public class UserActionAnalyzer {
                 .stream()
                 .filter(action -> action.getContent() != null
                         && ActionType.POST == action.getActionType()
-                        || ActionType.COMMENT.equals(action.getActionType()))
+                        || ActionType.COMMENT == action.getActionType())
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\\\s+")))
                 .filter(action -> action.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
