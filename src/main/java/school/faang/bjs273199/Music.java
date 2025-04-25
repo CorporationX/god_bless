@@ -31,6 +31,7 @@ public class Music {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }

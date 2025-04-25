@@ -3,6 +3,7 @@ package school.faang.bjs273199;
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying = false;
+    private static final int SLEEP_TIME = 1000;
 
     public void play() {
         synchronized (lock) {
@@ -44,9 +45,10 @@ public class Player {
 
     private void sleep() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
         }
     }
 }
