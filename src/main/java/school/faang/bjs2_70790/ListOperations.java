@@ -1,4 +1,4 @@
-package school.faang.BJS2_70790;
+package school.faang.bjs2_70790;
 
 import java.util.Comparator;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ListOperations {
                 .orElseThrow(() -> new NoSuchElementException("there is no such element in collection"));
     }
 
-    public static List<Integer> confertToLenghts(List<String> strings) {
+    public static List<Integer> convertToLenghts(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();

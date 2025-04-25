@@ -1,4 +1,4 @@
-package school.faang.BJS2_70790;
+package school.faang.bjs2_70790;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +23,6 @@ public class Main {
         System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers1, n -> n % 2 == 0));
         System.out.printf("Наименьшее число больше %s: %s\n",
                 threshold, ListOperations.findMinGreaterThan(numbers2, threshold));
-        System.out.println("Длины строк: " + ListOperations.confertToLenghts(strings));
+        System.out.println("Длины строк: " + ListOperations.convertToLenghts(strings));
     }
 }
