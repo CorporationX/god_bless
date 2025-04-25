@@ -1,15 +1,11 @@
-package school.faang.bjs269209.classes;
-
-import school.faang.bjs269209.Character;
+package school.faang.bjs269209;
 
 public class Archer extends Character {
     public static final int BASE_STRENGTH_VALUE = 3;
     public static final int BASE_AGILITY_VALUE = 10;
 
     public Archer(String name) {
-        super(name);
-        this.strength = BASE_STRENGTH_VALUE;
-        this.agility = BASE_AGILITY_VALUE;
+        super(name, BASE_STRENGTH_VALUE, BASE_AGILITY_VALUE, BASE_STAT_VALUE);
     }
 
     @Override

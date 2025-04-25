@@ -1,8 +1,7 @@
 package school.faang.bjs269209;
 
 import org.junit.jupiter.api.Test;
-import school.faang.bjs269209.classes.Archer;
-import school.faang.bjs269209.classes.Warrior;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CharacterTest {

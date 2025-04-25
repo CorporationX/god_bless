@@ -1,15 +1,11 @@
-package school.faang.bjs269209.classes;
-
-import school.faang.bjs269209.Character;
+package school.faang.bjs269209;
 
 public class Warrior extends Character {
     public static final int BASE_STRENGTH_VALUE = 10;
     public static final int BASE_INTELLIGENCE_VALUE = 3;
 
     public Warrior(String name) {
-        super(name);
-        this.strength = BASE_STRENGTH_VALUE;
-        this.intelligence = BASE_INTELLIGENCE_VALUE;
+        super(name, BASE_STRENGTH_VALUE, BASE_STAT_VALUE, BASE_INTELLIGENCE_VALUE);
     }
 
     @Override
