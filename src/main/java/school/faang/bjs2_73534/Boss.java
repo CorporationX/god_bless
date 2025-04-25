@@ -3,34 +3,37 @@ package school.faang.bjs2_73534;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Slf4j
 @RequiredArgsConstructor
 public class Boss {
     private final Object lock = new Object();
     private final Integer maxPlayers;
-    private Integer currentPlayers = 0;
+    private final AtomicInteger currentPlayers = new AtomicInteger(0);
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            if (currentPlayers >= maxPlayers) {
+            if (currentPlayers.get() >= maxPlayers) {
                 try {
                     log.info("player {} is WAIT the battle", player.name());
                     lock.wait();
                 } catch (InterruptedException e) {
                     log.error("add player error {}", e.getMessage(), e);
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                    return;
                 }
             }
             log.info("player {} join to the battle", player.name());
-            currentPlayers++;
+            currentPlayers.incrementAndGet();
         }
     }
 
     public void leaveBattle(Player player) {
         synchronized (lock) {
             log.info("player {} leave the battle", player.name());
-            currentPlayers--;
-            lock.notify();
+            currentPlayers.decrementAndGet();
+            lock.notifyAll();
         }
     }
 }
