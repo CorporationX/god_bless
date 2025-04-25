@@ -84,11 +84,12 @@ public class Main {
         List<String> top3Users = userActionAnalyzer.topActiveUsers(actions, 3);
         List<String> top5Hashtags = userActionAnalyzer.topPopularHashtags(actions, 5);
         List<String> top3Commenters = userActionAnalyzer.topCommentersLastMonth(actions, 3);
-        Map<String, Double> actionPercentages = userActionAnalyzer.actionTypePercentages(actions);
+        Map<ActionType, Double> actionPercentages = userActionAnalyzer.actionTypePercentages(actions);
         //Вывод результатов
         System.out.println("Топ-3 активных пользователей: " + top3Users);
         System.out.println("Топ-5 популярных хэштегов: " + top5Hashtags);
         System.out.println("Топ-3 комментаторов за последний месяц: " + top3Commenters);
+        // из-за того что все комментаторы писали еще в 24 лист выше пустой
         System.out.println("Процент действий по типам: " + actionPercentages);
     }
 }

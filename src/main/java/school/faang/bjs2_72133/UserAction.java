@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class UserAction {
-    private int id;
+    private long id;
     private String name;
     private ActionType actionType;
     private LocalDate actionDate;
