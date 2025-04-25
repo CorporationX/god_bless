@@ -11,13 +11,14 @@ import java.util.concurrent.Future;
 
 public class Army {
     private List<Squad> squads = new ArrayList<>();
+    private static final int THREAD_COUNT = 5;
 
     public void addSquad(Squad squad) {
         squads.add(squad);
     }
 
     public int calculateTotalPower() throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(squads.size());
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         List<Future<Integer>> results = new ArrayList<>();
 
         for (Squad squad : squads) {
