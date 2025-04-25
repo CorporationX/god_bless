@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers1 = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<Integer> numbers2 = Arrays.asList(10, 5, 20, 15, 3, 7);
+        List<Integer> numbers2 = Arrays.asList(10, 5, 20, 15, 3, 9);
         int threshold = 6;
         String subString = "an";
         char firstLetter = 'a';

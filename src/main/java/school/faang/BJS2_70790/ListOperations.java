@@ -19,8 +19,8 @@ public class ListOperations {
                 .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
     }
 
-    public static double findAverage(List<Integer> numbers) {
-        return numbers.stream()
+    public static double findAverage(List<Integer> number) {
+        return number.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElseThrow(() -> new IllegalArgumentException("the list is empty"));
