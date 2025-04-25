@@ -19,9 +19,9 @@ public class Processor {
                     String person1 = people.get(i);
                     String person2 = people.get(j);
                     List<String> friendsOfPerson1 = users.get(person1);
-                    List<String> friendsofPerson2 = users.get(person2);
+                    List<String> friendsOfPerson2 = users.get(person2);
                     boolean areDirectFriends = friendsOfPerson1.contains(person1);
-                    boolean hasMutualFriends = friendsOfPerson1.stream().anyMatch(friendsofPerson2::contains);
+                    boolean hasMutualFriends = friendsOfPerson1.stream().anyMatch(friendsOfPerson2::contains);
                     if (!areDirectFriends && hasMutualFriends) {
                         return Set.of(person1, person2);
                     } else {
@@ -36,15 +36,15 @@ public class Processor {
     public static Map<String, Double> getAvgSalaryByDpt(List<Employee> employees) {
         return employees.stream()
         .collect(Collectors.groupingBy(
-            (e -> e.getDepartment()),
+            (Employee::getDepartment),
             Collectors.averagingDouble(Employee::getSalary)
         ));
     }
 
     public static List<Integer> findPalindromicNumsInRange(int start, int end) {
-        return IntStream.range(start, end).mapToObj(i -> String.valueOf(i))
-            .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
-            .map(s -> Integer.valueOf(s))
+        return IntStream.range(start, end).mapToObj(String::valueOf)
+            .filter(s -> s.contentEquals(new StringBuilder(s).reverse()))
+            .map(Integer::valueOf)
             .sorted()
             .toList();
     }
@@ -54,18 +54,18 @@ public class Processor {
             .mapToObj(i -> Processor.intIndexToMapOfSubstrings(i, str))
             .flatMap(List::stream)
             .distinct()
-            .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
+            .filter(s -> s.contentEquals(new StringBuilder(s).reverse()))
             .toList();
     }
 
     public static List<Integer> findPerfectNumbersInRange(int start, int end) {
         return IntStream.range(start, end)
-            .mapToObj(i -> Processor.intToMapOfIntDivision(i))
-            .flatMap(map -> map.entrySet().stream())
-            .filter(entry -> entry.getValue().stream()
-                .reduce(0, Integer::sum).equals(entry.getKey())
-            )
-            .collect(Collectors.mapping(Map.Entry::getKey, Collectors.toList()));
+                .mapToObj(Processor::intToMapOfIntDivision)
+                .flatMap(map -> map.entrySet().stream())
+                .filter(entry -> entry.getValue().stream()
+                        .reduce(0, Integer::sum).equals(entry.getKey())
+                )
+                .map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     private static Map<Integer, List<Integer>> intToMapOfIntDivision(int i) {
