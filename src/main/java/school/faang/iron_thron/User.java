@@ -16,8 +16,10 @@ public class User {
     }
 
     public void joinHouse(House house) throws InterruptedException {
-        this.assignRole = house.assignRole(name);
-        log.info("{} присоединился к дому. Его роль -{}", name, assignRole);
+        if (house!=null) {
+            this.assignRole = house.assignRole(name);
+            log.info("{} присоединился к дому. Его роль -{}", name, assignRole);
+        }
     }
 
     public void leaveHouse(House house) {

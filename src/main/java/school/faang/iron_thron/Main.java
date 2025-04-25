@@ -1,24 +1,24 @@
 package school.faang.iron_thron;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         House house = new House();
-        User user1 = new User("User1");
-        User user2 = new User("User2");
-        User user3 = new User("User3");
-        User user4 = new User("User4");
-        User user5 = new User("User5");
-        User user6 = new User("User6");
+        List<User> users = new ArrayList<>();
 
-        List<User> users = new ArrayList<>(List.of(user1, user2, user3, user4, user5, user6));
+        for (int i = 0; i < 15; i++) {
+            users.add(new User("User" + i));
+        }
 
-        final int countThreads = 5;
+        final int countThreads = 7;
 
         ExecutorService service = Executors.newFixedThreadPool(countThreads);
 
@@ -33,7 +33,8 @@ public class Main {
 
                     user.leaveHouse(house);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
+                    log.error("Поток был прерван, завершаем работу");
                 }
             });
         }
