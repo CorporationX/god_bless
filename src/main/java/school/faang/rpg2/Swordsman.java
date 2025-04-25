@@ -1,11 +1,11 @@
-package school.faang.rpg;
+package school.faang.rpg2;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Mage implements Fighter {
+public class Swordsman implements Fighter {
     private final int power;
 
     @Override

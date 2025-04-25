@@ -1,4 +1,4 @@
-package school.faang.rpg;
+package school.faang.rpg2;
 
 import java.util.List;
 
