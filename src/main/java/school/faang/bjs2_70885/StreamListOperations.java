@@ -54,9 +54,8 @@ public class StreamListOperations {
 
     public static int getMinGreaterThan(List<Integer> numbers, int bound) {
         return numbers.stream()
-                .sorted()
                 .filter(number -> number > bound)
-                .findFirst().orElseThrow(() -> new NoSuchElementException("Список пуст"));
+                .min(Integer::compareTo).orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static List<Integer> getStringLengths(List<String> strings) {
