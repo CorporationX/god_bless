@@ -20,7 +20,9 @@ public class Main {
         IntStream.range(0, PLAYER_COUNT)
             .forEach(operand ->
                 executor.execute(
-                    () -> new Player("player #%d".formatted(operand)).doBattle(boss)));
+                    () -> new Player("player #%d".formatted(operand)).doBattle(boss)
+                )
+            );
 
         gracefullyShutdown(executor);
     }
