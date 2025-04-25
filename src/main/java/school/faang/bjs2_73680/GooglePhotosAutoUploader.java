@@ -15,10 +15,10 @@ public class GooglePhotosAutoUploader {
     public void startAutoUpload() {
         while (isRun()) {
             synchronized (lock) {
-                if (this.photosToUpload.isEmpty() && isRun) {
+                if (photosToUpload.isEmpty() && isRun) {
                     try {
                         log.info("wait into startAutoUpload()");
-                        this.lock.wait();
+                        lock.wait();
                     } catch (InterruptedException e) {
                         log.error("error in auto upload method: {}", e.getMessage(), e);
                         Thread.currentThread().interrupt();
