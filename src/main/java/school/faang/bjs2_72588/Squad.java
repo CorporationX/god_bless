@@ -1,23 +1,19 @@
 package school.faang.bjs2_72588;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+public class Squad {
+    private List<Character> characters = new ArrayList<>();
 
-@Getter
-@RequiredArgsConstructor
-public class Squad implements Runnable {
-    private final List<Character> characters;
-    private int totalPower;
-
-    @Override
-    public void run() {
-        calculateSquadPower();
+    public Squad(List<Character> characters) {
+        if (characters != null) {
+            this.characters = characters;
+        }
     }
 
-    public void calculateSquadPower() {
-        totalPower = characters.stream()
+    public int calculateSquadPower() {
+        return characters.stream()
             .mapToInt(Character::getPower)
             .sum();
     }

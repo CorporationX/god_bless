@@ -1,11 +1,11 @@
 package school.faang.bjs2_72588;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public abstract class Character {
-    private final String name;
-    private final int power;
+    protected String name;
+    protected int power;
 }

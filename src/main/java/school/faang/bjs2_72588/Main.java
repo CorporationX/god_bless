@@ -30,7 +30,9 @@ public class Main {
         Squad swordsmenSquad = new Squad(swordsmen);
         Squad magesSquad = new Squad(mages);
 
-        Army army = new Army(List.of(archersSquad, swordsmenSquad, magesSquad));
+        Army army = new Army();
+        army.setSquads(List.of(archersSquad, swordsmenSquad, magesSquad));
+
         log.info("The total power of the Army is: {}.", army.calculateTotalPower());
     }
 }
