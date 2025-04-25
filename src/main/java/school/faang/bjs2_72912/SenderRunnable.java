@@ -21,10 +21,4 @@ public class SenderRunnable implements Runnable {
         System.out.printf("Mails form Thread %s, batch %d to %d sent\n", Thread.currentThread().getName(),
                 startIndex, endIndex);
     }
-
-    public void sendMail(int startIndex, int endIndex) {
-        for (int i = startIndex; i <= endIndex; i++) {
-            run();
-        }
-    }
 }
