@@ -1,17 +1,20 @@
 package school.faang.army.army;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RequiredArgsConstructor
 public class Army {
     private final List<Squad> squads;
 
-    public void addSquad(Squad squad) {
-        squads.add(squad);
+    public Army(List<Squad> squads) {
+        this.squads = squads != null ? squads : new ArrayList<>();
+    }
+
+    public synchronized void addSquad(Squad squad) {
+        if (squad != null) {
+            squads.add(squad);
+        }
     }
 
     public int calculateTotalPower() throws InterruptedException {
