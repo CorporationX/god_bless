@@ -1,22 +1,29 @@
 package school.faang.supercow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
         Boss boss = new Boss(2);
 
-        Player jon = new Player("Jon");
-        Player ben = new Player("ben");
-        Player stiv = new Player("stiv");
+        List<Player> playerList = List.of(new Player("Jon"), new Player("ben"),
+                new Player("stiv"), new Player("stas"), new Player("bob"),
+                new Player("peek"));
 
-        Thread thread1 = new Thread(() -> jon.doBattle(boss));
-        Thread thread2 = new Thread(() -> ben.doBattle(boss));
-        Thread thread3 = new Thread(() -> stiv.doBattle(boss));
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-
-
+        Thread[] threads = new Thread[playerList.size()];
+        for (int i = 0; i < playerList.size(); i++) {
+            final int index = i;
+            threads[i] = new Thread(() -> playerList.get(index).doBattle(boss));
+            threads[i].start();
+        }
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

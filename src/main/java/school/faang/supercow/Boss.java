@@ -10,33 +10,25 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @Slf4j
 public class Boss {
-
     private final int maxPlayer;
-
     private int currentPlayer;
 
-    private final Object lock = new Object();
-
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            if (!(currentPlayer >= maxPlayer)) {
-                currentPlayer++;
-                System.out.println(player.getName() + " Вступает в бой");
-            } else {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    log.error("Ошибка при вызове потока", e);
-                }
+    public synchronized void joinBattle(Player player) {
+        if (currentPlayer < maxPlayer) {
+            currentPlayer++;
+            System.out.println(player.getName() + " Вступает в бой");
+        } else {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (lock) {
-            currentPlayer--;
-            System.out.println(player.getName() + " Завершил битву");
-            lock.notify();
-        }
+    public synchronized void leaveBattle(Player player) {
+        currentPlayer--;
+        System.out.println(player.getName() + " Завершил битву");
+        notify();
     }
 }
