@@ -12,7 +12,7 @@ public class UserActionAnalyser {
 
     public List<String> filterTopByAppearance(Map<String, Long> stringsList, int top) {
         return stringsList.entrySet().stream()
-                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .limit(top)
                 .toList();
@@ -51,7 +51,7 @@ public class UserActionAnalyser {
                 .stream()
                 .collect(Collectors.toMap(
                 Map.Entry::getKey,
-                entry -> entry.getValue() / amountOfActions * PERCENTAGE
+                    entry -> entry.getValue() / amountOfActions * PERCENTAGE
         ));
     }
 }
