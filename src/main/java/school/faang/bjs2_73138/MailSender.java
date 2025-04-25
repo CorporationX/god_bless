@@ -5,7 +5,7 @@ public class MailSender {
         Thread[] threads = new Thread[5];
         int lettersPerThread = 200;
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String name = "Поток - " + i;
             int start = i * lettersPerThread + 1;
             int end = (i + 1) * lettersPerThread;
@@ -21,6 +21,5 @@ public class MailSender {
         }
 
         System.out.println("Все письма успешно отправлены!");
-
     }
 }
