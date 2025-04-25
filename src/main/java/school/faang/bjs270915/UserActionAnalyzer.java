@@ -1,6 +1,7 @@
 package school.faang.bjs270915;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +20,9 @@ public class UserActionAnalyzer {
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int num) {
         Map<String, Long> usersToHashtagsCount = actions.stream()
-                .filter(userAction -> !userAction.content().isEmpty() && userAction.content().charAt(0) == '#')
+                .filter(userAction -> !userAction.content().isEmpty())
+                .peek(userAction -> Arrays.stream(userAction.content().split(""))
+                        .filter(s -> s.startsWith("#")))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()));
 
         return usersToHashtagsCount.entrySet().stream()
@@ -33,7 +36,7 @@ public class UserActionAnalyzer {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         Map<String, Long> usersToCommentCount = actions.stream()
                 .filter(userAction -> userAction.actions().equals(ActionType.COMMENT))
-                                .filter(userAction -> userAction.actionDate().isAfter(oneMonthAgo))
+                .filter(userAction -> userAction.actionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()));
 
         return usersToCommentCount.entrySet().stream()
