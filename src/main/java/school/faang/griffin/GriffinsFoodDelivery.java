@@ -11,7 +11,7 @@ public class GriffinsFoodDelivery {
         Random random = new Random();
 
         for (String character : characterNames) {
-            int foodAmount = random.nextInt(10,100);
+            int foodAmount = random.nextInt(10, 100);
             FoodDeliveryTask task = new FoodDeliveryTask(character, foodAmount);
             executor.submit(task);
         }
