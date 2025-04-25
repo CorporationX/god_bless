@@ -11,6 +11,5 @@ public record Player(String name) {
         } finally {
             boss.leaveBattle(this);
         }
-
     }
 }
