@@ -8,7 +8,9 @@ public record Player(String name) {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
+        } finally {
+            boss.leaveBattle(this);
         }
-        boss.leaveBattle(this);
+
     }
 }
