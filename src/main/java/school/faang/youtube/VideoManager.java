@@ -3,13 +3,13 @@ package school.faang.youtube;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Getter
 @Slf4j
 public class VideoManager {
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final ConcurrentMap<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
     public synchronized void addVideo(String video) {
         viewsMap.put(video, 0);
@@ -22,7 +22,7 @@ public class VideoManager {
     }
 
     public synchronized int getViewCount(String videoId) {
-        return viewsMap.get(videoId);
+        return viewsMap.getOrDefault(videoId, 0);
     }
 
 
