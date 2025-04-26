@@ -21,13 +21,13 @@ public class EnvironmentalImpactAnalyzer {
 
     public static void main(String[] args) {
         List<EnvironmentalImpact> environmentalImpacts = CompanyDataLoader.parseEnvImpactsCsv(CSV);
-        Map<String, Double> stringDoubleMap = StatisticsAggregator.calculateEmissionOnPeriod(
+        Map<String, Double> emissionsOnPeriodByCompanyName = StatisticsAggregator.calculateEmissionOnPeriod(
                 LocalDate.of(2022, 03, 01),
                 LocalDate.of(2023, 03, 01),
                 environmentalImpacts,
                 PolutionType.GAS_EMISSION
         );
-        System.out.println(stringDoubleMap);
+        System.out.println(emissionsOnPeriodByCompanyName);
 
         calculateAndPrintAnnualEmission(CSV, 101);
 
