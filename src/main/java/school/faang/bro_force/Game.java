@@ -23,24 +23,24 @@ public class Game {
         if (isGameOver) { //должно быть ок без volatile если параметр isGameOver меняется только в блоке synchronized
             gameOver();
         }
-        synchronized (firstLock) {
-            synchronized (secondLock) {
-                for (var entry : updates.entrySet()) {
-                    if (Parameter.LIVE == entry.getKey()) {
-                        log.debug("Thread: {}, Modifying LIVE parameter, current value = {}",
-                                Thread.currentThread().getName(), lives);
-                        lives = entry.getValue().apply(lives);
-                        log.debug("Thread: {}, LIVE parameter after modifying, current value = {}",
-                                Thread.currentThread().getName(), lives);
-                        if (lives <= 0) {
-                            gameOver();
-                        }
-                    } else if (Parameter.SCORE == entry.getKey()) {
-                        log.debug("Thread: {}, Modifying SCORE parameter, current value = {}",
-                                Thread.currentThread().getName(), scores);
-                        scores = entry.getValue().apply(scores);
-                        log.debug("Thread: {}, SCORE parameter after modifying, current value = {}",
-                                Thread.currentThread().getName(), scores);
+        for (var entry : updates.entrySet()) {
+            if (Parameter.SCORE == entry.getKey()) {
+                synchronized (secondLock) {
+                    log.debug("Thread: {}, Modifying SCORE parameter, current value = {}",
+                            Thread.currentThread().getName(), scores);
+                    scores = entry.getValue().apply(scores);
+                    log.debug("Thread: {}, SCORE parameter after modifying, current value = {}",
+                            Thread.currentThread().getName(), scores);
+                }
+            } else if (Parameter.LIVE == entry.getKey()) {
+                synchronized (firstLock) {
+                    log.debug("Thread: {}, Modifying LIVE parameter, current value = {}",
+                            Thread.currentThread().getName(), lives);
+                    lives = entry.getValue().apply(lives);
+                    log.debug("Thread: {}, LIVE parameter after modifying, current value = {}",
+                            Thread.currentThread().getName(), lives);
+                    if (lives <= 0) {
+                        gameOver();
                     }
                 }
             }
