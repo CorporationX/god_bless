@@ -3,9 +3,6 @@ package school.faang;
 import java.util.Arrays;
 import java.util.List;
 
-//Вам нужно создать класс со статическими методами, которые выполняют различные операции с числами и строками
-//в списках. Все методы должны принимать на вход список данных и возвращать результат обработки.
-//Требования:
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);

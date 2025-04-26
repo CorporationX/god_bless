@@ -39,7 +39,6 @@ public class ListOperations {
         return filtered;
     }
 
-
     public static List<String> sortByLength(List<String> strings) {
         strings.sort((s1, s2) -> Integer.compare(s1.length(), s2.length()));
         return strings;
