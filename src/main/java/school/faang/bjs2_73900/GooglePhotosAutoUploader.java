@@ -10,14 +10,14 @@ public class GooglePhotosAutoUploader {
     private List<String> paths = new ArrayList<>();
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized(paths) {
+        synchronized (paths) {
             paths.add(photoPath);
             paths.notify();
         }
     }
 
     public void uploadPhotos() {
-        synchronized(paths) {
+        synchronized (paths) {
             if (paths.isEmpty()) {
                 try {
                     paths.wait();
