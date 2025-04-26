@@ -1,14 +1,11 @@
 package school.faang.bjs2_73388;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
     private boolean isPlaying = false;
-    private final Lock lock = new ReentrantLock();
+    private final Object lock = new Object();
     private final long waitTime = 3_000;
 
     public void ifPlaying() {
@@ -33,13 +30,10 @@ public class Player {
     }
 
     public void pause() {
-        if (lock.tryLock()) {
+        synchronized (lock) {
             log.info("The lock is set with thread {}.", Thread.currentThread().getName());
             isPlaying = false;
-            lock.unlock();
             ifPlaying();
-        } else {
-            log.info("The system is used by the thread {}.", Thread.currentThread().getName());
         }
     }
 
