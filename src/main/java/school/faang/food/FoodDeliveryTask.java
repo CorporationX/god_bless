@@ -10,22 +10,23 @@ import java.util.Random;
 @Getter
 @Setter
 public class FoodDeliveryTask implements Runnable {
-
     private final String character;
     private final int foodAmount;
     private final Random random = new Random();
+    private static final int TIME_COOKING = 100;
 
     @Override
     public void run() {
         String foodName = getFoodType().name();
         try {
-            System.out.println(character + " заказал " + foodName + " в количестве " + foodAmount);
+            System.out.printf("%s заказал %s в количестве %d\n", character, foodName, foodAmount);
 
-            Thread.sleep(random.nextInt(foodAmount * 1000));
+            Thread.sleep(random.nextInt(foodAmount * TIME_COOKING));
 
-            System.out.println(character + " ест " + foodName + " в количестве " + foodAmount);
+            System.out.printf("%s есть %s в количестве %d \n", character, foodName, foodAmount);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            System.out.println("Нарушение работы потока");
         }
 
     }

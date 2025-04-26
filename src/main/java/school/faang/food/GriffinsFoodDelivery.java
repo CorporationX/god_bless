@@ -1,24 +1,22 @@
 package school.faang.food;
 
-import java.util.Collections;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
-
     private static final int COUNT_THREAD_POOL = 3;
+    private static final int MIN_VALUE = 1;
+    private static final int MAX_VALUE = 50;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(COUNT_THREAD_POOL);
 
         String[] nameUnit = {"Peter", "Lois", "Meg", "Chris", "Stewie", "Brain"};
-        int minValue = 1;
-        int maxValue = 50;
-        for (String s : nameUnit) {
-            int randomValue = minValue + (int) (Math.random() * (maxValue - minValue + 1));
-            executorService.execute(new FoodDeliveryTask(s, randomValue));
+
+        for (String name : nameUnit) {
+            int randomValue = MIN_VALUE + (int) (Math.random() * (MAX_VALUE - MIN_VALUE + 1));
+            executorService.execute(new FoodDeliveryTask(name, randomValue));
         }
         executorService.shutdown();
         try {
