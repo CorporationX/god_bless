@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class StatisticsAggregator {
     public static Map<String, Double> calculateEmissionOnPeriod(LocalDate startDate,
-                                                         LocalDate endDate,
-                                                         List<EnvironmentalImpact> impactEvents,
-                                                         PolutionType type) {
+                                                                LocalDate endDate,
+                                                                List<EnvironmentalImpact> impactEvents,
+                                                                PolutionType type) {
 
         return impactEvents.stream()
                 .filter(impEvent -> type.equals(impEvent.getType()))
@@ -18,13 +18,11 @@ public class StatisticsAggregator {
                         startDate.isBefore(impEvent.getDate())
                                 && endDate.isAfter(impEvent.getDate()))
                 .collect(Collectors.groupingBy(
-                        impEvent -> EnvironmentalImpactAnalyzer.COMPANY_LIST.stream()
-                                .filter(company -> company.getId() == impEvent.getCompanyId())
-                                .findFirst()
+                        impEvent -> EnvironmentalImpactAnalyzer.COMPANY_LIST
+                                .findByCompanyId(impEvent.getCompanyId())
                                 .map(Company::getCompanyName)
                                 .orElse("UNDEFINED"),
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
-
     }
 }
