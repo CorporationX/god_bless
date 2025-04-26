@@ -29,10 +29,11 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             lock.notify();
+            log.info("Photo {} is added to cache.........", photoPath);
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         Iterator<String> iterator = photosToUpload.iterator();
         while (iterator.hasNext()) {
             log.info("{} is uploaded on server", iterator.next());
