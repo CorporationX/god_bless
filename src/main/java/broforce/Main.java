@@ -21,15 +21,18 @@ public class Main {
         };
 
         Thread player1 = new Thread(playerAction, "Player-1");
-        Thread player2 = new Thread(playerAction, "Player-2");
-        Thread player3 = new Thread(playerAction, "Player-3");
-        Thread player4 = new Thread(playerAction, "Player-4");
-        Thread player5 = new Thread(playerAction, "Player-5");
-
         player1.start();
+
+        Thread player2 = new Thread(playerAction, "Player-2");
         player2.start();
+
+        Thread player3 = new Thread(playerAction, "Player-3");
         player3.start();
+
+        Thread player4 = new Thread(playerAction, "Player-4");
         player4.start();
+
+        Thread player5 = new Thread(playerAction, "Player-5");
         player5.start();
     }
 }
