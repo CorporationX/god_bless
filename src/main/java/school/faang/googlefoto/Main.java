@@ -8,48 +8,49 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader autoUploader = new GooglePhotosAutoUploader();
-        List<String> fotosList = List.of(
-                "Foto21.png",
-                "Foto22.png",
-                "Foto23.png",
-                "Foto24.png",
-                "Foto25.png",
-                "Foto26.png",
-                "Foto27.png",
-                "Foto28.png",
-                "Foto29.png",
-                "Foto30.png",
-                "Foto31.png",
-                "Foto32.png",
-                "Foto33.png"
+        List<String> photosList = List.of(
+                "Photo21.png",
+                "Photo22.png",
+                "Photo23.png",
+                "Photo24.png",
+                "Photo25.png"
         );
 
-        autoUploader.getPhotosToUpload().addAll(fotosList);
+        autoUploader.getPhotosToUpload().addAll(photosList);
 
-        List<String> fotos = List.of(
-                "Foto1.png",
-                "Foto2.png",
-                "Foto3.png",
-                "Foto4.png",
-                "Foto5.png",
-                "Foto6.png",
-                "Foto7.png",
-                "Foto8.png",
-                "Foto9.png",
-                "Foto10.png",
-                "Foto11.png",
-                "Foto12.png"
+        List<String> photos = List.of(
+                "Photo1.png",
+                "Photo2.png",
+                "Photo3.png",
+                "Photo4.png",
+                "Photo5.png",
+                "Photo6.png",
+                "Photo7.png",
+                "Photo8.png",
+                "Photo9.png",
+                "Photo10.png",
+                "Photo11.png",
+                "Photo12.png",
+                "Photo13.png",
+                "Photo14.png",
+                "Photo15.png",
+                "Photo16.png",
+                "Photo17.png"
         );
+
+        autoUploader.managementProgram();
 
         Thread uploadingPhotos = new Thread(autoUploader::startAutoUpload);
-        Thread addPhotos = new Thread(() -> fotos.forEach(autoUploader::onNewPhotoAdded));
+        Thread addPhotos = new Thread(() -> photos.forEach(autoUploader::onNewPhotoAdded));
 
         uploadingPhotos.start();
         addPhotos.start();
 
-        Thread.sleep(10000);
+        Thread.sleep(8000);
 
-        uploadingPhotos.interrupt();
+        autoUploader.managementProgram();
+        uploadingPhotos.join();
+
         log.info("Поток main завершен");
     }
 }

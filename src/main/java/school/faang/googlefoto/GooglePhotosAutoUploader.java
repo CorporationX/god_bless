@@ -11,45 +11,52 @@ import java.util.Deque;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final Deque<String> photosToUpload = new ArrayDeque<>();
+    boolean applicationStates = false;
+
+    public void managementProgram() {
+        applicationStates = !applicationStates;
+        log.info("Состояние программы изменено на: {}", applicationStates);
+    }
 
     public void startAutoUpload() {
-        while (!Thread.currentThread().isInterrupted()) {
-            try {
-                synchronized (lock) {
+        do {
+            synchronized (lock) {
+                try {
                     if (photosToUpload.isEmpty()) {
-                        log.info("Проверяем папку на пустоту");
-                        lock.wait();
                         log.info("Поток заснул");
+                        lock.wait(1000);
+                        log.info("Поток проснулся");
                     }
+                    uploadPhotos();
+                } catch (InterruptedException e) {
+                    log.error("поток прерван исключением", e);
+                    Thread.currentThread().interrupt();
                 }
-                uploadPhotos();
-            } catch (InterruptedException e) {
-                log.error("поток прерван исключением", e);
-                Thread.currentThread().interrupt();
-                log.error("Восстанавливаем флаг прерывания, для завершения цикла");
             }
-        }
+        } while (applicationStates);
+        log.info("Программа остановлена");
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            log.info("Фото: {} добавлено", photoPath);
+            log.info("Фото: {} добавлено в список", photoPath);
             lock.notify();
             log.info("Отправили сигнал на пробуждение другим потокам");
         }
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {
-            log.error("Процесс добавления фото в папку прерван", e);
+            log.error("Поток прерван");
         }
     }
 
     public void uploadPhotos() throws InterruptedException {
-        synchronized (lock) {
-            String foto = photosToUpload.poll();
-            log.info("Фото: {} загружено", foto);
+        for (String photo : photosToUpload) {
+            log.info("Фото: {} загружено", photo);
+            Thread.sleep(300);
         }
-        Thread.sleep(200);
+        photosToUpload.clear();
+        log.info("Папка пустая");
     }
 }
