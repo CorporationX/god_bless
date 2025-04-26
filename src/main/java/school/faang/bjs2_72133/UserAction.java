@@ -1,0 +1,16 @@
+package school.faang.bjs2_72133;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.time.LocalDate;
+
+@Getter
+@AllArgsConstructor
+public class UserAction {
+    private long id;
+    private String name;
+    private ActionType actionType;
+    private LocalDate actionDate;
+    private String content;
+}
