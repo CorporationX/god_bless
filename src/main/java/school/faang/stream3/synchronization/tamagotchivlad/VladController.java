@@ -16,6 +16,7 @@ public class VladController implements Runnable {
     @Override
     public void run() {
         while (!tamagotchiList.isEmpty()) {
+            System.out.println("Time is running");
             for (TamagotchiVlad tamagotchi : tamagotchiList) {
                 try {
                     tamagotchi.run();

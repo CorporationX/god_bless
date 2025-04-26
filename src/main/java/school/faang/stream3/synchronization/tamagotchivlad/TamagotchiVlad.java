@@ -24,59 +24,70 @@ public class TamagotchiVlad implements Runnable {
                             need -> START_LEVEL));
 
     public void feed() {
-        synchronized (name){
-            needs.put("hungerIndicator", needs.get("hungerIndicator") +3);
-            System.out.printf("%s is eating\n", name);
+        synchronized (name) {
+            int indicatorValue = inccreaseIndicator("hungerIndicator");
+            needs.put("hungerIndicator", indicatorValue);
+            System.out.printf("%s is eating. HungerIndicator = %d\n", name, indicatorValue);
         }
     }
 
     public void sleep() {
-        synchronized (name){
-            needs.put("energyIndicator", needs.get("energyIndicator") +3);
-            System.out.printf("%s is sleeping\n", name);
+        synchronized (name) {
+            int indicatorValue = inccreaseIndicator("energyIndicator");
+            needs.put("energyIndicator", indicatorValue);
+            System.out.printf("%s is sleeping. EnergyIndicator = %d\n", name, indicatorValue);
         }
     }
 
+
     public void clean() {
-        synchronized (name){
-            needs.put("hygieneIndicator", needs.get("hygieneIndicator") +3);
-            System.out.printf("%s is taking a shower\n", name);
+        synchronized (name) {
+            int indicatorValue = inccreaseIndicator("hygieneIndicator");
+            needs.put("hygieneIndicator", indicatorValue);
+            System.out.printf("%s is taking a shower. HygieneIndicator = %d\n", name, indicatorValue);
         }
     }
 
     public void play() {
-        synchronized (name){
-            needs.put("funIndicator", needs.get("funIndicator") +3);
-            System.out.printf("%s is having a good time\n", name);
+        synchronized (name) {
+            int indicatorValue = inccreaseIndicator("funIndicator");
+            needs.put("funIndicator", indicatorValue);
+            System.out.printf("%s is having a good time. FunIndicator = %d\n", name, indicatorValue);
         }
     }
 
-    private void timeRun (){
+    private void timeRun() {
         needs.forEach((k, v) -> needs.put(k, Math.max(0, v - coefficient)));
+        needs = needs.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> Math.max(0, entry.getValue())
+                ));
     }
 
     @Override
-    public void run() {
+    public void run() throws RuntimeException {
         while (true) {
             synchronized (name) {
                 try {
                     Thread.sleep(3000);
                     timeRun();
-                    if (needs.get("hungerIndicator") == 0){
+                    if (needs.get("hungerIndicator") == 0) {
                         throw new RuntimeException(String.format("Game is over for %s", name));
                     }
-                    if (needs.values().stream().anyMatch(v -> v == 0)){
+                    if (needs.values().stream().anyMatch(v -> v == 0)) {
                         coefficient++;
                     } else {
                         coefficient = START_COEFFICIENT;
                     }
-                    if (needs.get("hungerIndicator") == MAX_LEVEL){
+                    if (needs.get("hungerIndicator") == MAX_LEVEL) {
                         System.out.printf("%s is a well-fed tamagotchi\n", name);
                     }
-                    if (needs.get("funIndicator") == MAX_LEVEL){
+                    if (needs.get("funIndicator") == MAX_LEVEL) {
                         System.out.printf("%s loves his live\n", name);
                     }
-                    if (needs.get("energyIndicator") < 3){
+                    if (needs.get("energyIndicator") < 3) {
                         System.out.printf("%s is tired\n", name);
                     }
                 } catch (InterruptedException e) {
@@ -84,5 +95,16 @@ public class TamagotchiVlad implements Runnable {
                 }
             }
         }
+    }
+
+
+    private int inccreaseIndicator(String indicator) {
+        int indicatorValue = needs.get(indicator);
+        if (indicatorValue + 3 > 10) {
+            indicatorValue = 10;
+        } else {
+            indicatorValue = indicatorValue + 3;
+        }
+        return indicatorValue;
     }
 }
