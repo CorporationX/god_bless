@@ -10,13 +10,12 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        Thread thread = new Thread(() -> System.out.printf("Doing task: %s\n", chore), chore);
         try {
-            System.out.printf("Thread is starting task: %s\n", thread.getName());
-            thread.start();
+            System.out.printf("Thread is starting task: %s\n", chore);
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            System.out.println("Thread's work was interrupted");
         }
     }
 }
