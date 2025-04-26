@@ -21,7 +21,8 @@ public class Boss {
             try {
                 wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                System.out.println("Поток был прерван");
             }
         }
     }
