@@ -13,6 +13,9 @@ public class Test {
         notificationManager.registerHandler(NotificationType.PUSH, notification ->
                 System.out.println("Push: " + notification.getMessage()));
 
+        notificationManager.registerHandler(NotificationType.PUSH, notification ->
+                System.out.println("Push " + notification.getMessage()));
+
         notificationManager.addFilter(notification -> !notification.getMessage().toLowerCase().contains("spam"));
         notificationManager.addCorrector(notification ->
                 new Notification(notification.getType(), notification.getMessage() + " [Meta Corp]"));
@@ -22,10 +25,4 @@ public class Test {
         notificationManager.sendNotification(new Notification(NotificationType.PUSH, "New message is available"));
 
     }
-
-
-
-
-
-    }
-
+}
