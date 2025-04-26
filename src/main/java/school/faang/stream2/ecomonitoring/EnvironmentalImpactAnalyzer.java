@@ -33,6 +33,8 @@ public class EnvironmentalImpactAnalyzer {
 
         calculateAndPrint3MostImpactors(CSV, LocalDate.of(2022, 12, 25));
 
+        calculateAndPrintAnnualEmissionsPerEmployee(LocalDate.of(2022, 12, 25));
+
     }
 
     public static void calculateAndPrintAnnualEmission(String filePath, int companyId) {
@@ -67,9 +69,10 @@ public class EnvironmentalImpactAnalyzer {
         final String column2 = "TotalGasEmission  ";
         final String column3 = "AvgGasEmission/Month  ";
         final String column4 = "MinGasEmission/Month";
-        System.out.println("\n" + column1 + column2 + column3 + column4 + "\n");
+        System.out.println("\n" + column1 + column2 + column3 + column4);
 
         List<EnvironmentalImpact> environmentalImpacts = CompanyDataLoader.parseEnvImpactsCsv(filePath);
+
         Map<String, Double> most3Impactors = StatisticsAggregator.calculateEmissionOnPeriod(
                 endOfPeriodDate.minusYears(yearsToSubtract),
                 endOfPeriodDate,
@@ -104,6 +107,38 @@ public class EnvironmentalImpactAnalyzer {
                     value, " ".repeat(column2.length() - monthly.length()),
                     average, " ".repeat(column3.length() - average.length()),
                     minimalMonthEmissionByCompany.get(key)
+            );
+        });
+
+    }
+
+
+    public static void calculateAndPrintAnnualEmissionsPerEmployee(LocalDate endOfPeriodDate) {
+        String column1 = "Company         ";
+        String column2 = "TotalGasEmission  ";
+        String column3 = "Employees   ";
+        String column4 = "GasEmissionPerEmployee";
+        System.out.println("\n" + column1 + column2 + column3 + column4);
+
+        Map<String, Double> annualEmissionsByCompanyName = StatisticsAggregator.calculateEmissionOnPeriod(
+                endOfPeriodDate.minusYears(1),
+                endOfPeriodDate,
+                CompanyDataLoader.parseEnvImpactsCsv(CSV),
+                PolutionType.GAS_EMISSION
+        );
+
+        annualEmissionsByCompanyName.forEach((key, value) -> {
+            Integer numberOfEmployees = COMPANY_LIST.findByCompanyName(key)
+                    .map(Company::getTotalEmployees)
+                    .orElse(1);
+            String employees = String.valueOf(numberOfEmployees);
+            String forEmployee = String.format("%.2f", value / numberOfEmployees);
+            final int spaceHolders = 7; //4 arguments + 3 separators
+            System.out.printf("%s".repeat(spaceHolders) + "\n",
+                    key, " ".repeat(column1.length() - key.length()),
+                    value, " ".repeat(column2.length() - String.valueOf(value).length()),
+                    employees, " ".repeat(column3.length() - employees.length()),
+                    forEmployee
             );
         });
 
