@@ -5,20 +5,18 @@ import lombok.Data;
 @Data
 public class SenderRunnable implements Runnable {
 
-    int startIndex;
-    int endIndex;
+    private int startIndex;
+    private int endIndex;
 
-    public SenderRunnable(int startIndex, int endIndex) throws InterruptedException {
+    public SenderRunnable(int startIndex, int endIndex) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
-        Thread thread = new Thread(this);
-        thread.start();
-        thread.join();
     }
 
     @Override
     public void run() {
-        System.out.printf("Mails form Thread %s, batch %d to %d sent\n", Thread.currentThread().getName(),
-                startIndex, endIndex);
+        for (int i = startIndex; i  < endIndex; i++) {
+            System.out.printf("Mail %d sent by %s\n", i, Thread.currentThread().getName());
+        }
     }
 }
