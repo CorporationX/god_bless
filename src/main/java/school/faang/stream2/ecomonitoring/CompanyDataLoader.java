@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVParser;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,8 @@ public class CompanyDataLoader {
                     .collect(Collectors.toList());
 
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при чтении CSV-файла: " + e.getMessage(), e);
+            log.error("Ошибка при чтении CSV-файла: {}", e.getMessage());
+            return Collections.emptyList();
         }
     }
 }
