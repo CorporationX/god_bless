@@ -106,9 +106,9 @@ public class Main {
                 new UserAction(4, "Dave", ActionType.SHARE,
                         LocalDate.of(2024, 10, 19), ""));
 
-        UserActionAnalyzer userActionAnalyzer = new UserActionAnalyzer();
-        System.out.println(userActionAnalyzer.toActiveUser(actions, 3));
-        System.out.println(userActionAnalyzer.toCommentsUser(actions, 3));
-        userActionAnalyzer.analyseData(actions);
+        UserActionAnalyzer analyzer = new UserActionAnalyzer();
+        System.out.println(analyzer.toActiveUser(actions, 3));
+        System.out.println(analyzer.topPopularHashtags(actions, 3));
+        analyzer.printActionPercentages(analyzer.calculateActionPercentages(actions));
     }
 }

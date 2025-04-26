@@ -1,69 +1,67 @@
 package school.faang.analysisuser;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class UserActionAnalyzer {
+    private static final Pattern HASHTAG = Pattern.compile("#\\w+");
+
+    public Map<String, Long> gropingByName(List<UserAction> users) {
+        return users.stream()
+                .collect(Collectors.groupingBy(UserAction::name, Collectors.counting()));
+    }
 
     public List<String> toActiveUser(List<UserAction> users, int top) {
-        Map<String, List<UserAction>> groupByName = users.stream()
-                .collect(Collectors.groupingBy(UserAction::getName));
-
-        return groupByName.entrySet().stream()
-                .sorted((a, b) -> b.getValue().size() - a.getValue().size())
-                .map(Map.Entry::getKey)
+        return gropingByName(users).entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public List<String> toCommentsUser(List<UserAction> users, int top) {
-        List<UserAction> usersByComments = users.stream()
-                .filter(user -> Objects.equals(user.getActionType(), ActionType.COMMENT))
+    public List<String> topPopularHashtags(List<UserAction> users, int top) {
+        List<String> hashtags = users.stream()
+                .filter(action -> action.actionDate() != null)
+                .filter(action -> ActionType.COMMENT.equals(action.actionType())
+                        || ActionType.POST.equals(action.actionType()))
+                .flatMap(action -> HASHTAG.matcher(action.content()).results())
+                .map(MatchResult::group)
                 .toList();
 
-        Map<String, List<UserAction>> groupByName = usersByComments.stream()
-                .collect(Collectors.groupingBy(UserAction::getName));
+        log.info("Список хештегов {}", hashtags);
 
-        return groupByName.entrySet().stream()
-                .sorted((a, b) -> b.getValue().size() - a.getValue().size())
-                .map(Map.Entry::getKey)
+        Map<String, Long> tagFrequency = hashtags.stream()
+                .collect(Collectors.groupingBy(tag -> tag, Collectors.counting()));
+
+        log.info("Мапа количества хештегов {}", tagFrequency);
+
+        return tagFrequency.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
-                .toList();
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
-    public void analyseData(List<UserAction> users) {
-        int comments = users.stream()
-                .filter(user -> Objects.equals(user.getActionType(), ActionType.COMMENT))
-                .toList().size();
+    public Map<ActionType, Double> calculateActionPercentages(List<UserAction> users) {
+        long allAction = users.size();
 
-        int posts = users.stream()
-                .filter(user -> Objects.equals(user.getActionType(), ActionType.POST))
-                .toList().size();
+        Map<ActionType, Long> actionTypeToCount = users.stream()
+                .collect(Collectors.groupingBy(UserAction::actionType, Collectors.counting()));
 
-        int likes = users.stream()
-                .filter(user -> Objects.equals(user.getActionType(), ActionType.LIKE))
-                .toList().size();
+        return actionTypeToCount.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> ((double) entry.getValue() * 100 / allAction)));
+    }
 
-        int shares = users.stream()
-                .filter(user -> Objects.equals(user.getActionType(), ActionType.SHARE))
-                .toList().size();
+    public void printActionPercentages(Map<ActionType, Double> activityShare) {
+        activityShare.forEach((key, value) -> System.out.printf("Доля %sов: %.2f%%\n", key, value));
 
-        double commentPercentage = ((double) comments / users.size()) * 100;
-        double postPercentage = ((double) posts / users.size()) * 100;
-        double likePercentage = ((double) likes / users.size()) * 100;
-        double sharePercentage = ((double) shares / users.size()) * 100;
-
-        System.out.printf(
-                "Доля постов %.2f%%\n" +
-                        "Доля лайков %.2f%%\n" +
-                        "Доля комментов %.2f%%\n" +
-                        "Доля репостов %.2f%%",
-                postPercentage,
-                likePercentage,
-                commentPercentage,
-                sharePercentage
-        );
     }
 }
