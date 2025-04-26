@@ -1,10 +1,11 @@
 package school.faang.bjs2_73138;
 
 public class MailSender {
+    private static final int amountOfThreads = 5;
+    private static final int lettersPerThread = 200;
+
     public static void main(String[] args) {
-        int amountOfThreads = 5;
         Thread[] threads = new Thread[amountOfThreads];
-        int lettersPerThread = 200;
 
         for (int i = 0; i < amountOfThreads; i++) {
             String name = "Поток - " + i;
