@@ -7,11 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+
     @Override
     public void run() {
         Thread thread = new Thread(() -> System.out.printf("Doing task: %s\n", chore), chore);
         try {
-            System.out.printf("Thread is starting task: %s\n",thread.getName());
+            System.out.printf("Thread is starting task: %s\n", thread.getName());
             thread.start();
             Thread.sleep(1000);
         } catch (InterruptedException e) {
