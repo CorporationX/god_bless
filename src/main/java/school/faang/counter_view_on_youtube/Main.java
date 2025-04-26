@@ -5,15 +5,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+
+    private static final int NUM_THREADS = 5;
+    private static final int NUM_VIDEOS = 100000;
+
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
-        final int numThreads = 5;
-        final int numVideos = 100000;
-        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
-        for (int i = 0; i < numVideos; i++) {
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+
+        for (int i = 0; i < NUM_VIDEOS; i++) {
             String videoId = "video" + i;
-            for (int j = 0; j < numThreads; j++) {
+            for (int j = 0; j < NUM_THREADS; j++) {
                 executor.submit(() -> {
                     videoManager.addView(videoId);
                     System.out.println("Video " + videoId + " просмотров: " + videoManager.getViews(videoId));

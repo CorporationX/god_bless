@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Data
 public class VideoManager {
+
     private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
-    private final Object lock = new Object();
 
     public void addView(String videoId) {
         if (videoId == null || videoId.isEmpty()) {
@@ -21,9 +21,6 @@ public class VideoManager {
         if (videoId == null || videoId.isEmpty()) {
             throw new IllegalArgumentException("Video ID cannot be null or empty");
         }
-
-        synchronized (lock) {
-            return viewsMap.getOrDefault(videoId, 0);
-        }
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
