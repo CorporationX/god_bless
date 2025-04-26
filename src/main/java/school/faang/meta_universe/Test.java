@@ -13,8 +13,6 @@ public class Test {
         notificationManager.registerHandler(NotificationType.PUSH, notification ->
                 System.out.println("Push: " + notification.getMessage()));
 
-        notificationManager.registerHandler(NotificationType.PUSH, notification ->
-                System.out.println("Push " + notification.getMessage()));
 
         notificationManager.addFilter(notification -> !notification.getMessage().toLowerCase().contains("spam"));
         notificationManager.addCorrector(notification ->
