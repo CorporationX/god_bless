@@ -3,7 +3,7 @@ package school.faang.bjs2_72404;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Archer implements Hero {
+public class Archer implements Warrior {
     private int power;
 
     @Override
