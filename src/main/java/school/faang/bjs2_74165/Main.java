@@ -2,9 +2,9 @@ package school.faang.bjs2_74165;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -15,15 +15,12 @@ public class Main {
     private static final int NUMBER_MESSAGES = 1000000;
 
     public static void main(String[] args) {
-        TelegramBot bot = new TelegramBot(0, LocalDateTime.now());
+        TelegramBot bot = new TelegramBot();
 
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int i = 0; i < NUMBER_MESSAGES; i++) {
-            int number = i;
-            executorService.execute(() -> bot.sendMessage("msg" + number));
-        }
-
+        IntStream.range(0, NUMBER_MESSAGES)
+                .forEach(i -> executorService.execute(() -> bot.sendMessage("msg" + i)));
 
         gracefullyShutdown(executorService);
     }
