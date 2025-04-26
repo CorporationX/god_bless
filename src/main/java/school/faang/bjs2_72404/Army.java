@@ -8,15 +8,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
 public class Army {
-    List<Squad> squadList;
+    private List<Squad> squadList;
 
     public int calculateTotalPower() {
         List<Thread> threads = new ArrayList<>();
         AtomicInteger sum = new AtomicInteger();
-        for (int i = 0; i < squadList.size(); i++) {
-            final int finalI = i;
-            threads.add(new Thread(() -> sum.addAndGet(squadList.get(finalI).calculateSquadPower())));
-            threads.get(i).start();
+        for (Squad squad : squadList) {
+            Thread thread = new Thread(() -> sum.addAndGet(squad.calculateSquadPower()));
+            threads.add(thread);
+            thread.start();
         }
         for (Thread thread : threads) {
             try {

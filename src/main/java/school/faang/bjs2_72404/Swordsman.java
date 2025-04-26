@@ -1,13 +1,7 @@
 package school.faang.bjs2_72404;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class Swordsman implements Warrior {
-    private int power;
-
-    @Override
-    public int getPower() {
-        return power;
+public class Swordsman extends Warrior {
+    public Swordsman(int power) {
+        super(power);
     }
 }

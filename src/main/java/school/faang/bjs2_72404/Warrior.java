@@ -1,5 +1,10 @@
 package school.faang.bjs2_72404;
 
-public interface Warrior {
-    int getPower();
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public abstract class Warrior {
+    int power;
 }
