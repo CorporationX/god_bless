@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyser {
 
-    private final int PERCENTAGE = 100;
+    private final int percentage = 100;
 
     public List<String> filterTopByAppearance(Map<String, Long> stringsList, int top) {
         return stringsList.entrySet().stream()
@@ -51,7 +51,7 @@ public class UserActionAnalyser {
                 .stream()
                 .collect(Collectors.toMap(
                 Map.Entry::getKey,
-                    entry -> entry.getValue() / amountOfActions * PERCENTAGE
+                    entry -> entry.getValue() / amountOfActions * percentage
         ));
     }
 }
