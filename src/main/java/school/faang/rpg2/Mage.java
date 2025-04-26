@@ -1,15 +1,7 @@
 package school.faang.rpg2;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class Mage implements Fighter {
-    private final int power;
-
-    @Override
-    public int getPower() {
-        return power;
+public class Mage extends Fighter {
+    public Mage(int power) {
+        super(power);
     }
 }

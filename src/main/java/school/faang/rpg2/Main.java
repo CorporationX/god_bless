@@ -15,6 +15,6 @@ public class Main {
         army.addSquad(mages);
 
         int totalPower = army.calculateTotalPower();
-        System.out.println("Общая сила армии: " + totalPower);
+        System.out.printf("🔰 Общая сила армии: %d%n", totalPower);
     }
 }
