@@ -1,4 +1,4 @@
-package school.faang.csv;
+package school.faang.csv.joiner;
 
 import java.util.List;
 
