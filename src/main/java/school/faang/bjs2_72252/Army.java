@@ -3,10 +3,12 @@ package school.faang.bjs2_72252;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Data
@@ -18,24 +20,26 @@ public class Army {
 
     public Army(List<Squad> squads) {
         this.squads = squads;
-        executor = Executors.newFixedThreadPool(squads.size());
+        this.executor = Executors.newFixedThreadPool(5);
     }
 
-    public int calculateArmyPower(List<Squad> squads) throws InterruptedException {
+
+    public int calculateArmyPower() throws InterruptedException, ExecutionException {
+        List<Future<Integer>> futures = new ArrayList<>();
+        int result = 0;
         try {
-            return squads.stream().map(executor::submit)
-                    .map(x -> {
-                        try {
-                            return x.get();
-                        } catch (InterruptedException | ExecutionException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }).reduce(0, Integer::sum);
+            for (Squad squad : squads) {
+                futures.add(executor.submit(squad));
+            }
         } finally {
             executor.shutdown();
-            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         }
+        for (Future<Integer> future : futures) {
+            result += future.get();
+        }
+        return result;
     }
 }
