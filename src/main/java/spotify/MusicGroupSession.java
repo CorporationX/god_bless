@@ -1,6 +1,6 @@
 package spotify;
 
-public class Main {
+public class MusicGroupSession {
 
     public static void main(String[] args) throws InterruptedException {
         Player player = new Player();
