@@ -18,33 +18,40 @@ public class Game {
     private boolean isGameOver = true;
 
     public void update(boolean isScorePoints, boolean isLosesLives) {
-        if (!isGameOver) {
-            return;
-        }
-        if (isScorePoints) {
-            synchronized (scoreLock) {
+        synchronized (scoreLock) {
+            if (!isGameOver) {
+                return;
+            }
+            if (isScorePoints) {
                 score++;
                 System.out.printf("игрок увеличил очки на  %d \n", score);
-                if (score == 10) {
-                    System.out.println("win");
-                    isGameOver = false;
-                    return;
-                }
+            } else {
+                gameOver();
             }
         }
 
-        if (isLosesLives) {
-            synchronized (livesLock) {
+        synchronized (livesLock) {
+            if (!isGameOver) {
+                return;
+            }
+            if (isLosesLives) {
                 lives--;
                 System.out.printf("игрок теряет прочность на  %d \n", lives);
-                if (lives == 0) {
-                    System.out.println("Game Over");
-                    isGameOver = false;
-                    return;
-                }
+            } else {
+                gameOver();
             }
         }
     }
 
 
+    public void gameOver() {
+        if (score == 10) {
+            System.out.println("win");
+            isGameOver = false;
+        }
+        if (lives == 0) {
+            System.out.println("Game Over");
+            isGameOver = false;
+        }
+    }
 }
