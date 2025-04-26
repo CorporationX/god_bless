@@ -17,7 +17,6 @@ public class SenderRunnable implements Runnable {
             log.info("Mail no. {} was sent by stream no. {}.",
                     index + 1,
                     Thread.currentThread().getName());
-            startIndex++;
         });
     }
 }
