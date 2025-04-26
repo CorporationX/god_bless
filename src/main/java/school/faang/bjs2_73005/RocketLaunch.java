@@ -13,6 +13,7 @@ public record RocketLaunch(String name, long launchTime) {
             log.info("Launching of rocket {} finished", name);
         } catch (InterruptedException e) {
             log.error("Interrupted exception with message {} was thrown", e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 }
