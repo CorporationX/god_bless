@@ -6,12 +6,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    private static final int minutesToWait = 5;
-    private static final List<String> choreList = List.of("Wash dishes", "Take out the trash",
+    private static final int MINUTES_TO_WAIT = 5;
+    private static final List<String> CHORE_LIST = List.of("Wash dishes", "Take out the trash",
             "Fly to the moon", "Create new thing");
 
     public static void main(String[] args) {
-        List<Chore> chores = choreList.stream().map(Chore::new).toList();
+        List<Chore> chores = CHORE_LIST.stream().map(Chore::new).toList();
         ExecutorService executorService = Executors.newCachedThreadPool();
         for (Chore chore : chores) {
             executorService.submit(chore);
@@ -19,7 +19,7 @@ public class WeasleyFamily {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(minutesToWait, TimeUnit.MINUTES)) {
+            if (!executorService.awaitTermination(MINUTES_TO_WAIT, TimeUnit.MINUTES)) {
                 System.out.println("Не все задачи завершены в указанный период времени.");
                 executorService.shutdownNow();
             }
