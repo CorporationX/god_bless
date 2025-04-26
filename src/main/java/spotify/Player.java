@@ -10,7 +10,7 @@ public class Player {
                 System.out.println("Playing ");
                 isPlaying = true;
             } else {
-                System.out.println("Song is already playing");
+                System.out.println("Song is already playing ");
             }
         }
     }
