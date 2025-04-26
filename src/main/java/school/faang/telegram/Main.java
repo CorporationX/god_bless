@@ -1,5 +1,49 @@
 package school.faang.telegram;
 
+//Описание
+//
+//Вы разрабатываете Telegram-бота, который должен обрабатывать сообщения от пользователей и отправлять ответы. Но чтобы
+// избежать блокировки от серверов Telegram, нужно ограничить количество запросов к API. Например, бот должен отправлять
+// не более 5 запросов в секунду. Ваша задача — реализовать механизм управления количеством запросов с учетом этого
+// ограничения.
+//
+//Требования задачи:
+//        1. Создать класс TelegramBot с приватными полями:
+//
+//REQUEST_LIMIT — максимальное количество запросов в секунду.
+//
+//        requestCounter — счетчик запросов в текущую секунду.
+//
+//        lastRequestTime — время последнего запроса.
+//
+//2. Создать конструктор: Инициализировать поля requestCounter и lastRequestTime (например, установите текущее время при
+// создании объекта).
+//
+//        3. Создать метод sendMessage(String message):
+//
+//Этот метод будет имитировать отправку сообщение через API Telegram.
+//
+//В начале метода получите текущее время.
+//
+//Вычислите, сколько времени прошло с момента последнего запроса.
+//
+//4. Проверить лимиты:
+//
+//Если с последнего запроса прошло меньше секунды, увеличьте requestCounter на 1.
+//
+//Если requestCounter превышает REQUEST_LIMIT, подождите до конца текущей секунды, прежде чем отправить сообщение.
+//
+//5. Обнуление счетчика: Если прошедшее время с момента последнего запроса больше или равно секунде, обнулите
+// requestCounter и обновите lastRequestTime на текущее время.
+//
+//        6. После выполнения всех проверок, “отправьте” сообщение через API.
+//
+//7. Создать метод main в классе Main:
+//
+//Создайте объект бота и запустите несколько потоков, каждый из которых будет пытаться отправить сообщение.
+//
+//После завершения всех потоков, выведите сообщение о том, что задача выполнена.
+
 import lombok.extern.slf4j.Slf4j;
 import school.WaitUtils;
 
@@ -12,31 +56,21 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
 
-    private static final int SERVICE_THREAD_POOL_SIZE = 2;
-    private static final int INCOME_THREAD_POOL_SIZE = 5;
-    private static final int MOCK_MESSAGE_COUNT = 100;
-    private static final int EXECUTOR_TERMINATION_TIMEOUT_MINUTES = 1;
-
     public static void main(String[] args) {
         TelegramBot telegramBot = new TelegramBot();
 
-        ExecutorService sendServiceExecutor = Executors.newFixedThreadPool(SERVICE_THREAD_POOL_SIZE);
-        sendServiceExecutor.submit(new SendService("Send service #1", telegramBot)::activateService);
-        sendServiceExecutor.submit(new SendService("Send service #2", telegramBot)::activateService);
-
-        ExecutorService incomeExecutor = Executors.newFixedThreadPool(INCOME_THREAD_POOL_SIZE);
-        for (Message message : getMessagesData()) {
-            incomeExecutor.submit(() -> telegramBot.sendMessage(message));
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        executorService.submit(telegramBot::activateBot);
+        for (Message message : getMessagesData(100)) {
+            executorService.submit(() -> telegramBot.sendMessage(message));
         }
-
-        WaitUtils.shutdownExecutorWithWait(incomeExecutor, EXECUTOR_TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES);
-        WaitUtils.shutdownExecutorWithWait(sendServiceExecutor, EXECUTOR_TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES);
-        log.info("Task is complete!");
+        executorService.submit(telegramBot::deactivateBot);
+        WaitUtils.shutdownExecutorWithWait(executorService, 1, TimeUnit.MINUTES);
     }
 
-    private static List<Message> getMessagesData() {
+    private static List<Message> getMessagesData(int count) {
         List<Message> messages = new ArrayList<>();
-        for (int i = 0; i < MOCK_MESSAGE_COUNT; i++) {
+        for (int i = 0; i < count; i++) {
             messages.add(new Message("Message #%d".formatted(i + 1)));
         }
         return messages;
