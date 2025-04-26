@@ -12,7 +12,7 @@ public class WeasleyFamily {
             new Chore("Wipe Floors"),
             new Chore("Feed Rat"),
             new Chore("Get Harry off my sister"),
-            new Chore("Borrow money from Harry never to return them"),
+            new Chore("Borrow money from Harry never to return it"),
     };
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
