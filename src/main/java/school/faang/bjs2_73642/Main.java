@@ -15,7 +15,7 @@ public class Main {
             executor.execute(game::update);
         }
 
-        executor.shutdown();  // Останавливаем прием новых задач
+        executor.shutdown();
 
         try {
             if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
