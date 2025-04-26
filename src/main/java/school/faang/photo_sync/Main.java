@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
-        List<String> pathes = List.of("path1", "path2", "path3", "path4", "path5", "path6");
+        List<String> paths = List.of("path1", "path2", "path3", "path4", "path5", "path6");
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        for (String path : pathes) {
+        for (String path : paths) {
             executor.execute(() -> uploader.onNewPhotoAdded(path));
             executor.execute(uploader::startAutoUpload);
         }

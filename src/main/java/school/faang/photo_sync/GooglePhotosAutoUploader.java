@@ -3,13 +3,13 @@ package school.faang.photo_sync;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
 public class GooglePhotosAutoUploader {
-    private final Queue<String> photosToUpload = new LinkedList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void onNewPhotoAdded(String photoPath) {
         log.debug("executing onNewPhotoAdded() by Thread {}", Thread.currentThread().getName());
@@ -41,8 +41,7 @@ public class GooglePhotosAutoUploader {
     private void uploadPhotos() {
         log.debug("executing uploadPhotos() by Thread {}", Thread.currentThread().getName());
         log.info("Uploading photos ...");
-        String pathOfRemovedPhoto = photosToUpload.poll();
-        log.info("Uploaded photo by path {}", pathOfRemovedPhoto);
-        log.info("Current number of photos to be uploaded: {}", photosToUpload.size());
+        log.info("New photo uploaded: " + String.join(",", photosToUpload));
+        photosToUpload.clear();
     }
 }
