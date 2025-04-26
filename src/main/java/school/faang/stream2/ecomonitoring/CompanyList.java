@@ -19,4 +19,10 @@ public class CompanyList {
                 .filter(company -> companyId == company.getId())
                 .findFirst();
     }
+
+    public Optional<Company> findByCompanyName(String companyName) {
+        return companyList.stream()
+                .filter(company -> companyName.equals(company.getCompanyName()))
+                .findFirst();
+    }
 }
