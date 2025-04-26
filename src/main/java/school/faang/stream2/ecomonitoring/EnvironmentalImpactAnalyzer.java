@@ -34,6 +34,14 @@ public class EnvironmentalImpactAnalyzer {
     public static void calculateAndPrintAnnualEmission(String filePath, int companyId) {
         LocalDate endOfPeriod = LocalDate.of(2023, 2, 1);
         int yearsToSubtract = 1;
+        String companyName = COMPANY_LIST
+                .findByCompanyId(companyId)
+                .map(Company::getCompanyName)
+                .orElse("UNDEFINED");
+
+        System.out.printf("\nCompany name: %s\n", companyName);
+        System.out.printf("Today's date: %s\n", endOfPeriod);
+        System.out.println("Month:        GasEmission:");
 
         Map<YearMonth, Double> collectByMonthForCompany = CompanyDataLoader.parseEnvImpactsCsv(filePath).stream()
                 .filter(envImpEvent ->
@@ -47,15 +55,6 @@ public class EnvironmentalImpactAnalyzer {
                         TreeMap::new,
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
-
-        String companyName = COMPANY_LIST
-                .findByCompanyId(companyId)
-                .map(Company::getCompanyName)
-                .orElse("UNDEFINED");
-
-        System.out.printf("\nCompany name: %s\n", companyName);
-        System.out.printf("Today's date: %s\n", endOfPeriod);
-        System.out.println("Month:        GasEmission:");
 
         collectByMonthForCompany
                 .forEach((key, value) -> System.out.printf("%s       %s\n", key, value));
