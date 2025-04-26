@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
+    private static final int AWAIT_TERMINATION_TIMEOUT_MINUTES = 1;
     private final List<String> chores = List.of(
             "washing the dishes",
             "sweeping the floor",
@@ -23,7 +24,7 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES)) {
                 log.info("Not all tasks are completed on time. Forced shutdown");
                 executor.shutdownNow();
                 return;
