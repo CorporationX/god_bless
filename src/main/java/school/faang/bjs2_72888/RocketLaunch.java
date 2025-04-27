@@ -38,7 +38,8 @@ public class RocketLaunch {
 
     public void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService launchPlanner = Executors.newSingleThreadExecutor();
-        long methodStartTime = System.currentTimeMillis();
+        long methodStartTime = 0;
+        methodStartTime = System.currentTimeMillis();
         List<RocketLaunch> sortedLaunches = launches.stream()
             .sorted(Comparator.comparingLong(RocketLaunch::getLaunchTime))
             .peek(System.out::println)
