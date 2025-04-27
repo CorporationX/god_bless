@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class MagicalTournament {
+
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
@@ -36,6 +37,8 @@ public class MagicalTournament {
         List<School> winSchools = getWinningSchools(schools);
 
         winSchools.forEach(winSchool -> log.info("Winning school {}", winSchool.name()));
+
+        tournament.poolShutdown();
     }
 
     private static List<School> getWinningSchools(List<School> schools) {

@@ -6,10 +6,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 @Slf4j
 public class Tournament {
     private static final long EXECUTION_TIME = 1000L;
     private static final int NUM_THREADS = 2;
+    private static final int MAX_EXPECTATION = 60;
 
     private final ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
 
@@ -48,5 +51,18 @@ public class Tournament {
                 .limit(1)
                 .forEach(student -> student.setPoints(student.getPoints() + pointsForStudent
                         + task.reward() % numStudents));
+    }
+
+    public void poolShutdown() {
+        pool.shutdown();
+        try {
+            boolean isClose = pool.awaitTermination(MAX_EXPECTATION, SECONDS);
+            if (!isClose) {
+                pool.shutdownNow();
+            }
+        } catch (InterruptedException ex) {
+            log.error("Thread stoppage error");
+            pool.shutdownNow();
+        }
     }
 }
