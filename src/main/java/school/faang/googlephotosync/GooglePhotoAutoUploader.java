@@ -23,6 +23,7 @@ public class GooglePhotoAutoUploader {
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         log.error("Thread was interrupted during waiting.", e);
+                        return;
                     }
                 }
                 batch = new ArrayList<>(photosToUpload);
@@ -37,21 +38,9 @@ public class GooglePhotoAutoUploader {
             throw new IllegalArgumentException("Photo path must not be empty!");
         }
         synchronized (lock) {
-            log.info("New photo {} was added.", photoPath);
+            log.info("New photo {} was added to upload list.", photoPath);
             photosToUpload.add(photoPath);
             lock.notify();
-        }
-    }
-
-    public void uploadPhotos() {
-        for (String path : photosToUpload) {
-            log.info("Uploading photo {}...", path);
-            photosToUpload.remove(path);
-        }
-        if (photosToUpload.isEmpty()) {
-            log.info("All photos uploaded.");
-        } else {
-            log.error("Something went wrong.");
         }
     }
 
