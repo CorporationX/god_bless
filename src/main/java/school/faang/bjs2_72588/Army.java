@@ -1,8 +1,8 @@
 package school.faang.bjs2_72588;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +22,11 @@ public class Army {
 
     public int calculateTotalPower() {
         List<Thread> threads = new ArrayList<>();
-        List<Integer> sqadsPowers = Collections.synchronizedList(new ArrayList<>());
+        AtomicInteger totalPower = new AtomicInteger();
         
         for (Squad squad : squads) {
             Thread thread = new Thread(() -> {
-                sqadsPowers.add(squad.calculateSquadPower());
+                totalPower.addAndGet(squad.calculateSquadPower());
             });
             threads.add(thread);
             thread.start();
@@ -40,6 +40,6 @@ public class Army {
             }
         }
 
-        return sqadsPowers.stream().mapToInt(Integer::intValue).sum();
+        return totalPower.get();
     }
 }
