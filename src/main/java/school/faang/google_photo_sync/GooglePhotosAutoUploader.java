@@ -9,38 +9,40 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
 
     private final Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
+        while (true) {
+            synchronized (lock) {
+
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
                     log.info("Error up load files!");
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
             uploadPhotos();
+
         }
     }
 
     public void uploadPhotos() throws InterruptedException {
 
-        synchronized (lock) {
-
-            for (String photoPath : new ArrayList<>(photosToUpload)) {
-
-                log.info("Loading photo: {}", photoPath);
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    log.info("Loading can stop: {}", photoPath);
-                }
-
-                photosToUpload.remove(photoPath);
-                log.info("Photo {} load success and remove to list", photoPath);
+        for (String photoPath : new ArrayList<>(photosToUpload)) {
+            log.info("Loading photo: {}", photoPath);
+            try {
+                int sleepTime = 500;
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                log.info("Loading can stop: {}", photoPath);
+                Thread.currentThread().interrupt();
+                break;
             }
+
+            photosToUpload.clear();
+            log.info("Photo load success and remove to list");
         }
     }
 

@@ -14,6 +14,7 @@ public class Main {
                 test.uploadPhotos();
             } catch (InterruptedException e) {
                 log.info("Поток загрузки был прерван");
+                Thread.currentThread().interrupt();
             }
         });
         uploadThread.start();
@@ -26,6 +27,7 @@ public class Main {
                 test2.startAutoUpload();
             } catch (InterruptedException e) {
                 log.info("Поток автоматической загрузки был прерван");
+                Thread.currentThread().interrupt();
             }
         });
         uploadAvtoThread.start();
