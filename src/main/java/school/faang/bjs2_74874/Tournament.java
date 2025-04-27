@@ -3,16 +3,22 @@ package school.faang.bjs2_74874;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class Tournament {
     private static final long EXECUTION_TIME = 1000L;
+    private static final int NUM_THREADS = 2;
+
+    private final ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
+
 
     public CompletableFuture<School> startTask(School school, Task task) {
         if (school == null || task == null) {
             throw new ParamInTournamentIsNullException();
         }
-        return CompletableFuture.supplyAsync(() -> taskCompletion(school, task));
+        return CompletableFuture.supplyAsync(() -> taskCompletion(school, task), pool);
     }
 
     private School taskCompletion(School school, Task task) {
@@ -32,7 +38,7 @@ public class Tournament {
             throw new SchoolIsEmptyException();
         }
 
-        int pointsForStudent =  task.reward() / numStudents;
+        int pointsForStudent = task.reward() / numStudents;
 
         school.students().stream()
                 .skip(1)
