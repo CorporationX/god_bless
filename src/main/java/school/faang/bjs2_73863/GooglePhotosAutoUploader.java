@@ -33,4 +33,4 @@ public class GooglePhotosAutoUploader {
             photosToUpload.clear();
         }
     }
- }
+}
