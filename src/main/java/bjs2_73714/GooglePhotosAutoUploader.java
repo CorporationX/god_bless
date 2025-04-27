@@ -9,17 +9,18 @@ import java.util.List;
 @Slf4j
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<String>();
+    private final List<String> photosToUpload = new ArrayList<String>();
 
     public void startAutoUploader() {
         synchronized (lock) {
             try {
-                if (photosToUpload.isEmpty()) {
+                while (photosToUpload.isEmpty()) {
                     lock.wait();
                 }
                 uploadPhoto();
             } catch (InterruptedException e) {
                 log.error("automatic download aborted");
+                Thread.currentThread().interrupt();
                 throw new IllegalStateException("the current thread is interrupted");
             }
         }
@@ -35,7 +36,7 @@ public class GooglePhotosAutoUploader {
     public void uploadPhoto() {
         log.info("Uploading photo...");
         for (String photoPath : photosToUpload) {
-            log.info("Uploading photo: " + photoPath);
+            log.info("Uploading photo {}: ", photoPath);
         }
         log.info("Upload complete");
         photosToUpload.clear();
