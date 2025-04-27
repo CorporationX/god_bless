@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private List<String> paths = new ArrayList<>();
+    private final List<String> paths = new ArrayList<>();
+    private long maxWaitTime = 10_000;
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (paths) {
@@ -18,19 +19,32 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         synchronized (paths) {
-            if (paths.isEmpty()) {
-                try {
-                    paths.wait();
-                } catch (InterruptedException e) {
-                    log.error("Process was interrupted. {}.", e.getMessage());
-                }
-            }
             paths.stream()
-                .findFirst()
-                .ifPresent(path -> {
+                .forEach(path -> {
                     log.info("Photo has been uploaded to {}.", path);
-                    paths.remove(path);
                 });
+            paths.clear();
         }
     }
+
+    public void startAutoUpload() {
+        long startTime = System.currentTimeMillis();
+        long cutOffTime = 10_000;
+
+        while (System.currentTimeMillis() - startTime < cutOffTime) {
+            synchronized (paths) {
+                if (paths.isEmpty()) {
+                    try {
+                        log.info("Waiting for new photos...");
+                        paths.wait(maxWaitTime);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.error("Process was interrupted. {}.", e.getMessage());
+                    }
+                }
+                uploadPhotos();
+            }
+        }
+    }
+
 }
