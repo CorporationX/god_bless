@@ -2,10 +2,11 @@ package school.faang.bjs273463;
 
 public class Boss {
     private final int maxPlayers;
-    private int currentPlayers = 0;
+    private int currentPlayers;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+        this.currentPlayers = 0;
     }
 
     public synchronized void joinBattle(Player player) {
@@ -14,6 +15,7 @@ public class Boss {
             try {
                 wait();
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 System.out.println(player.getName() + " вызвал ошибку InterruptedException");
                 return;
             }
