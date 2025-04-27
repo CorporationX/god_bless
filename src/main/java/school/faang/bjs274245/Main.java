@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public static void main(String[] args) {
         final int NUM_THREADS = 5;
         final int NUM_VIDEOS = 5;
