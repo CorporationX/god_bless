@@ -37,7 +37,7 @@ public class MasterCardService {
         Future<Integer> collectPaymentResult = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalyticsResult =
                 CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
-        while (!collectPaymentResult.isDone() || !sendAnalyticsResult.isDone()){
+        while (!collectPaymentResult.isDone() || !sendAnalyticsResult.isDone()) {
             try {
                 Thread.sleep(ONE_SECOND_IN_MS);
             } catch (InterruptedException e) {
