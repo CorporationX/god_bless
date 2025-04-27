@@ -1,25 +1,22 @@
 package school.faang.heroes_of_might_and_magic;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@AllArgsConstructor
-class Squad<T> {
-    List<T> fighters;
+@Setter
+@Getter
+class Squad {
+    private List<Fighter> fighters;
+
+    public Squad(List<Fighter> fighters) {
+        this.fighters = fighters;
+    }
 
     public int calculateSquadPower() {
         return fighters.stream()
-                .mapToInt(fighter -> {
-                    if (fighter instanceof Archer) {
-                        return ((Archer) fighter).getPower();
-                    } else if (fighter instanceof Swordsman) {
-                        return ((Swordsman) fighter).getPower();
-                    } else if (fighter instanceof Mage) {
-                        return ((Mage) fighter).getPower();
-                    }
-                    return 0;
-                })
+                .mapToInt(Fighter::getPower)
                 .sum();
     }
 }

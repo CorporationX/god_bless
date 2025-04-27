@@ -1,10 +1,7 @@
 package school.faang.heroes_of_might_and_magic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Swordsman {
-    int power;
+class Swordsman extends Fighter {
+    public Swordsman(int power) {
+        super(power);
+    }
 }

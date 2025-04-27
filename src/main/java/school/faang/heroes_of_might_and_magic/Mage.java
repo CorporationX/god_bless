@@ -1,10 +1,7 @@
 package school.faang.heroes_of_might_and_magic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Mage {
-    int power;
+class Mage extends Fighter {
+    public Mage(int power) {
+        super(power);
+    }
 }

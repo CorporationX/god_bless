@@ -11,9 +11,9 @@ public class Main {
         Mage mage1 = new Mage(50);
         Mage mage2 = new Mage(55);
 
-        Squad<Archer> archers = new Squad<>(Arrays.asList(archer1, archer2));
-        Squad<Swordsman> swordsmen = new Squad<>(Arrays.asList(swordsman1, swordsman2));
-        Squad<Mage> mages = new Squad<>(Arrays.asList(mage1, mage2));
+        Squad archers = new Squad(Arrays.asList(archer1, archer2));
+        Squad swordsmen = new Squad(Arrays.asList(swordsman1, swordsman2));
+        Squad mages = new Squad(Arrays.asList(mage1, mage2));
 
         Army army = new Army(Arrays.asList(archers, swordsmen, mages));
         int totalPower = army.calculateTotalPower();
