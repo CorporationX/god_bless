@@ -24,11 +24,11 @@ public class Player {
     }
 
     public void skip() {
-            System.out.println("Next song");
+        System.out.println("Next song");
     }
 
     public void previous() {
-            System.out.println("Previous song");
+        System.out.println("Previous song");
     }
 }
 
