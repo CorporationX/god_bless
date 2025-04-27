@@ -12,7 +12,7 @@ import static school.faang.BJS2_73075.Constants.THREADS_COUNT;
 public class MailSender {
 
     public static void main(String[] args) {
-        int batchSize = MAILS_COUNT/THREADS_COUNT;
+        int batchSize = MAILS_COUNT / THREADS_COUNT;
         int startMailIndex = 1;
         int endMailIndex = startMailIndex + batchSize;
         List<Thread> threads = new ArrayList<>();
