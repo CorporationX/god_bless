@@ -28,12 +28,14 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
+            isPlaying = true;
             System.out.println(Thread.currentThread().getName() + "пропустил трек");
         }
     }
 
     public void previous() {
         synchronized (lock) {
+            isPlaying = true;
             System.out.println(Thread.currentThread().getName() + " включил предыдущий трек");
         }
     }
