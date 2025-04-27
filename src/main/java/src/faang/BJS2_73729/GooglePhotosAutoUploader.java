@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public final class GooglePhotosAutoUploader {
     private static final Object MONITOR = new Object();
-
     private static final Queue<String> photosToUpload = new ArrayDeque<>();
+
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     @SneakyThrows

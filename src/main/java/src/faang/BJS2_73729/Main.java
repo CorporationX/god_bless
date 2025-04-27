@@ -7,7 +7,6 @@ public final class Main {
     private static final List<String> PHOTOS_PATH = new ArrayList<>();
 
     public static void main(final String[] args) {
-
         for (int i = 0; i < 10; i++) {
             PHOTOS_PATH.add("C:\\Users\\" + i + "\\Desktop\\" + i + ".jpg");
         }
