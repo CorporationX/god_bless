@@ -17,8 +17,4 @@ public class Bro {
         this.lives = lives;
         this.isAlive = alive;
     }
-
-    public boolean getAlive() {
-        return false;
-    }
 }
