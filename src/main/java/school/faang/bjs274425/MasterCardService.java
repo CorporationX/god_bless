@@ -1,4 +1,4 @@
-package school.faang.bjs273211;
+package school.faang.bjs274425;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
