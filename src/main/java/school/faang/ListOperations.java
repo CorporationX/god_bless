@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 public class ListOperations {
 
-
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         int sum = 0;
         for (int number : numbers) {
