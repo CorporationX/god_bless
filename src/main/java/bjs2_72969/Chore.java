@@ -10,13 +10,13 @@ public class Chore implements Runnable {
 
     public void run() {
         try {
-            log.info("Task " + Thread.currentThread().getName() + ": " + chore + " started");
+            log.info("Task {} : {} started", Thread.currentThread().getName(), chore);
             Thread.sleep(1000);
             log.info("Task " + chore + " finished");
         } catch (InterruptedException e) {
             log.error("Task " + chore + " interrupted");
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Task " + chore +  "was interrupted while sleeping", e);
         }
     }
 }

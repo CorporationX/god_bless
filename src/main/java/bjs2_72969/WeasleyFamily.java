@@ -11,7 +11,7 @@ public class WeasleyFamily {
     private static String[] chores = {"Wash the dishes", "Vacuum", "Do your homework"};
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(chores.length);
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         for (String chore : chores) {
             executor.execute(new Chore(chore));
