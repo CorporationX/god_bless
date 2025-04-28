@@ -14,4 +14,9 @@ public class Player {
         this.level = level;
         this.experience = experience;
     }
+
+    public synchronized Player updatePlayerExperience(int reward) {
+        experience += reward;
+        return this;
+    }
 }

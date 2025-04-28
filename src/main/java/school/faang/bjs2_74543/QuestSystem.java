@@ -7,10 +7,6 @@ public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
         return CompletableFuture.supplyAsync(quest::doQuest, executor)
-                .thenApply(reward -> new Player(
-                        player.getName(),
-                        player.getLevel(),
-                        player.getExperience() + reward
-                ));
+                .thenApply(player::updatePlayerExperience);
     }
 }
