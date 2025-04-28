@@ -16,11 +16,16 @@ public class Main {
         CompletableFuture<Player> future1 = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> future2 = questSystem.startQuest(player2, quest2);
 
-        future1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest." +
-                " New experience: " + player.getExperience())).join();
+        future1.thenAccept(player ->
+                        System.out.printf("%s has completed the quest. New experience %d",
+                                player.getName(),
+                                player.getExperience()))
+                .join();
 
-        future2.thenAccept(player -> System.out.println(
-                player.getName() + " has completed the quest. New experience: " + player.getExperience()
-        )).join();
+        future2.thenAccept(player ->
+                        System.out.printf("%s has completed the quest. New experience %d",
+                                player.getName(),
+                                player.getExperience()))
+                .join();
     }
 }
