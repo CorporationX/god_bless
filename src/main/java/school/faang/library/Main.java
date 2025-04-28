@@ -1,4 +1,4 @@
-package faang.school.library;
+package school.faang.library;
 
 public class Main {
     public static void main(String[] args) {

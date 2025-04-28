@@ -1,0 +1,18 @@
+package school.faang.gmail_rich_filters;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Email {
+    private String subject;
+    private String body;
+    private boolean isImportant;
+}

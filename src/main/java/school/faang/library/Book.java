@@ -1,4 +1,4 @@
-package faang.school.library;
+package school.faang.library;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

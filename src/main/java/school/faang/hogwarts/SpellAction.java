@@ -1,4 +1,4 @@
-package faang.school.hogwarts;
+package school.faang.hogwarts;
 
 @FunctionalInterface
 public interface SpellAction {
