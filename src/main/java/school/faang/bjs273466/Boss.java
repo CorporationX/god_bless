@@ -1,17 +1,16 @@
 package school.faang.bjs273466;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class Boss {
     private final int maxPlayers;
     private final List<Player> currentPlayers = new ArrayList<>();
 
-    public Boss(int maxPlayers) {
-        this.maxPlayers = maxPlayers;
-    }
-
-    public void joinBattle(Player player) {
+       public void joinBattle(Player player) {
         synchronized (this) {
             while (currentPlayers.size() == maxPlayers) {
                 try {
@@ -19,6 +18,7 @@ public class Boss {
                             player.getName(), Thread.currentThread().getName());
                     this.wait();
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
