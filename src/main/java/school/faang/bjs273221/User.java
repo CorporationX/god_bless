@@ -11,15 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 public class User {
     private final String name;
-    private String assignedRole;
+    private Role assignedRole;
 
     public void joinHouse(House house) {
-        try {
-            house.assignRole(this);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted {}", e.getMessage());
-        }
+        house.assignRole(this);
     }
 
     public void leaveHouse(House house) {

@@ -6,13 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 public class Main {
     public static void main(String[] args) {
         House house = new House();
-        String warriorRole = "Warrior";
-        String mageRole = "Mage";
-        String lordRole = "Lord";
-        house.addRole(warriorRole);
-        house.addRole(mageRole);
-        house.addRole(lordRole);
-
+        house.addRole(Role.WARRIOR);
+        house.addRole(Role.MAGE);
+        house.addRole(Role.LORD);
 
         Thread samThread = createThread("Sam", house, 1000);
         samThread.start();

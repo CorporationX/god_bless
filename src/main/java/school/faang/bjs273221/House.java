@@ -7,41 +7,46 @@ import java.util.List;
 
 @Slf4j
 public class House {
-    private final List<String> availableRoles = new ArrayList<>();
+    private final List<Role> availableRoles = new ArrayList<>();
 
-    public void assignRole(User user) throws InterruptedException {
+    public void assignRole(User user) {
         synchronized (availableRoles) {
             if (user.getAssignedRole() != null) {
                 releaseRole(user);
             }
 
             while (availableRoles.isEmpty()) {
-                log.info("Role currently unavailable. {} waiting...", user.getName());
-                availableRoles.wait();
+                try {
+                    log.info("Role currently unavailable. {} waiting...", user.getName());
+                    availableRoles.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error("Thread interrupted while waiting: {}", e.getMessage());
+                }
             }
-            String role = availableRoles.remove(0);
+            Role role = availableRoles.remove(0);
             user.setAssignedRole(role);
             availableRoles.remove(role);
-            log.info("Role \"{}\" assigned: {}", role, user.getName());
+            log.info("Role \"{}\" assigned: {}", role.getTitle(), user.getName());
         }
     }
 
     public void releaseRole(User user) {
         synchronized (availableRoles) {
-            String assignedRole = user.getAssignedRole();
+            Role assignedRole = user.getAssignedRole();
             if (assignedRole == null) {
                 log.error("{} have no role yet.", user.getName());
                 return;
             }
             availableRoles.add(assignedRole);
             user.setAssignedRole(null);
-            log.info("Role \"{}\" released: {}", assignedRole, user.getName());
+            log.info("Role \"{}\" released: {}", assignedRole.getTitle(), user.getName());
             availableRoles.notify();
         }
     }
 
-    public void addRole(String role) {
+    public void addRole(Role role) {
         availableRoles.add(role);
-        log.info("Role added to house \"{}\"", role);
+        log.info("Role added to house \"{}\"", role.getTitle());
     }
 }
