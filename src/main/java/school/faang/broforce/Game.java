@@ -8,22 +8,27 @@ import lombok.extern.slf4j.Slf4j;
 public class Game {
     private int score = 0;
     private int lives;
-    private final Object lock = new Object();
+    private final Object lockScore = new Object();
+    private final Object lockLives = new Object();
 
     public Game(int lives) {
         this.lives = lives;
     }
 
     public void update(boolean scored) {
-        synchronized (lock) {
-            if (this.getLives() <= 0) {
-                log.error("Trying to play after Game Over!");
-                throw new IllegalArgumentException("You are trying to play after Game Over!");
-            }
-            if (scored) {
+        if (scored) {
+            synchronized (lockScore) {
+                if (isOver()) {
+                    throw new IllegalStateException("Game is Over!");
+                }
                 score++;
                 log.info("Score incremented: {}", score);
-            } else {
+            }
+        } else {
+            synchronized (lockLives) {
+                if (isOver()) {
+                    throw new IllegalStateException("Game is Over!");
+                }
                 lives--;
                 log.info("Life lost, remaining lives: {}", lives);
                 if (lives <= 0) {
@@ -36,5 +41,13 @@ public class Game {
 
     private void gameOver() {
         log.info("Game Over! Final Score: {}", score);
+    }
+
+    private boolean isOver() {
+        if (this.getLives() <= 0) {
+            log.error("Trying to play after Game Over!");
+            return true;
+        }
+        return false;
     }
 }
