@@ -6,28 +6,24 @@ public class User implements Runnable {
     private String name;
     @Setter
     private House house;
-    private String assingedRole;
+    private String assignedRole;
 
     public User(String name) {
         this.name = name;
     }
 
     public void joinHouse(House house) {
-        synchronized (house) {
-            assingedRole = house.assignRole();
-            this.house = house;
-            System.out.println(name + " joined the " + assingedRole + " house");
-        }
+        assignedRole = house.assignRole();
+        this.house = house;
+        System.out.println(name + " joined the " + assignedRole + " house");
     }
 
     public void leaveHouse() {
-        synchronized (house) {
-            if (house != null && assingedRole != null) {
-                System.out.println(name + " is leaving house and releasing the role" + house.assignRole());
-                house.releaseRole(assingedRole);
-                assingedRole = null;
-                house = null;
-            }
+        if (house != null && assignedRole != null) {
+            System.out.println(name + " is leaving house and releasing the role " + assignedRole);
+            house.releaseRole(assignedRole);
+            assignedRole = null;
+            house = null;
         }
     }
 

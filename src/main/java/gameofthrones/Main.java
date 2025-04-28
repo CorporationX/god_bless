@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<String> roles = new ArrayList<>(Arrays.asList("Lord", "Knight", "Septa", "Maester"));
+        List<String> roles = new ArrayList<>(Arrays.asList("Lord", "Knight", "Septa", "Master"));
         House house = new House(roles);
 
         List<User> users = Arrays.asList(
