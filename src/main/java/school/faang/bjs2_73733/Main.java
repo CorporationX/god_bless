@@ -1,7 +1,7 @@
 package school.faang.bjs2_73733;
 
 public class Main {
-    private static final Boss SUPER_COW = new Boss(1);
+    private static final Boss SUPER_COW = new Boss(2);
     private static final Player gimli = new Player("Gimli");
     private static final Player legolas = new Player("Legolas");
     private static final Player frodo = new Player("Frodo");

@@ -8,15 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public class Player {
+    private static final long SLEEP_TIME = 2_000;
     private final String name;
-    private final long sleepTime = 2_000;
 
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            Thread.sleep(sleepTime);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             log.error("Thread was interrupted. {}.", e.getMessage());
+            Thread.currentThread().interrupt();
         }
         boss.leaveBattle(this);
     }

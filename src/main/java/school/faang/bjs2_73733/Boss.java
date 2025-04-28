@@ -10,17 +10,18 @@ public class Boss {
     private int currentPlayers = 0;
 
     public synchronized void joinBattle(Player player) {
-        if (currentPlayers < maxPlayers) {
-            currentPlayers++;
-            log.info("Player {} joind the battle.", player.getName());
-        } else {
+        while (currentPlayers >= maxPlayers) {
             try {
                 log.info("Player {} is waiting for the battle.", player.getName());
                 this.wait();
             } catch (InterruptedException e) {
                 log.error("Thread was interrupted. {}.", e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
             }
         }
+        currentPlayers++;
+        log.info("{} присоединился к сражению с боссом!", player.getName());
     }
 
     public synchronized void leaveBattle(Player player) {
