@@ -7,19 +7,10 @@ public class Main {
     public static void main(String[] args) {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        Thread thread1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Фотка №"));
-
-        Thread thread2 = new Thread(() -> {
-            try {
-                googlePhotosAutoUploader.startAutoUpload();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                log.error("InterruptedException: {}", e.getMessage());
-            }
-        });
+        Thread thread1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Фотка №1"));
+        Thread thread2 = new Thread(googlePhotosAutoUploader::startAutoUpload);
 
         thread1.start();
         thread2.start();
-
     }
 }
