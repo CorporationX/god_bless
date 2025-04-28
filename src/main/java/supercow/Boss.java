@@ -3,7 +3,6 @@ package supercow;
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
-    private final Object lock = new Object();
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
@@ -18,10 +17,10 @@ public class Boss {
     }
 
     public void joinBattle(Player player) throws InterruptedException {
-        synchronized (lock) {
+        synchronized (this) {
             while (currentPlayers >= maxPlayers) {
                 System.out.println(player.getName() + " is waiting to join battle...");
-                lock.wait();
+                wait();
             }
             currentPlayers++;
             System.out.println(player.getName() + " joined the battle! Current: " + currentPlayers);
@@ -29,10 +28,10 @@ public class Boss {
     }
 
     public void leaveBattle(Player player) {
-        synchronized (lock) {
+        synchronized (this) {
             currentPlayers--;
             System.out.println(player.getName() + " left the battle. Current: " + currentPlayers);
-            lock.notify();
+            notify();
         }
     }
 }
