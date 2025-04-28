@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Swordman implements Fighter {
-    private final int power = 45;
+public class Swordsman implements Fighter {
+    private int power;
 }

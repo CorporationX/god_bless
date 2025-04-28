@@ -10,13 +10,12 @@ public class Army {
         List<SquadPowerCalculator<? extends Fighter>> calculators = new ArrayList<>();
 
         // Создаём и запускаем потоки
-        for (Squad<? extends Fighter> squad : squads) {
-            SquadPowerCalculator<? extends Fighter> calculator = new SquadPowerCalculator<>(squad);
+        for (Squad squad : squads) {
+            SquadPowerCalculator calculator = new SquadPowerCalculator<>(squad);
             calculators.add(calculator);
             calculator.start();
         }
 
-        // Ждём завершения всех потоков
         for (SquadPowerCalculator<? extends Fighter> calculator : calculators) {
             try {
                 calculator.join();
@@ -25,9 +24,12 @@ public class Army {
             }
         }
 
-        // Суммируем результаты
         return calculators.stream()
                 .mapToInt(SquadPowerCalculator::getResult)
                 .sum();
+    }
+
+    public void addSquad(Squad<? extends Fighter> squad) {
+        squads.add(squad);
     }
 }

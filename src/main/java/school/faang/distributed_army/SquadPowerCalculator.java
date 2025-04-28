@@ -1,13 +1,15 @@
 package school.faang.distributed_army;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
 public class SquadPowerCalculator<T extends Fighter> extends Thread {
     private final Squad<T> squad;
     private int result;
+
+    public SquadPowerCalculator(Squad<T> squad) {
+        this.squad = squad;
+    }
 
     @Override
     public void run() {

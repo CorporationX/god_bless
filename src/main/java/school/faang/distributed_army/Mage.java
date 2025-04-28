@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Mage implements Fighter {
-    private final int power = 50;
+    private int power;
 }
