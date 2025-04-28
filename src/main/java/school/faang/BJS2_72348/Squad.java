@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class Squad <T extends Fighter> {
+public class Squad<T extends Fighter> {
     private String name;
     private List<T> fighters;
 

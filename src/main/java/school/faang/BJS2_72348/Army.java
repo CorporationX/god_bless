@@ -25,7 +25,7 @@ public class Army {
                 throw new RuntimeException(e);
             }
             totalArmyPower += thread.getTotalSquadPower();
-        };
+        }
         return totalArmyPower;
     }
 }
