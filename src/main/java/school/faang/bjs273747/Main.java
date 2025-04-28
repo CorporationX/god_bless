@@ -16,8 +16,9 @@ public class Main {
 
         for (int i = 0; i < NUMBER_OF_VIDEOS; i++) {
             String videoId = String.format("Video-%d", i);
-            for (int j = 0; j < FIXED_POOL_SIZE; j++)
+            for (int j = 0; j < FIXED_POOL_SIZE; j++) {
                 executorService.submit(() -> videoManager.addView(videoId));
+            }
         }
         executorService.shutdown();
 
