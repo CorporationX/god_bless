@@ -1,11 +1,13 @@
 package school.faang.sprint_3.work_in_microsoft;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@AllArgsConstructor
 @Slf4j
 public class SenderRunnable implements Runnable {
-    private int startIndex;
-    private int endIndex;
+    private final int startIndex;
+    private final int endIndex;
 
     @Override
     public void run() {
