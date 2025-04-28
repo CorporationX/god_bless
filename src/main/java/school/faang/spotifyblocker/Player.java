@@ -9,15 +9,23 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            System.out.println("Playing music...");
+            if (isPlaying) {
+                pause();
+            } else {
+                isPlaying = true;
+                System.out.println("Playing music...");
+            }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Song paused.");
+            if (!isPlaying) {
+                play();
+            } else {
+                isPlaying = false;
+                System.out.println("Song paused.");
+            }
         }
     }
 
