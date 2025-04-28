@@ -12,6 +12,12 @@ public class Player {
     private int level;
     private AtomicInteger experience;
 
+    public Player(String name, int level, int experience) {
+        this.name = name;
+        this.level = level;
+        this.experience = new AtomicInteger(experience);
+    }
+
     public void updateExperience(int gainedExperience) {
         experience.addAndGet(gainedExperience);
     }

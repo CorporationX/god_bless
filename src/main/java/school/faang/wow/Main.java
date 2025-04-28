@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        List<Player> players = List.of(new Player("Bob", 1, new AtomicInteger(1)),
-                new Player("John", 2, new AtomicInteger(3)),
-                new Player("Jane", 3, new AtomicInteger(3)));
+        List<Player> players = List.of(new Player("Bob", 1, 1),
+                new Player("John", 2, 3),
+                new Player("Jane", 3, 3));
 
         List<Quest> quests = List.of(new Quest("quest1", 1, 1),
                 new Quest("quest2", 5, 3),
