@@ -3,7 +3,6 @@ package school.faang.bro_force;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
-import java.util.function.Function;
 
 @Slf4j
 public class Game {
@@ -18,27 +17,35 @@ public class Game {
         this.lives = lives;
     }
 
-    public void update(Map<Parameter, Function<Integer, Integer>> updates) {
+    public void update(Map<Parameter, Integer> updates) {
         log.debug("Thread: {}, calling update()", Thread.currentThread().getName());
         if (isGameOver) { //должно быть ок без volatile если параметр isGameOver меняется только в блоке synchronized
             gameOver();
         }
         for (var entry : updates.entrySet()) {
-            if (Parameter.SCORE == entry.getKey()) {
-                synchronized (secondLock) {
-                    log.debug("Thread: {}, Modifying SCORE parameter, current value = {}",
-                            Thread.currentThread().getName(), scores);
-                    scores = entry.getValue().apply(scores);
-                    log.debug("Thread: {}, SCORE parameter after modifying, current value = {}",
-                            Thread.currentThread().getName(), scores);
+            if (Parameter.WON_SCORE == entry.getKey()) {
+                synchronized (firstLock) {
+                    log.debug("Thread: {}, Parameter = {},Modifying SCORE parameter, current value = {}",
+                            Thread.currentThread().getName(), Parameter.WON_SCORE, scores);
+                    scores += entry.getValue();
+                    log.debug("Thread: {}, Parameter = {}, SCORE parameter after modifying, current value = {}",
+                            Thread.currentThread().getName(), Parameter.WON_SCORE, scores);
+                }
+            } else if (Parameter.LOST_SCORE == entry.getKey()) {
+                synchronized (firstLock) {
+                    log.debug("Thread: {}, Parameter = {}, Modifying SCORE parameter, current value = {}",
+                            Thread.currentThread().getName(), Parameter.LOST_SCORE, scores);
+                    scores -= entry.getValue();
+                    log.debug("Thread: {}, Parameter = {}, SCORE parameter after modifying, current value = {}",
+                            Thread.currentThread().getName(), Parameter.LOST_SCORE, scores);
                 }
             } else if (Parameter.LIVE == entry.getKey()) {
-                synchronized (firstLock) {
-                    log.debug("Thread: {}, Modifying LIVE parameter, current value = {}",
-                            Thread.currentThread().getName(), lives);
-                    lives = entry.getValue().apply(lives);
-                    log.debug("Thread: {}, LIVE parameter after modifying, current value = {}",
-                            Thread.currentThread().getName(), lives);
+                synchronized (secondLock) {
+                    log.debug("Thread: {}, Parameter = {}, Modifying LIVE parameter, current value = {}",
+                            Thread.currentThread().getName(), Parameter.LIVE, lives);
+                    lives -= entry.getValue();
+                    log.debug("Thread: {}, Parameter = {}, LIVE parameter after modifying, current value = {}",
+                            Thread.currentThread().getName(), Parameter.LIVE, lives);
                     if (lives <= 0) {
                         gameOver();
                     }
