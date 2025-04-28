@@ -17,8 +17,8 @@ public class User {
     }
 
     public void joinHouse(House house) {
-        synchronized (this) {
-            if (house.getRoles().isEmpty()) {
+        synchronized (house) {
+            while (house.getRoles().isEmpty()) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {

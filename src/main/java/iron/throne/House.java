@@ -12,11 +12,11 @@ import java.util.List;
 public class House {
     private List<String> roles;
 
-    public synchronized String assignRole() {
+    public String assignRole() {
         return roles.remove(0);
     }
 
-    public synchronized void releaseRole(String role) {
+    public void releaseRole(String role) {
         roles.add(role);
     }
 }
