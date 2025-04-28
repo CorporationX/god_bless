@@ -11,15 +11,11 @@ public class QuestSystem {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty() * 1000L);
-
-                return new Player(
-                        player.getName(),
-                        player.getLevel(),
-                        player.getExperience() + quest.getReward()
-                );
+                player.addExperience(quest.getReward());
+                return player;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException("Квест был прерван", e);
+                throw new IllegalStateException("Квест был прерван", e);
             }
         }, executor);
     }

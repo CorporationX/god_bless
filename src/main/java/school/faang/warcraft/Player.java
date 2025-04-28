@@ -1,12 +1,26 @@
 package school.faang.warcraft;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
-@AllArgsConstructor
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Getter
+@EqualsAndHashCode
+@ToString
 public class Player {
-    private String name;
-    private int level;
-    private int experience;
+    private final String name;
+    private final int level;
+    private final AtomicInteger experience;
+
+    public Player(String name, int level, int experience) {
+        this.name = name;
+        this.level = level;
+        this.experience = new AtomicInteger(experience);
+    }
+
+    public void addExperience(int amount) {
+        this.experience.addAndGet(amount);
+    }
 }
