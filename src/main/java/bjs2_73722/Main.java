@@ -1,14 +1,24 @@
 package bjs2_73722;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
+    private static final double EARN_POINTS_PROBABILITY = 0.5;
+    private static final double LOSE_LIFE_PROBABILITY = 0.5;
+    private static final int TOTAL_NUM_UPDATES = 100;
+
     public static void main(String[] args) {
         Game game = new Game();
 
-        for (int i = 0; i < 100; i++) {
-            boolean changingScore = Math.random() > 0.5;
-            boolean changingLives = Math.random() < 0.5;
+        ExecutorService executor = Executors.newCachedThreadPool();
 
-            game.update(changingScore, changingLives);
+        for (int i = 0; i < TOTAL_NUM_UPDATES; i++) {
+            boolean changingScore = Math.random() > EARN_POINTS_PROBABILITY;
+            boolean changingLives = Math.random() < LOSE_LIFE_PROBABILITY;
+
+            executor.submit(() -> game.update(changingScore, changingLives));
         }
+        executor.shutdown();
     }
 }
