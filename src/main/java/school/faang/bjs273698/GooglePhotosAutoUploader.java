@@ -28,10 +28,8 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        synchronized (lock) {
-            photosToUpload.forEach((path) -> log.info("Photo uploaded: {}", path));
-            photosToUpload.clear();
-        }
+        photosToUpload.forEach((path) -> log.info("Photo uploaded: {}", path));
+        photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {

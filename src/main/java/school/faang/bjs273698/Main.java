@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
+    private static final int WAITING_TIME = 5000;
+
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
@@ -20,9 +22,10 @@ public class Main {
         uploadThread.start();
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(WAITING_TIME);
             uploadThread.interrupt();
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error(e.getMessage());
         }
     }
