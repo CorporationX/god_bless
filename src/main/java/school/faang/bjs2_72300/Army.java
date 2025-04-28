@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Army {
     private static final int THREAD_POOL_COUNT = 3;
+    private static final int TIMEOUT = 10;
     private final List<Squad> listSquads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
@@ -25,17 +26,21 @@ public class Army {
             log.info("Start new thread");
         }
 
+        gracefullyShutdown(executor);
+
+        return result.stream().reduce(0, Integer::sum);
+    }
+
+    private static void gracefullyShutdown(ExecutorService executor) {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                log.info("Tasks not completed in 10 seconds, forcibly stopping...");
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                log.info("Tasks not completed in {} }seconds, forcibly stopping...", TIMEOUT);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-
-        return result.stream().reduce(0, Integer::sum);
     }
 }
