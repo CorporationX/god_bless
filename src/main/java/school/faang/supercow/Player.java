@@ -14,7 +14,8 @@ public class Player {
         try {
             Thread.sleep(BATTLE_TIME_MC);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted during battle.", e);
         }
         boss.leaveBattle(this);
     }
