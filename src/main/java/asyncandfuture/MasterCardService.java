@@ -1,0 +1,31 @@
+package asyncandfuture;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class MasterCardService {
+    private static final int TEN_SECONDS_IN_MS = 10_000;
+    private static final int ONE_SECOND_IN_MS = 1_000;
+
+    public static int collectPayment() {
+        try {
+            Thread.sleep(TEN_SECONDS_IN_MS);
+            return 5_000;
+        } catch (InterruptedException e) {
+            log.error("an Error occurred while collecting payment {}", e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new PaymentProcessingException("Interrupted while collecting payment", e);
+        }
+    }
+
+    public static int sendAnalytics() {
+        try {
+            Thread.sleep(ONE_SECOND_IN_MS);
+            return 17_000;
+        } catch (InterruptedException e) {
+            log.error("an Error occurred while sending analytics {}", e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new AnalyticsProcessingException("Interrupted while sending analytics", e);
+        }
+    }
+}
