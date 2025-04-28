@@ -23,7 +23,10 @@ public class Main {
             questSystem.startQuest(firstPlayer, secondQuest),
             questSystem.startQuest(secondPlayer, secondQuest)
         );
+
         workingQuest.forEach(playerQuest -> playerQuest.thenAccept(Main::acceptInfo));
+        workingQuest.forEach(CompletableFuture::join);
+
         questSystem.shutdown();
     }
 

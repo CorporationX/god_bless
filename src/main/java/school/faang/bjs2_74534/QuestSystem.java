@@ -16,7 +16,8 @@ public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         validateInputData(player, quest);
-        log.info("start quest to \"{}\" on \"{}\"", player.getName(), quest.name());
+        log.info("start quest to \"{}\" (experience is {}) on \"{}\" (reward is {})",
+            player.getName(), player.getExperience(), quest.name(), quest.reward());
         return CompletableFuture.supplyAsync(() -> {
             try {
                 log.info("player \"{}\" solving quest \"{}\" \"{}\" sec",
@@ -34,7 +35,7 @@ public class QuestSystem {
     public void shutdown() {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
