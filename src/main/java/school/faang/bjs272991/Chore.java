@@ -16,7 +16,7 @@ public class Chore implements Runnable {
         } catch (InterruptedException e) {
             System.out.println(chore + " was interrupted");
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new  IllegalStateException(e);
         }
     }
 }
