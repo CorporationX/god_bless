@@ -10,16 +10,12 @@ public class VideoManager {
 
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
-    public void addView(String videoId) {
-        synchronized (this) {
-            viewsMap.merge(videoId, 1, Integer::sum);
-            log.info("Video -> {}, now has views -> {}", videoId, viewsMap.get(videoId));
-        }
+    public synchronized void addView(String videoId) {
+        viewsMap.merge(videoId, 1, Integer::sum);
+        log.info("Video -> {}, now has views -> {}", videoId, viewsMap.get(videoId));
     }
 
-    public int getViewCount(String videoId) {
-        synchronized (this) {
-            return viewsMap.get(videoId);
-        }
+    public synchronized int getViewCount(String videoId) {
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
