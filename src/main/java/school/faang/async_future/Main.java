@@ -28,7 +28,8 @@ public class Main {
 
     public static void doAll() throws ExecutionException, InterruptedException {
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics,
+                executor);
         System.out.printf("Analytics were sent: %d \n", analyticsFuture.join());
         System.out.printf("Payment was received: %d", paymentFuture.get());
     }
