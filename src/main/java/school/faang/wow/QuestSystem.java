@@ -18,7 +18,7 @@ public class QuestSystem {
                 Thread.currentThread().interrupt();
             }
             return player;
-            }, ThreadPullSupplier.executor)
+        }, ThreadPullSupplier.executor)
                 .thenApply(eachPlayer -> {
                     eachPlayer.updateExperience(quest.getReward());
                     return eachPlayer;
