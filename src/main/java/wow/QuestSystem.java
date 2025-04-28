@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
-    private final static int MILLISECONDS_PER_SECOND = 1000;
+    private static final int MILLISECONDS_PER_SECOND = 1000;
 
     public static CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture
