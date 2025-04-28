@@ -9,7 +9,7 @@ public class Main {
         // Создаём отряды
         Squad archers = new Squad(List.of(new Archer(20), new Archer(40)));
         Squad swordsmen = new Squad(List.of(new Swordsman(40), new Swordsman(35)));
-        Squad mages = new Squad( List.of(new Mage(50), new Mage(45)));
+        Squad mages = new Squad(List.of(new Mage(50), new Mage(45)));
 
         // Добавляем отряды в армию
         army.addSquad(archers);
