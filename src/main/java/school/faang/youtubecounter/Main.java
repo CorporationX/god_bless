@@ -18,14 +18,13 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         for (int i = 1; i <= NUM_VIDEOS; i++) {
             String videoId = "video %s".formatted(i);
-            String finalVideoId = videoId;
             for (int j = 0; j < NUM_THREADS; j++) {
                 executor.submit(() -> {
-                    manager.addView(finalVideoId);
+                    manager.addView(videoId);
                     log.info(
                             "Добавлен просмотр для видео {}. Текущее количество: {}",
-                            finalVideoId,
-                            manager.getViewCount(finalVideoId));
+                            videoId,
+                            manager.getViewCount(videoId));
                 });
             }
         }
@@ -39,7 +38,7 @@ public class Main {
             log.warn("Ожидание закрытия поток прервано.");
             executor.shutdownNow();
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Поток ожидания завершения выполнения был прерван.", e);
         }
     }
 }

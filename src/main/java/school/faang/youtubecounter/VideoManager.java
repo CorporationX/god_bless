@@ -1,5 +1,6 @@
 package school.faang.youtubecounter;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,14 +16,10 @@ public class VideoManager {
             log.warn("videoId не задан");
             return;
         }
-        viewsMap.compute(videoId, (k, v) -> v == null ? 1 : v + 1);
+        viewsMap.merge(videoId, 1, Integer::sum);
     }
 
-    public synchronized Integer getViewCount(String videoId) {
-        if (videoId == null || videoId.isBlank()) {
-            log.warn("videoId не задан");
-            return 0;
-        }
+    public synchronized Integer getViewCount(@NonNull String videoId) {
         return viewsMap.getOrDefault(videoId, 0);
     }
 }
