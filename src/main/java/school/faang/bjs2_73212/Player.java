@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Player extends Thread {
 
     private boolean isPlaying;
-    Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
     public void play() {
         lock.lock();
@@ -21,7 +21,7 @@ public class Player extends Thread {
         }
     }
 
-    public synchronized void pause() {
+    public void pause() {
         lock.lock();
         try {
             if (isPlaying) {

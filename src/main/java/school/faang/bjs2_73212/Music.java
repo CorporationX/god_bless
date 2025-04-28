@@ -17,7 +17,6 @@ public class Music {
 
         for (Thread thread : threads) {
             thread.start();
-            Thread.sleep(3000);
         }
     }
 }
