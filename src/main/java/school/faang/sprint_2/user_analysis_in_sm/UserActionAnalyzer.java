@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -34,7 +35,7 @@ public class UserActionAnalyzer {
                 .filter(word -> word.startsWith("#"))
                 .map(tag -> tag.replaceAll("[^#\\w]", "").toLowerCase())
                 .collect(Collectors.groupingBy(
-                        tag -> tag,
+                        Function.identity(),
                         Collectors.collectingAndThen(Collectors.counting(), Long::intValue)
                 ))
                 .entrySet()
@@ -90,24 +91,16 @@ public class UserActionAnalyzer {
     }
 
     public static Map<ActionType, Double> calculateActionTypePercentages(List<UserAction> actions) {
-        int total = actions.size();
-
-        if (total == 0) {
-            return Collections.emptyMap();
-        }
-
-        Map<ActionType, Long> counts = actions.stream()
+        return (actions == null || actions.isEmpty())
+                ? Collections.emptyMap()
+                : actions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getActionType,
-                        Collectors.counting()
-                ));
-
-        return counts.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> (entry.getValue() * 100.0) / total,
-                        (actionType, percent) -> actionType,
-                        LinkedHashMap::new
+                        LinkedHashMap::new,
+                        Collectors.collectingAndThen(
+                                Collectors.counting(),
+                                count -> (count * 100.0) / actions.size()
+                        )
                 ));
     }
 }
