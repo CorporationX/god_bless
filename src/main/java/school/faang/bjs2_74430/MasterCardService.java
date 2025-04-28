@@ -51,11 +51,6 @@ public class MasterCardService {
         Future<Integer> payment = collectPayment();
         Future<Integer> analytics = sendAnalytics();
 
-        while (true) {
-            if (analytics.isDone() && payment.isDone()) {
-                break;
-            }
-        }
         resultProcessing("send analytics", "analytical data has not been transmitted", analytics);
         resultProcessing("collect payment", "payment failed", payment);
 
