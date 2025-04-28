@@ -10,33 +10,31 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public final class GooglePhotosAutoUploader {
-    private static final Object MONITOR = new Object();
     private static final Queue<String> photosToUpload = new ArrayDeque<>();
+    private static final int RANDOM_BOUND_FOR_SLEEPING = 5;
 
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     @SneakyThrows
-    public void startAutoUpload() {
-        synchronized (MONITOR) {
-            while (photosToUpload.isEmpty()) {
-                MONITOR.wait();
-            }
-
-            TimeUnit.SECONDS.sleep(random.nextInt(5));
-            uploadPhotos();
-            MONITOR.notify();
+    public synchronized void startAutoUpload() {
+        while (photosToUpload.isEmpty()) {
+            wait();
         }
+
+        TimeUnit.SECONDS.sleep(random.nextInt(RANDOM_BOUND_FOR_SLEEPING));
+        uploadPhotos();
+        notify();
     }
 
     @SneakyThrows
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (MONITOR) {
+        synchronized (this) {
             log.info("New photo added: {}", photoPath);
             photosToUpload.add(photoPath);
-            MONITOR.notify();
+            notify();
         }
 
-        TimeUnit.SECONDS.sleep(random.nextInt(5));
+        TimeUnit.SECONDS.sleep(random.nextInt(RANDOM_BOUND_FOR_SLEEPING));
     }
 
     private void uploadPhotos() {
