@@ -1,15 +1,13 @@
 package school.faang.extremely_poor;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
     private static final int SLEEP_MILLISECONDS = 2000;
-
-    public Chore(String chore) {
-        this.chore = chore;
-    }
 
     @Override
     public void run() {

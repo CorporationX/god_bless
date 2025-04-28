@@ -2,12 +2,11 @@ package school.faang.extremely_poor;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import static school.faang.extremely_poor.WeasleyFamily.chores;
 
 @Slf4j
 public class Main {
@@ -15,13 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
-
-        List<Chore> chores = new ArrayList<>(Arrays.asList(
-                new Chore("Wash dishes"),
-                new Chore("Wipe smth"),
-                new Chore("Throw a garbage"),
-                new Chore("Cook some dinner")
-        ));
 
         chores.forEach(executorService::execute);
         softShutdown(executorService);
