@@ -18,6 +18,7 @@ public class GooglePhotosAutoUploader {
                         log.info("No new photos available");
                         lock.wait();
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                         throw new RuntimeException("Thread interrupted while waiting for new photos", e);
                     }
                 }
@@ -36,7 +37,9 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        log.info("New photos have been uploaded");
+        log.info("Starting photo upload...");
+        photosToUpload.forEach(photo -> log.info("Uploading: {}", photo));
         photosToUpload.clear();
+        log.info("All photos have been uploaded.");
     }
 }
