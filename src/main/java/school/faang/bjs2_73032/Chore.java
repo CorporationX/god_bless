@@ -19,7 +19,7 @@ public class Chore implements Runnable {
             Thread.sleep(2000);
             System.out.println(choreName + " finished");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread interrupted");
         }
     }
 }

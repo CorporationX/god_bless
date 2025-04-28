@@ -1,20 +1,22 @@
 package school.faang.bjs2_73032;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
         WeasleyFamily weasleyFamily = new WeasleyFamily();
+        ExecutorService executor = weasleyFamily.getExecutorService();
         for (Chore c : weasleyFamily.getToDo()) {
-            weasleyFamily.getExecutorService().execute(c);
+            executor.execute(c);
         }
-        weasleyFamily.getExecutorService().shutdown();
+        executor.shutdown();
         try {
-            if (!weasleyFamily.getExecutorService().awaitTermination(5, TimeUnit.SECONDS)) {
-                weasleyFamily.getExecutorService().shutdownNow();
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread interrupted");
         }
     }
 }
