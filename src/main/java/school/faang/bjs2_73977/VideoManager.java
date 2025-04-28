@@ -1,9 +1,10 @@
 package school.faang.bjs2_73977;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class VideoManager {
-    private Map<String, Integer> viewersMap;
+    private final Map<String, Integer> viewersMap = new HashMap<>();
     private final Object viewLocker = new Object();
 
     public void addView(String videoId) {
