@@ -24,11 +24,13 @@ public class Main {
 
         ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
 
-        CompletableFuture.allOf(
+        CompletableFuture<Void> everyoneSignedUp = CompletableFuture.allOf(
                 twitterAccountList.stream()
                         .map(account -> CompletableFuture.runAsync(() -> system.followAccount(account, pool))
                                 .thenRun(() -> log.info("Everyone signed up for an account {}", account.getUsername())))
-                        .toArray(CompletableFuture[]::new)).join();
+                        .toArray(CompletableFuture[]::new));
+
+        everyoneSignedUp.join();
 
         log.info("All tasks completed");
         gracefullyShutdown(pool);

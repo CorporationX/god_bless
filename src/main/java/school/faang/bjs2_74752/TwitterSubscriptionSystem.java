@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 @Slf4j
 public final class TwitterSubscriptionSystem {
 
-    public void followAccount(TwitterAccount account, ExecutorService pool) {
-        CompletableFuture.allOf(
+    public CompletableFuture<Void> followAccount(TwitterAccount account, ExecutorService pool) {
+        return CompletableFuture.allOf(
                 IntStream.range(0, 10)
                         .mapToObj(i -> CompletableFuture.runAsync(() -> addFollower(account), pool)
                                 .thenRun(() -> log.info("Number {} subscribed to the {} account.",
