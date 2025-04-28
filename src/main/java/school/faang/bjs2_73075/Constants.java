@@ -1,4 +1,4 @@
-package school.faang.BJS2_73075;
+package school.faang.bjs2_73075;
 
 public class Constants {
     public static final int THREADS_COUNT = 5;

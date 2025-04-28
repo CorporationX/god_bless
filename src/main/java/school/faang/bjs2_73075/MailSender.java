@@ -1,12 +1,12 @@
-package school.faang.BJS2_73075;
+package school.faang.bjs2_73075;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static school.faang.BJS2_73075.Constants.MAILS_COUNT;
-import static school.faang.BJS2_73075.Constants.THREADS_COUNT;
+import static school.faang.bjs2_73075.Constants.MAILS_COUNT;
+import static school.faang.bjs2_73075.Constants.THREADS_COUNT;
 
 @Slf4j
 public class MailSender {
@@ -27,7 +27,8 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Thread was interrupted while waiting for sender threads to complete",
+                        e);
             }
         });
         log.info("Mail sending has finished successfully!");
