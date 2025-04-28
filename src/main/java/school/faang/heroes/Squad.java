@@ -6,12 +6,14 @@ import java.util.List;
 public class Squad {
     private List<Warrior> warriors = new ArrayList<>();
     private int totalStrength;
-    public int calculateSquadPower(){
+
+    public int calculateSquadPower() {
         for (Warrior warrior : warriors) {
-            totalStrength+= warrior.getStrength();
+            totalStrength += warrior.getStrength();
         }
         return totalStrength;
     }
+
     public void addWarrior(Warrior warrior) {
         warriors.add(warrior);
     }

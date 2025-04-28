@@ -2,7 +2,7 @@ package school.faang.heroes;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Army army = new Army();
+
         Squad archers = new Squad();
         archers.addWarrior(new Archer(25));
         archers.addWarrior(new Archer(30));
@@ -11,6 +11,7 @@ public class Main {
         swordsmen.addWarrior(new Swordsman(40));
         swordsmen.addWarrior(new Swordsman(35));
 
+        Army army = new Army();
         army.addSquad(archers);
         army.addSquad(swordsmen);
 
