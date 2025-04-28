@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Army {
-    private final static int THREAD_POOL_COUNT = 3;
+    private static final int THREAD_POOL_COUNT = 3;
     private final List<Squad> listSquads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
