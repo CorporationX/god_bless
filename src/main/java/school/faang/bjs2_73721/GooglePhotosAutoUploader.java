@@ -8,28 +8,38 @@ import java.util.List;
 @Slf4j
 public class GooglePhotosAutoUploader {
 
-    public static final Object LOCK = new Object();
+    private static final int UPLOAD_WAIT = 3000;
+    public final Object lock = new Object();
 
     private final List<String> photosToUpload = new ArrayList<>();
+    private static boolean working = true;
+
+    public static void turnOff() {
+        working = false;
+    }
 
     public void startAutoUpload() {
-        synchronized (LOCK) {
-            if (photosToUpload.isEmpty()) {
-                try {
-                    LOCK.wait(3000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        synchronized (lock) {
+            while (working) {
+                if (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait(UPLOAD_WAIT);
+                    } catch (InterruptedException e) {
+                        log.info("Thread {} has been interrupted", Thread.currentThread().getName());
+                        Thread.currentThread().interrupt();
+                    }
+                } else {
+                    uploadPhotos();
                 }
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             log.info("Added new image -> {}", photoPath);
             photosToUpload.add(photoPath);
-            LOCK.notify();
+            lock.notify();
         }
     }
 
