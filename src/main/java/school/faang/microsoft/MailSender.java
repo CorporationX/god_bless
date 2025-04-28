@@ -6,10 +6,10 @@ public class MailSender {
 
     public static void main(String[] args) throws InterruptedException {
         Thread[] threads = new Thread[THREADS_COUNT];
-        int batch_size = MAILS_COUNT / THREADS_COUNT;
+        int batchSize = MAILS_COUNT / THREADS_COUNT;
         for (int i = 0; i < THREADS_COUNT; i++) {
-            int start = i * batch_size;
-            int end = (i + 1) * batch_size;
+            int start = i * batchSize;
+            int end = (i + 1) * batchSize;
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
         }
