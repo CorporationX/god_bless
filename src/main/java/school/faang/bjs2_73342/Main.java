@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static school.faang.bjs2_73342.Role.KNIGHT;
@@ -25,17 +26,16 @@ public class Main {
         List<User> users = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int i = 0; i < NUM_THREADS; i++) {
-            users.add(new User("Player" + (i + 1)));
-        }
+        IntStream.range(0, NUM_THREADS)
+                .forEach(i -> users.add(new User("Player" + (i + 1))));
 
         users.forEach(user -> executorService.execute(() -> {
             user.joinHouse(starkHouse);
             try {
                 Thread.sleep(getRoleTime());
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
-                log.error("Thread stoppage error");
+                throw new ThreadStoppageException(ex);
             } finally {
                 user.leaveHouse(starkHouse);
             }
@@ -53,7 +53,7 @@ public class Main {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException ex) {
-            log.error("thread stoppage error");
+            log.error("Thread stoppage error");
             executorService.shutdownNow();
         }
         log.info("All users have completed their work.");

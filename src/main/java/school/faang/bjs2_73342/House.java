@@ -23,28 +23,32 @@ public class House {
             log.info("{} waiting because there are no roles.", user.getName());
             try {
                 this.wait();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
-                log.error("Thread stoppage error");
+                throw new ThreadStoppageException(ex);
             }
         }
-        Role role = roles.stream()
+        Role freeRole = getFreeRole();
+        assignedRoles.put(freeRole, user);
+        log.info("{} got the part: {}", user.getName(), freeRole);
+        return freeRole;
+    }
+
+    private Role getFreeRole() {
+        return roles.stream()
                 .filter(role1 -> !assignedRoles.containsKey(role1))
                 .findAny()
                 .orElseThrow(RoleNotFoundException::new);
-        assignedRoles.put(role, user);
-        log.info("{} got the part: {}", user.getName(), role);
-        return role;
     }
 
     public synchronized void releaseRole(User user) {
+        if (!assignedRoles.containsValue(user)) {
+            log.warn("{} trying to free up a role in someone else's house", name);
+            return;
+        }
         log.info("{} frees up the role: {}", user.getName(), user.getAssignedRole());
         assignedRoles.remove(user.getAssignedRole());
         this.notifyAll();
-    }
-
-    public synchronized boolean isUserAssigned(User user) {
-        return assignedRoles.containsValue(user);
     }
 
     public synchronized void logRemainingAssignments() {

@@ -16,12 +16,7 @@ public class User {
     }
 
     public void leaveHouse(House house) {
-        if (this.assignedRole == null) {
-            return;
-        }
-
-        if (!house.isUserAssigned(this)) {
-            log.warn("{} trying to free up a role in someone else's house", name);
+        if (assignedRole == null) {
             return;
         }
 
