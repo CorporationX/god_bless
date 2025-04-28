@@ -10,7 +10,7 @@ public class Boss {
     private final int maxPlayers;
     private final List<Player> currentPlayers = new ArrayList<>();
 
-       public void joinBattle(Player player) {
+    public void joinBattle(Player player) {
         synchronized (this) {
             while (currentPlayers.size() == maxPlayers) {
                 try {
