@@ -34,6 +34,8 @@ public class VideoManager {
     }
 
     public void addListener(Listener listener) {
-        listeners.add(listener);
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
     }
 }
