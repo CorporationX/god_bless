@@ -23,7 +23,6 @@ public final class GooglePhotosAutoUploader {
 
         TimeUnit.SECONDS.sleep(random.nextInt(RANDOM_BOUND_FOR_SLEEPING));
         uploadPhotos();
-        notify();
     }
 
     @SneakyThrows
@@ -38,7 +37,8 @@ public final class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        String poll = photosToUpload.poll();
+        String poll = String.join(", ", photosToUpload);
         log.info("Photos uploaded: {}", poll);
+        photosToUpload.clear();
     }
 }
