@@ -7,8 +7,10 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
+    private static final int MAX_BATTLE_PLAYER = 4;
+
     public static void main(String[] args) {
-        Boss boss = new Boss(4);
+        Boss boss = new Boss(MAX_BATTLE_PLAYER);
 
         List<Thread> threads = IntStream.rangeClosed(1, 5)
                 .mapToObj(k -> new Thread(()
@@ -22,6 +24,7 @@ public class Main {
                 thread.join();
             } catch (InterruptedException e) {
                 log.error("Прерывание, при ожидании потоков");
+                Thread.currentThread().interrupt();
             }
         }
         log.info("Босс повержен!!!");

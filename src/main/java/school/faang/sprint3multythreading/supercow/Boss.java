@@ -15,7 +15,7 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            if (currentPlayers >= maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
                 try {
                     log.info("Подожди отважный боец {} в очереди. Босс занят битвой.", player.getName());
                     lock.wait();
