@@ -24,14 +24,8 @@ public class PostService {
     }
 
     public boolean removePost(int postId, String requester) {
-        return findPostById(postId)
-                .filter(post -> post.getAuthor().equals(requester))
-                .map(post -> {
-                    posts.remove(post);
-                    log.info("Пост удален: {}", postId);
-                    return true;
-                })
-                .orElse(false);
+        return posts.removeIf(post ->
+                post.getId() == postId && post.hasAuthor(requester));
     }
 
     public boolean removeComment(int postId, Comment comment, String requester) {
