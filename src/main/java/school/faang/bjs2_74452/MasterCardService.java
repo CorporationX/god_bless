@@ -20,9 +20,8 @@ public class MasterCardService {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
             return PAYMENT;
-        } catch (InterruptedException e) {
-            log.error("Thread stopped error");
-            throw new RuntimeException(e);
+        } catch (InterruptedException ex) {
+            throw new ThreadStoppedException(ex);
         }
     }
 
@@ -30,19 +29,21 @@ public class MasterCardService {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
             return ANALYTICS;
-        } catch (InterruptedException e) {
-            log.error("Thread stopped error");
-            throw new RuntimeException(e);
+        } catch (InterruptedException ex) {
+            throw new ThreadStoppedException(ex);
         }
     }
 
     public void doAll() {
         ExecutorService pool = Executors.newSingleThreadExecutor();
-        CompletableFuture<Integer> payment = CompletableFuture.supplyAsync(this::collectPayment, pool);
-        payment.thenAccept(pay -> log.info("Paid in the amount of {}", pay)).join();
 
         CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(this::sendAnalytics, pool);
         analytics.thenAccept(analyst -> log.info("The analytics amounted to {} data points", analyst)).join();
+
+        CompletableFuture<Integer> payment = CompletableFuture.supplyAsync(this::collectPayment, pool);
+        payment.thenAccept(pay -> log.info("Paid in the amount of {}", pay)).join();
+
+        log.info("All tasks completed");
 
         gracefullyShutdown(pool);
     }
