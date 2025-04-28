@@ -2,19 +2,20 @@ package school.faang.youtube;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class VideoManager {
-    private final ConcurrentHashMap<String, Integer> viewsMap = new ConcurrentHashMap<>();
+    private final Map<String, Integer> viewsMap = new HashMap<>();
 
-    public void addView(String videoId) {
+    public synchronized void addView(String videoId) {
         log.debug("Thread {}: calling addView()", Thread.currentThread().getId());
         viewsMap.merge(videoId, 1, Integer::sum);
         log.debug("Thread {}: added a new view for {}", Thread.currentThread().getId(), videoId);
     }
 
-    public Integer getViewCount(String videoId) {
+    public synchronized Integer getViewCount(String videoId) {
         log.debug("Thread {}: calling getViewCount()", Thread.currentThread().getId());
         Integer views;
         log.debug("Thread {}: Entered synchronized (viewsMap)", Thread.currentThread().getId());
