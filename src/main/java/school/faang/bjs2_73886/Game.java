@@ -14,13 +14,13 @@ public class Game {
 
     public void update(int scoreChange, int lifeChange) {
         synchronized (scoreLock) {
-            synchronized (livesLock) {
-                score += scoreChange;
-                lives -= lifeChange;
-                if (lives <= 0) {
-                    isRunning = false;
-                    gameOver();
-                }
+            score += scoreChange;
+        }
+        synchronized (livesLock) {
+            lives -= lifeChange;
+            if (lives <= 0) {
+                isRunning = false;
+                gameOver();
             }
         }
     }
