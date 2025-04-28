@@ -1,4 +1,4 @@
-package school.faang.BJS2_72348;
+package school.faang.bjs2_72348;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

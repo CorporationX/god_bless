@@ -1,4 +1,4 @@
-package school.faang.BJS2_72348;
+package school.faang.bjs2_72348;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,8 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Thread was interrupted while waiting for squad power calculator " +
+                        "threads to complete", e);
             }
             totalArmyPower += thread.getTotalSquadPower();
         }
