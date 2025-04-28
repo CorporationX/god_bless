@@ -26,23 +26,19 @@ public class Boss {
             }
         } catch (InterruptedException e) {
             System.out.println("Interrupted");
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
-        } finally {
-            semaphore.release();
         }
     }
 
     public void leaveBattle() {
         try {
-            semaphore.acquire();
             if (currentPlayers == 0) {
                 semaphore.release();
                 System.out.println("No players fighting");
             }
             currentPlayers--;
             System.out.println("There is room for another one");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         } finally {
             semaphore.release();
         }
