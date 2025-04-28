@@ -31,7 +31,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-        photosToUpload.forEach(photo -> System.out.printf("Uploading photos, %s", photo));
-        photosToUpload.clear();
+        synchronized (lock) {
+            photosToUpload.forEach(photo -> System.out.printf("Uploading photos, %s", photo));
+            photosToUpload.clear();
+        }
     }
 }
