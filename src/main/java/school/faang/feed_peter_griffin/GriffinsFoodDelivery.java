@@ -7,21 +7,26 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
+
+    private static final int NUMBER_OF_DELIVERY_THREADS = 3;
+    private static final int MAX_FOOD_AMOUNT = 50;
+    private static final int MIN_FOOD_AMOUNT = 1;
+    private static final int AWAIT_TERMINATION_TIMEOUT_MINUTES = 1;
+
     public static void main(String[] args) {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_DELIVERY_THREADS);
         Random random = new Random();
         Arrays.stream(characterNames)
                 .forEach(characterName -> {
-                    int foodAmount = random.nextInt(50) + 1;
+                    int foodAmount = random.nextInt(MAX_FOOD_AMOUNT) + MIN_FOOD_AMOUNT;
                     FoodDeliveryTask task = new FoodDeliveryTask(characterName, foodAmount);
                     executor.submit(task);
                 });
         executor.shutdown();
-
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.err.println("Не все доставки завершились за 1 минуту!");
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES)) {
+                System.err.println("Не все доставки завершились за " + AWAIT_TERMINATION_TIMEOUT_MINUTES + " минуту!");
                 executor.shutdownNow();
             } else {
                 System.out.println("Все доставки успешно завершены!");

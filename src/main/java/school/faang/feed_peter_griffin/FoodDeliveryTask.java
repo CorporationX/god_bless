@@ -2,11 +2,13 @@ package school.faang.feed_peter_griffin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
 @AllArgsConstructor
 @Getter
+@Slf4j
 class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
@@ -20,19 +22,17 @@ class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType foodType = getFoodType();
-        System.out.println(Thread.currentThread().getName() + ": " + character + " заказывает " + foodAmount +
-                " " + foodType.toString().toLowerCase().replace("_", " ") + ".");
+        String foodDescription = foodType.toString().toLowerCase().replace("_", " ");
+        log.info("{}: {} заказывает {} {}.", Thread.currentThread().getName(), character, foodAmount, foodDescription);
         try {
-            int deliveryTime = (int) (Math.random() * 4000) + 1000;
+            int deliveryTime = random.nextInt(4000) + 1000;
             Thread.sleep(deliveryTime);
         } catch (InterruptedException e) {
+            log.warn("Доставка для {} была прервана в потоке {}", character, Thread.currentThread().getName());
             Thread.currentThread().interrupt();
-            System.out.println(Thread.currentThread().getName() + "Доставка для: " + character +
-                    "была прервана");
             return;
         }
-        System.out.println(Thread.currentThread().getName() + ": " + character + " ест и наслаждается: " +
-                foodAmount + " " + foodType.toString().toLowerCase().replace("_", " ") + ".");
-
+        log.info("{}: {} ест и наслаждается: {} {}.", Thread.currentThread().getName(),
+                character, foodAmount, foodDescription);
     }
 }
