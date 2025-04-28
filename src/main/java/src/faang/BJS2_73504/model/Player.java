@@ -5,12 +5,12 @@ import lombok.SneakyThrows;
 import java.util.concurrent.TimeUnit;
 
 public record Player(String name) {
-    private static final int DURATION_BATTLE = 1;
+    private static final int DURATION_BATTLE_IN_SECONDS = 1;
 
     @SneakyThrows
     public void doBattle(final Boss boss) {
         boss.joinBattle(this);
-        TimeUnit.SECONDS.sleep(DURATION_BATTLE);
+        TimeUnit.SECONDS.sleep(DURATION_BATTLE_IN_SECONDS);
         boss.leaveBattle(this);
     }
 }
