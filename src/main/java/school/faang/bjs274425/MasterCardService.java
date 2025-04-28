@@ -1,12 +1,10 @@
 package school.faang.bjs274425;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Supplier;
 
 public class MasterCardService {
     static int collectPayment() {
@@ -31,20 +29,8 @@ public class MasterCardService {
 
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        Future<Integer> paymentFuture = executor.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() {
-                return MasterCardService.collectPayment();
-            }
-        });
-
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(new Supplier<Integer>() {
-            @Override
-            public Integer get() {
-                return MasterCardService.sendAnalytics();
-            }
-        });
+        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
         try {
             int analyticsResult = analyticsFuture.get();
@@ -53,9 +39,9 @@ public class MasterCardService {
             System.out.println("Платеж выполнен: " + paymentResult);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            System.out.println("Операция была прервана: " + e.getMessage());
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            System.out.println("Ошибка выполнения задачи: " + e.getCause());
         } finally {
             executor.shutdown();
         }
