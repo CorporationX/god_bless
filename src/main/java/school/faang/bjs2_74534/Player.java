@@ -10,7 +10,7 @@ public class Player {
     private final Integer level; // (уровень игрока),
     private Integer experience; // (опыт игрока).
 
-    public Player addExperience(Integer delta) {
+    public synchronized Player addExperience(Integer delta) {
         this.experience += delta;
         return this;
     }

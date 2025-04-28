@@ -17,11 +17,13 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+        CompletableFuture<Player> player1Quest1 = questSystem.startQuest(player1, quest1);
+        CompletableFuture<Player> player1Quest2 = questSystem.startQuest(player1, quest2);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(Main::acceptInfo);
+        player1Quest1.thenAccept(Main::acceptInfo);
         player2Quest.thenAccept(Main::acceptInfo);
+        player1Quest2.thenAccept(Main::acceptInfo);
 
         questSystem.shutdown();
     }

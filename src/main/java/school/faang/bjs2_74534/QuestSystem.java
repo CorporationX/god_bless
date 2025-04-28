@@ -10,19 +10,19 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Getter
 public class QuestSystem {
-    private ExecutorService executor = Executors.newCachedThreadPool();
+    private static final long MILLIS = 1000;
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         log.info("start quest to \"{}\" on \"{}\"", player.getName(), quest.name());
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(quest.difficulty() * 1000);
+                Thread.sleep(quest.difficulty() * MILLIS);
             } catch (InterruptedException e) {
                 log.error("start quest interrupted: {}", e.getMessage(), e);
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
-            ;
             return player.addExperience(quest.reward());
         }, executor);
     }
