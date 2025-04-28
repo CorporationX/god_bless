@@ -14,7 +14,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("an Error occurred while collecting payment {}", e.getMessage());
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new PaymentProcessingException("Interrupted while collecting payment", e);
         }
     }
 
@@ -25,7 +25,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("an Error occurred while sending analytics {}", e.getMessage());
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new AnalyticsProcessingException("Interrupted while sending analytics", e);
         }
     }
 }
