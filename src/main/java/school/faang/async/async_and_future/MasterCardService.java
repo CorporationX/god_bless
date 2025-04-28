@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class MasterCardService {
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> payment = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(() -> {
             try {
