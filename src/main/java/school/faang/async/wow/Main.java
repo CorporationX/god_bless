@@ -3,14 +3,15 @@ package school.faang.async.wow;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
-        Player player1 = new Player("Thrall", 10, 250);
-        Player player2 = new Player("Sylvanas", 12, 450);
+        Player player1 = new Player("Thrall", 10, new AtomicInteger(250));
+        Player player2 = new Player("Sylvanas", 12, new AtomicInteger(450));
 
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
