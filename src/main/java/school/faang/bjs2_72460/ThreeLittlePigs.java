@@ -5,6 +5,7 @@ import school.faang.bjs2_72460.thread.Pig1Thread;
 import school.faang.bjs2_72460.thread.Pig2Thread;
 import school.faang.bjs2_72460.thread.Pig3Thread;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -16,9 +17,8 @@ public class ThreeLittlePigs {
     private static final ExecutorService executorService = Executors.newFixedThreadPool(PIGS_COUNT);
 
     public static void main(String[] args) {
-        executorService.execute(new Pig1Thread());
-        executorService.execute(new Pig2Thread());
-        executorService.execute(new Pig3Thread());
+        List.of(new Pig1Thread(), new Pig2Thread(), new Pig3Thread())
+                .forEach(executorService::execute);
         dispose();
         log.info("Game over");
     }
@@ -34,7 +34,7 @@ public class ThreeLittlePigs {
         } catch (InterruptedException e) {
             log.error("Во время очистки возникло исключение: {}", e.getMessage());
             executorService.shutdownNow();
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Во время очистки возникло ислючение", e);
         }
     }
 }
