@@ -7,13 +7,15 @@ import lombok.Getter;
 @Getter
 public class Player {
     private final String name;
+    private static final int TIMEOUT_MILLIS = 3000;
 
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(TIMEOUT_MILLIS);
         } catch (InterruptedException e) {
             System.out.println(name + " вызвал InterruptedException");
+            Thread.currentThread().interrupt();
         } finally {
             boss.leaveBattle(this);
         }
