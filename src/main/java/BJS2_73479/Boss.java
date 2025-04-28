@@ -15,16 +15,18 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            try {
-                if (currentPlayers >= maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
+                try {
+                    log.info("{} Waiting for a free slot to fight the boss.", player.getName());
                     lock.wait();
+                } catch (InterruptedException e) {
+                    log.info("Battle interrupted!");
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("the method was interrupted");
                 }
-                currentPlayers++;
-                log.info("{} joined the battle!", player.getName());
-            } catch (InterruptedException e) {
-                log.info("Battle interrupted!");
-                throw new IllegalStateException("the method was interrupted");
             }
+            currentPlayers++;
+            log.info("{} joined the battle!", player.getName());
         }
     }
 
@@ -32,7 +34,7 @@ public class Boss {
         synchronized (lock) {
             currentPlayers--;
             log.info("{} left the battle!", player.getName());
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
