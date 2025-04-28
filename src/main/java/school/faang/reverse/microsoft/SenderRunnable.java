@@ -13,6 +13,11 @@ public class SenderRunnable implements Runnable {
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
             System.out.println("Письмо " + i + " отправлено.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

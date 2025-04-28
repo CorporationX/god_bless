@@ -2,7 +2,7 @@ package school.faang.reverse.microsoft;
 
 public class Main {
     public static void main(String[] args) {
-        Thread[] threads = new Thread[5];
+        final Thread[] threads = new Thread[5];
 
         for (int i = 0; i < 5; i++) {
             int startIndex = i * 200;
