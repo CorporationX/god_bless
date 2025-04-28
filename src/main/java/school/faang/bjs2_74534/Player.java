@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Player {
-    private final String name; //(имя игрока)
-    private final Integer level; // (уровень игрока),
-    private Integer experience; // (опыт игрока).
+    private final String name;
+    private final Integer level;
+    private Integer experience;
 
     public synchronized Player addExperience(Integer delta) {
         this.experience += delta;
