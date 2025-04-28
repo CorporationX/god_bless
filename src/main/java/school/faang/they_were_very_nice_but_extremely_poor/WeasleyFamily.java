@@ -6,18 +6,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+
+    private static final String[] CHORES = {"помыть посуду", "подмести пол", "приготовить ужин",
+            "выгулять собаку", "постирать белье"};
+    private static final int AWAIT_TERMINATION_TIMEOUT_MINUTES = 1;
+    private static final String TIMEOUT_MESSAGE = "Не все задачи завершились за %d минуту(ы)!";
+
     public static void main(String[] args) {
-        String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин", "выгулять собаку", "постирать белье"};
         ExecutorService executor = Executors.newCachedThreadPool();
-        Arrays.stream(chores)
-                .forEach(choreName -> {
-                    Chore chore = new Chore(choreName);
-                    executor.submit(chore); // Добавляем задачу в пул потоков
-                });
+
+        Arrays.stream(CHORES)
+                .forEach(choreName -> executor.submit(new Chore(choreName)));
+
+        gracefullyShutdown(executor);
+    }
+
+    private static void gracefullyShutdown(ExecutorService executor) {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.err.println("Не все задачи завершились за 1 минуту!");
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES)) {
+                System.err.printf(TIMEOUT_MESSAGE, AWAIT_TERMINATION_TIMEOUT_MINUTES);
+                System.err.println(); // Add a newline after printf
                 executor.shutdownNow();
             } else {
                 System.out.println("Все задачи успешно выполнены!");
