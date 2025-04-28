@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
@@ -35,17 +34,10 @@ public class Main {
                 .map(CompletableFuture::join)
                 .max(Comparator.comparingInt(School::getPoints))
                 .orElseThrow(() -> new RuntimeException("No winner could be identified, error"));
-        System.out.printf("School %s with %d points wins the tournament", winnerSchool.getName(),
+        System.out.printf("School %s with %d points wins the tournament\n", winnerSchool.getName(),
                 winnerSchool.getPoints());
 
-        ThreadPoolProvider.executorService.shutdown();
-        try {
-            if (!ThreadPoolProvider.executorService.awaitTermination(TEN_SECONDS_IN_MS, TimeUnit.SECONDS)) {
-                ThreadPoolProvider.executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.error(e.getMessage(), e);
-            ThreadPoolProvider.executorService.shutdownNow();
-        }
+        ThreadPoolProvider.gracefullyShutdown();
+        System.out.println("The end of the program");
     }
 }

@@ -15,7 +15,7 @@ public class Tournament {
                 log.error(e.getMessage(), e);
             }
             return school;
-        }, ThreadPoolProvider.executorService)
+        }, ThreadPoolProvider.executor)
                 .thenApply(currentSchool -> {
                     currentSchool.getStudents().forEach(student -> student.addPoints(task.getReward()));
                     return currentSchool;

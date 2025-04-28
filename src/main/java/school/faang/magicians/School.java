@@ -10,7 +10,7 @@ public class School {
     private List<Student> students;
 
     public int getPoints() {
-        return students.stream().mapToInt(Student::getPoints).sum();
+        return students.stream().mapToInt(student -> student.getPoints().get()).sum();
     }
 
     public School(String name, List<Student> students) {
