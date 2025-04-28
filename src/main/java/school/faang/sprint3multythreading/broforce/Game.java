@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class Game {
     private int score = 0;
-    private int lives = 10;
+    private int lives = 10000;
 
     private final Lock scoreLock = new ReentrantLock();
     private final Lock livesLock = new ReentrantLock();
