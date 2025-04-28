@@ -14,14 +14,20 @@ public class Boss {
     private final int maxPlayersCount;
     private int currentPlayersCount = 0;
 
-    public void joinBattle(Player player) throws InterruptedException {
+    public void joinBattle(Player player) {
         synchronized (this) {
-            if (calcAvailableSlots() <= 0) {
-                log.info("No available slots for \"{}\". Waiting...", player.getName());
-                this.wait();
+            while (calcAvailableSlots() <= 0) {
+                try {
+                    log.info("No available slots for \"{}\". Waiting...", player.getName());
+                    this.wait();
+                } catch (InterruptedException e) {
+                    log.error("Thread interrupted while waiting for {}", player.getName());
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
             }
-            log.info("Player added in to battle \"{}\"", player.getName());
             currentPlayersCount++;
+            log.info("Player added in to battle \"{}\"", player.getName());
         }
     }
 
