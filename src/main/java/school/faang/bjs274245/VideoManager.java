@@ -5,17 +5,13 @@ import java.util.Map;
 
 public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
-    private Object lock = new Object();
 
-    public void addView(String videoId) {
-        synchronized (lock) {
-            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
-        }
+
+    public synchronized void addView(String videoId) {
+        viewsMap.merge(videoId, 1, Integer::sum);
     }
 
-    public int getViewCount(String videoId) {
-        synchronized (lock) {
-            return viewsMap.getOrDefault(videoId, 0);
-        }
+    public synchronized int getViewCount(String videoId) {
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
