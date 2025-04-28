@@ -42,14 +42,11 @@ public class MasterCardService {
         Future<Integer> collect = pool.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> send = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, pool);
 
-        while (!collect.isDone()) {
-            log.info("Waiting for collected payment...");
-        }
-
         int sentAnalyticsResult = send.join();
-        int collectedPaymentResult = collect.get();
+        log.info("Sent analytics -> {}", sentAnalyticsResult);
 
-        log.info("Collected -> {} | Sent analytics -> {}", collectedPaymentResult, sentAnalyticsResult);
+        int collectedPaymentResult = collect.get();
+        log.info("Collected -> {}", collectedPaymentResult);
 
         terminateExecution();
     }
