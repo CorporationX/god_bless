@@ -7,22 +7,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Boss {
 
-    private static final Object LOCK = new Object();
+    private final Object lock = new Object();
+    private static final int THREAD_WAIT = 10000;
 
     private final int maxPlayers;
     private int currentPlayers;
 
     public void joinBattle(Player player) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             if (currentPlayers < maxPlayers) {
                 log.info("Player -> {}, successfully joined the battle", player.getName());
                 currentPlayers++;
             } else {
                 try {
                     log.info("Player -> {}, is trying to join the fight but has to wait", player.getName());
-                    LOCK.wait(10000);
+                    lock.wait(THREAD_WAIT);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.info("Thread {} has been interrupted!", Thread.currentThread().getName());
+                    Thread.currentThread().interrupt();
                 }
                 joinBattle(player);
             }
@@ -30,10 +32,10 @@ public class Boss {
     }
 
     public void leaveBattle(Player player) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             log.info("Player -> {}, has left the battle", player.getName());
             currentPlayers--;
-            LOCK.notify();
+            lock.notify();
         }
     }
 }
