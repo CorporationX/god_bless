@@ -27,10 +27,16 @@ public class MagicalTournament {
         Task task1 = new Task("Triwizard Tournament", 10, 100);
         Task task2 = new Task("Yule Ball Preparations", 5, 50);
 
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+        CompletableFuture<School> hogwartsTask1 = tournament.startTask(hogwarts, task1);
+        CompletableFuture<School> hogwartsTask2 = tournament.startTask(hogwarts, task2);
+        CompletableFuture<School> beauxbatonsTask1 = tournament.startTask(beauxbatons, task1);
+        CompletableFuture<School> beauxbatonsTask2 = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(
+                hogwartsTask1,
+                hogwartsTask2,
+                beauxbatonsTask1,
+                beauxbatonsTask2);
 
         allTasks.join();
 
@@ -45,7 +51,7 @@ public class MagicalTournament {
         int maxPoints = schools.stream()
                 .mapToInt(School::getTotalPoints)
                 .max()
-                .orElseThrow(() -> new RuntimeException("No schools participated"));
+                .orElseThrow(SchoolNotFoundException::new);
 
         return schools.stream()
                 .filter(school -> Objects.equals(school.getTotalPoints(), maxPoints))
