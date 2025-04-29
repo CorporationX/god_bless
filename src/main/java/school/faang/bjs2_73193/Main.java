@@ -1,11 +1,16 @@
 package school.faang.bjs2_73193;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
+
+    private static final int TIMEOUT = 5;
 
     public static void main(String[] args) {
         List<Role> roles = List.of(Role.RULER, Role.SERVANT, Role.KNIGHT, Role.BUTLER);
@@ -28,17 +33,22 @@ public class Main {
                 try {
                     Thread.sleep(4000);
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
                 user.leaveHouse(house);
             });
         }
 
+        terminateExecutor(executor);
+    }
+
+    private static void terminateExecutor(ExecutorService executor) {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
-                System.out.println("Задачи не завершились за 5 минут, принудительно останавливаем...");
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
+                log.info("Задачи не завершились за {} минут, принудительно останавливаем...", TIMEOUT);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

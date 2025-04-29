@@ -9,6 +9,8 @@ import java.util.Map;
 @Slf4j
 public class House {
 
+    private static final int TIMEOUT = 2000;
+
     private final Map<Role, Boolean> roles = new HashMap<>();
 
     public House(List<Role> rolesToAssign) {
@@ -32,8 +34,9 @@ public class House {
 
                 try {
                     log.info("All roles are taken, wait for role to release");
-                    this.wait(2000);
+                    this.wait(TIMEOUT);
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
