@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     private static final int TIMEOUT = 10;
+
     public static void main(String[] args) {
 
-        WeasleyFamily weasleyFamily = new WeasleyFamily( new String[] {
+        WeasleyFamily weasleyFamily = new WeasleyFamily(new String[] {
                 "Make the bed", "Wash the dishes", "Clean the kitchen", "Take out the trash"
         });
 
