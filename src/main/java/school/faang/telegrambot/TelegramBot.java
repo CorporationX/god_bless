@@ -2,14 +2,19 @@ package school.faang.telegrambot;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Slf4j
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 10;
-    private int requestCounter;
-    private long lastRequestTime;
+    private static final int ONE_SECOND = 1000;
+    private AtomicInteger requestCounter;
+    private Instant lastRequestTime;
 
     public TelegramBot() {
-        this.requestCounter = 0;
+        this.requestCounter = new AtomicInteger(0);
         this.lastRequestTime = System.currentTimeMillis();
     }
 
@@ -17,12 +22,12 @@ public class TelegramBot {
         long currentRequestTime = System.currentTimeMillis();
         long pastTimes = currentRequestTime - lastRequestTime;
 
-        if (pastTimes < 1000) {
+        if (pastTimes < ONE_SECOND) {
             requestCounter++;
             if (requestCounter > REQUEST_LIMIT) {
                 log.info("Запросы превышают лимит, WAIT");
                 try {
-                    wait(1000 - pastTimes);
+                    wait(ONE_SECOND - pastTimes);
                 } catch (InterruptedException e) {
                     log.error("Поток прерван", e);
                     Thread.currentThread().interrupt();
@@ -30,8 +35,8 @@ public class TelegramBot {
                 requestCounter = 0;
             }
         } else {
-            requestCounter = 1;  // Обнуляем счетчик запросов
-            lastRequestTime = currentRequestTime;  // Обновляем время последнего запроса
+            requestCounter = 1;
+            lastRequestTime = currentRequestTime;
             notifyAll();
             log.info("NotifyAll");
         }
