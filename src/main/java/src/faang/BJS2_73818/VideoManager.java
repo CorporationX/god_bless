@@ -1,4 +1,4 @@
-package src.faang;
+package src.faang.BJS2_73818;
 
 import java.util.HashMap;
 import java.util.Map;
