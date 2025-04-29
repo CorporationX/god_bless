@@ -14,17 +14,17 @@ public class Main {
         House lanesters = new House();
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         IntStream.range(0, 15).forEach(i ->
-            executorService.submit(() -> {
-                User u = new User("User" + i, lanesters);
-                u.joinHouse(lanesters);
-                try {
-                    Thread.sleep(THREAD_SLEEP_TIME);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
-                }
-                u.leaveHouse(lanesters);
-            }));
+                executorService.submit(() -> {
+                    User u = new User("User" + i, lanesters);
+                    u.joinHouse(lanesters);
+                    try {
+                        Thread.sleep(THREAD_SLEEP_TIME);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException(e);
+                    }
+                    u.leaveHouse(lanesters);
+                }));
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(AWAIT_TIMEOUT, TimeUnit.MINUTES)) {
