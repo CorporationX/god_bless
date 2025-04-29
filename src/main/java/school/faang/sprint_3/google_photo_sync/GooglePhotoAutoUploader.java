@@ -19,6 +19,7 @@ public class GooglePhotoAutoUploader {
             }
         } while (true);
     }
+
     private void uploadPhotos() {
         for (String photo : photosToUpload) {
             log.info("Uploading photo {}", photo);
