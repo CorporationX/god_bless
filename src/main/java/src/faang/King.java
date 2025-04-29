@@ -13,12 +13,13 @@ public class King {
     private static final String DANIYAL = "Daniyal";
     private static final String LADA = "Lada";
     private static final int EXECUTOR_AWAIT_TERMINATION_IN_SECONDS = 10;
+    private static final int THREAD_COUNT = 5;
 
     public static void main(String[] args) {
         final List<Knight> knights = getKnights();
         prepareTrialsForKnights(knights);
 
-        final ExecutorService executor = Executors.newFixedThreadPool(knights.size());
+        final ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         executeTrials(knights, executor);
 
         executor.shutdown();

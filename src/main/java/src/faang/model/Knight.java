@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class Knight {
     public static final int EXECUTOR_AWAIT_TERMINATION_IN_SECONDS = 5;
+    private static final int THREAD_COUNT = 5;
 
     @Getter
     private final String name;
@@ -24,7 +25,7 @@ public class Knight {
     }
 
     public void startsTrial() {
-        final ExecutorService executor = Executors.newFixedThreadPool(trials.size());
+        final ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         executeTrial(executor);
         executor.shutdown();
         awaitTermination(executor);
