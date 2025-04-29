@@ -15,10 +15,7 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            if (currentPlayers < maxPlayers) {
-                log.info("Player -> {}, successfully joined the battle", player.getName());
-                currentPlayers++;
-            } else {
+            while (currentPlayers >= maxPlayers) {
                 try {
                     log.info("Player -> {}, is trying to join the fight but has to wait", player.getName());
                     lock.wait(THREAD_WAIT);
@@ -26,8 +23,9 @@ public class Boss {
                     log.info("Thread {} has been interrupted!", Thread.currentThread().getName());
                     Thread.currentThread().interrupt();
                 }
-                joinBattle(player);
             }
+            log.info("Player -> {}, successfully joined the battle", player.getName());
+            currentPlayers++;
         }
     }
 
