@@ -30,8 +30,9 @@ public class Game {
 
         synchronized (livesLock) {
             for (Player player : players) {
+                player.decreaseLives();
+
                 if (player.isAlive()) {
-                    player.decreaseLives();
                     lives++;
                 } else {
                     gameOver();
