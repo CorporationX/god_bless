@@ -16,7 +16,7 @@ public class VideoManager {
             return;
         }
         viewsMap.compute(videoId, (k, v) -> v == null ? 1 : v + 1);
-        log.info("Another view for video with id {}.", videoId);
+        log.info("Another view for the video with id {}.", videoId);
     }
 
     public synchronized void getViewCount(String videoId) {
