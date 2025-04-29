@@ -9,21 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
 
-    public static final ExecutorService POOL = Executors.newFixedThreadPool(1);
+    public static final int NUMBER_OF_THREADS = 2;
+    public static final int TERMINATION_TIMEOUT = 30;
+    public static final ExecutorService POOL = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         MasterCardService.doAll();
 
-        POOL.shutdown();
-
-        try {
-            if (!POOL.awaitTermination(30, TimeUnit.SECONDS)) {
-                POOL.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            POOL.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
+        terminateExecutorService();
     }
 
     private static final int TEN_SECONDS_IN_MS = 10_000;
@@ -31,7 +24,7 @@ public class MasterCardService {
 
     private static void doAll() throws ExecutionException, InterruptedException {
         Future<Integer> payment = POOL.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, POOL);
 
         Integer calculatedAnalytics = analytics.join();
         System.out.printf("Аналитика отправлена: %d\n", calculatedAnalytics);
@@ -58,6 +51,19 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void terminateExecutorService() {
+        MasterCardService.POOL.shutdown();
+
+        try {
+            if (!MasterCardService.POOL.awaitTermination(TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
+                MasterCardService.POOL.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            MasterCardService.POOL.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
