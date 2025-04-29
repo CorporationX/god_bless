@@ -9,12 +9,15 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class PotionGatheringService {
-    private final ExecutorService executor = Executors.newFixedThreadPool(4);
+    private static final int THREAD_POOL_SIZE = 4;
+    private static final int INGREDIENT_GATHERING_TIME_MS = 250;
 
-    public CompletableFuture<Integer> gatherIngredients(Potion potion) {
+    private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+    private CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                int gatheringTime = potion.getRequiredIngredients() * 1000;
+                int gatheringTime = potion.getRequiredIngredients() * INGREDIENT_GATHERING_TIME_MS;
                 Thread.sleep(gatheringTime);
                 return potion.getRequiredIngredients();
             } catch (InterruptedException e) {
@@ -30,15 +33,19 @@ public class PotionGatheringService {
                 .map(this::gatherIngredients)
                 .toList();
 
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
-                futures.toArray(new CompletableFuture[0])
-        );
-
-        allFutures.thenApply(value -> futures.stream()
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApply(v -> futures.stream()
                         .map(CompletableFuture::join)
-                        .reduce(0, Integer::sum)
-        ).thenAccept(total -> log.info("Общее количество собранных ингредиентов: {}", total));
-        executor.shutdown();
+                        .reduce(0, Integer::sum))
+                .thenAccept(total -> {
+                    log.info("Общее количество собранных ингредиентов: {}", total);
+                    executor.shutdown();
+                })
+                .exceptionally(ex -> {
+                    log.error("Ошибка при сборе ингредиентов", ex);
+                    executor.shutdown();
+                    return null;
+                });
     }
 
 }
