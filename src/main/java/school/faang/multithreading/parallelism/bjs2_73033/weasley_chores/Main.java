@@ -1,4 +1,4 @@
-package school.faang.multithreading.parallelism.bjs2_73033;
+package school.faang.multithreading.parallelism.bjs2_73033.weasley_chores;
 
 public class Main {
     public static void main(String[] args) {
