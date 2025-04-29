@@ -14,7 +14,8 @@ public class GooglePhotosAutoUploader {
                 while (photosToUpload.isEmpty()) {
                     lock.wait();
                 }
-                System.out.println(Thread.currentThread().getName() + " started uploading " + photosToUpload.size() + " photos");
+                System.out.println(Thread.currentThread().getName()
+                        + " started uploading " + photosToUpload.size() + " photos");
                 uploadPhotos();
                 System.out.println(Thread.currentThread().getName() + " cleared queue and returns to waiting\n");
             }
