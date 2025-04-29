@@ -14,7 +14,6 @@ public class Main {
         TwitterAccount account = new TwitterAccount("Иоша", 999999);
 
         batchFollow(account, 1111);
-        twitterSubscriptionSystem.shutdown();
     }
 
     public static void batchFollow(TwitterAccount account, int count) {
@@ -23,9 +22,17 @@ public class Main {
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenRun(() -> log.info("Все подписки завершены. Итоговое количество подписчиков {}: {}",
+                .thenRun(() -> {
+                    log.info("Все подписки завершены. Итоговое количество подписчиков {}: {}",
                             account.getUsername(),
-                            account.getFollowers())
-                ).join();
+                            account.getFollowers());
+                    twitterSubscriptionSystem.shutdown();
+                })
+                .exceptionally(ex -> {
+                    log.error("Ошибка при обработке подписок", ex);
+                    twitterSubscriptionSystem.shutdown();
+                    return null;
+                })
+                .join();
     }
 }

@@ -1,19 +1,20 @@
 package school.faang.twitter;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
-@EqualsAndHashCode
-@ToString
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Data
 public class TwitterAccount {
     private final String username;
-    private int followers;
+    private final AtomicInteger followers;
 
-    public synchronized void addFollower() {
-        followers++;
+    public TwitterAccount(String username, int followers) {
+        this.username = username;
+        this.followers = new AtomicInteger(followers);
+    }
+
+    public void addFollower() {
+        followers.incrementAndGet();
     }
 }
