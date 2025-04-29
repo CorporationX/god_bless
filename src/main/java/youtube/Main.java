@@ -14,11 +14,11 @@ public class Main {
         ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
 
         for (int i = 0; i < NUM_VIDEOS; i++) {
-            String videoId = "video-" + i;
+            String videoId = String.format("video-%d", i);
             for (int j = 0; j < NUM_THREADS; j++) {
                 service.submit(() -> {
                     manager.addView(videoId);
-                    System.out.println("View count for video " + videoId + ": " + manager.getViewCount(videoId));
+                    System.out.printf("View count for video %s: %d%n", videoId, manager.getViewCount(videoId));
                 });
             }
         }
