@@ -1,5 +1,5 @@
 package school.faang.BJS2_72305;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Main {
