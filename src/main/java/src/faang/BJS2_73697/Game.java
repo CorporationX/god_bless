@@ -13,7 +13,6 @@ public class Game {
     private int score;
     private int lives;
 
-
     public Game(List<Player> players) {
         this.players = players;
     }
