@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Slf4j
 public class VideoManager {
-    private Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addViews(String videoId) {
         if (Objects.isNull(videoId) || videoId.isEmpty()) {
@@ -16,7 +16,7 @@ public class VideoManager {
             return;
         }
         viewsMap.compute(videoId, (k, v) -> v == null ? 1 : v + 1);
-        log.info("Another view for the video with id {}.", videoId);
+        log.info("Another view for video with id {}.", videoId);
     }
 
     public synchronized void getViewCount(String videoId) {
