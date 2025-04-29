@@ -1,24 +1,22 @@
 package school.faang.synchronization.bjs2_73462;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
+@RequiredArgsConstructor
 @ToString
 public class Room {
-    private List<Food> foods;
-    private final Object lock = new Object();
+    @Getter
+    private final int number;
+    private final List<Food> foods;
 
-    public List<Food> pickFood() {
-        synchronized (lock) {
-            List<Food> foodList = new ArrayList<>(foods);
-            this.foods = new ArrayList<>();
-            return foodList;
-        }
+    public List<Food> clearFood() {
+        var collectedFood = new ArrayList<>(foods);
+        foods.clear();
+        return collectedFood;
     }
 }
