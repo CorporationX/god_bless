@@ -21,7 +21,9 @@ public class VideoManager {
             }
             newCount = viewsMap.compute(videoId, (k, v) -> v == null ? 1 : v + 1);
         }
-        listeners.forEach(l -> l.onViewCountChanged(videoId, newCount));
+        synchronized (listeners) {
+            listeners.forEach(l -> l.onViewCountChanged(videoId, newCount));
+        }
     }
 
     public int getViewCount(String videoId) {
