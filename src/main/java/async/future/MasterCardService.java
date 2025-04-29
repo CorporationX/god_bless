@@ -26,6 +26,7 @@ public class MasterCardService {
             return PAYMENT_PRICE;
         } catch (InterruptedException e) {
             log.info("Payment is interrupted! {}", e.getMessage());
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
@@ -38,6 +39,7 @@ public class MasterCardService {
             return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
             log.info("Analytics is interrupted! {}", e.getMessage());
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
     }
@@ -47,7 +49,12 @@ public class MasterCardService {
         Integer paymentResult;
         try {
             paymentResult = executor.submit(() -> collectPayment()).get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e) {
+            log.error("Error during payment processing: " + e.getCause().getMessage());
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            log.error("Thread interrupted while waiting for payment result.");
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         executor.shutdown();
