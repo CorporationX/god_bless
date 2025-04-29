@@ -14,7 +14,7 @@ public class SenderRunnable implements Runnable {
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

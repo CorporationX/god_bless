@@ -4,15 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MailSender {
-    private static final int TOTAL_COUNT = 50;
+    private static final int TOTAL_COUNT = 1000;
     private static final int TOTAL_THREAD = 5;
 
     public static void main(String[] args) throws InterruptedException {
         int batch = TOTAL_COUNT / TOTAL_THREAD;
+        int rest = TOTAL_COUNT % TOTAL_THREAD;
         Thread[] threadPool = new Thread[TOTAL_THREAD];
         for (int i = 0; i < TOTAL_THREAD; i++) {
             int startIndex = i * batch;
-            int endIndex = (i + 1) * batch;
+            int endIndex;
+            if (TOTAL_THREAD - i == 1) {
+                endIndex = ((i + 1) * batch) + rest;
+            } else {
+                endIndex = (i + 1) * batch;
+            }
             threadPool[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             threadPool[i].start();
         }
