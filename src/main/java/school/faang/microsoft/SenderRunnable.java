@@ -1,10 +1,17 @@
 package school.faang.microsoft;
 
-public class SenderRunnable implements Runnable {
-    int startIndex;
-    int endIndex;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-    SenderRunnable(int startIndex, int endIndex) {
+@Slf4j
+@Getter
+@Setter
+public class SenderRunnable implements Runnable {
+    private int startIndex;
+    private int endIndex;
+
+    public SenderRunnable(int startIndex, int endIndex) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
     }
@@ -12,8 +19,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Письмо #" + i + " отправлено (поток " +
-                    Thread.currentThread().getId() + ")");
+            log.info("Письмо #{} отправлено (поток {})", i, Thread.currentThread().getId());
         }
     }
 }
