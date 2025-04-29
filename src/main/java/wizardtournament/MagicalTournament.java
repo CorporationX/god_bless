@@ -43,9 +43,6 @@ public class MagicalTournament {
             int hogwartsPoints = hogwarts.getTotalPoints();
             int durmstrangPoints = durmstrang.getTotalPoints();
             int beauxbatonsPoints = beauxbatons.getTotalPoints();
-            System.out.println("Hogwarts: " + hogwarts.getTotalPoints());
-            System.out.println("Durmstrang: " + durmstrang.getTotalPoints());
-            System.out.println("Beauxbatons: " + beauxbatons.getTotalPoints());
 
             if (hogwartsPoints > durmstrangPoints && hogwartsPoints > beauxbatonsPoints) {
                 System.out.println("Hogwarts wins!");
