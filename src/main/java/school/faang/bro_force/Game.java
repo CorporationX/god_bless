@@ -26,22 +26,19 @@ public class Game {
         }
 
         Bro bro = bros.get(random.nextInt(bros.size()));
-        synchronized (livesLock) {
 
-            if (shouldDecreaseLives) {
-                bro.setLives(bro.getLives() - 1);
-                lives++;
-                if (bro.getLives() <= 0) {
-                    return gameOver();
-                }
 
+        if (shouldDecreaseLives) {
+            bro.setLives(bro.getLives() - 1);
+            lives++;
+            if (bro.getLives() <= 0) {
+                return gameOver();
             }
         }
-        synchronized (scoreLock) {
-            if (shouldAddScore) {
-                bro.setScore(bro.getScore() + 1);
-                score++;
-            }
+
+        if (shouldAddScore) {
+            bro.setScore(bro.getScore() + 1);
+            score++;
         }
         return false;
     }

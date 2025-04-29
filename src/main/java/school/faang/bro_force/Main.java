@@ -17,11 +17,11 @@ public class Main {
 
         for (int i = 0; i < game.getBros().size(); i++) {
             executorService.submit(() -> {
-                boolean random = Math.random() < 0.3;
-                boolean random2 = Math.random() < 0.3;
-                while (!game.updateGameState(random, random2)) {
-                    random = Math.random() < 0.3;
-                    random2 = Math.random() < 0.3;
+                boolean randomValueBro1 = Math.random() < 0.3;
+                boolean randomValueBro2 = Math.random() < 0.3;
+                while (!game.updateGameState(randomValueBro1, randomValueBro2)) {
+                    randomValueBro1 = Math.random() < 0.3;
+                    randomValueBro2 = Math.random() < 0.3;
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
