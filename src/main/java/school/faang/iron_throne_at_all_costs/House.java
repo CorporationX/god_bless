@@ -49,7 +49,7 @@ public class House {
         }
 
         roleAvailability.put(role, false);
-        System.out.println("[" + name + "] " + user.getName() + " assigned to " + role);
+        System.out.println("[" + name + "] " + " assigned to " + role);
         notifyAll();
     }
 

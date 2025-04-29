@@ -16,18 +16,20 @@ public class User {
     }
 
     public void joinHouse(House house, String desiredRole) throws InterruptedException {
-        if (house == null || desiredRole == null) {
-            throw new IllegalArgumentException("House and role cannot be null");
-        }
-        if (currentHouse != null) {
-            throw new IllegalStateException(name + " is already in a house");
-        }
+        synchronized (house) {
+            if (house == null || desiredRole == null) {
+                throw new IllegalArgumentException("House and role cannot be null");
+            }
+            if (currentHouse != null) {
+                throw new IllegalStateException(name + " is already in a house");
+            }
 
-        System.out.println(name + " attempting to acquire role " + desiredRole);
-        house.assignRole(desiredRole, this);
-        this.assignedRole = desiredRole;
-        this.currentHouse = house;
-        System.out.println(name + " successfully joined house as " + desiredRole);
+            System.out.println(name + " attempting to acquire role " + desiredRole);
+            house.assignRole(desiredRole, this);
+            this.assignedRole = desiredRole;
+            this.currentHouse = house;
+            System.out.println(name + " successfully joined house as " + desiredRole);
+        }
     }
 
     public void leaveHouse() {
