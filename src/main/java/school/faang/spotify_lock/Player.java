@@ -22,32 +22,19 @@ public class Player {
             "Nirvana - Smells Like Teen Spirit"
     );
 
-    private void changeTrack(TrackAction action) {
-        int currentTrackIndex = playList.indexOf(currentTrack);
-        synchronized (lock) {
-            switch (action) {
-                case PREVIOUS -> {
-                    if (currentTrackIndex > 0) {
-                        currentTrack = playList.get(currentTrackIndex - 1);
-                    }
-                }
-                case NEXT -> {
-                    if (currentTrackIndex < playList.size() - 1) {
-                        currentTrack = playList.get(currentTrackIndex + 1);
-                    }
-                }
-                default -> throw new IllegalArgumentException("Invalid track action");
-            }
+    public void trackAction(TrackAction action) {
+        switch (action) {
+            case PLAY -> play();
+            case PAUSE -> pause();
+            case SKIP -> skip();
+            case PREVIOUS -> previous();
+            default -> throw new IllegalArgumentException("Invalid track action");
+
         }
     }
 
-    public void play() {
+    private void play() {
         synchronized (lock) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             if (!isPlaying) {
                 isPlaying = true;
                 log.info("Playing: {}", currentTrack);
@@ -57,13 +44,8 @@ public class Player {
         }
     }
 
-    public void pause() {
+    private void pause() {
         synchronized (lock) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             if (isPlaying) {
                 isPlaying = false;
                 log.info("Paused: {}", currentTrack);
@@ -73,26 +55,26 @@ public class Player {
         }
     }
 
-    public void skip() {
+    private void skip() {
         synchronized (lock) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            int currentTrackIndex = playList.indexOf(currentTrack);
+            if (currentTrackIndex < playList.size() - 1) {
+                currentTrack = playList.get(currentTrackIndex + 1);
+            } else {
+                currentTrack = playList.get(0);
             }
-            changeTrack(TrackAction.NEXT);
             log.info("Skipping current track. Now playing: {}", currentTrack);
         }
     }
 
-    public void previous() {
+    private void previous() {
         synchronized (lock) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            int currentTrackIndex = playList.indexOf(currentTrack);
+            if (currentTrackIndex > 0) {
+                currentTrack = playList.get(currentTrackIndex - 1);
+            } else {
+                currentTrack = playList.get(playList.size() - 1);
             }
-            changeTrack(TrackAction.PREVIOUS);
             log.info("Going back to previous track. Now playing: {}", currentTrack);
         }
     }
