@@ -10,6 +10,7 @@ import java.util.Objects;
 public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
 
+danbg12-BJS2-73727
     public synchronized void addViews(String videoId) {
         if (Objects.isNull(videoId) || videoId.isEmpty()) {
             log.warn("Illegal argument!");
@@ -29,5 +30,6 @@ public class VideoManager {
         }
         Integer views = viewsMap.get(videoId);
         log.info("Video with id: {} has {} views.", videoId, views);
+ danbg12
     }
 }
