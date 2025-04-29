@@ -25,9 +25,10 @@ public class AmazonOrderProcessing {
                 new Order(3, NEW)
         );
 
-        CompletableFuture<Void> processedAllOrders = processor.processAllOrders(orders);
+        CompletableFuture<Order>[] processedAllOrders = processor.processAllOrders(orders);
 
-        processedAllOrders.join();
+        CompletableFuture<Void> allDone = CompletableFuture.allOf(processedAllOrders);
+        allDone.join();
 
         log.info("Processed {} orders", processor.getTotalProcessedOrders());
 

@@ -8,28 +8,28 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static school.faang.bjs2_74880.OrderStatus.*;
+import static school.faang.bjs2_74880.OrderStatus.PROCESSED;
 
 @Slf4j
 public class OrderProcessor {
     private static final int TIME_LAG = 10_000;
     @Getter
-    private final AtomicInteger totalProcessedOrders = new AtomicInteger();
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private final ExecutorService poolThreads;
 
     public OrderProcessor(ExecutorService poolThreads) {
         this.poolThreads = poolThreads;
     }
 
-    public CompletableFuture<Void> processAllOrders(List<Order> orders) {
-        return CompletableFuture.allOf(
-                orders.stream()
-                        .map(this::processOrder)
-                        .toArray(CompletableFuture[]::new));
+    @SuppressWarnings("unchecked")
+    public CompletableFuture<Order>[] processAllOrders(List<Order> orders) {
+        return orders.stream()
+                .map(this::processOrder)
+                .toArray(CompletableFuture[]::new);
     }
 
-    private CompletableFuture<Void> processOrder(Order order) {
-        return CompletableFuture.runAsync(() -> {
+    private CompletableFuture<Order> processOrder(Order order) {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(TIME_LAG);
             } catch (InterruptedException ex) {
@@ -39,6 +39,7 @@ public class OrderProcessor {
             order.setStatus(PROCESSED);
             totalProcessedOrders.incrementAndGet();
             log.info("Order with id {} processed", order.getId());
+            return order;
         }, poolThreads);
     }
 }
