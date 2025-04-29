@@ -1,12 +1,16 @@
 package school.faang.stream4.wow;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @AllArgsConstructor
+@Getter
 public class Player {
     private final String name;
     private int level;
     private int experience;
+
+    public synchronized void increaseExperience(int increment) {
+        this.experience += increment;
+    }
 }

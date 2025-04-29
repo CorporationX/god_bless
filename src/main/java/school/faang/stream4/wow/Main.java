@@ -26,5 +26,6 @@ public class Main {
                         + player.getExperience() + " experience points."));
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
+        questSystem.shutdown();
     }
 }
