@@ -13,17 +13,24 @@ public class Game {
     private int lives = 0;
     private volatile boolean gameOver = false;
 
-
-    public void update(boolean winner, boolean loose) {
-        synchronized (lockScore) {
-            if (gameOver) {
-                return;
-            }
-            if (winner) {
+    public void update(boolean isWin, boolean isLose) {
+        if (gameOver) {
+            return;
+        }
+        if (isWin) {
+            synchronized (lockScore) {
+                if (gameOver) {
+                    return;
+                }
                 score++;
                 System.out.printf("Score was increased by %d (%s)\n", score, Thread.currentThread().getName());
             }
-            if (loose) {
+        }
+        if (isLose) {
+            synchronized (lockLives) {
+                if (gameOver) {
+                    return;
+                }
                 lives++;
                 System.out.printf("Life lost, total lives lost: %d (%s)\n", lives, Thread.currentThread().getName());
                 if (lives == MAX_LIVES) {
