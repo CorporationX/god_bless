@@ -26,11 +26,11 @@ public class Main {
 
         try {
             if (!threadPool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                log.info("Tasks executes more then 10 seconds");
+                log.info("Tasks executes more than 10 seconds");
                 threadPool.shutdownNow();
             }
         } catch (InterruptedException e) {
-                threadPool.shutdownNow();
+            threadPool.shutdownNow();
         }
     }
 }

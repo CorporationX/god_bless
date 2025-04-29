@@ -10,6 +10,6 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-       log.info("Thread {} complete {}", Thread.currentThread().getName(), chore);
+        log.info("Thread {} complete {}", Thread.currentThread().getName(), chore);
     }
 }
