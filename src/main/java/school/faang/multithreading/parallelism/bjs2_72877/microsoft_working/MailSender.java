@@ -1,5 +1,6 @@
 package school.faang.multithreading.parallelism.bjs2_72877.microsoft_working;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -27,6 +28,14 @@ public class MailSender {
             thread.join();
         }
 
+        Arrays.stream(threadsArray).forEach(MailSender::joinAll);
+
         log.info("all letters are sent");
+
+    }
+
+    @SneakyThrows
+    private static void joinAll(Thread thread) {
+        thread.join();
     }
 }
