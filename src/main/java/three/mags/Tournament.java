@@ -18,11 +18,10 @@ public class Tournament {
             Thread.currentThread().interrupt();
             throw new RuntimeException();
         }
-
         return CompletableFuture.supplyAsync(() -> runTaskWithSchedule(school, task), executor);
     }
 
-    private School runTaskWithSchedule(School school, Task task) {
+    private synchronized School runTaskWithSchedule(School school, Task task) {
         try {
             Thread.sleep(task.getDifficulty());
             return setPointsForStudents(school, task);

@@ -35,17 +35,19 @@ public class Main {
         CompletableFuture<School> secondTournament = tournament.startTask(rogaAndCopytha, defeatVader);
 
         CompletableFuture<Void> allTournaments = CompletableFuture.allOf(firstTournament, secondTournament);
-        allTournaments.thenRun(() -> {
-            if (hogwarts.getTotalPoints() > rogaAndCopytha.getTotalPoints()) {
-                System.out.printf("School %s wins the tournament with score %d",
-                        hogwarts.getName(),
-                        hogwarts.getTotalPoints());
-            } else {
-                System.out.printf("School %s wins the tournament with score %d",
-                        rogaAndCopytha.getName(),
-                        rogaAndCopytha.getTotalPoints());
-            }
-        });
+        allTournaments
+                .thenRun(() -> {
+                    if (hogwarts.getTotalPoints() > rogaAndCopytha.getTotalPoints()) {
+                        System.out.printf("School %s wins the tournament with score %d",
+                                hogwarts.getName(),
+                                hogwarts.getTotalPoints());
+                    } else {
+                        System.out.printf("School %s wins the tournament with score %d",
+                                rogaAndCopytha.getName(),
+                                rogaAndCopytha.getTotalPoints());
+                    }
+                })
+                .join();
 
         softShutdown(executor);
     }

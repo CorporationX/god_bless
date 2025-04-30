@@ -19,7 +19,6 @@ public class School {
             log.error("Students list in school {} is null or empty!", name);
             throw new IllegalArgumentException();
         }
-
         return students.stream().mapToInt(Student::getPoints).sum();
     }
 }
