@@ -15,17 +15,20 @@ public class QuestSystem {
         return CompletableFuture.supplyAsync(() -> doQuest(player, quest), executor);
     }
 
-    private Player doQuest(Player player, Quest quest) {
+    private synchronized Player doQuest(Player player, Quest quest) {
         log.info("Player {} start quest {}...", player.getName(), quest.getName());
         try {
             Thread.sleep(quest.getDifficulty());
+            return addExperience(player, quest.getReward());
         } catch (InterruptedException e) {
             log.error("Player thread is interrupted! {}", e.getCause().getMessage());
             Thread.currentThread().interrupt();
             throw new RuntimeException();
         }
-        return new Player(player.getName(),
-                player.getLevel(),
-                player.getExperience() + quest.getReward());
+    }
+
+    private Player addExperience(Player player, int reward) {
+        player.setExperience(player.getExperience() + reward);
+        return player;
     }
 }

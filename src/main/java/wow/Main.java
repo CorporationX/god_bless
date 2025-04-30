@@ -2,6 +2,7 @@ package wow;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,14 +22,20 @@ public class Main {
         Quest defeatSauron = new Quest("Defeat Sauron", 5000, 1000);
         Quest dropDataBase = new Quest("Drop database", 1, 0);
 
-        questSystem.startQuest(dan, dropDataBase)
-                .thenAccept(player -> printQuestResult(player.getName(),
-                        dropDataBase.getName(),
-                        player.getExperience()));
-        questSystem.startQuest(dude, defeatSauron)
-                .thenAccept(player -> printQuestResult(player.getName(),
-                        defeatSauron.getName(),
-                        player.getExperience()));
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(dan, dropDataBase);
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(dude, defeatSauron);
+
+        player1Quest.thenAccept(player -> printQuestResult(player.getName(),
+                dropDataBase.getName(),
+                player.getExperience()));
+
+        player2Quest.thenAccept(player -> printQuestResult(player.getName(),
+                defeatSauron.getName(),
+                player.getExperience()));
+
+        CompletableFuture.allOf(player1Quest, player2Quest)
+                .thenRun(() -> System.out.println("All quests completed successful!"))
+                .join();
 
         softShutdown(executor);
 
