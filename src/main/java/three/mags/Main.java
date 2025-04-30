@@ -18,7 +18,6 @@ public class Main {
     private static List<Student> firstClas = new ArrayList<>(Arrays.asList(
             new Student("Harry", 16, 100),
             new Student("Vasea", 17, 150)));
-
     private static List<Student> secondClas = new ArrayList<>(Arrays.asList(
             new Student("Vovan", 15, 120),
             new Student("Leya", 18, 250)));
@@ -29,7 +28,6 @@ public class Main {
 
         School hogwarts = new School("Hogwarts", firstClas);
         School rogaAndCopytha = new School("Roga & Copytha", secondClas);
-
         Task doNotDrop = new Task("Do not drop the database", 6000, 600);
         Task defeatVader = new Task("Defeat Darth Vader", 7000, 1000);
 

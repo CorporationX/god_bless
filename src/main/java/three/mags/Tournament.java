@@ -18,6 +18,7 @@ public class Tournament {
             Thread.currentThread().interrupt();
             throw new RuntimeException();
         }
+
         return CompletableFuture.supplyAsync(() -> runTaskWithSchedule(school, task), executor);
     }
 
