@@ -19,7 +19,10 @@ public class BigBangTheory {
         for (Task task : tasks) {
             service.submit(task);
         }
+        shutDownService(service);
+    }
 
+    public static void shutDownService(ExecutorService service) {
         service.shutdown();
         try {
             if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
