@@ -12,7 +12,7 @@ public class Game {
     private int hp = 10;
     private int winCondition = 10;
     private int deathCondition = 0;
-    private volatile AtomicBoolean gameOver = new AtomicBoolean(false);
+    private AtomicBoolean gameOver = new AtomicBoolean(false);
     private final Lock scoreLock = new ReentrantLock();
     private final Lock hpLock = new ReentrantLock();
 
@@ -23,9 +23,6 @@ public class Game {
         if (hpChanged) {
             hpLock.lock();
             try {
-                if (gameOver.get()) {
-                    return;
-                }
                 hp--;
                 System.out.printf("Player lost 1 hp. %d hp remaining\n", hp);
                 if (hp <= deathCondition) {
@@ -42,9 +39,6 @@ public class Game {
         if (scoreChanged) {
             scoreLock.lock();
             try {
-                if (gameOver.get()) {
-                    return;
-                }
                 score++;
                 System.out.printf("Player score changed. Current score = %d\n", score);
                 if (score >= winCondition) {
