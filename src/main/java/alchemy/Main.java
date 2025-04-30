@@ -35,7 +35,6 @@ public class Main {
 
         System.out.printf("All potions are ready and sum of ingredients is %d.", sumOfIngredients);
         softShutdown(executor);
-
     }
 
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
