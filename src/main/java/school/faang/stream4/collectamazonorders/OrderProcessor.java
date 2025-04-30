@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class OrderProcessor {
-    private final static long ORDER_PROCESSING_TIME_MS = 2000L;
+    private static final long ORDER_PROCESSING_TIME_MS = 2000L;
 
     private final ExecutorService service;
 
