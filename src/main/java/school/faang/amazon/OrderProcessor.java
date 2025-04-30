@@ -37,7 +37,7 @@ public class OrderProcessor {
                 .map(this::processOrder)
                 .map(CompletableFuture::join)
                 .toList();
-        System.out.println(totalProcessedOrders);
+        log.info("Number of orders processed - {}", totalProcessedOrders.get());
     }
 
 }
