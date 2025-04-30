@@ -6,35 +6,33 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class CardsServiceManager {
 
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     public void doAll() {
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
-                .thenAccept((result) -> System.out.println("Аналитика отправлена:" + result))
-                .join();
-
-        pay();
-    }
-
-    private void pay() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture<Void> completableFutureSendAnalytics =
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
+                        .thenAccept((result) -> System.out.printf("Аналитика отправлена: %d.\n", result));
 
         try {
-            var result = paymentFuture.get();
-            System.out.printf("Платеж выполнен: %d.", result);
+            var result = executor.submit(MasterCardService::collectPayment).get();
+            System.out.printf("Платеж выполнен: %d.\n", result);
         } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
-            log.error("Ошибка. главный поток остановлен.");
-            throw new RuntimeException();
+            log.error("Ошибка. главный поток остановлен.\n", e);
         }
 
-        executor.shutdown();
+        completableFutureSendAnalytics.join();
 
+        executorShutdown();
+    }
+
+    private void executorShutdown() {
+        executor.shutdown();
         try {
             if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
                 log.error("Задача по платежам не завершились за 2 мин, принудительно останавливаем...");
