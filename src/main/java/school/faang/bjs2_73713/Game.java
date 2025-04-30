@@ -2,6 +2,7 @@ package school.faang.bjs2_73713;
 
 import lombok.Data;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,22 +12,28 @@ public class Game {
     private int hp = 10;
     private int winCondition = 10;
     private int deathCondition = 0;
+    private volatile AtomicBoolean gameOver = new AtomicBoolean(false);
     private final Lock scoreLock = new ReentrantLock();
     private final Lock hpLock = new ReentrantLock();
 
     public void update(boolean hpChanged, boolean scoreChanged) {
-        if (Thread.currentThread().isInterrupted()) {
+        if (gameOver.get()) {
             return;
         }
         if (hpChanged) {
             hpLock.lock();
             try {
-                if (hp <= deathCondition) {
-                    gameOver();
+                if (gameOver.get()) {
+                    return;
                 }
                 hp--;
                 System.out.printf("Player lost 1 hp. %d hp remaining\n", hp);
-
+                if (hp <= deathCondition) {
+                    if (gameOver.compareAndSet(false, true)) {
+                        System.out.println("You died!");
+                    }
+                    return;
+                }
             } finally {
                 hpLock.unlock();
             }
@@ -35,26 +42,20 @@ public class Game {
         if (scoreChanged) {
             scoreLock.lock();
             try {
-                if (score >= winCondition) {
-                    gameOver();
+                if (gameOver.get()) {
+                    return;
                 }
                 score++;
                 System.out.printf("Player score changed. Current score = %d\n", score);
-
+                if (score >= winCondition) {
+                    if (gameOver.compareAndSet(false, true)) {
+                        System.out.println("You won!");
+                    }
+                    return;
+                }
             } finally {
                 scoreLock.unlock();
             }
         }
     }
-
-    public void gameOver() {
-        if (score >= winCondition) {
-            System.out.println("Player won!");
-        }
-        if (hp <= deathCondition) {
-            System.out.println("You Lost");
-        }
-        Thread.currentThread().interrupt();
-    }
 }
-
