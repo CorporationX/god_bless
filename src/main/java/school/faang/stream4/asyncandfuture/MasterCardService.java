@@ -1,5 +1,7 @@
 package school.faang.stream4.asyncandfuture;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -7,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
@@ -18,7 +21,8 @@ public class MasterCardService {
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            System.out.println("Обработка прервана: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -28,7 +32,8 @@ public class MasterCardService {
             return 17_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            System.out.println("Аналитика прервана: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -37,17 +42,15 @@ public class MasterCardService {
         Future<Integer> collectPaymentResult = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalyticsResult =
                 CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
-        while (!collectPaymentResult.isDone() || !sendAnalyticsResult.isDone()) {
-            try {
-                Thread.sleep(ONE_SECOND_IN_MS);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("bamboleo!");
-        }
+
+
         try {
+            sendAnalyticsResult
+                    .thenAccept(result -> {
+                        log.info(Thread.currentThread().getName());
+                        System.out.printf("Аналитика отправлена: %d\n", result);
+                    });
             System.out.printf("Платеж выполнен: %d\n", collectPaymentResult.get());
-            System.out.printf("Аналитика отправлена: %d\n", sendAnalyticsResult.get());
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
