@@ -10,6 +10,8 @@ import java.util.Random;
 @Data
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
+    private static final int MILLIS_IN_SECOND = 1000;
+    private static final int MAX_DELAY_SECONDS = 5;
     private final Random random = new Random();
     private String character;
     private int foodAmount;
@@ -23,9 +25,9 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         FoodType food = getFoodType();
         log.info("{} is getting  {} {}  ", character, foodAmount, food);
-        int delay = random.nextInt(5) + 1;
+        int delay = random.nextInt(MAX_DELAY_SECONDS) + 1;
         try {
-            Thread.sleep(delay * 1000);
+            Thread.sleep(delay * MILLIS_IN_SECOND);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.info("Thread was interrupted");
