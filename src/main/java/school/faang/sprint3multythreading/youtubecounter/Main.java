@@ -1,4 +1,4 @@
-package school.faang.youtubecounter;
+package school.faang.sprint3multythreading.youtubecounter;
 
 import lombok.extern.slf4j.Slf4j;
 
