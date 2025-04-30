@@ -7,10 +7,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List<String> roles = new ArrayList<>();
-        roles.add("Лорд");
-        roles.add("Рыцарь");
-        roles.add("Маг");
+        List<Role> roles = Arrays.asList(
+                Role.ЛОРД,
+                Role.РЫЦАРЬ,
+                Role.МАГ
+        );
         House house1 = new House(roles);
 
         List<User> users = Arrays.asList(
@@ -43,7 +44,7 @@ public class Main {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.err.println("Ошибка" + e.getMessage());
+                System.err.println("Ошибка " + e.getMessage());
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }

@@ -4,8 +4,8 @@ import lombok.Getter;
 
 public class User {
     @Getter
-    private String name;
-    private String assignedRole;
+    private final String name;
+    private Role assignedRole;
     private House house;
     private final Object lock = new Object();
 

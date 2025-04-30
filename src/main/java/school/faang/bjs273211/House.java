@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class House {
-    private List<String> roles;
+    private final List<Role> roles;
 
-    public House(List<String> roles) {
+    public House(List<Role> roles) {
         this.roles = new ArrayList<>(roles);
     }
 
-    public synchronized String assignRole() {
+    public synchronized Role assignRole() {
         while (roles.isEmpty()) {
             try {
                 System.out.println(Thread.currentThread().getName() + " ждёт освобождения роли");
@@ -20,12 +20,12 @@ public class House {
                 throw new RuntimeException(e);
             }
         }
-        String assigned = roles.remove(0);
+        Role assigned = roles.remove(0);
         System.out.println(Thread.currentThread().getName() + " получил роль " + assigned);
         return assigned;
     }
 
-    public synchronized void releaseRole(String role) {
+    public synchronized void releaseRole(Role role) {
         roles.add(role);
         System.out.println(Thread.currentThread().getName() + " освободил роль " + role);
         notifyAll();
