@@ -6,9 +6,8 @@ import java.util.concurrent.Executors;
 
 public class AmazonOrderProcessing {
     public static void main(String[] args) {
-        OrderProcessor processor = new OrderProcessor();
         ExecutorService workers = Executors.newFixedThreadPool(5);
-        processor.setService(workers);
+        OrderProcessor processor = new OrderProcessor(workers);
 
         // Создание списка заказов
         List<Order> orders = List.of(
