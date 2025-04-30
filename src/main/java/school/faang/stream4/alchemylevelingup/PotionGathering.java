@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.IntFunction;
 
 @Slf4j
 public class PotionGathering {
-    private static ExecutorService service;
+    private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
-        service = Executors.newCachedThreadPool();
 
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
@@ -23,13 +23,13 @@ public class PotionGathering {
         );
 
         System.out.println(gatherAllIngredients(potions));
-        endGathering(service);
+        endGathering();
     }
 
     private static int gatherAllIngredients(List<Potion> potions) {
 
         CompletableFuture<Integer>[] completableFutures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), service))
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), SERVICE))
                 .toArray((IntFunction<CompletableFuture<Integer>[]>) CompletableFuture[]::new);
 
         return CompletableFuture.allOf(completableFutures)
@@ -57,8 +57,17 @@ public class PotionGathering {
         }
     }
 
-    public static void endGathering(ExecutorService service) {
+    public static void endGathering() {
         log.info("Gathering is over!");
-        service.shutdown();
+        int timeout = 30;
+        SERVICE.shutdown();
+        try {
+            if (!SERVICE.awaitTermination(timeout, TimeUnit.SECONDS)) {
+                SERVICE.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            SERVICE.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
