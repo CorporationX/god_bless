@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +15,7 @@ public class RocketLaunch {
 
     public void launch() {
         try {
-            Thread.sleep(MILLIS); // симуляция подготовки запуска
+            TimeUnit.SECONDS.sleep(MILLIS);
             System.out.printf("Ракета \"%s\" запускается!%n", name);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
