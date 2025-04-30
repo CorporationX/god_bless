@@ -23,6 +23,11 @@ public class Main {
         }));
 
         executor.execute(new Thread(uploader::startAutoUpload));
+        gracefullyShutdown(executor);
+        log.info("All tasks are completed!");
+    }
+
+    private static void gracefullyShutdown(ExecutorService executor) {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
@@ -33,6 +38,5 @@ public class Main {
             log.error("Waiting for threads to finish is interrupted.");
             executor.shutdownNow();
         }
-        log.info("All tasks are completed!");
     }
 }

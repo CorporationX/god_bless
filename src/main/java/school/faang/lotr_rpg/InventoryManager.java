@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        character.getInventory().add(item);
         consumer.accept(item);
+        System.out.println(item.getName() + " был добавлен в инвентарь персонажа " + character.getName());
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {

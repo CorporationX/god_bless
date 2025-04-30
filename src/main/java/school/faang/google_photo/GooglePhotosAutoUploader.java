@@ -14,14 +14,18 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    log.error("Action is interrupted.");
+            while (true) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        log.error("Action is interrupted.");
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
@@ -35,15 +39,13 @@ public class GooglePhotosAutoUploader {
 
     @SneakyThrows
     private void uploadPhotos() {
-        synchronized (lock) {
-            log.info("Starting upload...");
-            for (String photo : photosToUpload) {
-                log.info("Uploading {}.", photo);
-                Thread.sleep(MAX_MILLIS_TO_UPLOAD);
-                log.info("Complete!");
-            }
-            log.info("Upload completed!");
-            photosToUpload.clear();
+        log.info("Starting upload...");
+        for (String photo : photosToUpload) {
+            log.info("Uploading {}.", photo);
+            Thread.sleep(MAX_MILLIS_TO_UPLOAD);
+            log.info("Complete!");
         }
+        log.info("Upload completed!");
+        photosToUpload.clear();
     }
 }
