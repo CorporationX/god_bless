@@ -24,6 +24,7 @@ public class Army {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         return totalPower;
     }
