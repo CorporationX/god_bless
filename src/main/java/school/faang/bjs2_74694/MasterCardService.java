@@ -30,7 +30,7 @@ public class MasterCardService {
         }
     }
 
-    static void doAll() throws Exception{
+    static void doAll() throws Exception {
         ExecutorService threads = Executors.newFixedThreadPool(1);
         Future<Integer> payment = threads.submit(MasterCardService::collectPayment);
         CompletableFuture
@@ -40,7 +40,7 @@ public class MasterCardService {
         threads.shutdown();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         doAll();
     }
 }
