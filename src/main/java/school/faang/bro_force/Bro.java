@@ -10,11 +10,9 @@ public class Bro {
     private String name;
     private int lives;
     private int score = 0;
-    private boolean isAlive;
 
-    public Bro(String name, int lives, boolean alive) {
+    public Bro(String name, int lives) {
         this.name = name;
         this.lives = lives;
-        this.isAlive = alive;
     }
 }

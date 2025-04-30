@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Game game = new Game();
-        Bro firstBro = new Bro("Piter", 10, true);
-        Bro secondBro = new Bro("Parker", 25, true);
+        Bro firstBro = new Bro("Piter", 10);
+        Bro secondBro = new Bro("Parker", 25);
 
         game.addBro(firstBro);
         game.addBro(secondBro);
@@ -23,7 +23,7 @@ public class Main {
                     randomValueBro1 = Math.random() < 0.3;
                     randomValueBro2 = Math.random() < 0.3;
                     try {
-                        Thread.sleep(100);
+                        TimeUnit.MILLISECONDS.sleep(100);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         System.out.println("Thread interrupted: " + Thread.currentThread().getName());
@@ -34,6 +34,12 @@ public class Main {
             });
         }
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        try {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
     }
 }
