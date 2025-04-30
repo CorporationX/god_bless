@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
 
     private static final int SLEEP_TIME = 3;
+    private static final int TIMEOUT = 10;
 
     private final AtomicInteger totalProcessedOrders = new AtomicInteger();
 
@@ -20,11 +21,13 @@ public class OrderProcessor {
                 TimeUnit.SECONDS.sleep(SLEEP_TIME);
                 order.setStatus("Обработано");
                 totalProcessedOrders.incrementAndGet();
+
                 return "Order with id - %d, now has status %s".formatted(order.getId(), order.getStatus());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                log.error(e.getMessage());
             }
+            return "Order with id %d hasn't been processed successfully".formatted(order.getId());
         });
 
         return future.thenAccept(log::info);
@@ -34,6 +37,8 @@ public class OrderProcessor {
         List<CompletableFuture<Void>> future = orders.stream().map(this::processOrder).toList();
 
         CompletableFuture<Void> completed = CompletableFuture.allOf(future.toArray(new CompletableFuture[0]));
-        completed.thenAccept(v -> log.info("Completed {} orders", totalProcessedOrders)).join();
+        completed.thenAccept(v -> log.info("Completed {} orders", totalProcessedOrders))
+                .orTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .join();
     }
 }
