@@ -37,9 +37,12 @@ public class MasterCardService {
                     MasterCardService::collectPayment, executor);
             CompletableFuture<Integer> analiticFuture = CompletableFuture.supplyAsync(
                     MasterCardService::sendAnalytics, executor);
-            CompletableFuture.allOf(paymentFuture, analiticFuture).join();
-            System.out.println("Аналитика отправлена: " + analiticFuture.get());
-            System.out.println("Платеж выполнен: " + paymentFuture.get());
+
+            Integer analyticsResult = analiticFuture.join();
+            Integer paymentResult = paymentFuture.get();
+
+            System.out.println("Аналитика отправлена: " + analyticsResult);
+            System.out.println("Платеж выполнен: " + paymentResult);
         } finally {
             executor.shutdown();
         }
