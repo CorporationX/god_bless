@@ -13,23 +13,18 @@ public class Game {
         this.lives = initialLives;
     }
 
-    private final Object scoreLock = new Object();
-    private final Object livesLock = new Object();
-
     public void update(boolean gainedScore, boolean lostLife) {
-        if (!gameRunning) {
-            return;
-        }
+        synchronized (this) {
+            if (!gameRunning) {
+                return;
+            }
 
-        if (gainedScore) {
-            synchronized (scoreLock) {
+            if (gainedScore) {
                 score++;
                 System.out.println(Thread.currentThread().getName() + " + очко. Текущий счет " + score);
             }
-        }
 
-        if (lostLife) {
-            synchronized (livesLock) {
+            if (lostLife) {
                 lives--;
                 System.out.println(Thread.currentThread().getName() + " - жизнь! Осталось жизней " + lives);
                 if (lives <= 0) {
@@ -39,7 +34,10 @@ public class Game {
         }
     }
 
-    private void gameOver() {
+    private synchronized void gameOver() {
+        if (!gameRunning) {
+            return;
+        }
         gameRunning = false;
         System.out.println("WASTED Финальный счет: " + score);
     }
