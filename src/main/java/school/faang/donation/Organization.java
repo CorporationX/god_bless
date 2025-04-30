@@ -14,11 +14,10 @@ public class Organization {
     private final AtomicReference<Double> balance = new AtomicReference<>(0.0);
     private final ConcurrentHashMap<Integer, Boolean> processedDonations = new ConcurrentHashMap<>();
 
-    public boolean addDonation(Donation donation) {
+    public void addDonation(Donation donation) {
         if (processedDonations.putIfAbsent(donation.getId(), true) != null) {
-            return false;
+            throw new IllegalStateException("Донат с id=" + donation.getId() + " уже был обработан!");
         }
         balance.updateAndGet(current -> current + donation.getAmount());
-        return true;
     }
 }
