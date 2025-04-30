@@ -19,15 +19,16 @@ public class Main {
         Future<Integer> collectPaymentFuture = executor.submit(masterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalyzeFuture =
                 CompletableFuture.supplyAsync(masterCardService::sendAnalyze, executor);
-        while (!collectPaymentFuture.isDone()) {
-            System.out.println("Some logic here while collectPaymentFuture executing...");
-        }
-        System.out.printf("The collect payment result: %d\n\n", collectPaymentFuture.get());
 
         while (!sendAnalyzeFuture.isDone()) {
             System.out.println("Some logic here while sendAnalyzeFuture executing...");
         }
         System.out.printf("The send analyze result: %d\n", sendAnalyzeFuture.get());
+
+        while (!collectPaymentFuture.isDone()) {
+            System.out.println("Some logic here while collectPaymentFuture executing...");
+        }
+        System.out.printf("The collect payment result: %d\n\n", collectPaymentFuture.get());
 
         executor.shutdown();
         if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {

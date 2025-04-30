@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MasterCardService {
+    private static final int TEN_SECONDS = 10000;
+    private static final int ONE_SECOND = 1000;
+
     public int collectPayment() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(TEN_SECONDS);
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -17,7 +20,7 @@ public class MasterCardService {
 
     public int sendAnalyze() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(ONE_SECOND);
             return 17_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
