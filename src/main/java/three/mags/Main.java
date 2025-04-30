@@ -28,6 +28,7 @@ public class Main {
 
         School hogwarts = new School("Hogwarts", firstClas);
         School rogaAndCopytha = new School("Roga & Copytha", secondClas);
+
         Task doNotDrop = new Task("Do not drop the database", 6000, 600);
         Task defeatVader = new Task("Defeat Darth Vader", 7000, 1000);
 
