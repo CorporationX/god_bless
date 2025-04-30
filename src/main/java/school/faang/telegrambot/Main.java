@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
@@ -12,20 +12,9 @@ public class Main {
         TelegramBot telegramBot = new TelegramBot();
         ExecutorService executor = Executors.newFixedThreadPool(15);
 
-        for (int i = 0; i < 100; i++) {
-            executor.submit(() -> telegramBot.sendMessage("Message"));
-        }
+        IntStream.range(0, 100)
+                .forEach(i -> executor.submit(() -> telegramBot.sendMessage("Message: " + i)));
 
-        executor.shutdown();
-        try {
-            if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.error("Поток прерван");
-            executor.shutdownNow();
-        }
-
-        log.info("Задача выполнена");
+        telegramBot.terminatedExecutor(executor);
     }
 }
