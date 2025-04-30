@@ -16,7 +16,7 @@ public class Player {
         this.experience = experience;
     }
 
-    public void setExperience(int experience) {
+    public synchronized void addExperience(int experience) {
         this.experience = this.experience + experience;
         if (this.experience > EXPERIENCE_TO_UPDATE_LVL * level) {
             level++;

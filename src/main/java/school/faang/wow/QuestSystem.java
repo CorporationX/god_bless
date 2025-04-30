@@ -14,18 +14,17 @@ public class QuestSystem {
     private static final int TIME_HARD_QUEST = 10;
     private static final int TIME_LEGEND_QUEST = 20;
     private static final int TIME_WAITING_THREADS = 25;
-
-    ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             simulationQuest(quest);
-            player.setExperience(quest.getReward());
+            player.addExperience(quest.getReward());
             return player;
         }, executor);
     }
 
-    public void simulationQuest(Quest quest) {
+    private void simulationQuest(Quest quest) {
         try {
             switch (quest.getDifficulty()) {
                 case EASY -> TimeUnit.SECONDS.sleep(TIME_EASY_QUEST);
