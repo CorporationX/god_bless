@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class CardsServiceManager {
@@ -30,6 +31,18 @@ public class CardsServiceManager {
             Thread.currentThread().interrupt();
             log.error("Ошибка. главный поток остановлен.");
             throw new RuntimeException();
+        }
+
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                log.error("Задача по платежам не завершились за 2 мин, принудительно останавливаем...");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("Главный поток был прерван во время ожидания, принудительно останавливаем пул...");
+            executor.shutdownNow();
         }
     }
 }
