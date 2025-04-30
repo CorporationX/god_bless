@@ -36,6 +36,7 @@ public class Tournament {
         int pointsPerStudent = task.getReward() / school.getStudents().size();
         return modifyStudentsPoints(school, pointsPerStudent);
     }
+
     private School modifyStudentsPoints(School school, int aditionalPoints) {
         school.getStudents()
                 .stream()
