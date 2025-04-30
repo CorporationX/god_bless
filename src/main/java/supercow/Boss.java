@@ -19,7 +19,7 @@ public class Boss {
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (this) {
             while (currentPlayers >= maxPlayers) {
-                System.out.println(player.getName() + " is waiting to join battle...");
+                System.out.println(player.getName() + " is waiting to join battle... ");
                 wait();
             }
             currentPlayers++;
