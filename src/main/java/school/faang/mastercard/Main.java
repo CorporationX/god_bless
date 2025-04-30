@@ -1,8 +1,13 @@
 package school.faang.mastercard;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
     public static void main(String[] args) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         MasterCardService masterCardService = new MasterCardService();
-        masterCardService.doAll();
+        masterCardService.doAll(executor);
+        masterCardService.gracefullyShutdown(executor);
     }
 }

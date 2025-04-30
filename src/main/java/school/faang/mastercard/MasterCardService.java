@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -13,15 +12,16 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     public static final int ONE_SECOND = 1;
     public static final int TEN_SECOND = 10;
+    public static final int TERMINATION_TIMEOUT_SECONDS = 2;
 
-    public String collectPayment() {
+    public int collectPayment() {
         simulationProcessInSeconds(TEN_SECOND);
-        return "Оплата прошла";
+        return 7_000;
     }
 
-    public String sendAnalytics() {
+    public int sendAnalytics() {
         simulationProcessInSeconds(ONE_SECOND);
-        return "Аналитика отправлена на почту";
+        return 15_000;
     }
 
     public void simulationProcessInSeconds(int second) {
@@ -34,12 +34,10 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
+    public void doAll(ExecutorService executor) {
         try {
-            Future<String> resultCollectPayment = executor.submit(this::collectPayment);
-            CompletableFuture<String> resultSendAnalytics = CompletableFuture.supplyAsync(
+            Future<Integer> resultCollectPayment = executor.submit(this::collectPayment);
+            CompletableFuture<Integer> resultSendAnalytics = CompletableFuture.supplyAsync(
                     this::sendAnalytics, executor);
             resultSendAnalytics.thenAccept(result -> log.info("Результат отправки аналитики: {}", result));
             resultSendAnalytics.join();
@@ -51,10 +49,12 @@ public class MasterCardService {
         } catch (ExecutionException er) {
             log.info("Поток {} прерван", Thread.currentThread(), er);
         }
+    }
 
+    public void gracefullyShutdown(ExecutorService executor) {
         executor.shutdown();
         try {
-            if (executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (executor.awaitTermination(TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
