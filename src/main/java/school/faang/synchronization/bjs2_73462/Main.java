@@ -19,27 +19,26 @@ public class Main {
         Collections.shuffle(ROOMS_WITH_FOOD);
         BlockingDeque<Room> randomRooms = new LinkedBlockingDeque<>(ROOMS_WITH_FOOD);
         House house = new House(ROOMS_WITH_FOOD);
-        try (ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE)) {
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
-            house.printRooms();
+        house.printRooms();
 
-            for (int counter = 0; counter < THREAD_POOL_SIZE; counter++) {
-                executorService.scheduleAtFixedRate(() -> {
-                    house.collectFood(randomRooms);
-                    if (house.allFoodCollected()) {
-                        executorService.shutdown();
-                    }
-                }, 0, 30, TimeUnit.SECONDS);
-            }
-
-            try {
-                if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
+        for (int counter = 0; counter < THREAD_POOL_SIZE; counter++) {
+            executorService.scheduleAtFixedRate(() -> {
+                house.collectFood(randomRooms);
+                if (house.allFoodCollected()) {
+                    executorService.shutdown();
                 }
-            } catch (InterruptedException e) {
-                log.warn("Произошла ошибка!");
+            }, 0, 30, TimeUnit.SECONDS);
+        }
+
+        try {
+            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
+        } catch (InterruptedException e) {
+            log.warn("Произошла ошибка!");
+            executorService.shutdownNow();
         }
 
         log.info("Еда в доме собрана!");

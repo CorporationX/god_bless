@@ -16,10 +16,12 @@ public class House {
 
     public synchronized void collectFood(BlockingDeque<Room> randomRooms) {
         for (int counter = 0; counter < COUNT_ROOMS_TO_CLEAR; counter++) {
-            Room room = randomRooms.pop();
-            collectedFood.addAll(
-                    room.clearFood());
-            log.info("Еда из комнаты номер {} собрана\n", room.getNumber());
+            if (!randomRooms.isEmpty()) {
+                Room room = randomRooms.pop();
+                collectedFood.addAll(
+                        room.clearFood());
+                log.info("Еда из комнаты номер {} собрана\n", room.getNumber());
+            }
         }
     }
 
