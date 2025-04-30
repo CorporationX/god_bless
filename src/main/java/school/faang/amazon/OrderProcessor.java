@@ -32,11 +32,12 @@ public class OrderProcessor {
 
     public void processAllOrders(List<Order> orders) {
         log.debug("Processing orders {}", orders);
-        List<Void> list = orders.stream()
+        List<CompletableFuture<Void>> list = orders.stream()
                 .filter(Objects::nonNull)
                 .map(this::processOrder)
-                .map(CompletableFuture::join)
                 .toList();
+
+        CompletableFuture.allOf(list.toArray(new CompletableFuture[0])).join();
         log.info("Number of orders processed - {}", totalProcessedOrders.get());
     }
 
