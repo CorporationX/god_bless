@@ -13,8 +13,8 @@ import static school.faang.pi.ThreadPoolProvider.executor;
 @Slf4j
 public class PiCalculator {
     private AtomicInteger inside = new AtomicInteger(0);
-    private final static double MIN_COORDINATES = 0.0;
-    private final static double MAX_COORDINATES = 1.0;
+    private static final double MIN_COORDINATES = 0.0;
+    private static final double MAX_COORDINATES = 1.0;
 
     public double calculateNumberPi(int numberOfDots) {
         if (numberOfDots <= 0) {
