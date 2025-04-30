@@ -14,4 +14,9 @@ public class School {
     public int getTotalPoints() {
         return team.stream().mapToInt(Student::getPoints).sum();
     }
+
+    public void addPointsToTeam(int totalPoints) {
+        int pointsPerStudent = totalPoints / team.size();
+        team.forEach(student -> student.addPoints(pointsPerStudent));
+    }
 }

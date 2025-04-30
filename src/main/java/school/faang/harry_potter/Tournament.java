@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Tournament {
@@ -15,13 +16,12 @@ public class Tournament {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(task.getDifficulty() * 1000L);
+                TimeUnit.SECONDS.sleep(task.getDifficulty());
 
-                int pointsPerStudent = task.getReward() / school.getTeam().size();
-                school.getTeam().forEach(student -> student.addPoints(pointsPerStudent));
+                school.addPointsToTeam(task.getReward());
 
-                log.info("Школа {} выполнила задание {} и получила {} очков ({} на студента)",
-                        school.getName(), task.getName(), task.getReward(), pointsPerStudent);
+                log.info("Школа {} выполнила задание {} и получила {} очков",
+                        school.getName(), task.getName(), task.getReward());
                 return school;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
