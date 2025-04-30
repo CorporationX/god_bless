@@ -1,13 +1,11 @@
 package school.faang.stream3.synchronization.tamagotchivlad;
 
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class VladController implements Runnable {
     @Getter
-    private List<TamagotchiVlad> tamagotchiList = new ArrayList<>();
+    private CopyOnWriteArrayList<TamagotchiVlad> tamagotchiList = new CopyOnWriteArrayList<>();
 
     public void createTamagotchi(String name) {
         tamagotchiList.add(new TamagotchiVlad(name));
@@ -15,14 +13,18 @@ public class VladController implements Runnable {
 
     @Override
     public void run() {
-        while (!tamagotchiList.isEmpty()) {
+        while (tamagotchiList
+                .stream().anyMatch(tamagotchiVlad -> tamagotchiVlad.getIsAlive().get())) {
             System.out.println("Time is running");
-            for (TamagotchiVlad tamagotchi : tamagotchiList) {
+            for (TamagotchiVlad tamagotchi :
+                    tamagotchiList
+                            .stream()
+                            .filter(tamagotchiVlad -> tamagotchiVlad.getIsAlive().get())
+                            .toList()) {
                 try {
                     tamagotchi.run();
                 } catch (RuntimeException e) {
                     System.out.println(e.getMessage());
-                    tamagotchiList.remove(new TamagotchiVlad(e.getMessage().split("for ")[1]));
                 }
             }
         }

@@ -5,15 +5,17 @@ import lombok.Data;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Data
 public class TamagotchiVlad implements Runnable {
     private static final int MAX_LEVEL = 10;
     private static final int START_LEVEL = 8;
-    private static final int START_COEFFICIENT = 1;
+    private static final int START_COEFFICIENT = 2;
 
     private final String name;
+    private AtomicBoolean isAlive = new AtomicBoolean(true);
     private int coefficient = getCoefficient();
 
     private List<String> needList = Arrays.asList("hygieneIndicator", "hungerIndicator",
@@ -69,12 +71,13 @@ public class TamagotchiVlad implements Runnable {
     @Override
     public void run() throws RuntimeException {
         while (true) {
-            synchronized (name) {
-                try {
-                    Thread.sleep(3000);
+            try {
+                Thread.sleep(3000);
+                synchronized (name) {
                     timeRun();
                     if (needs.get("hungerIndicator") == 0) {
-                        throw new RuntimeException(String.format("Game is over for %s", name));
+                        isAlive.set(false);
+                        Thread.currentThread().interrupt();
                     }
                     if (needs.values().stream().anyMatch(v -> v == 0)) {
                         coefficient++;
@@ -90,9 +93,9 @@ public class TamagotchiVlad implements Runnable {
                     if (needs.get("energyIndicator") < 3) {
                         System.out.printf("%s is tired\n", name);
                     }
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
                 }
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -100,10 +103,10 @@ public class TamagotchiVlad implements Runnable {
 
     private int inccreaseIndicator(String indicator) {
         int indicatorValue = needs.get(indicator);
-        if (indicatorValue + 3 > 10) {
+        if (indicatorValue + 1 > 10) {
             indicatorValue = 10;
         } else {
-            indicatorValue = indicatorValue + 3;
+            indicatorValue = indicatorValue + 1;
         }
         return indicatorValue;
     }
