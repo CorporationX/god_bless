@@ -14,7 +14,7 @@ public class Player {
         experience = 0;
     }
 
-    public void addExp(int exp) {
+    public synchronized void addExp(int exp) {
         experience += exp;
     }
 }
