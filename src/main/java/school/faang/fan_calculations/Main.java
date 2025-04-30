@@ -17,13 +17,22 @@ public class Main {
     private static void launch() {
         List<SquareRequest> squareRequests = LongStream.range(0, 1000).mapToObj(SquareRequest::new).toList();
         Long result = fanOutFanIn(squareRequests, resultConsumer);
+        ThreadPoolProvider.gracefullyShutdown();
         log.info("Result: " + result);
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        List<Void> list = requests.stream().map(request -> CompletableFuture.runAsync(() -> {
-            request.longTimeSquare(resultConsumer);
-        })).map(CompletableFuture::join).toList();
+        List<CompletableFuture<Void>> list = requests.stream()
+                .map(request -> CompletableFuture.runAsync(() ->
+                {
+                    try {
+                        request.longTimeSquare(resultConsumer);
+                    } catch (Throwable e) {
+                        log.warn("Ошибка в задаче", e);
+                    }
+                }, ThreadPoolProvider.executor))
+                .toList();
+        CompletableFuture.allOf(list.toArray(new CompletableFuture[0])).join();
         return resultConsumer.getSum();
     }
 
