@@ -22,7 +22,7 @@ public class Main {
         List<String> fruits2 = Arrays.asList("apple", "cherry", "banana", "date", "fig", "grape");
 
         System.out.printf("Пары чисел: %s%n", StreamOperations.getPairs(numbers, 6).toString());
-        System.out.printf("Столицы: %s%n", StreamOperations.sortStringMap(capitals).toString());
+        System.out.printf("Столицы: %s%n", StreamOperations.sortCapitalsMap(capitals).toString());
         System.out.printf("Начинаются с 'a' и отсортированы по длине: %s%n",
                 StreamOperations.getStartWithPrefixAndSortedByLength(fruits, "a").toString());
         System.out.printf("Числа в двоичном формате: %s%n",

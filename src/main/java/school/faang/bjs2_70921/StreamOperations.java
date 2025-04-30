@@ -19,17 +19,16 @@ public class StreamOperations {
                 .collect(Collectors.toSet());
     }
 
-    public static List<String> sortStringMap(Map<String, String> map) {
-        return map.keySet().stream()
+    public static List<String> sortCapitalsMap(Map<String, String> capitals) {
+        return capitals.keySet().stream()
                 .sorted()
-                .map(map::get)
+                .map(capitals::get)
                 .toList();
     }
 
     public static List<String> getStartWithPrefixAndSortedByLength(List<String> strings, String prefix) {
         return strings.stream()
                 .filter(x -> x.startsWith(prefix))
-                .sorted() //сортировка по алфавиту, на случай если несколько элементов будут одной длины
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
@@ -44,7 +43,6 @@ public class StreamOperations {
         Set<String> alphabetSymbols = new HashSet<>(List.of(alphabet.split("")));
         return strings.stream()
                 .filter(x -> alphabetSymbols.containsAll(List.of(x.split(""))))
-                .sorted() //сортировка по алфавиту, на случай если несколько элементов будут одной длины
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
