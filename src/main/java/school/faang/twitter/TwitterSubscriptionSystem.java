@@ -15,7 +15,7 @@ public class TwitterSubscriptionSystem {
             try {
                 Thread.sleep(ONE_SECOND_IN_MS);
             } catch (InterruptedException e) {
-                log.debug("Following account was interrupted", e);
+                log.debug("Thread was interrupted", e);
             }
         }, ThreadPullProvider.executor);
     }
