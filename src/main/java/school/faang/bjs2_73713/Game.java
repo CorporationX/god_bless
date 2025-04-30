@@ -35,7 +35,6 @@ public class Game {
                 hpLock.unlock();
             }
         }
-
         if (scoreChanged) {
             scoreLock.lock();
             try {
