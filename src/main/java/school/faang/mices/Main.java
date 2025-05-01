@@ -11,26 +11,32 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
 
+    private static final int BATCH_SIZE = 2;
     private static final int POOL_SIZE = 5;
     private static final int PEEL_INITIAL_DELAY_SECONDS = 0;
     private static final int CHECK_INITIAL_DELAY_SECONDS = 15;
-    private static final int PERIOD_SECONDS = 2;
+    private static final int PERIOD_SECONDS = 10;
     private static final int TERMINATION_TIMEOUT_MINUTES = 1;
 
     public static void main(String[] args) {
-
         House house = new House(new ArrayList<>(getRoomsData()));
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_SIZE);
-        executor.scheduleAtFixedRate(house::collectFood, PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
-        executor.scheduleAtFixedRate(house::collectFood, PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
-        executor.scheduleAtFixedRate(house::collectFood, PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
-        executor.scheduleAtFixedRate(house::collectFood, PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
-        executor.scheduleAtFixedRate(house::collectFood, PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
+        int runnableCount = house.getRooms().size() % BATCH_SIZE == 0
+                ? house.getRooms().size() / BATCH_SIZE
+                : house.getRooms().size() / BATCH_SIZE + 1;
+
+        for (int i = 0; i < runnableCount; i++) {
+            int startIndex = i * BATCH_SIZE;
+            int endIndex = Math.min((i + 1) * BATCH_SIZE, house.getRooms().size());
+
+            executor.scheduleAtFixedRate(() -> house.collectFood(startIndex, endIndex),
+                    PEEL_INITIAL_DELAY_SECONDS, PERIOD_SECONDS, TimeUnit.SECONDS);
+        }
 
         executor.scheduleAtFixedRate(() -> {
             if (house.isAllRoomsEmpty()) {
-                log.info("{}", house.getInitialRoomsList());
+                log.info("{}", house.getRooms());
                 log.info("Collected {} food items", house.getCollectedFood().size());
                 log.info("All food collected!!");
                 executor.shutdown();

@@ -1,27 +1,31 @@
 package school.faang.mices;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+@Slf4j
 public class Room {
 
     private final int roomNumber;
-    private final List<Food> roomFood;
+    private final ConcurrentLinkedQueue<Food> roomFood;
 
     public Room(int roomNumber, List<Food> roomFood) {
         this.roomNumber = roomNumber;
-        this.roomFood = roomFood;
+        this.roomFood = new ConcurrentLinkedQueue<>(roomFood);
     }
 
     public Food peekFood() {
-        synchronized (roomFood) {
-            return roomFood.remove(0);
-        }
+        log.info("Peek food from {}", this);
+        return roomFood.poll();
     }
 
     public boolean isFoodInTheRoom() {
-        synchronized (roomFood) {
-            return !roomFood.isEmpty();
+        if (roomFood.isEmpty()) {
+            log.info("{} is empty", this);
         }
+        return !roomFood.isEmpty();
     }
 
     @Override
