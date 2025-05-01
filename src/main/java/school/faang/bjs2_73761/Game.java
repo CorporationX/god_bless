@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 public class Game {
     private int score;
     private int lives;
-    private boolean isGameOver;
     private final Object scoreMonitor = new Object();
     private final Object livesMonitor = new Object();
 
@@ -36,6 +35,5 @@ public class Game {
 
     private void gameOver() {
         log.info("The game is over because you lost all your lives. Good luck next time!");
-        isGameOver = true;
     }
 }
