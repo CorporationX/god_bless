@@ -7,12 +7,12 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class TwitterSubscriptionSystem {
 
-    public void followAccount(TwitterAccount account) {
-        CompletableFuture.runAsync(() -> addFollower(account)).join();
+    public CompletableFuture<Integer> followAccount(TwitterAccount account) {
+        return CompletableFuture.supplyAsync(() -> addFollower(account));
     }
 
-    private void addFollower(TwitterAccount account) {
-        account.getFollowers().addAndGet(1);
+    private Integer addFollower(TwitterAccount account) {
+        return account.getFollowers().addAndGet(1);
     }
 
 }

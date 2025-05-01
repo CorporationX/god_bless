@@ -2,6 +2,7 @@ package school.faang.async.twitter;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -16,17 +17,17 @@ public class Main {
 
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
-        CompletableFuture<Void> future = CompletableFuture.allOf(generateFollowers(system, newAccount));
-
-        future.join();
+        CompletableFuture
+                .allOf(generateFollowers(system, newAccount).toArray(new CompletableFuture[0]))
+                .join();
 
         log.info("Total followers of {}: {}", newAccount.getUserName(), newAccount.getFollowers());
     }
 
-    private static CompletableFuture[] generateFollowers(TwitterSubscriptionSystem system, TwitterAccount account) {
+    private static List<CompletableFuture<Integer>> generateFollowers(TwitterSubscriptionSystem system,
+                                                                      TwitterAccount account) {
         return IntStream.range(0, FOLLOWERS_TO_GENERATE)
-                .mapToObj((follower) -> CompletableFuture.runAsync(() ->
-                        system.followAccount(account)))
-                .toArray(CompletableFuture[]::new);
+                .mapToObj((follower) -> system.followAccount(account))
+                .toList();
     }
 }
