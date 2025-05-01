@@ -11,7 +11,7 @@ public class Main {
     private static final int THREADS_COUNT = 2;
     private static final int PHOTOS_COUNT = 5;
     private static final int TERMINATION_TIMEOUT = 10;
-    private static ExecutorService executorService = Executors.newFixedThreadPool(THREADS_COUNT);
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREADS_COUNT);
 
     public static void main(String[] args) {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
