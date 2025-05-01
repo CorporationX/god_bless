@@ -14,7 +14,7 @@ public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public void processAllOrders(List<Order> orders) {
-        List<CompletableFuture<Void>> futureOrederList = orders.stream()
+        List<CompletableFuture<Order>> futureOrederList = orders.stream()
                 .map(this::processOrder)
                 .toList();
 
@@ -25,8 +25,8 @@ public class OrderProcessor {
         log.info("Amount of orders processed: {}", orders.size());
     }
 
-    private CompletableFuture<Void> processOrder(Order order) {
-        return CompletableFuture.runAsync(() -> {
+    private CompletableFuture<Order> processOrder(Order order) {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 log.info("Starting processing order {} with status {}", order.getId(), order.getStatus().name());
                 Thread.sleep(ORDER_PROCESS_TIME_MS);
@@ -37,7 +37,7 @@ public class OrderProcessor {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
+            return order;
         });
-
     }
 }
