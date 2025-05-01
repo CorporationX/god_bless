@@ -15,11 +15,8 @@ public class Factorial {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
             throw new IllegalArgumentException(String.format("number must be between 0 and %d", MAX_INT_FACTORIAL));
         }
-        if (n == 0) {
-            return 0;
-        }
-        if (n == 1) {
-            return 1;
+        if (n <= 1) {
+            return n;
         }
         return n * factorialInt(n - 1);
     }
@@ -28,22 +25,18 @@ public class Factorial {
         if (n < 0 || n > MAX_LONG_FACTORIAL) {
             throw new IllegalArgumentException(String.format("number must be between 0 and %d", MAX_LONG_FACTORIAL));
         }
-        if (n <= MAX_INT_FACTORIAL) {
-            return factorialInt(n);
-        } else {
-            return n * factorialLong(n - 1);
+        if (n <= 1) {
+            return n;
         }
+        return n * factorialLong(n - 1);
     }
 
     static BigInteger factorialBig(int n) throws IllegalArgumentException {
         if (n < 0) {
             throw new IllegalArgumentException("number must be greater than 0");
         }
-        if (n <= MAX_INT_FACTORIAL) {
-            return BigInteger.valueOf(factorialInt(n));
-        }
-        if (n <= MAX_LONG_FACTORIAL) {
-            return BigInteger.valueOf(factorialLong(n));
+        if (n <= 1) {
+            return BigInteger.valueOf(n);
         }
         return BigInteger.valueOf(n).multiply(factorialBig(n - 1));
     }
@@ -51,7 +44,14 @@ public class Factorial {
     public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
         return numbers.stream()
                 .filter(Objects::nonNull)
-                .map(num -> CompletableFuture.supplyAsync(() -> factorialBig(num), executor))
+                .map(num -> CompletableFuture.supplyAsync(() -> {
+                    if (num < MAX_INT_FACTORIAL) {
+                        return BigInteger.valueOf(factorialInt(num));
+                    } else if (num < MAX_LONG_FACTORIAL) {
+                        return BigInteger.valueOf(factorialLong(num));
+                    }
+                    return factorialBig(num);
+                }, executor))
                 .toList();
     }
 }

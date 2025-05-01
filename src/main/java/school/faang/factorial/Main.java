@@ -12,7 +12,7 @@ import static school.faang.factorial.ThreadPoolProvider.executor;
 @Slf4j
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        List<CompletableFuture<BigInteger>> factorialsFutures = Factorial.factorials(List.of(50, 100, 200, 300, 10));
+        List<CompletableFuture<BigInteger>> factorialsFutures = Factorial.factorials(List.of(20, 100, 200, 300, 10));
         CountDownLatch counter = new CountDownLatch(factorialsFutures.size());
 
         log.debug("Current val of counter = {}", counter.getCount());
