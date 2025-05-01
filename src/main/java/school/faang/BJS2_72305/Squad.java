@@ -9,8 +9,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Squad {
-    String name;
-    List<Unit> squadMembers = new ArrayList<>();
+    private String name;
+    private final List<Unit> squadMembers;
 
     public void addUnit(Unit unit) {
         squadMembers.add(unit);

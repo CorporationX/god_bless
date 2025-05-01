@@ -1,12 +1,15 @@
 package school.faang.BJS2_72305;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
 public class Army {
 
-    List<Squad> squads = new ArrayList<>();
+    private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
         squads.add(squad);
@@ -29,6 +32,7 @@ public class Army {
                 thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
 
