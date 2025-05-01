@@ -5,12 +5,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+    private final int WORKING_TIME = 1000;
 
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + " is doing " + chore);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(WORKING_TIME);
             System.out.println(Thread.currentThread().getName() + " finished " + chore);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
