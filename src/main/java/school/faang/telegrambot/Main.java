@@ -4,17 +4,33 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
     public static void main(String[] args) {
         TelegramBot telegramBot = new TelegramBot();
+
         ExecutorService executor = Executors.newFixedThreadPool(15);
 
         IntStream.range(0, 100)
-                .forEach(i -> executor.submit(() -> telegramBot.sendMessage("Message: " + i)));
+                .forEach(i -> {
+                    executor.submit(() -> telegramBot.sendMessage("Message: " + i));
+                    simulationDelay();
+                });
 
         telegramBot.terminatedExecutor(executor);
+    }
+
+    public static void simulationDelay() {
+        long millis = ThreadLocalRandom.current().nextLong(0, 1300);
+        try {
+            TimeUnit.MILLISECONDS.sleep(millis);
+        } catch (InterruptedException e) {
+            log.info("Поток прерван");
+            Thread.currentThread().interrupt();
+        }
     }
 }

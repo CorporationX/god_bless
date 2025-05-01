@@ -14,7 +14,6 @@ public class TelegramBot {
     private static final int ZERO_COUNTER = 0;
     private final AtomicInteger requestCounter;
     private volatile Instant lastRequestTime;
-    private final Object lock = new Object();
 
     public TelegramBot() {
         this.requestCounter = new AtomicInteger(0);
@@ -22,28 +21,33 @@ public class TelegramBot {
     }
 
     public void sendMessage(String message) {
-        synchronized (lock) {
+        synchronized (this) {
             Instant currentRequestTime = Instant.now();
             long timeDifference = currentRequestTime.toEpochMilli() - lastRequestTime.toEpochMilli();
 
             if (timeDifference < ONE_SECOND) {
+                log.info("Прошло меньше секунды");
                 if (requestCounter.incrementAndGet() > REQUEST_LIMIT) {
                     log.info("Запросы превышают лимит");
                     waitingNextSecondAndZeroingCounter(timeDifference);
                     requestCounter.incrementAndGet();
                     this.lastRequestTime = currentRequestTime;
                 }
+            } else {
+                log.info("Прошло больше секунды");
+                requestCounter.set(ZERO_COUNTER);
+                requestCounter.incrementAndGet();
+                this.lastRequestTime = currentRequestTime;
             }
         }
         log.info("Отправлен запрос: {}, счетчик равен: {}", message, requestCounter.get());
     }
 
-
-    protected void waitingNextSecondAndZeroingCounter(long timeDifference) {
+    private void waitingNextSecondAndZeroingCounter(long timeDifference) {
         try {
             log.info("Обнуляем счетчик и дожидаемся следующей секунды");
-            requestCounter.set(ZERO_COUNTER);
             TimeUnit.MILLISECONDS.sleep(ONE_SECOND - timeDifference);
+            requestCounter.set(ZERO_COUNTER);
         } catch (InterruptedException e) {
             log.error("Поток прерван", e);
             Thread.currentThread().interrupt();
@@ -51,9 +55,10 @@ public class TelegramBot {
     }
 
     public void terminatedExecutor(ExecutorService executor) {
-        executor.shutdown();
         try {
-            if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            TimeUnit.SECONDS.sleep(10);
+            executor.shutdown();
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
