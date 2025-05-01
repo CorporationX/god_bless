@@ -1,5 +1,6 @@
 package school.faang.pi;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,12 +12,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static school.faang.pi.ThreadPoolProvider.executor;
 
 @Slf4j
+@UtilityClass
 public class PiCalculator {
-    private AtomicInteger inside = new AtomicInteger(0);
     private static final double MIN_COORDINATES = 0.0;
     private static final double MAX_COORDINATES = 1.0;
 
     public double calculateNumberPi(int numberOfDots) {
+        AtomicInteger inside = new AtomicInteger(0);
+
         if (numberOfDots <= 0) {
             throw new IllegalArgumentException("Количество точек должно быть > 0");
         }
@@ -24,24 +27,22 @@ public class PiCalculator {
         for (int i = 0; i < numberOfDots; i++) {
             futures.add(CompletableFuture.supplyAsync(() -> new Point(getRandomNumBetween0And1(),
                             getRandomNumBetween0And1()), executor)
-                    .thenAccept(this::incrementInsideIfTrue));
+                    .thenAccept(point -> {
+                        if (point.isInsideCircle()) {
+                            inside.incrementAndGet();
+                        }
+                    }));
         }
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         log.debug("All dots generated and assessed");
-        return getResultOfPi(numberOfDots);
+        return getResultOfPi(numberOfDots, inside.get());
     }
 
     private double getRandomNumBetween0And1() {
         return ThreadLocalRandom.current().nextDouble(MIN_COORDINATES, MAX_COORDINATES);
     }
 
-    private void incrementInsideIfTrue(Point point) {
-        if (point.isInsideCircle()) {
-            inside = new AtomicInteger(inside.incrementAndGet());
-        }
-    }
-
-    private double getResultOfPi(int numberOfDots) {
-        return 4 * inside.get() / (double) numberOfDots;
+    private double getResultOfPi(int numberOfDots, int numberOfInsideDots) {
+        return 4 * numberOfInsideDots / (double) numberOfDots;
     }
 }
