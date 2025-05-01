@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class TwitterSubscriptionSystem {
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public synchronized void addFollower(TwitterAccount account) {
+    public void addFollower(TwitterAccount account) {
         account.addFollower();
     }
 
