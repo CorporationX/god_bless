@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Music {
-    private static ExecutorService executorService = Executors.newCachedThreadPool();
+    private static final int TERMINATION_TIMEOUT = 10;
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static void main(String[] args) {
         Player player = new Player();
@@ -23,7 +24,7 @@ public class Music {
         log.info("Start disposing executor service");
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TERMINATION_TIMEOUT, TimeUnit.SECONDS)) {
                 log.warn("Not all tasks was stopped successfully");
                 executorService.shutdownNow();
             }
