@@ -8,3 +8,4 @@ public class Main {
         Factorial.calculate(numbers);
     }
 }
+
