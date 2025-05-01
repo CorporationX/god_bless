@@ -4,36 +4,36 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 @Slf4j
 public class MagicalTournament {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
-        // Создание школ
         List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
         List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+
+        Task task1 = Task.builder()
+                .name("Triwizard Tournament")
+                .difficulty(10)
+                .reward(100)
+                .build();
+        Task task2 = Task.builder()
+                .name("Yule Ball Preparations")
+                .difficulty(5)
+                .reward(50)
+                .build();
 
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+        School winner = hogwartsTask.thenCombine(beauxbatonsTask,
+                        (school1, school2) -> school1.getTotalPoints() >= school2.getTotalPoints() ? school1 : school2)
+                .join();
 
-        CompletableFuture<List<School>> combined = allTasks.thenApply(v ->
-                Stream.of(hogwartsTask, beauxbatonsTask)
-                        .map(CompletableFuture::join)
-                        .sorted((school1, school2) ->
-                                school1.getTotalPoints() >= school2.getTotalPoints() ? -1 : 1)
-                        .toList());
-
-        List<School> sortedResults = combined.join();
-        sortedResults.forEach(school ->
-                log.info("{} school has gained {} points", school.getName(), school.getTotalPoints()));
+        log.info("{} school has won with {} points", winner.getName(), winner.getTotalPoints());
     }
 }

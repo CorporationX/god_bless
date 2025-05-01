@@ -11,7 +11,8 @@ public class Tournament {
 
             return CompletableFuture.supplyAsync(() -> {
                 school.getTeam()
-                        .forEach(student -> student.updatePoints(task.getReward()));
+                        .forEach(student ->
+                                student.updatePoints(task.getReward() / school.getTeam().size()));
                 return school;
             });
         } catch (InterruptedException e) {
