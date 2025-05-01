@@ -9,6 +9,7 @@ public class MasterCardService {
 
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int DEFAULT = -1;
 
     static int collectPayment() {
         try {
@@ -16,7 +17,8 @@ public class MasterCardService {
             return 5_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван, возвращаем дефолт");
+            return DEFAULT;
         }
     }
 
@@ -26,7 +28,8 @@ public class MasterCardService {
             return 17_000;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван, возвращаем дефолт");
+            return DEFAULT;
         }
     }
 
