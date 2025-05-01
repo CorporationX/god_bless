@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class Tournament {
     private School modifyStudentsPoints(School school, int aditionalPoints) {
         school.getStudents()
                 .stream()
-                .forEach(student -> student.setPoints(student.getPoints() + aditionalPoints));
+                .forEach(student -> student.getPoints().addAndGet(aditionalPoints));
         return school;
     }
 }

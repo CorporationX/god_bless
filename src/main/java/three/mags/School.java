@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Getter
@@ -19,6 +20,6 @@ public class School {
             log.error("Students list in school {} is null or empty!", name);
             throw new IllegalArgumentException();
         }
-        return students.stream().mapToInt(Student::getPoints).sum();
+        return students.stream().map(Student::getPoints).mapToInt(AtomicInteger::get).sum();
     }
 }

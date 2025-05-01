@@ -9,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
@@ -16,11 +17,11 @@ public class Main {
     private static final int POOL_SIZE = 4;
     private static final int TIMEOUT = 10;
     private static List<Student> firstClas = new ArrayList<>(Arrays.asList(
-            new Student("Harry", 16, 100),
-            new Student("Vasea", 17, 150)));
+            new Student("Harry", 16, new AtomicInteger(300)),
+            new Student("Vasea", 17, new AtomicInteger(150))));
     private static List<Student> secondClas = new ArrayList<>(Arrays.asList(
-            new Student("Vovan", 15, 120),
-            new Student("Leya", 18, 250)));
+            new Student("Vovan", 15, new AtomicInteger(100)),
+            new Student("Leya", 18, new AtomicInteger(250))));
 
     public static void main(String[] args) {
         executor = Executors.newFixedThreadPool(POOL_SIZE);
