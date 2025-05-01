@@ -11,27 +11,37 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 @Slf4j
 public class House {
+    private static final Room ABSENT_ROOM = new Room(-1, Collections.emptyList());
     private final List<Room> rooms;
     private final AtomicInteger roomsCounter = new AtomicInteger();
     private final List<Food> collectedFood = new ArrayList<>();
     private final Object lock = new Object();
+    private boolean isClear = false;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
         Collections.shuffle(rooms);
     }
 
-    public boolean hasNextRoom() {
+    private boolean hasNextRoom() {
         return roomsCounter.get() < rooms.size();
     }
 
-    public synchronized Room gettingRoom() {
-        if (hasNextRoom()) {
-            log.info("Назначена для уборки комната из списка под индексом {}", roomsCounter.get());
-            return rooms.get(roomsCounter.getAndIncrement());
+    private synchronized Room gettingRoom() {
+        try {
+            if (hasNextRoom()) {
+                log.info("Назначена для уборки комната из списка под индексом {}", roomsCounter.get());
+                return rooms.get(roomsCounter.getAndIncrement());
+            }
+            log.info("Грязных комнат больше нет");
+            this.isClear = true;
+            return ABSENT_ROOM;
+        } finally {
+            if (!hasNextRoom()) {
+                this.isClear = true;
+                log.info("меняем флаг состояния дома на {}", this.isClear);
+            }
         }
-        log.info("Комнат больше нет, провести проверку");
-        return null;
     }
 
     public void collectFood() {
@@ -47,9 +57,5 @@ public class House {
             collectedFood.addAll(roomTwo.clearRoom());
             log.info("Собрали еду из комнаты № {}", roomTwo.getRoomNumber());
         }
-    }
-
-    public boolean checkCollectedFood() {
-        return rooms.stream().allMatch(room -> room.getFoods().isEmpty());
     }
 }
