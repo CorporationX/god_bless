@@ -31,7 +31,6 @@ public class PointService {
                 if (point.isInsideCircle()) {
                     inside.incrementAndGet();
                 }
-
                 return point;
             }, service);
             completableFutureList.add(future);
