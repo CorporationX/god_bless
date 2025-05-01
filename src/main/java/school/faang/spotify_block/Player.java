@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Player {
 
-    final Object lock = new Object();
-    Boolean isPlaying = true;
+    private final Object lock = new Object();
+    private Boolean isPlaying = true;
 
     public void play() {
         synchronized (lock) {
