@@ -47,8 +47,7 @@ public class MasterCardService {
             if (!executor.awaitTermination(WAIT_TIME, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
-        } catch (
-                InterruptedException e) {
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException();
         }
