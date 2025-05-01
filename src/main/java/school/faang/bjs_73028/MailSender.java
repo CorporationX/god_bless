@@ -23,3 +23,4 @@ public class MailSender {
         System.out.println("Все письма отправлены!");
     }
 }
+
