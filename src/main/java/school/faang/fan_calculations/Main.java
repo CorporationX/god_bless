@@ -15,7 +15,9 @@ public class Main {
     }
 
     private static void launch() {
-        List<SquareRequest> squareRequests = LongStream.range(0, 1000).mapToObj(SquareRequest::new).toList();
+        List<SquareRequest> squareRequests = LongStream.range(0, 1000)
+                .mapToObj(SquareRequest::new)
+                .toList();
         Long result = fanOutFanIn(squareRequests, resultConsumer);
         ThreadPoolProvider.gracefullyShutdown();
         log.info("Result: " + result);
@@ -23,8 +25,7 @@ public class Main {
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         List<CompletableFuture<Void>> list = requests.stream()
-                .map(request -> CompletableFuture.runAsync(() ->
-                {
+                .map(request -> CompletableFuture.runAsync(() -> {
                     try {
                         request.longTimeSquare(resultConsumer);
                     } catch (Throwable e) {
