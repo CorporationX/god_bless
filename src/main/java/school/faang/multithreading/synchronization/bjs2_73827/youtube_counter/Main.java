@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
@@ -15,16 +16,14 @@ public class Main {
         VideoManager videoManager = new VideoManager();
 
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
-        for (int i = 0; i < NUM_VIDEOS; i++) {
-            for (int j = 0; j < NUM_THREADS; j++) {
-                String videoName = String.format("Video number %d", i);
-                executorService.submit(() -> {
-                    videoManager.addView(videoName);
-                    log.info("{} has {} views", videoName, videoManager.getViewCount(videoName));
-                }
-                );
-            }
-        }
+        IntStream.range(0, NUM_VIDEOS).forEach(i ->
+                IntStream.range(0, NUM_THREADS).forEach(j -> {
+                    String videoName = String.format("Video number %d", i);
+                    executorService.submit(() -> {
+                        videoManager.addView(videoName);
+                        log.info("{} has {} views", videoName, videoManager.getViewCount(videoName));
+                    });
+                }));
 
         executorService.shutdown();
 
