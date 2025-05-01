@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Chore implements Runnable {
+    private static final int WORKING_TIME = 1000;
     private String chore;
-    private final int WORKING_TIME = 1000;
 
     @Override
     public void run() {

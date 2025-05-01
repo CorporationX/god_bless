@@ -5,8 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int MAX_WAIT_MINUTES = 2;
+
     public static void main(String[] args) {
-        final int MAX_WAIT_MINUTES = 2;
+
         String[] choreNames = {
                 "Wash the dishes",
                 "Iron the clothes",
