@@ -4,33 +4,49 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Slf4j
 public class House {
-    private final List<Room> rooms = new ArrayList<>();
-    public final List<Food> collectedFood = new ArrayList<>();
+    private final List<Room> rooms;
+    private final AtomicInteger roomsCounter = new AtomicInteger();
+    private final List<Food> collectedFood = new ArrayList<>();
+    private final Object lock = new Object();
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+        Collections.shuffle(rooms);
+    }
+
+    public boolean hasNextRoom() {
+        return roomsCounter.get() < rooms.size();
+    }
+
+    public synchronized Room gettingRoom() {
+        if (hasNextRoom()) {
+            log.info("Назначена для уборки комната из списка под индексом {}", roomsCounter.get());
+            return rooms.get(roomsCounter.getAndIncrement());
+        }
+        log.info("Комнат больше нет, провести проверку");
+        return null;
     }
 
     public void collectFood() {
-        Room roomOne = rooms.get(ThreadLocalRandom.current().nextInt(rooms.size()));
-        Room roomTwo;
-        do {
-            roomTwo = rooms.get(ThreadLocalRandom.current().nextInt(rooms.size()));
-        } while (roomOne == roomTwo);
-
+        Room roomOne = gettingRoom();
+        Room roomTwo = gettingRoom();
         log.info("Рандомно выбрали комнаты №№ [{} и {}]", roomOne.getRoomNumber(), roomTwo.getRoomNumber());
 
-        collectedFood.addAll(roomOne.clearRoom());
-        log.info("Собрали еду из комнаты № {}", roomOne.getRoomNumber());
-
-        collectedFood.addAll(roomTwo.clearRoom());
-        log.info("Собрали еду из комнаты № {}", roomTwo.getRoomNumber());
+        synchronized (lock) {
+            collectedFood.addAll(roomOne.clearRoom());
+            log.info("Собрали еду из комнаты № {}", roomOne.getRoomNumber());
+        }
+        synchronized (lock) {
+            collectedFood.addAll(roomTwo.clearRoom());
+            log.info("Собрали еду из комнаты № {}", roomTwo.getRoomNumber());
+        }
     }
 
     public boolean checkCollectedFood() {

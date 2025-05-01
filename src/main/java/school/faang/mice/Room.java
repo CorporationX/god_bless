@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @ToString
-@AllArgsConstructor
 public class Room {
     private final int roomNumber;
     private final List<Food> foods = new ArrayList<>();
@@ -18,6 +17,11 @@ public class Room {
         List<Food> listFood = new ArrayList<>(foods);
         foods.clear();
         return listFood;
+    }
+
+    public Room(int roomNumber, List<Food> foods) {
+        this.roomNumber = roomNumber;
+        this.foods.addAll(foods);
     }
 
     public void addFood(Food food) {
