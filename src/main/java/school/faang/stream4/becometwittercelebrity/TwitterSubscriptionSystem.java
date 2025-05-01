@@ -1,6 +1,15 @@
 package school.faang.stream4.becometwittercelebrity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+
+@Data
+@AllArgsConstructor
 public class TwitterSubscriptionSystem {
+    ExecutorService executorService;
 
     public void addFollower(TwitterAccount account) {
         synchronized (account) {
@@ -9,11 +18,12 @@ public class TwitterSubscriptionSystem {
         }
     }
 
-    public void followAccount(TwitterAccount account) {
-        //Используйте CompletableFuture для асинхронного запуска задач внутри метода followAccount.
-
+    public CompletableFuture<TwitterAccount> followAccount(TwitterAccount follower, TwitterAccount account) {
+        return CompletableFuture.supplyAsync(() -> {
+            follower.addSubscription(account);
+            addFollower(account);
+            return account;
+        }, executorService);
     }
 
-    //Запустите несколько задач подписки на одну учетную запись, ожидайте завершения всех задач
-    //с помощью CompletableFuture.allOf() и выведите количество подписчиков учетной записи.
 }
