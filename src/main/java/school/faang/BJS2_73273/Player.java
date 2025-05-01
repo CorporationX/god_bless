@@ -27,13 +27,13 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (lock){
+        synchronized (lock) {
             System.out.println("Музыка пераскочыла на наступны трэк...");
         }
     }
 
     public void previous() {
-        synchronized (lock){
+        synchronized (lock) {
             System.out.println("Музыка вярнулася на папярэдні трэк...");
         }
     }
