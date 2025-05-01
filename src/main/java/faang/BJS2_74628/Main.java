@@ -1,5 +1,7 @@
 package faang.BJS2_74628;
 
+import java.util.concurrent.CompletableFuture;
+
 public class Main {
     public static void main(String[] args) {
         final Player firstPlayer = new Player("Daniyal", 1);
@@ -10,15 +12,15 @@ public class Main {
 
         final QuestSystem questSystem = new QuestSystem();
 
-        questSystem.startQuest(firstPlayer, quest)
+        CompletableFuture<Void> firstPlayerTask = questSystem.startQuest(firstPlayer, quest)
                 .thenApply(Player::getExperience)
-                .thenAccept(experience -> System.out.println("Experience: " + experience))
-                .join();
+                .thenAccept(experience -> System.out.println("Experience: " + experience));
 
-        questSystem.startQuest(secondPlayer, quest2)
+        CompletableFuture<Void> secondPlayerTask = questSystem.startQuest(secondPlayer, quest2)
                 .thenApply(Player::getExperience)
-                .thenAccept(experience -> System.out.println("Experience: " + experience))
-                .join();
+                .thenAccept(experience -> System.out.println("Experience: " + experience));
+
+        CompletableFuture.allOf(firstPlayerTask, secondPlayerTask).join();
     }
 }
 
