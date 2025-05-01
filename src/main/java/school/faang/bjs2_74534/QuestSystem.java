@@ -6,12 +6,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 @Slf4j
 public class QuestSystem {
     public static final String PLAYER_IS_EMPTY = "player is empty";
     public static final String QUEST_IS_EMPTY = "quest is empty";
-    private static final long MILLIS = 1000;
+
+    private static final Function<Integer, Integer> QUEST_TIME_CALCULATOR = difficulty -> difficulty * 1000;
+
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
@@ -20,9 +23,9 @@ public class QuestSystem {
             player.getName(), player.getExperience(), quest.name(), quest.reward());
         return CompletableFuture.supplyAsync(() -> {
             try {
-                log.info("player \"{}\" solving quest \"{}\" \"{}\" sec",
+                log.info("player \"{}\" solving quest \"{}\" \"{}\" sec.",
                     player.getName(), quest.name(), quest.difficulty());
-                Thread.sleep(quest.difficulty() * MILLIS);
+                Thread.sleep(QUEST_TIME_CALCULATOR.apply(quest.difficulty()));
             } catch (InterruptedException e) {
                 log.error("start quest interrupted: {}", e.getMessage(), e);
                 Thread.currentThread().interrupt();
