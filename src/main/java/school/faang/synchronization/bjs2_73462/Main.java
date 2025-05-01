@@ -2,10 +2,7 @@ package school.faang.synchronization.bjs2_73462;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -16,8 +13,6 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 5;
 
     public static void main(String[] args) {
-        Collections.shuffle(ROOMS_WITH_FOOD);
-        BlockingDeque<Room> randomRooms = new LinkedBlockingDeque<>(ROOMS_WITH_FOOD);
         House house = new House(ROOMS_WITH_FOOD);
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
@@ -25,7 +20,7 @@ public class Main {
 
         for (int counter = 0; counter < THREAD_POOL_SIZE; counter++) {
             executorService.scheduleAtFixedRate(() -> {
-                house.collectFood(randomRooms);
+                house.collectFood();
                 if (house.allFoodCollected()) {
                     executorService.shutdown();
                 }
