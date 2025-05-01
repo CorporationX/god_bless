@@ -37,4 +37,3 @@ class FoodDeliveryTask implements Runnable {
         System.out.println(character + " ест " + foodAmount + " " + foodType.toString().toLowerCase() + "(ов).");
     }
 }
-\\
