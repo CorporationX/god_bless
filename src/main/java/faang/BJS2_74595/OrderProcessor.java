@@ -4,8 +4,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static faang.BJS2_74595.OrderStatus.*;
+
 public class OrderProcessor {
-    private static final String PROCESSED_STATUS = "processed";
     private static final long PROCESSED_ORDERS_TIME_IN_SECONDS = 2;
     private final AtomicInteger totalProcessedOrders = new AtomicInteger();
 
@@ -13,7 +14,7 @@ public class OrderProcessor {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(PROCESSED_ORDERS_TIME_IN_SECONDS);
-                order.setStatus(PROCESSED_STATUS);
+                order.setStatus(PROCESSED);
                 totalProcessedOrders.incrementAndGet();
                 return order;
             } catch (InterruptedException e) {

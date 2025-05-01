@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static faang.BJS2_74595.OrderStatus.*;
+
 public class Main {
     private static final int ORDERS_COUNT = 10;
-    private static final String NOT_PROCESSED_STATUS = "not processed";
 
     public static void main(String[] args) {
         final OrderProcessor orderProcessor = new OrderProcessor();
@@ -15,7 +16,7 @@ public class Main {
 
         for (int i = 0; i < ORDERS_COUNT; i++) {
             CompletableFuture<Order> processedOrder =
-                    orderProcessor.processOrder(new Order(i, NOT_PROCESSED_STATUS));
+                    orderProcessor.processOrder(new Order(i, NEW));
             processedOrders.add(processedOrder);
         }
 
