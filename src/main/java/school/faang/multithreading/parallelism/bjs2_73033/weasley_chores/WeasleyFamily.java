@@ -1,4 +1,4 @@
-package school.faang.multithreading.parallelism.bjs2_73033;
+package school.faang.multithreading.parallelism.bjs2_73033.weasley_chores;
 
 import lombok.extern.slf4j.Slf4j;
 
