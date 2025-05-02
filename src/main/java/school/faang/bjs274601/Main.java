@@ -3,10 +3,13 @@ package school.faang.bjs274601;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
     private static final int WAITING_TIME = 10_000;
+    private static final  int THREAD_COUNT = 3;
 
     public static void main(String[] args) {
         Player illidan = new Player("Illidan");
