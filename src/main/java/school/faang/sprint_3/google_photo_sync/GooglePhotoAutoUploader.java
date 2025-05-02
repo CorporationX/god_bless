@@ -11,10 +11,11 @@ public class GooglePhotoAutoUploader {
     private final Object lock = new Object();
     private static List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload() {
+    public void startAutoUpload() throws InterruptedException {
         do {
             synchronized (lock) {
                 Objects.requireNonNull(photosToUpload, "Nothing to Upload");
+                lock.wait();
                 uploadPhotos();
             }
         } while (true);
