@@ -22,7 +22,7 @@ public class Boss {
 
     public void joinBattle(Player player) throws InterruptedException {
         synchronized (lock) {
-            if (maxPlayers == currentPlayers) {
+            while (maxPlayers == currentPlayers) {
                 lock.wait();
             }
             currentPlayers++;
