@@ -1,17 +1,17 @@
 package school.faang.bjs_73001;
 
 public class CashierThread extends Thread {
-    private final int cashierld;
-    private final int[] customerItems;
+    public final int cashierId;
+    public final int[] customerItems;
 
-    public CashierThread(int cashierld, int[] customerItems) {
-        this.cashierld = cashierld;
+    public CashierThread(int cashierId, int[] customerItems) {
+        this.cashierId = cashierId;
         this.customerItems = customerItems;
     }
 
     public void run() {
         String cashierId = "";
-        System.out.println("Кассир " + cashierId + " начал обслуживание покупателя с " + customerItems.length + " товарами.");
+        System.out.printf("Кассир %s начал обслуживание покупателя c %d товарами.%n", cashierId, customerItems.length);
 
         int totalItems = 0;
         int totalPrice = 0;
@@ -27,6 +27,6 @@ public class CashierThread extends Thread {
             }
         }
 
-        System.out.println("Кассир " + cashierId + " завершил обслуживание. Обработано товаров: " + totalItems + ", общая стоимость: " + totalPrice);
+        System.out.printf("Кассир %s завершил обслуживание. Обработано товаров: %d, общая стоимость: %d%n", cashierId, totalItems, totalPrice);
     }
 }
