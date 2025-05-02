@@ -1,21 +1,25 @@
 package school.faang.bjs2_75935;
 
-import school.faang.bjs2_69541.Category;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.BiFunction;
 
 public class PostService {
     private static final String TITLE_IS_EMPTY = "Title is empty";
     private static final String AUTHOR_IS_EMPTY = "Author is empty";
     private static final String CONTENT_IS_EMPTY = "Content is empty";
+
+    private static final BiFunction<List<Post>, Integer, Optional<Post>> GET_POST_BY_ID =
+        (posts, postId) -> posts.stream()
+            .filter(Objects::nonNull)
+            .filter(post -> post.getId() == postId)
+            .findFirst();
 
     private final AtomicInteger postId = new AtomicInteger(0);
     private final List<Post> posts = new ArrayList<>();
@@ -40,10 +44,7 @@ public class PostService {
     public Optional<Post> findPostById(Integer postId) {
         postLock.lock();
         try {
-            return posts.stream()
-                .filter(Objects::nonNull)
-                .filter(post -> post.getId() == postId)
-                .findFirst();
+            return GET_POST_BY_ID.apply(posts, postId);
         } finally {
             postLock.unlock();
         }
@@ -77,15 +78,17 @@ public class PostService {
      */
     //Содержать метод **addComment(int postId, Comment comment)**, который добавляет комментарий к посту по его идентификатору. Для обеспечения безопасности данных при добавлении комментариев также используйте блокировку **(lock)**.
     public void addComment(Integer postId, String text, Author author) {
-        findPostById(postId).ifPresent(post -> {
-            postLock.lock();
-            try {
-                //todo: ??? сделать проверку комментария здесь или в классе Comment ???
-                post.addComment(....);
-            } finally {
-                postLock.unlock();
-            }
-        });
+        //findPostById(postId).ifPresent(post -> {
+        Comment comment = new Comment(text, author, LocalDateTime.now());
+        postLock.lock();
+        try {
+            GET_POST_BY_ID.apply(posts, postId).ifPresent(
+                post -> post.getComments().add(comment)
+            );
+        } finally {
+            postLock.unlock();
+        }
+        //});
     }
 
     //Список всех комментариев по конкретному посту
