@@ -8,16 +8,16 @@ public class Game {
     private int lives = 10;
     private Object scoreLock = new Object();
     private Object livesLock = new Object();
-    private volatile boolean gameOver = false;
+    private volatile boolean isGameOver = false;
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
-        if (gameOver) {
+        if (isGameOver) {
             return;
         }
 
         if (isPointsEarned) {
             synchronized (scoreLock) {
-                if (gameOver) {
+                if (isGameOver) {
                     return;
                 }
                 score++;
@@ -27,7 +27,7 @@ public class Game {
 
         if (isLifeLost) {
             synchronized (livesLock) {
-                if (gameOver) {
+                if (isGameOver) {
                     return;
                 }
                 lives--;
@@ -40,9 +40,9 @@ public class Game {
     }
 
     private void gameOver() {
-        if (!gameOver) {
+        if (!isGameOver) {
             System.out.println("Game Over. Your scores: " + score);
-            gameOver = true;
+            isGameOver = true;
         }
     }
 }
