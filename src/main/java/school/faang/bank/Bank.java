@@ -23,10 +23,13 @@ public class Bank {
             return false;
         }
 
-        synchronized (fromAccount) {
+        Account firstLock = fromAccount.getId() < toAccount.getId() ? fromAccount : toAccount;
+        Account secondLock = fromAccount.getId() < toAccount.getId() ? toAccount : fromAccount;
+
+        synchronized (firstLock) {
             log.debug("Thread: {}, executing transfer(), entered synchronized (fromAccount)",
                     Thread.currentThread().getName());
-            synchronized (toAccount) {
+            synchronized (secondLock) {
                 log.debug("Thread: {}, executing transfer(), entered synchronized (toAccount)",
                         Thread.currentThread().getName());
                 if (fromAccount.getBalance() < amount) {
