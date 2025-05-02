@@ -2,10 +2,8 @@ package school.faang.bjs2_74534;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class Main {
@@ -18,23 +16,19 @@ public class Main {
         Quest firstQuest = new Quest("Defeat the Lich King", 10, 150);
         Quest secondQuest = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-        List<CompletableFuture<Player>> workingQuest = List.of(
-            questSystem.startQuest(firstPlayer, firstQuest),
-            questSystem.startQuest(firstPlayer, secondQuest),
-            questSystem.startQuest(secondPlayer, secondQuest)
-        );
-
-        //workingQuest.forEach(playerQuest -> playerQuest.thenAccept(questSystem::onQuestCompletion));
-        //workingQuest.forEach(CompletableFuture::join);
-
-        Set<Player> players = workingQuest.stream()
-            .peek(future -> future.thenAccept(questSystem::onQuestCompletion)
-                .exceptionally(er -> {
-                    log.error(er.getMessage());
-                    return null;
-                }))
-            .map(CompletableFuture::join)
-            .collect(Collectors.toSet());
+        CompletableFuture.allOf(
+                Stream.of(questSystem.startQuest(firstPlayer, firstQuest),
+                        questSystem.startQuest(firstPlayer, secondQuest),
+                        questSystem.startQuest(secondPlayer, secondQuest)
+                    )
+                    .map(future -> future.thenAccept(questSystem::onQuestCompletion)
+                        .exceptionally(er -> {
+                            log.error(er.getMessage());
+                            return null;
+                        }))
+                    .toArray(CompletableFuture[]::new)
+            )
+            .join();
 
         questSystem.shutdown();
     }

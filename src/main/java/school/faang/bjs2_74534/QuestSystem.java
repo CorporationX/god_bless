@@ -12,6 +12,7 @@ import java.util.function.Function;
 public class QuestSystem {
     public static final String PLAYER_IS_EMPTY = "player is empty";
     public static final String QUEST_IS_EMPTY = "quest is empty";
+    public static final String QUEST_ERROR = "quest error";
 
     private static final String TASK_RESULT = "{} has completed the quest and now has {} experience points.";
     private static final Function<Integer, Integer> QUEST_TIME_CALCULATOR = difficulty -> difficulty * 1000;
@@ -30,7 +31,7 @@ public class QuestSystem {
             } catch (InterruptedException e) {
                 log.error("quest interrupted: {}", e.getMessage(), e);
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                throw new QuestCompletionException(QUEST_ERROR);
             }
             return player.addExperience(quest.reward());
         }, executor);
