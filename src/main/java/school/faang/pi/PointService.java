@@ -15,14 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PointService {
     private static final int FIXED_THREAD = 100;
 
-    public static void calculate(int n) throws ExecutionException, InterruptedException {
+    public static void calculate(int countPoint) throws ExecutionException, InterruptedException {
 
         AtomicInteger inside = new AtomicInteger(0);
         ExecutorService service = Executors.newFixedThreadPool(FIXED_THREAD);
 
         List<CompletableFuture<Point>> completableFutureList = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < countPoint; i++) {
             CompletableFuture<Point> future = CompletableFuture.supplyAsync(() -> {
                 double x = ThreadLocalRandom.current().nextDouble();
                 double y = ThreadLocalRandom.current().nextDouble();
@@ -41,10 +41,11 @@ public class PointService {
         );
 
         CompletableFuture<Double> atomicIntegerCompletableFuture =
-                voidCompletableFuture.thenApply(v -> 4.0 * inside.get() / n);
+                voidCompletableFuture.thenApply(v -> 4.0 * inside.get() / countPoint);
         service.shutdown();
 
         double pi = atomicIntegerCompletableFuture.get();
+
         log.info("число pi - {}", pi);
     }
 }
