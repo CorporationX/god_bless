@@ -5,12 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlaying = Boolean.FALSE;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
-            if (isPlaying == Boolean.FALSE) {
-                isPlaying = Boolean.TRUE;
+            if (!isPlaying) {
+                isPlaying = true;
                 log.info("Playing started");
             } else {
                 log.info("Playing already started");
@@ -20,8 +20,8 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            if (isPlaying == Boolean.TRUE) {
-                isPlaying = Boolean.FALSE;
+            if (isPlaying) {
+                isPlaying = false;
                 log.info("Playing stopped");
             } else {
                 log.info("Playing already stopped");
