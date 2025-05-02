@@ -30,7 +30,6 @@ public class PostService {
      */
     //Содержать метод **addPost(Post post)**, который добавляет пост в список. Используйте блокировку **(lock)** для обеспечения безопасности данных.
     public void addPost(String title, String content, Author author) {
-        validatePostData(title, content, author);
         Post post = new Post(getPostId(), title, content, author);
         postLock.lock();
         try {
