@@ -12,5 +12,6 @@ public class Main {
         CompletableFuture<Player> player2Quest = QuestSystem.startQuest(player2, quest2);
         player1Quest.join();
         player2Quest.join();
+        QuestSystem.shutdown();
     }
 }

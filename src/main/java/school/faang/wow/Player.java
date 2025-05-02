@@ -10,5 +10,5 @@ import lombok.Setter;
 public class Player {
     private String name;
     private int level;
-    private int experience;
+    private volatile int experience;
 }
