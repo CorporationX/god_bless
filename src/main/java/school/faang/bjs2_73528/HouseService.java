@@ -13,8 +13,6 @@ public class HouseService {
     private final House house;
 
     public void collectFood() {
-
-        // Получаем еду из первых двух комнат
         List<Food> foods = house.getRooms().stream()
                 .sorted(Comparator.comparingInt(r -> ThreadLocalRandom.current().nextInt()))
                 .limit(2)
