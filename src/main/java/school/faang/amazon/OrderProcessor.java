@@ -36,7 +36,6 @@ public class OrderProcessor {
                 .filter(Objects::nonNull)
                 .map(this::processOrder)
                 .toList();
-
         CompletableFuture.allOf(list.toArray(new CompletableFuture[0])).join();
         log.info("Number of orders processed - {}", totalProcessedOrders.get());
     }
