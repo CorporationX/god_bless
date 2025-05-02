@@ -12,7 +12,7 @@ public class Pig1Thread extends PigThread {
     public void run() {
         log.info("{} начал строить дом из {}", pigName, material);
         try {
-            Thread.sleep(1000); // 1 секунда на строительство
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
