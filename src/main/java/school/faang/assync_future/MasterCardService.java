@@ -14,11 +14,13 @@ public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
     private static final int MAX_WAIT_MINUTES = 1;
+    private static final int PAYMENT_TEST_VALUE = 5_000;
+    private static final int ANALYTICS_TEST_VALUE = 17_000;
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return PAYMENT_TEST_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -28,7 +30,7 @@ public class MasterCardService {
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return ANALYTICS_TEST_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -38,7 +40,8 @@ public class MasterCardService {
     static void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics,
+                executor);
 
         Integer analyticsResult = analyticsFuture.join();
         log.info("Аналитика отправлена: {}", analyticsResult);
