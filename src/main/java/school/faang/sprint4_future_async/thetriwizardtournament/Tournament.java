@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Tournament {
 
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
+    private final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public CompletableFuture<School> startTask(School school, Task task) {
         log.info("Начато выполнение задачи '{}' для школы {}", task.getName(), school.getName());
@@ -24,17 +24,17 @@ public class Tournament {
             school.getStudents()
                     .forEach(student -> student.addPoints(task.getReward()));
             return school;
-        }, EXECUTOR);
+        }, executor);
     }
 
     public void shutdown() {
-        EXECUTOR.shutdown();
+        executor.shutdown();
         try {
-            if (!EXECUTOR.awaitTermination(1, TimeUnit.SECONDS)) {
-                EXECUTOR.shutdownNow();
+            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            EXECUTOR.shutdownNow();
+            executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
