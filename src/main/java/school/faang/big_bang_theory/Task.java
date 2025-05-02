@@ -20,6 +20,7 @@ public class Task implements Runnable {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("Выполнение задачи прервалось из-за непридвиденной ошибки {}", e.getMessage());
+            return;
         }
         log.info("{} выполнено", task);
     }
