@@ -32,5 +32,4 @@ public class GooglePhotosAutoUploader {
             lock.notifyAll();
         }
     }
-
 }
