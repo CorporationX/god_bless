@@ -20,11 +20,10 @@ public class WalmartSimulation {
         CashierThread[] cashiers = new CashierThread[customers.length];
 
         for (int i = 0; i < customers.length; i++) {
-            int cashierId = random.nextInt(NUM_OF_CASHIERS) + 1; // Касса 1–3
+            int cashierId = random.nextInt(NUM_OF_CASHIERS) + 1;
             cashiers[i] = new CashierThread(cashierId, customers[i]);
             cashiers[i].start();
         }
-
         for (CashierThread cashier : cashiers) {
             cashier.join();
         }

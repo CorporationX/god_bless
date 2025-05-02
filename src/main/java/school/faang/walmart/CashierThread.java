@@ -21,10 +21,10 @@ public class CashierThread extends Thread {
 
         for (int item : customerItems) {
             totalItems++;
-            totalPrice += item * 10; // Каждый товар условно стоит 10 единиц
+            totalPrice += item * 10;
 
             try {
-                Thread.sleep(500); // Симуляция обработки одного товара (0.5 секунды)
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
