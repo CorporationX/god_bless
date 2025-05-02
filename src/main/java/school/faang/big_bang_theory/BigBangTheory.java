@@ -1,31 +1,44 @@
 package school.faang.big_bang_theory;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class BigBangTheory {
+    private static final int THREADS_AMOUNT = 4;
+    private static final int TIMEOUT_SECONDS = 10;
+
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
-        Task firstTask = new Task("Sheldon ", "theory preparation");
-        Task secondTask = new Task("Leonard ", "experiment modeling");
-        Task thirdTask = new Task("Howard ", "tool development");
-        Task fourthTask = new Task("Rajesh ", "data analysis");
-        executor.execute(firstTask);
-        executor.execute(secondTask);
-        executor.execute(thirdTask);
-        executor.execute(fourthTask);
+        ExecutorService executor = Executors.newFixedThreadPool(THREADS_AMOUNT);
 
+        executor.execute(new Task("Sheldon", "theory preparation"));
+        executor.execute(new Task("Leonard", "experiment modeling"));
+        executor.execute(new Task("Howard", "tool development"));
+        executor.execute(new Task("Rajesh", "data analysis"));
+
+        softShutdown(executor);
+    }
+
+    private static void softShutdown(ExecutorService executor) {
         executor.shutdown();
+        termimation(executor);
+    }
 
+    private static void termimation(ExecutorService executor) {
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                log.warn("Timeout exceeded — forcing shutdown...");
                 executor.shutdownNow();
+            } else {
+                log.info("All tasks completed successfully.");
             }
-            System.out.println("Все задачи завершены");
         } catch (InterruptedException e) {
+            log.error("Shutdown was interrupted.", e);
             executor.shutdownNow();
-            System.out.println("Программа была прервана");
+            Thread.currentThread().interrupt();
         }
     }
 }
