@@ -17,6 +17,6 @@ public class TwitterAccount {
     }
 
     public void addOneFollower() {
-        followers = new AtomicInteger(followers.incrementAndGet());
+        followers.incrementAndGet();
     }
 }
