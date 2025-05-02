@@ -1,0 +1,13 @@
+package school.faang.supercow;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Boss boss = new Boss(3);
+
+        for (int i = 1; i <= 10; i++) {
+            Player player = new Player("Player # " + i, boss);
+            new Thread(player).start();
+        }
+    }
+}
