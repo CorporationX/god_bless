@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Getter
 public class OrderProcessor {
-    private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private static final int TIMEOUT_MS = 500;
 
     public CompletableFuture<Void> processOrder(Order order) {
@@ -27,7 +27,7 @@ public class OrderProcessor {
         }, ThreadPullProvider.executor).thenApply(currentOrder -> {
             currentOrder.updateStatus(OrderStatus.DONE);
             return currentOrder;
-        }).thenRun(() -> totalProcessedOrders = new AtomicInteger(totalProcessedOrders.incrementAndGet()));
+        }).thenRun(totalProcessedOrders::incrementAndGet);
     }
 
     public void processAllOrders(List<Order> orders) {
