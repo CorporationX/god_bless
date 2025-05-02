@@ -13,6 +13,7 @@ public class QuestSystem {
     public static final String PLAYER_IS_EMPTY = "player is empty";
     public static final String QUEST_IS_EMPTY = "quest is empty";
 
+    private static final String TASK_RESULT = "{} has completed the quest and now has {} experience points.";
     private static final Function<Integer, Integer> QUEST_TIME_CALCULATOR = difficulty -> difficulty * 1000;
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
@@ -27,7 +28,7 @@ public class QuestSystem {
                     player.getName(), quest.name(), quest.difficulty());
                 Thread.sleep(QUEST_TIME_CALCULATOR.apply(quest.difficulty()));
             } catch (InterruptedException e) {
-                log.error("start quest interrupted: {}", e.getMessage(), e);
+                log.error("quest interrupted: {}", e.getMessage(), e);
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
@@ -46,6 +47,10 @@ public class QuestSystem {
         }
     }
 
+    public void onQuestCompletion(Player player) {
+        log.info(TASK_RESULT, player.getName(), player.getExperience());
+    }
+
     private void validateInputData(Player player, Quest quest) {
         StringBuilder error = new StringBuilder();
         if (player == null) {
@@ -55,7 +60,6 @@ public class QuestSystem {
             appendError(error, QUEST_IS_EMPTY);
         }
         if (!error.isEmpty()) {
-            Thread.currentThread().interrupt();
             throw new IllegalArgumentException(error.toString());
         }
     }

@@ -3,12 +3,12 @@ package school.faang.bjs2_74534;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Main {
-    private static final String TASK_RESULT = "{} has completed the quest and now has {} experience points.";
-
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
@@ -24,13 +24,18 @@ public class Main {
             questSystem.startQuest(secondPlayer, secondQuest)
         );
 
-        workingQuest.forEach(playerQuest -> playerQuest.thenAccept(Main::acceptInfo));
-        workingQuest.forEach(CompletableFuture::join);
+        //workingQuest.forEach(playerQuest -> playerQuest.thenAccept(questSystem::onQuestCompletion));
+        //workingQuest.forEach(CompletableFuture::join);
+
+        Set<Player> players = workingQuest.stream()
+            .peek(future -> future.thenAccept(questSystem::onQuestCompletion)
+                .exceptionally(er -> {
+                    log.error(er.getMessage());
+                    return null;
+                }))
+            .map(CompletableFuture::join)
+            .collect(Collectors.toSet());
 
         questSystem.shutdown();
-    }
-
-    private static void acceptInfo(Player player) {
-        log.info(TASK_RESULT, player.getName(), player.getExperience());
     }
 }
