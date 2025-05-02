@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Conference {
     private final String name;
     private final int requiredParticipants = 5;
-    private volatile boolean isStarted = false;
+    private final AtomicBoolean isStarted = new AtomicBoolean(false);
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private final Set<Participant> participants = new HashSet<>();
@@ -24,22 +25,22 @@ public class Conference {
 
     public void startStreaming() {
         log.info("Conference {} started", name);
-        isStarted = true;
+        isStarted.set(true);
     }
 
     public void addParticipant(Participant participant) {
         lock.lock();
         try {
-            if (isStarted) {
+            if (isStarted.get()) {
                 throw new ConferenceAlreadyStarted();
             }
             log.info("Participant {} joined conference {}", participant.name(), name);
             participants.add(participant);
-            while (participants.size() < requiredParticipants && !isStarted) {
+            while (participants.size() < requiredParticipants && !isStarted.get()) {
                 condition.await();
             }
 
-            if (!isStarted && participants.size() >= requiredParticipants) {
+            if (!isStarted.get() && participants.size() >= requiredParticipants) {
                 startStreaming();
                 condition.signalAll();
             }
