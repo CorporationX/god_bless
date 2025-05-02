@@ -11,6 +11,8 @@ public class RocketLaunchScheduler {
     public static final long SECOND_IN_MILLIS = 1000;
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
+        final long startTime = System.currentTimeMillis();
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         launches.sort(Comparator.comparingLong(RocketLaunch::getLaunchTime));
@@ -42,7 +44,6 @@ public class RocketLaunchScheduler {
             executor.shutdownNow();
         }
 
-        long startTime = System.currentTimeMillis();
         long endTime = System.currentTimeMillis();
         System.out.printf("Время выполнения планирования: %d мс%n", (endTime - startTime));
     }
