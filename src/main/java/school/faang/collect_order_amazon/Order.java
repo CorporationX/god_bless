@@ -7,10 +7,10 @@ import lombok.Setter;
 public class Order {
     private final int id;
     @Setter
-    private boolean status;
+    private boolean isFinished;
 
     public Order(int id) {
         this.id = id;
-        status = false;
+        isFinished = false;
     }
 }
