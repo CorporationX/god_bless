@@ -24,9 +24,11 @@ public class Bank {
         }
 
         synchronized (fromAccount) {
-            log.debug("Thread: {}, executing transfer(), entered synchronized (fromAccount)", Thread.currentThread().getName());
+            log.debug("Thread: {}, executing transfer(), entered synchronized (fromAccount)",
+                    Thread.currentThread().getName());
             synchronized (toAccount) {
-                log.debug("Thread: {}, executing transfer(), entered synchronized (toAccount)", Thread.currentThread().getName());
+                log.debug("Thread: {}, executing transfer(), entered synchronized (toAccount)",
+                        Thread.currentThread().getName());
                 if (fromAccount.getBalance() < amount) {
                     log.error("Insufficient balance");
                     return false;
