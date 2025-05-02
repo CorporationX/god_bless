@@ -1,32 +1,24 @@
 package school.faang.magic;
 
+import lombok.Getter;
+
 import java.util.List;
 
 class Squad {
+    @Getter(lombok.AccessLevel.PRIVATE)
     private final String name;
-    private final List<?> fighters;
 
-    public Squad(String name, List<?> fighters) {
+    @Getter
+    private final List<? extends Warriors> fighters;
+
+    public Squad(String name, List<? extends Warriors> fighters) {
         this.name = name;
         this.fighters = fighters;
     }
 
     public int calculateSquadPower() {
         return fighters.stream()
-                .mapToInt(fighter -> {
-                    if (fighter instanceof Arher) {
-                        return ((Arher) fighter).getPower();
-                    } else if (fighter instanceof Swordsman) {
-                        return ((Swordsman) fighter).getPower();
-                    } else if (fighter instanceof Mage) {
-                        return ((Mage) fighter).getPower();
-                    }
-                    return 0;
-                })
+                .mapToInt(Warriors::getPower)
                 .sum();
-    }
-
-    private String getName() {
-        return name;
     }
 }

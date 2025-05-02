@@ -1,7 +1,9 @@
 package school.faang.magic;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 class SquadPowerCalculator extends Thread {
     private final Squad squad;
     @Getter
