@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class Main {
     private static final int THREAD_NUM = 3;
+
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUM);
         Organization organization = new Organization();
