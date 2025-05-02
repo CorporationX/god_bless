@@ -17,8 +17,12 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Музыка на паузе");
+            if (isPlaying) {
+                System.out.println("Музыка ставится на паузу");
+                isPlaying = false;
+            } else {
+                System.out.println("Музыка уже на паузе");
+            }
         }
     }
 
