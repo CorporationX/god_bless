@@ -20,6 +20,7 @@ public class PostService {
         try {
             Post existing = posts.putIfAbsent(post.id(), post);
             if (existing != null) {
+                log.error("Post with id {} already exists", post.id());
                 throw new PostAlreadyExistsException(post.id());
             }
             log.info("Added new post {}", post.title());
@@ -85,6 +86,7 @@ public class PostService {
     private Post getPostById(long postId) {
         Post post = posts.get(postId);
         if (post == null) {
+            log.error("Post with id {} not found", postId);
             throw new PostNotFoundException(postId);
         }
         return post;
@@ -92,13 +94,17 @@ public class PostService {
 
     private void checkPermission(Post post, Comment comment, User user) {
         if (!Objects.equals(post.author(), user) || !Objects.equals(comment.author(), user)) {
-            throw new UnauthorizedModificationException();
+            String errorMsg = "You cannot edit or delete someone else's comment";
+            log.error(errorMsg);
+            throw new UnauthorizedModificationException(errorMsg);
         }
     }
 
     private void checkPermission(Post post, User user) {
         if (!Objects.equals(post.author(), user)) {
-            throw new UnauthorizedModificationException();
+            String errorMsg = "You cannot edit or delete someone else's comment";
+            log.error(errorMsg);
+            throw new UnauthorizedModificationException(errorMsg);
         }
     }
 }
