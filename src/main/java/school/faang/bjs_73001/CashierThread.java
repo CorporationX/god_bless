@@ -11,7 +11,8 @@ public class CashierThread extends Thread {
 
     public void run() {
         String cashierId = "";
-        System.out.printf("Кассир %s начал обслуживание покупателя c %d товарами.%n", cashierId, customerItems.length);
+        System.out.println("Кассир " + cashierId + " начал обслуживание покупателя с " +
+                customerItems.length + " товарами.");
 
         int totalItems = 0;
         int totalPrice = 0;
@@ -27,6 +28,7 @@ public class CashierThread extends Thread {
             }
         }
 
-        System.out.printf("Кассир %s завершил обслуживание. Обработано товаров: %d, общая стоимость: %d%n", cashierId, totalItems, totalPrice);
+        System.out.println("Кассир " + cashierId + " завершил обслуживание. Обработано товаров: " +
+                totalItems + ", общая стоимость: " + totalPrice);
     }
 }
