@@ -11,7 +11,7 @@ public class Main {
         List<Player> listOfPlayers = new ArrayList<>();
         listOfPlayers.add(new Player("Nick", 1, 0));
         listOfPlayers.add(new Player("Marina", 2, 2));
-        listOfPlayers.add(new Player("Vova", 59, 1));
+        listOfPlayers.add(new Player("Vova", 5, 26));
 
         List<Quest> listOfQuests = new ArrayList<>();
         listOfQuests.add(new Quest("Kill Onyxia", DifficultyLevel.MYTHIC, 20));
