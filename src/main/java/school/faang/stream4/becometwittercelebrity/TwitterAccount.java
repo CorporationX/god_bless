@@ -1,13 +1,11 @@
 package school.faang.stream4.becometwittercelebrity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class TwitterAccount {
     private final String username;
     private int followers;

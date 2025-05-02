@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 @Data
 @AllArgsConstructor
 public class TwitterSubscriptionSystem {
-    ExecutorService executorService;
+    private ExecutorService executorService;
 
     public void addFollower(TwitterAccount account) {
         synchronized (account) {
