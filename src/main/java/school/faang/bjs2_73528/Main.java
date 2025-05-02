@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.IntStream;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -17,8 +18,8 @@ public class Main {
         HouseService houseService = new HouseService(house);
         ScheduledExecutorService poolThreads = Executors.newScheduledThreadPool(NUM_THREADS);
 
-        poolThreads.scheduleAtFixedRate(houseService::collectFood, 0, 30, SECONDS);
-
+        IntStream.range(0, NUM_THREADS).forEach(
+                i -> poolThreads.scheduleAtFixedRate(houseService::collectFood, i * 3L, 30, SECONDS));
     }
 
     private static House generateTestData() {
