@@ -45,7 +45,8 @@ public class Main {
 
         System.out.println("Total points:");
         for (School school : schools) {
-            System.out.printf("%s get %d points (%d)\n", school.getName(), school.getTotalPoints(), school.getFinishTime());
+            System.out.printf("%s get %d points (%d)\n",
+                    school.getName(), school.getTotalPoints(), school.getFinishTime());
         }
 
         Comparator<School> cmp = Comparator
