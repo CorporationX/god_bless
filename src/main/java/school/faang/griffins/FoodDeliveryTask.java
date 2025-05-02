@@ -1,15 +1,16 @@
 package school.faang.griffins;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Random;
 
-enum FoodType {
-    PIZZA, BURGER, TACO, SUSHI, SALAD
-}
-
+@Slf4j
 class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
     private final Random random = new Random();
+    private static final int MILLISECONDS_IN_SECOND = 1000;
+    private static final int THREADS_AMOUNT = 5;
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -24,16 +25,15 @@ class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType foodType = getFoodType();
-        System.out.println(character + " получает " + foodAmount + " " + foodType.toString().toLowerCase() + "(ов).");
+        log.info("{} получает {}  {} ов", character, foodAmount, foodType.toString().toLowerCase());
 
         try {
-            int delay = 1000 * (1 + random.nextInt(5));
+            int delay = MILLISECONDS_IN_SECOND * (1 + random.nextInt(THREADS_AMOUNT));
             Thread.sleep(delay);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println("Доставка была прервана: " + e.getMessage());
         }
-
-        System.out.println(character + " ест " + foodAmount + " " + foodType.toString().toLowerCase() + "(ов).");
+        log.info("{} ест {} {} ов", character, foodAmount, foodType.toString().toLowerCase());
     }
 }
