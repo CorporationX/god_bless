@@ -17,7 +17,7 @@ public class DesignDepartment implements Runnable {
         loadedMarketingResources = marketingResources.getMarketingResources();
         log.info("Getting access to marketing resources - {}", loadedMarketingResources);
         awaitForOtherThread();
-        loadedMarketingResources.forEach(designResources::addFile);
+        designResources.addFile("Design file");
     }
 
     private void awaitForOtherThread() {
