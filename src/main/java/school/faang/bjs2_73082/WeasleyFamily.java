@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
  * Задача "They were very nice but extremely poor"
  */
 public class WeasleyFamily {
+    private static final int CHORE_TERMINATION_TIMEOUT_MS = 5000;
     private static final String[] chores = new String[]{
             "помыть посуду",
             "подмести пол",
@@ -24,7 +25,7 @@ public class WeasleyFamily {
 
         choreExecutorsPool.shutdown();
         try {
-            if (!choreExecutorsPool.awaitTermination(5000, TimeUnit.SECONDS)) {
+            if (!choreExecutorsPool.awaitTermination(CHORE_TERMINATION_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
                 choreExecutorsPool.shutdownNow();
             }
         } catch (InterruptedException e) {
