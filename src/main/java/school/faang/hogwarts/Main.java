@@ -2,7 +2,6 @@ package school.faang.hogwarts;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,11 +18,15 @@ public class Main {
         CompletableFuture<School> startTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> startTask2 = tournament.startTask(beauxbatons, task2);
 
-        CompletableFuture<Void> resultTask = CompletableFuture.allOf(startTask, startTask2);
-        resultTask.thenRun(() -> {
-            if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
-                System.out.printf("Hogwarts win " + hogwarts.getName());
-            }
-        });
+        CompletableFuture.allOf(startTask, startTask2)
+                .thenApply(i -> {
+                    School result1 = startTask.join();
+                    School result = startTask2.join();
+                    if (result1.getTotalPoints() > result.getTotalPoints()) {
+                        return result1;
+                    } else {
+                        return result;
+                    }
+                });
     }
 }

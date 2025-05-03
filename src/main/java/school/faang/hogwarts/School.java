@@ -14,11 +14,9 @@ public class School {
     private List<Student> studentList;
 
     public int getTotalPoints() {
-        int points = 0;
-        for (Student student : studentList) {
-            points += student.getReward();
-        }
-        return points;
+        return studentList.stream()
+                .mapToInt(Student::getReward)
+                .sum();
     }
 
 }
