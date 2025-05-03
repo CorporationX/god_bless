@@ -1,5 +1,8 @@
 package supercow;
 
+import lombok.Getter;
+
+@Getter
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
@@ -12,26 +15,18 @@ public class Boss {
         System.out.println("Maximum players allowed is " + maxPlayers);
     }
 
-    public int getCurrentPlayers() {
-        return currentPlayers;
+    public synchronized void joinBattle(Player player) throws InterruptedException {
+        while (currentPlayers >= maxPlayers) {
+            System.out.println(player.getName() + " is waiting to join battle... ");
+            wait();
+        }
+        currentPlayers++;
+        System.out.println(player.getName() + " joined the battle! Current: " + currentPlayers);
     }
 
-    public void joinBattle(Player player) throws InterruptedException {
-        synchronized (this) {
-            while (currentPlayers >= maxPlayers) {
-                System.out.println(player.getName() + " is waiting to join battle... ");
-                wait();
-            }
-            currentPlayers++;
-            System.out.println(player.getName() + " joined the battle! Current: " + currentPlayers);
-        }
-    }
-
-    public void leaveBattle(Player player) {
-        synchronized (this) {
-            currentPlayers--;
-            System.out.println(player.getName() + " left the battle. Current: " + currentPlayers);
-            notify();
-        }
+    public synchronized void leaveBattle(Player player) {
+        currentPlayers--;
+        System.out.println(player.getName() + " left the battle. Current: " + currentPlayers);
+        notify();
     }
 }
