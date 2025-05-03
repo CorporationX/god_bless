@@ -20,7 +20,7 @@ class CityWorker implements Runnable {
         double distanceToCity = Math.sqrt(Math.pow(city.getLocation().getX() - castleLocation.getX(), 2) +
                 Math.pow(city.getLocation().getY() - castleLocation.getY(), 2));
 
-        Monster closestMonster = null;
+        //Monster closestMonster = null;
         double minDistanceToMonster = Double.MAX_VALUE;
 
         for (Monster monster : monsters) {
@@ -28,7 +28,7 @@ class CityWorker implements Runnable {
                     Math.pow(monster.getLocation().getY() - city.getLocation().getY(), 2));
             if (distanceToMonster < minDistanceToMonster) {
                 minDistanceToMonster = distanceToMonster;
-                closestMonster = monster;
+                // closestMonster = monster;
             }
         }
 
