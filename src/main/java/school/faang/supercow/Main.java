@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Supercow {
+public class Main {
     private static final int NUMBER_OF_PLAYERS = 10;
     private static final int BOSS_MAX_PLAYERS = 3;
 
