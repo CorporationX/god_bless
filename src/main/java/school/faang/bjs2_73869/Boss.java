@@ -17,7 +17,7 @@ public class Boss {
             } catch (InterruptedException e) {
                 log.error("Interrupted exception with message {} was thrown", e.getMessage());
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e)
+                throw new RuntimeException(e);
             }
         }
         currentPlayers++;
