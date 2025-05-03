@@ -1,9 +1,7 @@
 package school.faang.magic;
 
-import lombok.Getter;
 
-@Getter
-class Swordsman extends Warriors {
+class Swordsman extends Warrior {
     public Swordsman(int power) {
         super(power);
     }

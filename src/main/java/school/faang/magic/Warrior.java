@@ -3,10 +3,10 @@ package school.faang.magic;
 import lombok.Getter;
 
 @Getter
-abstract class Warriors {
+abstract class Warrior {
     protected int power;
 
-    public Warriors(int power) {
+    public Warrior(int power) {
         this.power = power;
     }
 }

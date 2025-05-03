@@ -9,16 +9,16 @@ class Squad {
     private final String name;
 
     @Getter
-    private final List<? extends Warriors> fighters;
+    private final List<? extends Warrior> fighters;
 
-    public Squad(String name, List<? extends Warriors> fighters) {
+    public Squad(String name, List<? extends Warrior> fighters) {
         this.name = name;
         this.fighters = fighters;
     }
 
     public int calculateSquadPower() {
         return fighters.stream()
-                .mapToInt(Warriors::getPower)
+                .mapToInt(Warrior::getPower)
                 .sum();
     }
 }
