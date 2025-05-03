@@ -24,6 +24,6 @@ public class Main {
         allFeaturesCompleted.get();
 
         System.out.println("Итоговое количество подписчиков у @" + celebrityAccount.getUsername() + ": "
-                + celebrityAccount.getFollowers());
+                + celebrityAccount.getFollowersCount());
     }
 }
