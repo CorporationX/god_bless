@@ -20,12 +20,13 @@ public class Boss {
     public synchronized void joinBattle(Player player) {
         try {
             while (currentPlayers >= maxPlayers) {
-                log.info("{}, ждет присоединения к битве с {}. Нет свободных слотов. Текущее количество игроков: {}. Максимальное: {}",
-                        player.getName(), bossName, currentPlayers, maxPlayers);
+                log.info("{}, ждет присоединения к битве с {}. Нет свободных слотов. Текущее количество игроков: {}. " +
+                        "Максимальное: {}", player.getName(), bossName, currentPlayers, maxPlayers);
                 wait();
             }
             currentPlayers++;
-            log.info("{}, присоединился к битве с {}! Текущее количество игроков: {}", player.getName(), bossName, currentPlayers);
+            log.info("{}, присоединился к битве с {}! Текущее количество игроков: {}",
+                    player.getName(), bossName, currentPlayers);
         } catch (InterruptedException e) {
             log.warn("{}, был прерван во время ожидания битвы с {}", player.getName(), bossName);
             Thread.currentThread().interrupt();
@@ -35,7 +36,8 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         if (currentPlayers > 0) {
             currentPlayers--;
-            log.info("{}, покинул битву с {}. Текущее количество игроков: {}", player.getName(), bossName, currentPlayers);
+            log.info("{}, покинул битву с {}. Текущее количество игроков: {}",
+                    player.getName(), bossName, currentPlayers);
             notifyAll();
         }
     }
