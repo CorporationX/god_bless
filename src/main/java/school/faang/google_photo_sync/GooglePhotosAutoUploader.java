@@ -17,17 +17,20 @@ public class GooglePhotosAutoUploader {
     private final String uploaderName;
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            try {
-                while (photosToUpload.isEmpty()) {
-                    log.info("{}: Нет фотографий для загрузки. Ожидаем добавления новых...", uploaderName);
-                    lock.wait();
+        while (true) {
+            synchronized (lock) {
+                try {
+                    while (photosToUpload.isEmpty()) {
+                        log.info("{}: Нет фотографий для загрузки. Ожидаем добавления новых...", uploaderName);
+                        lock.wait();
+                    }
+                    log.info("{}: Обнаружены новые фотографии. Начинаем загрузку...", uploaderName);
+                    uploadPhotos();
+                } catch (InterruptedException e) {
+                    log.warn("{}: Загрузка прервана!", uploaderName);
+                    Thread.currentThread().interrupt();
+                    break;
                 }
-                log.info("{}: Обнаружены новые фотографии. Начинаем загрузку...", uploaderName);
-                uploadPhotos();
-            } catch (InterruptedException e) {
-                log.warn("{}: Загрузка прервана!", uploaderName);
-                Thread.currentThread().interrupt();
             }
         }
     }
