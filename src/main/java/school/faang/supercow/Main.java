@@ -1,6 +1,8 @@
 package school.faang.supercow;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class Main {
@@ -16,7 +18,7 @@ public class Main {
                 new Player("bob"),
                 new Player("peek"));
 
-        playerList.parallelStream()
+        playerList.stream()
                 .map(player -> new Thread(() -> player.doBattle(boss)))
                 .peek(Thread::start)
                 .forEach(thread -> {

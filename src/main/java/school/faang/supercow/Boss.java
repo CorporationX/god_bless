@@ -14,23 +14,20 @@ public class Boss {
     private int currentPlayer;
 
     public synchronized void joinBattle(Player player) {
-        if (currentPlayer < maxPlayer) {
-            currentPlayer++;
-            System.out.println(player.getName() + " Вступает в бой");
-        } else {
+        while (currentPlayer >= maxPlayer) {
             try {
                 wait();
-                joinBattle(player);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Поток был прерван");
+                throw new RuntimeException(e);
             }
         }
+        log.info("Вступает в битву " + player.getName());
+        currentPlayer++;
     }
 
     public synchronized void leaveBattle(Player player) {
         currentPlayer--;
-        System.out.println(player.getName() + " Завершил битву");
+        log.info(player.getName() + " Завершил битву");
         notify();
     }
 }
