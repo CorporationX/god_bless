@@ -10,12 +10,24 @@ public class Main {
 
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
-        new Thread(uploader::startAutoUpload).start();
+        Thread autoUploadThread = new Thread(uploader::startAutoUpload);
 
-        new Thread(() -> {
+        Thread addNewPhotosThread = new Thread(() -> {
             for (String photoPath : photoPaths) {
                 uploader.onNewPhotoAdded(photoPath);
             }
-        }).start();
+        });
+
+        autoUploadThread.start();
+        addNewPhotosThread.start();
+
+        try {
+            addNewPhotosThread.join();
+        } catch (InterruptedException e) {
+            System.out.printf("Thread '%s' interrupted%n", Thread.currentThread().getName());
+            Thread.currentThread().interrupt();
+        }
+
+        uploader.stopAutoUpload();
     }
 }

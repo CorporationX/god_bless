@@ -6,6 +6,7 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
+    private boolean autoUploadEnabled = false;
 
     private void uploadPhotos() {
         photosToUpload.forEach(photoPath -> System.out.printf("Uploading %s...%n", photoPath));
@@ -13,17 +14,24 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.printf("Upload thread '%s' interrupted!%n", Thread.currentThread().getName());
-                    Thread.currentThread().interrupt();
+        autoUploadEnabled = true;
+        while (autoUploadEnabled) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.printf("Upload thread '%s' interrupted!%n", Thread.currentThread().getName());
+                        Thread.currentThread().interrupt();
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
+    }
+
+    public void stopAutoUpload() {
+        autoUploadEnabled = false;
     }
 
     public void onNewPhotoAdded(String photoPath) {
