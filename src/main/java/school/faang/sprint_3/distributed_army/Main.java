@@ -1,4 +1,4 @@
-package school.faang.distributed_army;
+package school.faang.sprint_3.distributed_army;
 
 import java.util.List;
 
