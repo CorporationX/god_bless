@@ -14,21 +14,9 @@ public class DesignDepartment implements Runnable {
     @Override
     public void run() {
         List<String> loadedMarketingResources;
-        loadedMarketingResources = marketingResources.getMarketingResources();
+        loadedMarketingResources = marketingResources.getResources();
         log.info("Getting access to marketing resources - {}", loadedMarketingResources);
-        awaitForOtherThread();
+        MultiThreadCounter.awaitForOtherThread();
         designResources.addFile("Design file");
-    }
-
-    private void awaitForOtherThread() {
-        MultiThreadCounter.countDownLatch.countDown();
-        while (MultiThreadCounter.countDownLatch.getCount() > 0) {
-            log.debug("Waiting...");
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
     }
 }

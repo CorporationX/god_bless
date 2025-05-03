@@ -15,7 +15,7 @@ public class DesignDepartmentDeadLock implements Runnable {
     public void run() {
         List<String> loadedMarketingResources;
         synchronized (marketingResources) {
-            loadedMarketingResources = marketingResources.getMarketingResources();
+            loadedMarketingResources = marketingResources.getResources();
             log.info("Getting access to marketingResources - {}", loadedMarketingResources);
             awaitForOtherThread();
             synchronized (designResources) {

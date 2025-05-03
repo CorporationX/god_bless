@@ -9,6 +9,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         DesignResources designResources = new DesignResources();
         MarketingResources marketingResources = new MarketingResources();
+        designResources.addFile("design1.txt, design1.txt");
+        marketingResources.addFile("marketing1.txt, marketing2.txt");
 
         Thread thread1 = new Thread(() -> new DesignDepartment(designResources, marketingResources).run());
         Thread thread2 = new Thread(() -> new MarketingDepartment(designResources, marketingResources).run());
@@ -18,8 +20,8 @@ public class Main {
         thread1.join();
         thread2.join();
 
-        log.info("Designs resources {}", designResources.getDesignResources());
-        log.info("Marketing resources {}", marketingResources.getMarketingResources());
+        log.info("Designs resources {}", designResources.getResources());
+        log.info("Marketing resources {}", marketingResources.getResources());
         System.out.println("The end of the program");
     }
 }
