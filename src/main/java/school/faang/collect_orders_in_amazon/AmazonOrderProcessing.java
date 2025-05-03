@@ -19,8 +19,6 @@ public class AmazonOrderProcessing {
                 new Order(6, "Новый")
         );
 
-        processor.processAllOrders(orders);
-
         CompletableFuture<Void> processingFuture = processor.processAllOrders(orders);
 
         processingFuture.thenRun(() -> log.info(
