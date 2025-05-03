@@ -22,7 +22,12 @@ public class Main {
                             Player player = task.join();
                             System.out.printf("%s has completed the quest and now has %d experience points\n",
                                     player.getName(), player.getExperience());
-                        })).join();
+                        })
+                )
+                .exceptionally(ex -> {
+                    System.err.println("Task execution error" + ex.getCause());
+                    return null;
+                }).join();
         questSystem.close();
     }
 }
