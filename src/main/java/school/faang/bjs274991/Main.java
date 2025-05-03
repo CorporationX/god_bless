@@ -57,5 +57,7 @@ public class Main {
                 .orElseThrow();
 
         System.out.printf("Winner: %s because they was faster\n", winner.getName());
+
+        tournament.shutdown();
     }
 }

@@ -15,10 +15,8 @@ public class School {
     private long finishTime;
 
     public int getTotalPoints() {
-        int totalPoints = 0;
-        for (Student s : team) {
-            totalPoints += s.getPoints();
-        }
-        return totalPoints;
+        return team.stream()
+                .mapToInt(Student::getPoints)
+                .sum();
     }
 }
