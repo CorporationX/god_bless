@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 class Location {
-    private final double x;
-    private final double y;
+    private final double X;
+    private final double Y;
 
-    public Location(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Location(double X, double Y) {
+        this.X = X;
+        this.Y = Y;
     }
 }
