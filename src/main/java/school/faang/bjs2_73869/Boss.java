@@ -10,18 +10,18 @@ public class Boss {
     private int currentPlayers;
 
     public synchronized void joinBattle(Player player) {
-        if (currentPlayers < maxPlayers) {
-            currentPlayers++;
-            log.info("Player {} was added to the fight", player.getName());
-        } else {
+        while (currentPlayers >= maxPlayers) {
             try {
                 log.info("All slots in battle are locked. Please wait...");
                 wait();
             } catch (InterruptedException e) {
                 log.error("Interrupted exception with message {} was thrown", e.getMessage());
                 Thread.currentThread().interrupt();
+                throw new RuntimeException(e)
             }
         }
+        currentPlayers++;
+        log.info("Player {} was added to the fight", player.getName());
     }
 
     public synchronized void leaveBattle(Player player) {
