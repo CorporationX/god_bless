@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Tournament {
     public static CompletableFuture<School> startTask(School school, Task task) {
-        CompletableFuture<School> schoolFuture = CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             log.info("{} has started to complete the task", school.getName());
             try {
                 TimeUnit.SECONDS.sleep(task.getDifficulty());
@@ -23,7 +23,6 @@ public class Tournament {
             log.info("The total number of {} points is: {}", school.getName(), school.getTotalPoints());
             return school;
         });
-        return schoolFuture;
     }
 
     public static void main(String[] args) {
