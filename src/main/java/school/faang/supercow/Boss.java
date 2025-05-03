@@ -7,18 +7,24 @@ public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
 
-    public synchronized void joinBattle(Player player) throws InterruptedException {
-        while (currentPlayers >= maxPlayers) {
-            System.out.printf(player.getName() + "%d ждёт свободного слота...");
-            wait();
+    private final Object lock = new Object();
+
+    public void joinBattle(Player player) throws InterruptedException {
+        synchronized (lock) {
+            while (currentPlayers >= maxPlayers) {
+                System.out.printf("%s ждёт свободного слота...\n", player.getName());
+                lock.wait();
+            }
+            currentPlayers++;
+            System.out.printf("%s присоединился к битве! (Сейчас в бою: %d)\n", player.getName(), currentPlayers);
         }
-        currentPlayers++;
-        System.out.println(player.getName() + " присоединился к битве! (Сейчас в бою: " + currentPlayers + ")");
     }
 
-    public synchronized void leaveBattle(Player player) {
-        currentPlayers--;
-        System.out.println(player.getName() + " покинул битву. (Сейчас в бою: " + currentPlayers + ")");
-        notify();
+    public void leaveBattle(Player player) {
+        synchronized (lock) {
+            currentPlayers--;
+            System.out.printf("%s покинул битву. (Сейчас в бою: %d)\n", player.getName(), currentPlayers);
+            lock.notify();
+        }
     }
 }
