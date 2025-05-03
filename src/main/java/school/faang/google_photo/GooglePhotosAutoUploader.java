@@ -13,23 +13,21 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
-    private final long waitingTime = 5L;
-    private int limit = 15;
+    private final  long waitingTime = 5L;
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (limit > 0) {
-                if (photosToUpload.isEmpty()) {
+            while (true) {
+                while (photosToUpload.isEmpty()) {
                     log.info("Список пуст , ожидаем");
                     try {
-                        limit--;
                         lock.wait(waitingTime);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
-                } else {
-                    uploadPhotos();
                 }
+                uploadPhotos();
+                break;
             }
         }
     }
