@@ -17,6 +17,7 @@ public class QuestSystem {
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+        log.info("Выполнение квеста игроком {}", player.getName());
         return CompletableFuture.supplyAsync(() -> {
             simulationQuest(quest);
             player.addExperience(quest.getReward());
