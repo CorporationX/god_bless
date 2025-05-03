@@ -40,15 +40,15 @@ public class MasterCardService {
         CompletableFuture<Integer> analyticsFuture = CompletableFuture
                 .supplyAsync(() -> sendAnalytics(analyticsAmount));
 
+        int analytics = analyticsFuture.join();
+        System.out.println("Analytics sent: " + analytics);
+
         try {
             int payment = paymentFuture.get();
             System.out.println("Payment collected: " + payment);
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-
-        int analytics = analyticsFuture.join();
-        System.out.println("Analytics sent: " + analytics);
 
         shutdownExecutor(service);
     }
