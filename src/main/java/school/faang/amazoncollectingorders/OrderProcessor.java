@@ -19,6 +19,21 @@ public class OrderProcessor implements Closeable {
     private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
+    @Override
+    public void close() {
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
+                log.info("Shutting down executor");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Thread was interrupted", e);
+            throw new RuntimeException("Thread was interrupted", e);
+        }
+    }
+
     public CompletableFuture<Void> processOrder(Order order) {
         log.info("Processing order...");
         return CompletableFuture.runAsync(() -> {
@@ -39,20 +54,5 @@ public class OrderProcessor implements Closeable {
                 .map(this::processOrder)
                 .toList();
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-    }
-
-    @Override
-    public void close() {
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
-                log.info("Shutting down executor");
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread was interrupted", e);
-            throw new RuntimeException("Thread was interrupted", e);
-        }
     }
 }
