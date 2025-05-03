@@ -21,5 +21,8 @@ public class Main {
                 " %d experience points.", player.getName(), player.getExperience()));
         questForPlayer2.thenAccept(player -> System.out.printf(" %d has completed the quest and now has " +
                 "%d experience points.", player.getName(), player.getExperience()));
+        CompletableFuture.allOf(questForPlayer1, questForPlayer2)
+                .thenRun(() -> System.out.println("Completed"))
+                .join();
     }
 }
