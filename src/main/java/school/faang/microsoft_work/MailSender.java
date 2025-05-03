@@ -18,6 +18,6 @@ public class MailSender {
         for (Thread thread : threads) {
             thread.join();
         }
-        System.out.println("All message dekivered");
+        System.out.println("All message delivered");
     }
 }
