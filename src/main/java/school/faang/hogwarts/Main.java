@@ -27,6 +27,7 @@ public class Main {
                     } else {
                         return result;
                     }
-                });
+                })
+                .join();
     }
 }
