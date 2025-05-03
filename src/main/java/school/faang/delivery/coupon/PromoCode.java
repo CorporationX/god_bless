@@ -1,11 +1,13 @@
 package school.faang.delivery.coupon;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Data
+@Builder
 public class PromoCode {
     private final String code;
     private final double discount;

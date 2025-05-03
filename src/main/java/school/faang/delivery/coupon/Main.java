@@ -15,10 +15,30 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         DeliveryService service = new DeliveryService();
 
-        service.addPromoCode(new PromoCode("10", 10, LocalDate.now().plusDays(7), 500));
-        service.addPromoCode(new PromoCode("15", 15, LocalDate.now().plusDays(3), 1000));
-        service.addPromoCode(new PromoCode("20", 20, LocalDate.now().plusDays(5), 2000));
-        service.addPromoCode(new PromoCode("50", 50, LocalDate.now().plusDays(-1), 5000));
+        service.addPromoCode(PromoCode.builder()
+                .code("10")
+                .discount(10)
+                .expirationDate(LocalDate.now().plusDays(7))
+                .minimumOrderValue(500)
+                .build());
+        service.addPromoCode(PromoCode.builder()
+                .code("15")
+                .discount(15)
+                .expirationDate(LocalDate.now().plusDays(3))
+                .minimumOrderValue(1000)
+                .build());
+        service.addPromoCode(PromoCode.builder()
+                .code("20")
+                .discount(20)
+                .expirationDate(LocalDate.now().plusDays(5))
+                .minimumOrderValue(2000)
+                .build());
+        service.addPromoCode(PromoCode.builder()
+                .code("50")
+                .discount(60)
+                .expirationDate(LocalDate.now().minusDays(1))
+                .minimumOrderValue(5000)
+                .build());
 
         List<Product> products1 = List.of(
                 new Product("600", 600),
