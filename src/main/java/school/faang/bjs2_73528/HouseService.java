@@ -10,15 +10,23 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 @Slf4j
 public class HouseService {
+    private static final int NUM_ROOMS = 2;
     private final House house;
 
-    public void collectFood() {
-        List<Food> foods = house.getRooms().stream()
+    public List<Food> collectFood() {
+        List<Food> collectedFood = house.getRooms().stream()
+                .filter(Room::hasFood)
                 .sorted(Comparator.comparingInt(r -> ThreadLocalRandom.current().nextInt()))
-                .limit(2)
-                .flatMap(room -> room.foods().stream())
+                .limit(NUM_ROOMS)
+                .flatMap(room -> room.collectAndClearFood().stream())
                 .toList();
 
-        log.info("Food list in house {} assembled {}", house.getName(), foods);
+        log.info("Food list in house {} assembled {}", house.getName(), collectedFood);
+        return collectedFood;
+    }
+
+    public boolean allFoodCollected() {
+        return house.getRooms().stream()
+                .noneMatch(Room::hasFood);
     }
 }
