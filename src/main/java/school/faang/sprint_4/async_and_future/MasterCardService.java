@@ -1,6 +1,7 @@
 package school.faang.sprint_4.async_and_future;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -32,8 +33,19 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        Thread collectPayment = new Thread(MasterCardService::collectPayment);
-        CompletableFuture.runAsync(() -> sendAnalytics());
-        Future<Integer> sendAnalytics = executor.submit(MasterCardService::sendAnalytics);
+        try {
+            Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+            Integer analyticsResult = analyticsFuture.get();
+            System.out.println("Аналитика отправлена: " + analyticsResult);
+            Integer paymentResult = paymentFuture.get();
+            System.out.println("Платеж выполнен: " + paymentResult);
+
+        } catch (InterruptedException | ExecutionException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        } finally {
+            executor.shutdown();
+        }
     }
 }
