@@ -19,7 +19,7 @@ public class DesignDepartment implements Runnable {
 
             synchronized (designResources) {
                 log.info("DesignDepartment is going to add file in own resources");
-                marketingResources.addFile("DesignDepartmentAnalysis");
+                designResources.addFile("DesignDepartmentAnalysis");
             }
         }
     }
