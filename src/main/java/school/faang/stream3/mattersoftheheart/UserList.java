@@ -12,6 +12,12 @@ public class UserList {
                 .toList();
     }
 
+    public List<User> getChatReadyUsers() {
+        return getOnlineUsers().stream()
+                .filter(User::isLookingForChat)
+                .toList();
+    }
+
     public boolean addUser(User user) {
         return userList.add(user);
     }
