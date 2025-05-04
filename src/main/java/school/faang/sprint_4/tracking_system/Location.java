@@ -6,4 +6,9 @@ import lombok.AllArgsConstructor;
 public final class Location {
     private final double latitude;
     private final double longitude;
+
+    @Override
+    public String toString() {
+        return String.format("(%f, %f)", latitude, longitude);
+    }
 }
