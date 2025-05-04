@@ -9,8 +9,9 @@ public class Tournament {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(task.getDifficulty() * SLEEP_TIME);
-                school.getTeam().forEach(student ->
-                        student.addPoints(task.getReward()));
+                school.getTeam().forEach(student -> {
+                    student.addPoints(task.getReward());
+                });
                 return school;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
