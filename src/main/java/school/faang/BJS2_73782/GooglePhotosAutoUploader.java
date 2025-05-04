@@ -11,16 +11,18 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        while(true){
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 

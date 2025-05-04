@@ -1,17 +1,14 @@
 package school.faang.BJS2_73782;
 
+import lombok.SneakyThrows;
+
 public class Main {
+    @SneakyThrows
     public static void main(String[] args) {
 
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
-        Thread uploadThread = new Thread(() -> {
-            try {
-                uploader.startAutoUpload();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Thread uploadThread = new Thread(uploader::startAutoUpload);
 
         Thread photoAdderThread = new Thread(() -> {
             try {
