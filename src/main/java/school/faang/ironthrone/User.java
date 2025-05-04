@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class User {
     private final String name;
-    private String assignedRole;
+    private Role assignedRole;
     private House house;
     private final Object lock = new Object();
 
@@ -13,7 +13,7 @@ public class User {
         this.name = name;
     }
 
-    public void joinHouse(House house) throws InterruptedException {
+    public void joinHouse(House house) {
         synchronized (lock) {
             this.house = house;
             this.assignedRole = house.assignRole();

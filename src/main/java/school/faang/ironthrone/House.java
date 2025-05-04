@@ -8,17 +8,24 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class House {
-    private final List<String> roles;
+    private final List<Role> availableRoles;
 
-    public synchronized String assignRole() throws InterruptedException {
-        while (roles.isEmpty()) {
-            wait();
+    public synchronized Role assignRole() {
+        while (availableRoles.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                log.error("Interrupted exception: {}", e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Operation failed", e);
+            }
         }
-        return roles.remove(0);
+        Role role = availableRoles.remove(0);
+        return role;
     }
 
-    public synchronized void releaseRole(String role) {
-        roles.add(role);
+    public synchronized void releaseRole(Role role) {
+        availableRoles.add(role);
         notifyAll();
     }
 }

@@ -11,7 +11,7 @@ public class Main {
     private static final int SLEEP_TIME = 1000;
 
     public static void main(String[] args) {
-        List<String> roles = new ArrayList<>(Arrays.asList("Lord", "Knight", "Meister"));
+        List<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
         House house1 = new House(roles);
         List<Thread> threads = new ArrayList<>();
 
@@ -33,15 +33,15 @@ public class Main {
 
         threads.forEach(Thread::start);
 
-        for (Thread thread : threads) {
+        threads.forEach(thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                log.error("Ошибка ожидания завершения потоков: {}", e.getMessage());
+                log.error("Ошибка при ожидании завершения потока: {}", e.getMessage());
                 Thread.currentThread().interrupt();
-                threads.forEach(Thread::interrupt);
             }
-        }
+        });
+
         log.info("\nВсе роли освобождены и все потоки завершены.");
     }
 }
