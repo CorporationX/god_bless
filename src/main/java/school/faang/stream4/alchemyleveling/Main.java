@@ -8,8 +8,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class Main {
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
-        return CompletableFuture.supplyAsync(() ->
-        {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(2000);
                 return potion.getRequiredIngredients();
