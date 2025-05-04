@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+    private static final int FIXED_THREAD = 10;
+
     public static void main(String[] args) {
         Organization organization = new Organization();
 
@@ -17,7 +19,7 @@ public class Main {
             donations.add(new Donation(i, random.nextDouble(500) + 100));
         }
 
-        ExecutorService service = Executors.newFixedThreadPool(10);
+        ExecutorService service = Executors.newFixedThreadPool(FIXED_THREAD);
         List<CompletableFuture<Donation>> completableFutureList = new ArrayList<>();
         for (Donation donat : donations) {
             CompletableFuture<Donation> future = CompletableFuture.supplyAsync(() -> {
@@ -32,7 +34,6 @@ public class Main {
         allOf.join();
 
         service.shutdown();
-        organization.printAll();
         System.out.println(organization.sumDonation());
     }
 }
