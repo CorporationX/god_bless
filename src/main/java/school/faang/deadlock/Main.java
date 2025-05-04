@@ -11,7 +11,7 @@ public class Main {
         List<String> designFile = List.of("D1", "D2");
 
         MarketingResources marketingResources = new MarketingResources();
-        DesignResources designResources =  new DesignResources();
+        DesignResources designResources = new DesignResources();
 
         marketingResources.getFiles().addAll(marketingFile);
         designResources.getFiles().addAll(designFile);

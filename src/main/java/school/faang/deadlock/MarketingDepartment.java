@@ -3,7 +3,6 @@ package school.faang.deadlock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor

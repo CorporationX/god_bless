@@ -3,11 +3,7 @@ package school.faang.deadlock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @AllArgsConstructor
 @Slf4j
