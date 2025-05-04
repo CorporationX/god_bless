@@ -10,7 +10,11 @@ public class Student {
     private int year;
     private int points;
 
-    public void addPoints(int points) {
+    public synchronized void addPoints(int points) {
         this.points += points;
+    }
+
+    public synchronized int getPoints() {
+        return points;
     }
 }

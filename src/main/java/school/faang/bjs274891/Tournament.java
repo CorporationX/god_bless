@@ -1,9 +1,12 @@
 package school.faang.bjs274891;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class Tournament {
     private static final int DIFFICULTY_DELAY = 300;
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
@@ -17,7 +20,11 @@ class Tournament {
                 Thread.currentThread().interrupt();
             }
             return school;
-        });
+        }, executorService);
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
     }
 }
 

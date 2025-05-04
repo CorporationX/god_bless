@@ -57,6 +57,7 @@ public class MagicalTournament {
         } catch (InterruptedException | ExecutionException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
+        tournament.getExecutorService().shutdown();
     }
 }
 
