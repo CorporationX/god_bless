@@ -53,7 +53,7 @@ public class Factorial {
     }
 
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(0,1,4, 13, 18, 20);
+        List<Integer> numbers = List.of(0, 1, 4, 13, 18, 20);
         List<CompletableFuture<BigInteger>> result = factorials(numbers);
         result.forEach(a -> System.out.println(a.join()));
     }
