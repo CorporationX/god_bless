@@ -13,14 +13,10 @@ public class MarketingDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (designResources) {
-            log.info("MarketingDepartment reads design resources");
-            List<String> designFiles = designResources.getFiles();
+        log.info("MarketingDepartment reads design resources");
+        List<String> designFiles = designResources.getFiles();
 
-            synchronized (marketingResources) {
-                log.info("MarketingDepartment is going to add file in own resources");
-                marketingResources.addFile("MarketingDepartmentAnalysis");
-            }
-        }
+        log.info("MarketingDepartment is going to add file in own resources");
+        marketingResources.addFile("MarketingDepartmentAnalysis");
     }
 }
