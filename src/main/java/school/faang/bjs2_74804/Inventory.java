@@ -3,15 +3,15 @@ package school.faang.bjs2_74804;
 import lombok.extern.slf4j.Slf4j;
 import school.faang.bjs2_73342.ThreadStoppageException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 
 @Slf4j
 public class Inventory {
     private final Executor poolThreads;
-    private final List<Item> items = new ArrayList<>();
+    private final List<Item> items = new CopyOnWriteArrayList<>();
 
     public Inventory(Executor poolThreads) {
         this.poolThreads = poolThreads;
