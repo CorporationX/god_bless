@@ -5,13 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @AllArgsConstructor
 public class Bank {
-    private Map<Integer, Account> accounts;
+    private ConcurrentHashMap<Integer, Account> accounts;
 
-    public synchronized boolean transfer(int fromAccountId, int toAccountId, double amount) {
+    public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         if (!accounts.containsKey(fromAccountId) || !accounts.containsKey(toAccountId)) {
             log.error("One of accounts doesn't exist");
             throw new IllegalArgumentException("Inexistent account");

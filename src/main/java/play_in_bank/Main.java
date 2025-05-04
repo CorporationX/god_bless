@@ -2,8 +2,7 @@ package play_in_bank;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,7 +14,7 @@ public class Main {
     private static final int TIMEOUT = 5;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Map<Integer, Account> accounts = new HashMap<>();
+        ConcurrentHashMap<Integer, Account> accounts = new ConcurrentHashMap<>();
         accounts.put(1, new Account(1, 1000.0));
         accounts.put(2, new Account(2, 500.0));
         accounts.put(3, new Account(3, 0.0));
