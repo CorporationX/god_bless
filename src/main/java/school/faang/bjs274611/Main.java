@@ -1,7 +1,6 @@
 package school.faang.bjs274611;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,5 +26,6 @@ public class Main {
         });
 
         CompletableFuture.allOf(questFuture1, questFuture2).join();
+        questSystem.getExecutorService().shutdown();
     }
 }
