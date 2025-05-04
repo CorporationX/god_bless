@@ -22,13 +22,17 @@ public class Main {
         ExecutorService pool = Executors.newCachedThreadPool();
 
         CompletableFuture<Void> future1 =
-                CompletableFuture.runAsync(() -> accountHashMap.get(1).followAccount(accountHashMap.get(3)).join(), pool);
+                CompletableFuture.runAsync(() ->
+                        accountHashMap.get(1).followAccount(accountHashMap.get(3)).join(), pool);
         CompletableFuture<Void> future2 =
-                CompletableFuture.runAsync(() -> accountHashMap.get(2).followAccount(accountHashMap.get(3)).join(), pool);
+                CompletableFuture.runAsync(() ->
+                        accountHashMap.get(2).followAccount(accountHashMap.get(3)).join(), pool);
         CompletableFuture<Void> future3 =
-                CompletableFuture.runAsync(() -> accountHashMap.get(4).followAccount(accountHashMap.get(3)).join(), pool);
+                CompletableFuture.runAsync(() ->
+                        accountHashMap.get(4).followAccount(accountHashMap.get(3)).join(), pool);
         CompletableFuture<Void> future4 =
-                CompletableFuture.runAsync(() -> accountHashMap.get(5).followAccount(accountHashMap.get(3)).join(), pool);
+                CompletableFuture.runAsync(() ->
+                        accountHashMap.get(5).followAccount(accountHashMap.get(3)).join(), pool);
 
         CompletableFuture.allOf(future1, future2, future3, future4)
                 .thenRun(() -> System.out.printf("У юзера с id 3 количество подписчиков = %d%n",
