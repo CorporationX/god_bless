@@ -6,16 +6,17 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
+        final int TIMEOUT = 60;
         ExecutorService executorService = Executors.newCachedThreadPool();
         WeasleyFamily weasleyFamily = new WeasleyFamily();
 
         for (String task : weasleyFamily.getChores()) {
-            executorService.execute(new Chore(task));
+            executorService.submit(new Chore(task));
         }
         executorService.shutdown();
 
         try {
-            executorService.awaitTermination(60, TimeUnit.SECONDS);
+            executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS);
 
             if (executorService.isTerminated()) {
                 System.out.println("All Tasks Completed");
