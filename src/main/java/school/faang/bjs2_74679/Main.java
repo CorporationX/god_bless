@@ -1,6 +1,8 @@
 package school.faang.bjs2_74679;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Задача "WOW"
@@ -8,7 +10,8 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
 
     public static void main(String[] args) {
-        QuestSystem questSystem = new QuestSystem();
+        ExecutorService questThreadPool = Executors.newFixedThreadPool(4);
+        QuestSystem questSystem = new QuestSystem(questThreadPool);
 
         // Создание игроков
         Player player1 = new Player("Thrall");
@@ -23,8 +26,10 @@ public class Main {
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
         // Обработка результатов заданий
-        player1Quest.thenAccept(player -> System.out.printf("Игрок %s молодец!!!%n", player.getName()));
-        player2Quest.thenAccept(player -> System.out.printf("Игрок %s молодец!!!%n", player.getName()));
+        player1Quest.thenAccept(player -> System.out.printf("Игрок %s молодец!!! У него теперь %d опыта.%n",
+                player.getName(), player.getExperience().get()));
+        player2Quest.thenAccept(player -> System.out.printf("Игрок %s молодец!!! У него теперь %d опыта.%n",
+                player.getName(), player.getExperience().get()));
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
     }
