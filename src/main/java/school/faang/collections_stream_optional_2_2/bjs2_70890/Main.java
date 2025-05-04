@@ -1,8 +1,8 @@
-package school.faang.bjs2_70890;
+package school.faang.collections_stream_optional_2_2.bjs2_70890;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static school.faang.bjs2_70890.TestData.ACTIONS;
+import static school.faang.collections_stream_optional_2_2.bjs2_70890.TestData.ACTIONS;
 
 @Slf4j
 public class Main {

@@ -1,4 +1,4 @@
-package school.faang.bjs2_70820;
+package school.faang.collections_stream_optional_2_2.bjs2_70820;
 
 import lombok.extern.slf4j.Slf4j;
 

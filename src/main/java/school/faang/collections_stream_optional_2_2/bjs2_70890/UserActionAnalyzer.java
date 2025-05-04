@@ -1,4 +1,4 @@
-package school.faang.bjs2_70890;
+package school.faang.collections_stream_optional_2_2.bjs2_70890;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
