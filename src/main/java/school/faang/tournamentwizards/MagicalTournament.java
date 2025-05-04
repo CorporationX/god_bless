@@ -7,17 +7,17 @@ public class MagicalTournament {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
 
-        List<Student> hogwartsTeam  = List.of(
+        List<Student> hogwartsTeam = List.of(
                 new Student("St1", 500, 1),
                 new Student("St2", 500, 1)
         );
-        List<Student> beauxbatonsTeam  = List.of(
+        List<Student> beauxbatonsTeam = List.of(
                 new Student("St2.1", 500, 1),
                 new Student("St2.2", 500, 1)
         );
 
-        School hogwarts  = new School("hogwarts", hogwartsTeam );
-        School beauxbatons  = new School("beauxbatons ", beauxbatonsTeam );
+        School hogwarts = new School("hogwarts", hogwartsTeam);
+        School beauxbatons = new School("beauxbatons ", beauxbatonsTeam);
 
         Task task1 = new Task("Task1", 2, 2);
         Task task2 = new Task("Task2", 4, 8);
