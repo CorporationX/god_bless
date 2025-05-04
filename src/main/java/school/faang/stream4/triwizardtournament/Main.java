@@ -56,8 +56,7 @@ public class Main {
             if (!executor.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
                 executor.shutdownNow();
             }
-        } catch (
-                InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println(e + " - завершение пула потоков прервано");
             executor.shutdownNow();
         }
