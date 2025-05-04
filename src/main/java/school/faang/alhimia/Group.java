@@ -15,6 +15,7 @@ public class Group {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        log.info("необходимо для зелья {} ингредиентов", countIngredients);
         return countIngredients;
     }
 }
