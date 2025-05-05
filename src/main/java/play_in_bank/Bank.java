@@ -3,7 +3,6 @@ package play_in_bank;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,10 +25,16 @@ public class Bank {
 
         try {
             accounts.get(fromAccountId).withdraw(amount);
+        } catch (IllegalArgumentException e) {
+            log.error("The operation is failed {}", e.getMessage());
+            return false;
+        }
+        try {
             accounts.get(toAccountId).deposit(amount);
             return true;
         } catch (IllegalArgumentException e) {
             log.error("The operation is failed {}", e.getMessage());
+            accounts.get(fromAccountId).deposit(amount);
             return false;
         }
     }
