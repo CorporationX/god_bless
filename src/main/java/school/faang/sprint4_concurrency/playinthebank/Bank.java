@@ -35,7 +35,7 @@ public class Bank {
         firstLock.getLock().lock();
         try {
             secondLock.getLock().lock();
-            if ((from.withdraw(amount))) {
+            if (from.withdraw(amount)) {
                 to.deposit(amount);
                 return true;
             } else {
