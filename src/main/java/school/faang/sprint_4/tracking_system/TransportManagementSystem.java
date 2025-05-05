@@ -13,7 +13,7 @@ public class TransportManagementSystem {
 
     public static void addVehicle(Vehicle vehicle) {
         Objects.requireNonNull(vehicle, "Vehicle cannot be null");
-        vehicles.computeIfAbsent(vehicle.getId(), key -> vehicle);
+        vehicles.putIfAbsent(vehicle.getId(), vehicle);
     }
 
     public static void updateVehicle(String vehicleId, Location newLocation) {
