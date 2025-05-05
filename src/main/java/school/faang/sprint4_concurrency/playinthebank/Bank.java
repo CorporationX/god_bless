@@ -35,18 +35,16 @@ public class Bank {
         firstLock.getLock().lock();
         try {
             secondLock.getLock().lock();
-            try {
-                if ((from.withdraw(amount))) {
-                    to.deposit(amount);
-                    return true;
-                } else {
-                    log.warn("Ошибка. Что-то ввели не то.");
-                    return false;
-                }
-            } finally {
-                secondLock.getLock().unlock();
+            if ((from.withdraw(amount))) {
+                to.deposit(amount);
+                return true;
+            } else {
+                log.warn("Ошибка. Что-то ввели не то.");
+                return false;
             }
+
         } finally {
+            secondLock.getLock().unlock();
             firstLock.getLock().unlock();
         }
     }
