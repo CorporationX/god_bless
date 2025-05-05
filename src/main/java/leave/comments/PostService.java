@@ -15,22 +15,19 @@ public class PostService {
         synchronized (posts) {
             if (Objects.isNull(post)) {
                 log.error("Your post is null!");
-                Thread.currentThread().interrupt();
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Your post is null!");
             }
             posts.add(post);
         }
     }
 
-    public synchronized void addComment(int postId, Comment comment) {
+    public void addComment(int postId, Comment comment) {
         synchronized (posts) {
             if (Objects.isNull(comment)) {
                 log.error("Your post is null!");
-                Thread.currentThread().interrupt();
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Your post is null!");
             } else if (!posts.stream().anyMatch(post -> post.getId() == postId)) {
                 log.error("Your post is not found or it doesn t exist!");
-                Thread.currentThread().interrupt();
                 throw new IllegalArgumentException();
             }
             posts.stream()
