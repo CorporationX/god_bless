@@ -18,6 +18,6 @@ public class CollaborativeDocument {
     }
 
     public String getData(String sectionId) {
-        return collabDoc.get(sectionId);
+        return collabDoc.getOrDefault(sectionId, "");
     }
 }
