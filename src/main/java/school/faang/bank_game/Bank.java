@@ -21,7 +21,11 @@ public class Bank {
 
         try {
             accounts.get(fromAccountId).withdraw(amount);
-            accounts.get(toAccountId).deposit(amount);
+            try {
+                accounts.get(toAccountId).deposit(amount);
+            } catch (Exception e) {
+                accounts.get(fromAccountId).deposit(amount);
+            }
         } catch (Exception e) {
             return false;
         }
