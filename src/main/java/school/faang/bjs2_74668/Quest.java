@@ -8,5 +8,5 @@ import lombok.Getter;
 public class Quest {
     private String name;
     private Integer difficulty;
-    public Integer reward;
+    private Integer reward;
 }
