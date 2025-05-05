@@ -33,7 +33,10 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(
+                MasterCardService::sendAnalytics,
+                executor
+        );
         Integer analyticsResult = analyticsFuture.join();
         System.out.println("Analytics submitted: " + analyticsResult);
 
