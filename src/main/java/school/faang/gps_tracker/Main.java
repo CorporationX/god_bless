@@ -24,8 +24,9 @@ public class Main {
     }
 
     private static VehicleTracker startTracking(TransportManagementSystem system) {
-        VehicleTracker tracker = new VehicleTracker(system);
-        tracker.startTracking();
+        VehicleTracker tracker = new VehicleTracker(system,
+                Math.min(Runtime.getRuntime().availableProcessors(), system.getAllVehicles().size()));
+        system.getAllVehicles().keySet().forEach(tracker::startTracking);
         return tracker;
     }
 
@@ -34,7 +35,7 @@ public class Main {
     }
 
     private static void stopTracking(VehicleTracker tracker) {
-        tracker.stopTracking();
+        tracker.stopAllTracking();
         log.info("Vehicle tracking stopped");
     }
 

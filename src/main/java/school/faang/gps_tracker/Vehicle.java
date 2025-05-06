@@ -1,18 +1,18 @@
 package school.faang.gps_tracker;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@AllArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Vehicle {
     private final String id;
     private volatile VehicleStatus status;
     private volatile Location location;
-
-    public Vehicle(String id, VehicleStatus status, Location location) {
-        this.id = id;
-        this.status = status;
-        this.location = location;
-    }
 
     public void updateStatus(VehicleStatus newStatus) {
         this.status = newStatus;

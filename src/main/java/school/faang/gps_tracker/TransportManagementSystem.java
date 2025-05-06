@@ -1,5 +1,6 @@
 package school.faang.gps_tracker;
 
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -7,6 +8,9 @@ public class TransportManagementSystem {
     private final ConcurrentMap<String, Vehicle> vehicles = new ConcurrentHashMap<>();
 
     public void addVehicle(Vehicle vehicle) {
+        if (vehicle == null || vehicle.getId() == null) {
+            throw new IllegalArgumentException("Vehicle or vehicle ID must not be null");
+        }
         vehicles.put(vehicle.getId(), vehicle);
     }
 
@@ -29,7 +33,7 @@ public class TransportManagementSystem {
         return vehicle != null ? vehicle.toString() : "Vehicle not found";
     }
 
-    public ConcurrentMap<String, Vehicle> getAllVehicles() {
-        return vehicles;
+    public HashMap<String, Vehicle> getAllVehicles() {
+        return new HashMap<>(vehicles);
     }
 }
