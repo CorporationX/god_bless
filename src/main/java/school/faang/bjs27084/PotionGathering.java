@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PotionGathering {
     private static final int GATHERING_TIME = 500;
     private static final int THREAD_COUNT = 3;
-    private static int totalIngredients = 0;
-    private static final Object lock = new Object();
 
     public static void main(String[] args) {
         List<Potion> potions = List.of(
@@ -34,15 +32,13 @@ public class PotionGathering {
 
     public static void gatherAllIngredients(List<Potion> potions) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
+        AtomicInteger totalIngredients = new AtomicInteger(0);
 
         List<CompletableFuture<Void>> futures = potions.stream()
-                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executor)
-                        .thenAccept(count -> {
-                            synchronized (lock) {
-                                totalIngredients += count;
-                            }
-                        }))
-                .collect(Collectors.toList());
+                .map(potion -> CompletableFuture
+                        .supplyAsync(() -> gatherIngredients(potion), executor)
+                        .thenAccept(totalIngredients::addAndGet))
+                .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()])).join();
         executor.shutdown();
