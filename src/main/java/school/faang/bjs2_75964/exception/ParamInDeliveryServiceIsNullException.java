@@ -1,4 +1,4 @@
-package school.faang.bjs2_75964;
+package school.faang.bjs2_75964.exception;
 
 public class ParamInDeliveryServiceIsNullException extends IllegalArgumentException {
     public ParamInDeliveryServiceIsNullException() {

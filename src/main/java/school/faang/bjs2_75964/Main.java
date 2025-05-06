@@ -27,21 +27,17 @@ public class Main {
 
         ExecutorService poolThreads = Executors.newFixedThreadPool(NUM_THREADS);
 
-        IntStream.range(0, NUM_THREADS).forEach(
-                i -> {
-                    Order order = new Order(Set.of(
-                            new Product("Burger", 120 + 10 * i),
-                            new Product("Fries", 30)));
-
-                    poolThreads.execute(() -> {
-                        try {
-                            deliveryService.processOrder(order, promoCodes);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    });
-                }
-        );
+        IntStream.range(0, NUM_THREADS)
+                .mapToObj(i -> new Order(Set.of(
+                        new Product("Burger", 120 + 10 * i),
+                        new Product("Fries", 30))))
+                .forEach(order -> poolThreads.execute(() -> {
+                    try {
+                        deliveryService.processOrder(order, promoCodes);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }));
 
         shutdownPool(poolThreads);
     }

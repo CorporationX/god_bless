@@ -19,12 +19,11 @@ public class Order {
         this.products = products != null ? products : new HashSet<>();
     }
 
-    public void applyDiscount(double discount) {
-
-        products.forEach(product -> product.setPrice(
-                product.getPrice() * discount / 100));
-
+    public double applyDiscount(double discount) {
         isDiscount.set(true);
+
+        double totalPrice = getTotalPrice();
+        return totalPrice -  totalPrice * discount / 100;
     }
 
     public double getTotalPrice() {

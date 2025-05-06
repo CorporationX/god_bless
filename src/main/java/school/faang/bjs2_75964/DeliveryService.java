@@ -1,6 +1,10 @@
 package school.faang.bjs2_75964;
 
 import lombok.extern.slf4j.Slf4j;
+import school.faang.bjs2_75964.exception.ParamInDeliveryServiceIsNullException;
+import school.faang.bjs2_75964.exception.PromoCodeAlreadyExistsException;
+import school.faang.bjs2_75964.exception.PromoCodeIsUsedException;
+import school.faang.bjs2_75964.exception.PromoCodeNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -48,8 +52,9 @@ public class DeliveryService {
                 });
 
         bestPromoCode.markAsUsed();
-        order.applyDiscount(bestPromoCode.getDiscount());
-        log.info("Apply discount {} for order {}", bestPromoCode.getDiscount(), order.getNumber());
+        double discountedPrice = order.applyDiscount(bestPromoCode.getDiscount());
+        log.info("Apply discount {} for order {}, discounted price {}",
+                bestPromoCode.getDiscount(), order.getNumber(), discountedPrice);
         promoCodesActive.remove(bestPromoCode);
         processedOrders.add(order);
     }

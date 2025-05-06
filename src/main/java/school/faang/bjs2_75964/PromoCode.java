@@ -1,6 +1,7 @@
 package school.faang.bjs2_75964;
 
 import lombok.Getter;
+import school.faang.bjs2_75964.exception.PromoCodeIsUsedException;
 
 import java.time.LocalDate;
 import java.util.Objects;
