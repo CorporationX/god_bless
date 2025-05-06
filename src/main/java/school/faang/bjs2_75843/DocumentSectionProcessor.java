@@ -16,7 +16,7 @@ public class DocumentSectionProcessor implements Runnable {
         log.info("Read data {}", readData);
     }
 
-    public String process(String data) {
+    private String process(String data) {
         return data.toUpperCase();
     }
 }

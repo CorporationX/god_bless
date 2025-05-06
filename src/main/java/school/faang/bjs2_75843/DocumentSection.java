@@ -1,13 +1,20 @@
 package school.faang.bjs2_75843;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 public class DocumentSection {
     @Getter
     private final String id;
     private final CollaborativeDocument document;
+
+    public DocumentSection(String id, CollaborativeDocument document) {
+        if (document == null) {
+            throw new IllegalArgumentException("Document is null");
+        }
+        this.id = id;
+        this.document = document;
+    }
 
     public String read() {
         return document.getData(id);

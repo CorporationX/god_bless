@@ -7,7 +7,7 @@ public class CollaborativeDocument {
     private final Map<String, String> document = new ConcurrentHashMap<>();
 
     public void addData(String sectionId, String data) {
-        document.putIfAbsent(sectionId, data);
+        document.merge(sectionId, data, (dataOld, dataNew) -> String.format("%s\n\n%s", dataOld, dataNew));
     }
 
     public String getData(String sectionId) {
