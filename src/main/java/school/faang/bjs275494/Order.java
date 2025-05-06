@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Order {
     private int id;
-    private String status;
+    private OrderStatus status;
 
 }
 

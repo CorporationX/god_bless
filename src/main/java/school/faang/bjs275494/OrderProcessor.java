@@ -9,16 +9,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private final ExecutorService executorService = Executors.newFixedThreadPool(3);
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private static final int DELAY = 1000;
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
-                order.setStatus("Обработано");
+                Thread.sleep(DELAY);
+                order.setStatus(OrderStatus.PROCESSED);
                 totalProcessedOrders.incrementAndGet();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("Ошибка");
+                order.setStatus(OrderStatus.FAILED);
+                System.out.println("Ошибка при обработке заказа #" + order.getId());
             }
         }, executorService);
     }
