@@ -3,6 +3,7 @@ package school.faang.bank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.locks.ReentrantLock;
 
 @AllArgsConstructor
@@ -14,21 +15,19 @@ public class Account {
     private static final int TIME_SLEEP = 1000;
 
     public void deposit(double amount) {
-        lock.lock();
-        try {
-            Thread.sleep(TIME_SLEEP);
+        executeLocked(() -> {
+            try {
+                Thread.sleep(TIME_SLEEP);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             balance += amount;
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
-            lock.unlock();
-        }
+        });
     }
 
     public boolean withdraw(double amount) {
-        lock.lock();
-        try {
-            if (balance > amount) {
+        return executeLocked(() -> {
+            if (balance >= amount) {
                 Thread.sleep(TIME_SLEEP);
                 balance -= amount;
                 return true;
@@ -36,17 +35,28 @@ public class Account {
                 System.out.println("На счету не достаточно средств " + balance);
                 return false;
             }
-        } catch (InterruptedException e) {
+        });
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    private <T> T executeLocked(Callable<T> action) {
+        try {
+            lock.lock();
+            return action.call();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             lock.unlock();
         }
     }
 
-    public double getBalance() {
-        lock.lock();
+    private void executeLocked(Runnable action) {
         try {
-            return balance;
+            lock.lock();
+            action.run();
         } finally {
             lock.unlock();
         }

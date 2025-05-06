@@ -13,18 +13,25 @@ public class Bank {
         accounts.put(account.getId(), account);
     }
 
-    public synchronized void transfer(int fromAccountId, int toAccountId, double amount) {
+    public void transfer(int fromAccountId, int toAccountId, double amount) {
         Account from = accounts.get(fromAccountId);
         Account to = accounts.get(toAccountId);
+        Account lockFrom;
+        Account lockTo;
 
-        Account lockFrom = fromAccountId > toAccountId ? from : to;
-        Account lockTo = fromAccountId > toAccountId ? to : from;
-
-        lockFrom.getLock().lock();
-        lockTo.getLock().lock();
+        if (fromAccountId == toAccountId) {
+            lockFrom = from;
+            lockTo = lockFrom;
+        } else {
+            lockFrom = fromAccountId > toAccountId ? from : to;
+            lockTo = fromAccountId > toAccountId ? to : from;
+            lockFrom.getLock().lock();
+            lockTo.getLock().lock();
+        }
+        boolean isWithdraw = from.withdraw(amount);
 
         try {
-            if (from.withdraw(amount)) {
+            if (isWithdraw) {
                 to.deposit(amount);
                 System.out.printf("перевод выполнен на %d\n", to.getId());
             }

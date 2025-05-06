@@ -21,24 +21,22 @@ public class Main {
         bank.createAccount(account3);
         bank.createAccount(account4);
         bank.createAccount(account5);
+        Random random = new Random();
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
-        Runnable runnable = () -> {
-            Random random = new Random();
-            for (int i = 0; i < 10; i++) {
-                int fromAccountId = random.nextInt(4) + 1;
-                int toAccountId = random.nextInt(4) + 1;
-                double amount = random.nextInt(300);
 
-                if (fromAccountId != toAccountId) {
-                    bank.transfer(fromAccountId, toAccountId, amount);
-                }
-            }
-        };
-        IntStream.range(0, 3)
-                .forEach(i -> {
-                    executorService.submit(runnable);
-                });
+        IntStream.range(0, 10)
+                .mapToObj(i -> (Runnable) () -> {
+                    int fromAccountId = random.nextInt(4) + 1;
+                    int toAccountId = random.nextInt(4) + 1;
+                    double amount = random.nextInt(300);
+
+                    if (fromAccountId != toAccountId) {
+                        bank.transfer(fromAccountId, toAccountId, amount);
+                    }
+                })
+                .forEach(executorService::submit);
+
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(2, TimeUnit.MINUTES)) {
