@@ -1,16 +1,22 @@
 package school.faang.wow;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Data
 public class Player {
     private String name;
     private int level;
-    private int experience;
+    private AtomicInteger experience = new AtomicInteger();
+
+    public Player(String name, int level, int experience) {
+        this.name = name;
+        this.level = level;
+        this.experience.set(experience);
+    }
 
     public void addExperience(int exp) {
-        this.experience += exp;
+        experience.addAndGet(exp);
     }
 }
