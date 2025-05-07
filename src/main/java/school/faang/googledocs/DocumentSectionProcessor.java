@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DocumentSectionProcessor implements Runnable {
     private DocumentSection section;
 
-    public void process(String data) {
+    private void process(String data) {
         String processSection = data.toUpperCase();
         log.info("Обработали данные в разделе {}", section.getId());
         section.write(processSection);

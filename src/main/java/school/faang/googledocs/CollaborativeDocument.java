@@ -13,6 +13,6 @@ public class CollaborativeDocument {
     }
 
     public String getData(String sectionId) {
-        return document.get(sectionId);
+        return document.getOrDefault(sectionId, "NoValue");
     }
 }
