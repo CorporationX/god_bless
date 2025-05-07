@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 public class QuestSystem {
 
     private static final long ONE_SECOND = 1000L;
-    private static final ExecutorService service = Executors.newFixedThreadPool(3);
+    private static final ExecutorService SERVICE = Executors.newFixedThreadPool(3);
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture
@@ -19,6 +19,6 @@ public class QuestSystem {
                     }
                     player.addExperience((quest.getReward()));
                     return player;
-                }, service);
+                }, SERVICE);
     }
 }
