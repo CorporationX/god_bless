@@ -16,7 +16,7 @@ public class MasterCardService {
     private static final String PAYMENT = "Оплата прошла";
     private static final String ANALYTIC = "Аналитика получена";
 
-    private String collectPayment(){
+    private String collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
             return PAYMENT;
@@ -26,7 +26,7 @@ public class MasterCardService {
         }
     }
 
-    private String sendAnalytics(){
+    private String sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
             return ANALYTIC;
