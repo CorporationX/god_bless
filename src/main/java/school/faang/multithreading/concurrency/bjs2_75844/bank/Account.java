@@ -19,36 +19,21 @@ public class Account {
     }
 
     public void deposit(double amount) {
-        lock.lock();
-        try {
-            balance += amount;
-        } finally {
-            lock.unlock();
-        }
+        balance += amount;
     }
 
     public boolean withdraw(double amount) {
-        lock.lock();
-        try {
-            if (balance < amount) {
-                log.warn("Insufficient funds to withdraw");
-                return false;
-            } else {
-                balance -= amount;
-                return true;
-            }
-        } finally {
-            lock.unlock();
+        if (balance < amount) {
+            log.warn("Insufficient funds to withdraw");
+            return false;
+        } else {
+            balance -= amount;
+            return true;
         }
     }
 
     public double getBalance() {
-        lock.lock();
-        try {
-            return balance;
-        } finally {
-            lock.unlock();
-        }
+        return balance;
     }
 
     @Override

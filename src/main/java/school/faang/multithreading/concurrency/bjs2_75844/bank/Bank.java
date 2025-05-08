@@ -18,12 +18,12 @@ public class Bank {
         Account fromAccount = accountMap.get(from);
         Account toAccount = accountMap.get(to);
 
-        if (fromAccount == null || toAccount == null) {
-            log.warn("One of the account is null, from = {}, to = {}", fromAccount, toAccount);
+        boolean isAnyAccountNull = isAnyAccountNull(fromAccount, toAccount);
+        if (!isAnyAccountNull) {
             return false;
         }
-        if (fromAccount.getId().equals(toAccount.getId())) {
-            log.warn("There the same account for sender and receiver");
+        boolean isEqualsAccounts = isEqualAccounts(fromAccount, toAccount);
+        if (!isEqualsAccounts) {
             return false;
         }
         Account firstLock;
@@ -39,7 +39,8 @@ public class Bank {
         secondLock.getLock().lock();
 
         try {
-            if (fromAccount.withdraw(amount)) {
+            boolean isWithdrawPossible = fromAccount.withdraw(amount);
+            if (isWithdrawPossible) {
                 toAccount.deposit(amount);
                 log.info("Transfer of {} is successful from {} to {}", amount, fromAccount, toAccount);
                 return true;
@@ -53,9 +54,30 @@ public class Bank {
     }
 
     public double getTotalBalance() {
-        double value = accountMap.values().stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
+        double value;
+        synchronized (accountMap) {
+            value = accountMap.values().stream()
+                    .mapToDouble(Account::getBalance)
+                    .sum();
+        }
         return Math.round(value * 100.0) / 100.0;
+    }
+
+    private boolean isAnyAccountNull(Account fromAccount, Account toAccount) {
+        boolean result = true;
+        if (fromAccount == null || toAccount == null) {
+            log.warn("One of the account is null, from = {}, to = {}", fromAccount, toAccount);
+            result = false;
+        }
+        return result;
+    }
+
+    private boolean isEqualAccounts(Account fromAccount, Account toAccount) {
+        boolean result = true;
+        if (fromAccount.getId().equals(toAccount.getId())) {
+            log.warn("There is the same account for sender and receiver");
+            return false;
+        }
+        return result;
     }
 }
