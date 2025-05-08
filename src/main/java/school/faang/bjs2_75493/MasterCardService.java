@@ -12,36 +12,37 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final Integer PAYMENT = 5_000;
+    private static final Integer ANALYTIC = 86_000;
+    private static final Integer COUNT_POOL = 2;
 
-    private static final String PAYMENT = "Оплата прошла";
-    private static final String ANALYTIC = "Аналитика получена";
-
-    private String collectPayment() {
+    private Integer collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return PAYMENT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
+        return PAYMENT;
     }
 
-    private String sendAnalytics() {
+    private Integer sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return ANALYTIC;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
+        return ANALYTIC;
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        Future<String> future = executor.submit(this::collectPayment);
-        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
-        log.info(completableFuture.join());
-        log.info(future.get());
+        ExecutorService executor = Executors.newFixedThreadPool(COUNT_POOL);
+        Future<Integer> paymentFuture = executor.submit(this::collectPayment);
+        CompletableFuture.supplyAsync(this::sendAnalytics, executor)
+                .thenAccept((analytic) -> log.info("Результат аналитики: {}", analytic)).join();
+        Integer paymentFutureResult = paymentFuture.get();
+        log.info("Получен результат по оплате {}", paymentFutureResult);
         executor.shutdown();
     }
 }
