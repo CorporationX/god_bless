@@ -19,7 +19,6 @@ public class Main {
         PostService postService = new PostService();
         List<Future<?>> futures = new ArrayList<>();
 
-        // 1) Добавляем посты
         for (int i = 1; i <= NUMBER_OF_POSTS; i++) {
             final int postId = i;
             final String authorName = "PostAuthor-" + postId;
@@ -37,7 +36,6 @@ public class Main {
         waitAll(futures);
         futures.clear();
 
-        // 2) Добавляем комментарии
         for (Post post : postService.getAllPosts()) {
             final int pid = post.getId();
             for (int j = 1; j <= COMMENTS_PER_POST; j++) {
@@ -58,7 +56,6 @@ public class Main {
         waitAll(futures);
         futures.clear();
 
-        // 3) Вывод всех постов и их комментариев
         System.out.println("\n=== All posts and their comments ===");
         for (Post post : postService.getAllPosts()) {
             System.out.printf("%s%s", post, postService.getAllCommentsByPostId(post.getId()).stream()
@@ -67,13 +64,12 @@ public class Main {
         }
         System.out.println();
 
-        // 4) Удаляем один пост и один комментарий
         final int removePostId = 2;
         futures.add(executor.submit(() -> {
             String remover = "PostAuthor-" + removePostId;
             Thread.currentThread().setName(remover);
-            postService.removePostById(removePostId);
-            System.out.println("[" + remover + "] removed post with id " + removePostId);
+            postService.removePostById(removePostId, remover);
+            System.out.printf("[%s] removed post with id %d\n", remover, removePostId);
         }));
 
         final int removeCommentPostId = 3;
@@ -81,15 +77,13 @@ public class Main {
         futures.add(executor.submit(() -> {
             String remover = "CommentAuthor-" + removeCommentPostId + "-" + removeCommentId;
             Thread.currentThread().setName(remover);
-            postService.removeComment(removeCommentPostId, removeCommentId);
-            System.out.println("[" + remover + "] removed comment #" + removeCommentId +
-                    " from post " + removeCommentPostId);
+            postService.removeComment(removeCommentPostId, removeCommentId, remover);
+            System.out.printf("[%s] removed comment #%d from post %d\n", remover, removeCommentId, removeCommentPostId);
         }));
 
         waitAll(futures);
         futures.clear();
 
-        // 5) Финальное состояние
         System.out.println("\n=== Final posts and their comments ===");
         for (Post post : postService.getAllPosts()) {
             System.out.printf("%s%s", post, postService.getAllCommentsByPostId(post.getId()).stream()

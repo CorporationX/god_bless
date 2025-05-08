@@ -19,7 +19,7 @@ public class PostService {
 
     public void addComment(int postId, Comment comment) {
         if (postId == 0 || comment == null) {
-            log.error("Adding comment error (postId={} comment={})", postId, Objects.requireNonNull(comment));
+            log.error("Adding comment error (postId={} comment={})", postId, comment);
             throw new IllegalArgumentException("Post id must not be 0 and comment must not be null!");
         }
         postsById.get(postId).addComment(comment);
@@ -31,7 +31,6 @@ public class PostService {
             log.error("Trying get all posts, but postsById is empty");
             throw new IllegalStateException("No posts yet!");
         }
-
         return postsById.values().stream().toList();
     }
 
@@ -48,8 +47,8 @@ public class PostService {
         );
     }
 
-    public void removePostById(int postId) {
-        if (!Objects.equals(Thread.currentThread().getName(), postsById.get(postId).getAuthor())) {
+    public void removePostById(int postId, String author) {
+        if (!Objects.equals(author, postsById.get(postId).getAuthor())) {
             log.error("User with no permission name={} trying to delete post id={}",
                     Thread.currentThread().getName(), postId);
             throw new IllegalStateException("You can't delete this post!");
@@ -58,13 +57,13 @@ public class PostService {
             log.error("Trying to remove post which doesn't exist (postId={})", postId);
             throw new IllegalArgumentException("Post not found!");
         }
-        log.info("Post deleted");
         postsById.remove(postId);
+        log.info("User {} deleted post {}", author, postId);
     }
 
-    public void removeComment(int postId, int commentId) {
+    public void removeComment(int postId, int commentId, String author) {
         Map<Integer, Comment> commentMap = Objects.requireNonNull(postsById.get(postId).getCommentsById());
-        if (!Objects.equals(Thread.currentThread().getName(), commentMap.get(commentId).getAuthor())) {
+        if (!Objects.equals(author, commentMap.get(commentId).getAuthor())) {
             log.error("User with no permission name={} trying to delete comment id={}",
                     Thread.currentThread().getName(), commentId);
             throw new IllegalStateException("You can't delete this comment!");
@@ -73,7 +72,7 @@ public class PostService {
             log.error("The comment to remove with id {} not found", commentId);
             throw new IllegalArgumentException("Comment to remove not found");
         }
-        log.info("Comment deleted");
         postsById.get(postId).removeComment(commentId);
+        log.info("User {} deleted comment {} from post {}", author, commentId, postId);
     }
 }
