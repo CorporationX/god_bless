@@ -12,15 +12,14 @@ public class PotionService {
 
     public static CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
-                    log.info("Собираем игредиенты для зелья {}", potion.getName());
-                    try {
-                        TimeUnit.SECONDS.sleep(potion.getRequiredIngredient());
-                    } catch (InterruptedException e) {
-                        log.error(e.getMessage());
-                        throw new RuntimeException(e);
-                    }
-                    return potion.getRequiredIngredient();
-                })
-                .thenApply(ingredient -> totalIngredients.accumulateAndGet(ingredient, Integer::sum));
+            log.info("Собираем игредиенты для зелья {}", potion.getName());
+            try {
+                TimeUnit.SECONDS.sleep(potion.getRequiredIngredient());
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
+            return potion.getRequiredIngredient();
+        }).thenApply(ingredient -> totalIngredients.accumulateAndGet(ingredient, Integer::sum));
     }
 }
