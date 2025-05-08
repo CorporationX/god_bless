@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -18,8 +17,7 @@ public class DesignResources {
     public List<String> readFile() {
         lock.readLock().lock();
         try {
-            System.out.println("Список файлов для проектирования:");
-            files.forEach(file -> System.out.println("-" + file));
+            log.info("Чтение файлов для проектирования");
             return files;
         } finally {
             lock.readLock().unlock();
