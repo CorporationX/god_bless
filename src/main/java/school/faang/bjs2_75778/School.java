@@ -13,7 +13,7 @@ public class School {
     private String name;
     private List<Student> team;
 
-    public int getTotalPoints() {
+    public synchronized int getTotalPoints() {
         return team.stream().mapToInt(Student::getPoints).sum();
     }
 }

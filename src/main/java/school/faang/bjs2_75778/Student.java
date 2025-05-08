@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Student {
     private String name;
-    private int year;
+    private final int year;
     private int points;
 }

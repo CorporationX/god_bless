@@ -10,5 +10,5 @@ import lombok.Setter;
 public class Task {
     private String name;
     private int difficulty;
-    private int reward;
+    private final int reward;
 }

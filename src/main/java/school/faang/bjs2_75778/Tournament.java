@@ -12,9 +12,7 @@ public class Tournament {
                 e.printStackTrace();
             }
 
-            school.getTeam().forEach(student -> {
-                student.setPoints(student.getPoints() + task.getReward());
-            });
+            school.getTeam().forEach(student -> student.setPoints(student.getPoints() + task.getReward()));
             return school;
         });
     }
