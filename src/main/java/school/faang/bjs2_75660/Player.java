@@ -4,11 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Setter
 @Getter
-@AllArgsConstructor
 public class Player {
     private String name;
     private int level;
-    private int experience;
+    private AtomicInteger experience;
+
+    public Player(String name, int level, int experience) {
+        this.name = name;
+        this.level = level;
+        this.experience = new AtomicInteger(experience);
+    }
 }

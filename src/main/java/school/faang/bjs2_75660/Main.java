@@ -17,5 +17,6 @@ public class Main {
         player2Quest.thenAccept(play -> System.out.println(play.getName() +
                 " has completed the quest and now has " + play.getExperience() +
                 " experience points.")).join();
+        questSystem.shutDown();
     }
 }
