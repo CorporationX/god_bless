@@ -11,7 +11,9 @@ public class Bank {
     }
 
     public boolean transfer(int fromId, int toId, double amount) {
-        if (fromId == toId) return false;
+        if (fromId == toId) {
+            return false;
+        }
 
         Account from = accounts.get(fromId);
         Account to = accounts.get(toId);
