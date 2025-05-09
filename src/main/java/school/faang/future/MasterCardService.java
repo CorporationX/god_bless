@@ -2,6 +2,7 @@ package school.faang.future;
 
 import java.util.concurrent.*;
 
+
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
@@ -30,9 +31,11 @@ public class MasterCardService {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         try {
+
             Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
 
-            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
+
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(() -> sendAnalytics(), executor);
 
             Integer analyticsResult = analyticsFuture.get();
             System.out.println("Аналитика отправлена: " + analyticsResult);
