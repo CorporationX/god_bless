@@ -1,8 +1,11 @@
 package school.faang.hogwarts;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
@@ -19,15 +22,14 @@ public class Main {
         CompletableFuture<School> startTask2 = tournament.startTask(beauxbatons, task2);
 
         CompletableFuture.allOf(startTask, startTask2)
-                .thenApply(i -> {
+                .thenRun(() -> {
                     School result1 = startTask.join();
                     School result = startTask2.join();
                     if (result1.getTotalPoints() > result.getTotalPoints()) {
-                        return result1;
+                        log.info("Win " + result1);
                     } else {
-                        return result;
+                        log.info("Win " + result);
                     }
-                })
-                .join();
+                });
     }
 }

@@ -3,7 +3,7 @@ package school.faang.hogwarts;
 import java.util.concurrent.CompletableFuture;
 
 public class Tournament {
-    public synchronized CompletableFuture<School> startTask(School school, Task task) {
+    public CompletableFuture<School> startTask(School school, Task task) {
         synchronized (school) {
             return CompletableFuture.supplyAsync(() -> {
                 try {
