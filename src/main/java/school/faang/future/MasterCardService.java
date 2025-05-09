@@ -40,7 +40,8 @@ public class MasterCardService {
         try {
             Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
 
-            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+            CompletableFuture<Integer> analyticsFuture =
+                    CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
             Integer analyticsResult = analyticsFuture.join();
             log.info("Analytics sent: {} ", analyticsResult);
