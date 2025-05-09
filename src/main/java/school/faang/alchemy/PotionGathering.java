@@ -25,6 +25,6 @@ public class PotionGathering {
         CompletableFuture<Void> allDone = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         allDone.join();
 
-        log.info("Общее количество собранных ингредиентов: {} ",totalIngredients.get());
+        log.info("Общее количество собранных ингредиентов: {} ", totalIngredients.get());
     }
 }
