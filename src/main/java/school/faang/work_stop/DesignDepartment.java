@@ -11,13 +11,10 @@ public class DesignDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (designResources) {
-            System.out.println("Прочитал данные файла Marketing");
-            List<String> marketingFile = marketingResources.readeMarketing();
-            synchronized (marketingResources) {
-                System.out.println("Added File Marketing from Design");
-                designResources.addFileDesign("Design add");
-            }
-        }
+        System.out.println("Прочитал данные файла Marketing");
+        List<String> marketingFile = marketingResources.readeMarketing();
+
+        System.out.println("Added File Marketing from Design");
+        designResources.addFileDesign("Design add");
     }
 }

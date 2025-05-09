@@ -7,12 +7,23 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DesignResources {
     private final List<String> nameFile = new ArrayList<>();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public synchronized List<String> readeDesign() {
-        return nameFile;
+    public List<String> readeDesign() {
+        lock.readLock().lock();
+        try {
+            return nameFile;
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
-    public synchronized void addFileDesign(String file) {
-        nameFile.add(file);
+    public void addFileDesign(String file) {
+        lock.writeLock().lock();
+        try {
+            nameFile.add(file);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 }
