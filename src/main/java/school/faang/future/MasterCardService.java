@@ -26,7 +26,6 @@ public class MasterCardService {
         }
     }
 
-
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
