@@ -9,6 +9,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 @Getter
 public class Account {
+    private static final String INSUFFICIENT_FUNDS = "Insufficient funds to withdraw";
+
     private final UUID id;
     private double balance;
     private final ReentrantLock lock = new ReentrantLock();
@@ -22,13 +24,12 @@ public class Account {
         balance += amount;
     }
 
-    public boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         if (balance < amount) {
-            log.warn("Insufficient funds to withdraw");
-            return false;
+            log.error(INSUFFICIENT_FUNDS);
+            throw new RuntimeException(INSUFFICIENT_FUNDS);
         } else {
             balance -= amount;
-            return true;
         }
     }
 

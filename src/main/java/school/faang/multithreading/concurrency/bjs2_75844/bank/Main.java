@@ -38,7 +38,11 @@ public class Main {
                             int from = new Random().nextInt(accounts.size());
                             int to = new Random().nextInt(accounts.size());
                             double value = Math.round((new Random().nextDouble() * 10000) * 100.0) / 100.0;
-                            bank.transfer(accounts.get(from).getId(), accounts.get(to).getId(), value);
+                            try {
+                                bank.transfer(accounts.get(from).getId(), accounts.get(to).getId(), value);
+                            } catch (RuntimeException e) {
+                                log.error(e.getMessage());
+                            }
                         }));
 
         pool.shutdown();
