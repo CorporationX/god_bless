@@ -18,13 +18,16 @@ public class Main {
         CompletableFuture<Player> future1 = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> future2 = questSystem.startQuest(player2, quest2);
 
-        future1.thenAccept(player -> {
-            log.info("{} has completed the quest and has {} xp", player.getName(), player.getExperience());
-        });
-        future2.thenAccept(player -> {
-            log.info("{} has completed the quest and has {} xp", player.getName(), player.getExperience());
-        });
+        future1.thenAccept(player ->
+                log.info("{} has completed the quest and has {} xp", player.getName(), player.getExperience())
+        );
+        future2.thenAccept(player ->
+                log.info("{} has completed the quest and has {} xp", player.getName(), player.getExperience())
+        );
+
         CompletableFuture.allOf(future1, future2).join();
+
+        questSystem.shutdown();
     }
 }
 
