@@ -30,7 +30,7 @@ public class Main {
                     log.info("Перевод {} с аккаунта {} на аккаунт {} выполнен.", amount, fromAccountId, toAccountId);
 
                 } else {
-                    log.info("Перевод {} с аккаунта {} на аккаунт {}  не выполнен.", amount, fromAccountId, toAccountId);
+                    log.info("Перевод {} с аккаунта {} на аккаунт {}  отклонен.", amount, fromAccountId, toAccountId);
                 }
             }
         };

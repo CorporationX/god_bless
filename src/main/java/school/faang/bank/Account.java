@@ -37,5 +37,4 @@ class Account {
             lock.unlock();
         }
     }
-
 }
