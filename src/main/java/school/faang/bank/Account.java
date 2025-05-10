@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 class Account {
+
     private final int id;
     private double balance;
     private final Lock lock = new ReentrantLock();

@@ -43,4 +43,5 @@ class Bank {
         }
         return totalBalance;
     }
+
 }

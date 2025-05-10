@@ -8,7 +8,6 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Bank bank = new Bank();
-
         Account account1 = new Account(1, 1000);
         Account account2 = new Account(2, 1500);
         Account account3 = new Account(3, 2000);
