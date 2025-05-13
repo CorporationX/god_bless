@@ -34,6 +34,7 @@ class FoodDeliveryTask implements Runnable {
             Thread.currentThread().interrupt();
             System.err.println("Доставка была прервана: " + e.getMessage());
         }
+
         log.info("{} ест {} {} ов", character, foodAmount, foodType.toString().toLowerCase());
     }
 }
