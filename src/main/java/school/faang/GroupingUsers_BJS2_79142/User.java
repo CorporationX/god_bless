@@ -27,7 +27,7 @@ public class User {
             } else {
                 listUsersByMap = mapUsers.get(user.getAge());
                 listUsersByMap.add(user);
-                mapUsers.put(user.getAge(),listUsersByMap);
+                mapUsers.put(user.getAge(), listUsersByMap);
             }
         }
         return mapUsers;

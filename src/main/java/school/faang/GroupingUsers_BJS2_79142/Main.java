@@ -16,7 +16,7 @@ public class Main {
                 new User("Petr", 25, "grooving", "Pavlova")
         );
         Map<Integer, List<User>> mapResult = groupUsers(userList);
-        for (Map.Entry<Integer, List<User>> entry : mapResult.entrySet()){
+        for (Map.Entry<Integer, List<User>> entry : mapResult.entrySet()) {
             System.out.println(entry);
         }
     }
