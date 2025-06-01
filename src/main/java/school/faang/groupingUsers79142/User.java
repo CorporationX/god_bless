@@ -1,4 +1,4 @@
-package school.faang.GroupingUsers_BJS2_79142;
+package school.faang.groupingUsers79142;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,18 +16,18 @@ public class User {
     private String workplace;
     private String address;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> mapUsers = new HashMap<>();
-        for (User user : listUsers) {
-            List<User> listUsersByMap = new ArrayList<>();
+        for (User user : userList) {
+            List<User> usersListByAge = new ArrayList<>();
             if (mapUsers.get(user.getAge()) == null) {
 
-                listUsersByMap.add(user);
-                mapUsers.put(user.getAge(), listUsersByMap);
+                usersListByAge.add(user);
+                mapUsers.put(user.getAge(), usersListByAge);
             } else {
-                listUsersByMap = mapUsers.get(user.getAge());
-                listUsersByMap.add(user);
-                mapUsers.put(user.getAge(), listUsersByMap);
+                usersListByAge = mapUsers.get(user.getAge());
+                usersListByAge.add(user);
+                mapUsers.put(user.getAge(), usersListByAge);
             }
         }
         return mapUsers;

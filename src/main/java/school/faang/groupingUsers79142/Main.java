@@ -1,10 +1,9 @@
-package school.faang.GroupingUsers_BJS2_79142;
+package school.faang.groupingUsers79142;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.GroupingUsers_BJS2_79142.User.groupUsers;
+import static school.faang.groupingUsers79142.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,8 +14,8 @@ public class Main {
                 new User("Sergey", 25, "manager", "Pushkina"),
                 new User("Petr", 25, "grooving", "Pavlova")
         );
-        Map<Integer, List<User>> mapResult = groupUsers(userList);
-        for (Map.Entry<Integer, List<User>> entry : mapResult.entrySet()) {
+        Map<Integer, List<User>> result = groupUsers(userList);
+        for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             System.out.println(entry);
         }
     }
