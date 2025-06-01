@@ -17,19 +17,19 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
-        Map<Integer, List<User>> mapUsers = new HashMap<>();
+        Map<Integer, List<User>> usersMap = new HashMap<>();
         for (User user : userList) {
             List<User> usersListByAge = new ArrayList<>();
-            if (mapUsers.get(user.getAge()) == null) {
+            if (usersMap.get(user.getAge()) == null) {
 
                 usersListByAge.add(user);
-                mapUsers.put(user.getAge(), usersListByAge);
+                usersMap.put(user.getAge(), usersListByAge);
             } else {
-                usersListByAge = mapUsers.get(user.getAge());
+                usersListByAge = usersMap.get(user.getAge());
                 usersListByAge.add(user);
-                mapUsers.put(user.getAge(), usersListByAge);
+                usersMap.put(user.getAge(), usersListByAge);
             }
         }
-        return mapUsers;
+        return usersMap;
     }
 }
