@@ -1,22 +1,20 @@
 package school.faang.bjs2_79155;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
+@Data
 public class User {
-    private String name;
     private int age;
+    private String name;
     private String workplace;
     private String address;
-
-    public User(int age, String name, String workplace, String address) {
-        this.age = age;
-        this.name = name;
-        this.workplace = workplace;
-        this.address = address;
-    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
@@ -30,10 +28,10 @@ public class User {
         users.forEach((age, list) -> {
             System.out.printf("Пользователи (%s)\n", age);
             list.forEach(user -> {
-                System.out.println("Имя: " + user.name);
-                System.out.println("Возраст: " + user.age);
-                System.out.println("Место работы: " + user.workplace);
-                System.out.println("Адрес: " + user.address);
+                System.out.println("Имя: " + user.getName());
+                System.out.println("Возраст: " + user.getAge());
+                System.out.println("Место работы: " + user.getWorkplace());
+                System.out.println("Адрес: " + user.getAddress());
                 System.out.println("---------");
             });
         });
