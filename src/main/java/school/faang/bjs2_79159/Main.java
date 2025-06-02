@@ -1,19 +1,19 @@
 package school.faang.bjs2_79159;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        User user1 = new User(1, "Alice", 25, Arrays.asList("Reading", "Hiking", "Swimming"));
-        User user2 = new User(2, "Bob", 30, Arrays.asList("Cooking", "Gaming"));
-        User user3 = new User(3, "Charlie", 22, Arrays.asList("Hiking", "Gaming", "Music"));
-        User user4 = new User(4, "Diana", 28, Arrays.asList("Knitting", "Swimming"));
-        User user5 = new User(5, "Eve", 31, null);  // test null activities
-
-        List<User> userList = Arrays.asList(user1, user2, user3, user4, user5);
-        List<String> activitiesToFind = Arrays.asList("Swimming", "Gaming");
+        List<User> userList = List.of(
+                new User(1, "Alice", 25, Set.of("Reading", "Hiking", "Swimming")),
+                new User(2, "Bob", 30, Set.of("Cooking", "Gaming")),
+                new User(3, "Charlie", 22, Set.of("Hiking", "Gaming", "Music")),
+                new User(4, "Diana", 28, Set.of("Knitting", "Swimming")),
+                new User(5, "Eve", 31, null)
+        );
+        List<String> activitiesToFind = List.of("Swimming", "Gaming");
 
         Map<User, String> matches = User.findHobbyLovers(userList, activitiesToFind);
 

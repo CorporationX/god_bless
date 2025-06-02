@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class User {
     private final int id;
     private final String name;
     private int age;
-    private List<String> activities;
+    private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> userList, List<String> activitiesList) {
         Map<User, String> matches = new HashMap<>();
@@ -30,9 +30,8 @@ public class User {
             if (user.activities == null) {
                 return;
             }
-            HashSet<String> userActivitiesSet = new HashSet<>(user.activities);
             for (String findActivity : activitiesList) {
-                if (userActivitiesSet.contains(findActivity)) {
+                if (user.activities.contains(findActivity)) {
                     matches.put(user, findActivity);
                     break;
                 }
