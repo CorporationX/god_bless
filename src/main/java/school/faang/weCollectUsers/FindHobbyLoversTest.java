@@ -24,6 +24,5 @@ public class FindHobbyLoversTest {
         userList.add(new User(6, "Vika", 20, new HashSet<>(Arrays.asList("Sample", "Growy", "Pool"))));
 
         System.out.println(User.findHobbyLovers(userList, activity));
-
     }
 }

@@ -12,10 +12,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class User {
-    private  int id;
-    private String name;
-    private int age;
-    private Set<String> setActivityUser;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> setActivityUser;
 
     @NonNull
     public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> setActivities) {
@@ -28,6 +28,5 @@ public class User {
             }
         }
         return result;
-
     }
 }
