@@ -1,17 +1,16 @@
 package school.faang.bjs2_79171;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<User> myUserList = Arrays.asList(
-                new User("Bob", 11),
-                new User("Alice", 11),
-                new User("Ronald", 13),
-                new User("Pete", 14)
+        List<User> myUserList = List.of(
+                new User("Bob", 11, "school", "Maple st. 1"),
+                new User("Alice", 11, null, null),
+                new User("Ronald", 13, "office", "Elm st. 2"),
+                new User("Pete", 14, null, null)
         );
 
         Map<Integer, List<User>> groupedMap = User.groupUsers(myUserList);
