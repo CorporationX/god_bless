@@ -1,34 +1,29 @@
 package school.faang.BJS2_79140;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@ToString(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 public class User {
-    private String name;
+    @ToString.Include
+    private final String name;
     @Getter
-    private int age;
-    private String workplace;
-    private String address;
-
-    User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
+    private final int age;
+    private final String workplace;
+    private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> inputList) {
         Map<Integer, List<User>> sortedMap = new HashMap<>();
 
         for (User user : inputList) {
             int age = user.getAge();
-
-            if (!sortedMap.containsKey(age)) {
-                sortedMap.put(age, new ArrayList<>());
-            }
+            sortedMap.putIfAbsent(age, new ArrayList<>());
             sortedMap.get(age).add(user);
         }
         return sortedMap;

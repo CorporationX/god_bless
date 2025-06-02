@@ -15,13 +15,11 @@ public class Main {
         User user4 = new User("Lucky", 30, "Google", "Mira 2");
         User user5 = new User("Bob", 19, "Netflix", "Leninskaya 1");
 
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
-        users.add(user5);
+        List.of(user1, user2, user3, user4, user5).forEach(user -> users.add(user));
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
+
+        System.out.println(groupedUsers);
     }
 
 }
