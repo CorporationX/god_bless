@@ -13,7 +13,7 @@ public class GrupingUsersBayAgeTest {
         userList.add(new User("Dani", 18, "Moskov", "Moskov"));
         userList.add(new User("Jon", 22, "Vladivostok", "Omsk"));
         userList.add(new User("Bob", 22, "Tula", "Omsk"));
-        userList.add(new User("Li", 20, "Tula", "Omsk"));
+        userList.add(new User("Lim", 20, "Tula", "Omsk"));
         userList.add(new User("Tom", 18, "Omsk", "Omsk"));
 
         System.out.println(User.groupUsers(userList).get(22));
