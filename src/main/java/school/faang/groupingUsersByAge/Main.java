@@ -7,6 +7,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+
         ArrayList<String> city = new ArrayList<>() {{
             add("Moskov");
             add("Omsk");
