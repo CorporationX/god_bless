@@ -1,4 +1,4 @@
-package school.faang.userRegistration79244;
+package school.faang.userregistration79244;
 
 import lombok.Data;
 
@@ -14,13 +14,14 @@ public class User {
     private String address;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final int minUserAge = 18;
 
-    User(String name, int age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         List<String> errors = new ArrayList<>();
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null || name.isBlank()) {
             errors.add("Вы не ввели имя");
         }
-        if (age < 18) {
+        if (age < minUserAge) {
             errors.add("Возраст должен быть от 18 ");
         }
         if (!VALID_JOBS.contains(job)) {

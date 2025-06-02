@@ -1,4 +1,4 @@
-package school.faang.userRegistration79244;
+package school.faang.userregistration79244;
 
 public class Main {
     public static void main(String[] args) {
