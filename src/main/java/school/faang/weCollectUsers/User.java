@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class User {
-    private final int ID;
+    private  int id;
     private String name;
     private int age;
     private Set<String> setActivityUser;
