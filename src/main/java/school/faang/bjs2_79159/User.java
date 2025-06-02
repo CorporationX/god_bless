@@ -27,11 +27,11 @@ public class User {
         }
 
         users.forEach(user -> {
-            if (user.activities == null) {
+            if (user.getActivities() == null) {
                 return;
             }
             for (String findActivity : activitiesToMatch) {
-                if (user.activities.contains(findActivity)) {
+                if (user.getActivities().contains(findActivity)) {
                     matches.put(user, findActivity);
                     break;
                 }
