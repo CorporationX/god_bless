@@ -20,17 +20,17 @@ public class User {
     private int age;
     private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> userList, List<String> activitiesList) {
+    public static Map<User, String> findHobbyLovers(List<User> users, List<String> activitiesToMatch) {
         Map<User, String> matches = new HashMap<>();
-        if (userList == null || activitiesList == null) {
+        if (users == null || activitiesToMatch == null) {
             return matches;
         }
 
-        userList.forEach(user -> {
+        users.forEach(user -> {
             if (user.activities == null) {
                 return;
             }
-            for (String findActivity : activitiesList) {
+            for (String findActivity : activitiesToMatch) {
                 if (user.activities.contains(findActivity)) {
                     matches.put(user, findActivity);
                     break;
