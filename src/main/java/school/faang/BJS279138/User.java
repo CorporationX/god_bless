@@ -18,7 +18,9 @@ public class User {
     private String workplace;
     private String address;
 
-    public Map<Integer,List<User>> groupUsers(List<User> userList){
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }
+
+

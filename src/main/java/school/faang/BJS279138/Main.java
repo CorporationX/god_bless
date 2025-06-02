@@ -12,6 +12,6 @@ public class Main {
         userList.add(new User("Misha", 18, "Промсвязьбанк", "Загорьевская, 4"));
         userList.add(new User("Vlad", 19, "Промсвязьбанк", "Загорьевская, 5"));
         userList.add(new User("Igor", 20, "Промсвязьбанк", "Загорьевская, 6"));
-        System.out.println(userList.get(0).groupUsers(userList).toString());
+        System.out.println(User.groupUsers(userList).toString());
     }
 }
