@@ -3,7 +3,7 @@ package school.faang.BJS2_79175;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main( String[] args) {
+    public static void main(String[] args) {
         ArrayList<User> users = new ArrayList<>();
 
         User user1 = new User("Tom", 55, "Amazon", "Pushkina 1");
