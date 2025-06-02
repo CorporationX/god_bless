@@ -4,7 +4,7 @@ import lombok.ToString;
 
 import java.util.Set;
 
-@ToString(includeFieldNames=true)
+@ToString(includeFieldNames = true)
 public class User {
     @ToString.Include
     private String name;
