@@ -1,7 +1,7 @@
 package school.faang.BJS2_79175;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +12,8 @@ public class Main {
         User user3 = new User("Sam", 24, "Yandex", "Pobeda 22");
         User user4 = new User("Vlad", 32, "Sberbank", "Lenina 12");
 
-        List.of(user1, user2, user3, user4).forEach(user -> users.add(user));
+        Collections.addAll(users, user1, user2, user3, user4);
+
         System.out.println(User.groupUsers(users));
     }
 }
