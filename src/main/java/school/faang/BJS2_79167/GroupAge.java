@@ -14,7 +14,7 @@ public class GroupAge {
 
         Map<Integer, List<User>> groupUsers = User.groupUsers(users);
 
-        for (Map.Entry<Integer, List<User>> entry: groupUsers.entrySet()) {
+        for (Map.Entry<Integer, List<User>> entry : groupUsers.entrySet()) {
             System.out.println("age " + entry.getKey());
             System.out.println(entry.getValue());
         }
