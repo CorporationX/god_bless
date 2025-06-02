@@ -5,18 +5,19 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int MIN_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name is empty");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age under 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age under " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job. Should be " + VALID_JOBS);
