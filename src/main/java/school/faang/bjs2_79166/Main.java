@@ -8,7 +8,14 @@ public class Main {
 
         while (true) {
             archer.attack(warrior);
+            if (archer.health == 0) {
+                break;
+            }
+
             warrior.attack(archer);
+            if (warrior.health == 0) {
+                break;
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package school.faang.bjs2_79166;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Warrior extends Character {
     public Warrior(String name) {
         super(name, 10, 5, 3);
@@ -10,9 +12,9 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         if (isKilled(opponent.health, strength)) {
             health = 0;
-            throw new RuntimeException(opponent.name + " is killed");
+            log.info("{} is killed", opponent.name);
         } else {
-            System.out.println(String.format("%s наносит урон %s равный %d", this.name, opponent.name, this.strength));
+            log.info("{} наносит урон {} равный {}", this.name, opponent.name, this.strength);
             opponent.health -= this.strength;
         }
     }
