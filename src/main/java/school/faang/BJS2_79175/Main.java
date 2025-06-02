@@ -1,6 +1,7 @@
 package school.faang.BJS2_79175;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,11 +12,7 @@ public class Main {
         User user3 = new User("Sam", 24, "Yandex", "Pobeda 22");
         User user4 = new User("Vlad", 32, "Sberbank", "Lenina 12");
 
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
-
-        User.groupUsers(users);
+        List.of(user1,user2,user3,user4).forEach(user -> users.add(user));
+        System.out.println(User.groupUsers(users));
     }
 }
