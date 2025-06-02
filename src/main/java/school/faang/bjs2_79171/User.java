@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @RequiredArgsConstructor
 @ToString
 public class User {
