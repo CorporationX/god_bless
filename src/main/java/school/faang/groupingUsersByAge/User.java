@@ -1,4 +1,4 @@
-package school.faang.BJS2_79136;
+package school.faang.groupingUsersByAge;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
