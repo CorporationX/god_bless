@@ -10,6 +10,6 @@ public class Main {
                             + "Место работы пользователя - " + Andrey.getJob() + "\n"
                             + "Адрес пользователя - " + Andrey.getAddress());
 
-        User Dasha = new User("Dasha", 24, "Amazon", "Moscow");
+        User Dasha = new User("Dasha", 24, "Amazon", "Orenburg");
     }
 }
