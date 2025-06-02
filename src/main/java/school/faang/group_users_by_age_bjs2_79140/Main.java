@@ -1,4 +1,4 @@
-package school.faang.bjs2_79140;
+package school.faang.group_users_by_age_bjs2_79140;
 
 import java.util.List;
 import java.util.Map;
