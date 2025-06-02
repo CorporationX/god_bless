@@ -12,6 +12,7 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York");
 
+
     public User(String name, int age, String job, String address) {
         validUser(name, age, job, address);
 
