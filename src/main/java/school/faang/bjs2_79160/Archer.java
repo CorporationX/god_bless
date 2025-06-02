@@ -14,7 +14,7 @@ public class Archer extends Character {
             int healthAfterDamage = opponent.getHealth() - getAgility();
             opponent.setHealth(healthAfterDamage);
         } else {
-            System.out.println("Health" + getName() + " opponent is too low");
+            System.out.println("Health" + opponent.getName() + " opponent is too low");
         }
     }
 }

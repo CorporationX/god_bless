@@ -14,7 +14,7 @@ public class Warrior extends Character {
             int healthAfterDamage = opponent.getHealth() - getStrength();
             opponent.setHealth(healthAfterDamage);
         } else {
-            System.out.println("Health " + getName() + " is too low ");
+            System.out.println("Health " + opponent.getName() + " is too low ");
         }
     }
 
