@@ -1,4 +1,4 @@
-package school.faang.bjs2_79149;
+package school.faang.collect_users_bjs2_79149;
 
 import java.util.List;
 import java.util.Map;
