@@ -1,6 +1,6 @@
 package school.faang.BJS2_79140;
-import lombok.Getter;
 
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,13 +20,13 @@ public class User {
         this.address = address;
     }
 
-    static public Map<Integer, List<User>> groupUsers(List<User> inputList) {
+    public static Map<Integer, List<User>> groupUsers(List<User> inputList) {
         Map<Integer, List<User>> sortedMap = new HashMap<>();
 
         for (User user : inputList) {
             int age = user.getAge();
 
-            if(!sortedMap.containsKey(age)){
+            if (!sortedMap.containsKey(age)) {
                 sortedMap.put(age, new ArrayList<>());
             }
             sortedMap.get(age).add(user);
