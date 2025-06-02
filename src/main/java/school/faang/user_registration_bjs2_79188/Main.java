@@ -1,0 +1,43 @@
+package school.faang.user_registration_bjs2_79188;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Supplier;
+
+public class Main {
+    public static void main(String[] args) {
+        List<User> validUsers = new ArrayList<>();
+        Set<String> errors = new HashSet<>();
+
+        // Список "сырых" данных для создания пользователей
+        List<Object[]> userCreations = List.of(
+                new Object[]{"Alex", 17, "google", "New York"},
+                new Object[]{"Alex", 18, "googlee", "New York"},
+                new Object[]{"Alex", 18, "google", "NY"},
+                new Object[]{"", 18, "google", "New York"},
+                new Object[]{"Alex", 18, "google", "New York"}
+        );
+
+        for (int i = 0; i < userCreations.size(); i++) {
+            Object[] data = userCreations.get(i);
+            try {
+                User user = new User(
+                        (String) data[0],
+                        (Integer) data[1],
+                        (String) data[2],
+                        (String) data[3]
+                );
+                validUsers.add(user);
+            } catch (IllegalArgumentException e) {
+                errors.add("Ошибка в пользователе " + (i + 1) + ": " + e.getMessage());
+            }
+        }
+
+        System.out.println("Валидные пользователи: " + validUsers);
+        System.out.println("Ошибки:");
+        errors.forEach(System.out::println);
+    }
+}
