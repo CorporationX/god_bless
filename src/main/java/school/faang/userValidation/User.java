@@ -10,6 +10,7 @@ public class User {
     private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
     private static final int permissibleAge = 18;
+
     private String name;
     private int age;
     private String job;
