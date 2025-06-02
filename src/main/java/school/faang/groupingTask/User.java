@@ -1,10 +1,13 @@
 package school.faang.groupingTask;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class User {
     private final String name;
     private final int age;
@@ -28,7 +31,7 @@ public class User {
 
         Map<Integer, List<User>> usersMap = groupUsers(usersList);
 
-        for (Map.Entry<Integer, List<User>> entry: usersMap.entrySet()) {
+        for (Map.Entry<Integer, List<User>> entry : usersMap.entrySet()) {
             System.out.println("age of the group = " + entry.getKey());
             System.out.println(entry.getValue() + "\n");
         }
@@ -37,7 +40,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
 
-        for(User user : usersList) {
+        for (User user : usersList) {
             int age = user.getAge();
 
             if (usersMap.containsKey(age)) {
@@ -48,22 +51,6 @@ public class User {
         }
 
         return usersMap;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getWorkplace() {
-        return workplace;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     @Override
