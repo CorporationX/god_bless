@@ -8,6 +8,8 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int MIN_VALID_AGE = 18;
+
     private int age;
     private String name;
     private String workplace;
@@ -22,17 +24,17 @@ public class User {
     }
 
     public void validate(int age, String name, String workplace, String address) {
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        if (age < MIN_VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_VALID_AGE);
         }
-        if (!User.VALID_JOBS.contains(workplace)) {
-            throw new IllegalArgumentException("Невалидное место работы должно");
+        if (!VALID_JOBS.contains(workplace)) {
+            throw new IllegalArgumentException("Невалидное место работы");
         }
-        if (!User.VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Невалидное место работы должно");
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Невалидный адрес работы");
         }
     }
 }
