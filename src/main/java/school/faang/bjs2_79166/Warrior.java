@@ -11,7 +11,7 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) {
         if (isKilled(opponent.health, strength)) {
-            health = 0;
+            opponent.health = 0;
             log.info("{} is killed", opponent.name);
         } else {
             log.info("{} наносит урон {} равный {}", this.name, opponent.name, this.strength);
