@@ -10,7 +10,7 @@ public class Main {
         attacker.attack(defender);
         defender.attack(attacker);
 
-        attacker.printStats();
-        defender.printStats();
+        System.out.println(attacker);
+        System.out.println(defender);
     }
 }
