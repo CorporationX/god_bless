@@ -9,7 +9,7 @@ public class Main {
         Character warrior = new Warrior("Elon");
         Character archer = new Archer("Musk");
 
-        while(true) {
+        while (true) {
             int random = ThreadLocalRandom.current().nextInt(0, 2);
 
             if (random == 0) {
@@ -23,8 +23,6 @@ public class Main {
             }
         }
     }
-
-
 
 
 }

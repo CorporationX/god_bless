@@ -23,7 +23,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack (Character opponent) {
+    public void attack(Character opponent) {
     }
 
     protected boolean isDeath() {
