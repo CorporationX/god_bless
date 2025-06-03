@@ -9,7 +9,8 @@ public class Main {
         librarySystem.addBook("Git Book", "Git Geek", 2005, "A-1");
 
         librarySystem.findBook("SQL Book", "Sql Geek", 1970);
-        librarySystem.removeBook("SQL Book", "Sql Geek", 1970);
+        String location = librarySystem.removeBook("SQL Book", "Sql Geek", 1970);
+        System.out.println("Книга удалена из библиотеки? - " + (location != null));
         librarySystem.findBook("SQL Book", "Sql Geek", 1970);
 
 
