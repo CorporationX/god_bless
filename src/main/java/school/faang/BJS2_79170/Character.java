@@ -12,7 +12,7 @@ public abstract class Character {
     protected int intelligence;
     protected int health = 100;
 
-    public Character(String name){
+    public Character(String name) {
         this.name = name;
         power = 5;
         dexterity = 5;
