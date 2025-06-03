@@ -1,8 +1,6 @@
 package school.faang.bjs2_79790;
 
-
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,19 +12,19 @@ import java.util.Set;
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
-    public boolean addProduct(Category category, String name) {
-        return products.add(new Product(name, category));
+    public boolean addProduct(ProductCategory productCategory, String name) {
+        return products.add(new Product(name, productCategory));
     }
 
-    public boolean removeProduct(Category category, String name) {
-        return products.remove(new Product(name, category));
+    public boolean removeProduct(ProductCategory productCategory, String name) {
+        return products.remove(new Product(name, productCategory));
     }
 
-    public List<Product> findProductsByCategory(Category category) {
+    public List<Product> findProductsByCategory(ProductCategory productCategory) {
         List<Product> productsByCategory = new ArrayList<>();
 
         for (Product product : products) {
-            if (product.getCategory().equals(category)) {
+            if (product.getProductCategory().equals(productCategory)) {
                 productsByCategory.add(product);
             }
         }
@@ -34,25 +32,27 @@ public class ProductManager {
         return productsByCategory;
     }
 
-    public Map<Category, List<Product>> groupProductsByCategory() {
-        Map<Category, List<Product>> productsByCategory = new HashMap<>();
+    public Map<ProductCategory, List<Product>> groupProductsByCategory() {
+        Map<ProductCategory, List<Product>> productsByCategory = new HashMap<>();
 
         for (Product product : products) {
-            productsByCategory.computeIfAbsent(product.getCategory(), (category) -> new ArrayList<>()).add(product);
+            productsByCategory.computeIfAbsent(product.getProductCategory(),
+                                               (productCategory) -> new ArrayList<>()).add(product);
         }
 
         return productsByCategory;
     }
 
     public void printAllProducts() {
-        Map<Category, List<Product>> productsByCategory = groupProductsByCategory();
+        String printTemplate = """
+                Категория: %s
+                Продукты:""";
+        Map<ProductCategory, List<Product>> productsByCategory = groupProductsByCategory();
 
         for (var entrySet : productsByCategory.entrySet()) {
-            log.info("Категория: {}", entrySet.getKey());
-            log.info("Продукты:");
-
+            System.out.println(printTemplate.formatted(entrySet.getKey()));
             for (Product product : entrySet.getValue()) {
-                log.info("- {}", product.getName());
+                System.out.println("- " + product.getName());
             }
         }
     }

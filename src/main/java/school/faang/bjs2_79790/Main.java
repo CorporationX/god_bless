@@ -9,32 +9,31 @@ public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
 
-        productManager.addProduct(Category.FOOD, "Сосиска");
-        productManager.addProduct(Category.CLOTHING, "Платье");
-        productManager.addProduct(Category.FOOD, "Яйцо");
-        productManager.addProduct(Category.CLOTHING, "Брюки");
-        productManager.addProduct(Category.ELECTRONICS, "Ноутбук");
-        productManager.addProduct(Category.ELECTRONICS, "Планшет");
-        productManager.addProduct(Category.ELECTRONICS, "Смартфон");
+        productManager.addProduct(ProductCategory.FOOD, "Сосиска");
+        productManager.addProduct(ProductCategory.CLOTHING, "Платье");
+        productManager.addProduct(ProductCategory.FOOD, "Яйцо");
+        productManager.addProduct(ProductCategory.CLOTHING, "Брюки");
+        productManager.addProduct(ProductCategory.ELECTRONICS, "Ноутбук");
+        productManager.addProduct(ProductCategory.ELECTRONICS, "Планшет");
+        productManager.addProduct(ProductCategory.ELECTRONICS, "Смартфон");
 
         String productName = "Платье";
-        boolean isAdded = productManager.addProduct(Category.CLOTHING, "Платье");
+        boolean isAdded = productManager.addProduct(ProductCategory.CLOTHING, "Платье");
         log.info("Продукт '{}' добавлен? - {}", productName, isAdded);
 
-        boolean isRemoved = productManager.removeProduct(Category.CLOTHING, "Платье");
+        boolean isRemoved = productManager.removeProduct(ProductCategory.CLOTHING, "Платье");
         log.info("Продукт '{}' удален? - {}", productName, isRemoved);
 
-        isAdded = productManager.addProduct(Category.CLOTHING, "Платье");
+        isAdded = productManager.addProduct(ProductCategory.CLOTHING, "Платье");
         log.info("Продукт '{}' добавлен? - {}", productName, isAdded);
 
-        Category category = Category.ELECTRONICS;
-        List<Product> productsByCategory = productManager.findProductsByCategory(category);
-        log.info("Продукты категории '{}':\n{}", category, productsByCategory);
+        ProductCategory productCategory = ProductCategory.ELECTRONICS;
+        List<Product> productsByCategory = productManager.findProductsByCategory(productCategory);
+        log.info("Продукты категории '{}':\n{}", productCategory, productsByCategory);
 
-        Map<Category, List<Product>> groupProducts = productManager.groupProductsByCategory();
+        Map<ProductCategory, List<Product>> groupProducts = productManager.groupProductsByCategory();
         log.info("Продукты по категориям: {}", groupProducts);
 
         productManager.printAllProducts();
-
     }
 }
