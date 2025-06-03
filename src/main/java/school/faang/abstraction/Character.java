@@ -2,10 +2,8 @@ package school.faang.abstraction;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @EqualsAndHashCode
 public abstract class Character {
 
@@ -29,9 +27,5 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack(Character opponent, int damage) {
-        if (opponent.health > 0) {
-            opponent.health = opponent.health - damage;
-        }
-    }
+    public void attack(Character opponent) {}
 }

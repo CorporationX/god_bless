@@ -5,10 +5,10 @@ public class Main {
         Character warrior = new Warrior("Connan!");
         Character archer = new Archer("Legolas!");
 
-        warrior.attack(archer, warrior.getStrength());
+        warrior.attack(archer);
         System.out.println("У лучника после атаки воина осталось " + archer.health + " здоровья!");
 
-        archer.attack(warrior, archer.getAgility());
+        archer.attack(warrior);
         System.out.println("У воина после атаки лучника осталось " + warrior.health + " здоровья!");
     }
 }
