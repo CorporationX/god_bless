@@ -17,7 +17,6 @@ public class Warrior extends Character {
             opponent.setHealth(opponent.getHealth() - power);
             if (opponent.getHealth() < 0) {
                 opponent.setHealth(0);
-            }
-
+        }
     }
 }
