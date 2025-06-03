@@ -2,6 +2,7 @@ package school.faang.groupingUsersByAge;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class User {
                     userListToAge.add(user);
                 }
             }
-            result.put(age,userListToAge);
+            result.put(age, userListToAge);
         }
         return result;
     }
