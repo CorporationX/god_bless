@@ -1,41 +1,23 @@
 package school.faang.groupingTask;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
 @Getter
+@ToString
 public class User {
     private final String name;
-    private final int age;
-    private final String workplace;
     private final String address;
+    private final String workplace;
+    private final int age;
 
-    public User(String name, String address, String workplace, int age) {
-        this.name = name;
-        this.address = address;
-        this.workplace = workplace;
-        this.age = age;
-    }
-
-    public static void main(String[] args) {
-        List<User> usersList = new ArrayList<>(List.of(
-                new User("Frodo Begins", "Shire", "traveler", 50),
-                new User("Bilbo Begins", "Shire", "traveler", 111),
-                new User("Mister Reviewer", "Russia", "philanthropist", 25),
-                new User("Anton Sidorov", "Hogwarts", "student", 25),
-                new User("Egor Ivanov", "Narnia ", "merchant", 25)));
-
-        Map<Integer, List<User>> usersMap = groupUsers(usersList);
-
-        for (Map.Entry<Integer, List<User>> entry : usersMap.entrySet()) {
-            System.out.println("age of the group = " + entry.getKey());
-            System.out.println(entry.getValue() + "\n");
-        }
-    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
@@ -51,14 +33,5 @@ public class User {
         }
 
         return usersMap;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
