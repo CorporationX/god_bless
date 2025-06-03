@@ -1,8 +1,7 @@
-package school.faang;
+package school.faang.bjs2_79203_abstraction;
 
-import school.faang.archers.Archer;
-import school.faang.bjs2_79203_characters.Character;
-import school.faang.warriors.Warrior;
+import school.faang.bjs2_79203_abstraction.archers.Archer;
+import school.faang.bjs2_79203_abstraction.warriors.Warrior;
 
 public class Main {
     public static void main(String[] args) {

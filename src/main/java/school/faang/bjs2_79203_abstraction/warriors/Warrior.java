@@ -1,6 +1,6 @@
-package school.faang.warriors;
+package school.faang.bjs2_79203_abstraction.warriors;
 
-import school.faang.bjs2_79203_characters.Character;
+import school.faang.bjs2_79203_abstraction.Character;
 
 public class Warrior extends Character {
 

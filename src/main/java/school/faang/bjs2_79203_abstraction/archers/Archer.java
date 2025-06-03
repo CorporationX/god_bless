@@ -1,6 +1,6 @@
-package school.faang.archers;
+package school.faang.bjs2_79203_abstraction.archers;
 
-import school.faang.bjs2_79203_characters.Character;
+import school.faang.bjs2_79203_abstraction.Character;
 
 public class Archer extends Character {
 
@@ -11,6 +11,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character opponent) {
         opponent.takeDamage(this.agility);
-        System.out.println(this.name + " стреляет в " + opponent.getName() + " на " + this.agility + " урона (Ловкость)");
+        System.out.println(this.name + " стреляет в " + opponent
+                .getName() + " на " + this.agility + " урона (Ловкость)");
     }
 }
