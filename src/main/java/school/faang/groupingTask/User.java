@@ -24,12 +24,7 @@ public class User {
 
         for (User user : usersList) {
             int age = user.getAge();
-
-            if (usersMap.containsKey(age)) {
-                usersMap.get(age).add(user);
-            } else {
-                usersMap.put(age, new ArrayList<>(List.of(user)));
-            }
+            usersMap.computeIfAbsent(age, u -> new ArrayList<>()).add(user);
         }
 
         return usersMap;
