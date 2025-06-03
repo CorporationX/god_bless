@@ -2,7 +2,7 @@ package school.faang.bjs2_79180;
 
 public class Example {
     public static void reverse(int[] numbers) {
-        if (numbers.length < 2) {
+        if (numbers == null || numbers.length < 2) {
             return;
         }
 

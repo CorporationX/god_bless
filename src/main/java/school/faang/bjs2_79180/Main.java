@@ -13,5 +13,20 @@ public class Main {
         System.out.println("Reversing " + Arrays.toString(oddArray));
         Example.reverse(oddArray);
         System.out.println("Result    " + Arrays.toString(oddArray));
+
+        int[] singleArray = {1};
+        System.out.println("Reversing " + Arrays.toString(singleArray));
+        Example.reverse(singleArray);
+        System.out.println("Result    " + Arrays.toString(singleArray));
+
+        int[] emptyArray = {};
+        System.out.println("Reversing " + Arrays.toString(emptyArray));
+        Example.reverse(emptyArray);
+        System.out.println("Result    " + Arrays.toString(emptyArray));
+
+        int[] nullArray = null;
+        System.out.println("Reversing " + Arrays.toString(nullArray));
+        Example.reverse(nullArray);
+        System.out.println("Result    " + Arrays.toString(nullArray));
     }
 }
