@@ -1,5 +1,8 @@
 package school.faang.bjs2_79204;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         createUser("Alice", 25, "Google", "London");
@@ -12,9 +15,9 @@ public class Main {
     private static void createUser(String name, int age, String job, String address) {
         try {
             User user = new User(name, age, job, address);
-            System.out.println("Создан пользователь: " + user);
+            log.info("User created: {}", user);
         } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка при создании пользователя: " + e.getMessage());
+            log.warn("Failed to create user: {}", e.getMessage());
         }
     }
 }
