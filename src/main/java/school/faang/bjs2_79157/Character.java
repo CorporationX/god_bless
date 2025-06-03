@@ -9,26 +9,26 @@ public abstract class Character {
 
     private final String name;
     protected int strength;
-    protected int dexterity;
+    protected int agility;
     protected int intelligence;
-    protected int hp = DEFAULT_HP;
+    protected int health = DEFAULT_HP;
 
     public Character(String name) {
         this.name = name;
-        this.strength = this.dexterity = this.intelligence = DEFAULT_STARTER_SCORE;
+        this.strength = this.agility = this.intelligence = DEFAULT_STARTER_SCORE;
     }
 
-    public Character(String name, int strength, int dexterity, int intelligence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
-        this.dexterity = dexterity;
+        this.agility = agility;
         this.intelligence = intelligence;
     }
 
     public abstract void attack(Character opponent);
 
     public void takeDamage(int damage) {
-        this.hp = Math.max(0, hp - damage);
-        System.out.println(this.getName() + " takes " + damage + " damage. Remaining HP: " + this.hp + "❤️");
+        this.health = Math.max(0, health - damage);
+        System.out.println(this.getName() + " takes " + damage + " damage. Remaining HP: " + this.health + "❤️");
     }
 }
