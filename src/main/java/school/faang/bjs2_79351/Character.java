@@ -3,22 +3,24 @@ package school.faang.bjs2_79351;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public abstract class Character {
-    @Getter
+    private static final int MIDDLE_ATTRIBUTE = 5;
+
     private int health = 100;
     private String name;
-    @Setter @Getter
-    private int strength;
-    @Setter @Getter
-    private int agility;
     @Setter
-    private int intellect;
+    protected int strength;
+    @Setter
+    protected int agility;
+    @Setter
+    protected int intellect;
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intellect = 5;
+        this.strength = MIDDLE_ATTRIBUTE;
+        this.agility = MIDDLE_ATTRIBUTE;
+        this.intellect = MIDDLE_ATTRIBUTE;
     }
 
     public Character(String name, int strength, int agility, int intellect) {

@@ -1,11 +1,15 @@
 package school.faang.bjs2_79351;
 
 public class Archer extends Character {
+    private static final int AGILITY_ARCHER = 10;
+    private static final int INTELLECT_ARCHER = 5;
+    private static final int STRENGTH_ARCHER = 3;
+
     public Archer(String name) {
         super(name);
-        setAgility(10);
-        setIntellect(5);
-        setStrength(3);
+        this.agility = AGILITY_ARCHER;
+        this.strength = STRENGTH_ARCHER;
+        this.intellect = INTELLECT_ARCHER;
     }
 
     @Override

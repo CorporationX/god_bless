@@ -1,11 +1,15 @@
 package school.faang.bjs2_79351;
 
 public class Warrior extends Character {
+    private static final int AGILITY_WARRIOR = 5;
+    private static final int INTELLECT_WARRIOR = 3;
+    private static final int STRENGTH_WARRIOR = 10;
+
     public Warrior(String name) {
         super(name);
-        setAgility(5);
-        setIntellect(3);
-        setStrength(10);
+        this.agility = AGILITY_WARRIOR;
+        this.strength = STRENGTH_WARRIOR;
+        this.intellect = INTELLECT_WARRIOR;
     }
 
     @Override
