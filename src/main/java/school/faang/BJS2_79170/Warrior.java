@@ -15,8 +15,8 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         if (opponent.getHealth() != 0) {
             opponent.setHealth(opponent.getHealth() - power);
-        if (opponent.getHealth() < 0) {
-            opponent.setHealth(0);
+            if (opponent.getHealth() < 0) {
+                opponent.setHealth(0);
         
             }   
         }        
