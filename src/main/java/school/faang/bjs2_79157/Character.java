@@ -29,6 +29,6 @@ public abstract class Character {
 
     public void takeDamage(int damage) {
         this.hp = Math.max(0, hp - damage);
-        System.out.println(this.name + " takes " + damage + " damage. Remaining HP: " + this.hp + "❤️");
+        System.out.println(this.getName() + " takes " + damage + " damage. Remaining HP: " + this.hp + "❤️");
     }
 }

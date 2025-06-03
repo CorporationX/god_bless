@@ -16,6 +16,6 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) {
         System.out.println("🗡 " + this.getName() + " attacks️ " + opponent.getName());
-        opponent.takeDamage(this.strength);
+        opponent.takeDamage(this.getStrength());
     }
 }

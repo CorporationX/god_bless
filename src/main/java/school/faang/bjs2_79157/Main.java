@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        Character war1 = new Warrior("Berserk");
-        Character war2 = new Warrior("Viking");
-        Character arch1 = new Archer("Robin");
-        Character arch2 = new Archer("Legolas");
-
-        Character[] fighters = {war1, war2, arch1, arch2};
+        Character[] fighters = {
+                new Warrior("Berserk"),
+                new Warrior("Viking"),
+                new Archer("Robin"),
+                new Archer("Legolas")
+        };
 
         doBattle(fighters, 10);
     }
@@ -24,7 +24,6 @@ public class Main {
             int attackerIndex = random.nextInt(fighters.length);
             int opponentIndex = random.nextInt(fighters.length);
 
-            //prevent attacking self
             while (attackerIndex == opponentIndex) {
                 attackerIndex = random.nextInt(fighters.length);
             }
