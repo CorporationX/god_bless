@@ -2,42 +2,25 @@ package school.faang.bjs2_79225_registration;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            User userAllOk = new User("Bob", 20, "Amazon", "London");
-            System.out.println("userAllOk successfully created");
-        } catch (Exception e) {
-            System.out.println("userAllOk. Caught exception: " + e.getMessage());
-        }
 
-        try {
-            User userNullName = new User(null, 20, "Amazon", "London");
-        } catch (Exception e) {
-            System.out.println("userNullName. Caught exception: " + e.getMessage());
-        }
+        tryCreateUser("userAllOk", 20, "Amazon", "London");
+        tryCreateUser(null, 20, "Amazon", "London");
+        tryCreateUser("userUnderage", 2, "Amazon", "London");
+        tryCreateUser("userBadJob", 20, "AmazonX", "London");
+        tryCreateUser("userBadAddress", 20, "Amazon", "LondonX");
+        tryCreateUser("", 2, "AmazonX", "LondonX");
 
-        try {
-            User userUnderage = new User("Mark", 2, "Amazon", "London");
-        } catch (Exception e) {
-            System.out.println("userUnderage. Caught exception: " + e.getMessage());
-        }
+    }
 
+    public static void tryCreateUser(String name, int age, String job, String address) {
         try {
-            User userBadJob = new User("Pete", 20, "AmazonX", "London");
+            new User(name, age, job, address);
+            System.out.println("User " + name + " successfully created");
         } catch (Exception e) {
-            System.out.println("userBadJob. Caught exception: " + e.getMessage());
+            if (name == null || name.isEmpty()) {
+                name = "(null or empty name)";
+            }
+            System.out.println("Creating " + name + ". Caught exception: " + e.getMessage());
         }
-
-        try {
-            User userBadAddress = new User("Alice", 20, "Amazon", "LondonX");
-        } catch (Exception e) {
-            System.out.println("userBadAddress. Caught exception: " + e.getMessage());
-        }
-
-        try {
-            User userAllBad = new User("", 2, "AmazonX", "LondonX");
-        } catch (Exception e) {
-            System.out.println("userAllBad. Caught exception: " + e.getMessage());
-        }
-
     }
 }
