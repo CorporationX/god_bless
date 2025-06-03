@@ -18,6 +18,7 @@ public class Main {
                 archer.attack(warrior);
             }
 
+
             if (warrior.isLive() || archer.isLive()) {
                 break;
             }
