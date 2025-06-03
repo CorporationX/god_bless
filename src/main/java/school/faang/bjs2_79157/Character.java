@@ -15,7 +15,9 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = this.agility = this.intelligence = DEFAULT_STARTER_SCORE;
+        this.strength = DEFAULT_STARTER_SCORE;
+        this.agility = DEFAULT_STARTER_SCORE;
+        this.intelligence = DEFAULT_STARTER_SCORE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
