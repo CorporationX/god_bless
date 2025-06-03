@@ -17,7 +17,7 @@ public class Main {
             new User(name, age, job, address);
             System.out.println("User " + name + " successfully created");
         } catch (Exception e) {
-            if (name == null || name.isEmpty()) {
+            if (!Util.hasText(name)) {
                 name = "(null or empty name)";
             }
             System.out.println("Creating " + name + ". Caught exception: " + e.getMessage());

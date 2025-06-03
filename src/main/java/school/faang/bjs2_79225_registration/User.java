@@ -12,7 +12,7 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (!Util.hasText(name)) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
         this.name = name;
