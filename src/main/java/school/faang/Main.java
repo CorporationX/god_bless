@@ -18,6 +18,8 @@ public class Main {
                 archer.attack(warrior);
             }
 
+            System.out.println(warrior.health);
+            System.out.println(archer.health);
 
             if (warrior.isLive() || archer.isLive()) {
                 break;
