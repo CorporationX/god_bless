@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        User Andrey = new User("Andrey", 20, "Sber", "st.Pushkina");
-        User Vasiliy = new User("Vasiliy", 28, "VTB", "prt.Pobedy");
-        User Igor = new User("Igor", 20, "Sber", "Pushkina");
-        User Aleksey = new User("Aleksey", 26, "Sber", "Pushkina");
-        User Misha = new User("Misha", 20, "Sber", "Pushkina");
-        User Darya = new User("Darya", 26, "Sber", "Pushkina");
-        User Danil = new User("Danil", 28, "Sber", "Pushkina");
+        User andrey = new User("Andrey", 20, "Sber", "st.Pushkina");
+        User vasiliy = new User("Vasiliy", 28, "VTB", "prt.Pobedy");
+        User igor = new User("Igor", 20, "Sber", "Pushkina");
+        User aleksey = new User("Aleksey", 26, "Sber", "Pushkina");
+        User misha = new User("Misha", 20, "Sber", "Pushkina");
+        User darya = new User("Darya", 26, "Sber", "Pushkina");
+        User danil = new User("Danil", 28, "Sber", "Pushkina");
 
-        List<User> users = List.of(Andrey, Vasiliy, Igor, Aleksey, Misha, Danil, Danil);
+        List<User> users = List.of(andrey, vasiliy, igor, aleksey, misha, darya, danil);
         User.groupUsers(users);
     }
 
