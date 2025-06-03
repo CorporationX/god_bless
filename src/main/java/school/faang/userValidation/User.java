@@ -1,15 +1,13 @@
 package school.faang.userValidation;
 
 import lombok.ToString;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @ToString
 public class User {
-    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
-    private static final int permissibleAge = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int PERMISSIBLE_AGE = 18;
 
     private String name;
     private int age;
@@ -18,28 +16,25 @@ public class User {
 
 
     public User(String name, int age, String job, String address) {
-        if (!name.isEmpty()) {
-            this.name = name;
-        } else {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("name cannot be empty");
         }
 
-        if (age >= permissibleAge) {
-            this.age = age;
-        } else {
+        if (age < PERMISSIBLE_AGE) {
             throw new IllegalArgumentException("min age is 18");
         }
 
-        if (VALID_JOBS.contains(job)) {
-            this.job = job;
-        } else {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("this job is not in the list");
         }
 
-        if (VALID_ADDRESSES.contains(address)) {
-            this.address = address;
-        } else {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("this address is not in the list");
         }
+
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
 }
