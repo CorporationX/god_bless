@@ -13,14 +13,18 @@ public class User {
 
     public User(String name, int age, String job, String address) {
         try {
-            if (name == null || name.equals(""))
+            if (name == null || name.equals("")) {
                 throw new IllegalArgumentException("Имя не может быть null");
-            if (age < 18)
+            }
+            if (age < 18) {
                 throw new IllegalArgumentException("Возраст < 18");
-            if (!VALID_JOBS.contains(job))
+            }
+            if (!VALID_JOBS.contains(job)) {
                 throw new IllegalArgumentException("Такой работы нет");
-            if (!VALID_ADDRESSES.contains(address))
+            }
+            if (!VALID_ADDRESSES.contains(address)) {
                 throw new IllegalArgumentException("Такого адресса нет");
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
