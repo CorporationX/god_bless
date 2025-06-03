@@ -26,7 +26,7 @@ public abstract class Character {
     public void attack(Character opponent) {
     }
 
-    protected boolean isLive() {
+    protected boolean isDeath() {
         return health <= 0;
     }
 

@@ -21,7 +21,7 @@ public class Main {
             System.out.println(warrior.health);
             System.out.println(archer.health);
 
-            if (warrior.isLive() || archer.isLive()) {
+            if (warrior.isDeath() || archer.isDeath()) {
                 break;
             }
         }

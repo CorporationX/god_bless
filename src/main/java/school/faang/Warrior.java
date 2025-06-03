@@ -10,7 +10,7 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) {
         opponent.health -= strenght;
-        if (opponent.isLive()) {
+        if (opponent.isDeath()) {
             System.out.println(name + " win round");
         }
     }
