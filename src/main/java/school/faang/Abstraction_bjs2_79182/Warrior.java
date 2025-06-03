@@ -1,7 +1,7 @@
 package school.faang.Abstraction_bjs2_79182;
 
 public class Warrior extends Character {
-    Warrior(String name){
+    Warrior(String name) {
         super(name);
         setStrength(10);
         setAgility(5);

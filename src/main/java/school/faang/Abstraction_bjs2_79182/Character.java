@@ -22,15 +22,15 @@ public abstract class Character {
         intelligence = 5;
     }
 
-    public void setHealth(int health) {
-        this.health = Math.max(0, health);
-    }
-
     Character(String name, int age, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+    }
+
+    public void setHealth(int health) {
+        this.health = Math.max(0, health);
     }
 
     public abstract void attack(Character opponent);
