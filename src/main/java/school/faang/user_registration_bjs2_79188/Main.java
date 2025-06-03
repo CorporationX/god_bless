@@ -15,7 +15,7 @@ public class Main {
                 new Object[]{"Alex", 17, "google", "New York"},
                 new Object[]{"Alex", 18, "googlee", "New York"},
                 new Object[]{"Alex", 18, "google", "NY"},
-                new Object[]{"", 18, "google", "New York"},
+                new Object[]{null, 18, "google", "New York"},
                 new Object[]{"Alex", 18, "google", "New York"}
         );
 

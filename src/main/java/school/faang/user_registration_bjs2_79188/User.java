@@ -13,7 +13,7 @@ public class User {
     private String address;
 
     User(String name, int age, String job, String address) {
-        if (name.toLowerCase() == null || name == "") {
+        if (name == null || name == "") {
             throw new IllegalArgumentException("name cant be null");
         }
         if (age < 18) {
