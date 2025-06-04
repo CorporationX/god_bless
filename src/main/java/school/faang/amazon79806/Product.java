@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class Product {
-   private int id;
-   private Category category;
-   private String name;
+    private int id;
+    private Category category;
+    private String name;
 }
