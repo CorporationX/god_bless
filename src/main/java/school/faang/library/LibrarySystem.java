@@ -1,4 +1,4 @@
-package school.library;
+package school.faang.library;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,10 @@ public class LibrarySystem {
     }
 
     public static void removeBook(String title, String author, int year) {
-        booksMap.remove(new Book(title, author, year));
+        Object result = booksMap.remove(new Book(title, author, year));
+        if (result == null) {
+            System.out.println("the book for remove was not found");
+        }
     }
 
     public static String findBook(String title, String author, int year) {
