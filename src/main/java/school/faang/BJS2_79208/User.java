@@ -1,7 +1,11 @@
-package school.faang;
+package school.faang.BJS2_79208;
 
+import lombok.Getter;
+import lombok.ToString;
 import java.util.Set;
 
+@Getter
+@ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -27,31 +31,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
