@@ -1,5 +1,8 @@
 package school.faang.module1.bjs2_79178;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -7,13 +10,13 @@ public class Main {
         Character warrior = new Warrior("Warrior");
         Character archer = new Archer("Archer");
 
-        System.out.println(warrior.getName() + " (Warrior) начальное здоровье: " + warrior.getHealth());
-        System.out.println(archer.getName() + " (Archer) начальное здоровье: " + archer.getHealth());
+        log.info("{} начальное здоровье: {}", warrior.getName(), warrior.getHealth());
+        log.info("{} начальное здоровье: {}", archer.getName(), archer.getHealth());
 
         warrior.attack(archer);
-        System.out.println(archer.getName() + " здоровье после атаки: " + archer.getHealth());
+        log.info("{} здоровье после атаки: {}", archer.getName(), archer.getHealth());
 
         archer.attack(warrior);
-        System.out.println(warrior.getName() + " здоровье после атаки: " + warrior.getHealth());
+        log.info("{} здоровье после атаки: {}", warrior.getName(), warrior.getHealth());
     }
 }
