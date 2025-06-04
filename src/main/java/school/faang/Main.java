@@ -11,6 +11,4 @@ public class Main {
         Example.reverse(massive);
         System.out.println("Массив после использования метода reverce - " + Arrays.toString(massive));
     }
-
-
 }
