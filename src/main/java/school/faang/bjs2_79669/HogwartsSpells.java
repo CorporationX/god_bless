@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class HogwartsSpells {
-    static Map<Long, SpellEvent> spellById = new HashMap<>();
-    static Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private Map<Long, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
 
     private static Long countId = 0L;
 
@@ -25,19 +24,23 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventByType(String eventType) {
-        return spellByType.get(eventType);
+        return spellByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(Long id) {
-        spellById.remove(id);
+        SpellEvent removedSpell = spellById.remove(id);
+        if (removedSpell == null) {
+            return;
+        }
 
-        for (var entry : spellByType.entrySet()) {
-            List<SpellEvent> spells = entry.getValue();
-            for (SpellEvent spell : spells) {
-                if (Objects.equals(spell.getId(), id)) {
-                    spells.remove(spell);
-                    break;
-                }
+        String eventType = removedSpell.getEventType();
+        List<SpellEvent> spells = spellByType.get(eventType);
+
+        if (spells != null) {
+            spells.remove(removedSpell);
+
+            if (spells.isEmpty()) {
+                spellByType.remove(eventType);
             }
         }
     }

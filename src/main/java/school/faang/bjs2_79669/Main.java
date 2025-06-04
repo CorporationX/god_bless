@@ -18,6 +18,9 @@ public class Main {
         System.out.println("----------------------");
 
         hogwartsSpells.deleteSpellEvent(1L);
+        hogwartsSpells.deleteSpellEvent(2L);
+        System.out.println(hogwartsSpells.getSpellEventByType("Атака"));
+        System.out.println("----------------------");
         hogwartsSpells.printAllSpellEvents();
 
     }
