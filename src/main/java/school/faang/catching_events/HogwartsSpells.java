@@ -15,9 +15,9 @@ public class HogwartsSpells {
         if (spellByType.containsKey(eventType)) {
             spellByType.get(eventType).add(spellEvent);
         } else {
-            spellByType.putIfAbsent(eventType, new ArrayList<>() {{
-                add(spellEvent);
-            }});
+            List<SpellEvent> spellEventList = new ArrayList<>();
+            spellEventList.add(spellEvent);
+            spellByType.putIfAbsent(eventType, spellEventList);
         }
     }
 
