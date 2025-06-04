@@ -12,5 +12,5 @@ import lombok.ToString;
 public class Product {
     private int id;
     private String name;
-    Category category;
+    private Category category;
 }

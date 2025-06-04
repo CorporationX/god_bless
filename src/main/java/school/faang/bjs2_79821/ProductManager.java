@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ProductManager {
     Set<Product> products = new HashSet<>();
-    private int currentId;
+    private int currentId = 0;
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
@@ -18,6 +18,7 @@ public class ProductManager {
         System.out.println("Added product " + product);
     }
 
+    @SuppressWarnings({"checkstyle:WhitespaceAfter", "checkstyle:WhitespaceAround"})
     public void removeProduct(Category category, String name) {
         Product toRemove = null;
         for (Product product : products) {
@@ -26,12 +27,13 @@ public class ProductManager {
                 break;
             }
         }
-        if (toRemove != null) {
-            products.remove(toRemove);
-            System.out.println("Product \"" + name + "\" removed from category \"" + category + "\".");
-        } else {
+        if(toRemove == null) {
             System.out.println("Product \"" + name + "\" not found in category \"" + category + "\".");
+            return;
         }
+
+        products.remove(toRemove);
+        System.out.println("Product \"" + name + "\" removed from category \"" + category + "\".");
     }
 
     public Set<Product> findProductsByCategory(Category category) {
@@ -53,7 +55,7 @@ public class ProductManager {
         for (Product product : products) {
             Category category = product.getCategory();
             if (!productMap.containsKey(category)) {
-                productMap.put(category, new ArrayList<>());
+                productMap.putIfAbsent(category, new ArrayList<>());
             }
             productMap.get(category).add(product);
         }
