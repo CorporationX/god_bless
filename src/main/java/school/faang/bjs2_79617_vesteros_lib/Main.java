@@ -13,5 +13,6 @@ public class Main {
         LibrarySystem.printAllBooks();
         System.out.println("Search Java");
         LibrarySystem.findBook("Java Tutorial", "Linus", 2010);
+        LibrarySystem.removeBook("Java Tutorial", "Linus", 2010);
     }
 }

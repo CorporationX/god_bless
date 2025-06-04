@@ -15,8 +15,14 @@ public class LibrarySystem {
     }
 
     public static void removeBook(String title, String author, int year) {
-        Book book = new Book(title, author, year);
-        LIBRARY.remove(book);
+        Book book = findBook(title, author, year);
+        if (book != null) {
+            System.out.println("Removing book " + book.getTitle());
+            LIBRARY.remove(book);
+        } else {
+            System.out.println("Cannot remove. Given book titled " + title + " not found");
+        }
+
     }
 
     public static void printAllBooks() {
@@ -26,13 +32,15 @@ public class LibrarySystem {
         }
     }
 
-    public static void findBook(String title, String author, int year) {
+    public static Book findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String result = LIBRARY.get(book);
         if (result != null) {
             System.out.println(book.getTitle() + " found at " + result);
+            return book;
         } else {
             System.out.println("Book not found");
+            return null;
         }
     }
 }
