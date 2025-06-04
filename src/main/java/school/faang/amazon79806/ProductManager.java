@@ -13,7 +13,8 @@ public class ProductManager {
         Iterator<Product> iterator = products.iterator();
         while (iterator.hasNext()) {
             Product productForSet = iterator.next();
-            if (Objects.equals(productForSet.getName(), name) && Objects.equals(productForSet.getCategory(), category)) {
+            if (Objects.equals(productForSet.getName(), name)
+                    && Objects.equals(productForSet.getCategory(), category)) {
                 System.out.println("Товар " + name + " с категорией " + category + " уже есть");
                 return;
             }
