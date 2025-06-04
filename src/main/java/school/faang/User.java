@@ -15,7 +15,6 @@ public class User {
     private final int age;
     private final Set<String> activity;
 
-
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
         Map<User, String> resultMap = new HashMap<>();
         users.stream().forEach(user -> {
@@ -25,7 +24,6 @@ public class User {
                 }
             });
         });
-
         return resultMap;
     }
 
