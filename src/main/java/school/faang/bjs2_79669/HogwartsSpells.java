@@ -30,22 +30,23 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(Long id) {
         spellById.remove(id);
-//
-//        for (var entry: spellByType.entrySet()) {
-//            for (SpellEvent spell : entry.getValue()) {
-//                if (Objects.equals(spell.getId(), id)) {
-//
-//                }
-//            }
-//        }
 
+        for (var entry : spellByType.entrySet()) {
+            List<SpellEvent> spells = entry.getValue();
+            for (SpellEvent spell : spells) {
+                if (Objects.equals(spell.getId(), id)) {
+                    spells.remove(spell);
+                    break;
+                }
+            }
+        }
     }
 
-//    public void printAllSpellEvents() {
-        //
-//    }
-
-
+    public void printAllSpellEvents() {
+        for (var entry : spellById.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+    }
 
     private static Long generateId() {
         return countId++;
