@@ -4,14 +4,15 @@ import java.util.List;
 
 public class TestingClass {
     public static void main(String[] args) {
-        HogwartsSpells.addSpellEvent("Атака", "Кастует огненный шар");
-        HogwartsSpells.addSpellEvent("Трансфигурация", "Превращает стекло в воду");
-        HogwartsSpells.addSpellEvent("Защита", "Энергетическая сфера");
-        HogwartsSpells.addSpellEvent("Защита", "Ледяной щит");
+        HogwartsSpells hogwartsSpells = new HogwartsSpells();
+        hogwartsSpells.addSpellEvent("Атака", "Кастует огненный шар");
+        hogwartsSpells.addSpellEvent("Трансфигурация", "Превращает стекло в воду");
+        hogwartsSpells.addSpellEvent("Защита", "Энергетическая сфера");
+        hogwartsSpells.addSpellEvent("Защита", "Ледяной щит");
 
-        System.out.println("Заклинание по айди: " + HogwartsSpells.getSpellEventById(2).getEventType() + "\n");
+        System.out.println("Заклинание по айди: " + hogwartsSpells.getSpellEventById(2).getEventType() + "\n");
 
-        List<SpellEvent> spellEvents = (HogwartsSpells.getSpellEventsByType("Защита"));
+        List<SpellEvent> spellEvents = (hogwartsSpells.getSpellEventsByType("Защита"));
         System.out.print("Заклинание по типу: ");
         for (SpellEvent event : spellEvents) {
             System.out.print(event.getAction() + "\t");
@@ -19,9 +20,9 @@ public class TestingClass {
         System.out.println("\n");
 
         System.out.println("До удаления по id: ");
-        HogwartsSpells.printAllSpellEvents();
-        HogwartsSpells.deleteSpellEvent(2);
+        hogwartsSpells.printAllSpellEvents();
+        hogwartsSpells.deleteSpellEvent(2);
         System.out.println("После удаления по id: ");
-        HogwartsSpells.printAllSpellEvents();
+        hogwartsSpells.printAllSpellEvents();
     }
 }

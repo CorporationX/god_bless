@@ -6,28 +6,28 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private final static Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
-    private final static Map<String, List<SpellEvent>> SPELLS_BY_TYPE = new HashMap<>();
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private static int countId = 0;
 
-    public static void addSpellEvent(String eventType, String actionDescription) {
+    public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(countId, eventType, actionDescription);
-        SPELL_BY_ID.put(countId, spellEvent);
-        SPELLS_BY_TYPE.computeIfAbsent(eventType, u -> new ArrayList<>()).add(spellEvent);
+        spellById.put(countId, spellEvent);
+        spellsByType.computeIfAbsent(eventType, u -> new ArrayList<>()).add(spellEvent);
         countId++;
     }
 
-    public static SpellEvent getSpellEventById(int id) {
-        return SPELL_BY_ID.get(id);
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public static List<SpellEvent> getSpellEventsByType(String eventType) {
-        return SPELLS_BY_TYPE.get(eventType);
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.get(eventType);
     }
 
-    public static void deleteSpellEvent(int id) {
-        SPELL_BY_ID.remove(id);
-        for (var spellEntry : SPELLS_BY_TYPE.entrySet()) {
+    public void deleteSpellEvent(int id) {
+        spellById.remove(id);
+        for (var spellEntry : spellsByType.entrySet()) {
             List<SpellEvent> events = spellEntry.getValue();
             for (var spellEvent : events) {
                 if (spellEvent.getId() == id) {
@@ -37,8 +37,8 @@ public class HogwartsSpells {
         }
     }
 
-    public static void printAllSpellEvents() {
-        for (var spellEntry : SPELL_BY_ID.entrySet()) {
+    public void printAllSpellEvents() {
+        for (var spellEntry : spellById.entrySet()) {
             System.out.println(spellEntry.getValue());
         }
     }
