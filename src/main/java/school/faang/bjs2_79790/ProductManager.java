@@ -13,11 +13,25 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public boolean addProduct(ProductCategory productCategory, String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getProductCategory().equals(productCategory)) {
+                log.info("Продукт {} категории {} уже есть на складе", product.getName(), product.getProductCategory());
+                return false;
+            }
+        }
         return products.add(new Product(name, productCategory));
     }
 
     public boolean removeProduct(ProductCategory productCategory, String name) {
-        return products.remove(new Product(name, productCategory));
+        Product removedProduct = null;
+
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getProductCategory().equals(productCategory)) {
+                removedProduct = product;
+                break;
+            }
+        }
+        return products.remove(removedProduct);
     }
 
     public List<Product> findProductsByCategory(ProductCategory productCategory) {
