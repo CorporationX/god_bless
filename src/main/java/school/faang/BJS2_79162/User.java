@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_79162;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +15,8 @@ public class User {
     private final int age;
     private final Set<String> activity;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
-        Map<User, String> resultMap = new HashMap<>();
+    public static Map<school.faang.User, String> findHobbyLovers(List<school.faang.User> users, Set<String> activity) {
+        Map<school.faang.User, String> resultMap = new HashMap<>();
         users.stream().forEach(user -> {
             activity.stream().forEach(hobby -> {
                 if (user.getActivity().contains(hobby)) {
