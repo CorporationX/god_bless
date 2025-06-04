@@ -8,18 +8,22 @@ import java.util.Arrays;
 public class Example {
 
     public static void reverse(int[] nums) {
+        if (nums == null) {
+            throw new IllegalArgumentException("Массив не может быть null");
+        }
+
         log.info("До разворота: {}", Arrays.toString(nums));
 
-        int left = 0;
-        int right = nums.length - 1;
+        int leftIndex = 0;
+        int rightIndex = nums.length - 1;
 
-        while (left < right) {
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
+        while (leftIndex < rightIndex) {
+            int temp = nums[leftIndex];
+            nums[leftIndex] = nums[rightIndex];
+            nums[rightIndex] = temp;
 
-            left++;
-            right--;
+            leftIndex++;
+            rightIndex--;
         }
 
         log.info("После разворота: {}", Arrays.toString(nums));
