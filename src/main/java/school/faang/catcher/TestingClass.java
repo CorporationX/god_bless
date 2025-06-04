@@ -2,7 +2,7 @@ package school.faang.catcher;
 
 import java.util.List;
 
-public class Main {
+public class TestingClass {
     public static void main(String[] args) {
         HogwartsSpells.addSpellEvent("Атака", "Кастует огненный шар");
         HogwartsSpells.addSpellEvent("Трансфигурация", "Превращает стекло в воду");
