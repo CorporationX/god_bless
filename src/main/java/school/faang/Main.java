@@ -1,11 +1,15 @@
 package school.faang;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         List<User> userList = new ArrayList<>();
-        userList.add(new User(1, "gena", 20, new HashSet<>(Set.of("hobby horsing", "table tennis"))));
+        userList.add(new User(1, "gena", 20, Set.of("hobby horsing", "table tennis")));
         userList.add(new User(2, "gena2", 20, new HashSet<>(Set.of("table tennis", "volleyball"))));
         userList.add(new User(3, "gena3", 20, new HashSet<>(Set.of("volleyball", "skate"))));
         userList.add(new User(4, "gena4", 20, new HashSet<>(Set.of("hobby horsing"))));
