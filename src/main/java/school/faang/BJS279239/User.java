@@ -3,16 +3,13 @@ package school.faang.BJS279239;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class User {
-
     private String name;
     private int age;
     private String job;
     private String address;
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
-
 
     public User(String name, int age, String job, String address){
         if (name == null || name.isEmpty()) {
