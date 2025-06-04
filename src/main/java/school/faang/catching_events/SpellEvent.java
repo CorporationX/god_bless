@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class SpellEvent {
     private static int counter = 0;
-    private final int ID;
+    private final int id;
     private String eventType;
     private String action;
 
     public SpellEvent(String eventType, String action) {
-        this.ID = ++counter;
+        this.id = ++counter;
         this.eventType = eventType;
         this.action = action;
     }
