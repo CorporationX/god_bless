@@ -4,19 +4,19 @@ public class Example {
 
     public static void reverse(int[] nums) {
 
-        if (nums == null) {
+        if (nums == null || nums.length == 0) {
             return;
         }
 
-        int left = 0;
-        int right = nums.length - 1;
+        int leftIndex = 0;
+        int rightIndex = nums.length - 1;
 
-        while (left < right) {
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-            left++;
-            right--;
+        while (leftIndex < rightIndex) {
+            int temp = nums[leftIndex];
+            nums[leftIndex] = nums[rightIndex];
+            nums[rightIndex] = temp;
+            leftIndex++;
+            rightIndex--;
         }
     }
 }
