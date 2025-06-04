@@ -8,7 +8,6 @@ public class Example {
         int j = list.size() - 1;
 
         while (i < j) {
-            // меняем местами list[i] и list[j]
             int temp = list.get(i);
             list.set(i, list.get(j));
             list.set(j, temp);
