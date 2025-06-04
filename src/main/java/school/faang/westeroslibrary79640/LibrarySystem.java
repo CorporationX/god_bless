@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    private String location;
+
     public static Map<Book, String> libraryMap = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
@@ -12,7 +12,11 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        libraryMap.remove(new Book(title, author, year));
+        String deleteBook = libraryMap.remove(new Book(title, author, year));
+        if (deleteBook == null) {
+            System.out.println("Такой книги в хранилище нет");
+        }
+        System.out.println("Книга удалена");
     }
 
     public void findBook(String title, String author, int year) {
