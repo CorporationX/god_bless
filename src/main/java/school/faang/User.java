@@ -26,6 +26,4 @@ public class User {
         });
         return resultMap;
     }
-
-
 }
