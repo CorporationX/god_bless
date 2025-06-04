@@ -1,9 +1,11 @@
 package school.faang.module1.bjs2_79647;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
+@Slf4j
 @AllArgsConstructor
 public class LibrarySystem {
 
@@ -12,29 +14,35 @@ public class LibrarySystem {
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
         bookLocations.put(book, location);
-        System.out.println("Book added: " + book + " location: " + location);
+        log.info("Book added: {}. Location: {}", book, location);
     }
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String removedLocation = bookLocations.remove(book);
-        System.out.println(
-                removedLocation != null
-                        ? "Book removed: " + book
-                        : "Book not found for removal: " + book);
+        if (removedLocation != null) {
+            log.info("Book removed: {}", book);
+        } else {
+            log.warn("Book not found for removal: {}", book);
+        }
     }
 
     public void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String location = bookLocations.get(book);
-        System.out.println(
-                location != null
-                        ? "Book found: " + book + " location: " + location
-                        : "Book not found: " + book);
+        if (location != null) {
+            log.info("Book found: {} location: {}", book, location);
+        } else {
+            log.warn("Book not found: {}", book);
+        }
     }
 
     public void printAllBooks() {
-        System.out.println(bookLocations.isEmpty() ? "The library is empty." : "List of all books in the library:");
-        bookLocations.forEach((book, location) -> System.out.println(book + " location: " + location));
+        if (bookLocations.isEmpty()) {
+            log.info("The library is empty.");
+        } else {
+            log.info("List of all books in the library:");
+            bookLocations.forEach((book, location) -> log.info("{} location: {}", book, location));
+        }
     }
 }
