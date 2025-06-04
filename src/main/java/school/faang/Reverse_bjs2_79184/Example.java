@@ -12,6 +12,7 @@ public class Example {
             }
         }
     }
+
     public static void printArr(int[] arr) {
         System.out.println("Массив:");
         for (int i = 0; i < arr.length; i++) {
