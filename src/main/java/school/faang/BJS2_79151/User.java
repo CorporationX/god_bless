@@ -13,10 +13,10 @@ import java.util.Set;
 @Getter
 @ToString
 public class User {
-    private int id;
-    private String name;
-    private int age;
-    private Set<String> activities;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> result = new HashMap<>();
