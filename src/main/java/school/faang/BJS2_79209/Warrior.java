@@ -1,18 +1,18 @@
 package school.faang.BJS2_79209;
 
 public class Warrior extends Character {
-    public Warrior(String name) {
-        super(name, 10, 5, 3);
-    }
+    private static final int initialStrength = 10;
+    private static final int initialAgility = 5;
+    private static final int initialIntellect = 3;
 
-    public Warrior(String name, int strength, int agility, int intellect) {
-        super(name, strength, agility, intellect);
+    public Warrior(String name) {
+        super(name, initialStrength, initialAgility, initialIntellect);
     }
 
     @Override
     public void attack(Character opponent) {
         int hitPoints = 0;
-        if (checkHitPoints(opponent, strength)) {
+        if (isAliveAfterAttack(opponent, strength)) {
             hitPoints = opponent.health - strength;
         }
 
