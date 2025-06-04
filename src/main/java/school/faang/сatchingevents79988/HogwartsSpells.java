@@ -1,32 +1,26 @@
 package school.faang.сatchingevents79988;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.Getter;
+
+import java.util.*;
 
 public class HogwartsSpells {
-    public Map<Integer, SpellEvent> spellById = new HashMap<>();
-    public Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    @Getter
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    @Getter
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    List<Integer> idList = new ArrayList<>(List.of(1));
+    int countId = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int idSpell = idList.get(idList.size() - 1) + 1;
-        idList.add(idSpell);
-        SpellEvent spellEvent = new SpellEvent(idSpell, eventType, actionDescription);
-        spellById.put(idSpell, spellEvent);
 
-        List<SpellEvent> spellEventList = new ArrayList<>();
+        int id = ++countId;
+        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        spellById.put(id, spellEvent);
 
-        if (spellsByType.get(eventType) != null) {
-            spellEventList = spellsByType.get(eventType);
-            spellEventList.add(spellEvent);
-            spellsByType.put(eventType, spellEventList);
-        } else {
-            spellEventList.add(spellEvent);
-            spellsByType.put(eventType, spellEventList);
-        }
+        List<SpellEvent> spellEventList = spellsByType.getOrDefault(eventType, new ArrayList<>());
+        spellEventList.add(spellEvent);
+        spellsByType.put(eventType, spellEventList);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -38,25 +32,30 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        spellById.remove(id);
+        SpellEvent spellRemoved = spellById.remove(id);
+        if (spellRemoved == null) {
+            System.out.println("Заклинания с таким id нет");
+            return;
+        }
 
-        Map<String, List<SpellEvent>> doubleMap = spellsByType;
-        List<SpellEvent> doubleList = new ArrayList<>();
         for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
             List<SpellEvent> spellEventList = entry.getValue();
-            for (SpellEvent spellEvent : spellEventList) {
-                if (spellEvent.getId() != id) {
-                    doubleList.add(spellEvent);
-                }
-            }
-            doubleMap.put(entry.getKey(), doubleList);
+            spellEventList.remove(spellRemoved);
+            spellsByType.put(entry.getKey(), spellEventList);
         }
-        spellsByType = doubleMap;
+        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
+            if (entry.getValue().isEmpty()) {
+                spellsByType.remove(entry.getKey());
+            }
+        }
+
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("id:" + entry.getValue().getId() + " " + "Тип заклинания: " + entry.getValue().getEventType() + ". " + "Заклинание: " + entry.getValue().getAction());
+            String result = String.format("id: %d Тип заклинания: %s.  Заклинание: %s.",
+                    entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction());
+            System.out.println(result);
         }
     }
 }

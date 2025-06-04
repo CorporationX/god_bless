@@ -15,13 +15,14 @@ public class Main {
         hogwartsSpells.addSpellEvent("Защита", "Защита от увечий");
         hogwartsSpells.addSpellEvent("Защита", "Защита от проклятий");
         hogwartsSpells.addSpellEvent("Чары", "Востановление здоровья");
+        hogwartsSpells.addSpellEvent("Телепортация", "Телепортация на работу");
         hogwartsSpells.addSpellEvent("Трансфигурация", "Превращение в програмиста Java");
 
-        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.getSpellById().entrySet()) {
             System.out.println(entry);
         }
         System.out.println("  ");
-        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.spellsByType.entrySet()) {
+        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.getSpellsByType().entrySet()) {
             System.out.println(entry);
         }
         System.out.println("  ");
@@ -31,15 +32,15 @@ public class Main {
         System.out.println("  ");
 
         hogwartsSpells.deleteSpellEvent(6);
-        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.spellsByType.entrySet()) {
+        hogwartsSpells.deleteSpellEvent(9);
+        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.getSpellsByType().entrySet()) {
             System.out.println(entry);
         }
         System.out.println("  ");
-        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.getSpellById().entrySet()) {
             System.out.println(entry);
         }
         System.out.println("  ");
         hogwartsSpells.printAllSpellEvents();
     }
-
 }
