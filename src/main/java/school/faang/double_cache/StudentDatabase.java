@@ -1,7 +1,6 @@
 package school.faang.double_cache;
 
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,21 +49,31 @@ public class StudentDatabase {
         for (Student student : studentSubjects.keySet().toArray(new Student[0])) {
             System.out.println("Student: " + student.getName() + " " + studentSubjects.get(student));
         }
+        System.out.println("\n*****************************************************************\n");
     }
 
     public void pullSubjectStudent(String subject, List<Student> studentList) {
-
+        subjectStudents.put(new Subject(subject), studentList);
+        for (Student student : studentList) {
+            studentSubjects.get(student).put(new Subject(subject), null);
+        }
     }
 
     public void addStudentSubject(Student student, Subject subject) {
-
+        subjectStudents.get(subject).add(student);
+        studentSubjects.get(student).put(subject, null);
     }
 
     public void dellSubjectStudent(Subject subject, Student student) {
+        studentSubjects.get(student).remove(subject);
+        subjectStudents.get(subject).remove(student);
 
     }
 
     public void printAllSubjectStudent() {
-
+        for (Subject subject : subjectStudents.keySet().toArray(new Subject[0])) {
+            System.out.println("Subject: " + subject.getName() + " " + subjectStudents.get(subject));
+        }
+        System.out.println("\n*****************************************************************\n");
     }
 }
