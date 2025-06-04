@@ -1,5 +1,4 @@
-package school.faang;
-
+package school.faang.BJS2_79207;
 
 public class Example {
 
