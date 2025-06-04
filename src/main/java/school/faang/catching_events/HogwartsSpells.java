@@ -11,7 +11,7 @@ public class HogwartsSpells {
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
-        spellById.put(spellEvent.getID(), spellEvent);
+        spellById.put(spellEvent.getId(), spellEvent);
         if (spellsByType.isEmpty() || !spellsByType.containsKey(eventType)) {
             List<SpellEvent> spellEventList = new ArrayList<>();
             spellEventList.add(spellEvent);
@@ -35,7 +35,7 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry spell : spellById.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> spell : spellById.entrySet()) {
             System.out.println(spell);
         }
         System.out.println("\n********************************************\n");
