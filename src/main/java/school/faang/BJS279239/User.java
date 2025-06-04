@@ -11,7 +11,7 @@ public class User {
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
 
-    public User(String name, int age, String job, String address){
+    public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
