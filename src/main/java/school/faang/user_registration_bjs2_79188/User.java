@@ -6,14 +6,13 @@ import java.util.Set;
 
 @ToString(includeFieldNames = true)
 public class User {
-    @ToString.Include
     private String name;
     private int age;
     private String job;
     private String address;
 
     User(String name, int age, String job, String address) {
-        if (name == null || name == "") {
+        if (StringUtils.isEmpty(name)) {
             throw new IllegalArgumentException("name cant be null");
         }
         if (age < 18) {

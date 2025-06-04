@@ -8,9 +8,6 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         List<User> validUsers = new ArrayList<>();
-        Set<String> errors = new HashSet<>();
-
-        // Список "сырых" данных для создания пользователей
         List<Object[]> userCreations = List.of(
                 new Object[]{"Alex", 17, "google", "New York"},
                 new Object[]{"Alex", 18, "googlee", "New York"},
@@ -30,12 +27,9 @@ public class Main {
                 );
                 validUsers.add(user);
             } catch (IllegalArgumentException e) {
-                errors.add("Ошибка в пользователе " + (i + 1) + ": " + e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
-
         System.out.println("Валидные пользователи: " + validUsers);
-        System.out.println("Ошибки:");
-        errors.forEach(System.out::println);
     }
 }
