@@ -10,7 +10,7 @@ public class HogwartsSpells {
     @Getter
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    int countId = 0;
+    private int countId = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
 
@@ -24,10 +24,18 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
+        if (spellById == null) {
+            System.out.println("Заклинания с таким Id нет");
+            return new SpellEvent();
+        }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
+        if (spellsByType.get(eventType) == null) {
+            System.out.println("Список заклинаний по такому типу отстутсвует");
+            return new ArrayList<>();
+        }
         return spellsByType.get(eventType);
     }
 
@@ -38,15 +46,10 @@ public class HogwartsSpells {
             return;
         }
 
-        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
-            List<SpellEvent> spellEventList = entry.getValue();
-            spellEventList.remove(spellRemoved);
-            spellsByType.put(entry.getKey(), spellEventList);
-        }
-        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
-            if (entry.getValue().isEmpty()) {
-                spellsByType.remove(entry.getKey());
-            }
+        List<SpellEvent> list = spellsByType.get(spellRemoved.getEventType());
+        list.remove(spellRemoved);
+        if (spellsByType.get(spellRemoved.getEventType()).isEmpty()) {
+            spellsByType.remove(spellRemoved.getEventType());
         }
 
     }
