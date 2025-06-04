@@ -1,32 +1,26 @@
 package school.faang;
 
-import java.util.Arrays;
+
+import school.faang.user_hobbies.User;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
-
     public static void main(String[] args) {
-        System.out.println("Default massive: ");
-        int[] defaultMassive = {0, 1, 2, 3, 4};
-        System.out.println(Arrays.toString(defaultMassive));
-        Example.reverse(defaultMassive);
-        System.out.println(Arrays.toString(defaultMassive));
+        List<User> users = List.of(new User(1, "John", 25, new HashSet<>(Set.of("swim", "jumping"))),
+                new User(2, "Sanni", 30, Set.of("rodeo", "running")),
+                new User(3, "Peter", 23, Set.of("sky diving", "photographing")),
+                new User(4, "Josh", 28, Set.of("sky diving", "ping pong")),
+                new User(5, "Hanna", 23, Set.of("tennis", "running")));
 
-        System.out.println("Null massive: ");
-        int[] nullMassive = null;
-        System.out.println(Arrays.toString(nullMassive));
-        Example.reverse(nullMassive);
-        System.out.println(Arrays.toString(nullMassive));
+        Set<String> hobbies = Set.of("ping pong", "sky diving");
 
-        System.out.println("Empty massive: ");
-        int[] emptyMassive = {};
-        System.out.println(Arrays.toString(emptyMassive));
-        Example.reverse(emptyMassive);
-        System.out.println(Arrays.toString(emptyMassive));
-
-        System.out.println("One element massive: ");
-        int[] oneElementMassive = {};
-        System.out.println(Arrays.toString(oneElementMassive));
-        Example.reverse(oneElementMassive);
-        System.out.println(Arrays.toString(oneElementMassive));
+        Map<User, String> userHobbiesMap = User.findHobbyLovers(users, hobbies);
+        for (var userHobby : userHobbiesMap.entrySet()) {
+            System.out.println(userHobby.getKey().getName() + ", " + userHobby.getValue());
+        }
     }
 }
