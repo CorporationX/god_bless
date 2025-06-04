@@ -15,6 +15,7 @@ public class Main {
                 new User(5, "Hanna", 23, Set.of("tennis", "running")));
 
         Set<String> hobbies = Set.of("ping pong", "sky diving");
+
         Map<User, String> userHobbiesMap = User.findHobbyLovers(users, hobbies);
         for (var userHobby : userHobbiesMap.entrySet()) {
             System.out.println(userHobby.getKey().getName() + ", " + userHobby.getValue());
