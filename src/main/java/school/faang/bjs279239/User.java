@@ -1,11 +1,11 @@
-package school.faang.BJS279239;
+package school.faang.bjs279239;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class User {
     private String name;
-    private int age;
+    private static int age = 0;
     private String job;
     private String address;
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
@@ -29,8 +29,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-
-
-
     }
 }
