@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import lombok.Getter;
-import lombok.ToString;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Getter
+
 public class User {
     private String name;
     private int age;
@@ -32,6 +31,7 @@ public class User {
         }
         return result;
     }
+
     @Override
     public String toString() {
         return String.format("User{name='%s', age=%d, country='%s', address='%s'}", name, age, country, address);
