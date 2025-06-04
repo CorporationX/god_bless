@@ -1,9 +1,9 @@
 package school.faang.BJS2_79209;
 
 public abstract class Character {
-    private static final int initialStrength = 3;
-    private static final int initialAgility = 10;
-    private static final int initialIntellect = 5;
+    private static final int INITIAL_STRENGTH = 3;
+    private static final int INITIAL_AGILITY = 10;
+    private static final int INITIAL_INTELLECT = 5;
     protected String name;
     protected int strength;
     protected int agility;
@@ -11,7 +11,7 @@ public abstract class Character {
     protected int health = 100;
 
     public Character(String name) {
-        this(name, initialStrength, initialAgility, initialIntellect);
+        this(name, INITIAL_STRENGTH, INITIAL_AGILITY, INITIAL_INTELLECT);
     }
 
     public Character(String name, int strength, int agility, int intellect) {

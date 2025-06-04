@@ -1,12 +1,12 @@
 package school.faang.BJS2_79209;
 
 public class Archer extends Character {
-    private static final int initialStrength = 3;
-    private static final int initialAgility = 10;
-    private static final int initialIntellect = 5;
+    private static final int INITIAL_STRENGTH = 3;
+    private static final int INITIAL_AGILITY = 10;
+    private static final int INITIAL_INTELLECT = 5;
 
     public Archer(String name) {
-        super(name, initialStrength, initialAgility, initialIntellect);
+        super(name, INITIAL_STRENGTH, INITIAL_AGILITY, INITIAL_INTELLECT);
     }
 
     @Override
