@@ -14,7 +14,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character opponent) {
         if (opponent.health < ARCHER_AGILITY) {
-            System.out.println(name + " win round");
+            System.out.println(name + " win round ");
             opponent.isDeath();
         } else {
             opponent.health -= ARCHER_AGILITY;
