@@ -2,23 +2,24 @@ package school.faang;
 
 public abstract class Character {
 
-    protected final int strenght;
-    protected final int agility;
-    protected final int intelligence;
+    protected final int basicValue = 5;
+    protected int power;
+    protected int agility;
+    protected int intelligence;
     protected int health = 100;
     protected String name;
 
 
     protected Character(String name) {
         this.name = name;
-        strenght = 5;
-        agility = 5;
-        intelligence = 5;
+        power = basicValue;
+        agility = basicValue;
+        intelligence = basicValue;
     }
 
-    protected Character(String name, int strenght, int agility, int intelligence) {
+    protected Character(String name, int power, int agility, int intelligence) {
         this.name = name;
-        this.strenght = strenght;
+        this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
     }
