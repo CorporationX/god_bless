@@ -12,6 +12,5 @@ public class HogwartsSpellsTest {
         hogwartsSpells.deleteSpellEvent(2);
         System.out.println(hogwartsSpells.getSpellEventsByType("firebole") + "\n");
         hogwartsSpells.printAllSpellEvents();
-
     }
 }
