@@ -1,10 +1,14 @@
-package school.faang;
+package school.faang.user_hobbies;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 @Getter
 @ToString
