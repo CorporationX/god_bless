@@ -1,21 +1,19 @@
 package school.faang.bjs2_79190;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@NoArgsConstructor
 @Data
 public class User {
     private static int currentId = 1;
 
-    private int id;
-    private String name;
-    private int age;
-    private Set<String> hobbies;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> hobbies;
 
     public User(String name, int age, Set<String> hobbies) {
         this.id = currentId++;
