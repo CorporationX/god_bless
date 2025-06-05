@@ -7,7 +7,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (checkHealth(opponent.getName(), opponent.getHealth(), getAgility())) {
+        if (checkOpponentHealth(opponent.getName(), opponent.getHealth(), getAgility())) {
             opponent.setHealth(opponent.getHealth() - getAgility());
             System.out.println(getName() + " наносит " + opponent.getName() + ": " + getAgility() + " единиц урона");
             System.out.println("У " + opponent.getName() + " осталось: " + opponent.getHealth() + " единиц здоровья");

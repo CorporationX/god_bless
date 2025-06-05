@@ -29,7 +29,7 @@ abstract class Character {
     public void attack(Character opponent) {
     }
 
-    public boolean checkHealth(String opponentName, int opponentHealth, int damage) {
+    public boolean checkOpponentHealth(String opponentName, int opponentHealth, int damage) {
         if (opponentHealth == 0) {
             System.out.println(getName() + " наносит: " + damage + " единиц урона, но " + opponentName + " уже убит");
             return false;
