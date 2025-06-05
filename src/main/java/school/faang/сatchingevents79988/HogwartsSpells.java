@@ -24,19 +24,17 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        if (spellById == null) {
-            System.out.println("Заклинания с таким Id нет");
-            return new SpellEvent();
+        if (!spellById.containsKey(id)) {
+            System.out.println("Нет заклинания с Id: " + id);
         }
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        if (spellsByType.get(eventType) == null) {
-            System.out.println("Список заклинаний по такому типу отстутсвует");
-            return new ArrayList<>();
+        if (!spellsByType.containsKey(eventType)) {
+            System.out.println("Отсутствует cписок заклинаний по типу " + eventType);
         }
-        return spellsByType.get(eventType);
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
@@ -48,7 +46,7 @@ public class HogwartsSpells {
 
         List<SpellEvent> list = spellsByType.get(spellRemoved.getEventType());
         list.remove(spellRemoved);
-        if (spellsByType.get(spellRemoved.getEventType()).isEmpty()) {
+        if (list.isEmpty()) {
             spellsByType.remove(spellRemoved.getEventType());
         }
 
