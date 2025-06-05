@@ -75,24 +75,16 @@ public class StudentDatabase {
         subjects.putIfAbsent(subject, null);
     }
 
-    public boolean removeStudentFromSubject(Student student, Subject subject) {
-        boolean isRemoved = false;
-
+    public void removeStudentFromSubject(Student student, Subject subject) {
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
-            isRemoved = students.remove(student);
+            students.remove(student);
         }
 
         Map<Subject, Integer> subjects = studentSubjects.get(student);
-
         if (subjects != null) {
-            Integer removedSubject = subjects.remove(subject);
-            if (removedSubject == null) {
-                isRemoved = false;
-            }
+            subjects.remove(subject);
         }
-
-        return isRemoved;
     }
 
     public void printAllSubjectsWithStudents() {
