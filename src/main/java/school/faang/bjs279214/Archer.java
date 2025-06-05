@@ -20,7 +20,8 @@ public class Archer extends Character {
             System.out.println("Противник получил урон.");
             System.out.println("Оставшееся HP у " + opponent.getName() + " " + opponent.getHealth());
         }
-        if (opponent.getHealth() == 0)
+        if (opponent.getHealth() == 0) {
             System.out.println("Противник умер хватит его бить");
+        }
     }
 }
