@@ -1,12 +1,15 @@
 package school.faang.bjs2_79648_hash_hash;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
-        System.out.println("\n--- Testing student methods ---");
+        log.info("Testing student methods");
         Subject math = new Subject("Math");
         Subject chemistry = new Subject("Chemistry");
         Subject logics = new Subject("Logics");
@@ -17,6 +20,7 @@ public class Main {
         goodGrades.put(logics, 90);
         Student studentGood = new Student("Welly");
         StudentDatabase.addStudentWithSubjects(studentGood, goodGrades);
+        log.info("Added student Welly with good grades.");
 
         Map<Subject, Integer> sosoGrades = new HashMap<>();
         sosoGrades.put(math, 70);
@@ -24,6 +28,7 @@ public class Main {
         sosoGrades.put(logics, 65);
         Student studentSoso = new Student("Avery");
         StudentDatabase.addStudentWithSubjects(studentSoso, sosoGrades);
+        log.info("Added student Avery with average grades.");
 
         Map<Subject, Integer> badGrades = new HashMap<>();
         badGrades.put(math, 10);
@@ -31,23 +36,25 @@ public class Main {
         badGrades.put(logics, 5);
         Student studentBad = new Student("Absent");
         StudentDatabase.addStudentWithSubjects(studentBad, badGrades);
+        log.info("Added student Absent with bad grades.");
 
+        log.info("Printing all added students with subjects.");
         StudentDatabase.printStudentsWithSubjects();
 
-        System.out.println("\n- Removing Absent -");
+        log.info("Removing Absent");
         StudentDatabase.removeStudent(studentBad);
         StudentDatabase.printStudentsWithSubjects();
 
-        System.out.println("\n--- Testing subject methods ---");
+        log.info("Testing subject methods");
         StudentDatabase.printSubjectsWithStudents();
 
-        System.out.println("\n- Adding Physics to Absent and Welly -");
+        log.info("Adding Physics to Absent and Welly");
         Subject physics = new Subject("Physics");
         StudentDatabase.addSubjectWithStudents(physics, List.of(studentGood, studentBad));
         StudentDatabase.printSubjectsWithStudents();
         StudentDatabase.printStudentsWithSubjects();
 
-        System.out.println("\n- Removing Absent from Physics -");
+        log.info("Removing Absent from Physics");
         StudentDatabase.removeStudentFromSubject(studentBad, physics);
         StudentDatabase.printSubjectsWithStudents();
         StudentDatabase.printStudentsWithSubjects();
