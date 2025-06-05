@@ -17,6 +17,7 @@ public class Main {
         System.out.println(librarySystem.findBook("Судьба человека", "М.А. Шолохов", 1956));
 
         librarySystem.removeBook(book4.getTitle(), book4.getAuthor(), book4.getYear());
+        librarySystem.removeBook("FDSAdsf", "dskjfdsj", 1221);
         librarySystem.printAllBooks();
     }
 }

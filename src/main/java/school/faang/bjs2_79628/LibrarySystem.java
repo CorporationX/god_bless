@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    static Map<Book, String> library = new HashMap<>();
+    private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
-        library.put(new Book(title, author, year), location);
+        library.putIfAbsent(new Book(title, author, year), location);
     }
 
-    public boolean removeBook(String title, String author, int year) {
-        return library.remove(new Book(title, author, year)) != null;
+    public void removeBook(String title, String author, int year) {
+        if (library.remove(new Book(title, author, year)) == null) {
+            System.out.println("Book " + title + " is not exist");
+        }
     }
 
     public String findBook(String title, String author, int year) {
