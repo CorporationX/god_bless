@@ -24,7 +24,7 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : resultUserList.entrySet()) {
             System.out.print("Age group: " + entry.getKey() + ", users: ");
             for (User user : entry.getValue()) {
-                System.out.print(user.getName());
+                System.out.print(user.getName() + " ");
             }
             System.out.println();
         }
