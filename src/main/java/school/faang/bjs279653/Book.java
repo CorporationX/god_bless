@@ -23,9 +23,7 @@ public class Book {
         }
         Book book = (Book) obj;
 
-        return year == book.year &&
-                Objects.equals(title, book.title) &&
-                Objects.equals(autor, book.autor);
+        return year == book.year && Objects.equals(title, book.title) && Objects.equals(autor, book.autor);
     }
 
     @Override
