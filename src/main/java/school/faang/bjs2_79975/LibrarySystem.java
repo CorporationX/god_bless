@@ -27,10 +27,9 @@ public class LibrarySystem {
     }
 
     public static void printAllBooks() {
-        for(Map.Entry<Book, String> entry : library.entrySet()) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
             System.out.println(entry.getKey());
         }
-
         System.out.println();
     }
 }
