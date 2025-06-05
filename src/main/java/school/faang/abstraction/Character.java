@@ -8,6 +8,8 @@ import lombok.ToString;
  */
 public abstract class Character {
 
+    private static final int DEFAULT_VALUE = 5;
+
     protected String name;
     protected Integer strength;
     protected Integer agility;
@@ -15,10 +17,7 @@ public abstract class Character {
     protected Integer health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE);
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intelligence) {

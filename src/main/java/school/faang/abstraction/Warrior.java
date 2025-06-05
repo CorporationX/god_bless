@@ -6,8 +6,12 @@ package school.faang.abstraction;
  */
 public class Warrior extends Character {
 
+    private static final int DEFAULT_STRENGTH = 10;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 3;
+
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     @Override
