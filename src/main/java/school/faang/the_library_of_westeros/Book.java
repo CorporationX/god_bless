@@ -4,13 +4,7 @@ import lombok.Data;
 
 @Data
 public class Book {
-    private String title;
-    private String author;
-    private int age;
-
-    public Book(String title, String author, int age) {
-        this.title = title;
-        this.author = author;
-        this.age = age;
-    }
+    private final String title;
+    private final String author;
+    private final int year;
 }
