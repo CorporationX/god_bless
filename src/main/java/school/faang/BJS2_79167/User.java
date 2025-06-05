@@ -29,28 +29,3 @@ public class User {
         return result;
     }
 }
-//            if (!result.containsKey(age)) {
-//                result.put(age, new ArrayList<>());
-//            }
-//            result.get(age).add(user);
-//        }
-
-//    public User(String name, int age, String workplace, String address) {
-//        this.name = name;
-//        this.age = age;
-//        this.workplace = workplace;
-//        this.address = address;
-//    }
-
-//    public int getAge() {
-//        return age;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "name='" + name + '\'' +
-//                ", age=" + age +
-//                ", workplace='" + workplace + '\'' +
-//                ", address='" + address + '\'' +
-//                '}';
