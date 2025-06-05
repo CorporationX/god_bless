@@ -5,7 +5,8 @@ import java.util.List;
 
 public class User {
     private String name;
-    private static int age = 0;
+    private int age;
+    private static int MIN_AGE = 18;
     private String job;
     private String address;
     private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
@@ -15,7 +16,7 @@ public class User {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Возраст должен быть 18 или больше");
         }
         if (!VALID_JOBS.contains(job)) {
