@@ -21,9 +21,9 @@ public class Main {
 
         Map<Integer, List<User>> resultUserList = User.groupUsers(userList);
 
-        for (Map.Entry<Integer, List<User>> entry : resultUserList.entrySet()){
+        for (Map.Entry<Integer, List<User>> entry : resultUserList.entrySet()) {
             System.out.print("Age group: " + entry.getKey() + ", users: ");
-            for (User user: entry.getValue()) {
+            for (User user : entry.getValue()) {
                 System.out.print(user.getName());
             }
             System.out.println();

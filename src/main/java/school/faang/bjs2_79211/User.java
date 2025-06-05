@@ -43,8 +43,8 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> resultMap = new HashMap<>();
 
-        for (User user: userList) {
-            if (!resultMap.containsKey(user.getAge())){
+        for (User user : userList) {
+            if (!resultMap.containsKey(user.getAge())) {
                 resultMap.put(user.getAge(), new ArrayList<>());
                 resultMap.get(user.getAge()).add(user);
             } else {
