@@ -1,10 +1,4 @@
 package school.faang.the_library_of_westeros;
 
-import lombok.Data;
-
-@Data
-public class Book {
-    private final String title;
-    private final String author;
-    private final int year;
+public record Book(String title, String author, int year) {
 }
