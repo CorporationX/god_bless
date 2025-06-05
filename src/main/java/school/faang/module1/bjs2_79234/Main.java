@@ -1,5 +1,8 @@
 package school.faang.module1.bjs2_79234;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -13,9 +16,9 @@ public class Main {
     private static void testUser(String name, int age, String job, String address) {
         try {
             User user = new User(name, age, job, address);
-            System.out.println("Пользователь успешно создан: " + user);
+            log.info("Пользователь успешно создан: {}", user);
         } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка валидации: " + e.getMessage());
+            log.error("Ошибка валидации: {}", e.getMessage());
         }
     }
 }

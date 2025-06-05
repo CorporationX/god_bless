@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.Set;
 
+import static school.faang.module1.bjs2_79234.StringUtils.isBlankOrNull;
+
 @Data
 public class User {
 
@@ -25,7 +27,7 @@ public class User {
     }
 
     private void validate(String name, int age, String job, String address) {
-        if (name == null || name.isBlank()) {
+        if (isBlankOrNull(name)) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         if (age < MIN_AGE) {
