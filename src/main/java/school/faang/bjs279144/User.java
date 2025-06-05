@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
+@ToString
 
 public class User {
     private String name;
@@ -22,7 +24,7 @@ public class User {
         Map<Integer, List<User>> result = new HashMap<>();
 
         for (User user : users) {
-            int age = user.age;
+            int age = user.getAge();
             if (!result.containsKey(age)) {
                 result.put(age, new ArrayList<>());
             }
@@ -32,8 +34,5 @@ public class User {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return String.format("User{name='%s', age=%d, country='%s', address='%s'}", name, age, country, address);
-    }
+
 }
