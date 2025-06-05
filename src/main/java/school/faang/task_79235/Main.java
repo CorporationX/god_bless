@@ -11,7 +11,7 @@ public class Main {
         archer1.attack(warrior1);
         archer1.attack(warrior2);
 
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             warrior1.attack(archer1);
         }
     }
