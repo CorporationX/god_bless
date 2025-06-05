@@ -13,7 +13,8 @@ public class LibrarySystem {
 
     private static final Map<Book, String> BOOK_LOCATIONS = new HashMap<>();
 
-    public static void addBook(@NonNull String title, @NonNull String author, @NonNull int year, @NonNull String location) {
+    public static void addBook(@NonNull String title, @NonNull String author,
+                               @NonNull int year, @NonNull String location) {
         var book = new Book(title, author, year);
         BOOK_LOCATIONS.put(book, location);
     }
