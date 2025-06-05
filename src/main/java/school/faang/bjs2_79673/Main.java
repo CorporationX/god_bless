@@ -9,11 +9,7 @@ import java.util.Map;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        log.info("-----------Unit Testing-----------");
-
-        Student student1 = new Student("Steve");
-        Student student2 = new Student("Mike");
-        Student student3 = new Student("Jonh");
+        log.info("-----------Testing-----------");
 
         Subject subject1 = new Subject("Математический анализ");
         Subject subject2 = new Subject("Геометрия и топология");
@@ -33,14 +29,31 @@ public class Main {
 
         log.info("-----------Testing add method-----------");
         StudentDatabase studentDatabase = new StudentDatabase();
+        Student student1 = new Student("Steve");
+        Student student2 = new Student("Mike");
+        Student student3 = new Student("Jonh");
+
         studentDatabase.addStudentWithSubjectsAndGrades(student1, logOfMarks1);
         studentDatabase.addStudentWithSubjectsAndGrades(student2, logOfMarks2);
         studentDatabase.addStudentWithSubjectsAndGrades(student3, logOfMarks3);
+        studentDatabase.printAll();
 
-        log.info(String.valueOf(studentDatabase));
 
         log.info("-----------Testing update subject method-----------");
+        studentDatabase.addSubjectWithGradeToStudent(student3, new Subject("Предмет новый"), Grade.C);
+        studentDatabase.addSubjectWithGradeToStudent(student3, new Subject("Предмет новый"), Grade.C);
+        studentDatabase.addSubjectWithGradeToStudent(student2, new Subject("Предмет новый"), Grade.C);
+        studentDatabase.addSubjectWithGradeToStudent(student2, new Subject("Предмет новый"), Grade.A);
+        studentDatabase.printAll();
 
 
+        log.info("-----------Testing remove method-----------");
+        studentDatabase.removeStudent(student1);
+        studentDatabase.removeStudent(student1);
+        studentDatabase.printAll();
+        System.out.println();
+        studentDatabase.removeStudent(student2);
+        studentDatabase.removeStudent(student3);
+        studentDatabase.printAll();
     }
 }
