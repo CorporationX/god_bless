@@ -12,7 +12,7 @@ public class Main {
         userList.add(new User(1, "gena", 20, Set.of("hobby horsing", "table tennis")));
         userList.add(new User(2, "gena2", 20, Set.of("table tennis", "volleyball")));
         userList.add(new User(3, "gena3", 20, Set.of("volleyball", "skate")));
-        userList.add(new User(4, "gena4", 20, Set.of("hobby horsing")));
+        userList.add(new User(4, "gena4", 20, Set.of("hobby horsing ")));
         userList.add(new User(5, "gena5", 20, Set.of("singing")));
 
         Set<String> hobbies = new HashSet<>(Set.of("hobby horsing", "volleyball"));
