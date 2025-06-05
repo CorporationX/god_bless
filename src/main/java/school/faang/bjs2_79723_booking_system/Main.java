@@ -2,7 +2,6 @@ package school.faang.bjs2_79723_booking_system;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -47,10 +46,18 @@ public class Main {
         printRooms(BookingSystem.findAvailableRooms("2025-01-03", "12:00", null));
 
         log.info("Test getting rooms available on a free day, but with a TV");
-        printRooms(BookingSystem.findAvailableRooms("2025-01-03", "12:00", Set.of(RoomAmenity.AMENITY_TV)));
+        printRooms(
+                BookingSystem.findAvailableRooms("2025-01-03", "12:00", Set.of(RoomAmenity.AMENITY_TV))
+        );
 
         log.info("Test getting rooms available on a free day, but with a TV and Camera");
-        printRooms(BookingSystem.findAvailableRooms("2025-01-03", "12:00", Set.of(RoomAmenity.AMENITY_TV, RoomAmenity.AMENITY_CAMERA)));
+        printRooms(
+                BookingSystem.findAvailableRooms(
+                        "2025-01-03",
+                        "12:00",
+                        Set.of(RoomAmenity.AMENITY_TV, RoomAmenity.AMENITY_CAMERA)
+                )
+        );
 
         log.info("Test getting rooms available when one room has a booking");
         printRooms(BookingSystem.findAvailableRooms("2025-01-01", "12:00", null));
