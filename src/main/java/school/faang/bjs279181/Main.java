@@ -13,6 +13,7 @@ public class Main {
                 new User(1, "Vlad", 28, Set.of("Казино", "Литр Болл", "Чтение")),
                 new User(2, "Kola", 24, Set.of("Воркаут", "Готовка", "Чтение"))
         );
+
         Set<String> actions;
         actions = Set.of("Чтение", "Литр Болл", "Готовка", "Воркаут");
         Map<User, String> userAction = new HashMap<>();
