@@ -6,18 +6,18 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User Ana = new User("Ana", 21);
-        User Max = new User("Max", 21);
-        User Dina = new User("Dina", 17);
-        User Kate = new User("Kate", 41);
-        User Den = new User("Den", 31);
+        User ana = new User("Ana", 21);
+        User max = new User("Max", 21);
+        User dina = new User("Dina", 17);
+        User kate = new User("Kate", 41);
+        User den = new User("Den", 31);
 
         List<User> userList = new ArrayList<>();
-        userList.add(Ana);
-        userList.add(Max);
-        userList.add(Dina);
-        userList.add(Kate);
-        userList.add(Den);
+        userList.add(ana);
+        userList.add(max);
+        userList.add(dina);
+        userList.add(kate);
+        userList.add(den);
 
         Map<Integer, List<User>> resultUserList = User.groupUsers(userList);
 
