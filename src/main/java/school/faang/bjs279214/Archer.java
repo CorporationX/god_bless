@@ -1,5 +1,8 @@
 package school.faang.bjs279214;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Archer extends Character {
     public Archer(String name) {
         super(name, 3, 10, 5);
@@ -17,11 +20,11 @@ public class Archer extends Character {
                 opponent.setHealth(0);
 
             }
-            System.out.println("Противник получил урон.");
-            System.out.println("Оставшееся HP у " + opponent.getName() + " " + opponent.getHealth());
+            log.info("Противник получил урон.");
+            log.info("Оставшееся HP у {} {}", opponent.getName(), opponent.getHealth());
         }
         if (opponent.getHealth() == 0) {
-            System.out.println("Противник умер хватит его бить");
+            log.info("Противник умер хватит его бить");
         }
     }
 }
