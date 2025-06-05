@@ -21,19 +21,25 @@ public class LibrarySystem {
 
     public static void removeBook(@NonNull String title, @NonNull String author, @NonNull int year) {
         var book = new Book(title, author, year);
-        BOOK_LOCATIONS.remove(book);
+        var removed = BOOK_LOCATIONS.remove(book);
+        if (removed == null) {
+            System.out.println("Book not found");
+        }
     }
 
     public static String findBook(@NonNull String title, @NonNull String author, @NonNull int year) {
         var book = new Book(title, author, year);
         var foundBook = BOOK_LOCATIONS.get(book);
-        return foundBook != null ? foundBook : "Book is not found!";
+        if (foundBook == null) {
+            System.out.println("Book not found");
+        }
+        return foundBook;
     }
 
     public static void printBooks() {
         System.out.println("Book locations:");
         for (var bookEntry : BOOK_LOCATIONS.entrySet()) {
-            System.out.println(bookEntry.getKey() + ": " + bookEntry.getValue());
+            System.out.printf("%s : %s\n", bookEntry.getKey(), bookEntry.getValue());
         }
     }
 }
