@@ -3,36 +3,36 @@ package school.faang.bjs2_79821;
 import java.util.*;
 
 public class ProductManager {
-    Set<Product> products = new HashSet<>();
+    private static final Set<Product> PRODUCTS = new HashSet<>();
     private int currentId = 0;
 
     public void addProduct(Category category, String name) {
-        for (Product product : products) {
+        for (Product product : PRODUCTS) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 System.out.println("A product with that name already exists in the category" + category);
                 return;
             }
         }
         Product product = new Product(currentId++, name, category);
-        products.add(product);
+        PRODUCTS.add(product);
         System.out.println("Added product " + product);
     }
 
     @SuppressWarnings({"checkstyle:WhitespaceAfter", "checkstyle:WhitespaceAround"})
     public void removeProduct(Category category, String name) {
         Product toRemove = null;
-        for (Product product : products) {
+        for (Product product : PRODUCTS) {
             if (product.getCategory().equals(category) && product.getName().equals(name)) {
                 toRemove = product;
                 break;
             }
         }
-        if(toRemove == null) {
+        if (toRemove == null) {
             System.out.println("Product \"" + name + "\" not found in category \"" + category + "\".");
             return;
         }
 
-        products.remove(toRemove);
+        PRODUCTS.remove(toRemove);
         System.out.println("Product \"" + name + "\" removed from category \"" + category + "\".");
     }
 
@@ -41,7 +41,7 @@ public class ProductManager {
         if (category == null) {
             return result;
         }
-        for (Product product : products) {
+        for (Product product : PRODUCTS) {
             if (category.equals(product.getCategory())) {
                 result.add(product);
             }
@@ -52,7 +52,7 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> productMap = new HashMap<>();
 
-        for (Product product : products) {
+        for (Product product : PRODUCTS) {
             Category category = product.getCategory();
             if (!productMap.containsKey(category)) {
                 productMap.putIfAbsent(category, new ArrayList<>());
