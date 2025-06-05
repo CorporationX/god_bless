@@ -16,7 +16,7 @@ public class User {
     public User(String name, int age, String job, String address) {
         this.name = name;
         if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException( name +" вы не прошли валидацию");
+            throw new IllegalArgumentException(name + " вы не прошли валидацию");
         } else {
             this.age = age;
             this.job = job;
