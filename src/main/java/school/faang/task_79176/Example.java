@@ -1,6 +1,5 @@
 package school.faang.task_79176;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
