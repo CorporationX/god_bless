@@ -1,13 +1,16 @@
 package school.faang.bjs2_79687_spell_events;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
-    private static final HashMap<Integer, SpellEvent> spellById = new HashMap<>();
-    private static final HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private static final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private static final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private static int lastId = 0;
 
     public static SpellEvent addSpellEvent(String eventType, String actionDescription) {
@@ -51,7 +54,7 @@ public class HogwartsSpells {
     public static void deleteSpellEvent(int id) {
         SpellEvent deletedSpell = spellById.remove(id);
         if (deletedSpell != null) {
-            System.out.println("Deleted spell with id " + id + " from id registry.");
+            log.info("Deleted spell with id {} from id registry.", id);
             deleteSpellFromTypesRegistry(deletedSpell);
         }
     }
@@ -59,7 +62,7 @@ public class HogwartsSpells {
     private static void deleteSpellFromTypesRegistry(SpellEvent spell) {
         if (spellsByType.get(spell.getEventType()) != null) {
             if (spellsByType.get(spell.getEventType()).remove(spell)) {
-                System.out.println("Deleted spell with id " + spell.getId() + " from types registry.");
+                log.info("Deleted spell with id {} from types registry.", spell.getId());
             }
         }
     }
