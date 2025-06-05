@@ -15,9 +15,11 @@ import java.util.Objects;
 @Data
 public class User {
 
-    public static User INVALID = new User();
-    private static List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    public static final User INVALID = new User();
+
+    private static final int MIN_AGE = 18;
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private Integer age;
@@ -30,8 +32,8 @@ public class User {
         if (name.isBlank()) {
             exceptionMessages.add("Name cannot be blank");
         }
-        if (age < 18) {
-            exceptionMessages.add("Age must be at least 18");
+        if (age < MIN_AGE) {
+            exceptionMessages.add(String.format("Age must be at least %s", MIN_AGE));
         }
         if (!VALID_JOBS.contains(job)) {
             exceptionMessages.add("Invalid job");
