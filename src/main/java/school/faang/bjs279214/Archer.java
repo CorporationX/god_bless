@@ -15,11 +15,12 @@ public class Archer extends Character {
             opponent.setHealth(opponent.getHealth() - dexterity);
             if (opponent.getHealth() < 0) {
                 opponent.setHealth(0);
-                System.out.println("Противник убит");
 
             }
             System.out.println("Противник получил урон.");
             System.out.println("Оставшееся HP у " + opponent.getName() + " " + opponent.getHealth());
         }
+        if (opponent.getHealth() == 0)
+            System.out.println("Противник умер хватит его бить");
     }
 }
