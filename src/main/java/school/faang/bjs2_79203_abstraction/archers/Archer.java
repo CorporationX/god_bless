@@ -3,15 +3,18 @@ package school.faang.bjs2_79203_abstraction.archers;
 import school.faang.bjs2_79203_abstraction.Character;
 
 public class Archer extends Character {
+    private static final int ARCHER_STRENGTH = 3;
+    private static final int ARCHER_AGILITY = 10;
+    private static final int ARCHER_INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name, 3, 10, 5);
+        super(name, ARCHER_STRENGTH, ARCHER_AGILITY, ARCHER_INTELLIGENCE);
     }
 
     @Override
     public void attack(Character opponent) {
         opponent.takeDamage(this.agility);
-        System.out.println(this.name + " стреляет в " + opponent
-                .getName() + " на " + this.agility + " урона (Ловкость)");
+        System.out.printf("%s стреляет в %s на %d урона (Ловкость)%n",
+                this.name, opponent.getName(), this.agility);
     }
 }

@@ -8,10 +8,16 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
-    protected int health = 100;
+    protected int health = DEFAULT_HEALTH;
 
+    protected static final int DEFAULT_STRENGTH = 5;
+    protected static final int DEFAULT_AGILITY = 5;
+    protected static final int DEFAULT_INTELLIGENCE = 5;
+    protected static final int DEFAULT_HEALTH = 100;
+
+    @SuppressWarnings("unused")
     public Character(String name) {
-        this(name, 5, 5, 5);
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
