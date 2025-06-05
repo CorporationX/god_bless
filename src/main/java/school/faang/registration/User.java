@@ -24,8 +24,6 @@ public class User {
     private String job;
     private String address;
 
-    public User() {}
-
     public User(@NonNull String name, @NonNull Integer age,
                 @NonNull String job, @NonNull String address) {
         var exceptionMessages = new ArrayList<String>();
@@ -49,4 +47,6 @@ public class User {
         this.job = job;
         this.address = address;
     }
+
+    private User() {}
 }
