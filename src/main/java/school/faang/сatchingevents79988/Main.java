@@ -18,28 +18,13 @@ public class Main {
         hogwartsSpells.addSpellEvent("Телепортация", "Телепортация на работу");
         hogwartsSpells.addSpellEvent("Трансфигурация", "Превращение в програмиста Java");
 
-        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.getSpellById().entrySet()) {
-            System.out.println(entry);
-        }
-        System.out.println("  ");
-        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.getSpellsByType().entrySet()) {
-            System.out.println(entry);
-        }
-        System.out.println("  ");
-
         System.out.println(hogwartsSpells.getSpellEventById(2));
         System.out.println(hogwartsSpells.getSpellEventsByType("Чары"));
         System.out.println("  ");
 
         hogwartsSpells.deleteSpellEvent(6);
         hogwartsSpells.deleteSpellEvent(9);
-        for (Map.Entry<String, List<SpellEvent>> entry : hogwartsSpells.getSpellsByType().entrySet()) {
-            System.out.println(entry);
-        }
-        System.out.println("  ");
-        for (Map.Entry<Integer, SpellEvent> entry : hogwartsSpells.getSpellById().entrySet()) {
-            System.out.println(entry);
-        }
+
         System.out.println("  ");
         hogwartsSpells.printAllSpellEvents();
     }

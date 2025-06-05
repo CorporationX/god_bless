@@ -5,9 +5,9 @@ import lombok.Getter;
 import java.util.*;
 
 public class HogwartsSpells {
-    @Getter
+
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    @Getter
+
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     private int countId = 0;
