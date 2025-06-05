@@ -1,4 +1,4 @@
-package school.faang.BJS2_79251;
+package school.faang.bjs2_79251;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,15 +14,16 @@ public class User {
     private String job;
     private String address;
 
-    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESS = new HashSet<>(Set.of("London", "New-York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New-York", "Amsterdam");
+    private static final int LEGAL_AGE = 18;
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("name can not to be null or empty");
         }
 
-        if (age < 18) {
+        if (age < LEGAL_AGE) {
             throw new IllegalArgumentException("the user must be of legal age");
         }
 
