@@ -38,6 +38,7 @@ public class User {
             for (var hobby : hobbies) {
                 if (user.hobbies.contains(hobby)) {
                     hobbyLovers.put(user, hobby);
+                    break;
                 }
             }
         }
