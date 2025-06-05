@@ -12,7 +12,7 @@ public class Product {
     @Getter
     private final Category category;
 
-    public Product(String name, Category category){
+    public Product(String name, Category category) {
         this.id = ++count;
         this.name = name;
         this.category = category;
