@@ -1,8 +1,6 @@
 package school.faang.bjs2_79779;
 
-
 import lombok.Setter;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +18,7 @@ public abstract class WeatherCacheTemplate {
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData weatherData = weatherCacheByCity.get(city);
 
-        if (weatherData != null && !isCacheExpired(weatherData, maxCacheAgeMillis)) {
+        if (weatherData == null || isCacheExpired(weatherData, maxCacheAgeMillis)) {
             WeatherData newWeatherData = forceUpdateWeather(city);
             if (newWeatherData != null) {
                 weatherData = newWeatherData;
