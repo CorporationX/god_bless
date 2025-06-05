@@ -16,17 +16,17 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException();
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("имя не должно быть пустым");
         }
         if (age < PASSING_AGE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("ваш не должен быть меньше: " + PASSING_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("недопустимое место работы: " + job);
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("недопустимый адрес: " + address);
         }
 
         this.name = name;
