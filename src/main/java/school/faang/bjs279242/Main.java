@@ -9,4 +9,4 @@ public class Main {
         test.revers(array);
         System.out.println(Arrays.toString(array));
     }
-    }
+}
