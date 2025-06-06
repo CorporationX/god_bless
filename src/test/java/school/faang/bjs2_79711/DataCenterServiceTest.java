@@ -7,11 +7,15 @@ import school.faang.bjs2_79711.strategy.LoadBalancingOptimizationStrategy;
 import school.faang.bjs2_79711.strategy.OptimizationStrategy;
 import java.util.ArrayList;
 import java.util.List;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class DataCenterServiceTest {
+    private static final int INDEX_OF_SERVER = 1;
+    private static final double MIN_LOAD = 0;
+
     private List<Server> servers = new ArrayList<>();
-    private DataCenter dataCenter = new DataCenter(servers);
+    private DataCenter dataCenter = new DataCenter();
     private DataCenterService service = new DataCenterService();
 
     @BeforeEach
@@ -23,6 +27,8 @@ class DataCenterServiceTest {
         servers.add(new Server(35, 100, 18.0));
         servers.add(new Server(70, 80, 45.5));
         servers.add(new Server(45, 100, 23.7));
+
+        dataCenter.setServers(servers);
     }
 
     @Test
@@ -32,8 +38,8 @@ class DataCenterServiceTest {
 
         service.addServer(dataCenter, server);
 
-        int result = dataCenter.getServers().size();
-        assertThat(result).isEqualTo(expected);
+        int actual = dataCenter.getServers().size();
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -43,18 +49,18 @@ class DataCenterServiceTest {
         int expected = servers.size() - 1;
 
         service.removeServer(dataCenter, server);
-        int result = dataCenter.getServers().size();
+        int actual = dataCenter.getServers().size();
 
-        assertThat(result).isEqualTo(expected);
+        assertEquals(actual, expected);
     }
 
     @Test
     void shouldCalculateTotalEnergyConsumption() {
         double expected = calculateTotalEnergyConsumption(servers);
 
-        double result = service.getTotalEnergyConsumption(dataCenter);
+        double actual = service.getTotalEnergyConsumption(dataCenter);
 
-        assertThat(result).isEqualTo(expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -63,9 +69,9 @@ class DataCenterServiceTest {
         double expected = calculateTotalLoad(servers) + resourceRequest.load();
 
         service.allocateResources(dataCenter, resourceRequest);
-        double result = calculateTotalLoad(dataCenter.getServers());
+        double actual = calculateTotalLoad(dataCenter.getServers());
 
-        assertThat(result).isEqualTo(expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -74,9 +80,9 @@ class DataCenterServiceTest {
         double expected = calculateTotalLoad(servers) + resourceRequest.load();
 
         service.allocateResources(dataCenter, resourceRequest);
-        double result = calculateTotalLoad(dataCenter.getServers());
+        double actual = calculateTotalLoad(dataCenter.getServers());
 
-        assertThat(result).isNotEqualTo(expected);
+        assertNotEquals(actual, expected);
     }
 
     @Test
@@ -85,9 +91,9 @@ class DataCenterServiceTest {
         double expected = calculateTotalLoad(servers) - resourceRequest.load();
 
         service.releaseResources(dataCenter, resourceRequest);
-        double result = calculateTotalLoad(dataCenter.getServers());
+        double actual = calculateTotalLoad(dataCenter.getServers());
 
-        assertThat(result).isEqualTo(expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -96,9 +102,9 @@ class DataCenterServiceTest {
         double expected = calculateTotalLoad(servers) - resourceRequest.load();
 
         service.releaseResources(dataCenter, resourceRequest);
-        double result = calculateTotalLoad(dataCenter.getServers());
+        double actual = calculateTotalLoad(dataCenter.getServers());
 
-        assertThat(result).isNotEqualTo(expected);
+        assertNotEquals(actual, expected);
     }
 
     @Test
@@ -109,23 +115,23 @@ class DataCenterServiceTest {
         List<Server> optimizedServers = dataCenter.getServers();
 
         for (int i = 0; i < optimizedServers.size() - 1; i++) {
-            double result = optimizedServers.get(i).getLoad();
+            double actual = optimizedServers.get(i).getLoad();
             double expected = optimizedServers.get(i + 1).getLoad();
 
-            assertThat(result).isEqualTo(expected);
+            assertEquals(actual, expected);
         }
     }
 
     @Test
     void shouldOptimizeLoadWithEnergyEfficiencyOptimizationStrategy() {
         OptimizationStrategy strategy = new EnergyEfficiencyOptimizationStrategy();
-        servers.get(1).setLoad(0);
+        servers.get(INDEX_OF_SERVER).setLoad(MIN_LOAD);
         double expected = calculateTotalEnergyConsumption(servers);
 
         service.optimizeLoad(dataCenter, strategy);
-        double result = calculateTotalEnergyConsumption(dataCenter.getServers());
+        double actual = calculateTotalEnergyConsumption(dataCenter.getServers());
 
-        assertThat(result).isNotEqualTo(expected);
+        assertNotEquals(actual, expected);
     }
 
     @Test
@@ -134,9 +140,9 @@ class DataCenterServiceTest {
         double expected = calculateTotalEnergyConsumption(servers);
 
         service.optimizeLoad(dataCenter, strategy);
-        double result = calculateTotalEnergyConsumption(dataCenter.getServers());
+        double actual = calculateTotalEnergyConsumption(dataCenter.getServers());
 
-        assertThat(result).isEqualTo(expected);
+        assertEquals(actual, expected);
     }
 
     private double calculateTotalLoad(List<Server> servers) {

@@ -3,14 +3,18 @@ package school.faang.bjs2_79711;
 import lombok.extern.slf4j.Slf4j;
 import school.faang.bjs2_79711.strategy.OptimizationStrategy;
 
+import java.util.List;
+
 @Slf4j
 public class DataCenterService {
     public void addServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().add(server);
+        List<Server> servers = dataCenter.getServers();
+        servers.add(server);
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().remove(server);
+        List<Server> servers = dataCenter.getServers();
+        servers.remove(server);
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
