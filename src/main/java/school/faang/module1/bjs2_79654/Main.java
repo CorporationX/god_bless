@@ -10,17 +10,17 @@ import java.util.Map;
 @Slf4j
 public class Main {
 
+    private static Student alana = new Student("Alana");
+    private static Student bob = new Student("Bob");
+    private static Student charlie = new Student("Charlie");
+
+    private static Subject math = new Subject("Math");
+    private static Subject physics = new Subject("Physics");
+    private static Subject literature = new Subject("Literature");
+
     public static void main(String[] args) {
         log.info("Initializing StudentDatabase");
         StudentDatabase database = new StudentDatabase(new HashMap<>(), new HashMap<>());
-
-        Student alana = new Student("Alana");
-        Student bob = new Student("Bob");
-        Student charlie = new Student("Charlie");
-
-        Subject math = new Subject("Math");
-        Subject physics = new Subject("Physics");
-        Subject literature = new Subject("Literature");
 
         Map<Subject, Integer> alanaGrades = new HashMap<>();
         alanaGrades.put(math, 9);
