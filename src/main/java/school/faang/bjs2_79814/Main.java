@@ -1,4 +1,4 @@
-package school.faang.BJS2_79814;
+package school.faang.bjs2_79814;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,10 +9,9 @@ public class Main {
         productManager.addProduct(Category.ELECTRONICS, "Laptop");
         productManager.addProduct(Category.ELECTRONICS, "Smartphone");
         productManager.addProduct(Category.ELECTRONICS, "Smartphone2");
-
-
         productManager.findProductsByCategory(Category.ELECTRONICS).forEach(System.out::println);
         productManager.removeProduct(Category.ELECTRONICS, "Smartphone2");
+        productManager.removeProduct(Category.ELECTRONICS, "Smartphone3");
 
         productManager.printAllProducts();
     }
