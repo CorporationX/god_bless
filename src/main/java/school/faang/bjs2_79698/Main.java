@@ -1,4 +1,4 @@
-package school.faang.BJS2_79698;
+package school.faang.bjs2_79698;
 
 import java.util.NoSuchElementException;
 
