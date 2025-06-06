@@ -45,7 +45,7 @@ public class HogwartsSpells {
         if (spellList != null) {
             spellList.remove(value);
 
-            if (spellList.isEmpty()){
+            if (spellList.isEmpty()) {
                 spellsByType.remove(evenType);
             }
         }
@@ -53,7 +53,7 @@ public class HogwartsSpells {
 
     public static void printAllSpellEvents() {
         System.out.println("Список: ");
-        for (Map.Entry <Integer, SpellEvent> entry : spellByld.entrySet()) {
+        for (Map.Entry<Integer, SpellEvent> entry : spellByld.entrySet()) {
             System.out.println(entry.getKey() + " " + (entry.getValue()).getEventType() + " " +
                     (entry.getValue().getAction()));
         }
