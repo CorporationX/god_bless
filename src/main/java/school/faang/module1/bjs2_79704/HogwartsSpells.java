@@ -6,11 +6,15 @@ public class HogwartsSpells {
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private static final int ID_MIN = 1;
-    private static final int ID_MAX = 7;
-    private final Random random = new Random();
+    private int currentId = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
+        if (eventType == null) {
+            throw new IllegalArgumentException("eventType не должен быть null");
+        }
+        if (actionDescription == null) {
+            throw new IllegalArgumentException("actionDescription не должен быть null");
+        }
         int id = generateUniqueId();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, spellEvent);
@@ -22,7 +26,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.get(eventType);
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public SpellEvent deleteSpellEvent(int id) {
@@ -34,21 +38,19 @@ public class HogwartsSpells {
         if (events == null || !events.remove(spellEvent)) {
             return null;
         }
+        if (events.isEmpty()) {
+            spellsByType.remove(spellEvent.getEventType());
+        }
         return spellEvent;
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            SpellEvent spellEvent = entry.getValue();
+        for (SpellEvent spellEvent : spellById.values()) {
             System.out.println(spellEvent);
         }
     }
 
     private int generateUniqueId() {
-        int id;
-        do {
-            id = random.nextInt(ID_MAX - ID_MIN + 1) + ID_MIN;
-        } while (spellById.containsKey(id));
-        return id;
+        return ++currentId;
     }
 }
