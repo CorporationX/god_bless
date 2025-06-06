@@ -1,6 +1,6 @@
 package school.faang.library;
 
-public class Main {
+public class TestingSystem {
     public static void main(String[] args) {
         LibrarySystem.printAllBooks();
         LibrarySystem.addBook("Harry Potter", "J.K.Rowling", 1997, "third shelf");
