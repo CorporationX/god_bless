@@ -10,10 +10,10 @@ public class HogwartsSpells {
 
     public void addSpellEvent(String eventType, String actionDescription) {
         if (eventType == null) {
-            throw new IllegalArgumentException("eventType не должен быть null");
+            throw new IllegalArgumentException("eventType РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
         }
         if (actionDescription == null) {
-            throw new IllegalArgumentException("actionDescription не должен быть null");
+            throw new IllegalArgumentException("actionDescription РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ null");
         }
         int id = generateUniqueId();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
