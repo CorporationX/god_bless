@@ -2,7 +2,7 @@ package school.faang.module1.bjs2_79786;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class WeatherService implements WeatherProvider{
+public class WeatherService implements WeatherProvider {
 
     private static final double MIN_TEMPERATURE = -10.0;
     private static final double MAX_TEMPERATURE = 30.0;
