@@ -14,7 +14,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character defender) {
-        System.out.println("Урон: " + agility);
+        System.out.printf(GameMessage.DAMAGE.format(agility) + "\n");
         defender.reduceHealth(agility);
     }
 }

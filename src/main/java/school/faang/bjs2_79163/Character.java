@@ -20,7 +20,7 @@ public abstract class Character {
         this.agility = agility;
     }
 
-    public void reduceHealth(int damage) {
+    protected void reduceHealth(int damage) {
         if (health <= 0) {
             System.out.println("Противник уже повержен");
             return;

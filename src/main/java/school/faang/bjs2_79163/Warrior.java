@@ -14,7 +14,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character defender) {
-        System.out.println("Урон: " + strength);
+        System.out.printf(GameMessage.DAMAGE.format(strength) + "\n");
         defender.reduceHealth(strength);
     }
 }
