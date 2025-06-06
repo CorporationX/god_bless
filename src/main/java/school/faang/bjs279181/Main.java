@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         List<User> userList;
         userList = List.of(
-                new User(0, "Dima", 21, Set.of("Воркаут", "Програмирование", "Чтение", "Игра на гитаре")),
+                new User(0, "Dima", 21, Set.of("Воркаут", "Програмирование", "Игра на гитаре")),
                 new User(1, "Vlad", 28, Set.of("Казино", "Литр Болл", "Чтение")),
                 new User(2, "Kola", 24, Set.of("Воркаут", "Готовка", "Чтение"))
         );
@@ -22,6 +22,5 @@ public class Main {
         userAction.forEach((user, action) -> {
             System.out.println(user.getName() + " " + action);
         });
-
     }
 }

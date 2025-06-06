@@ -12,7 +12,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-
 public class User {
     private long id;
     private String name;
@@ -21,13 +20,18 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
+        if (users == null || activities == null) {
+            return result;
+        }
         for (User user : users) {
-            for (String act : activities) {
-                if (user.getActivities().contains(act)) {
-                    result.put(user, act);
+            if (user.getActivities() == null) {
+                continue;
+            }
+            for (String action : activities) {
+                if (user.getActivities().contains(action)) {
+                    result.put(user, action);
                     break;
                 }
-
             }
         }
         return result;
