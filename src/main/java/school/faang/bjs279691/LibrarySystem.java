@@ -47,13 +47,12 @@ public class LibrarySystem {
             }
         }
         log.info("Книга {} не найдена в библиотеке", findB);
-
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : dataBase.entrySet()) {
             System.out.print("В библиотеке такой список книг: ");
-            System.out.println(entry.getKey() + " в библиотеки находиться:  " +  entry.getValue());
+            System.out.println(entry.getKey() + " в библиотеки находиться:  " + entry.getValue());
         }
     }
 }
