@@ -13,26 +13,26 @@ import java.util.Map;
  */
 public class StudentDatabase {
 
-    private static final Map<Student, Map<Subject, Integer>> STUDENT_SUBJECTS = new HashMap<>();
-    private static final Map<Subject, List<Student>> SUBJECT_STUDENTS = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public static void addNewStudentWithSubjects(@NonNull Student student, @NonNull Map<Subject, Integer> subjects) {
-        STUDENT_SUBJECTS.put(student, subjects);
+    public void addNewStudentWithSubjects(@NonNull Student student, @NonNull Map<Subject, Integer> subjects) {
+        studentSubjects.put(student, subjects);
         for (var subject : subjects.keySet()) {
             addNewSubjectWithStudents(subject, new ArrayList<>());
             addNewStudentToSubject(student, subject);
         }
     }
 
-    public static void addNewSubjectToStudent(@NonNull Student student, @NonNull Subject subject,
+    public void addNewSubjectToStudent(@NonNull Student student, @NonNull Subject subject,
                                               @NonNull Integer grade) {
-        STUDENT_SUBJECTS.get(student).putIfAbsent(subject, grade);
+        studentSubjects.get(student).putIfAbsent(subject, grade);
         addNewSubjectWithStudents(subject, new ArrayList<>());
         addNewStudentToSubject(student, subject);
     }
 
-    public static void deleteStudentWithSubjects(@NonNull Student student) {
-        var removedStudentSubjects = STUDENT_SUBJECTS.remove(student);
+    public void deleteStudentWithSubjects(@NonNull Student student) {
+        var removedStudentSubjects = studentSubjects.remove(student);
         if (removedStudentSubjects == null) {
             System.out.printf("%s not found!\n", student);
             return;
@@ -42,8 +42,8 @@ public class StudentDatabase {
         }
     }
 
-    public static void printStudentsWithSubjects() {
-        for (var studentSubjectEntry : STUDENT_SUBJECTS.entrySet()) {
+    public void printStudentsWithSubjects() {
+        for (var studentSubjectEntry : studentSubjects.entrySet()) {
             System.out.println(studentSubjectEntry.getKey());
             for (var subjectGradeEntry : studentSubjectEntry.getValue().entrySet()) {
                 System.out.printf("- %s: %s\n", subjectGradeEntry.getKey(), subjectGradeEntry.getValue());
@@ -51,23 +51,23 @@ public class StudentDatabase {
         }
     }
 
-    public static void addNewSubjectWithStudents(@NonNull Subject subject, @NonNull List<Student> students) {
-        SUBJECT_STUDENTS.putIfAbsent(subject, students);
+    public void addNewSubjectWithStudents(@NonNull Subject subject, @NonNull List<Student> students) {
+        subjectStudents.putIfAbsent(subject, students);
     }
 
-    public static void addNewStudentToSubject(@NonNull Student student, @NonNull Subject subject) {
-        SUBJECT_STUDENTS.get(subject).add(student);
+    public void addNewStudentToSubject(@NonNull Student student, @NonNull Subject subject) {
+        subjectStudents.get(subject).add(student);
     }
 
-    public static void deleteStudentFromSubject(@NonNull Student student, @NonNull Subject subject) {
-        var isStudentRemoved = SUBJECT_STUDENTS.get(subject).remove(student);
+    public void deleteStudentFromSubject(@NonNull Student student, @NonNull Subject subject) {
+        var isStudentRemoved = subjectStudents.get(subject).remove(student);
         if (!isStudentRemoved) {
             System.out.printf("%s deleted from %s subject list\n", student, subject);
         }
     }
 
-    public static void printSubjectsWithStudents() {
-        for (var subjectStudentEntry : SUBJECT_STUDENTS.entrySet()) {
+    public void printSubjectsWithStudents() {
+        for (var subjectStudentEntry : subjectStudents.entrySet()) {
             System.out.println(subjectStudentEntry.getKey());
             for (var student : subjectStudentEntry.getValue()) {
                 System.out.printf("- %s\n", student);
