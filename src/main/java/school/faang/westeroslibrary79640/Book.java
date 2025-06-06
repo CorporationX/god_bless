@@ -1,6 +1,9 @@
 package school.faang.westeroslibrary79640;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 import java.util.Objects;
 
