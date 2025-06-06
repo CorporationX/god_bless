@@ -10,7 +10,9 @@ public class LibrarySystem {
     private Map<Book, String> dataBase = new HashMap<>();
 
     public void addBook(String title, String author, int year, String local) {
-        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty() || local == null || local.trim().isEmpty()) {
+        if (title == null || title.trim().isEmpty() 
+            || author == null || author.trim().isEmpty() 
+            || local == null || local.trim().isEmpty()) {
             log.error("Либо пустая строка, либо ничего не введено");
             return;
         }
