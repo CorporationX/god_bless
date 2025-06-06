@@ -33,6 +33,10 @@ public abstract class Character {
         this.health = Math.max(0, this.health - damage);
     }
 
+    public boolean isDead() {
+        return this.health <= 0;
+    }
+
     @Override
     public String toString() {
         return String.format(

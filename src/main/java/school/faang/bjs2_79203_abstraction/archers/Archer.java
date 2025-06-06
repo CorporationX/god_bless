@@ -13,6 +13,11 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
+        if (opponent.isDead()) {
+            System.out.printf("%s не атакует, потому что %s уже мёртв.%n", this.name, opponent.getName());
+            return;
+        }
+
         opponent.takeDamage(this.agility);
         System.out.printf("%s стреляет в %s на %d урона (Ловкость)%n",
                 this.name, opponent.getName(), this.agility);

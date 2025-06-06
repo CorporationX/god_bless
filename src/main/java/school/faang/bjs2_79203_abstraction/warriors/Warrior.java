@@ -13,6 +13,11 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
+        if (opponent.isDead()) {
+            System.out.printf("%s не атакует, потому что %s уже мёртв.%n", this.name, opponent.getName());
+            return;
+        }
+
         opponent.takeDamage(this.strength);
         System.out.printf("%s атакует %s на %d урона (Сила)%n",
                 this.name, opponent.getName(), this.strength);
