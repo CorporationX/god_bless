@@ -14,6 +14,7 @@ public class LibrarySystem {
 
     public static void removeBook(String title, String author, int year) {
         Object result = booksMap.remove(new Book(title, author, year));
+
         if (result == null) {
             System.out.println("the book for remove was not found");
         }
