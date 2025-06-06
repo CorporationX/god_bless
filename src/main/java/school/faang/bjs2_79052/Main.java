@@ -9,9 +9,11 @@ public class Main {
         HogwartsSpells.addSpellEvent("Чар", "Закаляет предмет до 100C");
         HogwartsSpells.addSpellEvent("Атака", "Создает сгусток белого света");
         HogwartsSpells.printAllSpellEvents();
+
         System.out.println(HogwartsSpells.getSpellEventByldId(2));
         System.out.println(HogwartsSpells.getSpellEventsByType("Трансмутация"));
         HogwartsSpells.printAllSpellEvents();
+
         HogwartsSpells.deleteSpellEvent(0);
         HogwartsSpells.printAllSpellEvents();
     }
