@@ -1,4 +1,4 @@
-package school.faang.user_registration_bjs2_79188;
+package school.faang.user_registration_bjs2_79213;
 
 import lombok.ToString;
 

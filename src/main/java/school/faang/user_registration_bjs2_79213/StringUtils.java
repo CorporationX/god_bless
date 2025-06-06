@@ -1,4 +1,4 @@
-package school.faang.user_registration_bjs2_79188;
+package school.faang.user_registration_bjs2_79213;
 
 public class StringUtils {
     private StringUtils() {
