@@ -18,13 +18,13 @@ public class User {
     private final String workplace;
     private final int age;
 
-
     public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
 
         for (User user : usersList) {
             int age = user.getAge();
-            usersMap.computeIfAbsent(age, u -> new ArrayList<>()).add(user);
+            usersMap.putIfAbsent(age, new ArrayList<>());
+            usersMap.get(age).add(user);
         }
 
         return usersMap;
