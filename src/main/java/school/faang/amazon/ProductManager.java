@@ -15,39 +15,33 @@ import java.util.stream.Collectors;
  */
 public class ProductManager {
 
-    private static final Set<Product> PRODUCTS = new HashSet<>();
-    private static Integer LAST_ID = 0;
+    private final Set<Product> products = new HashSet<>();
+    private Integer lastId = 0;
 
-    public static void addProduct(@NonNull Category category, @NonNull String name) {
-        var id = LAST_ID++;
-        var product = new Product(id, name, category);
-        PRODUCTS.add(product);
+    public void addProduct(@NonNull Category category, @NonNull String name) {
+        products.add(new Product(lastId++, name, category));
     }
 
-    public static void removeProduct(@NonNull Category category, @NonNull String name) {
-        var isRemoved = PRODUCTS.removeIf(product -> product.getName().equals(name)
+    public void removeProduct(@NonNull Category category, @NonNull String name) {
+        var isRemoved = products.removeIf(product -> product.getName().equals(name)
                 && product.getCategory().equals(category));
         if (isRemoved) {
             System.out.printf("Product with name = '%s' and category = '%s' removed\n", name, category);
         }
     }
 
-    public static List<Product> findProductsByCategory(@NonNull Category category) {
-        var products = new ArrayList<Product>() {};
-        for (var product : PRODUCTS) {
-            if (product.getCategory().equals(category)) {
-                products.add(product);
-            }
-        }
-        return products;
+    public List<Product> findProductsByCategory(@NonNull Category category) {
+        return products.stream()
+                .filter(p -> p.getCategory().equals(category))
+                .toList();
     }
 
-    public static Map<Category, List<Product>> groupProductsByCategory() {
-        return PRODUCTS.stream()
+    public Map<Category, List<Product>> groupProductsByCategory() {
+        return products.stream()
                 .collect(Collectors.groupingBy(Product::getCategory));
     }
 
-    public static void printAllProducts() {
+    public void printAllProducts() {
         var productsByCategory = groupProductsByCategory();
         for (var entry : productsByCategory.entrySet()) {
             System.out.printf("Категория: %s\n", entry.getKey());
