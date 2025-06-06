@@ -20,14 +20,8 @@ public class User {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
         for (User user : userList) {
-            List<User> userListInMap = new ArrayList<>();
-            if (userMap.get(user.age) == null) {
-                userListInMap.add(user);
-                userMap.put(user.age, userListInMap);
-            } else {
-                userListInMap = userMap.get(user.age);
-                userListInMap.add(user);
-            }
+            userMap.putIfAbsent(user.age, new ArrayList<>());
+            userMap.get(user.age).add(user);
         }
 
         return userMap;
