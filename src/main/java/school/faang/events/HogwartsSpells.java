@@ -1,11 +1,11 @@
 package school.faang.events;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 /**
  * @author Danil Pudovkin
@@ -13,33 +13,40 @@ import java.util.UUID;
  */
 public class HogwartsSpells {
 
-    private static final Map<Integer, SpellEvent> SPELL_BY_ID = new HashMap<>();
-    private static final Map<String, List<SpellEvent>> SPELL_BY_TYPE = new HashMap<>();
-    private static Integer LAST_ID = 0;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellByType = new HashMap<>();
+    private int lastId = 0;
 
-    public static void addSpellEvent(String eventType, String actionDescription) {
-        var id = LAST_ID++;
+    public void addSpellEvent(String eventType, String actionDescription) {
+        var id = lastId++;
         var event = new SpellEvent(id, eventType, actionDescription);
-        SPELL_BY_ID.put(id, event);
-        SPELL_BY_TYPE.putIfAbsent(eventType, new ArrayList<>());
-        SPELL_BY_TYPE.get(eventType).add(event);
+        spellById.put(id, event);
+        spellByType.putIfAbsent(eventType, new ArrayList<>());
+        spellByType.get(eventType).add(event);
     }
 
-    public static SpellEvent getSpellEventById(int id) {
-        return SPELL_BY_ID.get(id);
+    public SpellEvent getSpellEventById(int id) {
+        return spellById.get(id);
     }
 
-    public static List<SpellEvent> getSpellEventsByType(String type) {
-        return SPELL_BY_TYPE.get(type);
+    public List<SpellEvent> getSpellEventsByType(@NonNull String type) {
+        var spellEvents = spellByType.get(type);
+        if (spellEvents == null) {
+            System.out.printf("SpellEvents not found by type '%s'", type);
+            return List.of();
+        }
+        return spellEvents;
     }
 
-    public static void deleteSpellEvent(Integer id) {
-        var event = SPELL_BY_ID.remove(id);
-        SPELL_BY_TYPE.get(event.eventType()).remove(event);
+    public void deleteSpellEvent(@NonNull Integer id) {
+        var event = spellById.remove(id);
+        if (event != null) {
+            spellByType.get(event.eventType()).remove(event);
+        }
     }
 
-    public static void printAllSpellEvents() {
-        for (var entry : SPELL_BY_ID.entrySet()) {
+    public void printAllSpellEvents() {
+        for (var entry : spellById.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
