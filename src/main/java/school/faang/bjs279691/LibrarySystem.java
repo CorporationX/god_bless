@@ -10,27 +10,12 @@ public class LibrarySystem {
     private Map<Book, String> dataBase = new HashMap<>();
 
     public void addBook(String title, String author, int year, String local) {
-        if (title == null || title.trim().isEmpty()) {
-        log.error("Название книги не может быть пустым");
-        return;
-    }
-    if (author == null || author.trim().isEmpty()) {
-        log.error("Имя автора не может быть пустым");
-        return;
-    }
-    if (local == null || local.trim().isEmpty()) {
-        log.error("Локация не может быть пустой");
-        return;
-    }
         Book addB = new Book(title, author, year);
         dataBase.put(addB, local);
         log.info("Книга {} добавлена в базу данных", addB);
     }
 
     public void removeBook(String title, String author, int year) {
-        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty()) {
-            return;
-        }
         Book findBookForRemove = new Book(title, author, year);
         for (Book book : dataBase.keySet()) {
             if (book.equals(findBookForRemove)) {
@@ -44,9 +29,6 @@ public class LibrarySystem {
     }
 
     public void findBook(String title, String author, int year) {
-        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty()) {
-            return;
-        }
         Book findB = new Book(title, author, year);
         for (Book book : dataBase.keySet()) {
             if (book.equals(findB)) {
