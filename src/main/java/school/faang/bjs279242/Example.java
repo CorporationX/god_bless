@@ -1,11 +1,12 @@
 package school.faang.bjs279242;
 
 public class Example {
-    public int[] revers(int[] array) {
-        int[] result = new int[array.length];
-        for(int i = 1; i < array.length; i++) {
-            result[i] = array[array.length - i];
+    public void revers(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int end = array.length - (i + 1);
+            int num = array[i];
+            array[i] = array[end];
+            array[end] = num;
         }
-        return result;
     }
 }
