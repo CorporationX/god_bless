@@ -8,6 +8,7 @@ import static school.faang.amazon_bjs2_79845.Product.Category.OTHER;
 public class Main {
     public static void main(String[] args) {
         ProductManager pm = new ProductManager();
+
         pm.addProduct(FOOD, "Apple");
         pm.addProduct(FOOD, "Meat");
         pm.addProduct(FOOD, "Fish");
@@ -23,7 +24,6 @@ public class Main {
         pm.addProduct(CLOTHING, "Jeans");
 
         pm.addProduct(OTHER, "Car");
-
 
         pm.findProductsByCategory(ELECTRONICS);
 
