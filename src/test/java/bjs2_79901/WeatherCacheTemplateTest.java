@@ -47,7 +47,8 @@ public class WeatherCacheTemplateTest {
         WeatherData result = cache.getWeatherData(city, TimeUnit.MINUTES.toMillis(10));
 
         assertNotEquals(oldData, cache.getWeatherByCity().get(city));
-        assertEquals(oldData, result);
+
+        assertEquals(cache.getWeatherByCity().get(city), result);
     }
 
     @Test
