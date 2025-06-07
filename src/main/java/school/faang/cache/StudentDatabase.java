@@ -1,17 +1,18 @@
 package school.faang.cache;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    private Map<Student, Map<Subject, Integer>> studentSubjects;
-    private Map<Subject, List<Student>> subjectStudents;
+    private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudent(Student student, Map<Subject, Integer> mark) {
-        studentSubjects.put(student, mark);
-        for (Subject subject : mark.keySet()) {
+    public void addStudentWithMarks(Student student, Map<Subject, Integer> subjects) {
+        studentSubjects.put(student, subjects);
+        for (Subject subject : subjects.keySet()) {
             subjectStudents.putIfAbsent(subject, new ArrayList<>());
             subjectStudents.get(subject).add(student);
         }
@@ -33,11 +34,12 @@ public class StudentDatabase {
 
     public void printStudent() {
         for (var entry : studentSubjects.entrySet()) {
-            System.out.println("Student: " + entry.getKey());
+            System.out.println(entry.getKey());
 
             for (Subject subject : entry.getValue().keySet()) {
-                System.out.println("Subject: " + subject + " Mark: " + entry.getValue().get(subject));
+                System.out.println(subject + " Mark: " + entry.getValue().get(subject));
             }
+            System.out.println();
         }
     }
 
@@ -61,7 +63,19 @@ public class StudentDatabase {
     public void removeStudentFromSubject(Student student, Subject subject) {
         List<Student> students = subjectStudents.get(subject);
         students.remove(student);
-        Map<Subject, Integer> grades = studentSubjects.get(student);
-        grades.remove(subject);
+        Map<Subject, Integer> marks = studentSubjects.get(student);
+        marks.remove(subject);
     }
+
+    public void printSubject() {
+        for (var entry : subjectStudents.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.print("Students: ");
+            for (Student student : entry.getValue()) {
+                System.out.print(student + " ");
+            }
+            System.out.println("\n");
+        }
+    }
+
 }
