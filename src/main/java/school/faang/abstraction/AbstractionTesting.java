@@ -1,8 +1,8 @@
-package school.faang;
+package school.faang.abstraction;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Main {
+public class AbstractionTesting {
     public static void main(String[] args) {
         Character warrior = new Warrior("Tom");
         Character archer = new Archer("Robin");
@@ -16,7 +16,7 @@ public class Main {
                 archer.attack(warrior);
             }
 
-            if (archer.minHealth() || warrior.minHealth()) {
+            if (archer.isKilling() || warrior.isKilling()) {
                 break;
             }
         }
