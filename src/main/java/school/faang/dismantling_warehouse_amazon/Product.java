@@ -1,11 +1,11 @@
 package school.faang.dismantling_warehouse_amazon;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
+@EqualsAndHashCode
 public class Product {
-    private int count = 0;
+    private static int count = 0;
     private final int id;
     @Getter
     private final String name;
@@ -16,5 +16,10 @@ public class Product {
         this.id = ++count;
         this.name = name;
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "- " + name + "\n";
     }
 }

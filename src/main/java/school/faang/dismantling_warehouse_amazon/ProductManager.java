@@ -3,7 +3,6 @@ package school.faang.dismantling_warehouse_amazon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,13 +15,15 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        Product product = null;
-        for (Product tmp : products) {
-            if (tmp.getName().equals(name) && tmp.getCategory().equals(category)) {
-                product = tmp;
+        Product productRemove = null;
+        for (Product product : products) {
+            if (product.getName().equals(name) && product.getCategory().equals(category)) {
+                productRemove = product;
             }
         }
-        products.remove(product);
+        if (productRemove != null) {
+            products.remove(productRemove);
+        }
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -37,21 +38,21 @@ public class ProductManager {
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> result = new HashMap<>();
-        for (Category category : Category.values()) {
-            result.put(category, findProductsByCategory(category));
+        for (Product product : products) {
+            result.computeIfAbsent(product.getCategory(), key -> new ArrayList<>());
         }
         return result;
     }
 
     public void printAllProducts() {
+        Map<Category, List<Product>> categoryListMap = groupProductsByCategory();
         for (Category category : Category.values()) {
-            System.out.println("Категория: " + category + "\n" + "Продукты:");
-            for (Product product : findProductsByCategory(category)) {
-                System.out.printf("- %s\n", product.getName());
+            if (groupProductsByCategory().get(category).isEmpty()) {
+                continue;
             }
+            System.out.printf("Категория: %s\nПродукты:\n %s", category, categoryListMap
+                    .computeIfAbsent(category, key -> new ArrayList<>()));
             System.out.println();
-
         }
     }
-
 }
