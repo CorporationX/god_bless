@@ -35,4 +35,5 @@ public class HogwartsSpells {
             System.out.println(spellEntry.getValue());
         }
     }
+
 }
