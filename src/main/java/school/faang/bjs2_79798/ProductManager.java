@@ -13,13 +13,14 @@ public class ProductManager {
     private static Long countId = 0L;
 
     public void addProduct(Category category, String name) {
-        if (!(isValidateCategory(category) && isValidateName(name))) {
+        if (isInvalidCategory(category) || isInvalidName(name)) {
             return;
         }
 
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 System.out.println("This good is exist already");
+                return;
             }
         }
 
@@ -27,7 +28,7 @@ public class ProductManager {
     }
 
     public boolean removeProduct(Category category, String name) {
-        if (!(isValidateCategory(category) && isValidateName(name))) {
+        if (isInvalidCategory(category) || isInvalidName(name)) {
             return false;
         }
 
@@ -41,7 +42,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductByCategory(Category category) {
-        if (!isValidateCategory(category)) {
+        if (isInvalidCategory(category)) {
             return new ArrayList<>();
         }
         List<Product> productsByCategory = new ArrayList<>();
@@ -79,11 +80,11 @@ public class ProductManager {
         return countId++;
     }
 
-    private boolean isValidateCategory(Category category) {
-        return category != null;
+    private boolean isInvalidCategory(Category category) {
+        return category == null;
     }
 
-    private boolean isValidateName(String name) {
-        return name != null && !name.isBlank();
+    private boolean isInvalidName(String name) {
+        return name == null || name.isBlank();
     }
 }
