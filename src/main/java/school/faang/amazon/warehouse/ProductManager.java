@@ -1,6 +1,8 @@
 package school.faang.amazon.warehouse;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class ProductManager {
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private static int idCounter;
     private Set<Product> products;
     private Map<Category, List<Product>> productsByCategory;
 
@@ -30,7 +35,7 @@ public class ProductManager {
             return product;
         }
 
-        product = new Product(name, category);
+        product = new Product(++idCounter, name, category);
         products.add(product);
         productsByCategory.get(category).add(product);
         return product;

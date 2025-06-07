@@ -9,15 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Product {
-    @Getter(AccessLevel.PRIVATE)
-    @Setter(AccessLevel.PRIVATE)
-    private static int idCounter;
     private final int id;
     private final String name;
     private final Category category;
 
-    public Product(String name, Category category) {
-        this.id = ++idCounter;
+    public Product(int id, String name, Category category) {
+        this.id = id;
         this.name = name;
         this.category = category;
     }
