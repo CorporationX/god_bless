@@ -1,6 +1,5 @@
-package school.faang.bjs2_79723_booking_system;
+package school.faang.bjs2_79723_booking_system.room;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,15 +10,11 @@ import java.util.Set;
 @ToString
 @Getter
 public class Room {
-    public static final String ROOM_TYPE_MEETING = "meeting";
-    public static final String ROOM_TYPE_CONFERENCE = "conference";
-    public static final String ROOM_TYPE_PHONE_BOOTH = "phone_booth";
-
     private final int roomNumber;
-    private final String type;
-    private Set<String> amenities;
+    private final RoomType type;
+    private Set<RoomAmenity> amenities;
 
-    public Room(int roomNumber, String type, Set<String> amenities) {
+    public Room(int roomNumber, RoomType type, Set<RoomAmenity> amenities) {
         if (type == null) {
             throw new IllegalArgumentException("Cannot create a room with empty type");
         }
