@@ -9,7 +9,7 @@ public class HogwartsSpellsTest {
         hogwartsSpells.addSpellEvent("firebole", "ba");
         hogwartsSpells.printAllSpellEvents();
         System.out.println(hogwartsSpells.getSpellEventById(2) + "\n");
-        hogwartsSpells.deleteSpellEvent(2);
+        hogwartsSpells.deleteSpellEvent(4);
         System.out.println(hogwartsSpells.getSpellEventsByType("firebole") + "\n");
         hogwartsSpells.printAllSpellEvents();
     }
