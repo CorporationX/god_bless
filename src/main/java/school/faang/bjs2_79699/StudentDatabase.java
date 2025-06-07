@@ -7,23 +7,23 @@ import java.util.Map;
 
 public class StudentDatabase {
 
-    Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjectsWithGrades) {
-        if (!studentSubjects.containsKey(student)) {
-            studentSubjects.putIfAbsent(student, new HashMap<>());
-        }
+        studentSubjects.putIfAbsent(student, new HashMap<>());
+        Map<Subject, Integer> subjects = studentSubjects.get(student);
+
         for (Map.Entry<Subject, Integer> entry : subjectsWithGrades.entrySet()) {
             Subject subject = entry.getKey();
             Integer grade = entry.getValue();
 
-            studentSubjects.get(student).putIfAbsent(subject, grade);
+            subjects.putIfAbsent(subject, grade);
 
             subjectStudents.putIfAbsent(subject, new ArrayList<>());
-
-            if (!subjectStudents.get(subject).contains(student)) {
-                subjectStudents.get(subject).add(student);
+            List<Student> students = subjectStudents.get(subject);
+            if (!students.contains(student)) {
+                students.add(student);
             }
         }
     }
@@ -45,18 +45,23 @@ public class StudentDatabase {
 
     public void removeStudent(Student student) {
         Map<Subject, Integer> subjects = studentSubjects.get(student);
-        if (subjects != null) {
-            for (Subject subject : subjects.keySet()) {
-                List<Student> studentsList = subjectStudents.get(subject);
-                if (studentsList != null) {
-                    studentsList.remove(student);
-                    if (studentsList.isEmpty()) {
-                        subjectStudents.remove(subject);
-                    }
+        if (subjects == null) {
+            System.out.printf("Student \"%s\" not found.%n", student);
+            return;
+        }
+
+        for (Subject subject : subjects.keySet()) {
+            List<Student> studentsList = subjectStudents.get(subject);
+            if (studentsList != null) {
+                studentsList.remove(student);
+                if (studentsList.isEmpty()) {
+                    subjectStudents.remove(subject);
                 }
             }
         }
+
         studentSubjects.remove(student);
+        System.out.printf("Student \"%s\" has been removed.%n", student);
     }
 
     public void printAllStudentsAndGrades() {
@@ -69,10 +74,11 @@ public class StudentDatabase {
             Student student = entry.getKey();
             Map<Subject, Integer> subjects = entry.getValue();
 
-            System.out.println("Student: " + student.getName());
+            System.out.printf("Student: %s%n", student.getName());
             for (Map.Entry<Subject, Integer> subjectEntry : subjects.entrySet()) {
-                System.out.println("  Subject: " + subjectEntry.getKey().getName() +
-                        ", Evaluation: " + subjectEntry.getValue());
+                System.out.printf("  Subject: %s, Evaluation: %d%n",
+                        subjectEntry.getKey().getName(),
+                        subjectEntry.getValue());
             }
         }
     }
