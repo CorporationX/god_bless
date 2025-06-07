@@ -1,5 +1,6 @@
 package school.faang.BJS2_79194;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class Main {
 
         Set<String> hobbySet = Set.of("1", "5");
 
-        Map<User, String> hobbyLoversMap = new User().findHobbyLovers(userSet, hobbySet);
+        Map<User, String> hobbyLoversMap = new User(1, "1", 18, new HashSet<>()).findHobbyLovers(userSet, hobbySet);
         System.out.println(hobbyLoversMap);
     }
 }
