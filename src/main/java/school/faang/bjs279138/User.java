@@ -1,8 +1,7 @@
-package school.faang.BJS279138;
+package school.faang.bjs279138;
 
 import lombok.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
