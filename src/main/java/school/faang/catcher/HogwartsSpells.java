@@ -8,7 +8,7 @@ import java.util.Map;
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private static int countId = 0;
+    private int countId;
 
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(countId, eventType, actionDescription);
@@ -26,8 +26,24 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        SpellEvent spell = spellById.remove(id);
-        spellsByType.values().remove(spell);
+        if (spellById.containsKey(id)) {
+            SpellEvent spell = spellById.remove(id);
+            String spellType = spell.getEventType();
+
+            List<SpellEvent> spellsOfType = spellsByType.get(spellType);
+            if (spellsOfType != null) {
+                spellsOfType.remove(spell);
+
+                if (spellsOfType.isEmpty()) {
+                    spellsByType.remove(spellType);
+                    System.out.println("Удалено последнее заклинание типа " + spellType);
+//                    Как вариант еще удалять тип заклинаний из мапы
+//                    spellsByType.remove(spellType);
+                }
+            }
+        } else {
+            System.out.println("Заклинания с таким id не существует");
+        }
     }
 
     public void printAllSpellEvents() {
