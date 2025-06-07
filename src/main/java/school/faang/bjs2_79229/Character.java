@@ -1,4 +1,4 @@
-package school.faang.BJS2_79229;
+package school.faang.bjs2_79229;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,10 +6,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
-    String name;
-    int strength;
-    int agility;
-    int intelligence;
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
     private int health = 100;
 
     public Character(String name) {
@@ -26,7 +26,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void checkZeroHealth() {
+    public void ensureHealthNotNegative() {
         if (this.health < 0) {
             this.health = 0;
         }
