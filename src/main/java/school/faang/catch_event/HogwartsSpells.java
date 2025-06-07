@@ -1,5 +1,6 @@
 package school.faang.catch_event;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import school.faang.util.ParameterUtil;
@@ -14,6 +15,9 @@ import static school.faang.util.ParameterUtil.checkStringArg;
 @Getter
 @Setter
 public class HogwartsSpells {
+    @Setter(AccessLevel.PRIVATE)
+    private static int idCounter;
+
     private Map<Integer, SpellEvent> spellById;
     private Map<String, List<SpellEvent>> spellsByType;
 
@@ -26,7 +30,7 @@ public class HogwartsSpells {
         checkStringArg(eventType, "eventType");
         checkStringArg(actionDescription, "actionDescription");
 
-        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(++idCounter, eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
         spellsByType.computeIfAbsent(eventType, e -> new ArrayList<>()).add(spellEvent);
         return spellEvent;
@@ -38,6 +42,7 @@ public class HogwartsSpells {
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         checkStringArg(eventType, "eventType");
+        spellsByType.putIfAbsent(eventType, new ArrayList<>());
         return spellsByType.get(eventType);
     }
 

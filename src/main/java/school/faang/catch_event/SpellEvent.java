@@ -13,18 +13,12 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class SpellEvent {
-    @Setter(AccessLevel.PRIVATE)
-    private static int idCounter;
     private final int id;
     private String eventType;
     private String action;
 
-    public SpellEvent() {
-        this.id = ++idCounter;
-    }
-
-    public SpellEvent(String eventType, String action) {
-        this.id = ++idCounter;
+    public SpellEvent(int id, String eventType, String action) {
+        this.id = id;
         this.eventType = eventType;
         this.action = action;
     }
