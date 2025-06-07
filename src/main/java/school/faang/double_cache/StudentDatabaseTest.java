@@ -18,7 +18,7 @@ public class StudentDatabaseTest {
         studentDatabase.printAllStudentSubject();
         studentDatabase.printAllSubjectStudent();
         studentDatabase.addStudentSubject(new Student("Dani"), new Subject("English"));
-        studentDatabase.dellSubjectStudent(new Subject("Math"), new Student("Poll"));
+        studentDatabase.deleteSubjectStudent(new Subject("Math"), new Student("Poll"));
         studentDatabase.printAllStudentSubject();
         studentDatabase.printAllSubjectStudent();
         studentDatabase.assignStudentsToSubject("Sport", List.of(new Student("Dani"), new Student("Poll")));

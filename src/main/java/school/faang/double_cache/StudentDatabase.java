@@ -15,9 +15,9 @@ public class StudentDatabase {
     public void addStudent(String nameStudent, String nameSubject, int grade) {
         Student student = new Student(nameStudent);
         Subject subject = new Subject(nameSubject);
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>())
+        studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
                 .putIfAbsent(subject, grade);
-        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>())
+        subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>())
                 .add(student);
     }
 
@@ -34,8 +34,10 @@ public class StudentDatabase {
     }
 
     public void deleteStudent(Student student) {
-        for (Subject subject : studentSubjects.get(student).keySet().toArray(new Subject[0])) {
-            subjectStudents.get(subject).remove(student);
+        for (Subject subject : studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
+                .keySet()) {
+            subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>())
+                    .remove(student);
         }
         studentSubjects.remove(student);
     }
@@ -47,22 +49,27 @@ public class StudentDatabase {
         System.out.println("\n*****************************************************************\n");
     }
 
-    public void assignStudentsToSubject(String subject, List<Student> studentList) {
-        subjectStudents.put(new Subject(subject), studentList);
+    public void assignStudentsToSubject(String nameSubject, List<Student> studentList) {
+        Subject subject = new Subject(nameSubject);
+        subjectStudents.put(subject, studentList);
         for (Student student : studentList) {
-            studentSubjects.get(student).put(new Subject(subject), null);
+            studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
+                    .putIfAbsent(subject, null);
         }
     }
 
     public void addStudentSubject(Student student, Subject subject) {
-        subjectStudents.get(subject).add(student);
-        studentSubjects.get(student).put(subject, null);
+        studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
+                .putIfAbsent(subject, null);
+        subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>())
+                .add(student);
     }
 
-    public void dellSubjectStudent(Subject subject, Student student) {
-        studentSubjects.get(student).remove(subject);
-        subjectStudents.get(subject).remove(student);
-
+    public void deleteSubjectStudent(Subject subject, Student student) {
+        studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
+                .remove(subject);
+        subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>())
+                .remove(student);
     }
 
     public void printAllSubjectStudent() {
