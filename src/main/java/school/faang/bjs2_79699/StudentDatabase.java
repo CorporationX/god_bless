@@ -1,10 +1,13 @@
 package school.faang.bjs2_79699;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class StudentDatabase {
 
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();

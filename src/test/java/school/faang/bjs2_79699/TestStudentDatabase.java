@@ -30,10 +30,10 @@ public class TestStudentDatabase {
 
         db.addStudentWithSubjects(student, grades);
 
-        assertTrue(db.studentSubjects.containsKey(student));
-        assertEquals(2, db.studentSubjects.get(student).size());
-        assertTrue(db.subjectStudents.containsKey(math));
-        assertTrue(db.subjectStudents.get(math).contains(student));
+        assertTrue(db.getStudentSubjects().containsKey(student));
+        assertEquals(2, db.getStudentSubjects().get(student).size());
+        assertTrue(db.getSubjectStudents().containsKey(math));
+        assertTrue(db.getSubjectStudents().get(math).contains(student));
     }
 
     @Test
@@ -41,9 +41,9 @@ public class TestStudentDatabase {
         db.addStudentWithSubjects(student, Map.of(math, 5));
         db.addSubjectForStudent(student, history, 3);
 
-        assertTrue(db.studentSubjects.get(student).containsKey(history));
-        assertEquals(3, db.studentSubjects.get(student).get(history));
-        assertTrue(db.subjectStudents.get(history).contains(student));
+        assertTrue(db.getStudentSubjects().get(student).containsKey(history));
+        assertEquals(3, db.getStudentSubjects().get(student).get(history));
+        assertTrue(db.getSubjectStudents().get(history).contains(student));
     }
 
     @Test
@@ -51,9 +51,9 @@ public class TestStudentDatabase {
         db.addStudentWithSubjects(student, Map.of(math, 5, history, 4));
         db.removeStudent(student);
 
-        assertFalse(db.studentSubjects.containsKey(student));
-        assertFalse(db.subjectStudents.getOrDefault(math, List.of()).contains(student));
-        assertFalse(db.subjectStudents.getOrDefault(history, List.of()).contains(student));
+        assertFalse(db.getStudentSubjects().containsKey(student));
+        assertFalse(db.getSubjectStudents().getOrDefault(math, List.of()).contains(student));
+        assertFalse(db.getSubjectStudents().getOrDefault(history, List.of()).contains(student));
     }
 
     @Test
@@ -64,9 +64,9 @@ public class TestStudentDatabase {
 
         db.addSubjectWithStudents(history, students);
 
-        assertTrue(db.subjectStudents.containsKey(history));
-        assertTrue(db.subjectStudents.get(history).contains(student));
-        assertTrue(db.studentSubjects.get(student).containsKey(history));
+        assertTrue(db.getSubjectStudents().containsKey(history));
+        assertTrue(db.getSubjectStudents().get(history).contains(student));
+        assertTrue(db.getStudentSubjects().get(student).containsKey(history));
     }
 
     @Test
@@ -74,8 +74,8 @@ public class TestStudentDatabase {
         db.addStudentWithSubjects(student, Map.of(math, 5));
         db.addStudentToSubject(history, student);
 
-        assertTrue(db.subjectStudents.get(history).contains(student));
-        assertTrue(db.studentSubjects.get(student).containsKey(history));
+        assertTrue(db.getSubjectStudents().get(history).contains(student));
+        assertTrue(db.getStudentSubjects().get(student).containsKey(history));
     }
 
     @Test
@@ -83,8 +83,8 @@ public class TestStudentDatabase {
         db.addStudentWithSubjects(student, Map.of(math, 5, history, 4));
         db.removeStudentFromSubject(math, student);
 
-        assertFalse(db.studentSubjects.getOrDefault(student, Collections.emptyMap()).containsKey(math));
-        assertFalse(db.subjectStudents.getOrDefault(math, Collections.emptyList()).contains(student));
+        assertFalse(db.getStudentSubjects().getOrDefault(student, Collections.emptyMap()).containsKey(math));
+        assertFalse(db.getSubjectStudents().getOrDefault(math, Collections.emptyList()).contains(student));
     }
 
     @Test
