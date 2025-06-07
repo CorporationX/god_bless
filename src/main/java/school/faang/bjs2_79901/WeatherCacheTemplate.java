@@ -12,15 +12,18 @@ public abstract class WeatherCacheTemplate {
     private final Map<String, WeatherData> weatherByCity = new HashMap<>();
 
     @Setter
-    WeatherProvider weatherProvider;
+    private WeatherProvider weatherProvider;
 
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData currentData = weatherByCity.get(city);
-        if (isCacheExpired(currentData, maxCacheAgeMillis)) {
+
+        if (currentData == null || isCacheExpired(currentData, maxCacheAgeMillis)) {
             forceUpdateWeather(city);
+            currentData = weatherByCity.get(city);
         }
+
         return currentData;
     }
 
