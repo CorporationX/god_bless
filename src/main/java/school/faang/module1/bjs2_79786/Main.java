@@ -32,8 +32,8 @@ public class Main {
         WeatherData forced = cache.forceUpdateWeather(city);
         log.info("Принудительное обновление: {}", forced);
 
-        log.info("Кеш до очистки: {}", cache.cache.keySet());
+        log.info("Кеш до очистки: {}", cache.getCachedCities());
         cache.clearExpiredCache(maxCacheAgeMillis);
-        log.info("Кеш после очистки: {}", cache.cache.keySet());
+        log.info("Кеш после очистки: {}", cache.getCachedCities());
     }
 }

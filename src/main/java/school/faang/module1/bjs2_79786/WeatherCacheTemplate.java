@@ -8,8 +8,8 @@ import java.util.Map;
 @AllArgsConstructor
 public abstract class WeatherCacheTemplate {
 
-    protected final Map<String, WeatherData> cache = new HashMap<>();
-    protected final WeatherProvider provider;
+    private final Map<String, WeatherData> cache = new HashMap<>();
+    private final WeatherProvider provider;
 
     abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
@@ -33,5 +33,9 @@ public abstract class WeatherCacheTemplate {
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         cache.entrySet().removeIf(entry -> isCacheExpired(entry.getValue(), maxCacheAgeMillis));
+    }
+
+    public String getCachedCities() {
+        return "Кеш содержит города: " + cache.keySet();
     }
 }
