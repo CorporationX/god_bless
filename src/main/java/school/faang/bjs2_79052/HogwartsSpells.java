@@ -1,49 +1,52 @@
 package school.faang.bjs2_79052;
 
+import lombok.Setter;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
-    private static HashMap<Integer, SpellEvent> spellByld = new HashMap<>();
-    private static HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private HashMap<Integer, SpellEvent> spellByld = new HashMap<>();
+    private HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private final AtomicInteger idCounter = new AtomicInteger(1);
 
-    public static void addSpellEvent(String eventType, String actionDescription) {
+    public void addSpellEvent(String eventType, String actionDescription) {
+        int newId = idCounter.getAndIncrement();
         SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
-        spellByld.put(SpellEvent.getId(), spellEvent);
-        SpellEvent.setId(SpellEvent.getId() + 1);
+        spellByld.put(newId, spellEvent);
 
         List<SpellEvent> spellList = spellsByType.getOrDefault(eventType, new ArrayList<>());
         spellList.add(spellEvent);
         spellsByType.put(eventType, spellList);
     }
 
-    public static String getSpellEventByldId(int id) {
-        return ((spellByld.get(id))).getEventType();
-    }
-
-    public static List<String> getSpellEventsByType(String eventType) {
-        List<String> string = new ArrayList<>();
-        for (SpellEvent event : spellsByType.get(eventType)) {
-            string.add(event.getAction());
+    public SpellEvent getSpellEventByld(int id) {
+        if (!spellByld.containsKey(id)) {
+            throw new IllegalArgumentException("Неправильный номер");
         }
-        return string;
+        return spellByld.get(id);
     }
 
-    public static void deleteSpellEvent(int id) {
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
+    }
+
+    public void deleteSpellEvent(int id) {
         if (!spellByld.containsKey(id)) {
             System.out.println("Такого номера нет");
             return;
         }
 
-        SpellEvent value = spellByld.get(id);
-        spellByld.remove(id);
-        String evenType = value.getEventType();
+        SpellEvent deletedSpell = spellByld.remove(id);
+        String evenType = deletedSpell.getEventType();
         List<SpellEvent> spellList = spellsByType.get(evenType);
 
         if (spellList != null) {
-            spellList.remove(value);
+            spellList.remove(deletedSpell);
 
             if (spellList.isEmpty()) {
                 spellsByType.remove(evenType);
@@ -51,7 +54,7 @@ public class HogwartsSpells {
         }
     }
 
-    public static void printAllSpellEvents() {
+    public void printAllSpellEvents() {
         System.out.println("Список: ");
         for (Map.Entry<Integer, SpellEvent> entry : spellByld.entrySet()) {
             System.out.println(entry.getKey() + " " + (entry.getValue()).getEventType() + " " +
