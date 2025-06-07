@@ -15,7 +15,6 @@ public class CacheTesting {
         Subject math = new Subject("Math");
         Subject eng = new Subject("Eng");
         Subject physic = new Subject("Physic");
-        Subject history = new Subject("History");
 
         Map<Subject, Integer> subjectsForJohn = new HashMap<>(Map.of(
                 math, 4,
@@ -36,6 +35,7 @@ public class CacheTesting {
         System.out.println("Новые студенты: ");
         studentDatabase.printStudent();
 
+        Subject history = new Subject("History");
         studentDatabase.addSubjectForStudent(john, history, 5);
         System.out.println("\nДобавлен предмет для Джона: ");
         studentDatabase.printStudent();
