@@ -5,8 +5,8 @@ import java.util.Set;
 
 @Data
 public class User {
-    public final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
