@@ -37,8 +37,8 @@ public class HogwartsSpells {
                 if (spellsOfType.isEmpty()) {
                     spellsByType.remove(spellType);
                     System.out.println("Удалено последнее заклинание типа " + spellType);
-//                    Как вариант еще удалять тип заклинаний из мапы
-//                    spellsByType.remove(spellType);
+                    //Как вариант еще удалять тип заклинаний из мапы
+                    //spellsByType.remove(spellType);
                 }
             }
         } else {
