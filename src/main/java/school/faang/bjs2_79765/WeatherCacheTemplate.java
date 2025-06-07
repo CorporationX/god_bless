@@ -16,7 +16,7 @@ public abstract class WeatherCacheTemplate {
 
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
-    WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
+    public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData cacheData = weatherInCity.get(city);
 
         if (cacheData != null && !isCacheExpired(cacheData, maxCacheAgeMillis)) {
