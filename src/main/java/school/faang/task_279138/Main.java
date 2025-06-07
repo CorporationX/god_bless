@@ -1,6 +1,5 @@
-package school.faang.bjs279138;
+package school.faang.task_279138;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
