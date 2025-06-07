@@ -8,13 +8,15 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
-    protected int health = 100;
+    protected int health = BASE_HEALTH;
+
+    protected static final int BASE_STRENGTH = 5;
+    protected static final int BASE_AGILITY = 5;
+    protected static final int BASE_INTELLIGENCE = 5;
+    protected static final int BASE_HEALTH = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, BASE_STRENGTH, BASE_AGILITY, BASE_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {

@@ -8,8 +8,8 @@ public class Main {
         Character archer = new Archer("Mary");
         Random random = new Random();
 
-        System.out.println("начальное здоровье " + warrior.getName() + " = " + warrior.getHealth());
-        System.out.println("начальное здоровье " + archer.getName() + " = " + archer.getHealth());
+        System.out.printf("начальное здоровье %s = %d\n", warrior.getName(), warrior.getHealth());
+        System.out.printf("начальное здоровье %s = %d\n", archer.getName(), archer.getHealth());
 
         while (warrior.isAlive() && archer.isAlive()) {
             boolean randomNum = random.nextBoolean();
