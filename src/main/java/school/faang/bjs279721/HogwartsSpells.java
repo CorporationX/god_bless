@@ -76,7 +76,10 @@ public class HogwartsSpells {
     public void printAllSpellEvents() {
         if (!spellById.isEmpty()) {
             for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-                System.out.println("Id = " + entry.getKey() + ". Тип: " + entry.getValue().getEventType() + "Что делает: " + entry.getValue().getAction() + ".");
+                int id = entry.getKey();
+                String type = entry.getValue().getEventType();
+                String action = entry.getValue().getAction();
+                System.out.printf("Id = %s. Тип: %s. Что делает: %s.%n", id, type, action);
             }
             return;
         }
