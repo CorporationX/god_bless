@@ -22,7 +22,8 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.get(eventType);
+
+        return spellsByType.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteSpellEvent(int id) {
