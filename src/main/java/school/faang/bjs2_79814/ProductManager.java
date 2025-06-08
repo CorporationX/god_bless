@@ -8,24 +8,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class ProductManager {
-    public static final AtomicInteger ID = new AtomicInteger(0);
+    private static final AtomicInteger ID = new AtomicInteger(0);
 
     private final Set<Product> products = new HashSet<>();
 
     public Product addProduct(Category category, String name) {
         Product product = new Product(ID.incrementAndGet(), name, category);
-        //Но тут используется Set<Product>, все равно нужно делать проверку на наличие товара, для оптимизации?
-        //при добавлении он же просто перетрет уже находящийся товар и не будет дубликатов.
-        //IDE пишет "Unnecessary 'contains()' check"
-        //id не используется в hashcode и equals
         boolean idAdded = products.add(product);
+
         System.out.println(idAdded ? "Товар добавлен" : "Товар уже в системе");
 
         return product;
     }
 
-    //Без id? В hashcode и equal не включать id или сделать перегрузку конструктора для создания без id?
-    // Зачем в рамках задачи id, он нигде не используется?
     public void removeProduct(Category category, String name) {
         Product product = new Product(name, category);
         boolean isRemoved = products.remove(product);
