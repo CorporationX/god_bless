@@ -7,19 +7,25 @@ import java.util.*;
 @AllArgsConstructor
 public class StudentDatabase {
 
-    private final Map<Student, Map<Subject, Integer>> studentSubjects;
+    private final Map<Student, Map<Subject, Optional<Integer>>> studentSubjects;
     private final Map<Subject, List<Student>> subjectStudents;
 
-    public void addStudentWithSubjects(Student student, Map<Subject, Integer> grades) {
+    public void addStudentWithSubjects(Student student, Map<Subject, Optional<Integer>> grades) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null");
+        }
+        if (grades == null) {
+            throw new IllegalArgumentException("Grades map cannot be null");
+        }
         if (!studentSubjects.containsKey(student)) {
             studentSubjects.put(student, new HashMap<>(grades));
             updateSubjectsWithStudent(student, grades);
         }
     }
 
-    private void updateSubjectsWithStudent(Student student, Map<Subject, Integer> grades) {
+    private void updateSubjectsWithStudent(Student student, Map<Subject, Optional<Integer>> grades) {
         for (Subject subject : grades.keySet()) {
-            List<Student> students = subjectStudents.computeIfAbsent(subject, s -> new ArrayList<>());
+            List<Student> students = subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>());
             if (!students.contains(student)) {
                 students.add(student);
             }
@@ -27,15 +33,24 @@ public class StudentDatabase {
     }
 
     public void addSubjectToStudent(Student student, Subject subject, int grade) {
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-        List<Student> students = subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>());
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null");
+        }
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject cannot be null");
+        }
+        studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>()).put(subject, Optional.of(grade));
+        List<Student> students = subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
         }
     }
 
     public void removeStudent(Student student) {
-        Map<Subject, Integer> grades = studentSubjects.remove(student);
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null");
+        }
+        Map<Subject, Optional<Integer>> grades = studentSubjects.remove(student);
         if (grades != null) {
             removeStudentFromSubjects(student, grades.keySet());
         }
@@ -53,16 +68,26 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllStudentsWithGrades() {
+    public String getAllStudentsWithGrades() {
+        StringBuilder stringBuilder = new StringBuilder();
         studentSubjects.forEach((student, gradesMap) -> {
-            System.out.println("Студент: " + student.getName());
-            gradesMap.forEach((subject, grade) ->
-                    System.out.println("  " + subject.getName() + ": " + grade)
-            );
+            stringBuilder.append("Студент: ").append(student.getName()).append("\n");
+            gradesMap.forEach((subject, gradeOptional) -> stringBuilder.append("  ")
+                    .append(subject.getName())
+                    .append(": ")
+                    .append(formatGrade(gradeOptional.orElse(null)))
+                    .append("\n"));
         });
+        return stringBuilder.toString();
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject cannot be null");
+        }
+        if (students == null) {
+            throw new IllegalArgumentException("Students list cannot be null");
+        }
         subjectStudents.put(subject, new ArrayList<>(students));
         addSubjectToEachStudent(subject, students);
     }
@@ -70,21 +95,33 @@ public class StudentDatabase {
     private void addSubjectToEachStudent(Subject subject, List<Student> students) {
         for (Student student : students) {
             studentSubjects
-                    .computeIfAbsent(student, k -> new HashMap<>())
-                    .putIfAbsent(subject, null);
+                    .computeIfAbsent(student, studentKey -> new HashMap<>())
+                    .putIfAbsent(subject, Optional.empty());
         }
     }
 
     public void addStudentToSubject(Subject subject, Student student) {
-        List<Student> students = subjectStudents.computeIfAbsent(subject, (newSubject) -> new ArrayList<>());
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject cannot be null");
+        }
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null");
+        }
+        List<Student> students = subjectStudents.computeIfAbsent(subject, subjectKey -> new ArrayList<>());
         if (!students.contains(student)) {
             students.add(student);
         }
-        Map<Subject, Integer> subjects = studentSubjects.computeIfAbsent(student, (newStudent) -> new HashMap<>());
-        subjects.putIfAbsent(subject, null);
+        Map<Subject, Optional<Integer>> subjects = studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>());
+        subjects.putIfAbsent(subject, Optional.empty());
     }
 
     public void removeStudentFromSubject(Subject subject, Student student) {
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject cannot be null");
+        }
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null");
+        }
         List<Student> students = subjectStudents.get(subject);
         if (students != null) {
             students.remove(student);
@@ -96,7 +133,7 @@ public class StudentDatabase {
     }
 
     private void removeSubjectFromStudent(Student student, Subject subject) {
-        Map<Subject, Integer> grades = studentSubjects.get(student);
+        Map<Subject, Optional<Integer>> grades = studentSubjects.get(student);
         if (grades != null) {
             grades.remove(subject);
             if (grades.isEmpty()) {
@@ -105,10 +142,16 @@ public class StudentDatabase {
         }
     }
 
-    public void printAllSubjectsWithStudents() {
+    public String getAllSubjectsWithStudents() {
+        StringBuilder stringBuilder = new StringBuilder();
         subjectStudents.forEach((subject, students) -> {
-            System.out.println("Предмет: " + subject.getName());
-            students.forEach(student -> System.out.println("  " + student.getName()));
+            stringBuilder.append("Предмет: ").append(subject.getName()).append("\n");
+            students.forEach(student -> stringBuilder.append("  ").append(student.getName()).append("\n"));
         });
+        return stringBuilder.toString();
+    }
+
+    private String formatGrade(Integer grade) {
+        return grade != null ? String.valueOf(grade) : "нет оценки";
     }
 }

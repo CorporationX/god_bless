@@ -2,10 +2,7 @@ package school.faang.module1.bjs2_79654;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class Main {
@@ -22,14 +19,14 @@ public class Main {
         log.info("Initializing StudentDatabase");
         StudentDatabase database = new StudentDatabase(new HashMap<>(), new HashMap<>());
 
-        Map<Subject, Integer> alanaGrades = new HashMap<>();
-        alanaGrades.put(math, 9);
-        alanaGrades.put(physics, 8);
+        Map<Subject, Optional<Integer>> alanaGrades = new HashMap<>();
+        alanaGrades.put(math, Optional.of(9));
+        alanaGrades.put(physics, Optional.of(8));
         database.addStudentWithSubjects(alana, alanaGrades);
 
-        Map<Subject, Integer> bobGrades = new HashMap<>();
-        bobGrades.put(math, 10);
-        bobGrades.put(literature, 7);
+        Map<Subject, Optional<Integer>> bobGrades = new HashMap<>();
+        bobGrades.put(math, Optional.of(10));
+        bobGrades.put(literature, Optional.of(7));
         database.addStudentWithSubjects(bob, bobGrades);
 
         log.info("Students with subjects and grades added");
@@ -47,10 +44,10 @@ public class Main {
         log.info("Charlie added to Literature subject");
 
         log.info("Students and their grades");
-        database.printAllStudentsWithGrades();
+        System.out.println(database.getAllStudentsWithGrades());
 
         log.info("Subjects and students");
-        database.printAllSubjectsWithStudents();
+        System.out.println(database.getAllSubjectsWithStudents());
 
         database.removeStudentFromSubject(math, alana);
         log.info("Alana removed from Math subject");
@@ -59,7 +56,7 @@ public class Main {
         log.info("Bob completely removed");
 
         log.info("After removals");
-        database.printAllStudentsWithGrades();
-        database.printAllSubjectsWithStudents();
+        System.out.println(database.getAllStudentsWithGrades());
+        System.out.println(database.getAllSubjectsWithStudents());
     }
 }
