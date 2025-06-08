@@ -26,7 +26,7 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        if(!spellById.containsKey(id)) {
+        if (!spellById.containsKey(id)) {
             System.out.println("Заклинания с таким id не существует");
             return;
         }
