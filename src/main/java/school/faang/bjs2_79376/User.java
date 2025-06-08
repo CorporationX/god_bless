@@ -12,26 +12,37 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        try {
-            if (name == null || name.equals("")) {
-                throw new IllegalArgumentException("Имя не может быть null");
-            }
-            if (age < 18) {
-                throw new IllegalArgumentException("Возраст < 18");
-            }
-            if (!VALID_JOBS.contains(job)) {
-                throw new IllegalArgumentException("Такой работы нет");
-            }
-            if (!VALID_ADDRESSES.contains(address)) {
-                throw new IllegalArgumentException("Такого адресса нет");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка: " + e.getMessage());
-        }
+        this.name = validateName(name);
+        this.age = validateAge(age);
+        this.job = validateJob(job);
+        this.address = validateAddress(address);
+    }
 
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
+    private String validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        return name;
+    }
+
+    private int validateAge(int age) {
+        if (age < 18) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        return  age;
+    }
+
+    private String validateJob(String job) {
+        if (job == null || !VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Недопустимая работа");
+        }
+        return job;
+    }
+
+    private String validateAddress(String address) {
+        if (address == null || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Недопустимый аддрес");
+        }
+        return address;
     }
 }
