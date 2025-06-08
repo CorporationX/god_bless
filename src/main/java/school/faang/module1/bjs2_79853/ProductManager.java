@@ -10,11 +10,6 @@ public class ProductManager {
     private final Set<Product> products = new HashSet<>();
 
     public boolean addProduct(Category category, String name) {
-        for (Product product : products) {
-            if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                return false;
-            }
-        }
         return products.add(new Product(name, category));
     }
 

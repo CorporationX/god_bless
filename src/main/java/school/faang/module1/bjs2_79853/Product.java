@@ -1,10 +1,12 @@
 package school.faang.module1.bjs2_79853;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 public class Product {
 
+    @EqualsAndHashCode.Exclude
     private final int id;
     private final String name;
     private final Category category;
