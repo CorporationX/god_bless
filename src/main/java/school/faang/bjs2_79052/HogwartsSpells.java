@@ -1,5 +1,6 @@
 package school.faang.bjs2_79052;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -7,16 +8,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class HogwartsSpells {
     private HashMap<Integer, SpellEvent> spellByld = new HashMap<>();
     private HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private final AtomicInteger idCounter = new AtomicInteger(1);
+    private int idCounter = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int newId = idCounter.getAndIncrement();
-        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        int newId = idCounter;
+        idCounter++;
+        SpellEvent spellEvent = new SpellEvent(newId, eventType, actionDescription);
         spellByld.put(newId, spellEvent);
 
         List<SpellEvent> spellList = spellsByType.getOrDefault(eventType, new ArrayList<>());
@@ -42,14 +43,14 @@ public class HogwartsSpells {
         }
 
         SpellEvent deletedSpell = spellByld.remove(id);
-        String evenType = deletedSpell.getEventType();
-        List<SpellEvent> spellList = spellsByType.get(evenType);
+        String eventType = deletedSpell.getEventType();
+        List<SpellEvent> spellList = spellsByType.get(eventType);
 
         if (spellList != null) {
             spellList.remove(deletedSpell);
 
             if (spellList.isEmpty()) {
-                spellsByType.remove(evenType);
+                spellsByType.remove(eventType);
             }
         }
     }
