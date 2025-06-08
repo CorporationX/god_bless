@@ -9,10 +9,12 @@ import java.util.Set;
 
 public class ProductManager {
     private final Set<Product> products = new HashSet<>();
+    private int id = 1;
 
     public void addProduct(Category category, String name) {
-        Product product = new Product(category, name);
+        Product product = new Product(category, name, id);
         products.add(product);
+        id++;
     }
 
     public void removeProduct(Category category, String name) {
@@ -37,9 +39,7 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> groupCategory = new HashMap<>();
         for (Product product : products) {
-            if (!groupCategory.containsKey(product.getCategory())) {
-                groupCategory.put(product.getCategory(), new ArrayList<>());
-            }
+            groupCategory.putIfAbsent(product.getCategory(), new ArrayList<>());
             groupCategory.get(product.getCategory()).add(product);
         }
         return groupCategory;
