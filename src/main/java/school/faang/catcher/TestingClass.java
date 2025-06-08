@@ -21,7 +21,7 @@ public class TestingClass {
 
         System.out.println("До удаления по id: ");
         hogwartsSpells.printAllSpellEvents();
-        hogwartsSpells.deleteSpellEvent(2);
+        hogwartsSpells.deleteSpellEvent(1);
         System.out.println("После удаления по id: ");
         hogwartsSpells.printAllSpellEvents();
     }

@@ -26,23 +26,22 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        if (spellById.containsKey(id)) {
-            SpellEvent spell = spellById.remove(id);
-            String spellType = spell.getEventType();
-
-            List<SpellEvent> spellsOfType = spellsByType.get(spellType);
-            if (spellsOfType != null) {
-                spellsOfType.remove(spell);
-
-                if (spellsOfType.isEmpty()) {
-                    spellsByType.remove(spellType);
-                    System.out.println("Удалено последнее заклинание типа " + spellType);
-                    //Как вариант еще удалять тип заклинаний из мапы
-                    //spellsByType.remove(spellType);
-                }
-            }
-        } else {
+        if(!spellById.containsKey(id)) {
             System.out.println("Заклинания с таким id не существует");
+            return;
+        }
+        SpellEvent spell = spellById.remove(id);
+        String spellType = spell.getEventType();
+
+        List<SpellEvent> spellsOfType = spellsByType.get(spellType);
+        if (spellsOfType != null) {
+            spellsOfType.remove(spell);
+
+            if (spellsOfType.isEmpty()) {
+                spellsByType.remove(spellType);
+                System.out.println("Удалено последнее заклинание типа " + spellType);
+                spellsByType.remove(spellType);
+            }
         }
     }
 
