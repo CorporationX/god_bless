@@ -12,7 +12,6 @@ public abstract class Character {
 
     private static final int DEFAULT_HEALTH = 100;
 
-    // Конструктор с базовыми характеристиками
     public Character(String name) {
         this.name = name;
         this.strength = 5;
@@ -21,7 +20,6 @@ public abstract class Character {
         this.health = DEFAULT_HEALTH;
     }
 
-    // Конструктор с заданными характеристиками
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
@@ -30,18 +28,15 @@ public abstract class Character {
         this.health = DEFAULT_HEALTH;
     }
 
-    // Абстрактный метод атаки
     public abstract void attack(Character opponent);
 
-    // Метод уменьшения здоровья (не может быть меньше 0)
     public void reduceHealth(int damage) {
         if (damage < 0) {
-            throw new IllegalArgumentException("Урон не может быть отрицательным");
+            throw new IllegalArgumentException("Урон не может быть отрицательным!");
         }
         this.health = Math.max(0, this.health - damage);
     }
 
-    //  Класс Archer
     public static class Archer extends Character {
         public Archer(String name) {
             super(name);
@@ -58,7 +53,6 @@ public abstract class Character {
         }
     }
 
-    //  Класс Warrior
     public static class Warrior extends Character {
         public Warrior(String name) {
             super(name);
