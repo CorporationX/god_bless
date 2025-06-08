@@ -5,7 +5,6 @@ public class Archer extends Character {
     private static final int DEFAULT_AGILITY = 10;
     private static final int DEFAULT_INTELLIGENCE = 5;
 
-
     public Archer(String name) {
         super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
@@ -18,7 +17,7 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         opponent.setHealth(opponent.getHealth() - getAgility());
         opponent.ensureHealthNotNegative();
-        System.out.printf("attack: %s, damage: %s, health: %s",
+        System.out.printf("attack: %s, damage = %s, health after attack = %s%n",
                 opponent.getName(), getAgility(), opponent.getHealth());
     }
 }

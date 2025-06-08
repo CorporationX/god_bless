@@ -32,5 +32,11 @@ public abstract class Character {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("name: %s, strength = %s, agility = %s, intelligence = %s, health = %s",
+                getName(), getStrength(), getAgility(), getIntelligence(), getHealth());
+    }
+
     public abstract void attack(Character opponent);
 }

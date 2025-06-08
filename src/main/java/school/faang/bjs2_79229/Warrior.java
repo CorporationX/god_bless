@@ -17,7 +17,7 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         opponent.setHealth(opponent.getHealth() - getStrength());
         opponent.ensureHealthNotNegative();
-        System.out.printf("attack: %s, damage: %s, health: %s",
+        System.out.printf("attack: %s, damage = %s, health after attack = %s%n",
                 opponent.getName(), getStrength(), opponent.getHealth());
     }
 }
