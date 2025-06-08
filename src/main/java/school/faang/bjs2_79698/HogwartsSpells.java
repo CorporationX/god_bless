@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    public static Integer id = 1;
+    private Integer id = 1;
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<EventType, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -14,7 +14,7 @@ public class HogwartsSpells {
     public void addSpellEvent(EventType eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(id++, eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
-        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
+        spellsByType.computeIfAbsent(eventType, event -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -29,7 +29,7 @@ public class HogwartsSpells {
         SpellEvent removed = spellById.remove(id);
         if (removed != null) {
             spellsByType.computeIfPresent(removed.getEventType(), (type, events) -> {
-                events.removeIf(e -> e.getId() == id);
+                events.removeIf(event -> event.getId() == id);
                 return events.isEmpty() ? null : events;
             });
         }
