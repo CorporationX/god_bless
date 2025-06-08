@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductManager {
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products =  new HashSet<>();
 
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
@@ -18,7 +18,7 @@ public class ProductManager {
     public List<Product> findProductByCategory(Category category) {
         List<Product> productList = new ArrayList<>();
         for (Product product : products) {
-            if (product.getCategory() == category) {
+            if (product.getCategory().equals(category)) {
                 productList.add(product);
             }
         }
@@ -26,8 +26,7 @@ public class ProductManager {
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-        return products.stream()
-                .collect(Collectors.groupingBy(Product::getCategory));
+        return products.stream().collect(Collectors.groupingBy(Product::getCategory));
     }
 
     public void printAllProducts() {

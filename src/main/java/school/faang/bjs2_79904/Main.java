@@ -13,6 +13,9 @@ public class Main {
         manager.addProduct(Category.ELECTRONICS, "Laptop");
         manager.addProduct(Category.ELECTRONICS, "Smartphone");
         manager.addProduct(Category.CLOTHING, "T-shirt");
+        manager.addProduct(Category.CLOTHING, "Shoes");
+        manager.addProduct(Category.DRINK, "Cola");
+        manager.addProduct(Category.DRINK, "Adrenaline");
 
         System.out.println("Все продукты после добавления:");
         manager.printAllProducts();
