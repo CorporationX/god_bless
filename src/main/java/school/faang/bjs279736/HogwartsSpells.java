@@ -61,8 +61,9 @@ public class HogwartsSpells {
             System.out.println("id: " + entry.getKey() + ". Заклинание: " + entry.getValue().toString());
         }
         System.out.println("\n");
+        String s = "Событие заклинание: ";
         for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
-            System.out.println("Событие заклинание: " + entry.getKey() + ". Заклинание: " + entry.getValue().toString());
-        }
+            System.out.println(s + entry.getKey() + ". Заклинание: " + entry.getValue().toString());
+        }// я использовал это потому что строка слышком длинная ошибка в PR
     }
 }
