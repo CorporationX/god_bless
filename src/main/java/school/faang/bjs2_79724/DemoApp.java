@@ -3,7 +3,8 @@ package school.faang.bjs2_79724;
 public class DemoApp {
     public static void main(String[] args) {
         DataCenter dataCenter = new DataCenter();
-        DataCenterService service = new DataCenterService();
+
+        DataCenterService service = new DataCenterService(new LoadBalancingOptimizationStrategy());
 
         Server server1 = new Server(0, 100, 0);
         Server server2 = new Server(0, 150, 0);
@@ -21,17 +22,16 @@ public class DemoApp {
         System.out.println("Total load: " + service.getTotalLoad(dataCenter));
         System.out.println("Total energy consumption: " + service.getTotalEnergyConsumption(dataCenter));
 
-        service.setOptimizationStrategy(new LoadBalancingOptimizationStrategy());
         service.optimize(dataCenter);
 
         System.out.println("\nAfter LoadBalancing Optimization:");
         printServerStates(dataCenter, service);
 
-        service.setOptimizationStrategy(new EnergyEfficiencyOptimizationStrategy());
-        service.optimize(dataCenter);
+        DataCenterService energyService = new DataCenterService(new EnergyEfficiencyOptimizationStrategy());
+        energyService.optimize(dataCenter);
 
         System.out.println("\nAfter EnergyEfficiency Optimization:");
-        printServerStates(dataCenter, service);
+        printServerStates(dataCenter, energyService);
 
         service.removeServer(dataCenter, server3);
         System.out.println("\nAfter removing Server 3:");
