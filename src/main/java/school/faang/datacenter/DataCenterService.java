@@ -34,7 +34,7 @@ public class DataCenterService {
         return dataCenter.allocateResources(request);
     }
 
-    void releaseResources(DataCenter dataCenter, ResourceRequest request) {
+    public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         dataCenter.releaseResources(request);
     }
 

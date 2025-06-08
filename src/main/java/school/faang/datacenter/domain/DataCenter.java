@@ -55,7 +55,10 @@ public class DataCenter {
         for (var server : servers) {
             var resourceToAllocate = server.getMaxLoad() - server.getLoad();
             requestedLoad -= resourceToAllocate;
-            server.setLoad(resourceToAllocate);
+            if (requestedLoad == 0) {
+                break;
+            }
+            server.setLoad(server.getMaxLoad());
         }
         currentLoad += request.load();
         System.out.println("Resource allocated: " + request);
