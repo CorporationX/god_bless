@@ -1,9 +1,10 @@
 package school.faang.bjs2_80501;
 
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Set;
+
+import static school.faang.bjs2_80501.ForbiddenWord.FORBIDDEN_WORDS;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,9 +15,6 @@ public class Main {
                 "This message is sent via PUSH");
         Notification notificationEmail = new Notification(NotificationType.EMAIL,
                 "This message is sent via EMAIL");
-        Set<String> forbiddenWord = Set.of(
-                "way", "какая-то нецензурная лексика", "dog"
-        );
 
         notificationManager.registerHandler(NotificationType.SMS,
                 notification -> System.out.println(notification.getMessage()));
@@ -24,7 +22,7 @@ public class Main {
         notificationManager.sendNotification(notificationSms,
                 message -> {
                     String[] messageSplit = message.split("[;,.\\s-]");
-                    return Arrays.stream(messageSplit).noneMatch(forbiddenWord::contains);
+                    return Arrays.stream(messageSplit).noneMatch(FORBIDDEN_WORDS::contains);
                 });
 
         notificationManager.sendNotification(notificationEmail,

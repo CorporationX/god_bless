@@ -9,4 +9,8 @@ import lombok.Getter;
 public class Notification {
     private NotificationType type;
     private String message;
+
+    public boolean hasMessage() {
+        return message != null && message.isBlank();
+    }
 }

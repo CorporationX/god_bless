@@ -1,35 +1,38 @@
 package school.faang.bjs2_80501;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+@Slf4j
 public class NotificationManager {
-    private final Map<NotificationType, Consumer<Notification>> notificationData = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> groupedHandlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         if (isInvalidHandler(handler)) {
-            System.out.println("Invalid handler");
+            log.warn("Invalid handler");
             return;
         }
 
-        notificationData.putIfAbsent(type, handler);
+        groupedHandlers.putIfAbsent(type, handler);
     }
 
     public void sendNotification(Notification notification, Predicate<String> filter) {
         if (isInvalidNotification(notification) || isInvalidPredicate(filter)) {
-            System.out.println("Invalid argument");
+            log.warn("Invalid argument");
             return;
         }
 
         if (!filter.test(notification.getMessage())) {
-            System.out.println("This notification cannot be send: unacceptable message");
+            log.warn("This notification cannot be send: unacceptable message");
             return;
         }
 
-        notificationData.getOrDefault(notification.getType(), (param) ->
-                System.out.println("This notification type is not exist")).accept(notification);
+        groupedHandlers.getOrDefault(notification.getType(), (param) ->
+                log.info("This notification type is not exist")).accept(notification);
     }
 
     private boolean isInvalidType(NotificationType type) {
@@ -41,7 +44,7 @@ public class NotificationManager {
     }
 
     private boolean isInvalidNotification(Notification notification) {
-        return isInvalidType(notification.getType()) || notification.getMessage().isBlank();
+        return isInvalidType(notification.getType()) || !notification.hasMessage();
     }
 
     private boolean isInvalidPredicate(Predicate<String> filter) {
