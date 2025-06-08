@@ -111,7 +111,10 @@ public class StudentDatabase {
         if (!students.contains(student)) {
             students.add(student);
         }
-        Map<Subject, Optional<Integer>> subjects = studentSubjects.computeIfAbsent(student, studentKey -> new HashMap<>());
+        Map<Subject, Optional<Integer>> subjects = studentSubjects.computeIfAbsent(
+                student,
+                studentKey -> new HashMap<>()
+        );
         subjects.putIfAbsent(subject, Optional.empty());
     }
 
