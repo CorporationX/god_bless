@@ -27,7 +27,6 @@ public class HogwartsSpells {
                 return entry.getValue().getAction();
             }
         }
-        log.error("Такого заклинания нету");
         return null;
     }
 
@@ -38,18 +37,25 @@ public class HogwartsSpells {
                 for (SpellEvent list : entry.getValue()) {
                     result.add(list.getAction());
                 }
+                log.info("Нашли заклинане");
                 return result;
             }
         }
-        if ()
-        return result;
+        if (result == null){
+            log.error("Заклинание не найдено");
+        }
+        return null;
     }
 
     public void deleteSpellEvent(int id) {
-
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            if (entry.getKey() == id) {
+                spellById.remove(entry.getKey());
+            }
+        }
     }
 
     public void printAllSpellEvents() {
-
+        for ()
     }
 }
