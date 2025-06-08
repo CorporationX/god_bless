@@ -11,13 +11,14 @@ public class User {
     private String address;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MINIMAL_AGE = 18;
 
     public User(String name, int age, String job, String address) {
         String errorMessage = "";
-        if (name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             errorMessage = "Empty name";
-        } else if (age <= 18) {
-            errorMessage = "Age less than 18";
+        } else if (age <= MINIMAL_AGE) {
+            errorMessage = "Age less than " + MINIMAL_AGE;
         } else if (!VALID_JOBS.contains(job)) {
             errorMessage = "Invalid job string";
         } else if (!VALID_ADDRESSES.contains(address)) {
