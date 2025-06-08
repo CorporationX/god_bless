@@ -5,7 +5,13 @@ import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
     private final Map<String, WeatherData> weatherData = new HashMap<>();
-    private final WeatherProvider provider = new WeatherService();
+    private final WeatherProvider provider;
+
+    public WeatherCacheTemplate(WeatherService provider) {
+        this.provider = provider;
+    }
+
+    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData data = weatherData.get(city);
@@ -16,10 +22,17 @@ public abstract class WeatherCacheTemplate {
         return data;
     }
 
-    private WeatherData forceUpdateWeather(String city) {
-        return weatherData.put(city, provider.fetchWeatherData(city));
+    public void clearExpiredCache(long maxCacheAgeMillis) {
+        weatherData.entrySet()
+                .removeIf(entry -> isCacheExpired(entry.getValue(), maxCacheAgeMillis));
+        System.out.println("Кеш почищен");
     }
 
-    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+    private WeatherData forceUpdateWeather(String city) {
+        weatherData.put(city, provider.fetchWeatherData(city));
+        System.out.printf("Данные по городу \"%s\" обновлены\n", city);
+        return weatherData.get(city);
+    }
+
 
 }
