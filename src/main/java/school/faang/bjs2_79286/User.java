@@ -8,6 +8,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     private String name;
     private int age;
@@ -15,14 +16,14 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         } else {
             this.name = name;
         }
 
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE + ".");
         } else {
             this.age = age;
         }
