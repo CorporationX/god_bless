@@ -1,8 +1,12 @@
 package school.faang.bjs2_79703;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Map;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,17 +19,22 @@ public class LibrarySystem {
         libraryMap.put(new Book(title, author, year), location);
     }
 
-    public void removeBook(String title, String author, int year) {
+    public String removeBook(String title, String author, int year) {
+        if (Objects.isNull(libraryMap.get(new Book(title, author, year)))) {
+            return "Book is not found";
+        }
         libraryMap.remove(new Book(title, author, year));
+        return String.format("Book: %s %s %s was remove",
+                title, author, year);
     }
 
     public String findBook(String title, String author, int year) {
         if (libraryMap.get(new Book(title, author, year)) == null) {
-            return "Book is not finding";
-        } else {
-            return String.format("book: %s %s %s, located is: %s",
-                    title, author, year, libraryMap.get(new Book(title, author, year)));
+            return "Book is not found";
         }
+        return String.format("book: %s %s %s, located is: %s",
+                title, author, year, libraryMap.get(new Book(title, author, year)));
+
     }
 
     public void printAllBooks() {

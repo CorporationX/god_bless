@@ -17,7 +17,7 @@ public class Main {
         LibrarySystem librarySystem = new LibrarySystem(libraryMap);
 
         librarySystem.addBook("5", "5", 5, "5");
-        librarySystem.removeBook("3", "3", 3);
+        System.out.println(librarySystem.removeBook("3", "3", 3));
         System.out.println(librarySystem.findBook("2", "2", 2));
         librarySystem.printAllBooks();
     }
