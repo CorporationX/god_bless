@@ -1,32 +1,30 @@
 package school.faang.bjs2_79724;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@Setter
 @Slf4j
 public class DataCenterService implements OptimizationStrategy {
 
-    private OptimizationStrategy optimizationStrategy;
+    private final OptimizationStrategy optimizationStrategy;
+
+    public DataCenterService(OptimizationStrategy optimizationStrategy) {
+        this.optimizationStrategy = optimizationStrategy;
+    }
 
     public void addServer(DataCenter dataCenter, Server server) {
-        List<Server> servers = dataCenter.getServers();
-
-        if (servers.contains(server)) {
+        if (dataCenter.getServers().contains(server)) {
             log.info("This server already exists!");
         } else {
-            servers.add(server);
+            dataCenter.addServer(server);
             log.info("Successfully added this server!");
         }
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
-        List<Server> servers = dataCenter.getServers();
-
-        if (servers.contains(server)) {
-            servers.remove(server);
+        if (dataCenter.getServers().contains(server)) {
+            dataCenter.removeServer(server);
             log.info("Server removed.");
         } else {
             log.info("Server not found in the data center.");
@@ -94,11 +92,6 @@ public class DataCenterService implements OptimizationStrategy {
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        if (optimizationStrategy != null) {
-            optimizationStrategy.optimize(dataCenter);
-        } else {
-            log.warn("No optimization strategy set.");
-        }
+        optimizationStrategy.optimize(dataCenter);
     }
 }
-
