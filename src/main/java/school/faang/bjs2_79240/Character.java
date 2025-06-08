@@ -1,8 +1,8 @@
 package school.faang.bjs2_79240;
 
-import lombok.ToString;
+import lombok.Data;
 
-@ToString
+@Data
 public abstract class Character {
     private static final int DEFAULT_STRENGTH = 5;
     private static final int DEFAULT_AGILITY = 5;
@@ -32,23 +32,7 @@ public abstract class Character {
 
     void checkHealth() {
         if (this.health <= 0) {
-            throw new RuntimeException(this.name + " is dead");
+            System.out.println("Character " + this.name + " is dead");
         }
-    }
-
-    protected int getHealth() {
-        return health;
-    }
-
-    protected void setHealth(int health) {
-        this.health = health;
-    }
-
-    protected int getStrength() {
-        return strength;
-    }
-
-    protected int getAgility() {
-        return agility;
     }
 }
