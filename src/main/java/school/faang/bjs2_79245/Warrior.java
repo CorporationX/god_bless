@@ -16,13 +16,13 @@ public class Warrior extends Character {
     }
 
     @Override
-    public void attack(Character opponent) throws Exception {
+    public void attack(Character opponent) throws IllegalStateException {
         if (this.isAlive()) {
             log.info(this.getName() + " attacks " + opponent.getName());
             int damage = opponent.getHealthPoints() - this.getStrength();
             opponent.setHealthPoints(damage);
         } else {
-            throw new RuntimeException(this.getName() + " is dead...");
+            throw new IllegalStateException(this.getName() + " is dead...");
         }
     }
 }

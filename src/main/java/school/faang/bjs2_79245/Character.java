@@ -39,5 +39,5 @@ public abstract class Character {
         }
     }
 
-    public abstract void attack(Character opponent) throws Exception;
+    public abstract void attack(Character opponent) throws IllegalStateException;
 }

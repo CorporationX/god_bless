@@ -16,7 +16,7 @@ public class Main {
             legolas.attack(kaladin);
             log.info(kaladin.getName() + ": " + kaladin.getHealthPoints());
             log.info(legolas.getName() + ": " + legolas.getHealthPoints());
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
             System.out.println("I have bad news for you, buddy...");
         }
     }

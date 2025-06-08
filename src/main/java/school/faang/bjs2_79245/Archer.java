@@ -14,13 +14,13 @@ public class Archer extends Character {
         super(name, strength, dexterity, intellect);
     }
 
-    public void attack(Character opponent) throws Exception {
+    public void attack(Character opponent) throws IllegalStateException {
         if (this.isAlive()) {
             log.info(this.getName() + " attacks " + opponent.getName());
             int damage = opponent.getHealthPoints() - this.getDexterity();
             opponent.setHealthPoints(damage);
         } else {
-            throw new RuntimeException(this.getName() + " is dead...");
+            throw new IllegalStateException(this.getName() + " is dead...");
         }
     }
 }
