@@ -1,5 +1,8 @@
 package school.faang.bjs2_79245;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Character kaladin = new Warrior("Kaladin");
@@ -7,12 +10,12 @@ public class Main {
 
         try {
             kaladin.attack(legolas);
-            System.out.println(kaladin.getName() + ": " + kaladin.getHealthPoints());
-            System.out.println(legolas.getName() + ": " + legolas.getHealthPoints());
+            log.info("{}: {}", kaladin.getName(), kaladin.getHealthPoints());
+            log.info("{}: {}", legolas.getName(), legolas.getHealthPoints());
 
             legolas.attack(kaladin);
-            System.out.println(kaladin.getName() + ": " + kaladin.getHealthPoints());
-            System.out.println(legolas.getName() + ": " + legolas.getHealthPoints());
+            log.info(kaladin.getName() + ": " + kaladin.getHealthPoints());
+            log.info(legolas.getName() + ": " + legolas.getHealthPoints());
         } catch (Exception e) {
             System.out.println("I have bad news for you, buddy...");
         }

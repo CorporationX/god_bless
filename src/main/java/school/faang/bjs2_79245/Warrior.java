@@ -1,10 +1,10 @@
 package school.faang.bjs2_79245;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
-@Setter
-@Getter
+@Data
+@Slf4j
 public class Warrior extends Character {
 
     public Warrior(String name) {
@@ -18,11 +18,11 @@ public class Warrior extends Character {
     @Override
     public void attack(Character opponent) throws Exception {
         if (this.isAlive()) {
-            System.out.println(this.getName() + " attacks " + opponent.getName());
+            log.info(this.getName() + " attacks " + opponent.getName());
             int damage = opponent.getHealthPoints() - this.getStrength();
             opponent.setHealthPoints(damage);
         } else {
-            throw new Exception(this.getName() + " is dead...");
+            throw new RuntimeException(this.getName() + " is dead...");
         }
     }
 }

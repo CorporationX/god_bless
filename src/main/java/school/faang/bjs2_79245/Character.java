@@ -1,10 +1,8 @@
 package school.faang.bjs2_79245;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public abstract class Character {
     private String name;
     private int strength;
@@ -13,6 +11,9 @@ public abstract class Character {
     private int healthPoints;
     private boolean isAlive = true;
 
+    public Character() {
+    }
+
     public Character(String name) {
         this.name = name;
         this.strength = 5;
@@ -20,7 +21,6 @@ public abstract class Character {
         this.intellect = 5;
         this.healthPoints = 100;
     }
-
 
     public Character(String name, int strength, int dexterity, int intellect) {
         this.name = name;
