@@ -15,12 +15,15 @@ public class LibrarySystem {
     }
 
     public String findBook(String title, String author, int year) {
-        return books.getOrDefault(new Book(title, author, year), "книга не найдена");
+        if (books.get(new Book(title, author, year)) == null) {
+            throw new IllegalArgumentException("книга не найдена");
+        }
+        return books.get(new Book(title, author, year));
     }
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : books.entrySet()) {
-            System.out.println(entry.getKey() + " лежит на " + entry.getValue());
+            System.out.printf("%s лежит на %s\n", entry.getKey(), entry.getValue());
         }
     }
 }
