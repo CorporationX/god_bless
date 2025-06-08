@@ -20,17 +20,16 @@ public class HogwartsSpells {
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
-    public String getSpellEventById(int id) {
+    public void getSpellEventById(int id) {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             if (entry.getKey() == id) {
-                log.info("Нашли заклинание по Id");
-                return entry.getValue().getAction();
+                log.info("Нашли заклинание по id");
+                System.out.println(entry.getValue().getAction());
             }
         }
-        return null;
     }
 
-    public List<String> getSpellEventsByType(String eventType) {
+    public void getSpellEventsByType(String eventType) {
         List<String> result = new ArrayList<>();
         for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
             if (entry.getKey().equals(eventType)) {
@@ -38,24 +37,29 @@ public class HogwartsSpells {
                     result.add(list.getAction());
                 }
                 log.info("Нашли заклинане");
-                return result;
+                System.out.println(result);
             }
         }
-        if (result == null){
+        if (result.size() == 0) {
             log.error("Заклинание не найдено");
         }
-        return null;
     }
 
     public void deleteSpellEvent(int id) {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             if (entry.getKey() == id) {
                 spellById.remove(entry.getKey());
-            }
+            }// Исправить!!!!!
         }
     }
 
     public void printAllSpellEvents() {
-        for ()
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            System.out.println("id: " + entry.getKey() + ". Заклинание: " + entry.getValue().toString());
+        }
+        System.out.println("\n");
+        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
+            System.out.println("Событие заклинание: " + entry.getKey() + ". Заклинание: " + entry.getValue().toString());
+        }
     }
 }
