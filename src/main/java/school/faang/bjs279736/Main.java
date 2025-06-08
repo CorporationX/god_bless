@@ -14,7 +14,7 @@ public class Main {
 
         hs.getSpellEventById(2);
 
-        hs.deleteSpellEvent(1);// Исправить!!!!!
+        hs.deleteSpellEvent(1);
         hs.printAllSpellEvents();
     }
 }

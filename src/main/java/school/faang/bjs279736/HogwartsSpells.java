@@ -46,11 +46,14 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            if (entry.getKey() == id) {
-                spellById.remove(entry.getKey());
-            }// Исправить!!!!!
+        for (Map.Entry<String, List<SpellEvent>> entry : spellsByType.entrySet()) {
+            for (Map.Entry<Integer, SpellEvent> entry1 : spellById.entrySet()) {
+                if (entry1.getKey() == id) {
+                    entry.getValue().remove(entry1.getValue());
+                }
+            }
         }
+        spellById.remove(id);
     }
 
     public void printAllSpellEvents() {
