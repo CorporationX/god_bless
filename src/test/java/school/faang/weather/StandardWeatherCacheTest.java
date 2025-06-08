@@ -26,7 +26,7 @@ class StandardWeatherCacheTest {
     }
 
     @Nested
-    class getWeatherDataTest {
+    class GetWeatherDataTest {
 
         @Test
         void givenCityWithNoData_thenForceUpdateWeather() {
