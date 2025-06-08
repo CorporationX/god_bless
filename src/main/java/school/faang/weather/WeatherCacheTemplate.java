@@ -1,8 +1,10 @@
 package school.faang.weather;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public abstract class WeatherCacheTemplate {
 
+    @Getter
     protected final Map<String, WeatherData> weatherDataByCity = new HashMap<>();
     protected final WeatherProvider weatherProvider;
 
@@ -20,8 +23,7 @@ public abstract class WeatherCacheTemplate {
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         var requestedWeatherData = weatherDataByCity.get(city);
         if (requestedWeatherData == null) {
-            System.out.printf("There is no weather data for %s%n", city);
-            return WeatherData.EMPTY;
+            return forceUpdateWeather(city);
         }
         if (isCacheExpired(requestedWeatherData, maxCacheAgeMillis)) {
             return forceUpdateWeather(city);
@@ -37,9 +39,11 @@ public abstract class WeatherCacheTemplate {
     }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
-        for (var entry : weatherDataByCity.entrySet()) {
+        var it = weatherDataByCity.entrySet().iterator();
+        while (it.hasNext()) {
+            var entry = it.next();
             if (isCacheExpired(entry.getValue(), maxCacheAgeMillis)) {
-                weatherDataByCity.remove(entry.getKey());
+                it.remove();
                 System.out.println("Removed weather data for " + entry.getKey());
             }
         }
