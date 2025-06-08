@@ -10,13 +10,14 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        var loadToReallocate = dataCenter.getCurrentLoad();
+        var dataCenterReallocateLoad = dataCenter.getCurrentLoad();
         for (var server : dataCenter.getServers()) {
-            loadToReallocate -= server.getMaxLoad() - server.getLoad();
-            if (loadToReallocate == 0) {
-                server.setLoad(0);
-            } else {
+            var loadToReallocate = server.getMaxLoad() - server.getLoad();
+            if (loadToReallocate != 0 && dataCenterReallocateLoad != 0) {
                 server.setLoad(server.getMaxLoad());
+                dataCenterReallocateLoad -= loadToReallocate;
+            } else {
+                server.setLoad(0);
             }
         }
     }

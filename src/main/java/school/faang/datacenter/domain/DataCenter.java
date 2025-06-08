@@ -53,9 +53,6 @@ public class DataCenter {
             return false;
         }
         for (var server : servers) {
-            if (requestedLoad == 0) {
-                break;
-            }
             var resourceToAllocate = server.getMaxLoad() - server.getLoad();
             requestedLoad -= resourceToAllocate;
             server.setLoad(resourceToAllocate);
@@ -67,15 +64,15 @@ public class DataCenter {
 
     public void releaseResources(@NonNull ResourceRequest request) {
         var requestedLoad = request.load();
-        if (currentLoad < requestedLoad) {
-            System.out.printf("Can't release resource %s%n", request);
-            return;
-        }
         for (var server : servers) {
             var resourcePerServer = requestedLoad / servers.size();
             server.setLoad(server.getLoad() - resourcePerServer);
         }
-        currentLoad -= requestedLoad;
+        if (currentLoad < requestedLoad) {
+            currentLoad = 0;
+        } else {
+            currentLoad -= requestedLoad;
+        }
         System.out.println("Resource released: " + request);
     }
 }
