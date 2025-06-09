@@ -1,17 +1,13 @@
 package school.faang.bjs2_79724;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
 @Slf4j
+@RequiredArgsConstructor
 public class DataCenterService implements OptimizationStrategy {
 
     private final OptimizationStrategy optimizationStrategy;
-
-    public DataCenterService(OptimizationStrategy optimizationStrategy) {
-        this.optimizationStrategy = optimizationStrategy;
-    }
 
     public void addServer(DataCenter dataCenter, Server server) {
         if (dataCenter.getServers().contains(server)) {
@@ -32,12 +28,9 @@ public class DataCenterService implements OptimizationStrategy {
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getServers();
-        double totalEnergyConsumption = 0.0;
-        for (Server server : servers) {
-            totalEnergyConsumption += server.getEnergyConsumption();
-        }
-        return totalEnergyConsumption;
+        return dataCenter.getServers().stream()
+                .mapToDouble(Server::getEnergyConsumption)
+                .sum();
     }
 
     public boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
@@ -60,10 +53,10 @@ public class DataCenterService implements OptimizationStrategy {
         }
 
         log.warn("Not enough capacity to handle the request.");
+
         return false;
     }
 
-    @SuppressWarnings("checkstyle:NeedBraces")
     public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         double loadToRelease = request.getLoad();
 
@@ -76,7 +69,9 @@ public class DataCenterService implements OptimizationStrategy {
 
                 server.setEnergyConsumption(server.getLoad() * 1.5);
 
-                if (loadToRelease <= 0) break;
+                if (loadToRelease <= 0) {
+                    break;
+                }
             }
         }
 
@@ -84,10 +79,9 @@ public class DataCenterService implements OptimizationStrategy {
     }
 
     public double getTotalLoad(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getServers();
-        return servers.stream()
-                .map(Server::getLoad)
-                .reduce(0.0, Double::sum);
+        return dataCenter.getServers().stream()
+                .mapToDouble(Server::getLoad)
+                .sum();
     }
 
     @Override
