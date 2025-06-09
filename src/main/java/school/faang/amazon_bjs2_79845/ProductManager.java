@@ -1,59 +1,59 @@
 package school.faang.amazon_bjs2_79845;
 
-import jdk.jfr.Category;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class ProductManager {
-    Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
     private int nextId = 1;
-    private final Logger logger = LoggerFactory.getLogger(ProductManager.class);
 
     public int generateId() {
         return nextId++;
     }
 
-    public int getIdByName(String name) {
+    public Product getProductByName(String name) {
         for (Product product : products) {
             if (product.getName().equals(name)) {
-                return product.getId();
+                return product;
             }
         }
-        return 0;
+        return null;
     }
 
-    public void addProduct(Product.Category category, String name) {
-        int id = generateId();
-        Product productToAdd = new Product(id, name, category);
-        if (category != null && !name.isBlank()) {
-            logger.info("Продукт успешно добавлен");
-            products.add(productToAdd);
+    public void addProduct(Category category, String name) {
+        if (category == null && name.isBlank()) {
+            log.warn("Продукт или его имя не может быть null\n");
         } else {
-            logger.warn("Продукт или его имя не может быть null\n");
+            int id = generateId();
+            Product product = new Product(id, name, category);
+            log.info("Продукт успешно добавлен");
+            products.add(product);
         }
     }
 
-    public void removeProduct(Product.Category category, String name) {
-        int id = getIdByName(name);
-        if (id != 0) {
-            Product productToRemove = new Product(id, name, category);
+    public void removeProduct(school.faang.amazon_bjs2_79845.Category category, String name) {
+        Product product = getProductByName(name);
+        if (product != null) {
+            Product productToRemove = new Product(product.getId(), name, category);
             products.remove(productToRemove);
-            logger.info("Продукт {} удален", name);
+            log.info("Продукт {} удален", name);
         } else {
-            logger.warn("Продукт {} не найден\n", name);
+            log.warn("Продукт {} не найден\n", name);
         }
     }
 
-    public List<Product> findProductsByCategory(Product.Category category) {
+    public List<Product> findProductsByCategory(school.faang.amazon_bjs2_79845.Category category) {
         List<Product> productsInOneCategory = new ArrayList<>();
 
-        System.out.printf("Категория: %s\n", category);
-        System.out.printf("Продукты:\n");
+        log.info("Категория: %s\n", category);
+        log.info("Продукты:\n");
         for (Product product : products) {
             if (product.getCategory().equals(category)) {
                 productsInOneCategory.add(product);
@@ -63,11 +63,14 @@ public class ProductManager {
         return productsInOneCategory;
     }
 
-    public void groupProductsByCategory() {
-        findProductsByCategory(Product.Category.FOOD);
-        findProductsByCategory(Product.Category.ELECTRONICS);
-        findProductsByCategory(Product.Category.CLOTHING);
-        findProductsByCategory(Product.Category.OTHER);
+    public Map<Category, List<Product>> groupProductsByCategory(Category category) {
+        Map<Category, List<Product>> groupedProducts = new HashMap<>();
+        for (Product product : products) {
+            if (product.getCategory() == category) {
+                groupedProducts.putIfAbsent(category, new ArrayList<>());
+            }
+        }
+        return groupedProducts;
     }
 
     public void printAllProducts() {

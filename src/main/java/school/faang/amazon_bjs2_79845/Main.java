@@ -1,9 +1,6 @@
 package school.faang.amazon_bjs2_79845;
 
-import static school.faang.amazon_bjs2_79845.Product.Category.FOOD;
-import static school.faang.amazon_bjs2_79845.Product.Category.ELECTRONICS;
-import static school.faang.amazon_bjs2_79845.Product.Category.CLOTHING;
-import static school.faang.amazon_bjs2_79845.Product.Category.OTHER;
+import static school.faang.amazon_bjs2_79845.Category.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,6 +26,6 @@ public class Main {
 
         pm.removeProduct(FOOD, "Apple");
 
-        pm.groupProductsByCategory();
+        pm.groupProductsByCategory(FOOD);
     }
 }
