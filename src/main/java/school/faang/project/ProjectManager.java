@@ -6,7 +6,9 @@ import school.faang.project.domain.Employee;
 import school.faang.project.domain.Project;
 import school.faang.project.strategy.TeamAssignmentStrategy;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -17,14 +19,17 @@ import java.util.Set;
 @Setter
 public class ProjectManager {
 
-    private final Set<Project> projects = new HashSet<>();
-    private final Set<Employee> employees = new HashSet<>();
+    private final Map<Integer, Project> projectsById = new HashMap<>();
+    private final Map<Integer, Employee> employeesById = new HashMap<>();
 
     private TeamAssignmentStrategy assignmentStrategy;
 
     public void assignTeamToProject(int projectId) {
         var project = findProject(projectId);
-        assignmentStrategy.assignTeam(project, employees);
+        if (project == null) {
+            return;
+        }
+        assignmentStrategy.assignTeam(project, employeesById.values());
     }
 
     public Set<Employee> getTeamForProject(int projectId) {
@@ -36,16 +41,16 @@ public class ProjectManager {
     }
 
     public void addEmployee(Employee employee) {
-        employees.add(employee);
+        employeesById.put(employee.getId(), employee);
     }
 
     public void addProject(Project project) {
-        projects.add(project);
+        projectsById.put(project.getId(), project);
     }
 
     public Set<Project> findProjectsForEmployee(Employee employee) {
         var projectsForEmployee = new HashSet<Project>();
-        for (var project : projects) {
+        for (var project : projectsById.values()) {
             var requiredSkills = project.getRequiredSkills();
             for (var employeeSkill : employee.getSkills()) {
                 if (requiredSkills.contains(employeeSkill)) {
@@ -90,7 +95,6 @@ public class ProjectManager {
     public Set<Employee> getTeamMembers(int projectId) {
         var project = findProject(projectId);
         if (project == null) {
-            log.info("Project {} does not exist", projectId);
             return Set.of();
         }
         return project.getTeamMembers();
@@ -117,26 +121,20 @@ public class ProjectManager {
     }
 
     private Employee findEmployee(int employeeId) {
-        var foundEmployee = employees.stream()
-                .filter(employee -> employee.getId() == employeeId)
-                .findFirst()
-                .orElse(null);
+        var foundEmployee = employeesById.get(employeeId);
         if (foundEmployee == null) {
-            log.info("No employee with id {} found", employeeId);
+            log.warn("No employee with id {} found", employeeId);
             return null;
         }
         return foundEmployee;
     }
 
     private Project findProject(int projectId) {
-        var foundProject = projects.stream()
-                .filter(project -> project.getId() == projectId)
-                .findFirst()
-                .orElse(null);
-        if (foundProject == null) {
-            log.info("No project with id {} found", projectId);
+        var project = projectsById.get(projectId);
+        if (project == null) {
+            log.warn("Project with id {} not found", projectId);
             return null;
         }
-        return foundProject;
+        return project;
     }
 }

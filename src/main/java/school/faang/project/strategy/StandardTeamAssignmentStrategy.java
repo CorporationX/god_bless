@@ -3,7 +3,7 @@ package school.faang.project.strategy;
 import school.faang.project.domain.Employee;
 import school.faang.project.domain.Project;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * @author Danil Pudovkin
@@ -12,7 +12,7 @@ import java.util.Set;
 public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
     @Override
-    public void assignTeam(Project project, Set<Employee> employees) {
+    public void assignTeam(Project project, Collection<Employee> employees) {
         var teamMembers = project.getTeamMembers();
         var requiredSkills = project.getRequiredSkills();
         for (var requiredSkill : requiredSkills) {
