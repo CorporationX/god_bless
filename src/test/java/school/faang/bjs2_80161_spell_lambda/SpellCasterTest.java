@@ -8,11 +8,11 @@ import static org.mockito.Mockito.verify;
 class SpellCasterTest {
 
     @Test
-    void shouldCastByCallingCallbackWithSpellName() {
+    void shouldCastByCallingCallbackWithSpell() {
         SpellCaster spellCaster = new SpellCaster();
         SpellAction mockAction = mock(SpellAction.class);
-        String spellName = "Alohomora";
-        spellCaster.cast(spellName, mockAction);
-        verify(mockAction).generateDescription(spellName);
+        String spell = "Alohomora";
+        spellCaster.cast(spell, mockAction);
+        verify(mockAction).generateDescription(spell);
     }
 }
