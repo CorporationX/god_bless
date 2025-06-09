@@ -1,16 +1,17 @@
 package school.faang.task_279138;
 
-import lombok.*;
+
+
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+
 @Data
-@NoArgsConstructor
 @Builder
-@ToString
 public class User {
     private String name;
     private int age;
