@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public class Server {
+    private final int id;
     private double load;
     private final double maxLoad;
     private double energyConsumption;

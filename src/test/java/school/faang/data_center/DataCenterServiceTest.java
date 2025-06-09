@@ -19,25 +19,25 @@ public class DataCenterServiceTest {
     }
 
     public void addServers() {
-        Server server1 = new Server(15);
+        Server server1 = new Server(1, 15);
         centerService.addServer(dataCenter, server1);
-        Server server2 = new Server(17);
+        Server server2 = new Server(2, 17);
         centerService.addServer(dataCenter, server2);
-        Server server3 = new Server(14);
+        Server server3 = new Server(3, 14);
         centerService.addServer(dataCenter, server3);
-        Server server4 = new Server(16);
+        Server server4 = new Server(4, 16);
         centerService.addServer(dataCenter, server4);
     }
 
     @Test
     public void testAddServer() {
-        Server server1 = new Server(15);
+        Server server1 = new Server(1, 15);
         centerService.addServer(dataCenter, server1);
-        Server server2 = new Server(17);
+        Server server2 = new Server(2, 17);
         centerService.addServer(dataCenter, server2);
-        Server server3 = new Server(14);
+        Server server3 = new Server(3, 14);
         centerService.addServer(dataCenter, server3);
-        Server server4 = new Server(16);
+        Server server4 = new Server(4, 16);
         centerService.addServer(dataCenter, server4);
         assertTrue(dataCenter.getServerList().contains(server1));
         assertTrue(dataCenter.getServerList().contains(server2));
@@ -61,11 +61,25 @@ public class DataCenterServiceTest {
         });
         ResourceRequest request = new ResourceRequest(37);
         centerService.releaseResources(dataCenter, request);
-        System.out.println(dataCenter.getServerList());
         double load = 0.0;
         for (Server server : dataCenter.getServerList()) {
             load += server.getLoad();
         }
         assertEquals(load, 3.0);
+    }
+
+    @Test
+    public void testOptimize() {
+        addServers();
+        dataCenter.getServerList().forEach(server -> {
+            server.setLoad(14);
+        });
+
+        Server server = new Server(5, 7);
+        centerService.addServer(dataCenter, server);
+        centerService.setStrategy(new LoadBalancedOptimizationStrategy());
+        assertTrue(server.getLoad() == 0.0);
+        centerService.optimize(dataCenter);
+        assertTrue(server.getLoad() > 0.0);
     }
 }

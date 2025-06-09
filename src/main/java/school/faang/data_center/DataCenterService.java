@@ -1,12 +1,24 @@
 package school.faang.data_center;
 
+import lombok.Setter;
+
 public class DataCenterService {
+    @Setter
+    private OptimizationStrategy strategy;
+
+    public DataCenterService() {
+    }
+
+    public DataCenterService(OptimizationStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     public boolean addServer(DataCenter dataCenter, Server server) {
-        return dataCenter.getServerList().add(server);
+        return dataCenter.addServer(server);
     }
 
     public boolean removeSever(DataCenter dataCenter, Server server) {
-        return dataCenter.getServerList().remove(server);
+        return dataCenter.removeServer(server);
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
@@ -49,9 +61,10 @@ public class DataCenterService {
         }
     }
 
-    public void optimize(DataCenter dataCenter, OptimizationStrategy strategy) {
-        if (strategy != null) {
-            strategy.optimize(dataCenter);
+    public void optimize(DataCenter dataCenter) {
+        if (strategy == null) {
+            throw new IllegalStateException("'strategy' field is not initialized");
         }
+        strategy.optimize(dataCenter);
     }
 }

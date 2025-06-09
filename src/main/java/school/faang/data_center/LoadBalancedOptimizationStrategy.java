@@ -1,25 +1,62 @@
 package school.faang.data_center;
 
+import school.faang.util.ParameterUtil;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class LoadBalancedOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
-        double totalLoad = 0;
+        ParameterUtil.checkToNull(dataCenter, "dataCenter");
+
+        double load = 0.0;
+        double totalCapacity = 0.0;
         for (Server server : dataCenter.getServerList()) {
-            totalLoad += server.getLoad();
+            load += server.getLoad();
+            totalCapacity += server.getMaxLoad();
         }
 
-        int serverCount = dataCenter.getServerList().size();
+        double remainingLoad = distributeLoadByPercentage(dataCenter, totalCapacity, load);
 
+        distributeLoadLinearly(dataCenter, remainingLoad);
+    }
+
+    private double distributeLoadByPercentage(DataCenter dataCenter, double totalCapacity, double load) {
+        double remainingLoad = load;
         for (Server server : dataCenter.getServerList()) {
-            double averageLoad = totalLoad / serverCount;
-            double loadToAllocate = averageLoad;
-            if (averageLoad > server.getMaxLoad()) {
-                loadToAllocate = server.getMaxLoad();
+            double share = server.getMaxLoad() / totalCapacity;
+            double loadToAssign = load * share;
+            if (loadToAssign > server.getMaxLoad()) {
+                loadToAssign = server.getMaxLoad();
+            }
+            server.setLoad(loadToAssign);
+            remainingLoad -= loadToAssign;
+        }
+
+        return remainingLoad;
+    }
+
+    private void distributeLoadLinearly(DataCenter dataCenter, double load) {
+        for (Server server : dataCenter.getServerList()) {
+            if (load <= 0) {
+                return;
             }
 
-            server.setLoad(loadToAllocate);
-            totalLoad -= loadToAllocate;
-            serverCount--;
+            double availableLoad = server.getMaxLoad() - server.getLoad();
+            if (availableLoad <= 0.0) {
+                continue;
+            }
+
+            double loadToAssign = Math.min(availableLoad, load);
+            server.setLoad(server.getLoad() + loadToAssign);
+            load -= loadToAssign;
+        }
+
+        if (load > 0.0) {
+            System.out.println("The load could not be distributed: " + load);
         }
     }
 }

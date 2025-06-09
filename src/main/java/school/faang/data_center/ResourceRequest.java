@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class ResourceRequest {
     private final double load;
