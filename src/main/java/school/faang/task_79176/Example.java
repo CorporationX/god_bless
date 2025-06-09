@@ -1,22 +1,23 @@
 package school.faang.task_79176;
 
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@NoArgsConstructor
 public class Example {
-    public List<Integer> reverse(List<Integer> array) {
-        ArrayList<Integer> resultArray = new ArrayList<>();
-        int arraySize = array.size();
-        int i = 0;
-        while (i < array.size()) {
-            resultArray.add(array.get(arraySize - 1));
-            arraySize--;
-            i++;
+    public void reverse(int[] array) {
+
+        int lengthArray = array.length;
+
+        for (int i = 0; i < (array.length / 2); i++) {
+            int buffer = array[i];
+            array[i] = array[lengthArray - 1];
+            array[lengthArray - 1] = buffer;
+            lengthArray--;
         }
-        return resultArray;
+
+        for (int i : array) {
+            System.out.printf(i + ", ");
+        }
+        System.out.println();
+
     }
 }
 
