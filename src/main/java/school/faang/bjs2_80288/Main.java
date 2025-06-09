@@ -31,7 +31,6 @@ public class Main {
         inventoryManager.addItem(hero, cobblestone, action);
         inventoryManager.removeItem(hero, item -> item.getValue() == 10);
 
-
         hero.getInventory().forEach(
                 item -> log.info("Предмет: %s; Кол-во: %s".formatted(item.getName(), item.getValue()))
         );
