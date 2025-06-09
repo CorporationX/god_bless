@@ -1,14 +1,18 @@
 package school.faang.bjs2_80501;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 
-import static school.faang.bjs2_80501.ForbiddenWord.FORBIDDEN_WORDS;
+import static school.faang.bjs2_80501.NotificationFilterFactory.DEFAULT_MIN_LENGTH;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+        NotificationFilterFactory notificationFilterFactory = new NotificationFilterFactory();
+
         Notification notificationSms = new Notification(NotificationType.SMS,
                 "This message send way SMS");
         Notification notificationPush = new Notification(NotificationType.PUSH,
@@ -20,33 +24,21 @@ public class Main {
                 notification -> System.out.println(notification.getMessage()));
 
         notificationManager.sendNotification(notificationSms,
-                message -> {
-                    String[] messageSplit = message.split("[;,.\\s-]");
-                    return Arrays.stream(messageSplit).noneMatch(FORBIDDEN_WORDS::contains);
-                });
+                notificationFilterFactory.filterForbiddenWords());
 
         notificationManager.sendNotification(notificationEmail,
-                message -> {
-                    String[] messageSplit = message.split("[;,.\\s-]");
-                    return messageSplit.length > 5;
-                });
+                notificationFilterFactory.filterMessageLength(DEFAULT_MIN_LENGTH));
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println(notification.getMessage() + ". Time: " + LocalTime.now()));
+                notification -> log.info(notification.getMessage() + ". Time: " + LocalTime.now()));
 
         notificationManager.sendNotification(notificationPush,
-                message -> {
-                    String[] messageSplit = message.split("[;,.:\\s-]");
-                    return Arrays.stream(messageSplit).anyMatch(word -> word.equalsIgnoreCase("push"));
-                });
+                notificationFilterFactory.filterForbiddenWords());
 
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println(notification.getMessage() + ". Date: " + LocalDate.now()));
+                notification -> log.info(notification.getMessage() + ". Date: " + LocalDate.now()));
 
         notificationManager.sendNotification(notificationEmail,
-                message -> {
-                    String[] messageSplit = message.split("[;,.\\s-]");
-                    return messageSplit.length > 5;
-                });
+               notificationFilterFactory.filterMessageLength(DEFAULT_MIN_LENGTH));
     }
 }

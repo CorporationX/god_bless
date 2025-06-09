@@ -11,6 +11,6 @@ public class Notification {
     private String message;
 
     public boolean hasMessage() {
-        return message != null && message.isBlank();
+        return message != null && !message.isBlank();
     }
 }

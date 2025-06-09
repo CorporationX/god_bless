@@ -32,7 +32,9 @@ public class NotificationManager {
         }
 
         groupedHandlers.getOrDefault(notification.getType(), (param) ->
-                log.info("This notification type is not exist")).accept(notification);
+                log.warn("Message will not sent: no handler registered for type %s"
+                        .formatted(notification.getType())))
+                .accept(notification);
     }
 
     private boolean isInvalidType(NotificationType type) {
