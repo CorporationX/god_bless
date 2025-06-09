@@ -5,8 +5,8 @@ import java.util.*;
 
 @Getter
 public class User {
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
