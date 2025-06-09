@@ -17,18 +17,18 @@ public class BookingNotifier {
 
     public void addObserver(BookingObserver observer) {
         bookingObservers.add(observer);
-        log.info("Added observer: " + observer);
+        log.info("Added observer: {}", observer);
     }
 
     public void removeObserver(BookingObserver observer) {
         bookingObservers.remove(observer);
-        log.info("Removed observer: " + observer);
+        log.info("Removed observer: {}", observer);
     }
 
     public void notifyObservers(Booking booking, String status) {
         for (var observer : bookingObservers) {
             observer.update(booking, status);
-            log.info("Notified observer: " + observer);
+            log.info("Notified observer: {}", observer);
         }
     }
 }

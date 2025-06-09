@@ -54,7 +54,7 @@ public class BookingSystem {
 
     private Booking createNewBooking(@NonNull String date, @NonNull String timeSlot, @NonNull Room room) {
         var newBooking = new Booking(lastBookingId++, room, date, timeSlot);
-        bookingsById.put(newBooking.getId(), newBooking);
+        bookingsById.put(newBooking.id(), newBooking);
         bookingsByDate.putIfAbsent(date, new HashSet<>());
         bookingsByDate.get(date).add(newBooking);
         log.info("Added new booking {}", newBooking);
@@ -84,10 +84,10 @@ public class BookingSystem {
     }
 
     private Booking removeFromBookingsByDate(Booking booking) {
-        var bookingDate = booking.getDate();
+        var bookingDate = booking.date();
         var bookings = bookingsByDate.get(bookingDate);
         if (bookings == null) {
-            log.warn("Booking {} not found by dare {}", booking.getId(), bookingDate);
+            log.warn("Booking {} not found by dare {}", booking.id(), bookingDate);
             return null;
         }
         bookings.remove(booking);
@@ -99,8 +99,8 @@ public class BookingSystem {
 
     public Set<Room> findAvailableRooms(@NonNull String date, @NonNull String timeSlot, @NonNull Set<String> requiredAmenities) {
         return bookingsById.values().stream()
-                .filter(booking -> !booking.getDate().equals(date) && !booking.getTimeSlot().equals(timeSlot))
-                .map(Booking::getRoom)
+                .filter(booking -> !booking.date().equals(date) && !booking.timeSlot().equals(timeSlot))
+                .map(Booking::room)
                 .filter(room -> room.getAmenities().containsAll(requiredAmenities))
                 .collect(Collectors.toUnmodifiableSet());
     }
