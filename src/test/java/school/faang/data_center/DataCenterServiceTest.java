@@ -14,7 +14,7 @@ public class DataCenterServiceTest {
 
     @BeforeEach
     public void setUp() {
-        centerService = new DataCenterService();
+        centerService = new DataCenterService(new LoadBalancedOptimizationStrategy());
         dataCenter = new DataCenter();
     }
 
@@ -77,7 +77,6 @@ public class DataCenterServiceTest {
 
         Server server = new Server(5, 7);
         centerService.addServer(dataCenter, server);
-        centerService.setStrategy(new LoadBalancedOptimizationStrategy());
         assertTrue(server.getLoad() == 0.0);
         centerService.optimize(dataCenter);
         assertTrue(server.getLoad() > 0.0);

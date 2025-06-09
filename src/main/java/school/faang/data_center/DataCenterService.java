@@ -1,17 +1,12 @@
 package school.faang.data_center;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import school.faang.util.ParameterUtil;
 
+@RequiredArgsConstructor
 public class DataCenterService {
-    @Setter
-    private OptimizationStrategy strategy;
-
-    public DataCenterService() {
-    }
-
-    public DataCenterService(OptimizationStrategy strategy) {
-        this.strategy = strategy;
-    }
+    private final OptimizationStrategy strategy;
 
     public boolean addServer(DataCenter dataCenter, Server server) {
         return dataCenter.addServer(server);
@@ -22,6 +17,8 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
+        ParameterUtil.checkToNull(dataCenter, "dataCenter");
+
         double total = 0;
         for (Server server : dataCenter.getServerList()) {
             total += server.getEnergyConsumption();
@@ -31,7 +28,14 @@ public class DataCenterService {
     }
 
     public boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
+        ParameterUtil.checkToNull(dataCenter, "dataCenter");
+        ParameterUtil.checkToNull(request, "request");
+
         double remainingLoad = request.getLoad();
+        if (getAvailableCapacity(dataCenter) < remainingLoad) {
+            return false;
+        }
+
         for (Server server : dataCenter.getServerList()) {
             double availableLoad = server.getMaxLoad() - server.getLoad();
             if (remainingLoad > 0) {
@@ -41,14 +45,16 @@ public class DataCenterService {
             }
 
             if (remainingLoad <= 0) {
-                return true;
+                break;
             }
         }
 
-        return false;
+        return true;
     }
 
     public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
+        ParameterUtil.checkToNull(dataCenter, "dataCenter");
+        ParameterUtil.checkToNull(request, "request");
         double loadToRelease = request.getLoad();
         for (Server server : dataCenter.getServerList()) {
             double load = Math.min(server.getLoad(), loadToRelease);
@@ -62,9 +68,16 @@ public class DataCenterService {
     }
 
     public void optimize(DataCenter dataCenter) {
-        if (strategy == null) {
-            throw new IllegalStateException("'strategy' field is not initialized");
-        }
+        ParameterUtil.checkToNull(dataCenter, "dataCenter");
         strategy.optimize(dataCenter);
+    }
+
+    private double getAvailableCapacity(DataCenter dataCenter) {
+        Double availableCapacity = 0.0;
+        for (Server server : dataCenter.getServerList()) {
+            availableCapacity += server.getMaxLoad() - server.getLoad();
+        }
+
+        return availableCapacity;
     }
 }
