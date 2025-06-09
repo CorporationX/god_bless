@@ -37,35 +37,4 @@ public abstract class Character {
         this.health = Math.max(0, this.health - damage);
     }
 
-    public static class Archer extends Character {
-        public Archer(String name) {
-            super(name);
-            this.strength = 3;
-            this.agility = 10;
-            this.intelligence = 5;
-        }
-
-        @Override
-        public void attack(Character opponent) {
-            System.out.println(name + " атакует " + opponent.getName() +
-                    " с силой удара равной ловкости " + agility);
-            opponent.reduceHealth(agility);
-        }
-    }
-
-    public static class Warrior extends Character {
-        public Warrior(String name) {
-            super(name);
-            this.strength = 10;
-            this.agility = 5;
-            this.intelligence = 3;
-        }
-
-        @Override
-        public void attack(Character opponent) {
-            System.out.println(name + " атакует " + opponent.getName() +
-                    " с силой " + strength);
-            opponent.reduceHealth(strength);
-        }
-    }
 }
