@@ -3,6 +3,7 @@ package school.faang.bjs2_79376;
 import java.util.Set;
 
 public class User {
+    private static final int MIN_AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -12,37 +13,37 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        this.name = validateName(name);
-        this.age = validateAge(age);
-        this.job = validateJob(job);
-        this.address = validateAddress(address);
+        setName(name);
+        setAge(age);
+        setJob(job);
+        setAddress(address);
     }
 
-    private String validateName(String name) {
-        if (name == null || name.trim().isEmpty()) {
+    public void setName(String name) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        return name;
+        this.name = name;
     }
 
-    private int validateAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+    public void setJob(String job) {
+        if (job == null || job.isBlank() && !VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Такой работы нет");
         }
-        return  age;
+        this.job = job;
     }
 
-    private String validateJob(String job) {
-        if (job == null || !VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Недопустимая работа");
+    public void setAddress(String address) {
+        if (address == null || address.isBlank() && !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Такого адреса нет");
         }
-        return job;
+        this.address = address;
     }
 
-    private String validateAddress(String address) {
-        if (address == null || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Недопустимый аддрес");
+    public void setAge(int age) {
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Неподходящий возраст");
         }
-        return address;
+        this.age = age;
     }
 }
