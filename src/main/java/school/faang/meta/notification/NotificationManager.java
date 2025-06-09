@@ -63,7 +63,8 @@ public class NotificationManager {
         return true;
     }
 
-    public boolean sendNotificationWithProcessing(Notification mainNotification, Function<Notification, Notification> processor) {
+    public boolean sendNotificationWithProcessing(Notification mainNotification, Function<Notification,
+            Notification> processor) {
         ParameterUtil.checkToNull(mainNotification, "mainNotification");
         ParameterUtil.checkToNull(processor, "processor");
 
