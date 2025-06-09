@@ -32,6 +32,9 @@ public class HogwartsSpells {
             List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
             if (events != null) {
                 events.remove(spellEvent);
+                if (events.isEmpty()) {
+                    spellsByType.remove(spellEvent.getEventType());
+                }
             }
         }
     }
