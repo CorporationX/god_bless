@@ -44,6 +44,12 @@ class MatrixTest {
         assertEquals(3, flipped[0][0]);
         assertEquals(2, flipped[0][1]);
         assertEquals(1, flipped[0][2]);
+        assertEquals(6, flipped[1][0]);
+        assertEquals(5, flipped[1][1]);
+        assertEquals(4, flipped[1][2]);
+        assertEquals(9, flipped[2][0]);
+        assertEquals(8, flipped[2][1]);
+        assertEquals(7, flipped[2][2]);
     }
 
     @Test
@@ -52,6 +58,12 @@ class MatrixTest {
         assertEquals(7, flipped[0][0]);
         assertEquals(8, flipped[0][1]);
         assertEquals(9, flipped[0][2]);
+        assertEquals(4, flipped[1][0]);
+        assertEquals(5, flipped[1][1]);
+        assertEquals(6, flipped[1][2]);
+        assertEquals(1, flipped[2][0]);
+        assertEquals(2, flipped[2][1]);
+        assertEquals(3, flipped[2][2]);
     }
 
     @Test
