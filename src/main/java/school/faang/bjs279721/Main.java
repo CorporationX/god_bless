@@ -14,17 +14,16 @@ public class Main {
 
         hogwartsSpells.printAllSpellEvents();
 
-        String findEvenType = hogwartsSpells.getSpellEventById(99);
-
-        List<String> findEvenActionSpell = hogwartsSpells.getSpellEventsByType(findEvenType);
-
-        if (findEvenActionSpell != null && !findEvenActionSpell.isEmpty()) {
-            System.out.print("У тип заклинания усть такие вариации: ");
+        String findEvenType = hogwartsSpells.getSpellEventById(1);
+        try {
+            List<String> findEvenActionSpell = hogwartsSpells.getSpellEventsByType(findEvenType);
+            System.out.print("У тип заклинания есть такие вариации: ");
             for (String action : findEvenActionSpell) {
                 System.out.println(action);
             }
-        } else {
-            System.out.println("JJ");
+        } catch (Exception e) {
+            System.out.println("Дамы и господа у нас ошибка, она звучит так: " + e);
         }
     }
 }
+

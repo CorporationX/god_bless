@@ -14,12 +14,13 @@ public class HogwartsSpells {
     private int id = 0;
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        if (eventType == null && actionDescription == null) {
-            if (eventType.isEmpty() && actionDescription.isEmpty()) {
-                log.warn("Пустое значение");
-                return;
-            }
+        if (eventType == null || actionDescription == null) {
+            throw new IllegalArgumentException("Не коректно введены значения");
         }
+        if (eventType.isEmpty() || actionDescription.isEmpty()) {
+            throw new IllegalArgumentException("Не коректно введены значения");
+        }
+
         int idSpell = id++;
         SpellEvent spell = new SpellEvent(idSpell, eventType, actionDescription);
 
@@ -30,21 +31,19 @@ public class HogwartsSpells {
 
     public String getSpellEventById(int id) {
         if (id < 0) {
-            log.warn("Отрицательное значение не проходит");
+            throw new IllegalArgumentException("Отрицательное значение не допускается: " + id);
+        }
+
+        if (spellById.get(id) == null) {
+            log.info("Заклинание под id {} не найдено", id);
             return null;
         }
-
-        if (spellById.containsKey(id)) {
-            return spellById.get(id).getEventType();
-        }
-
-        log.info("Заклинание с таким id не найдено");
-        return null;
+        return spellById.get(id).getEventType();
     }
 
     public List<String> getSpellEventsByType(String eventType) {
         if (eventType == null || eventType.isEmpty()) {
-            return null;
+            throw new IllegalArgumentException("Не коректно введено значение");
         }
         if (spellsByType.containsKey(eventType)) {
             List<SpellEvent> list = spellsByType.get(eventType);
@@ -61,16 +60,15 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         if (id < 0) {
-            log.warn("Отрицательного id не существует");
-            return;
+            throw new IllegalArgumentException("Отрицательное значение не допускается: " + id);
         }
-        if (spellById.containsKey(id)) {
-            spellsByType.remove(spellById.get(id).getEventType());
-            spellById.remove(id);
-            log.info("Заклинание удалено с базы даных");
-            return;
+        if (spellById.get(id) == null) {
+            log.info("Заклинание под id {} не найдено", id);
         }
-        log.info("Заклинания под таки Id не найдено");
+        String eventRemove = spellById.get(id).getEventType();
+        spellsByType.get(eventRemove).remove(spellById.get(id));
+        spellById.remove(id);
+        log.info("Заклинание удалено с базы даных");
     }
 
     public void printAllSpellEvents() {
