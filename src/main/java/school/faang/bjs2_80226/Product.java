@@ -1,20 +1,14 @@
 package school.faang.bjs2_80226;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+@AllArgsConstructor
 @ToString
+@Getter
 public class Product {
-    @Getter
     private int id;
-    @Getter
     private String name;
-    @Getter
     private CategoryEnum category;
-
-    public Product(int id, CategoryEnum category, String name) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
 }

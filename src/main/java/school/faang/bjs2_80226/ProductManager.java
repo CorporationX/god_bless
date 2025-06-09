@@ -13,7 +13,7 @@ public class ProductManager {
     private int idCounter = 1;
 
     public void addProduct(CategoryEnum category, String name) {
-        Product product = new Product(idCounter++, category, name);
+        Product product = new Product(idCounter++, name, category);
         products.add(product);
     }
 
@@ -47,9 +47,7 @@ public class ProductManager {
 
         for (Product product : products) {
             CategoryEnum category = product.getCategory();
-            if (!groupedProducts.containsKey(category)) {
-                groupedProducts.put(category, new ArrayList<>());
-            }
+            groupedProducts.putIfAbsent(category, new ArrayList<>());
             groupedProducts.get(category).add(product);
         }
 
