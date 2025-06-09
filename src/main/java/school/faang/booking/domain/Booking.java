@@ -1,7 +1,6 @@
 package school.faang.booking.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author Danil Pudovkin
