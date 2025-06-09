@@ -1,6 +1,6 @@
 package school.faang.bjs279877;
 
-public enum Category {
+public enum CategoryProduct {
     FOOD("Еда"),
     ELECTRONIC("Электроника"),
     FOR_HOME("Для дома"),
@@ -10,7 +10,7 @@ public enum Category {
 
     private final String name;
 
-    Category(String name) {
+    CategoryProduct(String name) {
         this.name = name;
     }
 

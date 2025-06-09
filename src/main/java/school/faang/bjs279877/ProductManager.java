@@ -14,39 +14,41 @@ public class ProductManager {
     private Set<Product> products = new HashSet<>();
     private int id = 0;
 
-    private void add(Category category, String name) {
-        Product product = new Product(id++, name, category);
+    private void add(CategoryProduct categoryProduct, String name) {
+        Product product = new Product(id, name, categoryProduct);
         products.add(product);
         log.info("Продукт добавлен");
+        id++;
     }
 
     private boolean exitIfEmpty() {
         if (products.isEmpty()) {
             log.info("База данных пока пустая.");
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    public void addProduct(Category category, String name) {
+    public void addProduct(CategoryProduct categoryProduct, String name) {
         if (name == null || name.isEmpty()) {
             log.warn("не можно использовать пустое имя или строку");
             return;
         }
         if (products.isEmpty()) {
-            add(category, name);
+            add(categoryProduct, name);
         } else {
             for (Product product : products) {
-                if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                    System.out.println("Товар с таким именем уже существует в категории " + category);
+                if (product.getName().equals(name) && product.getCategoryProduct().equals(categoryProduct)) {
+                    log.info("Товар с имене: {} уже существует в категории {}", name, categoryProduct);
                     return;
                 }
             }
-            add(category, name);
+            add(categoryProduct, name);
         }
     }
 
-    public void removeProduct(Category category, String name) {
+    public void removeProduct(CategoryProduct categoryProduct, String name) {
         if (name == null || name.isEmpty()) {
             log.warn("не может быть пустого значения или строка");
             return;
@@ -56,23 +58,23 @@ public class ProductManager {
         }
         for (Product product : products) {
             if (product.getName().equals(name)) {
-                if (product.getCategory() == category) {
+                if (product.getCategoryProduct() == categoryProduct) {
                     products.remove(product);
-                    log.info("Продукст под именем {} удален из категории: {}", name, category);
+                    log.info("Продукст под именем {} удален из категории: {}", name, categoryProduct);
                     return;
                 }
             }
         }
-        log.info("В категории {} такого товара и так нет", category);
+        log.info("В категории {} такого товара и так нет", categoryProduct);
     }
 
-    public List<String> findProductsByCategory(Category category) {
+    public List<String> findProductsByCategory(CategoryProduct categoryProduct) {
         if (exitIfEmpty()) {
             return null;
         }
         List<String> result = new ArrayList<>();
         for (Product product : products) {
-            if (product.getCategory() == category) {
+            if (product.getCategoryProduct() == categoryProduct) {
                 result.add(product.getName());
             }
         }
@@ -80,33 +82,36 @@ public class ProductManager {
         return null;
     }
 
-    public Map<Category, List<Product>> groupProductsByCategory() {
+    public Map<CategoryProduct, List<Product>> groupProductsByCategory() {
         if (exitIfEmpty()) {
             return null;
         }
 
-        Map<Category, List<Product>> result = new HashMap<>();
-        for (Category category : Category.values()) {
+        Map<CategoryProduct, List<Product>> result = new HashMap<>();
+        for (CategoryProduct categoryProduct : CategoryProduct.values()) {
             for (Product product : products) {
-                result.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
+                if (categoryProduct == product.getCategoryProduct()) {
+                    result.computeIfAbsent(categoryProduct, k -> new ArrayList<>()).add(product);
+                }
             }
         }
         return result;
     }
 
     public void printAllProducts() {
-        Map<Category, List<Product>> map;
+        Map<CategoryProduct, List<Product>> map;
         map = groupProductsByCategory();
         if (map == null) {
             return;
-        }
-        for (Map.Entry<Category, List<Product>> entry : map.entrySet()) {
-            System.out.println("Категория: " + entry.getKey());
-            System.out.println("Продукты:");
-            for (Product product : entry.getValue()) {
-                System.out.println("- " + product.getName());
+        } else {
+            for (Map.Entry<CategoryProduct, List<Product>> entry : map.entrySet()) {
+                System.out.println("Категория: " + entry.getKey());
+                System.out.println("Продукты:");
+                for (Product product : entry.getValue()) {
+                    System.out.println("- " + product.getName());
+                }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 }
