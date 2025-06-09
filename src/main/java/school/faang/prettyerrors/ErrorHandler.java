@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 
 /**
  * @author Danil Pudovkin
@@ -13,7 +12,7 @@ import java.util.function.Function;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorHandler {
 
-    public static String withErrorHandling(Callable<String> callable, Function<Exception, String> function) {
+    public static <T> T withErrorHandling(Callable<T> callable, ErrorHandlerFunction<T> function) {
         try {
             return callable.call();
         } catch (Exception e) {
