@@ -9,6 +9,14 @@ import java.util.Map;
 public class LibrarySystem {
     private Map<Book, String> dataBase = new HashMap<>();
 
+    protected boolean checkingEmptyDataBase() {
+        if (dataBase == null) {
+            log.error("Ошибка: база данных не инициализирована");
+            return false;
+        }
+        return true;
+    }
+
     public void addBook(String title, String author, int year, String local) {
         Book addB = new Book(title, author, year);
         dataBase.put(addB, local);
@@ -17,32 +25,36 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book findBookForRemove = new Book(title, author, year);
-        for (Book book : dataBase.keySet()) {
-            if (book.equals(findBookForRemove)) {
-                dataBase.remove(findBookForRemove);
-                log.info("Книга {} удалена с базы данных", findBookForRemove);
-                return;
-            }
+        if (dataBase.get(findBookForRemove) == null) {
+            log.info("Книга {} не найдена в библиотеке", findBookForRemove);
+            return;
         }
-        log.info("Книга {} не найдена в базе данных", findBookForRemove);
+        log.info("Книга {} не может быть удалена из библиотеки так как ее там и так нет", findBookForRemove);
+        dataBase.remove(findBookForRemove);
 
     }
 
     public void findBook(String title, String author, int year) {
-        Book findB = new Book(title, author, year);
-        for (Book book : dataBase.keySet()) {
-            if (book.equals(findB)) {
-                System.out.printf("Книга %s находиться в библеотеки на: %s%n", findB.getTitle(), dataBase.get(findB));
-                return;
-            }
+        if (checkingEmptyDataBase()) {
+            return;
         }
-        log.info("Книга {} не найдена в библиотеке", findB);
+        Book findB = new Book(title, author, year);
+        if (dataBase.get(findB) == null) {
+            log.info("Книга {} не найдена в библиотеке", findB);
+            return;
+        }
+        System.out.printf("Книга %s находиться в библеотеки на: %s%n", findB.getTitle(), dataBase.get(findB));
+
     }
 
     public void printAllBooks() {
+        if (dataBase == null) {
+            log.error("Ошибка: база данных не инициализирована");
+            return;
+        }
         for (Map.Entry<Book, String> entry : dataBase.entrySet()) {
             System.out.print("В библиотеке такой список книг: ");
-            System.out.println(entry.getKey() + " в библиотеки находиться:  " + entry.getValue());
+            System.out.printf("%s в библиотеки находиться:  %s\n", entry.getKey(), entry.getValue());
         }
     }
 }
