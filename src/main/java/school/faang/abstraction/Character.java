@@ -1,10 +1,10 @@
 package school.faang.abstraction;
 
 public abstract class Character {
-    protected final String name;
-    protected final int strength;
-    protected final int agility;
-    protected final int intelligence;
+    private final String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
     protected int health = 100;
 
     public Character(String name) {
@@ -21,7 +21,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    abstract void attack(Character opponent);
+    public abstract void attack(Character opponent);
 
     protected boolean isKilling() {
         return health <= 0;
