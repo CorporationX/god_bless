@@ -6,12 +6,15 @@ import java.util.Set;
 
 @ToString(includeFieldNames = true)
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("google", "uber", "amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("london", "new york", "amsterdam");
+
     private String name;
     private int age;
     private String job;
     private String address;
 
-    User(String name, int age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         if (StringUtils.isEmpty(name)) {
             throw new IllegalArgumentException("name cant be null");
         }
@@ -30,7 +33,4 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
-    private static final Set<String> VALID_JOBS = Set.of("google", "uber", "amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("london", "new york", "amsterdam");
 }
