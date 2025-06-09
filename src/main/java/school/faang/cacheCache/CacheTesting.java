@@ -5,10 +5,7 @@ public class CacheTesting {
         WeatherProvider provider = new WeatherService();
 
         WeatherCacheTemplate standardCache = new StandardWeatherCache(provider);
-        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
-
         String city = "Moscow";
-
         long maxCacheAgeMillis = 5000;
 
         System.out.println("Тестирование StandardWeatherCache ");
@@ -25,6 +22,7 @@ public class CacheTesting {
 
         System.out.println("\nТестирование FrequentUpdateWeatherCache");
 
+        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
         WeatherData freqData1 = frequentCache.getWeatherData(city, maxCacheAgeMillis);
         System.out.println("Первый вызов: " + freqData1);
 
