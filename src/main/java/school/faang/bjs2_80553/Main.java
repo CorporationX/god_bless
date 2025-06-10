@@ -3,8 +3,10 @@ package school.faang.bjs2_80553;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+        notificationManager.registerFilter(e -> e.getMessage().contains("fuck"));
+        notificationManager.registerFilter(e -> e.getMessage().contains("bitch"));
+        notificationManager.registerFilter(e -> e.getMessage().contains("shit"));
 
-        // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Email: " + notification.getMessage())
         );
@@ -17,17 +19,14 @@ public class Main {
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
 
-        // Отправка оповещений
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-        Notification profanityNotification = new Notification(NotificationType.SMS, "Fuck off!");
+        Notification profanityNotification = new Notification(NotificationType.SMS, "bitch!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
-
-        //item 4.1
-        notificationManager.sendFilteredNotification(profanityNotification, (e) -> e.getMessage().contains("fuck"));
+        notificationManager.sendNotification(profanityNotification);
     }
 }
