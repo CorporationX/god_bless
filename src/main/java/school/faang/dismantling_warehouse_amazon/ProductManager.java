@@ -39,7 +39,8 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> result = new HashMap<>();
         for (Product product : products) {
-            result.computeIfAbsent(product.getCategory(), key -> new ArrayList<>());
+            result.computeIfAbsent(product.getCategory(),
+                    key -> new ArrayList<>()).add(product);
         }
         return result;
     }
@@ -47,7 +48,7 @@ public class ProductManager {
     public void printAllProducts() {
         Map<Category, List<Product>> categoryListMap = groupProductsByCategory();
         for (Category category : Category.values()) {
-            if (groupProductsByCategory().get(category).isEmpty()) {
+            if (!categoryListMap.containsKey(category)) {
                 continue;
             }
             System.out.printf("Категория: %s\nПродукты:\n %s", category, categoryListMap

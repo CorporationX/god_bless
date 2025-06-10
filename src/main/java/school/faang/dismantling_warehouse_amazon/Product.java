@@ -3,7 +3,7 @@ package school.faang.dismantling_warehouse_amazon;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"id"})
 public class Product {
     private static int count = 0;
     private final int id;
