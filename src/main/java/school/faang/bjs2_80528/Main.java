@@ -1,23 +1,24 @@
 package school.faang.bjs2_80528;
 
-import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
+@Slf4j
 public class Main {
+    private static final List<String> ILLEGAL_WORDS = List.of("ссылке");
+
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
-        List<String> illegalWords = List.of("ссылке");
-        notificationManager.setIllegalWords(illegalWords);
+        NotificationManager notificationManager = NotificationManager.builder().withIllegalWords(ILLEGAL_WORDS).build();
 
         notificationManager.registerHandler(
                 NotificationType.EMAIL,
-                notification -> System.out.println(notification.type().name() + ": " + notification.massage()));
+                notification -> log.info("{}: {}", notification.type().name(), notification.massage()));
         notificationManager.registerHandler(
                 NotificationType.SMS,
-                notification -> System.out.println(notification.type().name() + ": " + notification.massage()));
+                notification -> log.info("{}: {}", notification.type().name(), notification.massage()));
         notificationManager.registerHandler(
                 NotificationType.PUSH,
-                notification -> System.out.println(notification.type().name() + ": " + notification.massage()));
+                notification -> log.info("{}: {}", notification.type().name(), notification.massage()));
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Чек об оплате");
         Notification smsNotification = new Notification(NotificationType.SMS, "Вам доступны бонусы");
