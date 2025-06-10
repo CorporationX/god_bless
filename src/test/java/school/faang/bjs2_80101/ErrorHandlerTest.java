@@ -14,7 +14,7 @@ class ErrorHandlerTest {
     void shouldHandleException() {
         Supplier<Integer> mainAction = () -> 5 / 0;
         Function<Exception, Integer> errorHandler = exception -> {
-            log.info("Ошибка при выполнении действия: {}", exception.getMessage());
+            log.error("Ошибка при выполнении действия: {}", exception.getMessage());
             return DEFAULT_VALUE;
         };
 
