@@ -1,7 +1,5 @@
 package school.faang.bjs2_79895;
 
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,10 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@ToString
 public class ProductManager {
     private int uniqId = 1;
-    Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {

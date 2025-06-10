@@ -7,19 +7,15 @@ public class Shop {
         product.addProduct(Category.FOOD, "meat");
         product.addProduct(Category.DRINKS, "cola");
         product.addProduct(Category.ELECTRONICS, "ps5");
-        System.out.println(product);
 
         product.removeProduct(Category.FOOD, "meat");
-        System.out.println(product);
 
         product.addProduct(Category.FOOD, "milk");
 
         product.findProductsByCategory(Category.FOOD);
-        System.out.println(product);
-
-        System.out.println("----------------");
 
         System.out.println(product.groupProductsByCategory());
+        System.out.println("----------------");
 
         product.printAllProducts();
     }
