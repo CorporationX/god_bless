@@ -21,13 +21,13 @@ public class StudentDatabase {
                 .add(student);
     }
 
-    public void addSubject(Student student, String nameSubject, int grade) throws IllegalAccessException {
-        Subject subject = new Subject(nameSubject);
-        if (!subjectStudents.containsKey(subject)) {
-            throw new IllegalAccessException("Такого предмета не существует");
+    public void addSubject(Student student, String nameSubject, int grade) throws IllegalArgumentException {
+        if (!subjectStudents.containsKey(new Subject(nameSubject))) {
+            throw new IllegalArgumentException("Такого предмета не существует");
         } else if (!studentSubjects.containsKey(student)) {
-            throw new IllegalAccessException("Такого студента не существует");
+            throw new IllegalArgumentException("Такого студента не существует");
         } else {
+            Subject subject = new Subject(nameSubject);
             studentSubjects.get(student).put(subject, grade);
             subjectStudents.get(subject).add(student);
         }
@@ -66,14 +66,18 @@ public class StudentDatabase {
     }
 
     public void deleteSubjectStudent(Subject subject, Student student) {
-        studentSubjects.computeIfAbsent(student, key -> new HashMap<>())
-                .remove(subject);
-        subjectStudents.computeIfAbsent(subject, key -> new ArrayList<>())
-                .remove(student);
+        List<Student> students = subjectStudents.get(subject);
+        if (students != null) {
+            students.remove(student);
+        }
+        Map<Subject, Integer> grades = studentSubjects.get(student);
+        if (grades != null) {
+            grades.remove(subject);
+        }
     }
 
     public void printAllSubjectStudent() {
-        for (Subject subject : subjectStudents.keySet().toArray(new Subject[0])) {
+        for (Subject subject : subjectStudents.keySet()) {
             System.out.println("Subject: " + subject.name() + " " + subjectStudents.get(subject));
         }
         System.out.println("\n*****************************************************************\n");
