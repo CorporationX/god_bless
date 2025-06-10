@@ -8,8 +8,8 @@ public class Main {
         String lumos = "Lumos";
         String avadaKedavra = "AvadaKedavra";
 
-        spellCaster.cast(avadaKedavra, (spellName) -> " You can kill an oponent using " + spellName);
-        spellCaster.cast(lumos, (spell) -> " A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> " The opponent is disarmed by " + spell);
+        spellCaster.cast(avadaKedavra, spellName -> " You can kill an oponent using " + spellName);
+        spellCaster.cast(lumos, spell -> " A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, spell -> " The opponent is disarmed by " + spell);
     }
 }
