@@ -1,9 +1,8 @@
 package school.faang.meta.notification;
 
-import school.faang.util.ParameterUtil;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,8 +15,8 @@ public class NotificationManager {
     }
 
     public boolean registerHandler(NotificationType type, Consumer<Notification> handler) {
-        ParameterUtil.checkToNull(type, "type");
-        ParameterUtil.checkToNull(handler, "handler");
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(handler);
 
         if (consumers.containsKey(type)) {
             System.out.printf("a notification handler for %s type is already registered\n", type);
@@ -29,14 +28,14 @@ public class NotificationManager {
     }
 
     public void forceRegisterHandler(NotificationType type, Consumer<Notification> handler) {
-        ParameterUtil.checkToNull(type, "type");
-        ParameterUtil.checkToNull(handler, "handler");
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(handler);
 
         consumers.put(type, handler);
     }
 
     public boolean sendNotification(Notification notification) {
-        ParameterUtil.checkToNull(notification, "notification");
+        Objects.requireNonNull(notification);
 
         if (!handlerIsRegistered(notification)) {
             return false;
@@ -46,9 +45,9 @@ public class NotificationManager {
         return true;
     }
 
-    public boolean sendNotificationWithFilter(Notification notification, Predicate<Notification> predicate) {
-        ParameterUtil.checkToNull(notification, "notification");
-        ParameterUtil.checkToNull(predicate, "predicate");
+    public boolean sendNotification(Notification notification, Predicate<Notification> predicate) {
+        Objects.requireNonNull(notification);
+        Objects.requireNonNull(predicate);
 
         if (!handlerIsRegistered(notification)) {
             return false;
@@ -63,10 +62,10 @@ public class NotificationManager {
         return true;
     }
 
-    public boolean sendNotificationWithProcessing(Notification mainNotification, Function<Notification,
+    public boolean sendNotification(Notification mainNotification, Function<Notification,
             Notification> processor) {
-        ParameterUtil.checkToNull(mainNotification, "mainNotification");
-        ParameterUtil.checkToNull(processor, "processor");
+        Objects.requireNonNull(mainNotification);
+        Objects.requireNonNull(processor);
 
         if (!handlerIsRegistered(mainNotification)) {
             return false;
@@ -78,6 +77,8 @@ public class NotificationManager {
     }
 
     private boolean handlerIsRegistered(Notification notification) {
+        Objects.requireNonNull(notification);
+
         var type = notification.getType();
         if (!consumers.containsKey(type)) {
             System.out.printf("the handler for %s type is not registered\n", type);
