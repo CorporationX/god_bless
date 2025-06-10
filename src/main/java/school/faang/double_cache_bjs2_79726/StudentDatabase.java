@@ -16,15 +16,14 @@ public class StudentDatabase {
         if (name == null || name.isEmpty()) {
             log.warn("Имя не может быть пустым");
             return;
-        } else {
-            Student student = new Student(name);
-            studentSubject.put(student, subjectsAndMarks);
+        }
+        Student student = new Student(name);
+        studentSubject.put(student, subjectsAndMarks);
 
-            for (Subject subject : subjectsAndMarks.keySet()) {
-                List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
-                students.add(student);
-                subjectStudents.put(subject, students);
-            }
+        for (Subject subject : subjectsAndMarks.keySet()) {
+            List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
+            students.add(student);
+            subjectStudents.put(subject, students);
         }
     }
 
@@ -32,31 +31,30 @@ public class StudentDatabase {
         if (name == null || name.isEmpty()) {
             log.warn("Имя не может быть пустым");
             return;
-        } else {
-            Student targetStudent = null;
-            for (Student student : studentSubject.keySet()) {
-                if (student.getName().equals(name)) {
-                    targetStudent = student;
-                    break;
-                }
+        }
+        Student targetStudent = null;
+        for (Student student : studentSubject.keySet()) {
+            if (student.getName().equals(name)) {
+                targetStudent = student;
+                break;
             }
+        }
 
-            if (targetStudent == null) {
-                log.warn("Студент {} не найден", name);
-                return;
+        if (targetStudent == null) {
+            log.warn("Студент {} не найден", name);
+            return;
+        }
+
+        Map<Subject, Integer> currentSubjects = studentSubject.getOrDefault(targetStudent, new HashMap<>());
+        currentSubjects.putAll(subAndMark);
+        studentSubject.put(targetStudent, currentSubjects);
+
+        for (Subject subject : subAndMark.keySet()) {
+            List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
+            if (!students.contains(targetStudent)) {
+                students.add(targetStudent);
             }
-
-            Map<Subject, Integer> currentSubjects = studentSubject.getOrDefault(targetStudent, new HashMap<>());
-            currentSubjects.putAll(subAndMark);
-            studentSubject.put(targetStudent, currentSubjects);
-
-            for (Subject subject : subAndMark.keySet()) {
-                List<Student> students = subjectStudents.getOrDefault(subject, new ArrayList<>());
-                if (!students.contains(targetStudent)) {
-                    students.add(targetStudent);
-                }
-                subjectStudents.put(subject, students);
-            }
+            subjectStudents.put(subject, students);
         }
     }
 
@@ -64,14 +62,13 @@ public class StudentDatabase {
         if (name == null || name.isEmpty()) {
             log.warn("Имя не может быть пустым");
             return;
-        } else {
-            Student studentToRemove = new Student(name);
+        }
+        Student studentToRemove = new Student(name);
 
-            studentSubject.remove(studentToRemove);
+        studentSubject.remove(studentToRemove);
 
-            for (List<Student> students : subjectStudents.values()) {
-                students.remove(studentToRemove);
-            }
+        for (List<Student> students : subjectStudents.values()) {
+            students.remove(studentToRemove);
         }
     }
 
@@ -79,11 +76,10 @@ public class StudentDatabase {
         if (studentSubject.keySet().isEmpty()) {
             log.info("Студентов нет");
             return;
-        } else {
-            for (Student student : studentSubject.keySet()) {
-                log.info("Студент {}\n", student.getName());
-                log.info("Предмет {}\n", studentSubject.get(student));
-            }
+        }
+        for (Student student : studentSubject.keySet()) {
+            log.info("Студент {}\n", student.getName());
+            log.info("Предмет {}\n", studentSubject.get(student));
         }
     }
 
@@ -91,11 +87,10 @@ public class StudentDatabase {
         if (subjectStudents.keySet().isEmpty()) {
             log.info("Предметов нет");
             return;
-        } else {
-            for (Subject subject : subjectStudents.keySet()) {
-                log.info("Предмет {}\n", subject.getName());
-                log.info("Студенты {}\n", subjectStudents.get(subject));
-            }
+        }
+        for (Subject subject : subjectStudents.keySet()) {
+            log.info("Предмет {}\n", subject.getName());
+            log.info("Студенты {}\n", subjectStudents.get(subject));
         }
     }
 
