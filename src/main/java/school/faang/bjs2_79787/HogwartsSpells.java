@@ -1,10 +1,13 @@
 package school.faang.bjs2_79787;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
     private static Map<Integer, SpellEvent> spellById = new HashMap<>();
     private static Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
@@ -38,7 +41,7 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue().toString());
+            log.info(entry.getValue().toString());
         }
     }
 
