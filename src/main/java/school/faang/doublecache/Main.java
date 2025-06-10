@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        final StudentDatabase db = new StudentDatabase(new HashMap<>(), new HashMap<>());
+        final StudentDatabase studentDatabase = new StudentDatabase(new HashMap<>(), new HashMap<>());
 
         final Student alice = new Student("Alice");
         final Student bob = new Student("Bob");
@@ -24,20 +24,20 @@ public class Main {
         Map<Subject, Integer> bobGrades = new HashMap<>();
         bobGrades.put(math, 77);
 
-        db.addStudentWithGrades(alice, aliceGrades);
-        db.addStudentWithGrades(bob, bobGrades);
+        studentDatabase.addStudentWithGrades(alice, aliceGrades);
+        studentDatabase.addStudentWithGrades(bob, bobGrades);
 
-        db.addNewSubjectToStudent(alice, history, 90);
+        studentDatabase.addNewSubjectToStudent(alice, history, 90);
 
-        db.addStudentToSubject(charlie, history);
+        studentDatabase.addStudentToSubject(charlie, history);
 
-        db.addNewSubjectAndStudents(chemistry, List.of(bob, charlie));
+        studentDatabase.addNewSubjectAndStudents(chemistry, List.of(bob, charlie));
 
-        db.deleteStudentFromSubject(history, alice);
+        studentDatabase.deleteStudentFromSubject(history, alice);
 
-        db.deleteStudent(bob);
+        studentDatabase.deleteStudent(bob);
 
-        db.printAllStudentsWithGrades();
-        db.printAllSubjectsWithStudents();
+        studentDatabase.printAllStudentsWithGrades();
+        studentDatabase.printAllSubjectsWithStudents();
     }
 }
