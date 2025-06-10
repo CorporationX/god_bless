@@ -1,14 +1,12 @@
 package school.faang.amazon79806;
 
-import lombok.Getter;
-
 import java.util.*;
 
 public class ProductManager {
 
     private Set<Product> products = new HashSet<>();
     private static int idCount = 0;
-    private Map<Category, List<Product>> productsMap = new HashMap<>();
+
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
@@ -33,43 +31,37 @@ public class ProductManager {
                 System.out.println("Товар удалён");
                 return;
             }
-            System.out.println("Товара " + name + " из категории "
-                    + category + " на складе нет. Его удаление не возможно");
+            System.out.printf("Товара %s из категории %s на складе нет. Его удаление не возможно", name, category);
         }
     }
 
     public List<Product> findProductsByCategory(Category category) {
         List<Product> productList = new ArrayList<>();
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product productForSet = iterator.next();
-            if (productForSet.getCategory() == category) {
-                productList.add(productForSet);
+        for (Product product : products) {
+            if (product.getCategory() == category) {
+                productList.add(product);
             }
         }
         return productList;
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-
+        Map<Category, List<Product>> productsMap = new HashMap<>();
         for (Product product : products) {
-            if (productsMap.get(product.getCategory()) != null) {
-                List<Product> productList = productsMap.get(product.getCategory());
-                productList.add(product);
-            } else {
-                productsMap.put(product.getCategory(), new ArrayList<>(List.of(product)));
-            }
+            productsMap.putIfAbsent(product.getCategory(), new ArrayList<>());
+            productsMap.get(product.getCategory()).add(product);
         }
         return productsMap;
     }
 
     public void printAllProducts() {
+        Map<Category, List<Product>> productsMap = groupProductsByCategory();
         for (Map.Entry<Category, List<Product>> prod : productsMap.entrySet()) {
-            String result = String.format("Категория %s: %nТовары: ", prod.getKey());
-            System.out.println(result);
-            for (Product product : prod.getValue()) {
-                String result2 = String.format("-%s", product.getName());
-                System.out.println(result2);
+            String category = String.format("Категория %s: %nТовары: ", prod.getKey());
+            System.out.println(category);
+            for (Product productValue : prod.getValue()) {
+                String product = String.format("-%s", productValue.getName());
+                System.out.println(product);
             }
         }
     }
