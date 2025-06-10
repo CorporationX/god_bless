@@ -18,7 +18,6 @@ public class Main {
         productManager.addProduct(Category.CLOTHING, "Носки");
         productManager.addProduct(Category.CLOTHING, "Шорты");
 
-        System.out.println(productManager.getProducts());
         productManager.removeProduct(Category.FOOD, "Рыба");
         productManager.removeProduct(Category.FOOD, null);
 
