@@ -8,13 +8,16 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class Product {
-    private int id = 1;
+
+    private static int nextId = 1;
+
+    private final int id;
     private final String name;
     private final Category category;
 
 
     public Product(String name, Category category) {
-        this.id += 1;
+        this.id = nextId++;
         this.name = name;
         this.category = category;
     }

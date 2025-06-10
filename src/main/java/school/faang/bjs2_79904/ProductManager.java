@@ -9,6 +9,7 @@ public class ProductManager {
     public void addProduct(Category category, String name) {
         Product product = new Product(name, category);
         products.add(product);
+
     }
 
     public boolean removeProduct(Category category, String name) {
@@ -16,17 +17,14 @@ public class ProductManager {
     }
 
     public List<Product> findProductByCategory(Category category) {
-        List<Product> productList = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getCategory().equals(category)) {
-                productList.add(product);
-            }
-        }
-        return productList;
+        return products.stream()
+                .filter(p -> p.getCategory() == category)
+                .collect(Collectors.toList());
     }
 
     public Map<Category, List<Product>> groupProductsByCategory() {
-        return products.stream().collect(Collectors.groupingBy(Product::getCategory));
+        return products.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
     }
 
     public void printAllProducts() {
