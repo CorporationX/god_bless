@@ -31,7 +31,8 @@ public class FilterProcessorTest {
     @MethodSource("provideExtendedParameters")
     public void testCombineFilters(Image original, Function<Image, Image> filter1,
                                    Function<Image, Image> filter2, Image expected) {
-        Image actual = processor.combineFilters(original, filter1, filter2);
+        Function<Image, Image> combinedFilter = processor.combineFilters(filter1, filter2);
+        Image actual = processor.applyFilter(original, combinedFilter);
         assertEquals(expected, actual);
     }
 
