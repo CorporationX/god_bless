@@ -1,5 +1,6 @@
 package school.faang.bjs280254;
 
+@FunctionalInterface
 public interface SpellAction {
-    public void cast(String spell);
+    void cast(String spell);
 }
