@@ -7,10 +7,7 @@ public class Archer extends Character {
 
 
     public Archer(String name) {
-        super(name);
-        this.strength = STARTER_STRENGTH;
-        this.agility = STARTER_AGILITY;
-        this.intelligence = STARTER_INTELLIGENCE;
+        super(name, STARTER_STRENGTH, STARTER_AGILITY, STARTER_INTELLIGENCE);
     }
 
     @Override

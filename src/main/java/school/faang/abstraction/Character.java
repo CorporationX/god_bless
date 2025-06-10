@@ -1,6 +1,7 @@
 package school.faang.abstraction;
 
 public abstract class Character {
+    protected static final int DEFAULT_SCOPE = 5;
     private final String name;
     protected int strength;
     protected int agility;
@@ -9,9 +10,9 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        strength = 5;
-        agility = 5;
-        intelligence = 5;
+        strength = DEFAULT_SCOPE;
+        agility = DEFAULT_SCOPE;
+        intelligence = DEFAULT_SCOPE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
