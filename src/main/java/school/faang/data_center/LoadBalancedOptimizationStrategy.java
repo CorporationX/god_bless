@@ -1,16 +1,11 @@
 package school.faang.data_center;
 
-import school.faang.util.ParameterUtil;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 public class LoadBalancedOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
-        ParameterUtil.checkToNull(dataCenter, "dataCenter");
+        Objects.requireNonNull(dataCenter);
 
         double load = 0.0;
         double totalCapacity = 0.0;

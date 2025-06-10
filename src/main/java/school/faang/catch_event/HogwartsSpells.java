@@ -3,7 +3,6 @@ package school.faang.catch_event;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import school.faang.util.ParameterUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

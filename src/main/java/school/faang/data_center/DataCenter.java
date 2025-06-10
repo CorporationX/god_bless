@@ -1,11 +1,10 @@
 package school.faang.data_center;
 
 import lombok.Getter;
-import lombok.Setter;
-import school.faang.util.ParameterUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DataCenter {
     @Getter
@@ -16,12 +15,12 @@ public class DataCenter {
     }
 
     public boolean addServer(Server server) {
-        ParameterUtil.checkToNull(server, "server");
+        Objects.requireNonNull(server);
         return serverList.add(server);
     }
 
     public boolean removeServer(Server server) {
-        ParameterUtil.checkToNull(server, "server");
+        Objects.requireNonNull(server);
         return serverList.remove(server);
     }
 }
