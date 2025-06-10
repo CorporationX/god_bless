@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
 }
 
 test {
