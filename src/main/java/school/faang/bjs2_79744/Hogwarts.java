@@ -1,7 +1,5 @@
 package school.faang.bjs2_79744;
 
-import java.lang.reflect.Array;
-
 public class Hogwarts {
     public static void main(String[] args) {
         HogwartsSpells spells = new HogwartsSpells();
