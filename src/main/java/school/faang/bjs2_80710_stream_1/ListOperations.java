@@ -19,7 +19,7 @@ public class ListOperations {
 
     public static Optional<Integer> findMax(@NonNull List<Integer> numbers) {
         return numbers.stream()
-                .max(Comparator.comparingInt(a -> a));
+                .max(Integer::compareTo);
     }
 
     public static OptionalDouble findAverage(@NonNull List<Integer> numbers) {
