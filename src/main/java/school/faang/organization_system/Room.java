@@ -1,16 +1,18 @@
 package school.faang.organization_system;
 
-import java.util.HashMap;
+import lombok.Data;
 import java.util.Set;
 
+@Data
 public class Room {
-    private int countRoom = 0;
+    private static int countRoom = 0;
     private int roomNumber;
     private final String type;
-    private final Set<String> amenities= new HashMap;
+    private final Set<String> amenities;
 
-    public Room(int roomNumber, String type) {
+    public Room(int roomNumber, String type, Set<String> amenities) {
         this.roomNumber = ++countRoom;
         this.type = type;
+        this.amenities = amenities;
     }
 }

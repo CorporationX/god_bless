@@ -1,7 +1,10 @@
 package school.faang.organization_system;
 
+import lombok.Data;
+
+@Data
 public class Bookingld {
-    private int countBooking = 0;
+    private static int countBooking = 0;
     private int bookingId;
     private final Room room;
     private final String date;
