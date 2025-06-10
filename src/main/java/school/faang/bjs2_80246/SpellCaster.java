@@ -4,6 +4,6 @@ public class SpellCaster {
 
     public void cast(String spellName, SpellAction spellAction) {
         String action = spellAction.action(spellName);
-        System.out.println("Spell caster action: " + action);
+        System.out.println(" Spell caster action: " + action);
     }
 }
