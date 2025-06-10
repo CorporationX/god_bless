@@ -2,13 +2,15 @@ package school.faang.bjs2_80077;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Getter
+@Slf4j
 public class Droid {
     private String name;
 
-    String encryptMessage(String message, int encryptionKey) {
+    public String encryptMessage(String message, int encryptionKey) {
         DroidMessageEncryptor encryptor = (msg, key) -> {
             StringBuilder encryptedMessage = new StringBuilder();
 
@@ -27,7 +29,7 @@ public class Droid {
     }
 
 
-    String decryptMessage(String message, int encryptionKey) {
+    public String decryptMessage(String message, int encryptionKey) {
         DroidMessageEncryptor encryptor = (msg, key) -> {
             StringBuilder decryptedMessage = new StringBuilder();
 
@@ -45,14 +47,14 @@ public class Droid {
         return encryptor.encrypt(message, encryptionKey);
     }
 
-    void receiveMessage(String encryptedMessage, int encryptionKey) {
+    public void receiveMessage(String encryptedMessage, int encryptionKey) {
         String decryptedMessage = decryptMessage(encryptedMessage, encryptionKey);
-        System.out.println(name + " получил расшифрованное сообщение: " + decryptedMessage);
+        log.info("{} получил расшифрованное сообщение: {}", name, decryptedMessage);
     }
 
-    void sendMessage(Droid recipientDroid, String message, int encryptionKey) {
+    public void sendMessage(Droid recipientDroid, String message, int encryptionKey) {
         String encryptedMessage = encryptMessage(message, encryptionKey);
-        System.out.println(name + " отправил зашифрованное сообщение: " + encryptedMessage);
+        log.info("{} отправил зашифрованное сообщение: {}", name, encryptedMessage);
         recipientDroid.receiveMessage(encryptedMessage, encryptionKey);
     }
 }
