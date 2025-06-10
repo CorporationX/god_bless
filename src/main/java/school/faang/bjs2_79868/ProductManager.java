@@ -1,6 +1,7 @@
 package school.faang.bjs2_79868;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,16 +10,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 @Data
 public class ProductManager {
-    private static final Set<Product> products = new HashSet<>();
+    private final Set<Product> products = new HashSet<>();
     private final Map<Category, Map<String, Product>> productsNamesByCategory = new HashMap<>();
 
 
     public void addProduct(Category category, String name) {
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
-                System.out.println("Товар с таким названием уже существует в категории " + category + "!");
+                log.info("Товар с таким названием уже существует в категории {}!", category);
                 return;
             }
         }
@@ -40,7 +42,7 @@ public class ProductManager {
         return new ArrayList<>(productsNamesByCategory.getOrDefault(category, new HashMap<>()).values());
     }
 
-    public static Map<Category, List<Product>> groupProductsByCategory() {
+    public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> groupedProducts = new HashMap<>();
 
         for (Product product : products) {
@@ -50,14 +52,14 @@ public class ProductManager {
         return groupedProducts;
     }
 
-    public static void printAllProducts() {
+    public void printAllProducts() {
         Map<Category, List<Product>> groupedProducts = groupProductsByCategory();
 
         for (Map.Entry<Category, List<Product>> entry : groupedProducts.entrySet()) {
-            System.out.println("Категория: " + entry.getKey());
-            System.out.println("Продукты: ");
+            log.info("Категория: {}", entry.getKey());
+            log.info("Продукты: ");
             for (Product product : entry.getValue()) {
-                System.out.println("- " + product.getName());
+                log.info("- {}", product.getName());
             }
         }
     }

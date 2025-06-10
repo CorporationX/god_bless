@@ -1,7 +1,12 @@
 package school.faang.bjs2_79868;
 
-import static school.faang.bjs2_79868.Category.*;
+import lombok.extern.slf4j.Slf4j;
 
+import static school.faang.bjs2_79868.Category.CLOTHING;
+import static school.faang.bjs2_79868.Category.ELECTRONICS;
+import static school.faang.bjs2_79868.Category.FOOD;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
@@ -12,16 +17,15 @@ public class Main {
         productManager.addProduct(FOOD, "Bread");
 
         productManager.addProduct(CLOTHING, "T-shirt");
-        System.out.println(productManager);
+        log.info("{}", productManager);
 
         productManager.removeProduct(CLOTHING, "T-shirt");
-        System.out.println(productManager);
+        log.info("{}", productManager);
 
-        System.out.println(productManager.findProductsByCategory(ELECTRONICS));
-        System.out.println(productManager.findProductsByCategory(CLOTHING));
+        log.info("{}", productManager.findProductsByCategory(ELECTRONICS));
+        log.info("{}", productManager.findProductsByCategory(CLOTHING));
 
-        System.out.println(ProductManager.groupProductsByCategory());
-
-        ProductManager.printAllProducts();
+        log.info("{}", productManager.groupProductsByCategory());
+        productManager.printAllProducts();
     }
 }
