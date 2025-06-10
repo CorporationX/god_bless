@@ -11,12 +11,15 @@ public abstract class Character {
     protected int health;
 
     private static final int DEFAULT_HEALTH = 100;
+    private static final int DEFAULT_STRENGTH = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this.strength = DEFAULT_STRENGTH;
+        this.agility = DEFAULT_AGILITY;
+        this.intelligence = DEFAULT_INTELLIGENCE;
         this.health = DEFAULT_HEALTH;
     }
 
