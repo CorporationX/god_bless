@@ -46,9 +46,12 @@ public class NotificationManagerTest {
         };
 
         return Stream.of(
-                Arguments.of(NotificationType.EMAIL, handler, new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован")),
-                Arguments.of(NotificationType.SMS, handler, new Notification(NotificationType.SMS, "Ваш пароль изменен")),
-                Arguments.of(NotificationType.PUSH, handler, new Notification(NotificationType.PUSH, "У вас новое сообщение!"))
+                Arguments.of(NotificationType.EMAIL, handler,
+                        new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован")),
+                Arguments.of(NotificationType.SMS, handler,
+                        new Notification(NotificationType.SMS, "Ваш пароль изменен")),
+                Arguments.of(NotificationType.PUSH, handler,
+                        new Notification(NotificationType.PUSH, "У вас новое сообщение!"))
         );
     }
 }
