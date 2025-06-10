@@ -11,5 +11,5 @@ public class Server {
 
     private double load;
     private double maxLoad;
-    double energyConsumption;
+    private double energyConsumption;
 }
