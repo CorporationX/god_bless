@@ -1,23 +1,23 @@
 package school.faang.bjs2_80072;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
     public static void main(String[] args) {
-        // Пример с вызовом удалённого сервиса
         String result = ErrorHandler.withErrorHandling(
-                () -> RemoteService.call("someParam"),  // Основное действие
-                e -> {  // Обработка ошибки
-                    System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                () -> RemoteService.call("someParam"),
+                e -> {
+                    log.error("Произошла ошибка при вызове сервиса", e);
                     return "DEFAULT";
                 }
         );
 
-        System.out.println(result);  // Выведет результат: "DEFAULT" при ошибке
+        log.info("{}", result);
     }
 
-    // Пример метода для удалённого сервиса
     public static class RemoteService {
         public static String call(String param) {
-            // Здесь возникнет ошибка для демонстрации
             throw new RuntimeException("Сервис недоступен");
         }
     }
