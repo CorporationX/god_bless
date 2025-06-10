@@ -5,7 +5,7 @@ import java.util.function.Function;
 public class FilterProcessor {
     public Image applyFilter(Image image, Function<Image, Image> function) {
         if (image == null) {
-            throw new NullPointerException("image is null");
+            throw new NullPointerException(" image is null");
         }
         return function.apply(image);
     }
