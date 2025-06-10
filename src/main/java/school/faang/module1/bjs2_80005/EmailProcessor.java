@@ -12,7 +12,7 @@ public class EmailProcessor {
                               Function<Email, String> bodyTransformer,
                               Consumer<Email> handler) {
         for (Email email : emails) {
-            if(filter.test(email)) {
+            if (filter.test(email)) {
                 email.setBody(bodyTransformer.apply(email));
                 handler.accept(email);
             }
