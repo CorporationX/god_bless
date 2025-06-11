@@ -33,7 +33,7 @@ public class NotificationManager {
                 log.info("{} could not be processed", notification.getType());
             }
         } else {
-            log.info(notification.getType() + ": Notification blocked due to profanity");
+            log.info("{}: Notification blocked due to profanity", notification.getType());
         }
     }
 }
