@@ -15,7 +15,8 @@ public class InventoryTesting {
         manager.removeItem(frodo, (item) -> item.getName().contains("stick"));
 
         manager.addItem(frodo, stick, (item) -> log.info("{} снова добавлен.", item.getName()));
-        manager.updateItem(frodo, (item) -> item.getName().equals("stick"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(frodo, (item) -> item.getName().equals("stick"), (item) ->
+                new Item(item.getName(), item.getValue() * 2));
 
         frodo.getItems().forEach(item -> log.info("{}: {}", item.getName(), item.getValue()));
     }
