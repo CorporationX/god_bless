@@ -10,8 +10,10 @@ public class FilterTesting {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         log.info(grayscaleImage.getDescription());
