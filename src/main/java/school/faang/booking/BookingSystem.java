@@ -97,7 +97,9 @@ public class BookingSystem {
         return booking;
     }
 
-    public Set<Room> findAvailableRooms(@NonNull String date, @NonNull String timeSlot, @NonNull Set<String> requiredAmenities) {
+    public Set<Room> findAvailableRooms(@NonNull String date,
+                                        @NonNull String timeSlot,
+                                        @NonNull Set<String> requiredAmenities) {
         return bookingsById.values().stream()
                 .filter(booking -> !booking.date().equals(date) && !booking.timeSlot().equals(timeSlot))
                 .map(Booking::room)
