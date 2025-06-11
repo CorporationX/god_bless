@@ -37,6 +37,6 @@ public class Main {
 
         // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
         emails.forEach(email ->
-                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+                System.out.printf("Тема: %s, Тело письма: %s%n", email.getSubject(), email.getBody()));
     }
 }

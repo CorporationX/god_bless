@@ -14,11 +14,11 @@ import java.util.function.UnaryOperator;
 public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> filter,
-                              Function<Email, String> processor, Consumer<Email> consumer) {
+                              Function<Email, String> processor, Consumer<Email> handler) {
         for (Email email : emails) {
             if (filter.test(email)) {
                 email.setBody(processor.apply(email));
-                consumer.accept(email);
+                handler.accept(email);
             }
         }
     }
