@@ -25,7 +25,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (!filterList.stream().allMatch(filter -> filter.test(notification))) {
+        if (filterList.stream().noneMatch(filter -> filter.test(notification))) {
             Consumer<Notification> handler = handlerMap.get(notification.getType());
             if (handler != null) {
                 handler.accept(notification);
