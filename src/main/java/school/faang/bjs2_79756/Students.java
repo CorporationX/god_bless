@@ -36,7 +36,8 @@ public class Students {
         studentDatabase.removeStudentWithSubject(john);
 
         studentDatabase.addSubjectForStudentWithGrade(nicholas, math, 5);
+        System.out.println("---------------------------");
 
-
+        studentDatabase.printSubjectsWithStudents();
     }
 }
