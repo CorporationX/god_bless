@@ -24,6 +24,9 @@ public class Main {
             return String.join(", ", vector);
         };
         MatrixJoiner<String> matrixJoiner = matrix -> {
+            if (matrix.isEmpty()) {
+                throw new IllegalArgumentException("List is empty");
+            }
             StringBuilder builder = new StringBuilder();
             matrix.forEach(vector -> {
                 builder.append(vectorJoiner.join(vector)).append("\n");
