@@ -7,11 +7,14 @@ import static school.faang.module1.bjs2_80543.NotificationType.*;
 @Slf4j
 public class Main {
 
+    private static final String BAD_WORD = "плохоеслово";
     private static final String LONG_PUSH = "Это очень длинное push-уведомление, "
             + "которое превышает лимит в 100 символов. Оно должно быть отфильтровано.";
     private static final String LONG_SMS = "Очень длинное сообщение, которое превышает максимально "
             + "допустимое количество символов в 160 знаков. Это сообщение точно будет отфильтровано, "
             + "так как оно слишком большое для SMS.";
+    private static final int SMS_MAX_LENGTH = 160;
+    private static final int PUSH_MAX_LENGTH = 100;
 
     private static final String EMAIL_SIGNATURE = " -- С уважением, Компания Meta";
     private static final String EMAIL_SUPPORT = " Тех. поддержка: +375(29)2129874";
@@ -35,10 +38,10 @@ public class Main {
     }
 
     private static void registerFilters(NotificationManager manager) {
-        manager.registerFilter(EMAIL, notification -> !notification.getMessage().contains("плохоеслово"));
+        manager.registerFilter(EMAIL, notification -> !notification.getMessage().contains(BAD_WORD));
         manager.registerFilter(EMAIL, notification -> !notification.getMessage().trim().isEmpty());
-        manager.registerFilter(SMS, notification -> notification.getMessage().length() <= 160);
-        manager.registerFilter(PUSH, notification -> notification.getMessage().length() <= 100);
+        manager.registerFilter(SMS, notification -> notification.getMessage().length() <= SMS_MAX_LENGTH);
+        manager.registerFilter(PUSH, notification -> notification.getMessage().length() <= PUSH_MAX_LENGTH);
     }
 
     private static void registerCorrectors(NotificationManager manager) {

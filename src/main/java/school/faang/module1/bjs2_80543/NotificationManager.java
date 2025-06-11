@@ -21,6 +21,9 @@ public class NotificationManager {
         if (handler == null) {
             throw new IllegalArgumentException("Handler must not be null");
         }
+        if (handlers.containsKey(type)) {
+            throw new IllegalStateException("Handler already registered for type: " + type);
+        }
         handlers.put(type, handler);
     }
 
