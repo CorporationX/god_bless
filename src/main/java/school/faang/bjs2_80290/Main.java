@@ -8,14 +8,12 @@ public class Main {
                 {7, 8, 8},
         };
 
-        int[][] transformedHorizontalMatrix = flipMatrix(matrix, FlipDirection.HORIZONTAL);
-        int[][] transformedVerticalMatrix = flipMatrix(matrix, FlipDirection.VERTICAL);
         System.out.println("Оригинальная матрица: ");
         print(matrix);
         System.out.println("Горизонтальный переворот: ");
-        print(transformedHorizontalMatrix);
+        print(flipMatrix(matrix, FlipDirection.HORIZONTAL));
         System.out.println("Вертикальный переворот: ");
-        print(transformedVerticalMatrix);
+        print(flipMatrix(matrix, FlipDirection.VERTICAL));
     }
 
     static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
