@@ -8,7 +8,8 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
