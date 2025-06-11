@@ -1,5 +1,7 @@
 package school.faang.meta.notification;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,35 +10,26 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> consumers;
+    private final Map<NotificationType, Consumer<Notification>> consumers = new HashMap<>();
 
-    public NotificationManager() {
-        this.consumers = new HashMap<>();
-    }
-
-    public boolean registerHandler(NotificationType type, Consumer<Notification> handler) {
-        Objects.requireNonNull(type);
-        Objects.requireNonNull(handler);
-
-        if (consumers.containsKey(type)) {
-            System.out.printf("a notification handler for %s type is already registered\n", type);
-            return false;
+    public boolean registerHandler(@NonNull NotificationType type,
+                                   @NonNull Consumer<Notification> handler, boolean override) {
+        Consumer<Notification> existing = consumers.get(type);
+        if (existing != null) {
+            if (!override) {
+                System.out.printf("a notification handler for %s type is already registered " +
+                        "and will not be overridden\n", type);
+                return false;
+            }
+            System.out.printf("A notification handler for type %s is already registered " +
+                    "and will be overridden.\n", type);
         }
 
         consumers.put(type, handler);
         return true;
     }
 
-    public void forceRegisterHandler(NotificationType type, Consumer<Notification> handler) {
-        Objects.requireNonNull(type);
-        Objects.requireNonNull(handler);
-
-        consumers.put(type, handler);
-    }
-
-    public boolean sendNotification(Notification notification) {
-        Objects.requireNonNull(notification);
-
+    public boolean sendNotification(@NonNull Notification notification) {
         if (!handlerIsRegistered(notification)) {
             return false;
         }
@@ -45,10 +38,8 @@ public class NotificationManager {
         return true;
     }
 
-    public boolean sendNotification(Notification notification, Predicate<Notification> predicate) {
-        Objects.requireNonNull(notification);
-        Objects.requireNonNull(predicate);
-
+    public boolean sendNotification(@NonNull Notification notification,
+                                    @NonNull Predicate<Notification> predicate) {
         if (!handlerIsRegistered(notification)) {
             return false;
         }
@@ -62,11 +53,8 @@ public class NotificationManager {
         return true;
     }
 
-    public boolean sendNotification(Notification mainNotification, Function<Notification,
-            Notification> processor) {
-        Objects.requireNonNull(mainNotification);
-        Objects.requireNonNull(processor);
-
+    public boolean sendNotification(@NonNull Notification mainNotification,
+                                    @NonNull Function<Notification, Notification> processor) {
         if (!handlerIsRegistered(mainNotification)) {
             return false;
         }
@@ -76,9 +64,7 @@ public class NotificationManager {
         return true;
     }
 
-    private boolean handlerIsRegistered(Notification notification) {
-        Objects.requireNonNull(notification);
-
+    private boolean handlerIsRegistered(@NonNull Notification notification) {
         var type = notification.getType();
         if (!consumers.containsKey(type)) {
             System.out.printf("the handler for %s type is not registered\n", type);

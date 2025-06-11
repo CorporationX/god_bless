@@ -25,8 +25,8 @@ public class NotificationManagerTest {
     @Test
     public void testRegisterDuplicateHandler() {
         Consumer<Notification> emailHandler = notification -> System.out.println("Email: " + notification.getMessage());
-        boolean emailRegistered = manager.registerHandler(NotificationType.EMAIL, emailHandler);
-        boolean secondEmailRegistered = manager.registerHandler(NotificationType.EMAIL, emailHandler);
+        boolean emailRegistered = manager.registerHandler(NotificationType.EMAIL, emailHandler, false);
+        boolean secondEmailRegistered = manager.registerHandler(NotificationType.EMAIL, emailHandler, false);
         assertTrue(emailRegistered);
         assertFalse(secondEmailRegistered);
     }
@@ -34,7 +34,7 @@ public class NotificationManagerTest {
     @ParameterizedTest
     @MethodSource("provideParameters")
     public void testSendNotification(NotificationType type, Consumer<Notification> handler, Notification notification) {
-        manager.registerHandler(type, handler);
+        manager.registerHandler(type, handler, false);
         boolean sent = manager.sendNotification(notification);
         assertTrue(sent);
     }
@@ -50,7 +50,7 @@ public class NotificationManagerTest {
 
             return true;
         };
-        manager.registerHandler(type, handler);
+        manager.registerHandler(type, handler, false);
         boolean sent = manager.sendNotification(notification, filter);
         if (type.equals(NotificationType.EMAIL)) {
             assertFalse(sent);
@@ -70,7 +70,7 @@ public class NotificationManagerTest {
             return processedNotification;
         };
 
-        manager.registerHandler(type, handler);
+        manager.registerHandler(type, handler, false);
         boolean sent = manager.sendNotification(notification, processor);
         assertTrue(sent);
     }
