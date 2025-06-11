@@ -45,10 +45,10 @@ public class StudentDatabase {
 
     public void printAllStudents() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            log.info("Студент: {}", entry.getKey().getName());
+            log.info("Студент: {}", entry.getKey().name());
             log.info("Предметы и оценки:");
             for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                log.info("Предмет: {}, Оценка: {}", subjectEntry.getKey().getName(), subjectEntry.getValue());
+                log.info("Предмет: {}, Оценка: {}", subjectEntry.getKey().name(), subjectEntry.getValue());
             }
         }
     }
@@ -66,7 +66,7 @@ public class StudentDatabase {
         subjectStudents.putIfAbsent(subject, new ArrayList<>());
 
         if (!subjectStudents.get(subject).contains(student)) {
-            subjectStudents.get(subject).add(student); // Добавляем студента к предмету
+            subjectStudents.get(subject).add(student);
         }
 
         studentSubjects.putIfAbsent(student, new HashMap<>());
@@ -89,7 +89,7 @@ public class StudentDatabase {
 
     public void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            log.info("Предмет: {}", entry.getKey().getName());
+            log.info("Предмет: {}", entry.getKey().name());
             log.info("Студенты: {}", entry.getValue().toString());
         }
     }
