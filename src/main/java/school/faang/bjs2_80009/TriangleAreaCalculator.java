@@ -18,9 +18,10 @@ public class TriangleAreaCalculator {
                 ADD.apply(a).apply(ADD.apply(b).apply(c))
         ).apply(2.0);
         return SQUARE_ROOT.apply(
-                SUBTRACT.apply(p).apply(a) *
-                        SUBTRACT.apply(p).apply(b) *
-                        SUBTRACT.apply(p).apply(c) * p
+                SUBTRACT.apply(p).apply(a)
+                        * SUBTRACT.apply(p).apply(b)
+                        * SUBTRACT.apply(p).apply(c)
+                        * p
         );
     }
 
