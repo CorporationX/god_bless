@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         StudentDatabase studentDatabase = new StudentDatabase();
         // Студенты

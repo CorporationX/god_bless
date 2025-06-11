@@ -34,7 +34,8 @@ public class StudentDatabase {
     }
 
     public boolean addSubjectForStudent(Student student, Subject subject, int integer) {
-        if (student == null || subject == null || integer < BASE_SCORE || integer > MAX_SCORE || !studentSubjects.containsKey(student)) {
+        if (student == null || subject == null || integer < BASE_SCORE ||
+                integer > MAX_SCORE || !studentSubjects.containsKey(student)) {
             return false;
         }
 
@@ -77,7 +78,8 @@ public class StudentDatabase {
         for (Student student : studentSubjects.keySet()) {
             System.out.println(student.toString().replaceAll("Student\\(name=|\\).*", "") + ":");
             for (Subject subject : studentSubjects.get(student).keySet()) {
-                System.out.println(subject.toString().replaceAll("Subject\\(name=|\\).*", "") + " " + studentSubjects.get(student).get(subject));
+                System.out.println(subject.toString().replaceAll("Subject\\(name=|\\).*", "") +
+                        " " + studentSubjects.get(student).get(subject));
             }
         }
     }
