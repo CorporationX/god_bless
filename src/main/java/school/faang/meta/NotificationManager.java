@@ -1,5 +1,6 @@
 package school.faang.meta;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.EnumMap;
@@ -22,22 +23,22 @@ public class NotificationManager {
     private final Map<NotificationType, UnaryOperator<Notification>> correctorHandlersByType =
             new EnumMap<>(NotificationType.class);
 
-    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+    public void registerHandler(@NonNull NotificationType type, @NonNull Consumer<Notification> handler) {
         notificationHandlersByType.put(type, handler);
         log.info("Registered notification handler for type {}", type);
     }
 
-    public void registerHandler(NotificationType type, Predicate<Notification> handler) {
+    public void registerHandler(@NonNull NotificationType type, @NonNull Predicate<Notification> handler) {
         filterHandlersByType.put(type, handler);
         log.info("Registered predicate handler for type {}", type);
     }
 
-    public void registerHandler(NotificationType type, UnaryOperator<Notification> handler) {
+    public void registerHandler(@NonNull NotificationType type, @NonNull UnaryOperator<Notification> handler) {
         correctorHandlersByType.put(type, handler);
         log.info("Registered corrector handler for type {}", type);
     }
 
-    public void sendNotification(Notification notification) {
+    public void sendNotification(@NonNull Notification notification) {
         var filterHandler = filterHandlersByType.get(notification.type());
         if (filterHandler != null && !filterHandler.test(notification)) {
             log.info("Notification {} rejected", notification);
