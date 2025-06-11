@@ -8,4 +8,5 @@ import lombok.Getter;
 public class Image {
     private String name;
     private String description;
+
 }
