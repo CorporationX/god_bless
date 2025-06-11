@@ -12,11 +12,6 @@ public class InventoryManager {
         playerNotificationMessage.accept(item);
     }
 
-    public void addItem(Character character, Item item) {
-        List<Item> inventory = character.getInventory();
-        inventory.add(item);
-    }
-
     public void removeItem(Character character, Predicate<Item> condition) {
         List<Item> inventory = character.getInventory();
         Iterator<Item> iterator = inventory.iterator();
