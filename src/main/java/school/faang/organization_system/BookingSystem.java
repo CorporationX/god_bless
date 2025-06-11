@@ -28,7 +28,8 @@ public class BookingSystem {
             if (room.getRoomNumber() == roomNumber) {
                 boolean openTimeSlot = true;
                 for (Booking booking : bookings) {
-                    if (booking.getRoom() == room && booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)) {
+                    if (booking.getRoom() == room && booking.getDate()
+                            .equals(date) && booking.getTimeSlot().equals(timeSlot)) {
                         openTimeSlot = false;
                         break;
                     }
@@ -47,7 +48,7 @@ public class BookingSystem {
         for (Booking booking : bookings) {
             if (booking.getRoom().getRoomNumber() == bookingId) {
                 bookings.remove(booking);
-                bookingNotifier.notifyObservers(booking,"Свободна");
+                bookingNotifier.notifyObservers(booking, "Свободна");
                 break;
             }
         }
