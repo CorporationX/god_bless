@@ -24,7 +24,7 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
-        Function<Email, String> addDate = email -> email.getBody() + " " + getCurrentFormattedDate();
+        Function<Email, String> addDate = email -> String.format("%s %s", email.getBody(), getCurrentFormattedDate());
         Consumer<Email> printEmail = email -> log.info("Отправлено {}", email);
 
         EmailProcessor emailProcessor = new EmailProcessor();
