@@ -4,9 +4,11 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        notificationManager.addFilter(notification -> {
+        String forbiddenWord = "нельзя";
+
+        notificationManager.addFilter(NotificationType.SMS, notification -> {
             String message = notification.getMessage().toLowerCase();
-            return !message.contains("нельзя");
+            return !message.contains(forbiddenWord);
         });
 
         notificationManager.registerHandler(NotificationType.EMAIL,
@@ -20,11 +22,10 @@ public class Main {
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль нельзя изменить");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
+        Notification pushNotification = new Notification(NotificationType.PUSH, "Нельзя пропускать такую выгоду!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
-
     }
 }
