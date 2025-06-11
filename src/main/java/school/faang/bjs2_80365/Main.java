@@ -15,7 +15,10 @@ public class Main {
         LocationSearchEngine searchEngine = new LocationSearchEngine();
 
         // Фильтруем местоположения по долготе
-        List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
+        List<Location> filteredLocations = searchEngine.filterLocations(
+                locations,
+                (location) -> location.getLongitude() > 0
+        );
 
         // Выводим названия отфильтрованных местоположений
         searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
