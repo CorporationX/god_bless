@@ -15,7 +15,7 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::getIsImportant;
 
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
@@ -24,7 +24,7 @@ public class Main {
             return email.getBody();  // Возвращает преобразованный текст
         };
 
-        emailProcessor.processEmails(emails, importantFilter, (Function<Email, String>) printEmail, (Consumer<Email>) toUpperCase);
+        emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
 
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
