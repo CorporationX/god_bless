@@ -34,8 +34,8 @@ public class StudentDatabase {
     }
 
     public boolean addSubjectForStudent(Student student, Subject subject, int integer) {
-        if (student == null || subject == null || integer < BASE_SCORE ||
-                integer > MAX_SCORE || !studentSubjects.containsKey(student)) {
+        if (student == null || subject == null || integer < BASE_SCORE
+                || integer > MAX_SCORE || !studentSubjects.containsKey(student)) {
             return false;
         }
 
