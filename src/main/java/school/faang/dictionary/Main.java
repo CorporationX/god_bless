@@ -1,9 +1,12 @@
 package school.faang.dictionary;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor(); //создал объект
@@ -16,5 +19,6 @@ public class Main {
 
         //вывел словарь в консоль
         System.out.println("Словарь: " + dictionary);
+        log.info("Мой словарь: " + dictionary);
     }
 }
