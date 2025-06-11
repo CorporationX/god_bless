@@ -10,7 +10,7 @@ public class Room {
     private final String type;
     private final Set<String> amenities;
 
-    public Room(int roomNumber, String type, Set<String> amenities) {
+    public Room(String type, Set<String> amenities) {
         this.roomNumber = ++countRoom;
         this.type = type;
         this.amenities = amenities;

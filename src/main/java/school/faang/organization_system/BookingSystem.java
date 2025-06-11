@@ -7,7 +7,8 @@ import java.util.Set;
 
 public class BookingSystem {
     private Set<Room> rooms = new HashSet<>();
-    private List<Bookingld> bookings = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
+    BookingNotifier bookingNotifier = new BookingNotifier();
 
     public void addRoom(Room room) {
         rooms.add(room);
@@ -26,14 +27,16 @@ public class BookingSystem {
         for (Room room : rooms) {
             if (room.getRoomNumber() == roomNumber) {
                 boolean openTimeSlot = true;
-                for (Bookingld bookingld : bookings) {
-                    if (bookingld.getRoom() == room && bookingld.getDate().equals(date) && bookingld.getTimeSlot().equals(timeSlot)) {
+                for (Booking booking : bookings) {
+                    if (booking.getRoom() == room && booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)) {
                         openTimeSlot = false;
                         break;
                     }
                 }
                 if (openTimeSlot) {
-                    bookings.add(new Bookingld(room, date, timeSlot, room.getRoomNumber()));
+                    Booking booking = new Booking(room, date, timeSlot, room.getRoomNumber());
+                    bookings.add(booking);
+                    bookingNotifier.notifyObservers(booking, "Забронирована");
                 }
                 break;
             }
@@ -41,9 +44,10 @@ public class BookingSystem {
     }
 
     public void cancelBooking(int bookingId) {
-        for (Bookingld booking : bookings) {
+        for (Booking booking : bookings) {
             if (booking.getRoom().getRoomNumber() == bookingId) {
                 bookings.remove(booking);
+                bookingNotifier.notifyObservers(booking,"Свободна");
                 break;
             }
         }
@@ -54,8 +58,8 @@ public class BookingSystem {
         for (Room room : rooms) {
             if (room.getAmenities().containsAll(requiredAmenities)) {
                 boolean roomOpen = true;
-                for (Bookingld bookingld : bookings) {
-                    if (bookingld.getDate().equals(date) && bookingld.getTimeSlot().equals(timeSlot)) {
+                for (Booking booking : bookings) {
+                    if (booking.getDate().equals(date) && booking.getTimeSlot().equals(timeSlot)) {
                         roomOpen = false;
                         break;
                     }
@@ -69,10 +73,10 @@ public class BookingSystem {
     }
 
     public void findBookingsForDate(String date) {
-        List<Bookingld> bookingldDate = new ArrayList<>();
-        for (Bookingld bookingld : bookings) {
-            if (bookingld.getDate().equals(date)) {
-                bookingldDate.add(bookingld);
+        List<Booking> bookingDate = new ArrayList<>();
+        for (Booking booking : bookings) {
+            if (booking.getDate().equals(date)) {
+                bookingDate.add(booking);
             }
         }
     }
