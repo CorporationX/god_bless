@@ -13,7 +13,6 @@ public class Main {
         User danil = new User("Danil", 28, "Sber", "Pushkina");
 
         List<User> users = List.of(andrey, vasiliy, igor, aleksey, misha, darya, danil);
-        User.groupUsers(users);
+        System.out.println(User.groupUsers(users));
     }
-
 }
