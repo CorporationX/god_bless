@@ -21,6 +21,6 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()));
+                ", Тело письма : " + email.getBody()));
     }
 }
