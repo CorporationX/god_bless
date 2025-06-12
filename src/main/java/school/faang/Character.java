@@ -2,7 +2,7 @@ package school.faang;
 
 public abstract class Character {
 
-    protected final int basicValue = 5;
+    protected static final int BASIC_VALUE = 5;
     protected int power;
     protected int agility;
     protected int intelligence;
@@ -11,10 +11,7 @@ public abstract class Character {
 
 
     protected Character(String name) {
-        this.name = name;
-        power = basicValue;
-        agility = basicValue;
-        intelligence = basicValue;
+        this(name, BASIC_VALUE, BASIC_VALUE, BASIC_VALUE);
     }
 
     protected Character(String name, int power, int agility, int intelligence) {
@@ -28,7 +25,6 @@ public abstract class Character {
     }
 
     protected boolean isDeath() {
-        return health <= 0;
+        return health == 0;
     }
-
 }

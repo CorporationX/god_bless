@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Character warrior = new Warrior("Elon");
-        Character archer = new Archer("Musk");
+        Character warrior = new Warrior("Воин");
+        Character archer = new Archer("Лучник");
 
         while (true) {
             int random = ThreadLocalRandom.current().nextInt(0, 2);
@@ -18,12 +18,15 @@ public class Main {
                 archer.attack(warrior);
             }
 
-            System.out.println(warrior.health);
-            System.out.println(archer.health);
-
-            if (warrior.isDeath() || archer.isDeath()) {
+            if (warrior.health == 0 || archer.health == 0) {
+                System.out.println("Бой окончен");
                 break;
             }
+
+            System.out.println("У " + warrior.name + "а осталось - " + warrior.health + " жизней");
+            System.out.println("У " + archer.name + "а осталось - " + archer.health + " жизней");
+
+
         }
     }
 }
