@@ -2,8 +2,12 @@ package school.faang.task_79235;
 
 public class Warrior extends Character {
 
+    private static final int strengthWarrior = 10;
+    private static final int agilityWarrior = 5;
+    private static final int intelligenceWarrior = 5;
+
     public Warrior(String name) {
-        super(name, 10, 5, 3);
+        super(name, strengthWarrior, agilityWarrior, intelligenceWarrior);
     }
 
     @Override
