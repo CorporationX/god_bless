@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.bjs2_79192;
 
-public class Warrior extends Character {
+public class Warrior extends school.faang.bjs2_79192.Character {
 
     private static final int WARRIOR_STRENGTH = 10;
     private static final int WARRIOR_AGILITY = 5;

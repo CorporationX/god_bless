@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_79192;
 
 public abstract class Character {
 
