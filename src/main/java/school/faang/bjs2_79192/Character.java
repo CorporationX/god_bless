@@ -9,7 +9,6 @@ public abstract class Character {
     protected int health = 100;
     protected String name;
 
-
     protected Character(String name) {
         this(name, BASIC_VALUE, BASIC_VALUE, BASIC_VALUE);
     }
