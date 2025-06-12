@@ -34,7 +34,6 @@ public class InventoryManager {
                 Item updatedItem = updater.apply(item);
                 inventory.set(i, updatedItem);
                 log.info("Updated item: {} with new value: {}", updatedItem.getName(), updatedItem.getValue());
-                break;
             }
         }
     }
