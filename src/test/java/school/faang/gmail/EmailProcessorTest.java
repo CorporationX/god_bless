@@ -1,6 +1,5 @@
 package school.faang.gmail;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import school.faang.gmail.entity.Email;
 
