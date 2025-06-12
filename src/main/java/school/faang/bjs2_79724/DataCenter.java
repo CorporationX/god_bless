@@ -10,13 +10,19 @@ public class DataCenter {
 
     private final List<Server> servers = new ArrayList<>();
 
-    public void addServer(Server server) {
+    public boolean addServer(Server server) {
         if (!servers.contains(server)) {
             servers.add(server);
+            return true;
         }
+        return false;
     }
 
-    public void removeServer(Server server) {
-        servers.remove(server);
+    public boolean removeServer(Server server) {
+        return servers.remove(server);
+    }
+
+    public List<Server> getServers() {
+        return new ArrayList<>(servers);
     }
 }

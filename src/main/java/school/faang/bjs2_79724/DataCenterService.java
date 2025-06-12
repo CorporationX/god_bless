@@ -3,6 +3,9 @@ package school.faang.bjs2_79724;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 public class DataCenterService implements OptimizationStrategy {
@@ -10,17 +13,15 @@ public class DataCenterService implements OptimizationStrategy {
     private final OptimizationStrategy optimizationStrategy;
 
     public void addServer(DataCenter dataCenter, Server server) {
-        if (dataCenter.getServers().contains(server)) {
-            log.info("This server already exists!");
-        } else {
-            dataCenter.addServer(server);
+        if (dataCenter.addServer(server)) {
             log.info("Successfully added this server!");
+        } else {
+            log.info("This server already exists!");
         }
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
-        if (dataCenter.getServers().contains(server)) {
-            dataCenter.removeServer(server);
+        if (dataCenter.removeServer(server)) {
             log.info("Server removed.");
         } else {
             log.info("Server not found in the data center.");
@@ -36,14 +37,20 @@ public class DataCenterService implements OptimizationStrategy {
     public boolean allocateResources(DataCenter dataCenter, ResourceRequest request) {
         double remainingLoad = request.getLoad();
 
-        for (Server server : dataCenter.getServers()) {
+        List<Server> servers = dataCenter.getServers();
+
+        List<Double> originalLoads = new ArrayList<>();
+        for (Server server : servers) {
+            originalLoads.add(server.getLoad());
+        }
+
+        for (Server server : servers) {
             double availableCapacity = server.getMaxLoad() - server.getLoad();
             if (availableCapacity > 0) {
                 double loadToAssign = Math.min(availableCapacity, remainingLoad);
                 server.setLoad(server.getLoad() + loadToAssign);
-                remainingLoad -= loadToAssign;
-
                 server.setEnergyConsumption(server.getLoad() * 1.5);
+                remainingLoad -= loadToAssign;
 
                 if (remainingLoad <= 0) {
                     optimize(dataCenter);
@@ -52,8 +59,13 @@ public class DataCenterService implements OptimizationStrategy {
             }
         }
 
-        log.warn("Not enough capacity to handle the request.");
+        for (int i = 0; i < servers.size(); i++) {
+            Server server = servers.get(i);
+            server.setLoad(originalLoads.get(i));
+            server.setEnergyConsumption(server.getLoad() * 1.5);
+        }
 
+        log.warn("Not enough capacity to handle the request.");
         return false;
     }
 
