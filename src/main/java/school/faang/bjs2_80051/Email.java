@@ -1,0 +1,11 @@
+package school.faang.bjs2_80051;
+
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+public class Email {
+    private String subject;
+    private String body;
+    private boolean isImportant;
+}
