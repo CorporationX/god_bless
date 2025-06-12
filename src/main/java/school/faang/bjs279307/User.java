@@ -14,7 +14,6 @@ public class User {
     private String address;
 
     public static final int MIN_AGE = 18;
-
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
