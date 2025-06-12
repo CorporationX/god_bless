@@ -6,7 +6,7 @@ public class Main {
         notificationManager.registerHandler(NotificationType.PUSH, notification -> {
             System.out.println("Push уведомление: " + notification.getMessage());
         });
-        Strig message = "Бака как ты мог купить 4 пельменя";
+        String message = "Бака как ты мог купить 4 пельменя";
         notificationManager.sendNotification(new Notification(NotificationType.PUSH, message));
         String message = "Вы звонили нам неделю назад с просьбой.\n Она еще актуальна?";
         notificationManager.sendNotification(new Notification(NotificationType.PUSH, message));
