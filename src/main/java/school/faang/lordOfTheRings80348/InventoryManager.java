@@ -18,7 +18,8 @@ public class InventoryManager {
             Item item = iterator.next();
             if (predicate.test(item)) {
                 iterator.remove();
-                System.out.printf("Предмет '%s' удален из инвентаря персонажа '%s' %n", item.getName(), character.getName());
+                System.out.printf("Предмет '%s' удален из инвентаря персонажа '%s' %n",
+                        item.getName(), character.getName());
             }
         }
     }
