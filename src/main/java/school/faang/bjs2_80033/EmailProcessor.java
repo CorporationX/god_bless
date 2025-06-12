@@ -14,6 +14,7 @@ public class EmailProcessor {
             Predicate<Email> filter,
             Consumer<Email> processor,
             Function<Email, String> transformer
+
     ) {
         for (Email email : emails) {
             if (filter.test(email)) {

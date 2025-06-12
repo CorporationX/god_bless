@@ -18,7 +18,6 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-
         Predicate<Email> importantFilter = email -> email.isImportant();
 
         Function<Email, String> toUpperCase = email -> {
@@ -27,13 +26,13 @@ public class Main {
         };
 
         Consumer<Email> printEmail = email -> {
-            log.info("Обработано письмо " + email.getSubject());
+            log.info("Обработано письмо: {} ", email.getSubject());
         };
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        emails.forEach(email -> log.info("Тема: " +
-                email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email -> log.info("Тема: {}, Тело письма: {}",
+                email.getSubject(), email.getBody()));
 
     }
 }
