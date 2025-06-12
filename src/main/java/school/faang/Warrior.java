@@ -14,7 +14,7 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         opponent.health -= WARRIOR_STRENGTH;
         if (opponent.isDeath()) {
-            System.out.println(name + " Победил");
+            System.out.println(name + " Победил ");
         }
     }
 }
