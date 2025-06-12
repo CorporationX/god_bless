@@ -25,9 +25,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        for (Item item : character.getInventory()) {
-            if (predicate.test(item)) {
-                character.getInventory().set(character.getInventory().indexOf(item), function.apply(item));
+
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            if (predicate.test(character.getInventory().get(i))) {
+                character.getInventory().set(i, function.apply(character.getInventory().get(i)));
             }
         }
     }
