@@ -39,6 +39,16 @@ public class DataCenterService implements OptimizationStrategy {
 
         List<Server> servers = dataCenter.getServers();
 
+        double totalAvailableCapacity = 0;
+        for (Server server : servers) {
+            totalAvailableCapacity += server.getMaxLoad() - server.getLoad();
+        }
+
+        if (totalAvailableCapacity < remainingLoad) {
+            log.warn("Not enough total capacity available to handle the request.");
+            return false;
+        }
+
         List<Double> originalLoads = new ArrayList<>();
         for (Server server : servers) {
             originalLoads.add(server.getLoad());
