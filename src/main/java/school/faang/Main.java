@@ -1,4 +1,4 @@
-package school.faang.bjs2_79192;
+package school.faang;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        school.faang.bjs2_79192.Character warrior = new Warrior("Воин");
+        Character warrior = new Warrior("Воин");
         Character archer = new Archer("Лучник");
 
         while (true) {

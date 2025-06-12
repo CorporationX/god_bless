@@ -1,4 +1,4 @@
-package school.faang.bjs2_79192;
+package school.faang;
 
 public class Archer extends Character {
 
