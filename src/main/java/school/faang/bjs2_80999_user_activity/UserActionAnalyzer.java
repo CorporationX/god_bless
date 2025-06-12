@@ -14,7 +14,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> actions, int n) {
         return actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getName))
+                .collect(Collectors.groupingBy(UserAction::name))
                 .entrySet().stream()
                 .sorted(Comparator.comparingInt(a -> -a.getValue().size()))
                 .limit(n)
@@ -26,7 +26,7 @@ public class UserActionAnalyzer {
         Map<String, Integer> hashtagsWithCount = new HashMap<>();
 
         actions.forEach(action ->
-            Arrays.stream(action.getContent().split(" "))
+            Arrays.stream(action.content().split(" "))
                     .filter(w -> w.startsWith("#"))
                     .forEach(tag -> {
                         String strippedTag = tag.replaceAll("[!.?]", "");
@@ -45,9 +45,9 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> actions, int n) {
         List<UserAction> filteredActions = actions.stream()
                 .filter(action ->
-                        action.getActionType() == ActionType.COMMENT
-                                && action.getActionDate().getYear() == LocalDate.now().getYear()
-                                && action.getActionDate().getMonth() == LocalDate.now().getMonth().minus(1)
+                        action.actionType() == ActionType.COMMENT
+                                && action.actionDate().getYear() == LocalDate.now().getYear()
+                                && action.actionDate().getMonth() == LocalDate.now().getMonth().minus(1)
                 )
                 .toList();
         return topActiveUsers(filteredActions, n);
@@ -55,7 +55,7 @@ public class UserActionAnalyzer {
 
     public static Map<ActionType, Double> actionTypePercentages(@NonNull List<UserAction> actions) {
         return actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getActionType))
+                .collect(Collectors.groupingBy(UserAction::actionType))
                 .entrySet()
                 .stream().collect(Collectors.toMap(
                         Map.Entry::getKey,
