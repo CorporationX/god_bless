@@ -8,7 +8,6 @@ public class StudentDatabase {
 
     public Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         studentSubjects.putIfAbsent(student, grades);
         if (!studentSubjects.get(student).equals(grades)) {
