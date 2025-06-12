@@ -17,7 +17,6 @@ public class NotificationManager {
             "блин", "хрен", "бака"
     );
 
-
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlersMap.put(type, handler);
     }
@@ -37,6 +36,7 @@ public class NotificationManager {
         };
         return findFoulLanguage.test(notification);
     }
+    
     protected Notification addSignatureTheMessage(Notification notification) {
         Function<Notification, Notification> addSignature = notif -> {
             String message = notif.getMessage() + "\n\n\nНаша компания желает вам всего самого наилучшего";
