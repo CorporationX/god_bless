@@ -27,11 +27,11 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> newItem) {
-        character.getInventory().replaceAll(e -> {
-            if (condition.test(e)) {
-                newItem.apply(e);
+        character.getInventory().replaceAll(item -> {
+            if (condition.test(item)) {
+                newItem.apply(item);
             }
-            return e;
+            return item;
         });
     }
 }
