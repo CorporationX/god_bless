@@ -32,7 +32,8 @@ public class Main {
 
             for (int i = 0; i < usersOfAge.size(); i++) {
                 User user = usersOfAge.get(i);
-                System.out.println((i + 1) + ". " + user.getName() + " - " + user.getWorkplace() + " (" + user.getAddress() + ")");
+                System.out.println((i + 1) + ". " + user.getName() + " - " +
+                        user.getWorkplace() + " (" + user.getAddress() + ")");
             }
         }
     }
