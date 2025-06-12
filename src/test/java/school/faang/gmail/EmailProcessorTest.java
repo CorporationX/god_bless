@@ -11,23 +11,18 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessorTest {
-    private static EmailProcessor processor;
-
-    @BeforeAll
-    public static void setUp() {
-        processor = new EmailProcessor();
-    }
+    private static EmailProcessor processor = new EmailProcessor();
 
     @Test
-     public void testProcessEmail() {
+    public void testProcessEmail() {
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Predicate<Email> importantFilter = Email::isImportant;
+        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s\n", email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         processor.processEmail(emails, importantFilter, toUpperCase, printEmail);
     }
