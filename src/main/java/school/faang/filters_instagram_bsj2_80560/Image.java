@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Image {
-    String name;
-    String description;
+    private String name;
+    private String description;
 }
