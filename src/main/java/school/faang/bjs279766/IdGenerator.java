@@ -9,6 +9,8 @@ public final class IdGenerator {
     @Setter(AccessLevel.PRIVATE)
     private static int idSequence = 0;
 
+    private IdGenerator() { }
+
     public static int generateId() {
         setIdSequence(getIdSequence() + 1);
         return getIdSequence();
