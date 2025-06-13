@@ -13,7 +13,10 @@ public class EmailProcessor {
                               Consumer<Email> action) {
         emailList.stream()
                 .filter(filter)
-                .peek(transformer::apply)
+                .peek(email -> {
+                    String emailBody = transformer.apply(email);
+                    email.setBody(emailBody);
+                })
                 .forEach(action);
     }
 
