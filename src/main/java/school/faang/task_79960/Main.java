@@ -10,8 +10,8 @@ public class Main {
         productManager.addProduct(Category.FOOD, "Mint");
         productManager.addProduct(Category.FOOD, "Cola");
 
-        productManager.findProductsByCategory(Category.ELECTRONICS).forEach(element -> System.out.println(element.getName()));
-        productManager.findProductsByCategory(Category.FOOD).forEach(element -> System.out.println(element.getName()));
+        productManager.findProductsByCategory(Category.ELECTRONICS);
+        productManager.findProductsByCategory(Category.FOOD);
 
         productManager.printAllProducts();
         productManager.removeProduct(Category.ELECTRONICS, "Ipad");
