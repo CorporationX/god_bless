@@ -11,7 +11,7 @@ public class LibrarySystem {
         locations.putIfAbsent(book, location);
     }
 
-    public  void removeBook(String title, String author, int year) {
+    public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         locations.remove(book);
     }
@@ -21,7 +21,7 @@ public class LibrarySystem {
         System.out.println(locations.getOrDefault(book, "Книга не найде"));
     }
 
-    public void printAllBooks(){
+    public void printAllBooks() {
         locations.forEach(((book, s) -> System.out.println(book.toString() + " " + s)));
     }
 }
