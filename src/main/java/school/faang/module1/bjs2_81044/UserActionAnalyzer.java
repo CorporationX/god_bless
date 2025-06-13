@@ -21,7 +21,7 @@ public class UserActionAnalyzer {
     private static final double PERCENT_MULTIPLIER = 100.0;
     private static final double ROUNDING_FACTOR = 100.0;
 
-    public static List<String> getTopNActiveUsers(List<UserAction> actions, int n) {
+    public static List<String> getTopActiveUsers(List<UserAction> actions, int n) {
         return actions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getName,
@@ -34,7 +34,7 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> getTopNPopularHashtags(List<UserAction> actions, int n) {
+    public static List<String> getTopPopularHashtags(List<UserAction> actions, int n) {
         return actions.stream()
                 .filter(userAction ->
                         userAction.getActionType().equals(COMMENT) || userAction.getActionType().equals(POST))
@@ -61,10 +61,11 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> getTopNCommentersLastMonth(List<UserAction> actions, int n) {
+    public static List<String> getTopCommentersLastMonth(List<UserAction> actions, int n) {
         return actions.stream()
                 .filter(userAction -> userAction.getActionType().equals(COMMENT))
-                .filter(userAction -> userAction.getActionDate().isAfter(LocalDate.now().minusMonths(LAST_MONTHS_INTERVAL)))
+                .filter(userAction ->
+                        userAction.getActionDate().isAfter(LocalDate.now().minusMonths(LAST_MONTHS_INTERVAL)))
                 .collect(Collectors.groupingBy(
                         UserAction::getName,
                         Collectors.counting()
