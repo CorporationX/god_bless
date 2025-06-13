@@ -33,13 +33,9 @@ public class InventoryManager {
         if (updater == null) {
             throw new IllegalArgumentException("Функция обновления (Function<Item, Item>) не может быть null.");
         }
-        List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            Item item = inventory.get(i);
-            if (filter.test(item)) {
-                inventory.set(i, updater.apply(item));
-            }
-        }
+        character.getInventory().replaceAll(
+                item -> filter.test(item) ? updater.apply(item) : item
+        );
     }
 
     private void validateCharacter(Character character) {
