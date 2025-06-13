@@ -28,7 +28,7 @@ public class ListOperations {
 
     public static long countStringsStartingWith(List<String> strings, char c) {
         return strings.stream()
-                .filter(str -> !str.isEmpty() && str.startsWith(String.valueOf(c)))
+                .filter(s -> !s.isEmpty() && s.charAt(0) == c)
                 .count();
     }
 
@@ -53,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > threshold)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше " + threshold));
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %d".formatted(threshold)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
