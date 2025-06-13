@@ -7,15 +7,14 @@ public class Application {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        // Регистрация обработчиков
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.message()));
+                notification -> log.info("Email: {}", notification.message()));
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.message()));
+                notification -> log.info("SMS: {}", notification.message()));
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.message()));
+                notification -> log.info("Push Notification: {}", notification.message()));
 
         notificationManager.setFilter(notification ->
                 !notification.message().toLowerCase().contains("badword")

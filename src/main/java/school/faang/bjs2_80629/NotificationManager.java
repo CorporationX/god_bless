@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 @Slf4j
 public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
-    
+
     @Setter
     private Predicate<Notification> filter = n -> true;
     @Setter
@@ -32,10 +32,11 @@ public class NotificationManager {
         Notification correctedNotification = corrector.apply(notification);
 
         Consumer<Notification> handler = handlers.get(correctedNotification.type());
-        if (handler != null) {
-            handler.accept(correctedNotification);
-        } else {
+        if (handler == null) {
             log.error("No handler registered for type {}", correctedNotification.type());
+            return;
         }
+
+        handler.accept(correctedNotification);
     }
 }
