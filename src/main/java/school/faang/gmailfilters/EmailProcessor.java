@@ -11,10 +11,10 @@ public class EmailProcessor {
                               Predicate<Email> filter,
                               Function<Email, String> transformer,
                               Consumer<Email> action) {
-         emailList.stream()
+        emailList.stream()
                 .filter(filter)
                 .peek(transformer::apply)
-                 .forEach(action);
+                .forEach(action);
     }
 
 }
