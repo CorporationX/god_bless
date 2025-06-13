@@ -26,8 +26,8 @@ public class Product {
         if (!(o instanceof Product p)) {
             return false;
         }
-        return Objects.equals(name, p.name) &&
-                Objects.equals(category, p.category);
+        return Objects.equals(name, p.name)
+                && Objects.equals(category, p.category);
     }
 
     @Override
