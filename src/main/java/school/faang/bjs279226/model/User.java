@@ -1,4 +1,4 @@
-package school.faang.BJS2_79226.model;
+package school.faang.bjs279226.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

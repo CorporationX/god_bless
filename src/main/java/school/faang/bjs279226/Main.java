@@ -1,7 +1,7 @@
-package school.faang.BJS2_79226;
+package school.faang.bjs279226;
 
 import java.util.List;
-import school.faang.BJS2_79226.model.User;
+import school.faang.bjs279226.model.User;
 
 public class Main {
     public static void main(String[] args) {
