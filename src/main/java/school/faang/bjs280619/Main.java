@@ -33,7 +33,8 @@ public class Main {
                 });
         notificationManager.addTransformer(NotificationType.PUSH,
                 notification -> new Notification(notification.getType(),
-                        "[" + java.time.LocalDateTime.now().toString().substring(0, 8) + "] " + notification.getMessage()));
+                        "[" + java.time.LocalDateTime.now().toString().substring(0, 8)
+                                + "] " + notification.getMessage()));
 
         Notification shortEmail = new Notification(NotificationType.EMAIL, "Hi");
         Notification longSms = new Notification(NotificationType.SMS,
