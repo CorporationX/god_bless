@@ -1,6 +1,5 @@
 package school.faang.meta;
 
-
 public enum NotificationType {
-    EMAIL, SMS, PUSH
+    EMAIL, SMS, PUSH, SPAM
 }

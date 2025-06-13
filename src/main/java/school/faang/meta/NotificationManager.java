@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -18,25 +17,28 @@ public class NotificationManager {
 
     private final Map<NotificationType, Consumer<Notification>> notificationTypeConsumerMap = new HashMap<>();
 
-    private final List<String> badWordList = List.of("срань", "какаха", "жупел");
-
     public void registerHandler(NotificationType type, Consumer<Notification> consumer) {
         notificationTypeConsumerMap.put(type, consumer);
     }
 
     public void sendNotification(Notification notification) {
-        System.out.println(notification);
+        Consumer<Notification> consumer = notificationTypeConsumerMap.get(notification.getNotificationType());
+        if (consumer != null) {
+            consumer.accept(notification);
+        } else {
+            System.out.println("Тип оповещения " + notification.getNotificationType() + " не найден!");
+        }
     }
 
-    public void filterNotification(Notification notification, Predicate<Notification> predicate) {
-        predicate.test(notification);
+    public boolean filterNotification(Notification notification, Predicate<Notification> predicate) {
+        return !predicate.test(notification);
     }
 
-    public Function<Notification, Notification> addTextToNotification(String text) {
+    public Function<Notification, Notification> addTextToNotification(Notification incNotification) {
         return notification ->
-                new Notification(
-                        notification.getNotificationType(),
-                        notification.getMessage() + " " + text
+                    new Notification(
+                        incNotification.getNotificationType(),
+                        incNotification.getMessage() + " с уважением от FAANG SCHOOL"
                 );
     }
 

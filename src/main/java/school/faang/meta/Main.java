@@ -6,6 +6,8 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
+        final List<String> badWordList = List.of("срань", "какаха", "жупел");
+
         notificationManager.registerHandler(NotificationType.EMAIL, notification ->
                 System.out.println("Email: " + notification.getMessage()));
 
@@ -15,21 +17,26 @@ public class Main {
         notificationManager.registerHandler(NotificationType.PUSH, notification ->
                 System.out.println("PUSH: " + notification.getMessage()));
 
-        Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован!");
-        Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен!");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "Получено новое сообщение!");
+        notificationManager.registerHandler(NotificationType.SPAM, notification ->
+                System.out.println("SPAM: " + notification.getMessage()));
 
-        List<String> badWordList = List.of("Срань!", "Какаха!", "Жупел!");
+        final Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован!");
+        final Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен!");
+        final Notification pushNotification = new Notification(NotificationType.PUSH, "Получено новое сообщение!");
+        final Notification spamNotification = new Notification(NotificationType.SPAM, "Ты жупел!");
 
+        if (notificationManager.filterNotification(spamNotification, notification ->
+                badWordList.contains(spamNotification.getMessage().toLowerCase()))) {
+            System.out.println("Сообщение заблокировано!");
+        } else {
+            notificationManager.sendNotification(spamNotification);
+        }
 
-        notificationManager.sendNotification(emailNotification);
+        var emailWithTextAdded = notificationManager.addTextToNotification(emailNotification).apply(emailNotification);
+
+        notificationManager.sendNotification(emailWithTextAdded);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
-
-        notificationManager.filterNotification(emailNotification, notification ->
-                badWordList.contains(emailNotification.getMessage().toLowerCase()));
-
-        notificationManager.addTextToNotification("from FAANG SCHOOL");
     }
 
 }
