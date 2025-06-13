@@ -1,8 +1,8 @@
-package school.faang.BJS2_79250;
+package school.faang.bjs279250;
 
-import school.faang.BJS2_79250.model.Archer;
-import school.faang.BJS2_79250.model.Character;
-import school.faang.BJS2_79250.model.Warrior;
+import school.faang.bjs279250.model.Archer;
+import school.faang.bjs279250.model.Character;
+import school.faang.bjs279250.model.Warrior;
 
 public class Main {
     public static void main(String[] args) {
