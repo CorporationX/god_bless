@@ -1,6 +1,6 @@
-package school.faang.BJS2_79228;
+package school.faang.bjs279228;
 
-import school.faang.BJS2_79228.model.User;
+import school.faang.bjs279228.model.User;
 
 import java.util.List;
 import java.util.Set;
