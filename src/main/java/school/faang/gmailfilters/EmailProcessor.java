@@ -1,17 +1,20 @@
 package school.faang.gmailfilters;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public List<Email> processEmails(List<Email> emailList) {
-        return emailList.stream()
-                .filter(Email::isImportant)
-                .peek(email -> System.out.println("Письмо обработано: " + email.getSubject()))
-                .peek(email -> email.setBody(email.getBody().toUpperCase()))
-                .collect(Collectors.toList());
-
+    public void processEmails(List<Email> emailList,
+                              Predicate<Email> filter,
+                              Function<Email, String> transformer,
+                              Consumer<Email> action) {
+         emailList.stream()
+                .filter(filter)
+                .peek(transformer::apply)
+                 .forEach(action);
     }
 
 }

@@ -2,6 +2,9 @@ package school.faang.gmailfilters;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +16,13 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        List<Email> filteredEmails = emailProcessor.processEmails(emails);
+        Predicate<Email> importantFilter = Email::isImportant;
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
-        filteredEmails.forEach(
+        emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
+
+        emails.forEach(
                 email ->
                         System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody())
         );
