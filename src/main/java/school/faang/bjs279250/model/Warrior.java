@@ -1,4 +1,4 @@
-package school.faang.BJS2_79250.model;
+package school.faang.bjs279250.model;
 
 public class Warrior extends Character {
     private static final int DEFAULT_STRENGTH_ATTRIBUTE_VALUE = 10;
