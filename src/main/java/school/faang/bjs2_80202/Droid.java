@@ -5,40 +5,44 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Droid {
 
+    private static final int ALPHABET_LENGTH = 26;
+
+    private static final DroidMessageEncryptor ENCRYPTOR = (msg, shift) -> {
+        StringBuilder result = new StringBuilder();
+        for (char c : msg.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isUpperCase(c) ? 'A' : 'a';
+                char shifted = (char) ((c - base + shift) % ALPHABET_LENGTH + base);
+                result.append(shifted);
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    };
+
+    private static final DroidMessageEncryptor DECRYPTOR = (msg, shift) -> {
+        StringBuilder result = new StringBuilder();
+        for (char c : msg.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isUpperCase(c) ? 'A' : 'a';
+                char shifted = (char) ((c - base - shift + ALPHABET_LENGTH) % ALPHABET_LENGTH + base);
+                result.append(shifted);
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    };
+
     private String name;
 
     public String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, shift) -> {
-            StringBuilder result = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    char shifted = (char) ((c - base + shift) % 26 + base);
-                    result.append(shifted);
-                } else {
-                    result.append(c);
-                }
-            }
-            return result.toString();
-        };
-        return encryptor.apply(message, key);
+        return ENCRYPTOR.apply(message, key);
     }
 
     public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (msg, shift) -> {
-            StringBuilder result = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    char shifted = (char) ((c - base - shift + 26) % 26 + base);
-                    result.append(shifted);
-                } else {
-                    result.append(c);
-                }
-            }
-            return result.toString();
-        };
-        return decryptor.apply(message, key);
+        return DECRYPTOR.apply(message, key);
     }
 
     public void sendMessage(Droid recipient, String message, int key) {
