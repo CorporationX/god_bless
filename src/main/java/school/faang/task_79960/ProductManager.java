@@ -22,7 +22,8 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByCategory(Category category) {
-        List<Product> productList = products.stream().filter(product1 -> product1.getCategory().equals(category)).toList();
+        List<Product> productList = products.stream()
+                .filter(product1 -> product1.getCategory().equals(category)).toList();
         productList.forEach(element -> System.out.println(element.getName()));
         return productList;
     }
