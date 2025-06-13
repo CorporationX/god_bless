@@ -1,6 +1,6 @@
-package school.faang.BJS2_79727;
+package school.faang.bjs279727;
 
-import school.faang.BJS2_79727.model.Book;
+import school.faang.bjs279727.model.Book;
 import java.time.Year;
 
 public class Main {

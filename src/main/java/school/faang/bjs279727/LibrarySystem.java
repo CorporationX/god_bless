@@ -1,11 +1,10 @@
-package school.faang.BJS2_79727;
+package school.faang.bjs279727;
 
-import school.faang.BJS2_79727.model.Book;
+import school.faang.bjs279727.model.Book;
 
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class LibrarySystem {
     private final Map<Book, String> locationByBook = new HashMap<>();
