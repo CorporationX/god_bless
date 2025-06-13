@@ -1,4 +1,4 @@
-package school.faang.BJS2_79257;
+package school.faang.bjs279257;
 
 public class Example {
     public static void reverse(int[] numbers) {
