@@ -7,8 +7,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello BJS2-79727!");
         var librarySystem = new LibrarySystem();
-        var martinEden = new Book("Martin Eden", "Jack London", Year.of(1909));
-        var harryPotter = new Book("Harry Potter", "J.K. Rowling", Year.of(1997));
+        final var harryPotter = new Book("Harry Potter", "J.K. Rowling", Year.of(1997));
         librarySystem.addBook(
                 harryPotter.getTitle(),
                 harryPotter.getAuthor(),
@@ -21,6 +20,7 @@ public class Main {
                 harryPotter.getYear().getValue());
         System.out.printf("Is removed %b%n \n", isRemoved);
         librarySystem.printAllBooks();
+        final var martinEden = new Book("Martin Eden", "Jack London", Year.of(1909));
         librarySystem.addBook(
                 martinEden.getTitle(),
                 martinEden.getAuthor(),
