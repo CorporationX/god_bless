@@ -25,15 +25,15 @@ public class Main {
                         notification.getMessage() + " | Sent by Meta"));
         notificationManager.addTransformer(NotificationType.SMS,
                 notification -> {
-            String message = notification.getMessage();
-            if(message.length() > 50) {
-                message = message.substring(0, 47) + "...";
-            }
-            return new Notification(notification.getType(), message);
+                    String message = notification.getMessage();
+                    if (message.length() > 50) {
+                        message = message.substring(0, 47) + "...";
+                    }
+                    return new Notification(notification.getType(), message);
                 });
         notificationManager.addTransformer(NotificationType.PUSH,
                 notification -> new Notification(notification.getType(),
-                        "[" + java.time.LocalDateTime.now().toString().substring(0,8) + "] " + notification.getMessage()));
+                        "[" + java.time.LocalDateTime.now().toString().substring(0, 8) + "] " + notification.getMessage()));
 
         Notification shortEmail = new Notification(NotificationType.EMAIL, "Hi");
         Notification longSms = new Notification(NotificationType.SMS,
