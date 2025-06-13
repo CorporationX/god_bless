@@ -18,7 +18,7 @@ public class ProductManager {
         }
         var productToAdd = new Product(IdGenerator.generateId(), name, category);
         this.products.add(productToAdd);
-        System.out.printf("The product was added successfully: %s\n", productToAdd);
+        System.out.printf("The product was added successfully: %s%n", productToAdd);
     }
 
     public boolean removeProduct(Category category, String name) {
@@ -40,9 +40,9 @@ public class ProductManager {
     public void printAllProducts() {
         var productsByCategory = this.groupProductsByCategory();
         productsByCategory.forEach((category, products) -> {
-            System.out.printf("Category: %s\n", category);
+            System.out.printf("Category: %s%n", category);
             System.out.println("Products:");
-            products.stream().map(Product::getName).forEach(name -> System.out.printf("- %s\n", name));
+            products.stream().map(Product::getName).forEach(name -> System.out.printf("- %s%n", name));
         });
     }
 }
