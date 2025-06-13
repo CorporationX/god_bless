@@ -1,13 +1,15 @@
-package school.faang.BJS2_79296.model;
+package school.faang.bjs279296.model;
 
 import lombok.Getter;
-import java.util.*;
+
+import java.util.Set;
 
 @Getter
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int MIN_AGE = 18;
+
     private String name;
     private int age;
     private String job;
@@ -19,7 +21,7 @@ public class User {
             throw new IllegalArgumentException(errorMessage);
         }
         if (age < MIN_AGE) {
-            String errorMessage = "Age cannot be lower than 18.";
+            String errorMessage = String.format("Age cannot be lower than %d.", MIN_AGE);
             throw new IllegalArgumentException(errorMessage);
         }
         if (!VALID_JOBS.contains(job)) {

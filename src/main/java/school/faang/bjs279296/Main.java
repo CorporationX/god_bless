@@ -1,6 +1,6 @@
-package school.faang.BJS2_79296;
+package school.faang.bjs279296;
 
-import school.faang.BJS2_79296.model.User;
+import school.faang.bjs279296.model.User;
 
 public class Main {
     public static void main(String[] args) {
