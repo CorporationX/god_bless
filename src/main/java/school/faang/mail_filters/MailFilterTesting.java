@@ -1,4 +1,4 @@
-package school.faang.mailFilters;
+package school.faang.mail_filters;
 
 
 import java.util.Arrays;
@@ -19,8 +19,8 @@ public class MailFilterTesting {
 
         Predicate<Email> importantFilter = email -> email.isImportant();
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        Consumer<Email> printEmail = email -> System.out.println("Название письма: " + email.getSubject() +
-                "\nТекст письма: " + email.getBody());
+        Consumer<Email> printEmail = email -> System.out.printf("Название письма: %s\nТекст письма: %s\n",
+                email.getSubject(), email.getBody());
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
     }

@@ -1,4 +1,4 @@
-package school.faang.mailFilters;
+package school.faang.mail_filters;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
