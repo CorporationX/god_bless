@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,41 +18,36 @@ public class HogwartsSpell {
     private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int spellId = new SpellId(eventType, actionDescription).hashCode();
+        int spellId = (eventType + actionDescription).hashCode();
+        SpellEvent spellEvent = new SpellEvent(spellId, eventType, actionDescription);
 
-        getSpellsById().put(spellId, new SpellEvent(spellId, eventType, actionDescription));
-
-        List<SpellEvent> eventList;
-        if (getSpellsByType().get(eventType) == null) {
-            eventList = new LinkedList<>();
-            eventList.add(new SpellEvent(spellId, eventType, actionDescription));
-        } else {
-            eventList = getSpellsByType().get(eventType);
-            eventList.add(new SpellEvent(spellId, eventType, actionDescription));
-        }
-        getSpellsByType().put(eventType, eventList);
+        getSpellsById().put(spellId, spellEvent);
+        getSpellsByType().computeIfAbsent(eventType, k -> new ArrayList<>()).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
         if (getSpellsById().get(id) == null) {
-            System.out.println("Spell is not found");
+            throw new IllegalArgumentException("Illegal id");
         }
         return getSpellsById().get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         if (getSpellsByType().get(eventType) == null) {
-            System.out.println("Spell is not found");
+            throw new IllegalArgumentException("Illegal type");
         }
-        return spellsByType.get(eventType);
+        return new ArrayList<>(spellsByType.getOrDefault(eventType, Collections.emptyList()));
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEventForDelete = getSpellsById().get(id);
-        List<SpellEvent> spellEventList = getSpellsByType().get(spellEventForDelete.getEventType());
-        spellEventList.remove(spellEventForDelete);
-
-        getSpellsById().remove(id);
+        if (spellEventForDelete != null) {
+            List<SpellEvent> spellEventList = getSpellsByType().get(spellEventForDelete.getEventType());
+            if (spellEventList != null) {
+                spellEventList.remove(spellEventForDelete);
+            }
+            getSpellsById().remove(id);
+        }
     }
 
     public void printAllSpellEvents() {

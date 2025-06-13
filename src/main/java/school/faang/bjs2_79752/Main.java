@@ -9,10 +9,10 @@ public class Main {
         hogwartsSpell.addSpellEvent("Transfiguration", "Teleport");
         hogwartsSpell.printAllSpellEvents();
 
-        System.out.println(hogwartsSpell.getSpellEventById(new SpellId("Fire", "SomethingFire").hashCode()));
+        System.out.println(hogwartsSpell.getSpellEventById(("Fire" + "SomethingFire").hashCode()));
         System.out.println(hogwartsSpell.getSpellEventsByType("Fire"));
 
-        hogwartsSpell.deleteSpellEvent(new SpellId("Fire", "SomethingFire").hashCode());
+        hogwartsSpell.deleteSpellEvent(("Fire" + "SomethingFire").hashCode());
         hogwartsSpell.printAllSpellEvents();
     }
 }
