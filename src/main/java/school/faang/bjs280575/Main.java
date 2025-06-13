@@ -8,7 +8,7 @@ public class Main {
         });
         String message = "Бака как ты мог купить 4 пельменя";
         notificationManager.sendNotification(new Notification(NotificationType.PUSH, message));
-        String message = "Вы звонили нам неделю назад с просьбой.\n Она еще актуальна?";
+        String message2 = "Вы звонили нам неделю назад с просьбой.\n Она еще актуальна?";
         notificationManager.sendNotification(new Notification(NotificationType.PUSH, message));
 
     }
