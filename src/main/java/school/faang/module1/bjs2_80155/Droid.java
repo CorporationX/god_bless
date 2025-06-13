@@ -11,45 +11,36 @@ public class Droid {
 
     private String name;
 
+    private static final int ALPHABET_SIZE = 26;
+
+    private static final DroidMessageEncryptor ENCRYPTOR = Droid::transform;
+    private static final DroidMessageEncryptor DECRYPTOR = (msg, offset) -> transform(msg, -offset);
+
     private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor caesarCipher = (msg, offset) -> {
-            StringBuilder result = new StringBuilder();
-            for (char currentCharacter : msg.toCharArray()) {
-                if (Character.isLetter(currentCharacter)) {
-                    char baseChar = Character.isUpperCase(currentCharacter) ? 'A' : 'a';
-                    int originalAlphabetPosition = currentCharacter - baseChar;
-                    int newAlphabetPosition = (originalAlphabetPosition + offset) % 26;
-                    char newCharacter = (char) (baseChar + newAlphabetPosition);
-                    result.append(newCharacter);
-                } else {
-                    result.append(currentCharacter);
-                }
-            }
-            return result.toString();
-        };
-        return caesarCipher.transformMessage(message, key);
+        return ENCRYPTOR.transformMessage(message, key);
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor caesarDecipher = (msg, offset) -> {
-            StringBuilder result = new StringBuilder();
-            for (char currentCharacter : msg.toCharArray()) {
-                if (Character.isLetter(currentCharacter)) {
-                    char baseChar = Character.isUpperCase(currentCharacter) ? 'A' : 'a';
-                    int originalAlphabetPosition = currentCharacter - baseChar;
-                    int newAlphabetPosition = (originalAlphabetPosition - offset) % 26;
-                    if (newAlphabetPosition < 0) {
-                        newAlphabetPosition += 26;
-                    }
-                    char newCharacter = (char) (baseChar + newAlphabetPosition);
-                    result.append(newCharacter);
-                } else {
-                    result.append(currentCharacter);
+        return DECRYPTOR.transformMessage(message, key);
+    }
+
+    private static String transform(String msg, int offset) {
+        StringBuilder result = new StringBuilder();
+        for (char currentCharacter : msg.toCharArray()) {
+            if (Character.isLetter(currentCharacter)) {
+                char baseChar = Character.isUpperCase(currentCharacter) ? 'A' : 'a';
+                int originalAlphabetPosition = currentCharacter - baseChar;
+                int newAlphabetPosition = (originalAlphabetPosition + offset) % ALPHABET_SIZE;
+                if (newAlphabetPosition < 0) {
+                    newAlphabetPosition += ALPHABET_SIZE;
                 }
+                char newCharacter = (char) (baseChar + newAlphabetPosition);
+                result.append(newCharacter);
+            } else {
+                result.append(currentCharacter);
             }
-            return result.toString();
-        };
-        return caesarDecipher.transformMessage(message, key);
+        }
+        return result.toString();
     }
 
     public void sendMessage(String message, int key, Droid recipient) {
