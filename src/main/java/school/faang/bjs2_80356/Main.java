@@ -14,6 +14,6 @@ public class Main {
                 .equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
 
         frodo.getInventory().forEach(item -> System.out.println(item.getName() +
-                ": стоймость после обновления " + item.getValue()+ " золотых"));
+                ": стоймость после обновления " + item.getValue() + " золотых"));
     }
 }
