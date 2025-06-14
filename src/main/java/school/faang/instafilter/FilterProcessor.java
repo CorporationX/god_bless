@@ -15,7 +15,7 @@ public class FilterProcessor {
             Function<Image, Image> applyFilter,
             Function<Image, Image> baseFilter
     ) {
-        return baseFilter.compose(applyFilter);
+        return baseFilter.andThen(applyFilter);
     }
 
 }
