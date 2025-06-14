@@ -7,17 +7,17 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-
-        users.add(new User("Ivan", 23, "BlastSmoke", "Smolna 51"));
-        users.add(new User("Vova", 19, "BlastSmoke", "Smolna 51"));
-        users.add(new User("Valera", 19, "Lethian", "Smolna 51"));
-        users.add(new User("Kuba", 23, "Vizja", "Soltana 2"));
-        users.add(new User("Jan", 26, "Akademia", "Okopowa 59"));
+        List<User> users = List.of(
+                new User("Ivan", 23, "BlastSmoke", "Smolna 51"),
+                new User("Vova", 19, "BlastSmoke", "Smolna 51"),
+                new User("Valera", 19, "Lethian", "Smolna 51"),
+                new User("Kuba", 23, "Vizja", "Soltana 2"),
+                new User("Jan", 26, "Akademia", "Okopowa 59")
+        );
 
         System.out.println("Список пользователей: ");
         for (int i = 0; i < users.size(); i++) {
-            System.out.println((i + 1) + ". " + users.get(i));
+            System.out.printf("%d. %s%n", (i + 1), users.get(i));
         }
 
         Map<Integer, List<User>> groupedUsers = User.groupUser(users);
@@ -28,12 +28,15 @@ public class Main {
 
         for (Integer age : sortedAges) {
             List<User> usersOfAge = groupedUsers.get(age);
-            System.out.println("Возраст " + age + " лет (" + usersOfAge.size() + " человек):");
+            System.out.printf("Возраст %d лет (%d человек):%n", age, usersOfAge.size());
 
             for (int i = 0; i < usersOfAge.size(); i++) {
                 User user = usersOfAge.get(i);
-                System.out.println((i + 1) + ". " + user.getName() + " - " +
-                        user.getWorkplace() + " (" + user.getAddress() + ")");
+                System.out.printf("%d. %s - %s (%s)%n",
+                        (i + 1),
+                        user.getName(),
+                        user.getWorkplace(),
+                        user.getAddress());
             }
         }
     }

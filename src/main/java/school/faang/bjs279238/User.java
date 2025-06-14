@@ -7,9 +7,11 @@ import java.util.Map;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class User {
     private String name;
     private int age;
@@ -19,18 +21,8 @@ public class User {
     public static Map<Integer, List<User>> groupUser(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            int age = user.getAge();
-
-            if (!groupedUsers.containsKey(age)) {
-                groupedUsers.put(age, new ArrayList<>());
-            }
-            groupedUsers.get(age).add(user);
+            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("User{name='%s', age=%d, workplace='%s', address='%s'}", name, age, workplace, address);
     }
 }
