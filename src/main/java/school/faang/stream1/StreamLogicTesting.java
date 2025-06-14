@@ -17,7 +17,7 @@ public class StreamLogicTesting {
         log.info("All elements bigger than zero = {}",
                 StreamLogic.checkingCondition(numberslist, biggerThanZero));
         log.info("The smallest element that is bigger than {} is {}",
-                3, StreamLogic.biggerThanSomeNumber(numberslist, 3));
+                3, StreamLogic.findBiggerThan(numberslist, 3));
 
 
 
