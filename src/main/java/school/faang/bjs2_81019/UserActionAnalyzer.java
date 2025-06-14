@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
@@ -20,13 +21,15 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int topN) {
+        Pattern pattern = Pattern.compile("\\\\s+");
+        var beginningCharacter = '#';
         Map<String, Long> hashtagToCount = actions.stream()
                 .filter(action ->
                         action.getContent() != null
                                 && ActionType.POST.equals(action.getActionType())
                                 || ActionType.COMMENT.equals(action.getActionType()))
-                .flatMap(action -> Arrays.stream(action.getContent().split("\\\\s+")))
-                .filter(word -> word.startsWith("#"))
+                .flatMap(action -> Arrays.stream(pattern.split(action.getContent())))
+                .filter(word -> word.startsWith(String.valueOf(beginningCharacter)))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         return hashtagToCount.entrySet().stream()
@@ -53,11 +56,12 @@ public class UserActionAnalyzer {
 
     public static Map<ActionType, Double> calculateActionPercentages(List<UserAction> actions) {
         long totalActions = actions.size();
+        double totalPercentage = 100.0;
         Map<ActionType, Long> actionTypeToCount = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
 
         return actionTypeToCount.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry ->
-                        (entry.getValue() * 100.0) / totalActions));
+                        (entry.getValue() * totalPercentage) / totalActions));
     }
 }
