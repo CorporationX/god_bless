@@ -1,6 +1,5 @@
 package school.faang.bjs280542;
 
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Main {
