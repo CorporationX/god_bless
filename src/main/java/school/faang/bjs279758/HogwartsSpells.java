@@ -1,39 +1,40 @@
 package school.faang.bjs279758;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class HogwartsSpells {
-    private HashMap<Integer, SpellEvent> spellById;
-    private HashMap<String, List<SpellEvent>> spellsByType;
-    private int spellId;
-
-    public HogwartsSpells() {
-        spellById = new HashMap<>();
-        spellsByType = new HashMap<>();
-        spellId = 1;
-    }
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private int spellId = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
+        if (eventType == null || eventType.trim().isEmpty()) {
+            log.error("Event type cannot be null or empty");
+            return;
+        }
         int id = spellId++;
         SpellEvent event = new SpellEvent(id, eventType, actionDescription);
         spellById.put(id, event);
         spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(event);
-        System.out.println("Spell event added: " + event);
+        log.info("Spell event added: " + event);
     }
 
     public SpellEvent getSpellEventById(int id) {
         return spellById.get(id);
     }
 
-    public List<SpellEvent> getSpellEventByType(String eventType) {
+    public List<SpellEvent> getSpellEventsByType(String eventType) {
         return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
-    public void deleteSpellEvent(int id) {
+    public boolean deleteSpellEvent(int id) {
         SpellEvent event = spellById.remove(id);
         if (event != null) {
             List<SpellEvent> list = spellsByType.get(event.getEventType());
@@ -43,20 +44,20 @@ public class HogwartsSpells {
                     spellsByType.remove(event.getEventType());
                 }
             }
-            System.out.println("Spell event with id deleted: " + id);
-            System.out.println("Deleted spell: " + event);
+            log.info("Spell event with id deleted: " + id);
+            log.info("Deleted spell: " + event);
+            return true;
         } else {
-            System.out.println("Spell event not found: " + id);
+            log.warn("Spell event not found: " + id);
+            return false;
         }
     }
 
-    public void printAllSpellEvent() {
+    public void printAllSpellEvents() {
         if (spellById.isEmpty()) {
-            System.out.println("No spell event found");
+            log.info("No spell event found");
             return;
         }
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue().toString());
-        }
+        spellById.values().forEach(spell -> log.info(spell.toString()));
     }
 }

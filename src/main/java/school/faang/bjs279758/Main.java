@@ -14,7 +14,7 @@ public class Main {
         System.out.println(foundById != null ? foundById : "Заклинание не найдено");
 
         System.out.println("\nСписок заклинаний по типу 'Чар':");
-        for (SpellEvent spell : spellSystem.getSpellEventByType("Чар")) {
+        for (SpellEvent spell : spellSystem.getSpellEventsByType("Чар")) {
             System.out.println(spell);
         }
 
@@ -22,7 +22,7 @@ public class Main {
         spellSystem.deleteSpellEvent(1);
 
         System.out.println("\nВсе оставшиеся заклинания:");
-        spellSystem.printAllSpellEvent();
+        spellSystem.printAllSpellEvents();
 
         System.out.println("\nПопытка удалить несуществующее заклинание (ID 99):");
         spellSystem.deleteSpellEvent(99);
