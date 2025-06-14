@@ -1,12 +1,12 @@
 package school.faang.double_cash_cash;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Getter
 public class StudentDatabase {
@@ -20,8 +20,8 @@ public class StudentDatabase {
     }
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
-        checkToNull(student, "student");
-        checkToNull(subjects, "subjects");
+        Objects.requireNonNull(student);
+        Objects.requireNonNull(subjects);
 
         if (studentSubjects.containsKey(student)) {
             System.out.printf("student: \"%s\" is already exists\n", student.getName());
@@ -42,9 +42,9 @@ public class StudentDatabase {
     }
 
     public void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        checkToNull(student, "student");
-        checkToNull(subject, "subject");
-        checkToNull(grade, "grade");
+        Objects.requireNonNull(student);
+        Objects.requireNonNull(subject);
+        Objects.requireNonNull(grade);
 
         Map<Subject, Integer> subjects = studentSubjects.computeIfAbsent(student, s -> new HashMap<>());
         if (subjects.containsKey(subject)) {
@@ -64,6 +64,8 @@ public class StudentDatabase {
     }
 
     public void removeStudent(Student student) {
+        Objects.requireNonNull(student);
+
         if (!studentSubjects.containsKey(student)) {
             System.out.printf("student: \"%s\" is not in the database\n", student.getName());
             return;
@@ -90,8 +92,9 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> students) {
-        checkToNull(subject, "subject");
-        checkToNull(students, "students");
+        Objects.requireNonNull(subject);
+        Objects.requireNonNull(students);
+
         if (subjectStudents.containsKey(subject)) {
             System.out.printf("subject: \"%s\" already exists\n", subject.getName());
             return;
@@ -153,12 +156,6 @@ public class StudentDatabase {
                 System.out.printf("---student name: \"%s\"\n", student.getName());
             }
             System.out.println("-----------------------------");
-        }
-    }
-
-    private void checkToNull(Object obj, String name) {
-        if (obj == null) {
-            throw new IllegalArgumentException(name + " is null");
         }
     }
 }

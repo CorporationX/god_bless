@@ -6,10 +6,4 @@ public class ParameterUtil {
             throw new IllegalArgumentException(argName + " can not to be null or empty");
         }
     }
-
-    public static void checkToNull(Object arg, String argName) {
-        if (arg == null) {
-            throw new IllegalArgumentException(argName + " can not to be null or empty");
-        }
-    }
 }

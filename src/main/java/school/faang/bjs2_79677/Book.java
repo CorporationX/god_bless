@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import school.faang.util.ParameterUtil;
-
-import java.util.Objects;
 
 @Getter
 @Setter
