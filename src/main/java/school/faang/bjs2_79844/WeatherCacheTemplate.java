@@ -23,8 +23,7 @@ public abstract class WeatherCacheTemplate {
     }
 
     public WeatherData forceUpdateWeather(String city) {
-        WeatherData data;
-        data = provider.fetchWeatherData(city);
+        WeatherData data = provider.fetchWeatherData(city);
         cache.put(city, data);
         return data;
     }
