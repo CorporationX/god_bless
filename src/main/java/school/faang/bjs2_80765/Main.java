@@ -26,35 +26,51 @@ public class Main {
     }
 
     private static int countSum(List<Integer> nums) {
-        return nums.stream().reduce(0, Integer::sum);
+        return nums.stream()
+                .reduce(0, Integer::sum);
     }
 
     private static int findMax(List<Integer> nums) {
-        return nums.stream().max(Comparator.comparingInt(num -> num)).orElse(Integer.MAX_VALUE);
+        return nums.stream()
+                .max(Comparator.comparingInt(num -> num))
+                .orElseThrow(() -> new IllegalArgumentException("Empty list passed"));
     }
 
     private static double countAverage(List<Integer> nums) {
-        return nums.stream().mapToInt(Integer::intValue).average().orElse(0.0);
+        return nums.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new IllegalArgumentException("Empty list passed"));
     }
 
     private static long countStringsStartingWith(List<String> strings, char letter) {
-        return strings.stream().filter(string -> string.startsWith(String.valueOf(letter))).count();
+        return strings.stream()
+                .filter(string -> string.startsWith(String.valueOf(letter)))
+                .count();
     }
 
     private static List<String> filteredStringsBySubString(List<String> strings, String subString) {
-        return strings.stream().filter(string -> string.contains(subString)).toList();
+        return strings.stream()
+                .filter(string -> string.contains(subString))
+                .toList();
     }
 
     private static List<String> sortedStrings(List<String> strings) {
-        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
+        return strings.stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     private static boolean allMatchCondition(List<Integer> nums, Predicate<Integer> filter) {
-        return nums.stream().allMatch(filter);
+        return nums.stream()
+                .allMatch(filter);
     }
 
     private static int findMinBeforeNum(List<Integer> nums, int target) {
-        return nums.stream().filter(num -> num > target).mapToInt(Integer::intValue).min().orElse(Integer.MAX_VALUE);
+        return nums.stream()
+                .filter(num -> num > target).mapToInt(Integer::intValue)
+                .min()
+                .orElseThrow(() -> new IllegalArgumentException("Empty list passed"));
     }
 
     private static List<Integer> convertToLengths(List<String> strings) {
