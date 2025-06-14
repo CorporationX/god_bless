@@ -2,10 +2,12 @@ package school.faang.bjs279923;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import java.util.Objects;
 
 @AllArgsConstructor
+@Setter
 @Getter
 @ToString
 public class Product {
