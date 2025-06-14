@@ -45,7 +45,7 @@ public class StreamMethod2 {
                             return false;
                         }
                     }
-                    return true;})
+                    return true; })
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
