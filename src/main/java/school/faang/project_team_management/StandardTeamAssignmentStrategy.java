@@ -14,7 +14,7 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
             if (skills.isEmpty()) {
                 break;
             }
-            if (skills.containsAll(employee.getSkills())) {
+            if (employee.getSkills().containsAll(skills)) {
                 staffForTheProject.add(employee);
                 skills.removeAll(employee.getSkills());
                 continue;

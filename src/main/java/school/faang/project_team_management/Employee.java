@@ -16,6 +16,4 @@ public class Employee {
         this.id = ++count;
         this.name = name;
     }
-
-
 }

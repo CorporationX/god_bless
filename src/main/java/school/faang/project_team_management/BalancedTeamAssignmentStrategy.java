@@ -23,7 +23,7 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
             if (countProject >= MAX_PROJECT) {
                 continue;
             }
-            if (skills.containsAll(employee.getSkills())) {
+            if (employee.getSkills().containsAll(skills)) {
                 staffForTheProject.add(employee);
                 skills.removeAll(employee.getSkills());
                 employeeMap.put(employee, ++countProject);
