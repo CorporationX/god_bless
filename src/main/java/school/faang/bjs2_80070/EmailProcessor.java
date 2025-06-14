@@ -6,15 +6,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emailList, Predicate<Email> emailFilter,
-                              Function<Email, String> transformEmail, Consumer<Email> emailHandler) {
-        for (Email email : emailList) {
-            if (!emailFilter.test(email)) {
-                continue;
+    public void processEmails(List<Email> emails,
+                              Predicate<Email> filter,
+                              Function<Email, String> transformer,
+                              Consumer<Email> handler) {
+        for (Email email : emails) {
+            if (filter.test(email)) {
+                String newBody = transformer.apply(email);
+                email.setBody(newBody);
+                handler.accept(email);
             }
-            String newBody = transformEmail.apply(email);
-            email.setBody(newBody);
-            emailHandler.accept(email);
         }
     }
 }
