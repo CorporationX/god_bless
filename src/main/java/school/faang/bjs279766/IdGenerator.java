@@ -9,7 +9,7 @@ public final class IdGenerator {
     @Setter(AccessLevel.PRIVATE)
     private static int idSequence = 0;
 
-    private IdGenerator() { }
+    private IdGenerator() {}
 
     public static int generateId() {
         setIdSequence(getIdSequence() + 1);
