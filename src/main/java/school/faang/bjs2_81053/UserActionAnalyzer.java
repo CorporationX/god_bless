@@ -123,7 +123,7 @@ public class UserActionAnalyzer {
 
     public static List<String> topActiveUsers(List<UserAction> actions, int n) {
         return actions.stream()
-                .collect(Collectors.groupingBy(a -> a.name, Collectors.counting()))
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(n)
@@ -135,9 +135,9 @@ public class UserActionAnalyzer {
         Pattern hashtagPattern = Pattern.compile("#\\w+");
 
         return actions.stream()
-                .filter(a -> a.actionType == ActionType.POST || a.actionType == ActionType.COMMENT)
+                .filter(a -> a.getActionType() == ActionType.POST || a.getActionType() == ActionType.COMMENT)
                 .flatMap(a -> {
-                    Matcher matcher = hashtagPattern.matcher(a.content);
+                    Matcher matcher = hashtagPattern.matcher(a.getContent());
                     List<String> hashtags = new ArrayList<>();
                     while (matcher.find()) {
                         hashtags.add(matcher.group().toLowerCase());
@@ -157,9 +157,9 @@ public class UserActionAnalyzer {
         LocalDate monthAgo = now.minusMonths(1);
 
         return actions.stream()
-                .filter(a -> a.actionType == ActionType.COMMENT)
-                .filter(a -> !a.actionDate.isBefore(monthAgo) && !a.actionDate.isAfter(now))
-                .collect(Collectors.groupingBy(a -> a.name, Collectors.counting()))
+                .filter(a -> a.getActionType() == ActionType.COMMENT)
+                .filter(a -> !a.getActionDate().isBefore(monthAgo) && !a.getActionDate().isAfter(now))
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(n)
@@ -171,16 +171,15 @@ public class UserActionAnalyzer {
         long total = actions.size();
 
         Map<ActionType, Long> counts = actions.stream()
-                .collect(Collectors.groupingBy(a -> a.actionType, Collectors.counting()));
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
 
-        Map<String, Double> percentages = new LinkedHashMap<>();
-
-        for (ActionType type : ActionType.values()) {
-            long count = counts.getOrDefault(type, 0L);
-            double percent = total == 0 ? 0.0 : (count * 100.0) / total;
-            percentages.put(type.name(), percent);
-        }
-
-        return percentages;
+        return Arrays.stream(ActionType.values())
+                .collect(Collectors.toMap(
+                        ActionType::name,
+                        type -> total == 0 ? 0.0 : (counts.getOrDefault(type, 0L) * 100.0) / total,
+                        (a, b) -> b,
+                        LinkedHashMap::new
+                ));
     }
+
 }

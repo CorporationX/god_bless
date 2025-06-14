@@ -1,6 +1,7 @@
 package school.faang.bjs2_81053;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 @ToString
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserAction {
     int id;
     String name;
