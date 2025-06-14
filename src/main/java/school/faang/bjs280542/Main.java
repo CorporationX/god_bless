@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
         FilterProcessor filterProcessor = new FilterProcessor();
-        Function<Image, Image> grayscaleFilter = (image -> {
-            String filter = " | Фильтр: черно-белый";
+        Function<Image, Image> grayFilter = (image -> {
+            String filter = " | Фильтр: cерый";
             return new Image(image.getName(), image.getDescription() + filter);
         });
         Function<Image, Image> sepiaFilter = (image -> {
