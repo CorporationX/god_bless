@@ -7,25 +7,27 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public void addItem(List<Item> inventory, Item itemToAdd, Consumer<Item> itemToAddAction) {
-        inventory.add(itemToAdd);
-        itemToAddAction.accept(itemToAdd);
+    public void addItem(List<Item> inventory, Item item, Consumer<Item> action) {
+        inventory.add(item);
+        action.accept(item);
     }
 
-    public void removeItem(List<Item> inventory, Predicate<Item> itemToRemoveAction) {
+    public void removeItem(List<Item> inventory, Predicate<Item> filter) {
         Iterator<Item> itemIterator = inventory.iterator();
         while (itemIterator.hasNext()) {
             Item item = itemIterator.next();
-            if (itemToRemoveAction.test(item)) {
+            if (filter.test(item)) {
                 itemIterator.remove();
             }
         }
     }
 
     public void updateItem(List<Item> inventory, Predicate<Item> itemToFind, Function<Item, Item> updateItem) {
-        for (Item item : inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (itemToFind.test(item)) {
-                updateItem.apply(item);
+                Item updated = updateItem.apply(item);
+                inventory.set(i, updated);
             }
         }
     }
