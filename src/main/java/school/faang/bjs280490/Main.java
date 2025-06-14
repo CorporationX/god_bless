@@ -1,12 +1,11 @@
 package school.faang.bjs280490;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Function;
-import java.util.logging.Logger;
 
-
+@Slf4j
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
@@ -18,13 +17,13 @@ public class Main {
                 new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        logger.info(grayscaleImage.getDescription());
+        log.info(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        logger.info(sepiaImage.getDescription());
+        log.info(sepiaImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        logger.info(combinedImage.getDescription());
+        log.info(combinedImage.getDescription());
     }
 }
