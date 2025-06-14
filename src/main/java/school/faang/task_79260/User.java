@@ -14,15 +14,16 @@ public class User {
     private String job;
     private String address;
 
-    private static final List<String> VALID_JOBS = Arrays.asList("Google", "Uber", "Amazon");
-    private static final List<String> VALID_ADDRESSES = Arrays.asList("London", "New York", "Amsterdam");
+    private static final int VALID_AGE = 18;
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
 
-        if (age < 18) {
+        if (age < VALID_AGE) {
             throw new IllegalArgumentException("Age cannot be less than 18");
         }
 
