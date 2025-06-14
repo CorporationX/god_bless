@@ -1,9 +1,16 @@
 package school.faang.bjs279766;
 
-public final class EventType {
-    public static final String PROTECTION = "Protection";
-    public static final String ATTACK = "Attack";
-    public static final String ENCHANTMENT = "Enchantment";
+import lombok.Getter;
 
-    private EventType() {}
+public enum EventType {
+    PROTECTION("Protection"),
+    ATTACK("Attack"),
+    ENCHANTMENT("Enchantment");
+
+    @Getter()
+    private final String label;
+
+    EventType(String label) {
+        this.label = label;
+    }
 }

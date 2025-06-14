@@ -13,4 +13,8 @@ public class SpellEvent {
         this.action = action;
         this.id = IdGenerator.generateId();
     }
+
+    public SpellEvent(EventType eventType, String action) {
+        this(eventType.getLabel(), action);
+    }
 }
