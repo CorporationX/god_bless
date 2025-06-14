@@ -29,8 +29,9 @@ public abstract class WeatherCacheTemplate {
     }
 
     private WeatherData forceUpdateWeather(String city) {
-        weatherData.put(city, provider.fetchWeatherData(city));
+        WeatherData cash = provider.fetchWeatherData(city);
+        weatherData.put(city, cash);
         System.out.printf("Данные по городу \"%s\" обновлены\n", city);
-        return weatherData.get(city);
+        return cash;
     }
 }

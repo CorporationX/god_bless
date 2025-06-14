@@ -3,8 +3,9 @@ package school.faang.caching;
 import java.util.Random;
 
 public class WeatherService implements WeatherProvider {
+    private static final Random GENERATOR = new Random();
+
     public WeatherData fetchWeatherData(String city) {
-        Random generator = new Random();
-        return new WeatherData(city, generator.nextDouble(), generator.nextDouble(), System.currentTimeMillis());
+        return new WeatherData(city, GENERATOR.nextDouble(), GENERATOR.nextDouble(), System.currentTimeMillis());
     }
 }
