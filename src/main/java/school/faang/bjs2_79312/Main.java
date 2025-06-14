@@ -1,11 +1,10 @@
-package school.faang;
+package school.faang.bjs2_79312;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.User.TEXT_AGE;
-import static school.faang.User.groupUsers;
+import static school.faang.bjs2_79312.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
