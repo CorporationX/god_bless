@@ -13,6 +13,7 @@ public class HogwartsSpell {
     public void addSpellEvent(EventType eventType, String actionDescription) {
         addSpellEvent(eventType.getLabel(), actionDescription);
     }
+
     public void addSpellEvent(String eventType, String actionDescription) {
         var spellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(spellEvent.getId(), spellEvent);
