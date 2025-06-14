@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    private Map<Book, String> library;
-
-    public LibrarySystem() {
-        library = new HashMap<>();
-    }
+    private final Map<Book, String> library = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -32,7 +28,7 @@ public class LibrarySystem {
         String location = library.get(book);
 
         if (location != null) {
-            System.out.println("Book found: " + location + "!");
+            System.out.printf("Book found: %s!%n", location);
         } else {
             System.out.println("Book not found!");
         }
@@ -46,7 +42,11 @@ public class LibrarySystem {
         for (Map.Entry<Book, String> entry : library.entrySet()) {
             Book book = entry.getKey();
             String location = entry.getValue();
-            System.out.println(book.getTitle() + " " + book.getAuthor() + " " + book.getYear() + " " + location);
+            System.out.printf("%s %s %d %s%n",
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getYear(),
+                    location);
         }
     }
 }
