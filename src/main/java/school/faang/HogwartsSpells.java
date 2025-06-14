@@ -10,6 +10,7 @@ public class HogwartsSpells {
     Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     Integer id = 0;
+
     public void addSpellEvent(String eventType, String actionDescription) {
 
         spellById.put(id, new SpellEvent(id, eventType, actionDescription));
@@ -39,6 +40,7 @@ public class HogwartsSpells {
     }
 
     public void printAllSpellEvents() {
-        spellById.forEach((key, value) -> System.out.println("id: " + value.getId() + " тип: " + value.getEventType() + " действие " + value.getAction()));
+        spellById.forEach((key, value) -> System.out.println("id: " + value.getId() +
+                " тип: " + value.getEventType() + " действие " + value.getAction()));
     }
 }
