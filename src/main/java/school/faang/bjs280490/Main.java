@@ -1,8 +1,12 @@
 package school.faang.bjs280490;
 
 import java.util.function.Function;
+import java.util.logging.Logger;
+
 
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
@@ -14,13 +18,13 @@ public class Main {
                 new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        System.out.println(grayscaleImage.getDescription());
+        logger.info(grayscaleImage.getDescription());
 
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        System.out.println(sepiaImage.getDescription());
+        logger.info(sepiaImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.getDescription());
+        logger.info(combinedImage.getDescription());
     }
 }
