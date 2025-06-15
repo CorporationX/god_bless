@@ -22,9 +22,9 @@ public abstract class WeatherCacheTemplate {
                 return newData;
             }
         } else {
-            log.warn("Такого города нет");
-            //Нормально ли вернуть null?
-            return null;
+            WeatherData newData = weatherProvider.fetchWeatherData(city);
+            weatherDataCache.put(city, newData);
+            return newData;
         }
     }
 

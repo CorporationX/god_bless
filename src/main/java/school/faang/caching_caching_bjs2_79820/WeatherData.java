@@ -7,11 +7,12 @@ public class WeatherData {
     private String city;
     private double temperature;
     private double humidity;
-    private long timestamp = System.currentTimeMillis();
+    private long timestamp;
 
-    WeatherData(String city, double temperature, double humidity) {
+    public WeatherData(String city, double temperature, double humidity, long timestamp) {
         this.city = city;
         this.humidity = humidity;
         this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 }
