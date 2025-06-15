@@ -11,16 +11,8 @@ public class MailSender {
     private static final int TOTAL_MAILS = 1000;
 
     public static void main(String[] args) {
-        int batchesCount = (int) Math.ceil((double) TOTAL_MAILS / BATCH_COUNT);
-        List<Thread> senderThreads = new ArrayList<>();
-
-        for (int i = 0; i < batchesCount; i++) {
-            int startIndex = i * BATCH_COUNT;
-            int endIndex = Math.min(startIndex + BATCH_COUNT, TOTAL_MAILS) - 1;
-            Thread sender = new Thread(new SenderRunnable(startIndex, endIndex));
-            senderThreads.add(sender);
-            sender.start();
-        }
+        List<Thread> senderThreads = generateBatchedSenderThreads();
+        senderThreads.forEach(Thread::start);
 
         for (Thread sender : senderThreads) {
             try {
@@ -32,5 +24,19 @@ public class MailSender {
         }
 
         log.info("All emails processed.");
+    }
+
+    private static List<Thread> generateBatchedSenderThreads() {
+        List<Thread> senderThreads = new ArrayList<>();
+        int batchesCount = (int) Math.ceil((double) TOTAL_MAILS / BATCH_COUNT);
+
+        for (int i = 0; i < batchesCount; i++) {
+            int startIndex = i * BATCH_COUNT;
+            int endIndex = Math.min(startIndex + BATCH_COUNT, TOTAL_MAILS) - 1;
+            Thread sender = new Thread(new SenderRunnable(startIndex, endIndex));
+            senderThreads.add(sender);
+        }
+
+        return senderThreads;
     }
 }
