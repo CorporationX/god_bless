@@ -1,10 +1,7 @@
 package school.faang.module1.bjs2_81044;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,7 +41,7 @@ public class UserActionAnalyzer {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -71,7 +68,7 @@ public class UserActionAnalyzer {
                         Collectors.counting()
                 ))
                 .entrySet().stream()
-                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(n)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
