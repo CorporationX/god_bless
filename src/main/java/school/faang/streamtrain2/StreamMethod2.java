@@ -20,9 +20,9 @@ public class StreamMethod2 {
     }
 
     public static List<String> alphabetSortedCapitals(Map<String, String> capitals) {
-        return capitals.keySet().stream()
-                .sorted()
-                .map(country -> capitals.get(country))
+        return capitals.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
