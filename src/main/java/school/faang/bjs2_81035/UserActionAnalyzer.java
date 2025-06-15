@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 public class UserActionAnalyzer {
 
-
     public static List<String> topActiveUsers(List<UserAction> users, int limit) {
         if (isInvalidUsers(users)) {
             return Collections.emptyList();
