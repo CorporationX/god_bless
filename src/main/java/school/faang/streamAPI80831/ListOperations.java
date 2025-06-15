@@ -40,4 +40,5 @@ public class ListOperations {
     public static List<Integer> convertToLengths(List<String> list) {
         return list.stream().map(String::length).toList();
     }
+
 }
