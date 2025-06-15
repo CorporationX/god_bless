@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -16,9 +17,10 @@ public class ListOperations {
         return result.orElse(0);
     }
 
-    public static int sumInt1(List<Integer> nums) {
+    public static int sumOfEvenNumbersAlternative(@NonNull List<Integer> nums) {
         return nums.stream()
                 .mapToInt(Integer::intValue)
+                .filter(num -> num % 2 == 0)
                 .sum();
     }
 
@@ -42,31 +44,33 @@ public class ListOperations {
                 .count();
     }
 
-    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
+    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings,
+                                                                @NonNull String substring) {
         return strings.stream()
                 .filter(str -> str.contains(substring))
                 .toList();
     }
 
-    public static List<String> sortByLength(List<String> strings) {
+    public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean allMatchCondition(List<Integer> nums, Predicate<Integer> filter) {
+    public static boolean allMatchCondition(@NonNull List<Integer> nums, @NonNull Predicate<Integer> filter) {
         return nums.stream()
-                .anyMatch(num -> !filter.test(num));
+                .allMatch(num -> filter.test(num));
     }
 
-    public static int findMinGreaterThan(List<Integer> nums, int min) {
-        return nums.stream().mapToInt(Integer::intValue)
+    public static int findMinGreaterThan(@NonNull List<Integer> nums, int min) {
+        return nums.stream()
+                .mapToInt(Integer::intValue)
                 .filter(num -> num > min)
                 .min()
-                .orElse(min);
+                .orElseThrow(() -> new NoSuchElementException("not found"));
     }
 
-    public static List<Integer> convertToLengths(List<String> strings) {
+    public static List<Integer> convertToLengths(@NonNull List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();
