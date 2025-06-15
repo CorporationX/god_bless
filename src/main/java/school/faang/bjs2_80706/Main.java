@@ -52,8 +52,10 @@ public class Main {
     }
 
     private static List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
+        String regex = "[" + alphabet + "]+";
+
         return strings.stream()
-                .filter(s -> s.matches("[" + alphabet + "]+"))
+                .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
