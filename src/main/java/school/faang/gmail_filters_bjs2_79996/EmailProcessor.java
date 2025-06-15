@@ -7,17 +7,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public List<Email> processEmails(List<Email> emails, Predicate<Email> predicate,
-                                     Consumer<Email> consumer, Function<Email, String> function) {
+    public void processEmails(List<Email> emails, Predicate<Email> predicate,
+                                     Consumer<Email> action, Function<Email, String> transformer) {
         List<Email> result = new ArrayList<>();
         for (Email email : emails) {
             if (predicate.test(email)) {
-                String newBody = function.apply(email);
+                String newBody = transformer.apply(email);
                 email.setBody(newBody);
-                consumer.accept(email);
+                action.accept(email);
                 result.add(email);
             }
         }
-        return result;
     }
 }
