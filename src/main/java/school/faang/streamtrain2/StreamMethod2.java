@@ -1,26 +1,28 @@
 package school.faang.streamtrain2;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StreamMethod2 {
     public static Map<Integer, Integer> getPairsWithSum(Set<Integer> numbers, int sum) {
-        Map<Integer, Integer> pairsMap = new HashMap<>();
-        numbers.stream()
+        return numbers.stream()
                 .filter(number -> {
                     int complement = sum - number - 1;
                     return number <= complement && numbers.contains(complement);
                 })
-                .forEach(number -> pairsMap.put(number, sum - number));
-        return pairsMap;
+                .collect(Collectors.toMap(
+                        number -> number,
+                        number -> sum - number
+                ));
     }
 
     public static List<String> alphabetSortedCapitals(Map<String, String> capitals) {
-        return capitals.values().stream()
+        return capitals.keySet().stream()
                 .sorted()
+                .map(country -> capitals.get(country))
                 .toList();
     }
 
@@ -38,14 +40,9 @@ public class StreamMethod2 {
     }
 
     public static List<String> filterLines(List<String> lines, String alphabet) {
+        String regex = "[" + alphabet + "]+";
         return lines.stream()
-                .filter(line -> {
-                    for (int i = 0; i < line.length(); i++) {
-                        if (!alphabet.contains("" + line.charAt(i))) {
-                            return false;
-                        }
-                    }
-                    return true; })
+                .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
