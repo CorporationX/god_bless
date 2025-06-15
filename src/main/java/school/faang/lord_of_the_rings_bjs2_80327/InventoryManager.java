@@ -1,5 +1,6 @@
 package school.faang.lord_of_the_rings_bjs2_80327;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -10,22 +11,15 @@ import java.util.function.Predicate;
 @SuppressWarnings("checkstyle:CommentsIndentation")
 @Slf4j
 public class InventoryManager {
-    public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        if (character != null && item != null) {
-            List<Item> inventory = character.getInventory();
-            inventory.add(item);
-        } else {
-            log.warn("Предмет или персонаж не может быть null");
-        }
+    public void addItem(@NonNull Character character, @NonNull Item item, Consumer<Item> consumer) {
+        List<Item> inventory = character.getInventory();
+        inventory.add(item);
+        consumer.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> predicate) {
-        if (character != null) {
-            List<Item> inventory = character.getInventory();
-            inventory.remove(predicate);
-        } else {
-            log.warn("Предмет или персонаж не может быть null");
-        }
+    public void removeItem(@NonNull Character character, Predicate<Item> predicate) {
+        List<Item> inventory = character.getInventory();
+        inventory.removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
