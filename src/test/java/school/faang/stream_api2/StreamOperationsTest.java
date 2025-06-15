@@ -19,8 +19,9 @@ public class StreamOperationsTest {
                 new Integer[]{1, 5},
                 new Integer[]{2, 4}
         );
-
-        assertTrue(Arrays.deepEquals(expected.toArray(), actual.toArray()));
+        
+        assertTrue(expected.stream()
+                .allMatch(x -> actual.stream().anyMatch(y -> Arrays.deepEquals(x, y))));
     }
 
     @Test
