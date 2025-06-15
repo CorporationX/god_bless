@@ -13,25 +13,28 @@ public class Main {
         mapper.registerModule(new JavaTimeModule());
         try {
             InputStream isProfiles = Main.class.getClassLoader().getResourceAsStream("BJS2-80767/user_profiles.json");
-            List<UserProfile> userProfiles = mapper.readValue(isProfiles, new TypeReference<List<UserProfile>>() {
+            List<UserProfile> userProfiles = mapper.readValue(isProfiles, new TypeReference<>() {
             });
 
             InputStream isProducts = Main.class.getClassLoader().getResourceAsStream("BJS2-80767/products.json");
-            List<Product> products = mapper.readValue(isProducts, new TypeReference<List<Product>>() {
+            List<Product> products = mapper.readValue(isProducts, new TypeReference<>() {
             });
 
             InputStream isOrders = Main.class.getClassLoader().getResourceAsStream("BJS2-80767/product_orders.json");
-            List<ProductOrder> orders = mapper.readValue(isOrders, new TypeReference<List<ProductOrder>>() {
+            List<ProductOrder> orders = mapper.readValue(isOrders, new TypeReference<>() {
             });
 
             RecommendationService recommendationService = new RecommendationService(userProfiles, products, orders);
 
             List<Product> interestMatches = recommendationService.getProductRecommendationsByUserInterests(4);
-//            System.out.println(interestMatches);
+            System.out.println("User interest based matches: ");
+            System.out.println(interestMatches);
 
             List<Product> profileBasedMatches = recommendationService.getProductsFromSimilarUsers(1);
-//            System.out.println(profileBasedMatches);
+            System.out.println("Similar user based matches: ");
+            System.out.println(profileBasedMatches);
 
+            System.out.println("Best categories for user: ");
             System.out.println(recommendationService.bestCategory(16));
 
         } catch (Exception e) {
