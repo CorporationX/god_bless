@@ -13,11 +13,12 @@ public class Main {
         System.out.println("среднее арифметическое: " + ListOfOperations.averageOfNumbers(numbers));
         System.out.println("количество слов начинающихся на 'd' : " + ListOfOperations.amountStringStartWith(strings,
                 'd'));
-        System.out.println("слова содержащие 'da' : " + ListOfOperations.stringWith(strings, "da"));
-        System.out.println("слова по длине символов: " + ListOfOperations.filterStrings(strings));
+        System.out.println("слова содержащие 'da' : " + ListOfOperations.filterBySubstring(strings, "da"));
+        System.out.println("слова по длине символов: " + ListOfOperations.sortByLength(strings));
         System.out.println("сумма чисел равна 50? " + ListOfOperations.allMatchCondition(numbers,
                 number -> ListOfOperations.sumOfNumbers(numbers) == 50));
-        System.out.println("минимальное число после 5 из списка: " + ListOfOperations.minNumber(numbers, 5));
+        System.out.println("минимальное число после 5 из списка: " +
+                ListOfOperations.findMinGreaterThan(numbers, 5));
         System.out.println("длины строк: " + ListOfOperations.mapToStringLength(strings));
     }
 }
