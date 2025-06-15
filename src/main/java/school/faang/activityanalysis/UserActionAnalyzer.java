@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    public static List<String> getTopNUsers(List<UserAction> userActions, int n) {
+    public static List<String> getTopUsers(List<UserAction> userActions, int n) {
         Map<Integer, Long> usersMap = userActions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getId, Collectors.counting()
@@ -18,7 +18,8 @@ public class UserActionAnalyzer {
 
     public static List<String> mostPopularHashtags(List<UserAction> userActions, int n) {
         return userActions.stream()
-                .filter(action -> action.getActionType() == ActionType.POST || action.getActionType() == ActionType.COMMENT)
+                .filter(action -> action.getActionType() == ActionType.POST
+                        || action.getActionType() == ActionType.COMMENT)
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
                 .map(word -> word.replaceAll("\\p{Punct}+$", ""))
                 .filter(word -> word.startsWith("#"))
