@@ -4,7 +4,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 /**
@@ -23,16 +25,19 @@ public class ListOperations {
     public static int findMax(@NonNull List<Integer> integers) {
         return integers.stream()
                 .max(Integer::compare)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Максимальное значение не найдено"));
     }
 
     public static double findAverage(@NonNull List<Integer> integers) {
-        return (double) integers.stream().reduce(0, Integer::sum) / integers.size();
+        return integers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
     }
 
     public static long countStringsStartingWith(@NonNull List<String> strings, char prefix) {
         return strings.stream()
-                .filter(s -> s.charAt(0) == prefix)
+                .filter(s -> !s.isEmpty() && s.charAt(0) == prefix)
                 .count();
     }
 
@@ -44,7 +49,7 @@ public class ListOperations {
 
     public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
-                .sorted()
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
@@ -56,7 +61,7 @@ public class ListOperations {
         return integers.stream()
                 .filter(i -> i > max)
                 .min(Integer::compare)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %d".formatted(max)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
