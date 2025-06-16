@@ -2,29 +2,50 @@ package school.faang.social_media.analytics;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import school.faang.social_media.analytics.entity.ActionType;
 import school.faang.social_media.analytics.entity.UserAction;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserActionAnalyzerTest {
     private static List<UserAction> actions;
 
     @Test
     public void testTopActiveUsers() {
-        List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, 10);
-        System.out.println(top10Users);
+        var expected = List.of("Alice", "Bob", "Charlie", "Dave", "Eve");
+        var actual = UserActionAnalyzer.topActiveUsers(actions, 10);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testTopPopularHashtags() {
-        List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
-        System.out.println(top5Hashtags);
+        var expected = List.of("#update", "#feature", "#conference", "#Java", "#newfeature");
+        var actual = UserActionAnalyzer.topPopularHashtags(actions, 5);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTopCommentersLastMonth() {
+        var expected = List.of("Bob", "Charlie", "Dave", "Eve", "Alice");
+        var actual = UserActionAnalyzer.topCommentersLastMonth(actions, 5);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testActionTypePercentages() {
+        var expected = Map.of(
+                "LIKE", 26.53061224489796,
+                "POST", 26.53061224489796,
+                "SHARE", 20.408163265306122,
+                "COMMENT", 26.53061224489796
+        );
+
+        var actual = UserActionAnalyzer.actionTypePercentages(actions);
+        assertEquals(expected, actual);
     }
 
     @BeforeAll
