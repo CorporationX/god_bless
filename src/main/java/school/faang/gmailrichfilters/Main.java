@@ -38,6 +38,5 @@ public class Main {
         emailProcessor.processEmails(emails, importantAndNoSpam, upperCaseAndSignature, printEmail);
 
         emails.forEach(email -> log.info("Тема: {}, Тело письма: {}", email.getSubject(), email.getBody()));
-
     }
 }

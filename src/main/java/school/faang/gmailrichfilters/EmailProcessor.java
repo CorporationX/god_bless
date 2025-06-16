@@ -6,12 +6,14 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> function,
-                              Consumer<Email> consumer) {
-        emails.stream().filter(filter)
-                .map(email -> {
-                    email.setBody(function.apply(email));
-                    return email;
-                }).forEach(consumer);
+    public void processEmails(
+            List<Email> emails,
+            Predicate<Email> filter,
+            Function<Email, String> transformer,
+            Consumer<Email> action) {
+        emails.stream()
+                .filter(filter)
+                .peek(email -> email.setBody(transformer.apply(email)))
+                .forEach(action);
     }
 }
