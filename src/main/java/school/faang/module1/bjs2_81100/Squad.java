@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class Squad <T extends Warrior> {
+public class Squad<T extends Warrior> {
 
     private final String name;
     private final List<T> warriors;
