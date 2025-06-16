@@ -4,3 +4,4 @@ package school.faang.love_xogwords;
 public interface SpellAction {
     String cast(String spellName);
 }
+

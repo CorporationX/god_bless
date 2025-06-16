@@ -1,7 +1,7 @@
 package school.faang.love_xogwords;
 
 public class SpellCaster {
-    public void cast(String spellName, SpellAction action){
+    public void cast(String spellName, SpellAction action) {
         String result = action.cast(spellName);
         System.out.println(result);
     }
@@ -18,3 +18,4 @@ public class SpellCaster {
         spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
 }
+
