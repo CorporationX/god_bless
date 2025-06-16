@@ -14,10 +14,10 @@ public class Util {
                 .flatMap(person -> friendships.keySet().stream()
                         .filter(friend -> person.compareTo(friend) < 0)
                         .filter(friend -> !friendships.get(person).contains(friend))
-                        .filter(friend -> {
-                            List<String> friends1 = friendships.get(person);
-                            List<String> friends2 = friendships.get(friend);
-                            return friends1.stream().anyMatch(friends2::contains);
+                        .filter(contact -> {
+                            List<String> personFriends = friendships.get(person);
+                            List<String> contactFriends = friendships.get(contact);
+                            return personFriends.stream().anyMatch(contactFriends::contains);
                         })
                         .map(friend -> new Pair<>(person, friend)))
                 .forEach(result::add);
@@ -41,7 +41,7 @@ public class Util {
                     return numStr.contentEquals(new StringBuilder(numStr).reverse());
                 })
                 .boxed()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> findPalindromeSubstrings(String input) {
@@ -51,7 +51,7 @@ public class Util {
                         .mapToObj(end -> input.substring(start, end)))
                 .filter(substring -> substring.contentEquals(new StringBuilder(substring).reverse()))
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<Integer> findPerfectNumbers(int start, int end) {
@@ -63,6 +63,6 @@ public class Util {
                     return sum == num;
                 })
                 .boxed()
-                .collect(Collectors.toList());
+                .toList();
     }
 }
