@@ -1,9 +1,12 @@
 package school.faang.stream2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -13,22 +16,22 @@ public class Main {
         List<Integer> intList = List.of(1, 2, 3, 4);
         List<String> stringList2 = List.of("apple", "banana", "cherry", "date", "fig", "grape");
 
-        Set<Pair> pairs = StreamProcessor.sumPairFromNum(numbers, 6);
-        System.out.println(pairs);
+        Set<Pair> pairs = StreamProcessor.findUniquePairWithSumIsNum(numbers, 6);
+        log.info("Числа, сумма которых равна 6: " + pairs);
 
         List<String> getCapitals = StreamProcessor.sortByCountryAndGetCapitals(countryMap);
-        System.out.println(getCapitals);
+        log.info("Столицы в алфавитном порядке их стран: " + getCapitals);
 
         List<String> sortedBySymbol = StreamProcessor.sortByFirstSymbol(stringList, 'a');
-        System.out.println(sortedBySymbol);
+        log.info("Слова, которые начинаются с символа 'а': " + sortedBySymbol);
 
         List<Integer> binaryFrom = StreamProcessor.numbersByBinary(intList);
-        System.out.println(binaryFrom);
+        log.info("Двоичный формат переданных чисел: " + binaryFrom);
 
         List<String> sortByLettersAndLength = StreamProcessor.sortByAlphabetAndLength(
                 stringList2, "abcdefghijklmnopqrstuvwxyz"
         );
-        System.out.println(sortByLettersAndLength);
+        log.info("Слова, в которых содержатся символы 'abcdefghijklmnopqrstuvwxyz': " + sortByLettersAndLength);
     }
 
 }

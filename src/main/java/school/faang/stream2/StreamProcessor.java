@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class StreamProcessor {
 
-    public static Set<Pair> sumPairFromNum(Set<Integer> set, int num) {
+    public static Set<Pair> findUniquePairWithSumIsNum(Set<Integer> set, int num) {
         return set.stream().flatMap(a -> {
             int b = num - a;
             return set.contains(b) && a < b ? Stream.of(new Pair(a, b)) : Stream.empty();
