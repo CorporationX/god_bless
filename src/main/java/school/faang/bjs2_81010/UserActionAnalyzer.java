@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    private static final String HASHTAG = "#";
     private static final Pattern PATTERN_HASHTAG = Pattern.compile("#([a-zA-Z0-9]+)[\\W\\s]*?");
     private static final int HUNDRED_PERCENT = 100;
 
@@ -24,10 +23,10 @@ public class UserActionAnalyzer {
         int groupNum = 1;
 
         Map<String, Long> countHashtags = actions.stream()
-                .filter(action -> action.getContent() != null && action.getContent().contains(HASHTAG)
+                .filter(action -> action.getContent() != null
                                   && (action.getActionType().equals(ActionType.COMMENT)
                                       || action.getActionType().equals(ActionType.POST)))
-                .flatMap(action -> PATTERN_HASHTAG.matcher(action.getContent())
+                .flatMap(hashtag -> PATTERN_HASHTAG.matcher(hashtag.getContent())
                         .results()
                         .map(matcher -> matcher.group(groupNum)))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
