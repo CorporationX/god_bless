@@ -25,3 +25,4 @@ public class MailSender {
         log.info("Задачи успешно выполнены!");
     }
 }
+
