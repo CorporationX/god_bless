@@ -1,12 +1,16 @@
 package school.faang.streamAPI80831;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ListOperations {
 
     public static int sumOfEvenNumbers(List<Integer> list) {
-        return list.stream().filter(i -> i % 2 == 0).mapToInt(Integer::intValue).sum();
+        return list.stream()
+                .filter(i -> i % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> list) {
@@ -14,7 +18,10 @@ public class ListOperations {
     }
 
     public static double findAverage(List<Integer> list) {
-        return (double) list.stream().mapToInt(Integer::intValue).sum() / list.size();
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new IllegalArgumentException("Список пуст!"));
     }
 
     public static long countStringsStartingWith(List<String> list, char c) {
@@ -26,7 +33,7 @@ public class ListOperations {
     }
 
     public static List<String> sortByLength(List<String> list) {
-        return list.stream().sorted((s1, s2) -> s1.length() - s2.length()).toList();
+        return list.stream().sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static boolean allMatchCondition(List<Integer> list, Predicate<Integer> predicate) {
