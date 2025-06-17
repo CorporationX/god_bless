@@ -51,7 +51,9 @@ public class ListOperations {
                 .toList();
     }
 
-    public static List<String> sortAndFilterByAlphabet(@NonNull List<String> strings, @NonNull String alphabet) {
+    public static List<String> sortByLengthAndFilterByAlphabet(
+            @NonNull List<String> strings,
+            @NonNull String alphabet) {
         Set<Character> alphabetSet = alphabet.chars()
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.toCollection(HashSet::new));

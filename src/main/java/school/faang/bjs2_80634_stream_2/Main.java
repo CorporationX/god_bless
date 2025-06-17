@@ -28,7 +28,7 @@ public class Main {
         List<String> stringsForAlphabet = List.of("apple", "banana", "cherry", "date", "fig", "grape");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         System.out.println("Alphabet filtered strings: "
-                + ListOperations.sortAndFilterByAlphabet(stringsForAlphabet, alphabet)
+                + ListOperations.sortByLengthAndFilterByAlphabet(stringsForAlphabet, alphabet)
         );
     }
 
