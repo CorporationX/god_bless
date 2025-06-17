@@ -12,7 +12,9 @@ public class LocationSearchEngine {
         if (locations == null) {
             throw new IllegalArgumentException("Список локаций не может быть null");
         }
-        return locations.stream().filter(filter).toList();
+        return locations.stream()
+                .filter(filter)
+                .toList();
     }
 
     public void processLocations(List<Location> locations, Consumer<Location> handler) {

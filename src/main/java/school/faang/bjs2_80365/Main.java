@@ -32,6 +32,6 @@ public class Main {
             return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
         });
 
-        System.out.println("Расстояния: " + distances);
+        System.out.printf("Расстояния: %s", distances);
     }
 }
