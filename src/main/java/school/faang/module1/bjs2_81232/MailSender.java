@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailSender {
 
+    private static final int EMAILS_TOTAL = 1000;
     private static final int THREADS_COUNT = 5;
-    private static final int EMAILS_PER_THREAD = 200;
+    private static final int EMAILS_PER_THREAD = EMAILS_TOTAL / THREADS_COUNT;
     private static final String THREAD_NAME_PREFIX = "Поток:";
     private static final int EMAILS_START_INDEX = 1;
-
 
     public static void main(String[] args) {
 
