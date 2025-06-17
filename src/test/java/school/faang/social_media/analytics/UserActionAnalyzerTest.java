@@ -6,10 +6,12 @@ import school.faang.social_media.analytics.entity.ActionType;
 import school.faang.social_media.analytics.entity.UserAction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserActionAnalyzerTest {
     private static List<UserAction> actions;
@@ -30,9 +32,12 @@ public class UserActionAnalyzerTest {
 
     @Test
     public void testTopCommentersLastMonth() {
-        var expected = List.of("Bob", "Charlie", "Dave", "Eve", "Alice");
+        var expected = List.of("Charlie", "Dave", "Eve");
         var actual = UserActionAnalyzer.topCommentersLastMonth(actions, 5);
         assertEquals(expected, actual);
+        assertThrows(RuntimeException.class, () -> {
+            UserActionAnalyzer.topCommentersLastMonth(new ArrayList<>(), 2);
+        });
     }
 
     @Test
