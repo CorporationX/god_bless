@@ -13,7 +13,7 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) {
         try {
-            if (currentPlayers >= maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
                 log.info("Все слоты заняты. Ожидаем");
                 wait();
             }
@@ -27,8 +27,10 @@ public class Boss {
     }
 
     public synchronized void leaveBattle(Player player) {
-        currentPlayers--;
-        log.info("Игрок {} покинул битву", player.name());
-        notify();
+        if (currentPlayers > 0) {
+            currentPlayers--;
+            log.info("Игрок {} покинул битву", player.name());
+            notifyAll();
+        }
     }
 }
