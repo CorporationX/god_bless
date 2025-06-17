@@ -3,10 +3,13 @@ package school.faang.bjs2_80767_recom_system;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
@@ -27,16 +30,17 @@ public class Main {
             RecommendationService recommendationService = new RecommendationService(userProfiles, products, orders);
 
             List<Product> interestMatches = recommendationService.getProductRecommendationsByUserInterests(4);
-            System.out.println("User interest based matches: ");
-            System.out.println(interestMatches);
+            log.info("User interest based matches: {}", interestMatches);
 
             List<Product> profileBasedMatches = recommendationService.getProductsFromSimilarUsers(1);
-            System.out.println("Similar user based matches: ");
-            System.out.println(profileBasedMatches);
+            log.info("Similar user based matches: {}", profileBasedMatches);
 
-            System.out.println("Best categories for user: ");
-            System.out.println(recommendationService.bestCategory(16));
-
+            Optional<String> bestCategory = recommendationService.bestCategory(16);
+            if (bestCategory.isEmpty()) {
+                log.info("No category matches conditions for recommendation.");
+            } else {
+                log.info("Best category for user: {}", bestCategory);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -60,7 +60,7 @@ public class RecommendationService {
                 .toList();
     }
 
-    public String bestCategory(int userId) {
+    public Optional<String> bestCategory(int userId) {
         List<ProductOrder> userOrders = productOrders.stream()
                 .filter(o -> o.userId() == userId)
                 .toList();
@@ -79,7 +79,7 @@ public class RecommendationService {
                 .sorted(Comparator.comparingInt(e -> -e.getValue()))
                 .limit(1)
                 .map(Map.Entry::getKey)
-                .findFirst().orElse(null);
+                .findFirst();
     }
 
 
