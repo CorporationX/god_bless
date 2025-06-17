@@ -3,10 +3,10 @@ package school.faang.module1.bjs2_81147;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Chore implements Runnable{
+public class Chore implements Runnable {
 
     private final String chore;
-    private final static int TIMEOUT = 3000;
+    private static final int TIMEOUT = 3000;
 
     public Chore(String chore) {
         this.chore = chore;

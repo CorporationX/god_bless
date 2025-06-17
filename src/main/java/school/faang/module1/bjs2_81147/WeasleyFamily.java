@@ -15,7 +15,7 @@ public class WeasleyFamily {
             "приготовить ужин"
     };
 
-    private final static int TIMEOUT = 10;
+    private static final int TIMEOUT = 10;
 
     public void doAllChores() {
 
