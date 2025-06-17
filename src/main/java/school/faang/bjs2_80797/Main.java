@@ -13,7 +13,7 @@ public class Main {
 
         log.info("Сумма четных чисел: {}", ListOperations.sumOfEvenNumbers(numbers));
         log.info("Максимум: {}", ListOperations.findMax(numbers));
-        log.info("Среднее: {}", ListOperations.findAverage(numbers));
+        log.info("Среднее: {}", ListOperations.calculateAverage(numbers));
         log.info("Количество строк, начинающихся на 'a': {}", ListOperations.countStringsStartingWith(strings, 'a'));
         log.info("Строки, содержащие 'an': {}", ListOperations.filterStringsContainingSubstring(strings, "an"));
         log.info("Отсортированные по длине строки: {}", ListOperations.sortByLength(strings));
