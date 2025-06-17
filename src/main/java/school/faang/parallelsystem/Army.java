@@ -3,6 +3,7 @@ package school.faang.parallelsystem;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -15,20 +16,20 @@ public class Army {
 
     public int calculateTotalPower() {
         List<Thread> threadList = new ArrayList<>();
-        List<Integer> powerResults = new ArrayList<>();
+        List<Integer> powerResults = Collections.synchronizedList(new ArrayList<>());
 
         for (Squad squad : squads) {
-            Thread t = new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 int power = squad.calculateSquadPower();
                 powerResults.add(power);
             });
-            threadList.add(t);
-            t.start();
+            threadList.add(thread);
+            thread.start();
         }
 
-        for (Thread t : threadList) {
+        for (Thread thread : threadList) {
             try {
-                t.join();
+                thread.join();
             } catch (InterruptedException e) {
                 log.error("Поток был прерван");
                 Thread.currentThread().interrupt();

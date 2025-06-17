@@ -6,15 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 public class UnitsArmyTesting {
     public static void main(String[] args) {
         Squad archerSquad = new Squad();
+        archerSquad.addUnit(new Archer(20));
+        archerSquad.addUnit(new Archer(20));
+
         Squad swordsmanSquad = new Squad();
+        swordsmanSquad.addUnit(new Swordsman(40));
+        swordsmanSquad.addUnit(new Swordsman(40));
+
         Squad mageSquad = new Squad();
-
-        archerSquad.addUnit(new Archer(20));
-        archerSquad.addUnit(new Archer(20));
-
-        swordsmanSquad.addUnit(new Swordsman(40));
-        swordsmanSquad.addUnit(new Swordsman(40));
-
         mageSquad.addUnit(new Mage(50));
         mageSquad.addUnit(new Mage(50));
 
