@@ -1,5 +1,6 @@
 package school.faang.bjs2_80201;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Main {
@@ -17,22 +18,31 @@ public class Main {
     }
 
     public static String toCsv(List<List<String>> table) {
-        VectorJoiner<String> vectorJoiner = (vector) -> {
-            if (vector.isEmpty()) {
-                throw new IllegalArgumentException("List is empty");
-            }
-            return String.join(", ", vector);
-        };
-        MatrixJoiner<String> matrixJoiner = matrix -> {
-            if (matrix.isEmpty()) {
-                throw new IllegalArgumentException("List is empty");
-            }
-            StringBuilder builder = new StringBuilder();
-            matrix.forEach(vector -> {
-                builder.append(vectorJoiner.join(vector)).append("\n");
-            });
-            return builder.toString();
-        };
-        return matrixJoiner.join(table);
+        return MATRIX_JOINER.join(table);
     }
+
+    private static final VectorJoiner<String> VECTOR_JOINER = (vector) -> {
+        if (vector == null || vector.isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> it = vector.iterator();
+        sb.append(it.next());
+        while (it.hasNext()) {
+            sb.append(", ");
+            sb.append(it.next());
+        }
+        return sb.toString();
+    };
+    private static final MatrixJoiner<String> MATRIX_JOINER = matrix -> {
+        if (matrix.isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
+        StringBuilder builder = new StringBuilder();
+        matrix.forEach(vector -> {
+            builder.append(VECTOR_JOINER.join(vector)).append("\n");
+        });
+        return builder.toString();
+    };
+
 }
