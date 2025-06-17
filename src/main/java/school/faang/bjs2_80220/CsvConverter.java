@@ -1,17 +1,31 @@
 package school.faang.bjs2_80220;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CsvConverter {
 
     public static String toCsv(List<List<String>> table) {
-        VectorJoiner<String> vectorJoiner = row -> String.join(", ", row);
+        VectorJoiner<String> vectorJoiner = row -> {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < row.size(); i++) {
+                sb.append(row.get(i));
+                if (i < row.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+            return sb.toString();
+        };
 
-        MatrixJoiner<String> matrixJoiner = matrix ->
-                matrix.stream()
-                        .map(vectorJoiner::join)
-                        .collect(Collectors.joining("\n"));
+        MatrixJoiner<String> matrixJoiner = matrix -> {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < matrix.size(); i++) {
+                sb.append(vectorJoiner.join(matrix.get(i)));
+                if (i < matrix.size() - 1) {
+                    sb.append("\n");
+                }
+            }
+            return sb.toString();
+        };
 
         return matrixJoiner.join(table);
     }
