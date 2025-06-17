@@ -1,18 +1,16 @@
 package school.faang.bjs2_81720;
 
-@SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
+import java.util.List;
+
 public class Music {
     private static Player musicPlayer = new Player();
 
     public static void main(String[] args) {
-        Thread playThread = new Thread(musicPlayer::play);
-        Thread pauseThread = new Thread(musicPlayer::pause);
-        Thread skipThread = new Thread(musicPlayer::skip);
-        Thread previousThread = new Thread(musicPlayer::previous);
+        List<Thread> treads = List.of(new Thread(musicPlayer::play),
+                                      new Thread(musicPlayer::pause),
+                                      new Thread(musicPlayer::skip),
+                                      new Thread(musicPlayer::previous));
 
-        playThread.start();
-        pauseThread.start();
-        skipThread.start();
-        previousThread.start();
+        treads.forEach(Thread::start);
     }
 }
