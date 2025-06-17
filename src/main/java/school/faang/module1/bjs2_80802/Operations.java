@@ -37,7 +37,7 @@ public class Operations {
 
     public static List<Integer> findPalindromes(int start, int end) {
 
-        return IntStream.range(start, end)
+        return IntStream.rangeClosed(start, end)
                 .boxed()
                 .filter(Operations::isNumberPalindrome)
                 .toList();
@@ -49,7 +49,7 @@ public class Operations {
     }
 
     public static List<String> findPalindromicSubstrings(String string) {
-        return IntStream.range(0, string.length())
+        return IntStream.rangeClosed(0, string.length())
                 .boxed()
                 .flatMap(start -> IntStream.rangeClosed(start + 1, string.length())
                         .mapToObj(end -> string.substring(start, end)))
@@ -63,7 +63,7 @@ public class Operations {
     }
 
     public static List<Integer> findPerfectNumbers(int start, int end) {
-        return IntStream.range(start, end)
+        return IntStream.rangeClosed(start, end)
                 .filter(Operations::isPerfect)
                 .boxed()
                 .toList();
