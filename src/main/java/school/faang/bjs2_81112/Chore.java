@@ -1,15 +1,13 @@
 package school.faang.bjs2_81112;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 public class Chore implements Runnable {
     private static final int TIMEOUT = 5000;
     private String chore;
-
-    public Chore(String chore) {
-        this.chore = chore;
-    }
 
     @Override
     public void run() {

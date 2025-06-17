@@ -28,5 +28,7 @@ public class WeasleyFamily {
             log.error("Поток был прерван", e);
             executor.shutdownNow();
         }
+
+        log.info("Все задачи выполнены");
     }
 }
