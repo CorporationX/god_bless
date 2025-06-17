@@ -7,8 +7,8 @@ public class Main {
         List<Integer> firstNumsList = List.of(1, 2, 3, 3);
         List<Integer> secondNumsList = List.of(1, 3, 9, 3);
 
-        System.out.println("Сумма: " + sum(firstNumsList));
-        System.out.println("Произведение: " + product(secondNumsList));
+        System.out.printf("Сумма: %s, ожидаемое значение: %s\n", sum(firstNumsList), 9);
+        System.out.printf("Произведение: %s, ожидаемое значение: %s\n", product(secondNumsList), 81);
     }
 
     public static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
@@ -17,8 +17,8 @@ public class Main {
         }
 
         Integer result = nums.get(0);
-        for (Integer num : nums) {
-            result = calculator.calculate(result, num);
+        for (int i = 1; i < nums.size(); i++) {
+            result = calculator.calculate(result, nums.get(i));
         }
         return result;
     }
