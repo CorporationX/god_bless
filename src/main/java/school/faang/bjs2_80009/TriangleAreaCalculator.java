@@ -14,24 +14,25 @@ public class TriangleAreaCalculator {
     // Метод для вычисления площади треугольника
     public static Double calculateTriangleArea(double a, double b, double c) {
         validate(a, b, c);
-        Double p = DIVIDE.apply(
+        Double semiPerimeter = DIVIDE.apply(
                 ADD.apply(a).apply(ADD.apply(b).apply(c))
         ).apply(2.0);
+        double semiPerimeterMinusA = SUBTRACT.apply(semiPerimeter).apply(a);
+        double semiPerimeterMinusB = SUBTRACT.apply(semiPerimeter).apply(b);
+        double semiPerimeterMinusC = SUBTRACT.apply(semiPerimeter).apply(c);
         return SQUARE_ROOT.apply(
-                SUBTRACT.apply(p).apply(a)
-                        * SUBTRACT.apply(p).apply(b)
-                        * SUBTRACT.apply(p).apply(c)
-                        * p
+                MULTIPLY.apply(semiPerimeterMinusA).apply(MULTIPLY.apply(semiPerimeterMinusB)
+                        .apply(MULTIPLY.apply(semiPerimeterMinusC).apply(semiPerimeter))
+                )
         );
     }
 
     public static void main(String[] args) {
-        TriangleAreaCalculator calculator = new TriangleAreaCalculator();
-        double area = calculator.calculateTriangleArea(3, 4, 5);
+        double area = calculateTriangleArea(3, 4, 5);
         System.out.println("Площадь треугольника: " + area);
     }
 
-    public static void validate(double a, double b, double c) {
+    private static void validate(double a, double b, double c) {
         if (a + b <= c || a + c <= b || b + c <= a || a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Некорректные стороны треугольника");
         }
