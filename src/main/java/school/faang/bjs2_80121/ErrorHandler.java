@@ -7,7 +7,7 @@ public class ErrorHandler {
         try {
             return action.get();
         } catch (Exception e) {
-            return errorHandler.handler(e);
+            return errorHandler.handle(e);
         }
     }
 }
