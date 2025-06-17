@@ -11,16 +11,13 @@ public class Game {
     private int lives = 10;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
-    private final Object gameOverLock = new Object();
 
     public void update(boolean isScored) {
         if (isScored) {
             synchronized (scoreLock) {
-                synchronized (gameOverLock) {
-                    if (!isGameOver) {
-                        score++;
-                        log.info("Общее кол-во очков увеличено - {}", score);
-                    }
+                if (!isGameOver) {
+                    score++;
+                    log.info("Общее кол-во очков увеличено - {}", score);
                 }
             }
         } else {
