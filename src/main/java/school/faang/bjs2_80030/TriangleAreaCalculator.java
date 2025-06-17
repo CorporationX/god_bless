@@ -11,11 +11,9 @@ public class TriangleAreaCalculator {
     private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
     public static Double calculateTriangleArea(double a, double b, double c) {
-        if (
-                !(ADD.apply(a).apply(b) > c
-                  && ADD.apply(a).apply(c) > b
-                  && ADD.apply(b).apply(c) > a)
-        ) {
+        if (ADD.apply(a).apply(b) <= c
+            || ADD.apply(a).apply(c) <= b
+            || ADD.apply(b).apply(c) <= a) {
             throw new IllegalArgumentException("Некорректные стороны треугольника.");
         }
 
