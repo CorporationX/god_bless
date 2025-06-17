@@ -1,5 +1,6 @@
 package school.faang.bjs2_80109;
 
+@FunctionalInterface
 public interface DroidMessageEncryptor {
-    String handle(String message, int encryptionKey);
+    String encrypt(String message, int encryptionKey);
 }
