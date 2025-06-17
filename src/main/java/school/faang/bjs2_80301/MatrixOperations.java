@@ -31,6 +31,8 @@ public class MatrixOperations {
 
             case VERTICAL -> transformMatrix(matrix,
                     (i, j) -> new Coordinates(rows - 1 - i, j));
+
+            default -> throw new UnsupportedOperationException("Unexpected value: " + direction);
         };
     }
 
