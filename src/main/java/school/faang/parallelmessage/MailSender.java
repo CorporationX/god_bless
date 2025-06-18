@@ -4,12 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MailSender {
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+    private static final int BATCH_COUNT = TOTAL_MESSAGES / THREAD_COUNT;
+
     public static void main(String[] args) {
-        int batch = 1000 / 5;
+
         Thread[] threads = new Thread[5];
 
         for (int i = 0; i < 5; i++) {
-            threads[i] = new Thread(new SenderRunnable(i * batch, (i + 1) * batch));
+            threads[i] = new Thread(new SenderRunnable(i * BATCH_COUNT, (i + 1) * BATCH_COUNT));
             threads[i].start();
         }
 
