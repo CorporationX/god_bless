@@ -1,0 +1,10 @@
+package school.faang.sprint1_2.bjs2_79739;
+
+public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
+    @Override
+    public void optimize(DataCenter dataCenter) {
+        double totalLoad = DataCenterService.getTotalLoad(dataCenter);
+        double loadPerServer = totalLoad / dataCenter.getServers().size();
+        dataCenter.getServers().forEach(server -> server.setLoad(loadPerServer));
+    }
+}
