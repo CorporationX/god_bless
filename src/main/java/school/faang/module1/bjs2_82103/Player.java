@@ -10,12 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 public class Player {
 
     private final String name;
+    private static final int TIMEOUT = 3000;
 
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
             log.info("{} начал сражение с боссом...", name);
-            Thread.sleep(3000);
+            Thread.sleep(TIMEOUT);
             log.info("{} завершил сражение с боссом", name);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
