@@ -1,0 +1,12 @@
+package school.faang.sprint1_2.bjs2_80365;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Location {
+    private String name;
+    private Double latitude;
+    private Double longitude;
+}
