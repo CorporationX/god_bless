@@ -28,7 +28,7 @@ public class Main {
     }
 
     private static void addPhotos(GooglePhotosAutoUploader uploader, List<String> photos) {
-        for (String photo: photos) {
+        for (String photo : photos) {
             uploader.onNewPhotoAdded(photo);
             try {
                 Thread.sleep(1000);
