@@ -7,15 +7,13 @@ import java.util.List;
 
 @Slf4j
 public class Main {
+    private static final MessageFilter SPAM_FILTER = message -> !message.toLowerCase().contains("спам");
+    private static final MessageFilter LENGTH_FILTER = message -> message.length() > 10;
+    private static final MessageFilter EMOJI_FILTER = message -> !message.contains("😀");
+
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
-
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
-        MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
-
-        List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
-
+        List<MessageFilter> filters = Arrays.asList(SPAM_FILTER, LENGTH_FILTER, EMOJI_FILTER);
         String[] messages = {
                 "Привет!",
                 "Это спам!",
