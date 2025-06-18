@@ -25,19 +25,20 @@ public class Main {
             executor.execute(() -> game.update(LIVES_DOWN));
         }
         executor.shutdown();
-        log.info("{} | Запрос на завершение работы", executor.getClass().getSimpleName());
+        var executorName = executor.getClass().getSimpleName();
+        log.info("{} | Запрос на завершение работы", executorName);
         try {
             if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-                log.error("{} | Принудительное завершение работы", executor.getClass().getSimpleName());
+                log.error("{} | Принудительное завершение работы", executorName);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             executor.shutdownNow();
             log.error("Поток {} прерван; {} | Принудительное завершение работы",
-                    Thread.currentThread().getName(), executor.getClass().getSimpleName(), e.getCause());
+                    Thread.currentThread().getName(), executorName, e.getCause());
         }
-        log.info("{} | Завершение работы", executor.getClass().getSimpleName());
+        log.info("{} | Завершение работы", executorName);
         log.info("Очки опыта: {}; Потеряно жизней: {}", game.getScore(), game.getLives());
     }
 }
