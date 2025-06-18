@@ -17,7 +17,8 @@ public record Player(String name) {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Поток {} прерван", Thread.currentThread().getName(), e.getCause());
+        } finally {
+            boss.leaveBattle(this);
         }
-        boss.leaveBattle(this);
     }
 }

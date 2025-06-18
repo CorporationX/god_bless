@@ -17,7 +17,7 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            while (currentPlayers == maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
                 try {
                     lock.wait();
                     log.info("Игрок {} ожидает свободный слот!", player.name());
@@ -33,7 +33,7 @@ public class Boss {
 
     public void leaveBattle(Player player) {
         synchronized (lock) {
-            if (currentPlayers != 0) {
+            if (currentPlayers > 0) {
                 currentPlayers--;
                 log.info("Игрок {} вышел из боя!", player.name());
                 lock.notifyAll();
