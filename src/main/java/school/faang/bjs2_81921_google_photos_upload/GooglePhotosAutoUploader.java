@@ -3,10 +3,15 @@ package school.faang.bjs2_81921_google_photos_upload;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
+    private static final int MAX_UPLOAD_DELAY_MS = 1000;
+
     private final Object lock = new Object();
     private final List<String> photosToUpload;
     private boolean isShutdownRequested;
@@ -16,19 +21,33 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            while (true) {
+        while (true) {
+            Queue<String> toUploadNow;
+
+            synchronized (lock) {
                 if (isShutdownRequested && photosToUpload.isEmpty()) {
                     log.info("Shutdown requested and no photos in the queue, Auto-upload shutting down.");
                     break;
-                } else if (photosToUpload.isEmpty()) {
-                    log.info("No photos in the queue, waiting...");
-                    lock.wait();
-                } else {
-                    uploadPhotos();
                 }
+
+                while (photosToUpload.isEmpty() && !isShutdownRequested) {
+                    try {
+                        log.info("No photos in the queue, waiting...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.warn("Upload thread interrupted, shutting down...");
+                        return;
+                    }
+                }
+
+                toUploadNow = new LinkedList<>(photosToUpload);
+                photosToUpload.clear();
             }
+
+            uploadPhotos(toUploadNow);
         }
+
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -45,11 +64,17 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    private void uploadPhotos() {
-        while (!photosToUpload.isEmpty()) {
-            String photo = photosToUpload.get(0);
-            log.info("Uploading photo {}", photo);
-            photosToUpload.remove(0);
+    private void uploadPhotos(Queue<String> photos) {
+        while (!photos.isEmpty()) {
+            String photo = photos.poll();
+            log.info("Starting upload of photo {}", photo);
+            try {
+                Thread.sleep(ThreadLocalRandom.current().nextInt(1, MAX_UPLOAD_DELAY_MS));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+            log.info("Completed upload of photo {}", photo);
         }
     }
 }

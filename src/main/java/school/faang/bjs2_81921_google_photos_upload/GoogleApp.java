@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 public class GoogleApp {
+    public static final int MAX_PHOTO_CREATION_DELAY_MS = 10000;
+
     public static void main(String[] args) {
         List<String> oldPhotos = new ArrayList<>(List.of(
                 "/docs/photos/IMG_1222.jpg",
@@ -39,15 +42,16 @@ public class GoogleApp {
         return new Thread(() -> {
             while (!newPhotos.isEmpty()) {
                 log.info("Adding new photo {}", newPhotos.get(0));
-                uploaderService.onNewPhotoAdded(newPhotos.get(0));
-                newPhotos.remove(0);
                 try {
-                    Thread.sleep((int) (Math.random() * 10000));
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(1, MAX_PHOTO_CREATION_DELAY_MS));
+                    uploaderService.onNewPhotoAdded(newPhotos.get(0));
+                    newPhotos.remove(0);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
+            log.info("No more photos for today. Requesting graceful shutdown of uploader service.");
             uploaderService.gracefulShutdown();
         });
     }
