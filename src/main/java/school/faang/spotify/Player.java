@@ -15,16 +15,24 @@ public class Player {
     private boolean isPlaying = false;
 
     public void play() {
-        synchronized (lock) {
-            isPlaying = true;
-            log.info("Включено проигрывание музыки");
+        if (!isPlaying) {
+            synchronized (lock) {
+                isPlaying = true;
+                log.info("Плеер включен");
+            }
+        } else {
+            log.info("Плеер уже включен");
         }
     }
 
     public void pause() {
-        synchronized (lock) {
-            isPlaying = false;
-            log.info("Плеер поставлен на паузу");
+        if (isPlaying) {
+            synchronized (lock) {
+                isPlaying = false;
+                log.info("Плеер поставлен на паузу");
+            }
+        } else {
+            log.info("Плеер уже поставлен на паузу");
         }
     }
 
