@@ -9,7 +9,7 @@ public class SenderRunnable implements Runnable {
 
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("letter sent " + i);
+            System.out.printf("letter sent %d%n", i);
         }
     }
 }
