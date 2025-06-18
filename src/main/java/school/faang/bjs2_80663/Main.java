@@ -1,25 +1,23 @@
 package school.faang.bjs2_80663;
 
-import java.util.HashMap;
-
 public class Main {
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager(new HashMap<>());
+        NotificationManager notificationManager = new NotificationManager();
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен");
         Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
 
         notificationManager.registerHandler(NotificationType.EMAIL,
-                notification -> System.out.println("Email: " + notification.getMessage())
+                notification -> System.out.printf("Email: %s%n",  notification.getMessage())
         );
 
         notificationManager.registerHandler(NotificationType.SMS,
-                notification -> System.out.println("SMS: " + notification.getMessage())
+                notification -> System.out.printf("SMS: %s%n", notification.getMessage())
         );
 
         notificationManager.registerHandler(NotificationType.PUSH,
-                notification -> System.out.println("Push Notification: " + notification.getMessage())
+                notification -> System.out.printf("Push Notification: %s%n", notification.getMessage())
         );
 
         notificationManager.sendNotification(emailNotification);
