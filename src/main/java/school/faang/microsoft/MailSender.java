@@ -1,35 +1,25 @@
 package school.faang.microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
-    public static void main(String[] args) {
-        SenderRunnable sender1 = new SenderRunnable(1, 1, 200);
-        Thread thread1 = new Thread(sender1);
-        thread1.start();
+    public static final int TOTAL_MESSAGE_COUNT = 1000;
+    public static final int THREADS_COUNT = 5;
 
-        SenderRunnable sender2 = new SenderRunnable(2, 201, 400);
-        Thread thread2 = new Thread(sender2);
-        thread2.start();
+    public static void main(String[] args) throws InterruptedException {
+        int batchSize = TOTAL_MESSAGE_COUNT / THREADS_COUNT;
+        Thread[] threads = new Thread[THREADS_COUNT];
+        for (int i = 0; i < THREADS_COUNT; i++) {
+            SenderRunnable sender = new SenderRunnable(i + 1,
+                    (i * batchSize) + 1, (i + 1) * batchSize);
+            Thread thread = new Thread(sender);
+            thread.start();
+            threads[i] = thread;
+        }
 
-        SenderRunnable sender3 = new SenderRunnable(3, 401, 600);
-        Thread thread3 = new Thread(sender3);
-        thread3.start();
-
-        SenderRunnable sender4 = new SenderRunnable(4, 601, 800);
-        Thread thread4 = new Thread(sender4);
-        thread4.start();
-
-        SenderRunnable sender5 = new SenderRunnable(5, 801, 1000);
-        Thread thread5 = new Thread(sender5);
-        thread5.start();
-
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (Thread thread : threads) {
+            thread.join();
         }
     }
 }
