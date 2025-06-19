@@ -12,11 +12,11 @@ public class InventoryManager {
         consumer.accept(item);
     }
 
-    void removeItem(Character character, Predicate<Item> predicate) {
+    public void removeItem(Character character, Predicate<Item> predicate) {
         character.getInventory().removeIf(predicate);
     }
 
-    void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         List<Item> items = character.getInventory();
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
