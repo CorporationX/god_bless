@@ -34,8 +34,7 @@ public class Droid {
     }
 
     private String receiveMessage(String message, int key) {
-        String newMessage = decryptMessage(message, key);
-        return newMessage;
+        return decryptMessage(message, key);
     }
 
     public String sendMessage(String message, int key, Droid droid) {
@@ -44,8 +43,9 @@ public class Droid {
         consumer1.accept(message);
         String newMessage = encryptMessage(message, key);
         Consumer<String> consumer2 = string ->
-                System.out.println(droid.getName() + " получил расшифрованное сообщение: " + message);
+                System.out.println(droid.getName() + " получил расшифрованное сообщение: " + newMessage);
         consumer2.accept(message);
         return receiveMessage(newMessage, key);
+
     }
 }
