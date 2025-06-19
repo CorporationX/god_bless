@@ -1,10 +1,9 @@
 package school.faang.thronesgame;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Deque;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static school.faang.thronesgame.UserRole.NO_ROLE;
 
@@ -13,31 +12,24 @@ import static school.faang.thronesgame.UserRole.NO_ROLE;
  * @since 18.06.2025
  */
 @Slf4j
+@RequiredArgsConstructor
 public class House {
 
-    private final Deque<UserRole> availableRoles;
+    private final List<UserRole> availableRoles;
 
-    public House(List<UserRole> availableRoles) {
-        this.availableRoles = new ConcurrentLinkedDeque<>(availableRoles);
+    public synchronized UserRole assignRole() {
+        if (!availableRoles.isEmpty()) {
+            var role = availableRoles.remove(0);
+            log.info("Выдана роль: {}", role);
+            return role;
+        }
+        log.info("Нет доступных ролей");
+        return NO_ROLE;
     }
 
-    public UserRole assignRole() {
-        synchronized (availableRoles) {
-            if (!availableRoles.isEmpty()) {
-                var role = availableRoles.poll();
-                log.info("Выдана роль: {}", role);
-                return role;
-            }
-            log.info("Нет доступных ролей");
-            return NO_ROLE;
-        }
-    }
-
-    public void releaseRole(UserRole role) {
-        synchronized (availableRoles) {
-            availableRoles.offer(role);
-            log.info("Возвращена роль: {}", role);
-        }
+    public synchronized void releaseRole(UserRole role) {
+        availableRoles.add(role);
+        log.info("Возвращена роль: {}", role);
     }
 
     public int getFreeSlotsNumber() {
