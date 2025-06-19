@@ -3,6 +3,7 @@ package school.faang.stream_api_one;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class Main {
@@ -30,14 +31,15 @@ public class Main {
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
-                .mapToInt(Integer::intValue)
-                .max().getAsInt();
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average().getAsDouble();
+                .average()
+                .orElse(0.0);
     }
 
     public static long countStringsStartingWith(List<String> strings, char first) {
@@ -65,9 +67,9 @@ public class Main {
 
     public static int findMinGreaterThan(List<Integer> numbers, int min) {
         return numbers.stream()
-                .mapToInt(Integer::intValue)
                 .filter(n -> n > min)
-                .min().getAsInt();
+                .min(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("Нет элементов больше %d".formatted(min)));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
