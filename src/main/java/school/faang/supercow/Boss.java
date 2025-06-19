@@ -29,7 +29,7 @@ public class Boss {
         synchronized (lock) {
             currentPlayers--;
             log.info("{} завершил сражение с боссом!", player.getName());
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
