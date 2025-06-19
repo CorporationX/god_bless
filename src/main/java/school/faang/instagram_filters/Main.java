@@ -9,9 +9,11 @@ public class Main {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
+
         Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
         Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
         Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: виньетка");
+
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         System.out.println(grayscaleImage.getDescription());
@@ -22,11 +24,13 @@ public class Main {
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
         System.out.println(vignetteImage.getDescription());
 
+
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Function<Image, Image> combinedFilters = filterProcessor.combineFilters(grayscaleFilter, vignetteFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         Image combinedImages = filterProcessor.applyFilter(originalImage, combinedFilters);
         System.out.println(combinedImage.getDescription());
+        System.out.println(combinedImages.getDescription());
     }
 }
 
