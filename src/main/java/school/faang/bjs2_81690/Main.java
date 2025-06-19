@@ -31,6 +31,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("Поток был прерван", e);
+            Thread.currentThread().interrupt();
         }
         log.info("Все задачи завершены");
     }
