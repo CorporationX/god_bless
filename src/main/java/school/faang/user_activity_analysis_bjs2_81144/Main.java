@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    @SuppressWarnings("checkstyle:LineLength")
     public static void main(String[] args) {
         List<UserAction> actions = Arrays.asList(
                 new UserAction(1, "Alice", ActionType.POST, LocalDate.of(2024, 9, 1), "Check out this amazing #newfeature!"),
