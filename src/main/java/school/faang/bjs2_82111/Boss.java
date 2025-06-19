@@ -1,17 +1,17 @@
 package school.faang.bjs2_82111;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Boss {
+    private final long id;
     private String name;
     private final int maxPlayers;
     private int currentPlayers;
     private final Object lock = new Object();
 
-    public Boss(String name, int maxPlayers) {
+    public Boss(long id, String name, int maxPlayers) {
+        this.id = id;
         this.name = name;
         this.maxPlayers = maxPlayers;
         this.currentPlayers = 0;
@@ -21,7 +21,7 @@ public class Boss {
         synchronized (lock) {
             while (currentPlayers >= maxPlayers) {
                 try {
-                    log.info("Игрок ждет свободное место...");
+                    log.info("Игрок {} ждет свободное место...", player.getName());
                     lock.wait();
                 } catch (InterruptedException e) {
                     log.info("Игрок {} был прерван по время ожидания", player.getName());
