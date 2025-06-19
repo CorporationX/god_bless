@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static school.faang.utils.ThreadUtils.gracefulShutdown;
+import static school.faang.utils.ThreadUtils.executorGracefulShutdown;
 
 @Slf4j
 public class LaunchSystem {
@@ -50,7 +50,7 @@ public class LaunchSystem {
             }
         });
 
-        gracefulShutdown(
+        executorGracefulShutdown(
                 executorService,
                 AWAIT_SERVICE_SHUTDOWN_MINUTES,
                 () -> {

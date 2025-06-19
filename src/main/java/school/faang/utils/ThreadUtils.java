@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ThreadUtils {
-    public static void gracefulShutdown(
+    public static void executorGracefulShutdown(
             @NonNull ExecutorService executorService,
             int awaitShutdownMinutes,
             Runnable finalCallback) {
