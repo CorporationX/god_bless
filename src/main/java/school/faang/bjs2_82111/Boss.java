@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Boss {
     private final long id;
-    private String name;
     private final int maxPlayers;
-    private int currentPlayers;
     private final Object lock = new Object();
+    private int currentPlayers;
+    private String name;
 
     public Boss(long id, String name, int maxPlayers) {
         this.id = id;
