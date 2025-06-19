@@ -15,15 +15,15 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpdate() {
         synchronized (photosToUpload) {
-            try {
-                if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
+                try {
                     photosToUpload.wait();
                     log.info("Ожидаем фото для загрузки...");
+                } catch (InterruptedException e) {
+                    log.warn("Поток был прерван во время ожидания", e);
                 }
-                uploadPhotos();
-            } catch (InterruptedException e) {
-                log.warn("Поток был прерван во время ожидания", e);
             }
+            uploadPhotos();
         }
     }
 
@@ -31,18 +31,14 @@ public class GooglePhotosAutoUploader {
         synchronized (photosToUpload) {
             photosToUpload.add(photoPath);
             log.info("Доступно фото для загрузки");
-            photosToUpload.notify();
+            photosToUpload.notifyAll();
         }
     }
 
     private void uploadPhotos() {
-        try {
-            log.info("Процесс загрузки фото...");
-            photosToUpload.clear();
-            log.info("Загрузка завершена");
-        } catch (Exception e) {
-            log.error("Ошибка при загрузке фото", e);
-        }
+        log.info("Процесс загрузки фото...");
+        photosToUpload.clear();
+        log.info("Загрузка завершена");
     }
 
 }
