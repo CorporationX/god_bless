@@ -1,5 +1,6 @@
 package school.faang.bjs2_81237_spaceX_thread;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public class LaunchSystem {
                 });
     }
 
-    private static void doLaunch(RocketLaunch rocketLaunch) {
+    private static void doLaunch(@NonNull RocketLaunch rocketLaunch) {
         try {
             rocketLaunch.launch();
         } catch (InterruptedException e) {
@@ -80,13 +81,13 @@ public class LaunchSystem {
         }
     }
 
-    private static Optional<RocketLaunch> getNextLaunch(List<RocketLaunch> toLaunch) {
+    private static Optional<RocketLaunch> getNextLaunch(@NonNull List<RocketLaunch> toLaunch) {
         return toLaunch.stream()
                 .filter(LaunchSystem::isReadyToLaunch)
                 .findFirst();
     }
 
-    private static boolean isReadyToLaunch(RocketLaunch launch) {
+    private static boolean isReadyToLaunch(@NonNull RocketLaunch launch) {
         return LocalDateTime.now().isAfter(launch.getLaunchDateTime());
     }
 
