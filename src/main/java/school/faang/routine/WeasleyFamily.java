@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
-    private final int MAX_WAIT_SECONDS = 10;
+    private static final int MAX_WAIT_SECONDS = 10;
     private final String[] chores = {"помыть посуду", "подмести пол",
             "приготовить ужин", "погладить кота", "почистить диван"};
 

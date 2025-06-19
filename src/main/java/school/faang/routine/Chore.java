@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class Chore implements Runnable {
-    private final int TIME_SLEEP_MS = 1000;
+    private static final int TIME_SLEEP_MS = 1000;
     private final String chore;
 
     @Override
