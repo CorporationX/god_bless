@@ -30,8 +30,8 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-            log.info("Фотографии были отправлены на сервер.");
-            photosToUpload.clear();
+        log.info("Фотографии были отправлены на сервер.");
+        photosToUpload.clear();
     }
 
 }
