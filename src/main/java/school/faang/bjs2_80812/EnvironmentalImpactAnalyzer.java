@@ -53,7 +53,6 @@ public class EnvironmentalImpactAnalyzer {
             total += volume;
             System.out.printf("%s  %.2f%n", ym, volume);
         }
-
         System.out.printf("Total    %.2f%n", total);
     }
 
