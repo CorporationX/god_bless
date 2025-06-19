@@ -11,9 +11,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static school.faang.utils.ThreadUtils.gracefulShutdown;
+
 @Slf4j
 public class LaunchSystem {
     public static final int LAUNCH_THREAD_TICK_SECONDS = 10;
+    public static final int AWAIT_SERVICE_SHUTDOWN_MINUTES = 10;
 
     public static void main(String[] args) {
         List<RocketLaunch> launches = List.of(
@@ -34,50 +37,58 @@ public class LaunchSystem {
         executorService.submit(() -> {
             while (!toLaunch.isEmpty()) {
                 log.info("Checking for scheduled launches.");
-                Optional<RocketLaunch> nextLaunchOptional = toLaunch.stream()
-                        .filter(l -> LocalDateTime.now().isAfter(l.getLaunchDateTime()))
-                        .limit(1)
-                        .findFirst();
+                Optional<RocketLaunch> nextLaunchOptional = getNextLaunch(toLaunch);
 
                 if (nextLaunchOptional.isEmpty()) {
                     log.info("No launches scheduled to launch, sleeping.");
-                    try {
-                        TimeUnit.SECONDS.sleep(LAUNCH_THREAD_TICK_SECONDS);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new RuntimeException(e);
-                    }
+                    waitForNextTick();
                 } else {
                     log.info("Found a ready launch {}", nextLaunchOptional.get().getName());
+                    doLaunch(nextLaunchOptional.get());
                     toLaunch.remove(nextLaunchOptional.get());
-                    try {
-                        nextLaunchOptional.get().launch();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new RuntimeException(e);
-                    }
                 }
             }
         });
 
-        executorService.shutdown();
+        gracefulShutdown(
+                executorService,
+                AWAIT_SERVICE_SHUTDOWN_MINUTES,
+                () -> {
+                    long endTime = System.currentTimeMillis();
+                    log.info(
+                            "Total launches execution took {} seconds.",
+                            TimeUnit.MILLISECONDS.toSeconds(endTime - startTime)
+                    );
+                });
+    }
+
+    private static void doLaunch(RocketLaunch rocketLaunch) {
         try {
-            boolean allLaunched = executorService.awaitTermination(10, TimeUnit.MINUTES);
-            if (allLaunched) {
-                log.info("Executor shut down, no more launches to process");
-            } else {
-                log.error("Some launches could not finish before executor termination");
-            }
-            long endTime = System.currentTimeMillis();
-            log.info(
-                    "Total launches execution took {} seconds.",
-                    TimeUnit.MILLISECONDS.toSeconds(endTime - startTime)
-            );
+            rocketLaunch.launch();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            log.error("Waiting for executor termination interrupted");
             throw new RuntimeException(e);
         }
-
     }
+
+    private static void waitForNextTick() {
+        try {
+            TimeUnit.SECONDS.sleep(LAUNCH_THREAD_TICK_SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Optional<RocketLaunch> getNextLaunch(List<RocketLaunch> toLaunch) {
+        return toLaunch.stream()
+                .filter(LaunchSystem::isReadyToLaunch)
+                .findFirst();
+    }
+
+    private static boolean isReadyToLaunch(RocketLaunch launch) {
+        return LocalDateTime.now().isAfter(launch.getLaunchDateTime());
+    }
+
+
 }
