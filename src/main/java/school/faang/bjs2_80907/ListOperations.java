@@ -129,7 +129,6 @@ public class ListOperations {
 
                 lengths.add(s.length());
             }
-
         }
         return lengths;
     }
