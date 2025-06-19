@@ -18,16 +18,20 @@ public class Application {
             List<Job> jobs = jobStreamProcessor.processJobs(is);
 
             System.out.println("=== TOP SKILLS ===");
-            analyzer.printTopSkills(jobs);
+            analyzer.getTopSkills(jobs, 5)
+                    .forEach((skill, count) -> System.out.printf("%s: %d%n", skill, count));
 
             System.out.println("\n=== TOP POSITIONS ===");
-            analyzer.printTopPositions(jobs);
+            analyzer.getTopPositions(jobs, 5)
+                    .forEach((position, count) -> System.out.printf("%s: %d%n", position, count));
 
             System.out.println("\n=== SALARY DISTRIBUTION ===");
-            analyzer.printSalaryDistribution(jobs);
+            analyzer.getSalaryDistribution(jobs)
+                    .forEach((range, count) -> System.out.printf("%s: %d%n", range, count));
 
             System.out.println("\n=== TOP LOCATIONS ===");
-            analyzer.printTopLocations(jobs);
+            analyzer.getTopLocations(jobs, 5)
+                    .forEach((location, count) -> System.out.printf("%s: %d%n", location, count));
 
         } catch (IOException e) {
             System.err.println("Failed to load or process the file: " + e.getMessage());

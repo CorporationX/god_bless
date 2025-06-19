@@ -5,12 +5,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Job {
     private String position;
     private List<String> requirements;
