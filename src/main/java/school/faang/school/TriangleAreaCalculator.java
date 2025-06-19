@@ -18,7 +18,7 @@ public class TriangleAreaCalculator {
     private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
     public static Double calculateTriangleArea(double a, double b, double c) {
-        if (a + b < c || a + c < b || b + c < a) {
+        if (a + b <= c || a + c <= b || b + c <= a) {
             throw new IllegalArgumentException("Треугольник с такими сторонами не существует");
         }
         var sumOfSides = ADD.apply(ADD.apply(a).apply(b)).apply(c);
@@ -33,8 +33,7 @@ public class TriangleAreaCalculator {
     }
 
     public static void main(String[] args) {
-        TriangleAreaCalculator calculator = new TriangleAreaCalculator();
-        double area = calculator.calculateTriangleArea(3, 4, 5);
+        double area = calculateTriangleArea(3, 4, 5);
         log.info("Площадь треугольника: {}", area);
     }
 }
