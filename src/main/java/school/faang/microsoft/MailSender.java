@@ -11,9 +11,10 @@ public class MailSender {
     public static void main(String[] args) throws InterruptedException {
         Thread[] threads = new Thread[THREADS_COUNT];
         for (int i = 0; i < THREADS_COUNT; i++) {
+            int id = i + 1;
             int startIndex = i * BATCH_SIZE + 1;
             int endIndex = (i + 1) * BATCH_SIZE;
-            SenderRunnable sender = new SenderRunnable(i + 1, startIndex, endIndex);
+            SenderRunnable sender = new SenderRunnable(id, startIndex, endIndex);
             Thread thread = new Thread(sender);
             thread.start();
             threads[i] = thread;
