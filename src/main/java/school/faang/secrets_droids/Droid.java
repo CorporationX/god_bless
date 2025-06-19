@@ -2,8 +2,11 @@ package school.faang.secrets_droids;
 
 public class Droid {
     private static final int ALPHABET_SIZE = 26;
-    private static final DroidMessageEncryptor encryptor = null;
-    private static final DroidMessageEncryptor decryptor = null;
+    private static final DroidMessageEncryptor encryptor = (message, key)
+            -> processMessage(message, key, true);
+    private static final DroidMessageEncryptor decryptor = (message, key)
+            -> processMessage(message, key, false);
+
     private final String name;
 
     public Droid(String name) {
@@ -11,11 +14,11 @@ public class Droid {
     }
 
     public String encryptMessage(String message, int key) {
-        return processMessage(message, key, true);
+        return encryptor.encrypt(message, key);
     }
 
     public String decryptMessage(String message, int key) {
-        return processMessage(message, key, false);
+        return decryptor.encrypt(message, key);
     }
 
     public void sendMessage(Droid droid, String message, int key) {
@@ -29,7 +32,7 @@ public class Droid {
         System.out.println(droid.name + " Получил расшифрованное сообщение: " + droid.decryptMessage(message, key));
     }
 
-    private String processMessage(String message, int key, boolean isEncryption) {
+    private static String processMessage(String message, int key, boolean isEncryption) {
         StringBuilder result = new StringBuilder();
         for (char ch : message.toCharArray()) {
             if (Character.isLetter(ch)) {
