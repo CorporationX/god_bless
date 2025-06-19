@@ -9,36 +9,17 @@ import java.util.stream.Stream;
 @Slf4j
 public class StudentPerformance {
 
-    public Map<String, Double> averageStudents(List<Student> students) {
-        Map<String, List<Integer>> subjectToAllGrades = new HashMap<>();
-
-        students.forEach(student -> {
-            Map<String, List<Integer>> courses = student.getCourses();
-            if (courses == null) {
-                return;
-            }
-
-            courses.forEach((subject, grades) -> {
-                if (grades != null) {
-                    subjectToAllGrades
-                            .computeIfAbsent(subject, k -> new ArrayList<>())
-                            .addAll(grades);
-                }
-            });
-        });
-
-        Map<String, Double> result = new HashMap<>();
-
-        subjectToAllGrades.entrySet().stream()
-                .forEach(entry -> {
-                    String subject = entry.getKey();
-                    List<Integer> grades = entry.getValue();
-
-                    double avg = grades.stream().mapToInt(i -> i).average().orElse(0.0);
-                    result.put(subject, avg);
-                });
-
-        return result;
+    public Map<String, Double> calculateAverageGrade(List<Student> students) {
+        return students.stream()
+                .filter(entry -> Objects.nonNull(entry.getCourses()))
+                .flatMap(student -> student.getCourses().entrySet().stream())
+                .filter(entry -> Objects.nonNull(entry.getValue()))
+                .flatMap(entry -> entry.getValue().stream()
+                        .map(grade -> new AbstractMap.SimpleEntry<>(entry.getKey(), grade)))
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.averagingInt(Map.Entry::getValue)
+                ));
     }
 
     public Map<String, Integer> getFinalGradesForStudent(List<Student> students, String firstName, String lastName) {
@@ -64,8 +45,8 @@ public class StudentPerformance {
                 .orElse(Collections.emptyMap());
     }
 
-    public String veryHardSubject(List<Student> students) {
-        Map<String, Double> averageStudents = averageStudents(students);
+    public String findMostDifficultSubject(List<Student> students) {
+        Map<String, Double> averageStudents = calculateAverageGrade(students);
         return averageStudents.entrySet().stream()
                 .min(Comparator.comparingDouble(Map.Entry::getValue))
                 .map(Map.Entry::getKey)

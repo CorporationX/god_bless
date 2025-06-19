@@ -11,7 +11,7 @@ public class Application {
 
         StudentPerformance performance = new StudentPerformance();
 
-        Map<String, Double> averagePerSubject = performance.averageStudents(students);
+        Map<String, Double> averagePerSubject = performance.calculateAverageGrade(students);
         System.out.println("Average grades per subject:");
         averagePerSubject.forEach((subject, avg) -> System.out.printf("%s: %.2f%n", subject, avg));
 
@@ -24,7 +24,7 @@ public class Application {
             finalGrades.forEach((subj, grade) -> System.out.println(subj + ": " + grade));
         }
 
-        String hardestSubject = performance.veryHardSubject(students);
+        String hardestSubject = performance.findMostDifficultSubject(students);
         System.out.println("\nHardest subject in school: " + hardestSubject);
 
         System.out.println("\nPerformance table:");
