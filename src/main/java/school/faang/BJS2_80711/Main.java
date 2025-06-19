@@ -20,9 +20,19 @@ public class Main {
                 notification -> System.out.println("IN-APP: " + notification.getMessage())
         );
 
+        //Ограничение на сообщения больше 30 символов
+        notificationManager.setFilter(
+                notification -> notification.getMessage().length() <= 30
+        );
+
         Notification emailNotification = new Notification(
                 NotificationType.EMAIL,
                 "Добро пожаловать в наше приложение!"
+        );
+
+        Notification emailNotificationLong = new Notification(
+                NotificationType.EMAIL,
+                "Добро пожаловать в наше приложение! Хотите увидеть как тут всё устроенно?"
         );
 
         Notification smsNotification = new Notification(
@@ -40,7 +50,14 @@ public class Main {
                 "Привет! У вас 10 новых рекомендованных друзей! Хотите посмотреть?"
         );
 
+        // Добавляем подпись ко всем сообщениям
+        notificationManager.setMessageCorrector(
+                notification ->
+                new Notification(notification.getType(), notification.getMessage() + "\nС уважением, от меня)\n")
+        );
+
         notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(emailNotificationLong);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
         notificationManager.sendNotification(inAppNotification);
