@@ -39,10 +39,12 @@ public class Droid {
     }
 
     public String sendMessage(String message, int key, Droid droid) {
-        Consumer<String> consumer1 = string -> System.out.println(getName() + " отправил зашифрованное сообщение: " + message);
+        Consumer<String> consumer1 = string ->
+                System.out.println(getName() + " отправил зашифрованное сообщение: " + message);
         consumer1.accept(message);
         String newMessage = encryptMessage(message, key);
-        Consumer<String> consumer2 = string -> System.out.println(droid.getName() + " получил расшифрованное сообщение: " + message);
+        Consumer<String> consumer2 = string ->
+                System.out.println(droid.getName() + " получил расшифрованное сообщение: " + message);
         consumer2.accept(message);
         return receiveMessage(newMessage, key);
     }
