@@ -5,7 +5,7 @@ public class Main {
         String result = ErrorHandler.withErrorHandling(
                 () -> RemoteService.call("someParam"),
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса");
+                    System.out.println("Ошибка при вызове сервиса ");
                     return "DEFAULT";
                 }
         );
