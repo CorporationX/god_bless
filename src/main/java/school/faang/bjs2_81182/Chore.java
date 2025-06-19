@@ -8,14 +8,13 @@ public class Chore implements Runnable {
 
     public void run() {
         try {
-            System.out.printf("%s взял на себя задачу: %s", Thread.currentThread().getName(), chore);
+            System.out.printf("%s взял на себя задачу: %s%n", Thread.currentThread().getName(), chore);
             Thread.sleep(5000);
-            System.out.printf("задача %s выполнена", chore);
+            System.out.printf("задача %s выполнена%n", chore);
         } catch (InterruptedException e) {
-            System.out.printf("задача %s прервалась", chore);
+            System.out.printf("задача %s прервалась%n", chore);
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
-
     }
 }
