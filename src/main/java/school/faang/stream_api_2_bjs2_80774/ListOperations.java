@@ -19,6 +19,15 @@ public class ListOperations {
     }
 
     public static List<String> sortFruits(Character ch, List<String> strings) {
-        return strings.stream().findAny(String::indexOf(ch))
+        return strings.stream().filter(s -> s.startsWith(ch.toString())).sorted().toList();
+    }
+
+    public static List<String> convertingNumbers(List<Integer> numbers) {
+        return numbers.stream().map(Integer::toBinaryString).collect(Collectors.toList());
+    }
+
+    public static List<String> filteringByAlphabet(List<String> strings, String alphabet) {
+        return strings.stream().filter(s -> s.chars()
+                        .allMatch(c -> alphabet.indexOf(c) >= 0)).collect(Collectors.toList());
     }
 }
