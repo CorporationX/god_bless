@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class    HogwartsSpells {
+public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
     private int currentId = 0;
@@ -71,4 +71,5 @@ public class    HogwartsSpells {
         spells.printAllSpellEvents();
     }
 }
+
 
