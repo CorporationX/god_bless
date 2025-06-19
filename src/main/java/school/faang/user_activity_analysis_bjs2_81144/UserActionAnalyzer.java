@@ -9,8 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    public static List<String> topActiveUsers(List<UserAction> users, int limit) {
-        return users.stream()
+    public static List<String> topActiveUsers(List<UserAction> actions, int limit) {
+        return actions.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<UserAction, Long>comparingByValue(Comparator.reverseOrder()))
@@ -19,8 +19,8 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> users, int limit) {
-        return users.stream()
+    public static List<String> topPopularHashtags(List<UserAction> actions, int limit) {
+        return actions.stream()
                 .map(UserAction::getContent)
                 .flatMap(content -> Arrays.stream(content.split("\\s+")))
                 .filter(word -> word.startsWith("#"))
@@ -32,9 +32,9 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> users, int limit) {
+    public static List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
-        return users.stream()
+        return actions.stream()
                 .filter(action -> ActionType.COMMENT.equals(action.getActionType()) && action.getActionDate().isAfter(oneMonthAgo))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
@@ -44,8 +44,10 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    public static Map<String, Double> actionTypePercentages(List<UserAction> users) {
-        return users.stream()
-                .
+    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        long totalActions = actions.size();
+
+        return actions.stream()
+                .collect(action -> ActionType)
     }
 }
