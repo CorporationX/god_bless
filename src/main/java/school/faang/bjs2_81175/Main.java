@@ -2,8 +2,10 @@ package school.faang.bjs2_81175;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+
         Army army = new Army();
         Squad archers = new Squad();
+
         archers.addUnit(new Archer(25));
         archers.addUnit(new Archer(30));
 

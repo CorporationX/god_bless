@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @NoArgsConstructor
 public class Army {
     private final List<Squad> squads = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.List;
 public class Squad {
     private final List<Unit> units =  new ArrayList<>();
 
-    public void addUnit(Unit unit){
+    public void addUnit(Unit unit) {
         units.add(unit);
     }
 
