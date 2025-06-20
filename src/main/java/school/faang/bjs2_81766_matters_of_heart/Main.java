@@ -35,7 +35,7 @@ public class Main {
                 RandomAction nextAction = RandomAction.CREATE_CHAT;
                 while (nextAction != RandomAction.EXIT) {
                     switch (nextAction) {
-                        case CREATE_CHAT -> createChat(chatManager);
+                        case CREATE_CHAT -> createAndExecuteChat(chatManager);
                         case ADD_USER -> addUser(userList);
                         default -> log.warn("Unsupported action {}", nextAction);
                     }
@@ -54,7 +54,7 @@ public class Main {
         userList.addUser(new User("UserNew" + System.currentTimeMillis(), true, true));
     }
 
-    private static void createChat(ChatManager chatManager) {
+    private static void createAndExecuteChat(ChatManager chatManager) {
         Chat chat = chatManager.createNewChat();
         chat.doChatting();
         chatManager.endChat(chat);
