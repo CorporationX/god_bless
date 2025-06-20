@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
-
+    private static final int SLEEP_TIME = 1;
 
     @Override
     public void run() {
@@ -17,7 +17,7 @@ public class Chore implements Runnable {
         String name = thread.getName();
         System.out.printf("\tThread \"%s\" started to work: \"%s\"\n", name, chore);
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(SLEEP_TIME);
             System.out.printf("\tThread \"%s\" has finished its work: \"%s\"\n", thread.getName(), chore);
         } catch (InterruptedException e) {
             thread.interrupt();
