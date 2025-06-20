@@ -1,29 +1,23 @@
 package school.faang.bjs2_80424;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@Slf4j
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> itemConsumer) {
+        isEmptyInventory(character.getInventory());
         itemConsumer.accept(item);
-        List<Item> items = new ArrayList<>();
-        items.add(item);
-        if (character.getInventory() != null) {
-            for (Item weapon : character.getInventory()) {
-                items.add(weapon);
-            }
-        }
-        character.setInventory(items);
+        character.addItem(item);
     }
 
     public void removeItem(Character character, Predicate<Item> itemPredicate) {
-        if (character.getInventory() == null) {
-            System.out.println("В инвентаре ничего нет");
-            return;
-        }
+        isEmptyInventory(character.getInventory());
 
         List<Item> items = new ArrayList<>();
         for (Item item : character.getInventory()) {
@@ -36,10 +30,7 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> consumer) {
-        if (character.getInventory() == null) {
-            System.out.println("В инвентаре ничего нет");
-            return;
-        }
+        isEmptyInventory(character.getInventory());
 
         List<Item> items = new ArrayList<>();
         for (Item item : character.getInventory()) {
@@ -51,5 +42,12 @@ public class InventoryManager {
             items.add(item);
         }
         character.setInventory(items);
+    }
+
+    private void isEmptyInventory(List<Item> inventory) {
+        if (inventory == null || inventory.isEmpty()) {
+            log.info("В инвентаре ничего нет или не может быть null");
+            return;
+        }
     }
 }

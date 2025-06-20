@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,9 +12,17 @@ import java.util.List;
 @ToString
 public class Character {
     private String name;
-    private List<Item> inventory;
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
+    }
+
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+
+    public void removeItem(Item item) {
+        inventory.remove(item);
     }
 }
