@@ -1,7 +1,9 @@
 package school.faang.bjs2_81293;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
 
@@ -10,8 +12,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Письмо отправлено: " + i);
+        for (int i = startIndex; i < endIndex; i++) {
+            log.info("Письмо отправлено:  {}", i);
         }
     }
 }
