@@ -9,6 +9,8 @@ public class Player {
     private String name;
 
     public void doBattle(Boss boss) {
+        boss.joinBattle(this);
         System.out.println("Fighting");
+        boss.leaveBattle(this);
     }
 }

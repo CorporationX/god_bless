@@ -56,22 +56,15 @@ public class Boss {
                 new Player("Player 5"), new Player("Player 6"),
                 new Player("Player 7"), new Player("Player 8")
         );
-        executor.execute(() -> boss.joinBattle(players.get(0)));
-        executor.execute(() -> boss.joinBattle(players.get(1)));
-        executor.execute(() -> boss.joinBattle(players.get(2)));
-        executor.execute(() -> boss.joinBattle(players.get(3)));
-        executor.execute(() -> boss.joinBattle(players.get(4)));
-        executor.execute(() -> boss.joinBattle(players.get(5)));
-        executor.execute(() -> boss.joinBattle(players.get(6)));
-        executor.execute(() -> boss.joinBattle(players.get(7)));
+        executor.execute(() -> players.get(0).doBattle(boss));
         executor.execute(() -> players.get(1).doBattle(boss));
+        executor.execute(() -> players.get(2).doBattle(boss));
         executor.execute(() -> players.get(3).doBattle(boss));
-        executor.execute(() -> boss.leaveBattle(players.get(2)));
-        executor.execute(() -> boss.leaveBattle(players.get(0)));
-        executor.execute(() -> boss.leaveBattle(players.get(4)));
-        executor.execute(() -> boss.leaveBattle(players.get(5)));
-        executor.execute(() -> boss.leaveBattle(players.get(6)));
-        executor.execute(() -> boss.leaveBattle(players.get(7)));
+        executor.execute(() -> players.get(4).doBattle(boss));
+        executor.execute(() -> players.get(5).doBattle(boss));
+        executor.execute(() -> players.get(6).doBattle(boss));
+        executor.execute(() -> players.get(7).doBattle(boss));
+
         executor.shutdown();
         try {
             if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
