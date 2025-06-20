@@ -5,7 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WesleyFamily {
-    String[] chores = new String[]{"мойку посуду", "вынос мусор", "приготвление ужина", "уборку за животными", "мойку машину"};
+    String[] chores = new String[]{"мойку посуду", "вынос мусор",
+            "приготвление ужина", "уборку за животными", "мойку машину"};
 
     ExecutorService executor = Executors.newCachedThreadPool();
 
