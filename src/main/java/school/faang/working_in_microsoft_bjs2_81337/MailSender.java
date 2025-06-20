@@ -20,6 +20,6 @@ public class MailSender {
             thread.join();
         }
 
-        System.out.printf("Обработка завершена");
+        System.out.printf("Обработка завершена\n");
     }
 }
