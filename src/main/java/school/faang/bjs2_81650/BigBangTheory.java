@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class BigBangTheory {
 
-        private static final int THREAD_COUNT = 4;
+    private static final int THREAD_COUNT = 4;
 
     public static void main(String[] args) {
 
