@@ -35,7 +35,7 @@ public class Witcher {
                 new Monster("monster7", new Location(random.nextInt(100), random.nextInt(100)))
         );
         ExecutorService executorService = Executors.newFixedThreadPool(POOL_SIZE);
-        long start = System.currentTimeMillis();
+        final long start = System.currentTimeMillis();
         cities.forEach(city -> executorService.execute(new CityWorker(city, monsters)));
         executorService.shutdown();
         try {

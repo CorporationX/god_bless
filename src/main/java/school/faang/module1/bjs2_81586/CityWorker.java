@@ -26,15 +26,19 @@ public class CityWorker implements Runnable {
         if (nearestMonsterOpt.isPresent()) {
             Monster nearestMonster = nearestMonsterOpt.get();
             double distanceToMonster = calculateDistance(city.getLocation(), nearestMonster.getLocation());
-            log.info("Расстояние от замка до города: {}. Расстояние От города до ближайшего монстра: {}", distanceToCity, distanceToMonster);
+            log.info(
+                    "Расстояние от замка до города: {}. Расстояние От города до ближайшего монстра: {}",
+                    distanceToCity,
+                    distanceToMonster
+            );
         } else {
             log.info("Для города {} не найдено ни одного монстра", city.getName());
         }
     }
 
     private double calculateDistance(Location location1, Location location2) {
-        int deltaX = location1.getX() - location2.getX();
-        int deltaY = location1.getY() - location2.getY();
+        int deltaX = location1.getXCoord() - location2.getXCoord();
+        int deltaY = location1.getYCoord() - location2.getYCoord();
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         return Math.round(distance * 100.0) / 100.0;
     }
