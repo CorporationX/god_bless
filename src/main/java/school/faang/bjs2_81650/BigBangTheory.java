@@ -17,7 +17,7 @@ public class BigBangTheory {
         Task[] tasks = new Task[]{new Task("Шелдон", "подготовку теории"),
                 new Task("Леонард", "моделирование эксперимента"),
                 new Task("Говард", "разработку инструментов"),
-                new Task("Раджеш", "анализ данных"),};
+                new Task("Раджеш", "анализ данных")};
 
         for (Task task : tasks) {
             executorService.execute(task);
@@ -26,7 +26,7 @@ public class BigBangTheory {
         executorService.shutdown();
 
         try {
-            if(!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
