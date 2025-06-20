@@ -19,6 +19,7 @@ public class WeasleyFamily {
             executor.submit(new Chore(chore));
         }
 
+        executor.shutdown();
         try {
             if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
                 log.info("Не все задачи завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
