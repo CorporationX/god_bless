@@ -20,7 +20,7 @@ public class Main {
         Predicate<Email> importantFilter = email ->
                 email.isImportant();
         Consumer<Email> printEmail = email ->
-                System.out.println("Обработано письмо: " + email.getSubject());
+                System.out.printf("Обработано письмо: %s" ,  email.getSubject());
         Function<Email, String> toUpperCase = email ->
                 email.getBody().toUpperCase();
 
@@ -30,6 +30,6 @@ public class Main {
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         processedEmails.forEach(email ->
-                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+                System.out.printf("Тема: %s, Тело письма: %s%n", email.getSubject(), email.getBody()));
     }
 }
