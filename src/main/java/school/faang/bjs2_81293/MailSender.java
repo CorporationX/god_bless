@@ -23,7 +23,7 @@ public class MailSender {
             try {
                 threads[i].join();
             } catch (InterruptedException e) {
-                throw new InterruptedException("Меня прервали");
+                throw new InterruptedException("Меня прервали ");
             }
         }
         log.info("Все письма отправлены");
