@@ -14,19 +14,18 @@ public class MailSender {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_MAX_COUNT);
         try {
             List<Integer> list = IntStream.range(1, 1000).boxed().toList();
-            int batchesCount = list.size() / THREAD_BATCH;
-            for (int i = 0; i <= batchesCount; i++) {
+            int batchesCount = (list.size() + THREAD_BATCH - 1) / THREAD_BATCH;
+            for (int i = 0; i < batchesCount; i++) {
                 int startIndex = i * THREAD_BATCH;
-                int endIndex = startIndex + (i == batchesCount ? list.size() - startIndex : THREAD_BATCH);
-                executor.submit(
-                        new SenderRunnable(list.subList(startIndex, endIndex))
-                );
+                int endIndex = Math.min(startIndex + THREAD_BATCH, list.size());
+                executor.submit(new SenderRunnable(list.subList(startIndex, endIndex)));
             }
             executor.shutdown();
             if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             executor.shutdownNow();
         }
     }
