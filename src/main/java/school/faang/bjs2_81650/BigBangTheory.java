@@ -8,9 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class BigBangTheory {
+
+        private static final int THREAD_COUNT = 4;
+
     public static void main(String[] args) {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
         log.info("Распределяем задачи");
 
@@ -32,7 +35,7 @@ public class BigBangTheory {
         } catch (InterruptedException e) {
             System.out.println("Метод прерван");
             executorService.shutdownNow();
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         log.info("Все задачи выполнены");
     }
