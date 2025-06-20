@@ -10,7 +10,7 @@ public class Squad<T extends Warrior> {
     private List<T> squadList;
 
     public Squad(String name, List<T> list) {
-        this.squadList = new CopyOnWriteArrayList<>(list); // Защитная копия
+        this.squadList = new CopyOnWriteArrayList<>(list);
     }
 
     @Getter
