@@ -1,6 +1,7 @@
 package school.faang.bjs2_81766_matters_of_heart;
 
 import lombok.extern.slf4j.Slf4j;
+import school.faang.utils.ThreadUtils;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -11,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
     private static final int MAX_CHAT_THREADS = 5;
     private static final int MAX_ONLINE_USERS = 9;
+    private static final int MAX_AWAIT_SHUTDOWN_MIN = 5;
     private static final Map<Integer, RandomAction> actionIndexes = Map.of(
             0, RandomAction.EXIT,
             1, RandomAction.CREATE_CHAT,
@@ -23,7 +25,11 @@ public class Main {
         ChatManager chatManager = new ChatManager(userList);
         ExecutorService executorService = Executors.newCachedThreadPool();
         startRandomActionThreads(userList, executorService, chatManager);
-        executorService.shutdown();
+        ThreadUtils.executorGracefulShutdown(
+                executorService,
+                MAX_AWAIT_SHUTDOWN_MIN,
+                () -> log.info("Thanks all for chatting, bye!")
+        );
     }
 
     private static void startRandomActionThreads(
