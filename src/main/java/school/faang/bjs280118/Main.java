@@ -20,7 +20,7 @@ public class Main {
         Predicate<Email> importantFilter = email ->
                 email.isImportant();
         Consumer<Email> printEmail = email ->
-                System.out.printf("Обработано письмо: %s" ,  email.getSubject());
+                System.out.printf("Обработано письмо: %s",  email.getSubject());
         Function<Email, String> toUpperCase = email ->
                 email.getBody().toUpperCase();
 
