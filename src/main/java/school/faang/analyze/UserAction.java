@@ -1,16 +1,12 @@
 package school.faang.analyze;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@ToString
-@Getter
-@Setter
+@Data
 public class UserAction {
     private int id;
     private String name;
