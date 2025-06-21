@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class ListUtils {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().
-                filter(number -> number % 2 == 0)
+        return numbers.stream()
+                .filter(number -> number % 2 == 0)
                 .reduce(0, Integer::sum);
     }
 
