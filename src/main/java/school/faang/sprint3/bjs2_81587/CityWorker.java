@@ -17,7 +17,7 @@ public class CityWorker implements Runnable {
                 .sorted()
                 .findFirst()
                 .orElse(distanceToCity);
-                //.orElseThrow(() -> new IllegalArgumentException("Монстры не найдены в городе"));
+        //.orElseThrow(() -> new IllegalArgumentException("Монстры не найдены в городе"));
 
         System.out.printf(
                 "Расстояние до города: %s, расстояние от города до монстра: %s\n",
