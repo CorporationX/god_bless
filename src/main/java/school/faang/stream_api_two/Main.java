@@ -28,15 +28,15 @@ public class Main {
     }
 
     public static List<String> countriesAndDisplayCapitals(Map<String, String> countriesCapitals) {
-        return countriesCapitals.keySet().stream()
-                .map(countriesCapitals::get)
-                .sorted(String::compareTo)
+        return countriesCapitals.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
     public static List<String> filteringAndSortingRows(List<String> strings, char ch) {
         return strings.stream()
-                .filter(string -> string.indexOf(ch) == 0)
+                .filter(string -> string.startsWith(String.valueOf(ch)))
                 .sorted(String::compareTo)
                 .toList();
     }
