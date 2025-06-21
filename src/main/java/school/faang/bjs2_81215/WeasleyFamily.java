@@ -21,7 +21,8 @@ public class WeasleyFamily {
 
         try {
             if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
-                System.out.println("Не все задачи завершены за " + MAX_WAIT_MINUTES + " минут. Завершаем принудительно...");
+                System.out.println("Не все задачи завершены за " + MAX_WAIT_MINUTES
+                                   + " минут. Завершаем принудительно...");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
