@@ -1,10 +1,12 @@
 package school.faang.bjs2_80192;
 
+import java.util.function.Supplier;
+
 public class ErrorHandler {
-    public static <T> T withErrorHandling(Runnable runnable, ErrorFunction<T> errorFunction) {
-        T result = null;
+    public static <T> T withErrorHandling(Supplier<T> supplier, ErrorFunction<T> errorFunction) {
+        T result;
         try {
-            runnable.run();
+            result = supplier.get();
         } catch (Exception e) {
             result = errorFunction.action(e);
         }
