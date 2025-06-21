@@ -3,6 +3,8 @@ package school.faang.army_of_heroes_of_might_and_magic_bjs2_81149;
 import java.util.List;
 
 public class Army {
+    private static final int COUNT_THREADS = 3;
+
     private List<Squad> squadList;
 
     public int calculateTotalPower() {
