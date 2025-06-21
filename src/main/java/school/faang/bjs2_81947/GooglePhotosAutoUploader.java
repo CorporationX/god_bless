@@ -31,7 +31,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             log.info("фотография добавлена {}", photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
