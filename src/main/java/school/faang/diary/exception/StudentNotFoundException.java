@@ -1,4 +1,4 @@
-package school.faang.diary;
+package school.faang.diary.exception;
 
 /**
  * @author Danil Pudovkin

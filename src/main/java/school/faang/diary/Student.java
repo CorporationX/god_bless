@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +19,16 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString(of = {"firstName", "lastName"})
 @EqualsAndHashCode(of = {"firstName", "lastName"})
-public class Student {
+public class Student implements Comparable<Student> {
 
     private String firstName;
     private String lastName;
     private Map<String, List<Integer>> subjects;
+
+    @Override
+    public int compareTo(Student o) {
+        return Comparator.comparing(Student::getFirstName, Comparator.nullsLast(String::compareTo))
+                .thenComparing(Student::getLastName, Comparator.nullsLast(String::compareTo))
+                .compare(this, o);
+    }
 }
