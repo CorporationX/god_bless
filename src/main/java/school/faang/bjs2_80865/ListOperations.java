@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().reduce(0, Integer::sum);
+        return numbers.stream().filter(n -> n % 2 == 0).reduce(0, Integer::sum);
     }
 
     public static int findMax(List<Integer> numbers) {
@@ -16,7 +16,7 @@ class ListOperations {
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return (double) sumOfEvenNumbers(numbers) / numbers.size();
+        return numbers.stream().mapToDouble(n -> n).average().orElse(0);
     }
 
     public static long countStringsStartingWith(List<String> strings, char checkingForContainsChar) {
@@ -34,7 +34,7 @@ class ListOperations {
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted((str1, str2) -> str2.length() - str1.length())
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
