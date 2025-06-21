@@ -18,9 +18,8 @@ public class GooglePhotosAutoUploader {
                     throw new RuntimeException(e);
                 }
             }
+            uploadPhotos();
         }
-
-        uploadPhotos();
     }
 
     public void onNewPhotoPath(String photoPath) {
@@ -32,11 +31,9 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        synchronized (lock) {
-            for (String path : photosToUpload) {
-                System.out.printf("photo in path %s uploaded\n", path);
-            }
-            photosToUpload.clear();
+        for (String path : photosToUpload) {
+            System.out.printf("photo in path %s uploaded\n", path);
         }
+        photosToUpload.clear();
     }
 }
