@@ -8,14 +8,17 @@ import lombok.Getter;
 public class Droid {
     private String name;
 
+    private static DroidMessageEncryptor droidMessageEncryptor;
+    private static final int ALPHABET_SIZE = 26;
+
     public String encryptMessage(String message, int encryptKey) {
-        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> {
+        droidMessageEncryptor = (str, key) -> {
             StringBuilder encryptStr = new StringBuilder();
             for (int i = 0; i < str.length(); i++) {
                 char ch = str.charAt(i);
                 if (Character.isLetter(ch)) {
                     char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    ch = (char) (((ch - base + key) % 26) + base);
+                    ch = (char) (((ch - base + key) % ALPHABET_SIZE) + base);
                 }
                 encryptStr.append(ch);
             }
@@ -25,18 +28,18 @@ public class Droid {
     }
 
     public String decryptMessage(String message, int encryptKey) {
-        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> encryptMessage(str, 26 - key % 26);
+        droidMessageEncryptor = (str, key) -> encryptMessage(str, ALPHABET_SIZE - key % ALPHABET_SIZE);
         return droidMessageEncryptor.encrypt(message, encryptKey);
     }
 
     public void sendMessage(Droid droid, String message, int encryptionKey) {
         String encryptMessage = encryptMessage(message, encryptionKey);
         System.out.printf("%s отправил зашифрованное сообщение: %s%n", name, encryptMessage);
-        receiveMessage(droid, encryptMessage, encryptionKey);
+        receiveMessage(droid.getName(), encryptMessage, encryptionKey);
     }
 
-    public void receiveMessage(Droid droid, String message, int encryptionKey) {
+    public void receiveMessage(String droidName, String message, int encryptionKey) {
         String decryptMessage = decryptMessage(message, encryptionKey);
-        System.out.printf("%s получил расшифрованное сообщение: %s%n", droid.getName(), decryptMessage);
+        System.out.printf("%s получил расшифрованное сообщение: %s%n", droidName, decryptMessage);
     }
 }
