@@ -3,19 +3,23 @@ package school.faang.bjs2_80978;
 import java.util.function.BiFunction;
 
 public class Main {
+    private static final BiFunction<Double, Double, Double> ECONOMY
+            = (DISTANCE, TIME) -> 1.0 * DISTANCE + 0.4 * TIME;
+    private static final BiFunction<Double, Double, Double> COMFORT
+            = (DISTANCE, TIME) -> 1.7 * DISTANCE + 1.0 * TIME;
+    private static final BiFunction<Double, Double, Double> PREMIUM
+            = (DISTANCE, TIME) -> 2.0 * DISTANCE + 1.5 * TIME;
+
+    private static final double DISTANCE = 10.0;
+    private static final double TIME = 15.0;
+
     public static void main(String[] args) {
         FareCalculator calculator = new FareCalculator();
 
-        BiFunction<Double, Double, Double> economy = (distance, time) -> 1.0 * distance + 0.4 * time;
-        BiFunction<Double, Double, Double> comfort = (distance, time) -> 1.7 * distance + 1.0 * time;
-        BiFunction<Double, Double, Double> premium = (distance, time) -> 2.0 * distance + 1.5 * time;
-
-        double distance = 10.0;
-        double time = 15.0;
-
-        double economyCost = calculator.calculateFare(distance, time, economy);
-        double comfortCost = calculator.calculateFare(distance, time, comfort);
-        double premiumCost = calculator.calculateFare(distance, time, premium);
+        double economyCost = calculator.calculateFare(DISTANCE, TIME, ECONOMY
+        );
+        double comfortCost = calculator.calculateFare(DISTANCE, TIME, COMFORT);
+        double premiumCost = calculator.calculateFare(DISTANCE, TIME, PREMIUM);
         System.out.println("Economy: " + economyCost);
         System.out.println("Comfort: " + comfortCost);
         System.out.println("Premium: " + premiumCost);
