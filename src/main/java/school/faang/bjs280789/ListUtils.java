@@ -13,25 +13,25 @@ public class ListUtils {
         return numbers.stream().filter(number -> number % 2 == 0).reduce(0, Integer::sum);
     }
 
-    public static int findMax (List<Integer> numbers) {
+    public static int findMax(List<Integer> numbers) {
         return numbers.stream().max(Integer::compareTo).get();
     }
 
-    public static int findAverage (List<Integer> numbers) {
+    public static int findAverage(List<Integer> numbers) {
         Stream<Integer> stream = numbers.stream();
         int sum = stream.reduce(0, Integer::sum);
         return sum / numbers.size();
     }
 
-    public static long countStringsStartingWith (List<String> strings, char c) {
-        return  strings.stream()
-                .filter(x-> x.startsWith(String.valueOf(c)))
+    public static long countStringsStartingWith(List<String> strings, char c) {
+        return strings.stream()
+                .filter(x -> x.startsWith(String.valueOf(c)))
                 .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         return strings.stream()
-                .filter(x-> x.contains(substring))
+                .filter(x -> x.contains(substring))
                 .collect(Collectors.toList());
     }
 
