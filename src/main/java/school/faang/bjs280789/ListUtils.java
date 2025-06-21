@@ -10,12 +10,10 @@ import java.util.stream.Stream;
 
 public class ListUtils {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        Stream<Integer> stream = numbers.stream();
-        return stream.filter(number -> number % 2 == 0).reduce(0, Integer::sum);
+        return numbers.stream().filter(number -> number % 2 == 0).reduce(0, Integer::sum);
     }
     public static int findMax (List<Integer> numbers) {
-        Stream<Integer> stream = numbers.stream();
-        return stream.max(Integer::compareTo).get();
+        return numbers.stream().max(Integer::compareTo).get();
     }
     public static int findAverage (List<Integer> numbers) {
         Stream<Integer> stream = numbers.stream();
