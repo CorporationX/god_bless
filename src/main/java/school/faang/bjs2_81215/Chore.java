@@ -1,19 +1,22 @@
 package school.faang.bjs2_81215;
 
-public class Chore implements Runnable {
-    private final String chore;
+import lombok.RequiredArgsConstructor;
 
-    public Chore(String chore) {
-        this.chore = chore;
-    }
+@RequiredArgsConstructor
+public class Chore implements Runnable {
+
+    private static final int SLEEP_DURATION_MS = 1000;
+
+    private final String chore;
 
     @Override
     public void run() {
         System.out.println("Thread " + Thread.currentThread().getName() + " is performing chore: " + chore);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_DURATION_MS);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 }
