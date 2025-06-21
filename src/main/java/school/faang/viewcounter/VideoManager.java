@@ -13,20 +13,15 @@ public class VideoManager {
             "6", 54353, "7", 987, "8", 654));
 
     public synchronized void addView(String videoId) {
-        try {
+        if (viewsMap.containsKey(videoId)) {
             int count = viewsMap.get(videoId);
             viewsMap.put(videoId, ++count);
-        } catch (NullPointerException n) {
-            log.error("Невозможно изменить количество просмотров для несуществующего видеоролика.");
+        } else {
+            log.info("Невозможно обновить количество просмотров для несуществующего видеоролика.");
         }
     }
 
     public synchronized Integer getViewCount(String videoId) {
-        try {
-            return viewsMap.get(videoId);
-        } catch (NullPointerException n) {
-            log.error("Невозможно получить количество просмотров для несуществующего видеоролика.");
-        }
-        return 0;
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
