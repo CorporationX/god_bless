@@ -1,6 +1,7 @@
 package school.faang.ironthrone;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -8,13 +9,10 @@ import java.util.List;
 
 @Slf4j
 @Getter
+@RequiredArgsConstructor
 public class House {
     private final String houseName;
     private List<String> roles = new ArrayList<>(List.of("Lord", "Swordsman", "Archer", "Mage", "Alchemist"));
-
-    public House(String houseName) {
-        this.houseName = houseName;
-    }
 
     public synchronized String assignRole(String role)  {
         while (!roles.contains(role)) {
