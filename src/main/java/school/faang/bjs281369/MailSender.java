@@ -20,6 +20,6 @@ public class MailSender {
         for (Thread thread : threads) {
             thread.join();
         }
-            log.info("Cообщения отправлены");
+        log.info("Cообщения отправлены");
     }
 }
