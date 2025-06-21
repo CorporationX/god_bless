@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,25 +17,25 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataAnalyzer {
 
-    public static Set<String> getTop5MostMentionedSkills(@NonNull Set<Job> jobs) {
+    public static List<String> getTopMostMentionedSkills(@NonNull Set<Job> jobs, int topNumber) {
         return jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(String::valueOf, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
-                .limit(5)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .limit(topNumber)
+                .toList();
     }
 
-    public static Set<String> getTop5MostPopularPositions(@NonNull Set<Job> jobs) {
+    public static List<String> getTop5MostPopularPositions(@NonNull Set<Job> jobs) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .limit(5)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .toList();
     }
 
     public static Map<String, List<Job>> getJobsBySalaryRange(@NonNull Set<Job> jobs) {
@@ -58,13 +57,13 @@ public class DataAnalyzer {
                 ));
     }
 
-    public static Set<String> getTop5MostPopularOfficeLocations(@NonNull Set<Job> jobs) {
+    public static List<String> getTopMostPopularOfficeLocations(@NonNull Set<Job> jobs, int topNumber) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
-                .limit(5)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .limit(topNumber)
+                .toList();
     }
 }

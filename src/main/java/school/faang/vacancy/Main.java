@@ -1,18 +1,12 @@
 package school.faang.vacancy;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * @author Danil Pudovkin
@@ -38,7 +32,7 @@ public class Main {
         }
         var jobs = JobStreamProcessor.process(strings.stream());
 
-        var top5MostMentionedSkills = DataAnalyzer.getTop5MostMentionedSkills(jobs);
+        var top5MostMentionedSkills = DataAnalyzer.getTopMostMentionedSkills(jobs, 5);
         log.info("Top-5 most mentioned skills: {}", top5MostMentionedSkills);
 
         var top5MostPopularPositions = DataAnalyzer.getTop5MostPopularPositions(jobs);
@@ -50,7 +44,7 @@ public class Main {
             log.info("{}: {}", jobBySalary.getKey(), jobBySalary.getValue());
         }
 
-        var top5MostPopularOfficeLocations = DataAnalyzer.getTop5MostPopularOfficeLocations(jobs);
+        var top5MostPopularOfficeLocations = DataAnalyzer.getTopMostPopularOfficeLocations(jobs, 5);
         log.info("Top-5 most popular office locations: {}", top5MostPopularOfficeLocations);
     }
 }
