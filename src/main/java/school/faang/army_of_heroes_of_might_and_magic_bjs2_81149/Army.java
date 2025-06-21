@@ -6,10 +6,11 @@ public class Army {
     private List<Squad> squadList;
 
     public int calculateTotalPower() {
-        int totalPower = 0;
-        for (Squad squad : squadList) {
-            squad.g
-        }
+
+
+        return squadList.stream()
+                .mapToInt(Squad::calculateSquadPower)
+                .sum();
     }
 
     public void addSquad(Squad squad) {
