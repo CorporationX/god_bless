@@ -12,9 +12,7 @@ public class RecommendationService {
     private final List<ProductOrder> orders;
 
     public List<Product> recommendByInterests(int userId) {
-        return profiles.stream()
-                .filter(user -> user.getUserId() == userId)
-                .findFirst()
+        return findUserById(userId)
                 .map(user -> {
                     List<String> rawInterests = Objects
                             .requireNonNullElse(user.getInterests(), Collections.emptyList());
@@ -43,10 +41,7 @@ public class RecommendationService {
     }
 
     public List<Product> recommendPopularAmongSimilarUsers(int userId) {
-        Optional<UserProfile> optionalUser = profiles.stream()
-                .filter(u -> u.getUserId() == userId)
-                .findFirst();
-
+        Optional<UserProfile> optionalUser = findUserById(userId);
         if (optionalUser.isEmpty()) {
             return Collections.emptyList();
         }
@@ -54,10 +49,7 @@ public class RecommendationService {
         UserProfile target = optionalUser.get();
 
         List<Integer> similarUserIds = profiles.stream()
-                .filter(u -> u.getUserId() != userId) // исключаем самого себя
-                .filter(u -> u.getGender().equalsIgnoreCase(target.getGender()))
-                .filter(u -> u.getAge() == target.getAge())
-                .filter(u -> u.getLocation().equalsIgnoreCase(target.getLocation()))
+                .filter(u -> isSimilar(target, u))
                 .map(UserProfile::getUserId)
                 .toList();
 
@@ -81,21 +73,18 @@ public class RecommendationService {
     }
 
     public Optional<String> suggestDiscountCategory(int userId) {
-        Optional<UserProfile> optionalUser = profiles.stream()
-                .filter(u -> u.getUserId() == userId)
-                .findFirst();
-
+        Optional<UserProfile> optionalUser = findUserById(userId);
         if (optionalUser.isEmpty()) {
             return Optional.empty();
         }
 
         UserProfile user = optionalUser.get();
         Set<String> normalizedInterests = user.getInterests() == null
-                ? Collections.emptySet() :
-                user.getInterests().stream()
-                        .filter(Objects::nonNull)
-                        .map(String::toLowerCase)
-                        .collect(Collectors.toSet());
+                ? Collections.emptySet()
+                : user.getInterests().stream()
+                .filter(Objects::nonNull)
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
 
         if (normalizedInterests.isEmpty()) {
             return Optional.empty();
@@ -109,7 +98,7 @@ public class RecommendationService {
         Map<String, Long> categoryCount = products.stream()
                 .filter(p -> orderedProductIds.contains(p.getProductId()))
                 .filter(p -> {
-                    List<String> tags = p.getTags() == null ? Collections.emptyList() : p.getTags();
+                    List<String> tags = Objects.requireNonNullElse(p.getTags(), Collections.emptyList());
                     return tags.stream()
                             .filter(Objects::nonNull)
                             .map(String::toLowerCase)
@@ -122,5 +111,18 @@ public class RecommendationService {
                 .map(Map.Entry::getKey);
     }
 
+    // Вынесенный метод поиска пользователя
+    private Optional<UserProfile> findUserById(int userId) {
+        return profiles.stream()
+                .filter(u -> u.getUserId() == userId)
+                .findFirst();
+    }
 
+    // Вынесенная логика "похожести" пользователя
+    private boolean isSimilar(UserProfile target, UserProfile candidate) {
+        return candidate.getUserId() != target.getUserId()
+               && target.getGender().equalsIgnoreCase(candidate.getGender())
+               && target.getAge() == candidate.getAge()
+               && target.getLocation().equalsIgnoreCase(candidate.getLocation());
+    }
 }
