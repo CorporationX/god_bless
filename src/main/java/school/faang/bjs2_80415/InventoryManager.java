@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        if (Objects.isNull(item)) {
+        if (Objects.isNull(item) && Objects.isNull(character)) {
             System.out.println("Item isn't found");
             return;
         }
@@ -17,21 +17,16 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        List<Item> copyOfItems = List.copyOf(character.getInventory());
-        copyOfItems.forEach(item -> {
-            if (predicate.test(item)) {
-                character.getInventory().remove(item);
-            }
-        });
+        character.getInventory().removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        List<Item> copyOfItems = List.copyOf(character.getInventory());
-        copyOfItems.forEach(item -> {
+        List<Item> inventory = character.getInventory();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (predicate.test(item)) {
-                character.getInventory().remove(item);
-                character.getInventory().add(function.apply(item));
+                inventory.set(i, function.apply(item));
             }
-        });
+        }
     }
 }
