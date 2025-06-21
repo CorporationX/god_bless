@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class Main {
-    public static final Map<String, String> DICTIONARY = new HashMap<>();
-    public static final BiConsumer<String, String> ADD_WORD_TO_DICTIONARY = (word, translation)
+    private static final Map<String, String> DICTIONARY = new HashMap<>();
+    private static final BiConsumer<String, String> ADD_WORD_TO_DICTIONARY = (word, translation)
             -> DICTIONARY.put(word, translation);
 
     public static void main(String[] args) {
