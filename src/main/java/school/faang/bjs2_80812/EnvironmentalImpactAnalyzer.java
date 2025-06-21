@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 public class EnvironmentalImpactAnalyzer {
 
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     private final CompanyDataLoader dataLoader;
     private final Map<Integer, Company> companyMap;
 
@@ -20,7 +22,8 @@ public class EnvironmentalImpactAnalyzer {
                 .collect(Collectors.toMap(Company::getId, company -> company));
     }
 
-    public void printMonthlyEmissions(String filename, int companyId, LocalDate now) throws IOException {
+    public void printMonthlyEmissions(String filename, int companyId) throws IOException {
+        LocalDate now = LocalDate.now();
         LocalDate oneYearAgo = now.minusMonths(12);
 
         List<EnvironmentalImpact> allImpacts = dataLoader.loadImpacts(filename);
@@ -34,12 +37,11 @@ public class EnvironmentalImpactAnalyzer {
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
 
-        String companyName = companyMap.containsKey(companyId)
-                ? companyMap.get(companyId).getCompanyName()
-                : "Unknown Company";
+        String companyName = companyMap.getOrDefault(companyId, new Company(companyId, "Unknown Company", 0))
+                .getCompanyName();
 
         System.out.println("Company Name: " + companyName);
-        System.out.println("Today's date: " + now.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        System.out.println("Today's date: " + now.format(DATE_FORMAT));
         System.out.println("Month    GasEmission");
 
         double total = 0.0;
@@ -48,17 +50,20 @@ public class EnvironmentalImpactAnalyzer {
                 .sorted(Comparator.reverseOrder())
                 .toList();
 
-        for (YearMonth ym : months) {
-            double volume = emissionsByMonth.get(ym);
+        for (YearMonth month : months) {
+            double volume = emissionsByMonth.get(month);
             total += volume;
-            System.out.printf("%s  %.2f%n", ym, volume);
+            System.out.printf("%s  %.2f%n", month, volume);
         }
+
         System.out.printf("Total    %.2f%n", total);
     }
 
-    public void printTopCompanies(String filename, LocalDate now) throws IOException {
-        List<EnvironmentalImpact> impacts = dataLoader.loadImpacts(filename);
+    public void printTopCompanies(String filename) throws IOException {
+        LocalDate now = LocalDate.now();
         LocalDate oneYearAgo = now.minusMonths(12);
+
+        List<EnvironmentalImpact> impacts = dataLoader.loadImpacts(filename);
 
         Map<Integer, Map<YearMonth, Double>> grouped = impacts.stream()
                 .filter(e -> e.getType() == ImpactType.GAS_EMISSION)
@@ -71,32 +76,31 @@ public class EnvironmentalImpactAnalyzer {
                         )
                 ));
 
-        List<CompanyStats> stats = grouped.entrySet().stream()
+        System.out.printf("%-15s %-17s %-22s %-22s%n",
+                "Company", "TotalGasEmission", "AvgGasEmission/Month", "MinGasEmission/Month");
+
+        grouped.entrySet().stream()
                 .map(entry -> {
                     int companyId = entry.getKey();
                     Map<YearMonth, Double> monthly = entry.getValue();
                     double total = monthly.values().stream().mapToDouble(Double::doubleValue).sum();
                     double avg = monthly.values().stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
                     double min = monthly.values().stream().mapToDouble(Double::doubleValue).min().orElse(0.0);
-                    String name = companyMap
-                            .getOrDefault(companyId, new Company(companyId, "Unknown", 0)).getCompanyName();
+                    String name = companyMap.getOrDefault(companyId, new Company(companyId, "Unknown", 0))
+                            .getCompanyName();
                     return new CompanyStats(name, total, avg, min);
                 })
                 .sorted(Comparator.comparingDouble(CompanyStats::getTotalEmission).reversed())
                 .limit(3)
-                .toList();
-
-        System.out.printf("%-15s %-17s %-22s %-22s%n",
-                "Company", "TotalGasEmission", "AvgGasEmission/Month", "MinGasEmission/Month");
-        for (CompanyStats s : stats) {
-            System.out.printf("%-15s %-17.2f %-22.2f %-22.2f%n",
-                    s.getName(), s.getTotalEmission(), s.getAvgEmission(), s.getMinEmission());
-        }
+                .forEach(s -> System.out.printf("%-15s %-17.2f %-22.2f %-22.2f%n",
+                        s.getName(), s.getTotalEmission(), s.getAvgEmission(), s.getMinEmission()));
     }
 
-    public void printEmissionsPerEmployee(String filename, LocalDate now) throws IOException {
-        List<EnvironmentalImpact> impacts = dataLoader.loadImpacts(filename);
+    public void printEmissionsPerEmployee(String filename) throws IOException {
+        LocalDate now = LocalDate.now();
         LocalDate oneYearAgo = now.minusMonths(12);
+
+        List<EnvironmentalImpact> impacts = dataLoader.loadImpacts(filename);
 
         Map<Integer, Double> totalByCompany = impacts.stream()
                 .filter(e -> e.getType() == ImpactType.GAS_EMISSION)
