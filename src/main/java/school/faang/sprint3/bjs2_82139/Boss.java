@@ -13,37 +13,39 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class Boss {
     private static final int THREAD_BATCH = 5;
+    private final Object lock = new Object();
 
     private final int maxPlayers;
-    private int currentPlayers = 0;
     private List<Player> players = new ArrayList<>();
 
-    public synchronized void joinBattle(Player player) {
-        if (players.contains(player)) {
-            System.out.printf("Игрок %s уже в битве с боссом\n", player.getName());
-        } else {
-            if (currentPlayers >= maxPlayers) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
+    public void joinBattle(Player player) {
+        synchronized (lock) {
+            if (players.contains(player)) {
+                System.out.printf("Игрок %s уже в битве с боссом\n", player.getName());
+            } else {
+                while (players.size() >= maxPlayers) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException(e);
+                    }
                 }
+                players.add(player);
+                System.out.printf("Игрок %s присоединился к битве с боссом\n", player.getName());
             }
-            currentPlayers++;
-            players.add(player);
-            System.out.printf("Игрок %s присоединился к битве с боссом\n", player.getName());
         }
     }
 
-    public synchronized void leaveBattle(Player player) {
-        if (!players.contains(player)) {
-            System.out.printf("Игрок %s уже покинул бой\n", player.getName());
-        } else {
-            System.out.printf("Игрок %s покинул бой\n", player.getName());
-            currentPlayers--;
-            players.remove(player);
-            this.notify();
+    public void leaveBattle(Player player) {
+        synchronized (lock) {
+            if (!players.contains(player)) {
+                System.out.printf("Игрок %s уже покинул бой\n", player.getName());
+            } else {
+                System.out.printf("Игрок %s покинул бой\n", player.getName());
+                players.remove(player);
+                lock.notifyAll();
+            }
         }
     }
 
@@ -56,14 +58,7 @@ public class Boss {
                 new Player("Player 5"), new Player("Player 6"),
                 new Player("Player 7"), new Player("Player 8")
         );
-        executor.execute(() -> players.get(0).doBattle(boss));
-        executor.execute(() -> players.get(1).doBattle(boss));
-        executor.execute(() -> players.get(2).doBattle(boss));
-        executor.execute(() -> players.get(3).doBattle(boss));
-        executor.execute(() -> players.get(4).doBattle(boss));
-        executor.execute(() -> players.get(5).doBattle(boss));
-        executor.execute(() -> players.get(6).doBattle(boss));
-        executor.execute(() -> players.get(7).doBattle(boss));
+        players.forEach(player -> player.doBattle(boss));
 
         executor.shutdown();
         try {

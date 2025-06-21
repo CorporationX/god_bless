@@ -9,8 +9,17 @@ public class Player {
     private String name;
 
     public void doBattle(Boss boss) {
-        boss.joinBattle(this);
-        System.out.println("Fighting");
-        boss.leaveBattle(this);
+        try {
+            boss.joinBattle(this);
+            System.out.println("Fighting");
+            Thread.sleep(1000);
+            boss.leaveBattle(this);
+
+        } catch (InterruptedException e) {
+            boss.leaveBattle(this);
+            System.out.println("Ошибка: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
     }
 }
