@@ -21,6 +21,5 @@ public class MailSender {
             thread.join();
         }
             log.info("Cообщения отправлены");
-
     }
 }
