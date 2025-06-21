@@ -13,16 +13,18 @@ public class GooglePhotosAutoUploader {
 
     private void startAutoUpload() {
         synchronized (lock) {
-            try {
-                if (photosToUpload.isEmpty()) {
-                    System.out.println("Нет фалов, ожидание");
-                    lock.wait();
+            while (true) {
+                try {
+                    if (photosToUpload.isEmpty()) {
+                        System.out.println("Нет файлов, ожидание");
+                        lock.wait();
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
