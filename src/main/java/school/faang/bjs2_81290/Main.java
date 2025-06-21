@@ -10,19 +10,22 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int PERSONS_COUNT = 10_000;
+    private static final int THREAD_COUNT = 5;
+
     public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
-        int personsCount = 10_000;
-        int threadsCount = 5;
 
-        for (int i = 0; i < personsCount; i++) {
-            persons.add(new Person("Имя" + i, "Фамилия" + i, 18 + (i % 50), "Работа" + i));
+        for (int i = 0; i < PERSONS_COUNT; i++) {
+            StringBuilder sbName = new StringBuilder("Имя" +  i);
+            StringBuilder sbSurname = new StringBuilder("Фамилия" +  i);
+            StringBuilder sbWorkplace = new StringBuilder("Работа" +  i);
+            persons.add(new Person(sbName.toString(), sbSurname.toString(), 18 + (i % 50), sbWorkplace.toString()));
         }
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
+        int batchSize = PERSONS_COUNT / THREAD_COUNT;
 
-        ExecutorService executor = Executors.newFixedThreadPool(threadsCount);
-        int batchSize = personsCount / threadsCount;
-
-        for (int i = 1; i <= threadsCount; i++) {
+        for (int i = 1; i <= THREAD_COUNT; i++) {
             int startIndex = (i - 1) * batchSize;
             int endIndex = i * batchSize - 1;
             List<Person> batch = persons.subList(startIndex, endIndex);
