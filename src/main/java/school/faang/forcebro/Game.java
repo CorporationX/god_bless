@@ -12,22 +12,11 @@ public class Game {
     private int score = 0;
     private int lives = 10;
 
-    public void update(boolean isPointsEarned, boolean isLifeLost) {
-        synchronized (scoreSynchronized) {
-            if (isPointsEarned) {
-                try {
-                    score++;
-                    log.info("Очки увеличены, текущий счёт: {}", score);
-                } finally {
-                    scoreSynchronized.notifyAll();
-                }
-            }
-        }
-
+    public void update(boolean isAddScore) {
         synchronized (livesSynchronized) {
-            if (isLifeLost) {
+            if (!isAddScore) {
                 try {
-                    if (lives <= 0) {
+                    if (lives <= 1) {
                         gameOver();
                         return;
                     }
@@ -35,6 +24,17 @@ public class Game {
                     log.info("Жизни уменьшены, оставшиеся жизни: {}", lives);
                 } finally {
                     livesSynchronized.notifyAll();
+                }
+            }
+        }
+
+        synchronized (scoreSynchronized) {
+            if (isAddScore) {
+                try {
+                    score++;
+                    log.info("Очки увеличены, текущий счёт: {}", score);
+                } finally {
+                    scoreSynchronized.notifyAll();
                 }
             }
         }

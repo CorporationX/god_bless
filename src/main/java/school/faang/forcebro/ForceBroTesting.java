@@ -2,26 +2,37 @@ package school.faang.forcebro;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class ForceBroTesting {
     public static void main(String[] args) {
         Game game = new Game();
 
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        for (int i = 0; i < 100; i++) {
-            if (game.isGameOver()) {
-                break;
-            }
-            boolean earnedPoints = Math.random() < 0.5;
-            boolean lostLife = Math.random() < 0.3;
-
-            game.update(earnedPoints, lostLife);
+        while (!game.isGameOver()) {
+            boolean isAddScore = Math.random() < 0.7;
+            executor.submit(() -> game.update(isAddScore));
 
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                log.info("Истекло время ожидания. Принудительная остановка задач.");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
         }
     }
 }
