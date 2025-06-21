@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 public class Swordsman extends Unit {
-    private double power = 40;
+    private double power;
 }

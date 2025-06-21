@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 public class Archer extends Unit {
-    private double power = 45;
+    private double power;
 }

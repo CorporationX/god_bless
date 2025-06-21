@@ -1,9 +1,12 @@
 package school.faang.sprint3.bjs2_81109;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
+
         // Создаём отряды
         Squad<Archer> archers = new Squad<>("Лучники", List.of(new Archer(25), new Archer(30)));
         Squad<Swordsman> swordsmen = new Squad<>("Мечники", List.of(new Swordsman(40), new Swordsman(35)));
@@ -16,7 +19,8 @@ public class Main {
         army.addSquad(mages);
 
         // Вычисляем общую силу армии
-        double totalPower = army.calculateTotalPower();
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        double totalPower = army.calculateTotalPower(executor);
         System.out.println("Общая сила армии: " + totalPower);
     }
 }

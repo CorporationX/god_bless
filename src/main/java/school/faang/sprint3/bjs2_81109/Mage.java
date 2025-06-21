@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 public class Mage extends Unit {
-    private double power = 50;
+    private double power;
 }
