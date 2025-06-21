@@ -11,28 +11,18 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        double distanceToCity = calculateDistance(new Location(0, 0), city.getLocation());
-        double closestDistanceToMonster = !monsters.isEmpty()
-                ? calculateDistance(city.getLocation(), monsters.stream().findFirst().get().getLocation())
-                : distanceToCity;
-        for (int i = 1; i < monsters.size(); i++) {
-            double distanceToMonster = calculateDistance(city.getLocation(), monsters.get(i).getLocation());
-            if (distanceToMonster < closestDistanceToMonster) {
-                closestDistanceToMonster = distanceToMonster;
-            }
-        }
+        double distanceToCity = Location.calculateDistance(new Location(0, 0), city.getLocation());
+        double closestDistanceToMonster = monsters.stream()
+                .map(monster -> city.getLocation().calculateDistance(monster.getLocation()))
+                .sorted()
+                .findFirst()
+                .orElse(distanceToCity);
+//                .orElseThrow(() -> new IllegalArgumentException("Монстры не найдены в городе"));
+
         System.out.printf(
                 "Расстояние до города: %s, расстояние от города до монстра: %s\n",
                 distanceToCity,
                 closestDistanceToMonster
-        );
-    }
-
-    private double calculateDistance(Location loc1, Location loc2) {
-        return Math.sqrt(
-                Math.pow(
-                        loc1.getAxisX() - loc2.getAxisX(), 2) + Math.pow(loc1.getAxisY() - loc2.getAxisY(),
-                        2)
         );
     }
 }
