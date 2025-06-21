@@ -32,13 +32,11 @@ public class Operations {
 
     public static Map<String, Integer> getFinalScoresForStudent(@NonNull Set<Student> students,
                                                                 @NonNull String firstName, @NonNull String lastName) {
-        var studentOptional = students.stream()
+        var student = students.stream()
                 .filter(s -> s.getFirstName().equals(firstName) && s.getLastName().equals(lastName))
-                .findFirst();
-        if (studentOptional.isEmpty()) {
-            throw new StudentNotFoundException();
-        }
-        return studentOptional.get().getSubjects().entrySet().stream()
+                .findFirst()
+                .orElseThrow(StudentNotFoundException::new);
+        return student.getSubjects().entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream()
                         .map(score -> Map.entry(entry.getKey(), score)))
                 .collect(Collectors.groupingBy(

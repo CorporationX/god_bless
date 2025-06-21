@@ -20,10 +20,10 @@ public class Main {
         Set<Student> students;
         try {
             students = objectMapper.readValue(
-                            Paths.get("src/main/resources/students_test_data.json").toFile(),
-                            new TypeReference<Set<Student>>() {
-                            }
-                    ).stream()
+                    Paths.get("src/main/resources/students_test_data.json").toFile(),
+                    new TypeReference<Set<Student>>() {
+                    }
+            ).stream()
                     .sorted(Student::compareTo)
                     .collect(Collectors.toCollection(LinkedHashSet::new));
         } catch (IOException e) {
