@@ -30,10 +30,9 @@ public class VideoManager {
         for (int i = 0; i < NUM_VIDEOS; i++) {
             int videoIndex = i;
             executor.execute(() -> {
-                        String videoId = String.valueOf(videoIndex);
-                        System.out.printf("Id: %s, views: %s\n", videoId, manager.getViewCount(videoId));
-                    }
-            );
+                String videoId = String.valueOf(videoIndex);
+                System.out.printf("Id: %s, views: %s\n", videoId, manager.getViewCount(videoId));
+            });
         }
 
         executor.shutdown();
