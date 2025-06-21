@@ -5,16 +5,17 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class Main {
+    public static final Map<String, String> DICTIONARY = new HashMap<>();
+    public static final BiConsumer<String, String> ADD_WORD_TO_DICTIONARY = (word, translation)
+            -> DICTIONARY.put(word, translation);
+
     public static void main(String[] args) {
+
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-        Map<String, String> dictionary = new HashMap<>();
-        BiConsumer<String, String> addWordToDictionary = (word, translation)
-                -> dictionary.put(word, translation);
-
-        dictionaryProcessor.processWord("Elephant", "Слон", addWordToDictionary);
-        dictionaryProcessor.processWord("Peace", "Мир", addWordToDictionary);
-        dictionaryProcessor.processWord("Build", "Постройка", addWordToDictionary);
-        System.out.println("Словарь: " + dictionary);
+        dictionaryProcessor.processWord("Elephant", "Слон", ADD_WORD_TO_DICTIONARY);
+        dictionaryProcessor.processWord("Peace", "Мир", ADD_WORD_TO_DICTIONARY);
+        dictionaryProcessor.processWord("Build", "Постройка", ADD_WORD_TO_DICTIONARY);
+        System.out.println("Словарь: " + DICTIONARY);
     }
 }
