@@ -9,7 +9,7 @@ public class Music {
 
     private static final int PLAYER_METHOD_COUNT = 4;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
         Player player = new Player();
         for (int i = 0; i < USER_COUNT; i++) {
@@ -29,7 +29,7 @@ public class Music {
                 System.out.println("not all threads terminated. start force termination...");
                 executor.shutdownNow();
             }
-        } catch (IllegalArgumentException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
             executor.shutdownNow();
         }
