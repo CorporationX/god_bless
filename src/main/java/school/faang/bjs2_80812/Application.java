@@ -1,7 +1,6 @@
 package school.faang.bjs2_80812;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Application {
@@ -19,17 +18,15 @@ public class Application {
 
         String filename = "environmental_impact_100.csv";
 
-        LocalDate fixedNow = LocalDate.of(2023, 2, 15);
-
         try {
             System.out.println("=== Анализ выбросов по месяцам ===");
-            analyzer.printMonthlyEmissions(filename, 101, fixedNow);
+            analyzer.printMonthlyEmissions(filename, 101);
 
             System.out.println("\n=== Топ-3 компании по выбросам за год ===");
-            analyzer.printTopCompanies(filename, fixedNow);
+            analyzer.printTopCompanies(filename);
 
             System.out.println("\n=== Выбросы на одного сотрудника ===");
-            analyzer.printEmissionsPerEmployee(filename, fixedNow);
+            analyzer.printEmissionsPerEmployee(filename);
 
         } catch (IOException e) {
             System.err.println("Ошибка при работе с файлом: " + e.getMessage());
