@@ -39,7 +39,7 @@ public class Operations {
                 );
     }
 
-    public static List<String> findPalindromes(int start, int end) {
+    public static List<Integer> findPalindromes(int start, int end) {
         return IntStream.range(start, end + 1)
                 .filter(num -> {
                     var number = String.valueOf(num);
@@ -47,7 +47,7 @@ public class Operations {
                             .mapToObj(i -> number.charAt(i) == number.charAt(number.length() - 1 - i))
                             .allMatch(TRUE::equals);
                 })
-                .mapToObj(String::valueOf)
+                .boxed()
                 .toList();
     }
 
