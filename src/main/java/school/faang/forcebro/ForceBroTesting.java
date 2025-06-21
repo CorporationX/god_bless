@@ -15,7 +15,8 @@ public class ForceBroTesting {
 
         while (!game.isGameOver()) {
             boolean isAddScore = Math.random() < 0.7;
-            executor.submit(() -> game.update(isAddScore));
+            boolean isHealthLost = Math.random() < 0.5;
+            executor.submit(() -> game.update(isAddScore, isHealthLost));
 
             try {
                 Thread.sleep(100);

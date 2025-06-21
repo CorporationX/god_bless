@@ -12,9 +12,9 @@ public class Game {
     private int score = 0;
     private int lives = 10;
 
-    public void update(boolean isAddScore) {
+    public void update(boolean isAddScore, boolean isHealthLost) {
         synchronized (livesSynchronized) {
-            if (!isAddScore) {
+            if (isHealthLost) {
                 try {
                     if (lives <= 1) {
                         gameOver();
@@ -44,5 +44,4 @@ public class Game {
         this.isGameOver = true;
         log.info("Игра окончена");
     }
-
 }
