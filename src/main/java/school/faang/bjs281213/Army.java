@@ -17,13 +17,13 @@ public class Army {
         AtomicInteger result = new AtomicInteger(0);
         for (int i = 0; i < threadsCount; i++) {
             final int frozen = i;
-            threads[frozen] = new Thread(() ->
-            {
+            threads[frozen] = new Thread(() -> {
                 int powerSquad = list.get(frozen).calculatePowerSquad();
                 result.addAndGet(powerSquad);
             });
             threads[frozen].start();
         }
+
         for (Thread thread : threads) {
             thread.join();
         }
