@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class Witcher {
 
     public static final int THREADS_NUM = Runtime.getRuntime().availableProcessors();
+    public static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 2;
 
     public static void main(String[] args) {
         var cities = List.of(
@@ -60,11 +61,11 @@ public class Witcher {
     }
 
     private static void runWithThreadsNumLessThanAvailableProcessors(List<City> cities, List<Monster> monsters) {
-        runWithThreadCount(Math.max(1, THREADS_NUM / 2), cities, monsters);
+        runWithThreadCount(Math.max(1, THREADS_NUM / MAX_EXECUTOR_AWAIT_TERMINATION_TIME), cities, monsters);
     }
 
     private static void runWithThreadsNumMoreThanAvailableProcessors(List<City> cities, List<Monster> monsters) {
-        runWithThreadCount(THREADS_NUM * 2, cities, monsters);
+        runWithThreadCount(THREADS_NUM * MAX_EXECUTOR_AWAIT_TERMINATION_TIME, cities, monsters);
     }
 
     private static void runWithThreadCount(int threadCount, List<City> cities, List<Monster> monsters) {
@@ -79,7 +80,7 @@ public class Witcher {
     private static void shutDownExecutor(ExecutorService executor) {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
