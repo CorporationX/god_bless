@@ -15,23 +15,31 @@ public class ChatManager {
         //Unclear from task why we need this method
     }
 
-    public Chat startChat(User user) {
-        synchronized (userList) {
-            Optional<User> partner = userList.getRandomPartner(user);
-            while (partner.isEmpty()) {
-                try {
-                    log.info("No partners found for user {}, waiting...", user.getName());
-                    userList.wait();
-                    partner = userList.getRandomPartner(user);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    public Optional<Chat> startChat(User user) {
+        synchronized (user) {
+            if (!user.isLookingForChat()) {
+                log.warn("User {} is already chatting. Cannot start new chat.", user.getName());
+                return Optional.empty();
             }
-            log.info("Found partner for {} : {}", user.getName(), partner.get().getName());
-            Chat chat = new Chat(user, partner.get());
-            chat.begin();
-            return chat;
+            user.setLookingForChat(false);
+            synchronized (userList) {
+                Optional<User> partner = userList.getRandomPartner(user);
+                while (partner.isEmpty()) {
+                    try {
+                        log.info("No partners found for user {}, waiting...", user.getName());
+                        userList.wait();
+                        partner = userList.getRandomPartner(user);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                log.info("Found partner for {} : {}", user.getName(), partner.get().getName());
+                Chat chat = new Chat(user, partner.get());
+                chat.begin();
+                return Optional.of(chat);
+            }
         }
+
     }
 
     public void endChat(Chat chat) {
@@ -41,15 +49,16 @@ public class ChatManager {
         }
     }
 
-    public Chat createNewChat() {
+    public Optional<Chat> createNewChat() {
         synchronized (userList) {
             log.info("Creating brand new chat!");
-            AtomicReference<Chat> chat = new AtomicReference<>();
+            AtomicReference<Optional<Chat>> chat = new AtomicReference<>();
             Optional<User> willingUser = userList.getOnlineUsersForChat().stream().findFirst();
             willingUser.ifPresentOrElse(
                     wu -> {
-                        wu.setLookingForChat(false);
-                        chat.set(this.startChat(wu));
+                        synchronized (wu) {
+                            chat.set(this.startChat(wu));
+                        }
                     },
                     () -> log.info("No new willing users, no chat created.")
             );

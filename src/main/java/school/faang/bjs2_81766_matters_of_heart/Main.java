@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import school.faang.utils.ThreadUtils;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -61,9 +62,11 @@ public class Main {
     }
 
     private static void createAndExecuteChat(ChatManager chatManager) {
-        Chat chat = chatManager.createNewChat();
-        chat.doChatting();
-        chatManager.endChat(chat);
+        Optional<Chat> chat = chatManager.createNewChat();
+        chat.ifPresent(c -> {
+            c.doChatting();
+            chatManager.endChat(c);
+        });
     }
 
     private static void addStartingUsers(UserList userList) {

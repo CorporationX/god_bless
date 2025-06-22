@@ -22,7 +22,7 @@ public class Chat {
         this.user2 = user2;
     }
 
-    public void begin() {
+    public synchronized void begin() {
         user1.setLookingForChat(false);
         user2.setLookingForChat(false);
         log.info("Chat begin for {} and {}", user1.getName(), user2.getName());
@@ -37,7 +37,7 @@ public class Chat {
         }
     }
 
-    public void end() {
+    public synchronized void end() {
         user1.setLookingForChat(true);
         user2.setLookingForChat(true);
         log.info("Chat ended for {} and {}", user1.getName(), user2.getName());
