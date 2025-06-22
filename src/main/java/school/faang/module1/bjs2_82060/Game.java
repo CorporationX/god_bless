@@ -10,15 +10,12 @@ public class Game {
 
     private int score = 0;
     private int lives = 10;
-    private boolean isGameOver = false;
+    private volatile boolean isGameOver = false;
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
     public void update(UpdaterType updaterType) {
-        if (isGameOver) {
-            return;
-        }
         if (updaterType == SCORE) {
             synchronized (scoreLock) {
                 if (isGameOver) {
@@ -47,6 +44,15 @@ public class Game {
 
     private void gameOver() {
         isGameOver = true;
+        int finalScore;
+        int finalLives;
+        synchronized (scoreLock) {
+            finalScore = score;
+        }
+        synchronized (livesLock) {
+            finalLives = lives;
+        }
         log.info("Все жизни потеряны! игра окончена");
+        log.info("Финальный счёт: {}, оставшиеся жизни: {}", finalScore, finalLives);
     }
 }
