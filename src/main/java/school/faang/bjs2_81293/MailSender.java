@@ -8,6 +8,7 @@ public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREADS_COUNT = 5;
     private static final int THREADS_SIZE = TOTAL_MESSAGES / THREADS_COUNT;
+
     @SneakyThrows
     public static void main(String[] args) {
 
