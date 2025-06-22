@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Slf4j
@@ -19,21 +18,17 @@ public class CityWorker implements Runnable {
     @Override
     public void run() {
         double distanceToCity = calculateDistance(WITCHER_CASTLE, city.getLocation());
-        Optional<Monster> nearestMonsterOpt = monsters.stream()
+        monsters.stream()
                 .min(Comparator.comparingDouble(
-                        monster -> calculateDistance(city.getLocation(), monster.getLocation())
-                ));
-        if (nearestMonsterOpt.isPresent()) {
-            Monster nearestMonster = nearestMonsterOpt.get();
-            double distanceToMonster = calculateDistance(city.getLocation(), nearestMonster.getLocation());
-            log.info(
-                    "Расстояние от замка до города: {}. Расстояние От города до ближайшего монстра: {}",
-                    distanceToCity,
-                    distanceToMonster
-            );
-        } else {
-            log.info("Для города {} не найдено ни одного монстра", city.getName());
-        }
+                        monster -> calculateDistance(city.getLocation(), monster.getLocation())))
+                .ifPresentOrElse(
+                        nearestMonster -> log.info(
+                                "Расстояние от замка до города: {}. Расстояние от города до ближайшего монстра: {}",
+                                distanceToCity,
+                                calculateDistance(city.getLocation(), nearestMonster.getLocation())
+                        ),
+                        () -> log.info("Для города {} не найдено ни одного монстра", city.getName())
+                );
     }
 
     private double calculateDistance(Location location1, Location location2) {
