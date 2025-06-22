@@ -12,20 +12,23 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j(topic = "GriffinsFoodDelivery")
 public class GriffinsFoodDelivery {
-    
+
+    private static final int THREADS_NUM = 3;
+    private static final int MAX_RAND_INT = 50;
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 5;
     private static final Random RANDOM = new Random();
 
     public static void main(String[] args) {
-        var executor = Executors.newFixedThreadPool(3);
+        var executor = Executors.newFixedThreadPool(THREADS_NUM);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         for (var characterName : characterNames) {
-            executor.execute(new FoodDeliveryTask(characterName, RANDOM.nextInt(50)));
+            executor.execute(new FoodDeliveryTask(characterName, RANDOM.nextInt(MAX_RAND_INT)));
         }
         executor.shutdown();
         var executorName = executor.getClass().getSimpleName();
         log.info("{} | Запрос на завершение работы", executorName);
         try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
                 log.info("{} | Принудительное завершение работы", executorName);
             }
