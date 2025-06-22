@@ -32,7 +32,7 @@ public class GooglePhotosAutoUploader {
         log.info("Загрузчик остановлен.");
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         photosToUpload.forEach(s -> log.info("Новое фото загружено: {}", s));
         photosToUpload.clear();
         log.info("Все фото успешно загружены и очищены из списка.");
@@ -42,14 +42,14 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             log.info("Добавлено новое фото {}", photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
     public void stop() {
         synchronized (lock) {
             isRunning = false;
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
