@@ -1,4 +1,4 @@
-package school.faang.weasleyFamily81240;
+package school.faang.weasleyfamily81240;
 
 import lombok.Getter;
 
