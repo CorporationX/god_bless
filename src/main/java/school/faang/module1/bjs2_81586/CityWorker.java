@@ -28,7 +28,7 @@ public class CityWorker implements Runnable {
                                 calculateDistance(city.getLocation(), nearestMonster.getLocation())
                         ),
                         () -> log.info("Для города {} не найдено ни одного монстра", city.getName())
-                );
+            );
     }
 
     private double calculateDistance(Location location1, Location location2) {
