@@ -17,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CityWorker implements Runnable {
 
+    public static final int WORK_TIME = 100;
     private final City city;
     private final List<Monster> monsters;
 
@@ -26,7 +27,7 @@ public class CityWorker implements Runnable {
         var cityY = city.location().y();
         var distanceToCity = Math.sqrt(Math.pow(cityX, 2) + Math.pow(cityY, 2));
         try {
-            Thread.sleep(100);
+            Thread.sleep(WORK_TIME);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage());
