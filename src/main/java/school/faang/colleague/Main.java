@@ -15,6 +15,7 @@ public class Main {
 
     private static final int CHUNK_SIZE = 1000;
     private static final int THREAD_COUNT =  Runtime.getRuntime().availableProcessors();
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 2;
 
     public static void main(String[] args) throws IOException {
         var file = new File("src/main/resources/employee_10000.json");
@@ -38,7 +39,7 @@ public class Main {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
