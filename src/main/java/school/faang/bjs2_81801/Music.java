@@ -13,7 +13,7 @@ public class Music {
                 case 1 -> player::pause;
                 case 2 -> player::skip;
                 case 3 -> player::previous;
-                default -> throw new IllegalStateException("Unexpected value: " + i);
+                default -> throw new IllegalStateException(" Unexpected value: " + i);
             };
             Thread thread = new Thread(runnable);
             threads[i] = thread;
