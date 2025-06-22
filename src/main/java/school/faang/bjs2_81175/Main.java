@@ -3,7 +3,6 @@ package school.faang.bjs2_81175;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        Army army = new Army();
         Squad archers = new Squad();
 
         archers.addUnit(new Archer(25));
@@ -13,6 +12,7 @@ public class Main {
         swordsmen.addUnit(new Swordsman(40));
         swordsmen.addUnit(new Swordsman(35));
 
+        Army army = new Army();
         army.addSquad(archers);
         army.addSquad(swordsmen);
 
