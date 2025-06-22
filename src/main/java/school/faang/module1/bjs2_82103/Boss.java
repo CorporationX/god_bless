@@ -33,7 +33,7 @@ public class Boss {
             if (currentPlayers > 0) {
                 currentPlayers--;
                 log.info("{} вышел из игры. Занято слотов: {}/{}", player.getName(), currentPlayers, maxPlayers);
-                lock.notify();
+                lock.notifyAll();
             }
         }
     }
