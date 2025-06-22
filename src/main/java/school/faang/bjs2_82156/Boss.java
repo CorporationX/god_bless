@@ -39,6 +39,4 @@ public class Boss {
             lock.notify();
         }
     }
-
-
 }
