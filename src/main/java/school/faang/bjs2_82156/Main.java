@@ -4,18 +4,15 @@ public class Main {
     public static void main(String[] args) {
         Boss boss = new Boss(2);
 
-        Player player1 = new Player("David");
-        Player player2 = new Player("Musk");
-        Player player3 = new Player("Lopez");
-        Player player4 = new Player("Jenifer");
-
-        Thread thread1 = new Thread(() -> player1.doBattle(boss));
+        Thread thread1 = new Thread(() -> new Player("David").doBattle(boss));
         thread1.start();
-        Thread thread2 = new Thread(() -> player2.doBattle(boss));
+        Thread thread2 = new Thread(() -> new Player("Musk").doBattle(boss));
         thread2.start();
-        Thread thread3 = new Thread(() -> player3.doBattle(boss));
+        Thread thread3 = new Thread(() -> new Player("Lopez").doBattle(boss));
         thread3.start();
-        Thread thread4 = new Thread(() -> player4.doBattle(boss));
+        Thread thread4 = new Thread(() -> new Player("Jenifer").doBattle(boss));
         thread4.start();
+        Thread thread5 = new Thread(() -> new Player("Andrey").doBattle(boss));
+        thread5.start();
     }
 }

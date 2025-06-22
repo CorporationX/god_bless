@@ -19,7 +19,7 @@ public class Boss {
         synchronized (lock) {
             try {
                 if (currentPlayer >= maxPlayer) {
-                    System.out.println("Maximum player reached");
+                    log.info("{} wait please",  player.getName());
                     lock.wait();
                 }
             } catch (InterruptedException e) {
