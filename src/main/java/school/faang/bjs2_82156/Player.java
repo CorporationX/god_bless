@@ -15,10 +15,10 @@ public class Player {
         try {
             log.info("{} fighting with boss", name);
             Thread.sleep(5000);
-        }  catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             log.warn("{} fight was interrupted", name);
             Thread.currentThread().interrupt();
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
         } finally {
             boss.leaveBattle(this);
         }

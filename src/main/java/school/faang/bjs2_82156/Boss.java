@@ -25,7 +25,7 @@ public class Boss {
             } catch (InterruptedException e) {
                 log.warn(e.toString());
                 Thread.currentThread().interrupt();
-                throw  new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             currentPlayer++;
             log.info("Player " + player.getName() + " joined the battle");

@@ -2,21 +2,18 @@ package school.faang.bjs2_82156;
 
 public class Main {
     public static void main(String[] args) {
-        Boss boss = new Boss(2); // Босс с максимум 2 игроками одновременно
+        Boss boss = new Boss(2);
 
-        // Создаем игроков
         Player player1 = new Player("David");
         Player player2 = new Player("Musk");
         Player player3 = new Player("Lopez");
         Player player4 = new Player("Jenifer");
 
-        // Создаем потоки для каждого игрока
         Thread thread1 = new Thread(() -> player1.doBattle(boss));
         Thread thread2 = new Thread(() -> player2.doBattle(boss));
         Thread thread3 = new Thread(() -> player3.doBattle(boss));
         Thread thread4 = new Thread(() -> player4.doBattle(boss));
 
-        // Запускаем потоки
         thread1.start();
         thread2.start();
         thread3.start();
