@@ -25,8 +25,8 @@ public class GooglePhotosAutoUploader {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                   Thread.currentThread().interrupt();
-                   log.warn("Interrupted while waiting for upload photos to complete");
+                    Thread.currentThread().interrupt();
+                    log.warn("Interrupted while waiting for upload photos to complete");
                 }
             }
             uploadPhotos();
