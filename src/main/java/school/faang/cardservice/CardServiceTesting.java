@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class CardServiceTesting {
     private static final int THREAD_COUNT = 2;
+
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         MasterCardService service = new MasterCardService();
