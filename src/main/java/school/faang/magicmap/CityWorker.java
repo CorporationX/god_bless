@@ -17,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CityWorker implements Runnable {
 
-    public static final int WORK_TIME = 100;
+    private static final int WORK_TIME = 100;
 
     private final City city;
     private final List<Monster> monsters;

@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j(topic = "Witcher")
 public class Witcher {
 
-    public static final int THREADS_NUM = Runtime.getRuntime().availableProcessors();
-    public static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 2;
+    private static final int THREADS_NUM = Runtime.getRuntime().availableProcessors();
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 2;
 
     public static void main(String[] args) {
         var cities = List.of(
