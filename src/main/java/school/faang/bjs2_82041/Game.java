@@ -1,8 +1,10 @@
 package school.faang.bjs2_82041;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
 public class Game {
     private final Object lockScore = new Object();
     private final Object lockLives = new Object();
@@ -16,7 +18,6 @@ public class Game {
 
     private void gameOver() {
         log.info("Game over");
-        System.exit(0);
     }
 
     public void update() {

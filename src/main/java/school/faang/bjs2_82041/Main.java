@@ -15,12 +15,16 @@ public class Main {
 
         for (int i = 0; i < 100; i++) {
             executor.submit(() -> {
-                game.update();
                 try {
+                    game.update();
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     log.error("InterruptedException", e);
                     Thread.currentThread().interrupt();
+                }
+
+                if (game.getLives() == 0) {
+                    executor.shutdownNow();
                 }
             });
         }
