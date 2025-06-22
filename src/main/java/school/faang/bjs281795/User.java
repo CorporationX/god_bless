@@ -9,7 +9,7 @@ public class User {
         threads[3] = new Thread(() -> player.previous());
         threads[4] = new Thread(() -> player.skip());
         threads[0] = new Thread(() -> player.pause());
-        for(Thread thread : threads) {
+        for (Thread thread : threads) {
             thread.start();
         }
     }
