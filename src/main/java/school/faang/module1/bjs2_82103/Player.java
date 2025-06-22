@@ -21,8 +21,7 @@ public class Player {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("{} был прерван во время боя", name, e);
-        }
-        finally {
+        } finally {
             boss.leaveBattle(this);
         }
     }
