@@ -20,9 +20,9 @@ public class GoogleUploader {
 
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader(photosToUpload);
         Thread autoUpload = new Thread(() -> {
-           for (String photoName : photosToUpload) {
-               googlePhotosAutoUploader.startAutoUpload(photoName);
-           }
+            for (String photoName : photosToUpload) {
+                googlePhotosAutoUploader.startAutoUpload(photoName);
+            }
         });
         autoUpload.start();
         Thread uploadPhotos = new Thread(() -> {
