@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpaceCenter {
 
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 10;
+
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         var executor = Executors.newSingleThreadExecutor();
         try {
@@ -32,7 +34,7 @@ public class SpaceCenter {
         } finally {
             executor.shutdown();
             try {
-                if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                     executor.shutdownNow();
                 }
             } catch (InterruptedException e) {
