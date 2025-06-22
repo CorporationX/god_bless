@@ -13,8 +13,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j(topic = "BigBangTheory")
 public class BigBangTheory {
 
+    private static final int MAX_THREADS = 4;
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 5;
+
     public static void main(String[] args) {
-        var executor = Executors.newFixedThreadPool(4);
+        var executor = Executors.newFixedThreadPool(MAX_THREADS);
         var tasksByName = Map.of(
                 "Шелдон", "подготовка теории",
                 "Леонард", "моделирование эксперимента",
@@ -26,7 +29,7 @@ public class BigBangTheory {
         var executorName = executor.getClass().getSimpleName();
         log.info("{} | Запрос на завершение работы", executorName);
         try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
                 log.info("{} | Принудительное завершение работы", executorName);
             }

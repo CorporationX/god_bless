@@ -13,6 +13,9 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class Task implements Runnable {
 
+    private static final int MIN_RAND_NUM = 1;
+    private static final int MAX_RAND_NUM = 5;
+
     private final Random rand = new Random();
 
     /**
@@ -29,7 +32,7 @@ public class Task implements Runnable {
     public void run() {
         log.info("{} начал работу над '{}'", name, task);
         try {
-            Thread.sleep(rand.nextInt(1, 5));
+            Thread.sleep(rand.nextInt(MIN_RAND_NUM, MAX_RAND_NUM));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Задача '{}' прервана", task, e.getCause());
