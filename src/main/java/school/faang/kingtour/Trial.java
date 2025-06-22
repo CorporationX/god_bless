@@ -1,8 +1,6 @@
 package school.faang.kingtour;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;
@@ -15,6 +13,8 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class Trial implements Runnable {
 
+    private static final int MAX_TRIAL_TIME = 1;
+
     private final String knightName;
     private final String trialName;
 
@@ -23,7 +23,7 @@ public class Trial implements Runnable {
         Consumer<String> logTrial = action -> log.info("{} {} испытание '{}'", knightName, action, trialName);
         try {
             logTrial.accept("начал");
-            Thread.sleep(1);
+            Thread.sleep(MAX_TRIAL_TIME);
             logTrial.accept("закончил");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

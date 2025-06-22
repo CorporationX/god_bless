@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Main {
 
+    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 2;
+
     public static void main(String[] args) {
         var knight1Name = "Knight 1";
         var knight2Name = "Knight 2";
@@ -19,13 +21,13 @@ public class Main {
         knight2.addTrial(new Trial(knight2Name, "Trial 3"));
         knight2.addTrial(new Trial(knight2Name, "Trial 4"));
 
-        var executor = Executors.newFixedThreadPool(2);
+        var executor = Executors.newFixedThreadPool(MAX_EXECUTOR_AWAIT_TERMINATION_TIME);
         knight1.startTrials(executor);
         knight2.startTrials(executor);
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
