@@ -10,13 +10,12 @@ public class Main {
         Player player4 = new Player("Jenifer");
 
         Thread thread1 = new Thread(() -> player1.doBattle(boss));
-        Thread thread2 = new Thread(() -> player2.doBattle(boss));
-        Thread thread3 = new Thread(() -> player3.doBattle(boss));
-        Thread thread4 = new Thread(() -> player4.doBattle(boss));
-
         thread1.start();
+        Thread thread2 = new Thread(() -> player2.doBattle(boss));
         thread2.start();
+        Thread thread3 = new Thread(() -> player3.doBattle(boss));
         thread3.start();
+        Thread thread4 = new Thread(() -> player4.doBattle(boss));
         thread4.start();
     }
 }
