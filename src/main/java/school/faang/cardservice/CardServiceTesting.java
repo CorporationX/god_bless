@@ -31,6 +31,7 @@ public class CardServiceTesting {
             log.info(finalPaymentResult.toString());
         } catch (InterruptedException e) {
             log.error("Поток был прерван.");
+            Thread.currentThread().interrupt();
         } catch (ExecutionException e) {
             log.error("Ошибка выполнения задачи.");
         }
@@ -42,6 +43,7 @@ public class CardServiceTesting {
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
