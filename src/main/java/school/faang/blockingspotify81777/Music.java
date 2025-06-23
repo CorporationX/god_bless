@@ -1,4 +1,4 @@
-package school.faang.blockingSpotify81777;
+package school.faang.blockingspotify81777;
 
 
 public class Music {
@@ -17,8 +17,6 @@ public class Music {
         threadPause.join();
         threadSkip.join();
         threadPrevious.join();
-
-        System.out.println(Player.isPlaying);
 
     }
 }
