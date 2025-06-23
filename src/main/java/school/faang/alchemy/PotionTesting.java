@@ -23,9 +23,11 @@ public class PotionTesting {
                 .map(potion -> CompletableFuture.supplyAsync(() -> potion.collectingIngredients()))
                 .toList();
 
-        AtomicInteger totalIngredients = new AtomicInteger(0);
-        futureList.forEach(future -> future.thenApply(totalIngredients::addAndGet));
-        int total = totalIngredients.get();
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]));
+        allFutures.join();
+        int total = futureList.stream()
+                .mapToInt(future -> future.join())
+                .sum();
 
         log.info("Общее количество собранных ингредиентов: {}", total);
     }
