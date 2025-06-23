@@ -2,9 +2,12 @@ package school.faang.griffin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import school.faang.RandomUtils;
 
 import java.util.Random;
 import java.util.function.Consumer;
+
+import static school.faang.RandomUtils.RANDOM;
 
 /**
  * @author Danil Pudovkin
@@ -16,7 +19,6 @@ public class FoodDeliveryTask implements Runnable {
 
     private static final int MIN_SLEEP_TIME = 1;
     private static final int MAX_SLEEP_TIME = 5;
-    private final Random random = new Random();
 
     /**
      * Имя персонажа который получит еду
@@ -34,7 +36,7 @@ public class FoodDeliveryTask implements Runnable {
         Consumer<String> logAction = action -> log.info("{} {} {} {}", character, action, foodAmount, foodType);
         logAction.accept("получает");
         try {
-            Thread.sleep(random.nextInt(MIN_SLEEP_TIME, MAX_SLEEP_TIME));
+            Thread.sleep(RANDOM.nextInt(MIN_SLEEP_TIME, MAX_SLEEP_TIME));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("FoodDeliveryTask | Поток прерван", e.getCause());
@@ -44,6 +46,6 @@ public class FoodDeliveryTask implements Runnable {
 
     private FoodType getFoodType() {
         FoodType[] foodTypes = FoodType.values();
-        return foodTypes[random.nextInt(foodTypes.length)];
+        return foodTypes[RANDOM.nextInt(foodTypes.length)];
     }
 }

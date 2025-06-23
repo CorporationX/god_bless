@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static school.faang.RandomUtils.RANDOM;
+
 /**
  * @author Danil Pudovkin
  * @since 21.06.2025
@@ -16,7 +18,6 @@ public class GriffinsFoodDelivery {
     private static final int THREADS_NUM = 3;
     private static final int MAX_RAND_INT = 50;
     private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 5;
-    private static final Random RANDOM = new Random();
 
     public static void main(String[] args) {
         var executor = Executors.newFixedThreadPool(THREADS_NUM);
