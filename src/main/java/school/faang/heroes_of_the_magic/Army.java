@@ -18,7 +18,9 @@ public class Army {
         for (Thread thread : threads) {
             thread.join();
         }
-        return results.stream().mapToInt(Integer::intValue).sum();
+        return results.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public void addSquad(Squad squad) {

@@ -7,4 +7,3 @@ public class Archer extends Heroes {
         super(DEFAULT_POWER);
     }
 }
-

@@ -7,4 +7,3 @@ public class Mage extends Heroes {
         super(DEFAULT_POWER);
     }
 }
-
