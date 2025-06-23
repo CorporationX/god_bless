@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.amazonOrders;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
