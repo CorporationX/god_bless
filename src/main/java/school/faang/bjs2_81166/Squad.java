@@ -10,6 +10,8 @@ public class Squad<T extends Fighter> {
     }
 
     public int calculateTotalPower() {
-        return fighters.stream().mapToInt(Fighter::getPower).sum();
+        return fighters.stream()
+                .mapToInt(Fighter::getPower)
+                .sum();
     }
 }
