@@ -11,4 +11,9 @@ public class Player {
     private String name;
     private int level;
     private int experience;
+
+    public int addExperience(int reward) {
+        experience += reward;
+        return experience;
+    }
 }
