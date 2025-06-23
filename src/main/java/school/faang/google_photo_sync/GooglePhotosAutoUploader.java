@@ -1,36 +1,42 @@
 package school.faang.google_photo_sync;
 
-import lombok.SneakyThrows;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class GooglePhotosAutoUploader {
-    private final Object look = new Object();
+    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
-    @SneakyThrows
     public void startAutoUpload() {
-        synchronized (look) {
-            if (photosToUpload.isEmpty()) {
-                System.out.println("Нет фото для загрузки");
-                look.wait();
+        synchronized (lock) {
+            while (photosToUpload.isEmpty()) {
+                try {
+                    System.out.println("Нет фото для обработки");
+                    lock.wait();
+                } catch (InterruptedException ignored) {
+                    throw new RuntimeException("Time out");
+                }
             }
             uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (look) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Добавлены фото в очередь");
-            look.notify();
+            lock.notify();
             System.out.println("Уведомили что появились фото в очереди");
         }
     }
 
     public void uploadPhotos() {
-        System.out.println("Фотографии загружены");
+        for (String photo : photosToUpload) {
+            System.out.println("Загружаем фотографию: " + photo);
+        }
         photosToUpload.clear();
     }
 }
