@@ -40,10 +40,10 @@ public class MasterCardService {
         CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
 
         try {
-            int paymentResult = paymentFuture.get();
-            log.info("Обработан платеж: {}", paymentResult);
             int analyticsResult = analyticsFuture.get();
             log.info("Аналитика: {}", analyticsResult);
+            int paymentResult = paymentFuture.get();
+            log.info("Обработан платеж: {}", paymentResult);
         } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
