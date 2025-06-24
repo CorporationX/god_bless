@@ -7,19 +7,19 @@ public class Game {
     @Getter
     private int lives = 10;
 
-    private final Object lookOne = new Object();
-    private final Object lookTwo = new Object();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
 
     public void update(int score, int lives) {
-        synchronized (lookOne) {
+        synchronized (scoreLock) {
             if (score > 0) {
                 this.score += score;
                 System.out.println("Очки увеличены, текущий счёт на: " + score);
             }
         }
-        synchronized (lookTwo) {
+        synchronized (livesLock) {
             if (lives > 0) {
-                if (this.lives <= lives) {
+                if (this.lives < lives) {
                     gameOver();
                 } else {
                     this.lives -= lives;
@@ -33,4 +33,3 @@ public class Game {
         System.out.printf("   КОНЕЦ ИГРЫ!\n  Всего очков: %d\n", score);
     }
 }
-
