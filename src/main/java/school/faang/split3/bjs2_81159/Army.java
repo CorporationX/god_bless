@@ -1,11 +1,12 @@
 package school.faang.split3.bjs2_81159;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Army {
     private final List<Squad> army = new ArrayList<>();
-    private static final List<Integer> powerOfArmy = new ArrayList<>();
+    private static final List<Integer> powerOfArmy = Collections.synchronizedList(new ArrayList<>());
 
     public void addSquad(Squad squad) {
         army.add(squad);

@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Warrior {
-    private int power;
+    protected int power;
 }
