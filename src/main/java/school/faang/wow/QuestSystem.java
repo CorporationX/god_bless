@@ -11,8 +11,10 @@ public class QuestSystem {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            player.lvlUp(quest.getReward());
-            return player;
+            synchronized (player) {
+                player.lvlUp(quest.getReward());
+                return player;
+            }
         });
     }
 }
