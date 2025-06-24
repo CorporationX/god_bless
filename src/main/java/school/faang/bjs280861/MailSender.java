@@ -1,8 +1,5 @@
 package school.faang.bjs280861;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MailSender {
     private static final int THREAD_COUNT = 5;
     private static final int TOTAL_MESSAGES = 1000;
