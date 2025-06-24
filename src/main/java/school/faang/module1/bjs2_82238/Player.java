@@ -11,6 +11,6 @@ public class Player {
     private int experience;
 
     public void updateExperience(int reward) {
-        this.experience +=reward;
+        this.experience += reward;
     }
 }
