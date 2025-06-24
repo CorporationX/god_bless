@@ -2,8 +2,6 @@ package school.faang.bjs2_81705;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -15,10 +13,7 @@ public class Main {
     private static final int TIMEOUT = 10;
 
     public static void main(String[] args) {
-        Map<String, Integer> views = new HashMap<>();
-
         VideoManager videoManager = new VideoManager();
-        videoManager.setViewsOfVideo(views);
 
         ExecutorService poolThread = Executors.newFixedThreadPool(NUM_THREAD);
         for (int i = 0; i <= NUM_VIDEOS; i++) {
