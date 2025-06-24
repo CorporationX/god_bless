@@ -3,6 +3,7 @@ package school.faang.bjs2_81231;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
@@ -17,5 +18,12 @@ public class WeasleyFamily {
             executor.submit(chore);
         }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                System.out.println("Не все задачи завершены");
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
