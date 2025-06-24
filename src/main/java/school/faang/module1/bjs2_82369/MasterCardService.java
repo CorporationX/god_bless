@@ -2,7 +2,13 @@ package school.faang.module1.bjs2_82369;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 
 @Slf4j
 public class MasterCardService {
@@ -37,7 +43,7 @@ public class MasterCardService {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         Future<Integer> paymentFuture = executorService.submit(this::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
 
         try {
             int analyticsResult = analyticsFuture.get();
