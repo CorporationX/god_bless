@@ -45,13 +45,12 @@ public class Main {
         fixedPool.shutdown();
 
         try {
-            while (!fixedPool.awaitTermination(POOL_AWAIT_TIMEOUT, TimeUnit.SECONDS)) {
+            if (!fixedPool.awaitTermination(POOL_AWAIT_TIMEOUT, TimeUnit.SECONDS)) {
                 log.info("Не все задачи завершены");
                 fixedPool.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("Поток был прерван", e);
-            Thread.currentThread().interrupt();
             fixedPool.shutdownNow();
         }
         log.info("Все квесты завершены");
