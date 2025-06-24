@@ -1,12 +1,13 @@
 package school.faang.supercow;
 
-import lombok.SneakyThrows;
-
 public record Player(String name) {
-    @SneakyThrows
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         boss.leaveBattle(this);
     }
 }
