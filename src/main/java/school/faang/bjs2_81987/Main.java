@@ -21,7 +21,7 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREAD);
 
         for (int i = 0; i < NUM_USERS; i++) {
-            User user = new User(1L, "User %d".formatted(i), RoleOfHouse.DEFAULT);
+            User user = new User(1L, "User %d".formatted(i));
             executor.submit(() -> {
                 user.joinHouse(house);
                 log.info("Пользователь {} находится в доме", user.getName());
