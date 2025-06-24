@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailSandler {
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+    private static final int EMAILS_PER_THREAD_BATCH_SIZE = TOTAL_MESSAGES / THREAD_COUNT;
+
     public static void main(String[] args) {
         List<Thread> sendersThread = new ArrayList<>();
-        for (int i = 1; i <= 801; i += 200) {
-            Thread thread = new Thread(new SandlerRunnable(i, i + 199));
+        for (int i = 1; i <= THREAD_COUNT; i++) {
+            Thread thread = new Thread(new SandlerRunnable(i, EMAILS_PER_THREAD_BATCH_SIZE));
             sendersThread.add(thread);
             thread.start();
         }
