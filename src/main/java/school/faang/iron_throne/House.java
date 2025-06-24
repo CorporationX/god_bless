@@ -1,43 +1,46 @@
 package school.faang.iron_throne;
 
-import lombok.SneakyThrows;
-
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class House {
-    private final Map<String, Boolean> houses = new ConcurrentHashMap<>(Map.of("black", false, "red",
+    private final Map<String, Boolean> houses = new HashMap<>(Map.of("black", false, "red",
             false, "green", false));
-    private final Object look = new Object();
+    private final Object lock = new Object();
 
-    @SneakyThrows
     String assignRole(User user) {
-        synchronized (look) {
-            for (String house : houses.keySet()) {
-                if (!houses.get(house)) {
-                    houses.put(house, true);
-                    return house;
+        synchronized (lock) {
+            String result = freeRole();
+            while (result == null) {
+                System.out.println(user.getName() + " придется подождать, нет свободной роли");
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+                result = freeRole();
             }
-            System.out.println(user.getName() + " придется подождать, нет свободной роли");
-            look.wait(3000);
-            for (String house : houses.keySet()) {
-                if (!houses.get(house)) {
-                    houses.put(house, true);
-                    return house;
-                }
-            }
+            return result;
         }
-        return ", ммм... перепутал, он остался без роли)";
     }
 
-    void releaseRole(String role) {
-        synchronized (look) {
+    public void releaseRole(String role) {
+        synchronized (lock) {
             if (houses.containsKey(role)) {
                 houses.put(role, false);
                 System.out.println("Освободилась роль: " + role);
-                look.notify();
+                lock.notifyAll();
             }
         }
+    }
+
+    private String freeRole() {
+        for (String house : houses.keySet()) {
+            if (!houses.get(house)) {
+                houses.put(house, true);
+                return house;
+            }
+        }
+        return null;
     }
 }
