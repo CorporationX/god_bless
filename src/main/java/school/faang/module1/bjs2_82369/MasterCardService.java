@@ -40,10 +40,10 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        Future<Integer> paymentFuture = executorService.submit(this::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
+        Future<Integer> paymentFuture = executor.submit(this::collectPayment);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
 
         try {
             int analyticsResult = analyticsFuture.get();
@@ -54,7 +54,7 @@ public class MasterCardService {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         } finally {
-            shutdownExecutor(executorService);
+            shutdownExecutor(executor);
         }
     }
 
