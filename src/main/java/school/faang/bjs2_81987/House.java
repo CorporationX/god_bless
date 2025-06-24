@@ -10,10 +10,15 @@ import java.util.List;
 public class House {
     private List<RoleOfHouse> availableRoles;
 
-    public synchronized RoleOfHouse assignRole() {
-        if (availableRoles.isEmpty()) {
-            log.info("Нет свободных ролей");
-            return RoleOfHouse.DEFAULT;
+    public synchronized RoleOfHouse tryAssignRole() {
+        while (availableRoles.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка при ожидании роли: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
         }
 
         RoleOfHouse role = availableRoles.remove(0);
@@ -24,5 +29,6 @@ public class House {
     public synchronized void releaseRole(RoleOfHouse role) {
         availableRoles.add(role);
         log.info("Возвращена роль {}", role);
+        notifyAll();
     }
 }
