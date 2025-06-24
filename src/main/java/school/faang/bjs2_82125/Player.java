@@ -1,15 +1,9 @@
 package school.faang.bjs2_82125;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Getter
-@RequiredArgsConstructor
-public class Player {
-    private final String name;
-
+public record Player(String name) {
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
@@ -18,7 +12,6 @@ public class Player {
         } catch (InterruptedException e) {
             log.info("поток прерван во время файта");
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
         } finally {
             boss.leaveBattle(this);
         }

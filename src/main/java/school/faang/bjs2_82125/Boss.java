@@ -16,24 +16,24 @@ public class Boss {
         synchronized (lock) {
             while (currentPlayers >= maxPlayers) {
                 try {
-                    log.info("игрок {} ждет когда освободиться слот для файта", player.getName());
+                    log.info("игрок {} ждет когда освободиться слот для файта", player.name());
                     lock.wait();
                 } catch (InterruptedException e) {
                     log.info("поток прерван во время ожидания");
                     Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
+                    return;
                 }
             }
             currentPlayers++;
-            log.info("игрок {} вызван в качестве помощника для битвы с консортом..", player.getName());
+            log.info("игрок {} вызван в качестве помощника для битвы с консортом..", player.name());
         }
     }
 
     public void leaveBattle(Player player) {
         synchronized (lock) {
             currentPlayers--;
-            log.info("игрок {} ливнул курить", player.getName());
-            lock.notify();
+            log.info("игрок {} ливнул курить", player.name());
+            lock.notifyAll();
         }
     }
 }
