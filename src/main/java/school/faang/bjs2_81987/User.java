@@ -13,11 +13,9 @@ public class User {
     private final String name;
     @Setter
     private RoleOfHouse role = RoleOfHouse.DEFAULT;
-    private House house;
 
     public void joinHouse(House house) {
         synchronized (house) {
-            this.house = house;
             role = house.tryAssignRole();
             log.info("Пользователь {} получил роль {}", name, role);
         }
