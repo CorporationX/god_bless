@@ -16,8 +16,5 @@ public class Player {
 
     public int addExperience(int reward) {
         return experience.addAndGet(reward);
-
-//        experience += reward;
-//        return experience;
     }
 }
