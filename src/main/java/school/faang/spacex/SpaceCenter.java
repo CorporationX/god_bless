@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author Danil Pudovkin
@@ -16,10 +15,7 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpaceCenter {
 
-    private static final int MAX_EXECUTOR_AWAIT_TERMINATION_TIME = 10;
-
-    public static void planRocketLaunches(List<RocketLaunch> launches) {
-        var executor = Executors.newSingleThreadExecutor();
+    public static void planRocketLaunches(ExecutorService executor, List<RocketLaunch> launches) {
         try {
             for (var rocket : launches) {
                 var delay = rocket.getLaunchTime() - System.currentTimeMillis();
@@ -31,16 +27,6 @@ public class SpaceCenter {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error(e.getMessage());
-        } finally {
-            executor.shutdown();
-            try {
-                if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                executor.shutdownNow();
-            }
         }
     }
 }
