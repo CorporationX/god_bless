@@ -61,11 +61,11 @@ public class Witcher {
     }
 
     private static void runWithThreadsNumLessThanAvailableProcessors(List<City> cities, List<Monster> monsters) {
-        runWithThreadCount(Math.max(1, THREADS_NUM / MAX_EXECUTOR_AWAIT_TERMINATION_TIME), cities, monsters);
+        runWithThreadCount(Math.max(1, THREADS_NUM / 2), cities, monsters);
     }
 
     private static void runWithThreadsNumMoreThanAvailableProcessors(List<City> cities, List<Monster> monsters) {
-        runWithThreadCount(THREADS_NUM * MAX_EXECUTOR_AWAIT_TERMINATION_TIME, cities, monsters);
+        runWithThreadCount(THREADS_NUM * 2, cities, monsters);
     }
 
     private static void runWithThreadCount(int threadCount, List<City> cities, List<Monster> monsters) {
