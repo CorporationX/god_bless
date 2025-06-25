@@ -24,8 +24,9 @@ public class PotionGathering {
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-        int totalIngredients = futures.stream().mapToInt(CompletableFuture::join).sum();
-
+        int totalIngredients = futures.stream()
+                .mapToInt(CompletableFuture::join)
+                .sum();
 
         fixedPool.shutdown();
         try {
