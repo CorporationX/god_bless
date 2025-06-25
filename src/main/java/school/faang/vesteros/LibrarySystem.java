@@ -11,35 +11,35 @@ import java.util.Map;
  */
 public class LibrarySystem {
 
-    private static final Map<Book, String> BOOK_LOCATIONS = new HashMap<>();
+    private final Map<Book, String> bookLocations = new HashMap<>();
 
-    public static void addBook(@NonNull String title, @NonNull String author,
-                               @NonNull int year, @NonNull String location) {
+    public void addBook(@NonNull String title, @NonNull String author,
+                               int year, @NonNull String location) {
         var book = new Book(title, author, year);
-        BOOK_LOCATIONS.put(book, location);
+        bookLocations.put(book, location);
     }
 
-    public static void removeBook(@NonNull String title, @NonNull String author, @NonNull int year) {
+    public void removeBook(@NonNull String title, @NonNull String author, int year) {
         var book = new Book(title, author, year);
-        var removed = BOOK_LOCATIONS.remove(book);
+        var removed = bookLocations.remove(book);
         if (removed == null) {
             System.out.println("Book not found");
         }
     }
 
-    public static String findBook(@NonNull String title, @NonNull String author, @NonNull int year) {
+    public String findBook(@NonNull String title, @NonNull String author, int year) {
         var book = new Book(title, author, year);
-        var foundBook = BOOK_LOCATIONS.get(book);
+        var foundBook = bookLocations.get(book);
         if (foundBook == null) {
             System.out.println("Book not found");
         }
         return foundBook;
     }
 
-    public static void printBooks() {
+    public void printBooks() {
         System.out.println("Book locations:");
-        for (var bookEntry : BOOK_LOCATIONS.entrySet()) {
-            System.out.printf("%s : %s\n", bookEntry.getKey(), bookEntry.getValue());
+        for (var bookEntry : bookLocations.entrySet()) {
+            System.out.printf("%s : %s%n", bookEntry.getKey(), bookEntry.getValue());
         }
     }
 }

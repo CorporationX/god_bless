@@ -4,14 +4,11 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
-/**
- * @author Danil Pudovkin
- * @since 22.06.2025
- */
 @Slf4j(topic = "ConcurrentUtils")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConcurrentUtils {
@@ -34,17 +31,46 @@ public class ConcurrentUtils {
                     Thread.sleep(LOCK_WAIT_TIME);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    log.error("Thread interrupted", e);
+                    log.error("Thread interrupted", e.getCause());
                     break;
                 }
             }
         }
     }
 
+    public static <T> T tryLockAndDo(Lock lock, Callable<T> action) {
+        while (true) {
+            if (lock.tryLock()) {
+                try {
+                    return action.call();
+                } catch (Exception e) {
+                    log.error(e.getCause().getMessage());
+                } finally {
+                    lock.unlock();
+                }
+            } else {
+                try {
+                    Thread.sleep(LOCK_WAIT_TIME);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error("Thread interrupted", e.getCause());
+                }
+            }
+        }
+    }
+
+    public static void shutdownExecutor(ExecutorService executor, int awaitTerminationTime, TimeUnit timeUnit) {
+        shutdown(executor, awaitTerminationTime, timeUnit);
+    }
+
     public static void shutdownExecutor(ExecutorService executor) {
+        shutdown(executor, MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS);
+    }
+
+    private static void shutdown(ExecutorService executor, int awaitTerminationTime, TimeUnit timeUnit) {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(MAX_EXECUTOR_AWAIT_TERMINATION_TIME, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(awaitTerminationTime, timeUnit)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
