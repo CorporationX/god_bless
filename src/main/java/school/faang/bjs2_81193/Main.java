@@ -20,7 +20,7 @@ public class Main {
             int totalPower = army.calculateTotalPower();
             log.info("Total army power: {}", totalPower);
         } catch (InterruptedException interrupted) {
-            interrupted.getCause();
+            Thread.currentThread().interrupt();
         }
     }
 }
