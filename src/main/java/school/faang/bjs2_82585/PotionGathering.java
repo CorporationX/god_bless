@@ -6,7 +6,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class PotionGathering {
@@ -24,9 +23,8 @@ public class PotionGathering {
                 .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), fixedPool))
                 .toList();
 
-        AtomicInteger totalIngredients = new AtomicInteger(0);
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenAccept(param -> futures.forEach(future -> totalIngredients.addAndGet(future.join()))).join();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        int totalIngredients = futures.stream().mapToInt(CompletableFuture::join).sum();
 
 
         fixedPool.shutdown();
@@ -41,7 +39,7 @@ public class PotionGathering {
             fixedPool.shutdownNow();
         }
 
-        log.info("Всего собрано ингредиентов: {}", totalIngredients.get());
+        log.info("Всего собрано ингредиентов: {}", totalIngredients);
     }
 
     private static int gatherIngredients(Potion potion) {
