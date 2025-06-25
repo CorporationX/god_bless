@@ -1,0 +1,48 @@
+package school.faang.module1.bjs2_82238;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+@Slf4j
+public class Main {
+
+    private static final int POOL_SIZE = 5;
+    private static final ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
+    private static final int AWAIT_TERMINATION_TIMEOUT_SEC = 5;
+
+    public static void main(String[] args) {
+        QuestSystem questSystem = new QuestSystem(executor);
+
+        Player player1 = new Player("Thrall", 10, 250);
+        Player player2 = new Player("Sylvanas", 12, 450);
+
+        Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
+        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+
+        player1Quest.thenAccept(player -> log.info("{}, опыт {}", player1.getName(), player1.getExperience()));
+        player2Quest.thenAccept(player -> log.info("{}, опыт {}", player2.getName(), player2.getExperience()));
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT_SEC, TimeUnit.SECONDS)) {
+                log.warn("Потоки не завершились вовремя");
+                executor.shutdownNow();
+            } else {
+                log.info("Все задачи завершились успешно");
+            }
+        } catch (InterruptedException e) {
+            log.error("Ожидание завершения потоков было прервано", e);
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
+}
