@@ -31,7 +31,8 @@ public class Player {
 
         System.out.println("this.experience " + this.experience + " experience " + experience);
         this.experience += experience;
-        for (int reqExp = computeLvlRequiredEx(level); this.experience >= reqExp; reqExp = computeLvlRequiredEx(level)) {
+        for (int reqExp = computeLvlRequiredEx(level);
+             this.experience >= reqExp; reqExp = computeLvlRequiredEx(level)) {
             this.experience = Math.abs(reqExp - this.experience);
             level++;
             System.out.printf("Player \"%s\" leveled up! New level %d\n", name, level);
