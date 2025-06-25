@@ -8,9 +8,15 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
 
-    public synchronized void joinBattle(Player player) throws InterruptedException {
+    public synchronized void joinBattle(Player player) {
         while (currentPlayers >= maxPlayers) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println(player.name() + " was interrupted while waiting to join the battle.");
+                return;
+            }
         }
         currentPlayers++;
         System.out.println(player.name() + " joined the battle. Current players: " + currentPlayers);
