@@ -13,34 +13,34 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUploader() {
         while (true) {
+            List<String> photosToProcess;
+
             synchronized (lock) {
                 while (photosToUpload.isEmpty()) {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
+                        log.info("Uploader interrupted while waiting for photos");
                         return;
                     }
                 }
-                uploadPhotos();
+                photosToProcess = new ArrayList<>(photosToUpload);
+                photosToUpload.clear();
             }
+
+            uploadPhotos(photosToProcess);
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
-    private void uploadPhotos() {
-        List<String> photosToProcess;
-        synchronized (lock) {
-            photosToProcess = new ArrayList<>(photosToUpload);
-            photosToUpload.clear();
-        }
-
+    private void uploadPhotos(List<String> photosToProcess) {
         for (String photo : photosToProcess) {
             log.info("Uploading photo: {}", photo);
             try {
