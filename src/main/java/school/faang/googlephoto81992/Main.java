@@ -4,13 +4,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        Thread autoUploadTread = new Thread(() -> {
-            try {
-                googlePhotosAutoUploader.startAutoUpload();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Thread autoUploadTread = new Thread(googlePhotosAutoUploader::startAutoUpload);
 
         Thread addNewPhotosThread = new Thread(() -> {
             googlePhotosAutoUploader.onNewPhotoAdded("rewerq");
