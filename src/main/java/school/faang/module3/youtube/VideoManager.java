@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
-    private Object lock = new Object();
 
     public synchronized void addView(String videoId) {
         viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
