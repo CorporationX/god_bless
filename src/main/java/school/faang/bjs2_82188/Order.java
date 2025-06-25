@@ -1,21 +1,18 @@
 package school.faang.bjs2_82188;
 
 import lombok.Getter;
-
+import lombok.Setter;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Getter
+@Setter
 public class Order {
-    private static AtomicInteger currentId = new AtomicInteger(0);
+    private static final AtomicInteger CURRENT_ID = new AtomicInteger(0);
+    @Getter
     private final int id;
     private OrderStatus status;
 
     public Order() {
-        this.id = currentId.incrementAndGet();
+        this.id = CURRENT_ID.incrementAndGet();
         this.status = OrderStatus.CREATED;
-    }
-
-    public synchronized void setStatus(OrderStatus status) {
-        this.status = status;
     }
 }
