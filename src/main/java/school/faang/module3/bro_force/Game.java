@@ -6,7 +6,7 @@ public class Game {
     private Object scoreLock = new Object();
     private Object livesLock = new Object();
 
-    public void update(boolean isScoreGain) {
+    public void update(boolean isScoreGain, boolean isLiveLoss) {
         if (isScoreGain) {
             synchronized (scoreLock) {
                 score++;
@@ -14,15 +14,17 @@ public class Game {
             }
             return;
         }
-        synchronized (livesLock) {
-            if (lives == 0) {
-                System.out.println("game overed!");
-                return;
-            }
+        if (isLiveLoss) {
+            synchronized (livesLock) {
+                if (lives == 0) {
+                    System.out.println("game overed!");
+                    return;
+                }
 
-            System.out.printf("the players lost a health point, current lives %d\n", --lives);
-            if (lives == 0) {
-                gameOver();
+                System.out.printf("the players lost a health point, current lives %d\n", --lives);
+                if (lives == 0) {
+                    gameOver();
+                }
             }
         }
     }

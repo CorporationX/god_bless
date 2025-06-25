@@ -12,7 +12,8 @@ public class LetsPlay {
         Game game = new Game();
         for (int i = 0; i < GAME_ITERATION; i++) {
             boolean isScoreGain = i % 3 != 0;
-            executor.execute(() -> game.update(isScoreGain));
+            boolean isLiveLoss = i % 3 == 0;
+            executor.execute(() -> game.update(isScoreGain, isLiveLoss));
         }
 
         executor.shutdown();
