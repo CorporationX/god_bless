@@ -1,10 +1,12 @@
 package school.faang.bjs2_81354;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
+@Data
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
