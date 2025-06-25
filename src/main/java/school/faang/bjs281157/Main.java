@@ -1,7 +1,5 @@
 package school.faang.bjs281157;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
