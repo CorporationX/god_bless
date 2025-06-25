@@ -13,10 +13,16 @@ public class House {
         this.availableRoles = new ArrayList<>(roles);
     }
 
-    public synchronized String assignRole(String userName) throws InterruptedException {
+    public synchronized String assignRole(String userName) {
         while (availableRoles.isEmpty()) {
             log.info("{} is waiting for a role to become available...", userName);
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.warn("{} was interrupted while waiting for a role", userName);
+                return null;
+            }
         }
 
         String role = availableRoles.remove(0);
@@ -30,7 +36,7 @@ public class House {
         if (role != null) {
             availableRoles.add(role);
             log.info("{} has released the role: {}", userName, role);
-            notify();
+            notifyAll();
         }
     }
 }

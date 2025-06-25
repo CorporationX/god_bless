@@ -12,7 +12,22 @@ public class Application {
         House house = new House(roles);
 
         for (int i = 1; i <= 6; i++) {
-            Thread userThread = new Thread(new User("User " + i, house));
+            String userName = "User " + i;
+
+            Thread userThread = new Thread(() -> {
+                User user = new User(userName);
+                user.joinHouse(house);
+
+                try {
+                    Thread.sleep((long) (1000 + Math.random() * 2000));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.warn("{} was interrupted during house activity", userName);
+                }
+
+                user.leaveHouse();
+            });
+
             userThread.start();
         }
 

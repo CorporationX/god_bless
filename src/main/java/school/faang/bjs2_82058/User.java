@@ -1,39 +1,34 @@
 package school.faang.bjs2_82058;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
 @RequiredArgsConstructor
-public class User implements Runnable {
+public class User {
     private final String name;
-    private final House house;
     private String assignedRole;
+    private House house;
 
-    public void joinHouse() {
-        try {
-            assignedRole = house.assignRole(name);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.warn("{} was interrupted while trying to join the house", name);
+    public void joinHouse(House house) {
+        this.house = house;
+        this.assignedRole = house.assignRole(name);
+        if (assignedRole == null) {
+            log.warn("{} could not join the house — no roles available", name);
+        } else {
+            log.info("{} successfully joined the house as {}", name, assignedRole);
         }
     }
 
     public void leaveHouse() {
-        house.releaseRole(name);
-    }
-
-    @Override
-    public void run() {
-        joinHouse();
-
-        try {
-            Thread.sleep((long) (1000 + Math.random() * 2000));
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.warn("{} was interrupted during in-house activity", name);
+        if (house != null && assignedRole != null) {
+            house.releaseRole(name);
+            assignedRole = null;
+            house = null;
+        } else {
+            log.warn("{} tried to leave the house but was not part of any house", name);
         }
-
-        leaveHouse();
     }
 }
