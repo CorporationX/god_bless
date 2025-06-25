@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @NoArgsConstructor
 @Getter
 @Slf4j
@@ -14,20 +16,20 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
-    private volatile boolean gaming = false;
+    private final AtomicBoolean gaming = new AtomicBoolean(false);
 
     private void gameOver() {
-        gaming = false;
+        gaming.set(false);
         log.info("GAME OVER!");
     }
 
     public void start() {
-        gaming = true;
+        gaming.set(true);
         log.info("Game started");
     }
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
-        if (!gaming) {
+        if (!gaming.get()) {
             return;
         }
 
