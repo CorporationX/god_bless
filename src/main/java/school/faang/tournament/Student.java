@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class Student {
     private final String name;
     private final int year;
-    @Getter
     private int points;
 
     public void addPoints(int points) {
