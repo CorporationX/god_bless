@@ -2,6 +2,8 @@ package school.faang.bjs2_82576;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +13,8 @@ public class Main {
                 new Potion("Stamina Potion", 4)
         );
 
-        PotionService potionService = new PotionService();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        PotionService potionService = new PotionService(executor);
 
         List<CompletableFuture<Integer>> futurePotions = potions.stream()
                 .map(potionService::collectIngredients)
@@ -22,16 +25,13 @@ public class Main {
         );
         allDone.join();
 
-        List<Integer> results = futurePotions.stream()
+        int total = futurePotions.stream()
                 .map(CompletableFuture::join)
-                .toList();
-
-        int total = results.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
 
         System.out.println("Total ingredients collected: " + total);
 
-        potionService.shutdown();
+        executor.shutdown();
     }
 }

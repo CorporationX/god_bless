@@ -2,12 +2,14 @@ package school.faang.bjs2_82576;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class PotionService {
     private static final int ONE_SECOND_IN_MS = 1000;
+    private final ExecutorService executor;
 
-    ExecutorService executor = Executors.newFixedThreadPool(4);
+    public PotionService(ExecutorService executor) {
+        this.executor = executor;
+    }
 
     public CompletableFuture<Integer> collectIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
@@ -18,9 +20,5 @@ public class PotionService {
             }
             return potion.getIngredients();
         }, executor);
-    }
-
-    public void shutdown() {
-        executor.shutdown();
     }
 }
