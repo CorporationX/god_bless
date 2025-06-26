@@ -16,10 +16,10 @@ public class TwitterSubscriptionsSystemTest {
         TwitterAccount harry = new TwitterAccount("Harry Potter", INITIAL_FOLLOWERS);
         TwitterSubscriptionsSystem system = new TwitterSubscriptionsSystem();
         List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
-        completableFutures.add(system.followAccount(harry));
-        completableFutures.add(system.followAccount(harry));
-        completableFutures.add(system.followAccount(harry));
-        completableFutures.add(system.followAccount(harry));
+        completableFutures.add(CompletableFuture.runAsync(() -> system.addFollower(harry)));
+        completableFutures.add(CompletableFuture.runAsync(() -> system.addFollower(harry)));
+        completableFutures.add(CompletableFuture.runAsync(() -> system.addFollower(harry)));
+        completableFutures.add(CompletableFuture.runAsync(() -> system.addFollower(harry)));
         completableFutures.stream()
                 .forEach(completableFuture -> completableFuture.join());
         int expected = INITIAL_FOLLOWERS + completableFutures.size();

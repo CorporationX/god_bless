@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 public class TwitterSubscriptionsSystem {
     private static final long ADD_FOLLOWER_SLEEP_IN_MS = 1_000L;
 
-    private void addFollower(TwitterAccount account) {
+    public void addFollower(TwitterAccount account) {
         synchronized (account) {
             try {
                 Thread.sleep(ADD_FOLLOWER_SLEEP_IN_MS);
@@ -15,9 +15,5 @@ public class TwitterSubscriptionsSystem {
             }
             account.addFollower();
         }
-    }
-
-    public CompletableFuture<Void> followAccount(TwitterAccount account) {
-        return CompletableFuture.runAsync(() -> addFollower(account));
     }
 }
