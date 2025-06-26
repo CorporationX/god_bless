@@ -11,6 +11,10 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
+            if (isPlaying) {
+                System.out.println("music is playing already");
+                return;
+            }
             isPlaying = true;
             System.out.println("music is playing");
         }
@@ -18,8 +22,12 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
+            if (!isPlaying) {
+                System.out.println("music is pause already");
+                return;
+            }
             isPlaying = false;
-            System.out.println("pause");
+            System.out.println("music is pause");
         }
     }
 
