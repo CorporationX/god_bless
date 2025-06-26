@@ -13,6 +13,21 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int TOTAL_AWAIT_TIME = 30;
+
+    private void gracefulShutdown(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            log.info("Waiting for executor to terminate...");
+            if (!executor.awaitTermination(TOTAL_AWAIT_TIME, TimeUnit.SECONDS)) {
+                log.error("Executor did not terminate in the specified time");
+            }
+        } catch (InterruptedException e) {
+            log.error("Thread interrupted while waiting for executor to terminate", e);
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
 
     static int collectPayment() {
         log.info("Collecting payment...");
@@ -39,13 +54,13 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        int totalAwaitTime = 30;
         log.info("Starting all services...");
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
 
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture
+                .supplyAsync(MasterCardService::sendAnalytics, executor);
 
         Integer analyticsResult = analyticsFuture.join();
         log.info("Аналитика отправлена: {}", analyticsResult);
@@ -62,17 +77,8 @@ public class MasterCardService {
             throw new RuntimeException(e);
         }
 
-        executor.shutdown();
-        try {
-            log.info("Waiting for executor to terminate...");
-            if (!executor.awaitTermination(totalAwaitTime, TimeUnit.SECONDS)) {
-                log.error("Executor did not terminate in the specified time");
-            }
-        } catch (InterruptedException e) {
-            log.error("Thread interrupted while waiting for executor to terminate", e);
-            executor.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
+        gracefulShutdown(executor);
+
         log.info("All services completed.");
     }
 }
