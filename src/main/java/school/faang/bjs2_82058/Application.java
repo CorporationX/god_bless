@@ -25,7 +25,7 @@ public class Application {
                     log.warn("{} was interrupted during house activity", userName);
                 }
 
-                user.leaveHouse();
+                user.leaveHouse(house);
             });
 
             userThread.start();
