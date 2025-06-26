@@ -9,6 +9,7 @@ public class Tournament {
             try {
                 Thread.sleep(task.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             for (Student student : school.getTeam()) {

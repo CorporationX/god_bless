@@ -20,6 +20,10 @@ public class MagicalTournament {
         allTasks.thenRun(() -> {
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
                 System.out.println(hogwarts.getName() + " wins the tournament!");
+            } else if (beauxbatons.getTotalPoints() > hogwarts.getTotalPoints()) {
+                System.out.println(beauxbatons.getName() + " wins the tournament!");
+            } else {
+                System.out.println("Draw!");
             }
         });
         allTasks.join();

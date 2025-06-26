@@ -11,6 +11,8 @@ public class Student {
     private int points;
 
     public void addPoints(int point) {
-        points += point;
+        if (point > 0) {
+            points += point;
+        }
     }
 }
