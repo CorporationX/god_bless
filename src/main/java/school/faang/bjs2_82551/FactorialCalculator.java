@@ -11,10 +11,10 @@ public class FactorialCalculator {
     public static final int MAX_INT_FACTORIAL = 12;
     public static final int MAX_LONG_FACTORIAL = 19;
 
-    private static int factorialInt(int num) throws IllegalArgumentException {
+    private static int factorialInt(int num) {
         if (num > MAX_INT_FACTORIAL) {
             log.warn("Число {} больше допустимого значения {}", num, MAX_INT_FACTORIAL);
-            throw new IllegalArgumentException("Число больше допустимого значения");
+            throw new IllegalArgumentException("Число " + num + " больше допустимого значения " + MAX_INT_FACTORIAL);
         }
 
         if (num == 0 || num == 1) {
@@ -29,10 +29,10 @@ public class FactorialCalculator {
         return factorial;
     }
 
-    private static long factorialLong(int num) throws IllegalArgumentException {
+    private static long factorialLong(int num) {
         if (num > MAX_LONG_FACTORIAL) {
             log.warn("Число {} больше допустимого значения {}", num, MAX_LONG_FACTORIAL);
-            throw new IllegalArgumentException("Число больше допустимого значения");
+            throw new IllegalArgumentException("Число " + num + " больше допустимого значения " + MAX_LONG_FACTORIAL);
         }
 
         if (num <= MAX_INT_FACTORIAL) {
