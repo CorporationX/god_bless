@@ -12,8 +12,8 @@ public class Student {
     private final int year;
     private int points;
 
-    public synchronized void setPoints(int points) {
-        this.points += points;
+    public synchronized void setPoints(int reward) {
+        this.points += reward;
     }
 
     public synchronized int getPoints() {

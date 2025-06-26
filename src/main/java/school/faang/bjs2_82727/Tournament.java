@@ -3,6 +3,7 @@ package school.faang.bjs2_82727;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -35,7 +36,7 @@ public class Tournament {
             } catch (InterruptedException e) {
                 log.error("Поток прерван. Испытание не завершено");
                 Thread.currentThread().interrupt();
-                throw new RuntimeException("Поток прерван. Испытание не завершено", e);
+                throw new CompletionException("Поток прерван. Испытание не завершено", e);
             }
         }, threadPool);
     }
