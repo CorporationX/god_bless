@@ -19,7 +19,7 @@ public class Main {
         ExecutorService poolThread = Executors.newFixedThreadPool(NUM_THREAD);
         QuestSystem questSystem = new QuestSystem(poolThread);
 
-        Player player1 = new Player("Thrall", 10, 250);
+        Player player1 = new Player("Thrall", 10,   250);
         Player player2 = new Player("Sylvanas", 12, 450);
 
         Quest quest1 = new Quest("Defeat the Lich King", EASY, 150);
