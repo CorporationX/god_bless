@@ -2,10 +2,13 @@ package school.faang.bjs2_82168;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        OrderProcessor processor = new OrderProcessor();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        OrderProcessor processor = new OrderProcessor(executor);
 
         List<Order> orders = List.of(
                 new Order(1, "Новый"),
@@ -25,6 +28,6 @@ public class Main {
 
         System.out.println("Обработано заказов: " + processor.getTotalProcessedOrders());
 
-        processor.shutdown();
+        executor.shutdown();
     }
 }
