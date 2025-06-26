@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int TIME_OUT = 10;
+
     public static void main(String[] args) throws InterruptedException {
         Game game = new Game();
         Random random = new Random();
@@ -19,7 +21,7 @@ public class Main {
             int live = 1;
             executorService.submit(() -> game.update(score, live));
         }
-        executorService.awaitTermination(10, TimeUnit.SECONDS);
         executorService.shutdown();
+        executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS);
     }
 }
