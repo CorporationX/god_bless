@@ -10,23 +10,24 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         WeasleyFamily weasleyFamily = new WeasleyFamily();
         for (String task : weasleyFamily.getChores()) {
             Chore chore = new Chore(task);
-            executorService.execute(chore);
+            executor.execute(chore);
         }
 
-        executorService.shutdown();
+        log.info("Initiating shutdown");
+        executor.shutdown();
         try {
-            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 log.warn("Forcing shutdown!");
-                executorService.shutdownNow();
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.error("Shutdown interrupted, forcing stop", e);
-            executorService.shutdownNow();
+            executor.shutdownNow();
         }
     }
 }
