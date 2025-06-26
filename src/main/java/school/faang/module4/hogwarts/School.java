@@ -21,11 +21,11 @@ public class School {
         synchronized (team) {
             team.stream()
                     .forEach(student -> {
-                        student.setPoints(student.getPoints() + partOfPoints);
+                        student.addPoints(partOfPoints);
                     });
             if (points - partOfPoints * team.size() > 0) {
                 var student = team.get(0);
-                student.setPoints(student.getPoints() + (points - partOfPoints * team.size()));
+                student.addPoints(points - partOfPoints * team.size());
             }
         }
     }
