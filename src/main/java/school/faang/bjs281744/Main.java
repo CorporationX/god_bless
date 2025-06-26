@@ -6,16 +6,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-        final int NUM_THREADS = 10;
-        final int NUM_VIDEOS = 5;
+        final int numThreads = 10;
+        final int numVideos = 5;
 
         VideoManager videoManager = new VideoManager();
-        ExecutorService executore = Executors.newFixedThreadPool(NUM_THREADS);
+        ExecutorService executore = Executors.newFixedThreadPool(numThreads);
 
-        for (int videoIndex = 0; videoIndex < NUM_VIDEOS; videoIndex++) {
+        for (int videoIndex = 0; videoIndex < numVideos; videoIndex++) {
             final String videoId = "video_" + videoIndex;
 
-            for (int threadIndex = 0; threadIndex < NUM_THREADS; threadIndex++) {
+            for (int threadIndex = 0; threadIndex < numThreads; threadIndex++) {
                 executore.submit(() -> {
                     videoManager.addView(videoId);
                     System.out.printf("Thread %s добавил просмотр для %s%n",
@@ -41,12 +41,13 @@ public class Main {
         }
 
         System.out.println("\n=== Результаты ===");
-        for (int i = 0; i < NUM_VIDEOS; i++) {
+        
+        for (int i = 0; i < numVideos; i++) {
             String videoId = "video_" + i;
             int viewCount = videoManager.getViewCount(videoId);
             System.out.printf("%s: %s просмотров%n", videoId, viewCount);
         }
 
-        System.out.printf("\nОжидаемое количество просмотров на видео: %s", NUM_THREADS);
+        System.out.printf("\nОжидаемое количество просмотров на видео: %s", numThreads);
     }
 }
