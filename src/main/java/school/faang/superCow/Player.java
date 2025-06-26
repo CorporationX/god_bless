@@ -15,7 +15,7 @@ public class Player {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-                throw new RuntimeException("Ошибка");
+            throw new RuntimeException(e);
         } finally {
             boss.leaveBattle(this);
         }
