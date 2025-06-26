@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -15,10 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Slf4j
 public class OrderProcessor {
     public AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     public Order order = new Order();
-    List<Order> orders;
+    private List<Order> orders;
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
@@ -37,6 +39,6 @@ public class OrderProcessor {
                 .map(this::processOrder)
                 .toList();
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-        System.out.println("Обработано заказов: " + totalProcessedOrders.get());
+        log.info("Обработано заказов: " + totalProcessedOrders.get());
     }
 }
