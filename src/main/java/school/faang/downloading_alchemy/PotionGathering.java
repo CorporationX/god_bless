@@ -2,7 +2,6 @@ package school.faang.downloading_alchemy;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class PotionGathering {
     public static void main(String[] args) {
@@ -18,10 +17,10 @@ public class PotionGathering {
         List<CompletableFuture<Integer>> futures = potions.stream()
                 .map(PotionGathering::gatherIngredients)
                 .toList();
-        futures.forEach(potion -> CompletableFuture.allOf(potion).join());
-        AtomicInteger totalInteger = new AtomicInteger(0);
-        futures.forEach(future -> future.thenAccept(totalInteger::addAndGet));
-        int total = totalInteger.get();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        int total = futures.stream()
+                .mapToInt(CompletableFuture::join)
+                .sum();
         System.out.println("Всего нужно ингредиентов: " + total);
     }
 
@@ -30,6 +29,7 @@ public class PotionGathering {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             return potion.getRequiredIngredients();
