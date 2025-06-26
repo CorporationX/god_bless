@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Quest {
     private String name;
-    private DifficultyQuest difficulty;
+    private QuestDifficulty difficulty;
     private int reward;
 }
