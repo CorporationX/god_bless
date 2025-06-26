@@ -18,7 +18,7 @@ public class QuestSystem {
                 log.info("{} завершил квест '{}'. Получено {} опыта",
                          player.getName(), quest.getName(), quest.getReward());
 
-                player.setExperience(quest.getReward());
+                player.updateExperienceAndLevel(quest.getReward());
 
                 return player;
 

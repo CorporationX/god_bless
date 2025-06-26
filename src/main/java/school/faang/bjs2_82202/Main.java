@@ -39,7 +39,7 @@ public class Main {
                         .distinct()
                         .forEach(player -> log.info("{} текущий уровень {} и кол-во опыта {}",
                                                     player.getName(),
-                                                    player.getLevel(),
+                                                    player.getLevel().get(),
                                                     player.getExperience()))).join();
 
         fixedPool.shutdown();
