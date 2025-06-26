@@ -1,0 +1,32 @@
+package school.faang.filters;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+public class Main {
+    public static void main(String[] args) {
+        EmailProcessor emailProcessor = new EmailProcessor();
+        List<Email> emails = Arrays.asList(
+                new Email("Письмо 1", "Текст письма 1", false),
+                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Спам", "Текст спама", false)
+        );
+
+        Predicate<Email> importantFilter = Email::getIsImportant;
+
+        Consumer<Email> printEmail = email -> System.out.printf("Обработано письмо: %s\\n", email.getSubject());
+
+        Function<Email, String> toUpperCase = email -> {
+            email.setBody(email.getBody().toUpperCase());
+            return email.getBody();  // Возвращает преобразованный текст
+        };
+
+        emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
+
+        emails.forEach(email -> System.out.printf("Название письма: %s\nТекст письма: %s\n",
+                email.getSubject(), email.getBody()));
+    }
+}
