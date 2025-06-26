@@ -1,6 +1,5 @@
 package school.faang.module3.throne;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -33,10 +32,6 @@ public class House {
 
     public synchronized void releaseRole(String role) {
         roles.add(role);
-        notify();
-    }
-
-    public synchronized boolean isAvailableRole(String role) {
-        return !roles.contains(role);
+        notifyAll();
     }
 }
