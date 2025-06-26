@@ -1,11 +1,8 @@
 package school.faang.google_photo_sync;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
@@ -16,8 +13,8 @@ public class GooglePhotosAutoUploader {
                 try {
                     System.out.println("Нет фото для обработки");
                     lock.wait();
-                } catch (InterruptedException ignored) {
-                    throw new RuntimeException("Time out");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
             uploadPhotos();

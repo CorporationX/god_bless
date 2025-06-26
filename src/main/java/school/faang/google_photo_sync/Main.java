@@ -9,8 +9,8 @@ public class Main {
                 googlePhotosAutoUploader.onNewPhotoAdded("Photo: " + i);
             }
         });
-        addPhoto.start();
         uploadPhoto.start();
+        addPhoto.start();
         uploadPhoto.join();
         addPhoto.join();
     }
