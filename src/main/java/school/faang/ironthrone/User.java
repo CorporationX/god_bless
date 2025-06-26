@@ -2,11 +2,13 @@ package school.faang.ironthrone;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+@Slf4j
 public class User {
-    private  String name;
+    private String name;
     private String assignedRole;
     private House house;
 
@@ -14,7 +16,7 @@ public class User {
         synchronized (house) {
             assignedRole = house.assignRole();
             this.house = house;
-            System.out.println("Пользователь " + name + " присоединился к дому " + house.getName());
+            log.info("Пользователь {} присоединился к дому {}", name, house.getName());
         }
 
     }
@@ -27,9 +29,9 @@ public class User {
         synchronized (house) {
             if (house != null && assignedRole != null) {
                 house.releaseRole(assignedRole);
+                System.out.println("Пользователь " + name + " покинул дом" + house.getName());
                 house = null;
                 assignedRole = null;
-                System.out.println("Пользователь " + name + " покинул дом" + house.getName());
             }
         }
     }

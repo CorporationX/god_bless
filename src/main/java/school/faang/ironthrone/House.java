@@ -1,23 +1,27 @@
 package school.faang.ironthrone;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@Slf4j
 public class House {
     private List<String> roleList = new ArrayList<>();
     private String name;
+    private Integer sleep1 = 1000;
+    private Integer sleep2 = 2000;
+    private Integer sleep3 = 3000;
 
     public synchronized String assignRole() {
-        while (roleList.size() == 0){
+        while (roleList.isEmpty()) {
             try {
                 wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                log.error(e.getMessage());
             }
         }
         System.out.println("Роль назначена");

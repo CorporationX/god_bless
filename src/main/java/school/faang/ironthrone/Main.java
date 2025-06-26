@@ -1,7 +1,5 @@
 package school.faang.ironthrone;
 
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -14,7 +12,7 @@ public class Main {
         Thread t1 = new Thread(() -> {
             user1.joinHouse(house1);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(house1.getSleep1());
             } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
@@ -27,7 +25,7 @@ public class Main {
         Thread t2 = new Thread(() -> {
             user2.joinHouse(house1);
             try {
-                Thread.sleep(3000);
+                Thread.sleep(house1.getSleep3());
             } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
@@ -40,7 +38,7 @@ public class Main {
         Thread t3 = new Thread(() -> {
             user3.joinHouse(house1);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(house1.getSleep2());
             } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
@@ -59,11 +57,7 @@ public class Main {
             t2.join();
             t3.join();
         } catch (InterruptedException e) {
-
             throw new RuntimeException(e);
         }
-
-
-
     }
 }
