@@ -13,11 +13,9 @@ public class User {
     private House house;
 
     public void joinHouse(House house) {
-        synchronized (house) {
-            assignedRole = house.assignRole();
-            this.house = house;
-            System.out.printf("Присоединился к дому: %s, назначена роль: %s\n", house, assignedRole);
-        }
+        assignedRole = house.assignRole();
+        this.house = house;
+        System.out.printf("Присоединился к дому: %s, назначена роль: %s\n", house, assignedRole);
         spendTimeInHouse();
         leaveHouse();
     }
