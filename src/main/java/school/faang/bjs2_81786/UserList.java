@@ -1,17 +1,18 @@
 package school.faang.bjs2_81786;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
+@AllArgsConstructor
+@Getter
 public class UserList {
-    private Set<User> users = new HashSet<>();
+    private List<User> users;
 
-    public List<User> getOnlineUsers() {
+    public List<User> getOnlineUsers(User user) {
         return users.stream()
-                .filter(User::isOnline)
+                .filter(u -> u.isEligible() && !u.equals(user))
                 .toList();
     }
 
