@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -40,9 +41,9 @@ public class PotionGathering {
             try {
                 TimeUnit.SECONDS.sleep(potion.getRequiredIngredients());
             } catch (InterruptedException e) {
-                log.error("Thread interrupted", e);
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                log.error("Сбор ингредиентов для зелья: {} прерван.", potion.getName());
+                throw new CompletionException("Сбор ингредиентов прерван.", e);
             }
 
             return potion.getRequiredIngredients();
