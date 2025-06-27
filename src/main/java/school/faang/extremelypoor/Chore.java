@@ -11,11 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 public class Chore implements Runnable {
     private final String chore;
 
+    private static final int executionTime = 1000;
+
     @Override
     public void run() {
         try {
             log.info("{} is doing chore {}", Thread.currentThread().getName(), chore);
-            Thread.sleep(1000);
+            Thread.sleep(executionTime);
             log.info("{} done", chore);
 
         } catch (InterruptedException e) {
