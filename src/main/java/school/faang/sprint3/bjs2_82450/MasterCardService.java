@@ -1,21 +1,25 @@
 package school.faang.sprint3.bjs2_82450;
 
-import java.util.concurrent.*;
+import lombok.RequiredArgsConstructor;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+@RequiredArgsConstructor
 public class MasterCardService {
     private static final int THREAD_POOL_BATCH = 5;
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int COLLECT_PAYMENT = 5_000;
+    private static final int SEND_ANALYTICS = 17_000;
     private final ExecutorService executorService;
-
-    public MasterCardService(ExecutorService executorService) {
-        this.executorService = executorService;
-    }
 
     static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return COLLECT_PAYMENT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -25,7 +29,7 @@ public class MasterCardService {
     static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return SEND_ANALYTICS;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
