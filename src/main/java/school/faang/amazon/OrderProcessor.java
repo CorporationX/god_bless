@@ -8,17 +8,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 public class OrderProcessor {
+    private final Integer threadSleepDelay = 2000;
     private AtomicInteger totalProcessOrders = new AtomicInteger(0);
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(threadSleepDelay);
                 order.setStatus(OrderStatus.PROCESSED);
                 totalProcessOrders.incrementAndGet();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                throw new OrderInterruptedException(e);
             }
         });
     }
