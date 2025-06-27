@@ -1,11 +1,9 @@
 package school.faang.bjs2_82789;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Student {
     private String name;
