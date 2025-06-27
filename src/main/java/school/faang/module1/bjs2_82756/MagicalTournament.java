@@ -70,8 +70,7 @@ public class MagicalTournament {
                     .ifPresentOrElse(
                             winner -> log.info("Победитель: {} с {} очками",
                                     winner.getName(), winner.getTotalPoints()),
-                            () -> log.warn("Победитель турнира не определён")
-                    );
+                            () -> log.warn("Победитель турнира не определён"));
         }
     }
 }
