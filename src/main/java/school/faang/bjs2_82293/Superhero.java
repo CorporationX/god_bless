@@ -9,4 +9,8 @@ public class Superhero {
     private String name;
     private int strength;
     private int agility;
+
+    public int getPower() {
+        return strength + agility;
+    }
 }

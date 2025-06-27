@@ -14,24 +14,32 @@ public class SuperheroBattle {
 
     public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> pairs) {
         return pairs.stream()
-                .map(pair -> executor.submit(() -> {
-                    try {
-                        Superhero hero1 = pair.first();
-                        Superhero hero2 = pair.second();
-                        int score1 = hero1.getStrength() + hero1.getAgility();
-                        int score2 = hero2.getStrength() + hero2.getAgility();
-                        return score1 >= score2 ? hero1 : hero2;
-                    } catch (Exception e) {
-                        log.error("Error in the competition between {} and {}",
-                                pair.first().getName(), pair.second().getName(), e);
-                        throw e;
-                    }
-                }))
+                .map(pair -> executor.submit(() -> determineWinner(pair)))
                 .toList();
+    }
+
+    private Superhero determineWinner(Pair<Superhero, Superhero> pair) {
+        try {
+            Superhero hero1 = pair.first();
+            Superhero hero2 = pair.second();
+
+            int power1 = hero1.getPower();
+            int power2 = hero2.getPower();
+
+            Superhero winner = power1 >= power2 ? hero1 : hero2;
+
+            log.info("Battle: {} (power {}) vs {} (power {}) — Winner: {}",
+                    hero1.getName(), power1, hero2.getName(), power2, winner.getName());
+
+            return winner;
+        } catch (Exception e) {
+            log.error("Error in battle between {} and {}",
+                    pair.first().getName(), pair.second().getName(), e);
+            throw e;
+        }
     }
 
     public void shutdown() {
         executor.shutdown();
     }
-
 }
