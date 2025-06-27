@@ -18,7 +18,10 @@ public class Main {
         launches.add(new RocketLaunch("Launch 3", LocalDateTime.now().plusSeconds(5)));
         launches.add(new RocketLaunch("Launch 4", LocalDateTime.now().plusSeconds(8)));
         launches.add(new RocketLaunch("Launch 5", LocalDateTime.now().plusSeconds(2)));
+        long startTime = System.currentTimeMillis();
         planRocketLaunches(launches);
+        long endTime = System.currentTimeMillis(); // Конец времени
+        System.out.printf("Total execution time: %d ms\n", endTime - startTime);
         //long end = System.currentTimeMillis();
         //System.out.printf("Время выполнения программы: %s ms\n", end - star);
         //todo иначе ошибка code style: Distance between variable 'star' declaration and its first usage is 7,
@@ -44,15 +47,7 @@ public class Main {
             Thread.currentThread().interrupt();
             System.out.println("launching interrupted");
         } finally {
-            executor.shutdown();
-            try {
-                if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                executor.shutdownNow();
-            }
+            ThreadUtils.gracefullyShutdown(executor);
         }
     }
 }
