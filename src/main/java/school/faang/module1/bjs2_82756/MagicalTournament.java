@@ -8,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @Slf4j
 public class MagicalTournament {
@@ -37,13 +36,7 @@ public class MagicalTournament {
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
         CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
-                .thenRun(() -> Stream.of(hogwarts, beauxbatons)
-                        .max(Comparator.comparingInt(School::getTotalPoints))
-                        .ifPresentOrElse(
-                                winner -> log.info("Победитель: {} с {} очками",
-                                        winner.getName(), winner.getTotalPoints()),
-                                () -> log.warn("Победитель турнира не определён")
-                        ))
+                .thenRun(() -> getWinner(List.of(hogwarts, beauxbatons)))
                 .join();
 
         executorService.shutdown();
@@ -58,5 +51,27 @@ public class MagicalTournament {
             executorService.shutdownNow();
         }
         log.info("Все задачи завершены");
+    }
+
+    private static boolean allSchoolsHaveEqualPoints(List<School> schools) {
+        return schools.stream()
+                .map(School::getTotalPoints)
+                .distinct()
+                .count() == 1;
+    }
+
+    private static void getWinner(List<School> schools) {
+        if (allSchoolsHaveEqualPoints(schools)) {
+            int points = schools.get(0).getTotalPoints();
+            log.info("Ничья. Все школы набрали одинаковое количество очков: {}", points);
+        } else {
+            schools.stream()
+                    .max(Comparator.comparingInt(School::getTotalPoints))
+                    .ifPresentOrElse(
+                            winner -> log.info("Победитель: {} с {} очками",
+                                    winner.getName(), winner.getTotalPoints()),
+                            () -> log.warn("Победитель турнира не определён")
+                    );
+        }
     }
 }
