@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor
 public class Game {
     private static final int THREAD_BATCH = 5;
+    private static final int GAME_ITERATIONS_COUNT = 50;
 
     private int score = 0;
     private int lives = 10;
@@ -21,10 +22,10 @@ public class Game {
     private void update(boolean isPointsEarned, boolean isLiveLost) {
         if (isLiveLost) {
             synchronized (livesLock) {
+                lives--;
                 if (lives <= 0) {
                     gameOver();
-                } else {
-                    lives--;
+                    return;
                 }
             }
         }
@@ -36,14 +37,14 @@ public class Game {
         }
     }
 
-    public void gameOver() {
+    private void gameOver() {
         System.out.println("Счет: " + score);
     }
 
     public static void main(String[] args) {
         Game game = new Game();
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_BATCH);
-        for (int i = 1; i < 50; i++) {
+        for (int i = 0; i < GAME_ITERATIONS_COUNT; i++) {
             executor.execute(() -> game.update(
                     ThreadLocalRandom.current().nextBoolean(),
                     ThreadLocalRandom.current().nextBoolean()
