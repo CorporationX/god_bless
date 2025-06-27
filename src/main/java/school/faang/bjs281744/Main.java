@@ -1,53 +1,56 @@
 package school.faang.bjs281744;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
-    public static void main(String[] args) {
-        final int numThreads = 10;
-        final int numVideos = 5;
+    private static final int numThreads = 10;
+    private static final int numVideos = 5;
 
+    public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
-        ExecutorService executore = Executors.newFixedThreadPool(numThreads);
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
         for (int videoIndex = 0; videoIndex < numVideos; videoIndex++) {
             final String videoId = "video_" + videoIndex;
 
             for (int threadIndex = 0; threadIndex < numThreads; threadIndex++) {
-                executore.submit(() -> {
+                executor.submit(() -> {
                     videoManager.addView(videoId);
-                    System.out.printf("Thread %s добавил просмотр для %s%n",
+                    log.info("Thread {} добавил просмотр для {}",
                             Thread.currentThread().getName(), videoId);
                 });
             }
         }
 
-        executore.shutdown();
+        executor.shutdown();
 
         try {
-            if (!executore.awaitTermination(10, TimeUnit.SECONDS)) {
-                System.out.println("Задачи не завершились за отведенное время");
-                executore.shutdownNow();
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                log.info("Задачи не завершились за отведенное время");
+                executor.shutdownNow();
 
-                if (!executore.awaitTermination(5, TimeUnit.SECONDS)) {
-                    System.out.println("Пул потоков не удалось корректно завершить");
+                if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                    log.info("Пул потоков не удалось корректно завершить");
                 }
             }
         } catch (InterruptedException e) {
-            executore.shutdownNow();
+            executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
 
-        System.out.println("\n=== Результаты ===");
+        log.info("\n=== Результаты ===");
         
         for (int i = 0; i < numVideos; i++) {
             String videoId = "video_" + i;
             int viewCount = videoManager.getViewCount(videoId);
-            System.out.printf("%s: %s просмотров%n", videoId, viewCount);
+            log.info("{}: {} просмотров", videoId, viewCount);
         }
 
-        System.out.printf("\nОжидаемое количество просмотров на видео: %s", numThreads);
+        log.info("\nОжидаемое количество просмотров на видео: {}", numThreads);
     }
 }
