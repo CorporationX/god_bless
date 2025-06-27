@@ -19,7 +19,7 @@ public class OrderProcessor {
                 totalProcessOrders.incrementAndGet();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new OrderInterruptedException(e);
+                throw new OrderInterruptedException("Ошибка при обработке заказа");
             }
         });
     }
