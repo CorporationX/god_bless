@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Participant implements Runnable{
+public class Participant implements Runnable {
 
     private final String name;
     private final Conference conference;
