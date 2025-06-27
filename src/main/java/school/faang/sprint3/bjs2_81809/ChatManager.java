@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class ChatManager {
     public static final int THREAD_BATCH = 5;
+    public static final int CHAT_DURATION = 1000;
+    public static final int USERS_COUNT = 5;
+
     public final UserList userList;
-    public final List<Chat> chatList = new ArrayList<>();
 
     ChatManager(UserList userList) {
         this.userList = userList;
@@ -30,11 +32,6 @@ public class ChatManager {
             userList.removeUser(userForChat.get(0));
             Chat chat = new Chat(this, user, userForChat.get(0));
             System.out.println("Чат создан. " + chat);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             return chat;
         }
     }
@@ -50,18 +47,18 @@ public class ChatManager {
     public void endChat(Chat chat) {
         synchronized (userList) {
             User user1 = chat.getUser1();
-            if (user1 != null) {
-                user1.setLookingForChat(false);
-                userList.addUser(user1);
-            }
             User user2 = chat.getUser2();
-            if (user2 != null) {
-                user2.setLookingForChat(false);
-                userList.addUser(user2);
-            }
-            chatList.remove(chat);
+            userLeaveChat(user1);
+            userLeaveChat(user2);
             userList.notifyAll();
             System.out.println("Удаления чата. " + chat);
+        }
+    }
+
+    public void userLeaveChat(User user) {
+        if (user != null) {
+            user.setLookingForChat(false);
+            userList.addUser(user);
         }
     }
 
@@ -70,7 +67,7 @@ public class ChatManager {
         UserList userList = new UserList();
         ChatManager manager = new ChatManager(userList);
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < USERS_COUNT; i++) {
             String name = "user " + i;
             User newUser = new User(
                     name,
@@ -83,6 +80,11 @@ public class ChatManager {
         for (User user : users) {
             executor.execute(() -> {
                 Chat chat = manager.startChat(user);
+                try {
+                    Thread.sleep(CHAT_DURATION);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 manager.endChat(chat);
             });
         }

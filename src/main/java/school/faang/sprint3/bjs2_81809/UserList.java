@@ -31,6 +31,7 @@ public class UserList {
     public List<User> getLookingForChatUsers(int limit, User except) {
         return list.stream()
                 .filter(user -> !user.equals(except))
+                .filter(User::isLookingForChat)
                 .limit(limit)
                 .toList();
     }

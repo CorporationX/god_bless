@@ -1,7 +1,6 @@
 package school.faang.sprint3.bjs2_81809;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class Chat {
