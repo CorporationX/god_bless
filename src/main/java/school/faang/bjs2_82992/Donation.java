@@ -1,15 +1,11 @@
 package school.faang.bjs2_82992;
 
-import lombok.Getter;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Getter
-public class Donation {
+public record Donation(double amount) {
     private static final AtomicInteger id = new AtomicInteger();
-    private final double amount;
 
-    public Donation(double amount) {
+    public Donation {
         id.incrementAndGet();
-        this.amount = amount;
     }
 }

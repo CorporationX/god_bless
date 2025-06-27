@@ -18,7 +18,7 @@ public class Organization {
     public void addDonation(Donation donation) {
         lock.writeLock().lock();
         log.info("Аноним перечислил {} на счет организации {}", donation, name);
-        finance += donation.getAmount();
+        finance += donation.amount();
         lock.writeLock().unlock();
     }
 
