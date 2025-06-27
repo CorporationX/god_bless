@@ -12,8 +12,8 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     private void startAutoUpload() {
-        synchronized (lock) {
-            while (true) {
+        while (true) {
+            synchronized (lock) {
                 try {
                     if (photosToUpload.isEmpty()) {
                         System.out.println("Нет файлов, ожидание");
@@ -32,7 +32,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Добавлен файл в очередь на загрузку в Google Photos");
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
