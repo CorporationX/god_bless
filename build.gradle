@@ -13,9 +13,12 @@ repositories {
 
 dependencies {
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-    implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation ("ch.qos.logback:logback-core:1.5.18")
+    implementation ("org.slf4j:slf4j-api:2.0.12")
+    compileOnly ("org.projectlombok:lombok:1.18.30")
+
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.3")
+    implementation ("ch.qos.logback:logback-classic:1.5.18")
     implementation("org.projectlombok:lombok:1.18.26")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -49,4 +52,14 @@ tasks.checkstyleTest {
     include("**/*.java")
 
     classpath = files()
+}
+
+configurations.all {
+    resolutionStrategy {
+        force(
+                "ch.qos.logback:logback-classic:1.5.18",
+                "ch.qos.logback:logback-core:1.5.18",
+                "org.slf4j:slf4j-api:2.0.12"
+        )
+    }
 }

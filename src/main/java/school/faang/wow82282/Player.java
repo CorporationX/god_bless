@@ -12,7 +12,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void addExpirience(Integer i) {
-        this.setExperience(experience + i);
+    public void addExpirience(int reward) {
+        this.experience += reward;
     }
 }

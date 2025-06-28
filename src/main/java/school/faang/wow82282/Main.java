@@ -1,14 +1,16 @@
 package school.faang.wow82282;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+
+import static school.faang.wow82282.QuestSystem.gracefulShutdown;
 
 public class Main {
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        QuestSystem questSystem = new QuestSystem();
+
         ExecutorService questExecutor = Executors.newFixedThreadPool(2);
+
+        QuestSystem questSystem = new QuestSystem();
 
         Player player1 = new Player("Thrall", 3, 250);
         Player player2 = new Player("Sylvanas", 5, 450);
@@ -33,7 +35,7 @@ public class Main {
             future1.get();
             future2.get();
         } finally {
-            questExecutor.shutdown();
+            gracefulShutdown(questExecutor);
         }
     }
 }
