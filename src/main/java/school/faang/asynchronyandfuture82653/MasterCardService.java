@@ -1,17 +1,26 @@
 package school.faang.asynchronyandfuture82653;
 
-import java.util.concurrent.*;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+
+@Slf4j
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int NUMBER_OF_THREADS = 2;
 
     private void collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
             System.out.println("Оплата прошла");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Поток был прерван", e);
         }
     }
 
@@ -20,13 +29,12 @@ public class MasterCardService {
             Thread.sleep(ONE_SECOND_IN_MS);
             System.out.println("Анализ отправлен");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Поток был прерван", e);
         }
-
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         try {
             Future<?> future1 = executor.submit(this::collectPayment);
 
@@ -38,5 +46,4 @@ public class MasterCardService {
             executor.shutdown();
         }
     }
-
 }
