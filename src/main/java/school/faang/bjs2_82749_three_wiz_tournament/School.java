@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class School {
+    @NonNull
     private final String name;
     @NonNull
     private final List<Student> team;
