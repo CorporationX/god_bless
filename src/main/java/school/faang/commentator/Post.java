@@ -14,4 +14,8 @@ public class Post {
     private final String content;
     private final String author;
     private List<Comment> comments = new CopyOnWriteArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 }
