@@ -11,7 +11,13 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         House stark = new House("Stark", Arrays.asList("Lord", "Knight", "Maester"));
 
-        List<User> users = Arrays.stream(new String[]{"Jon Snow", "Arya Stark", "Sansa Stark", "Bran Stark", "Robb Stark"})
+        List<User> users = Arrays.stream(new String[] {
+                        "Jon Snow",
+                        "Arya Stark",
+                        "Sansa Stark",
+                        "Bran Stark",
+                        "Robb Stark"
+                })
                 .map(name -> new User(name, null, null))
                 .collect(Collectors.toList());
 
