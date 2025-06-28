@@ -13,7 +13,7 @@ public class Kingdom {
     public String sendMessage(Kingdom receiver) {
         boolean isDelivered = ThreadLocalRandom.current().nextDouble() > 0.3;
         if (!isDelivered) {
-            throw new MessageIsNotDelivered("Сообщение из " + name + " не доставлено в " + receiver.name);
+            throw new MessageIsNotDeliveredException("Сообщение из " + name + " не доставлено в " + receiver.name);
         }
         return "Сообщение из " + name + " доставлено в " + receiver.name;
     }
