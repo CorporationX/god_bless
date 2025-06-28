@@ -8,17 +8,17 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int numThreads = 10;
-    private static final int numVideos = 5;
+    private static final int NUM_THREADS = 10;
+    private static final int NUM_VIDEOS = 5;
 
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
-        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int videoIndex = 0; videoIndex < numVideos; videoIndex++) {
+        for (int videoIndex = 0; videoIndex < NUM_VIDEOS; videoIndex++) {
             final String videoId = "video_" + videoIndex;
 
-            for (int threadIndex = 0; threadIndex < numThreads; threadIndex++) {
+            for (int threadIndex = 0; threadIndex < NUM_THREADS; threadIndex++) {
                 executor.submit(() -> {
                     videoManager.addView(videoId);
                     log.info("Thread {} добавил просмотр для {}",
@@ -45,12 +45,12 @@ public class Main {
 
         log.info("\n=== Результаты ===");
         
-        for (int i = 0; i < numVideos; i++) {
+        for (int i = 0; i < NUM_VIDEOS; i++) {
             String videoId = "video_" + i;
             int viewCount = videoManager.getViewCount(videoId);
             log.info("{}: {} просмотров", videoId, viewCount);
         }
 
-        log.info("\nОжидаемое количество просмотров на видео: {}", numThreads);
+        log.info("\nОжидаемое количество просмотров на видео: {}", NUM_THREADS);
     }
 }
