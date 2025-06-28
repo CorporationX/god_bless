@@ -18,7 +18,7 @@ public class MailSender {
             try {
                 threads[i].join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new IllegalStateException("Поток был прерван, пока ожидали другой поток", e);
             }
         }
 

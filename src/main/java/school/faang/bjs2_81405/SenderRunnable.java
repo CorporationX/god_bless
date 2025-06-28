@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
+    private static final int SLEEP_NUMBER = 5;
     private int startIndex;
     private int endIndex;
     private int threadId;
@@ -11,11 +12,11 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Письмо " + i + " было отправлено потоком: " + threadId);
+            System.out.printf("Письмо %d  было отправлено потоком: %d\n", i, threadId);
             try {
-                Thread.sleep(5);
+                Thread.sleep(SLEEP_NUMBER);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new IllegalStateException("Поток был прерван, во время ожидания(sleep)", e);
             }
         }
     }
