@@ -13,8 +13,7 @@ public class Main {
 
         List<User> users = Arrays.stream(new String[] {
                         "Jon Snow", "Arya Stark", "Sansa Stark", "Bran Stark", "Robb Stark"
-                })
-                .map(name -> new User(name, null, null))
+                }).map(name -> new User(name, null, null))
                 .collect(Collectors.toList());
 
         List<Thread> threads = IntStream.range(0, users.size())
