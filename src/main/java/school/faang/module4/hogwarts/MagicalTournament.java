@@ -1,11 +1,13 @@
 package school.faang.module4.hogwarts;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
+@Slf4j
 public class MagicalTournament {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
@@ -38,6 +40,6 @@ public class MagicalTournament {
         School winner = List.of(hogwarts, beauxbatons).stream()
                 .max(Comparator.comparing(School::getName))
                 .get();
-        System.out.printf("winner school %s with %d total points\n", winner.getName(), winner.getTotalPoints());
+        log.info("winner school {} with {} total points", winner.getName(), winner.getTotalPoints());
     }
 }
