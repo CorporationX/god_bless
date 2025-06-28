@@ -5,9 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Whither {
+public class Witcher {
     @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         long time = System.currentTimeMillis();
         List<City> cities = List.of(
                 new City("A", new Location(5, 3)),
@@ -49,12 +49,8 @@ public class Whither {
         }
 
         executor.shutdown();
-        try {
-            if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                System.out.println("Не все задачи завершены");
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            System.out.println("Не все задачи завершены");
         }
 
         time = System.currentTimeMillis() - time;
