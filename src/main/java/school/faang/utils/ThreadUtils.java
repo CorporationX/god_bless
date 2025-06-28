@@ -10,8 +10,22 @@ import java.util.concurrent.TimeUnit;
 public class ThreadUtils {
     public static void executorGracefulShutdown(
             @NonNull ExecutorService executorService,
+            int awaitShutdownMinutes) {
+        doGracefulShutdown(executorService, awaitShutdownMinutes, null);
+    }
+
+    public static void executorGracefulShutdown(
+            @NonNull ExecutorService executorService,
             int awaitShutdownMinutes,
             Runnable finalCallback) {
+        doGracefulShutdown(executorService, awaitShutdownMinutes, finalCallback);
+    }
+
+    private static void doGracefulShutdown(
+            @NonNull ExecutorService executorService,
+            int awaitShutdownMinutes,
+            Runnable finalCallback
+    ) {
         executorService.shutdown();
         try {
             boolean allCompleted = executorService.awaitTermination(awaitShutdownMinutes, TimeUnit.MINUTES);
