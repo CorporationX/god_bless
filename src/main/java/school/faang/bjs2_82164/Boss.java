@@ -19,7 +19,7 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (lock) {
-            if (maxPlayers == currentPlayers) {
+            while (maxPlayers <= currentPlayers) {
                 try {
                     log.info("{} needs to wait...", Thread.currentThread().getName());
                     lock.wait();
@@ -27,10 +27,9 @@ public class Boss {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
-            } else {
-                currentPlayers++;
-                log.info("{} joins the battle!", player.getName());
             }
+            currentPlayers++;
+            log.info("{} joins the battle!", player.getName());
         }
     }
 
