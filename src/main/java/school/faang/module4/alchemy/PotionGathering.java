@@ -1,16 +1,16 @@
 package school.faang.module4.alchemy;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
+@Slf4j
 public class PotionGathering {
     private static final long GATHERING_TIME_IN_MS = 2_000L;
     private static final long TERMINATION_TIME_IN_S = 5L;
@@ -39,7 +39,7 @@ public class PotionGathering {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(TERMINATION_TIME_IN_S, TimeUnit.SECONDS)) {
-                System.out.println("not all potions gathered. start force termination");
+                log.warn("not all potions gathered. start force termination");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -48,7 +48,7 @@ public class PotionGathering {
             throw new RuntimeException(e);
         }
 
-        System.out.printf("All ingredients count: %d\n", potionsIngredients.get());
+        log.info("All ingredients count: {}", potionsIngredients.get());
     }
 
     public static int gatherIngredients(@NonNull Potion potion) {
