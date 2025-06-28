@@ -1,24 +1,26 @@
 package school.faang.bjs282270;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Optional;
 
 @Slf4j
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@RequiredArgsConstructor
+@ToString(exclude = {"assignedRole", "currentHouse"})
+@EqualsAndHashCode(of = "name")
 public class User {
-    @EqualsAndHashCode.Include
     @NonNull
     private String name;
-
-    @ToString.Exclude
     private String assignedRole;
-
-    @ToString.Exclude
     private House currentHouse;
 
     public void joinHouse(@NonNull House house) throws InterruptedException {

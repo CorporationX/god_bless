@@ -1,24 +1,26 @@
 package school.faang.bjs282270;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Data
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(of = "name")
+@EqualsAndHashCode(of = "name")
 public class House {
-    @EqualsAndHashCode.Include
     @NonNull
     private final String name;
 
     @NonNull
     private final List<String> availableRoles;
-
-    @Getter(AccessLevel.NONE)
     private final Map<String, User> occupiedRoles = new ConcurrentHashMap<>();
 
     public synchronized String assignRole(@NonNull User user) throws InterruptedException {
