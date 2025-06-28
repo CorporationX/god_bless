@@ -8,13 +8,14 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class Main {
+    private static final int FOLLOWERS_COUNT = 1000;
+
     public static void main(String[] args) {
         TwitterAccount account = new TwitterAccount("Twitter");
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
-        int followersCount = 1000;
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
-        for (int i = 0; i < followersCount; i++) {
+        for (int i = 0; i < FOLLOWERS_COUNT; i++) {
             futures.add(system.followAccount(account));
         }
 
