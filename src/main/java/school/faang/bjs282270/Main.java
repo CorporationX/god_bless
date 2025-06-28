@@ -25,8 +25,8 @@ public class Main {
 
     private static List<User> createUsers() {
         return Arrays.stream(new String[]{
-                        "Jon Snow", "Arya Stark", "Sansa Stark", "Bran Stark", "Robb Stark"})
-                .map(name -> new User(name))
+                "Jon Snow", "Arya Stark", "Sansa Stark", "Bran Stark", "Robb Stark"})
+                .map(User::new)
                 .collect(Collectors.toList());
     }
 
