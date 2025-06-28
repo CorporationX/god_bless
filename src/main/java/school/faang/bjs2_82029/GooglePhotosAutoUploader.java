@@ -2,7 +2,6 @@ package school.faang.bjs2_82029;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -16,8 +15,13 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                lock.wait();
+            while (photosToUpload.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException();
+                }
             }
             uploadPhotos();
         }
@@ -32,11 +36,10 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         synchronized (lock) {
-            Iterator<String> iterator = photosToUpload.iterator();
-            while (iterator.hasNext()) {
-                log.info("Uploading {}...", iterator.next());
-                iterator.remove();
+            for (String photoPath : photosToUpload) {
+                log.info("Uploading {}...", photoPath);
             }
+            photosToUpload.clear();
         }
     }
 }

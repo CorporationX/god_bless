@@ -1,11 +1,16 @@
 package school.faang.bjs2_82029;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        GooglePhotosAutoUploader loader = new GooglePhotosAutoUploader(List.of("server/photo1",
-                "server/photo2", "server/photo3"));
+        List<String> photos = new ArrayList<>();
+        photos.add("server/photo1");
+        photos.add("server/photo2");
+        photos.add("server/photo3");
+
+        GooglePhotosAutoUploader loader = new GooglePhotosAutoUploader(photos);
         Thread autoloadThread = new Thread(() -> {
             try {
                 loader.startAutoUpload();
