@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int THREAD_POOL_SIZE = 3;
+    private static final int AWAIT_TERMINATION_TIMEOUT = 1;
+    private static final TimeUnit AWAIT_TERMINATION_UNIT = TimeUnit.MINUTES;
+
     public static void main(String[] args) throws InterruptedException {
         CollaborativeDocument document = new CollaborativeDocument();
 
@@ -26,10 +30,10 @@ public class Main {
                 new DocumentSectionProcessor(section3)
         );
 
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         processors.forEach(executor::submit);
         executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.MINUTES);
+        executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT, AWAIT_TERMINATION_UNIT);
 
         log.info("Section1: {}", section1.read());
         log.info("Section3: {}", section3.read());
