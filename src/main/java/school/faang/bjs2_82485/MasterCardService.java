@@ -44,10 +44,10 @@ public class MasterCardService {
         Runnable getPayment = () -> {
             try {
                 if (paymentsResult.get()) {
-                    System.out.println("Payment don't send");
+                    System.out.println("Платеж не прошел");
                     return;
                 }
-                System.out.printf("Payments result: %s%n", payment);
+                System.out.printf("Платеж выполнен: %s%n", payment);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Ожидание прервано");
@@ -63,10 +63,10 @@ public class MasterCardService {
         analyticsResult
                 .thenAccept(result -> {
                     if (result) {
-                        System.out.printf("Analytics result: %s%n", analytic);
+                        System.out.printf("Аналитика отправлена: %s%n", analytic);
                         return;
                     }
-                    System.out.println("Analytics don't send");
+                    System.out.println("Аналитика не отправлена");
                 })
                 .thenRun(getPayment);
     }
