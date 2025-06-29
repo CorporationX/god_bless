@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 @Slf4j
 public class MagicalTournament {
@@ -32,12 +33,10 @@ public class MagicalTournament {
         try {
             hogwarts = hogwartsTask.get();
             beauxbatons = beauxbatonsTask.get();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-        School winner = List.of(hogwarts, beauxbatons).stream()
+        School winner = Stream.of(hogwarts, beauxbatons)
                 .max(Comparator.comparing(School::getName))
                 .get();
         log.info("winner school {} with {} total points", winner.getName(), winner.getTotalPoints());
