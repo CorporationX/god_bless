@@ -1,5 +1,7 @@
 package school.faang.module4.factorial;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Factorial {
     private static final int MIN_FACTORIAL = 0;
     private static final int MAX_INT_FACTORIAL = 12;
@@ -23,7 +26,7 @@ public class Factorial {
                 try {
                     BigInteger value = factorials.get(index).get();
                     int number = numbers.get(index);
-                    System.out.printf("factorial of %d is %s\n", number, value);
+                    log.info("factorial of {} is {}", number, value);
                 } catch (InterruptedException | ExecutionException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
@@ -43,7 +46,15 @@ public class Factorial {
         return numbers.stream()
                 .collect(ArrayList::new,
                         (factorials, n) -> factorials.add(CompletableFuture.supplyAsync(
-                                () -> Factorial.factorialBig(n)
+                                () -> {
+                                    if (MAX_LONG_FACTORIAL < n) {
+                                        return Factorial.factorialBig(n);
+                                    }
+                                    if (MAX_INT_FACTORIAL < n) {
+                                        return BigInteger.valueOf(Factorial.factorialLong(n));
+                                    }
+                                    return BigInteger.valueOf(Factorial.factorialInt(n));
+                                }
                         )),
                         ArrayList::addAll);
     }
