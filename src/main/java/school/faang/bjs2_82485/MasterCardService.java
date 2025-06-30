@@ -11,26 +11,28 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 1_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final double SEND_ANALYTICS_RANDOM_FACTOR = 0.9;
+    private static final double SEND_PAYMENT_RANDOM_FACTOR = 0.8;
     private static final Random RANDOM = new Random();
     private static final int N_THREADS = 2;
 
     static boolean collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return RANDOM.nextDouble() < 0.8;
+            return RANDOM.nextDouble() < SEND_PAYMENT_RANDOM_FACTOR;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e.getCause().getMessage());
         }
     }
 
     static boolean sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return RANDOM.nextDouble() < 0.9;
+            return RANDOM.nextDouble() < SEND_ANALYTICS_RANDOM_FACTOR;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e.getCause().getMessage());
         }
     }
 
