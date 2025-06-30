@@ -1,8 +1,10 @@
 package school.faang.bjs2_82178;
 
 public class Main {
+    private static final int MAX_PLAYERS = 2;
+
     public static void main(String[] args) {
-        Boss boss = new Boss(2);
+        Boss boss = new Boss(MAX_PLAYERS);
 
         Player wizard = new Player("Wizard");
         Player archer = new Player("Archer");
