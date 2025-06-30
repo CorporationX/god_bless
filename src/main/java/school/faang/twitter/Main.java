@@ -31,12 +31,10 @@ public class Main {
 
         System.out.println(
                 "У пользователя " + accountTwo.getUsername() + " " + accountTwo.getFollowers() + " подписчиков");
-        executor.shutdown();
         try {
-            executor.shutdownNow();
+            executor.shutdown();
             executor.awaitTermination(TIMEOUT_SEC, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            executor.shutdownNow();
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
