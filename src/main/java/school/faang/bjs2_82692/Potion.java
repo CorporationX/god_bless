@@ -11,7 +11,7 @@ public record Potion(String name, int countIngredients) {
                 Thread.sleep(countIngredients * MS_IN_S);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new IllegalStateException(e.getCause().getMessage());
+                throw new IllegalStateException(e.getMessage());
             }
             return countIngredients;
         });

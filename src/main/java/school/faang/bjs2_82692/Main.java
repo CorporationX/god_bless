@@ -19,10 +19,11 @@ public class Main {
         List<CompletableFuture<Integer>> completableFutures = potions.stream()
                 .map(Potion::collectingIngredients)
                 .toList();
-        completableFutures.forEach(CompletableFuture::join);
+        completableFutures.forEach(CompletableFuture::allOf);
 
         AtomicInteger atomicTotalIngredients = new AtomicInteger(0);
-        completableFutures.forEach(future -> future.thenApply(atomicTotalIngredients::addAndGet));
+        completableFutures
+                .forEach(future -> future.thenApply(atomicTotalIngredients::addAndGet).join());
 
         System.out.printf("Total ingredients: %s%n", atomicTotalIngredients.get());
     }
