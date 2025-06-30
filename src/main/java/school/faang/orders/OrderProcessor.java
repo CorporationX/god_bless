@@ -11,7 +11,7 @@ public class OrderProcessor {
     private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public CompletableFuture<Void> processOrder(Order order) {
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -21,13 +21,12 @@ public class OrderProcessor {
 
             order.setStatus("Обработано");
             totalProcessedOrders.incrementAndGet();
-            return null;
         });
     }
 
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Void>> futureList = orders.stream()
-                .map(order -> processOrder(order))
+                .map(this::processOrder)
                 .toList();
 
         CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0])).join();
