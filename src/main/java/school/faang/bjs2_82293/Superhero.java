@@ -1,0 +1,16 @@
+package school.faang.bjs2_82293;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public class Superhero {
+    private String name;
+    private int strength;
+    private int agility;
+
+    public int getPower() {
+        return strength + agility;
+    }
+}
