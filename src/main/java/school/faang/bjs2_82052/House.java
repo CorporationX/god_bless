@@ -3,28 +3,28 @@ package school.faang.bjs2_82052;
 import java.util.List;
 
 public class House {
-    private final List<Role> availableRole;
+    private final List<Role> availableRoles;
 
     public House(List<Role> availableRole) {
-        this.availableRole = availableRole;
+        this.availableRoles = availableRole;
     }
 
-    public Role assignRole() {
-        while (availableRole.isEmpty()) {
+    public synchronized Role assignRole() {
+        while (availableRoles.isEmpty()) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
-        Role role = availableRole.get(0);
-        availableRole.remove(role);
+        Role role = availableRoles.get(0);
+        availableRoles.remove(role);
         return role;
     }
 
-    public void releaseRole(User user) {
+    public synchronized void releaseRole(User user) {
         Role role = user.getAssignedRole();
-        availableRole.add(role);
+        availableRoles.add(role);
         notifyAll();
     }
 }

@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int NUM_OF_THREADS = 3;
-    private static final int TIME_OF_AWAIT_TERMINATOR = 5;
+    private static final int TERMINATION_TIMEOUT = 5;
     private static final TimeUnit TIME_UNIT_OF_AWAIT_TERMINATOR = TimeUnit.SECONDS;
 
     public static void main(String[] args) {
         List<Role> starksRoles = new ArrayList<>() {{
-                add(Role.king);
-                add(Role.knight);
+                add(Role.KING);
+                add(Role.KNIGHT);
             }
         };
         House starks = new House(starksRoles);
@@ -35,7 +35,7 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(TIME_OF_AWAIT_TERMINATOR, TIME_UNIT_OF_AWAIT_TERMINATOR)) {
+            if (!executorService.awaitTermination(TERMINATION_TIMEOUT, TIME_UNIT_OF_AWAIT_TERMINATOR)) {
                 System.out.println("Time out");
                 executorService.shutdownNow();
             }
