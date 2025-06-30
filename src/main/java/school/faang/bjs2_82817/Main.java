@@ -33,9 +33,8 @@ public class Main {
         try {
             allTasks.join();
         } catch (CompletionException e) {
-            Throwable cause = e.getCause();
-            log.error("произошла ошибка во время выполнения заданий: {}", cause.getMessage(), cause);
-            throw new RuntimeException(cause);
+            log.error("произошла ошибка во время выполнения заданий");
+            throw new RuntimeException(e);
 
         }
 
