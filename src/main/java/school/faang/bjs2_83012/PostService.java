@@ -1,40 +1,49 @@
 package school.faang.bjs2_83012;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 @Getter
-@AllArgsConstructor
 public class PostService {
     private static final int MAX_PRINT_COMMENT = 3;
-    private final Object commentLock = new Object();
-    private final Object postsLock = new Object();
+    private static final int COMMENT_PREVIEW_LENGTH = 100;
 
-    private List<Post> posts;
+    private final ReentrantLock commentLock = new ReentrantLock();
+    private final ReentrantLock postsLock = new ReentrantLock();
+
+    private final List<Post> posts;
+
+    public PostService(@NonNull List<Post> posts) {
+        this.posts = posts;
+    }
 
     public void addPost(Post post) {
-        synchronized (postsLock) {
+        postsLock.lock();
+        try {
             posts.add(post);
             log.info("Добавлен пост \"{}\"", post.getTitle());
+        } finally {
+            postsLock.unlock();
         }
     }
 
     public void addComment(long postId, Comment comment) {
         Optional<Post> foundPost = findById(postId);
-        foundPost.ifPresentOrElse(
-                post -> {
-                    synchronized (commentLock) {
-                        post.getComments().add(comment);
-                        log.info("Добавлен комментарий в пост с title={}", post.getTitle());
-                    }
-                },
-                () -> printObjectNotFound(postId)
-        );
+        postsLock.lock();
+        try {
+            foundPost.ifPresentOrElse(
+                    post -> post.addComment(comment),
+                    () -> printObjectNotFound(postId)
+            );
+        } finally {
+            postsLock.unlock();
+        }
     }
 
     public List<Post> getPostsByAuthor(long userId) {
@@ -47,15 +56,19 @@ public class PostService {
         Optional<Post> foundPost = findById(postId);
         foundPost.ifPresentOrElse(
                 post -> {
-                    synchronized (commentLock) {
-                        log.info("Пост | Название: {} | Содержание: {} | Автор: {}",
-                                post.getTitle(), post.getContent(), post.getAuthor().getName()
-                        );
-                        for (int i = 0; i <= Math.min(MAX_PRINT_COMMENT, post.getComments().size()); i++) {
-                            String commentText = post.getComments().get(i).getText();
-                            int endIndex = Math.min(100, commentText.length());
-                            log.info("{}...", commentText.substring(0, endIndex));
+                    postsLock.lock();
+                    try {
+                        List<Comment> comments = post.getComments();
+                        int commentsToPrint = Math.min(MAX_PRINT_COMMENT, comments.size());
+                        for (int i = 0; i < commentsToPrint; i++) {
+                            String commentText = comments.get(i).getText();
+                            String preview = commentText.length() <= COMMENT_PREVIEW_LENGTH
+                                    ? commentText
+                                    : commentText.substring(0, COMMENT_PREVIEW_LENGTH) + "...";
+                            log.info(preview);
                         }
+                    } finally {
+                        postsLock.unlock();
                     }
                 },
                 () -> printObjectNotFound(postId)
@@ -63,13 +76,16 @@ public class PostService {
     }
 
     public void removePost(long postId) {
-        synchronized (postsLock) {
+        postsLock.lock();
+        try {
             boolean removedPost = posts.removeIf(post -> post.getId() == postId);
             if (!removedPost) {
                 printObjectNotFound(postId);
                 return;
             }
             log.info("Был удален пост c id={}", postId);
+        } finally {
+            postsLock.unlock();
         }
     }
 
@@ -82,10 +98,13 @@ public class PostService {
     }
 
     private Optional<Post> findById(long postId) {
-        synchronized (postsLock) {
+        postsLock.lock();
+        try {
             return posts.stream()
                     .filter(post -> post.getId() == postId)
                     .findFirst();
+        } finally {
+            postsLock.unlock();
         }
     }
 }
