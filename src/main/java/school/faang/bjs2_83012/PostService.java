@@ -54,10 +54,10 @@ public class PostService {
 
     public void printPostAndComments(long postId) {
         Optional<Post> foundPost = findById(postId);
-        foundPost.ifPresentOrElse(
-                post -> {
-                    postsLock.lock();
-                    try {
+        postsLock.lock();
+        try {
+            foundPost.ifPresentOrElse(
+                    post -> {
                         List<Comment> comments = post.getComments();
                         int commentsToPrint = Math.min(MAX_PRINT_COMMENT, comments.size());
                         for (int i = 0; i < commentsToPrint; i++) {
@@ -67,12 +67,12 @@ public class PostService {
                                     : commentText.substring(0, COMMENT_PREVIEW_LENGTH) + "...";
                             log.info(preview);
                         }
-                    } finally {
-                        postsLock.unlock();
-                    }
-                },
-                () -> printObjectNotFound(postId)
-        );
+                    },
+                    () -> printObjectNotFound(postId)
+            );
+        } finally {
+            postsLock.unlock();
+        }
     }
 
     public void removePost(long postId) {
@@ -98,13 +98,8 @@ public class PostService {
     }
 
     private Optional<Post> findById(long postId) {
-        postsLock.lock();
-        try {
-            return posts.stream()
-                    .filter(post -> post.getId() == postId)
-                    .findFirst();
-        } finally {
-            postsLock.unlock();
-        }
+        return posts.stream()
+                .filter(post -> post.getId() == postId)
+                .findFirst();
     }
 }
