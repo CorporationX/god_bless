@@ -34,9 +34,9 @@ public class MagicalTournament {
 
         List<School> schools = List.of(hogwarts, beauxbatons, durmstrang);
 
-        Task task1 = new Task("Triwizard Tournament - Dragon Challenge", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
-        Task task3 = new Task("Underwater Rescue Mission", 8, 80);
+        final Task task1 = new Task("Triwizard Tournament - Dragon Challenge", 10, 100);
+        final Task task2 = new Task("Yule Ball Preparations", 5, 50);
+        final Task task3 = new Task("Underwater Rescue Mission", 8, 80);
 
         log.info("🎭 Школы и команды зарегистрированы!");
         schools.forEach(school -> {

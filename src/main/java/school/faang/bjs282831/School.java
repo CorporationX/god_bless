@@ -18,7 +18,9 @@ public class School {
     }
 
     public void distributeReward(int totalReward) {
-        if (team.isEmpty()) return;
+        if (team.isEmpty()) {
+            return;
+        }
 
         int baseReward = totalReward / team.size();
         int remainder = totalReward % team.size();
