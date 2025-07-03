@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class MagicalTournament {
     public static void main(String[] args) {
-        Tournament tournament = new Tournament();
+        final Tournament tournament = new Tournament();
 
         log.info("🪄 Добро пожаловать в Магический Турнир! 🪄");
 
