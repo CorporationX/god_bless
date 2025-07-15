@@ -1,0 +1,45 @@
+package school.faang.bjs279653;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class LibrarySystem {
+    private Map<Book, String> map = new HashMap<>();
+
+    public void addBook(String title, String author, int year, String location) {
+        map.put(new Book(title, author, year), location);
+    }
+
+    public void removeBook(String title, String author, int year) {
+        Book findBook = new Book(title, author, year);
+        Iterator<Map.Entry<Book, String>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Book, String> entry = iterator.next();
+            if (entry.getKey().equals(findBook)) {
+                iterator.remove(); // Безопасное удаление
+            }
+        }
+    }
+
+    public void findBook(String title, String author, int year) {
+        Book findBook = new Book(title, author, year);
+        String result = "";
+        for (Map.Entry<Book, String> entry : map.entrySet()) {
+            if (entry.getKey().equals(findBook)) {
+                result = entry.getValue();
+            }
+        }
+        if (result.equals("")) {
+            result = "Книга не найдена";
+        }
+        System.out.println(result);
+    }
+
+
+    public void printAllBooks() {
+        map.forEach((Book book, String lokal) -> {
+            System.out.println(book.toString() + lokal);
+        });
+    }
+}
