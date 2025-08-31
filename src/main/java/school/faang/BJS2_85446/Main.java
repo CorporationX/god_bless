@@ -11,6 +11,9 @@ public class Main {
         User user3 = new User(3L, "Ale3", 16, Set.of("programming"));
         User user4 = new User(4L, "Ale4", 16, Set.of("autosport", "gaming", "chatting"));
 
-        System.out.println(User.findHobbyLovers(List.of(user1, user2, user3, user4), Set.of("programming", "autosport", "golf")));
+        System.out.println(
+                        User.findHobbyLovers(List.of(user1, user2, user3, user4),
+                        Set.of("programming", "autosport", "golf"))
+        );
     }
 }
