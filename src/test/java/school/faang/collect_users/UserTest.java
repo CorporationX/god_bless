@@ -13,12 +13,12 @@ class UserTest {
 
     @Test
     void testUserMethodFindHobbyLovers() {
-        User user1 = new User(UUID.randomUUID(), "Миша", 32, List.of("гитара", "сноуборд", "java", "хайкинг"));
-        User user2 = new User(UUID.randomUUID(), "Влад", 28, List.of("java", "faang"));
-        User user3 = new User(UUID.randomUUID(), "Петя", 22, List.of("java", "бокс", "аниме"));
-        User user4 = new User(UUID.randomUUID(), "Маша", 28, List.of("java", "кулинария", "фанфики", "аниме"));
-        User user5 = new User(UUID.randomUUID(), "Катя", 28, List.of("java", "кино", "рпг"));
-        User user6 = new User(UUID.randomUUID(), "Оля", 28, List.of("python", "хайкинг"));
+        User user1 = new User(UUID.randomUUID(), "Миша", 32, Set.of("гитара", "сноуборд", "java", "хайкинг"));
+        User user2 = new User(UUID.randomUUID(), "Влад", 28, Set.of("java", "faang"));
+        User user3 = new User(UUID.randomUUID(), "Петя", 22, Set.of("java", "бокс", "аниме"));
+        User user4 = new User(UUID.randomUUID(), "Маша", 28, Set.of("java", "кулинария", "фанфики", "аниме"));
+        User user5 = new User(UUID.randomUUID(), "Катя", 28, Set.of("java", "кино", "рпг"));
+        User user6 = new User(UUID.randomUUID(), "Оля", 28, Set.of("python", "хайкинг"));
 
         List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
