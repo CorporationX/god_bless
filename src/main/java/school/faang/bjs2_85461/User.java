@@ -21,7 +21,6 @@ public class User {
     private String workplace;
     private String address;
 
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         if (users == null || users.isEmpty()) {
             System.out.println("Пустой список или на входе null");
