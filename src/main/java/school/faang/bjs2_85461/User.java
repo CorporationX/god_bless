@@ -27,14 +27,12 @@ public class User {
             return Collections.emptyMap();
         }
         Map<Integer, List<User>> mapUsers = new HashMap<>();
-        List<User> newUsers = new ArrayList<>();
 
-        users.sort(new AgeComparator());
         for (User user : users) {
             if (mapUsers.containsKey(user.getAge())) {
-                newUsers.add(user);
+                mapUsers.get(user.getAge()).add(user);
             } else {
-                newUsers = new ArrayList<>();
+                List<User> newUsers = new ArrayList<>();
                 newUsers.add(user);
                 mapUsers.put(user.getAge(), newUsers);
             }

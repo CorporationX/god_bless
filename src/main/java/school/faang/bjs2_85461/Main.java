@@ -17,6 +17,7 @@ public class Main {
         users.add(new User("Alice", 20, "Office 3", "address 4"));
         users.add(new User("Kim", 23, "Office 1", "address 5"));
         users.add(new User("Pit", 24, "Office 4", "address 6"));
+        users.add(new User("Pit", 25, "Office 3", "address 7"));
 
         Map<Integer, List<User>> newUsers = groupUsers(users);
 
