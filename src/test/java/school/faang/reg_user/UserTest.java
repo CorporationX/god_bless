@@ -3,7 +3,8 @@ package school.faang.reg_user;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static school.faang.reg_user.User.MINIMUM_USER_AGE;
 import static school.faang.reg_user.User.VALID_ADDRESSES;
 import static school.faang.reg_user.User.VALID_JOBS;
 
@@ -23,7 +24,8 @@ class UserTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> new User("Mister", age, "Google", "London"));
 
-        Assertions.assertEquals("age is under 18, actual value: %s".formatted(age), exception.getMessage());
+        Assertions.assertEquals("age is under %s, actual value: %s".formatted(MINIMUM_USER_AGE, age),
+                exception.getMessage());
     }
 
     @Test
