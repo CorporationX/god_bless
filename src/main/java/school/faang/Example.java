@@ -2,10 +2,10 @@ package school.faang;
 
 public class Example {
     //Method dlya razvorota massiva
-    public static int[] reverseArray(int[] nums){
+    public static int[] reverseArray(int[] nums) {
         int[] reversed = new int[nums.length];
-        for(int i=0; i<nums.length; i++) {
-            reversed[i]=nums[nums.length-1-i];
+        for (int i = 0; i < nums.length; i++) {
+            reversed[i] = nums[nums.length - 1 - i];
         }
         return reversed;
     }
