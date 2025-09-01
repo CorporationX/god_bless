@@ -3,13 +3,25 @@ package school.faang.array_reverse;
 public class Example {
 
     public int[] reverse(int[] array) {
-        int length = array.length;
-        int[] reversed = new int[length];
-
-        for (int i = 0, j = length - 1; i < length; i++, j--) {
-            reversed[i] = array[j];
+        if (array == null) {
+            throw new IllegalArgumentException("null array is illegal");
         }
 
-        return reversed;
+        if (array.length <= 1) {
+            return array;
+        }
+
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left < right) {
+            int temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
+
+        return array;
     }
 }

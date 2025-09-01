@@ -15,4 +15,24 @@ class ExampleTest {
         Assertions.assertArrayEquals(expected, example.reverse(array));
     }
 
+    @Test
+    void testReverseWhenArrayIsNull() {
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> example.reverse(null));
+        Assertions.assertEquals("null array is illegal", exception.getMessage());
+    }
+
+    @Test
+    void testReverseWhenArrayIsEmpty() {
+        int[] emptyArr = new int[0];
+        Assertions.assertEquals(emptyArr, example.reverse(emptyArr));
+    }
+
+    @Test
+    void testReverseWhenArrayHasOneElement() {
+        int[] arrOneElement = new int[1];
+        arrOneElement[0] = 5;
+        Assertions.assertEquals(arrOneElement, example.reverse(arrOneElement));
+    }
+
 }
