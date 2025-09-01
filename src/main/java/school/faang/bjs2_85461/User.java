@@ -25,14 +25,14 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        if (users.isEmpty()) {
-            System.out.println("Пустой список");
+        if (users == null || users.isEmpty()) {
+            System.out.println("Пустой список или на входе null");
             return Collections.emptyMap();
         }
         Map<Integer, List<User>> mapUsers = new HashMap<>();
         List<User> newUsers = new ArrayList<>();
 
-        users.sort(new ComparatorAge());
+        users.sort(new AgeComparator());
         for (User user : users) {
             if (mapUsers.containsKey(user.getAge())) {
                 newUsers.add(user);
