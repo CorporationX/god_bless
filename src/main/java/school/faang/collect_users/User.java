@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -18,7 +19,7 @@ public class User {
     private Integer age;
     private List<String> hobbies;
 
-    public Map<User, String> findHobbyLovers(List<User> users, List<String> hobbies) {
+    public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> result = new HashMap<>();
 
         users.forEach(user -> {

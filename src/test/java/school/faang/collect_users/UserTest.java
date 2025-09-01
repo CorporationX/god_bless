@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 class UserTest {
@@ -21,7 +22,7 @@ class UserTest {
 
         List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
-        Map<User, String> hobbyLovers = userService.findHobbyLovers(users, List.of("хайкинг", "аниме"));
+        Map<User, String> hobbyLovers = userService.findHobbyLovers(users, Set.of("хайкинг", "аниме"));
 
         Assertions.assertEquals("хайкинг", hobbyLovers.get(user1));
         Assertions.assertEquals("хайкинг", hobbyLovers.get(user6));
