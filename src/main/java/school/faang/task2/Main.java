@@ -1,6 +1,10 @@
 package school.faang.task2;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static school.faang.task2.User.findHobbyLovers;
 
