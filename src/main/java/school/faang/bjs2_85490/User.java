@@ -32,11 +32,13 @@ public class User {
         }
 
         if (job == null || !Arrays.asList(VALID_JOBS).contains(job)) {
-            throw new IllegalArgumentException("Место работы должно содержаться в наборе: " + Arrays.toString(VALID_JOBS));
+            throw new IllegalArgumentException("Место работы должно содержаться в наборе: "
+                + Arrays.toString(VALID_JOBS));
         }
 
         if (address == null || !Arrays.asList(VALID_ADDRESSES).contains(address)) {
-            throw new IllegalArgumentException("Адрес должен содержаться в наборе: " + Arrays.toString(VALID_ADDRESSES));
+            throw new IllegalArgumentException("Адрес должен содержаться в наборе: "
+                + Arrays.toString(VALID_ADDRESSES));
         }
     }
 }
