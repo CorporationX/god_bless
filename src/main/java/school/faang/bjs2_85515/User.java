@@ -2,6 +2,7 @@ package school.faang.bjs2_85515;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class User {
     private String name;
     private int age;
@@ -25,24 +27,9 @@ public class User {
 
         for (User user : users) {
             int age = user.getAge();
-
-            if (!groupUsers.containsKey(age)) {
-                groupUsers.put(age, new ArrayList<>());
-            }
-
-            groupUsers.get(age).add(user);
+            groupUsers.computeIfAbsent(age, k -> new ArrayList<>()).add(user);
         }
 
         return groupUsers;
-    }
-
-    protected static void printUsers(Map<Integer, List<User>> groupedUsers) {
-        for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
-            System.out.println("Возраст " + entry.getKey() + ": " + entry.getValue().size() + " пользователей");
-
-            for (User user : entry.getValue()) {
-                System.out.println(" - " + user.getName());
-            }
-        }
     }
 }
