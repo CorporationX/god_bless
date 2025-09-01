@@ -8,7 +8,7 @@ public class Example {
         int index = 0;
 
         for (int i = array.length - 1; i >= 0; i--) {
-            result[index] = array[i];                    // Without index { array[array.length - i - 1]; } iteration from 0 till 4.
+            result[index] = array[i];
             index++;
         }
 
