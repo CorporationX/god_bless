@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_85447;
 
 import java.util.Arrays;
 
@@ -13,11 +13,17 @@ public class Example {
     }
 
     private static int[] reverse(int[] numbers) {
-        int[] numbersReversed = new int[numbers.length];
-
-        for (int i = 0; i < numbers.length; i++) {
-            numbersReversed[i] = numbers[numbers.length - 1 - i];
+        if (numbers == null) {
+            return numbers;
         }
-        return numbersReversed;
+
+        int temp;
+        for (int i = 0; i < numbers.length / 2; i++) {
+            temp = numbers[numbers.length - i - 1];
+            numbers[numbers.length - i - 1] = numbers[i];
+            numbers[i] = temp;
+        }
+
+        return numbers;
     }
 }
