@@ -31,19 +31,4 @@ public class User {
         return userGroupByAge;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 }
