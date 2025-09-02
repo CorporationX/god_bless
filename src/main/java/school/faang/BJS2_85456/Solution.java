@@ -1,6 +1,5 @@
 package school.faang.BJS2_85456;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
