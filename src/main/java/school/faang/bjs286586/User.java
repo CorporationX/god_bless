@@ -47,9 +47,14 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return getAge() == user.getAge() && Objects.equals(getName(), user.getName()) && Objects.equals(getJob(), user.getJob()) && Objects.equals(getAddress(), user.getAddress());
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User user)) {
+            return false;
+        }
+        return getAge() == user.getAge() && Objects.equals(getName(), user.getName()) && Objects.equals(getJob(),
+                user.getJob()) && Objects.equals(getAddress(), user.getAddress());
     }
 
     @Override
