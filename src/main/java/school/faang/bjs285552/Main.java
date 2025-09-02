@@ -5,6 +5,7 @@ import java.util.List;
 
 import static school.faang.bjs285552.User.groupUsers;
 
+//https://github.com/CorporationX/god_bless/pull/21211
 public class Main {
     private static final List<User> users = new ArrayList<>();
 
@@ -14,6 +15,6 @@ public class Main {
         users.add(new User("Elena", 33, "companyB", "NN"));
         users.add(new User("Igor", 33, "companyC", "Kazan"));
 
-        System.out.println( groupUsers(users));
+        System.out.println(groupUsers(users));
     }
 }
