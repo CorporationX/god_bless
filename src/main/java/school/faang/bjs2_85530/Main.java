@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] massiveIntNumber = {1, 2, 3, 4, 5};
-        System.out.println(Arrays.toString(reverseMassive(massiveIntNumber)));
+        int[] nums = {1, 2, 3, 4, 5};
+        System.out.println(Arrays.toString(reversedArray(nums)));
     }
 
-    public static int[] reverseMassive(int[] masTemp) {
-        int[] reverseMas = new int[masTemp.length];
-        for (int i = masTemp.length - 1; i >= 0; i--) {
-            reverseMas[masTemp.length - i - 1] = masTemp[i];
+    public static int[] reversedArray(int[] sourceNums) {
+        int[] reverseMas = new int[sourceNums.length];
+        for (int i = sourceNums.length - 1; i >= 0; i--) {
+            reverseMas[sourceNums.length - i - 1] = sourceNums[i];
         }
         return reverseMas;
     }
