@@ -1,12 +1,12 @@
 package school.faang.bjs286658;
 
 public abstract class Character {
-    protected int HEALTH = 100;
 
     protected final String name;
     protected final int power;
     protected final int agility;
     protected final int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -25,7 +25,7 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected void takeDamage(int damage) {
-        this.HEALTH = Math.max(0, this.HEALTH - damage);
+        this.health = Math.max(0, this.health - damage);
     }
 
     public String getName() {
@@ -36,7 +36,7 @@ public abstract class Character {
     public String toString() {
         return String.format(
                 "%s {strength=%d, agility=%d, intelligence=%d, health=%d}",
-                name, power, agility, intelligence, HEALTH
+                name, power, agility, intelligence, health
         );
     }
 }

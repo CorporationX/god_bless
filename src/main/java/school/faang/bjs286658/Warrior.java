@@ -9,7 +9,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        System.out.println(this.name + " hit " + opponent.getName() + " (damage equals to his power " + this.power + ")");
+        System.out.println(this.name + " hit " + opponent.getName()
+                + " (damage equals to his power " + this.power + ")");
         opponent.takeDamage(this.power);
     }
 }
