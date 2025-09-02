@@ -25,9 +25,9 @@ public class User {
             if (result.containsKey(age)) {
                 result.get(age).add(user);
             } else {
-                List<User> users1 = new ArrayList<>();
-                users1.add(user);
-                result.put(age, users1);
+                List<User> newUsers = new ArrayList<>();
+                newUsers.add(user);
+                result.put(age, newUsers);
             }
         }
         return result;
