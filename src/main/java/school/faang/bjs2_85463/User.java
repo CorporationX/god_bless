@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
-public class User { // список всех пользователей
+public class User { // список всех пользователей1
 
     private final String name;
     private final int age; // ключ для Map
