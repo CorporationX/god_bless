@@ -1,41 +1,24 @@
 package school.faang;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
+@EqualsAndHashCode
+@Getter
+@AllArgsConstructor
 public class User {
     private int id;
     private String name;
     private int age;
     private Set<String> hobbies;
-
-    public User(int id, String name, int age, Set<String> hobbies) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.hobbies = hobbies;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public Set<String> getHobbies() {
-        return hobbies;
-    }
 
     public static Map<User, String> findHobbyLovers(Set<String> targetHobbies, List<User> users) {
         Map<User, String> result = new LinkedHashMap<>();
@@ -73,22 +56,5 @@ public class User {
         for (Map.Entry<User, String> entry : lovers.entrySet()) {
             System.out.println(entry.getKey().getName() + " любит " + entry.getValue());
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return id == user.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }
