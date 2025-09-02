@@ -1,19 +1,21 @@
 package school.faang.BJS2_85446;
 
-import java.util.*;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.Set;
+import java.util.List;
+
+@ToString(includeFieldNames = true)
+@AllArgsConstructor
 public class User {
-    long id;
-    String name;
-    int age;
-    Set<String> hobbies;
-
-    public User(long id, String name, int age, Set<String> hobbies) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.hobbies = hobbies;
-    }
+    private final long id;
+    private final String name;
+    private final int age;
+    private final Set<String> hobbies;
 
     static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> result = new HashMap<>();
@@ -22,12 +24,5 @@ public class User {
             hobby.ifPresent(s -> result.put(user, s));
         }
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                '}';
     }
 }
