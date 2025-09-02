@@ -14,7 +14,7 @@ public class Example {
             for (int num : nums) {
                 System.out.print(num + " ");
             }
-            System.out.println("<--reversed array");
+            System.out.println("<---reversed array");
         }
     }
 
@@ -24,7 +24,7 @@ public class Example {
         for (int num : original) {
             System.out.print(num + " ");
         }
-        System.out.println("<--original array");
+        System.out.println("<---original array");
         reverse(original);
     }
 }
