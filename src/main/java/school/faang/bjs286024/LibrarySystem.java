@@ -11,16 +11,16 @@ public class LibrarySystem {
     }
 
     public static void removeBook(String title, String author, int year) {
-        books.entrySet().removeIf(book -> book.getKey().getTitle().equals(title) &&
-                book.getKey().getAuthor().equals(author) &&
-                book.getKey().getYear() == year);
+        books.entrySet().removeIf(book -> book.getKey().getTitle().equals(title)
+                && book.getKey().getAuthor().equals(author)
+                && book.getKey().getYear() == year);
     }
 
     public static void findBook(String title, String author, int year) {
         for (Map.Entry<Book, String> book : books.entrySet()) {
-            if (book.getKey().getTitle().equals(title) &&
-                    book.getKey().getAuthor().equals(author) &&
-                    book.getKey().getYear() == year) {
+            if (book.getKey().getTitle().equals(title)
+                    && book.getKey().getAuthor().equals(author)
+                    && book.getKey().getYear() == year) {
                 System.out.println(book + " is located here:" + book.getValue());
                 return;
             }
