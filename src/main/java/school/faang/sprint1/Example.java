@@ -16,7 +16,7 @@ public class Example {
             nums[left] = nums[right];
             nums[right] = temp;
             left++;
-            right++;
+            right--;
         }
     }
 
