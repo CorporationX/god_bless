@@ -29,7 +29,7 @@ public class User { // список всех пользователей1
             if (!usersByAge.containsKey(age)) {
                 usersByAge.put(age, new ArrayList<>());
             }
-            // Добавляем пользователя в список соответствующего возраста1
+            // Добавляем пользователя в список соответствующего возраста11
             usersByAge.get(age).add(user);
         }
 
