@@ -32,7 +32,6 @@ public class Main {
         }
 
     }
-
     //1️⃣ Создать класс User с полями
     static class User {
 
