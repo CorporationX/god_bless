@@ -1,10 +1,11 @@
 package school.faang.bjs2_85490;
 
 import java.util.Arrays;
+import java.util.Set;
 
 public class User {
-    private static final String[] VALID_JOBS = { "Google", "Uber", "Amazon" };
-    private static final String[] VALID_ADDRESSES = { "London", "New York", "Amsterdam" };
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int MIN_AGE = 18;
 
     private String name;
@@ -31,14 +32,14 @@ public class User {
             throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE);
         }
 
-        if (job == null || !Arrays.asList(VALID_JOBS).contains(job)) {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Место работы должно содержаться в наборе: "
-                + Arrays.toString(VALID_JOBS));
+                + VALID_JOBS);
         }
 
-        if (address == null || !Arrays.asList(VALID_ADDRESSES).contains(address)) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Адрес должен содержаться в наборе: "
-                + Arrays.toString(VALID_ADDRESSES));
+                + VALID_ADDRESSES);
         }
     }
 }
