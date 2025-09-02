@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         int[] arr = new int[]{1, 2, 3, 4, 5};
         Example.reverse(arr);
+        Example.reverse(null);
         System.out.println(Arrays.toString(arr));
     }
 }
