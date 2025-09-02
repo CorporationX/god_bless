@@ -15,8 +15,8 @@ public class Example {
             int temp = nums[left];
             nums[left] = nums[right];
             nums[right] = temp;
-            left = left + 1;
-            right = right - 1;
+            left++;
+            right++;
         }
     }
 
