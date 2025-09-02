@@ -8,7 +8,7 @@ public class Main {
         ch2.attack(ch1);
         do {
             ch1.attack(ch2);
-        } while (ch2.health > 0);
+        } while (ch2.isAlive());
 
         System.out.println(ch1);
         System.out.println(ch2);

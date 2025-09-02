@@ -1,11 +1,17 @@
 package school.faang.BJS2_85489;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@ToString(includeFieldNames = true)
 public abstract class Character {
-    String name;
-    double strength;
-    double dexterity;
-    double intelligence;
-    double health = 100;
+    private final String name;
+    @Getter
+    private final double strength;
+    @Getter
+    private final double dexterity;
+    private final double intelligence;
+    private double health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -21,20 +27,13 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    boolean isLive(double damage) {
-        return health - damage > 0 ? true : false;
+    public boolean isAlive() {
+        return health > 0;
     }
 
     abstract void attack(Character opponent);
 
-    @Override
-    public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", strength=" + strength +
-                ", dexterity=" + dexterity +
-                ", intelligence=" + intelligence +
-                ", health=" + health +
-                '}';
+    void decrementHealth(double attackPoints) {
+        health = Math.max(0, health - attackPoints);
     }
 }
