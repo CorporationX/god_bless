@@ -12,5 +12,8 @@ public class Main {
         System.out.println(Arrays.toString(reverse(new int[]{0, 0, 5, 0, 0})));
         System.out.println(Arrays.toString(reverse(new int[]{111, 11, 1, 0, -1})));
         System.out.println(Arrays.toString(reverse(new int[]{1, -3, 5, 6, -7})));
+        System.out.println(Arrays.toString(reverse(new int[]{})));
+        System.out.println(Arrays.toString(reverse(new int[]{0})));
+        System.out.println(Arrays.toString(reverse(null)));
     }
 }
