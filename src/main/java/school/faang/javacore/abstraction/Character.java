@@ -9,21 +9,17 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
-    private String name;
+    private final String name;
     private int strength;
     private int dexterity;
     private int intelligence;
-    private int health = 100;
-
-    public static final int DEFAULT_STRENGTH = 5;
-    public static final int DEFAULT_DEXTERITY = 5;
-    public static final int DEFAULT_INTELLIGENCE = 5;
+    private int health = HeroesCharacteristics.CHARACTER_DEFAULT_HEALTH.getValue();
 
     protected Character(String name) {
         this.name = name;
-        this.strength = DEFAULT_STRENGTH;
-        this.dexterity = DEFAULT_DEXTERITY;
-        this.intelligence = DEFAULT_INTELLIGENCE;
+        this.strength = HeroesCharacteristics.CHARACTER_DEFAULT_STRENGTH.getValue();
+        this.dexterity = HeroesCharacteristics.CHARACTER_DEFAULT_DEXTERITY.getValue();
+        this.intelligence = HeroesCharacteristics.CHARACTER_DEFAULT_INTELLIGENCE.getValue();
     }
 
     protected Character(String name, int strength, int dexterity, int intelligence) {
@@ -38,4 +34,8 @@ public abstract class Character {
     }
 
     abstract void attack(Character opponent);
+
+    protected void reduceHealth(Character opponent, int damage) {
+        opponent.setHealth(opponent.getHealth() - damage);
+    }
 }
