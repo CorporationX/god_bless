@@ -20,7 +20,9 @@ public class Main {
         System.out.println("Find age: " + findAge);
         for (Map.Entry<Integer, List<User>> e : result.entrySet()) {
             for (User user : e.getValue()) {
-                System.out.println("Name: " + user.getName() + ", Job: " + user.getJob() + ", Address: " + user.getAddress());
+                System.out.println("Name: " + user.getName()
+                        + ", Job: " + user.getJob()
+                        + ", Address: " + user.getAddress());
             }
         }
     }
