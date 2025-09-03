@@ -21,6 +21,7 @@ public abstract class Character {
         this.intelligence = intelligence;
         this.health = 100;
     }
+
     public abstract void attack(Character opponent);
 
     // основной метод
