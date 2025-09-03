@@ -8,9 +8,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        int damage = this.strength;
         System.out.println("\n" + this.name + " атакует " + opponent.getName() +
-                " и наносит " + damage + " урона!");
-        opponent.decreaseHealth(damage);
+                " и наносит " + this.strength + " урона!");
+        opponent.decreaseHealth(this.strength);
     }
 }

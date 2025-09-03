@@ -11,11 +11,7 @@ public abstract class Character {
     protected int health;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
-        this.health = 100;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -31,9 +27,6 @@ public abstract class Character {
 
     // основной метод
     protected void decreaseHealth(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
-        }
+        health = Math.max(0, health - damage);
     }
 }

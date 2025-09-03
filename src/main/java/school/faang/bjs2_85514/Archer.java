@@ -8,9 +8,8 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        int damage = this.agility;
         System.out.println("\n" + this.name + " атакует " + opponent.getName() +
-                " и наносит " + damage + " урона!");
-        opponent.decreaseHealth(damage);
+                " и наносит " + this.agility + " урона!");
+        opponent.decreaseHealth(this.agility);
     }
 }
