@@ -4,7 +4,10 @@ import java.util.Arrays;
 
 public class Example {
 
-    public void reverse(int[] nums) {
+    public int[] reverse(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return nums;
+        }
         int left = 0;
         int right = nums.length - 1;
         while (left < right) {
@@ -14,6 +17,7 @@ public class Example {
             left++;
             right--;
         }
+        return nums;
     }
 
     public static void main(String[] args) {
