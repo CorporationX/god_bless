@@ -8,11 +8,7 @@ import java.util.Map;
 public class HogwartsSpells {
 
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    // spellById: HashMap для хранения событий заклинаний по их ID.
-    // Ключ — Integer (ID события), значение — SpellEvent;
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    // spellsByType: HashMap для хранения списка событий заклинаний по их типу.
-    // Ключ — String (тип события), значение — List<SpellEvent>.
     private int currentId = 1;
 
     public void addSpellEvent(String eventType, String actionDescription) {
