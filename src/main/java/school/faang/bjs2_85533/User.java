@@ -8,8 +8,8 @@ import java.util.Set;
 
 @Getter
 public class User {
-   private static final List<String> VALID_JOB = List.of("Google", "Uber", "Amazon");
-   private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOB = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
@@ -17,14 +17,14 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) throws IllegalArgumentException {
-         if (name.isBlank()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("name is null");
         } else {
-             this.name = name;
+            this.name = name;
         }
 
-       if (age < 18) {
-          throw  new IllegalArgumentException("age under 18");
+        if (age < 18) {
+            throw new IllegalArgumentException("age under 18");
         } else {
             this.age = age;
         }
@@ -49,7 +49,9 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(job, user.job) && Objects.equals(address, user.address);
+        return age == user.age && Objects.equals(name, user.name)
+                && Objects.equals(job, user.job)
+                && Objects.equals(address, user.address);
     }
 
     @Override
