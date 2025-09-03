@@ -34,11 +34,11 @@ public class Main {
     static User user12 = createUser("John", null, "IBM", "Boston");
     static User user13 = createUser(null, 25, "Oracle", "Redwood");
 
-    private static List<User> listOfUsers = new ArrayList<>(Arrays.asList(
+    private static final List<User> listOfUsers = new ArrayList<>(Arrays.asList(
             user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11
     ));
 
-    private static List<User> listWithNulls = new ArrayList<>(Arrays.asList(
+    private static final List<User> listWithNulls = new ArrayList<>(Arrays.asList(
             user1, user2, user12, user13
     ));
 
