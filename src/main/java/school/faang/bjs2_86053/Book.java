@@ -16,13 +16,16 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Book book = (Book) o;
-        return year == book.year &&
-                title.equals(book.title) &&
-                author.equals(book.author);
+        return year == book.year && title.equals(book.title) && author.equals(book.author);
     }
 
     @Override
