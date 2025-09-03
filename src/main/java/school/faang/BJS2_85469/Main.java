@@ -37,6 +37,7 @@ public class Main {
         Collections.addAll(certainHobbies, "painting", "football", "chess");
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, certainHobbies);
-        hobbyLovers.forEach((user, certainHobby) -> System.out.println("User: " + user + " || Found hobby: " + certainHobby));
+        hobbyLovers.forEach((user, certainHobby) -> System.out.println("User: " + user +
+                " || Found hobby: " + certainHobby));
     }
 }
