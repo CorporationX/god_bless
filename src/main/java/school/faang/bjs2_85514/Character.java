@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health;
 
     public Character(String name) {
         this(name, 5, 5, 5);
@@ -21,9 +21,7 @@ public abstract class Character {
         this.intelligence = intelligence;
         this.health = 100;
     }
-
     public abstract void attack(Character opponent);
-
 
     // основной метод
     protected void decreaseHealth(int damage) {
