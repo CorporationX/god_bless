@@ -1,6 +1,9 @@
 package school.faang.bjs2_86045;
 
-import static school.faang.bjs2_86045.LibrarySystem.*;
+import static school.faang.bjs2_86045.LibrarySystem.addBook;
+import static school.faang.bjs2_86045.LibrarySystem.findBook;
+import static school.faang.bjs2_86045.LibrarySystem.printAllBooks;
+import static school.faang.bjs2_86045.LibrarySystem.removeBook;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +18,7 @@ public class Main {
         addBook("Book8", "author8", 1990, "shelf3");
 
         removeBook("Book5", "author5", 1978);
-        findBook("Book4", "author47", 1995);
+        findBook("Book4", "author4", 1995);
         printAllBooks();
     }
 }
