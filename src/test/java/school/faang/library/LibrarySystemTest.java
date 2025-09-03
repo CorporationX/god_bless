@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 class LibrarySystemTest {
 
@@ -16,16 +17,15 @@ class LibrarySystemTest {
 
     @Test
     void testAddBook() {
-        Book book = new Book(title, author, year);
-
         String response = librarySystem.addBook(title, author, year, location);
-        Assertions.assertEquals(response, book + " was successfully added");
+        Assertions.assertNull(response);
         response = librarySystem.addBook(title, author, year, location);
-        Assertions.assertEquals(response, book + " was already in library");
+        Assertions.assertEquals(response, location);
 
         Map<String, List<Book>> allBooks = librarySystem.printAllBooks();
         Assertions.assertEquals(1, allBooks.size());
         List<Book> booksOnLocation = allBooks.get(location);
+        Book book = new Book(title, author, year);
         Assertions.assertIterableEquals(booksOnLocation, List.of(book));
     }
 
@@ -33,25 +33,25 @@ class LibrarySystemTest {
     void testRemoveBook() {
         Book book = new Book(title, author, year);
         String response = librarySystem.removeBook(title, author, year);
-        Assertions.assertEquals(response, book + " does not exist");
+        Assertions.assertNull(response);
         Map<String, List<Book>> allBooks = librarySystem.printAllBooks();
         Assertions.assertTrue(allBooks.isEmpty());
 
         librarySystem.addBook(title, author, year, location);
         response = librarySystem.removeBook(title, author, year);
-        Assertions.assertEquals(response, book + " was successfully removed");
+        Assertions.assertEquals(response, location);
         allBooks = librarySystem.printAllBooks();
         Assertions.assertTrue(allBooks.isEmpty());
     }
 
     @Test
     void findBookTest() {
-        String response = librarySystem.findBook(title, author, year);
-        Assertions.assertEquals("not found", response);
+        Optional<String> response = librarySystem.findBook(title, author, year);
+        Assertions.assertTrue(response.isEmpty());
 
         librarySystem.addBook(title, author, year, location);
         response = librarySystem.findBook(title, author, year);
-        Assertions.assertEquals(location, response);
+        Assertions.assertEquals(location, response.get());
     }
 
     @Test

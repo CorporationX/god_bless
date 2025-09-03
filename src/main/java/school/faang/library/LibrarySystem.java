@@ -4,47 +4,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class LibrarySystem {
     private final HashMap<Book, String> library = new HashMap<>();
 
     public String addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
-        String response;
-
-        if (!library.containsKey(book)) {
-            library.put(book, location);
-            response = book + " was successfully added";
-            System.out.println(response);
-        } else {
-            response = book + " was already in library";
-            System.out.println(response);
-        }
-
-        return response;
+        return library.putIfAbsent(book, location);
     }
 
     public String removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        String response;
-
-        if (library.containsKey(book)) {
-            library.remove(book);
-            response = book + " was successfully removed";
-            System.out.println(book + " was successfully removed");
-        } else {
-            response = book + " does not exist";
-            System.out.println(response);
-        }
-
-        return response;
+        return library.remove(book);
     }
 
-    public String findBook(String title, String author, int year) {
+    public Optional<String> findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String location = library.get(book);
 
-        return location == null ? "not found" : location;
+        return location == null ? Optional.empty() : Optional.of(location);
     }
 
     public Map<String, List<Book>> printAllBooks() {
