@@ -29,7 +29,8 @@ public class Main {
 
         warrior.attack(archer);
 
-        System.out.println(warrior.getName() + " снова бьет " + archer.getName() + " с силой " + warrior.getStrength() + " единиц!");
+        System.out.println(warrior.getName() + " снова бьет " + archer.getName()
+            + " с силой " + warrior.getStrength() + " единиц!");
         System.out.println("У " + archer.getName() + " осталось " + archer.getHealth() + " жизней");
         System.out.println(archer.getName() + ": 'Эй, Егор, помоги! Этот варвар слишком силён!'");
         System.out.println();
