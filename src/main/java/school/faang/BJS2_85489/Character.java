@@ -13,6 +13,8 @@ public abstract class Character {
     private final double intelligence;
     private double health = 100;
 
+    abstract void attack(Character opponent);
+
     public Character(String name) {
         this.name = name;
         strength = 5;
@@ -31,9 +33,7 @@ public abstract class Character {
         return health > 0;
     }
 
-    abstract void attack(Character opponent);
-
-    void decrementHealth(double attackPoints) {
+    public void decrementHealth(double attackPoints) {
         health = Math.max(0, health - attackPoints);
     }
 }
