@@ -15,6 +15,7 @@ public class User {
     private final int age;
     private final String job;
     private final String address;
+    private static final int MIN_AGE = 18;
 
 
     public User(String name, int age, String job, String address) {
@@ -30,14 +31,14 @@ public class User {
     }
 
     private void validateName(String name) {
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty or null");
         }
     }
 
     private void validateAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Age must be at least 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age must be at least " + MIN_AGE);
         }
     }
 
