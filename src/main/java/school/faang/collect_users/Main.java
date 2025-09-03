@@ -19,15 +19,15 @@ public class Main {
         return new HashSet<>(listOfHobbies);
     }
 
-    static User user_1 = createUser(1, "Vasya", 20, Set.of("Walk", "Run"));
-    static User user_2 = createUser(2, "Petya", 21, Set.of("Swimming", "Run"));
-    static User user_3 = createUser(3, "Sergey", 24, Set.of("Walk", "Swimming", "Run"));
-    static User user_4 = createUser(4, "Hope", 19, Set.of("Walk", "Swimming", "Run", "Guns"));
-    static User user_5 = createUser(5, "Nastya", 30, Set.of("Bow", "Guns"));
-    static User user_6 = createUser(6, "Nikolay", 41, Set.of("Walk", "Painting"));
+    static User user1 = createUser(1, "Vasya", 20, Set.of("Walk", "Run"));
+    static User user2 = createUser(2, "Petya", 21, Set.of("Swimming", "Run"));
+    static User user3 = createUser(3, "Sergey", 24, Set.of("Walk", "Swimming", "Run"));
+    static User user4 = createUser(4, "Hope", 19, Set.of("Walk", "Swimming", "Run", "Guns"));
+    static User user5 = createUser(5, "Nastya", 30, Set.of("Bow", "Guns"));
+    static User user6 = createUser(6, "Nikolay", 41, Set.of("Walk", "Painting"));
 
     static List<User> listOfUsers = new ArrayList<>(Arrays.asList(
-            user_1, user_2, user_3, user_4, user_5, user_6
+            user1, user2, user3, user4, user5, user6
     ));
 
     static Set<String> targetHobbies1 = createTargetHobbies(List.of("Guns"));

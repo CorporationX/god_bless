@@ -2,7 +2,6 @@ package school.faang.collect_users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -11,14 +10,13 @@ import java.util.Map;
 import java.util.Set;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @ToString
 public class User {
-    private int id;
-    private String name;
-    private int age;
-    private Set<String> hobbies;
+    private final int id;
+    private final String name;
+    private final int age;
+    private final Set<String> hobbies;
 
     public static Map<User, String> findHobbyLovers(List<User> listOfUsers, Set<String> targetHobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
