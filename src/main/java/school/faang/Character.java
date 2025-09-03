@@ -5,15 +5,10 @@ import lombok.Setter;
 
 abstract class Character {
 
-    @Getter @Setter
     protected String name;
-    @Getter @Setter
     protected int strength;
-    @Getter @Setter
     protected int dexterity;
-    @Getter @Setter
     protected int intelligence;
-    @Getter @Setter
     private int health = 100;
 
     public Character(String name, int strength, int dexterity, int intelligence) {
@@ -21,9 +16,6 @@ abstract class Character {
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
-        if (health <= 0) {
-            throw new IllegalStateException(name + " is dead and cannot act");
-        }
     }
 
     public Character(String name) {
@@ -33,11 +25,13 @@ abstract class Character {
         this.intelligence = 5;
     }
 
-    protected boolean isAlive() {
-        if (health <= 0) {
-            return false;
+    protected void receiveDamage(int damage) {
+        if (damage > 0) {
+            this.health -= damage;
+        } else {
+            this.health = 0;
+            System.out.println(name + " is dead and cannot act");
         }
-        return true;
     }
 
     public abstract void attack(Character character);
