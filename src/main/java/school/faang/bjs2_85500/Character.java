@@ -6,14 +6,22 @@ import lombok.Setter;
 @Getter
 @Setter
 abstract class Character {
+    private static final int STRENGTH_VALUE = 5;
+    private static final int AGILITY_VALUE = 5;
+    private static final int INTELLIGENCE_VALUE = 5;
+    private static final int HEALTH_VALUE = 100;
+
     private String name;
-    private int strength = 5;
-    private int agility = 5;
-    private int intelligence = 5;
-    private int health = 100;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health =  HEALTH_VALUE;
 
     public Character(String name) {
         this.name = name;
+        this.strength = STRENGTH_VALUE;
+        this.agility = AGILITY_VALUE;
+        this.intelligence = INTELLIGENCE_VALUE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
