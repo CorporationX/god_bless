@@ -34,8 +34,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return age == user.age && Objects.equals(name, user.name)
-                      && Objects.equals(workplace, user.workplace)
-                      && Objects.equals(address, user.address);
+                && Objects.equals(workplace, user.workplace)
+                && Objects.equals(address, user.address);
     }
 
     @Override
