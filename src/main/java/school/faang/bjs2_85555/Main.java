@@ -22,16 +22,16 @@ public class Main {
 
         warrior.attack(archer);
 
-        System.out.println("Воин " + warrior.name + ", ударом меча атакует " + archer.name);
-        System.out.println("У " + archer.name + " осталось " + archer.health + " жизней");
+        System.out.println("Воин " + warrior.getName() + ", ударом меча атакует " + archer.getName());
+        System.out.println("У " + archer.getName() + " осталось " + archer.getHealth() + " жизней");
         System.out.println();
         System.out.println("Вторая атака:");
 
         warrior.attack(archer);
 
-        System.out.println(warrior.name + " снова бьет " + archer.name + " с силой " + warrior.strength + " единиц!");
-        System.out.println("У " + archer.name + " осталось " + archer.health + " жизней");
-        System.out.println(archer.name + ": 'Эй, Егор, помоги! Этот варвар слишком силён!'");
+        System.out.println(warrior.getName() + " снова бьет " + archer.getName() + " с силой " + warrior.getStrength() + " единиц!");
+        System.out.println("У " + archer.getName() + " осталось " + archer.getHealth() + " жизней");
+        System.out.println(archer.getName() + ": 'Эй, Егор, помоги! Этот варвар слишком силён!'");
         System.out.println();
 
         Character archer2 = new Archer("Егор смертоносная стрела");
@@ -40,22 +40,22 @@ public class Main {
         System.out.println(archer2.toString());
         System.out.println();
         System.out.println("Два лучника против одного война:");
-        System.out.println(archer2.name + ": 'Я с тобой, Петя! За мной!'\n");
+        System.out.println(archer2.getName() + ": 'Я с тобой, Петя! За мной!'\n");
 
         archer.attack(warrior);
 
-        System.out.println(archer.name + " выпускает стрелу в " + warrior.name + "!");
-        System.out.println("У " + warrior.name + " осталось " + warrior.health + " жизней");
+        System.out.println(archer.getName() + " выпускает стрелу в " + warrior.getName() + "!");
+        System.out.println("У " + warrior.getName() + " осталось " + warrior.getHealth() + " жизней");
 
         archer2.attack(warrior);
 
-        System.out.println(archer2.name + " точным выстрелом попадает в " + warrior.name + "!");
-        System.out.println("У " + warrior.name + " осталось " + warrior.health + " жизней");
+        System.out.println(archer2.getName() + " точным выстрелом попадает в " + warrior.getName() + "!");
+        System.out.println("У " + warrior.getName() + " осталось " + warrior.getHealth() + " жизней");
 
         archer.attack(warrior);
 
-        System.out.println(archer.name + ": 'Еще одна стрела для тебя, варвар!'");
-        System.out.println("У " + warrior.name + " осталось " + warrior.health + " жизней\n");
+        System.out.println(archer.getName() + ": 'Еще одна стрела для тебя, варвар!'");
+        System.out.println("У " + warrior.getName() + " осталось " + warrior.getHealth() + " жизней\n");
 
         System.out.println("Финальная атака:");
 
@@ -64,26 +64,27 @@ public class Main {
         int finalDamage;
 
         if (criticalHit) {
-            finalDamage = warrior.health + CRITICAL_HIT_BONUS;
-            System.out.println(archer2.name + " прицеливается... чувствуется мощная энергия!");
+            finalDamage = warrior.getHealth() + CRITICAL_HIT_BONUS;
+            System.out.println(archer2.getName() + " прицеливается... чувствуется мощная энергия!");
             System.out.println("Это критический выстрел!");
         } else {
-            finalDamage = archer2.agility + random.nextInt(MAX_RANDOM_DAMAGE);
-            System.out.println(archer2.name + " прицеливается и выпускает стрелу!");
+            finalDamage = archer2.getAgility() + random.nextInt(MAX_RANDOM_DAMAGE);
+            System.out.println(archer2.getName() + " прицеливается и выпускает стрелу!");
         }
 
         warrior.reduceHealth(finalDamage);
 
-        if (warrior.health <= HEALTH_THRESHOLD) {
-            System.out.println(warrior.name + " падает на колени и терпит поражение!");
-            System.out.println(archer.name + " и " + archer2.name + " побеждают в этой битве!");
+        if (warrior.getHealth() <= HEALTH_THRESHOLD) {
+            System.out.println(warrior.getName() + " падает на колени и терпит поражение!");
+            System.out.println(archer.getName() + " и " + archer2.getName() + " побеждают в этой битве!");
 
             if (criticalHit) {
                 System.out.println("Решающая стрела оказалась смертельной!");
             }
+
         } else {
-            System.out.println(warrior.name + " выстоял с " + warrior.health + " HP и готов к контратаке!");
-            System.out.println(archer2.name + " промахнулся в решающий момент!");
+            System.out.println(warrior.getName() + " выстоял с " + warrior.getHealth() + " HP и готов к контратаке!");
+            System.out.println(archer2.getName() + " промахнулся в решающий момент!");
         }
 
         System.out.println();
