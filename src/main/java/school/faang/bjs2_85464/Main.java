@@ -1,9 +1,8 @@
-package school.faang.BJS2_85464;
+package school.faang.bjs2_85464;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 public class Main {
@@ -16,17 +15,17 @@ public class Main {
         User user5 = new User(5L, "Egor", 26, Set.of("футбол", "пайка", "нумизматика"));
 
         List<User> users = List.of(user1, user2, user3, user4, user5);
-
         Set<String> findActivities = Set.of("футбол", "сноуборд", "йога");
-        Map<User, String> result = findHobbyLovers(users, findActivities);
+
+        Main main = new Main();
+        Map<User, String> result = main.findHobbyLovers(users, findActivities);
 
         for (Map.Entry<User, String> e : result.entrySet()) {
             System.out.println(e.getKey().getName() + " " + "find activities: " + e.getValue());
         }
-
     }
 
-    static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
 
         if (users == null || activities == null) {
@@ -34,10 +33,10 @@ public class Main {
         }
 
         for (User user : users) {
-            Optional<String> activity = user.getActivities().stream()
+            user.getActivities().stream()
                     .filter(activities::contains)
-                    .findFirst();
-            activity.ifPresent(s -> result.put(user, s));
+                    .findFirst()
+                    .ifPresent(activity -> result.put(user, activity));
         }
         return result;
     }
