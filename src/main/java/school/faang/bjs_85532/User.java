@@ -31,7 +31,9 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return age == user.age && Objects.equals(name, user.name)
                 && Objects.equals(workplace, user.workplace)
