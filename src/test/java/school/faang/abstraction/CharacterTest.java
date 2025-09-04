@@ -2,6 +2,10 @@ package school.faang.abstraction;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import static school.faang.abstraction.DefaultCharacteristics.INIT_HP;
+import static school.faang.abstraction.DefaultCharacteristics.MINIMUM_CHARACTER_HP;
 
 class CharacterTest {
 
@@ -10,46 +14,44 @@ class CharacterTest {
 
     @Test
     void testOneAttackWarrior() {
-        int initArcherHitPoints = archer.hitPoints;
-        Assertions.assertEquals(100, initArcherHitPoints);
+        int initArcherHitPoints = archer.getHitPoints();
+        Assertions.assertEquals(INIT_HP, initArcherHitPoints);
 
         warrior.attack(archer);
-        Assertions.assertEquals(archer.hitPoints, initArcherHitPoints - warrior.strength);
+        Assertions.assertEquals(archer.getHitPoints(), initArcherHitPoints - warrior.getStrength());
     }
 
     @Test
     void testOneAttackArcher() {
-        int initWarriorHitPoints = warrior.hitPoints;
-        Assertions.assertEquals(100, initWarriorHitPoints);
+        int initWarriorHitPoints = warrior.getHitPoints();
+        Assertions.assertEquals(INIT_HP, initWarriorHitPoints);
 
         archer.attack(warrior);
-        Assertions.assertEquals(warrior.hitPoints, initWarriorHitPoints - archer.agility);
+        Assertions.assertEquals(warrior.getHitPoints(), initWarriorHitPoints - archer.getAgility());
     }
 
     @Test
     void testWarriorCantAttackBelowZero() {
-        for (int i = 0; i < 9; i++) {
-            warrior.attack(archer);
-        }
+        ReflectionTestUtils.setField(archer, Character.Fields.hitPoints, 20);
 
-        Assertions.assertEquals(10, archer.hitPoints);
         warrior.attack(archer);
-        Assertions.assertEquals(0, archer.hitPoints);
+        Assertions.assertEquals(10, archer.getHitPoints());
         warrior.attack(archer);
-        Assertions.assertEquals(0, archer.hitPoints);
+        Assertions.assertEquals(MINIMUM_CHARACTER_HP, archer.getHitPoints());
+        warrior.attack(archer);
+        Assertions.assertEquals(MINIMUM_CHARACTER_HP, archer.getHitPoints());
     }
 
     @Test
     void testArcherCantAttackBelowZero() {
-        for (int i = 0; i < 9; i++) {
-            archer.attack(warrior);
-        }
+        ReflectionTestUtils.setField(warrior, Character.Fields.hitPoints, 20);
 
-        Assertions.assertEquals(10, warrior.hitPoints);
         archer.attack(warrior);
-        Assertions.assertEquals(0, warrior.hitPoints);
+        Assertions.assertEquals(10, warrior.getHitPoints());
         archer.attack(warrior);
-        Assertions.assertEquals(0, warrior.hitPoints);
+        Assertions.assertEquals(MINIMUM_CHARACTER_HP, warrior.getHitPoints());
+        archer.attack(warrior);
+        Assertions.assertEquals(MINIMUM_CHARACTER_HP, warrior.getHitPoints());
     }
 
 }

@@ -1,15 +1,19 @@
 package school.faang.abstraction;
 
 public class DefaultCharacteristics {
-    public static final Integer archerStrength = 3;
-    public static final Integer archerSAgility = 10;
-    public static final Integer archerIntelligence = 5;
+    public static final Integer ARCHER_STRENGTH = 3;
+    public static final Integer ARCHER_AGILITY = 10;
+    public static final Integer ARCHER_INTELLIGENCE = 5;
 
-    public static final Integer warriorStrength = 10;
-    public static final Integer warriorSAgility = 5;
-    public static final Integer warriorIntelligence = 3;
+    public static final Integer WARRIOR_STRENGTH = 10;
+    public static final Integer WARRIOR_AGILITY = 5;
+    public static final Integer WARRIOR_INTELLIGENCE = 3;
 
-    public static final Integer characterStrength = 5;
-    public static final Integer characterAgility = 5;
-    public static final Integer characterIntelligence = 5;
+    public static final Integer CHARACTER_STRENGTH = 5;
+    public static final Integer CHARACTER_AGILITY = 5;
+    public static final Integer CHARACTER_INTELLIGENCE = 5;
+
+    public static final Integer INIT_HP = 100;
+
+    public static final Integer MINIMUM_CHARACTER_HP = 0;
 }

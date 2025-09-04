@@ -2,34 +2,35 @@ package school.faang.abstraction;
 
 import lombok.ToString;
 
-import static school.faang.abstraction.DefaultCharacteristics.archerIntelligence;
-import static school.faang.abstraction.DefaultCharacteristics.archerSAgility;
-import static school.faang.abstraction.DefaultCharacteristics.archerStrength;
+import static school.faang.abstraction.DefaultCharacteristics.ARCHER_AGILITY;
+import static school.faang.abstraction.DefaultCharacteristics.ARCHER_INTELLIGENCE;
+import static school.faang.abstraction.DefaultCharacteristics.ARCHER_STRENGTH;
+import static school.faang.abstraction.DefaultCharacteristics.MINIMUM_CHARACTER_HP;
 
 @ToString(callSuper = true)
 public class Archer extends Character {
 
     public Archer(String name) {
-        super(name, archerStrength, archerSAgility, archerIntelligence);
+        super(name, ARCHER_STRENGTH, ARCHER_AGILITY, ARCHER_INTELLIGENCE);
     }
 
     @Override
-    void attack(Character opponent) {
-        int damage = characterDamage();
+    public void attack(Character opponent) {
+        int damage = getCharacterDamage();
 
-        if (opponent.hitPoints - damage <= 0) {
-            opponent.hitPoints = 0;
+        if (opponent.getHitPoints() - damage <= MINIMUM_CHARACTER_HP) {
+            opponent.setHitPoints(MINIMUM_CHARACTER_HP);
             return;
         }
 
-        opponent.hitPoints -= damage;
+        opponent.setHitPoints(opponent.getHitPoints() - damage);
 
         System.out.printf("Character %s attacked Character %s - %s hitPoints left%n",
-                this.name, opponent.name, opponent.hitPoints);
+                this.getName(), opponent.getName(), opponent.getHitPoints());
     }
 
     @Override
-    int characterDamage() {
-        return this.agility;
+    public int getCharacterDamage() {
+        return this.getAgility();
     }
 }
