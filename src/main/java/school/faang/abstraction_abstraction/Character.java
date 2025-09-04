@@ -10,11 +10,15 @@ public abstract class Character {
     private Integer intellect;
     private Integer health = 100;
 
+    private static final int STRENGTH_VALUE = 5;
+    private static final int AGILITY_VALUE = 5;
+    private static final int INTELLIGENCE_VALUE = 5;
+
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intellect = 5;
+        this.strength = STRENGTH_VALUE;
+        this.agility = AGILITY_VALUE;
+        this.intellect = INTELLIGENCE_VALUE;
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intellect) {
