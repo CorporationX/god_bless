@@ -23,8 +23,7 @@ public class User {
 
         for (User user : listOfUsers) {
             int age = user.getAge();
-            result.computeIfAbsent(age, k -> new ArrayList<>());
-            result.get(age).add(user);
+            result.computeIfAbsent(age, k -> new ArrayList<>()).add(user);
         }
 
         return result;
