@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 
@@ -17,8 +17,8 @@ public class User {
     private String work;
     private String address;
 
-    public static HashMap<Integer, List<String>> groupUsers(List<User> users) {
-        HashMap<Integer, List<String>> ageUsers = new HashMap<>();
+    public static Map<Integer, List<String>> groupUsers(List<User> users) {
+        Map<Integer, List<String>> ageUsers = new HashMap<>();
         for (User user : users) {
             ageUsers.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user.name);
         }
