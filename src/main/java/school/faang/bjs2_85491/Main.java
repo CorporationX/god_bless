@@ -14,13 +14,12 @@ public class Main {
 
         List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
-        int findAge = 23;
-        Map<Integer, List<User>> result = User.groupUsers(users, findAge);
+        Map<Integer, List<User>> result = user1.groupUsers(users);
 
-        System.out.println("Find age: " + findAge);
         for (Map.Entry<Integer, List<User>> e : result.entrySet()) {
             for (User user : e.getValue()) {
-                System.out.println("Name: " + user.getName()
+                System.out.println("Age: " + user.getAge()
+                        + " Name: " + user.getName()
                         + ", Job: " + user.getJob()
                         + ", Address: " + user.getAddress());
             }
