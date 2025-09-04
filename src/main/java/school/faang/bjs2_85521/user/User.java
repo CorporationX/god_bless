@@ -16,6 +16,8 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
+    private static final int VALID_AGE = 18;
+
     public User(String name, int age, String job, String address) {
         validateUserData(name, age, job, address);
         this.name = name;
@@ -28,8 +30,8 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new InvalidNameException("name cannot be null, empty or a space");
         }
-        if (age < 18) {
-            throw new UnderageException("age cannot be less than 18");
+        if (age < VALID_AGE) {
+            throw new UnderageException("age cannot be less than " + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new JobNotAllowedException("the job is not allowed for registration\n" +
