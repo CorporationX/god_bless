@@ -6,31 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class StudentDatabase {
-    private final Map<Student, Map<Subject, Integer>> studentSubjects = new ConcurrentHashMap<>();
-    public final Map<Subject, List<Student>> subjectStudents = new ConcurrentHashMap<>();
+import static school.faang.students.Grade.NOT_GRADED;
 
-    public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Integer> subjects) {
+public class StudentDatabase {
+    private final Map<Student, Map<Subject, Grade>> studentSubjects = new ConcurrentHashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new ConcurrentHashMap<>();
+
+    public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Grade> subjects) {
         studentSubjects.putIfAbsent(student, subjects);
         subjects.keySet().forEach(subject -> subjectStudents
                 .computeIfAbsent(subject, k -> new ArrayList<>()).add(student));
     }
 
-    public String addSubjectToExistingStudent(Student student, Subject subject, Integer grade) {
-        String message;
-        Map<Subject, Integer> subjectsByStudent = studentSubjects.get(student);
+    public void addSubjectToExistingStudent(Student student, Subject subject, Grade grade) {
+        Map<Subject, Grade> subjectsByStudent = studentSubjects.get(student);
         if (subjectsByStudent == null) {
-            message = student + " does not exist";
-            System.out.println(message);
-            return message;
+            throw new StudentException();
         }
 
         subjectsByStudent.put(subject, grade);
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-
-        message = subject + " was successfully added to " + student;
-        System.out.println(message);
-        return message;
     }
 
     public void deleteStudentAndHisSubjects(Student student) {
@@ -40,55 +35,36 @@ public class StudentDatabase {
 
     public void addSubjectAndListStudents(Subject subject, List<Student> students) {
         for (Student student : students) {
-            studentSubjects.putIfAbsent(student, new HashMap<>(Map.of(subject, 0)));
+            studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, NOT_GRADED);
         }
 
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).addAll(students);
     }
 
-    public String addStudentToExistingSubject(Student student, Subject subject) {
+    public void addStudentToExistingSubject(Student student, Subject subject) {
         List<Student> studentsBySubject = subjectStudents.get(subject);
-        String message;
 
         if (studentsBySubject == null || studentsBySubject.isEmpty()) {
-            message = subject + " does not exist";
-            System.out.println(message);
-            return message;
+            throw new StudentException();
         }
 
         studentsBySubject.add(student);
-        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
-
-        message = student + " was successfully added to " + subject;
-        System.out.println(message);
-        return message;
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, NOT_GRADED);
     }
 
-    public String deleteStudentFromSubject(Student student, Subject subject) {
-        String message;
-        Map<Subject, Integer> subjectsByStudent = studentSubjects.get(student);
+    public void deleteStudentFromSubject(Student student, Subject subject) {
+        Map<Subject, Grade> subjectsByStudent = studentSubjects.get(student);
         List<Student> studentsBySubject = subjectStudents.get(subject);
 
-        if (subjectsByStudent == null) {
-            message = student + " does not exist";
-            System.out.println(message);
-            return message;
-        }
-        if (studentsBySubject == null || studentsBySubject.isEmpty()) {
-            message = subject + " does not exist";
-            System.out.println(message);
-            return message;
+        if (subjectsByStudent == null || studentsBySubject == null || studentsBySubject.isEmpty()) {
+            throw new StudentException();
         }
 
         subjectsByStudent.remove(subject);
         studentsBySubject.remove(student);
-
-        message = student + " was successfully deleted from " + subject;
-        System.out.println(message);
-        return message;
     }
 
-    public Map<Student, Map<Subject, Integer>> printStudents() {
+    public Map<Student, Map<Subject, Grade>> printStudents() {
         studentSubjects.forEach((student, subjects) -> System.out.println(
                 student + " " + subjects
         ));

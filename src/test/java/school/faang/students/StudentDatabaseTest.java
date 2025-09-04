@@ -7,164 +7,148 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static school.faang.students.Grade.A;
+import static school.faang.students.Grade.B;
+import static school.faang.students.Grade.C;
+import static school.faang.students.Grade.D;
+import static school.faang.students.Grade.NOT_GRADED;
+
 class StudentDatabaseTest {
 
     private final StudentDatabase studentDatabase = new StudentDatabase();
+    private final Student mike = new Student("Mike");
+    private final Student kate = new Student("Kate");
+    private final Subject math = new Subject("Math");
+    private final Subject computerScience = new Subject("Computer Science");
+    private final Subject english = new Subject("English");
+    private final Subject biology = new Subject("Biology");
 
     @Test
     void testAddStudentWithSubjectsAndGrades() {
-        Student student1 = new Student("Миша");
-        Map<Subject, Integer> subjectsOfStudent = new HashMap<>(Map.of(
-                new Subject("Математика"), 5,
-                new Subject("Русский"), 4,
-                new Subject("Информатика"), 5
+        Map<Subject, Grade> subjectsOfStudent = new HashMap<>(Map.of(
+                math, A,
+                computerScience, B,
+                english, C
         ));
 
-        studentDatabase.addStudentWithSubjectsAndGrades(student1, subjectsOfStudent);
+        studentDatabase.addStudentWithSubjectsAndGrades(mike, subjectsOfStudent);
 
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         final Map<Subject, List<Student>> allSubjectsFirstRequest = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(allStudents.get(student1), subjectsOfStudent);
+        Assertions.assertEquals(allStudents.get(mike), subjectsOfStudent);
         subjectsOfStudent.keySet().forEach(subject -> Assertions.assertEquals(allSubjectsFirstRequest.get(subject),
-                List.of(student1)));
+                List.of(mike)));
 
-        Student student2 = new Student("Катя");
-        studentDatabase.addStudentWithSubjectsAndGrades(student2, subjectsOfStudent);
+        studentDatabase.addStudentWithSubjectsAndGrades(kate, subjectsOfStudent);
 
         allStudents = studentDatabase.printStudents();
         final Map<Subject, List<Student>> allSubjectsSecondRequest = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(allStudents.get(student1), subjectsOfStudent);
+        Assertions.assertEquals(allStudents.get(mike), subjectsOfStudent);
         subjectsOfStudent.keySet().forEach(subject -> Assertions.assertEquals(allSubjectsSecondRequest.get(subject),
-                List.of(student1, student2)));
+                List.of(mike, kate)));
     }
 
     @Test
     void testAddSubjectToExistingStudent() {
-        Student student = new Student("Миша");
-        Subject math = new Subject("Математика");
-        Subject russian = new Subject("Русский");
-        int grade = 5;
+        studentDatabase.addStudentWithSubjectsAndGrades(mike, new HashMap<>(Map.of(english, D)));
+        studentDatabase.addSubjectToExistingStudent(mike, math, A);
 
-        String response = studentDatabase.addSubjectToExistingStudent(student, math, grade);
-        Assertions.assertEquals(student + " does not exist", response);
-
-        studentDatabase.addStudentWithSubjectsAndGrades(student, new HashMap<>(Map.of(russian, 4)));
-        response = studentDatabase.addSubjectToExistingStudent(student, math, grade);
-        Assertions.assertEquals(math + " was successfully added to " + student, response);
-
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         Map<Subject, List<Student>> allSubjects = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(allStudents.get(student), new HashMap<>(Map.of(russian, 4, math, 5)));
+        Assertions.assertEquals(allStudents.get(mike), new HashMap<>(Map.of(english, D, math, A)));
         allSubjects.keySet().forEach(subject -> Assertions.assertEquals(allSubjects.get(subject),
-                List.of(student)));
+                List.of(mike)));
     }
 
     @Test
     void testDeleteStudentAndHisSubjects() {
-        Student student1 = new Student("Миша");
-        Student student2 = new Student("Катя");
-
-        Map<Subject, Integer> subjectsOfStudent1 = new HashMap<>(Map.of(
-                new Subject("Математика"), 5,
-                new Subject("Русский"), 4,
-                new Subject("Физика"), 5
+        Map<Subject, Grade> subjectsOfMike = new HashMap<>(Map.of(
+                math, A,
+                english, B,
+                computerScience, A
         ));
 
-        Map<Subject, Integer> subjectsOfStudent2 = new HashMap<>(Map.of(
-                new Subject("Математика"), 3,
-                new Subject("Русский"), 5,
-                new Subject("Литература"), 5
+        Map<Subject, Grade> subjectsOfKate = new HashMap<>(Map.of(
+                math, C,
+                english, B,
+                biology, D
         ));
 
-        studentDatabase.addStudentWithSubjectsAndGrades(student1, subjectsOfStudent1);
-        studentDatabase.addStudentWithSubjectsAndGrades(student2, subjectsOfStudent2);
+        studentDatabase.addStudentWithSubjectsAndGrades(mike, subjectsOfMike);
+        studentDatabase.addStudentWithSubjectsAndGrades(kate, subjectsOfKate);
 
-        studentDatabase.deleteStudentAndHisSubjects(student1);
+        studentDatabase.deleteStudentAndHisSubjects(mike);
 
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         Map<Subject, List<Student>> allSubjects = studentDatabase.printSubjects();
 
-        Assertions.assertNull(allStudents.get(student1));
+        Assertions.assertNull(allStudents.get(mike));
         allSubjects.values().forEach((students) ->
-                Assertions.assertFalse(students.contains(student1))
+                Assertions.assertFalse(students.contains(mike))
         );
     }
 
     @Test
     void testAddSubjectAndListStudents() {
-        Student student1 = new Student("Миша");
-        Student student2 = new Student("Катя");
-        Subject math = new Subject("Математика");
+        studentDatabase.addSubjectAndListStudents(math, List.of(mike, kate));
 
-        studentDatabase.addSubjectAndListStudents(math, List.of(student1, student2));
-
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         Map<Subject, List<Student>> allSubjects = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(allStudents.get(student1), Map.of(math, 0));
-        Assertions.assertEquals(allStudents.get(student2), Map.of(math, 0));
-        Assertions.assertEquals(allSubjects.get(math), List.of(student1, student2));
+        Assertions.assertEquals(allStudents.get(mike), Map.of(math, NOT_GRADED));
+        Assertions.assertEquals(allStudents.get(kate), Map.of(math, NOT_GRADED));
+        Assertions.assertEquals(allSubjects.get(math), List.of(mike, kate));
     }
 
     @Test
     void testAddStudentToExistingSubject() {
-        Student student1 = new Student("Катя");
-        Student student2 = new Student("Миша");
-        Subject math = new Subject("Математика");
+        studentDatabase.addStudentWithSubjectsAndGrades(mike, new HashMap<>(Map.of(math, A)));
+        studentDatabase.addStudentToExistingSubject(kate, math);
 
-        String response = studentDatabase.addStudentToExistingSubject(student1, math);
-        Assertions.assertEquals(math + " does not exist", response);
-
-        studentDatabase.addStudentWithSubjectsAndGrades(student1, new HashMap<>(Map.of(math, 5)));
-
-        response = studentDatabase.addStudentToExistingSubject(student2, math);
-        Assertions.assertEquals(student2 + " was successfully added to " + math, response);
-
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         Map<Subject, List<Student>> allSubjects = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(allStudents.get(student1), Map.of(math, 5));
-        Assertions.assertEquals(allStudents.get(student2), Map.of(math, 0));
-        Assertions.assertEquals(allSubjects.get(math), List.of(student1, student2));
+        Assertions.assertEquals(allStudents.get(mike), Map.of(math, A));
+        Assertions.assertEquals(allStudents.get(kate), Map.of(math, NOT_GRADED));
+        Assertions.assertEquals(allSubjects.get(math), List.of(mike, kate));
     }
 
     @Test
     void testDeleteStudentFromSubject() {
-        Student student1 = new Student("Миша");
-        Subject math = new Subject("Математика");
-        Subject russian = new Subject("Русский");
+        studentDatabase.addStudentWithSubjectsAndGrades(mike, new HashMap<>(Map.of(math, A)));
+        studentDatabase.addStudentWithSubjectsAndGrades(kate, new HashMap<>(Map.of(english, A)));
+        studentDatabase.deleteStudentFromSubject(mike, english);
 
-        String response = studentDatabase.deleteStudentFromSubject(student1, math);
-        Assertions.assertEquals(student1 + " does not exist", response);
-
-        studentDatabase.addStudentWithSubjectsAndGrades(student1, new HashMap<>(Map.of(math, 5)));
-
-        response = studentDatabase.deleteStudentFromSubject(student1, russian);
-        Assertions.assertEquals(russian + " does not exist", response);
-
-        Student student2 = new Student("Катя");
-        studentDatabase.addStudentWithSubjectsAndGrades(student2, new HashMap<>(Map.of(russian, 5)));
-
-        response = studentDatabase.deleteStudentFromSubject(student1, russian);
-        Assertions.assertEquals(student1 + " was successfully deleted from " + russian, response);
-
-        Map<Student, Map<Subject, Integer>> allStudents = studentDatabase.printStudents();
+        Map<Student, Map<Subject, Grade>> allStudents = studentDatabase.printStudents();
         Map<Subject, List<Student>> allSubjects = studentDatabase.printSubjects();
 
-        Assertions.assertEquals(1, allStudents.get(student1).size());
-        Assertions.assertEquals(1, allStudents.get(student2).size());
-
-        Assertions.assertEquals(allStudents.get(student1), Map.of(math, 5));
-        Assertions.assertEquals(allStudents.get(student2), Map.of(russian, 5));
-
-        Assertions.assertEquals(1, allSubjects.get(russian).size());
+        Assertions.assertEquals(1, allStudents.get(mike).size());
+        Assertions.assertEquals(1, allStudents.get(kate).size());
+        Assertions.assertEquals(allStudents.get(mike), Map.of(math, A));
+        Assertions.assertEquals(allStudents.get(kate), Map.of(english, A));
+        Assertions.assertEquals(1, allSubjects.get(english).size());
         Assertions.assertEquals(1, allSubjects.get(math).size());
+        Assertions.assertEquals(allSubjects.get(math), List.of(mike));
+        Assertions.assertEquals(allSubjects.get(english), List.of(kate));
+    }
 
-        Assertions.assertEquals(allSubjects.get(math), List.of(student1));
-        Assertions.assertEquals(allSubjects.get(russian), List.of(student2));
+    @Test
+    void testExceptionAddStudentToExistingSubject() {
+        Assertions.assertThrows(StudentException.class, () -> studentDatabase.addStudentToExistingSubject(mike, math));
+    }
+
+    @Test
+    void testExceptionAddSubjectToExistingStudent() {
+        Assertions.assertThrows(StudentException.class,
+                () -> studentDatabase.addSubjectToExistingStudent(mike, math, A));
+    }
+
+    @Test
+    void testExceptionDeleteStudentFromSubject() {
+        Assertions.assertThrows(StudentException.class, () -> studentDatabase.deleteStudentFromSubject(mike, english));
     }
 
 }

@@ -1,15 +1,9 @@
 package school.faang.students;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class Student {
-    private String name;
+public record Student(String name) {
 
     @Override
     public String toString() {
-        return "Студент " + this.getName();
+        return "Student " + this.name();
     }
 }
