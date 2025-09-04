@@ -1,4 +1,4 @@
-package school.faang.BJS2_85469;
+package school.faang.bjs2_85469;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class User {
     private static int counter;
 
     public User(String name, int age, Set<String> hobbies) {
-        id = ++counter;
+        this.id = ++counter;
         this.name = name;
         this.age = age;
         this.hobbies = hobbies;
@@ -24,7 +24,7 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> someHobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
-            for (String userHobby : user.hobbies) {
+            for (String userHobby : user.getHobbies()) {
                 if (someHobbies.contains(userHobby)) {
                     hobbyLovers.put(user, userHobby);
                     break;
@@ -32,6 +32,10 @@ public class User {
             }
         }
         return hobbyLovers;
+    }
+
+    public Set<String> getHobbies() {
+        return hobbies;
     }
 
     @Override
