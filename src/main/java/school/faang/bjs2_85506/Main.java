@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         User user1 = new User("Ivan", 25, "TalTech", "Laki 1");
-        User user2 = new User("Dmitri", 35, "K+Т", "Sompa 24");
+        User user2 = new User("Dmitri", 35, "K+N", "Sompa 24");
         User user3 = new User("Natalya", 25, "TempTrans", "Läänemere 47");
         User user4 = new User("Sonya", 45, "Swedbank", "Ümera 6");
         User user5 = new User("Kristina", 35, "Microsoft", "Raua 34");
