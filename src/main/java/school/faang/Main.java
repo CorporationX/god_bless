@@ -1,15 +1,19 @@
-package school.faang.bjs2_85588;
+package school.faang;
 
+
+import school.faang.bjs2_85588.Archer;
+import school.faang.bjs2_85588.Character;
+import school.faang.bjs2_85588.Warrior;
 
 public class Main {
 
     public static void main(String[] args) {
-        Character testWar = new Warrior("Вар");
-        Character testArch = new Archer("Цыбуля");
+        school.faang.bjs2_85588.Character testWar = new Warrior("Вар");
+        school.faang.bjs2_85588.Character testArch = new Archer("Цыбуля");
         testBattle(testArch, testWar);
     }
 
-    private static void testBattle(Character opponentOne, Character opponentTwo) {
+    private static void testBattle(school.faang.bjs2_85588.Character opponentOne, Character opponentTwo) {
         while (opponentOne.getHealth() > 0 && opponentTwo.getHealth() > 0) {
             if (opponentTwo.isAlive(opponentTwo)) {
                 opponentTwo.attack(opponentOne);
