@@ -1,11 +1,14 @@
 package school.faang.bjs2_86053;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class LibrarySystem {
-    Map<Book, String> bookStringMap = new HashMap<>();
+    private final Map<Book, String> bookStringMap = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book newBook = new Book(title, author, year);
@@ -20,12 +23,12 @@ public class LibrarySystem {
 
         // основная логика
         if (bookStringMap.containsKey(newBook)) {
-            System.out.println("Книга '" + title + "' уже существует в библиотеке!");
+            log.warn("Книга '{}' уже существует в библиотеке!", title);
             return;
         }
 
         bookStringMap.put(newBook, location);
-        System.out.println("Книга '" + title + "' успешно добавлена.");
+        log.info("Книга '{}' успешно добавлена!", title);
     }
 
     public void removeBook(String title, String author, int year) {
@@ -34,9 +37,9 @@ public class LibrarySystem {
 
         boolean removed = (removedLocation != null);
         if (removed) {
-            System.out.println("Книга '" + title + "' успешно удалена из библиотеке.");
+            log.info("Книга '{}' успешно удалена из библиотеки!", title);
         } else {
-            System.out.println("Книга '" + title + "' не найдена в библиотеке.");
+            log.warn("Книга '{}' не найдена в библиотеке.", title);
         }
     }
 
@@ -45,19 +48,15 @@ public class LibrarySystem {
         String location = bookStringMap.get(key);
 
         if (location != null) {
-            System.out.println("Книга найдена: '" + title +
-                    "' автора " + author +
-                    " (" + year + " год)" +
-                    " находится в: " + location);
+            log.info("Книга найдена: '{}' автора {} ({} год) находится в: {}", title, author, year, location);
         } else {
-            System.out.println("Книга '" + title + "' автора " + author +
-                    " (" + year + " год) не найдена в библиотеке.");
+            log.warn("Книга '{}' автора {} ({} год) не найдена в библиотеке.", title, author, year);
         }
     }
 
     public void printAllBooks() {
         if (bookStringMap.isEmpty()) {
-            System.out.println("Библиотека пуста");
+            log.info("Библтотека пуста!");
         } else {
             int num = 1;
             for (Book key : bookStringMap.keySet()) {
