@@ -13,6 +13,7 @@ public class User {
 
     private Set<String> validJobs = Set.of("Google", "Uber", "Amazon");
     private Set<String> validAddress = Set.of("London", "New York", "Amsterdam");
+    private Integer minAge = 18;
 
     public User(String address, Integer age, String job, String name) {
         validate(address, job, age, name);
@@ -24,16 +25,16 @@ public class User {
     }
 
     private void validate(String name, String job, Integer age, String address) {
-        if (!validAddress.contains(address) || address == null) {
+        if (!validAddress.contains(address)) {
             throw new IllegalArgumentException("адрес не корректен, необходимо " + validAddress);
         }
         if (!validJobs.contains(job) || job == null) {
             throw new IllegalArgumentException("работа не корректна, необходимо " + validJobs);
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("возраст должен быть больше 18");
+        if (age < minAge) {
+            throw new IllegalArgumentException("возраст должен быть больше " + minAge);
         }
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не должно быть пустым");
         }
     }
