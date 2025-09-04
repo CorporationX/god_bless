@@ -22,8 +22,6 @@ public class User {
     private String workplace;
     private String address;
 
-
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
         return users.stream()
