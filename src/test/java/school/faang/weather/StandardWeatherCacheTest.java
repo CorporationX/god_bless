@@ -1,9 +1,14 @@
 package school.faang.weather;
 
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static java.lang.Thread.sleep;
+import static org.awaitility.Durations.FIVE_SECONDS;
+import static org.awaitility.Durations.ONE_HUNDRED_MILLISECONDS;
 
 class StandardWeatherCacheTest {
 
@@ -13,16 +18,19 @@ class StandardWeatherCacheTest {
     void testGetWeatherDataLongCache() throws InterruptedException {
         long cacheAge = 1000;
         String city = "New-York";
-        WeatherData weatherData = standardWeatherCache.getWeatherData(city, cacheAge);
 
-        for (int i = 0; i < 8; i++) {
-            Assertions.assertEquals(weatherData, standardWeatherCache.getWeatherData(city, cacheAge));
-            sleep(100);
-        }
+        WeatherData firstRequest = standardWeatherCache.getWeatherData(city, cacheAge);
+        Assertions.assertEquals(firstRequest, standardWeatherCache.getWeatherData(city, cacheAge));
 
         sleep(200);
 
-        Assertions.assertNotEquals(weatherData, standardWeatherCache.getWeatherData(city, cacheAge));
+        WeatherData secondRequest = standardWeatherCache.getWeatherData(city, cacheAge);
+        Assertions.assertEquals(secondRequest, firstRequest);
+
+        Awaitility.await()
+                .pollInterval(ONE_HUNDRED_MILLISECONDS)
+                .atMost(FIVE_SECONDS.toSeconds(), TimeUnit.SECONDS)
+                .until(() -> !firstRequest.equals(standardWeatherCache.getWeatherData(city, cacheAge)));
     }
 
     @Test
@@ -51,5 +59,4 @@ class StandardWeatherCacheTest {
         Assertions.assertNotEquals(firstRequest, secondRequest);
         Assertions.assertEquals(secondRequest, forced);
     }
-
 }

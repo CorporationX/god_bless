@@ -8,16 +8,13 @@ public abstract class WeatherCacheTemplate {
     private final WeatherProvider weatherProvider = new WeatherService();
 
     protected WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        WeatherData weatherData;
-
         if (isCacheExpired(cache.get(city), maxCacheAgeMillis)) {
-            weatherData = weatherProvider.fetchWeatherData(city);
+            WeatherData weatherData = weatherProvider.fetchWeatherData(city);
             cache.put(city, weatherData);
-        } else {
-            weatherData = cache.get(city);
+            return weatherData;
         }
 
-        return weatherData;
+        return cache.get(city);
     }
 
     protected WeatherData forceUpdateWeather(String city) {

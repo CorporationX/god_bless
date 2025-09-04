@@ -1,13 +1,8 @@
 package school.faang.weather;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public record WeatherData(String city,
+                          Double temperature,
+                          Double humidity,
+                          Long timestamp) {
 
-@Data
-@AllArgsConstructor
-public class WeatherData {
-    private String city;
-    private Double temperature;
-    private Double humidity;
-    private Long timestamp;
 }
