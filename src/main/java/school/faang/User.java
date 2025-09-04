@@ -13,14 +13,13 @@ public class User {
 
     private static final int PERMISSION_AGE = 18;
 
-
     public User(String name, int age, String work, String address) {
 
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
         if (age < PERMISSION_AGE) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+            throw new IllegalArgumentException("Возраст не может быть меньше %d.".formatted(PERMISSION_AGE));
         }
         if (!VALID_JOBS.contains(work)) {
             throw new IllegalArgumentException("Место работы должно содержаться в наборе %s.".formatted(VALID_JOBS));
@@ -33,6 +32,5 @@ public class User {
         this.age = age;
         this.work = work;
         this.address = address;
-
     }
 }
