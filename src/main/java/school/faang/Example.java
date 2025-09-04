@@ -9,12 +9,24 @@ public class Example {
     }
 
     public static int[] reverse(int[] array) {
-        int[] revArray = new int[array.length];
-        int x = 0;
-        for (int i = array.length - 1; i >= 0; i--) {
-            revArray[x] = array[i];
-            x++;
+        if (array == null) {
+            throw new IllegalArgumentException("array == null");
         }
-        return revArray;
+
+        if (array.length <= 1) {
+            return array;
+        }
+
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left < right) {
+            int leftToRight = array[left];
+            array[left] = array[right];
+            array[right] = leftToRight;
+            left++;
+            right--;
+        }
+        return array;
     }
 }
