@@ -5,13 +5,13 @@ public class Warrior extends Character {
     public Warrior(String name) {
         super(
                 name,
-                HeroesCharacteristics.WARRIOR_DEFAULT_STRENGTH.getValue(),
-                HeroesCharacteristics.WARRIOR_DEFAULT_DEXTERITY.getValue(),
-                HeroesCharacteristics.WARRIOR_DEFAULT_INTELLIGENCE.getValue());
+                HeroesCharacteristics.WARRIOR_DEFAULT_STRENGTH,
+                HeroesCharacteristics.WARRIOR_DEFAULT_DEXTERITY,
+                HeroesCharacteristics.WARRIOR_DEFAULT_INTELLIGENCE);
     }
 
     @Override
-    void attack(Character opponent) {
-        reduceHealth(opponent, this.getStrength());
+    protected void attack(Character opponent) {
+        super.reduceHealth(opponent, this.getStrength());
     }
 }

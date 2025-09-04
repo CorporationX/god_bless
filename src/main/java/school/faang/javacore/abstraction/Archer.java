@@ -5,13 +5,13 @@ public class Archer extends Character {
     public Archer(String name) {
         super(
                 name,
-                HeroesCharacteristics.ARCHER_DEFAULT_STRENGTH.getValue(),
-                HeroesCharacteristics.ARCHER_DEFAULT_DEXTERITY.getValue(),
-                HeroesCharacteristics.ARCHER_DEFAULT_INTELLIGENCE.getValue());
+                HeroesCharacteristics.ARCHER_DEFAULT_STRENGTH,
+                HeroesCharacteristics.ARCHER_DEFAULT_DEXTERITY,
+                HeroesCharacteristics.ARCHER_DEFAULT_INTELLIGENCE);
     }
 
     @Override
-    void attack(Character opponent) {
-        reduceHealth(opponent, this.getDexterity());
+    protected void attack(Character opponent) {
+        super.reduceHealth(opponent, this.getDexterity());
     }
 }
