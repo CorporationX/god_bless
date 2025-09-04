@@ -1,4 +1,4 @@
-package school.faang.bjs2_85481;
+package school.faang.java_core.bjs2_85481;
 
 import java.util.Set;
 

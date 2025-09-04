@@ -1,9 +1,9 @@
-package school.faang.bjs2_86045;
+package school.faang.java_collection.bjs2_86045;
 
-import static school.faang.bjs2_86045.LibrarySystem.addBook;
-import static school.faang.bjs2_86045.LibrarySystem.findBook;
-import static school.faang.bjs2_86045.LibrarySystem.printAllBooks;
-import static school.faang.bjs2_86045.LibrarySystem.removeBook;
+import static school.faang.java_collection.bjs2_86045.LibrarySystem.addBook;
+import static school.faang.java_collection.bjs2_86045.LibrarySystem.findBook;
+import static school.faang.java_collection.bjs2_86045.LibrarySystem.printAllBooks;
+import static school.faang.java_collection.bjs2_86045.LibrarySystem.removeBook;
 
 public class Main {
     public static void main(String[] args) {
