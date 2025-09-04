@@ -17,14 +17,23 @@ public class User {
     private String job;
     private String address;
 
+    public static final int AGE_THRESHOLD = 18;
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        validateField(name, value -> !value.isBlank(), "Имя не может быть пустым");
-        validateField(age, value -> value >= 18, "Возраст не может быть меньше 18");
-        validateField(job, VALID_JOBS::contains, "Место работы должно содержаться в наборе VALID_JOBS");
-        validateField(address, VALID_ADDRESSES::contains, "Адрес должен содержаться в наборе VALID_ADDRESSES");
+        validateField(name,
+                String::isBlank,
+                "Имя не может быть пустым");
+        validateField(age,
+                value -> value < AGE_THRESHOLD,
+                "Возраст не может быть меньше " + AGE_THRESHOLD);
+        validateField(job,
+                value -> !VALID_JOBS.contains(value),
+                "Место работы должно содержаться в наборе: " + VALID_JOBS);
+        validateField(address,
+                value -> !VALID_ADDRESSES.contains(value),
+                "Адрес должен содержаться в наборе: " + VALID_ADDRESSES);
         this.name = name;
         this.age = age;
         this.job = job;
@@ -38,7 +47,7 @@ public class User {
     ) throws IllegalArgumentException, NullPointerException {
         if (value == null) {
             throw new NullPointerException("Не надо передавать null!");
-        } else if (!validation.test(value)) {
+        } else if (validation.test(value)) {
             throw new IllegalArgumentException(exceptionMessage);
         }
     }
