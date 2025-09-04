@@ -3,18 +3,15 @@ package school.faang.bjs2_85509;
 import lombok.Data;
 
 @Data
-abstract class Character {
+public abstract class Character {
     private String name;
-    private Integer strength;
-    private Integer agility;
-    private Integer intellegence;
+    private Integer strength = 5;
+    private Integer agility = 5;
+    private Integer intellegence = 5;
     private Integer health = 100;
 
     public Character(String name) {
         this.name = name;
-        strength = 5;
-        agility = 5;
-        intellegence = 5;
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intellegence) {
