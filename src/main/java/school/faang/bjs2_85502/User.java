@@ -30,14 +30,14 @@ public class User {
         for (int i = 0; i < usersList.size(); i++) {
             User user = usersList.get(i);
             Set<String> userActivitySet = user.getActivity();
-            String activity=null;
-            for (String str: userActivitySet){
-                if(activitySet.contains(str)){
+            String activity = null;
+            for (String str : userActivitySet) {
+                if (activitySet.contains(str)) {
                     activity = str;
                     break;
                 }
             }
-            if (activity !=null) {
+            if (activity != null) {
                 mapUsersAndActivity.put(usersList.get(i), activity);
             }
         }
