@@ -11,17 +11,19 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private static final int MIN_AGE = 18;
+
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE + ".");
         }
         if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Место работы недопустимо.");
