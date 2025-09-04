@@ -1,24 +1,16 @@
 package school.faang.bjs2_85543;
 
 public class Archer extends Character {
+    private static final int ARCHER_STRENGTH_BY_DEFAULT = 3;
+    private static final int ARCHER_AGILITY_BY_DEFAULT = 10;
+    private static final int ARCHER_INTELLIGENCE_BY_DEFAULT = 5;
 
-    public Archer(String name, int strength, int agility, int intelligence) {
-        super(name, strength, agility, intelligence);
+    public Archer(String name) {
+        super(name, ARCHER_STRENGTH_BY_DEFAULT, ARCHER_AGILITY_BY_DEFAULT, ARCHER_INTELLIGENCE_BY_DEFAULT);
     }
 
     @Override
     public void attack(Character opponent) {
-
-        System.out.printf("Damage caused by %s in size %s  by hero %s \n",
-                this.getName(), this.getAgility(), opponent.getName());
-
-        opponent.setHealth(opponent.getHealth() - this.getAgility());
-
-        if (opponent.getHealth() <= 0) {
-            opponent.setHealth(0);
-            System.out.printf("Hero %s is died \n", opponent.getName());
-            return;
-        }
-        System.out.printf("Hero %s have %d hp \n", opponent.getName(), opponent.getHealth());
+        super.getHeroAttackDamage(opponent, this.getAgility());
     }
 }

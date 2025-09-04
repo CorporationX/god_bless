@@ -1,24 +1,16 @@
 package school.faang.bjs2_85543;
 
 public class Warrior extends Character {
+    private static final int WARRIOR_STRENGTH_BY_DEFAULT = 10;
+    private static final int WARRIOR_AGILITY_BY_DEFAULT = 5;
+    private static final int WARRIOR_INTELLIGENCE_BY_DEFAULT = 3;
 
-    public Warrior(String name, int strength, int agility, int intelligence) {
-        super(name, strength, agility, intelligence);
+    public Warrior(String name) {
+        super(name, WARRIOR_STRENGTH_BY_DEFAULT, WARRIOR_AGILITY_BY_DEFAULT, WARRIOR_INTELLIGENCE_BY_DEFAULT);
     }
 
     @Override
     public void attack(Character opponent) {
-
-        System.out.printf("Damage caused by %s in size %d by hero %s \n",
-                this.getName(), this.getStrength(), opponent.getName());
-
-        opponent.setHealth(opponent.getHealth() - this.getStrength());
-
-        if (opponent.getHealth() <= 0) {
-            opponent.setHealth(0);
-            System.out.printf("Hero %s is died \n", opponent.getName());
-            return;
-        }
-        System.out.printf("Hero %s have %d hp \n", opponent.getName(), opponent.getHealth());
+        super.getHeroAttackDamage(opponent, this.getStrength());
     }
 }
