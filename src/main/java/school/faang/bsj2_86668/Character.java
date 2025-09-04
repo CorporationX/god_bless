@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public abstract class Character {
-    private final int DEFAULT_HEALTH_VALUE = 100;
-    private final int DEFAULT_COMMON_VALUE = 5;
+    private static final int DEFAULT_HEALTH_VALUE = 100;
+    private static final int DEFAULT_COMMON_VALUE = 5;
+
     String name;
     int strength;
     int agility;
