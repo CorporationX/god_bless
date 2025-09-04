@@ -28,7 +28,7 @@ public class User {
         if (!validAddress.contains(address)) {
             throw new IllegalArgumentException("адрес не корректен, необходимо " + validAddress);
         }
-        if (!validJobs.contains(job) || job == null) {
+        if (!validJobs.contains(job)) {
             throw new IllegalArgumentException("работа не корректна, необходимо " + validJobs);
         }
         if (age < minAge) {
