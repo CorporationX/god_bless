@@ -29,6 +29,10 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public boolean isAlive(Character opponent) {
-        return opponent.getHealth() <= 0;
+        if (opponent.getHealth() <= 0) {
+            System.out.println(opponent.getName() + " Повержен!");
+            return false;
+        }
+        return true;
     }
 }

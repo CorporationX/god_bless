@@ -10,12 +10,12 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        opponent.setHealth(opponent.getHealth() - getStrength());
-        if (!(opponent.getHealth() <= 0)) {
-            System.out.printf("По %s, наносят точный выстрел по %s у него остается %dхп!\n",
-                    opponent.getName(), getName(), opponent.getHealth());
-        } else {
-            System.out.println(opponent.getName() + " повержен!");
+        if (isAlive(opponent)) {
+            opponent.setHealth(opponent.getHealth() - getAgility());
+            int currentHealth = Math.max(opponent.getHealth(), 0);
+            System.out.printf("По %s, наносят точный выстрел %s! У него остается %dхп!\n",
+                    opponent.getName(), getName(), currentHealth);
+            isAlive(opponent);
         }
     }
 }
