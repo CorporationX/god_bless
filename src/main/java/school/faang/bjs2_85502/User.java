@@ -1,10 +1,23 @@
 package school.faang.bjs2_85502;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
 
 @Getter
+@Setter
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class User {
 
     private int id;
@@ -12,50 +25,22 @@ public class User {
     private int age;
     private Set<String> activity;
 
-    public User(int id, String name, int age, Set<String> activity) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.activity = activity;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return id == user.id
-                && age == user.age
-                && Objects.equals(name, user.name)
-                && Objects.equals(activity, user.activity);
-    }
-
     public static Map<User, String> findHobbyLovers(List<User> usersList, Set<String> activitySet) {
         Map<User, String> mapUsersAndActivity = new HashMap<>();
         for (int i = 0; i < usersList.size(); i++) {
-            String activity = String.valueOf(activitySet.stream()
-                    .filter(usersList.get(i).getActivity()::contains)
-                    .findFirst());
-            if (!activity.isBlank()) {
+            User user = usersList.get(i);
+            Set<String> userActivitySet = user.getActivity();
+            String activity=null;
+            for (String str: userActivitySet){
+                if(activitySet.contains(str)){
+                    activity = str;
+                    break;
+                }
+            }
+            if (activity !=null) {
                 mapUsersAndActivity.put(usersList.get(i), activity);
             }
         }
         return mapUsersAndActivity;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, activity);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", activity=" + activity +
-                '}';
     }
 }
