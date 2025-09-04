@@ -13,27 +13,22 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     public User(String name, Integer age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("[X] Имя не может быть пустым.");
         }
         if (age == null) {
             throw new IllegalArgumentException("[X] Возраст не может быть null.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("[X] Возраст не должен быть меньше 18.");
-        }
-        if (job == null) {
-            throw new IllegalArgumentException("[X] Работа не может быть null.");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("[X] Возраст не должен быть меньше " + MIN_AGE + ".");
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException(
                     String.format("[X] Недопустимая работа: '%s'. Допустимые значения: %s",
                     job, VALID_JOBS));
-        }
-        if (address == null) {
-            throw new IllegalArgumentException("[X] Адрес не может быть null.");
         }
         if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException(
