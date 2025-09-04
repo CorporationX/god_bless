@@ -6,7 +6,7 @@ public class Archer extends Character {
     private static final int INTELLIGENCE_VALUE = 5;
 
     public Archer(String name) {
-        super(name,  STRENGTH_VALUE, AGILITY_VALUE, INTELLIGENCE_VALUE);
+        super(name, STRENGTH_VALUE, AGILITY_VALUE, INTELLIGENCE_VALUE);
     }
 
     @Override
