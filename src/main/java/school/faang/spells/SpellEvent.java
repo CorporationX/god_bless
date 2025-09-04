@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class SpellEvent {
     private Integer id;
-    private String eventType;
+    private EventType eventType;
     private String action;
 }

@@ -1,62 +1,66 @@
 package school.faang.spells;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
+import static school.faang.spells.EventType.charm;
+import static school.faang.spells.EventType.protection;
+import static school.faang.spells.EventType.transfiguration;
+
 class HogwartsSpellsTest {
 
     private final HogwartsSpells hogwartsSpells = new HogwartsSpells();
+    private SpellEvent spellEventProtection;
+    private SpellEvent spellEventTransfiguration;
+    private SpellEvent spellEventCharm;
+
+    @BeforeEach
+    void beforeEach() {
+        spellEventProtection = hogwartsSpells.addSpellEvent(protection, "protects from attacks");
+        spellEventTransfiguration = hogwartsSpells.addSpellEvent(transfiguration, "transform vine to water");
+        spellEventCharm = hogwartsSpells.addSpellEvent(charm, "charms opponent");
+    }
+
 
     @Test
     void testAddSpell() {
-        SpellEvent spellEvent = hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
-        Assertions.assertEquals(new SpellEvent(0, "Защита", "Защищает от атак"), spellEvent);
+        Assertions.assertEquals(new SpellEvent(0, protection, "protects from attacks"), spellEventProtection);
     }
 
     @Test
     void testGetSpellEventById() {
-        SpellEvent spellEvent = hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
-        Optional<SpellEvent> foundSpell = hogwartsSpells.getSpellEventById(1);
+        Optional<SpellEvent> foundSpell = hogwartsSpells.getSpellEventById(10);
         Assertions.assertTrue(foundSpell.isEmpty());
 
         foundSpell = hogwartsSpells.getSpellEventById(0);
-        Assertions.assertEquals(foundSpell.get(), spellEvent);
+        Assertions.assertEquals(foundSpell.get(), spellEventProtection);
     }
 
     @Test
     void testGetSpellEventsByType() {
-        SpellEvent spellEvent1 = hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
-        SpellEvent spellEvent2 = hogwartsSpells.addSpellEvent("Защита", "Защищает от влияния на разум");
-        SpellEvent spellEvent3 = hogwartsSpells.addSpellEvent("Защита", "Защищает от одного заклятия");
-        SpellEvent spellEvent4 = hogwartsSpells.addSpellEvent("Трансфигурация", "Превращает крысу в крота");
+        SpellEvent spellEventProtection2 = hogwartsSpells.addSpellEvent(protection, "protects from yourself");
 
-        List<SpellEvent> spellEvents = hogwartsSpells.getSpellEventsByType("Защита");
+        List<SpellEvent> spellEvents = hogwartsSpells.getSpellEventsByType(protection);
 
-        Assertions.assertTrue(spellEvents.containsAll(List.of(spellEvent1, spellEvent3, spellEvent2)));
-        Assertions.assertFalse(spellEvents.contains(spellEvent4));
+        Assertions.assertTrue(spellEvents.containsAll(List.of(spellEventProtection, spellEventProtection2)));
+        Assertions.assertFalse(spellEvents.contains(spellEventTransfiguration));
+        Assertions.assertFalse(spellEvents.contains(spellEventCharm));
     }
 
     @Test
     void testDeleteSpell() {
-        SpellEvent spellEvent1 = hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
-        SpellEvent spellEvent2 = hogwartsSpells.addSpellEvent("Защита", "Защищает от влияния на разум");
-        SpellEvent spellEvent3 = hogwartsSpells.addSpellEvent("Защита", "Защищает от одного заклятия");
-        SpellEvent spellEvent4 = hogwartsSpells.addSpellEvent("Трансфигурация", "Превращает крысу в крота");
-        SpellEvent spellEvent5 = hogwartsSpells.addSpellEvent("Чары", "Завладевает разумом противника");
-        SpellEvent spellEvent6 = hogwartsSpells.addSpellEvent("Чары", "Делает невидимым");
+        List<SpellEvent> spellEvents = hogwartsSpells.getSpellEventsByType(charm);
+        Assertions.assertTrue(spellEvents.containsAll(List.of(spellEventCharm)));
 
-        hogwartsSpells.deleteSpellEvent(spellEvent5.getId());
+        hogwartsSpells.deleteSpellEvent(spellEventCharm.getId());
+        spellEvents = hogwartsSpells.getSpellEventsByType(charm);
+        Assertions.assertNull(spellEvents);
 
-        List<SpellEvent> spellEvents = hogwartsSpells.getSpellEventsByType("Чары");
-        Assertions.assertFalse(spellEvents.contains(spellEvent5));
-        Optional<SpellEvent> foundSpell = hogwartsSpells.getSpellEventById(spellEvent5.getId());
+        Optional<SpellEvent> foundSpell = hogwartsSpells.getSpellEventById(spellEventCharm.getId());
         Assertions.assertTrue(foundSpell.isEmpty());
-
-        hogwartsSpells.printAllSpellEvents();
     }
-
-
 }
