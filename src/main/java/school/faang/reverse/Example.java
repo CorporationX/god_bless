@@ -1,10 +1,10 @@
-package src.main.java.school.faang.reverse;
+package school.faang.reverse;
 
 import java.util.Arrays;
 
 public class Example {
 
-    public static int[] reverse(int[] nums){
+    public int[] reverse(int[] nums){
 
         int[] reversed = new int[nums.length];
 
@@ -17,11 +17,5 @@ public class Example {
 
     }
 
-    public static void main (String[] args) {
-        int[] nums = { 1, 2, 3, 4, 5 };
-        int[] reversedNums = reverse(nums);
 
-        System.out.println(Arrays.toString(nums));
-        System.out.println(Arrays.toString(reversedNums));
-    }
 }
