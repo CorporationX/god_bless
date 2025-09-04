@@ -1,18 +1,18 @@
 package school.faang.bjs2_85533;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+
 @Setter
 @Getter
 @EqualsAndHashCode
+@ToString
 public class User {
-    private static final int AGE_OF_MAJORITY =18;
+    private static final int AGE_OF_MAJORITY = 18;
     private static final List<String> VALID_JOB = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
@@ -30,7 +30,7 @@ public class User {
             throw new IllegalArgumentException("age under 18");
         }
         if (!VALID_JOB.contains(job)) {
-            throw new IllegalArgumentException(job +": there is no such work");
+            throw new IllegalArgumentException(job + ": there is no such work");
         } else {
             this.job = job;
 
@@ -42,31 +42,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name)
-                && Objects.equals(job, user.job)
-                && Objects.equals(address, user.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, job, address);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
