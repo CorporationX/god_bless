@@ -1,7 +1,10 @@
 package school.faang.bjs2_85520;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,19 +12,13 @@ import java.util.Map;
 
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
 public class User {
-    protected static List<User> userList;
     private String name;
     private int age;
     private String workplace;
     private String address;
-
-    public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> user) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
@@ -30,11 +27,4 @@ public class User {
         }
         return usersMap;
     }
-
-    @Override
-    public String toString() {
-        return "\nName: " + name + ", Age: " + age;
-    }
-
-
 }
