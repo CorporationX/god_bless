@@ -16,18 +16,16 @@ public class User {
     private String job;
     private String address;
 
-    static Map<Integer, List<User>> groupUsers(List<User> users, Integer findAge) {
-        List<User> temp = new ArrayList<>();
+    Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> userGroupByAge = new HashMap<>();
 
         for (User user : users) {
-            if (user != null && user.getAge() != null && user.getAge().equals(findAge)) {
-                temp.add(user);
+            if (user != null && user.getAge() != null) {
+                userGroupByAge.putIfAbsent(user.getAge(), new ArrayList<>());
+                userGroupByAge.get(user.getAge()).add(user);
             }
         }
-        Map<Integer, List<User>> userGroupByAge = new HashMap<>();
-        if (!temp.isEmpty()) {
-            userGroupByAge.put(findAge, temp);
-        }
+
         return userGroupByAge;
     }
 }
