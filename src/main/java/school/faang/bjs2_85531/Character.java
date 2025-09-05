@@ -11,17 +11,9 @@ public abstract class Character {
     private int strength;
     private int agility;
     private int intelligence;
-    private int health = 100;
-
-    public void battle() {
-        if (health < 0) {
-            health = 0;
-            System.out.println("Fight ");
+    protected int health = 100;
 
 
-            defeat();
-        }
-    }
 
     public Character(String name) {
         this.name = name;
@@ -39,5 +31,7 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
-    public abstract void defeat();
+    public boolean isKilling() {
+        return health <= 0;
+    }
 }
