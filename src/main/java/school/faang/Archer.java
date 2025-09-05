@@ -8,7 +8,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.receiveDamage(dexterity);
+        character.receiveDamage(getDexterity());
     }
 
 }
