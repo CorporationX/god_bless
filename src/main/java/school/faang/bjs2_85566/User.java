@@ -1,23 +1,24 @@
 package school.faang.bjs2_85566;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Objects;
 
+@AllArgsConstructor
+@ToString
+
 public class User {
     private String name;
+    @Getter
     private int age;
     private String workplace;
     private String address;
-
-    public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
 
     public static Map<Integer, List<User>> groupUsersByAge(List<User> users) {
         Objects.requireNonNull(users, "users cannot be null");
@@ -26,14 +27,5 @@ public class User {
             groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public String toString() {
-        return "name{" + name + "}--age{" + age + "}--workplace{" + workplace + "}--address{" + address + "}";
     }
 }
