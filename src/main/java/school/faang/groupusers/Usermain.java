@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Usermain {
-    @SuppressWarnings("checkstyle:NoWhitespaceBefore")
     public static void main(String[] args) {
         List<User> userlist = new ArrayList<>();
         userlist.add(new User("name1", 20, "rabota1", "adres1"));
@@ -21,8 +20,8 @@ public class Usermain {
             System.out.println("Возраст: " + entry.getKey());
 
             for (User user : entry.getValue()) {
-                System.out.println(" - Имя: " + user.getName() + ", Место работы: " +
-                        user.getWorkplace() + ", Адрес: " + user.getAddress());
+                System.out.println(" - Имя: %s" + user.getName() + ", Место работы: %s" +
+                        user.getWorkplace() + ", Адрес: %s%n" + user.getAddress());
             }
 
         }
