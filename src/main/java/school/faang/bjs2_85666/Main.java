@@ -18,7 +18,7 @@ public class Main {
         Map<Integer, List<User>> grouped = User.groupUsers(users);
 
         for (Map.Entry<Integer, List<User>> entry : grouped.entrySet()) {
-            System.out.println("Возраст " + entry.getKey() + ": " + entry.getValue());
+            System.out.printf("Возраст %d: %s%n", entry.getKey(), entry.getValue());
         }
     }
 }
