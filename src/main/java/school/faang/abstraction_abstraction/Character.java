@@ -15,10 +15,7 @@ public abstract class Character {
     private static final int INTELLIGENCE_VALUE = 5;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = STRENGTH_VALUE;
-        this.agility = AGILITY_VALUE;
-        this.intellect = INTELLIGENCE_VALUE;
+        this(name, STRENGTH_VALUE, AGILITY_VALUE, INTELLIGENCE_VALUE);
     }
 
     public Character(String name, Integer strength, Integer agility, Integer intellect) {
