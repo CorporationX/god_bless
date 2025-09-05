@@ -28,6 +28,8 @@ public class User {
 
         return userGroupByAge;
     }
+<<<<<<< HEAD
+=======
 
     public String getName() {
         return name;
@@ -44,4 +46,5 @@ public class User {
     public String getAddress() {
         return address;
     }
+>>>>>>> f5f3693b5e5c4527dfd1a59d5a05afe509e00fc8
 }
