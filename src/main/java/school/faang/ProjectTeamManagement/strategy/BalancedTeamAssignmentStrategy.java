@@ -21,7 +21,26 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
 
-        return distributeTeam(project, employees);
+        List<Employee> suitable = findSuitableEmployees(project, employees);
+
+        List<Employee> team = new ArrayList<>();
+        Set<String> coveredSkills = new HashSet<>();
+
+        for (Employee employee : suitable) {
+            Set<String> newSkills = new HashSet<>(employee.getSkills());
+            newSkills.removeAll(coveredSkills);
+
+            if (!newSkills.isEmpty()) {
+                team.add(employee);
+                coveredSkills.addAll(newSkills);
+                increaseLoad(employee);
+            }
+            if (coveredSkills.containsAll(project.getRequiredSkills())) {
+                break;
+            }
+        }
+
+        return team;
 
     }
 
@@ -47,31 +66,6 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
                 Integer.compare(employeeLoad.getOrDefault(e1.getId(), 0),
                              employeeLoad.getOrDefault(e2.getId(), 0))
         );
-    }
-
-    private List<Employee> distributeTeam(Project project, List<Employee> employees) {
-
-        List<Employee> suitable = findSuitableEmployees(project, employees);
-
-        List<Employee> team = new ArrayList<>();
-        Set<String> coveredSkills = new HashSet<>();
-
-        for (Employee employee : suitable) {
-            Set<String> newSkills = new HashSet<>(employee.getSkills());
-            newSkills.removeAll(coveredSkills);
-
-            if (!newSkills.isEmpty()) {
-                team.add(employee);
-                coveredSkills.addAll(newSkills);
-                increaseLoad(employee);
-            }
-            if (coveredSkills.containsAll(project.getRequiredSkills())) {
-                break;
-            }
-        }
-
-        return team;
-
     }
 
     private void increaseLoad(Employee employee) {
