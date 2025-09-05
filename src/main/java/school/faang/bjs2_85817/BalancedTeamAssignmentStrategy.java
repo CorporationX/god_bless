@@ -23,6 +23,6 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
                 resultList.add(employee.get());
             }
         }
-        return resultList.stream().toList();
+        return resultList;
     }
 }
