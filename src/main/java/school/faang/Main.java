@@ -8,17 +8,18 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        User user1 = new User("Alex", 25, 1, Set.of("football", "music"));
-        User user2 = new User("Maria", 30, 2, Set.of("reading", "music"));
-        User user3 = new User("Ivan", 22, 3, Set.of("gaming", "chess"));
+        try {
+            User user = new User("Alice", 25, "Google", "London");
+            System.out.println("Пользователь создан: " + user);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка при создании пользователя: " + e.getMessage());
+        }
 
-        List<User> users = List.of(user1, user2, user3);
-
-        List<String> activities = List.of("music");
-
-        Map<String, String> lovers = User.findHobbyLovers(users, activities);
-
-        System.out.println(lovers);
+        try {
+            User invalidUser = new User("", 17, "Facebook", "Paris");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка при создании пользователя: " + e.getMessage());
+        }
     }
 }
 
