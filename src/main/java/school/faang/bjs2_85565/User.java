@@ -19,11 +19,11 @@ public class User {
     private final String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE + ".");
+            throw new IllegalArgumentException("Возраст не может быть меньше %d.".formatted(MIN_AGE));
         }
         if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Место работы недопустимо.");
