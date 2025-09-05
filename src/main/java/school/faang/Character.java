@@ -1,8 +1,5 @@
 package school.faang;
 
-import lombok.Getter;
-import lombok.Setter;
-
 abstract class Character {
 
     protected String name;
@@ -25,14 +22,10 @@ abstract class Character {
         this.intelligence = 5;
     }
 
+    public abstract void attack(Character character);
+
     protected void receiveDamage(int damage) {
-        if (damage > 0) {
-            this.health -= damage;
-        } else {
-            this.health = 0;
-            System.out.println(name + " is dead and cannot act");
-        }
+        health = Math.max(0, health - damage);
     }
 
-    public abstract void attack(Character character);
 }
