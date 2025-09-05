@@ -19,12 +19,12 @@ public class Main {
         Example.reverse(array2);
         System.out.println("Тест 2: " + Arrays.toString(array2));
 
-        // Тест 3: Массив из одного элемента
+        // Тест 3: Массив одного элемента
         int[] array3 = {42};
         Example.reverse(array3);
         System.out.println("Тест 3: " + Arrays.toString(array3));
 
-        // Тест 4: null (выбросит исключение)
+        // Тест 4: null (исключение)
         try {
             Example.reverse(null);
         } catch (IllegalArgumentException e) {
