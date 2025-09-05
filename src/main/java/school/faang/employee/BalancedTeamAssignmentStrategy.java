@@ -16,12 +16,13 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
         Map<Employee, Integer> projectsByEmployee = new HashMap<>();
         employees.forEach(employee -> projectsByEmployee.put(employee, countEmployeeProjects(employee)));
 
-        project.getRequiredSkills().forEach(skill -> employees.forEach(employee -> {
-            if (projectsByEmployee.get(employee) < MAX_FOR_EMPLOYEE && employee.getSkills().contains(skill)
-                    && !teamMembers.contains(employee)) {
-                teamMembers.add(employee);
-            }
-        }));
+        project.getRequiredSkills()
+                .forEach(skill -> employees.forEach(employee -> {
+                    if (projectsByEmployee.get(employee) < MAX_FOR_EMPLOYEE && employee.skills().contains(skill)
+                            && !teamMembers.contains(employee)) {
+                        teamMembers.add(employee);
+                    }
+                }));
 
         project.setTeamMembers(teamMembers);
         return teamMembers;

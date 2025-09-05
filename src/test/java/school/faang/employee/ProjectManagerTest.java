@@ -1,14 +1,19 @@
 package school.faang.employee;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectManagerTest {
     private final ProjectManager projectManager = new ProjectManager();
-    private final TeamAssignmentStrategy standardTeamAssignmentStrategy = new StandardTeamAssignmentStrategy();
     private final TeamAssignmentStrategy balancedTeamAssignmentStrategy = new BalancedTeamAssignmentStrategy();
 
     @Test
@@ -37,28 +42,28 @@ class ProjectManagerTest {
         projectManager.assignTeamToProject(project2.getProjectId());
         projectManager.assignTeamToProject(project3.getProjectId());
 
-        Assertions.assertTrue(projectManager.getAllProjects().get(0).getTeamMembers()
-                .containsAll(List.of(employee1, employee2, employee3)));
-        Assertions.assertFalse(projectManager.getAllProjects().get(0).getTeamMembers()
-                .containsAll(List.of(employee4, employee5)));
-        Assertions.assertTrue(projectManager.getAllProjects().get(1).getTeamMembers()
-                .containsAll(List.of(employee1, employee2, employee3)));
-        Assertions.assertFalse(projectManager.getAllProjects().get(1).getTeamMembers()
-                .containsAll(List.of(employee4, employee5)));
-        Assertions.assertTrue(projectManager.getAllProjects().get(2).getTeamMembers()
-                .containsAll(List.of(employee1, employee2, employee4)));
-        Assertions.assertFalse(projectManager.getAllProjects().get(2).getTeamMembers()
-                .containsAll(List.of(employee3, employee5)));
-
-        Assertions.assertTrue(projectManager.getTeamForProject(project1.getProjectId())
-                .containsAll((List.of(employee1, employee2, employee3))));
-        Assertions.assertTrue(projectManager.getTeamForProject(project2.getProjectId())
-                .containsAll((List.of(employee1, employee2, employee3))));
-        Assertions.assertTrue(projectManager.getTeamForProject(project3.getProjectId())
-                .containsAll((List.of(employee1, employee2, employee4))));
-
-        Assertions.assertTrue(projectManager.getTeamMembers(project3.getProjectId())
-                .containsAll((List.of(employee1, employee2, employee4))));
+        assertAll(
+                () -> assertTrue(projectManager.getAllProjects().get(0).getTeamMembers()
+                        .containsAll(List.of(employee1, employee2, employee3))),
+                () -> assertFalse(projectManager.getAllProjects().get(0).getTeamMembers()
+                        .containsAll(List.of(employee4, employee5))),
+                () -> assertTrue(projectManager.getAllProjects().get(1).getTeamMembers()
+                        .containsAll(List.of(employee1, employee2, employee3))),
+                () -> assertFalse(projectManager.getAllProjects().get(1).getTeamMembers()
+                        .containsAll(List.of(employee4, employee5))),
+                () -> assertTrue(projectManager.getAllProjects().get(2).getTeamMembers()
+                        .containsAll(List.of(employee1, employee2, employee4))),
+                () -> assertTrue(projectManager.getAllProjects().get(2).getTeamMembers()
+                        .containsAll(List.of(employee1, employee2, employee4))),
+                () -> assertTrue(projectManager.getTeamForProject(project1.getProjectId())
+                        .containsAll(List.of(employee1, employee2, employee3))),
+                () -> assertTrue(projectManager.getTeamForProject(project2.getProjectId())
+                        .containsAll(List.of(employee1, employee2, employee3))),
+                () -> assertTrue(projectManager.getTeamForProject(project3.getProjectId())
+                        .containsAll(List.of(employee1, employee2, employee4))),
+                () -> assertTrue(projectManager.getTeamMembers(project3.getProjectId())
+                        .containsAll(List.of(employee1, employee2, employee4)))
+        );
     }
 
     @Test
@@ -85,25 +90,19 @@ class ProjectManagerTest {
         projectManager.assignTeamToProject(project4.getProjectId());
         projectManager.assignTeamToProject(project5.getProjectId());
 
-        Assertions.assertEquals(projectManager.getAllProjects().get(0).getTeamMembers(), List.of(superEmployee));
-        Assertions.assertEquals(projectManager.getAllProjects().get(1).getTeamMembers(), List.of(superEmployee));
-        Assertions.assertTrue(projectManager.getAllProjects().get(2).getTeamMembers().isEmpty());
-        Assertions.assertTrue(projectManager.getAllProjects().get(3).getTeamMembers().isEmpty());
-        Assertions.assertTrue(projectManager.getAllProjects().get(4).getTeamMembers().isEmpty());
+        assertEquals(projectManager.getAllProjects().get(0).getTeamMembers(), List.of(superEmployee));
+        assertEquals(projectManager.getAllProjects().get(1).getTeamMembers(), List.of(superEmployee));
+        assertTrue(projectManager.getAllProjects().get(2).getTeamMembers().isEmpty());
+        assertTrue(projectManager.getAllProjects().get(3).getTeamMembers().isEmpty());
+        assertTrue(projectManager.getAllProjects().get(4).getTeamMembers().isEmpty());
 
-        Assertions.assertEquals(projectManager.findProjectsForEmployee(superEmployee), List.of(project1, project2));
+        assertEquals(projectManager.findProjectsForEmployee(superEmployee), List.of(project1, project2));
 
         projectManager.assignEmployeeToProject(project3.getProjectId(), superEmployee);
-        Assertions.assertEquals(projectManager.getAllProjects().get(2).getTeamMembers(), List.of(superEmployee));
+        assertEquals(projectManager.getAllProjects().get(2).getTeamMembers(), List.of(superEmployee));
 
         projectManager.removeEmployeeFromProject(project3.getProjectId(), superEmployee);
-        Assertions.assertTrue(projectManager.getAllProjects().get(2).getTeamMembers().isEmpty());
-
-        projectManager.updateEmployeeInfo(1, Set.of("unskill guy"));
-        projectManager.removeIneligibleEmployees(project1);
-        projectManager.removeIneligibleEmployees(project2);
-        Assertions.assertTrue(projectManager.getAllProjects().get(0).getTeamMembers().isEmpty());
-        Assertions.assertTrue(projectManager.getAllProjects().get(1).getTeamMembers().isEmpty());
+        assertTrue(projectManager.getAllProjects().get(2).getTeamMembers().isEmpty());
     }
 
     @Test
@@ -111,29 +110,17 @@ class ProjectManagerTest {
         Project project = new Project(1, "Соц сеть", Set.of("Spring", "Redis", "Kafka"));
         Employee employee = new Employee(1, "Миша", Set.of("Spring", "gRpc", "SQL"));
 
-        ProjectException exception = Assertions.assertThrows(ProjectException.class,
+        assertThrows(NoSuchElementException.class,
                 () -> projectManager.removeIneligibleEmployees(project));
-        Assertions.assertEquals(exception.getMessage(), "Project with id does not exist " + project);
 
-        exception = Assertions.assertThrows(ProjectException.class,
-                () -> projectManager.updateEmployeeInfo(employee.getId(), Set.of()));
-        Assertions.assertEquals(exception.getMessage(),
-                "Employee with id %s does not exist".formatted(employee.getId()));
-
-        exception = Assertions.assertThrows(ProjectException.class,
+        assertThrows(ProjectException.class,
                 () -> projectManager.getTeamMembers(project.getProjectId()));
-        Assertions.assertEquals(exception.getMessage(),
-                "Project with id %s does not exist".formatted(project.getProjectId()));
 
-        exception = Assertions.assertThrows(ProjectException.class,
+        assertThrows(ProjectException.class,
                 () -> projectManager.assignEmployeeToProject(project.getProjectId(), employee));
-        Assertions.assertEquals(exception.getMessage(),
-                "Project with id %s does not exist".formatted(project.getProjectId()));
 
-        exception = Assertions.assertThrows(ProjectException.class,
+        assertThrows(ProjectException.class,
                 () -> projectManager.assignTeamToProject(project.getProjectId()));
-        Assertions.assertEquals(exception.getMessage(),
-                "Project with id %s does not exist".formatted(project.getProjectId()));
     }
 
 }

@@ -9,11 +9,12 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
         List<Employee> teamMembers = new ArrayList<>();
 
-        project.getRequiredSkills().forEach(skill -> employees.forEach(employee -> {
-            if (employee.getSkills().contains(skill) && !teamMembers.contains(employee)) {
-                teamMembers.add(employee);
-            }
-        }));
+        project.getRequiredSkills()
+                .forEach(skill -> employees.forEach(employee -> {
+                    if (employee.skills().contains(skill) && !teamMembers.contains(employee)) {
+                        teamMembers.add(employee);
+                    }
+                }));
 
         project.setTeamMembers(teamMembers);
         return teamMembers;

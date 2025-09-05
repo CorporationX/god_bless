@@ -2,7 +2,6 @@ package school.faang.employee;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ProjectManager {
     private final List<Project> allProjects = new ArrayList<>();
@@ -25,18 +24,25 @@ public class ProjectManager {
     }
 
     public List<Employee> getTeamForProject(int projectId) {
-        return allProjects.stream().filter(project -> project.getProjectId().equals(projectId))
-                .findFirst().map(Project::getTeamMembers)
-                .orElseThrow(
-                        () -> new ProjectException("Project with id %s does not exist".formatted(projectId))
-                );
+        Project project = allProjects.stream()
+                .filter(p -> p.getProjectId().equals(projectId))
+                .reduce((first, second) -> {
+                    throw new ProjectException(
+                            "More than one project with id %s found".formatted(projectId)
+                    );
+                })
+                .orElseThrow(() -> new ProjectException(
+                        "Project with id %s does not exist".formatted(projectId)
+                ));
+
+        return project.getTeamMembers();
     }
 
     public void addEmployee(Employee employee) {
         if (!allEmployees.contains(employee)) {
             allEmployees.add(employee);
         } else {
-            throw new ProjectException("Employee " + employee.getName() + " already exists.");
+            throw new ProjectException("Employee " + employee.name() + " already exists.");
         }
     }
 
@@ -84,22 +90,14 @@ public class ProjectManager {
 
     public void removeIneligibleEmployees(Project project) {
         Project foundProject = allProjects.stream().filter(p -> p.equals(project))
-                .findFirst().orElseThrow(
-                        () -> new ProjectException("Project with id does not exist " + project)
-                );
+                .reduce((first, second) -> {
+                    throw new ProjectException("Project with id does not exist " + project);
+                })
+                .orElseThrow();
 
         foundProject.getTeamMembers().removeIf(employee ->
-                !employee.getSkills().containsAll(foundProject.getRequiredSkills())
+                !employee.skills().containsAll(foundProject.getRequiredSkills())
         );
-    }
-
-    public void updateEmployeeInfo(int employeeId, Set<String> skills) {
-        Employee employee = allEmployees.stream().filter(e -> e.getId().equals(employeeId))
-                .findFirst().orElseThrow(
-                        () -> new ProjectException("Employee with id %s does not exist".formatted(employeeId))
-                );
-
-        employee.setSkills(skills);
     }
 
     private Project findProjectById(int projectId) {
