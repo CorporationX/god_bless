@@ -6,13 +6,13 @@ public class Main {
     public static void main(String[] args) {
         StudentDatabase db = new StudentDatabase();
 
-        Student s1 = new Student("Аня");
-        Student s2 = new Student("Игорь");
-        Student s3 = new Student("Катя");
+        final Student s1 = new Student("Аня");
+        final Student s2 = new Student("Игорь");
+        final Student s3 = new Student("Катя");
 
-        Subject math = new Subject("Математика");
-        Subject physics = new Subject("Физика");
-        Subject history = new Subject("История");
+        final Subject math = new Subject("Математика");
+        final Subject physics = new Subject("Физика");
+        final Subject history = new Subject("История");
 
         Map<Subject, Integer> subjects1 = new HashMap<>();
         subjects1.put(math, 5);
