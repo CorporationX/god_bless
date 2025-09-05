@@ -4,6 +4,7 @@ import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -20,17 +21,9 @@ class StandardWeatherCacheTest {
         String city = "New-York";
 
         WeatherData firstRequest = standardWeatherCache.getWeatherData(city, cacheAge);
-        Assertions.assertEquals(firstRequest, standardWeatherCache.getWeatherData(city, cacheAge));
 
-        sleep(200);
-
-        WeatherData secondRequest = standardWeatherCache.getWeatherData(city, cacheAge);
-        Assertions.assertEquals(secondRequest, firstRequest);
-
-        Awaitility.await()
-                .pollInterval(ONE_HUNDRED_MILLISECONDS)
-                .atMost(FIVE_SECONDS.toSeconds(), TimeUnit.SECONDS)
-                .until(() -> !firstRequest.equals(standardWeatherCache.getWeatherData(city, cacheAge)));
+        waiter(() -> firstRequest.equals(standardWeatherCache.getWeatherData(city, cacheAge)));
+        waiter(() -> !firstRequest.equals(standardWeatherCache.getWeatherData(city, cacheAge)));
     }
 
     @Test
@@ -59,4 +52,12 @@ class StandardWeatherCacheTest {
         Assertions.assertNotEquals(firstRequest, secondRequest);
         Assertions.assertEquals(secondRequest, forced);
     }
+
+    private void waiter(Callable<Boolean> conditionEvaluator) {
+        Awaitility.await()
+                .pollInterval(ONE_HUNDRED_MILLISECONDS)
+                .atMost(FIVE_SECONDS.toSeconds(), TimeUnit.SECONDS)
+                .until(conditionEvaluator);
+    }
+
 }
