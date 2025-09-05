@@ -15,7 +15,6 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Error creating user: " + e.getMessage());
         }
-
         System.out.println("\nTesting invalid users:");
 
         try {
