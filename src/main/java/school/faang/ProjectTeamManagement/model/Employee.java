@@ -10,8 +10,6 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class Employee {
     private int id;
     private String name;

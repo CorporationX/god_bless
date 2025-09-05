@@ -20,8 +20,8 @@ public class Project {
 
     private int projectId;
     private String name;
-    private Set<String> requiredSkills = new HashSet<>();
-    private List<Employee> teamMembers = new ArrayList<>();
+    private Set<String> requiredSkills;
+    private List<Employee> teamMembers;
 
     public Project(int projectId, String name, Set<String> requiredSkills) {
         this.projectId = projectId;
@@ -29,6 +29,4 @@ public class Project {
         this.requiredSkills = new HashSet<>(requiredSkills);
         this.teamMembers = new ArrayList<>();
     }
-
-
 }

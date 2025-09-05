@@ -21,8 +21,7 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
 
-        List<Employee> suitable = findSuitableEmployees(project, employees);
-        return distributeTeam(project, suitable);
+        return distributeTeam(project, employees);
 
     }
 
