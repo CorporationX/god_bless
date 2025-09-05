@@ -3,13 +3,14 @@ package school.faang.bjs2_85543;
 import lombok.Getter;
 import lombok.Setter;
 
+import static school.faang.bjs2_85543.HeroesCharacteristics.CHARACTER_AGILITY_BY_DEFAULT;
+import static school.faang.bjs2_85543.HeroesCharacteristics.CHARACTER_INTELLIGENCE_BY_DEFAULT;
+import static school.faang.bjs2_85543.HeroesCharacteristics.CHARACTER_STRENGTH_BY_DEFAULT;
+import static school.faang.bjs2_85543.HeroesCharacteristics.FULL_HP_BY_DEFAULT;
+
 @Getter
 @Setter
 public abstract class Character {
-    private static final int FULL_HP_BY_DEFAULT = 100;
-    private static final int PARAMETER_STRENGTH_BY_DEFAULT = 5;
-    private static final int PARAMETER_AGILITY_BY_DEFAULT = 5;
-    private static final int PARAMETER_INTELLIGENCE_BY_DEFAULT = 5;
     private int health = FULL_HP_BY_DEFAULT;
     private String name;
     private final int strength;
@@ -25,26 +26,24 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = PARAMETER_STRENGTH_BY_DEFAULT;
-        this.intelligence = PARAMETER_INTELLIGENCE_BY_DEFAULT;
-        this.agility = PARAMETER_AGILITY_BY_DEFAULT;
+        this.strength = CHARACTER_STRENGTH_BY_DEFAULT;
+        this.intelligence = CHARACTER_INTELLIGENCE_BY_DEFAULT;
+        this.agility = CHARACTER_AGILITY_BY_DEFAULT;
     }
 
     public abstract void attack(Character opponent);
 
-    public void getHeroAttackDamage(Character opponent, int damage) {
+    public void reduceHealth(Character opponent, int damage) {
         System.out.printf("Damage caused by %s in size %d by hero %s \n",
-                this.getName(), this.getStrength(), opponent.getName());
+                this.getName(), damage, opponent.getName());
 
         int health = opponent.getHealth() - damage;
-
-        if (health <= 0) {
-            opponent.setHealth(0);
+        opponent.setHealth(Math.max(health, 0));
+        if (opponent.getHealth() == 0) {
             System.out.printf("Hero %s is died \n", opponent.getName());
-            return;
+        } else {
+            System.out.printf("Hero %s have %d hp \n", opponent.getName(), opponent.getHealth());
         }
-        opponent.setHealth(health);
-        System.out.printf("Hero %s have %d hp \n", opponent.getName(), opponent.getHealth());
     }
 
 }
