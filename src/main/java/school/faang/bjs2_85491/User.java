@@ -25,9 +25,9 @@ public class User {
                 userGroupByAge.get(user.getAge()).add(user);
             }
         }
-
         return userGroupByAge;
     }
+
     public String getName() {
         return name;
     }
