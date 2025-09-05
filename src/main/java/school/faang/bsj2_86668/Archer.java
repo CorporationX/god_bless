@@ -6,10 +6,7 @@ public class Archer extends Character {
     private static final int DEFAULT_INTELLIGENCE_VALUE = 5;
 
     public Archer(String name) {
-        super(name);
-        this.strength = DEFAULT_STRENGTH_VALUE;
-        this.agility = DEFAULT_AGILITY_VALUE;
-        this.intelligence = DEFAULT_INTELLIGENCE_VALUE;
+        super(name, DEFAULT_STRENGTH_VALUE, DEFAULT_AGILITY_VALUE, DEFAULT_INTELLIGENCE_VALUE);
     }
 
     @Override

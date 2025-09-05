@@ -4,27 +4,24 @@ import lombok.Data;
 
 @Data
 public abstract class Character {
-    private static final int Default_Health_Value = 100;
-    private static final int Default_Common_Value = 5;
+    private static final int DEFAULT_HEALTH_VALUE = 100;
+    private static final int DEFAULT_COMMON_VALUE = 5;
 
     String name;
     int strength;
     int agility;
     int intelligence;
-    int health = Default_Health_Value;
-
-    public Character(String name) {
-        this.name = name;
-        this.strength = Default_Common_Value;
-        this.agility = Default_Common_Value;
-        this.intelligence = Default_Common_Value;
-    }
+    int health = DEFAULT_HEALTH_VALUE;
 
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+    }
+
+    public Character(String name) {
+        this(name, DEFAULT_COMMON_VALUE, DEFAULT_COMMON_VALUE, DEFAULT_COMMON_VALUE);
     }
 
     public abstract void attack(Character opponent);
