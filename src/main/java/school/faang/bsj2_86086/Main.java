@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bsj2_86086;
 
 import school.faang.bsj2_86086.Book;
 import school.faang.bsj2_86086.LibrarySystem;
@@ -59,4 +59,6 @@ public class Main {
         return librarySystem;
     }
 }
+
+
 

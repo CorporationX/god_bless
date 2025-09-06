@@ -1,10 +1,12 @@
 package school.faang.bsj2_86086;
 
+import lombok.extern.slf4j.XSlf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-    Map<Book, String> bookLocation = new HashMap<>();
+    private final Map<Book, String> bookLocation = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -27,7 +29,7 @@ public class LibrarySystem {
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> pair : bookLocation.entrySet()) {
-            System.out.println("Книга :" + pair.getKey() + "; расположение: " + pair.getValue());
+            System.out.printf("Книга : %s; расположение: %s%n", pair.getKey(), pair.getValue());
         }
     }
 }
