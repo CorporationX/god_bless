@@ -1,6 +1,5 @@
 package school.faang.bjs2_85753;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import java.util.Objects;
