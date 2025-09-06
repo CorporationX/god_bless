@@ -24,6 +24,7 @@ public class HogwartsSpells {
 
         spellById.put(uniqueId, spellEvent);
 
+        // add возвращет boolean, поэтому в одну строку не получается
         List<SpellEvent> spellsList = spellByType.computeIfAbsent(eventType, k -> new ArrayList<>());
         spellsList.add(spellEvent);
 
