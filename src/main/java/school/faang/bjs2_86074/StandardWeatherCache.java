@@ -7,7 +7,7 @@ import static school.faang.bjs2_86074.ConstantWearher.MAX_TEMPARATURE;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_HUMIDITY;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_TEMPARATURE;
 
-public class StandardWeatherCache extends WeatherCacheTemplate{
+public class StandardWeatherCache extends WeatherCacheTemplate {
 
     public StandardWeatherCache(Map<String, WeatherData> weatherDataCash, WeatherProvider weatherProvider) {
         super(weatherDataCash, weatherProvider);
@@ -19,7 +19,7 @@ public class StandardWeatherCache extends WeatherCacheTemplate{
     @Override
     public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         long currentTime = System.currentTimeMillis();
-        if((data.getTimeStamp() - currentTime) > maxCacheAgeMillis){
+        if ((data.getTimeStamp() - currentTime) > maxCacheAgeMillis) {
             return false;
         } else {
             return true;
@@ -28,9 +28,9 @@ public class StandardWeatherCache extends WeatherCacheTemplate{
 
     @Override
     public WeatherData fetchWeatherData(String city) {
-        double temperatureRandom = MIN_TEMPARATURE - Math.random()*(MAX_TEMPARATURE -MIN_TEMPARATURE + 1);
-        double humidityRandom = MIN_HUMIDITY - Math.random()*(MAX_HUMIDITY - MIN_HUMIDITY + 1);
+        double temperatureRandom = MIN_TEMPARATURE - Math.random() * (MAX_TEMPARATURE - MIN_TEMPARATURE + 1);
+        double humidityRandom = MIN_HUMIDITY - Math.random() * (MAX_HUMIDITY - MIN_HUMIDITY + 1);
         long timestamp = System.currentTimeMillis();
-        return new WeatherData(city, temperatureRandom,humidityRandom, timestamp);
+        return new WeatherData(city, temperatureRandom, humidityRandom, timestamp);
     }
 }

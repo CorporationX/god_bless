@@ -12,10 +12,10 @@ public class WeatherService implements WeatherProvider {
 
     @Override
     public WeatherData fetchWeatherData(String city) {
-       double temperatureRandom = MIN_TEMPARATURE - Math.random()*(MAX_TEMPARATURE -MIN_TEMPARATURE + 1);
-       double humidityRandom = MIN_HUMIDITY - Math.random()*(MAX_HUMIDITY - MIN_HUMIDITY + 1);
-       long timestamp = System.currentTimeMillis();
-       return new WeatherData(city, temperatureRandom,humidityRandom, timestamp);
+        double temperatureRandom = MIN_TEMPARATURE - Math.random() * (MAX_TEMPARATURE - MIN_TEMPARATURE + 1);
+        double humidityRandom = MIN_HUMIDITY - Math.random() * (MAX_HUMIDITY - MIN_HUMIDITY + 1);
+        long timestamp = System.currentTimeMillis();
+        return new WeatherData(city, temperatureRandom, humidityRandom, timestamp);
     }
 
     //просто для примера. Примерная логика шаблонного метода получится такая?

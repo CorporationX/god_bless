@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.util.Map;
 
 @Getter
@@ -22,12 +23,12 @@ public abstract class WeatherCacheTemplate implements WeatherProvider {
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if(weatherDataCash.containsKey(city)){
+        if (weatherDataCash.containsKey(city)) {
             WeatherData weatherData = weatherDataCash.get(city);
             if (isCacheExpired(weatherData, maxCacheAgeMillis)) {
                 return weatherData;
             } else {
-               return forceUpdateWeather(city);
+                return forceUpdateWeather(city);
             }
         } else {
             System.out.printf("Данных о городе %s нет", city);
@@ -36,7 +37,7 @@ public abstract class WeatherCacheTemplate implements WeatherProvider {
     }
 
     public WeatherData forceUpdateWeather(String city) {
-      return  weatherDataCash.put(city, fetchWeatherData(city));
+        return weatherDataCash.put(city, fetchWeatherData(city));
     }
 
 }
