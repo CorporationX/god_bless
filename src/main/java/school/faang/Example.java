@@ -6,11 +6,11 @@ import java.util.Arrays;
 
 public class Example {
 
-    public void reverseIt(int[] integers){
+    public void reverseIt(int[] integers) {
         int left = 0;
-        int right = integers.length-1;
+        int right = integers.length - 1;
 
-        while(left<right){
+        while (left<right) {
             int temp = integers[left];
             integers[left] = integers[right];
             integers[right] = temp;
