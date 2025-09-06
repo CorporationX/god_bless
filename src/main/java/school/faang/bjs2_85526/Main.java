@@ -1,7 +1,6 @@
 package school.faang.bjs2_85526;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey());
             for (User user : entry.getValue()) {
-                System.out.println(" - Name: " + user.getName() + ", Address workplace: ");
+                System.out.printf(" - Name: %s,  Workplace:  %s%n", user.getName(), user.getWorkplace());
             }
         }
     }
