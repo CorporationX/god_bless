@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-    // Тест 1
+        // Тест 1
         int[] numbers = {1, 2, 3, 4, 5};
         Example.reverse(numbers);
 
@@ -14,7 +14,7 @@ public class Main {
         }
         System.out.println();
 
-    // Тест 2 Пустой массив
+        // Тест 2 Пустой массив
         int[] array2 = {};
         Example.reverse(array2);
         System.out.println("Тест 2: " + Arrays.toString(array2));
