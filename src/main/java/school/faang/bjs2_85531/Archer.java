@@ -1,8 +1,12 @@
 package school.faang.bjs2_85531;
 
 public class Archer extends Character {
+    public static final int STRENGTH = 5;
+    public static final int AGILITY = 5;
+    public static final int INTELLIGENCE = 5;
+
     public Archer(String name) {
-        super(name, 3, 10, 5);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE);
     }
 
     @Override

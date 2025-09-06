@@ -1,8 +1,12 @@
 package school.faang.bjs2_85531;
 
 public class Warrior extends Character {
+    public static final int STRENGTH = 5;
+    public static final int AGILITY = 5;
+    public static final int INTELLIGENCE = 5;
+
     public Warrior(String name) {
-        super(name, 20, 3, 5);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE);
     }
 
     @Override
