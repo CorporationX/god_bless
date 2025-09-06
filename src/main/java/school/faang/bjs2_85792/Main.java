@@ -15,8 +15,6 @@ public class Main {
         hogwartsSpells.addSpellEvent("attack", "Attack on the store");
         hogwartsSpells.addSpellEvent("attack", "Fire Attack");
 
-        hogwartsSpells.printAllSpellEvents();
-
         hogwartsSpells.deleteSpellEvent(3);
 
         hogwartsSpells.printAllSpellEvents();
