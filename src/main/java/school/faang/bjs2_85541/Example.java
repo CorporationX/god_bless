@@ -1,7 +1,13 @@
 package school.faang.bjs2_85541;
 
+import java.util.Objects;
+
 public class Example {
     public static void reverse(int[] numbers) {
+        Objects.requireNonNull(numbers, "array cannot be null");
+        if (numbers.length <= 1) {
+            return;
+        }
         for (int i = 0; i < numbers.length / 2; i++) {
             int reversingNumber = numbers[i];
             numbers[i] = numbers[numbers.length - 1 - i];
