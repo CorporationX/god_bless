@@ -14,8 +14,8 @@ public class Main {
         User user2 = new User(2, "Natasha", 12, Set.of("reading", "coding", "hiking"));
         User user3 = new User(3, "Alena", 34, Set.of("coding", "hiking", "drawing"));
         User user4 = new User(4, "Maksim", 33, Set.of("gaming", "swimming", "jogging"));
-        User user5 = new User(4, "Andrei", 21, Set.of("reading", "gaming", "swimming"));
-        User user6 = new User(4, "Anya", 42, Set.of("gaming", "jogging", "swimming"));
+        User user5 = new User(5, "Andrei", 21, Set.of("reading", "gaming", "swimming"));
+        User user6 = new User(6, "Anya", 42, Set.of("gaming", "jogging", "swimming"));
 
         List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
