@@ -32,7 +32,7 @@ public class Main {
         students.addStudentWithGrades(alla, allaGrades);
         students.addStudentWithGrades(ivan, ivanGrades);
 
-        students.addSubjectWithStudents(algorithms, studentsStudyingAgorithms);
+        //students.addSubjectWithStudents(algorithms, studentsStudyingAgorithms);
         students.addStudentToSubject(roman, informatics);
 
         students.removeStudentFromSubject(roman, history);
