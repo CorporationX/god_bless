@@ -5,27 +5,32 @@ import java.util.Map;
 
 public class LibrarySystem {
 
-    static Map<Book, String> bookStand = new HashMap<>();
+    private static final Map<Book, String> bookStand = new HashMap<>();
 
     static void addBook(String title, String author, int year, String location) {
         bookStand.put(new Book(title, author, year), location);
-        System.out.println("\n[+] Добавлена новая книга: " +
-                "\n\tНазвание: " + title +
-                "\n\tАвтор: " + author +
-                "\n\tГод издания: " + year +
-                "\n\tПолка: №" + location);
+        System.out.printf("""
+                
+                [+] Добавлена новая книга:\s
+                \tНазвание: %s
+                \tАвтор: %s
+                \tГод издания: %d
+                \tПолка: №%s
+                """, title, author, year, location);
     }
 
     static void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        String location = bookStand.get(book);
+        String location = bookStand.remove(book);
         if (location != null) {
-            bookStand.remove(book);
-            System.out.println("\n[X] Удалена книга: " +
-                    "\n\tНазвание: " + title +
-                    "\n\tАвтор: " + author +
-                    "\n\tГод издания: " + year +
-                    "\n\tПолка: №" + location);
+            System.out.printf("""
+                    
+                    [X] Удалена книга:\s
+                    \tНазвание: %s
+                    \tАвтор: %s
+                    \tГод издания: %d
+                    \tПолка: №%s
+                    """, title, author, year, location);
         } else {
             System.out.println("[!] Книга не найдена!");
         }
@@ -34,12 +39,15 @@ public class LibrarySystem {
     static void findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
         String location = bookStand.get(book);
-        if (bookStand.containsKey(book)) {
-            System.out.println("\n[*] Книга найдена: " +
-                    "\n\tНазвание: " + title +
-                    "\n\tАвтор: " + author +
-                    "\n\tГод издания: " + year +
-                    "\n\tПолка: №" + location);
+        if (location != null) {
+            System.out.printf("""
+                    
+                    [*] Книга найдена:\s
+                    \tНазвание: %s
+                    \tАвтор: %s
+                    \tГод издания: %d
+                    \tПолка: №%s
+                    """, title, author, year, location);
         } else {
             System.out.println("\n[!] Книга не найдена!");
         }
@@ -54,11 +62,14 @@ public class LibrarySystem {
         System.out.println("\n[*] Всего книг в библиотеке: " + bookStand.size());
         for (Map.Entry<Book, String> bookWithPlace : bookStand.entrySet()) {
             Book book = bookWithPlace.getKey();
-            System.out.println("\n[*] Книга: " +
-                    "\n\tНазвание: " + book.getTitle() +
-                    "\n\tАвтор: " + book.getAuthor() +
-                    "\n\tГод издания: " + book.getYear() +
-                    "\n\tПолка: №" + bookWithPlace.getValue());
+            System.out.printf("""
+                    
+                    [*] Книга:\s
+                    \tНазвание: %s
+                    \tАвтор: %s
+                    \tГод издания: %d
+                    \tПолка: №%s
+                    """, book.getTitle(), book.getAuthor(), book.getYear(), bookWithPlace.getValue());
         }
     }
 
