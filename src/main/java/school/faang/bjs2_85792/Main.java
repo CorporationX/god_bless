@@ -20,8 +20,6 @@ public class Main {
 
         librarySystem.findBook("Quiet Don", "Mikhail Sholokhov", 1925);
 
-        librarySystem.removeBook("qwerqwer", "Nsadfe", 2055);
-
         librarySystem.printAllBook();
     }
 
