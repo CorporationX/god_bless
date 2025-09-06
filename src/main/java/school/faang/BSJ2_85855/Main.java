@@ -1,6 +1,5 @@
-package school.faang;
+package school.faang.BSJ2_85855;
 
-import school.faang.BSJ2_85855.HogwartsSpells;
 import java.util.Objects;
 
 public class Main {

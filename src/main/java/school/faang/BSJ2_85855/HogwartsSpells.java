@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HogwartsSpells {
-    Map<Integer, SpellEvent> spellById = new HashMap<>();
-    Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
         List<SpellEvent> spellEvents = new ArrayList<>();
