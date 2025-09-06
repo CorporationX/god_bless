@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
-   private HashMap<Book, String> locationBook = new HashMap<>();
+    private HashMap<Book, String> locationBook = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -14,12 +14,12 @@ public class LibrarySystem {
     public void removeBook(String title, String author, int year) {
         Book bookRemove = new Book(title, author, year);
 
-       if(locationBook.containsKey(bookRemove)){
-           locationBook.remove(new Book(title, author, year));
-           System.out.println("The book was removed from the library");
-       } else {
-           System.out.println("No such book has been found.");
-       }
+        if (locationBook.containsKey(bookRemove)) {
+            locationBook.remove(new Book(title, author, year));
+            System.out.println("The book was removed from the library");
+        } else {
+            System.out.println("No such book has been found.");
+        }
     }
 
     public void findBook(String title, String author, int year) {
@@ -32,7 +32,7 @@ public class LibrarySystem {
     }
 
     public void printAllBook() {
-        for(Map.Entry<Book,String> entry : locationBook.entrySet()){
+        for (Map.Entry<Book, String> entry : locationBook.entrySet()) {
             System.out.print(entry.getKey().toString());
             System.out.println("location:" + entry.getKey().toString());
         }

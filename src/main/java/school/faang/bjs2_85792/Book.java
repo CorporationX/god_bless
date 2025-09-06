@@ -10,9 +10,9 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Book {
-       private String title;
-       private String author;
-       private int year;
+    private String title;
+    private String author;
+    private int year;
 
     @Override
     public String toString() {
