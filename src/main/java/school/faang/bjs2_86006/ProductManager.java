@@ -2,7 +2,13 @@ package school.faang.bjs2_86006;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 @Slf4j
 public class ProductManager {
@@ -68,7 +74,7 @@ public class ProductManager {
     public Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> result = new HashMap<>();
 
-        for (Product product : products ) {
+        for (Product product : products) {
             Category category = product.getCategory();
 
             if (!result.containsKey(category)) {
