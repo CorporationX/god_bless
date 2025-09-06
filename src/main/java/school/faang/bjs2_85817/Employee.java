@@ -1,11 +1,18 @@
 package school.faang.bjs2_85817;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode
+@ToString
 @RequiredArgsConstructor
 public class Employee {
     public static final int DEFAULT_PROJECTS_COUNT = 0;
@@ -15,7 +22,4 @@ public class Employee {
     private final Set<String> skills;
     private Integer projectsCount = DEFAULT_PROJECTS_COUNT;
 
-    public void incrementProjectsCount() {
-        this.projectsCount++;
-    }
 }

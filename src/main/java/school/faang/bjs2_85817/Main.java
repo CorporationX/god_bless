@@ -44,9 +44,9 @@ public class Main {
         projects.put(projectId2, project2);
         projects.put(projectId3, project3);
 
-        ProjectManager projectManager = new ProjectManager();
-        projectManager.setEmployeeList(employeeList);
-        projectManager.setProjectSet(projects);
+        ProjectManager projectManager = new ProjectManager(employeeList, projects);
+       // projectManager.setEmployeeList(employeeList);
+       // projectManager.setProjectSet(projects);
 
         projectManager.setAssignmentStrategy(new BalancedTeamAssignmentStrategy());
         projectManager.assignTeamToProject(projectId1);

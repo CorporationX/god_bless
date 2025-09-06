@@ -2,17 +2,24 @@ package school.faang.bjs2_85817;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
+@ToString
+@EqualsAndHashCode
+@RequiredArgsConstructor
 public class Project {
-    private int projectId;
-    private String name;
-    private Set<String> requiredSkills;
-    private List<Employee> teamMembers;
+    private final int projectId;
+    private final String name;
+    private final Set<String> requiredSkills;
+    private final List<Employee> teamMembers;
 }

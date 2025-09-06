@@ -1,6 +1,8 @@
 package school.faang.bjs2_85817;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -9,16 +11,20 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
-        List<Employee> resultList = new ArrayList<>();
-        Set<String> requiredSkills = project.getRequiredSkills();
+        if (employees.isEmpty() || project.getRequiredSkills().isEmpty()) {
+            return Collections.emptyList();
+        }
 
-        for (String skill : requiredSkills) {
-            Optional<Employee> employee = employees.stream()
-                    .filter(emp -> emp.getSkills().contains(skill))
-                    .findFirst();
-            if (employee.isPresent() && !resultList.contains(employee.get())) {
-                employee.get().incrementProjectsCount();
-                resultList.add(employee.get());
+        List<Employee> resultList = new ArrayList<>();
+        Set<String> requiredSkills = new HashSet<>(project.getRequiredSkills());
+
+        for (Employee employee : employees) {
+            if (requiredSkills.removeAll(employee.getSkills())) {
+                resultList.add(employee);
+                incrementEmployeeProjectsCount(employee);
+            }
+            if (requiredSkills.isEmpty()) {
+                return resultList;
             }
         }
         return resultList;

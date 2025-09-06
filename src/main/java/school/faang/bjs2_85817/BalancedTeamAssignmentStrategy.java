@@ -19,8 +19,8 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
                     .min(Comparator.comparingInt(Employee::getProjectsCount));
 
             if (employee.isPresent() && !resultList.contains(employee.get())) {
-                employee.get().incrementProjectsCount();
                 resultList.add(employee.get());
+                incrementEmployeeProjectsCount(employee.get());
             }
         }
         return resultList;
