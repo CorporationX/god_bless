@@ -58,25 +58,52 @@ public class StudentDataBase {
         }
     }
 
-    public void addNewSubject(String name, Map<Student, Integer> listStudent) {
-        Subject subject = new Subject(name);
+    public void addNewSubject(String nameSub, Map<String, Integer> mapStudentWithRating) {
+        Subject subject = new Subject(nameSub);
+        Map<Student, Integer> students = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : mapStudentWithRating.entrySet()) {
+            Student student = listStudent.stream()
+                    .filter(st -> st.getName().equals(entry.getKey()))
+                    .findFirst()
+                    .orElse(null);
+            students.put(student, entry.getValue());
+        }
+        subjectStudents.put(subject, students.keySet().stream().toList());
 
-        subjectStudents.put(subject, listStudent.keySet().stream().toList());
-
-        for (Map.Entry<Student, Integer> entry : listStudent.entrySet()) {
+        for (Map.Entry<Student, Integer> entry : students.entrySet()) {
             Student student = entry.getKey();
             studentSubjects.computeIfAbsent(student, map -> new HashMap<>()).put(subject, entry.getValue());
         }
     }
 
-    public void addStudentForSubject(Subject subject, Student student, int rating) {
+    public void addStudentForSubject(Subject subject, String nameStudent, int rating) {
+
+        Student student = listStudent.stream()
+                .filter(st -> st.getName().equals(nameStudent))
+                .findFirst()
+                .orElse(null);
+        if (subjectStudents.get(subject).contains(student)) {
+            System.out.println("student have");
+            return;
+        }
         subjectStudents.computeIfAbsent(subject, arr -> new ArrayList<>()).add(student);
 
         Map<Subject, Integer> mapStudent = studentSubjects.get(student);
         mapStudent.put(subject, rating);
     }
 
-    public void deleteStudent(Student student, Subject subject) {
+    public void deleteStudent(String nameStudent, Subject subject) {
+
+        Student student = listStudent.stream()
+                .filter(st -> st.getName().equals(nameStudent))
+                .findFirst()
+                .orElse(null);
+
+        if (!subjectStudents.get(subject).contains(student)) {
+            System.out.println("student don't have!!!!!");
+            return;
+        }
+
         List<Student> listStudent = subjectStudents.get(subject);
         listStudent.remove(student);
         subjectStudents.put(subject, listStudent);

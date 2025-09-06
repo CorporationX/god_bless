@@ -1,6 +1,8 @@
 package school.faang.bjs2_85996;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -32,7 +34,7 @@ public class Main {
         studentDataBase.addNewStudent("Grisha", studentMapGrisha);
 
         Map<Subject, Integer> studentMapVitalya = new HashMap<>();
-        studentMapVitalya.put(sub4, 4);
+        studentMapVitalya.put(sub3, 4);
         studentMapVitalya.put(sub5, 5);
         studentMapVitalya.put(sub2, 3);
         studentDataBase.addNewStudent("Vitalya", studentMapVitalya);
@@ -46,6 +48,22 @@ public class Main {
         studentDataBase.removeStudent("Grisha");
 
         studentDataBase.printAllStudent();
+
+        System.out.println();
+        Map<String, Integer> listStudentForSub = new HashMap<>();
+        listStudentForSub.put("iLya", 3);
+        listStudentForSub.put("Vitalya", 3);
+        studentDataBase.addNewSubject("sub7", listStudentForSub);
+
+        studentDataBase.printAllSubject();
+
+        studentDataBase.addStudentForSubject(sub1, "Dima", 4);
+
+        studentDataBase.printAllSubject();
+
+        studentDataBase.deleteStudent("Dima", sub1);
+
+        studentDataBase.printAllSubject();
 
     }
 }
