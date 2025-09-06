@@ -24,7 +24,8 @@ public class ProductManager {
     }
 
     public void removeProduct(Category category, String name) {
-        boolean isRemoved = products.removeIf(item -> item.getName().equals(name) && item.getCategory().equals(category));
+        boolean isRemoved = products.removeIf(item
+            -> item.getName().equals(name) && item.getCategory().equals(category));
 
         if (isRemoved) {
             System.out.println("Продукт " + category + " " + name + " удален");
