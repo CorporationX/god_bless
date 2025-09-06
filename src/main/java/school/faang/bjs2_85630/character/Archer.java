@@ -16,8 +16,8 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         checkPossibilityOfBattle(this, opponent);
         System.out.printf("%s (archer) is shooting at %s (%s)",
-                name, opponent.name, opponent.getClass().getSimpleName());
+                getName(), opponent.getName(), opponent.getClass().getSimpleName());
         System.out.println();
-        opponent.decreaseHealth(agility);
+        opponent.decreaseHealth(getAgility());
     }
 }

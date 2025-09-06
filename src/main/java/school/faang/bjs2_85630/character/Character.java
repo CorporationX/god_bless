@@ -8,24 +8,23 @@ import school.faang.bjs2_85630.exception.DefeatedCharacterAttackException;
 
 @Getter
 @ToString
-
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = HEALTH;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = DEFAULT_HEALTH;
 
-    private static final int STRENGTH = 5;
-    private static final int AGILITY = 5;
-    private static final int INTELLIGENCE = 5;
-    private static final int HEALTH = 100;
+    private static final int DEFAULT_STRENGTH = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+    private static final int DEFAULT_HEALTH = 100;
 
     public Character(String name) {
         this.name = name;
-        this.strength = STRENGTH;
-        this.agility = AGILITY;
-        this.intelligence = INTELLIGENCE;
+        this.strength = DEFAULT_STRENGTH;
+        this.agility = DEFAULT_AGILITY;
+        this.intelligence = DEFAULT_INTELLIGENCE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -38,11 +37,7 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected void decreaseHealth(int damage) {
-        if (health - damage < 0) {
-            health = 0;
-        } else {
-            health -= damage;
-        }
+        health = Math.max(0, health - damage);
     }
 
     protected static void checkPossibilityOfBattle(Character attacking, Character attacked) {

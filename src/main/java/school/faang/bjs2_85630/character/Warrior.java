@@ -16,8 +16,8 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         checkPossibilityOfBattle(this, opponent);
         System.out.printf("%s (warrior) is hitting %s (%s)",
-                name, opponent.name, opponent.getClass().getSimpleName());
+                getName(), opponent.getName(), opponent.getClass().getSimpleName());
         System.out.println();
-        opponent.decreaseHealth(strength);
+        opponent.decreaseHealth(getStrength());
     }
 }
