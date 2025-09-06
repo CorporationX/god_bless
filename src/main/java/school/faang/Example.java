@@ -10,7 +10,7 @@ public class Example {
         int left = 0;
         int right = integers.length - 1;
 
-        while (left<right) {
+        while (left < right) {
             int temp = integers[left];
             integers[left] = integers[right];
             integers[right] = temp;
