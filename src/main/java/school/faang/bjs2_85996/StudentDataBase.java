@@ -89,6 +89,4 @@ public class StudentDataBase {
     public void printAllSubject() {
         System.out.println(subjectStudents);
     }
-
-
 }

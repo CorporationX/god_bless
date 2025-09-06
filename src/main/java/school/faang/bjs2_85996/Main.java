@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StudentDataBase studentDataBase = new StudentDataBase();
 
         Subject sub1 = new Subject("sub1");
         Subject sub2 = new Subject("sub2");
         Subject sub3 = new Subject("sub3");
-        Subject sub4 = new Subject("sub4");
-        Subject sub5 = new Subject("sub5");
 
         Map<Subject, Integer> studentMapIlya = new HashMap<>();
         studentMapIlya.put(sub1, 5);
         studentMapIlya.put(sub3, 5);
         studentMapIlya.put(sub2, 5);
+        StudentDataBase studentDataBase = new StudentDataBase();
         studentDataBase.addNewStudent("iLya", studentMapIlya);
 
+        Subject sub4 = new Subject("sub4");
+        Subject sub5 = new Subject("sub5");
         Map<Subject, Integer> studentMapDima = new HashMap<>();
         studentMapDima.put(sub1, 5);
         studentMapDima.put(sub4, 3);
@@ -39,7 +39,7 @@ public class Main {
 
         studentDataBase.printAllStudent();
 
-        studentDataBase.addNewSubjectForStudent("sub6","Grisha",4  );
+        studentDataBase.addNewSubjectForStudent("sub6", "Grisha", 4);
 
         studentDataBase.printAllStudent();
 
