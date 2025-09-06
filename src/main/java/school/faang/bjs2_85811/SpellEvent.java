@@ -24,9 +24,14 @@ public class SpellEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
-        return Objects.equals(id, that.id) && Objects.equals(eventType, that.eventType) && Objects.equals(action, that.action);
+        return id.equals(that.id);
     }
 
     @Override
