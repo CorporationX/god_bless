@@ -36,7 +36,7 @@ public class LibrarySystem {
     private static Book checkBookInTheLibrary(String title, String author, int year) {
         try {
             BookValidator.validateBook(title, author, year);
-        } catch(BookNotValidException e) {
+        } catch (BookNotValidException e) {
             throw new BookNotFoundException("there is no such book in the library", e);
         }
 

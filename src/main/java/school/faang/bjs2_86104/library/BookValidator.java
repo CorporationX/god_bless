@@ -5,7 +5,8 @@ import school.faang.bjs2_86104.exception.BookNotValidException;
 import java.time.LocalDate;
 
 public class BookValidator {
-    private BookValidator() {}
+    private BookValidator() {
+    }
 
     static void validateBook(String title, String author, int year) {
         if (title == null || title.isBlank()) {
