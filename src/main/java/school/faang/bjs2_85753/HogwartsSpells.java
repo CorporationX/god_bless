@@ -15,23 +15,14 @@ public class HogwartsSpells {
         if (eventType == null || action == null) {
             throw new NullPointerException("Заклинание должно иметь тип и действие");
         }
-        int id = idForEachSpellEvent;
-        SpellEvent spell = new SpellEvent(id, eventType, action);
+        SpellEvent spell = new SpellEvent(idForEachSpellEvent, eventType, action);
 
         if (spellById.containsValue(spell)) {
             throw new SpellAlreadyExistsException("Такое заклинание уже есть!");
         } else {
-            spellById.put(id, spell);
-            idForEachSpellEvent = idForEachSpellEvent + 1;
+            spellById.put(idForEachSpellEvent++, spell);
         }
-
-        if (spellsByType.containsKey(eventType)) {
-            spellsByType.get(eventType).add(spell);
-        } else {
-            List<SpellEvent> spells = new ArrayList<>();
-            spells.add(spell);
-            spellsByType.put(eventType, spells);
-        }
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(spell);
     }
 
     static SpellEvent getSpellEventById(int id) {
@@ -48,8 +39,7 @@ public class HogwartsSpells {
 
     static void deleteSpellEvent(int id) {
         SpellEvent spell = spellById.remove(id);
-        int index = spellsByType.get(spell.getEventType()).indexOf(spell);
-        spellsByType.get(spell.getEventType()).remove(index);
+        spellsByType.get(spell.getEventType()).remove(spell);
     }
 
     static void printAllSpellEvents() {
