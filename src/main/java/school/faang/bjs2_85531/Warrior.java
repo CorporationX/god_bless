@@ -1,22 +1,25 @@
 package school.faang.bjs2_85531;
 
 public class Warrior extends Character {
-    private static final int strength = 9;
-    private static final int agility = 5;
-    private static final int intelligence = 3;
-
     public Warrior(String name) {
-        super(name, strength, agility, intelligence);
+        super(name, 20, 3, 5);
     }
 
+    @Override
+    public int getHeroAttackDamage() {
+        return getStrength();
+    }
 
     @Override
     public void attack(Character opponent) {
-        health = health - opponent.getAgility();
-        if (isKilling()) {
-            System.out.println(getName() + " повержен");
-            return;
+        if (opponent.isAlive()) {
+            opponent.health = opponent.getHealth() - opponent.getHeroAttackDamage();
+            if (opponent.getHealth() <= 0) {
+                opponent.health = 0;
+                System.out.println(opponent.getName() + " повержен");
+                return;
+            }
+            System.out.println(opponent.getName() + " " + opponent.getHealth() + " ХП");
         }
-        System.out.println(getName() + " " + health + " ХП");
     }
 }

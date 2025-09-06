@@ -7,19 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    protected int health = 100;
-
-
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    protected int health;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -27,11 +22,14 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+        this.health = 100;
     }
 
     public abstract void attack(Character opponent);
 
-    public boolean isKilling() {
-        return health <= 0;
+    public abstract int getHeroAttackDamage();
+
+    public boolean isAlive() {
+        return health > 0;
     }
 }
