@@ -8,8 +8,8 @@ public class User {
     private String job;
     private String address;
 
-    final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
