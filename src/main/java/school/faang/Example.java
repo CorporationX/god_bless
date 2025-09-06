@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Example {
 
-    public void reverseIt(int[] integers) {
+    public static void reverseIt(int[] integers) {
         int left = 0;
         int right = integers.length - 1;
 
