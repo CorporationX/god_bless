@@ -2,10 +2,7 @@ package school.faang.bjs2_85537;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        strength = 3;
-        agility = 10;
-        intelligence = 5;
+        super(name, 3, 10, 5);
     }
 
     public Archer(String name, int strength, int agility, int intelligence) {
@@ -14,9 +11,8 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        System.out.printf("%s attack %s\n", name, opponent.name);
-        opponent.health = opponent.health - this.agility;
-        opponent.checkHealth();
-        System.out.printf("%s has %d HP\n", opponent.name, opponent.health);
+        System.out.printf("%s attack %s\n", getName(), opponent.getName());
+        opponent.receiveDamage(getAgility());
+        System.out.printf("%s has %d HP\n", opponent.getName(), opponent.getHealth());
     }
 }
