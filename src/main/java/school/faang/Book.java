@@ -18,7 +18,9 @@ public class Book {
         if (!(bootToCheck instanceof Book book)) {
             return false;
         }
-        return Objects.equals(book.title, this.title) && Objects.equals(book.author, this.author) && Objects.equals(book.year, this.year);
+        return year == book.year
+                && Objects.equals(title, book.title)
+                && Objects.equals(author, book.author);
     }
 
     @Override
