@@ -1,7 +1,6 @@
 package school.faang.bjs2_85700;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 public abstract class Character {
@@ -48,6 +47,10 @@ public abstract class Character {
         }
     }
 
+    public boolean isAlive() {
+        return health > 0;
+    }
+
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть null или пустым.");
@@ -60,9 +63,5 @@ public abstract class Character {
                 || !(MIN_ABILITY_VALUE <= intelligence && intelligence <= MAX_ABILITY_VALUE)) {
             throw new IllegalArgumentException("Способности должны быть от 1 до 10.");
         }
-    }
-
-    public boolean isAlive() {
-        return health > 0;
     }
 }

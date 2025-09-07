@@ -14,6 +14,8 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         if (opponent != null) {
             opponent.takeDamage(getAgility());
+        } else {
+            throw new IllegalArgumentException("Противник не может быть null.");
         }
     }
 }

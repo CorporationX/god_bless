@@ -14,6 +14,8 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         if (opponent != null) {
             opponent.takeDamage(getStrength());
+        } else {
+            throw new IllegalArgumentException("Противник не может быть null.");
         }
     }
 }
