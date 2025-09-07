@@ -45,7 +45,8 @@ public class SpellEvent {
         if (!(o instanceof SpellEvent that)) {
             return false;
         }
-        return getId() == that.getId() && Objects.equals(getEventType(), that.getEventType()) && Objects.equals(getAction(), that.getAction());
+        return getId() == that.getId() && Objects.equals(getEventType(),
+                that.getEventType()) && Objects.equals(getAction(), that.getAction());
     }
 
     @Override
