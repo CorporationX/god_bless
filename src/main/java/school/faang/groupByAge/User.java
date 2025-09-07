@@ -37,7 +37,7 @@ public class User {
             usersByAge.get(age).add(user);
         }
 
-        for (Map.Entry<Integer, List<User>> entry : usersByAge.entrySet() ) {
+        for (Map.Entry<Integer, List<User>> entry : usersByAge.entrySet()) {
             System.out.println("Age - " + entry.getKey() + ":" + entry.getValue());
         }
         return usersByAge;
