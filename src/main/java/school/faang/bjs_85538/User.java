@@ -1,0 +1,36 @@
+package school.faang.bjs_85538;
+
+import lombok.Data;
+
+import java.util.Set;
+
+@Data
+public class User {
+
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    private String name;
+    private int age;
+    private String job;
+    private String address;
+
+    public User(String name, int age, String job, String address) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Age must be 18 and over");
+        }
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Invalid job");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        }
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.job = job;
+    }
+}
