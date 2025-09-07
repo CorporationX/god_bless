@@ -5,7 +5,6 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-
 public class SpellEvent {
     private static int id = 0;
     private String eventType;
