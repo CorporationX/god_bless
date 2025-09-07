@@ -33,6 +33,7 @@ public class Main {
         //4. Печатаем мапу
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Возраст: " + entry.getKey());
+
             // Получаем список пользователей для этого возраста
             List<User> userInGroupe = entry.getValue();
             // Цикл для печати имени пользователя
