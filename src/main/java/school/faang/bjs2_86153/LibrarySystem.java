@@ -16,9 +16,9 @@ public class LibrarySystem {
         bookLocation.put(new Book(title, author, year), location);
         System.out.println("Книга была добавлена на полку");
 
-   }
+    }
 
-   public void removeBook(String title, String author, int year) {
+    public void removeBook(String title, String author, int year) {
         bookLocation.remove(new Book(title, author, year));
         System.out.println("Вы убрали книгу с полки");
     }
