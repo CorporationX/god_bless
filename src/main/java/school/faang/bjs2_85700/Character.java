@@ -19,12 +19,7 @@ public abstract class Character {
     private int health = DEFAULT_HEALTH;
 
     public Character(String name) {
-        validateName(name);
-
-        this.name = name;
-        this.strength = CHARACTER_DEFAULT_STRENGTH;
-        this.agility = CHARACTER_DEFAULT_AGILITY;
-        this.intelligence = CHARACTER_DEFAULT_INTELLIGENCE;
+        this(name, CHARACTER_DEFAULT_STRENGTH, CHARACTER_DEFAULT_AGILITY, CHARACTER_DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
