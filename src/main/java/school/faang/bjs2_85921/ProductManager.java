@@ -30,7 +30,7 @@ public class ProductManager {
         if (product.isPresent()) {
             products.remove(product.get());
         } else {
-            System.out.println("There is no such product");
+            System.out.println("There is no such product!");
         }
     }
 
