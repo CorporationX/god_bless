@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.studentDB;
 
 import java.util.*;
 
@@ -10,20 +10,15 @@ public class StudentDatabase {
     public void addStudent(Student student, Map<Subject, Integer> subjects) {
         studentSubjects.put(student, subjects);
         subjects.forEach((subject, grade) -> {
-            if (!subjectStudents.containsKey(subject)) {
-                subjectStudents.put(subject, new ArrayList<>());
-            }
-            subjectStudents.get(subject).add(student);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         });
     }
 
-    public void addSubjectToStudent(Subject subject, Student name) {
-        if (studentSubjects.containsKey(name)) {
-            studentSubjects.get(name).put(subject, 0);
-            if (!subjectStudents.containsKey(subject)) {
-                subjectStudents.put(subject, new ArrayList<>());
-            }
-            subjectStudents.get(subject).add(name);
+    public void addSubjectToStudent(Subject subject, Student student) {
+        if (studentSubjects.containsKey(student)) {
+            studentSubjects.get(student).put(subject, 0);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+            subjectStudents.get(subject).add(student);
         }
     }
 
@@ -38,14 +33,16 @@ public class StudentDatabase {
     }
 
     public void deleteStudent(Student student) {
-        studentSubjects.remove(student);
-
-        Iterator<Map.Entry<Subject, List<Student>>> it = subjectStudents.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Subject, List<Student>> entry = it.next();
-            entry.getValue().remove(student);
-            if (entry.getValue().isEmpty()) {
-                it.remove();
+        Map<Subject, Integer> subjectsMap = studentSubjects.remove(student);
+        if (subjectsMap != null) {
+            for (Subject subject : subjectsMap.keySet()) {
+                List<Student> students = subjectStudents.get(subject);
+                if (students != null) {
+                    students.remove(student);
+                    if (students.isEmpty()) {
+                        subjectStudents.remove(subject);
+                    }
+                }
             }
         }
     }
@@ -60,12 +57,8 @@ public class StudentDatabase {
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        if (studentSubjects.containsKey(student)) {
-            studentSubjects.get(student).put(subject, 0);
-        } else {
-            studentSubjects.put(student, new HashMap<>());
-            studentSubjects.get(student).put(subject, 0);
-        }
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>())
+                .put(subject, 0);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {

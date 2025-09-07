@@ -1,10 +1,10 @@
-package school.faang;
+package school.faang.studentDB;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Subject {
+public class Student {
     private String name;
 }
