@@ -11,13 +11,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Product {
-    private static final int DEFAULT_ID = 0;
     private String name;
     private Category category;
-    private int id = DEFAULT_ID;
+    private  final int id;
 
-    public Product(String name, Category category) {
+    public Product(String name, Category category, int id) {
         this.name = name;
         this.category = category;
+        this.id = id;
     }
 }

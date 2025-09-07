@@ -3,26 +3,32 @@ package school.faang.bjs2_85921;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ProductManager {
     private Set<Product> products = new HashSet<>();
+    AtomicCounter atomicCounter = new AtomicCounter();
 
     public void addProduct(Category category, String name) {
-        Product product = new Product(name, category);
-        int id = product.getId() + 1;
-        product.setId(id);
+        atomicCounter.incrementId();
+        Product product = new Product(name, category, atomicCounter.incrementId());
         products.add(product);
     }
 
     public void removeProduct(Category category, String name) {
-        Product product = products.stream()
+        if (name.isBlank() && (Objects.isNull(category))) {
+            System.out.println("you passed an empty field");
+            return;
+        }
+        Optional<Product> product = products.stream()
                 .filter(p -> p.getCategory().equals(category) && p.getName().equals(name))
-                .findFirst()
-                .orElse(null);
-        if (product != null) {
-            products.remove(product);
+                .findFirst();
+
+        if (product.isPresent()) {
+            products.remove(product.get());
         } else {
             System.out.println("There is no such product");
         }
@@ -31,7 +37,7 @@ public class ProductManager {
     public List<Product> findProductsByCategory(Category category) {
 
         return products.stream()
-                .filter(product -> product.getCategory().equals(category))
+                .filter(product -> Objects.equals( product.getCategory(),category))
                 .collect(Collectors.toList());
 
     }
