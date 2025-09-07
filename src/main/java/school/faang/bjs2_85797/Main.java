@@ -6,17 +6,12 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        TeamAssignmentStrategy balance = new BalancedTeamAssignmentStrategy();
-        TeamAssignmentStrategy standart = new StandardTeamAssignmentStrategy();
-
         Employee employeeOne = new Employee(1, "Oleg", Set.of("Java", "SQL", "Docker"));
         Employee employeeTwo = new Employee(2, "Anna", Set.of("Python", "GIT", "Spring"));
         Employee employeeThree = new Employee(3, "Olga", Set.of("C++", "Linux", "Algorithms"));
         Employee employeeFour = new Employee(4, "Ruslan", Set.of("C#", ".NET", "ASP.NET"));
         Employee employeeFive = new Employee(5, "Egor", Set.of("Ruby", "Rails", "PostgreSQL"));
         Employee employeeSix = new Employee(6, "Vadim", Set.of("JavaScript", "React", "Node.js"));
-        Employee employeeSeven = new Employee(7, "Michail", Set.of("Python", "React",
-                "ASP.NET", "Super-puper-navyk"));
 
         List<Employee> employees = new ArrayList<>();
         employees.add(employeeOne);
@@ -28,6 +23,9 @@ public class Main {
 
         Project projectOne = new Project(1, "Project One", Set.of("Java", "Rails", "Node.js"));
         Project projectTwo = new Project(2, "Project Two", Set.of("Python", "Linux", ".NET"));
+
+        Employee employeeSeven = new Employee(7, "Michail", Set.of("Python", "React",
+                "ASP.NET", "Super-puper-navyk"));
 
         List<Project> projects = List.of(projectOne, projectTwo);
 
@@ -77,6 +75,9 @@ public class Main {
         projectManager.getTeamForProject(1);
 
         System.out.println("---------------TEST for set assignment strategy-------");
+        TeamAssignmentStrategy balance = new BalancedTeamAssignmentStrategy();
+        TeamAssignmentStrategy standart = new StandardTeamAssignmentStrategy();
+
         projectManager.removeEmployeeFromProject(1, 7);
         projectManager.setAssignmentStrategy(balance);
     }
