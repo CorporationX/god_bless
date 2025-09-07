@@ -20,7 +20,7 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
 
             if (employee.isPresent() && !resultList.contains(employee.get())) {
                 resultList.add(employee.get());
-                incrementEmployeeProjectsCount(employee.get());
+                EmployeeProjectsCount.incrementEmployeeProjectsCount(employee.get());
             }
         }
         return resultList;

@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor
 public class Employee {

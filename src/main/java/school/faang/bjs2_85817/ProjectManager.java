@@ -11,6 +11,7 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -48,7 +49,7 @@ public class ProjectManager {
         Project project = projectSet.get(projectId);
         if (employee.getSkills().containsAll(project.getRequiredSkills())) {
             project.getTeamMembers().add(employee);
-            employee.setProjectsCount(employee.getProjectsCount() + 1);
+            EmployeeProjectsCount.incrementEmployeeProjectsCount(employee);
         }
     }
 
@@ -56,9 +57,9 @@ public class ProjectManager {
         Project project = projectSet.get(projectId);
         List<Employee> teamMembers = project.getTeamMembers();
         for (Employee employee : teamMembers) {
-            if (employee.getId() == employeeId) {
+            if (Objects.equals(employee.getId(), employeeId)) {
                 teamMembers.remove(employee);
-                employee.setProjectsCount(employee.getProjectsCount() - 1);
+                EmployeeProjectsCount.subtractionEmployeeProjectsCount(employee);
                 return;
             }
         }
@@ -70,7 +71,7 @@ public class ProjectManager {
         for (Employee employee : teamMembers) {
             if (employee.getSkills().contains(project.getRequiredSkills())) {
                 teamMembers.remove(employee);
-                employee.setProjectsCount(employee.getProjectsCount() - 1);
+                EmployeeProjectsCount.subtractionEmployeeProjectsCount(employee);
             }
         }
     }

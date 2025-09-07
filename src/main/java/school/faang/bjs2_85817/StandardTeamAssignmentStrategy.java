@@ -21,7 +21,7 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
         for (Employee employee : employees) {
             if (requiredSkills.removeAll(employee.getSkills())) {
                 resultList.add(employee);
-                incrementEmployeeProjectsCount(employee);
+                EmployeeProjectsCount.incrementEmployeeProjectsCount(employee);
             }
             if (requiredSkills.isEmpty()) {
                 return resultList;

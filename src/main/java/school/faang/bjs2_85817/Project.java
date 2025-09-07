@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor
 public class Project {
     private final int projectId;
