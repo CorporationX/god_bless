@@ -8,6 +8,7 @@ import java.util.Map;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
+
         StudentDatabase database = new StudentDatabase();
 
         Student student1 = new Student("Иван Иванов");
