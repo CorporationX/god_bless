@@ -6,8 +6,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class Product {
-
-    public enum Category {FOOD, ELECTRONICS, CLOTHING, OTHER}
+    public enum Category { FOOD, ELECTRONICS, CLOTHING, OTHER }
 
     private final Integer id;
     private final String name;
