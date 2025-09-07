@@ -23,25 +23,21 @@ public class ProductManager {
     }
 
     private List<Product> findProductsByCategory(Category category) {
-        Map<Category, List<Product>> groupedProductsByCategory = groupProductsByCategory();
-        return groupedProductsByCategory.computeIfAbsent(category, k -> new ArrayList<>());
+        return groupProductsByCategory().getOrDefault(category, new ArrayList<>());
     }
 
     private Map<Category, List<Product>> groupProductsByCategory() {
         Map<Category, List<Product>> groupedProductsByCategory = new HashMap<>();
         for (Product product : products) {
-            List<Product> groupedProducts = groupedProductsByCategory.computeIfAbsent(product.getCategory(),
-                    k -> new ArrayList<>());
-            groupedProducts.add(product);
+            groupedProductsByCategory
+                    .computeIfAbsent(product.getCategory(), k -> new ArrayList<>())
+                    .add(product);
         }
         return groupedProductsByCategory;
     }
 
     public void printAllProducts() {
-        Map<Category, List<Product>> groupedProductsByCategory = groupProductsByCategory();
-        for (Map.Entry<Category, List<Product>> entry : groupedProductsByCategory.entrySet()) {
-            printProducts(entry.getKey(), entry.getValue());
-        }
+        groupProductsByCategory().forEach(this::printProducts);
     }
 
     public void printProductsByCategory(Category category) {

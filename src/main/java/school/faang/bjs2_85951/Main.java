@@ -23,5 +23,7 @@ public class Main {
         productManager.printAllProducts();
         System.out.println("-------------------------------------------");
         productManager.printProductsByCategory(Category.OTHER);
+        System.out.println("-------------------------------------------");
+        productManager.printAllProducts();
     }
 }
