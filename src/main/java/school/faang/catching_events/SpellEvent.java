@@ -8,18 +8,13 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 public class SpellEvent {
-    private static int nextId = 1;
     private final Integer id;
     private final String eventType;
     private final String action;
 
-    protected SpellEvent(String eventType, String action) {
-        this.id = getNextId();
+    protected SpellEvent(Integer id, String eventType, String action) {
+        this.id = id;
         this.eventType = eventType;
         this.action = action;
-    }
-
-    private static int getNextId() {
-        return nextId++;
     }
 }

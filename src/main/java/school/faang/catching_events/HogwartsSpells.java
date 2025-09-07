@@ -7,41 +7,42 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private static final Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private static final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
+    private int nextId = 1;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    static void addSpellEvent(String eventType, String actionDescription) {
-        SpellEvent newSpellEvent = new SpellEvent(eventType, actionDescription);
-        spellById.put(newSpellEvent.getId(), newSpellEvent);
+    void addSpellEvent(String eventType, String actionDescription) {
+        int id = nextId++;
+        SpellEvent newSpellEvent = new SpellEvent(id, eventType, actionDescription);
+        spellById.put(id, newSpellEvent);
         spellsByType
                 .computeIfAbsent(eventType, k -> new ArrayList<>())
                 .add(newSpellEvent);
     }
 
-    static SpellEvent getSpellEventById(int id) {
+    SpellEvent getSpellEventById(int id) {
         return spellById.get(id);
     }
 
-    static List<SpellEvent> getSpellEventsByType(String eventType) {
-        return new ArrayList<>(spellsByType.getOrDefault(eventType, Collections.emptyList()));
+    List<SpellEvent> getSpellEventsByType(String eventType) {
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
-    static void deleteSpellEvent(int id) {
-        SpellEvent event = spellById.get(id);
-        if (event == null) {
+    void deleteSpellEvent(int id) {
+        SpellEvent spellEvent = spellById.remove(id);
+        if (spellEvent == null) {
             throw new IllegalArgumentException("Spell with ID " + id + " not found");
         }
-        spellById.remove(id);
-        List<SpellEvent> events = spellsByType.get(event.getEventType());
+        List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
         if (events != null) {
-            events.remove(event);
+            events.remove(spellEvent);
             if (events.isEmpty()) {
-                spellsByType.remove(event.getEventType());
+                spellsByType.remove(spellEvent.getEventType());
             }
         }
     }
 
-    static void printAllEvents() {
+    void printAllEvents() {
         spellById.forEach((id, spell) ->
                 System.out.println("ID: " + id + ";  "
                         + "ТИП: " + spell.getEventType() + ";  "
@@ -50,53 +51,54 @@ public class HogwartsSpells {
     }
 
     public static void main(String[] args) {
+        HogwartsSpells app = new HogwartsSpells();
         System.out.println();
 
-        addSpellEvent("Чар", "Подчиняет волю противника");
-        addSpellEvent("Трансфигурация", "Преобразует предмет в другой объект");
-        addSpellEvent("Чар", "Восстанавливает здоровье цели");
-        addSpellEvent("Трансфигурация", "Создает обманчивые образы");
-        addSpellEvent("Чар", "Призывает магических существ");
-        addSpellEvent("Зачарование", "Наделяет объект магическими свойствами");
-        addSpellEvent("Зачарование", "Накладывает негативный эффект");
-        addSpellEvent("Чар", "Мгновенно перемещает объект");
-        addSpellEvent("Чар", "Управляет природными элементами");
-        addSpellEvent("Трансфигурация", "Раскрывает скрытую информацию");
+        app.addSpellEvent("Чар", "Подчиняет волю противника");
+        app.addSpellEvent("Трансфигурация", "Преобразует предмет в другой объект");
+        app.addSpellEvent("Чар", "Восстанавливает здоровье цели");
+        app.addSpellEvent("Трансфигурация", "Создает обманчивые образы");
+        app.addSpellEvent("Чар", "Призывает магических существ");
+        app.addSpellEvent("Зачарование", "Наделяет объект магическими свойствами");
+        app.addSpellEvent("Зачарование", "Накладывает негативный эффект");
+        app.addSpellEvent("Чар", "Мгновенно перемещает объект");
+        app.addSpellEvent("Чар", "Управляет природными элементами");
+        app.addSpellEvent("Трансфигурация", "Раскрывает скрытую информацию");
 
         System.out.println("=== ДОБАВЛЕННЫЕ ЗАКЛИНАНИЯ ===");
-        printAllEvents();
+        app.printAllEvents();
 
         System.out.println("\n=== СТАТИСТИКА ===");
-        System.out.println("Всего заклинаний: " + spellById.size());
+        System.out.println("Всего заклинаний: " + app.spellById.size());
         System.out.println("Заклинаний по типам:");
-        spellsByType.forEach((type, spells) ->
+        app.spellsByType.forEach((type, spells) ->
                 System.out.println("  " + type + ": " + spells.size() + " заклинаний")
         );
 
         System.out.println("\n=== ТЕСТ: ВЫВОД ПО ТИПАМ ===");
         System.out.print("\n\tТип: Чары");
-        List<SpellEvent> listOfChar = getSpellEventsByType("Чар");
+        List<SpellEvent> listOfChar = app.getSpellEventsByType("Чар");
         System.out.println("\nВсего заклинаний: " + listOfChar.size());
         listOfChar.forEach(System.out::println);
 
         System.out.print("\n\tТип: Зачарование");
-        List<SpellEvent> listOfEnchant = getSpellEventsByType("Зачарование");
+        List<SpellEvent> listOfEnchant = app.getSpellEventsByType("Зачарование");
         System.out.println("\nВсего заклинаний: " + listOfEnchant.size());
         listOfEnchant.forEach(System.out::println);
 
         System.out.println("\n=== ТЕСТ: ВЫВОД ПО ID ===");
-        System.out.println("ID: 1 - " + getSpellEventById(1));
-        System.out.println("ID: 4 - " + getSpellEventById(4));
-        System.out.println("ID: 5 - " + getSpellEventById(5));
+        System.out.println("ID: 1 - " + app.getSpellEventById(1));
+        System.out.println("ID: 4 - " + app.getSpellEventById(4));
+        System.out.println("ID: 5 - " + app.getSpellEventById(5));
 
-        deleteSpellEvent(1);
-        deleteSpellEvent(4);
-        deleteSpellEvent(5);
-        deleteSpellEvent(7);
-        deleteSpellEvent(8);
-        deleteSpellEvent(10);
+        app.deleteSpellEvent(1);
+        app.deleteSpellEvent(4);
+        app.deleteSpellEvent(5);
+        app.deleteSpellEvent(7);
+        app.deleteSpellEvent(8);
+        app.deleteSpellEvent(10);
 
         System.out.println("\n\tВывод всех заклинаний:");
-        printAllEvents();
+        app.printAllEvents();
     }
 }
