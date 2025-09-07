@@ -9,9 +9,9 @@ public class Main {
     public static void main(String[] args) {
         StudentDatabase database = new StudentDatabase();
 
-        Student ivan = new Student("Ivan Ivanov");
-        Student maria = new Student("Maria Petrova");
-        Student olga = new Student("Olga Sidorova");
+        final Student ivan = new Student("Ivan Ivanov");
+        final Student maria = new Student("Maria Petrova");
+        final Student olga = new Student("Olga Sidorova");
 
         Subject math = new Subject("Mathematics");
         Subject physics = new Subject("Physics");
