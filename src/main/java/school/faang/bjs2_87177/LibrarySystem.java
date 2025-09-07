@@ -69,10 +69,10 @@ public class LibrarySystem {
     }
 
     private void validateBookData(String title, String author, int year) {
-        if (title == null || title.trim().isEmpty()) {
+        if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Название книги не может быть пустым или null.");
         }
-        if (author == null || author.trim().isEmpty()) {
+        if (author == null || author.isBlank()) {
             throw new IllegalArgumentException("Автор не может быть пустым или null.");
         }
         if (year < 0) {
@@ -81,7 +81,7 @@ public class LibrarySystem {
     }
 
     private void validateLocation(String location) {
-        if (location == null || location.trim().isEmpty()) {
+        if (location == null || location.isBlank()) {
             throw new IllegalArgumentException("Локация не может быть пустой или null.");
         }
     }
