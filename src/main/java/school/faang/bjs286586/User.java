@@ -1,0 +1,45 @@
+package school.faang.bjs286586;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.Objects;
+import java.util.Set;
+
+@Getter
+@EqualsAndHashCode
+@ToString
+public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
+
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
+
+    public User(String name, int age, String job, String address) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name can`t be empty: " + name);
+        }
+
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age can`t be under %s: %s".formatted(MIN_AGE, age));
+        }
+
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Job have to be in list of %s: %s".formatted(VALID_JOBS, job));
+        }
+
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Address have to be in list of %s: %s".formatted(VALID_ADDRESSES,
+                    address));
+        }
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+}
