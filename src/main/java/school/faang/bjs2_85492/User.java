@@ -15,12 +15,11 @@ public class User {
         Map<String, String> resultMap = new HashMap<>(); // Создание пустого мапа для вывода результатов
 
         //Перебираем юзеров
-        for(User user : users) {
+        for (User user : users) {
             Set<String> userActivitie = user.getActivities();
 
-
-            for(String activity : userActivitie) {
-                if(targetActivitie.contains(activity)) {
+            for (String activity : userActivitie) {
+                if (targetActivitie.contains(activity)) {
                     resultMap.put(user.name, activity);
                     break;
                 }
