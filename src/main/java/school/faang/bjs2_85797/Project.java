@@ -1,6 +1,5 @@
 package school.faang.bjs2_85797;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -22,9 +21,14 @@ public class Project {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Project project = (Project) o;
-        return Objects.equals(projectId, project.projectId) && Objects.equals(name, project.name) && Objects.equals(requiredSkills, project.requiredSkills) && Objects.equals(teamMembers, project.teamMembers);
+        return Objects.equals(projectId, project.projectId)
+                && Objects.equals(name, project.name)
+                && Objects.equals(requiredSkills, project.requiredSkills)
+                && Objects.equals(teamMembers, project.teamMembers);
     }
 
     @Override

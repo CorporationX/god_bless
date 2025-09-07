@@ -12,8 +12,8 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
         List<Employee> balancedTeam = new ArrayList<>();
         List<Employee> freeEmployees = new ArrayList<>();
 
-        for (Employee e : employees){
-            if(e.getProjectCount() < 1){
+        for (Employee e : employees) {
+            if (e.getProjectCount() < 1) {
                 freeEmployees.add(e);
             }
         }
@@ -34,5 +34,10 @@ public class BalancedTeamAssignmentStrategy implements TeamAssignmentStrategy {
             }
         }
         return balancedTeam;
+    }
+
+    @Override
+    public String toString() {
+        return "BalancedTeamAssignmentStrategy";
     }
 }

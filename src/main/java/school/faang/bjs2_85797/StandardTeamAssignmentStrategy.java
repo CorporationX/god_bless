@@ -31,4 +31,9 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
         }
         return standartTeam;
     }
+
+    @Override
+    public String toString() {
+        return "StandardTeamAssignmentStrategy";
+    }
 }

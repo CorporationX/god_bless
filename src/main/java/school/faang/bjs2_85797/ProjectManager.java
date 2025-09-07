@@ -18,6 +18,7 @@ public class ProjectManager {
         if (strategy != null) {
             this.teamAssignmentStrategy = strategy;
         }
+        System.out.println("Strategy: " + strategy);
     }
 
     void assignTeamToProject(int projectId) {

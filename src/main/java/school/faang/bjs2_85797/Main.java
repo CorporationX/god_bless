@@ -6,6 +6,9 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
+        TeamAssignmentStrategy balance = new BalancedTeamAssignmentStrategy();
+        TeamAssignmentStrategy standart = new StandardTeamAssignmentStrategy();
+
         Employee employeeOne = new Employee(1, "Oleg", Set.of("Java", "SQL", "Docker"));
         Employee employeeTwo = new Employee(2, "Anna", Set.of("Python", "GIT", "Spring"));
         Employee employeeThree = new Employee(3, "Olga", Set.of("C++", "Linux", "Algorithms"));
@@ -63,7 +66,7 @@ public class Main {
         System.out.println();
 
         System.out.println("---------------TEST for remove employee from project-------");
-        projectManager.removeEmployeeFromProject(1,7);
+        projectManager.removeEmployeeFromProject(1, 7);
         projectManager.getTeamForProject(1);
         projectManager.assignEmployeeToProject(1, employeeSeven);
         System.out.println();
@@ -74,6 +77,7 @@ public class Main {
         projectManager.getTeamForProject(1);
 
         System.out.println("---------------TEST for set assignment strategy-------");
-       // projectManager.removeEmployeeFromProject(1);
+        projectManager.removeEmployeeFromProject(1, 7);
+        projectManager.setAssignmentStrategy(balance);
     }
 }
