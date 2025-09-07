@@ -39,11 +39,11 @@ public class HogwartsSpells {
 
         EventType eventType = spellEventById.getEventType();
         List<SpellEvent> listEventType = spellByType.get(eventType);
-        Optional<SpellEvent> spellEvent = listEventType.stream()
+        List<SpellEvent> listSpellEventSortId = listEventType.stream()
                 .filter(sp -> Objects.equals(sp.getId(), id))
-                .findFirst();
-        if (Objects.nonNull(spellEvent)) {
-            listEventType.remove(spellEvent.get());
+                .toList();
+        if (!listSpellEventSortId.isEmpty()) {
+            listEventType.removeAll(listSpellEventSortId);
         }
         spellById.remove(id);
     }
