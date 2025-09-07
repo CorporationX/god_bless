@@ -8,7 +8,6 @@ import lombok.ToString;
 
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 public class Product {
     private final String name;

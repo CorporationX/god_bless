@@ -9,7 +9,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ProductManager {
-    private Set<Product> products = new HashSet<>();
+    private final Set<Product> products = new HashSet<>();
+
     AtomicCounter atomicCounter = new AtomicCounter();
 
     public void addProduct(Category category, String name) {
