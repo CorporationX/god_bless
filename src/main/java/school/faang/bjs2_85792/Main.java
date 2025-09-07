@@ -15,8 +15,6 @@ public class Main {
         hogwartsSpells.addSpellEvent(EventType.Transfiguration, "Attack on the store");
         hogwartsSpells.addSpellEvent(EventType.Transfiguration, "Fire Attack");
 
-        hogwartsSpells.printAllSpellEvents();
-
         hogwartsSpells.deleteSpellEvent(3);
 
         hogwartsSpells.printAllSpellEvents();
