@@ -1,6 +1,4 @@
-package school.faang;
-
-import school.faang.bjs2_85593_grouping_users.User;
+package school.faang.bjs2_85593_grouping_users;
 
 import java.util.ArrayList;
 import java.util.List;
