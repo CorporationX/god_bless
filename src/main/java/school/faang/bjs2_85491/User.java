@@ -25,7 +25,22 @@ public class User {
                 userGroupByAge.get(user.getAge()).add(user);
             }
         }
-
         return userGroupByAge;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }
