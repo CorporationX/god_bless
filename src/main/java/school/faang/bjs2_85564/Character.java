@@ -15,7 +15,9 @@ public abstract class Character {
     private final String name;
 
     public Character(String name) {
-        this(name, Constants.CHARACTER_DEFAULT_STRENGTH, Constants.CHARACTER_DEFAULT_AGILITY, Constants.CHARACTER_DEFAULT_INTELLIGENCE);
+        this(name, Constants.CHARACTER_DEFAULT_STRENGTH,
+                Constants.CHARACTER_DEFAULT_AGILITY,
+                Constants.CHARACTER_DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
