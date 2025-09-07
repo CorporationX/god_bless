@@ -14,26 +14,25 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private HashSet<String> hobbies;
+    private Set<String> hobbies;
 
     public User(String name, int age, Set<String> hobbies) {
         numberOfUsers++;
         this.id = numberOfUsers;
-
         this.name = name;
         this.age = age;
         this.hobbies = new HashSet<>(hobbies);
     }
 
 
-    public static Map<User, Set<String>> findHobbyLovers(User [] users, HashSet<String> hobbies) {
-        Map<User, Set<String>> foundLovers = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(User [] users, Set<String> hobbies) {
+        Map<User, String> foundLovers = new HashMap<>();
 
         for (User u : users) {
             Set<String> retainHobbies = new HashSet<>(u.getHobbies());
             retainHobbies.retainAll(hobbies);
             if (!retainHobbies.isEmpty()) {
-                foundLovers.put(u, retainHobbies);
+                foundLovers.put(u, retainHobbies.toString());
             }
         }
 

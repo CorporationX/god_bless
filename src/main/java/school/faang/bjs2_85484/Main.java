@@ -16,9 +16,9 @@ public class Main {
                 new User("Oleg", 99, new HashSet<>(Arrays.asList("travel", "drawing"))),
         };
 
-        Map<User, Set<String>> usersAndHobbies = User.findHobbyLovers(exampleUsers,
-                                                            new HashSet<>(Arrays.asList("music")));
-        for (Map.Entry<User, Set<String>> item : usersAndHobbies.entrySet()) {
+        Map<User, String> usersAndHobbies = User.findHobbyLovers(exampleUsers,
+                                                            new HashSet<>(Arrays.asList("football", "programming")));
+        for (Map.Entry<User, String> item : usersAndHobbies.entrySet()) {
             System.out.printf("Имя: %s\nОбщие хобби: %s \n---\n", item.getKey().getName(), item.getValue());
         }
 
