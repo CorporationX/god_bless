@@ -1,7 +1,6 @@
 package school.faang.bjs2_86153;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
