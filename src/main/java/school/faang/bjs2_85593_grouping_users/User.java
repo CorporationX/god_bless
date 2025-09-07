@@ -26,12 +26,14 @@ public class User {
         this.name = name;
         this.age = age;
     }
+
     public User(String name, int age, String jobPlace, String address) {
         this.name = name;
         this.age = age;
         this.workPlace = jobPlace;
         this.address = address;
     }
+
     // Создаю статический метод для группировки пользователей по возрасту
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         //Шаг1 Проверяем что List<User> не равен null и не пустой
