@@ -8,19 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public abstract class Character {
-    public static final int STRENGTH = 5;
-    public static final int AQILITY = 5;
-    public static final int INTELLIGENCE = 5;
-    public static final int HEALTH = 100;
-
     private final int strength;
     private final int agility;
     private final int intelligence;
-    private int health = HEALTH;
-    private String name;
+    private int health = Constants.DEFAULT_HEALTH;
+    private final String name;
 
     public Character(String name) {
-        this(name, STRENGTH, AQILITY, INTELLIGENCE);
+        this(name, Constants.CHARACTER_DEFAULT_STRENGTH, Constants.CHARACTER_DEFAULT_AGILITY, Constants.CHARACTER_DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -31,16 +26,16 @@ public abstract class Character {
     }
 
     protected void takeDamage(int damage) {
-        if (isAlive()) {
-            this.health = Math.max(this.health -= damage, 0);
-        } else {
+        if (!isAlive()) {
             System.out.println("Враг уже побеждён!");
+            return;
         }
+        this.health = Math.max(this.health -= damage, 0);
     }
 
     public abstract void attack(Character opponent);
 
-    private boolean isAlive() {
+    public boolean isAlive() {
         return health > 0;
     }
 }
