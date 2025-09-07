@@ -3,7 +3,6 @@ package school.faang.BJS2_85480;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import static school.faang.BJS2_85480.User.findHobbyLovers;
 
 public class Main {
@@ -23,7 +22,7 @@ public class Main {
         Map<User, String> hobbyLovers = findHobbyLovers(users, fitness);
 
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println(entry.getKey().getName() + " => " + entry.getValue());
+            System.out.printf("%s -> %s%n", entry.getKey().getName(), entry.getValue());
         }
     }
 }
