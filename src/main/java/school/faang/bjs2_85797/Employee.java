@@ -31,7 +31,7 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Employee employee = (Employee) o;
