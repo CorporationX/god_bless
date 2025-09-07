@@ -5,7 +5,6 @@ import java.util.List;
 
 import static school.faang.bjs285552.User.groupUsers;
 
-//https://github.com/CorporationX/god_bless/pull/21211
 public class Main {
     private static final List<User> users = new ArrayList<>();
 
