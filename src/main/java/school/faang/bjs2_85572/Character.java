@@ -6,7 +6,7 @@ public class Character {
     private int agility;
     private int intelligence;
     private int health = 100;
-    private final int DEFAULT_COUNTER = 5;
+    private static final int DEFAULT_COUNTER = 5;
 
     public int getStrength() {
         return strength;
