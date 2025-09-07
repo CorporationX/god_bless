@@ -18,10 +18,6 @@ public class User {
     private int age;
     private Set<String> hobbies;
 
-    public Set<String> getActivities() {
-        return hobbies;
-    }
-
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
