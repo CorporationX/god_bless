@@ -1,21 +1,25 @@
 package bjs2_85596;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-
+@Getter
 public abstract class Character {
+
+    private static final int UNIVERSAL_AGILITY = 5;
+    private static final int UNIVERSAL_STRENGTH = 5;
+    private static final int UNIVERSAL_INTELLIGENCE = 5;
+
     protected String name;
-    protected int strength;
     protected int agility;
+    protected int strength;
     protected int intelligence;
     protected int health = 100;
 
     public Character(String name) {
         this.name = name;
-        this.agility = 5;
-        this.intelligence = 5;
-        this.strength = 5;
+        this.agility = UNIVERSAL_AGILITY;
+        this.strength = UNIVERSAL_STRENGTH;
+        this.intelligence = UNIVERSAL_INTELLIGENCE;
     }
 
     public Character(String name, int agility, int strength, int intelligence) {
@@ -26,9 +30,9 @@ public abstract class Character {
 
     }
 
-    public void reduceHealth(int damage) {
+    protected void reduceHealth(int damage) {
         this.health = Math.max(0, this.health - damage);
     }
 
-    public abstract void attack(Character opponent);
+    protected abstract void attack(Character opponent);
 }
