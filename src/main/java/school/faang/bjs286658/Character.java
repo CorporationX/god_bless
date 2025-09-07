@@ -1,12 +1,17 @@
 package school.faang.bjs286658;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
 public abstract class Character {
 
-    protected final String name;
-    protected final int power;
-    protected final int agility;
-    protected final int intelligence;
-    protected int health = 100;
+    private String name;
+    private int power;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -26,17 +31,5 @@ public abstract class Character {
 
     protected void takeDamage(int damage) {
         this.health = Math.max(0, this.health - damage);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "%s {strength=%d, agility=%d, intelligence=%d, health=%d}",
-                name, power, agility, intelligence, health
-        );
     }
 }
