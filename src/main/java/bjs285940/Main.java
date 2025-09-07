@@ -13,9 +13,9 @@ public class Main {
         final Student maria = new Student("Maria Petrova");
         final Student olga = new Student("Olga Sidorova");
 
-        Subject math = new Subject("Mathematics");
-        Subject physics = new Subject("Physics");
-        Subject literature = new Subject("Literature");
+        final Subject math = new Subject("Mathematics");
+        final Subject physics = new Subject("Physics");
+        final Subject literature = new Subject("Literature");
 
         Map<Subject, Integer> ivanGrades = new HashMap<>();
         ivanGrades.put(math, 80);
