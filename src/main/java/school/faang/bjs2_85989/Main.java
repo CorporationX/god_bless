@@ -8,24 +8,20 @@ import java.util.Map;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
+        final StudentDatabase database = new StudentDatabase();
 
-        StudentDatabase database = new StudentDatabase();
-
-        Student student1 = new Student("Иван Иванов");
-        Student student2 = new Student("Петр Петров");
-        Student student3 = new Student("Мария Сидорова");
-
-        // Создаем предметы
-        Subject math = new Subject("Математика");
-        Subject physics = new Subject("Физика");
-        Subject chemistry = new Subject("Химия");
+        final Subject math = new Subject("Математика");
+        final Subject physics = new Subject("Физика");
 
         System.out.println("Добавление студентов с предметами");
+        final Student student1 = new Student("Иван Иванов");
         Map<Subject, Integer> subjects1 = new HashMap<>();
         subjects1.put(math, 5);
         subjects1.put(physics, 4);
         database.addStudent(student1, subjects1);
 
+        final Student student2 = new Student("Петр Петров");
+        final Subject chemistry = new Subject("Химия");
         Map<Subject, Integer> subjects2 = new HashMap<>();
         subjects2.put(math, 3);
         subjects2.put(chemistry, 5);
@@ -39,10 +35,11 @@ public class Main {
         System.out.println("Предметов у студента 1: " + database.getStudentSubjects(student1).size());
 
         System.out.println("\nДобавление предмета со студентами");
+        final Student student3 = new Student("Мария Сидорова");
         Map<Student, Integer> bioStudents = new HashMap<>();
         bioStudents.put(student1, 4);
         bioStudents.put(student3, 5);
-        Subject biology = new Subject("Биология");
+        final Subject biology = new Subject("Биология");
         database.addSubjectWithStudents(biology, bioStudents);
         System.out.println("Студентов у биологии: " + database.getSubjectStudents(biology).size());
 
@@ -68,13 +65,13 @@ public class Main {
         try {
             database.addStudent(null, new HashMap<>());
         } catch (IllegalArgumentException e) {
-            log.error("Ошибка: {}", e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
 
         try {
             database.addSubject(student1, math, 6);
         } catch (IllegalArgumentException e) {
-            log.warn("Предупреждение: {}", e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }
