@@ -15,7 +15,9 @@ public class Book {
 
     @Override
     public boolean equals(Object bootToCheck) {
-        if (!(bootToCheck instanceof Book book)) return false;
+        if (!(bootToCheck instanceof Book book)) {
+            return false;
+        }
         return Objects.equals(book.title, this.title) && Objects.equals(book.author, this.author) && Objects.equals(book.year, this.year);
     }
 
