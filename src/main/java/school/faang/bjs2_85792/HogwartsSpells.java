@@ -11,7 +11,8 @@ import java.util.Optional;
 
 public class HogwartsSpells {
     private final HashMap<Integer, SpellEvent> spellById = new HashMap<>();
-    private final HashMap<EventType, List<SpellEvent>> spellByType = new HashMap<>();AtomicCounter atomicCounter = new AtomicCounter();
+    private final HashMap<EventType, List<SpellEvent>> spellByType = new HashMap<>();
+    AtomicCounter atomicCounter = new AtomicCounter();
 
     public void addSpellEvent(EventType eventType, String actionDescription) {
         int idTemp = atomicCounter.incrementId();
