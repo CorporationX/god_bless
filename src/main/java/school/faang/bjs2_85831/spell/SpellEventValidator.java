@@ -21,8 +21,9 @@ public class SpellEventValidator {
 
     static void validateSpellEventType(String eventType) {
         if (!eventTypes.contains(eventType.toLowerCase())) {
-            throw new EventTypeNotAllowedException("заклинание такого типа недопустимо\n" +
-                    "набор допустимых заклинаний: " + eventTypes);
+            throw new EventTypeNotAllowedException(
+                    String.format("заклинание такого типа недопустимо\nнабор допустимых заклинаний: %s", eventTypes)
+            );
         }
     }
 }

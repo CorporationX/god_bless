@@ -24,13 +24,16 @@ public class HogwartsSpells {
     }
 
     public static void deleteSpellEvent(int id) {
-        checkForId(id);
+        ensureSpellExistsById(id);
         SpellEvent deletedSpell = SPELLS_BY_ID.remove(id);
         SPELLS_BY_TYPE.get(deletedSpell.getEventType()).remove(deletedSpell);
+        if (SPELLS_BY_TYPE.get(deletedSpell.getEventType()).isEmpty()) {
+            SPELLS_BY_TYPE.remove(deletedSpell.getEventType());
+        }
     }
 
     public static void deleteSpellEvents(String eventType) {
-        checkForSpellEventType(eventType);
+        ensureSpellEventTypeExists(eventType);
         List<SpellEvent> deletedSpells = SPELLS_BY_TYPE.remove(eventType);
         for (SpellEvent spell : deletedSpells) {
             SPELLS_BY_ID.remove(spell.getId());
@@ -38,22 +41,22 @@ public class HogwartsSpells {
     }
 
     public static SpellEvent getSpellEventById(int id) {
-        checkForId(id);
+        ensureSpellExistsById(id);
         return SPELLS_BY_ID.get(id);
     }
 
     public static List<SpellEvent> getSpellEventsByType(String eventType) {
-        checkForSpellEventType(eventType);
+        ensureSpellEventTypeExists(eventType);
         return SPELLS_BY_TYPE.get(eventType);
     }
 
-    private static void checkForId(int id) {
+    private static void ensureSpellExistsById(int id) {
         if (!SPELLS_BY_ID.containsKey(id)) {
             throw new SpellEventNotFoundException("заклинание с таким идентификатором не зарегистрировано в Хогвартс");
         }
     }
 
-    private static void checkForSpellEventType(String eventType) {
+    private static void ensureSpellEventTypeExists(String eventType) {
         SpellEventValidator.validateSpellEventType(eventType);
         if (!SPELLS_BY_TYPE.containsKey(eventType)) {
             throw new EventTypeNotAllowedException("в школе Хогвартс пока нет подобных заклинаний");
@@ -61,6 +64,6 @@ public class HogwartsSpells {
     }
 
     public static void printAllSpellEvents() {
-        SPELLS_BY_ID.forEach((id, spellEvent) -> System.out.println(spellEvent));
+        SPELLS_BY_ID.values().forEach(System.out::println);
     }
 }
