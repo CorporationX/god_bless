@@ -1,10 +1,15 @@
 package school.faang.groupByAge;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+@Setter
+@Getter
 
 public class User {
     private String name;
@@ -41,38 +46,6 @@ public class User {
     @Override
     public String toString() {
         return String.format(name);
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setWorkAddress(String workAddress) {
-        this.workAddress = workAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getWorkAddress() {
-        return workAddress;
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
     }
 
 
