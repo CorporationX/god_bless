@@ -26,7 +26,7 @@ public class User {
         }
 
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Age can`t be under " + MIN_AGE + ": " + age);
+            throw new IllegalArgumentException("Age can`t be under %s: %s".formatted(MIN_AGE, age));
         }
 
         if (!VALID_JOBS.contains(job)) {
