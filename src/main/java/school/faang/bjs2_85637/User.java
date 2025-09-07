@@ -1,4 +1,4 @@
-package school.faang.groupByAge;
+package school.faang.bjs2_85637;
 
 import lombok.Getter;
 import lombok.Setter;
