@@ -11,9 +11,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Product {
-    private String name;
-    private Category category;
-    private  final int id;
+    private final String name;
+    private final Category category;
+    private final int id;
 
     public Product(String name, Category category, int id) {
         this.name = name;

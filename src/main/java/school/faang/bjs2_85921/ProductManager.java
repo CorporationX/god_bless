@@ -13,7 +13,6 @@ public class ProductManager {
     AtomicCounter atomicCounter = new AtomicCounter();
 
     public void addProduct(Category category, String name) {
-        atomicCounter.incrementId();
         Product product = new Product(name, category, atomicCounter.incrementId());
         products.add(product);
     }
@@ -24,7 +23,7 @@ public class ProductManager {
             return;
         }
         Optional<Product> product = products.stream()
-                .filter(p -> p.getCategory().equals(category) && p.getName().equals(name))
+                .filter(p -> Objects.equals(p.getCategory(), category) && Objects.equals(p.getName(), name))
                 .findFirst();
 
         if (product.isPresent()) {
@@ -43,8 +42,11 @@ public class ProductManager {
     }
 
     public Map<Category, List<String>> groupingProductsByCategory() {
-        return products.stream().collect(Collectors.groupingBy(Product::getCategory,
-                Collectors.mapping(Product::getName, Collectors.toList())));
+        return products.stream()
+                .collect(Collectors.groupingBy(
+                        Product::getCategory,
+                        Collectors.mapping(Product::getName,
+        Collectors.toList())));
     }
 
     public void printAllProducts() {
