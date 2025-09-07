@@ -37,7 +37,7 @@ public class ProductManager {
     public List<Product> findProductsByCategory(Category category) {
 
         return products.stream()
-                .filter(product -> Objects.equals( product.getCategory(),category))
+                .filter(product -> Objects.equals(product.getCategory(), category))
                 .collect(Collectors.toList());
 
     }
