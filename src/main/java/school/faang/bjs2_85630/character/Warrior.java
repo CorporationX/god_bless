@@ -1,0 +1,23 @@
+package school.faang.bjs2_85630.character;
+
+public class Warrior extends Character {
+    private static final int WARRIOR_STRENGTH = 10;
+    private static final int WARRIOR_AGILITY = 5;
+    private static final int WARRIOR_INTELLIGENCE = 3;
+
+    public Warrior(String name) {
+        super(name, WARRIOR_STRENGTH, WARRIOR_AGILITY, WARRIOR_INTELLIGENCE);
+    }
+
+    public Warrior(String name, int strength, int agility, int intelligence) {
+        super(name, strength, agility, intelligence);
+    }
+
+    public void attack(Character opponent) {
+        checkPossibilityOfBattle(this, opponent);
+        System.out.printf("%s (warrior) is hitting %s (%s)",
+                getName(), opponent.getName(), opponent.getClass().getSimpleName());
+        System.out.println();
+        opponent.decreaseHealth(getStrength());
+    }
+}
