@@ -1,12 +1,22 @@
 package school.faang.Bjs2_85563;
 
 public class Example {
-    public int[] reverse(int[] nums) {
-        int[] revereseNums = new int[nums.length];
-        int length = nums.length;
-        for (int i = 0; i < length; i++) {
-            revereseNums[length - (i + 1)] = nums[i];
+    public static void reverse(int[] nums) {
+        if (nums == null && nums.length <= 1) {
+            return;
         }
-        return revereseNums;
+        int left = 0;
+        int right = nums.length - 1;
+        int memory;
+        while (right > left) {
+            memory = nums[left];
+            nums[left] = nums[right];
+            nums[right] = memory;
+            left++;
+            right--;
+
+        }
     }
+
 }
+
