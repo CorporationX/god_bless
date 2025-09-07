@@ -27,7 +27,7 @@ public class LibrarySystem {
         }
     }
 
-    public void printALlBooks() {
+    public void printAllBooks() {
         for (Map.Entry<Book, String> entry : books.entrySet()) {
             System.out.println(entry.getKey());
             System.out.println("Местонахождение: " + entry.getValue());
