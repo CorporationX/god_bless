@@ -22,8 +22,8 @@ public class Main {
 
         System.out.println("");
 
-        System.out.println(hogwartsSpells.deleteSpellEvent(Objects.hash("eventType10", "actionDescription10")));
-        System.out.println(hogwartsSpells.deleteSpellEvent(Objects.hash("eventType1", "actionDescription1")));
+        System.out.println(hogwartsSpells.isDeleteSpellEvent(Objects.hash("eventType10", "actionDescription10")));
+        System.out.println(hogwartsSpells.isDeleteSpellEvent(Objects.hash("eventType1", "actionDescription1")));
 
         System.out.println("");
 
