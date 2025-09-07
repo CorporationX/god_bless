@@ -5,18 +5,19 @@ import ch.qos.logback.core.pattern.util.AlmostAsIsEscapeUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class HogwartsSpells {
-    private static final int DEFAULT_ID = 0;
     private HashMap<Integer, SpellEvent> spellById = new HashMap<>();
-    private HashMap<String, List<SpellEvent>> spellByType = new HashMap<>();
-    private int id = DEFAULT_ID;
+    private HashMap<EventType, List<SpellEvent>> spellByType = new HashMap<>();
+    private int id;
+    AtomicCounter atomicCounter = new AtomicCounter();
 
-    public void addSpellEvent(String eventType, String actionDescription) {
-
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
-        spellById.put(id, spellEvent);
-        id++;
+    public void addSpellEvent(EventType eventType, String actionDescription) {
+        int idTemp = atomicCounter.incrementId();
+        SpellEvent spellEvent = new SpellEvent(idTemp, eventType, actionDescription);
+        spellById.put(idTemp, spellEvent);
 
         spellByType.computeIfAbsent(eventType, arr -> new ArrayList<>()).add(spellEvent);
     }
@@ -30,19 +31,20 @@ public class HogwartsSpells {
     }
 
     public void deleteSpellEvent(int id) {
+        if (Objects.isNull(spellById.get(id))) {
+            System.out.println("There is no such id");
+            return;
+        }
 
-        System.out.println(spellById.get(id));
-
-        String eventType = spellById.get(id).getEventType();
+        EventType eventType = spellById.get(id).getEventType();
         List<SpellEvent> listEventType = spellByType.get(eventType);
-        SpellEvent spellEvent = listEventType.stream()
-                .filter(sp -> sp.getId() == id)
-                .findFirst().orElse(null);
-        if (spellEvent != null) {
-            listEventType.remove(spellEvent);
+        Optional<SpellEvent> spellEvent = listEventType.stream()
+                .filter(sp -> Objects.equals(sp.getId(), id))
+                .findFirst();
+        if (Objects.nonNull(spellEvent)) {
+            listEventType.remove(spellEvent.get());
         }
         spellByType.put(eventType, listEventType);
-
         spellById.remove(id);
     }
 

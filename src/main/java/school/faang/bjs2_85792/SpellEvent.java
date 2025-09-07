@@ -8,11 +8,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @AllArgsConstructor
 @ToString
 public class SpellEvent {
     private int id;
-    private String eventType;
-    private String action;
+    private EventType eventType;
+    private final String action;
 }
