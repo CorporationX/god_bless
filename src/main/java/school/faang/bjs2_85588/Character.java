@@ -4,6 +4,9 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
+    private static final int DEFAULT_STRENGTH = 5;
+    private static final int DEFAULT_AGILITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 3;
     protected String name;
     protected int strength;
     protected int agility;
@@ -11,7 +14,7 @@ public abstract class Character {
     protected int health = 100;
 
     public Character(String name) {
-        this(name, 5, 5, 5);
+        this(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
