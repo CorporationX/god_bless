@@ -3,7 +3,6 @@ package school.faang.bjs2_85537;
 import lombok.Getter;
 
 @Getter
-
 public abstract class Character {
     private String name;
     private int strength;
@@ -25,10 +24,6 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void receiveDamage(int damage) {
-        if ((health - damage) < 0) {
-            health = 0;
-        } else {
-            health -= damage;
-        }
+        health = Math.max(0, health - damage);
     }
 }
