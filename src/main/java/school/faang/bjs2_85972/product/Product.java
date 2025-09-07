@@ -1,32 +1,14 @@
 package school.faang.bjs2_85972.product;
 
-import lombok.Getter;
-
 import java.util.Objects;
 
-@Getter
-public class Product {
-    private final int id;
-    private final String name;
-    private final Category category;
-
-    private static int counter = 0;
-
-    public Product(String name, Category category) {
-        this.id = ++counter;
-        this.name = name;
-        this.category = category;
-    }
+public record Product(int id, String name, Category category) {
 
     public enum Category {
         FOOD,
         ELECTRONICS,
         CLOTHING,
         OTHER
-    }
-
-    static void decreaseCounter() {
-        counter--;
     }
 
     @Override
@@ -47,6 +29,6 @@ public class Product {
     }
 
     public String toString() {
-        return "id[" + id + "]--name[" + name + "]--category[" + category + "]";
+        return String.format("id[%d]--name[%s]--category[%s]", id, name, category);
     }
 }

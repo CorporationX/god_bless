@@ -14,6 +14,8 @@ import school.faang.bjs2_85972.product.Product.Category;
 public class ProductManager {
     private static final Set<Product> STOCK = new HashSet<>();
 
+    private static int counter = 0;
+
     private ProductManager() {
 
     }
@@ -25,18 +27,16 @@ public class ProductManager {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("product name cannot be null, empty or a space");
         }
-        STOCK.add(new Product(name, category));
+        STOCK.add(new Product(++counter, name, category));
     }
 
     public static void removeProduct(Category category, String name) {
         checkForStockSize();
-        Product deletedProduct = new Product(name, category);
+        Product deletedProduct = new Product(counter, name, category);
         if (!STOCK.contains(deletedProduct)) {
-            Product.decreaseCounter();
             throw new ProductNotFoundException("there is no such product in stock");
         }
         STOCK.remove(deletedProduct);
-        Product.decreaseCounter();
     }
 
     public static List<Product> findProductsByCategory(Category category) {
@@ -47,7 +47,7 @@ public class ProductManager {
 
         List<Product> foundByCategory = new ArrayList<>();
         for (Product product : STOCK) {
-            if (product.getCategory() == category) {
+            if (product.category() == category) {
                 foundByCategory.add(product);
             }
         }
@@ -62,7 +62,7 @@ public class ProductManager {
         checkForStockSize();
         Map<Category, List<Product>> groupedByCategory = new HashMap<>();
         for (Product product : STOCK) {
-            groupedByCategory.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
+            groupedByCategory.computeIfAbsent(product.category(), k -> new ArrayList<>()).add(product);
         }
         return groupedByCategory;
     }
@@ -73,7 +73,7 @@ public class ProductManager {
         groupedByCategory.forEach((category, products) -> {
             System.out.println("Category: " + category + "\nProducts: ");
             for (Product product : products) {
-                System.out.println("- " + product.getName());
+                System.out.println("- " + product.name());
             }
             System.out.println();
         });

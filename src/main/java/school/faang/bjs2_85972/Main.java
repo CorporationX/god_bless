@@ -30,8 +30,20 @@ public class Main {
         ProductManager.addProduct(OTHER, "Бюст Ленина");
         ProductManager.printAllProducts();
 
-        List<Product> groupOfCategory = ProductManager.findProductsByCategory(ELECTRONICS);
-        groupOfCategory.forEach(System.out::println);
+        List<Product> groupOfFood = ProductManager.findProductsByCategory(FOOD);
+        groupOfFood.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> groupOfElectronics = ProductManager.findProductsByCategory(ELECTRONICS);
+        groupOfElectronics.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> groupOfClothing = ProductManager.findProductsByCategory(CLOTHING);
+        groupOfClothing.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> groupOfOther = ProductManager.findProductsByCategory(OTHER);
+        groupOfOther.forEach(System.out::println);
         System.out.println();
 
         ProductManager.removeProduct(FOOD, "Печенье");
@@ -39,5 +51,21 @@ public class Main {
         ProductManager.removeProduct(CLOTHING, "Носки");
         ProductManager.removeProduct(OTHER, "Бюст Ленина");
         ProductManager.printAllProducts();
+
+        List<Product> newGroupOfFood = ProductManager.findProductsByCategory(FOOD);
+        newGroupOfFood.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> newGroupOfElectronics = ProductManager.findProductsByCategory(ELECTRONICS);
+        newGroupOfElectronics.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> newGroupOfClothing = ProductManager.findProductsByCategory(CLOTHING);
+        newGroupOfClothing.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> newGroupOfOther = ProductManager.findProductsByCategory(OTHER);
+        newGroupOfOther.forEach(System.out::println);
+        System.out.println();
     }
 }
