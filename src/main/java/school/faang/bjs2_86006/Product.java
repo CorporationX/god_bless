@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "id")
 @Getter
 @AllArgsConstructor
 public class Product {

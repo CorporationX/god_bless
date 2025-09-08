@@ -3,12 +3,12 @@ package school.faang.bjs2_86006;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
+
 
 @Slf4j
 public class ProductManager {
@@ -43,17 +43,17 @@ public class ProductManager {
             throw new IllegalArgumentException("Имя продукта не может быть пустым");
         }
 
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getCategory() == category && product.getName().equals(name)) {
-                iterator.remove();
-                log.info("Продукт '{}' категории {} успешно удален", name, category);
-                return true;
-            }
+        Product productToRemove = new Product(0, name, category);
+
+        boolean removed = products.remove(productToRemove);
+
+        if (removed) {
+            log.info("Продукт '{}' категории {} успешно удален", name, category);
+        } else {
+            log.warn("Продукт '{}' категории {} не найден", name, category);
         }
-        log.warn("Продукт '{}' категории {} не найден для удаления", name, category);
-        return false;
+
+        return removed;
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -77,10 +77,7 @@ public class ProductManager {
         for (Product product : products) {
             Category category = product.getCategory();
 
-            if (!result.containsKey(category)) {
-                result.put(category, new ArrayList<>());
-            }
-            result.get(category).add(product);
+            result.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
         }
         return result;
     }
