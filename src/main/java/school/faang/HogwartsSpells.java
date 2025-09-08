@@ -36,7 +36,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return List.copyOf(spellsByType.getOrDefault(eventType, Collections.emptyList()));
+        return spellsByType.getOrDefault(eventType, Collections.emptyList());
     }
 
     public void deleteSpellEvent(int id) {
