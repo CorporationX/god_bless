@@ -27,8 +27,8 @@ public class Main {
         subjects2.put(chemistry, 5);
         database.addStudent(student2, subjects2);
 
-        System.out.println("Студентов: " + database.getAllStudents().size());
-        System.out.println("Предметов: " + database.getAllSubjects().size());
+        System.out.println("Студентов: " + database.getStudentSubjects().keySet().size());
+        System.out.println("Предметов: " + database.getSubjectStudents().keySet().size());
 
         System.out.println("\nДобавление предмета студенту");
         database.addSubject(student1, chemistry, 4);
@@ -53,7 +53,7 @@ public class Main {
 
         System.out.println("\nУдаление студента полностью");
         database.removeStudentAndSubjects(student2);
-        System.out.println("Студентов в базе: " + database.getAllStudents().size());
+        System.out.println("Студентов в базе: " + database.getStudentSubjects().keySet().size());
 
         System.out.println("\nВывод студентов с оценками");
         database.printAllStudentsWithGrades();

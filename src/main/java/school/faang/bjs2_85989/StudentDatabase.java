@@ -1,5 +1,6 @@
 package school.faang.bjs2_85989;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
+@Getter
 @Slf4j
 public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
@@ -57,9 +59,8 @@ public class StudentDatabase {
             return false;
         }
 
-        Map<Subject, Integer> studentSubjectsCopy = new HashMap<>(studentSubjects.get(student));
+        Map<Subject, Integer> studentSubjectsCopy = studentSubjects.remove(student);
 
-        studentSubjects.remove(student);
         log.info("Студент '{}' удален из основной мапы", student.getName());
 
         int removedCount = 0;
@@ -201,14 +202,8 @@ public class StudentDatabase {
         }
     }
 
-    // вспомогательные
-    public Set<Student> getAllStudents() {
-        return studentSubjects.keySet();
-    }
-
-    public Set<Subject> getAllSubjects() {
-        return subjectStudents.keySet();
-    }
+    // вспомогательные, эти две решил оставить, вполне удобно и инкапсуляцию не нарушает
+    // а вот геттеры наоборот мне кажется раскрывают немного структуру
 
     public Map<Subject, Integer> getStudentSubjects(Student student) {
         return studentSubjects.getOrDefault(student, new HashMap<>());
