@@ -9,7 +9,7 @@ public class Main {
         String simSalabim = "SimSalabim";
 
         spellCaster.cast(abraKadabra, (spell) -> "Make wine from water by" + spell);
-        spellCaster.cast(wooaLya, (spell) -> "Make me invisible by" + spell);
+        spellCaster.cast(wooaLya, (spell) -> "Make me invisible by " + spell);
         spellCaster.cast(simSalabim, (spell) -> "Do something by " + spell);
     }
 }
