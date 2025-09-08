@@ -7,12 +7,24 @@ public class Main {
         Notification notificationSms = new Notification(NotificationType.SMS, "Завтра будет дождь, не забудьте взять зонтик");
 
         NotificationManager notificationManager = new NotificationManager();
-        notificationManager.registerHandler(NotificationType.PUSH, notification -> System.out.println("Отправка уведомления в приложений: \"" + notification.getMessage() + "\""));
-        notificationManager.registerHandler(NotificationType.EMAIL, notification -> System.out.println("Отправка сообщения по почте: \"" + notification.getMessage() + "\""));
-        notificationManager.registerHandler(NotificationType.SMS, notification -> System.out.println("Отправка сообщения на номер: \"" + notification.getMessage() + "\""));
+        notificationManager.registerHandler(NotificationType.PUSH,
+                notification -> System.out.println("Отправка уведомления в приложений: \"" +
+                        notification.getMessage() + "\""));
+        notificationManager.registerHandler(NotificationType.EMAIL,
+                notification -> System.out.println("Отправка сообщения по почте: \"" +
+                        notification.getMessage() + "\""));
+        notificationManager.registerHandler(NotificationType.SMS,
+                notification -> System.out.println("Отправка сообщения на номер: \"" +
+                        notification.getMessage() + "\""));
 
-        notificationManager.sendNotification(notification -> notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH, notificationEmail);
-        notificationManager.sendNotification(notification -> notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH, notificationPush);
-        notificationManager.sendNotification(notification -> notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH, notificationSms);
+        notificationManager.sendNotification(notification ->
+                        notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH,
+                        notificationEmail);
+        notificationManager.sendNotification(notification ->
+                        notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH,
+                        notificationPush);
+        notificationManager.sendNotification(notification ->
+                        notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH,
+                        notificationSms);
     }
 }
