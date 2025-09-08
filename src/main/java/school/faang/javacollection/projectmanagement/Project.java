@@ -1,6 +1,5 @@
 package school.faang.javacollection.projectmanagement;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import java.util.Set;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@EqualsAndHashCode
 public class Project {
     private final int projectId;
     private final String name;

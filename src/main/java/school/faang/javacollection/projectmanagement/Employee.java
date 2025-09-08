@@ -1,6 +1,5 @@
 package school.faang.javacollection.projectmanagement;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import java.util.Set;
 @Getter
 @ToString
 @RequiredArgsConstructor
-@EqualsAndHashCode
 public class Employee {
     public static final int DEFAULT_PROJECTS_COUNT = 0;
 

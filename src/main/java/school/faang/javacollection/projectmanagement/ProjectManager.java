@@ -8,7 +8,12 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
+import static school.faang.javacollection.projectmanagement.EmployeeProjectsCount.incrementEmployeeProjectsCount;
+import static school.faang.javacollection.projectmanagement.EmployeeProjectsCount.decrementEmployeeProjectsCount;
 
 @Setter
 @Getter
@@ -21,14 +26,14 @@ public class ProjectManager {
     private TeamAssignmentStrategy assignmentStrategy;
 
     public void assignTeamToProject(int projectId) {
-        Project project = projectSet.get(projectId);
+        Project project = Optional.ofNullable(projectSet.get(projectId)).orElseThrow();
         List<Employee> requiredEmployee = assignmentStrategy.assignTeam(project, employeeList);
         project.getTeamMembers().addAll(requiredEmployee);
         projectSet.put(projectId, project);
     }
 
     public List<Employee> getTeamForProject(int projectId) {
-        return projectSet.get(projectId).getTeamMembers();
+        return Optional.ofNullable(projectSet.get(projectId)).orElseThrow().getTeamMembers();
     }
 
     public void addEmployee(Employee employee) {
@@ -47,20 +52,20 @@ public class ProjectManager {
     }
 
     public void assignEmployeeToProject(int projectId, Employee employee) {
-        Project project = projectSet.get(projectId);
+        Project project = Optional.ofNullable(projectSet.get(projectId)).orElseThrow();
         if (employee.getSkills().containsAll(project.getRequiredSkills())) {
             project.getTeamMembers().add(employee);
-            employee.setProjectsCount(employee.getProjectsCount() + 1);
+            incrementEmployeeProjectsCount(employee);
         }
     }
 
     public void removeEmployeeFromProject(int projectId, int employeeId) {
-        Project project = projectSet.get(projectId);
+        Project project = Optional.ofNullable(projectSet.get(projectId)).orElseThrow();
         List<Employee> teamMembers = project.getTeamMembers();
         for (Employee employee : teamMembers) {
-            if (employee.getId() == employeeId) {
+            if (Objects.equals(employee.getId(), employeeId)) {
                 teamMembers.remove(employee);
-                employee.setProjectsCount(employee.getProjectsCount() - 1);
+                decrementEmployeeProjectsCount(employee);
                 return;
             }
         }
@@ -72,7 +77,7 @@ public class ProjectManager {
         for (Employee employee : teamMembers) {
             if (employee.getSkills().contains(project.getRequiredSkills())) {
                 teamMembers.remove(employee);
-                employee.setProjectsCount(employee.getProjectsCount() - 1);
+                decrementEmployeeProjectsCount(employee);
             }
         }
     }

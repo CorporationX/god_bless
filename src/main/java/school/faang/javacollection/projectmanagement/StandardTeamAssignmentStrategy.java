@@ -1,12 +1,11 @@
 package school.faang.javacollection.projectmanagement;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
+public class StandardTeamAssignmentStrategy extends AbstractTeamAssignmentStrategy {
 
     @Override
     public List<Employee> assignTeam(Project project, List<Employee> employees) {
@@ -14,18 +13,8 @@ public class StandardTeamAssignmentStrategy implements TeamAssignmentStrategy {
             return Collections.emptyList();
         }
 
-        List<Employee> resultList = new ArrayList<>();
         Set<String> requiredSkills = new HashSet<>(project.getRequiredSkills());
 
-        for (Employee employee : employees) {
-            if (requiredSkills.removeAll(employee.getSkills())) {
-                resultList.add(employee);
-                incrementEmployeeProjectsCount(employee);
-            }
-            if (requiredSkills.isEmpty()) {
-                return resultList;
-            }
-        }
-        return resultList;
+        return super.findNecessaryEmployees(employees, requiredSkills);
     }
 }
