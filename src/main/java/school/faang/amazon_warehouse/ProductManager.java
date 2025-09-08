@@ -11,7 +11,7 @@ public class ProductManager {
     private Integer currentId = 1;
     Set<Product> products = new HashSet<>();
 
-    void addProduct(Product.Category category, String name) {
+    void addProduct(Category category, String name) {
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {
                 System.out.println("[!] Товар с таким именем уже существует в категории " + category);
@@ -23,7 +23,7 @@ public class ProductManager {
         System.out.println("[+] Добавлен товар: " + product);
     }
 
-    void removeProduct(Product.Category category, String name) {
+    void removeProduct(Category category, String name) {
         boolean removed = products.removeIf(product ->
                 product.getName().equals(name) && product.getCategory().equals(category));
 
@@ -35,7 +35,7 @@ public class ProductManager {
         }
     }
 
-    List<Product> findProductsByCategory(Product.Category category) {
+    List<Product> findProductsByCategory(Category category) {
         List<Product> productListByCategory = products.stream()
                 .filter(product -> product.getCategory().equals(category))
                 .toList();
@@ -50,11 +50,11 @@ public class ProductManager {
             }
         }
 
-        return new ArrayList<>(productListByCategory);
+        return productListByCategory;
     }
 
-    Map<Product.Category, List<Product>> groupProductByCategory() {
-        Map<Product.Category, List<Product>> result = new HashMap<>();
+    Map<Category, List<Product>> groupProductByCategory() {
+        Map<Category, List<Product>> result = new HashMap<>();
         products.forEach(product -> {
             if (!result.containsKey(product.getCategory())) {
                 result.put(product.getCategory(), new ArrayList<>());
@@ -65,7 +65,7 @@ public class ProductManager {
     }
 
     void printAllProducts() {
-        Map<Product.Category, List<Product>> groupedProducts = groupProductByCategory();
+        Map<Category, List<Product>> groupedProducts = groupProductByCategory();
         System.out.println();
         groupedProducts.forEach((category, products) -> {
             System.out.println("\nКатегория: " + category);
@@ -80,27 +80,27 @@ public class ProductManager {
         ProductManager productManager = new ProductManager();
         System.out.println();
 
-        productManager.addProduct(Product.Category.FOOD, "Колбаса");
-        productManager.addProduct(Product.Category.FOOD, "Молоко");
-        productManager.addProduct(Product.Category.ELECTRONICS, "Смартфон");
-        productManager.addProduct(Product.Category.CLOTHING, "Носки");
-        productManager.addProduct(Product.Category.FOOD, "Сыр");
-        productManager.addProduct(Product.Category.CLOTHING, "Штаны");
-        productManager.addProduct(Product.Category.ELECTRONICS, "Телевизор");
-        productManager.addProduct(Product.Category.CLOTHING, "Шапка");
-        productManager.addProduct(Product.Category.OTHER, "Веник");
+        productManager.addProduct(Category.FOOD, "Колбаса");
+        productManager.addProduct(Category.FOOD, "Молоко");
+        productManager.addProduct(Category.ELECTRONICS, "Смартфон");
+        productManager.addProduct(Category.CLOTHING, "Носки");
+        productManager.addProduct(Category.FOOD, "Сыр");
+        productManager.addProduct(Category.CLOTHING, "Штаны");
+        productManager.addProduct(Category.ELECTRONICS, "Телевизор");
+        productManager.addProduct(Category.CLOTHING, "Шапка");
+        productManager.addProduct(Category.OTHER, "Веник");
 
         productManager.printAllProducts();
 
-        productManager.findProductsByCategory(Product.Category.CLOTHING);
+        productManager.findProductsByCategory(Category.CLOTHING);
 
-        productManager.removeProduct(Product.Category.CLOTHING, "Штаны");
-        productManager.removeProduct(Product.Category.FOOD, "Молоко");
-        productManager.removeProduct(Product.Category.ELECTRONICS, "Смартфон");
-        productManager.removeProduct(Product.Category.CLOTHING, "Шапка");
+        productManager.removeProduct(Category.CLOTHING, "Штаны");
+        productManager.removeProduct(Category.FOOD, "Молоко");
+        productManager.removeProduct(Category.ELECTRONICS, "Смартфон");
+        productManager.removeProduct(Category.CLOTHING, "Шапка");
 
-        productManager.findProductsByCategory(Product.Category.CLOTHING);
-        productManager.findProductsByCategory(Product.Category.FOOD);
+        productManager.findProductsByCategory(Category.CLOTHING);
+        productManager.findProductsByCategory(Category.FOOD);
 
         productManager.printAllProducts();
     }
