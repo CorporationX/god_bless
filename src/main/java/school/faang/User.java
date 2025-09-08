@@ -18,18 +18,18 @@ public class User {
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York");
 
     public User(String name, int age, String job, String address) {
-        if(name == null) {
+        if (name == null) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if(age < 18) {
+        if (age < 18) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
 
-        if(!VALID_JOBS.contains(job)) {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Место работы должно содержаться в VALID_JOBS");
         }
 
-        if(!VALID_ADDRESSES.contains(address)) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Адрес должен содержаться в VALID_ADDRESSES");
         }
 
