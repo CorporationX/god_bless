@@ -1,17 +1,22 @@
 package school.faang.BJS2_85677;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public abstract class Character {
-    String name;
-    int strength;
-    int agility;
-    int intellect;
-    int health = 100;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intellect;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
-        strength = 5;
-        agility = 5;
-        intellect = 5;
+        setStrength(5);
+        setAgility(5);
+        setIntellect(5);
     }
 
     public Character(int intellect, int agility, int strength, String name) {
@@ -21,12 +26,13 @@ public abstract class Character {
         this.name = name;
     }
 
-    public void healthLevelCheking(Character character) {
+    public void healthLevelChecking(Character character) {
         if (character.health < 0) {
             character.health = 0;
         }
     }
 
     public void attack(Character opponent) {
+        System.out.println("Битва началась");
     }
 }
