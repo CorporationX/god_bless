@@ -1,11 +1,10 @@
 package school.faang;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите длину массива: ");
@@ -13,7 +12,7 @@ public class Main {
         int[] nums = new int[n];
 
         System.out.println("Введите элементы массива: ");
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             nums[i] = scanner.nextInt();
         }
         System.out.println("Исходный массив: " + Arrays.toString(nums));
