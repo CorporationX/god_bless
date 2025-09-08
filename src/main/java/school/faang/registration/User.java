@@ -10,18 +10,8 @@ public class User {
     private String address;
 
     private static final int ABS_AGE = 18;
-    private static final Set<String> VALID_JOBS = new HashSet<>();
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>();
-
-    static {
-        VALID_JOBS.add("Google");
-        VALID_JOBS.add("Uber");
-        VALID_JOBS.add("Amazon");
-
-        VALID_ADDRESSES.add("London");
-        VALID_ADDRESSES.add("New York");
-        VALID_ADDRESSES.add("Amsterdam");
-    }
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
 
