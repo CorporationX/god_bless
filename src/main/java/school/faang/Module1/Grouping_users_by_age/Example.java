@@ -1,4 +1,4 @@
-package school.faang.Grouping_users_by_age;
+package school.faang.Module1.Grouping_users_by_age;
 
 import java.util.Arrays;
 
