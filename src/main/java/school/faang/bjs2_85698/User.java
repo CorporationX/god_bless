@@ -8,6 +8,7 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private static final byte MIN_AGE = 18;
+
     private String name;
     private int age;
     private String job;
