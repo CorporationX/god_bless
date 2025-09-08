@@ -20,26 +20,42 @@ public class HogwartsSpells {
 
     protected void getSpellEventById(int id) {
         validationId(id);
-        System.out.println(spellById.get(id).getDescription());
+        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
+            if (entry.getValue().getId() == id) {
+                System.out.printf("%nВаше заклинание по Id- %d%n%s -Зелье%n%s - Эффект зелья%n",
+                        entry.getValue().getId(),  entry.getValue().getEventType(), entry.getValue().getAction());
+            }
+        }
     }
 
-    protected void getSpellEventByType(String evenType) {
-        if (evenType == null || evenType.isEmpty()) {
+    protected List<SpellEvent> getSpellEventByType(String evenType) {
+        if (evenType == null || evenType.isBlank()) {
             throw new IllegalArgumentException("Тип события не может быть пустым");
         }
-        System.out.println(spellByType.get(evenType));
+        List<SpellEvent> result = new ArrayList();
+        if (spellByType.containsKey(evenType)) {
+            result.addAll(spellByType.get(evenType));
+            return result;
+        }
+        return result;
     }
 
     protected void deleteSpellEvent(int id) {
         validationId(id);
-        spellByType.remove(spellById.get(id).getDescription());
-        spellById.remove(id);
+        SpellEvent spell = spellById.remove(id);
+        if (spell != null) {
+            List<SpellEvent> eventList = spellByType.get(spell);
+            spellByType.remove(spell.getAction());
+            if (eventList != null) {
+                spellByType.remove(eventList);
+            }
+        }
     }
 
     protected void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.printf("%d Id Зелья, %s  - Эффект зелья\n",
-                    entry.getKey(), entry.getValue().getDescription());
+            System.out.printf("%n%d Id Зелья, %s  - Зелье%n%s - Эффект зелья%n",
+                    entry.getKey(),  entry.getValue().getEventType(), entry.getValue().getAction());
         }
     }
 
@@ -50,13 +66,11 @@ public class HogwartsSpells {
         if (actionDescription == null || actionDescription.isBlank()) {
             throw new IllegalArgumentException("Описание действия не может быть пустым");
         }
-        if (spellById.containsValue(eventType)) {
-            throw new IllegalArgumentException("Данное зелье уже присутствует");
-        }
+
     }
 
-    private void validationId(int ids) {
-        if (ids > id) {
+    private void validationId(int id) {
+        if (id > this.id) {
             throw new IllegalArgumentException("Этого Id не найдено ");
         }
     }

@@ -1,5 +1,7 @@
 package school.faang.bjs2_85902;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
@@ -19,12 +21,16 @@ public class Main {
             hogwartsSpells.addSpellEvent("Превращение", "Можете превращаться в животное");
             hogwartsSpells.addSpellEvent("Ясновидение", "Видите сквозь стены на 10 секунд");
             hogwartsSpells.deleteSpellEvent(5);
+            hogwartsSpells.printAllSpellEvents();
             hogwartsSpells.getSpellEventByType("Длинный прыжок");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        hogwartsSpells.printAllSpellEvents();
         hogwartsSpells.getSpellEventById(6);
 
+        List<SpellEvent> listSpell = hogwartsSpells.getSpellEventByType("Длинный прыжок");
+        for (SpellEvent list : listSpell) {
+            System.out.println(list.toString());
+        }
     }
 }
