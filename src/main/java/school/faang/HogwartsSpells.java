@@ -26,11 +26,11 @@ public class HogwartsSpells {
 
     }
 
-    public String getSpellEventById(int id) {
+    public SpellEvent getSpellEventById(int id) {
         if (!spellById.containsKey(id)) {
             return null;
         }
-        return spellById.get(id).getEventType();
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
