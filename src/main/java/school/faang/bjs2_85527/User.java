@@ -20,28 +20,25 @@ public class User {
 
     public User(String name, int age, String job, String address) {
 
+        validateUser(name, age, job, address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+
+    private void validateUser(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name is empty or null");
-        } else {
-            this.name = name;
         }
-
         if (age < MIN_AGE) {
-            throw new IllegalArgumentException("Age cannot be less than 18");
-        } else {
-            this.age = age;
+            throw new IllegalArgumentException("Age cannot be less than " + MIN_AGE);
         }
-
         if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job. Valid jobs: " + VALID_JOBS);
-        } else {
-            this.job = job;
         }
-
         if (address == null || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid address. Valid addresses: " + VALID_ADDRESSES);
-        } else {
-            this.address = address;
         }
     }
 }
