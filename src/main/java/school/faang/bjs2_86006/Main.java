@@ -11,11 +11,11 @@ public class Main {
 
         ProductManager manager = new ProductManager();
 
-        Product apple = manager.addProduct(Category.FOOD, "Apple");
-        Product laptop = manager.addProduct(Category.ELECTRONICS, "Laptop");
-        Product banana = manager.addProduct(Category.FOOD, "Banana");
-        Product phone = manager.addProduct(Category.ELECTRONICS, "Phone");
-        Product book = manager.addProduct(Category.BOOKS, "Java Programming");
+        manager.addProduct(Category.FOOD, "Apple");
+        manager.addProduct(Category.ELECTRONICS, "Laptop");
+        manager.addProduct(Category.FOOD, "Banana");
+        manager.addProduct(Category.ELECTRONICS, "Phone");
+        manager.addProduct(Category.BOOKS, "Java Programming");
 
         manager.printAllProducts();
 
