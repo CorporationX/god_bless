@@ -5,11 +5,11 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class SpellEvent { //Событие заклинания
+public class SpellEvent {
 
     private final int id;
-    private final String eventType; //Тип заклинания
-    private final String action; //Описание заклинания
+    private final String eventType;
+    private final String action;
 
     public SpellEvent(int id, String eventType, String action) {
         this.id = id;

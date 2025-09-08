@@ -16,13 +16,11 @@ public class Main {
         spellSystem.addSpellEvent("Трансфигурация", "Превращает животных в предметы");
         spellSystem.addSpellEvent("Зелья", "Варит лечебное зелье");
 
-        // 2. Тестирование вывода всех заклинаний
         System.out.println("2. Все заклинания в системе:");
         System.out.println("─".repeat(50));
         spellSystem.printAllSpellEvents();
         System.out.println("─".repeat(50) + "\n");
 
-        // 3. Тестирование поиска заклинания по ID
         System.out.println("3. Поиск заклинаний по ID:");
         int searchId = 3;
         SpellEvent foundSpell = spellSystem.getSpellEventById(searchId);
@@ -32,7 +30,6 @@ public class Main {
             System.out.printf("Заклинание с ID %d не найдено%n", searchId);
         }
 
-        // 4. Тестирование поиска заклинаний по типу
         System.out.println("4. Поиск заклинаний по типу:");
         String searchType = "Чар";
         List<SpellEvent> charmSpells = spellSystem.getSpellEventsByType(searchType);
@@ -45,7 +42,6 @@ public class Main {
             System.out.printf("Заклинания типа '%s' не найдены%n", searchType);
         }
 
-        // 5. Тестирование удаления заклинания
         System.out.println("5. Удаление заклинания:");
         int deleteId = 2;
         spellSystem.deleteSpellEvent(deleteId);
@@ -56,7 +52,7 @@ public class Main {
         }
         System.out.println();
 
-        // 6. Проверка состояния системы после удаления
+
         System.out.println("6. Состояние системы после удаления:");
         System.out.println("─".repeat(50));
         spellSystem.printAllSpellEvents();
