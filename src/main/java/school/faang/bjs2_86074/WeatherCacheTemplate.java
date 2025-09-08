@@ -24,22 +24,17 @@ public abstract class WeatherCacheTemplate {
         WeatherData weatherData = weatherDataCache.get(city);
 
         if (Objects.isNull(weatherData) || isCacheExpired(weatherData, maxCacheAgeMillis)) {
-            System.out.println(2);
             return forceUpdateWeather(city);
-
         } else {
-            System.out.println(1);
             return weatherData;
         }
     }
 
     public WeatherData forceUpdateWeather(String city) {
-        WeatherData weatherData = fetchWeatherData(city);
-        System.out.println(weatherData);
         return weatherDataCache.put(city, fetchWeatherData(city));
     }
 
-     public WeatherData fetchWeatherData(String city) {
-         return RandomDataGenerator.generatorData(city);
+    public WeatherData fetchWeatherData(String city) {
+        return RandomDataGenerator.generatorData(city);
     }
 }
