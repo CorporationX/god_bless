@@ -36,6 +36,5 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Поймано исключение: " + e.getMessage());
         }
-
     }
 }

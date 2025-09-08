@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @ToString
@@ -36,21 +37,22 @@ public class ProductManager {
         validateCategory(category);
         validateName(name);
 
-        Product product = new Product(name, category);
-        if (!products.contains(product)) {
-            System.out.println("Такого продукта нет на складе.");
-            return false;
+        for (Product product : products) {
+            if (Objects.equals(product.getCategory(), category)
+                    && Objects.equals(product.getName(), name)) {
+                System.out.println("Продукт " + product.getName() + " удалён со склада.");
+                return products.remove(product);
+            }
         }
-        products.remove(product);
-        System.out.println("Продукт " + product.getName() + " удалён со склада.");
-        return true;
+        System.out.println("Такого продукта нет на складе.");
+        return false;
     }
 
     public List<Product> findProductsByCategory(Category category) {
         validateCategory(category);
         List<Product> result = new ArrayList<>();
         for (Product product : products) {
-            if (product.getCategory().equals(category)) {
+            if (Objects.equals(product.getCategory(), category)) {
                 result.add(product);
             }
         }
@@ -83,8 +85,8 @@ public class ProductManager {
     }
 
     private void validateCategory(Category category) {
-        if (category == null) {
-            throw new IllegalArgumentException("Категория не может быть null.");
+        if (category == null || category.name().isBlank()) {
+            throw new IllegalArgumentException("Категория не может быть пустой или null.");
         }
     }
 }

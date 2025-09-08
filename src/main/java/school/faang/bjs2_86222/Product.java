@@ -4,10 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @Getter
 @ToString
+@EqualsAndHashCode
 public class Product {
 
     private final int id;
@@ -19,19 +18,5 @@ public class Product {
         this.id = nextId++;
         this.name = name;
         this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Product product = (Product) o;
-        return Objects.equals(name, product.name) && category == product.category;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, category);
     }
 }
