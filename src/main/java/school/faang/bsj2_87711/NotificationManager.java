@@ -21,7 +21,9 @@ public class NotificationManager {
         if (notificationPredicate.test(notification)) {
             notificationActions.get(notification.getType()).accept(notification);
         } else {
-            System.out.println("Слишком много символов: " + notification.getMessage().length() + " > " + Notification.MAX_NOTIFICATION_LENGTH);
+            System.out.println("Слишком много символов: " +
+                    notification.getMessage().length() + " > " +
+                    Notification.MAX_NOTIFICATION_LENGTH);
         }
     }
 }

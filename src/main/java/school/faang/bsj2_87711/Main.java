@@ -2,9 +2,12 @@ package school.faang.bsj2_87711;
 
 public class Main {
     public static void main(String[] args) {
-        Notification notificationEmail = new Notification(NotificationType.EMAIL, "Вам завещали АВТОМОБИЛЬ!");
-        Notification notificationPush = new Notification(NotificationType.PUSH, "Погасите кредит!");
-        Notification notificationSms = new Notification(NotificationType.SMS, "Завтра будет дождь, не забудьте взять зонтик");
+        Notification notificationEmail = new Notification(NotificationType.EMAIL,
+                "Вам завещали АВТОМОБИЛЬ!");
+        Notification notificationPush = new Notification(NotificationType.PUSH,
+                "Погасите кредит!");
+        Notification notificationSms = new Notification(NotificationType.SMS,
+                "Завтра будет дождь, не забудьте взять зонтик");
 
         NotificationManager notificationManager = new NotificationManager();
         notificationManager.registerHandler(NotificationType.PUSH,
