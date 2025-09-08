@@ -2,15 +2,12 @@ package school.faang.bjs2_86074;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Map;
 import java.util.Objects;
 
-import static school.faang.bjs2_86074.ConstantWearher.MAX_HUMIDITY;
-import static school.faang.bjs2_86074.ConstantWearher.MAX_TEMPARATURE;
-import static school.faang.bjs2_86074.ConstantWearher.MIN_HUMIDITY;
-import static school.faang.bjs2_86074.ConstantWearher.MIN_TEMPARATURE;
-
+@SuperBuilder
 @Getter
 public abstract class WeatherCacheTemplate implements WeatherProvider {
     private Map<String, WeatherData> weatherDataCache;

@@ -11,6 +11,7 @@ import static school.faang.bjs2_86074.ConstantWearher.MAX_TEMPARATURE;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_HUMIDITY;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_TEMPARATURE;
 
+//Вроде как @SuperBuilder надо использовать,но не уверен, что он тут подходит для конструктора с наследованием
 @SuperBuilder
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
 
