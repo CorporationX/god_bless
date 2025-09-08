@@ -9,6 +9,7 @@ public class User {
     private String job;
     private String address;
 
+    private static final int ABS_AGE = 18;
     private static final Set<String> VALID_JOBS = new HashSet<>();
     private static final Set<String> VALID_ADDRESSES = new HashSet<>();
 
@@ -28,16 +29,16 @@ public class User {
             throw new IllegalArgumentException("Имя не может быть null");
         }
 
-        if (age < 18) {
+        if (age < ABS_AGE) {
             throw new IllegalArgumentException("Возраст не может быть < 18");
-        }
-
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Некорректный адрес. Допустимые адреса: " + VALID_ADDRESSES);
         }
 
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Некорректное место работы. Допустимые места: " + VALID_JOBS);
+        }
+
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Некорректный адрес. Допустимые адреса: " + VALID_ADDRESSES);
         }
 
         this.name = name;
