@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StandardWeatherCacheTest {
     private final WeatherProvider provider = new WeatherService();
+
     @Test
     void testStandardCacheKeepsFreshData() {
         WeatherCacheTemplate cache = new StandardWeatherCache(provider);

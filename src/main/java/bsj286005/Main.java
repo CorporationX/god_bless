@@ -5,7 +5,6 @@ public class Main {
         WeatherProvider provider = new WeatherService();
 
         WeatherCacheTemplate standardCache = new StandardWeatherCache(provider);
-        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
 
         long maxCacheAge = 3000;
 
@@ -20,6 +19,8 @@ public class Main {
         Thread.sleep(2500);
         WeatherData d3 = standardCache.getWeatherData("Moscow", maxCacheAge);
         System.out.println("Third request (should refresh): " + d3);
+
+        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
 
         System.out.println("\n--- Frequent Update Cache Demo ---");
         WeatherData d4 = frequentCache.getWeatherData("London", maxCacheAge);
