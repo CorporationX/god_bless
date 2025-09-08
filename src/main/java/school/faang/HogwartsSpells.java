@@ -1,12 +1,14 @@
 package school.faang;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
@@ -34,12 +36,7 @@ public class HogwartsSpells {
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-
-        List<SpellEvent> listEvent = spellsByType.get(eventType);
-        if (listEvent == null) {
-            return List.of();
-        }
-        return List.copyOf(listEvent);
+        return List.copyOf(spellsByType.getOrDefault(eventType, Collections.emptyList()));
     }
 
     public void deleteSpellEvent(int id) {
