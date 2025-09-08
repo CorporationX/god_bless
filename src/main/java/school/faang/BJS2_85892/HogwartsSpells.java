@@ -12,7 +12,7 @@ public class HogwartsSpells {
 
     public void addSpellEvent(String eventType, String actionDescription) {
         if (eventType == null || eventType.isBlank() || actionDescription == null || actionDescription.isBlank()) {
-            System.out.println("Either eventType or actionDescription is/are NULL, please provide valid values");
+            System.out.println("Either eventType or actionDescription is/are blank/NULL, please provide valid values");
             return;
         }
         SpellEvent newSpellEvent = new SpellEvent(eventType, actionDescription);
