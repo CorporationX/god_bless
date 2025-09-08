@@ -26,15 +26,14 @@ public class HogwartsSpells {
         if (id < 0) {
             return null;
         }
-        SpellEvent value = spellById.get(id);
-        return value;
+        return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         List<SpellEvent> spells = spellsByType.get(eventType);
 
         if (spells == null) {
-            return null;
+            return new ArrayList<>();
         }
         return spells;
     }
@@ -55,7 +54,12 @@ public class HogwartsSpells {
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println("ID " + entry.getKey() + " тип " + entry.getValue().getEventType() + " значение " + entry.getValue().getAction());
+            System.out.println("ID "
+                    + entry.getKey()
+                    + " тип "
+                    + entry.getValue().getEventType()
+                    + " значение "
+                    + entry.getValue().getAction());
         }
     }
 }
