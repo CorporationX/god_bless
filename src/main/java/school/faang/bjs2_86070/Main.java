@@ -1,8 +1,5 @@
 package school.faang.bjs2_86070;
 
-import java.util.List;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
         ProductManager productManager = new ProductManager();
