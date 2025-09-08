@@ -1,5 +1,9 @@
 package school.faang.bjs2_86074;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.Map;
 
 import static school.faang.bjs2_86074.ConstantWearher.MAX_HUMIDITY;
@@ -7,14 +11,8 @@ import static school.faang.bjs2_86074.ConstantWearher.MAX_TEMPARATURE;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_HUMIDITY;
 import static school.faang.bjs2_86074.ConstantWearher.MIN_TEMPARATURE;
 
+@SuperBuilder
 public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
-
-    public FrequentUpdateWeatherCache(Map<String, WeatherData> weatherDataCash, WeatherProvider weatherProvider) {
-        super(weatherDataCash, weatherProvider);
-    }
-
-    public FrequentUpdateWeatherCache() {
-    }
 
     @Override
     public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {

@@ -17,13 +17,4 @@ public class WeatherService implements WeatherProvider {
         long timestamp = System.currentTimeMillis();
         return new WeatherData(city, temperatureRandom, humidityRandom, timestamp);
     }
-
-    //просто для примера. Примерная логика шаблонного метода получится такая?
-    // то есть определяем стратегию вначале и потом уже вызываем метод getWeatherData из абстрактного класса
-    // который подтянет нужный isCacheExpired? все это делается в сервисе и тут определяется стратегия?
-    public void approximateLogicOfUse() {
-        WeatherCacheTemplate weatherCacheTemplate = new StandardWeatherCache();
-        weatherCacheTemplate.getWeatherData("Москва", 100000);
-    }
-
 }

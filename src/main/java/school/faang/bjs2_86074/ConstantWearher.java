@@ -5,4 +5,5 @@ public class ConstantWearher {
     public static final double MAX_TEMPARATURE = -30;
     public static final double MIN_HUMIDITY = 0;
     public static final double MAX_HUMIDITY = 100;
+    public static final double TIME_SKIP_CACHE = 30000;
 }

@@ -1,43 +1,40 @@
 package school.faang.bjs2_86074;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Map;
+import java.util.Objects;
+
+import static school.faang.bjs2_86074.ConstantWearher.MAX_HUMIDITY;
+import static school.faang.bjs2_86074.ConstantWearher.MAX_TEMPARATURE;
+import static school.faang.bjs2_86074.ConstantWearher.MIN_HUMIDITY;
+import static school.faang.bjs2_86074.ConstantWearher.MIN_TEMPARATURE;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 public abstract class WeatherCacheTemplate implements WeatherProvider {
-    private Map<String, WeatherData> weatherDataCash;
-    private WeatherProvider weatherProvider;
+    private Map<String, WeatherData> weatherDataCache;
+    private final WeatherProvider weatherProvider;
 
-    protected WeatherCacheTemplate() {
+    public WeatherCacheTemplate(WeatherProvider weatherProvider, Map<String, WeatherData> weatherDataCache) {
+        this.weatherProvider = weatherProvider;
+        this.weatherDataCache = weatherDataCache;
     }
 
     public abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
-        if (weatherDataCash.containsKey(city)) {
-            WeatherData weatherData = weatherDataCash.get(city);
-            if (isCacheExpired(weatherData, maxCacheAgeMillis)) {
-                return weatherData;
-            } else {
-                return forceUpdateWeather(city);
-            }
+
+        WeatherData weatherData = weatherDataCache.get(city);
+
+        if (Objects.nonNull(weatherData) && isCacheExpired(weatherData, maxCacheAgeMillis)) {
+            return weatherData;
         } else {
-            System.out.printf("Данных о городе %s нет", city);
-            return null;
+            return forceUpdateWeather(city);
         }
     }
 
     public WeatherData forceUpdateWeather(String city) {
-        return weatherDataCash.put(city, fetchWeatherData(city));
+        return weatherDataCache.put(city, fetchWeatherData(city));
     }
-
 }
