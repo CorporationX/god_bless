@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -21,11 +22,14 @@ public class User {
         this.id = numberOfUsers;
         this.name = name;
         this.age = age;
-        this.hobbies = new HashSet<>(hobbies);
+        if (hobbies != null) {
+            this.hobbies = new HashSet<>(hobbies);
+        }  else {
+            this.hobbies = new HashSet<>();
+        }
     }
 
-
-    public static Map<User, String> findHobbyLovers(User [] users, Set<String> hobbies) {
+    public static Map<User, String> findHobbyLovers(User [] users, @NonNull Set<String> hobbies) {
         Map<User, String> foundLovers = new HashMap<>();
 
         for (User u : users) {

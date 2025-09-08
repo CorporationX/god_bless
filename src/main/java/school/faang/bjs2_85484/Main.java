@@ -17,7 +17,7 @@ public class Main {
         };
 
         Map<User, String> usersAndHobbies = User.findHobbyLovers(exampleUsers,
-                                                            new HashSet<>(Arrays.asList("football", "programming")));
+                new HashSet<>(Arrays.asList("football", "programming")));
         for (Map.Entry<User, String> item : usersAndHobbies.entrySet()) {
             System.out.printf("Имя: %s\nОбщие хобби: %s \n---\n", item.getKey().getName(), item.getValue());
         }
