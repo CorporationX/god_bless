@@ -41,27 +41,27 @@ public class Main {
 
         studentDataBase.printAllStudent();
 
-        studentDataBase.addNewSubjectForStudent("sub6", "Grisha", 4);
+        studentDataBase.addNewSubjectForStudent("sub6", 3, 4);
 
         studentDataBase.printAllStudent();
 
-        studentDataBase.removeStudent("Grisha");
+        studentDataBase.removeStudent(3);
 
         studentDataBase.printAllStudent();
 
         System.out.println();
-        Map<String, Integer> listStudentForSub = new HashMap<>();
-        listStudentForSub.put("iLya", 3);
-        listStudentForSub.put("Vitalya", 3);
+        Map<Integer, Integer> listStudentForSub = new HashMap<>();
+        listStudentForSub.put(1, 3);
+        listStudentForSub.put(3, 3);
         studentDataBase.addNewSubject("sub7", listStudentForSub);
 
         studentDataBase.printAllSubject();
 
-        studentDataBase.addStudentForSubject(sub1, "Dima", 4);
+        studentDataBase.addStudentForSubject(sub1, 3, 4);
 
         studentDataBase.printAllSubject();
 
-        studentDataBase.deleteStudent("Dima", sub1);
+        studentDataBase.deleteStudent(3, sub1);
 
         studentDataBase.printAllSubject();
 

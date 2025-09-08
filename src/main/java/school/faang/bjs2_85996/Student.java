@@ -7,10 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor
 public class Student {
-    private String name;
+    private final int id;
+    private final String name;
+
 }

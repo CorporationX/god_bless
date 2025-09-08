@@ -2,54 +2,59 @@ package school.faang.bjs2_85996;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class StudentDataBase {
     List<Student> listStudent = new ArrayList<>();
-    Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
-    Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
+    AtomicCounter atomicCounter = new AtomicCounter();
 
     public void addNewStudent(String name, Map<Subject, Integer> mapRatings) {
 
-        Student student = new Student(name);
+        Student student = new Student(atomicCounter.incrementIdStudent(), name);
         studentSubjects.put(student, mapRatings);
         listStudent.add(student);
 
-        for (Map.Entry<Subject, Integer> entry : mapRatings.entrySet()) {
-            Subject subject = entry.getKey();
-            subjectStudents.computeIfAbsent(subject, arr -> new ArrayList<>()).add(student);
+        for (Subject entry : mapRatings.keySet()) {
+            subjectStudents.computeIfAbsent(entry, arr -> new ArrayList<>()).add(student);
         }
     }
 
-    public void addNewSubjectForStudent(String nameSub, String nameStudent, int rating) {
+    public void addNewSubjectForStudent(String nameSub, int idStudent, int rating) {
 
-        Student student = listStudent.stream()
-                .filter(st -> st.getName().equals(nameStudent))
-                .findFirst()
-                .orElse(null);
+        Student student = searchByNameStudent(idStudent).orElseThrow();
+
         Map<Subject, Integer> mapSubjectWithRatings = studentSubjects.get(student);
         Subject subject = new Subject(nameSub);
         mapSubjectWithRatings.put(subject, rating);
-
         subjectStudents.computeIfAbsent(subject, arr -> new ArrayList<>()).add(student);
     }
 
-    public void removeStudent(String nameStudent) {
+    public void removeStudent(int idStudent) {
 
-        Student student = listStudent.stream()
-                .filter(st -> st.getName().equals(nameStudent))
-                .findFirst()
-                .orElse(null);
+        Student student = searchByNameStudent(idStudent).orElseThrow();
+
         studentSubjects.remove(student);
-
-        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            for (int i = 0; i < entry.getValue().size(); i++) {
-                if (entry.getValue().get(i).getName().equals(student.getName())) {
-                    entry.getValue().remove(i);
-                }
-            }
+        if (listStudent.contains(student)) {
+            studentSubjects.remove(student);
         }
+        Iterator<Map.Entry<Subject, List<Student>>> entryIterator = subjectStudents.entrySet().iterator();
+
+        while (entryIterator.hasNext()) {
+            List<Student> removeListStudent = entryIterator.next().getValue();
+            removeListStudent.remove(student);
+        }
+    }
+
+    public Optional<Student> searchByNameStudent(int idStudent) {
+        return listStudent.stream()
+                .filter(st -> Objects.equals(st.getId(), idStudent))
+                .findFirst();
     }
 
     public void printAllStudent() {
@@ -58,14 +63,13 @@ public class StudentDataBase {
         }
     }
 
-    public void addNewSubject(String nameSub, Map<String, Integer> mapStudentWithRating) {
+    public void addNewSubject(String nameSub, Map<Integer, Integer> mapStudentWithRating) {
         Subject subject = new Subject(nameSub);
         Map<Student, Integer> students = new HashMap<>();
-        for (Map.Entry<String, Integer> entry : mapStudentWithRating.entrySet()) {
-            Student student = listStudent.stream()
-                    .filter(st -> st.getName().equals(entry.getKey()))
-                    .findFirst()
-                    .orElse(null);
+
+        for (Map.Entry<Integer, Integer> entry : mapStudentWithRating.entrySet()) {
+            Student student = searchByNameStudent(entry.getKey()).orElseThrow();
+            ;
             students.put(student, entry.getValue());
         }
         subjectStudents.put(subject, students.keySet().stream().toList());
@@ -76,41 +80,36 @@ public class StudentDataBase {
         }
     }
 
-    public void addStudentForSubject(Subject subject, String nameStudent, int rating) {
+    public void addStudentForSubject(Subject subject, int idStudent, int rating) {
 
-        Student student = listStudent.stream()
-                .filter(st -> st.getName().equals(nameStudent))
-                .findFirst()
-                .orElse(null);
+        Student student = searchByNameStudent(idStudent).orElseThrow();
+        ;
+
         if (subjectStudents.get(subject).contains(student)) {
             System.out.println("student have");
-            return;
-        }
-        subjectStudents.computeIfAbsent(subject, arr -> new ArrayList<>()).add(student);
+        } else {
+            subjectStudents.computeIfAbsent(subject, arr -> new ArrayList<>()).add(student);
 
-        Map<Subject, Integer> mapStudent = studentSubjects.get(student);
-        mapStudent.put(subject, rating);
+            Map<Subject, Integer> mapStudent = studentSubjects.get(student);
+            mapStudent.put(subject, rating);
+        }
+
     }
 
-    public void deleteStudent(String nameStudent, Subject subject) {
+    public void deleteStudent(int idStudent, Subject subject) {
 
-        Student student = listStudent.stream()
-                .filter(st -> st.getName().equals(nameStudent))
-                .findFirst()
-                .orElse(null);
-
+        Student student = searchByNameStudent(idStudent).orElseThrow();
         if (!subjectStudents.get(subject).contains(student)) {
-            System.out.println("student don't have!!!!!");
+            System.out.println("student  haven't!!!!!");
             return;
         }
+
 
         List<Student> listStudent = subjectStudents.get(subject);
         listStudent.remove(student);
-        subjectStudents.put(subject, listStudent);
 
         Map<Subject, Integer> mapSubject = studentSubjects.get(student);
         mapSubject.remove(subject);
-        studentSubjects.put(student, mapSubject);
     }
 
     public void printAllSubject() {
