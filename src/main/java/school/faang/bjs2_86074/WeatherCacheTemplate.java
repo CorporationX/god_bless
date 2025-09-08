@@ -7,14 +7,13 @@ import lombok.experimental.SuperBuilder;
 import java.util.Map;
 import java.util.Objects;
 
+
 @SuperBuilder
 @Getter
-public abstract class WeatherCacheTemplate implements WeatherProvider {
-    private Map<String, WeatherData> weatherDataCache;
-    private final WeatherProvider weatherProvider;
+public abstract class WeatherCacheTemplate {
+    private final Map<String, WeatherData> weatherDataCache;
 
-    public WeatherCacheTemplate(WeatherProvider weatherProvider, Map<String, WeatherData> weatherDataCache) {
-        this.weatherProvider = weatherProvider;
+    public WeatherCacheTemplate(Map<String, WeatherData> weatherDataCache) {
         this.weatherDataCache = weatherDataCache;
     }
 
@@ -24,14 +23,23 @@ public abstract class WeatherCacheTemplate implements WeatherProvider {
 
         WeatherData weatherData = weatherDataCache.get(city);
 
-        if (Objects.nonNull(weatherData) && isCacheExpired(weatherData, maxCacheAgeMillis)) {
-            return weatherData;
-        } else {
+        if (Objects.isNull(weatherData) || isCacheExpired(weatherData, maxCacheAgeMillis)) {
+            System.out.println(2);
             return forceUpdateWeather(city);
+
+        } else {
+            System.out.println(1);
+            return weatherData;
         }
     }
 
     public WeatherData forceUpdateWeather(String city) {
+        WeatherData weatherData = fetchWeatherData(city);
+        System.out.println(weatherData);
         return weatherDataCache.put(city, fetchWeatherData(city));
+    }
+
+     public WeatherData fetchWeatherData(String city) {
+         return RandomDataGenerator.generatorData(city);
     }
 }
