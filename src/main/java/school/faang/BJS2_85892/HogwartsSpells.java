@@ -10,10 +10,12 @@ public class HogwartsSpells {
     private final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    private int spellEventId = 1;
-
     public void addSpellEvent(String eventType, String actionDescription) {
-        SpellEvent newSpellEvent = new SpellEvent(spellEventId++, eventType, actionDescription);
+        if (eventType.isBlank() || actionDescription.isBlank()) {
+            System.out.println("Either eventType or actionDescription is/are NULL, please provide valid values");
+            return;
+        }
+        SpellEvent newSpellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(newSpellEvent.getId(), newSpellEvent);
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(newSpellEvent);
@@ -30,13 +32,18 @@ public class HogwartsSpells {
     public void deleteSpellEvent(int id) {
         SpellEvent spellEventForRemoval = spellById.get(id);
         spellById.remove(id);
-        spellsByType.get(spellEventForRemoval.getEventType()).remove(spellEventForRemoval);
+        spellsByType
+                .get(spellEventForRemoval
+                .getEventType())
+                .remove(spellEventForRemoval);
     }
 
     public void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
             System.out.printf("%s => %s => %s%n",
-                    entry.getKey(), entry.getValue().getEventType(), entry.getValue().getAction());
+                    entry.getKey(),
+                    entry.getValue().getEventType(),
+                    entry.getValue().getAction());
         }
     }
 }

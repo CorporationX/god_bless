@@ -6,6 +6,7 @@ public class Main {
 
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
 
+        hogwartsSpells.addSpellEvent("", "");
         hogwartsSpells.addSpellEvent("Charm", "Charms person or animal to temporarily fight at caster's side");
         hogwartsSpells.addSpellEvent("Enchantment", "Enchants target weapon with fire");
         hogwartsSpells.addSpellEvent("Transfiguration", "Transforms target into a mouse");
