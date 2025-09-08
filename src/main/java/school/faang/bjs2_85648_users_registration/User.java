@@ -10,20 +10,21 @@ import java.util.Set;
 @Setter
 @ToString
 public class User {
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
+
     private String name;
     private int age;
     private String job;
     private String address;
 
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Недопустимое место работы: " + job);
@@ -37,4 +38,3 @@ public class User {
         this.address = address;
     }
 }
-
