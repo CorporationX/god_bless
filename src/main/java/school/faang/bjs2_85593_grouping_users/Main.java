@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        //1. Создаем объекты Users
         User user1 = new User("Anton", 21);
         User user2 = new User("Jan", 18);
         User user3 = new User("Olga", 22);
@@ -15,7 +14,6 @@ public class Main {
         User user6 = new User("Masha", 22);
         User user7 = new User("Alex", 18);
 
-        //2. Создаем из объектов Users коллекцию List
         List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
@@ -25,21 +23,15 @@ public class Main {
         users.add(user6);
         users.add(user7);
 
-        //3. Передаем полученную сгруппированную мапу в новую мапу для распечатки
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
-        //4. Печатаем мапу
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Возраст: " + entry.getKey());
-
-            // Получаем список пользователей для этого возраста
             List<User> userInGroupe = entry.getValue();
-            // Цикл для печати имени пользователя
+
             for (User user : userInGroupe) {
                 System.out.println(" - " + user.getName());
             }
         }
-
     }
-
 }
