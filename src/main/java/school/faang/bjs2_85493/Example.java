@@ -11,7 +11,7 @@ public class Example {
         if (length <= 1) {
             return nums;
         } else {
-            long center = Math.round((float) length / 2); //ищем середину для переворота массива
+            long center = Math.round((float) length / 2); //поиск центра массива
             for (int i = 0; i < center; i++) {
                 int temp = nums[i];
                 nums[i] = nums[length - 1 - i];
