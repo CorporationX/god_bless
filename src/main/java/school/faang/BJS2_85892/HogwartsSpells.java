@@ -11,7 +11,7 @@ public class HogwartsSpells {
     private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        if (eventType.isBlank() || actionDescription.isBlank()) {
+        if (eventType == null || eventType.isBlank() || actionDescription == null || actionDescription.isBlank()) {
             System.out.println("Either eventType or actionDescription is/are NULL, please provide valid values");
             return;
         }
