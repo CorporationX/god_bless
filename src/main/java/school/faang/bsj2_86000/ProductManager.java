@@ -17,7 +17,7 @@ public class ProductManager {
         products.add(product);
     }
 
-    public boolean removeProduct(Category category, String name) {
+    public boolean isRemoveProduct(Category category, String name) {
         int uniqueIdentificator = Objects.hash(name, category);
         Product product = new Product(uniqueIdentificator, name, category);
         return products.remove(product);

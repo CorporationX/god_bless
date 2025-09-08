@@ -17,8 +17,8 @@ public class Main {
         productManager.addProduct(Category.OTHER, "OTHER2");
         productManager.addProduct(Category.OTHER, "OTHER3");
 
-        System.out.println(productManager.removeProduct(Category.FOOD, "FOOD4"));
-        System.out.println(productManager.removeProduct(Category.FOOD, "FOOD3"));
+        System.out.println(productManager.isRemoveProduct(Category.FOOD, "FOOD4"));
+        System.out.println(productManager.isRemoveProduct(Category.FOOD, "FOOD3"));
 
         System.out.println("");
 
