@@ -12,7 +12,7 @@ public class HogwartsSpells {
 
     protected void addSpellEvent(String eventType, String actionDescription) {
         validationSpells(eventType, actionDescription);
-        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription, id);
         spellById.put(id, spellEvent);
         spellByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvent);
         id++;

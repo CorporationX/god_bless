@@ -11,7 +11,7 @@ import java.util.Set;
 @ToString
 public class SpellEvent {
 
-    private long id;
+    private int id;
     @ToString.Exclude private Set<String> evenType = Set.of("Чар", "Трансфигурация", "Защита");
     @ToString.Exclude private Set<String> action = Set.of("Защита от атак", "Преобразует предмет");
     private String event;
@@ -22,7 +22,7 @@ public class SpellEvent {
         this.description = evenType.iterator().next();
     }
 
-    public SpellEvent(String event, String description) {
+    public SpellEvent(String event, String description, int id) {
         this.event = event;
         this.description = description;
     }
