@@ -13,7 +13,8 @@ public class App {
         User userNastya = new User("Nastya", 35, "Bakery", "Nikrasov street");
         User userVlad = new User("Vlad", 35, "IT", "Duma street");
 
-        final List<User> users = new ArrayList<>(List.of(userNikolay, userAnton, userNina, userEgor, userNastya, userVlad));
+        final List<User> users = new ArrayList<>(List
+                .of(userNikolay, userAnton, userNina, userEgor, userNastya, userVlad));
 
         final Map<Integer, List<User>> map = User.groupUsers(users);
 
