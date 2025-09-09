@@ -20,7 +20,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         if (age < MIN_AGE) {
