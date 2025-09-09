@@ -13,6 +13,7 @@ public class Notification {
     public NotificationType getType() {
         return type;
     }
+
     public String getMessage() {
         return message;
     }
