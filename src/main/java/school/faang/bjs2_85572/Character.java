@@ -1,34 +1,24 @@
 package school.faang.bjs2_85572;
 
-public class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
-    private static final int DEFAULT_COUNTER = 5;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
+@Getter
+@Setter
+@ToString
+public abstract class Character {
+    private final String name;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private int health = DefaultParameters.INITIAL_HP;
 
     public Character(String name) {
         this.name = name;
-        this.strength = DEFAULT_COUNTER;
-        this.agility = DEFAULT_COUNTER;
-        this.intelligence = DEFAULT_COUNTER;
+        this.strength = DefaultParameters.CHARACTER_STRENGTH;
+        this.agility = DefaultParameters.CHARACTER_AGILITY;
+        this.intelligence = DefaultParameters.CHARACTER_INTELLIGENCE;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -38,24 +28,17 @@ public class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack(Character opponent) {
+    public abstract void attack(Character opponent);
+
+    protected boolean isDead(Character opponent) {
+        return opponent.getHealth() > DefaultParameters.DEAD_HP;
     }
 
-    public void printCheckLive(Character opponent) {
-        if (opponent.getHealth() < 0) {
-            opponent.health = 0;
-            System.out.println("Противник мертв, атаковать нет мысла.");
+    protected void printStatusHp(Character opponent) {
+        if (opponent.getHealth() > 0) {
+            System.out.println("Enemy is live! Attack!");
+        } else {
+            System.out.println("Enemy is die, attacking is pointless");
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", power=" + strength +
-                ", agility=" + agility +
-                ", intelligence=" + intelligence +
-                ", health=" + health +
-                '}';
     }
 }
