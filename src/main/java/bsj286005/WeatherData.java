@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
 @RequiredArgsConstructor
 public class WeatherData {

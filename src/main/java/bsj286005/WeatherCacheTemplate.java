@@ -7,8 +7,8 @@ import java.util.Map;
 
 @Getter
 public abstract class WeatherCacheTemplate {
-    Map<String, WeatherData> weatherCash = new HashMap<>();
-    WeatherProvider weatherProvider;
+    private Map<String, WeatherData> weatherCash = new HashMap<>();
+    private WeatherProvider weatherProvider;
 
     long maxCacheAgeMillis;
 
