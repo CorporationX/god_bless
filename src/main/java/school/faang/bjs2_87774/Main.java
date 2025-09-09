@@ -16,7 +16,8 @@ public class Main {
         Function<Image, Image> depthFilter = image -> new Image(image.name(),
                 image.description() + " | Наложен фильтр Глубина");
 
-        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(cassetteFilter, videoFilter, depthFilter);
+        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(cassetteFilter, videoFilter,
+                depthFilter);
         simpleImage = FilterProcessor.applyFilter(simpleImage, combinedFilter);
         System.out.println(simpleImage);
     }
