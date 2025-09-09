@@ -1,17 +1,20 @@
 package school.faang.bjs_85538;
 
+import lombok.ToString;
+
 import java.util.Set;
 
+@ToString
 public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int VALID_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         validateName(name);
@@ -25,14 +28,14 @@ public class User {
     }
 
     private void validateName(String name) {
-        if (this.name == null || this.name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
     }
 
     private void validateAge(int age) {
         if (age < VALID_AGE) {
-            throw new IllegalArgumentException("Age must be 18 and over");
+            throw new IllegalArgumentException(String.format("Age must be %d and over", VALID_AGE));
         }
     }
 
