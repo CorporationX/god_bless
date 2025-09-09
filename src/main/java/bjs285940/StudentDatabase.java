@@ -6,13 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentDatabase {
-    Map<Student, Map<Subject, Integer>> studentSubjects;
-    Map<Subject, List<Student>> subjectStudents;
-
-    public StudentDatabase() {
-        this.studentSubjects = new HashMap<>();
-        this.subjectStudents = new HashMap<>();
-    }
+    private Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    private Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public void addStudentWithSubjectAndGrade(Student student, Map<Subject, Integer> grades) {
         studentSubjects.putIfAbsent(student, grades);
@@ -33,12 +28,13 @@ public class StudentDatabase {
 
     public void removeStudent(Student student) {
         Map<Subject, Integer> grades = studentSubjects.remove(student);
-        if (grades != null) {
-            for (Subject subject : grades.keySet()) {
-                List<Student> students = subjectStudents.get(subject);
-                if (students != null) {
-                    students.remove(student);
-                }
+        if (grades == null) {
+            return;
+        }
+        for (Subject subject : grades.keySet()) {
+            List<Student> students = subjectStudents.get(subject);
+            if (students != null) {
+                students.remove(student);
             }
         }
     }

@@ -1,14 +1,14 @@
 package bjs285940;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Student {
-    private final String name;
+    private String name;
 }
