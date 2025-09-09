@@ -3,49 +3,47 @@ package school.faang.Bjs2_85628;
 import java.util.Set;
 
 public class User {
+    private static final int MINIMUM_AGE = 18;
     private String name;
     private int age;
-    private String workPlace;
+    private String job;
     private String address;
 
     public static final Set<String> VALID_JOB = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESS = Set.of("Лондон", "Нью-Йорк", "Амстердам");
 
-    public User(String name, int age, String workPlace, String address) {
-        nameValidation(name);
-        ageValidation(age);
-        workValidation(workPlace);
-        addressValidation(address);
+    public User(String name, int age, String job, String address) {
+        validateName(name);
+        validateAge(age);
+        validateJob(job);
+        validateAddress(address);
     }
 
-    private void nameValidation(String name) {
-        if (name == null || name.trim().equals("")) {
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Empty name");
         }
         this.name = name;
     }
 
-    private void ageValidation(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Age less of 18");
+    private void validateAge(int age) {
+        if (age < MINIMUM_AGE) {
+            throw new IllegalArgumentException("Age less of " + MINIMUM_AGE);
         }
         this.age = age;
     }
 
-    private void workValidation(String workPlace) {
-        if (workPlace == null || !VALID_JOB.contains(workPlace)) {
+    private void validateJob(String job) {
+        if (job == null || !VALID_JOB.contains(job)) {
             throw new IllegalArgumentException("Job incorrect");
         }
-        this.workPlace = workPlace;
+        this.job = job;
     }
 
-    private void addressValidation(String address) {
+    private void validateAddress(String address) {
         if (address == null || !VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Address incorrect");
         }
         this.address = address;
     }
 }
-
-
-
