@@ -2,9 +2,7 @@ package school.faang.javacollection.projectmanagement;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class BalancedTeamAssignmentStrategy extends AbstractTeamAssignmentStrategy {
 
@@ -14,12 +12,10 @@ public class BalancedTeamAssignmentStrategy extends AbstractTeamAssignmentStrate
             return Collections.emptyList();
         }
 
-        Set<String> requiredSkills = new HashSet<>(project.getRequiredSkills());
-
         List<Employee> sortedEmployeeByProjectsCount = employees.stream()
                 .sorted(Comparator.comparingInt(Employee::getProjectsCount))
                 .toList();
 
-        return super.findNecessaryEmployees(sortedEmployeeByProjectsCount, requiredSkills);
+        return findNecessaryEmployees(sortedEmployeeByProjectsCount, project.getRequiredSkills());
     }
 }

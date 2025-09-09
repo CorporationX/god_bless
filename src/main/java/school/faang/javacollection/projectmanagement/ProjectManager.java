@@ -33,11 +33,13 @@ public class ProjectManager {
     }
 
     public List<Employee> getTeamForProject(int projectId) {
-        return Optional.ofNullable(projectSet.get(projectId)).orElseThrow().getTeamMembers();
+        return Optional.ofNullable(projectSet.get(projectId))
+                .orElseThrow()
+                .getTeamMembers();
     }
 
     public void addEmployee(Employee employee) {
-        this.employeeList.add(employee);
+        employeeList.add(employee);
     }
 
     public List<Project> findProjectsForEmployee(Employee employee) {
