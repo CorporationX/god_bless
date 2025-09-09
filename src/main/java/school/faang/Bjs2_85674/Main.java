@@ -11,16 +11,7 @@ public class Main {
         User user4 = new User("Inna", 22, "Store", "Lenina 19");
         User user5 = new User("Olga", 21, "Store", "Lenina 18");
         User user6 = new User("Anna", 30, "Store", "Lenina 17");
-        List<User> users = new ArrayList<>() {
-            {
-                add(user1);
-                add(user2);
-                add(user3);
-                add(user4);
-                add(user5);
-                add(user6);
-            }
-        };
+        List<User> users = List.of(user1, user2, user3, user4, user5, user6);
 
         System.out.println(User.groupUsers(users));
     }

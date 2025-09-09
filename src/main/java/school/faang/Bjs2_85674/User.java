@@ -3,6 +3,7 @@ package school.faang.Bjs2_85674;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class User {
     private String name;
     private int age;
@@ -20,27 +22,9 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            if (groupedUsers.containsKey(user.age)) {
-                groupedUsers.get(user.age).add(user);
-                continue;
-            }
-            groupedUsers.put(user.age, new ArrayList<>() {
-                {
-                    add(user);
-                }
-            });
+            groupedUsers.putIfAbsent(user.age, new ArrayList<>());
+            groupedUsers.get(user.age).add(user);
         }
-
         return groupedUsers;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
