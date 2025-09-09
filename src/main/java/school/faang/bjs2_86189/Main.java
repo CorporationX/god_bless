@@ -11,6 +11,7 @@ public class Main {
             librarySystem.addBook("LS", "Kramer", 2003, "полка 1");
             librarySystem.addBook("Liberty", "Dr.Krendel", 2009, "полка 5");
             librarySystem.addBook("JorgioMaccerati", "Jorg", 2005, "полка 7");
+            librarySystem.addBook("Jorgio", "Jorg", 2003, "полка 7");
             librarySystem.removeBook("Vegas", "Kennedy", 2000);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
