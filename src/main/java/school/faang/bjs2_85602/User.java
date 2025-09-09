@@ -1,9 +1,14 @@
 package school.faang.bjs2_85602;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@Getter
 public class User {
     private String name;
     private int age;
@@ -11,25 +16,8 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> resultMap = users.stream()
-                .collect(Collectors.groupingBy(User::getAge)); //группировка юзеров по getAge (возрасту)
-
-        return resultMap;
-    }
-
-    public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
+        return users.stream()
+                .collect(Collectors.groupingBy(User::getAge)); //группировка юзеров по возрасту
     }
 
     public String toString() {
