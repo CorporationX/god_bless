@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 import school.faang.bjs2_86104.exception.BookNotFoundException;
-import school.faang.bjs2_86104.exception.BookNotValidException;
 import school.faang.bjs2_86104.exception.BookshelfNotValidException;
 
 public class LibrarySystem {
@@ -34,12 +33,7 @@ public class LibrarySystem {
     }
 
     private static Book checkBookInTheLibrary(String title, String author, int year) {
-        try {
-            BookValidator.validateBook(title, author, year);
-        } catch (BookNotValidException e) {
-            throw new BookNotFoundException("there is no such book in the library", e);
-        }
-
+        BookValidator.validateBook(title, author, year);
         Book checkedBook = new Book(title, author, year);
         if (!BOOKS.containsKey(checkedBook)) {
             throw new BookNotFoundException("there is no such book in the library");
@@ -48,7 +42,8 @@ public class LibrarySystem {
     }
 
     public static void printAllBooks() {
-        BOOKS.forEach((book, bookShelfNumber) -> System.out.println("Книга: [" + book + "]" +
-                " | Номер книжной полки: [" + bookShelfNumber + "]"));
+        BOOKS.forEach((book, bookShelfNumber) -> {
+            System.out.printf("Книга: [%s] | Номер книжной полки: [%s]\n", book, bookShelfNumber);
+        });
     }
 }
