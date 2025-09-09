@@ -1,10 +1,15 @@
 package school.faang.bjs2_85492;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@AllArgsConstructor
+@Getter
 public class User {
     private int id;
     private String name;
@@ -12,30 +17,18 @@ public class User {
     private Set<String> activities;
 
     public static Map<String, String> findHobbyLovers(List<User> users, Set<String> targetActivitie) {
-        Map<String, String> resultMap = new HashMap<>(); // Создание пустого мапа для вывода результатов
+        Map<String, String> resultMap = new HashMap<>();
 
-        //Перебираем юзеров
         for (User user : users) {
-            Set<String> userActivitie = user.getActivities();
+            Set<String> userActivitie = user.activities; //берем интересы юзера
 
-            for (String activity : userActivitie) {
-                if (targetActivitie.contains(activity)) {
+            for (String activity : userActivitie) { //берем активность юзера
+                if (targetActivitie.contains(activity)) { //проверяем на наличие в списке
                     resultMap.put(user.name, activity);
                     break;
                 }
             }
         }
         return resultMap;
-    }
-
-    public User(int id, String name, int age, Set<String> activitie) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.activities = activitie;
-    }
-
-    public Set<String> getActivities() {
-        return activities;
     }
 }
