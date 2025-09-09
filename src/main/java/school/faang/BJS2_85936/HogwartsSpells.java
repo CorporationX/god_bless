@@ -10,9 +10,7 @@ public class HogwartsSpells {
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent newEvent = new SpellEvent(id++, eventType, actionDescription);
         spellById.put(id, newEvent);
-        List<SpellEvent> spells = spellsByType.getOrDefault(eventType, new ArrayList<>());
-        spells.add(newEvent);
-        spellsByType.put(eventType, spells);
+        spellsByType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(newEvent);
     }
 
     public SpellEvent getSpellEventById(int id) {
@@ -25,13 +23,10 @@ public class HogwartsSpells {
 
     public void deleteSpellEvent(int id) {
         SpellEvent deletedEvent = spellById.remove(id);
-        spellsByType.remove(deletedEvent.getEventType());
+        spellsByType.get(deletedEvent.getEventType()).remove(deletedEvent);
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> e : spellById.entrySet()) {
-            SpellEvent event = e.getValue();
-            System.out.print(event);
-        }
+        spellById.values().forEach(System.out::print);
     }
 }
