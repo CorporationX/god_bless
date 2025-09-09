@@ -2,6 +2,7 @@ package school.faang.bjs2_87177;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class LibrarySystem {
     private static final int EARLIEST_BOOK_YEAR = 1;
@@ -40,18 +41,10 @@ public class LibrarySystem {
         }
     }
 
-    public boolean findBook(String title, String author, int year) {
+    public Optional<String> findBook(String title, String author, int year) {
         validateBookData(title, author, year);
-
         Book book = new Book(title.trim(), author.trim(), year);
-
-        if (library.containsKey(book)) {
-            System.out.println("Книга " + book + " находится на " + library.get(book) + ".");
-            return true;
-        } else {
-            System.out.println("Книга " + book + " не найдена.");
-            return false;
-        }
+        return Optional.ofNullable(library.get(book));
     }
 
     public void printAllBooks() {

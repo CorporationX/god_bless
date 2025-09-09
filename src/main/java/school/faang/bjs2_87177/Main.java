@@ -1,5 +1,7 @@
 package school.faang.bjs2_87177;
 
+import java.util.Optional;
+
 public class Main {
     public static void main(String[] args) {
         LibrarySystem library = new LibrarySystem();
@@ -19,8 +21,10 @@ public class Main {
         library.printAllBooks();
 
         System.out.println("\n4. Поиск книг:");
-        library.findBook("The Hobbit    ", "J.R.R. Tolkien   ", 1937);
-        library.findBook("Несуществующая книга    ", "   Неизвестный автор", 2023);
+        Optional<String> location1 = library.findBook("1984", "George Orwell", 1949);
+        Optional<String> location2 = library.findBook("Несуществующая книга", "Неизвестный автор", 2023);
+        System.out.println("Найдена ли '1984'? " + location1.isPresent());
+        System.out.println("Найдена ли несуществующая книга? " + location2.isPresent());
 
         System.out.println("\n5. Удаление книги:");
         library.removeBook("Clean Code", "Robert C. Martin", 2008);
