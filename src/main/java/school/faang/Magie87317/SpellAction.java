@@ -1,4 +1,4 @@
-package Magi87317;
+package school.faang.Magie87317;
 
 public interface SpellAction {
     String cast(String castName);
