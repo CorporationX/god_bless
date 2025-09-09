@@ -13,7 +13,7 @@ public class ProductManager {
 
     public static void addProduct(Category category, String productName) {
         for (Product product : products) {
-            if (product.productName().equals(productName) && product.category().equals(category)) {
+            if (Objects.equals(product.productName(), productName) && Objects.equals(product.category(), category)) {
                 System.out.println("Такой товар уже есть в категории " + category);
                 return;
             }
@@ -23,13 +23,14 @@ public class ProductManager {
     }
 
     public static void removeProduct(Category category, String productName) {
-        products.removeIf(product -> product.productName().equals(productName) && product.category().equals(category));
+        products.removeIf(product -> Objects.equals(product.productName(), productName)
+                && Objects.equals(product.category(), category));
     }
 
     public static List<Product> findProductsByCategory(Category category) {
         List<Product> list = new ArrayList<>();
         for (Product product : products) {
-            if (product.category().equals(category)) {
+            if (Objects.equals(product.category(), category)) {
                 list.add(product);
             }
         }
