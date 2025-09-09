@@ -1,6 +1,5 @@
 package school.faang.abstractt.bjs285657;
 
-
 public class CharacterBattle {
     public static void main(String[] args) {
         Warrior warrior = new Warrior("Warrior");
@@ -21,11 +20,10 @@ public class CharacterBattle {
             System.out.println("draw no one won");
         } else if (warrior.getHealth() <= 0) {
             System.out.printf("%s Win", archer.getName());
-        } else if (archer.getHealth() <= 0) {
+        } else {
             System.out.printf("%s Win", warrior.getName());
         }
     }
-
 
 
 }
