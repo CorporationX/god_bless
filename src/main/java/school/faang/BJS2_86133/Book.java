@@ -1,13 +1,13 @@
 package school.faang.BJS2_86133;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
-@AllArgsConstructor
+@RequiredArgsConstructor
 @ToString(includeFieldNames = true)
 public class Book {
     private final String title;

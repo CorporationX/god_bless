@@ -11,9 +11,9 @@ public class LibrarySystem {
         library.put(newBook, location);
     }
 
-    public void removeBook(String title, String author, int year) {
+    public String removeBook(String title, String author, int year) {
         Book bookShouldRemove = new Book(title, author, year);
-        library.remove(bookShouldRemove);
+        return library.remove(bookShouldRemove);
     }
 
     public String findBook(String title, String author, int year) {
