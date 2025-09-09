@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.amazon;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -55,7 +55,7 @@ public class ProductManager {
             for (Product product : entry.getValue()) {
                 System.out.println("- " + product.getName());
             }
-            System.out.println(); // пустая строка для разделения категорий
+            System.out.println();
         }
     }
 }

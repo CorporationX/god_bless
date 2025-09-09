@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.amazon;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,5 +27,3 @@ public class Main {
         });
     }
 }
-
-
