@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
+    private static final int EARLIEST_BOOK_YEAR = 1;
 
-    private final Map<Book, String> library;
-
-    public LibrarySystem() {
-        this.library = new HashMap<>();
-    }
+    private final Map<Book, String> library = new HashMap<>();
 
     public boolean addBook(String title, String author, int year, String location) {
         validateBookData(title, author, year);
@@ -19,12 +16,12 @@ public class LibrarySystem {
         String previousLocation = library.put(book, location.trim());
 
         if (previousLocation != null) {
-            System.out.println("Книга уже есть в библиотеке. Местоположение обновлено с "
-                    + previousLocation + " на " + location);
+            System.out.printf("Книга уже есть в библиотеке. Местоположение обновлено с %s на %s%n",
+                    previousLocation, location);
             return false;
         }
 
-        System.out.println("Книга добавлена: " + book + " на место " + location.trim());
+        System.out.printf("Книга добавлена: %s на место %s%n", book, location.trim());
         return true;
     }
 
@@ -35,10 +32,10 @@ public class LibrarySystem {
         String previousLocation = library.remove(book);
 
         if (previousLocation != null) {
-            System.out.println("Книга удалена: " + book + " (была на " + previousLocation + ")");
+            System.out.printf("Книга удалена: %s (была на %s)%n", book, previousLocation);
             return true;
         } else {
-            System.out.println("Книга для удаления не найдена: " + book);
+            System.out.printf("Книга для удаления не найдена: %s%n", book);
             return false;
         }
     }
@@ -75,8 +72,8 @@ public class LibrarySystem {
         if (author == null || author.isBlank()) {
             throw new IllegalArgumentException("Автор не может быть пустым или null.");
         }
-        if (year < 0) {
-            throw new IllegalArgumentException("Год не может быть меньше 0.");
+        if (year < EARLIEST_BOOK_YEAR) {
+            throw new IllegalArgumentException("Год не может быть меньше " + EARLIEST_BOOK_YEAR + ".");
         }
     }
 
