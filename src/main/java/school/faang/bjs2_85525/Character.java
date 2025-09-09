@@ -3,11 +3,11 @@ package school.faang.bjs2_85525;
 import lombok.Getter;
 
 @Getter
-abstract class Character {
+public abstract class Character {
     private String name;
-    private int strength;
-    private int dexterity;
-    private int intelligence;
+    private int strength = 5;
+    private int dexterity = 5;
+    private int intelligence = 5;
 
     private static final int BASE_HEALTH = 100;
     private int health = BASE_HEALTH;
@@ -36,18 +36,5 @@ abstract class Character {
         if (health < 0) {
             health = 0;
         }
-    }
-
-    public static void main(String[] args) {
-        Warrior conan = new Warrior("Conan");
-        Archer robin = new Archer("Robin");
-
-        System.out.println("Начало боя. Здоровье Conan = " + BASE_HEALTH + ", Robin = " + BASE_HEALTH);
-
-        conan.attack(robin);
-        System.out.println("Здоровье Robin, после 1 удара Conan: " + robin.getHealth());
-
-        robin.attack(conan);
-        System.out.println("Здоровье Conan, после 1 удара Robin: " + conan.getHealth());
     }
 }
