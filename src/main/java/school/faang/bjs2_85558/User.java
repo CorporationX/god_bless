@@ -30,7 +30,7 @@ public class User {
             throw new IllegalArgumentException("Name cannot be empty");
         }
         if (age < VALID_AGE) {
-            throw new IllegalArgumentException("Age cannot be less than 18");
+            throw new IllegalArgumentException("Age cannot be less than " + VALID_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job: " + job);
