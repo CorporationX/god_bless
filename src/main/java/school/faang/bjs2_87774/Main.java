@@ -10,13 +10,13 @@ public class Main {
         Function<Image, Image> cassetteFilter = image -> new Image(image.name(),
                 image.description() + " | Наложен фильтр Кассета");
 
-        Function<Image, Image> videocamFilter = image -> new Image(image.name(),
+        Function<Image, Image> videoFilter = image -> new Image(image.name(),
                 image.description() + " | Наложен фильтр Видеокамера");
 
         Function<Image, Image> depthFilter = image -> new Image(image.name(),
                 image.description() + " | Наложен фильтр Глубина");
 
-        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(cassetteFilter, videocamFilter, depthFilter);
+        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(cassetteFilter, videoFilter, depthFilter);
         simpleImage = FilterProcessor.applyFilter(simpleImage, combinedFilter);
         System.out.println(simpleImage);
     }
