@@ -2,6 +2,7 @@ package school.faang.bjs2_86060;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class LibrarySystem {
     private Map<Book, String> library = new HashMap<>();
@@ -25,9 +26,10 @@ public class LibrarySystem {
         }
     }
 
-    public String findBook(String title, String author, int year) {
+    public Optional<String> findBook(String title, String author, int year) {
         Book bookToFind = new Book(title, author, year);
-        return library.getOrDefault(bookToFind, "Книга не найдена!");
+        String result = library.get(bookToFind);
+        return Optional.ofNullable(result);
     }
 
     public void printAllBooks() {
