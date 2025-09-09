@@ -6,23 +6,26 @@ public class Main {
     public static void main(String[] args) {
         HogwartsSpells hogwartsSpells = new HogwartsSpells();
         try {
-            hogwartsSpells.addSpellEvent("Трансфигурация", "Перебрасывает вас в указаное место");
-            hogwartsSpells.addSpellEvent("Иллюзия", "Создает \"копию\" возле вас");
-            hogwartsSpells.addSpellEvent("Длинный прыжок", "Вы можете выше прыгать");
-            hogwartsSpells.addSpellEvent("Длинный прыжок", "Вы можете выше прыгать на 30 секунд");
-            hogwartsSpells.addSpellEvent("Левитация", "Вы можете парить в воздухе");
-            hogwartsSpells.addSpellEvent("Невидимость", "Вы становитесь невидимым на 30 секунд");
-            hogwartsSpells.addSpellEvent("Огненный шар", "Создает взрывающийся огненный шар");
-            hogwartsSpells.addSpellEvent("Телепортация", "Мгновенное перемещение на короткое расстояние");
-            hogwartsSpells.addSpellEvent("Щитовая защита", "Создает магический щит на 1 минуту");
-            hogwartsSpells.addSpellEvent("Исцеление", "Восстанавливает здоровье союзникам");
-            hogwartsSpells.addSpellEvent("Замедление времени", "Время вокруг вас замедляется");
-            hogwartsSpells.addSpellEvent("Телекинез", "Управление предметами на расстоянии");
-            hogwartsSpells.addSpellEvent("Превращение", "Можете превращаться в животное");
-            hogwartsSpells.addSpellEvent("Ясновидение", "Видите сквозь стены на 10 секунд");
-            hogwartsSpells.deleteSpellEvent(5);
+            hogwartsSpells.addSpellEvent("Акцио", "Призывает предмет к вам");
+            hogwartsSpells.addSpellEvent("Акцио", "Призывает предмет к вам Дважды");
+            hogwartsSpells.addSpellEvent("Люмос", "Создает источник света");
+            hogwartsSpells.addSpellEvent("Нокс", "Гасит источники света");
+            hogwartsSpells.addSpellEvent("Вингардиум Левиоса", "Поднимает предметы в воздух");
+            hogwartsSpells.addSpellEvent("Экспеллиармус", "Обезоруживает противника");
+            hogwartsSpells.addSpellEvent("Протего", "Создает защитный барьер");
+            hogwartsSpells.addSpellEvent("Алохомора", "Открывает замки и двери");
+            hogwartsSpells.addSpellEvent("Инсендио", "Создает огонь");
+            hogwartsSpells.addSpellEvent("Агуаменти", "Создает воду");
+            hogwartsSpells.addSpellEvent("Петрификус Тоталус", "Обездвиживает цель");
+            hogwartsSpells.addSpellEvent("Эванеско", "Исчезает предметы");
+            hogwartsSpells.addSpellEvent("Круцио", "Заставляет цель испытывать боль");
+            hogwartsSpells.addSpellEvent("Империо", "Позволяет контролировать действия цели");
+            hogwartsSpells.addSpellEvent("Авада Кедавра", "Смертельное заклинание");
+            hogwartsSpells.addSpellEvent("Редукто", "Взрывает предметы");
+            hogwartsSpells.addSpellEvent("Конфундус", "Вызывает замешательство у цели");
             hogwartsSpells.printAllSpellEvents();
-            hogwartsSpells.getSpellEventByType("Длинный прыжок");
+            hogwartsSpells.deleteSpellEvent(5);
+            hogwartsSpells.getSpellEventByType("Акцио");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

@@ -8,23 +8,19 @@ import java.util.Map;
 public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById = new HashMap<>();
     private Map<String, List<SpellEvent>> spellByType = new HashMap<>();
-    private int id = 1;
 
     protected void addSpellEvent(String eventType, String actionDescription) {
-        validationSpells(eventType, actionDescription);
-        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription, id);
-        spellById.put(id, spellEvent);
+        validateSpells(eventType, actionDescription);
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
+        spellById.put(spellEvent.getId(), spellEvent);
         spellByType.computeIfAbsent(eventType, key -> new ArrayList<>()).add(spellEvent);
-        id++;
     }
 
     protected void getSpellEventById(int id) {
-        validationId(id);
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            if (entry.getValue().getId() == id) {
-                System.out.printf("%nВаше заклинание по Id- %d%n%s -Зелье%n%s - Эффект зелья%n",
-                        entry.getValue().getId(),  entry.getValue().getEventType(), entry.getValue().getAction());
-            }
+        validateId(id);
+        if (spellById.containsKey(id)) {
+            System.out.printf("%nВаше заклинание по Id- %d%n%s -Способность%n%s - Эффект способности%n",
+                    spellById.get(id).getId(), spellById.get(id).getEventType(), spellById.get(id).getAction());
         }
     }
 
@@ -41,25 +37,25 @@ public class HogwartsSpells {
     }
 
     protected void deleteSpellEvent(int id) {
-        validationId(id);
+        validateId(id);
         SpellEvent spell = spellById.remove(id);
         if (spell != null) {
-            List<SpellEvent> eventList = spellByType.get(spell);
+            List<SpellEvent> eventList = spellByType.get(spell.getEventType());
             spellByType.remove(spell.getAction());
             if (eventList != null) {
-                spellByType.remove(eventList);
+                spellByType.remove(spell.getEventType());
             }
         }
     }
 
     protected void printAllSpellEvents() {
         for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.printf("%n%d Id Зелья, %s  - Зелье%n%s - Эффект зелья%n",
-                    entry.getKey(),  entry.getValue().getEventType(), entry.getValue().getAction());
+            System.out.printf("%n%d Id Способности, %s  - Способность%n%s - Эффект способности%n",
+                    entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getAction());
         }
     }
 
-    private void validationSpells(String eventType, String actionDescription) {
+    private void validateSpells(String eventType, String actionDescription) {
         if (eventType == null || eventType.isBlank()) {
             throw new IllegalArgumentException("Тип события не может быть пустым");
         }
@@ -69,8 +65,8 @@ public class HogwartsSpells {
 
     }
 
-    private void validationId(int id) {
-        if (id > this.id) {
+    private void validateId(int id) {
+        if (!spellById.containsKey(id)) {
             throw new IllegalArgumentException("Этого Id не найдено ");
         }
     }
