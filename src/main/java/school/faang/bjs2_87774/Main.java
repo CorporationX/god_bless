@@ -4,19 +4,20 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        FilterProcessor filterProcessor = new FilterProcessor();
+        Image simpleImage = new Image("party-photo.jpg", "Оригинальное изображение");
+        System.out.println(simpleImage);
 
         Function<Image, Image> cassetteFilter = image -> new Image(image.name(),
-                image.description() + " | Наложен фильтр Нуар");
+                image.description() + " | Наложен фильтр Кассета");
 
         Function<Image, Image> videocamFilter = image -> new Image(image.name(),
                 image.description() + " | Наложен фильтр Видеокамера");
 
-        Image simpleImage = new Image("party-photo.jpg", "Оригинальное изображение");
-        System.out.println(simpleImage);
+        Function<Image, Image> depthFilter = image -> new Image(image.name(),
+                image.description() + " | Наложен фильтр Глубина");
 
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(cassetteFilter, videocamFilter);
-        simpleImage = filterProcessor.applyFilter(simpleImage, combinedFilter);
+        Function<Image, Image> combinedFilter = FilterProcessor.combineFilters(cassetteFilter, videocamFilter, depthFilter);
+        simpleImage = FilterProcessor.applyFilter(simpleImage, combinedFilter);
         System.out.println(simpleImage);
     }
 }
