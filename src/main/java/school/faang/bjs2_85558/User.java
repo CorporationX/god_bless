@@ -13,10 +13,9 @@ public class User {
     private final String job;
     private final String address;
 
-    private static final int MIN_AGE = 18;
-
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+    private static final int VALID_AGE = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         validate(name, age, job, address);
@@ -30,7 +29,7 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < MIN_AGE) {
+        if (age < VALID_AGE) {
             throw new IllegalArgumentException("Age cannot be less than 18");
         }
         if (!VALID_JOBS.contains(job)) {
