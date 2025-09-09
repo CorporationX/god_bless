@@ -1,10 +1,16 @@
 package school.faang.abstraction;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
+    private String name = "null";
+    private int strength = 1;
+    private int agility = 1;
+    private int intelligence = 1;
     private int health = 100;
 
     public Character(String name) {
@@ -19,26 +25,6 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getHealth() {
-        return health;
     }
 
     public abstract void attack(Character opponent);
