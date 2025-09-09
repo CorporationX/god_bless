@@ -52,7 +52,6 @@ public class Main {
         }
         System.out.println();
 
-
         System.out.println("6. Состояние системы после удаления:");
         System.out.println("─".repeat(50));
         spellSystem.printAllSpellEvents();

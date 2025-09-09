@@ -1,6 +1,7 @@
 package school.faang.bjs2_86888;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,12 +29,7 @@ public class HogwartsSpells {
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
         validateEventType(eventType);
-
-        List<SpellEvent> spells = spellsByType.get(eventType);
-        if (spells == null) {
-            return new ArrayList<>();
-        }
-        return new ArrayList<>(spells);
+        return new ArrayList<>(spellsByType.getOrDefault(eventType, Collections.emptyList()));
     }
 
     public void deleteSpellEvent(int id) {
