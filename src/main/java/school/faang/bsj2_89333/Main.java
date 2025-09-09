@@ -24,10 +24,12 @@ public class Main {
         System.out.println("Sorted List = " + StreamApiTrainer.sortStrings(stringsForSort));
         // 7
         List<Integer> integersForCheck = List.of(44, 55, 66, 77, 88, 99);
-        System.out.println("Check result = " + StreamApiTrainer.isAllElementsTrue(integersForCheck, (integer -> integer > 40)));
+        System.out.println("Check result = " +
+                StreamApiTrainer.isAllElementsTrue(integersForCheck, (integer -> integer > 40)));
         // 8
         List<Integer> integersForSortAndCheck = List.of(495, 5886, 2947, 2111, 14905, 1, 58392);
-        System.out.println("Sort and check result = " + StreamApiTrainer.getMinValueWithCheck(integersForSortAndCheck, 2200));
+        System.out.println("Sort and check result = " +
+                StreamApiTrainer.getMinValueWithCheck(integersForSortAndCheck, 2200));
         // 9
         List<String> stringForTransformation = List.of("a", "bb", "ccc", "hello", "hi", "howareyou", "fine");
         System.out.println("Transformed list = " + StreamApiTrainer.getTransformedList(stringForTransformation));
