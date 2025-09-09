@@ -24,7 +24,7 @@ public class LibrarySystem {
     public void findBook(String title, String author, int year) {
         String location = locationBook.get(new Book(title, author, year));
         if (Objects.isNull(location)) {
-            System.out.println("The book was not found!! Please specify the data!!");
+            System.out.println("The book was not found!!! Please specify the data!!!");
         } else {
             System.out.printf("Your book is located at %s \n", location);
         }
