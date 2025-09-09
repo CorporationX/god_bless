@@ -28,8 +28,8 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        boolean flag = books.remove(book) != null;
-        if (flag) {
+        boolean isRemoved = books.remove(book) != null;
+        if (isRemoved) {
             System.out.println("Ваша книга удалена");
         } else {
             System.out.println("Ваша книга не найдена");
