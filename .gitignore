@@ -56,3 +56,7 @@ out/
 .vscode/
 README
 README.md
+/src/main/java/school/faang/groupusers/
+src/main/java/school/faang/Example.java
+src/main/java/school/faang/Main.java
+src/main/java/school/faang/User.java
